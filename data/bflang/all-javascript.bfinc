@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 		Bluefish HTML Editor
-		all-javascript.bfinc $Revision: 6435 $
+		all-javascript.bfinc $Revision$
  
 		Copyright (C) 2008-2011 Olivier Sessink
 
@@ -20,6 +20,7 @@
 -->
 
 <!-- JavaScript Keywords -->
+<bfinc>
 <group highlight="js-keyword" autocomplete="1">
 	<element pattern="break" />
 	<element pattern="case" />
@@ -92,7 +93,7 @@
 	<element pattern="encodeURIComponent"/>
 	<element pattern="escape"/>
 	<element pattern="eval"/>
-	<element pattern="exec"/>
+<!-- 	<element pattern="exec"/> -->
 	<element pattern="hasOwnProperty"/>
 	<element pattern="isFinite"/>
 	<element pattern="isNaN"/>
@@ -134,8 +135,8 @@
 		<element pattern="setTimeout"/>
 		<element pattern="stop"/>
 		<group class="javascript_document_object">
-			<element pattern="captureEvents"/>
-			<element pattern="close"/>
+<!-- 			<element pattern="captureEvents"/> -->
+<!-- 			<element pattern="close"/> -->
 			<element pattern="createAttribute"/>
 			<element pattern="createElement"/>
 			<element pattern="createTextNode"/>
@@ -143,29 +144,29 @@
 			<element pattern="getElementsByName"/>
 			<element pattern="getElementsByTagName" />
 			<element pattern="getSelection"/>
-			<element pattern="handleEvent"/>
-			<element pattern="open"/>
-			<element pattern="releaseEvents"/>
+<!-- 			<element pattern="handleEvent"/> -->
+<!-- 			<element pattern="open"/> -->
+<!-- 			<element pattern="releaseEvents"/> -->
 			<element pattern="routeEvents"/>
 			<element pattern="write"/>
 			<element pattern="writeIn"/>
 		</group>
 		<group class="javascript_history_object">
-			<element pattern="back"/>
-			<element pattern="forward"/>
+<!-- 			<element pattern="back"/> -->
+<!-- 			<element pattern="forward"/> -->
 			<element pattern="go"/>
 		</group>
 
 	</group>
 	<!-- Array -->
 	<group>
-		<element pattern="concat"/>
+<!-- 		<element pattern="concat"/> -->
 		<element pattern="join"/>
 		<element pattern="pop"/>
 		<element pattern="push"/>
 		<element pattern="reverse"/>
 		<element pattern="shift"/>
-		<element pattern="slice"/>
+<!-- 		<element pattern="slice"/> -->
 		<element pattern="splice"/>
 		<element pattern="sort"/>
 		<element pattern="unshift"/>
@@ -248,7 +249,7 @@
 		<element pattern="deleteData"/>
 		<element pattern="getAttribute"/>
 		<element pattern="getAttributeNode"/>
-		<element pattern="getElementsByTagName"/>
+<!-- 		<element pattern="getElementsByTagName"/> -->
 		<element pattern="hasChildNodes"/>
 		<element pattern="insertBefore"/>
 		<element pattern="insertData"/>
@@ -270,10 +271,9 @@
 		<element pattern="toString"/>
 	</group>
 
-
 	<group class="javascript_location_object">
 		<element pattern="reload" />
-		<element pattern="replace" />
+<!-- 		<element pattern="replace" /> -->
 	</group>
 </group>
 	<!-- string -->
@@ -294,8 +294,8 @@
 		<element pattern="italics"/>
 		<element pattern="lastIndexOf"/>
 		<element pattern="link"/>
-		<element pattern="match"/>
-		<element pattern="search"/>
+<!-- 		<element pattern="match"/> -->
+<!-- 		<element pattern="search"/> -->
 		<element pattern="slice"/>
 		<element pattern="small"/>
 		<element pattern="split"/>
@@ -311,7 +311,13 @@
 	<element pattern="replace" highlight="js-function" autocomplete="1" autocomplete_append="(,)" autocomplete_backup_cursor="2">
 		<context id="c.js.regex" symbols="(" >
 			<element pattern="(" highlight="js-brackets" >
-				<context symbols=")" highlight="js-string">
+				<context symbols="()," highlight="js-string">
+					<element pattern="," highlight="js-brackets" />
+					<element pattern="(" highlight="js-string" >
+						<context symbols=")" highlight="js-string">
+							<element pattern=")" highlight="js-string" ends_context="1" />
+						</context>
+					</element>
 					<element pattern=")" highlight="js-brackets" ends_context="2" />
 				</context>
 			</element>
@@ -323,7 +329,7 @@
 		<element pattern="search">
 			<context idref="c.js.regex" />
 		</element>
-	<!-- TODO highligt regex-string as js-value, comma asjs-brackets, newstring as js-string  -->
+	<!-- TODO highligt regex-string as js-value,  newstring as js-string  -->
 </group>
 <!-- regexp -->
 <group highlight="js-function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
@@ -370,13 +376,13 @@
 			<element pattern="URL"/>
 			<element pattern="vlinkColor"/>
 			<group class="javascript_anchors_object">
-				<element pattern="name"/>
+<!-- 				<element pattern="name"/> -->
 				<element pattern="length"/>
 				<element pattern="text"/>
 				<element pattern="x"/>
 				<element pattern="y"/>
 			</group>
-			<element pattern="length" class="javascript_applets_object"/>
+<!-- 			<element pattern="length" class="javascript_applets_object"/> -->
 			<group class="javascript_node_object">
 				<element pattern="attributes"/>
 				<element pattern="childNodes"/>
@@ -406,14 +412,14 @@
 			<element pattern="screenX"/>
 			<element pattern="which"/>
 			<element pattern="type"/>
-			<element pattern="x"/>
-			<element pattern="y"/>
+<!-- 			<element pattern="x"/> -->
+<!-- 			<element pattern="y"/> -->
 			<element pattern="layerY"/>
 			<element pattern="offsetY"/>
 			<element pattern="pageY"/>
 			<element pattern="screenY"/>
 		</group>
-		<element pattern="length" class="javascript_history_object"/>
+<!-- 		<element pattern="length" class="javascript_history_object"/> -->
 		<group class="javascript_location_object">
 			<element pattern="hash"/>
 			<element pattern="host"/>
@@ -422,7 +428,7 @@
 			<element pattern="pathname"/>
 			<element pattern="port"/>
 			<element pattern="protocol"/>
-			<element pattern="search"/>
+<!-- 			<element pattern="search"/> -->
 		</group>
 	</group>
 	<group class="javascript_math_object">
@@ -446,15 +452,15 @@
 		<group>
 			<element pattern="description"/>
 			<element pattern="enabledPlugin"/>
-			<element pattern="length"/>
+<!-- 			<element pattern="length"/> -->
 			<element pattern="suffixes"/>
-			<element pattern="type"/>
+<!-- 			<element pattern="type"/> -->
 		</group>
 		<group>
-			<element pattern="description"/>
+<!-- 			<element pattern="description"/> -->
 			<element pattern="filename"/>
-			<element pattern="length"/>
-			<element pattern="name"/>
+<!-- 			<element pattern="length"/> -->
+<!-- 			<element pattern="name"/> -->
 		</group>
 	</group>
 	<group class="javascript_screen_object">
@@ -465,7 +471,7 @@
 		<element pattern="pixelDepth"/>
 		<element pattern="width"/>
 	</group>
-	<element pattern="length" class="javascript_string_object"/>
+<!-- 	<element pattern="length" class="javascript_string_object"/> -->
 </group>
 <!-- JavaScript Objects -->
 <group highlight="js-type" autocomplete="1">
@@ -564,7 +570,7 @@
 		<element pattern="fontStyle" />
 		<element pattern="fontVariant" />
 		<element pattern="fontWeight" />
-		<element pattern="height" />
+<!-- 		<element pattern="height" /> -->
 		<element pattern="left" />
 		<element pattern="letterSpacing" />
 		<element pattern="lineHeight" />
@@ -633,7 +639,7 @@
 		<element pattern="volume" />
 		<element pattern="whiteSpace" />
 		<element pattern="widows" />
-		<element pattern="width" />
+<!-- 		<element pattern="width" /> -->
 		<element pattern="wordSpacing" />
 		<element pattern="wordWrap"><reference>CSS3</reference></element>
 		<element pattern="zIndex" />
@@ -650,31 +656,38 @@
 	<element pattern="null" />
 	<element pattern="POSITIVE_INFINITY" />
 	<element pattern="true" />
-	<!-- having [.-]?[0-9]+ as a value pattern has an unwanted side 
-	effect: the . is matching a patterns and is not seen as a symbol anymore
-	such that substr in w.substr() is not detected anymore	-->
-	<!--	<element pattern="-?[0-9]+" is_regex="1" autocomplete="0"/>
-	<element pattern="-?\.[0-9]*" is_regex="1" autocomplete="0"/> 
-	 having -?\. as a value pattern, dot is not seen as a symbol anymore-->	
-	<element pattern="[0-9]+\.*[0-9]*" is_regex="1" />
 </group>
 
-<element pattern="=/" highlight="js-brackets">
-	<context symbols="/" highlight="js-string">
+<!-- RegExp: var m1 = /^\s*/  -->
+<element pattern="= /" highlight="js-brackets">
+	<context id="c.reg" symbols="/" highlight="js-string">
 		<element pattern="/" highlight="js-brackets" ends_context="1" />
 	</context>
 </element>
-<!--this pattern more or less colors everything, so I removed it. -->
-<!--<element pattern="[a-zA-Z_][a-zA-Z_0-9]*" is_regex="1" highlight="js-variable"/>-->
+<element pattern="=/" highlight="js-brackets">
+	<context idref="c.reg" />
+</element>
+
+<element pattern="[0-9]+\.[0-9]+" is_regex="1" highlight="js-value" />
+<element pattern="-[0-9]+\.[0-9]+" is_regex="1" highlight="js-value" />
+<element pattern="0[xX][0-9a-fA-F][0-9a-fA-F]*" is_regex="1" highlight="js-value" /> 
+<element pattern="-0[xX][0-9a-fA-F][0-9a-fA-F]*" is_regex="1" highlight="js-value" /> 
+<element pattern="-[0-9]\.[0-9]+e\+[0-9]+" is_regex="1" highlight="js-value" />
+<element pattern="[0-9]\.[0-9]+e\+[0-9]+" is_regex="1" highlight="js-value" />
+<element pattern="[0-9]+" is_regex="1" highlight="js-value" />
+<element pattern="-[0-9]+" is_regex="1" highlight="js-value" />
+
+
 <element pattern="&#34;" highlight="js-string">
 	<context symbols="\&#34;" highlight="js-string">
-		<element pattern="\&#34;" highlight="js-string" />
+		<element pattern="\\." is_regex="1" highlight="js-string" />
 		<element pattern="&#34;" highlight="js-string" ends_context="1" />
 	</context>
 </element>
 <element pattern="'" highlight="js-string">
 	<context symbols="\'" highlight="js-string">
-		<element pattern="\." is_regex="1" highlight="js-string" />
+		<element pattern="\\." is_regex="1" highlight="js-string" />
 		<element pattern="'" highlight="js-string" ends_context="1" />
 	</context>
 </element>
+</bfinc>

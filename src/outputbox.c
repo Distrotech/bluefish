@@ -39,6 +39,7 @@
 #include "gtk_easy.h"
 #include "pixmap.h"
 #include "stringlist.h"
+#include "dialog_utils.h"
 
 #define NUM_MATCH 30
 
@@ -221,7 +222,7 @@ init_output_box(Tbfwin * bfwin)
 	GtkTreeViewColumn *column;
 	GtkWidget *scrolwin;
 	GtkCellRenderer *renderer;
-	GtkWidget *vbox2, *but, *image;
+	GtkWidget *vbox2, *but;
 	Toutputbox *ob;
 	GtkAllocation allocation;
 
@@ -260,13 +261,14 @@ init_output_box(Tbfwin * bfwin)
 	g_signal_connect(G_OBJECT(ob->lview), "button_press_event", G_CALLBACK(ob_lview_button_press_lcb), ob);
 
 	vbox2 = gtk_vbox_new(FALSE, 0);
-	but = gtk_button_new();
+	but = bluefish_small_close_button_new();
+/*	but = gtk_button_new();
 	image = new_pixmap(4);
 	gtk_widget_show(image);
 	gtk_container_add(GTK_CONTAINER(but), image);
 	gtk_container_set_border_width(GTK_CONTAINER(but), 0);
 	gtk_widget_set_size_request(but, 16, 16);
-	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(output_box_close_clicked_lcb), ob);
+*/	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(output_box_close_clicked_lcb), ob);
 	gtk_box_pack_start(GTK_BOX(ob->hbox), vbox2, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
@@ -296,6 +298,29 @@ scroll_to_lstore_path_idle_lcb(gpointer data)
 	return FALSE;
 }
 
+void
+outputbox_add_line(Tbfwin *bfwin, const gchar *uri, gint line, const gchar *message)
+{
+	GtkTreeIter iter;
+	Toutputbox *ob;
+	gchar *tmp;
+	if (bfwin->outputbox) {
+		ob = OUTPUTBOX(bfwin->outputbox);
+	} else {
+		ob = init_output_box(bfwin);
+	}
+	gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
+	DEBUG_MSG("outputbox append %s : %d : %s\n",uri,line,message);
+	if (uri)
+		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 0, uri, -1);
+	
+	tmp = g_strdup_printf("%d",line);
+	gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 1, tmp, -1);
+	g_free(tmp);
+	
+	if (message)
+		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 2, message, -1);
+}
 
 void
 fill_output_box(gpointer data, gchar * string)
@@ -349,7 +374,8 @@ fill_output_box(gpointer data, gchar * string)
 				st = g_new(Tscrollto, 1);
 				st->lpath = gtk_tree_model_get_path(GTK_TREE_MODEL(ob->lstore), &iter);
 				st->ob = ob;
-				g_idle_add(scroll_to_lstore_path_idle_lcb, st);
+				/* use 114 priority so we have a higher priority than the idle scanning engine */
+				g_idle_add_full(114, scroll_to_lstore_path_idle_lcb, st, NULL);
 				ob->def->scrolled_once = TRUE;
 			}
 		}

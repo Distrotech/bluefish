@@ -28,12 +28,14 @@ GtkWidget *dialog_stock_button_new_in_table(const gchar * stockID, GtkWidget * t
 GtkWidget *dialog_button_new_in_table(const gchar * labeltext, GtkWidget * table, guint left_attach,
 									  guint right_attach, guint top_attach, guint bottom_attach);
 
-GtkWidget *dialog_button_new_with_image(const gchar * labeltext, gint pixmap, const gchar * stockID,
-										GtkIconSize iconSize);
+GtkWidget *dialog_button_new_with_image(const gchar * labeltext,const gchar * stockid,
+							GCallback func, gpointer func_data, gboolean force_image, gboolean mnemonic);
 
-GtkWidget *dialog_button_new_with_image_in_table(const gchar * labeltext, gint pixmap, const gchar * stockID,
-												 GtkIconSize iconSize, GtkWidget * table, guint left_attach,
-												 guint right_attach, guint top_attach, guint bottom_attach);
+GtkWidget *
+dialog_button_new_with_image_in_table(const gchar * labeltext, const gchar * stockID,
+										GCallback func, gpointer func_data, gboolean force_image, gboolean mnemonic,
+										GtkWidget * table, guint left_attach,
+										guint right_attach, guint top_attach, guint bottom_attach);
 
 GtkWidget *dialog_check_button_new(const gchar * labeltext, gint active);
 
@@ -67,8 +69,9 @@ GtkWidget *dialog_entry_labeled(const gchar * text, const gchar * labeltext, Gtk
 
 GtkWidget *dialog_entry_in_table(const gchar * text, GtkWidget * table, guint left_attach, guint right_attach,
 								 guint top_attach, guint bottom_attach);
-
-void dialog_mnemonic_label_in_table(const gchar * labeltext, GtkWidget * m_widget, GtkWidget * table,
+GtkWidget *
+dialog_mnemonic_label_new(const gchar * labeltext, GtkWidget * m_widget);
+GtkWidget *dialog_mnemonic_label_in_table(const gchar * labeltext, GtkWidget * m_widget, GtkWidget * table,
 									guint left_attach, guint right_attach, guint top_attach,
 									guint bottom_attach);
 

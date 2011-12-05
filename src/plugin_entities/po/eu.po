@@ -6,9 +6,9 @@
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: eu\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-12 12:24-0800\n"
+"POT-Creation-Date: 2011-12-04 13:50-0800\n"
 "PO-Revision-Date: 2011-02-01 16:33+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
@@ -27,108 +27,102 @@ msgstr "Karaktereak entitateetara"
 msgid "Entities to characters"
 msgstr "Entitateak karaktereetara"
 
-#: src/plugin_entities/entities.c:284
+#: src/plugin_entities/entities.c:283
 msgid "In current document"
 msgstr "Uneko dokumentuan"
 
-#: src/plugin_entities/entities.c:285
+#: src/plugin_entities/entities.c:284
 msgid "In selection"
 msgstr "Hautapenean"
 
-#: src/plugin_entities/entities.c:286
+#: src/plugin_entities/entities.c:285
 msgid "In all documents"
 msgstr "Dokumentu guztietan"
 
-#: src/plugin_entities/entities.c:287
+#: src/plugin_entities/entities.c:286
 msgid "Sco_pe:"
 msgstr "_Esparrua:"
 
-#: src/plugin_entities/entities.c:290
+#: src/plugin_entities/entities.c:289
 msgid "Convert numerical encoded characters &#99;"
 msgstr "Bihurtu zenbakiz kodetutako karaktereak &#99;"
 
-#: src/plugin_entities/entities.c:294
+#: src/plugin_entities/entities.c:293
 msgid "Convert _iso-8859-1 characters"
 msgstr "Bihurtu _iso-8859-1 karaktereak"
 
-#: src/plugin_entities/entities.c:298
+#: src/plugin_entities/entities.c:297
 msgid "Convert spe_cial characters"
 msgstr "Bihurtu karaktere _bereziak"
 
-#: src/plugin_entities/entities.c:302
+#: src/plugin_entities/entities.c:301
 msgid "Convert _symbol characters"
 msgstr "Bihurtu _ikur karaktereak"
 
-#: src/plugin_entities/entities.c:306
+#: src/plugin_entities/entities.c:305
 msgid "Convert _XML characters < > & \" '"
 msgstr "Bihurtu _XML karaktereak < > & \" '"
 
-#: src/plugin_entities/entities.c:312
+#: src/plugin_entities/entities.c:311
 msgid "Work around missing &apos; entity on IE"
 msgstr "Eman irtenbidea falta den &apos; entitatearen inguruan IEn"
 
-#: src/plugin_entities/entities.c:416
+#: src/plugin_entities/entities.c:415
 #, fuzzy
-msgid "Characters to Entities"
+msgid "C_haracters to Entities"
 msgstr "Karaktereak entitateetara"
 
-#: src/plugin_entities/entities.c:417
+#: src/plugin_entities/entities.c:416
 #, fuzzy
 msgid "Change characters to entities"
 msgstr "Karaktereak entitateetara"
 
-#: src/plugin_entities/entities.c:418
+#: src/plugin_entities/entities.c:417
 #, fuzzy
-msgid "Entities to Characters"
+msgid "Ent_ities to Characters"
 msgstr "Entitateak karaktereetara"
 
-#: src/plugin_entities/entities.c:419
+#: src/plugin_entities/entities.c:418
 #, fuzzy
 msgid "Change entities to characters"
 msgstr "Entitateak karaktereetara"
 
-#: src/plugin_entities/entities.c:420
+#: src/plugin_entities/entities.c:419
 #, fuzzy
-msgid "URL Decode"
-msgstr "/Tresnak/URLaren deskodeketa"
+msgid "URL _Decode"
+msgstr "URLaren deskodeketa"
 
-#: src/plugin_entities/entities.c:420
+#: src/plugin_entities/entities.c:419
 #, fuzzy
 msgid "URL decode"
-msgstr "/Tresnak/URLaren deskodeketa"
+msgstr "URLaren deskodeketa"
 
-#: src/plugin_entities/entities.c:421
+#: src/plugin_entities/entities.c:420
 #, fuzzy
-msgid "URL Encode"
-msgstr "/Tresnak/URLaren kodeketa"
+msgid "URL _Encode"
+msgstr "URLaren kodeketa"
 
-#: src/plugin_entities/entities.c:421
+#: src/plugin_entities/entities.c:420
 #, fuzzy
 msgid "URL encode"
-msgstr "/Tresnak/URLaren kodeketa"
+msgstr "URLaren kodeketa"
 
-#: src/plugin_entities/entities.c:422
+#: src/plugin_entities/entities.c:421
 #, fuzzy
-msgid "To Lowercase"
-msgstr "/Tresnak/Minuskuletara"
+msgid "To Lo_wercase"
+msgstr "Minuskuletara"
 
-#: src/plugin_entities/entities.c:422
+#: src/plugin_entities/entities.c:421
 #, fuzzy
 msgid "To lowercase"
-msgstr "/Tresnak/Minuskuletara"
+msgstr "Minuskuletara"
 
-#: src/plugin_entities/entities.c:423
+#: src/plugin_entities/entities.c:422
 #, fuzzy
-msgid "To Uppercase"
-msgstr "/Tresnak/Maiuskuletara"
+msgid "To Upper_case"
+msgstr "Maiuskuletara"
 
-#: src/plugin_entities/entities.c:423
+#: src/plugin_entities/entities.c:422
 #, fuzzy
 msgid "To uppercase"
-msgstr "/Tresnak/Maiuskuletara"
-
-#~ msgid "/Tools/Entities To Characters..."
-#~ msgstr "/Tresnak/Entitateak karaktereetara..."
-
-#~ msgid "/Tools/Characters To Entities..."
-#~ msgstr "/Tresnak/Karaktereak entitateetara..."
+msgstr "Maiuskuletara"

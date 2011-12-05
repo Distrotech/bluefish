@@ -17,9 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <gtk/gtk.h>
+
+#include "bftextview2_identifier.h"
 #include "bluefish.h"
 #include "bftextview2.h"
-#include "bftextview2_identifier.h"
+
+/*#undef DBG_IDENTIFIER
+#define DBG_IDENTIFIER g_print*/
 
 #ifdef IDENTSTORING
 static gboolean
@@ -196,35 +201,62 @@ identifier_ac_get_completion(BluefishTextView * btv, gint16 context, gboolean cr
 }
 
 void
-found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end, gint16 context,
-				 guint8 identmode)
+found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end, gint16 context, guint8 identaction)
 {
-	if (identmode == 1) {
-		Tdocument * doc = bluefish_text_view_get_doc(btv);
-		Tjumpkey *ijk;
-		Tjumpdata *ijd, *oldijd;
-		GCompletion *compl;
-		gchar *tmp;
-		GList *items;
+	Tdocument * doc = bluefish_text_view_get_doc(btv);
+	Tjumpkey *ijk;
+	Tjumpdata *ijd, *oldijd;
+	GCompletion *compl;
+	gchar *tmp;
+	GList *items;
+	gboolean freetmp=TRUE;
 
-		tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
-		DBG_IDENTIFIER("found identifier %s at %p\n", tmp, tmp);
+	tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
+	DBG_IDENTIFIER("found identifier %s at %p, identaction=%d\n", tmp, tmp, identaction);
+	if (identaction & 1) {
 		ijk = identifier_jumpkey_new(btv->bflang, context, tmp);
 		oldijd = g_hash_table_lookup(BFWIN(doc->bfwin)->identifier_jump, ijk);
 		if (oldijd) {
+			DBG_IDENTIFIER("found identifier, %s already exists\n", tmp);
 			/* it exists, now only update the line number, don't add to the completion */
 			if (oldijd->doc == doc)
 				oldijd->line = gtk_text_iter_get_line(end) + 1;
 			identifier_jump_key_free(ijk);	/* that will free tmp as well */
+			return; /* if it has identaction 2 it should exist in the completion already */
 		} else {
+			DBG_IDENTIFIER("found identifier, %s is new\n", tmp);
 			ijd = identifier_jumpdata_new(doc, gtk_text_iter_get_line(end) + 1);
 			g_hash_table_insert(BFWIN(doc->bfwin)->identifier_jump, ijk, ijd);
-			compl = identifier_ac_get_completion(btv, context, TRUE);
+			freetmp=FALSE;
+		}
+	}
+	if (identaction & 2) {
+		gboolean havecompl=FALSE;
+		DBG_IDENTIFIER("freetmp=%d for identifier %s\n", freetmp, tmp);
+		compl = identifier_ac_get_completion(btv, context, TRUE);
+		if (freetmp!=FALSE) { /* if tmp was new as jumpkey, it cannot exist in the autocompletion, so we don't have to check it */
+			/* see if we have this item already */
+			GList *tmplist;
+			DBG_IDENTIFIER("look if %s is in the autocompletion list\n", tmp);
+			for (tmplist=g_list_first(compl->items);tmplist;tmplist=g_list_next(tmplist)) {
+				if (g_strcmp0(tmp, tmplist->data)==0) {
+					havecompl=TRUE;
+					DBG_IDENTIFIER("identifier %s exists already\n", tmp);
+					break;
+				}
+			}
+		}
+		if (!havecompl) {
 			items = g_list_prepend(NULL, tmp);
+			DBG_IDENTIFIER("add identifier %s to completion %p for context %d\n",tmp,compl,context);
 			g_completion_add_items(compl, items);
 			g_list_free(items);
-			/*don't free tmp, we use this piece of memory both in the jumpkey and in the completion */
+			freetmp=FALSE;
 		}
+	}
+	if (freetmp) {
+		DBG_IDENTIFIER("tmp is not stored somewhere, free tmp\n");
+		g_free(tmp);
 	}
 }
 

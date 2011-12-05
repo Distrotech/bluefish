@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		vala.bflang2 $Revision$
+ 
+		Copyright (C) 2008-2011 Olivier Sessink
+
+	    This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+-->
+
+<bflang name="Vala" version="2.0" table="335" contexts="5" matches="95">
+<header>
+	<mime type="text/x-vala?vala"/>
+	<option name="load_reference" default="1" description="load reference data"/>
+	<option name="load_completion" default="1" description="load completion data"/>
+	<option name="show_in_menu" default="0"/>
+	<highlight name="keyword" style="keyword" />
+	<highlight name="OO-keyword" style="special-keyword" />
+	<highlight name="brackets" style="brackets" />
+	<highlight name="type" style="type" />
+	<highlight name="comment" style="comment" />
+	<highlight name="string" style="string" />
+	<highlight name="value" style="value"  />
+</header>
+<properties>
+	<comment type="block" start="/*" end="*/" />
+	<comment type="line" start="//" />
+	<smartindent characters="{" />
+	<smartoutdent characters="}" />
+</properties>
+
+<definition>
+<context symbols=" \.;(){}[]:\&#34;\\',*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+
+<group autocomplete="1" highlight="keyword"> 
+	<element pattern="if" />
+	<element pattern="else" />
+	<element pattern="switch" />
+	<element pattern="case" />
+	<element pattern="default" />
+	<element pattern="break" />
+	<element pattern="continue" />
+	<element pattern="return" />
+	<element pattern="for" />
+	<element pattern="foreach" />
+	<element pattern="do" />
+	<element pattern="new" />	
+	<element pattern="while" />
+	<element pattern="try" />
+	<element pattern="catch" />
+	<element pattern="finally" />
+	<element pattern="throw" />
+</group>
+
+<group autocomplete="1" highlight="OO-keyword">
+	<element pattern="namespace" />
+	<element pattern="interface" />
+	<element pattern="class" />
+	<element pattern="struct" />
+	<element pattern="enum" />
+	<element pattern="signal" />
+	<element pattern="construct" />
+	<element pattern="callback" />
+	<element pattern="get" />
+	<element pattern="set" />
+	<element pattern="base" />
+	<element pattern="const" />
+	<element pattern="static" />
+	<element pattern="var" />
+	<element pattern="weak" />
+	<element pattern="virtual" />
+	<element pattern="abstract" />
+	<element pattern="override" />
+	<element pattern="public" />
+	<element pattern="protected" />
+	<element pattern="private" />
+	<element pattern="in" />
+	<element pattern="out" />
+	<element pattern="ref" />
+	<element pattern="lock" />
+	<element pattern="using" />
+	<element pattern="dynamic" />
+	<element pattern="extern" />
+	<element pattern="internal" />
+	<element pattern="readonly" />
+	<element pattern="sealed" />
+	<element pattern="volatile" />
+	<element pattern="this" />
+</group>
+
+<group autocomplete="1" highlight="type">
+	<element pattern="true" />
+	<element pattern="false" />
+	<element pattern="null" />
+	<element pattern="bool" />
+	<element pattern="byte" />
+	<element pattern="char" />
+	<element pattern="decimal" />
+	<element pattern="double" />
+	<element pattern="float" />
+	<element pattern="int" />
+	<element pattern="int8" />
+	<element pattern="int16" />
+	<element pattern="int32" />
+	<element pattern="int64" />
+	<element pattern="long" />
+	<element pattern="object" />
+	<element pattern="sbyte" />
+	<element pattern="short" />
+	<element pattern="string" />
+	<element pattern="uchar" />
+	<element pattern="uint" />
+	<element pattern="uint8" />
+	<element pattern="uint16" />
+	<element pattern="uint32" />
+	<element pattern="uint64" />
+	<element pattern="ulong" />
+	<element pattern="ushort" />
+	<element pattern="void" />
+</group>
+
+
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;" highlight="string">
+		<element pattern="\&#34;" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\\." is_regex="1" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
+<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
+<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+
+<element pattern="//[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
+<element id="e.lcomment" pattern="/*" starts_block="1" highlight="comment">
+	<context symbols="*/&#9;&#10;&#13;" highlight="comment">
+		<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+
+<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+		
+</context>
+</definition>
+</bflang>

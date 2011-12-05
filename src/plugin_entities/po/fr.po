@@ -9,16 +9,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.3\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-13 09:44+0100\n"
+"POT-Creation-Date: 2011-12-04 13:50-0800\n"
 "PO-Revision-Date: 2009-08-30 11:41+0100 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: français <fr@li.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: src/plugin_entities/entities.c:263
@@ -29,99 +29,96 @@ msgstr "Caractères en entités"
 msgid "Entities to characters"
 msgstr "Entités en caractères"
 
-#: src/plugin_entities/entities.c:284
+#: src/plugin_entities/entities.c:283
 msgid "In current document"
 msgstr "Dans le document actif"
 
-#: src/plugin_entities/entities.c:285
+#: src/plugin_entities/entities.c:284
 msgid "In selection"
 msgstr "À l'intérieur de la sélection"
 
-#: src/plugin_entities/entities.c:286
+#: src/plugin_entities/entities.c:285
 msgid "In all documents"
 msgstr "Dans tous les documents"
 
-#: src/plugin_entities/entities.c:287
+#: src/plugin_entities/entities.c:286
 msgid "Sco_pe:"
 msgstr "Étend_ue :"
 
-#: src/plugin_entities/entities.c:290
+#: src/plugin_entities/entities.c:289
 msgid "Convert numerical encoded characters &#99;"
 msgstr "Convertir les caractères numériques &#99;"
 
-#: src/plugin_entities/entities.c:294
+#: src/plugin_entities/entities.c:293
 msgid "Convert _iso-8859-1 characters"
 msgstr "Convertir les caractères _iso-8859-1"
 
-#: src/plugin_entities/entities.c:298
+#: src/plugin_entities/entities.c:297
 msgid "Convert spe_cial characters"
 msgstr "Convertir les caractères _spéciaux"
 
-#: src/plugin_entities/entities.c:302
+#: src/plugin_entities/entities.c:301
 msgid "Convert _symbol characters"
 msgstr "Convertir les s_ymboles"
 
-#: src/plugin_entities/entities.c:306
+#: src/plugin_entities/entities.c:305
 msgid "Convert _XML characters < > & \" '"
 msgstr "Convertir les caractères _xml < >& \" '"
 
-#: src/plugin_entities/entities.c:312
+#: src/plugin_entities/entities.c:311
 msgid "Work around missing &apos; entity on IE"
 msgstr "Contourner l'absence d'entité &apos; dans IE."
 
-#: src/plugin_entities/entities.c:416
-msgid "Characters to Entities"
+#: src/plugin_entities/entities.c:415
+#, fuzzy
+msgid "C_haracters to Entities"
 msgstr "Caractères en entités"
 
-#: src/plugin_entities/entities.c:417
+#: src/plugin_entities/entities.c:416
 msgid "Change characters to entities"
 msgstr "Changer les caractères en entités"
 
-#: src/plugin_entities/entities.c:418
-msgid "Entities to Characters"
+#: src/plugin_entities/entities.c:417
+#, fuzzy
+msgid "Ent_ities to Characters"
 msgstr "Entités en caractères"
 
-#: src/plugin_entities/entities.c:419
+#: src/plugin_entities/entities.c:418
 msgid "Change entities to characters"
 msgstr "Changer les entités en caractères"
 
-#: src/plugin_entities/entities.c:420
-msgid "URL Decode"
+#: src/plugin_entities/entities.c:419
+#, fuzzy
+msgid "URL _Decode"
 msgstr "Décodage URL "
 
-#: src/plugin_entities/entities.c:420
+#: src/plugin_entities/entities.c:419
 msgid "URL decode"
 msgstr "Décodage URL "
 
-#: src/plugin_entities/entities.c:421
-msgid "URL Encode"
+#: src/plugin_entities/entities.c:420
+#, fuzzy
+msgid "URL _Encode"
 msgstr "Encodage URL"
 
-#: src/plugin_entities/entities.c:421
+#: src/plugin_entities/entities.c:420
 msgid "URL encode"
 msgstr "Encodage URL"
 
-#: src/plugin_entities/entities.c:422
-msgid "To Lowercase"
+#: src/plugin_entities/entities.c:421
+#, fuzzy
+msgid "To Lo_wercase"
 msgstr "Minuscules"
 
-#: src/plugin_entities/entities.c:422
+#: src/plugin_entities/entities.c:421
 msgid "To lowercase"
 msgstr "Minuscules"
 
-#: src/plugin_entities/entities.c:423
-msgid "To Uppercase"
+#: src/plugin_entities/entities.c:422
+#, fuzzy
+msgid "To Upper_case"
 msgstr "Majuscules"
 
-#: src/plugin_entities/entities.c:423
+#: src/plugin_entities/entities.c:422
 msgid "To uppercase"
 msgstr "Majuscules"
-
-#~ msgid "/Tools/Entities To Characters..."
-#~ msgstr "Entités en caractères"
-
-#~ msgid "/Tools/Characters To Entities..."
-#~ msgstr "Caractères en entités"
-
-#~ msgid "/Tools/URL decode selection"
-#~ msgstr "Décodage URL de la sélection"

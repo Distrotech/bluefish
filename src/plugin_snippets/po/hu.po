@@ -1,169 +1,150 @@
 # Hungarian language file for Bluefish.
-# Copyright (C) 2011 Balázs Úr
-# <urbalazs@gmail.com>
+# Copyright (C) 2011 Free Software Foundation, Inc.
+# Balázs Úr <urbalazs@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish gtk2-port\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-12 12:24-0800\n"
-"PO-Revision-Date: 2000-12-01 21:48+0100\n"
+"POT-Creation-Date: 2011-12-04 13:51-0800\n"
+"PO-Revision-Date: 2011-09-05 20:38+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: magyar <hu@li.org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8 bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: src/plugin_snippets/snippets_gui.c:407
+#: src/plugin_snippets/snippets_gui.c:414
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr ""
 "Kattintson az egér jobb gombjával a kódrészletek hozzáadásához, "
 "szerkesztéséhez vagy törléséhez!"
 
-#: src/plugin_snippets/snippets_gui.c:408
+#: src/plugin_snippets/snippets_gui.c:415
 msgid "Use drag and drop to re-order snippets"
 msgstr "Fogd-és-vidd módszerrel átrendezhetők a kódrészletek"
 
-#: src/plugin_snippets/snippets_gui.c:409
+#: src/plugin_snippets/snippets_gui.c:416
 msgid "To exchange snippets with others use import or export"
 msgstr "Kódrészletek cseréjéhez használja az import és export funkciókat"
 
-#: src/plugin_snippets/snippets_gui.c:598
+#: src/plugin_snippets/snippets_gui.c:638
 msgid "snippets"
 msgstr "kódrészletek"
 
-#: src/plugin_snippets/snippets_gui.c:685
+#: src/plugin_snippets/snippets_gui.c:701
 msgid "Snippet export filename"
 msgstr "Kódrészlet exportálás fájlnév"
 
-#: src/plugin_snippets/snippets_gui.c:723
+#: src/plugin_snippets/snippets_gui.c:739
 msgid "Snippet import filename"
 msgstr "Kódrészlet importálás fájlnév"
 
-#: src/plugin_snippets/snippets_gui.c:741
+#: src/plugin_snippets/snippets_gui.c:757
 msgid "Set accelerator key"
 msgstr "Gyorsbillentyű beállítása"
 
-#: src/plugin_snippets/snippets_gui.c:797
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets menu"
-msgstr "/Nézet/Kódrészletek menü"
+msgstr "Kódrészletek menü"
 
-#: src/plugin_snippets/snippets_gui.c:798
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:814
 msgid "_New Snippet"
-msgstr "/Ú_j kódrészlet"
+msgstr "Ú_j kódrészlet"
 
-#: src/plugin_snippets/snippets_gui.c:798
-#: src/plugin_snippets/snippets_wizard.c:756
+#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
 msgstr "Új kódrészlet"
 
-#: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:815
 msgid "_Edit Snippet"
-msgstr "/Kódrészlet _szerkesztése"
+msgstr "Kódrészlet _szerkesztése"
 
-#: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
-msgstr "/Kódrészlet _szerkesztése"
+msgstr "Kódrészlet szerkesztése"
 
-#: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:816
 msgid "_Delete Snippet"
-msgstr "/Kódrészlet _törlése"
+msgstr "Kódrészlet _törlése"
 
-#: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:816
 msgid "Delete snippet"
-msgstr "/Kódrészlet _törlése"
+msgstr "Kódrészlet törlése"
 
-#: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:817
 msgid "Delete _Branch"
-msgstr "/Ág tö_rlése"
+msgstr "Ág tö_rlése"
 
-#: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:817
 msgid "Delete branch"
-msgstr "/Ág tö_rlése"
+msgstr "Ág törlése"
 
-#: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "Set Snippet _Accelerator"
-msgstr "/Kódrészlet _gyorsbillentyű beállítása"
+msgstr "Kódrészlet _gyorsbillentyű beállítása"
 
-#: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "Set snippet accelerator"
-msgstr "/Kódrészlet _gyorsbillentyű beállítása"
+msgstr "Kódrészlet gyorsbillentyű beállítása"
 
-#: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Ex_pand All"
-msgstr "/Összes szétnyitása"
+msgstr "Ö_sszes szétnyitása"
 
-#: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Expand all"
-msgstr "/Összes szétnyitása"
+msgstr "Összes szétnyitása"
 
-#: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:821
 msgid "_Collapse All"
-msgstr "/Összes összecsukása"
+msgstr "Összes össze_csukása"
 
-#: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:821
 msgid "Collapse all"
-msgstr "/Összes összecsukása"
+msgstr "Összes összecsukása"
 
-#: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "E_xport"
-msgstr "/Exportálás"
+msgstr "E_xportálás"
 
-#: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "Export snippets"
-msgstr "kódrészletek"
+msgstr "Kódrészletek exportálása"
 
-#: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "I_mport"
-msgstr "/Importálás"
+msgstr "I_mportálás"
 
-#: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "Import snippets"
-msgstr "kódrészletek"
+msgstr "Kódrészletek importálása"
 
-#: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "_Show as menu"
-msgstr "/Megjelenítés menüként"
+msgstr "_Megjelenítés menüként"
 
-#: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Show snippets menu"
-msgstr "/Megjelenítés menüként"
+msgstr "Kódrészlet menü megjelenítése"
 
-#: src/plugin_snippets/snippets_gui.c:813
+#: src/plugin_snippets/snippets_gui.c:829
 #, fuzzy
-msgid "Snippets Menu"
-msgstr "/Nézet/Kódrészletek menü"
+msgid "S_nippets Menu"
+msgstr "Kódrészletek menü"
 
-#: src/plugin_snippets/snippets_leaf_insert.c:63
+#: src/plugin_snippets/snippets_leaf_insert.c:64
 msgid "[cursor position or selection]"
 msgstr "[cursor pozíció vagy kijelölés]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:156
+#: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "Search for: '"
 msgstr "Keresés erre: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:156
+#: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "', replace with: '"
 msgstr "', csere ezzel: '"
 
@@ -188,118 +169,114 @@ msgid "Normal"
 msgstr "Narmál"
 
 #: src/plugin_snippets/snippets_wizard.c:119
-msgid "Entire word only"
-msgstr "Csak teljes szó"
-
-#: src/plugin_snippets/snippets_wizard.c:120
-msgid "POSIX"
-msgstr "POSIX"
-
-#: src/plugin_snippets/snippets_wizard.c:121
 msgid "PERL"
 msgstr "PERL"
 
-#: src/plugin_snippets/snippets_wizard.c:132
+#: src/plugin_snippets/snippets_wizard.c:130
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
-"placeholders an appropriate name on the right."
+"placeholders an appropriate name on the right. (Please use %% if you need "
+"literal % in your string!)"
 msgstr ""
 "Határozza meg a keresés és a csere mintát. Használhatja a %0, %1, ... %5 "
 "helyőrzőket az értékek bekérésére, amikor aktiválja ezt az elemet. Adjon "
-"ezeknek a helyőrzőknek megfelelő nevet a jobb oldalon!"
+"ezeknek a helyőrzőknek megfelelő nevet a jobb oldalon! (Használjon %%-ot, ha "
+"% literálra van szüksége a szövegében!)"
 
-#: src/plugin_snippets/snippets_wizard.c:139
+#: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
 msgstr "_Keresés erre: "
 
-#: src/plugin_snippets/snippets_wizard.c:143
+#: src/plugin_snippets/snippets_wizard.c:144
 msgid "Replace _with: "
 msgstr "_Csere ezzel: "
 
-#: src/plugin_snippets/snippets_wizard.c:150
+#: src/plugin_snippets/snippets_wizard.c:151
 msgid "Sco_pe: "
 msgstr "_Hatókör: "
 
-#: src/plugin_snippets/snippets_wizard.c:157
+#: src/plugin_snippets/snippets_wizard.c:158
 msgid "Match Patter_n: "
 msgstr "Keresési _minta: "
 
-#: src/plugin_snippets/snippets_wizard.c:160
+#: src/plugin_snippets/snippets_wizard.c:161
 msgid "Case sensitive _matching"
 msgstr "Kis- és nagybetű érzékeny ke_resés"
 
-#: src/plugin_snippets/snippets_wizard.c:161
+#: src/plugin_snippets/snippets_wizard.c:162
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Csak akkor illeszkedjen, ha a kis- és nagybetűk azonosak."
 
-#: src/plugin_snippets/snippets_wizard.c:164
+#: src/plugin_snippets/snippets_wizard.c:165
 msgid "_Use escape chars"
 msgstr "_Escape karakterek használata"
 
-#: src/plugin_snippets/snippets_wizard.c:165
+#: src/plugin_snippets/snippets_wizard.c:166
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr ""
 "A backslash-sel escape-elt karakterek (pl.: \\n, \\t, stb.) visszaalakítása"
 
-#: src/plugin_snippets/snippets_wizard.c:340
+#: src/plugin_snippets/snippets_wizard.c:335
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
 "position or the current selection. You may use %0, %1, ...%9 placeholders to "
 "ask for values when you activate this item. Give these placeholders an "
-"appropriate name on the right."
+"appropriate name on the right. (Please use %% if you need literal % in your "
+"string!)"
 msgstr ""
 "Az <i>előtte</i> szöveg kerül beszúrásra a kurzor pozíciója, vagy az "
 "aktuális kijelölés elé, az <i>utána</i> szöveg pedig a kurzor pozíciója, "
 "vagy az aktuális kijelölés után. Használhatja a %0, %1, ... %9 helyőrzőket "
 "az értékek bekérésére, amikor aktiválja ezt az elemet. Adjon ezeknek a "
-"helyőrzőknek megfelelő nevet a jobb oldalon!"
+"helyőrzőknek megfelelő nevet a jobb oldalon! (Használjon %%-ot, ha % "
+"literálra van szüksége a szövegében!)"
 
-#: src/plugin_snippets/snippets_wizard.c:346
+#: src/plugin_snippets/snippets_wizard.c:344
 msgid "<i>Before</i> text"
 msgstr "<i>Előtte</i> szöveg"
 
-#: src/plugin_snippets/snippets_wizard.c:356
+#: src/plugin_snippets/snippets_wizard.c:354
 msgid "<i>After</i> text"
 msgstr "<i>Utána</i> szöveg"
 
-#: src/plugin_snippets/snippets_wizard.c:364
+#: src/plugin_snippets/snippets_wizard.c:362
 msgid "Number"
 msgstr "Szám"
 
-#: src/plugin_snippets/snippets_wizard.c:366
+#: src/plugin_snippets/snippets_wizard.c:364
 msgid "Name"
 msgstr "Név"
 
-#: src/plugin_snippets/snippets_wizard.c:368
+#: src/plugin_snippets/snippets_wizard.c:366
 msgid "Is file path"
 msgstr "Fájl elérési út"
 
-#: src/plugin_snippets/snippets_wizard.c:494
+#: src/plugin_snippets/snippets_wizard.c:492
 msgid "Enter the name of the branch:"
 msgstr "Adja meg az ág nevét:"
 
-#: src/plugin_snippets/snippets_wizard.c:586
+#: src/plugin_snippets/snippets_wizard.c:584
 msgid "Name of the new item:"
 msgstr "Az új elem neve:"
 
-#: src/plugin_snippets/snippets_wizard.c:591
+#: src/plugin_snippets/snippets_wizard.c:589
 msgid "Description:"
 msgstr "Leírás:"
 
-#: src/plugin_snippets/snippets_wizard.c:641
+#: src/plugin_snippets/snippets_wizard.c:639
 msgid "Select what you want to add"
 msgstr "Válassza ki, hogy mit szeretne hozzáadni"
 
-#: src/plugin_snippets/snippets_wizard.c:643
+#: src/plugin_snippets/snippets_wizard.c:641
 msgid "Branch"
 msgstr "Ág"
 
-#: src/plugin_snippets/snippets_wizard.c:645
+#: src/plugin_snippets/snippets_wizard.c:643
 msgid "Insert string"
 msgstr "Szöveg beszúrása"
 
-#: src/plugin_snippets/snippets_wizard.c:647
+#: src/plugin_snippets/snippets_wizard.c:645
 msgid "Search and replace pattern"
 msgstr "Keresés és csere minta"

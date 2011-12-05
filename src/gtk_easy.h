@@ -37,11 +37,11 @@ void string_apply(gchar ** config_var, GtkWidget * entry);
 void integer_apply(gint * config_var, GtkWidget * widget, gboolean is_checkbox);
 void button_apply(gchar ** config_var, GtkWidget * entry);
 
-GtkWidget *combobox_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable,
+GtkWidget *combobox_with_popdown_sized(const gchar * setstring, const GList * which_list, gint editable,
 									   gint width);
-GtkWidget *boxed_combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable,
+GtkWidget *boxed_combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolean editable,
 									   GtkWidget * box);
-GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable);
+GtkWidget *combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolean editable);
 
 GtkWidget *checkbut_with_value(gchar * labeltext, gint which_config_int);
 GtkWidget *boxed_checkbut_with_value(gchar * labeltext, gint which_config_int, GtkWidget * box);
@@ -69,16 +69,8 @@ void window_close_by_widget_cb(GtkWidget * widget, gpointer data);
 void window_close_by_data_cb(GtkWidget * widget, gpointer data);
 GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring);
 
-GtkWidget *hbox_with_pix_and_text(const gchar * label, gint bf_pixmaptype, gboolean w_mnemonic);
-
-GtkWidget *bf_allbuttons_backend(const gchar * label, gboolean w_mnemonic, gint bf_pixmaptype, GCallback func,
-								 gpointer func_data);
-#define bf_generic_button_with_image(label,pixmap_type,func,func_data) bf_allbuttons_backend(label,FALSE,pixmap_type,func,func_data)
-#define bf_generic_mnemonic_button(label,func,func_data) bf_allbuttons_backend(label,TRUE,-1,func,func_data)
-
-GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data);
-#define bf_stock_ok_button(func, data) bf_gtkstock_button(GTK_STOCK_OK, func, data)
-#define bf_stock_cancel_button(func, data) bf_gtkstock_button(GTK_STOCK_CANCEL, func, data)
+#define bf_stock_ok_button(func, data) dialog_button_new_with_image(NULL,GTK_STOCK_OK,func, data, FALSE, FALSE)
+#define bf_stock_cancel_button(func, data) dialog_button_new_with_image(NULL,GTK_STOCK_CANCEL,func, data, FALSE, FALSE)
 
 GtkWidget *bf_generic_frame_new(const gchar * label, GtkShadowType shadowtype, gint borderwidth);
 

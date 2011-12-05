@@ -21,6 +21,7 @@
 #define _BFTEXTVIEW2_LANGMGR_H_
 
 #include "bftextview2.h"
+
 void langmgr_reload_user_options(void);
 void langmgr_reload_user_styles(void);
 void langmgr_reload_user_highlights(void);
@@ -36,4 +37,5 @@ GtkTextTag **langmgr_need_spellcheck_tags(void);
 GList *langmgr_get_languages(void);
 void langmgr_init(void);
 void langmgr_cleanup(void);
+
 #endif							/* _BFTEXTVIEW2_LANGMGR_H_ */

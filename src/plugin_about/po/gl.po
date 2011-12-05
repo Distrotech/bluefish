@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish-unstable 1.3.8\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-12 12:24-0800\n"
-"PO-Revision-Date: 2009-10-28 15:12+0100\n"
-"Last-Translator: Xose M. <pikamoku@gmail.com>\n"
+"POT-Creation-Date: 2011-12-04 13:50-0800\n"
+"PO-Revision-Date: 2011-09-24 17:36+0100\n"
+"Last-Translator: Xose M. Lamas <correo.xmgz@gmail.com>\n"
 "Language-Team: none\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/plugin_about/about.c:76
+#: src/plugin_about/about.c:75
 msgid "This version of Bluefish was built with:\n"
 msgstr "Esta versión do Bluefish foi compilada con:\n"
 
-#: src/plugin_about/about.c:143
+#: src/plugin_about/about.c:179
 msgid ""
 "\n"
 "Developers of previous releases:"
@@ -29,7 +29,7 @@ msgstr ""
 "\n"
 "Desenvolvedores de anteriores versións:"
 
-#: src/plugin_about/about.c:158
+#: src/plugin_about/about.c:194
 msgid ""
 "\n"
 "Package maintainers:"
@@ -37,7 +37,7 @@ msgstr ""
 "\n"
 "Mantedores do paquete:"
 
-#: src/plugin_about/about.c:165
+#: src/plugin_about/about.c:201
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
@@ -47,7 +47,7 @@ msgstr ""
 "Se botas alguén en falta desta lista,\n"
 "fáinolo saber en <bluefish@bluefish.openoffice.nl>."
 
-#: src/plugin_about/about.c:166
+#: src/plugin_about/about.c:202
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
@@ -55,7 +55,7 @@ msgstr ""
 "\n"
 "Grazas a tódolos que colaboraron no desenvolvemento deste programa"
 
-#: src/plugin_about/about.c:202
+#: src/plugin_about/about.c:238
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
@@ -73,52 +73,43 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:212
+#: src/plugin_about/about.c:248
 msgid "translator-credits"
 msgstr "Xose M. <pikamoku@gmail.com>"
 
-#: src/plugin_about/about.c:276
-#, fuzzy
+#: src/plugin_about/about.c:314
 msgid "_Help"
-msgstr "/_Axuda"
+msgstr "_Axuda"
 
-#: src/plugin_about/about.c:277
-#, fuzzy
+#: src/plugin_about/about.c:315
 msgid "Bluefish _Homepage"
-msgstr "/Axuda/Web do Bluefish"
+msgstr "Web do Bluefish"
 
-#: src/plugin_about/about.c:277
-#, fuzzy
+#: src/plugin_about/about.c:315
 msgid "Bluefish homepage"
-msgstr "/Axuda/Web do Bluefish"
+msgstr "Web do Bluefish"
 
-#: src/plugin_about/about.c:279
-#, fuzzy
+#: src/plugin_about/about.c:317
 msgid "Report a _Bug"
-msgstr "/Axuda/Informar dun erro"
+msgstr "Informar dun erro"
 
-#: src/plugin_about/about.c:279
-#, fuzzy
+#: src/plugin_about/about.c:317
 msgid "Report a bug"
-msgstr "/Axuda/Informar dun erro"
+msgstr "Informar dun erro"
 
-#: src/plugin_about/about.c:280
+#: src/plugin_about/about.c:318
 msgid "_About"
-msgstr ""
+msgstr "_A cerca de"
 
-#: src/plugin_about/about.c:280
+#: src/plugin_about/about.c:318
 msgid "About Bluefish"
-msgstr ""
+msgstr "A cerca do Bluefish"
 
-#: src/plugin_about/about.c:282
+#: src/plugin_about/about.c:320
 #, fuzzy
-msgid "_Build Info"
-msgstr "/Axuda/Info da compilación"
+msgid "Build _Info"
+msgstr "_Info da compilación"
 
-#: src/plugin_about/about.c:282
-#, fuzzy
+#: src/plugin_about/about.c:320
 msgid "Build info"
-msgstr "/Axuda/Info da compilación"
-
-#~ msgid "/Help/_About..."
-#~ msgstr "/Axuda/Acerca de..."
+msgstr "Info da compilación"

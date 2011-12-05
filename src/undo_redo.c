@@ -18,25 +18,31 @@
  */
 
 /*#define DEBUG*/
+/*#define UNRE_REFCOUNT*/
 
 #include <gtk/gtk.h>
 #include <string.h>
 
 #include "bluefish.h"
 #include "dialog_utils.h"
-#include "document.h"			/* doc_bind_signals() */
+#include "document.h"			/* doc_unblock_undo_reg() */
 #include "undo_redo.h"
 
+#ifdef UNRE_REFCOUNT
+	static int entry_ref=0;
+	static int group_ref=0;
+#endif
+
 typedef struct {
-	char *text;					/* text to be inserted or deleted */
-	int start;					/* starts at this position */
-	int end;					/* ends at this position */
+	gchar *text;					/* text to be inserted or deleted */
+	guint32 start;					/* starts at this position */
+	guint32 end;					/* ends at this position */
 	undo_op_t op;				/* action to execute */
 } unreentry_t;
 
-static guint action_id_count = 1;	/* 0 means it should be auto-generated */
+static guint32 action_id_count = 1;	/* 0 means it should be auto-generated */
 
-guint
+guint32 
 new_unre_action_id(void)
 {
 	return ++action_id_count;
@@ -57,11 +63,14 @@ have_current_action_id(unre_t unre)
 }
 
 static unregroup_t *
-unregroup_new(Tdocument * doc, guint action_id)
+unregroup_new(Tdocument * doc, guint32 action_id)
 {
 	unregroup_t *newgroup;
 
 	newgroup = g_slice_new(unregroup_t);
+#ifdef UNRE_REFCOUNT
+	group_ref++;
+#endif
 	newgroup->changed = doc->modified;
 	newgroup->entries = NULL;
 	newgroup->action_id = action_id;
@@ -76,6 +85,9 @@ unreentry_destroy(unreentry_t * remove_entry)
 	if (remove_entry->text) {
 		g_free(remove_entry->text);
 	}
+#ifdef UNRE_REFCOUNT
+	entry_ref--;
+#endif
 	g_slice_free(unreentry_t, remove_entry);
 }
 
@@ -91,6 +103,9 @@ unregroup_destroy(unregroup_t * to_remove)
 	}
 	g_list_free(tmplist);
 	g_slice_free(unregroup_t, to_remove);
+#ifdef UNRE_REFCOUNT
+	group_ref--;
+#endif
 }
 
 static void
@@ -156,6 +171,9 @@ unreentry_new(const char *text, int start, int end, undo_op_t op)
 {
 	unreentry_t *new_entry;
 	new_entry = g_slice_new(unreentry_t);
+#ifdef UNRE_REFCOUNT
+	entry_ref++;
+#endif
 	DEBUG_MSG("unreentry_new, for text='%s'\n", text);
 	new_entry->text = g_strdup(text);
 	new_entry->start = start;
@@ -258,7 +276,7 @@ doc_redo(Tdocument * doc)
  * Return value: void
  **/
 void
-doc_unre_add(Tdocument * doc, const char *text, gint start, gint end, undo_op_t op)
+doc_unre_add(Tdocument * doc, const gchar *text, guint32 start, guint32 end, undo_op_t op)
 {
 	unreentry_t *entry = NULL;
 	gboolean handled = FALSE;
@@ -323,7 +341,7 @@ static void
 doc_unre_start(Tdocument * doc)
 {
 	DEBUG_MSG("doc_unre_start, started\n");
-	doc_unbind_signals(doc);
+	doc_block_undo_reg(doc);
 }
 
 static void
@@ -332,7 +350,7 @@ doc_unre_finish(Tdocument * doc, gint cursorpos)
 	GtkTextIter iter;
 	DEBUG_MSG("doc_unre_finish, started\n");
 	/* now re-establish the signals */
-	doc_bind_signals(doc);
+	doc_unblock_undo_reg(doc);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, cursorpos);
 	gtk_text_buffer_place_cursor(doc->buffer, &iter);
 }
@@ -347,7 +365,7 @@ doc_unre_finish(Tdocument * doc, gint cursorpos)
  * Return value: void
  **/
 void
-doc_unre_new_group_action_id(Tdocument * doc, guint action_id)
+doc_unre_new_group_action_id(Tdocument * doc, guint32 action_id)
 {
 	DEBUG_MSG("doc_unre_new_group_w_id, started, num entries=%d, action_id=%u\n",
 			  g_list_length(doc->unre.current->entries), action_id);
@@ -399,6 +417,10 @@ doc_unre_init(Tdocument * doc)
 	doc->unre.current = unregroup_new(doc, 0);
 	doc->unre.num_groups = 0;
 	doc->unre.redofirst = NULL;
+#ifdef UNRE_REFCOUNT
+	g_print("after doc_unre_init: group_ref=%d, entry_ref=%d\n",group_ref,entry_ref);
+#endif
+
 }
 
 /**
@@ -412,12 +434,21 @@ doc_unre_init(Tdocument * doc)
 void
 doc_unre_destroy(Tdocument * doc)
 {
+#ifdef UNRE_REFCOUNT
+	g_print("before doc_unre_destroy: group_ref=%d (%ld+%ld bytes), entry_ref=%d (%ld+%ld bytes) = %ld bytes total\n"
+					,group_ref,group_ref*sizeof(unregroup_t),group_ref*sizeof(GList)
+					,entry_ref,entry_ref*sizeof(unreentry_t),entry_ref*sizeof(GList)
+					,entry_ref*(sizeof(unreentry_t)+sizeof(GList))+group_ref*(sizeof(GList)+sizeof(unregroup_t)));
+#endif
 	DEBUG_MSG("doc_unre_destroy, about to destroy undolist %p\n", doc->unre.first);
 	unre_list_cleanup(&doc->unre.first);
 	DEBUG_MSG("doc_unre_destroy, about to destroy redofirst %p\n", doc->unre.redofirst);
 	unre_list_cleanup(&doc->unre.redofirst);
 	DEBUG_MSG("doc_unre_destroy, about to destroy current %p\n", doc->unre.current);
 	unregroup_destroy(doc->unre.current);
+#ifdef UNRE_REFCOUNT
+	g_print("after doc_unre_destroy: group_ref=%d, entry_ref=%d\n",group_ref,entry_ref);
+#endif
 }
 
 /**
@@ -476,7 +507,7 @@ doc_unre_clear_all(Tdocument * doc)
  * Return value: gboolean, TRUE if everything matches or if there was no previous operation, FALSE if not
  **/
 gboolean
-doc_unre_test_last_entry(Tdocument * doc, undo_op_t testfor, gint start, gint end)
+doc_unre_test_last_entry(Tdocument * doc, undo_op_t testfor, guint32 start, guint32 end)
 {
 	if (doc->unre.current->entries && doc->unre.current->entries->data) {
 		gboolean retval;

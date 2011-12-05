@@ -61,6 +61,7 @@ free_session(Tsessionvars * session)
 	free_stringlist(session->positionlist);
 	free_stringlist(session->searchlist);
 	free_stringlist(session->replacelist);
+	free_stringlist(session->filegloblist);
 	free_arraylist(session->bmarks);
 	free_stringlist(session->recent_files);
 	free_stringlist(session->recent_dirs);
@@ -104,7 +105,7 @@ project_setup_initial_session(Tsessionvars * session, gboolean before_parse)
 
 	/* THE NUBER OF BYTES THAT IS COPIED HERE MUST BE EQUAL TO THE NUMBER OF INTEGERS
 	   IN THE STRUCT IN bluefish.h ELSE ALL WILL FAIL */
-	memcpy(session, main_v->session, 30 * sizeof(gint));
+	memcpy(session, main_v->session, 38 * sizeof(gint));
 }
 
 Tbfwin *
@@ -159,7 +160,6 @@ setup_bfwin_for_project(Tbfwin * bfwin)
 /*	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(doc->bfwin)->menubar));*/
 	gtk_osxapplication_sync_menubar(g_object_new(GTK_TYPE_OSX_APPLICATION, NULL));
 #endif
-
 }
 
 static void
@@ -266,7 +266,6 @@ project_save(Tbfwin * bfwin, gboolean save_as)
 	DEBUG_MSG("project_save, project=%p, num files was %d\n", bfwin->project,
 			  g_list_length(bfwin->project->files));
 	update_project_filelist(bfwin, bfwin->project);
-/*	bfwin->project->recentfiles = limit_stringlist(bfwin->project->recentfiles, main_v->props.max_recent_files, TRUE);*/
 
 	bfwin->project->session->searchlist = limit_stringlist(bfwin->project->session->searchlist, 10, TRUE);
 	bfwin->project->session->replacelist = limit_stringlist(bfwin->project->session->replacelist, 10, TRUE);
@@ -326,8 +325,6 @@ project_save(Tbfwin * bfwin, gboolean save_as)
 
 	retval = rcfile_save_project(bfwin->project, bfwin->project->uri);
 	DEBUG_MSG("project_save, retval=%d\n", retval);
-	bfwin_recent_menu_add(bfwin, bfwin->project->uri, NULL, TRUE);
-
 	return retval;
 }
 
@@ -338,6 +335,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 	Tproject *prj;
 	gboolean retval;
 	GList *tmplist;
+	gchar *curi;
 
 	/* first we test if the project is already open */
 	prwin = project_is_open(fromuri);
@@ -362,8 +360,15 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 		   g_free(prj); */
 		return;
 	}
-
-	bfwin_recent_menu_add(bfwin, fromuri, NULL, TRUE);
+	curi = g_file_get_uri(fromuri);
+	main_v->globses.recent_projects =
+				add_to_history_stringlist(main_v->globses.recent_projects, curi, FALSE, TRUE);
+	bfwin_recent_menu_remove(bfwin, TRUE, curi);
+	if (main_v->props.register_recent_mode != 0) {
+		gtk_recent_manager_add_item(main_v->recentm, curi);
+	}
+	
+	g_free(curi);
 	prj->uri = fromuri;
 	g_object_ref(fromuri);
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
@@ -429,8 +434,11 @@ project_save_and_mark_closed(Tbfwin * bfwin)
 	if (bfwin->project) {
 		project_save(bfwin, FALSE);
 
-		if (bfwin->project->uri)
-			bfwin_recent_menu_add(bfwin, bfwin->project->uri, NULL, TRUE);
+		if (bfwin->project->uri) {
+			gchar *curi = g_file_get_uri(bfwin->project->uri);
+			bfwin_recent_menu_add(bfwin, TRUE, curi);
+			g_free(curi);
+		}
 
 		bfwin->project->close = TRUE;
 	}
@@ -441,8 +449,8 @@ project_final_close(Tbfwin * bfwin, gboolean close_win)
 {
 	if (!bfwin->project)
 		return TRUE;
-	if (!close_win)
-		bfwin_recent_menu_add(bfwin, bfwin->project->uri, NULL, TRUE);
+/*	if (!close_win)
+		bfwin_recent_menu_add(bfwin, bfwin->project->uri, NULL, TRUE);*/
 
 	project_destroy(bfwin->project);
 	/* we should only set the window for nonproject if the window will keep alive */
@@ -629,10 +637,9 @@ project_edit(Tbfwin * bfwin)
 	but = bf_stock_cancel_button(G_CALLBACK(project_edit_cancel_clicked_lcb), pred);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
 	if (pred->destroy_project_on_close == TRUE) {
-		but =
-			bf_allbuttons_backend(_("Create _Project"), 1, 0, G_CALLBACK(project_edit_ok_clicked_lcb), pred);
+		but = dialog_button_new_with_image(_("Create _Project"), GTK_STOCK_NEW, G_CALLBACK(project_edit_ok_clicked_lcb), pred, TRUE, TRUE);
 	} else {
-		but = bf_stock_ok_button(G_CALLBACK(project_edit_ok_clicked_lcb), pred);
+		but = dialog_button_new_with_image(NULL, GTK_STOCK_OK, G_CALLBACK(project_edit_ok_clicked_lcb), pred, TRUE, FALSE);
 	}
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
 	gtk_widget_grab_default(but);

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		clojure.bflang2 $Revision: 6404 $
+		clojure.bflang2 $Revision$
  
 		Copyright (C) 2011 Olivier Sessink
 
@@ -19,12 +19,13 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="Clojure" version="2.0" table="2201" contexts="4" matches="499">
+<bflang name="Clojure" version="2.0" table="2198" contexts="3" matches="496">
 <header>
 	<mime type="text/x-clojure"/>
 	<mime type="application/x-clojure"/>
 	<mime type="text/x-emacs-lisp"/>
 	<mime type="text/plain?clj"/>
+	<option name="show_in_menu" default="0"/>
 	<highlight name="keyword" style="keyword" />
 	<highlight name="brackets" style="brackets" />
 	<highlight name="parens" style="special-value" />
@@ -532,12 +533,7 @@
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element pattern="'" highlight="string">
-	<context symbols="\'" highlight="string">
-		<element pattern="\." is_regex="1" highlight="string" />
-		<element pattern="'" highlight="string" ends_context="1" />
-	</context>
-</element>
+
 <element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
 <element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="parens" />

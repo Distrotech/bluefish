@@ -47,7 +47,7 @@ struct _SnippetsMenu {
 };
 
 struct _SnippetsMenuClass {
-	GtkMenuClass parent_class;
+	GtkMenuBarClass parent_class;
 };
 
 GType snippets_menu_get_type(void);

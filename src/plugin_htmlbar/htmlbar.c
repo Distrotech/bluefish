@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+/*#define DEBUG*/
 
 #include <string.h>
 
@@ -101,6 +102,9 @@ htmlbar_initgui(Tbfwin * bfwin)
 
 	hbw = g_new0(Thtmlbarwin, 1);
 	hbw->bfwin = bfwin;
+	if (g_hash_table_size(htmlbar_v.lookup)==1) { /* the first entry is the global session */
+		htmlbar_register_stock_icons();
+	}
 
 	g_hash_table_insert(htmlbar_v.lookup, bfwin, hbw);
 	DEBUG_MSG("htmlbar_initgui, adding hbw %p to hashtable %p with key %p\n", hbw, htmlbar_v.lookup, bfwin);
@@ -112,9 +116,9 @@ htmlbar_initgui(Tbfwin * bfwin)
 				  bfwin->session);
 		g_hash_table_insert(htmlbar_v.lookup, bfwin->session, hbs);
 	}
-
-	htmlbar_register_stock_icons();
-	DEBUG_MSG("htmlbar_initgui, started, will call htmlbar_build_menu\n");
+	
+	DEBUG_MSG("htmlbar_initgui, started, will call htmlbar_load_ui\n");
+	htmlbar_load_ui(hbw);
 	htmlbar_menu_create(hbw);
 	htmlbar_toolbar_show(hbw, hbs->view_htmlbar);
 	DEBUG_MSG("htmlbar_initgui, finished\n");
@@ -200,6 +204,7 @@ htmlbar_session_cleanup(Tsessionvars * session)
 static TBluefishPlugin bfplugin = {
 	"HTML Features",
 	BFPLUGIN_VERSION,
+	GTK_MAJOR_VERSION,
 	sizeof(Tdocument),
 	sizeof(Tsessionvars),
 	sizeof(Tglobalsession),

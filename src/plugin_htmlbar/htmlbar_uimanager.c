@@ -41,11 +41,13 @@
 
 #define HTMLBAR_PIXMAP_DIR PKGDATADIR"/plugins/htmlbar/pixmaps/"
 #define HTMLBAR_MENU_UI	   PKGDATADIR"/plugins/htmlbar/ui/htmlbar_menu_ui.xml"
-#define HTMLBAR_TOOLBAR_UI PKGDATADIR"/plugins/htmlbar/ui/htmlbar_toolbar_ui.xml"
+/*#define HTMLBAR_TOOLBAR_UI PKGDATADIR"/plugins/htmlbar/ui/htmlbar_toolbar_ui.xml"*/ /* menu and toolbar are merged into one file now */
+
+#include "pixmaps/htmlbar_icons.c"
 
 /* For testing purposes */
 /*#define HTMLBAR_MENU_UI	"src/plugin_htmlbar/ui/htmlbar_menu_ui.xml"
-#define HTMLBAR_TOOLBAR_UI	"src/plugin_htmlbar/ui/htmlbar_toolbar_ui.xml"*/
+*/
 
 
 static void
@@ -239,7 +241,7 @@ htmlbar_dialog_style(GtkAction * action, gpointer user_data)
 static void
 htmlbar_dialog_style_create(GtkAction * action, gpointer user_data)
 {
-/*	new_css_dialog(NULL, BFWIN(user_data));*/
+	new_css_dialog(NULL, BFWIN(user_data));
 }
 
 static void
@@ -1249,6 +1251,109 @@ htmlbar_toolbar_show_toogle(GtkAction * action, gpointer user_data)
 	htmlbar_toolbar_show(hbw, gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)));
 }
 
+static void
+htmlbar_insert_article_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<ARTICLE>"), cap("</ARTICLE>"));
+}
+
+static void
+htmlbar_insert_aside_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<ASIDE>"), cap("</ASIDE>"));
+}
+
+static void
+htmlbar_insert_figcaption_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<FIGCAPTION>"), cap("</FIGCAPTION>"));
+}
+
+static void
+htmlbar_insert_figure_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<FIGURE>"), cap("</FIGURE>"));
+}
+
+static void
+htmlbar_insert_footer_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<FOOTER>"), cap("</FOOTER>"));
+}
+
+static void
+htmlbar_insert_header_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<HEADER>"), cap("</HEADER>"));
+}
+
+static void
+htmlbar_insert_hgroup_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<HGROUP>"), cap("</HGROUP>"));
+}
+
+static void
+htmlbar_insert_mark_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<MARK>"), cap("</MARK>"));
+}
+
+static void
+htmlbar_insert_nav_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<NAV>"), cap("</NAV>"));
+}
+
+static void
+htmlbar_insert_rp_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<RP>"), cap("</RP>"));
+}
+
+static void
+htmlbar_insert_rt_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<RT>"), cap("</RT>"));
+}
+
+static void
+htmlbar_insert_ruby_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<RUBY>"), cap("</RUBY>"));
+}
+
+static void
+htmlbar_insert_section_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<SECTION>"), cap("</SECTION>"));
+}
+
+static void
+htmlbar_dialog_audio(GtkAction * action, gpointer user_data)
+{
+	
+	audio_dialog(BFWIN(user_data), NULL);
+}
+
+static void
+htmlbar_dialog_canvas(GtkAction * action, gpointer user_data)
+{
+	canvas_dialog(BFWIN(user_data), NULL);
+}
+
+static void
+htmlbar_dialog_video(GtkAction * action, gpointer user_data)
+{
+	video_dialog(BFWIN(user_data), NULL);
+}
+
+static void
+htmlbar_dialog_html5time(GtkAction * action, gpointer user_data)
+{
+	html5time_dialog(BFWIN(user_data), NULL);
+}
+
 static const GtkActionEntry htmlbar_actions[] = {
 	{"TagsMenu", NULL, N_("T_ags")},
 	{"HeadingsMenu", NULL, N_("_Headings")},
@@ -1388,7 +1493,7 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"SpacingMacron", NULL, N_("Spa_cing macron ¯"), NULL, NULL,
 	 G_CALLBACK(htmlbar_insert_spacing_macron)},
 	{"MidDot", NULL, N_("Middle _dot ·"), NULL, NULL, G_CALLBACK(htmlbar_insert_middot)},
-	{"FormatContextMenu", NULL, N_("F_ormat by context")},
+	{"FormatContextMenu", NULL, N_("_Format by Context")},
 	{"FormatStrong", BF_STOCK_BOLD, N_("_Strong"), "<control><alt>g", N_("Strong"),
 	 G_CALLBACK(htmlbar_insert_strong_tag)},
 	{"FormatEmphasis", BF_STOCK_ITALIC, N_("_Emphasis"), "<control><alt>e", N_("Emphasis"),
@@ -1409,7 +1514,7 @@ static const GtkActionEntry htmlbar_actions[] = {
 	 G_CALLBACK(htmlbar_insert_acronym_tag)},
 	{"FormatInsert", BF_STOCK_INS, N_("_Insert"), NULL, N_("Insert"), G_CALLBACK(htmlbar_insert_insert_tag)},
 	{"FormatDelete", BF_STOCK_DEL, N_("De_lete"), NULL, N_("Delete"), G_CALLBACK(htmlbar_insert_delete_tag)},
-	{"FormatLayoutMenu", NULL, N_("_Format by layout")},
+	{"FormatLayoutMenu", NULL, N_("Format by L_ayout")},
 	{"FormatBold", BF_STOCK_BOLD, N_("_Bold"), "<control><alt>b", N_("Bold"),
 	 G_CALLBACK(htmlbar_insert_bold_tag)},
 	{"FormatItalic", BF_STOCK_ITALIC, N_("_Italic"), "<control><alt>i", N_("Italic"),
@@ -1420,7 +1525,7 @@ static const GtkActionEntry htmlbar_actions[] = {
 	 G_CALLBACK(htmlbar_insert_strikeout_tag)},
 	{"FormatSmall", NULL, N_("Sm_all"), NULL, N_("Small"), G_CALLBACK(htmlbar_insert_small_tag)},
 	{"FormatBig", NULL, N_("Bi_g"), NULL, N_("Big"), G_CALLBACK(htmlbar_insert_big_tag)},
-	{"FormatGeneralMenu", NULL, N_("Format _general")},
+	{"FormatGeneralMenu", NULL, N_("Format _General")},
 	{"FormatParagraph", BF_STOCK_PARAGRAPH, N_("_Paragraph"), "<control><alt>p", N_("Paragraph"),
 	 G_CALLBACK(htmlbar_insert_paragraph_tag)},
 	{"FormatBreak", BF_STOCK_BRBREAK, N_("_Break"), "<control><alt>k", N_("Break"),
@@ -1468,7 +1573,7 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"ListDefinition", BF_STOCK_LIST_DD, N_("_Definition"), NULL, N_("Definition"),
 	 G_CALLBACK(htmlbar_insert_definition_tag)},
 	{"ListListMenu", NULL, N_("Men_u"), NULL, N_("Menu"), G_CALLBACK(htmlbar_insert_menu_tag)},
-	{"FormMenu", NULL, N_("Fo_rm")},
+	{"FormMenu", NULL, N_("F_orm")},
 	{"FormForm", BF_STOCK_FORM, N_("_Form"), NULL, N_("Form"), G_CALLBACK(htmlbar_insert_form_tag)},
 	{"FormButton", NULL, N_("_Button"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_button_tag)},
 	{"FormInput", NULL, N_("_Input"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_input_tag)},
@@ -1545,9 +1650,9 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"DialogsFormMenu", NULL, N_("F_orm")},
 	{"DialogsForm", BF_STOCK_FORM, N_("F_orm..."), NULL, N_("Form..."), G_CALLBACK(htmlbar_dialog_form)},
 	{"DialogsFormInput", NULL, N_("_Input..."), NULL, NULL, G_CALLBACK(htmlbar_dialog_form_input)},
-	{"DialogsFormButtons", BF_STOCK_FORM_SUBMIT, N_("Input Buttons..."), NULL, N_("Input Button..."),
+	{"DialogsFormButtons", BF_STOCK_FORM_SUBMIT, N_("Input B_uttons..."), NULL, N_("Input Button..."),
 	 G_CALLBACK(htmlbar_dialog_form_input_buttons)},
-	{"DialogsFormText", BF_STOCK_FORM_TEXT, N_("Input Text..."), NULL, N_("Input Text..."),
+	{"DialogsFormText", BF_STOCK_FORM_TEXT, N_("Input T_ext..."), NULL, N_("Input Text..."),
 	 G_CALLBACK(htmlbar_dialog_form_input_text)},
 	{"DialogsFormTextarea", BF_STOCK_FORM_TEXTAREA, N_("Text_area..."), NULL, N_("Textarea..."),
 	 G_CALLBACK(htmlbar_dialog_form_textarea)},
@@ -1574,16 +1679,34 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"DialogsFormRadioButton", BF_STOCK_FORM_RADIO, N_("Input Radio button..."), NULL,
 	 N_("Input Radio Button..."), G_CALLBACK(htmlbar_dialog_form_radio_button)},
 	{"DialogsFormCheckBox", BF_STOCK_FORM_CHECK, N_("Input Check box..."), NULL,
-	 N_("Input Check Box..."), G_CALLBACK(htmlbar_dialog_form_check_box)}
+	 N_("Input Check Box..."), G_CALLBACK(htmlbar_dialog_form_check_box)},
+	{"HTML5Menu", NULL, N_("HTML_5")},
+	{"FormatArticle", BF_STOCK_ARTICLE, N_("_Article"), NULL, N_("Article"), G_CALLBACK(htmlbar_insert_article_tag)},
+	{"FormatAside", BF_STOCK_ASIDE, N_("As_ide"), NULL, N_("Aside"), G_CALLBACK(htmlbar_insert_aside_tag)},
+	{"FormatFigcaption", BF_STOCK_FIGCAPTION, N_("Fig_caption"), NULL, N_("Figcaption"), G_CALLBACK(htmlbar_insert_figcaption_tag)},
+	{"FormatFigure", BF_STOCK_FIGURE, N_("Fig_ure"), NULL, N_("Figure"), G_CALLBACK(htmlbar_insert_figure_tag)},
+	{"FormatFooter", BF_STOCK_FOOTER, N_("_Footer"), NULL, N_("Footer"), G_CALLBACK(htmlbar_insert_footer_tag)},
+	{"FormatHeader", BF_STOCK_HEADER, N_("_Header"), NULL, N_("Header"), G_CALLBACK(htmlbar_insert_header_tag)},
+	{"FormatHgroup", BF_STOCK_HGROUP, N_("H_group"), NULL, N_("Hgroup"), G_CALLBACK(htmlbar_insert_hgroup_tag)},
+	{"FormatMark", BF_STOCK_MARK, N_("_Mark"), NULL, N_("Mark"), G_CALLBACK(htmlbar_insert_mark_tag)},
+	{"FormatNav", BF_STOCK_NAV, N_("_Nav"), NULL, N_("Nav"), G_CALLBACK(htmlbar_insert_nav_tag)},
+	{"FormatRp", BF_STOCK_RP, N_("R_p"), NULL, N_("Ruby parenthesis"), G_CALLBACK(htmlbar_insert_rp_tag)},
+	{"FormatRt", BF_STOCK_RT, N_("R_t"), NULL, N_("Ruby text"), G_CALLBACK(htmlbar_insert_rt_tag)},
+	{"FormatRuby", BF_STOCK_RUBY, N_("_Ruby"), NULL, N_("Ruby"), G_CALLBACK(htmlbar_insert_ruby_tag)},
+	{"FormatSection", BF_STOCK_SECTION, N_("_Section"), NULL, N_("Section"), G_CALLBACK(htmlbar_insert_section_tag)},
+	{"DialogsHTML5Menu", NULL, N_("HTML_5")},
+	{"DialogsAudio", BF_STOCK_AUDIO, N_("Au_dio..."), NULL, N_("Audio..."), G_CALLBACK(htmlbar_dialog_audio)},
+	{"DialogsVideo", BF_STOCK_VIDEO, N_("_Video..."), NULL, N_("Video..."), G_CALLBACK(htmlbar_dialog_video)},
+	{"DialogsCanvas", BF_STOCK_CANVAS, N_("_Canvas..."), NULL, N_("Canvas..."), G_CALLBACK(htmlbar_dialog_canvas)},
+	{"DialogsHtml5Time", BF_STOCK_HTML5TIME, N_("_Time..."), NULL, N_("Time..."), G_CALLBACK(htmlbar_dialog_html5time)}
 };
 
 void
 htmlbar_menu_create(Thtmlbarwin * hbw)
 {
 	Tbfwin *bfwin = hbw->bfwin;
-
+	Thtmlbarsession *hbs;
 	GtkActionGroup *action_group;
-	GError *error = NULL;
 
 	static const GtkToggleActionEntry htmlbar_toggle_actions[] = {
 		{"ViewHTMLToolbar", NULL, N_("_HTML Toolbar"), NULL, NULL, G_CALLBACK(htmlbar_toolbar_show_toogle),
@@ -1597,20 +1720,10 @@ htmlbar_menu_create(Thtmlbarwin * hbw)
 										G_N_ELEMENTS(htmlbar_toggle_actions), hbw);
 	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 0);
 	g_object_unref(action_group);
+	hbs = g_hash_table_lookup(htmlbar_v.lookup, bfwin->session);
+	if (hbs)
+		bfwin_set_menu_toggle_item(action_group, "ViewHTMLToolbar", hbs->view_htmlbar);
 
-	gtk_ui_manager_add_ui_from_file(bfwin->uimanager, HTMLBAR_MENU_UI, &error);
-	if (error != NULL) {
-		g_warning("building htmlbar plugin menu failed: %s", error->message);
-		g_error_free(error);
-	} else {
-		Thtmlbarsession *hbs = g_hash_table_lookup(htmlbar_v.lookup, bfwin->session);
-
-		if (hbs)
-			bfwin_set_menu_toggle_item(action_group, "ViewHTMLToolbar", hbs->view_htmlbar);
-		else
-			DEBUG_MSG("htmlbar_build_menu, ERROR, no htmlbarsession in hasht %p for session %p!!?!?!?!?\n",
-					  htmlbar_v.lookup, bfwin->session);
-	}
 }
 
 void
@@ -1620,7 +1733,6 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw)
 
 	GtkWidget *html_notebook;
 	GtkWidget *toolbar;
-	GError *error = NULL;
 
 	html_notebook = gtk_notebook_new();
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP);
@@ -1629,12 +1741,6 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw)
 	hbw->handlebox = gtk_handle_box_new();
 	gtk_container_add(GTK_CONTAINER(hbw->handlebox), html_notebook);
 	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), hbw->handlebox, FALSE, FALSE, 0);
-
-	gtk_ui_manager_add_ui_from_file(bfwin->uimanager, HTMLBAR_TOOLBAR_UI, &error);
-	if (error != NULL) {
-		g_warning("building html toolbar failed: %s", error->message);
-		g_error_free(error);
-	}
 
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
@@ -1668,122 +1774,149 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw)
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" CSS ")));
 
+	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLHTML5Toolbar");
+	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" HTML 5 ")));
+
 	gtk_widget_show_all(hbw->handlebox);
+}
+
+void htmlbar_load_ui(Thtmlbarwin * hbw)
+{
+	GError *gerror=NULL;
+	const gchar *htmlbar_menu_ui = HTMLBAR_MENU_UI;
+	gtk_ui_manager_add_ui_from_file(hbw->bfwin->uimanager, htmlbar_menu_ui, &gerror);
+	if (gerror != NULL) {
+		g_warning("loading htmlbar UI from file %s failed: %s", htmlbar_menu_ui, gerror->message);
+		g_error_free(gerror);
+	}
 }
 
 void
 htmlbar_register_stock_icons(void)
 {
 	static struct {
-		gchar *filename;
+		const guint8 *data;
 		gchar *stock_id;
 	} htmlbar_stock_icons[] = {
-			{"abbr.png", BF_STOCK_ADDR},
-			{"acronym.png", BF_STOCK_ACRONYM},
-			{"anchor.png", BF_STOCK_ANCHOR},
-			{"body.png", BF_STOCK_BODY},
-			{"bold.png", BF_STOCK_BOLD},
-			{"brbreak.png", BF_STOCK_BRBREAK},
-			{"breakall.png", BF_STOCK_BREAKALL},
-			{"center.png", BF_STOCK_CENTER},
-			{"cite.png", BF_STOCK_CITE},
-			{"code.png", BF_STOCK_CODE},
-			{"comment.png", BF_STOCK_COMMENT},
-			{"context.png", BF_STOCK_CONTEXT},
-			{"css_small.png", BF_STOCK_CSS_SMALL},
-			{"cssdiv.png", BF_STOCK_CSSDIV},
-			{"cssnewstyle.png", BF_STOCK_CSSNEWSTYLE},
-			{"cssspan.png", BF_STOCK_CSSSPAN},
-			{"cssstyle.png", BF_STOCK_CSSSTYLE},
-			{"del.png", BF_STOCK_DEL},
-			{"dfn.png", BF_STOCK_DFN},
-			{"edit_tag.png", BF_STOCK_EDIT_TAG},
-			{"email.png", BF_STOCK_EMAIL},
-			{"font_base.png", BF_STOCK_FONT_BASE},
-			{"font.png", BF_STOCK_FONT},
-			{"fonth1.png", BF_STOCK_FONTH1},
-			{"fonth2.png", BF_STOCK_FONTH2},
-			{"fonth3.png", BF_STOCK_FONTH3},
-			{"fonth4.png", BF_STOCK_FONTH4},
-			{"fonth5.png", BF_STOCK_FONTH5},
-			{"fonth6.png", BF_STOCK_FONTH6},
-			{"fontm1.png", BF_STOCK_FONTM1},
-			{"fontp1.png", BF_STOCK_FONTP1},
-			{"fontpre.png", BF_STOCK_FONTPRE},
-			{"fontsub.png", BF_STOCK_FONTSUB},
-			{"fontsuper.png", BF_STOCK_FONTSUPER},
-			{"form_check.png", BF_STOCK_FORM_CHECK},
-			{"form_hidden.png", BF_STOCK_FORM_HIDDEN},
-			{"form_option.png", BF_STOCK_FORM_OPTION},
-			{"form_optiongroup.png", BF_STOCK_FORM_OPTIONGROUP},
-			{"form_radio.png", BF_STOCK_FORM_RADIO},
-			{"form_select.png", BF_STOCK_FORM_SELECT},
-			{"form_submit.png", BF_STOCK_FORM_SUBMIT},
-			{"form_text.png", BF_STOCK_FORM_TEXT},
-			{"form_textarea.png", BF_STOCK_FORM_TEXTAREA},
-			{"form.png", BF_STOCK_FORM},
-			{"frame_base.png", BF_STOCK_FRAME_BASE},
-			{"frame_no.png", BF_STOCK_FRAME_NO},
-			{"frame.png", BF_STOCK_FRAME},
-			{"frame2.png", BF_STOCK_FRAME2},
-			{"frameset.png", BF_STOCK_FRAMESET},
-			{"frameset2.png", BF_STOCK_FRAMESET2},
-			{"framewhiz.png", BF_STOCK_FRAME_WIZARD},
-			{"headings.png", BF_STOCK_HEADINGS},
-			{"hrule.png", BF_STOCK_HRULE},
-			{"image.png", BF_STOCK_IMAGE},
-			{"ins.png", BF_STOCK_INS},
-			{"italic.png", BF_STOCK_ITALIC},
-			{"kbd.png", BF_STOCK_KBD},
-			{"linkstylesheet.png", BF_STOCK_LINK_STYLESHEET},
-			{"list_dd.png", BF_STOCK_LIST_DD},
-			{"list_dl.png", BF_STOCK_LIST_DL},
-			{"list_dt.png", BF_STOCK_LIST_DT},
-			{"list_li.png", BF_STOCK_LIST_LI},
-			{"list_ol.png", BF_STOCK_LIST_OL},
-			{"list_ul.png", BF_STOCK_LIST_UL},
-			{"list.png", BF_STOCK_LIST},
-			{"multithumbs.png", BF_STOCK_MULTITHUMBS},
-			{"nbsp.png", BF_STOCK_NBSP},
-			{"paragraph.png", BF_STOCK_PARAGRAPH},
-			{"php3.png", BF_STOCK_PHP3},
-			{"quick_start.png", BF_STOCK_QUICKSTART},
-			{"right.png", BF_STOCK_RIGHT},
-			{"samp.png", BF_STOCK_SAMP},
-			{"strikeout.png", BF_STOCK_STRIKEOUT},
-			{"table_capt.png", BF_STOCK_TABLE_CAPTION},
-			{"table_td.png", BF_STOCK_TABLE_TD},
-			{"table_td2.png", BF_STOCK_TABLE_TD2},
-			{"table_th.png", BF_STOCK_TABLE_TH},
-			{"table_th2.png", BF_STOCK_TABLE_TH2},
-			{"table_tr.png", BF_STOCK_TABLE_TR},
-			{"table_tr2.png", BF_STOCK_TABLE_TR2},
-			{"table.png", BF_STOCK_TABLE},
-			{"table2.png", BF_STOCK_TABLE2},
-			{"tablewhiz.png", BF_STOCK_TABLE_WIZARD},
-			{"thumbnail.png", BF_STOCK_THUMBNAIL},
-			{"underline.png", BF_STOCK_UNDERLINE},
-			{"var.png", BF_STOCK_VAR},
+			{pixmap_abbr, BF_STOCK_ADDR},
+			{pixmap_acronym, BF_STOCK_ACRONYM},
+			{pixmap_anchor, BF_STOCK_ANCHOR},
+			{pixmap_body, BF_STOCK_BODY},
+			{pixmap_bold, BF_STOCK_BOLD},
+			{pixmap_brbreak, BF_STOCK_BRBREAK},
+			{pixmap_breakall, BF_STOCK_BREAKALL},
+			{pixmap_center, BF_STOCK_CENTER},
+			{pixmap_cite, BF_STOCK_CITE},
+			{pixmap_code, BF_STOCK_CODE},
+			{pixmap_comment, BF_STOCK_COMMENT},
+			{pixmap_context, BF_STOCK_CONTEXT},
+			{pixmap_css_small, BF_STOCK_CSS_SMALL},
+			{pixmap_cssdiv, BF_STOCK_CSSDIV},
+			{pixmap_cssnewstyle, BF_STOCK_CSSNEWSTYLE},
+			{pixmap_cssspan, BF_STOCK_CSSSPAN},
+			{pixmap_cssstyle, BF_STOCK_CSSSTYLE},
+			{pixmap_del, BF_STOCK_DEL},
+			{pixmap_dfn, BF_STOCK_DFN},
+			{pixmap_edit_tag, BF_STOCK_EDIT_TAG},
+			{pixmap_email, BF_STOCK_EMAIL},
+			{pixmap_font_base, BF_STOCK_FONT_BASE},
+			{pixmap_font, BF_STOCK_FONT},
+			{pixmap_fonth1, BF_STOCK_FONTH1},
+			{pixmap_fonth2, BF_STOCK_FONTH2},
+			{pixmap_fonth3, BF_STOCK_FONTH3},
+			{pixmap_fonth4, BF_STOCK_FONTH4},
+			{pixmap_fonth5, BF_STOCK_FONTH5},
+			{pixmap_fonth6, BF_STOCK_FONTH6},
+			{pixmap_fontm1, BF_STOCK_FONTM1},
+			{pixmap_fontp1, BF_STOCK_FONTP1},
+			{pixmap_fontpre, BF_STOCK_FONTPRE},
+			{pixmap_fontsub, BF_STOCK_FONTSUB},
+			{pixmap_fontsuper, BF_STOCK_FONTSUPER},
+			{pixmap_form_check, BF_STOCK_FORM_CHECK},
+			{pixmap_form_hidden, BF_STOCK_FORM_HIDDEN},
+			{pixmap_form_option, BF_STOCK_FORM_OPTION},
+			{pixmap_form_optiongroup, BF_STOCK_FORM_OPTIONGROUP},
+			{pixmap_form_radio, BF_STOCK_FORM_RADIO},
+			{pixmap_form_select, BF_STOCK_FORM_SELECT},
+			{pixmap_form_submit, BF_STOCK_FORM_SUBMIT},
+			{pixmap_form_text, BF_STOCK_FORM_TEXT},
+			{pixmap_form_textarea, BF_STOCK_FORM_TEXTAREA},
+			{pixmap_form, BF_STOCK_FORM},
+			{pixmap_frame_base, BF_STOCK_FRAME_BASE},
+			{pixmap_frame_no, BF_STOCK_FRAME_NO},
+			{pixmap_frame, BF_STOCK_FRAME},
+			{pixmap_frame2, BF_STOCK_FRAME2},
+			{pixmap_frameset, BF_STOCK_FRAMESET},
+			{pixmap_frameset, BF_STOCK_FRAMESET2},
+			{pixmap_framewhiz, BF_STOCK_FRAME_WIZARD},
+			{pixmap_headings, BF_STOCK_HEADINGS},
+			{pixmap_hrule, BF_STOCK_HRULE},
+			{pixmap_image, BF_STOCK_IMAGE},
+			{pixmap_ins, BF_STOCK_INS},
+			{pixmap_italic, BF_STOCK_ITALIC},
+			{pixmap_kbd, BF_STOCK_KBD},
+			{pixmap_linkstylesheet, BF_STOCK_LINK_STYLESHEET},
+			{pixmap_list_dd, BF_STOCK_LIST_DD},
+			{pixmap_list_dl, BF_STOCK_LIST_DL},
+			{pixmap_list_dt, BF_STOCK_LIST_DT},
+			{pixmap_list_li, BF_STOCK_LIST_LI},
+			{pixmap_list_ol, BF_STOCK_LIST_OL},
+			{pixmap_list_ul, BF_STOCK_LIST_UL},
+			{pixmap_list, BF_STOCK_LIST},
+			{pixmap_multithumbs, BF_STOCK_MULTITHUMBS},
+			{pixmap_nbsp, BF_STOCK_NBSP},
+			{pixmap_paragraph, BF_STOCK_PARAGRAPH},
+			{pixmap_php3, BF_STOCK_PHP3},
+			{pixmap_quick_start, BF_STOCK_QUICKSTART},
+			{pixmap_right, BF_STOCK_RIGHT},
+			{pixmap_samp, BF_STOCK_SAMP},
+			{pixmap_strikeout, BF_STOCK_STRIKEOUT},
+			{pixmap_table_capt, BF_STOCK_TABLE_CAPTION},
+			{pixmap_table_td, BF_STOCK_TABLE_TD},
+			{pixmap_table_td2, BF_STOCK_TABLE_TD2},
+			{pixmap_table_th, BF_STOCK_TABLE_TH},
+			{pixmap_table_th2, BF_STOCK_TABLE_TH2},
+			{pixmap_table_tr, BF_STOCK_TABLE_TR},
+			{pixmap_table_tr2, BF_STOCK_TABLE_TR2},
+			{pixmap_table, BF_STOCK_TABLE},
+			{pixmap_table2, BF_STOCK_TABLE2},
+			{pixmap_tablewhiz, BF_STOCK_TABLE_WIZARD},
+			{pixmap_thumbnail, BF_STOCK_THUMBNAIL},
+			{pixmap_underline, BF_STOCK_UNDERLINE},
+			{pixmap_var, BF_STOCK_VAR},
+			{pixmap_article, BF_STOCK_ARTICLE},
+			{pixmap_aside, BF_STOCK_ASIDE},
+			{pixmap_figcaption, BF_STOCK_FIGCAPTION},
+			{pixmap_figure, BF_STOCK_FIGURE},
+			{pixmap_footer, BF_STOCK_FOOTER},
+			{pixmap_header, BF_STOCK_HEADER},
+			{pixmap_hgroup, BF_STOCK_HGROUP},
+			{pixmap_mark, BF_STOCK_MARK},
+			{pixmap_nav, BF_STOCK_NAV},
+			{pixmap_rp, BF_STOCK_RP},
+			{pixmap_rt, BF_STOCK_RT},
+			{pixmap_ruby, BF_STOCK_RUBY},
+			{pixmap_section, BF_STOCK_SECTION},
+			{pixmap_audio, BF_STOCK_AUDIO},
+			{pixmap_video, BF_STOCK_VIDEO},
+			{pixmap_canvas, BF_STOCK_CANVAS},
+			{pixmap_html5time, BF_STOCK_HTML5TIME},
 	};
 
 	GtkIconFactory *icon_factory;
 	GtkIconSet *icon_set;
-	GtkIconSource *icon_source;
-	gchar *filename;
 	gint i;
 
 	icon_factory = gtk_icon_factory_new();
 
 	for (i = 0; i < G_N_ELEMENTS(htmlbar_stock_icons); i++) {
-		icon_set = gtk_icon_set_new();
-		icon_source = gtk_icon_source_new();
+		GdkPixbuf *pixbuf;
+		
+		pixbuf = gdk_pixbuf_new_from_inline(-1,htmlbar_stock_icons[i].data,FALSE,NULL);
+		icon_set = gtk_icon_set_new_from_pixbuf(pixbuf);
+		g_object_unref(pixbuf);
 
-		filename = g_strconcat(HTMLBAR_PIXMAP_DIR, htmlbar_stock_icons[i].filename, NULL);
-		gtk_icon_source_set_filename(icon_source, filename);
-		g_free(filename);
-
-		gtk_icon_set_add_source(icon_set, icon_source);
-		gtk_icon_source_free(icon_source);
 		gtk_icon_factory_add(icon_factory, htmlbar_stock_icons[i].stock_id, icon_set);
 		gtk_icon_set_unref(icon_set);
 	}

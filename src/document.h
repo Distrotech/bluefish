@@ -42,13 +42,15 @@ typedef void (*foreachdocfunc) (Tdocument * doc, gpointer data);
 void alldocs_foreach(foreachdocfunc func, gpointer data);
 gint have_modified_documents(GList * doclist);
 GList *return_urilist_from_doclist(GList * doclist);
+void add_filename_to_recentlist(Tbfwin * bfwin, GFile * uri);
+
 gint documentlist_return_index_from_uri(GList * doclist, GFile * uri);
 Tdocument *documentlist_return_document_from_uri(GList * doclist, GFile * uri);
 Tdocument *documentlist_return_document_from_index(GList * doclist, gint index);
 gint document_return_num_notcomplete(GList * doclist);
 
 void doc_update_highlighting(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
-void doc_set_wrap(Tdocument * doc);
+void doc_set_wrap(Tdocument * doc, gboolean enabled);
 void doc_set_tooltip(Tdocument * doc);
 void doc_set_title(Tdocument * doc);
 void doc_set_mimetype(Tdocument * doc, const gchar * mimetype, const gchar * filename);
@@ -74,7 +76,6 @@ void doc_select_line(Tdocument * doc, gint line, gboolean do_scroll);
 void doc_select_line_by_offset(Tdocument * doc, gint offset, gboolean do_scroll);
 gboolean doc_get_selection(Tdocument * doc, gint * start, gint * end);
 gint doc_get_cursor_position(Tdocument * doc);
-void doc_set_statusbar_insovr(Tdocument * doc);
 /*void doc_set_statusbar_mimetype_encoding(Tdocument *doc);*/
 
 /* the prototype for these functions is changed!! */
@@ -85,8 +86,11 @@ void doc_insert_two_strings(Tdocument * doc, const gchar * before_str, const gch
 gchar *buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gchar * sessionencoding);
 gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo,
 							   gboolean delay);
-void doc_bind_signals(Tdocument * doc);
-void doc_unbind_signals(Tdocument * doc);
+
+#define doc_block_undo_reg(doc) ((Tdocument *)doc)->block_undo_reg = 1;
+#define doc_unblock_undo_reg(doc) ((Tdocument *)doc)->block_undo_reg = 0;
+
+void update_encoding_meta_in_file(Tdocument * doc, gchar * encoding);
 gchar *doc_get_buffer_in_encoding(Tdocument * doc);
 /* gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename); */
 void doc_set_fileinfo(Tdocument * doc, GFileInfo * finfo);
@@ -102,8 +106,6 @@ void doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolea
 					  gboolean move_to_this_win, gint goto_line, gint goto_offset);
 void doc_new_from_input(Tbfwin * bfwin, gchar * input, gboolean delay_activate, gboolean move_to_this_win,
 						gint goto_line);
-Tdocument *doc_new_with_file(Tbfwin * bfwin, gchar * filename, gboolean delay_activate,
-							 gboolean move_to_this_win);
 void docs_new_from_files(Tbfwin * bfwin, GList * file_list, gboolean move_to_this_win);
 void doc_reload(Tdocument * doc, GFileInfo * newfinfo, gboolean warn_user);
 void doc_start_modified_check(Tdocument * doc);

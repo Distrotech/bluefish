@@ -92,7 +92,7 @@ ShowUninstDetails show
 
 ; Installer version information
 ;----------------------------------------------
-VIProductVersion "2.0.2.0"
+VIProductVersion "2.2.0.0"
 VIAddVersionKey "ProductName" "${PRODUCT}"
 VIAddVersionKey "FileVersion" "${VERSION}"
 VIAddVersionKey "ProductVersion" "${VERSION}"
@@ -176,14 +176,20 @@ ${LoadLocalization}	"FRENCH"	"locale\French.nsh"
 ${LoadLocalization}	"GALICIAN"	"locale\Galician.nsh"
 !insertmacro MUI_LANGUAGE	"German" 	; 1031
 ${LoadLocalization}	"GERMAN"	"locale\German.nsh"
+!insertmacro MUI_LANGUAGE	"Hungarian" 	; 1038
+${LoadLocalization}	"HUNGARIAN"	"locale\Hungarian.nsh"
 !insertmacro MUI_LANGUAGE	"Italian" 	; 1040
 ${LoadLocalization}	"ITALIAN"	"locale\Italian.nsh"
 !insertmacro MUI_LANGUAGE	"Japanese" 	; 1041
 ${LoadLocalization}	"JAPANESE"	"locale\Japanese.nsh"
 !insertmacro MUI_LANGUAGE	"Norwegian" ; 2068
 ${LoadLocalization}	"NORWEGIAN"	"locale\Norwegian.nsh"
+;!insertmacro MUI_LANGUAGE "NorwegianNynorsk"  ; 2068
+;${LoadLocalization} "NYNORSK" "locale\NorwegianNynorsk.nsh"
 !insertmacro MUI_LANGUAGE	"Swedish" 	; 1053
 ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
+!insertmacro MUI_LANGUAGE	"SimpChinese" 	; 2052
+${LoadLocalization}	"SIMPLE CHINESE"	"locale\SimpChinese.nsh"
 !insertmacro MUI_LANGUAGE	"Ukrainian" ; 1058
 ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
 ; Translations needed for the following commented languages
@@ -191,7 +197,6 @@ ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
 ;;!insertmacro MUI_LANGUAGE	"Danish" 	; 1030
 ;;!insertmacro MUI_LANGUAGE	"Finnish" 	; 1035
 ;;!insertmacro MUI_LANGUAGE	"Greek" 	; 1032
-;;!insertmacro MUI_LANGUAGE	"Hungarian" 	; 1038
 ;;!insertmacro MUI_LANGUAGE	"Korean" 	; 1042
 ;;!insertmacro MUI_LANGUAGE	"Polish" 	; 1045
 ;;!insertmacro MUI_LANGUAGE	"Portuguese" 	; 2070
@@ -199,7 +204,6 @@ ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
 ;;!insertmacro MUI_LANGUAGE	"Romanian" 	; 1048
 ;;!insertmacro MUI_LANGUAGE	"Russian" 	; 1049
 ;;!insertmacro MUI_LANGUAGE	"Serbian" 	; 3098
-;;!insertmacro MUI_LANGUAGE	"SimpChinese" 	; 2052
 ;;!insertmacro MUI_LANGUAGE	"Slovak" 	; 1051
 ;;!insertmacro MUI_LANGUAGE	"Spanish" 	; 1034
 ;;!insertmacro MUI_LANGUAGE	"TradChinese" 	; 1028
@@ -403,7 +407,7 @@ SectionGroup /e "$(SECT_DICT)" SecLang
 		${InstallAspellDict} "nl" "0.50-2"
 	SectionEnd
 	Section /o "English" SecLangEn
-		${InstallAspellDict} "en" "6.0-0"
+		${InstallAspellDict} "en" "7.1-0"
 	SectionEnd
 	Section /o "Finnish" SecLangFi
 		${InstallAspellDict} "fi" "0.7-0"
@@ -428,6 +432,9 @@ SectionGroup /e "$(SECT_DICT)" SecLang
 	SectionEnd
 	Section /o "Norwegian" SecLangNb
 		${InstallAspellDict} "nb" "0.50.1-0"
+	SectionEnd
+	Section /o "Norwegian Nynorsk" SecLangNn
+		${InstallAspellDict} "nn" "0.50.1-1"
 	SectionEnd
 	Section /o "Portuguese" SecLangPt_PT
 		${InstallAspellDict} "pt_PT" "20070510-0"

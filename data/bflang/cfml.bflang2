@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		cfml.bflang2 $$Revision: 6419 $
+		cfml.bflang2 $$Revision$
  
 		Copyright (C) 2008-2011 Olivier Sessink
 
@@ -32,7 +32,7 @@
 	<mime type="application/x-cfml"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
-
+	<option name="show_in_menu" default="0"/>
 	<option name="javascript_anchors_object" default="1" description="Anchors object" />
 	<option name="javascript_applets_object" default="1" description="Applet object" />
 	<option name="javascript_date_object" default="1" description="Date object" />
@@ -47,7 +47,7 @@
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
 	<option name="javascript_css_properties" default="1" description="CSS properties" />
-
+	<option name="autocomplete-html-entities" default="0" description="HTML entities" />
 	<highlight name="brackets" style="brackets" />
 	<highlight name="cfml-attribute" style="special-keyword" />
 	<highlight name="comment" style="comment" />

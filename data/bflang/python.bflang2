@@ -23,6 +23,7 @@
 <header> 
 	<mime type="application/x-python"/>
 	<mime type="text/x-python" />
+	<option name="show_in_menu" default="1"/>
 	<highlight name="string" style="string"  />
 	<highlight name="brackets" style="brackets"  />
 	<highlight name="keyword" style="keyword"  />
@@ -46,9 +47,9 @@
 <element pattern="and" />
 <element pattern="assert" />
 <element pattern="break" />
-<element pattern="class" identifier_mode="1" />
+<element pattern="class" identifier_mode="1" identifier_jump="1" identifier_autocomp="1"/>
 <element pattern="continue" />
-<element pattern="def" identifier_mode="1" />
+<element pattern="def" identifier_mode="1" identifier_jump="1" identifier_autocomp="1" />
 <element pattern="del" />
 <element pattern="elif" />
 <element pattern="else" />
@@ -788,7 +789,6 @@
 <element pattern="ftplib.sum" />
 <element pattern="ftplib.super" />
 <element pattern="ftplib.tuple" />
-<element pattern="ftplib.type" />
 <element pattern="ftplib.type" />
 <element pattern="ftplib.unichr" />
 <element pattern="ftplib.unicode" />
@@ -1748,20 +1748,17 @@
 <element pattern="textwrap.dedent" />
 <element pattern="textwrap.TextWrapper" />
 <element pattern="threading.activeCount" />
-<element pattern="threading.Condition" />
 <element pattern="threading.currentThread" />
 <element pattern="threading.enumerate" />
 <element pattern="threading.Event" />
 <element pattern="threading.Lock" />
 <element pattern="threading.RLock" />
-<element pattern="threading.Semaphore" />
 <element pattern="threading.BoundedSemaphore" />
 <element pattern="threading.settrace" />
 <element pattern="threading.setprofile" />
 <element pattern="threading.stack_size" />
 <element pattern="threading.Condition" />
 <element pattern="threading.Semaphore" />
-<element pattern="threading.Event" />
 <element pattern="threading.Thread" />
 <element pattern="threading.Timer" />
 <element pattern="thread.start_new_thread" />
@@ -1935,9 +1932,6 @@
 <element pattern="weakref.getweakrefs" />
 <element pattern="weakref.WeakKeyDictionary" />
 <element pattern="weakref.WeakValueDictionary" />
-<element pattern="webbrowser.open" />
-<element pattern="webbrowser.open_new" />
-<element pattern="webbrowser.open_new_tab" />
 <element pattern="webbrowser.get" />
 <element pattern="webbrowser.register" />
 <element pattern="webbrowser.open" />

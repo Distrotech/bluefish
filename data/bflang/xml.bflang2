@@ -23,6 +23,7 @@
 <header>
 	<mime type="text/xml"/>
 	<mime type="application/xml"/>
+	<option name="show_in_menu" default="1"/>
 	<highlight name="assignment" style="brackets" />
 	<highlight name="attribute" style="attribute" />
 	<highlight name="comment" style="comment" />
@@ -67,7 +68,7 @@
 			<element idref="e.xml.doublequote"/>
 			<element idref="e.xml.singlequote"/>
 			<element pattern="/&gt;" highlight="tag" ends_context="1" ends_block="1" blockstartelement="e.xml.tag.open" />
-			<element pattern="&gt;" highlight="tag">
+			<element pattern="&gt;" highlight="tag" blockstartelement="e.xml.tag.open" stretch_blockstart="1">
 				<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 					<element pattern="&lt;/[_a-zA-Z0-9:-]+&gt;" is_regex="1" highlight="tag" ends_context="2"  ends_block="1" blockstartelement="e.xml.tag.open" />
 					<element idref="e.xml.tag.open"/>

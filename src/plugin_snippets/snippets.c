@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <string.h>
 #include "snippets.h"
@@ -40,7 +40,7 @@ static void snippets_init(void) {
 					NULL,g_free);
 	snippets_v.store = gtk_tree_store_new(NUM_COLUMNS /* Total number of columns */,GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,snippets_sidepanel_initgui);
-	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);
+/*	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);*/
 	snippets_load();
 	
 	DEBUG_MSG("snippets_init finished, store=%p, lookup=%p\n",snippets_v.store, snippets_v.lookup);
@@ -67,11 +67,13 @@ Tsnippetswin *snippets_get_win(Tbfwin *bfwin) {
 	return snw;	
 }
 static void snippets_initgui(Tbfwin* bfwin) {
+	DEBUG_MSG("snippets_initgui for bfwin %p\n",bfwin);
 	snippets_create_gui(bfwin);
 }
 static void snippets_enforce_session(Tbfwin* bfwin) {
 	Tsnippetssession *sns;
 	Tsnippetswin *snw;
+	DEBUG_MSG("snippets_enforce_session, bfwin=%p\n",bfwin);
 	sns = g_hash_table_lookup(snippets_v.lookup,bfwin->session);
 	snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
 	if (sns && snw) {
@@ -79,13 +81,22 @@ static void snippets_enforce_session(Tbfwin* bfwin) {
 	}
 }
 static void snippets_cleanup(void) {
+	DEBUG_MSG("snippets_cleanup\n");
 	g_hash_table_unref(snippets_v.lookup);
 	g_object_unref(snippets_v.store);
 	main_v->sidepanel_initgui = g_slist_remove(main_v->sidepanel_initgui,snippets_sidepanel_initgui);
-	main_v->sidepanel_destroygui = g_slist_remove(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);
+/*	main_v->sidepanel_destroygui = g_slist_remove(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);*/
 }
 
 static void snippets_cleanup_gui(Tbfwin *bfwin) {
+	Tsnippetswin *snw;
+	DEBUG_MSG("snippets_cleanup_gui\n");
+	snw = snippets_get_win(bfwin);
+	if (snw) {
+		DEBUG_MSG("snippets_cleanup_gui, remove accelerators from bfwin %p\n",bfwin);
+		gtk_window_remove_accel_group(GTK_WINDOW(snw->bfwin->main_window), snw->accel_group);
+		g_object_unref(G_OBJECT(snw->accel_group));
+	}	
 	/* BUG: clean the keys and structures in the hashtable */
 	g_hash_table_remove(snippets_v.lookup,bfwin);
 }
@@ -109,6 +120,7 @@ static void snippets_session_cleanup(Tsessionvars *session) {
 static TBluefishPlugin bfplugin = {
 	"Code Snippets",
 	BFPLUGIN_VERSION,
+	GTK_MAJOR_VERSION,
 	sizeof(Tdocument),
 	sizeof(Tsessionvars),
 	sizeof(Tglobalsession),

@@ -32,8 +32,10 @@
 <bflang name="Generic HTML" version="2.0" table="13537" contexts="138" matches="2736">
 <header>
 	<mime type="text/html"/>
+	<mime type="text/plain?shtml"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
+	<option name="show_in_menu" default="1"/>
 	<option name="autocomplete_tags" default="1" />
 	<option name="javascript_anchors_object" default="1" description="Anchors object" />
 	<option name="javascript_applets_object" default="1" description="Applet object" />
@@ -49,6 +51,7 @@
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
 	<option name="javascript_css_properties" default="1" description="CSS properties" />
+	<option name="autocomplete-html-entities" default="0" description="HTML entities" />
 	<highlight name="html-tag" style="tag" />
 	<highlight name="html-reference-external-tag" style="special-tag" />
 	<highlight name="html-table-tag" style="special-tag2" />

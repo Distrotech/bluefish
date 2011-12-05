@@ -1,7 +1,16 @@
 
 AUTOMAKE_OPTIONS = std-options
 
-SUBDIRS = pixmaps plugin_about plugin_entities plugin_htmlbar plugin_infbrowser plugin_snippets plugin_charmap
+SUBDIRS = pixmaps\
+	plugin_about\
+	plugin_entities\
+	plugin_htmlbar\
+	plugin_infbrowser\
+	plugin_snippets\
+	plugin_charmap\
+	plugin_zencoding
+
+#	plugin_xmltools
 
 EXTRA_DIST = bluefish_rc.rc.in.in resource.h
 
@@ -26,6 +35,8 @@ bin_PROGRAMS = bluefish
 
 
 bluefish_SOURCES = \
+	async_queue.c \
+	async_queue.h \
 	bf_lib.c \
 	bf_lib.h \
 	blocksync.c \
@@ -60,10 +71,10 @@ bluefish_SOURCES = \
 	doc_text_tools.h \
 	doc_text_tools.c \
 	document.h \
-	encodings_dialog.c \
-	encodings_dialog.h \
 	embed_python.c \
 	embed_python.h \
+	encodings_dialog.c \
+	encodings_dialog.h \
 	external_commands.c \
 	external_commands.h \
 	filebrowser2.c \
@@ -98,8 +109,10 @@ bluefish_SOURCES = \
 	project.h \
 	rcfile.c \
 	rcfile.h \
-	snr2.c \
-	snr2.h \
+	snr3.c \
+	snr3.h \
+	snr3_files.c \
+	snr3_files.h \
 	stringlist.c \
 	stringlist.h \
 	undo_redo.c \

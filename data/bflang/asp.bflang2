@@ -24,6 +24,7 @@
 	<mime type="application/x-asp0"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
+	<option name="show_in_menu" default="1"/>
 	<highlight name="attribute" style="attribute" />
 	<highlight name="brackets" style="brackets" />
 	<highlight name="comment" style="comment" />
@@ -106,7 +107,6 @@
 		<element pattern="cdec" />
 		<element pattern="cdbl" />
 		<element pattern="cint" />
-		<element pattern="class" />
 		<element pattern="clng" />
 		<element pattern="codepage" />
 		<element pattern="const" />
@@ -115,25 +115,20 @@
 		<element pattern="cstr" />
 		<element pattern="default" />
 		<element pattern="dim" />
-		<element pattern="do" />
 		<element pattern="each" />
 		<element pattern="else" />
 		<element pattern="elseif" />
 		<element pattern="end" />
 		<element pattern="exit" />
 		<element pattern="explicit" />
-		<element pattern="for" />
-		<element pattern="function" />
 		<element pattern="goto" />
 		<element pattern="if" />
 		<element pattern="in" />
 		<element pattern="is" />
 		<element pattern="language" />
 		<element pattern="let" />
-		<element pattern="loop" />
 		<element pattern="mod" />
 		<element pattern="new" />
-		<element pattern="next" />
 		<element pattern="not" />
 		<element pattern="option" />
 		<element pattern="or" />
@@ -141,18 +136,12 @@
 		<element pattern="private" />
 		<element pattern="public" />
 		<element pattern="redim" />
-		<element pattern="rem" />
 		<element pattern="resume" />
-		<element pattern="select" />
 		<element pattern="set" />
 		<element pattern="step" />
-		<element pattern="sub" />
 		<element pattern="then" />
 		<element pattern="to" />
 		<element pattern="until" />
-		<element pattern="wend" />
-		<element pattern="while" />
-		<element pattern="with" />
 		<element pattern="xor" />
 		</group>
 		<element pattern="TRUE" autocomplete="1" case_insens="1" highlight="value"/>

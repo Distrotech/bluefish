@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * external_commands.c - backend for external commands, filters and the outputbox
  *
- * Copyright (C) 2005-2010 Olivier Sessink
+ * Copyright (C) 2005-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -125,6 +125,10 @@ static void externalp_unref(Texternalp *ep) {
 			g_free(ep->securedir);
 		}
 		g_free(ep);
+		if (ep->channel_in)
+			g_io_channel_unref(ep->channel_in);
+		if (ep->channel_out)
+			g_io_channel_unref(ep->channel_out);
 	}
 }
 
@@ -579,6 +583,13 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition condition,gpointer data) {
 	Texternalp *ep = data;
 	DEBUG_MSG("outputbox_io_watch_lcb, called with condition %d\n",condition);
+	if (!ep->bfwin->outputbox) {
+		DEBUG_MSG("outputbox_io_watch_lcb, outputbox == NULL, close the channel\n");
+		g_io_channel_shutdown(channel,TRUE,NULL);
+		externalp_unref(ep);
+		return FALSE;		
+	}
+	
 	if (condition & G_IO_IN) {
 		gchar *buf=NULL;
 		gsize buflen=0,termpos=0;
@@ -588,8 +599,8 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 			if (buflen > 0) {
 				if (termpos < buflen) buf[termpos] = '\0';
 				fill_output_box(ep->bfwin->outputbox, buf);
-				g_free(buf);
 			}
+			g_free(buf);
 			status = g_io_channel_read_line(channel,&buf,&buflen,&termpos,&gerror);
 		}
 		if (gerror) {

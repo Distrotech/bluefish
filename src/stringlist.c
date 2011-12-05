@@ -235,7 +235,7 @@ GList *list_from_arglist(gboolean allocate_strings, ...) {
 	va_start(args, allocate_strings);
 	s = va_arg(args, gchar*);
 	while (s) {
-		retval = g_list_append(retval, s);
+		retval = g_list_append(retval, allocate_strings ? g_strdup(s) : s);
 		s = va_arg (args, gchar*);
 	}
 	va_end (args);
@@ -464,40 +464,61 @@ gboolean put_stringlist_limited(GFile * file, GList * which_list, gint maxentrie
 	return TRUE;
 }*/
 
+/**
+ * stringlist_to_string:
+ * @stringlist: a #GList * to convert
+ * @delimiter: a #const gchar * item with the delimiter
+ * 
+ * this function will convert a stringlist (GList that contains 
+ * only \0 terminated gchar* elements) to a string, putting the 
+ * delimiter inbetween all elements;
+ * 
+ * Return value: the gchar *
+ **/
+gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
+	GString *strbuffer;
+	GList *tmplist;
+	strbuffer = g_string_sized_new(4096);
+	for (tmplist=g_list_first(stringlist);tmplist;tmplist=g_list_next(tmplist)) {
+		strbuffer = g_string_append(strbuffer,(char *) tmplist->data);
+		strbuffer = g_string_append(strbuffer,(char *) delimiter);
+	}
+	return g_string_free(strbuffer, FALSE);
+}
+gchar *arraylist_to_string(GList *arraylist, gchar *delimiter) {
+	GString *strbuffer;
+	GList *tmplist;
+	strbuffer = g_string_sized_new(4096);
+	for (tmplist=g_list_first(arraylist);tmplist;tmplist=g_list_next(tmplist)) {
+		gchar *tmp = array_to_string(tmplist->data);
+		strbuffer = g_string_append(strbuffer,tmp);
+		g_free(tmp);
+		strbuffer = g_string_append(strbuffer,(char *) delimiter);
+	}
+	return g_string_free(strbuffer, FALSE);	
+}
+
 gboolean put_stringlist(GFile * file, GList * which_list, gboolean is_arraylist) {
 	/*return put_stringlist_limited(file,which_list, -1, is_arraylist);*/
-	GString *strbuffer;
+	gchar *buf;
 	GError *gerror=NULL;
-	GList *tmplist = g_list_first(which_list);;
-	
-	strbuffer = g_string_sized_new(1024);
 	if (is_arraylist) {
-		while (tmplist) {
-			gchar *tmp = array_to_string(tmplist->data);
-			strbuffer = g_string_append(strbuffer,tmp);
-			g_free(tmp);
-			strbuffer = g_string_append_c(strbuffer,'\n');
-			tmplist = g_list_next(tmplist);
-		}
+		buf = arraylist_to_string(which_list, "\n");
 	} else {
-		while (tmplist) {
-			strbuffer = g_string_append(strbuffer,(char *) tmplist->data);
-			strbuffer = g_string_append_c(strbuffer,'\n');
-			tmplist = g_list_next(tmplist);
-		}
+		buf = stringlist_to_string(which_list, "\n");
 	}
-	g_file_replace_contents(file,strbuffer->str,strbuffer->len
+	g_file_replace_contents(file,buf,strlen(buf)
 				,NULL,FALSE,G_FILE_CREATE_PRIVATE,NULL,NULL,&gerror);
 	if (gerror) {
 		g_warning("save stringlist error %d %s\n",gerror->code,gerror->message);
 		g_error_free(gerror);
 		return FALSE;
 	}
-	g_string_free(strbuffer,TRUE);
+	g_free(buf);
 	return TRUE;
 }
 
-GList *remove_from_stringlist(GList *which_list, const gchar * string) {
+/*GList *remove_from_stringlist(GList *which_list, const gchar * string) {
 	if (string && strlen(string) ) {
 		GList *tmplist = g_list_first(which_list);
 		while (tmplist) {
@@ -511,7 +532,7 @@ GList *remove_from_stringlist(GList *which_list, const gchar * string) {
 	}
 	return which_list;
 }
-
+*/
 static void unlink_before(GList *tmplist) {
 	GList *prev = tmplist->prev;
 	DEBUG_MSG("unlink_before, freeing starting at %s\n",(gchar *)tmplist->data);
@@ -539,6 +560,15 @@ GList *limit_stringlist(GList *which_list, gint num_entries, gboolean keep_end) 
 	return retlist;
 }
 
+GList *find_in_stringlist(GList *thelist, const gchar *string) {
+	GList *list;
+	for (list=g_list_first(thelist);list;list=list->next) {
+		if (g_strcmp0(string, list->data)==0)
+			return list;
+	}
+	return NULL;
+} 
+
 /**
  * add_to_history_stringlist:
  * @which_list: #GList* the list to add to
@@ -555,26 +585,25 @@ GList *limit_stringlist(GList *which_list, gint num_entries, gboolean keep_end) 
  * Return value: GList* with the modified list
  */
 GList *add_to_history_stringlist(GList *which_list, const gchar *string, gboolean recent_on_top, gboolean move_if_exists) {
-	if (string && strlen(string) ) {
-		GList *tmplist = g_list_first(which_list);
-		while (tmplist) {
-			if (strcmp((gchar *) tmplist->data, string) == 0) {
-				/* move this entry to the end */
-				if (move_if_exists) {
-					DEBUG_MSG("add_to_history_stringlist, entry %s exists, moving!\n", string);
-					which_list = g_list_remove_link(which_list, tmplist);
-					if (recent_on_top) {
-						return g_list_concat(tmplist, which_list);
-					} else {
-						return g_list_concat(which_list, tmplist);
-					}
-				} else {
-					return which_list;
-				}
+	GList *tmplist;
+	if (!string || string[0]=='\0' )
+		return which_list;
+	
+	tmplist = find_in_stringlist(which_list, string);
+	if (tmplist) {
+		/* move this entry to the end */
+		if (move_if_exists) {
+			DEBUG_MSG("add_to_history_stringlist, entry %s exists, moving!\n", string);
+			which_list = g_list_remove_link(which_list, tmplist);
+			if (recent_on_top) {
+				return g_list_concat(tmplist, which_list);
+			} else {
+				return g_list_concat(which_list, tmplist);
 			}
-			tmplist = g_list_next(tmplist);
+		} else {
+			return which_list;
 		}
-		/* if we arrive here the string was not yet in the list */
+	} else {
 		DEBUG_MSG("add_to_history_stringlist, adding new entry %s\n",string);
 		if (recent_on_top) {
 			which_list = g_list_prepend(which_list, g_strdup(string));
@@ -609,31 +638,6 @@ GList *add_to_stringlist(GList * which_list, const gchar * string) {
 		which_list = g_list_append(which_list, g_strdup(string));
 	}
 	return which_list;
-}
-/**
- * stringlist_to_string:
- * @stringlist: a #GList * to convert
- * @delimiter: a #const gchar * item with the delimiter
- * 
- * this function will convert a stringlist (GList that contains 
- * only \0 terminated gchar* elements) to a string, putting the 
- * delimiter inbetween all elements;
- * 
- * Return value: the gchar *
- **/
-gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
-	gchar *string, *tmp;
-	GList *tmplist;
-	string = g_strdup("");
-	tmp = string;
-	tmplist = g_list_first(stringlist);
-	while (tmplist) {
-		string = g_strconcat(tmp, (gchar *) tmplist->data, delimiter, NULL);
-		g_free(tmp);
-		tmp = string;
-		tmplist = g_list_next(tmplist);
-	}
-	return string;
 }
 
 /**
@@ -671,6 +675,7 @@ gint array_n_strings_identical(const gchar **array1, const gchar **array2, gbool
 	}
 	return res;
 }
+#ifdef OBSOLETE
 /**
  * arraylist_delete_identical:
  * @thelist: #GList*
@@ -742,7 +747,7 @@ GList *arraylist_append_identical_from_file(GList *thelist, const gchar *sourcef
 	free_arraylist(sourcelist);
 	return thelist;
 }*/
-
+#endif
 /**
  * arraylist_value_exists:
  * @arraylist: #GList*
@@ -770,6 +775,7 @@ gchar **arraylist_value_exists(GList *arraylist, const gchar **value, gint testl
 /*	g_print("arraylist_value_exists,found nothing, listlen=%d\n",g_list_length(arraylist));*/
 	return NULL;
 }
+#ifdef OBSOLETE
 /**
  * arraylist_load_new_identifiers_from_list:
  * @mylist: #GList*
@@ -818,6 +824,7 @@ GList *arraylist_load_new_identifiers_from_file(GList *mylist, const gchar *from
 	free_arraylist(deflist);
 	return mylist;	
 }*/
+#endif
 
 /* pure for debugging purposes */
 #ifdef DEVELOPMENT

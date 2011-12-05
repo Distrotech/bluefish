@@ -22,14 +22,14 @@
 
 
 guint new_unre_action_id(void);
-void doc_unre_add(Tdocument * doc, const char *text, int start, int end, undo_op_t op);
-void doc_unre_new_group_action_id(Tdocument * doc, guint action_id);
+void doc_unre_add(Tdocument * doc, const gchar *text, guint32 start, guint32 end, undo_op_t op);
+void doc_unre_new_group_action_id(Tdocument * doc, guint32 action_id);
 void doc_unre_new_group(Tdocument * doc);
 void doc_unre_init(Tdocument * doc);
 void doc_unre_destroy(Tdocument * doc);
 void doc_unre_clear_all(Tdocument * doc);
 gint doc_undo_op_compare(Tdocument * doc, undo_op_t testfor, gint position);
-gboolean doc_unre_test_last_entry(Tdocument * doc, undo_op_t testfor, gint start, gint end);
+gboolean doc_unre_test_last_entry(Tdocument * doc, undo_op_t testfor, guint32 start, guint32 end);
 void redo(Tbfwin * bfwin);
 void undo(Tbfwin * bfwin);
 void redo_all(Tbfwin * bfwin);

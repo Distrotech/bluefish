@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 		Bluefish HTML Editor
-		all-html.bfinc $Revision: 6322 $
+		all-html.bfinc $Revision$
  
 		Copyright (C) 2008-2011 Olivier Sessink
 
@@ -18,10 +18,14 @@
 		You should have received a copy of the GNU General Public License
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
+<bfinc>
 
 <element id="e.html.lcomment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
 	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
 		<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.lcomment" highlight="html-comment" mayfold="1" ends_context="1" />
+		<group class="is_ASP-VBS">
+			<element pattern="#include" highlight="asp-keyword" case_insens="1" />
+		</group>		
 	</context>
 </element>
 
@@ -45,7 +49,7 @@
 </tag>
 
 <tag id="t.html.script" name="script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,event,language,for,src,type" attribhighlight="html-attribute" autocomplete_append=" type=&quot;text/javascript&quot; &gt;&#10;&#10;&lt;/script&gt;" autocomplete_backup_cursor="10">
-	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="cm.cpplinecomment"  commentid_block="none">
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="cm.cpplinecomment"  commentid_block="cm.cblockcomment">
 		<element pattern="(" id="e.html.js.lparen" starts_block="1" highlight="js-brackets" />
 		<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lparen" />
 		<element pattern="{" id="e.html.js.lbrace" starts_block="1" highlight="js-brackets" />
@@ -56,13 +60,13 @@
 		<element pattern="//" highlight="js-comment">
 			<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
 				<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="js-comment" ends_context="1" />
-				<element pattern="&lt;/script&gt;" highlight="html-tag" ends_context="3" case_insens="1" ends_block="1" blockstartelement="t.html.script"/>
+				<element id="end-script-js-comment" pattern="&lt;/script&gt;" highlight="html-tag" ends_context="2" case_insens="1" ends_block="1" blockstartelement="t.html.script"/>
 			</context>
 		</element>
 		<element id="e.html.js.blockcomment" pattern="/*" starts_block="1" highlight="js-comment">
 			<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
 				<element pattern="*/" ends_block="1" blockstartelement="e.html.js.blockcomment" highlight="js-comment" mayfold="1" ends_context="1" />
-				<element pattern="&lt;/script&gt;" highlight="html-tag" case_insens="1" ends_context="3" ends_block="1" blockstartelement="t.html.script"/>
+				<element id="end-script-js-blockcomment" pattern="&lt;/script&gt;" highlight="html-tag" case_insens="1" ends_context="2" ends_block="1" blockstartelement="t.html.script"/>
 			</context>
 		</element>
 		<element idref="e.html.lcomment"/>
@@ -70,7 +74,7 @@
 </tag>
 
 <tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;,media,title,type" attribhighlight="html-attribute" autocomplete_append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" autocomplete_backup_cursor="9" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
-	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;,:+~[]" commentid_block="cm.cblockcomment" commentid_line="none">
+	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[]," commentid_block="cm.cblockcomment" commentid_line="none">
 		<element idref="e.html.lcomment"/>
 		<element id="e.html.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
@@ -78,6 +82,29 @@
 			</context>
 		</element>
 		&css-selectors;
+		<group highlight="css-html-media">
+			<element pattern="@media">
+			<context symbols=" &#9;&#10;&#13;{}.;,">
+				<group highlight="css-html-media" autocomplete="1">
+					<element pattern="all" />
+					<element pattern="aural" />
+					<element pattern="braille" />
+					<element pattern="embossed" />
+					<element pattern="handheld" />
+					<element pattern="print" />
+					<element pattern="projection" />
+					<element pattern="screen" />
+					<element pattern="tty" />
+					<element pattern="tv" />
+					<element id="e.css.media.group.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
+						<context idref="c.html.css.main" />
+					</element>
+				</group>
+			</context>
+			</element>
+			<!-- the next pattern ends 2 contexts because the context c.html.css.main can be called recursively by a media selector -->
+			<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.group.lbrace" ends_context="2" />
+		</group>
 		<element id="e.css.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';/*">
 				<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
@@ -86,7 +113,7 @@
 					</context>
 				</element>
 				&css-rules;
-				<element pattern="&lt;/style&gt;" highlight="html-tag" ends_context="3" />
+				<element id="end-style-tag" pattern="&lt;/style&gt;" highlight="html-tag" ends_context="3" />
 				<element pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="1" />
 			</context>
 		</element>
@@ -97,7 +124,7 @@
 	<reference>Defines the relationship between a document and an external resource </reference>
 </tag>
 
-<tag name="body" highlight="html-tag" case_insens="1" sgml_shorttag="1" autocomplete_append="&gt;&#10;&#10;&lt;/body&gt;" autocomplete_backup_cursor="8" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;">
+<tag name="body" highlight="html-tag" case_insens="1" sgml_shorttag="1" autocomplete_append="&gt;&#10;&#10;&lt;/body&gt;" autocomplete_backup_cursor="8" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;" attribhighlight="html-attribute">
 	<reference>Defines the document's body</reference>
 </tag>
 
@@ -135,10 +162,10 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<tag name="b" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Render content in bold face</reference>
 	</tag>
-	<tag name="bdo" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,dir">
+	<tag name="bdo" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;">
 		<reference>Defines/overrides the text direction (right-to-left or left-to-right)</reference>
 	</tag>
-	<tag name="big" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,dir">
+	<tag name="big" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;">
 		<reference>Renders content as bigger text</reference>
 	</tag>
 	<tag name="blockquote" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,cite">
@@ -394,4 +421,265 @@ Initial text here.
 	</tag>
 </group>
 
+<group class="autocomplete-html-entities" highlight="html-entity" autocomplete="1">
+<element pattern="&amp;OElig;" />
+<element pattern="&amp;oelig;" />
+<element pattern="&amp;Scaron;" />
+<element pattern="&amp;scaron;" />
+<element pattern="&amp;Yuml;" />
+<element pattern="&amp;circ;" />
+<element pattern="&amp;tilde;" />
+<element pattern="&amp;ensp;" />
+<element pattern="&amp;emsp;" />
+<element pattern="&amp;thinsp;" />
+<element pattern="&amp;zwnj;" />
+<element pattern="&amp;zwj;" />
+<element pattern="&amp;lrm;" />
+<element pattern="&amp;rlm;" />
+<element pattern="&amp;ndash;" />
+<element pattern="&amp;mdash;" />
+<element pattern="&amp;lsquo;" />
+<element pattern="&amp;rsquo;" />
+<element pattern="&amp;sbquo;" />
+<element pattern="&amp;ldquo;" />
+<element pattern="&amp;rdquo;" />
+<element pattern="&amp;bdquo;" />
+<element pattern="&amp;dagger;" />
+<element pattern="&amp;Dagger;" />
+<element pattern="&amp;permil;" />
+<element pattern="&amp;lsaquo;" />
+<element pattern="&amp;rsaquo;" />
+<element pattern="&amp;euro;" />
+<element pattern="&amp;fnof;" />
+<element pattern="&amp;Alpha;" />
+<element pattern="&amp;Beta;" />
+<element pattern="&amp;Gamma;" />
+<element pattern="&amp;Delta;" />
+<element pattern="&amp;Epsilon;" />
+<element pattern="&amp;Zeta;" />
+<element pattern="&amp;Eta;" />
+<element pattern="&amp;Theta;" />
+<element pattern="&amp;Iota;" />
+<element pattern="&amp;Kappa;" />
+<element pattern="&amp;Lambda;" />
+<element pattern="&amp;Mu;" />
+<element pattern="&amp;Nu;" />
+<element pattern="&amp;Xi;" />
+<element pattern="&amp;Omicron;" />
+<element pattern="&amp;Pi;" />
+<element pattern="&amp;Rho;" />
+<element pattern="&amp;Sigma;" />
+<element pattern="&amp;Tau;" />
+<element pattern="&amp;Uplsilon;" />
+<element pattern="&amp;Phi;" />
+<element pattern="&amp;Chi;" />
+<element pattern="&amp;Psi;" />
+<element pattern="&amp;Omega;" />
+<element pattern="&amp;alpha;" />
+<element pattern="&amp;beta;" />
+<element pattern="&amp;gamma;" />
+<element pattern="&amp;delta;" />
+<element pattern="&amp;epsilon;" />
+<element pattern="&amp;zeta;" />
+<element pattern="&amp;eta;" />
+<element pattern="&amp;theta;" />
+<element pattern="&amp;iota;" />
+<element pattern="&amp;kappa;" />
+<element pattern="&amp;lambda;" />
+<element pattern="&amp;mu;" />
+<element pattern="&amp;nu;" />
+<element pattern="&amp;xi;" />
+<element pattern="&amp;omicron;" />
+<element pattern="&amp;pi;" />
+<element pattern="&amp;rho;" />
+<element pattern="&amp;sigmaf;" />
+<element pattern="&amp;sigma;" />
+<element pattern="&amp;tau;" />
+<element pattern="&amp;upsilon;" />
+<element pattern="&amp;phi;" />
+<element pattern="&amp;chi;" />
+<element pattern="&amp;psi;" />
+<element pattern="&amp;omega;" />
+<element pattern="&amp;thetasym;" />
+<element pattern="&amp;upsih;" />
+<element pattern="&amp;piv;" />
+<element pattern="&amp;bull;" />
+<element pattern="&amp;hellip;" />
+<element pattern="&amp;prime;" />
+<element pattern="&amp;Prime;" />
+<element pattern="&amp;oline;" />
+<element pattern="&amp;frasl;" />
+<element pattern="&amp;weierp;" />
+<element pattern="&amp;image;" />
+<element pattern="&amp;real;" />
+<element pattern="&amp;trade;" />
+<element pattern="&amp;alefsym;" />
+<element pattern="&amp;larr;" />
+<element pattern="&amp;uarr;" />
+<element pattern="&amp;rarr;" />
+<element pattern="&amp;darr;" />
+<element pattern="&amp;harr;" />
+<element pattern="&amp;crarr;" />
+<element pattern="&amp;lArr;" />
+<element pattern="&amp;uArr;" />
+<element pattern="&amp;rArr;" />
+<element pattern="&amp;dArr;" />
+<element pattern="&amp;hArr;" />
+<element pattern="&amp;forall;" />
+<element pattern="&amp;part;" />
+<element pattern="&amp;exist;" />
+<element pattern="&amp;empty;" />
+<element pattern="&amp;nabla;" />
+<element pattern="&amp;isin;" />
+<element pattern="&amp;notin;" />
+<element pattern="&amp;ni;" />
+<element pattern="&amp;prod;" />
+<element pattern="&amp;sum;" />
+<element pattern="&amp;minus;" />
+<element pattern="&amp;lowast;" />
+<element pattern="&amp;radic;" />
+<element pattern="&amp;prop;" />
+<element pattern="&amp;infin;" />
+<element pattern="&amp;ang;" />
+<element pattern="&amp;and;" />
+<element pattern="&amp;or;" />
+<element pattern="&amp;cap;" />
+<element pattern="&amp;cup;" />
+<element pattern="&amp;int;" />
+<element pattern="&amp;there4;" />
+<element pattern="&amp;sim;" />
+<element pattern="&amp;cong;" />
+<element pattern="&amp;asymp;" />
+<element pattern="&amp;ne;" />
+<element pattern="&amp;equiv;" />
+<element pattern="&amp;le;" />
+<element pattern="&amp;ge;" />
+<element pattern="&amp;sub;" />
+<element pattern="&amp;sup;" />
+<element pattern="&amp;nsub;" />
+<element pattern="&amp;sube;" />
+<element pattern="&amp;supe;" />
+<element pattern="&amp;oplus;" />
+<element pattern="&amp;otimes;" />
+<element pattern="&amp;perp;" />
+<element pattern="&amp;sdot;" />
+<element pattern="&amp;lceil;" />
+<element pattern="&amp;rceil;" />
+<element pattern="&amp;lfloor;" />
+<element pattern="&amp;rfloor;" />
+<element pattern="&amp;lang;" />
+<element pattern="&amp;rang;" />
+<element pattern="&amp;loz;" />
+<element pattern="&amp;spades;" />
+<element pattern="&amp;clubs;" />
+<element pattern="&amp;hearts;" />
+<element pattern="&amp;diams;" />
+<element pattern="&amp;iexcl;" />
+<element pattern="&amp;cent;" />
+<element pattern="&amp;pound;" />
+<element pattern="&amp;curren;" />
+<element pattern="&amp;yen;" />
+<element pattern="&amp;brvbar;" />
+<element pattern="&amp;sect;" />
+<element pattern="&amp;uml;" />
+<element pattern="&amp;copy;" />
+<element pattern="&amp;ordf;" />
+<element pattern="&amp;laquo;" />
+<element pattern="&amp;not;" />
+<element pattern="&amp;shy;" />
+<element pattern="&amp;reg;" />
+<element pattern="&amp;macr;" />
+<element pattern="&amp;deg;" />
+<element pattern="&amp;plusmn;" />
+<element pattern="&amp;sup2;" />
+<element pattern="&amp;sup3;" />
+<element pattern="&amp;acute;" />
+<element pattern="&amp;micro;" />
+<element pattern="&amp;para;" />
+<element pattern="&amp;middot;" />
+<element pattern="&amp;cedil;" />
+<element pattern="&amp;sup1;" />
+<element pattern="&amp;ordm;" />
+<element pattern="&amp;raquo;" />
+<element pattern="&amp;frac14;" />
+<element pattern="&amp;frac12;" />
+<element pattern="&amp;frac34;" />
+<element pattern="&amp;iquest;" />
+<element pattern="&amp;Agrave;" />
+<element pattern="&amp;Aacute;" />
+<element pattern="&amp;Acirc;" />
+<element pattern="&amp;Atilde;" />
+<element pattern="&amp;Auml;" />
+<element pattern="&amp;Aring;" />
+<element pattern="&amp;AElig;" />
+<element pattern="&amp;Ccedil;" />
+<element pattern="&amp;Egrave;" />
+<element pattern="&amp;Eacute;" />
+<element pattern="&amp;Ecirc;" />
+<element pattern="&amp;Euml;" />
+<element pattern="&amp;Igrave;" />
+<element pattern="&amp;Iacute;" />
+<element pattern="&amp;Icirc;" />
+<element pattern="&amp;Iuml;" />
+<element pattern="&amp;ETH;" />
+<element pattern="&amp;Ntilde;" />
+<element pattern="&amp;Ograve;" />
+<element pattern="&amp;Oacute;" />
+<element pattern="&amp;Ocirc;" />
+<element pattern="&amp;Otilde;" />
+<element pattern="&amp;Ouml;" />
+<element pattern="&amp;times;" />
+<element pattern="&amp;Oslash;" />
+<element pattern="&amp;Ugrave;" />
+<element pattern="&amp;Uacute;" />
+<element pattern="&amp;Ucirc;" />
+<element pattern="&amp;Uuml;" />
+<element pattern="&amp;Yacute;" />
+<element pattern="&amp;THORN;" />
+<element pattern="&amp;szlig;" />
+<element pattern="&amp;agrave;" />
+<element pattern="&amp;aacute;" />
+<element pattern="&amp;acirc;" />
+<element pattern="&amp;atilde;" />
+<element pattern="&amp;auml;" />
+<element pattern="&amp;aring;" />
+<element pattern="&amp;aelig;" />
+<element pattern="&amp;ccedil;" />
+<element pattern="&amp;egrave;" />
+<element pattern="&amp;eacute;" />
+<element pattern="&amp;ecirc;" />
+<element pattern="&amp;euml;" />
+<element pattern="&amp;igrave;" />
+<element pattern="&amp;iacute;" />
+<element pattern="&amp;icirc;" />
+<element pattern="&amp;iuml;" />
+<element pattern="&amp;eth;" />
+<element pattern="&amp;ntilde;" />
+<element pattern="&amp;ograve;" />
+<element pattern="&amp;oacute;" />
+<element pattern="&amp;ocirc;" />
+<element pattern="&amp;otilde;" />
+<element pattern="&amp;ouml;" />
+<element pattern="&amp;divide;" />
+<element pattern="&amp;oslash;" />
+<element pattern="&amp;ugrave;" />
+<element pattern="&amp;uacute;" />
+<element pattern="&amp;ucirc;" />
+<element pattern="&amp;uuml;" />
+<element pattern="&amp;yacute;" />
+<element pattern="&amp;thorn;" />
+<element pattern="&amp;yuml;" />
+<element pattern="&amp;nbsp;" />
+<element pattern="&amp;quot;" />
+<element pattern="&amp;amp;" />
+<element pattern="&amp;lt;" />
+<element pattern="&amp;gt;" />
+<element pattern="&amp;apos;" />
+
+<element pattern="&amp;#[a-z0-9]+;" is_regex="1" autocomplete="0" />
+</group>
+<group notclass="autocomplete-html-entities">
 <element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="html-entity" />
+</group>
+
+</bfinc>

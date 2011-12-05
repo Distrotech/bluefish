@@ -4,16 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish gtk2-port\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-12 12:24-0800\n"
-"PO-Revision-Date: 30/1/2011 \n"
-"Last-Translator: Quick-Master SI, Paweł Worobiak (dawajpoczte@gmail.com)\n"
+"POT-Creation-Date: 2011-12-04 13:50-0800\n"
+"PO-Revision-Date: 2011-10-06 22:20+0100\n"
+"Last-Translator: Quick-Master SI <dawajpoczte@gmail.com>\n"
 "Language-Team: PL\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8 bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: src/plugin_entities/entities.c:263
 msgid "Characters to entities"
@@ -23,112 +23,96 @@ msgstr "Znaki do encji"
 msgid "Entities to characters"
 msgstr "Encje do znaków"
 
-#: src/plugin_entities/entities.c:284
+#: src/plugin_entities/entities.c:283
 msgid "In current document"
 msgstr "W bieżącym dokumencie"
 
-#: src/plugin_entities/entities.c:285
+#: src/plugin_entities/entities.c:284
 msgid "In selection"
 msgstr "W zaznaczeniu"
 
-#: src/plugin_entities/entities.c:286
+#: src/plugin_entities/entities.c:285
 msgid "In all documents"
 msgstr "We wszystkich dokumentach"
 
-#: src/plugin_entities/entities.c:287
+#: src/plugin_entities/entities.c:286
 msgid "Sco_pe:"
 msgstr "Zak_res:"
 
-#: src/plugin_entities/entities.c:290
+#: src/plugin_entities/entities.c:289
 msgid "Convert numerical encoded characters &#99;"
 msgstr "Konwertuj znaki numeryczne"
 
-#: src/plugin_entities/entities.c:294
+#: src/plugin_entities/entities.c:293
 msgid "Convert _iso-8859-1 characters"
 msgstr "Konwertuj znaki _iso-8859-1"
 
-#: src/plugin_entities/entities.c:298
+#: src/plugin_entities/entities.c:297
 msgid "Convert spe_cial characters"
 msgstr "Konwertuj znaki spe_cjalne"
 
-#: src/plugin_entities/entities.c:302
+#: src/plugin_entities/entities.c:301
 msgid "Convert _symbol characters"
 msgstr "Konwertuj symbole"
 
-#: src/plugin_entities/entities.c:306
+#: src/plugin_entities/entities.c:305
 msgid "Convert _XML characters < > & \" '"
 msgstr "Konwertuj znaki _xml takie jak <>&"
 
-#: src/plugin_entities/entities.c:312
+#: src/plugin_entities/entities.c:311
 msgid "Work around missing &apos; entity on IE"
 msgstr "Pracuj wokół błędnych encji &apos; dla IE"
 
-#: src/plugin_entities/entities.c:416
+#: src/plugin_entities/entities.c:415
 #, fuzzy
-msgid "Characters to Entities"
+msgid "C_haracters to Entities"
 msgstr "Znaki do encji"
+
+#: src/plugin_entities/entities.c:416
+msgid "Change characters to entities"
+msgstr "Zamień znaki do encji"
 
 #: src/plugin_entities/entities.c:417
 #, fuzzy
-msgid "Change characters to entities"
-msgstr "Znaki do encji"
+msgid "Ent_ities to Characters"
+msgstr "Encje do znaków"
 
 #: src/plugin_entities/entities.c:418
-#, fuzzy
-msgid "Entities to Characters"
-msgstr "Encje do znaków"
+msgid "Change entities to characters"
+msgstr "Zamień encje do znaków"
 
 #: src/plugin_entities/entities.c:419
 #, fuzzy
-msgid "Change entities to characters"
-msgstr "Encje do znaków"
+msgid "URL _Decode"
+msgstr "Dekoduj URL"
 
-#: src/plugin_entities/entities.c:420
-#, fuzzy
-msgid "URL Decode"
-msgstr "/Narzędzia/Dekoduj URL"
-
-#: src/plugin_entities/entities.c:420
-#, fuzzy
+#: src/plugin_entities/entities.c:419
 msgid "URL decode"
-msgstr "/Narzędzia/Dekoduj URL"
+msgstr "Dekoduj URL"
 
-#: src/plugin_entities/entities.c:421
+#: src/plugin_entities/entities.c:420
 #, fuzzy
-msgid "URL Encode"
-msgstr "/Narzędzia/Kodowanie URL"
+msgid "URL _Encode"
+msgstr "Kodowanie URL"
 
-#: src/plugin_entities/entities.c:421
-#, fuzzy
+#: src/plugin_entities/entities.c:420
 msgid "URL encode"
-msgstr "/Narzędzia/Kodowanie URL"
+msgstr "Kodowanie URL"
 
-#: src/plugin_entities/entities.c:422
+#: src/plugin_entities/entities.c:421
 #, fuzzy
-msgid "To Lowercase"
-msgstr "/Narzędzia/Zmień na małe litery"
+msgid "To Lo_wercase"
+msgstr "Zmień na małe litery"
 
-#: src/plugin_entities/entities.c:422
-#, fuzzy
+#: src/plugin_entities/entities.c:421
 msgid "To lowercase"
-msgstr "/Narzędzia/Zmień na małe litery"
+msgstr "Zmień na małe litery"
 
-#: src/plugin_entities/entities.c:423
+#: src/plugin_entities/entities.c:422
 #, fuzzy
-msgid "To Uppercase"
-msgstr "/Narzędzia/Zmień na WIELKIE LITERY"
+msgid "To Upper_case"
+msgstr "Zmień na WIELKIE LITERY"
 
-#: src/plugin_entities/entities.c:423
-#, fuzzy
+#: src/plugin_entities/entities.c:422
 msgid "To uppercase"
-msgstr "/Narzędzia/Zmień na WIELKIE LITERY"
-
-#~ msgid "/Tools/Entities To Characters..."
-#~ msgstr "/Narzędzia/Encje do znaków"
-
-#~ msgid "/Tools/Characters To Entities..."
-#~ msgstr "/Narzędzia/Znaki do encji"
-
-#, fuzzy
-#~ msgid "/Tools/URL decode selection"
-#~ msgstr "/Edycja/Zamiana specjalna/Znaki do encji"
+msgstr "Zmień na WIELKIE LITERY "

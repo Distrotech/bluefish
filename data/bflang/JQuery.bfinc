@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 		Bluefish HTML Editor
-		JQuery.bfinc $Revision: 6340 $
+		JQuery.bfinc $Revision$
  
 		Copyright (C) 2008-2011 Olivier Sessink
 		This program is free software: you can redistribute it and/or modify
@@ -17,6 +17,7 @@
 -->
 <!-- http://api.jquery.com/ -->
 
+<bfinc>
 <group highlight="js-function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
 <element pattern="jQuery.ajax"><reference> JQuery Ajax
 Perform an asynchronous HTTP (Ajax) request.</reference></element>
@@ -518,4 +519,4 @@ Describes the nature of the event.</reference></element>
 <element pattern="event.which"><reference> JQuery Events
 For key or button events, this attribute indicates the specific button or key that was pressed.</reference></element>
 </group>
-
+</bfinc>

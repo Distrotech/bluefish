@@ -52,6 +52,8 @@ nextcontext -1), we revert to the previous context
  - the scanner keeps a timer and stops scanning once a certain time has passed
  - if the scanning is finished the idle function stops
 
+
+============ The scanned syntax cache ============
 - to find where to resume scanning it simply searches for the first position
   that is marked with the needscanning tag 
  - to know which patterns to use we have to know in which context we are. we therefore keep
@@ -64,11 +66,38 @@ nextcontext -1), we revert to the previous context
  - same holds for the blocks. we keep a blockstack, and we keep a cache of the blockstack in the
    same foundcache as where we keep the contextstack. The member of the Tfound structure that
    describes the state for blocks is the Tfoundblock structure.
+   
+- when a new block is found, a Tfound structure has a member fblock of type Tfoundblock 
+  that points to the new block, and member numblockchange is 1. That Tfoundblock has a 
+  pointer to it's parent block.
+- when an end-of-block is found, the Tfound structure has again a member fblock that
+  points to the popped block, and numblockchange is -1. So to get the active block *after*
+  a popped block, you have to look at the parent of the fblock member!!!!
+- the Tfound member charoffset_o has the character offset of the end-of-the-end-of-context-match 
+  (Tfoundcontext->end_o) or the end-of-the-end-of-block-match (Tfoundblock->end2_o).
+
+The next ascii art shows how blocks are stored in the scancache. This is a special situation
+in which a second block starts but does not have an end, so both blocks are popped at 'f'. A 
+Tfound structure is saved at offset B, D and F.  
+
+     --------------------Block-1-with-valid-end--------------------
+     |  |                                                      |  |
+     |  |                        ------Block-without-end-------|--|
+     |  |                        |   |                         |  | 
+-----a--B------------------------c---D-------------------------e--F---------
+     |  |                        |   |                         |  |
+     |  |Tfound numblockchange=1 |   |Tfound numblockchange=1  |  |Tfound nublockchange=-2
+     |  |end1_o == charoffset_o  |   |end1_o == charoffset_o   |  | end2_o == charoffset_o for the block1
+     |                           |                             |
+     |start1_o                   |start1_o                     |start2_o for block1
+
 
 - to paint the margin and detect if we can expand/collapse blocks, we can use this same
   scancache. Along with walking the lines to draw the line numbers we walk the GSequence 
   and see in the Tfound structures if there are new blocks that can be folded.
 
+
+=========== Scanning with a DFA engine ==============
 - the current scanning is based on Deterministic Finite Automata (DFA) just like the 1.1.6
 unstable engine (see wikipedia for more info). The 1.1.6 engine alloc's each state in a
 separate memory block. This new engine alloc's a large array for all states at once, so you can
@@ -211,6 +240,11 @@ the GCompletion can be found in hashtable
 bfwin->identifier_ac with 
 key Tbflang-context -> value GCompletion
 
+identifier_mode="1" means that the following the *following* identifier is to be stored. For example in 
+php 'function', and in python 'def' and 'class' (implemented in bluefish 2.0.3).
+identifier_mode="2" means that the match itself is to be stored as an identifier, for example in php
+the variable '$[a-zA-Z_][a-zA-Z0-9_]*' (implemented in 2.0.4)
+
 ======= Split view / slave widget =======
 
 a slave widget is a widget that does not do scanning itself, it doesn't 
@@ -237,6 +271,10 @@ extern void g_none(char *first, ...);
  /**/
 #define IDENTSTORING
 #define BF2_OFFSET_UNDEFINED G_MAXUINT32
+
+/*#define DUMP_SCANCACHE*/
+/*#define CHECK_CONSISTENCY*/
+
 #define DBG_MSG DBG_NONE
 #define DBG_SCANCACHE DBG_NONE
 #define DBG_SCANNING DBG_NONE
@@ -306,12 +344,16 @@ typedef struct {
 	guint8 case_insens;
 	guint8 is_regex;
 	guint8 tagclose_from_blockstack;	/* this is a generix xml close tag that needs the blockstack to autoclose */
+	guint8 stretch_blockstart; /* the end of this match is the new end-of-blockstart, used for HTML/XML tags */
 #ifdef IDENTSTORING
 	guint8 identmode;
+	guint8 identaction; /* bitwise, first bit is add to jump hashtable, second bit is autocomplete */
 #endif							/* IDENTSTORING */
-	/*gboolean may_fold;  not yet used */
-	/*gboolean highlight_other_end; not yet used */
 } Tpattern;
+/* 
+32bit size = 7 * 32 + 2 * 16 + 8 * 8 = 320 bits = 40 bytes 
+64bit size = 7 * 64 + 2 * 16 + 8 * 8 = 544 bits = 68 bytes
+*/
 
 typedef struct {
 	guint16 row[NUMSCANCHARS];	/* contains for each character the number of the next state
@@ -423,8 +465,6 @@ typedef struct {
 typedef struct {
 	gchar *name;
 	GList *mimetypes;
-	/*GList *langoptions; *//* all options that can be enabled/disabled for this language and their default value (0 or 1) */
-	/*GList *setoptions; *//* all options that are enabled have value '1' in this hashtable */
 	GList *tags;				/* all tags used for highlighting in this language. we use this list when 
 								   we want to remove all tags and want to re-highlight */
 	gchar *filename;			/* the .bflang2 file */
@@ -437,11 +477,13 @@ typedef struct {
 #endif
 	gboolean no_st;				/* no scantable, for Text, don't try to load the scantable if st=NULL */
 	gboolean parsing;			/* set to TRUE when a thread is parsing the scantable already */
+	gboolean in_menu; /* set to TRUE to show this language in the menu */ 
 	gint size_table;
 	gint size_contexts;
 	gint size_matches;
 } Tbflang;
 
+#define BFLANG(var)  ((Tbflang *)var)
 
 /* Color Configuation data */
 typedef enum {
@@ -491,12 +533,18 @@ struct _BluefishTextView {
 
 	Tscancache scancache;
 
+	guint scanner_immediate; /* event ID for the high priority scanning run */
 	guint scanner_idle;			/* event ID for the idle function that handles the scanning. 0 if no idle function is running */
 	guint scanner_delayed;		/* event ID for the timeout function that handles the delayed scanning. 0 if no timeout function is running */
 	GTimer *user_idle_timer;
 	guint user_idle;			/* event ID for the timed function that handles user idle events such as autocompletion popups */
 	guint mark_set_idle;		/* event ID for the mark_set idle function that avoids showing matching block bounds while 
 								   you hold the arrow key to scroll quickly */
+	gulong insert_text_id;
+	gulong insert_text_after_id;
+	gulong mark_set_id;
+	gulong delete_range_id;
+	gulong delete_range_after_id;
 
 	gpointer autocomp;			/* a Tacwin* with the current autocompletion window */
 	gboolean needs_autocomp;	/* a state of the widget, autocomplete is needed on user keyboard actions */
@@ -520,6 +568,7 @@ struct _BluefishTextViewClass {
 
 GType bluefish_text_view_get_type(void);
 
+gboolean bluefish_text_view_get_active_block_boundaries(BluefishTextView *btv, guint location, gboolean innerblock, GtkTextIter *so, GtkTextIter *eo);
 gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
 void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);
 
@@ -531,6 +580,7 @@ gpointer bluefish_text_view_get_doc(BluefishTextView * btv);
 gboolean bluefish_text_view_get_enable_scanner(BluefishTextView * btv);
 void bluefish_text_view_set_enable_scanner(BluefishTextView * btv, gboolean enable);
 
+void bluefish_text_view_set_font(BluefishTextView *btv, PangoFontDescription *font_desc);
 void bluefish_text_view_set_font_size(BluefishTextView * btv, gint direction);
 
 void bftextview2_init_globals(void);

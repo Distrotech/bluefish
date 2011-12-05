@@ -51,6 +51,7 @@ enum {
 	editor_font_string,			/* editor font */
 	editor_smart_cursor,
 	editor_tab_indent_sel,
+	editor_auto_close_brackets,
 	use_system_tab_font,
 	tab_font_string,			/* notebook tabs font */
 	/*tab_color_normal, *//* notebook tabs text color normal.  This is just NULL! */
@@ -79,6 +80,7 @@ enum {
 	auto_update_meta_author,	/* auto update author meta tag */
 	auto_update_meta_date,		/* auto update date meta tag */
 	auto_update_meta_generator,	/* auto update generator meta tag */
+	max_window_title,
 	document_tabposition,
 	leftpanel_tabposition,
 	switch_tabs_by_altx,		/* switch tabs using Alt+X (#385860) */
@@ -109,6 +111,7 @@ enum {
 	delay_full_scan,
 	autocomp_popup_mode,
 	reduced_scan_triggers,
+	use_system_colors,
 	editor_fg,
 	editor_bg,
 	cline_bg,
@@ -408,12 +411,13 @@ sessionprefs_apply(Tsessionprefs * sprefs, Tsessionvars * sessionvars)
 {
 	gchar *template_name = NULL;
 	GList *tmplist;
-
+	integer_apply(&sessionvars->enable_syntax_scan, sprefs->prefs[enable_syntax_scan], TRUE);
 	integer_apply(&sessionvars->autoindent, sprefs->prefs[autoindent], TRUE);
 	integer_apply(&sessionvars->editor_tab_width, sprefs->prefs[editor_tab_width], FALSE);
 	integer_apply(&sessionvars->editor_indent_wspaces, sprefs->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&sessionvars->view_line_numbers, sprefs->prefs[view_line_numbers], TRUE);
 	integer_apply(&sessionvars->view_blocks, sprefs->prefs[view_blocks], TRUE);
+	integer_apply(&sessionvars->view_blockstack, sprefs->prefs[view_blockstack], TRUE);
 	integer_apply(&sessionvars->autocomplete, sprefs->prefs[autocomplete], TRUE);
 	integer_apply(&sessionvars->show_mbhl, sprefs->prefs[show_mbhl], TRUE);
 	integer_apply(&sessionvars->view_cline, sprefs->prefs[view_cline], TRUE);
@@ -477,34 +481,36 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 	g_list_free(poplist);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Options</b>"), sprefs->vbox);
-	table = dialog_table_in_vbox_defaults(9, 2, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(10, 2, 0, vbox2);
 
 	sprefs->prefs[autocomplete] =
-		dialog_check_button_in_table(_("Enable a_uto-completion"), sessionvars->autocomplete, table, 0, 1, 0,
-									 1);
+		dialog_check_button_in_table(_("Enable a_uto-completion"), sessionvars->autocomplete, table, 0, 1, 0,1);
 	sprefs->prefs[view_blocks] =
 		dialog_check_button_in_table(_("Enable _block folding"), sessionvars->view_blocks, table, 0, 1, 1, 2);
+	sprefs->prefs[view_blockstack] =
+		dialog_check_button_in_table(_("Display block stack in statusbar"), sessionvars->view_blockstack, table, 0, 1, 2, 3);
 	sprefs->prefs[show_mbhl] =
-		dialog_check_button_in_table(_("Highlight block _delimiters"), sessionvars->show_mbhl, table, 0, 1, 2,
-									 3);
+		dialog_check_button_in_table(_("Highlight block _delimiters"), sessionvars->show_mbhl, table, 0,1,3,4);
 	sprefs->prefs[view_cline] =
-		dialog_check_button_in_table(_("_Highlight current line"), sessionvars->view_cline, table, 0, 1, 3,
-									 4);
+		dialog_check_button_in_table(_("_Highlight current line"), sessionvars->view_cline, table, 0,1,4,5);
 	sprefs->prefs[view_line_numbers] =
-		dialog_check_button_in_table(_("Show line _numbers"), sessionvars->view_line_numbers, table, 0, 1, 4,
-									 5);
+		dialog_check_button_in_table(_("Show line _numbers"), sessionvars->view_line_numbers, table, 0, 1, 5,6);
+		
+	/* right column */
 	sprefs->prefs[display_right_margin] =
-		dialog_check_button_in_table(_("Show _right margin indicator"), sessionvars->display_right_margin,
-									 table, 0, 1, 5, 6);
+		dialog_check_button_in_table(_("Show _right margin indicator"), sessionvars->display_right_margin,table, 1,2,0,1);
 	sprefs->prefs[autoindent] =
-		dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table, 0, 1, 6, 7);
+		dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table, 1,2,1,2);
 	sprefs->prefs[session_wrap_text] =
-		dialog_check_button_in_table(_("Wra_p lines"), sessionvars->wrap_text_default, table, 0, 1, 7, 8);
+		dialog_check_button_in_table(_("Wra_p lines"), sessionvars->wrap_text_default, table, 1,2,2,3);
+
+	sprefs->prefs[enable_syntax_scan] =
+		dialog_check_button_in_table(_("Enable syntax scanning"), sessionvars->enable_syntax_scan, table, 1,2,3,4);
 
 #ifdef HAVE_LIBENCHANT
 	sprefs->prefs[session_spell_check] = dialog_check_button_in_table(_("_Enable spell check"),
 																	  sessionvars->spell_check_default, table,
-																	  0, 1, 8, 9);
+																	  1,2,4,5);
 #endif
 
 	vbox2 = dialog_vbox_labeled(_("<b>Tab Stops</b>"), sprefs->vbox);
@@ -577,10 +583,6 @@ create_plugin_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	}
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 2);
-	/*  but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_filetype_lcb), pd);
-	   gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
-	   but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_filetype_lcb), pd);
-	   gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2); */
 }
 
 /****** Text style **************/
@@ -846,9 +848,9 @@ create_textstyle_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	hbox2 = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox2, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_textstyle_lcb), pd);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_ADD, G_CALLBACK(add_new_textstyle_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox2), but, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_textstyle_lcb), pd);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_DELETE, G_CALLBACK(delete_textstyle_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox2), but, FALSE, FALSE, 2);
 }
 
@@ -949,9 +951,9 @@ create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_extcommands_lcb), pd);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_ADD, G_CALLBACK(add_new_extcommands_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_extcommands_lcb), pd);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_DELETE, G_CALLBACK(delete_extcommands_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
 
@@ -1042,9 +1044,9 @@ create_filters_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_external_filter_lcb), pd);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_ADD, G_CALLBACK(add_new_external_filter_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_external_filter_lcb), pd);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_DELETE, G_CALLBACK(delete_external_filter_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
 
@@ -1182,9 +1184,9 @@ create_outputbox_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_outputbox_lcb), pd);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_ADD, G_CALLBACK(add_new_outputbox_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_outputbox_lcb), pd);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_DELETE, G_CALLBACK(delete_outputbox_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
 
@@ -1272,9 +1274,9 @@ create_template_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_template_lcb), pd);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_ADD, G_CALLBACK(add_new_template_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_template_lcb), pd);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_DELETE, G_CALLBACK(delete_template_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
 
@@ -1485,8 +1487,10 @@ preferences_apply(Tprefdialog * pd)
 	DEBUG_MSG("preferences_apply, started\n");
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
+	integer_apply(&main_v->props.editor_auto_close_brackets, pd->prefs[editor_auto_close_brackets], TRUE);
 	integer_apply(&main_v->props.editor_tab_indent_sel, pd->prefs[editor_tab_indent_sel], TRUE);
 	integer_apply(&main_v->props.smartindent, pd->prefs[smartindent], TRUE);
+	integer_apply(&main_v->props.use_system_colors, pd->prefs[use_system_colors], TRUE);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_ED_FG], pd->prefs[editor_fg]);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_ED_BG], pd->prefs[editor_bg]);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE], pd->prefs[cline_bg]);
@@ -1541,6 +1545,11 @@ preferences_apply(Tprefdialog * pd)
 		integer_apply(&main_v->globses.left_panel_width, pd->prefs[left_panel_width], FALSE);
 		integer_apply(&main_v->globses.main_window_h, pd->prefs[main_window_h], FALSE);
 		integer_apply(&main_v->globses.main_window_w, pd->prefs[main_window_w], FALSE);
+	}
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->prefs[max_window_title])) && main_v->props.max_window_title==0) {
+		main_v->props.max_window_title=120;
+	} else if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->prefs[max_window_title]))) {
+		main_v->props.max_window_title=0;
 	}
 
 	integer_apply(&main_v->props.use_system_tab_font, pd->prefs[use_system_tab_font], TRUE);
@@ -1604,9 +1613,6 @@ preferences_apply(Tprefdialog * pd)
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
 	bftextview2_init_globals();
-#if GTK_CHECK_VERSION(3,0,0)
-	bluefish_text_view_class_update_style();
-#endif
 	langmgr_reload_user_options();
 	langmgr_reload_user_styles();
 	langmgr_reload_user_highlights();
@@ -1618,6 +1624,7 @@ preferences_apply(Tprefdialog * pd)
 		while (tmplist) {
 			Tbfwin *bfwin = BFWIN(tmplist->data);
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling encoding_menu_rebuild\n");
+			lang_mode_menu_create(bfwin);
 			bfwin_commands_menu_create(bfwin);
 			bfwin_filters_menu_create(bfwin);
 			bfwin_outputbox_menu_create(bfwin);
@@ -1748,6 +1755,14 @@ xhtml_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
 	gtk_widget_set_sensitive(pd->prefs[lowercase_tags], !active);
 	gtk_widget_set_sensitive(pd->prefs[allow_dep], !active);
 }
+static void
+use_system_colors_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
+{
+	gboolean active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+	gtk_widget_set_sensitive(pd->prefs[editor_fg], !active);
+	gtk_widget_set_sensitive(pd->prefs[editor_bg], !active);
+	gtk_widget_set_sensitive(pd->prefs[cursor_color], !active);
+}
 
 static gint
 prefs_combo_box_get_index_from_text(const gchar ** options, const gchar * string)
@@ -1767,6 +1782,12 @@ prefs_combo_box_get_index_from_text(const gchar ** options, const gchar * string
 	return (found ? index : 0);
 }
 
+static void save_user_menu_accelerators(GObject *object, gpointer data)
+{
+	rcfile_save_accelerators();
+}
+
+
 void
 preferences_dialog_new(void)
 {
@@ -1774,7 +1795,7 @@ preferences_dialog_new(void)
 	gint index;
 	GList *tmplist, *poplist;
 	GtkWidget *dvbox, *frame, *hbox, *label, *table, *vbox1, *vbox2, *vbox3;
-	GtkWidget *dhbox, *scrolwin;
+	GtkWidget *dhbox, *scrolwin, *but;
 	GtkCellRenderer *cell;
 	GtkTreeIter auxit, iter;
 	GtkTreePath *path;
@@ -1787,8 +1808,7 @@ preferences_dialog_new(void)
 	const gchar *notebooktabpositions[] = { N_("left"), N_("right"), N_("top"), N_("bottom"), NULL };
 	const gchar *panellocations[] = { N_("right"), N_("left"), NULL };
 	const gchar *registerrecentmodes[] = { N_("Never"), N_("All files"), N_("Only project files"), NULL };
-	/* "jpeg" and "png" shouldn't be translatable, TODO */
-	const gchar *thumbnail_filetype[] = { "jpeg", "png", NULL };
+	const gchar *thumbnail_filetype[] = { "JPEG", "PNG", NULL };
 	const gchar *visible_ws_modes[] =
 		{ N_("All"), N_("All except spaces"), N_("All trailing"), N_("All except non-trailing spaces"),
 		NULL
@@ -1858,7 +1878,7 @@ preferences_dialog_new(void)
 		dialog_spin_button_labeled(1, 500, main_v->props.right_margin_pos,
 								   _("Right _margin/split line end position:"), hbox, 0);
 
-	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(4, 2, 0, vbox2);
 
 	pd->prefs[smartindent] =
 		dialog_check_button_in_table(_("Smart auto indentin_g"), main_v->props.smartindent, table, 0, 1, 0,
@@ -1870,6 +1890,10 @@ preferences_dialog_new(void)
 	pd->prefs[editor_tab_indent_sel] =
 		dialog_check_button_in_table(_("_Tab key indents selection"), main_v->props.editor_tab_indent_sel,
 									 table, 0, 1, 2, 3);
+
+	pd->prefs[editor_auto_close_brackets] =
+		dialog_check_button_in_table(_("Auto close brackets"),
+									 main_v->props.editor_auto_close_brackets, table, 0, 1, 3, 4);
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
@@ -1906,27 +1930,34 @@ preferences_dialog_new(void)
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[editor_font_string], FALSE, FALSE, 0);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Colors</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(5, 2, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(6, 2, 0, vbox2);
 
+	pd->prefs[use_system_colors] =
+		dialog_check_button_in_table(_("Use system wide color settings"), main_v->props.use_system_colors, table, 0,
+									 1, 0, 1);
+	
 	pd->prefs[editor_fg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_ED_FG],
-														_("Foreground color"), table, 1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("_Foreground color:"), pd->prefs[editor_fg], table, 0, 1, 0, 1);
+														_("Foreground color"), table, 1, 2, 1,2);
+	dialog_mnemonic_label_in_table(_("_Foreground color:"), pd->prefs[editor_fg], table, 0, 1, 1,2);
 
 	pd->prefs[editor_bg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_ED_BG],
-														_("Background color"), table, 1, 2, 1, 2);
-	dialog_mnemonic_label_in_table(_("_Background color:"), pd->prefs[editor_bg], table, 0, 1, 1, 2);
+														_("Background color"), table, 1, 2, 2,3);
+	dialog_mnemonic_label_in_table(_("_Background color:"), pd->prefs[editor_bg], table, 0, 1, 2,3);
 
 	pd->prefs[cursor_color] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_CURSOR],
-														   _("Cursor color"), table, 1, 2, 2, 3);
-	dialog_mnemonic_label_in_table(_("C_ursor color:"), pd->prefs[cursor_color], table, 0, 1, 2, 3);
+														   _("Cursor color"), table, 1, 2, 3,4);
+	dialog_mnemonic_label_in_table(_("C_ursor color:"), pd->prefs[cursor_color], table, 0, 1, 3,4);
+
+	g_signal_connect(G_OBJECT(pd->prefs[use_system_colors]), "toggled", G_CALLBACK(use_system_colors_toggled_lcb), pd);
+	use_system_colors_toggled_lcb(pd->prefs[use_system_colors], pd);
 
 	pd->prefs[cline_bg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE],
-													   _("Current line color"), table, 1, 2, 3, 4);
-	dialog_mnemonic_label_in_table(_("Cu_rrent line color:"), pd->prefs[cline_bg], table, 0, 1, 3, 4);
+													   _("Current line color"), table, 1, 2, 4,5);
+	dialog_mnemonic_label_in_table(_("Cu_rrent line color:"), pd->prefs[cline_bg], table, 0, 1, 4,5);
 
 	pd->prefs[visible_ws] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE],
-														 _("Visible whitespace color"), table, 1, 2, 4, 5);
-	dialog_mnemonic_label_in_table(_("_Visible whitespace color:"), pd->prefs[visible_ws], table, 0, 1, 4, 5);
+														 _("Visible whitespace color"), table, 1, 2, 5,6);
+	dialog_mnemonic_label_in_table(_("_Visible whitespace color:"), pd->prefs[visible_ws], table, 0, 1, 5,6);
 
 	/*
 	 *  Initial document settings
@@ -2130,6 +2161,10 @@ preferences_dialog_new(void)
 															 main_v->props.transient_htdialogs);
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[transient_htdialogs], FALSE, FALSE, 0);
 
+	but = gtk_button_new_with_label(_("Save user customised menu accelerators"));
+	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(save_user_menu_accelerators), NULL);
+	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
+
 	vbox2 = dialog_vbox_labeled(_("<b>Recent Files</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(2, 4, 0, vbox2);
 
@@ -2137,11 +2172,13 @@ preferences_dialog_new(void)
 		dialog_spin_button_in_table(3, 25, main_v->props.max_recent_files, table, 1, 2, 0, 1);
 	dialog_mnemonic_label_in_table(_("_Number of files in 'Open recent' menu:"), pd->prefs[max_recent_files],
 								   table, 0, 1, 0, 1);
+#ifndef WIN32
 	pd->prefs[register_recent_mode] =
 		dialog_combo_box_text_in_table(registerrecentmodes, main_v->props.register_recent_mode, table, 1, 4,
 									   1, 2);
 	dialog_mnemonic_label_in_table(_("_Register recent files with your desktop:"),
 								   pd->prefs[register_recent_mode], table, 0, 1, 1, 2);
+#endif
 
 	vbox2 = dialog_vbox_labeled(_("<b>Sidebar</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(2, 2, 0, vbox2);
@@ -2193,6 +2230,10 @@ preferences_dialog_new(void)
 					 G_CALLBACK(restore_dimensions_toggled_lcb), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[leave_to_window_manager]), "toggled",
 					 G_CALLBACK(leave_to_window_manager_toggled_lcb), vbox3);
+
+	pd->prefs[max_window_title] = dialog_check_button_new(_("_Limit window title length"),
+															main_v->props.max_window_title);
+	gtk_box_pack_start(GTK_BOX(vbox3), pd->prefs[max_window_title], FALSE, FALSE, 0);
 
 	frame = gtk_frame_new(NULL);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
@@ -2389,13 +2430,13 @@ preferences_dialog_new(void)
 		gtk_box_set_spacing(GTK_BOX(ahbox), 6);
 
 		gtk_box_pack_start(GTK_BOX(dvbox), ahbox, FALSE, FALSE, 0);
-		but = bf_gtkstock_button(GTK_STOCK_APPLY, G_CALLBACK(preferences_apply_clicked_lcb), pd);
+		but = dialog_button_new_with_image(NULL, GTK_STOCK_APPLY, G_CALLBACK(preferences_apply_clicked_lcb), pd, FALSE, FALSE);
 		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 0);
 
-		but = bf_stock_cancel_button(G_CALLBACK(preferences_cancel_clicked_lcb), pd);
+		but = dialog_button_new_with_image(NULL, GTK_STOCK_CANCEL, G_CALLBACK(preferences_cancel_clicked_lcb), pd, FALSE, FALSE);
 		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 0);
 
-		but = bf_stock_ok_button(G_CALLBACK(preferences_ok_clicked_lcb), pd);
+		but = dialog_button_new_with_image(NULL, GTK_STOCK_OK, G_CALLBACK(preferences_ok_clicked_lcb), pd, FALSE, FALSE);
 		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 6);
 		gtk_window_set_default(GTK_WINDOW(pd->win), but);
 	}

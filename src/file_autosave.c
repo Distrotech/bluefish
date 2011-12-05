@@ -194,8 +194,10 @@ remove_autosave(Tdocument * doc)
 
 	/* cancel running autosave */
 	if (doc->autosave_progress) {
-		if (doc->autosave_action)
+		if (doc->autosave_action) {
 			file_checkNsave_cancel(doc->autosave_action);
+			doc->autosave_action = NULL;
+		}
 		main_v->autosave_progress = g_list_delete_link(main_v->autosave_progress, doc->autosave_progress);
 		doc->autosave_progress = NULL;
 	}
@@ -308,7 +310,6 @@ autosave_recover(Tbfwin * bfwin, GFile * file)
 			tmplist = g_list_next(tmplist);
 			continue;
 		}
-		/* TODO */
 		DEBUG_MSG("recover %s for %s\n", arr[0], arr[1]);
 		recover_uri = g_file_new_for_uri(arr[0]);
 		if (arr[1] && arr[1][0] != '\0') {

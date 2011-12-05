@@ -22,11 +22,10 @@
 #include <gtk/gtk.h>
 
 #include "bluefish.h"
+#include "gtk_easy.h"
 #include "dialog_utils.h"
 #include "pixmap.h"
 
-
-#if !GTK_CHECK_VERSION(3,0,0)
 static void
 button_set_style(GtkWidget * button, GtkStyle * previous_style, gpointer user_data)
 {
@@ -36,7 +35,6 @@ button_set_style(GtkWidget * button, GtkStyle * previous_style, gpointer user_da
 
 	gtk_widget_set_size_request(button, w + 2, h + 2);
 }
-#endif
 
 GtkWidget *
 bluefish_small_close_button_new(void)
@@ -46,32 +44,12 @@ bluefish_small_close_button_new(void)
 	button = gtk_button_new();
 	gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
 	gtk_button_set_focus_on_click(GTK_BUTTON(button), FALSE);
+	gtk_widget_set_name(button, "bluefish-small-close-button");
 
 	image = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
 	gtk_button_set_image(GTK_BUTTON(button), image);
 
-#if GTK_CHECK_VERSION(3,0,0)
-	GtkStyleContext *context;
-	GtkCssProvider *provider;
-
-	context = gtk_widget_get_style_context(button);
-	provider = gtk_css_provider_new();
-	gtk_css_provider_load_from_data(provider,
-									"* {\n"
-									"-GtkWidget-focus-line-width : 0;\n"
-									"-GtkWidget-focus-padding : 0;\n"
-									"-GtkButton-default-border : 0;\n"
-									"-GtkButton-default-outside-border : 0;\n"
-									"-GtkButton-inner-border: 0;\n"
-									"padding: 0;\n" "}",
-									-1, NULL);
-	gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider),
-								   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-	g_object_unref(provider);
-#else
-	gtk_widget_set_name(button, "bluefish-small-close-button");
 	g_signal_connect(button, "style-set", G_CALLBACK(button_set_style), NULL);
-#endif
 
 	return button;
 }
@@ -126,28 +104,8 @@ dialog_button_new_in_table(const gchar * labeltext, GtkWidget * table, guint lef
 	return button;
 }
 
-static GtkWidget *
-dialog_button_widget_new(const gchar * labeltext, gint pixmap, const gchar * stockID, GtkIconSize iconSize)
-{
-	GtkWidget *hbox;
-
-	hbox = gtk_hbox_new(FALSE, 0);
-
-	if (stockID == NULL)
-		gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(pixmap), FALSE, FALSE, 1);
-	else
-		gtk_box_pack_start(GTK_BOX(hbox), gtk_image_new_from_stock(stockID, iconSize), FALSE, FALSE, 1);
-
-	if (labeltext)
-		gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(labeltext), TRUE, TRUE, 1);
-
-	gtk_widget_show_all(hbox);
-
-	return hbox;
-}
-
 /**
- * dialog_button_new_with_image_in_table:
+ * dialog_button_new_with_image:
  * 	@labeltext:		 #const gchar * The label text.
  * 	@pixmap:		 #gint pixmap ID.
  *  @stockID:        #const gchar * GTK stock ID or NULL.
@@ -159,15 +117,33 @@ dialog_button_widget_new(const gchar * labeltext, gint pixmap, const gchar * sto
  * Return value: #GtkWidget * The newly created button
  */
 GtkWidget *
-dialog_button_new_with_image(const gchar * labeltext, gint pixmap, const gchar * stockID,
-							 GtkIconSize iconSize)
+dialog_button_new_with_image(const gchar * labeltext,const gchar * stockid,
+							GCallback func, gpointer func_data, gboolean force_image, gboolean mnemonic)
 {
-	GtkWidget *button, *hbox;
+	GtkWidget *button, *child=NULL, *label=NULL;
+	
+	if (labeltext)
+		label = mnemonic ? gtk_label_new_with_mnemonic(labeltext) : gtk_label_new(labeltext);
+		
+	if (labeltext && stockid) {
+		child = gtk_hbox_new(FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(child), gtk_image_new_from_stock(stockid, GTK_ICON_SIZE_MENU), FALSE, FALSE, 1);
+		gtk_box_pack_start(GTK_BOX(child), label, TRUE, TRUE, 1);
+	} else if (force_image) {
+		child = gtk_image_new_from_stock(stockid, GTK_ICON_SIZE_MENU);
+	} else if (label) {
+		child = label;
+	}
 
-	hbox = dialog_button_widget_new(labeltext, pixmap, stockID, iconSize);
-	button = gtk_button_new();
-	gtk_container_add(GTK_CONTAINER(button), hbox);
-
+	if (child) {
+		button = gtk_button_new();
+		gtk_container_add(GTK_CONTAINER(button), child);
+	} else /* if (stockid) */ {
+		button = gtk_button_new_from_stock(stockid);
+	}
+	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
+	gtk_widget_set_can_default(button, TRUE);
+	gtk_widget_show_all(button);
 	return button;
 }
 
@@ -189,13 +165,14 @@ dialog_button_new_with_image(const gchar * labeltext, gint pixmap, const gchar *
  * Return value: #GtkWidget * The newly created button
  */
 GtkWidget *
-dialog_button_new_with_image_in_table(const gchar * labeltext, gint pixmap, const gchar * stockID,
-									  GtkIconSize iconSize, GtkWidget * table, guint left_attach,
-									  guint right_attach, guint top_attach, guint bottom_attach)
+dialog_button_new_with_image_in_table(const gchar * labeltext, const gchar * stockID,
+										GCallback func, gpointer func_data, gboolean force_image, gboolean mnemonic,
+										GtkWidget * table, guint left_attach,
+										guint right_attach, guint top_attach, guint bottom_attach)
 {
 	GtkWidget *button;
 
-	button = dialog_button_new_with_image(labeltext, pixmap, stockID, iconSize);
+	button = dialog_button_new_with_image(labeltext, stockID, func, func_data, force_image, mnemonic);
 	gtk_table_attach(GTK_TABLE(table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
 					 GTK_SHRINK, 0, 0);
 
@@ -249,38 +226,13 @@ dialog_color_button_in_table(const gchar * color, const gchar * title, GtkWidget
 }
 
 GtkWidget *
-dialog_combo_box_text_from_list(const GList * options, const gchar * value)
-{
-	gboolean found = FALSE;
-	gint index = 0;
-	const GList *node;
-	GtkWidget *combobox;
-
-	combobox = gtk_combo_box_text_new();
-
-	for (node = options; node != NULL; node = node->next) {
-		if (node->data) {
-			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combobox), node->data);
-			if (!found && value && g_strcmp0(node->data, value) == 0)
-				found = TRUE;
-			else if (!found)
-				index++;
-		}
-	}
-
-	gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), (found ? index : 0));
-
-	return combobox;
-}
-
-GtkWidget *
 dialog_combo_box_text_labeled_from_list(const GList * options, const gchar * value, const gchar * labeltext,
 										GtkWidget * box, guint padding)
 {
 	GtkWidget *combobox;
 	GtkWidget *label;
 
-	combobox = dialog_combo_box_text_from_list(options, value);
+	combobox = combobox_with_popdown(value, options, FALSE);
 
 	label = dialog_label_new(labeltext, 0, 0.5, box, padding);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), combobox);
@@ -297,7 +249,7 @@ dialog_combo_box_text_from_list_in_table(const GList * options, const gchar * va
 {
 	GtkWidget *combobox;
 
-	combobox = dialog_combo_box_text_from_list(options, value);
+	combobox = combobox_with_popdown(value, options, FALSE);
 	gtk_table_attach(GTK_TABLE(table), combobox, left_attach, right_attach, top_attach, bottom_attach,
 					 GTK_FILL, GTK_SHRINK, 0, 0);
 
@@ -377,13 +329,27 @@ dialog_entry_in_table(const gchar * text, GtkWidget * table, guint left_attach, 
 	GtkWidget *entry;
 
 	entry = gtk_entry_new();
-	gtk_table_attach(GTK_TABLE(table), entry, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
-					 GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), entry, left_attach, right_attach, top_attach, bottom_attach
+					, GTK_FILL|GTK_EXPAND,GTK_SHRINK, 0, 0);
 
 	if (text)
 		gtk_entry_set_text(GTK_ENTRY(entry), text);
 
 	return entry;
+}
+
+GtkWidget *
+dialog_mnemonic_label_new(const gchar * labeltext, GtkWidget * m_widget)
+{
+	GtkWidget *label;
+
+	label = gtk_label_new(NULL);
+	gtk_label_set_markup_with_mnemonic(GTK_LABEL(label), labeltext);
+	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
+	if (m_widget)
+		gtk_label_set_mnemonic_widget(GTK_LABEL(label), m_widget);
+	return label;
 }
 
 /**
@@ -400,19 +366,14 @@ dialog_entry_in_table(const gchar * text, GtkWidget * table, guint left_attach, 
  *
  * Return value: void
  */
-void
+GtkWidget *
 dialog_mnemonic_label_in_table(const gchar * labeltext, GtkWidget * m_widget, GtkWidget * table,
 							   guint left_attach, guint right_attach, guint top_attach, guint bottom_attach)
 {
-	GtkWidget *label;
-
-	label = gtk_label_new_with_mnemonic(labeltext);
-	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+	GtkWidget *label = dialog_mnemonic_label_new(labeltext, m_widget);
 	gtk_table_attach(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
 					 GTK_SHRINK, 0, 0);
-
-	if (m_widget)
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), m_widget);
+	return label;
 }
 
 GtkWidget *
@@ -445,11 +406,7 @@ dialog_radio_button_from_widget_in_table(GtkRadioButton * radio_group_member, co
 GtkWidget *
 dialog_spin_button_new(gfloat lower, gfloat upper, const gint value)
 {
-#if GTK_CHECK_VERSION(3,0,0)
 	GtkAdjustment *adjustment;
-#else
-	GtkObject *adjustment;
-#endif
 	GtkWidget *button;
 	gfloat step_increment, page_increment;
 
@@ -461,7 +418,7 @@ dialog_spin_button_new(gfloat lower, gfloat upper, const gint value)
 	if (page_increment < 10)
 		page_increment = 10;
 
-	adjustment = gtk_adjustment_new((1.0 * value), lower, upper, step_increment, page_increment, 0);
+	adjustment = (GtkAdjustment *)gtk_adjustment_new((1.0 * value), lower, upper, step_increment, page_increment, 0);
 	button = gtk_spin_button_new(GTK_ADJUSTMENT(adjustment), 0.1, 0);
 
 	return button;
@@ -556,10 +513,7 @@ dialog_vbox_new(GtkWidget * box)
 GtkWidget *
 dialog_vbox_labeled(const gchar * labeltext, GtkWidget * box)
 {
-	GtkWidget *label;
-
-	label = dialog_label_new(labeltext, 0, 0, box, 0);
-
+	dialog_label_new(labeltext, 0, 0, box, 0);
 	return dialog_vbox_new(box);
 }
 

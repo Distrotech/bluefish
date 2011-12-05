@@ -11,7 +11,7 @@ dnl ************************
 
 AC_PREREQ([2.59])
 
-AC_INIT([bluefish],[2.90.0],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
+AC_INIT([bluefish],[2.91.0],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 
 dnl Have to save them here!
 
@@ -35,8 +35,8 @@ dnl ************************
 dnl   I18N options
 dnl ************************
 
-m4_define([_BF_LINGUAS], [bg cs da de el es eu fi fr gl hu it ja ko_KR nb nl nn pl pt pt_BR ro ru sk sr sv ta tr uk zh_CN zh_TW])
-#ALL_LINGUAS="bg cs da de el es eu fi fr gl hu it ja ko_KR nb nl pl pt pt_BR ro ru sk sr sv ta tr uk zh_CN zh_TW"
+m4_define([_BF_LINGUAS], [bg cs da de el es eu fi fr gl hu it ja ko nb nl nn pl pt pt_BR ro ru sk sr sv ta tr uk zh_CN zh_TW])
+#ALL_LINGUAS="bg cs da de el es eu fi fr gl hu it ja ko nb nl pl pt pt_BR ro ru sk sr sv ta tr uk zh_CN zh_TW"
 AC_SUBST([ALL_LINGUAS], "_BF_LINGUAS")
 GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
@@ -68,19 +68,20 @@ dnl ************************
 #AC_ARG_PROGRAM
 AC_PROG_CC
 m4_ifdef(
-[LT_INIT],
-[
-dnl libtool 2.x macros
-LT_INIT([disable-static dlopen win32-dll])
-LT_PROG_RC
-],[
-dnl libtool 1.4 macros.
-AC_DISABLE_STATIC
-AC_LIBTOOL_DLOPEN
-AC_LIBTOOL_WIN32_DLL
-AC_LIBTOOL_RC
-AC_PROG_LIBTOOL
-])
+	[LT_INIT],
+	[
+	 dnl libtool 2.x macros
+	 LT_INIT([disable-static dlopen win32-dll])
+	 LT_PROG_RC
+	],[
+	 dnl libtool 1.4 macros.
+	 AC_DISABLE_STATIC
+	 AC_LIBTOOL_DLOPEN
+	 AC_LIBTOOL_WIN32_DLL
+	 AC_LIBTOOL_RC
+	 AC_PROG_LIBTOOL
+	]
+)
 m4_ifdef([DOLT], [DOLT])
 AC_ISC_POSIX
 AC_C_INLINE
@@ -116,12 +117,12 @@ case "$host" in
 esac
 
 if test "x$native_win32" = "xyes"; then
-AC_CHECK_TOOL([WINDRES], [windres], [no])
-if test "x$WINDRES" = "xno"; then
-AC_MSG_ERROR([The tool 'windres' was not found. Aborting.])
-fi
-AC_PROG_SED
-AC_SUBST([SPLIT_VERSION], [`echo $VERSION | $SED -e 's/-.*//' | $SED -e 's/\./,/g'`])
+	AC_CHECK_TOOL([WINDRES], [windres], [no])
+	if test "x$WINDRES" = "xno"; then
+		AC_MSG_ERROR([The tool 'windres' was not found. Aborting.])
+	fi
+	AC_PROG_SED
+	AC_SUBST([SPLIT_VERSION], [`echo $VERSION | $SED -e 's/-.*//' | $SED -e 's/\./,/g'`])
 fi
 AM_CONDITIONAL([OS_WIN32], [test "x$native_win32" = "xyes"])
 
@@ -131,7 +132,7 @@ dnl ************************
 
 AC_ARG_VAR(
 	[GDK_PIXBUF_CSOURCE],
-	[The `gdk-pixbuf-csource' executable. Use it to define or override its location.]
+	[The 'gdk-pixbuf-csource' executable. Use it to define or override its location.]
 )
 AC_CHECK_PROG([GDK_PIXBUF_CSOURCE], [gdk-pixbuf-csource], [gdk-pixbuf-csource])
 
@@ -209,10 +210,10 @@ AC_ARG_ENABLE(
 	[deprecated],
 	AC_HELP_STRING(
 		[--disable-deprecated],
-		[enable/disable deprecated functions (e.g. Glib/Gtk) @<:@default=yes@:>@]
+		[enable/disable deprecated functions (e.g. Glib/Gtk) @<:@default=no@:>@]
 	),
 	[
-	 if test "x$enableval" = "xno"; then
+	 if test "x$enableval" = "xyes"; then
 		 CFLAGS="$CFLAGS -DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES"
 		 CFLAGS="$CFLAGS -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED"
 dnl		 CFLAGS="$CFLAGS -DG_DISABLE_DEPRECATED"
@@ -237,7 +238,7 @@ AC_ARG_ENABLE(
 		[
 		 enable (or disable) the running of xmlcatalog after installation -
 		 some distributions like Debian use their own system for registering
-		 catalogs, so be careful here and also check the `--with-xml-catalog'
+		 catalogs, so be careful here and also check the '--with-xml-catalog'
 		 option @<:@default=yes@:>@
 		]
 	),
@@ -256,11 +257,11 @@ AC_ARG_ENABLE(
 
 AC_ARG_VAR(
 	[UPDATE_DESKTOP_DATABASE],
-	[The `update-desktop-database' program. Use it to define or override its location.]
+	[The 'update-desktop-database' program. Use it to define or override its location.]
 )
 AC_ARG_VAR(
 	[UPDATE_MIME_DATABASE],
-	[The `update-mime-database' program. Use it to define or override its location.]
+	[The 'update-mime-database' program. Use it to define or override its location.]
 )
 if test "x$enable_update_databases" != "xno" ; then
 	AC_PATH_PROG([UPDATE_DESKTOP_DATABASE], [update-desktop-database])
@@ -413,42 +414,47 @@ else
 fi
 
 if test "x$enable_spell_check" != "xno"; then
+	AC_MSG_CHECKING([for optional libenchant development files])
 	PKG_CHECK_EXISTS(
 		[enchant],
 		[
 		 BF_dependencies="$BF_dependencies enchant"
-		 AC_DEFINE([HAVE_LIBENCHANT], [1], [Define to 1 if you have the `enchant' library (-lenchant).])
+		 AC_DEFINE([HAVE_LIBENCHANT], [1], [Define to 1 if you have the 'enchant' library (-lenchant).])
                  PKG_CHECK_EXISTS(
 			[enchant >= 1.4],
-			[AC_DEFINE([HAVE_LIBENCHANT_1_4], [1], [Define to 1 if you have the `enchant' library (-lenchant) >= 1.4.])]
+			[AC_DEFINE([HAVE_LIBENCHANT_1_4], [1], [Define to 1 if you have the 'enchant' library (-lenchant) >= 1.4.])]
 		 )
+		 AC_MSG_RESULT([yes])
 		],
 		[
 		 AC_CHECK_HEADERS(
 			[enchant.h enchant/enchant.h],
 			AC_CHECK_LIB(
 				[enchant],
-				[enchant_dict_check]
+				[enchant_dict_check],
+				[AC_MSG_RESULT([yes])],
+				[AC_MSG_RESULT([no])]
 			)
 		 )
 		]
 	)
 fi
 
+AC_MSG_CHECKING([for required development files])
 PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
 
 # from https://sourceforge.net/apps/trac/gtk-osx/wiki/Integrate
 # to integrate bluefish in the OSX GUI
-AC_MSG_CHECKING([for ige Mac OSX integration])
+AC_MSG_CHECKING([for Mac OSX integration])
 _gdk_tgt=`$PKG_CONFIG --variable=target gdk-2.0`
 if test "x$_gdk_tgt" = "xquartz"; then
-	BF_igemacintegration="ige-mac-integration"
+	BF_gtkmacintegration="gtk-mac-integration"
 	AC_MSG_RESULT([gdk target is $_gdk_tgt])
 	PKG_CHECK_MODULES(
-		[BLUEFISH_IGEMAC],
-		[$BF_igemacintegration],
+		[BLUEFISH_GTKMAC],
+		[$BF_gtkmacintegration],
 		[
-		 AC_DEFINE([MAC_INTEGRATION], [1], [Define to 1 for ige Mac OSX integration.])
+		 AC_DEFINE([MAC_INTEGRATION], [1], [Define to 1 for gtk Mac OSX integration.])
 		]
 	)
 else
@@ -496,11 +502,11 @@ AC_SEARCH_LIBS([nanosleep], [posix4 rt])
 AC_ARG_ENABLE(
 	[python],
 	AC_HELP_STRING(
-		[--enable-python],
-		[enable (or disable) python integration (HIGHLY EXPERIMENTAL) @<:@default=no@:>@]
+		[--disable-python],
+		[disable (or enable) python integration for zen-coding plugin @<:@default=yes@:>@]
 	),
 	[enable_python="$enableval"],
-	[enable_python="no"]
+	[enable_python="yes"]
 )
 
 if test "x$enable_python" = "xyes" ; then
@@ -508,7 +514,7 @@ if test "x$enable_python" = "xyes" ; then
 		[PYTHON],
 		[The 'python' binary with path. Use it to define or override the location of 'python'.]
 	)
-	AC_PATH_PROGS([PYTHON], [python python2.4 python2.3 python2.2 python2])
+	AC_PATH_PROGS([PYTHON], [python python2.6 python2.5 python2.4 python2.3 python2.2 python2])
 	if test -n "$PYTHON" ; then
 		# The following was inspired by Andrew Collier's AC_PYTHON_MODULE macro.
 		for python_module in "sys" "distutils.sysconfig" ; do
@@ -561,7 +567,11 @@ the python binary '$PYTHON' does not exist.])
 fi
 if test "x$enable_python" = "xyes"; then
 	AC_DEFINE([HAVE_PYTHON], [1], [Define to 1 if you have python installed.])
+	build_zencoding_plugin=yes
+else
+	build_zencoding_plugin=no
 fi
+AM_CONDITIONAL([ENABLE_ZENCODING_PLUGIN], [test "x$build_zencoding_plugin" = "xyes"])
 
 
 dnl ************************
@@ -570,7 +580,7 @@ dnl ************************
 
 AC_CHECK_HEADERS([stdlib.h unistd.h string.h strings.h errno.h stdio.h sys/stat.h ctype.h getopt.h math.h time.h sys/types.h fcntl.h netdb.h netinet/in.h sys/socket.h arpa/inet.h dirent.h sys/select.h sys/time.h sys/ipc.h sys/msg.h regex.h])
 
-AC_CHECK_FUNCS([msgrcv msgsnd ctime ctime_r asctime asctime_r localtime])
+AC_CHECK_FUNCS([msgrcv msgsnd ctime ctime_r asctime asctime_r localtime strcasestr])
 
 # with MingW32 we'll find regcomp() in -lgnurx; #593799
 AC_SEARCH_LIBS([regcomp], [gnurx regex])
@@ -599,8 +609,8 @@ fi
 dnl ************************
 dnl   Final Cflags/Libs
 dnl ************************
-CFLAGS="$CFLAGS $BLUEFISH_REQUIRED_CFLAGS $BLUEFISH_IGEMAC_CFLAGS"
-LIBS="$LIBS $BLUEFISH_REQUIRED_LIBS $BLUEFISH_IGEMAC_LIBS"
+CFLAGS="$CFLAGS $BLUEFISH_REQUIRED_CFLAGS $BLUEFISH_GTKMAC_CFLAGS"
+LIBS="$LIBS $BLUEFISH_REQUIRED_LIBS $BLUEFISH_GTKMAC_LIBS"
 
 
 dnl ************************
@@ -669,6 +679,8 @@ AC_CONFIG_FILES([
 	src/plugin_infbrowser/po/Makefile.in
 	src/plugin_snippets/Makefile
 	src/plugin_snippets/po/Makefile.in
+	src/plugin_zencoding/Makefile
+	src/plugin_zencoding/po/Makefile.in
 	src/bluefish_rc.rc.in
 	ui/Makefile
 	macosx/Makefile
@@ -677,6 +689,8 @@ AC_CONFIG_FILES([
 ])
 AC_OUTPUT
 
+# 	src/plugin_xmltools/po/Makefile.in
+# 	src/plugin_xmltools/Makefile
 
 dnl *******************************
 dnl   Feedback

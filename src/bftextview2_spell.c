@@ -158,7 +158,7 @@ spellcheck_word(BluefishTextView * btv, GtkTextBuffer * buffer, GtkTextIter * st
 		return;
 
 	DBG_SPELL("spellcheck_word, check word %s in dictionary %p\n", tocheck,
-			  BFWIN(DOCUMENT(btv->doc)->bfwin)->ed);
+			  BFWIN(doc->bfwin)->ed);
 	if (enchant_dict_check((EnchantDict *) BFWIN(doc->bfwin)->ed, tocheck, strlen(tocheck)) !=
 		0) {
 		DBG_SPELL("'%s' *not* spelled correctly!\n", tocheck);
@@ -363,7 +363,7 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 	guint profile_words = 0;
 #endif
 
-	if (!bluefish_text_view_get_spell_check(btv));
+	if (!bluefish_text_view_get_spell_check(btv))
 		return FALSE;
 
 	if (!BFWIN(doc->bfwin)->ed && !load_dictionary(BFWIN(doc->bfwin))) {
@@ -374,10 +374,11 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	if (!bftextview2_find_region2spellcheck(btv, buffer, &so, &eo)) {
 		DBG_SPELL("bftextview2_run_spellcheck, no region to spellcheck found... return FALSE\n");
+		DBG_DELAYSCANNING("bftextview2_run_spellcheck, nothing to spellcheck..\n");
 		return FALSE;
 	}
 	DBG_SPELL("bftextview2_run_spellcheck, in bfwin=%p, bfwin->ed=%p loop1 from %d to %d\n",
-			  DOCUMENT(btv->doc)->bfwin, BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, gtk_text_iter_get_offset(&so),
+			  doc->bfwin, BFWIN(doc->bfwin)->ed, gtk_text_iter_get_offset(&so),
 			  gtk_text_iter_get_offset(&eo));
 	timer = g_timer_new();
 	iter = so;

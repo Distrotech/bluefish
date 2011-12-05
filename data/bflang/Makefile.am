@@ -16,7 +16,6 @@ bflang_bfinc_files = \
 	css-rules.bfinc \
 	css-selectors.bfinc \
 	JQuery.bfinc \
-	svg.bfinc \
 	wordpress.bfinc
 
 bflang_bflang2_files = \
@@ -25,6 +24,7 @@ bflang_bflang2_files = \
 	asp-vbscript.bflang2 \
 	bflang2.bflang2 \
 	c.bflang2 \
+	cfml.bflang2 \
 	clojure.bflang2 \
 	cpp.bflang2 \
 	css.bflang2 \
@@ -36,6 +36,7 @@ bflang_bflang2_files = \
 	java.bflang2 \
 	javascript.bflang2 \
 	jsp.bflang2 \
+	lua.bflang2 \
 	mediawiki.bflang2 \
 	nsis.bflang2 \
 	pascal.bflang2 \
@@ -52,6 +53,7 @@ bflang_bflang2_files = \
 	sql.bflang2 \
 	svg.bflang2 \
 	text.bflang2 \
+	vala.bflang2 \
 	vbscript.bflang2 \
 	wordpress.bflang2 \
 	xhtml.bflang2 \

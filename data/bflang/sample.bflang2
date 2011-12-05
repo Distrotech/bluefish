@@ -8,26 +8,43 @@ it should have attribute 'name', which is a human readable name of the
 language that is defined  
 -->
 <bflang name="Sample">
-<!-- within the bflang tag is first a <header> and then a <definition> tag.
-the header tag is parsed during bluefish startup.
-the definition tag is parsed only on-demand. if a file of this type is opened -->
+<!-- within the bflang tag is first a <header>, then <properties> and then a <definition> tag.
+only the header tag of each language file is parsed during bluefish startup.
+
+the properties and definition tag are parsed only on-demand if a file of this type is opened -->
 <header>
-<!-- the <header> tag can have <mime> and <highlight> -->
+<!-- the <header> tag can have <mime> and <highlight> and <option> -->
 
 <!-- <mime type="TYPE"> defines which mime-types are described by this language file. 
 There can be multiple mime tags in the header section (for example C source and 
 C header files have a different mimetype and can be described by the same
 language file) -->
 	<mime type="fake/sample"/>
+<!-- Sometimes a file doesn't have a specific mime type, or the mime type is not defined 
+on many systems. In that case the mime type is often something like text/plain
+Bluefish supports a combination of mime type and extension. To detect a file type that
+ends on .fake you add: -->
+	<mime type="text/plain?fake"/>
+	
 <!-- <highlight name="NAME" style="STYLE"> defines which element-types that are defined in 
-the file, and which styles should be applied for each of these types. So if an element 
-in this file has attribute highlight="foo", this section should have <highlight name="foo"
-style="somestyle"/>. Look at other language files and try to re-use styles !!!!!!!!!
+the file, and which styles should be applied for each of these types. THESE CAN BE ALTERED
+BY THE USER IN THE PREFERENCES PANEL.
+
+So if an element in this file has attribute highlight="foo", this section should have 
+<highlight name="foo" style="somestyle"/>. Look at other language files and try to 
+re-use styles !!!!!!!!!
 
 For the end-user it is convenient if styles are re-used. All languages that define a comment
 should use style 'comment' by default. 
 -->
 	<highlight name="comment" style="comment" />
+
+<!-- Some users may like the same color for all keywords, other may like a different style for 
+storage types and language keywords. So use a different 'highlight' name for them, such that 
+users may assign a different textstyle if they want.-->
+	<highlight name="storage-types" style="keyword" />
+	<highlight name="keyword" style="keyword" />
+
 
 <!-- <option> defines an option that can be set for this language --> 
 	<option name="allphpfunctions" default="1" description="All php functions" />
@@ -35,6 +52,7 @@ should use style 'comment' by default.
 if in the <definition> section of this file we have a <group class="allphpfunctions"> the user
 can enable/disable this complete section with this option  
  -->	
+
 <!-- there are a couple of hardcoded option names for options that the user may set --> 
 	<option name="load_reference" default="1" />
 	<!-- whether or not to load the reference data for this language -->
@@ -42,26 +60,39 @@ can enable/disable this complete section with this option
 	<!-- whether or not to load the auto completion data for this language -->
 	<option name="autocomplete_tags" default="1" />
 	<!-- whether or not to close <tag> -->
+	<option name="show_in_menu" default="0"/>
+	<!-- whether or not to show this language by default in the menu -->
 
 </header>
 <properties>
 <!-- properties are parsed after the first file with this mime type has been loaded -->
-	<comment id="/**/" type="block" start="/*" end="*/" />
-	<comment id="//" type="line" start="//" />
-	<!-- the comment tag specifies which line and block comments that are possible for the smart comment function -->
+
+	<!-- the comment tag defines which type of line comments and block comments that could
+	exist in this language. The smart comment function shift-ctrl-c uses this information
+	to comment or uncomment -->
+	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />
+	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="cm.cpplinecomment" type="line" start="//" />
+	<comment id="cm.scriptcomment" type="line" start="#" />
+	
+	<!-- smartindent characters specify which characters, followed by a return, should increase the indenting. 
+	Smartoutdent means that this character, typed immediately after auto-indenting has set the indenting, should
+	decrease the previous auto-indenting -->
 	<smartindent characters="{" />
-	<!-- smartindent characters specify which characters, followed by a return, should increase the indenting -->
-	<default_spellcheck enabled="1" />
+	<smartoutdent characters="}" />
+
 	<!-- default_spellcheck defines if regions that are not highlighted will be checked by the spell checker. 
 	This is typically enabled for HTML/XML like languages, and disabled (or ignored, because the default=0)
 	for all programming languages
-	-->
+	-->	
+	<default_spellcheck enabled="1" />
 </properties>
 <definition>
 <!-- within <definition> the actual language description is found. A language definition always
-starts with a <context> tag, and contains ONE SINGLE context tag.
+starts with a <context> tag, and contains ONE SINGLE context tag (which may have other context tags 
+as children).
  -->
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" commentid_block="cm.htmlcomment" commentid_line="none">
 <!-- <context symbols="LIST OF CHARACTERS" highlight="HIGHLIGHT-TYPE" id="IDENTIFIER"
 a <context> tag should always define "symbols". Symbols are those characters that may start or end an element.
 

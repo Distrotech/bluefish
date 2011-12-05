@@ -21,6 +21,7 @@
 #define __PREFERENCES_H_
 
 enum {
+	enable_syntax_scan,
 	session_wrap_text,
 	view_line_numbers,
 	editor_tab_width,			/* editor tabwidth */
@@ -28,6 +29,7 @@ enum {
 	autoindent,					/* autoindent code */
 	autocomplete,
 	view_blocks,
+	view_blockstack,
 	show_mbhl,
 	view_cline,
 	default_mime_type,

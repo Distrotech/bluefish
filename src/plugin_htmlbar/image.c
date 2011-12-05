@@ -300,7 +300,7 @@ image_dialog_set_pixbuf(Timage_diag * imdg)
 }
 
 static void
-image_loaded_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen,
+image_loaded_lcb(Topenfile_status status, GError * gerror, Trefcpointer * refp, goffset buflen,
 				 gpointer callback_data)
 {
 	Timage_diag *imdg = callback_data;
@@ -322,7 +322,7 @@ image_loaded_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffs
 		break;
 	case OPENFILE_FINISHED:{
 			GError *error = NULL;
-			if (gdk_pixbuf_loader_write(imdg->pbloader, (const guchar *) buffer, buflen, &error)
+			if (gdk_pixbuf_loader_write(imdg->pbloader, (const guchar *) refp->data, buflen, &error)
 				&& gdk_pixbuf_loader_close(imdg->pbloader, &error)) {
 				imdg->pb = gdk_pixbuf_loader_get_pixbuf(imdg->pbloader);
 				if (imdg->pb) {
@@ -422,6 +422,7 @@ image_adjust_changed(GtkAdjustment * adj, Timage_diag * imdg)
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[0]), tn_width);
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[1]), tn_height);
 
+	/* TODO: move this to an idle callback so we will not block the UI */ 
 	tmp_pb =
 		gdk_pixbuf_scale_simple(imdg->pb, tn_width, tn_height,
 								main_v->globses.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR :
@@ -467,10 +468,6 @@ image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 	imdg->adj_changed_id =
 		g_signal_connect(G_OBJECT(imdg->adjustment), "value_changed", G_CALLBACK(image_adjust_changed), imdg);
 	gtk_scale_set_digits(GTK_SCALE(scale), 3);
-	/* FIXME: gtk_range_get_update_policy has been deprecated since version 2.24
-	 *  and should not be used in newly-written code.
-	 *   There is no replacement. If you require delayed updates, you need to code it yourself. */
-/*	gtk_range_set_update_policy(GTK_RANGE(scale), GTK_UPDATE_DISCONTINUOUS);*/
 	gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), scale, FALSE, FALSE, 0);
 
 	dgtable = html_diag_table_in_vbox(imdg->dg, 5, 9);
@@ -743,7 +740,7 @@ mt_start_next_load(Timage2thumb * i2t)
 }
 
 static void
-mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen,
+mt_openfile_lcb(Topenfile_status status, GError * gerror, Trefcpointer *refp, goffset buflen,
 				gpointer callback_data)
 {
 	Timage2thumb *i2t = callback_data;
@@ -782,7 +779,7 @@ mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffse
 			pbloader = pbloader_from_filename(path);
 			g_free(path);
 
-			if (gdk_pixbuf_loader_write(pbloader, (const guchar *) buffer, buflen, &error)
+			if (gdk_pixbuf_loader_write(pbloader, (const guchar *) refp->data, buflen, &error)
 				&& gdk_pixbuf_loader_close(pbloader, &error)) {
 				gint tw, th, ow, oh;
 				GdkPixbuf *image;
@@ -829,10 +826,10 @@ mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffse
 					/*gdk_pixbuf_unref(image); will be unreffed with the loader! */
 					/* save the thumbnail */
 					if (strcmp(main_v->props.image_thumbnailtype, "jpeg") == 0) {
-						gdk_pixbuf_save_to_buffer(thumb, &buffer, &buflen, main_v->props.image_thumbnailtype,
+						gdk_pixbuf_save_to_buffer(thumb, (gchar **)&refp->data, &buflen, main_v->props.image_thumbnailtype,
 												  &error, "quality", "50", NULL);
 					} else {
-						gdk_pixbuf_save_to_buffer(thumb, &buffer, &buflen, main_v->props.image_thumbnailtype,
+						gdk_pixbuf_save_to_buffer(thumb, (gchar **)&refp->data, &buflen, main_v->props.image_thumbnailtype,
 												  &error, NULL);
 					}
 					g_object_unref(thumb);
@@ -842,8 +839,7 @@ mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffse
 					} else {
 						GError *error = NULL;
 						GFileInfo *finfo;
-						Trefcpointer *refbuf = refcpointer_new(buffer);
-
+						refcpointer_ref(refp);
 						finfo = g_file_query_info(i2t->thumbname,
 												  BF_FILEINFO, G_FILE_QUERY_INFO_NONE, NULL, &error);
 						if (error != NULL) {
@@ -856,9 +852,9 @@ mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffse
 						g_free(path);
 #endif
 						i2t->sf =
-							file_checkNsave_uri_async(i2t->thumbname, finfo, refbuf, buflen, FALSE, FALSE,
+							file_checkNsave_uri_async(i2t->thumbname, finfo, refp, buflen, FALSE, FALSE,
 													  async_thumbsave_lcb, NULL);
-						refcpointer_unref(refbuf);
+						refcpointer_unref(refp);
 					}
 				} else {
 					/* ok, this image is not valid, how do we continue ?? */

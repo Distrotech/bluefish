@@ -19,22 +19,17 @@
 
 /* #define DEBUG */
 
+#include <gtk/gtk.h>
 #include <stdlib.h>				/* strtod() */
 #include <string.h>				/* strlen() */
-
-#include <gtk/gtk.h>
-
-#if GTK_CHECK_VERSION(3,0,0)
-#include <gdk/gdkkeysyms-compat.h>
-#else
-#include <gdk/gdkkeysyms.h>
-#endif
+#include <gdk/gdkkeysyms.h>		/* GDK_Return */
 
 #include "bluefish.h"
 #include "gtk_easy.h"
 #include "bf_lib.h"
 #include "bfwin.h"
 #include "pixmap.h"
+#include "dialog_utils.h"
 
 
 #ifdef WIN32
@@ -94,7 +89,7 @@ treemodel_from_arraylist(GList * list, gint numcols)
 		if (g_strv_length(arr) >= numcols - 1) {
 			gtk_list_store_append(GTK_LIST_STORE(retm), &iter);
 			for (i = 0; i < numcols - 1; i++) {
-				g_print("set column %d to value %s\n", i, arr[i]);
+				/*g_print("set column %d to value %s\n", i, arr[i]);*/
 				gtk_list_store_set(GTK_LIST_STORE(retm), &iter, i, arr[i], -1);
 			}
 			gtk_list_store_set(GTK_LIST_STORE(retm), &iter, numcols - 1, arr, -1);
@@ -244,10 +239,17 @@ string_apply(gchar ** config_var, GtkWidget * widget)
 		tmpstring = g_strdup(gtk_font_button_get_font_name(GTK_FONT_BUTTON(widget)));
 	} else if (GTK_IS_COLOR_BUTTON(widget)) {
 		GdkColor color;
-
 		gtk_color_button_get_color(GTK_COLOR_BUTTON(widget), &color);
-		tmpstring = gdk_color_to_string(&color);
-	} else if (GTK_IS_COMBO_BOX(widget)) {
+		tmpstring = g_strdup_printf("#%02X%02X%02X", color.red/256, color.green/256, color.blue/256);
+		DEBUG_MSG("return color %s\n",tmpstring);
+		/*tmpstring = gdk_color_to_string(&color);*/
+	}
+#if GTK_CHECK_VERSION(2,24,0)
+	else if (GTK_IS_COMBO_BOX_TEXT(widget)) 
+#else
+	else if (GTK_IS_COMBO_BOX(widget))
+#endif
+	{
 		tmpstring = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
 	} else {
 		tmpstring = gtk_editable_get_chars(GTK_EDITABLE(widget), 0, -1);
@@ -301,7 +303,7 @@ boxed_widget(const gchar * labeltext, GtkWidget * widget, GtkWidget * box)
 }
 
 GtkWidget *
-combobox_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width)
+combobox_with_popdown_sized(const gchar * setstring, const GList * which_list, gint editable, gint width)
 {
 	GtkWidget *returnwidget;
 
@@ -311,7 +313,7 @@ combobox_with_popdown_sized(const gchar * setstring, GList * which_list, gint ed
 }
 
 GtkWidget *
-boxed_combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable, GtkWidget * box)
+boxed_combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolean editable, GtkWidget * box)
 {
 	GtkWidget *returnwidget = combobox_with_popdown(setstring, which_list, editable);
 	gtk_box_pack_start(GTK_BOX(box), returnwidget, TRUE, TRUE, 3);
@@ -319,7 +321,7 @@ boxed_combobox_with_popdown(const gchar * setstring, GList * which_list, gboolea
 }
 
 GtkWidget *
-combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable)
+combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolean editable)
 {
 	GtkWidget *child, *returnwidget;
 	GList *tmplist;
@@ -328,8 +330,7 @@ combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean edit
 		returnwidget = gtk_combo_box_text_new_with_entry();
 	else
 		returnwidget = gtk_combo_box_text_new();
-
-	for (tmplist = g_list_first(which_list); tmplist; tmplist = g_list_next(tmplist)) {
+	for (tmplist = g_list_first((GList *)which_list); tmplist; tmplist = g_list_next(tmplist)) {
 		if (tmplist->data) {
 			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(returnwidget), tmplist->data);
 			if (setstring && g_strcmp0(tmplist->data, setstring) == 0) {
@@ -344,7 +345,7 @@ combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean edit
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(returnwidget), setstring);
 		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget), index);
 	}
-	if (gtk_combo_box_get_has_entry(GTK_COMBO_BOX(returnwidget))) {
+	if (editable) {
 		child = gtk_bin_get_child(GTK_BIN(returnwidget));
 		gtk_entry_set_activates_default(GTK_ENTRY(child), TRUE);
 	}
@@ -437,7 +438,7 @@ boxed_radiobut_with_value(gchar * labeltext, gint enabled, GtkRadioButton * prev
 	return returnwidget;
 }
 
-static gint
+/*static gint
 is_int(gfloat testval)
 {
 	DEBUG_MSG("is_int, (int)testval=%d\n", (int) testval);
@@ -449,7 +450,7 @@ is_int(gfloat testval)
 		return 0;
 	}
 }
-
+*/
 /**
  * spinbut_with_value:
  * @value: #const gchar * with the value as string for the spinbut
@@ -462,15 +463,33 @@ is_int(gfloat testval)
  *
  * Return value: #GtkWidget* pointer to the new spinbutton widget
  */
+ 
+static gboolean
+spinbut_output(GtkSpinButton *spin,gpointer data)
+{
+	const gchar *text;
+	gchar *endptr;
+	double testval;
+	/* if text contains a number, we return FALSE and thus use the adjustment to update the number,
+	if it contains text we return TRUE and thus do nothing */
+	text = gtk_entry_get_text(GTK_ENTRY(spin));
+	testval = strtod(text, &endptr);
+	if (endptr == text) {
+		return TRUE;
+	}
+	return FALSE;
+}
+ 
+ 
 GtkWidget *
 spinbut_with_value(gchar * value, gfloat lower, gfloat upper, gfloat step_increment, gfloat page_increment)
 {
-	GtkAdjustment *adj;
+/*	GtkAdjustment *adj;
 	GtkWidget *returnwidget;
 	guint digits;
 	double fvalue = 0;
 
-	if (value) {
+	if (value && value[0]!='\0') {
 		fvalue = strtod(value, NULL);
 	}
 	adj =
@@ -478,14 +497,27 @@ spinbut_with_value(gchar * value, gfloat lower, gfloat upper, gfloat step_increm
 											 page_increment, 0.0);
 	digits = (is_int(lower) ? 0 : 2);
 	returnwidget = gtk_spin_button_new(adj, step_increment, digits);
-/*	g_object_set(G_OBJECT(returnwidget), "numeric", TRUE, NULL);*/
-	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(returnwidget), FALSE);
 	gtk_spin_button_set_snap_to_ticks(GTK_SPIN_BUTTON(returnwidget), FALSE);
-/*	gtk_spin_button_set_update_policy(GTK_SPIN_BUTTON(returnwidget), GTK_UPDATE_IF_VALID);*/
-	if (!value) {
-		gtk_entry_set_text(GTK_ENTRY(GTK_SPIN_BUTTON(returnwidget)), "");
+	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(returnwidget), FALSE);
+	if (!value || value[0]=='\0') {
+		gtk_entry_set_text(GTK_ENTRY(returnwidget), value);
+	}*/
+	
+	GtkWidget *returnwidget;
+	gchar *endptr;
+	double testval;
+	returnwidget = gtk_spin_button_new_with_range(lower,upper,step_increment);
+	if (value) {
+		testval = strtod(value, &endptr);
+		if (endptr != value) {
+			gtk_spin_button_set_value(GTK_SPIN_BUTTON(returnwidget), testval);
+		}
 	}
-
+	g_signal_connect(G_OBJECT(returnwidget), "output", G_CALLBACK(spinbut_output), returnwidget);
+	gtk_spin_button_set_update_policy(GTK_SPIN_BUTTON(returnwidget), GTK_UPDATE_IF_VALID);
+	gtk_spin_button_set_snap_to_ticks(GTK_SPIN_BUTTON(returnwidget), FALSE);
+	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(returnwidget), FALSE);
+	gtk_entry_set_text(GTK_ENTRY(returnwidget), value?value:"");
 	return returnwidget;
 }
 
@@ -531,7 +563,7 @@ static gboolean
 window_full_key_press_event_lcb(GtkWidget * widget, GdkEventKey * event, GtkWidget * win)
 {
 	DEBUG_MSG("window_full_key_press_event_lcb, started\n");
-	if (event->keyval == GDK_Escape) {
+	if (event->keyval == GDK_KEY_Escape) {
 		DEBUG_MSG("window_full_key_press_event_lcb, emit delete_event on %p\n", win);
 /*		g_signal_emit_by_name(G_OBJECT(win), "delete_event");*/
 		gtk_widget_destroy(win);
@@ -661,77 +693,6 @@ apply_font_style(GtkWidget * this_widget, gchar * fontstring)
 	return this_widget;
 }
 
-/**
- * hbox_with_pix_and_text:
- * 	@label: #const gchar* with the text
- * 	@pixmap_type: #gint with a pixmap type known by new_pixmap() from pixmap.h
- *
- * constructs a hbox with a pixmap and text. The pixmap type should be known
- * to the new_pixmap() function from pixmap.c
- * This function is very useful to create a button with text and a pixmap
- *
- * Return value: #GtkWidget* to the hbox
- */
-GtkWidget *
-hbox_with_pix_and_text(const gchar * label, gint bf_pixmaptype, gboolean w_mnemonic)
-{
-	GtkWidget *hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(bf_pixmaptype), FALSE, FALSE, 1);
-	gtk_box_pack_start(GTK_BOX(hbox),
-					   ((w_mnemonic) ? gtk_label_new_with_mnemonic(label) : gtk_label_new(label)), TRUE, TRUE,
-					   1);
-	gtk_widget_show_all(hbox);
-	return hbox;
-}
-
-GtkWidget *
-bf_allbuttons_backend(const gchar * label, gboolean w_mnemonic, gint bf_pixmaptype, GCallback func,
-					  gpointer func_data)
-{
-	GtkWidget *button;
-	if (bf_pixmaptype == -1) {
-		/* there is no image needed, only text */
-		if (w_mnemonic) {
-			button = gtk_button_new_with_mnemonic(label);
-		} else {
-			button = gtk_button_new_with_label(label);
-		}
-	} else {
-		/* there is an image needed */
-		button = gtk_button_new();
-		if (label) {
-			/* both a pixmap and text */
-			gtk_container_set_border_width(GTK_CONTAINER(button), 0);
-			gtk_container_add(GTK_CONTAINER(button),
-							  hbox_with_pix_and_text(label, bf_pixmaptype, w_mnemonic));
-		} else {
-			/* only pixmap */
-			gtk_container_add(GTK_CONTAINER(button), new_pixmap(bf_pixmaptype));
-		}
-	}
-	gtk_widget_set_can_default(button, TRUE);
-	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
-	return button;
-}
-
-/**
- * bf_gtkstock_button:
- * @stock_id: #const gchar* wioth the GTK stock icon ID
- * @func: #GCallback pointer to signal handler
- * @func_data: #gpointer data for signal handler
- *
- * Create new button from the GTK stock icons
- *
- * Return value: pointer to created button
- */
-GtkWidget *
-bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data)
-{
-	GtkWidget *button = gtk_button_new_from_stock(stock_id);
-	gtk_widget_set_can_default(button, TRUE);
-	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
-	return button;
-}
 
 /**
  * bf_generic_frame_new:
@@ -1113,19 +1074,11 @@ file_but_clicked_lcb(GtkWidget * widget, Tfilebut * fb)
 	}
 }
 
-#if GTK_CHECK_VERSION(3,0,0)
 static void
-file_but_destroy(GtkWidget * object, Tfilebut * fb)
+file_but_destroy(GtkWidget * widget, Tfilebut * fb)
 {
-	g_free(fb);
+	g_slice_free(Tfilebut, fb);
 }
-#else
-static void
-file_but_destroy(GtkObject * object, Tfilebut * fb)
-{
-	g_free(fb);
-}
-#endif
 
 /**
  * file_but_new:
@@ -1145,16 +1098,14 @@ file_but_new2(GtkWidget * which_entry, gint full_pathname, Tbfwin * bfwin, GtkFi
 	GtkWidget *file_but;
 	Tfilebut *fb;
 
-	fb = g_new(Tfilebut, 1);
+	fb = g_slice_new(Tfilebut);
 	fb->entry = which_entry;
 	fb->bfwin = bfwin;
 	fb->fullpath = full_pathname;
 	fb->chooseraction = chooseraction;
-	file_but = gtk_button_new();
+	file_but = dialog_button_new_with_image(NULL,GTK_STOCK_OPEN, G_CALLBACK(file_but_clicked_lcb), fb, TRUE, FALSE);
 	g_signal_connect(G_OBJECT(file_but), "destroy", G_CALLBACK(file_but_destroy), fb);
 	DEBUG_MSG("file_but_new, entry=%p, button=%p\n", which_entry, file_but);
-	gtk_container_add(GTK_CONTAINER(file_but), hbox_with_pix_and_text(_("_Browse..."), 112, TRUE));
-	g_signal_connect(G_OBJECT(file_but), "clicked", G_CALLBACK(file_but_clicked_lcb), fb);
 	gtk_widget_show(file_but);
 	return file_but;
 }
@@ -1394,12 +1345,12 @@ accelerator_key_press_lcb(GtkWidget * widget, GdkEventKey * event, gpointer user
 /*	if (!g_unichar_isalnum((gunichar)event->keyval) && event->keyval!=GDK_Escape && !g_unichar_isspace((gunichar)event->keyval))
 		return FALSE;*/
 	switch (event->keyval) {
-	case GDK_Escape:
+	case GDK_KEY_Escape:
 		gtk_dialog_response(dlg, GTK_RESPONSE_CANCEL);
 		break;
-	case GDK_Delete:
-	case GDK_KP_Delete:
-	case GDK_BackSpace:
+	case GDK_KEY_Delete:
+	case GDK_KEY_KP_Delete:
+	case GDK_KEY_BackSpace:
 		gtk_dialog_response(dlg, GTK_RESPONSE_REJECT);
 		break;
 	default:
@@ -1444,6 +1395,9 @@ ask_accelerator_dialog(const gchar * title)
 	gtk_window_set_modal(GTK_WINDOW(dialog1), TRUE);
 	/*gtk_window_set_decorated(GTK_WINDOW(dialog1), FALSE); */
 	gtk_window_set_type_hint(GTK_WINDOW(dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
+#if !GTK_CHECK_VERSION(3, 0, 0)
+	gtk_dialog_set_has_separator(GTK_DIALOG(dialog1), FALSE);
+#endif /* gtk3 */
 
 	label1 = gtk_label_new(_("<b>Keystroke choice</b>"));
 	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog1))), label1, FALSE, FALSE, 0);

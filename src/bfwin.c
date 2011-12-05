@@ -22,11 +22,13 @@
 /*#define DEBUG*/
 
 #ifdef MAC_INTEGRATION
-/*#include <ige-mac-integration.h>*/
 #include <gtkosxapplication.h>
+#include <gtk-mac-menu.h>
 #endif
 
 #include <gtk/gtk.h>
+
+#include <string.h>
 
 #if GTK_CHECK_VERSION(3,0,0)
 #include <gdk/gdkkeysyms-compat.h>
@@ -50,7 +52,7 @@
 #include "plugins.h"
 #include "project.h"
 #include "rcfile.h"
-#include "snr2.h"
+#include "snr3.h"
 
 #ifdef IDENTSTORING
 #include "bftextview2_identifier.h"
@@ -74,15 +76,6 @@ bfwin_fullscreen_toggle(Tbfwin * bfwin, gboolean active)
 		gtk_window_fullscreen(GTK_WINDOW(bfwin->main_window));
 	else
 		gtk_window_unfullscreen(GTK_WINDOW(bfwin->main_window));
-}
-
-void
-bfwin_gotoline_frame_show(Tbfwin * bfwin)
-{
-	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
-		gtk_widget_show(bfwin->gotoline_frame);
-
-	gtk_widget_grab_focus(bfwin->gotoline_entry);
 }
 
 static void
@@ -146,8 +139,8 @@ bfwin_set_main_toolbar_visible(Tbfwin * bfwin, gboolean visible, gboolean sync_m
 		DEBUG_MSG("bfwin_set_main_toolbar_visible, trying to sync menu\n");
 		bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewMainToolbar", visible);
 	}
-	if (gtk_bin_get_child(GTK_BIN(bfwin->main_toolbar_hb)) == NULL)
-		bfwin_main_toolbar_init(bfwin);
+	/*if (gtk_bin_get_child(GTK_BIN(bfwin->main_toolbar_hb)) == NULL)
+		bfwin_main_toolbar_init(bfwin);*/
 
 	widget_set_visible(bfwin->main_toolbar_hb, visible);
 }
@@ -169,11 +162,12 @@ bfwin_output_pane_show(Tbfwin * bfwin, gboolean active)
 }
 
 static void
-side_panel_cleanup(Tbfwin * bfwin)
+side_panel_destroy_cleanup(Tbfwin * bfwin)
 {
-	DEBUG_MSG("side_panel_cleanup called for bfwin %p\n", bfwin);
+	g_print("side_panel_destroy_cleanup called for bfwin %p\n", bfwin);
 	bmark_cleanup(bfwin);
 	fb2_cleanup(bfwin);
+	gtk_widget_destroy(bfwin->leftpanel_notebook);
 	if (main_v->sidepanel_destroygui) {
 		GSList *tmplist = main_v->sidepanel_destroygui;
 		while (tmplist) {
@@ -221,6 +215,8 @@ side_panel_build(Tbfwin * bfwin)
 
 	bfwin->leftpanel_notebook = gtk_notebook_new();
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook), main_v->props.leftpanel_tabposition);
+	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(bfwin->leftpanel_notebook), TRUE);
+	gtk_notebook_set_show_border(GTK_NOTEBOOK(bfwin->leftpanel_notebook), FALSE);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->leftpanel_notebook));
 	DEBUG_MSG("side_panel_build, building side panel for bfwin %p\n", bfwin);
 	bmarks = bmark_gui(bfwin);
@@ -257,9 +253,7 @@ bfwin_side_panel_rebuild(Tbfwin * bfwin)
 {
 	if (bfwin->hpane) {
 		DEBUG_MSG("bfwin_side_panel_rebuild, destroying widgets for bfwin %p\n", bfwin);
-		gtk_widget_destroy(bfwin->leftpanel_notebook);
-		DEBUG_MSG("bfwin_side_panel_rebuild, cleanup for bfwin %p\n", bfwin);
-		side_panel_cleanup(bfwin);
+		side_panel_destroy_cleanup(bfwin);
 		DEBUG_MSG("bfwin_side_panel_rebuild, re-init\n");
 		side_panel_build(bfwin);
 		if (main_v->props.left_panel_left) {
@@ -296,8 +290,8 @@ bfwin_side_panel_show_hide_toggle(Tbfwin * bfwin, gboolean first_time, gboolean 
 			gtk_container_remove(GTK_CONTAINER(bfwin->middlebox), bfwin->notebook_box);
 		} else {
 			gtk_container_remove(GTK_CONTAINER(bfwin->hpane), bfwin->notebook_box);
+			side_panel_destroy_cleanup(bfwin);
 			gtk_widget_destroy(bfwin->hpane);
-			side_panel_cleanup(bfwin);
 			bfwin->hpane = NULL;
 		}
 	}
@@ -379,7 +373,7 @@ bfwin_apply_session(Tbfwin * bfwin)
 	bfwin_statusbar_show_hide_toggle(bfwin, bfwin->session->view_statusbar, TRUE);
 
 	fb2_update_settings_from_session(bfwin);
-
+	bfwin_recent_menu_create(bfwin, TRUE);
 	/* force this session in the plugins */
 	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
 }
@@ -532,14 +526,108 @@ bfwin_cleanup(Tbfwin * bfwin)
 #ifdef HAVE_LIBENCHANT
 	unload_spell_dictionary(bfwin);
 #endif
-	fb2_cleanup(bfwin);
-	bmark_cleanup(bfwin);
+	g_print("bfwin_cleanup called for bfwin %p\n",bfwin);
+	side_panel_destroy_cleanup(bfwin);
 	outputbox_cleanup(bfwin);
-	snr2_cleanup(bfwin);
 
 	if (bfwin->notebook_changed_doc_activate_id != 0) {
 		g_source_remove(bfwin->notebook_changed_doc_activate_id);
 	}
+	
+	DEBUG_MSG("unref static actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->uimanager));
+	/*g_object_unref(G_OBJECT(bfwin->globalGroup));
+	g_object_unref(G_OBJECT(bfwin->documentGroup));
+	g_object_unref(G_OBJECT(bfwin->editGroup));
+	g_object_unref(G_OBJECT(bfwin->findReplaceGroup));
+	g_object_unref(G_OBJECT(bfwin->projectGroup));
+	g_object_unref(G_OBJECT(bfwin->undoGroup));
+	g_object_unref(G_OBJECT(bfwin->bookmarkGroup));
+	g_object_unref(G_OBJECT(bfwin->filebrowserGroup)); invalid unref according to valgrind */
+	
+	DEBUG_MSG("unref dynamic templates actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->templates_group));
+	DEBUG_MSG("unref dynamic lang_mode actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->lang_mode_group));
+	DEBUG_MSG("unref dynamic commands actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->commands_group));
+	DEBUG_MSG("unref dynamicfilters  actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->filters_group));
+	DEBUG_MSG("unref dynamic outputbox actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->outputbox_group));
+	DEBUG_MSG("unref dynamicencodings  actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->encodings_group));
+	if (bfwin->fb2_filters_group) {
+		DEBUG_MSG("unref dynamic fb2_filters actiongroups\n");
+		g_object_unref(G_OBJECT(bfwin->fb2_filters_group));
+	}
+	DEBUG_MSG("finished unref actiongroups\n");
+
+}
+
+void
+bfwin_gotoline_from_clipboard(Tbfwin * bfwin)
+{
+	gchar *string;
+	GtkClipboard *cb;
+	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
+		gtk_widget_show(bfwin->gotoline_frame);
+
+	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+	string = gtk_clipboard_wait_for_text(cb);
+	if (string) {
+		gtk_entry_set_text(GTK_ENTRY(bfwin->gotoline_entry),string);
+		gtk_editable_select_region(GTK_EDITABLE(bfwin->gotoline_entry),0,-1);
+		g_free(string);
+	}
+}
+
+void
+bfwin_gotoline_frame_show(Tbfwin * bfwin)
+{
+	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
+		gtk_widget_show(bfwin->gotoline_frame);
+
+	gtk_widget_grab_focus(bfwin->gotoline_entry);
+}
+
+void
+bfwin_simplesearch_show(Tbfwin *bfwin)
+{
+	GtkTextIter itstart,itend;
+	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
+		gtk_widget_show(bfwin->gotoline_frame);
+
+	/* see if there is a selection within a single line */
+	if (gtk_text_buffer_get_selection_bounds(bfwin->current_document->buffer, &itstart, &itend)) {
+		if (gtk_text_iter_get_line(&itstart)==gtk_text_iter_get_line(&itend)) {
+			gchar *tmpstr = gtk_text_buffer_get_text(bfwin->current_document->buffer,&itstart,&itend,TRUE);
+			gtk_entry_set_text(GTK_ENTRY(bfwin->simplesearch_entry),tmpstr);
+			g_free(tmpstr);
+			gtk_editable_select_region(GTK_EDITABLE(bfwin->simplesearch_entry),0,-1);
+			/* TODO: mark the current selection as the 'current' search result */
+		}
+	}
+	gtk_widget_grab_focus(bfwin->simplesearch_entry);
+}
+
+void
+bfwin_simplesearch_from_clipboard(Tbfwin *bfwin)
+{
+	gchar *string;
+	GtkClipboard *cb;
+	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
+		gtk_widget_show(bfwin->gotoline_frame);
+
+	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+	string = gtk_clipboard_wait_for_text(cb);
+	if (string) {
+		gtk_entry_set_text(GTK_ENTRY(bfwin->simplesearch_entry),string);
+		gtk_editable_select_region(GTK_EDITABLE(bfwin->simplesearch_entry),0,-1);
+		/* TODO: mark the current selection as the 'current' search result */
+		g_free(string);
+	}
+	gtk_widget_grab_focus(bfwin->simplesearch_entry);
 }
 
 static void
@@ -604,6 +692,12 @@ gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
 {
 	gtk_widget_hide(bfwin->gotoline_frame);
 
+	if (bfwin->simplesearch_snr3run) {
+		DEBUG_MSG("free simple search run %p\n", bfwin->simplesearch_snr3run);
+		snr3run_free(bfwin->simplesearch_snr3run);
+		bfwin->simplesearch_snr3run = NULL;
+	}
+
 	g_signal_handlers_block_matched(bfwin->gotoline_entry,
 									G_SIGNAL_MATCH_FUNC, 0, 0, NULL, gotoline_entry_changed, NULL);
 
@@ -613,20 +707,75 @@ gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
 									  G_SIGNAL_MATCH_FUNC, 0, 0, NULL, gotoline_entry_changed, NULL);
 	if (bfwin->current_document)
 		gtk_widget_grab_focus(bfwin->current_document->view);
+	
 }
 
+static void
+simplesearch_entry_changed_or_activate(GtkEditable * editable, Tbfwin * bfwin)
+{
+	gchar *tmpstr;
+
+	if (!bfwin->current_document)
+		return;
+	tmpstr = gtk_editable_get_chars(editable, 0, -1);
+	if (bfwin->simplesearch_snr3run) {
+		DEBUG_MSG("free simple search run %p\n", bfwin->simplesearch_snr3run);
+		snr3run_free(bfwin->simplesearch_snr3run);
+		bfwin->simplesearch_snr3run=NULL;
+	}
+	if (tmpstr && tmpstr[0]!='\0' && tmpstr[1] != '\0') {
+		DEBUG_MSG("start simple search run\n");
+		bfwin->simplesearch_snr3run = simple_search_run(bfwin, tmpstr);
+	}
+	g_free(tmpstr);
+}
+
+static void
+simplesearch_forward_clicked(GtkButton * button, Tbfwin * bfwin)
+{
+	if (!bfwin->simplesearch_snr3run)
+		return;
+	snr3_run_go(bfwin->simplesearch_snr3run, TRUE);
+}
+
+static void
+simplesearch_back_clicked(GtkButton * button, Tbfwin * bfwin)
+{
+	if (!bfwin->simplesearch_snr3run)
+		return;
+	snr3_run_go(bfwin->simplesearch_snr3run, FALSE);
+}
+static void
+simplesearch_advanced_clicked(GtkButton * button, Tbfwin * bfwin)
+{
+	gchar *tmpstr = gtk_editable_get_chars(GTK_EDITABLE(bfwin->simplesearch_entry) , 0, -1);
+	snr3_advanced_dialog(bfwin, tmpstr?tmpstr:"");
+	gotoline_close_button_clicked(NULL, bfwin);
+	g_free(tmpstr);
+}
+
+static gboolean
+gotoline_entries_key_press_event(GtkWidget * widget, GdkEventKey * event, Tbfwin * bfwin)
+{
+	if (event->keyval == GDK_KEY_Escape) {
+		gotoline_close_button_clicked(NULL, bfwin);
+		return TRUE;
+	}
+	return FALSE;
+}
 static void
 gotoline_frame_create(Tbfwin * bfwin)
 {
 	GtkWidget *button, *hbox;
 
 	bfwin->gotoline_frame = gtk_frame_new(NULL);
-	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_frame_set_shadow_type(GTK_FRAME(bfwin->gotoline_frame), GTK_SHADOW_NONE);
+	hbox = gtk_hbox_new(FALSE, 6);
 	gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
 	gtk_container_add(GTK_CONTAINER(bfwin->gotoline_frame), hbox);
 
 	button = bluefish_small_close_button_new();
-	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 6);
 	g_signal_connect(button, "clicked", G_CALLBACK(gotoline_close_button_clicked), bfwin);
 
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Goto Line:")), FALSE, FALSE, 0);
@@ -635,9 +784,24 @@ gotoline_frame_create(Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(hbox), bfwin->gotoline_entry, FALSE, FALSE, 0);
 	g_signal_connect(bfwin->gotoline_entry, "changed", G_CALLBACK(gotoline_entry_changed), bfwin);
 	g_signal_connect(bfwin->gotoline_entry, "insert-text", G_CALLBACK(gotoline_entry_insert_text), NULL);
+	g_signal_connect(G_OBJECT(bfwin->gotoline_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
+	
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_vseparator_new(), FALSE, FALSE, 6);
 
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Find:")), FALSE, FALSE, 0);
+	bfwin->simplesearch_entry = gtk_entry_new();
+	gtk_box_pack_start(GTK_BOX(hbox), bfwin->simplesearch_entry, FALSE, FALSE, 0);
+	button = dialog_button_new_with_image(NULL,GTK_STOCK_GO_BACK, G_CALLBACK(simplesearch_back_clicked), bfwin, TRUE, FALSE);
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
+	button = dialog_button_new_with_image(NULL,GTK_STOCK_GO_FORWARD, G_CALLBACK(simplesearch_forward_clicked), bfwin, TRUE, FALSE);
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
+	g_signal_connect(G_OBJECT(bfwin->simplesearch_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
+	g_signal_connect(bfwin->simplesearch_entry, "changed", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
+	g_signal_connect(bfwin->simplesearch_entry, "activate", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
+	button = dialog_button_new_with_image(_("Advanced"), NULL, G_CALLBACK(simplesearch_advanced_clicked),bfwin, FALSE, TRUE);
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
+	
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->gotoline_frame, FALSE, FALSE, 2);
-
 	gtk_widget_show_all(hbox);
 }
 
@@ -656,10 +820,12 @@ bfwin_destroy_event(GtkWidget * widget, Tbfwin * bfwin)
 
 	main_v->bfwinlist = g_list_remove(main_v->bfwinlist, bfwin);
 	DEBUG_MSG("bfwin_destroy_event, bfwin(%p) is removed from bfwinlist\n", bfwin);
-	bfwin_cleanup(bfwin);
 
 	DEBUG_MSG("bfwin_destroy_event, will destroy the window now\n");
 	gtk_widget_destroy(bfwin->main_window);
+
+	bfwin_cleanup(bfwin);
+
 
 #ifdef IDENTSTORING
 	bftextview2_identifier_hash_destroy(bfwin);
@@ -780,11 +946,12 @@ notebook_set_tab_accels(Tbfwin * bfwin)
 static gboolean
 notebook_changed_activate_current_document(gpointer data)
 {
+	DEBUG_MSG("notebook_changed_activate_current_document, current_document=%p\n",BFWIN(data)->current_document);
 	if (BFWIN(data)->current_document)
 		doc_activate(BFWIN(data)->current_document);
 
 	BFWIN(data)->notebook_changed_doc_activate_id = 0;
-
+	DEBUG_MSG("notebook_changed_doc_activate_id=%d\n",BFWIN(data)->notebook_changed_doc_activate_id);
 	return FALSE;
 }
 
@@ -798,6 +965,62 @@ void
 bfwin_notebook_unblock_signals(Tbfwin * bfwin)
 {
 	g_signal_handler_unblock(G_OBJECT(bfwin->notebook), bfwin->notebook_switch_signal);
+}
+
+static void
+bfwin_current_document_changed_notify(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc) {
+	GSList *tmpslist;
+	for (tmpslist=bfwin->curdoc_changed;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+		Tcallback *cb=tmpslist->data;
+		DEBUG_MSG("bfwin_current_document_changed_notify, call %p, data=%p, bfwin=%p, olddoc=%p, newdoc=%p\n",cb->func,cb->data, bfwin,olddoc,newdoc);
+		((CurdocChangedCallback)cb->func)(bfwin, olddoc, newdoc, cb->data);
+	}
+}
+
+void
+bfwin_current_document_change_register(Tbfwin *bfwin, CurdocChangedCallback func, gpointer data) {
+	callback_register(&bfwin->curdoc_changed, func, data);
+}
+
+void
+bfwin_current_document_change_remove_by_data(Tbfwin *bfwin, gpointer data) {
+	callback_remove_by_data(&bfwin->curdoc_changed, data);
+}
+
+void
+bfwin_current_document_change_remove_all(Tbfwin *bfwin) {
+	callback_remove_all(&bfwin->curdoc_changed);
+}
+
+void
+bfwin_document_insert_text_register(Tbfwin *bfwin, DocInsertTextCallback func, gpointer data) {
+	callback_register(&bfwin->doc_insert_text, func, data);
+}
+
+void
+bfwin_document_insert_text_remove_by_data(Tbfwin *bfwin, gpointer data) {
+	callback_remove_by_data(&bfwin->doc_insert_text, data);
+}
+
+void
+bfwin_document_delete_range_register(Tbfwin *bfwin, DocDeleteRangeCallback func, gpointer data) {
+	callback_register(&bfwin->doc_delete_range, func, data);
+}
+
+void
+bfwin_document_delete_range_remove_by_data(Tbfwin *bfwin, gpointer data) {
+	callback_remove_by_data(&bfwin->doc_delete_range, data);
+}
+
+void
+bfwin_document_destroy_register(Tbfwin *bfwin, DocDestroyCallback func, gpointer data)
+{
+	callback_register(&bfwin->doc_destroy, func, data);
+}
+void
+bfwin_document_destroy_remove_by_data(Tbfwin *bfwin, gpointer data)
+{
+	callback_remove_by_data(&bfwin->doc_destroy, data);
 }
 
 void
@@ -838,6 +1061,7 @@ bfwin_notebook_changed(Tbfwin * bfwin, gint newpage)
 		if (bfwin->project && bfwin->project->close)
 			project_final_close(bfwin, FALSE);
 		bfwin->current_document = doc_new(bfwin, TRUE);
+		bfwin_current_document_changed_notify(bfwin, NULL, bfwin->current_document);
 		bfwin->last_notebook_page = 1;
 		DEBUG_MSG("bfwin_notebook_changed, after doc_new(), returning\n");
 		return;
@@ -855,18 +1079,19 @@ bfwin_notebook_changed(Tbfwin * bfwin, gint newpage)
 	}
 	bfwin->prev_document = bfwin->current_document;
 	bfwin->current_document = g_list_nth_data(bfwin->documentlist, cur);
+	bfwin_current_document_changed_notify(bfwin, bfwin->prev_document, bfwin->current_document);
 	if (bfwin->current_document == NULL) {
 		DEBUG_MSG("bfwin_notebook_changed, WEIRD 2, doclist[%d] == NULL, RETURNING\n", cur);
 		return;
 	}
 
 	bfwin->last_notebook_page = cur;
-	DEBUG_MSG("bfwin_notebook_changed, current_document=%p, first flush the queue\n",
-			  bfwin->current_document);
+	DEBUG_MSG("bfwin_notebook_changed, current_document=%p, idle callback for doc activate = %d\n",
+			  bfwin->current_document, bfwin->notebook_changed_doc_activate_id);
 	/* slightly lower than default priority so we make sure any events are handled first */
 	if (bfwin->notebook_changed_doc_activate_id == 0) {
 		bfwin->notebook_changed_doc_activate_id =
-			g_idle_add_full(G_PRIORITY_DEFAULT_IDLE + 1, notebook_changed_activate_current_document,
+			g_idle_add_full(NOTEBOOKCHANGED_DOCACTIVATE_PRIORITY, notebook_changed_activate_current_document,
 							bfwin, NULL);
 	}
 }
@@ -948,24 +1173,15 @@ bfwin_create_main(Tbfwin * bfwin)
 	/* first a menubar */
 	bfwin->uimanager = gtk_ui_manager_new();
 	gtk_ui_manager_set_add_tearoffs(bfwin->uimanager, TRUE);
-	bfwin_main_menu_init(bfwin, bfwin->toolbarbox);
-
-	snr2_init(bfwin);
+	bfwin_main_ui_init(bfwin, bfwin->toolbarbox);
 
 	/* then the toolbars */
-	{
-		DEBUG_MSG("bfwin_create_main, creating handles for all menu/toolbars\n");
-		bfwin->main_toolbar_hb = gtk_handle_box_new();
-		gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->main_toolbar_hb, FALSE, FALSE, 0);
-		bfwin->html_toolbar_hb = gtk_handle_box_new();
-		gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->html_toolbar_hb, FALSE, FALSE, 0);
+	DEBUG_MSG("bfwin_create_main, creating handles for all menu/toolbars\n");
 
-		if (bfwin->session->view_main_toolbar) {
-			bfwin_main_toolbar_init(bfwin);
-			gtk_widget_show(bfwin->main_toolbar_hb);
-		}
+	if (bfwin->session->view_main_toolbar) {
+		/*bfwin_main_toolbar_init(bfwin);*/
+		gtk_widget_show(bfwin->main_toolbar_hb);
 	}
-
 
 	/* the area for the middlebox and the outputbox */
 	bfwin->vpane = gtk_vpaned_new();
@@ -982,6 +1198,10 @@ bfwin_create_main(Tbfwin * bfwin)
 	/* notebook with the text widget in there */
 	bfwin->notebook = gtk_notebook_new();
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook), main_v->props.document_tabposition);
+	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(bfwin->notebook), TRUE);
+	gtk_notebook_set_show_border(GTK_NOTEBOOK(bfwin->notebook), FALSE);
+	/*g_object_set(G_OBJECT(bfwin->notebook), "tab-fill", 0, NULL);
+	g_object_set(G_OBJECT(bfwin->notebook), "tab-curvature", 0, NULL);*/
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->notebook));
 
 	/* Add notebook and its fake friend to their common hbox. */
@@ -1000,36 +1220,28 @@ bfwin_create_main(Tbfwin * bfwin)
 	{
 		GtkWidget *hbox;
 		gint onecharwidth;
-
 		hbox = gtk_hbox_new(FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-
 		bfwin->statusbar = gtk_statusbar_new();
-#if !GTK_CHECK_VERSION(3,0,0)
-		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar), FALSE);
-#endif
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar, TRUE, TRUE, 0);
-
 		bfwin->statusbar_lncol = gtk_statusbar_new();
-#if !GTK_CHECK_VERSION(3,0,0)
-		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_lncol), FALSE);
-#endif
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_lncol, FALSE, FALSE, 0);
 		/* I hope the 'w' is an average width character, the characters are usually not monospaced so these values are just averages that look good on most translations too */
 		onecharwidth = widget_get_string_size(bfwin->statusbar_lncol, "x");
 		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_lncol), onecharwidth * 30, -1);
-
 		bfwin->statusbar_insovr = gtk_statusbar_new();
-#if !GTK_CHECK_VERSION(3,0,0)
-		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_insovr), FALSE);
-#endif
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_insovr, FALSE, FALSE, 0);
 		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_insovr), onecharwidth * 6, -1);
-
 		bfwin->statusbar_editmode = gtk_statusbar_new();
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_editmode, FALSE, FALSE, 0);
 		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_editmode), onecharwidth * 35, -1);
-
+#if GTK_CHECK_VERSION(3, 0, 0)
+		gtk_window_set_has_resize_grip(GTK_WINDOW(bfwin->main_window), TRUE);
+#else
+		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_lncol), FALSE);
+		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_insovr), FALSE);
+		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar), FALSE);				
+#endif /* gtk3 */
 		if (bfwin->session->view_statusbar)
 			gtk_widget_show_all(hbox);
 		else
@@ -1107,23 +1319,26 @@ bfwin_show_main(Tbfwin * bfwin)
 {
 #ifdef MAC_INTEGRATION
 	GtkWidget *menuitem;
-	GtkItemFactory *ifactory;
-
-	GtkOSXApplicationMenuGroup *group;
 	GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
 	gtk_widget_hide(bfwin->menubar);
 	gtk_osxapplication_set_menu_bar(theApp, GTK_MENU_SHELL(bfwin->menubar));
+	g_print("hide gtk menubar, set gtkosxapplication menubar\n");
 
-	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
+	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/EditMenu/EditPreferences");
+	gtk_osxapplication_insert_app_menu_item(theApp, menuitem,5);
 
-	menuitem = gtk_item_factory_get_widget(ifactory, _("/Edit/Preferences"));
-	group = gtk_osxapplication_add_app_menu_group(theApp);
-	gtk_osxapplication_add_app_menu_item(theApp, group, GTK_MENU_ITEM(menuitem));
-
+	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/HelpMenu/HelpAbout");
+	gtk_osxapplication_insert_app_menu_item(theApp, menuitem,5);
+	
+	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/FileMenu/FileQuit");
+	gtk_widget_hide(menuitem);
 
 	gtk_accel_map_foreach_unfiltered(NULL, osx_accel_map_foreach_controltometa_lcb);
 	gtk_accel_map_foreach_unfiltered(NULL, osx_accel_map_foreach_mod1tocontrol_lcb);
-/*	IgeMacMenuGroup *group;
+
+
+/*
+IgeMacMenuGroup *group;
 	gtk_widget_hide(bfwin->menubar);
 
 	ige_mac_menu_set_menu_bar(GTK_MENU_SHELL(bfwin->menubar));
@@ -1291,8 +1506,8 @@ bfwin_set_title(Tbfwin * bfwin, Tdocument * doc, gint num_modified_change)
 	} else {
 		title = g_strconcat("* ", prfilepart, " - Bluefish " VERSION, NULL);
 	}
-	if (strlen(title) > 120)
-		title[120] = '\0';
+	if (main_v->props.max_window_title > 0 && strlen(title) > main_v->props.max_window_title)
+		title[main_v->props.max_window_title] = '\0';
 	gtk_window_set_title(GTK_WINDOW(bfwin->main_window), title);
 	/*rename_window_entry_in_all_windows(bfwin, title); */
 	g_free(title);
@@ -1301,18 +1516,18 @@ bfwin_set_title(Tbfwin * bfwin, Tdocument * doc, gint num_modified_change)
 
 /* use -1 to switch to the last page */
 gboolean
-bfwin_switch_to_document_by_index(Tbfwin * bfwin, gint index)
+bfwin_switch_to_document_by_index(Tbfwin * bfwin, gint i)
 {
-	DEBUG_MSG("switch_to_document_by_index, index=%d\n", index);
-	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), (index));
+	DEBUG_MSG("switch_to_document_by_index, index=%d\n", i);
+	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), i);
 	return TRUE;
 }
 
 gboolean
 bfwin_switch_to_document_by_pointer(Tbfwin * bfwin, Tdocument * document)
 {
-	gint index;
-
-	index = g_list_index(bfwin->documentlist, document);
-	return bfwin_switch_to_document_by_index(bfwin, index);
+	gint i = g_list_index(bfwin->documentlist, document);
+	if (i==-1)
+		return FALSE;
+	return bfwin_switch_to_document_by_index(bfwin, i);
 }

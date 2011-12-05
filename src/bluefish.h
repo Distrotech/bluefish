@@ -28,7 +28,7 @@
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
 
-/*#define MEMORY_LEAK_DEBUG*/
+#define MEMORY_LEAK_DEBUG
 /*#define DEBUG_PATHS*/
 
 #define ENABLEPLUGINS
@@ -121,6 +121,51 @@ extern void g_none(gchar * first, ...);
 #define G_GOFFSET_FORMAT G_GINT64_FORMAT
 #endif
 
+
+/*************************************/
+/*** priorities for the main loop ****/
+/*************************************/
+
+/*
+G_PRIORITY_HIGH -100 			Use this for high priority event sources. It is not used within GLib or GTK+.
+G_PRIORITY_DEFAULT 0 			Use this for default priority event sources. In GLib this priority is used when adding 
+										timeout functions with g_timeout_add(). 
+G_PRIORITY_HIGH_IDLE 100 		Use this for high priority idle functions. 
+G_PRIORITY_DEFAULT_IDLE 200 	Use this for default priority idle functions. In GLib this priority is used when adding idle 
+										functions with g_idle_add().
+G_PRIORITY_LOW 300
+
+GDK  uses   0 for events from the X server.
+GTK+ uses 110 for resizing operations 
+GTK+ uses 120 for redrawing operations. (This is done to ensure 
+										that any pending resizes are processed before any pending 
+										redraws, so that widgets are not redrawn twice unnecessarily.)
+*/
+
+/* inserting data into a GtkTextBuffer should be in a lower priority than 
+the drawing of the GUI, otherwise the bluefish GUI won't show when loading 
+large files from the commandline. 
+I don't understand what it interacts with, but 145 is a too high priority
+so set it lower to 155 */
+#define FILEINTODOC_PRIORITY 155
+#define FILE2DOC_PRIORITY 155
+/* doc activate will stop scanning for the old document and schedule 
+for the new document. Set it between the X event (0) and the normal
+gtk events (100) */
+#define NOTEBOOKCHANGED_DOCACTIVATE_PRIORITY 50
+/* set between a X event (0) and a normal event (100) */
+#define SCANNING_IDLE_PRIORITY 10 
+/* set idle after timeout scanning to 115. 
+		a higher priority (109 is too high) makes bluefish go greyed-out 
+		(it will not redraw if required while the loop is running)
+	   and a much lower priority (199 is too low) will first draw 
+	   all textstyles on screen before the next burst of scanning is done */
+#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 115	
+/*  make sure that we don't scan or spellcheck a file that will be scanned again we do timeout
+scanning in a lower priority timeout than the language file notice 
+so a newly loaded language file uses a priority 113 event to notice all documents to be rescanned. */
+#define BUILD_LANG_FINISHED_PRIORITY 113
+
 /*********************/
 /* undo/redo structs */
 /*********************/
@@ -130,8 +175,8 @@ typedef enum {
 
 typedef struct {
 	GList *entries;				/* the list of entries that should be undone in one action */
-	gint changed;				/* doc changed status at this undo node */
-	guint action_id;
+	gint32 changed;				/* doc changed status at this undo node */
+	guint32 action_id;
 } unregroup_t;
 
 typedef struct {
@@ -167,8 +212,14 @@ typedef enum {
 	DOC_CLOSING
 } Tdocstatus;
 
-/* if an action is set, this action has to be executed after the document finishing closing/opening */
 typedef struct {
+	GFile *uri;
+	GFileInfo *fileinfo;
+	Tdocstatus status;			/* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE, DOC_CLOSING */
+	gchar *encoding;
+	gint modified;
+
+	/* if an action is set, this action has to be executed after the document finishing closing/opening */
 	gpointer save;				/* during document save */
 	gpointer info;				/* during update of the fileinfo */
 	gpointer checkmodified;		/* during check modified on disk checking */
@@ -177,24 +228,14 @@ typedef struct {
 	gint goto_offset;
 	gushort close_doc;
 	gushort close_window;
-} Tdoc_action;
 
-typedef struct {
-	GFile *uri;
-	GFileInfo *fileinfo;
-	Tdoc_action action;			/* see above, if set, some action has to be executed after opening/closing is done */
-	Tdocstatus status;			/* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE, DOC_CLOSING */
-	gchar *encoding;
-	gint modified;
 	GList *need_autosave;		/* if autosave is needed, a direct pointer to main_v->need_autosave; */
 	GList *autosave_progress;
 	gpointer autosave_action;
 	GList *autosaved;			/* NULL if no autosave registration, else this is a direct pointer into the main_v->autosave_journal list */
 	GFile *autosave_uri;		/* if autosaved, the URI of the autosave location, else NULL */
 	gint readonly;
-	gint is_symlink;			/* file is a symbolic link */
-	gulong del_txt_id;			/* text delete signal */
-	gulong ins_txt_id;			/* text insert signal */
+	gboolean block_undo_reg; 	/* block the registration for undo */
 	guint newdoc_autodetect_lang_id;	/* a timer function that runs for new documents to detect their mime type  */
 	unre_t unre;
 	GtkWidget *view;
@@ -206,10 +247,7 @@ typedef struct {
 	GtkTextBuffer *buffer;
 	gboolean in_paste_operation;
 	gint last_rbutton_event;	/* index of last 3rd button click */
-	gint need_highlighting;		/* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
 	gboolean highlightstate;	/* does this document use highlighting ? */
-	gboolean wrapstate;			/* does this document use wrap? */
-	gboolean overwrite_mode;	/* is keyboard in overwrite mode */
 	gpointer floatingview;		/* a 2nd textview widget that has its own window */
 	gpointer bfwin;
 	GtkTreeIter *bmark_parent;	/* if NULL this document doesn't have bookmarks, if
@@ -221,6 +259,7 @@ typedef struct {
 	gchar *editor_font_string;	/* editor font */
 	gint editor_smart_cursor;
 	gint editor_tab_indent_sel; /* tab key will indent a selected block */
+	gint editor_auto_close_brackets;
 	gint use_system_tab_font;
 	gchar *tab_font_string;		/* notebook tabs font */
 	/*  gchar *tab_color_normal; *//* notebook tabs text color normal.  This is just NULL! */
@@ -257,6 +296,7 @@ typedef struct {
 	gint auto_update_meta_date;	/* auto update date meta tag on save */
 	gint auto_update_meta_generator;	/* auto update generator meta tag on save */
 	gint encoding_search_Nbytes;	/* number of bytes to look for the encoding meta tag */
+	gint max_window_title; /* max. number of chars in the window title */
 	gint document_tabposition;
 	gint leftpanel_tabposition;
 	gint switch_tabs_by_altx;
@@ -282,6 +322,7 @@ typedef struct {
 	gint open_in_new_window;	/* open commandline files in a new window as opposed to an existing window */
 	gint register_recent_mode; /* 0=none,1=all,2=project only*/
 	GList *plugin_config;		/* array, 0=filename, 1=enabled, 2=name */
+	gint use_system_colors;
 	gchar *btv_color_str[BTV_COLOR_COUNT];	/* editor colors */
 	GList *textstyles;			/* tet styles: name,foreground,background,weight,style */
 	gint block_folding_mode;
@@ -331,6 +372,7 @@ typedef struct {
 } Tglobalsession;
 
 typedef struct {
+	gint enable_syntax_scan; /* syntax scan by default */
 	gint wrap_text_default;		/* by default wrap text */
 	gint autoindent;			/* autoindent code */
 	gint editor_tab_width;		/* editor tabwidth */
@@ -338,9 +380,18 @@ typedef struct {
 	gint view_line_numbers;		/* view line numbers on the left side by default */
 	gint view_cline;			/* highlight current line by default */
 	gint view_blocks;			/* show blocks on the left side by default */
+	gint view_blockstack;
 	gint autocomplete;			/* whether or not to enable autocomplete by default for each new document */
 	gint show_mbhl;				/* show matching block begin-end by default */
-	gint snr_is_expanded;
+
+	/* snr3 advanced search and replace */
+	gint snr3_type;
+	gint snr3_replacetype;
+	gint snr3_scope;
+	gint snr3_casesens;
+	gint snr3_escape_chars;
+	gint snr3_dotmatchall;
+
 	gint sync_delete_deprecated;
 	gint sync_include_hidden;
 	gint adv_open_matchname;
@@ -362,7 +413,7 @@ typedef struct {
 	gint outputb_show_all_output;
 	gint convertcolumn_horizontally;
 	gint display_right_margin;
-	/* 30 * sizeof(gint) */
+	/* 38 * sizeof(gint) */
 	/* IF YOU EDIT THIS STRUCTURE PLEASE EDIT THE CODE IN PROJECT.C THAT COPIES
 	   A Tsessionvar INTO A NEW Tsessionvar AND ADJUST THE SIZES!!!!!!!!!!!!!!!!!!!!!! */
 #ifdef HAVE_LIBENCHANT
@@ -393,6 +444,7 @@ typedef struct {
 	GList *recent_files;
 	GList *replacelist;			/* used in snr2 */
 	GList *searchlist;			/* used in snr2 and for advanced_open */
+	GList *filegloblist; /* file glob filters in advanced open and search in files */
 	GList *targetlist;
 	GList *urllist;
 } Tsessionvars;
@@ -430,6 +482,7 @@ typedef struct {
 	GtkActionGroup *undoGroup;
 	GtkActionGroup *bookmarkGroup;
 	GtkActionGroup *filebrowserGroup;
+	guint filebrowser_merge_id;
 
 	GtkWidget *menubar;
 	gint last_notebook_page;	/* a check to see if the notebook changed to a new page */
@@ -437,6 +490,8 @@ typedef struct {
 	guint statusbar_pop_id;
 	guint notebook_switch_signal;
 	GtkWidget *gotoline_entry;
+	GtkWidget *simplesearch_entry;
+	gpointer simplesearch_snr3run;
 	GtkWidget *notebook;
 	GtkWidget *notebook_fake;
 	GtkWidget *notebook_box;	/* Container for notebook and notebook_fake */
@@ -468,6 +523,7 @@ typedef struct {
 	guint outputbox_merge_id;
 	GtkActionGroup *encodings_group;
 	guint encodings_merge_id;
+	GtkActionGroup *recent_group;
 	GtkActionGroup *fb2_filters_group;
 	guint fb2_filters_merge_id;
 #ifdef HAVE_LIBENCHANT
@@ -487,7 +543,10 @@ typedef struct {
 	GHashTable *identifier_jump;
 	GHashTable *identifier_ac;
 #endif /* IDENTSTORING */
-
+	GSList *curdoc_changed; /* register a function here that is called when the current document changes*/
+	GSList *doc_insert_text; /* register a function here that is called when text is inserted into a document */
+	GSList *doc_delete_range; /* register a function here that is called when text is deleted from a document */
+	GSList *doc_destroy; /* register a function here that is called when a document is destroyed */
 } Tbfwin;
 
 typedef struct {
@@ -531,6 +590,52 @@ extern EXPORT Tmain *main_v;
 void bluefish_exit_request(void);
 
 /* backwards compatibility */
+#if !GTK_CHECK_VERSION(2,24,0)
+#define GDK_KEY_Enter GDK_Enter
+#define GDK_KEY_Return GDK_Return
+#define GDK_KEY_KP_Enter GDK_KP_Enter
+#define GDK_KEY_Home GDK_Home
+#define GDK_KEY_KP_Home GDK_KP_Home
+#define GDK_KEY_End GDK_End
+#define GDK_KEY_KP_End GDK_KP_End
+#define GDK_KEY_Tab GDK_Tab
+#define GDK_KEY_KP_Tab GDK_KP_Tab
+#define GDK_KEY_ISO_Left_Tab GDK_ISO_Left_Tab
+#define GDK_KEY_Up GDK_Up
+#define GDK_KEY_Down GDK_Down
+#define GDK_KEY_Page_Down GDK_Page_Down
+#define GDK_KEY_Page_Up GDK_Page_Up
+#define GDK_KEY_Right GDK_Right
+#define GDK_KEY_KP_Right GDK_KP_Right
+#define GDK_KEY_Left GDK_Left
+#define GDK_KEY_KP_Left GDK_KP_Left
+#define GDK_KEY_Escape GDK_Escape
+#define GDK_KEY_0 GDK_0
+#define GDK_KEY_1 GDK_1
+#define GDK_KEY_2 GDK_2
+#define GDK_KEY_3 GDK_3
+#define GDK_KEY_4 GDK_4
+#define GDK_KEY_5 GDK_5
+#define GDK_KEY_6 GDK_6
+#define GDK_KEY_7 GDK_7
+#define GDK_KEY_8 GDK_8
+#define GDK_KEY_9 GDK_9
+#define GDK_KEY_Delete GDK_Delete
+#define GDK_KEY_BackSpace GDK_BackSpace
+#define GDK_KEY_KP_Delete GDK_KP_Delete
+#define GDK_KEY_Alt_L GDK_Alt_L
+#define GDK_KEY_Alt_R GDK_Alt_R
+#define GDK_KEY_Control_L GDK_Control_L
+#define GDK_KEY_Control_R GDK_Control_R
+
+/*#define GDK_KEY_ GDK_*/
+#define GTK_COMBO_BOX_TEXT(arg) GTK_COMBO_BOX(arg)
+#define gtk_combo_box_text_get_active_text gtk_combo_box_get_active_text
+#define gtk_combo_box_text_new_with_entry gtk_combo_box_entry_new_text 
+#define gtk_combo_box_text_new gtk_combo_box_new_text
+#define gtk_combo_box_text_append_text gtk_combo_box_append_text
+#define gtk_combo_box_text_prepend_text gtk_combo_box_prepend_text
+#endif /* GTK_CHECK_VERSION(2,24,0) */
 #if !GTK_CHECK_VERSION(2,18,0)
 #define gtk_widget_set_can_focus(arg, arg2) do {if (arg2) GTK_WIDGET_SET_FLAGS(arg, GTK_CAN_FOCUS); else GTK_WIDGET_UNSET_FLAGS(arg, GTK_CAN_FOCUS);} while(0)
 #define gtk_widget_get_allocation(arg1, arg2) (*(arg2) = arg1->allocation)
@@ -546,11 +651,12 @@ void bluefish_exit_request(void);
 #define gtk_widget_get_state(arg) GTK_WIDGET_STATE(arg)
 #define gtk_widget_is_sensitive(arg) GTK_WIDGET_IS_SENSITIVE(arg)
 #endif /* GTK_CHECK_VERSION(2,18,0) */
-
+#if !GTK_CHECK_VERSION(2,16,0)
+#define gtk_menu_item_get_label(arg) (gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(arg)))))
+#endif /* GTK_CHECK_VERSION(2,16,0) */
 #if !GTK_CHECK_VERSION(2,14,0)
 #define gtk_adjustment_get_upper(arg) (GTK_ADJUSTMENT(arg)->upper)
 #define gtk_adjustment_get_lower(arg) (GTK_ADJUSTMENT(arg)->lower)
 #define gtk_adjustment_get_page_size(arg) (GTK_ADJUSTMENT(arg)->page_size)
 #endif /* GTK_CHECK_VERSION(2,18,0) */
-
 #endif							/* __BLUEFISH_H_ */

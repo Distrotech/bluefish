@@ -1,14 +1,14 @@
 # Czech translations for bluefish-unstable package.
 # Copyright (C) 2009 The Bluefish Development Team.
 # This file is distributed under the same license as the bluefish-unstable package.
-# Marek Černocký <marek@manet.cz>, 2009.
+# Marek Černocký <marek@manet.cz>, 2009, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish-unstable 1.3.8\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-12 12:24-0800\n"
-"PO-Revision-Date: 2009-10-08 20:57+0100\n"
+"POT-Creation-Date: 2011-12-04 13:50-0800\n"
+"PO-Revision-Date: 2011-10-12 02:49+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech translators <diskuze@lists.l10n.cz>\n"
 "Language: cs\n"
@@ -16,14 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Poedit-Language: Czech\n"
-"X-Poedit-SourceCharset: utf-8\n"
 
-#: src/plugin_about/about.c:76
+#: src/plugin_about/about.c:75
 msgid "This version of Bluefish was built with:\n"
 msgstr "Tato verze Bluefish byla přeložena s:\n"
 
-#: src/plugin_about/about.c:143
+#: src/plugin_about/about.c:179
 msgid ""
 "\n"
 "Developers of previous releases:"
@@ -31,7 +29,7 @@ msgstr ""
 "\n"
 "Vývojáři předchozích vydání:"
 
-#: src/plugin_about/about.c:158
+#: src/plugin_about/about.c:194
 msgid ""
 "\n"
 "Package maintainers:"
@@ -39,7 +37,7 @@ msgstr ""
 "\n"
 "Udržovatelé balíčku:"
 
-#: src/plugin_about/about.c:165
+#: src/plugin_about/about.c:201
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
@@ -49,7 +47,7 @@ msgstr ""
 "Pokud víte o někom, kdo v tomto seznamu schází,\n"
 "dejte nám prosím vědět na <bluefish@bluefish.openoffice.nl>."
 
-#: src/plugin_about/about.c:166
+#: src/plugin_about/about.c:202
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
@@ -57,7 +55,7 @@ msgstr ""
 "\n"
 "Děkujeme všem, kteří pomohli při vytváření tohoto software."
 
-#: src/plugin_about/about.c:202
+#: src/plugin_about/about.c:238
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
@@ -75,52 +73,43 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:212
+#: src/plugin_about/about.c:248
 msgid "translator-credits"
 msgstr "Marek Černocký <marek@manet.cz>"
 
-#: src/plugin_about/about.c:276
-#, fuzzy
+#: src/plugin_about/about.c:314
 msgid "_Help"
-msgstr "/_Nápověda"
+msgstr "_Nápověda"
 
-#: src/plugin_about/about.c:277
-#, fuzzy
+#: src/plugin_about/about.c:315
 msgid "Bluefish _Homepage"
-msgstr "/Nápověda/_Domovská stránka Bluefish"
+msgstr "_Domovská stránka Bluefish"
 
-#: src/plugin_about/about.c:277
-#, fuzzy
+#: src/plugin_about/about.c:315
 msgid "Bluefish homepage"
-msgstr "/Nápověda/_Domovská stránka Bluefish"
+msgstr "Domovská stránka Bluefish"
 
-#: src/plugin_about/about.c:279
-#, fuzzy
+#: src/plugin_about/about.c:317
 msgid "Report a _Bug"
-msgstr "/Nápověda/Nahlásit chy_bu"
+msgstr "Nahlásit chy_bu"
 
-#: src/plugin_about/about.c:279
-#, fuzzy
+#: src/plugin_about/about.c:317
 msgid "Report a bug"
-msgstr "/Nápověda/Nahlásit chy_bu"
+msgstr "Nahlásit chybu"
 
-#: src/plugin_about/about.c:280
+#: src/plugin_about/about.c:318
 msgid "_About"
-msgstr ""
+msgstr "O _aplikaci"
 
-#: src/plugin_about/about.c:280
+#: src/plugin_about/about.c:318
 msgid "About Bluefish"
-msgstr ""
+msgstr "O aplikaci Bluefish"
 
-#: src/plugin_about/about.c:282
+#: src/plugin_about/about.c:320
 #, fuzzy
-msgid "_Build Info"
-msgstr "/Nápověda/_Informace o sestavení"
+msgid "Build _Info"
+msgstr "_Informace o sestavení"
 
-#: src/plugin_about/about.c:282
-#, fuzzy
+#: src/plugin_about/about.c:320
 msgid "Build info"
-msgstr "/Nápověda/_Informace o sestavení"
-
-#~ msgid "/Help/_About..."
-#~ msgstr "/Nápověda/O _aplikaci…"
+msgstr "Informace o sestavení"

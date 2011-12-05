@@ -92,8 +92,8 @@ static void add_block_comment(Tdocument *doc, const gchar *so_commentstring, con
 static void remove_block_comment(Tdocument *doc, const gchar *buf, const gchar *so_commentstring, const gchar *eo_commentstring, gint start, gint end) {
 	gint i=0,n=0,coffset,eo_commentstring_len;
 	gint so=0;
+	gint cstart,cend;
 	
-	doc_unre_new_group(doc);
 	/* first see if there is an start-of-block */
 	coffset=start;
 	
@@ -109,18 +109,20 @@ static void remove_block_comment(Tdocument *doc, const gchar *buf, const gchar *
 				break;
 			}
 		} else {
-			/* TODO: shouldn't we set n to zero here?? */
+			n=0;
 			break;
 		}
 		i++;
 	}
-	if (n == strlen(so_commentstring)) {
-		gint cstart,cend;
-		cstart = utf8_byteoffset_to_charsoffset_cached(buf, so);
-		cend = so+strlen(so_commentstring);
-		doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cend);
-		coffset -= (cend-cstart); 
+	if (n != strlen(so_commentstring)) {
+		return;
 	}
+	
+	doc_unre_new_group(doc);
+	cstart = utf8_byteoffset_to_charsoffset_cached(buf, so);
+	cend = so+strlen(so_commentstring);
+	doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cend);
+	coffset -= (cend-cstart); 
 	
 	/* now find the end-of-block */
 	i=strlen(buf)-1;
@@ -145,7 +147,6 @@ static void remove_block_comment(Tdocument *doc, const gchar *buf, const gchar *
 		i--;
 	}
 	if (n==0) {
-		gint cstart,cend;
 		cstart = utf8_byteoffset_to_charsoffset_cached(buf, so);
 		cend = so+strlen(eo_commentstring);
 		doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cend);
@@ -200,6 +201,7 @@ void toggle_comment(Tdocument *doc) {
 	 		return;
 		offsets = gtk_text_iter_get_offset(&its);
 		offsete = gtk_text_iter_get_offset(&ite);
+		DEBUG_MSG("got comment with type %d, so=%s\n",comment->type, comment->so);
 	 	if (comment->type == comment_type_line) {
 	 		add_line_comment(doc, comment->so, offsets,offsete);
 	 		extraoffset = strlen(comment->so);

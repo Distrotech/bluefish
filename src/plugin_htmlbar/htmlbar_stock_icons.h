@@ -108,6 +108,22 @@
 #define BF_STOCK_THUMBNAIL			"bf-stock-thumbnail"
 #define BF_STOCK_UNDERLINE			"bf-stock-underline"
 #define BF_STOCK_VAR				"bf-stock-var"
-
+#define BF_STOCK_ARTICLE			"bf-stock-article"
+#define BF_STOCK_ASIDE				"bf-stock-aside"
+#define BF_STOCK_FIGCAPTION			"bf-stock-figcaption"
+#define BF_STOCK_FIGURE				"bf-stock-figure"
+#define BF_STOCK_FOOTER				"bf-stock-footer"
+#define BF_STOCK_HEADER				"bf-stock-header"
+#define BF_STOCK_HGROUP				"bf-stock-hgroup"
+#define BF_STOCK_MARK				"bf-stock-mark"
+#define BF_STOCK_NAV				"bf-stock-nav"
+#define BF_STOCK_RP					"bf-stock-rp"
+#define BF_STOCK_RT					"bf-stock-rt"
+#define BF_STOCK_RUBY				"bf-stock-ruby"
+#define BF_STOCK_SECTION			"bf-stock-section"
+#define BF_STOCK_AUDIO				"bf-stock-audio"
+#define BF_STOCK_VIDEO				"bf-stock-video"
+#define BF_STOCK_CANVAS				"bf-stock-canvas"
+#define BF_STOCK_HTML5TIME			"bf-stock-html5time"
 
 #endif /* HTMLBAR_STOCK_ICONS_H_ */

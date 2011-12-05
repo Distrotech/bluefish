@@ -29,13 +29,14 @@
 	<!ENTITY all-php SYSTEM "all-php.bfinc">
 ]>
 
-<bflang name="PHP" version="2.0" table="45912" contexts="141" matches="7616">
+<bflang name="PHP" version="2.0" table="48564" contexts="179" matches="7713">
 <header>
 	<mime type="application/x-php"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
 	<option name="load_php_functions" default="1" description="All php functions" />
-	<option name="php_short_open_tag" default="0" />
+	<option name="show_in_menu" default="1" />
+	<option name="php_short_open_tag" default="1" />
 	<option name="autocomplete_tags" default="1" />
 	<option name="javascript_anchors_object" default="1" description="Anchors object" />
 	<option name="javascript_applets_object" default="1" description="Applet object" />
@@ -52,6 +53,7 @@
 	<option name="javascript_window_object" default="1" description="Window object" />
 	<option name="javascript_css_properties" default="1" description="CSS properties" />
 	<option name="sql-in-php-string" default="1" description="scan for sql in php strings" />
+	<option name="autocomplete-html-entities" default="0" description="HTML entities" />
 	<highlight name="php-block-tag" style="special-value"  />
 	<highlight name="string" style="string"   />
 	<highlight name="brackets" style="brackets"  />
@@ -125,11 +127,11 @@
 <element pattern="EOF" ends_block="1" ends_context="1" blockstartelement="e.php.short.multiline_string" highlight="brackets" />
 	</context>
 </element>
-<element id="e.php.short.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable"/>
+<element id="e.php.short.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" identifier_mode="2" identifier_autocomp="1" />
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;$ &#9;&#10;&#13;' -&lt;&gt;{}[]" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
-		<element pattern="\$" highlight="string" />
+<!--		<element pattern="\$" highlight="string" />-->
 		<element idref="e.php.short.variable" />
 		<group class="sql-in-php-string" highlight="php-string-sql-keyword" case_insens="1">
 			<element pattern="AND" />
@@ -203,25 +205,42 @@ was disabled, this whole section is not parsed by the language manager, so the c
 <element pattern="EOF" ends_block="1" ends_context="1" blockstartelement="e.php.multiline_string" highlight="brackets" />
 	</context>
 </element>
-<element id="e.php.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable"/>
+<element id="e.php.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" identifier_mode="2" identifier_autocomp="1"/>
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;$ &#9;&#10;&#13;' -&lt;&gt;{}[]" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
-		<element pattern="\$" highlight="string" />
+<!--		<element pattern="\$" highlight="string" />-->
 		<element idref="e.php.variable" />
 		<group class="sql-in-php-string" highlight="php-string-sql-keyword" case_insens="1">
-			<element pattern="SELECT" />
-			<element pattern="FROM" />
-			<element pattern="WHERE" />
-			<element pattern="ON" />
+			<element pattern="AND" />
 			<element pattern="AS" />
-			<element pattern="ORDER" />
-			<element pattern="LEFT" />
-			<element pattern="INNER" />
-			<element pattern="JOIN" />
-			<element pattern="UPDATE" />
-			<element pattern="INSERT" />
+			<element pattern="ASC" />
+			<element pattern="BY" />
+			<element pattern="COUNT" />
+			<element pattern="DATE" />
+			<element pattern="DATE_FORMAT" />
 			<element pattern="DELETE" />
+			<element pattern="DESC" />
+			<element pattern="DISTINCT" />
+			<element pattern="FROM" />
+			<element pattern="GROUP" />
+			<element pattern="IN" />
+			<element pattern="INNER" />
+			<element pattern="INSERT" />
+			<element pattern="INTO" />
+			<element pattern="JOIN" />
+			<element pattern="LEFT" />
+			<element pattern="LIMIT" />
+			<element pattern="NOT" />
+			<element pattern="ON" />
+			<element pattern="OR" />
+			<element pattern="ORDER" />
+			<element pattern="REGEXP" />
+			<element pattern="SELECT" />
+			<element pattern="SET" />
+			<element pattern="UPDATE" />
+			<element pattern="VALUES" />
+			<element pattern="WHERE" />
 		</group>
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>

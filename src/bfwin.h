@@ -24,14 +24,32 @@
 
 #include "bluefish.h"
 
+typedef void (*DocDestroyCallback) (Tdocument *doc, gpointer data);
+typedef void (*CurdocChangedCallback) (Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data);
+typedef void (*DocDeleteRangeCallback) (Tdocument *doc, GtkTextIter * itstart, gint start, GtkTextIter * itend, gint end, const gchar *string, gpointer data);
+typedef void (*DocInsertTextCallback) (Tdocument *doc, const gchar *string, GtkTextIter * iter, gint pos, gint len, gint clen, gpointer data);
 
 #define bfwin_exists(bfwin) (g_list_index(main_v->bfwinlist, bfwin)!=-1)
 
 void bfwin_fullscreen_toggle(Tbfwin * bfwin, gboolean active);
+void bfwin_gotoline_from_clipboard(Tbfwin * bfwin);
 void bfwin_gotoline_frame_show(Tbfwin * bfwin);
+void bfwin_simplesearch_show(Tbfwin *bfwin);
+void bfwin_simplesearch_from_clipboard(Tbfwin *bfwin);
 
 void bfwin_notebook_block_signals(Tbfwin * bfwin);
 void bfwin_notebook_unblock_signals(Tbfwin * bfwin);
+
+void bfwin_current_document_change_register(Tbfwin *bfwin, CurdocChangedCallback func, gpointer data);
+void bfwin_current_document_change_remove_by_data(Tbfwin *bfwin, gpointer data);
+void bfwin_current_document_change_remove_all(Tbfwin *bfwin);
+void bfwin_document_insert_text_register(Tbfwin *bfwin, DocInsertTextCallback func, gpointer data);
+void bfwin_document_insert_text_remove_by_data(Tbfwin *bfwin, gpointer data);
+void bfwin_document_delete_range_register(Tbfwin *bfwin, DocDeleteRangeCallback func, gpointer data);
+void bfwin_document_delete_range_remove_by_data(Tbfwin *bfwin, gpointer data);
+void bfwin_document_destroy_register(Tbfwin *bfwin, DocDestroyCallback func, gpointer data);
+void bfwin_document_destroy_remove_by_data(Tbfwin *bfwin, gpointer data);
+
 void bfwin_notebook_changed(Tbfwin * bfwin, gint newpage);
 void bfwin_notebook_switch(Tbfwin * bfwin, guint action);
 

@@ -1,32 +1,33 @@
 <?xml version="1.0"?>
 <!--
-		Bluefish HTML Editor
-		css.bflang2 $Revision$
- 
-		Copyright (C) 2008-2011 Olivier Sessink
+	Bluefish HTML Editor
+	css.bflang2 $Revision$
 
-	    This program is free software: you can redistribute it and/or modify
-		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
-		(at your option) any later version.
+	Copyright (C) 2008-2011 Olivier Sessink
 
-		This program is distributed in the hope that it will be useful,
-		but WITHOUT ANY WARRANTY; without even the implied warranty of
-		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-		GNU General Public License for more details.
+    This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 <!DOCTYPE bflang [
 	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 ]>
-<bflang name="CSS" version="2.0" table="4602" contexts="70" matches="750">
+<bflang name="CSS" version="2.0" table="7505" contexts="73" matches="1275">
 <header>
 	<mime type="text/css" />
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
+	<option name="show_in_menu" default="1"/>
 	<highlight name="css-brackets" style="brackets"  />
 	<highlight name="css-comment" style="comment" />
 	<highlight name="css-html-tag" style="tag"  />
@@ -34,6 +35,7 @@
 	<highlight name="css-html-media" style="special-tag" />
 	<highlight name="css-keyword" style="keyword"  />
 	<highlight name="css-property" style="special-keyword"  />
+	<highlight name="css-draft-property" style="special-tag3"  />
 	<highlight name="css-string" style="string" />
 	<highlight name="css-value" style="value"   />
 </header>
@@ -50,15 +52,72 @@
 				<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
 			</context>
 		</element>		
-		&css-selectors;
-		<element id="e.css.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="css-brackets" >
-			<context symbols=" &#9;&#10;&#13;{}.:&quot;';*/">
-				&css-rules;
-				<element idref="e.css.lcomment" />
-				<element id="e.css.rbrace1" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="1"/>
+		<element id="e.css.grouping" pattern="/\* @group[^*]+\*/" starts_block="1" highlight="css-keyword" mayfold="1"  is_regex="1">
+			<context symbols="*/&#9;&#10;&#13;@{}./*&lt;&gt;:+~[],">
+				<element id="e.css.grouping.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
+					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
+						<element pattern="*/" ends_block="1" blockstartelement="e.css.grouping.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
+					</context>
+				</element>
+				&css-selectors;
+				<group highlight="css-html-media">
+					<element pattern="@media">
+					<context symbols=" &#9;&#10;&#13;{}.;,">
+						<group highlight="css-html-media" autocomplete="1">
+							<element pattern="all" />
+							<element pattern="aural" />
+							<element pattern="braille" />
+							<element pattern="embossed" />
+							<element pattern="handheld" />
+							<element pattern="print" />
+							<element pattern="projection" />
+							<element pattern="screen" />
+							<element pattern="tty" />
+							<element pattern="tv" />
+							<element id="e.css.media.group.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
+								<context idref="c.html.css.main" />
+							</element>
+						</group>
+					</context>
+					</element>
+					<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.group.lbrace" ends_context="2" />
+				</group>
+				<element id="e.css.grouping.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="css-brackets">
+					<context symbols=" &#9;&#10;&#13;{}.:&quot;';*/" id="c.css.rules">
+						&css-rules;
+						<element idref="e.css.grouping.lcomment" />
+						<element id="e.css.grouping.rbrace1" pattern="}" ends_block="1" blockstartelement="e.css.grouping.lbrace" highlight="css-brackets" ends_context="1"/>
+					</context>
+				</element>
+				<element pattern="/\* @end[^*]+\*/" ends_block="1" blockstartelement="e.css.grouping" highlight="css-keyword" mayfold="1" ends_context="1" is_regex="1"/>
 			</context>
 		</element>
-		
+		&css-selectors;
+		<group highlight="css-html-media">
+			<element pattern="@media">
+			<context symbols=" &#9;&#10;&#13;{}.;,">
+				<group highlight="css-html-media" autocomplete="1">
+					<element pattern="all" />
+					<element pattern="aural" />
+					<element pattern="braille" />
+					<element pattern="embossed" />
+					<element pattern="handheld" />
+					<element pattern="print" />
+					<element pattern="projection" />
+					<element pattern="screen" />
+					<element pattern="tty" />
+					<element pattern="tv" />
+					<element id="e.css.media.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
+						<context idref="c.html.css.main" />
+					</element>
+				</group>
+			</context>
+			</element>
+			<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.lbrace" ends_context="2" />
+		</group>
+		<element id="e.css.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="css-brackets" >
+			<context idref="c.css.rules" />
+		</element>
 	</context>
 </definition>
 </bflang>

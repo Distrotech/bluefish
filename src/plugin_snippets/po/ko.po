@@ -1,0 +1,284 @@
+# Korean language file for Bluefish.
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Jin-Hwan Jeong <yongdoria@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Bluefish 2.0.4Report-Msgid-Bugs-To: bluefish-dev@lists."
+"ems.ru\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2011-12-04 13:51-0800\n"
+"PO-Revision-Date: 2009-05-26 08:48+0900\n"
+"Last-Translator: Taehun Kang 강태헌 <u4800330@anu.edu.au>\n"
+"Language-Team: \n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/plugin_snippets/snippets_gui.c:414
+msgid "Click the right mouse button to add, edit or delete snippets."
+msgstr "Snippet을 추가/변경/제거하실려면 마우스 오른쪽 버튼을 누르세요."
+
+#: src/plugin_snippets/snippets_gui.c:415
+msgid "Use drag and drop to re-order snippets"
+msgstr "Snippet을 재정렬하실려면 드래그앱드랍을 이용하세요"
+
+#: src/plugin_snippets/snippets_gui.c:416
+msgid "To exchange snippets with others use import or export"
+msgstr "Snippet을 교환하실려면 가져오기 또는 내보내기를 이용하세요"
+
+#: src/plugin_snippets/snippets_gui.c:638
+msgid "snippets"
+msgstr "Snippet"
+
+#: src/plugin_snippets/snippets_gui.c:701
+msgid "Snippet export filename"
+msgstr "Snippet 내보내기 파일명"
+
+#: src/plugin_snippets/snippets_gui.c:739
+msgid "Snippet import filename"
+msgstr "Snippet 가져오기 파일명"
+
+#: src/plugin_snippets/snippets_gui.c:757
+msgid "Set accelerator key"
+msgstr "Accelator 키 설정하기"
+
+#: src/plugin_snippets/snippets_gui.c:813
+msgid "Snippets menu"
+msgstr "Snippet 메뉴"
+
+#: src/plugin_snippets/snippets_gui.c:814
+msgid "_New Snippet"
+msgstr "새 Snippet(_N)"
+
+#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_wizard.c:754
+msgid "New snippet"
+msgstr "새 Snippet"
+
+#: src/plugin_snippets/snippets_gui.c:815
+msgid "_Edit Snippet"
+msgstr "Snippet 편집(_E)"
+
+#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_wizard.c:754
+msgid "Edit snippet"
+msgstr "Snippet 편집"
+
+#: src/plugin_snippets/snippets_gui.c:816
+msgid "_Delete Snippet"
+msgstr "Snippet 삭제(_D)"
+
+#: src/plugin_snippets/snippets_gui.c:816
+msgid "Delete snippet"
+msgstr "Snippet 삭제"
+
+#: src/plugin_snippets/snippets_gui.c:817
+msgid "Delete _Branch"
+msgstr "Branch 삭제(_B)"
+
+#: src/plugin_snippets/snippets_gui.c:817
+msgid "Delete branch"
+msgstr "Branch 삭제"
+
+#: src/plugin_snippets/snippets_gui.c:818
+msgid "Set Snippet _Accelerator"
+msgstr "Snippet Accelerator 설정하기(_A)"
+
+#: src/plugin_snippets/snippets_gui.c:818
+msgid "Set snippet accelerator"
+msgstr "Snippet Accelerator 설정하기"
+
+#: src/plugin_snippets/snippets_gui.c:820
+msgid "Ex_pand All"
+msgstr "모두 펼치기(_P)"
+
+#: src/plugin_snippets/snippets_gui.c:820
+msgid "Expand all"
+msgstr "모두 펼치기"
+
+#: src/plugin_snippets/snippets_gui.c:821
+msgid "_Collapse All"
+msgstr "모두 접기(_C)"
+
+#: src/plugin_snippets/snippets_gui.c:821
+msgid "Collapse all"
+msgstr "모두 접기"
+
+#: src/plugin_snippets/snippets_gui.c:822
+msgid "E_xport"
+msgstr "내보내기(_X)"
+
+#: src/plugin_snippets/snippets_gui.c:822
+msgid "Export snippets"
+msgstr "Snippet 내보내기"
+
+#: src/plugin_snippets/snippets_gui.c:823
+msgid "I_mport"
+msgstr "가져오기(_M)"
+
+#: src/plugin_snippets/snippets_gui.c:823
+msgid "Import snippets"
+msgstr "Snippet 가져오기"
+
+#: src/plugin_snippets/snippets_gui.c:827
+msgid "_Show as menu"
+msgstr "메뉴로 보이기(_S)"
+
+#: src/plugin_snippets/snippets_gui.c:827
+msgid "Show snippets menu"
+msgstr "Snippet 메뉴 보이기"
+
+#: src/plugin_snippets/snippets_gui.c:829
+#, fuzzy
+msgid "S_nippets Menu"
+msgstr "Snippet 메뉴"
+
+#: src/plugin_snippets/snippets_leaf_insert.c:64
+msgid "[cursor position or selection]"
+msgstr "[커서 위치 또는 선택영역]"
+
+#: src/plugin_snippets/snippets_leaf_snr.c:152
+msgid "Search for: '"
+msgstr "찾기: '"
+
+#: src/plugin_snippets/snippets_leaf_snr.c:152
+msgid "', replace with: '"
+msgstr "', 교체: '"
+
+#: src/plugin_snippets/snippets_wizard.c:111
+msgid "Entire document"
+msgstr "전체 문서"
+
+#: src/plugin_snippets/snippets_wizard.c:112
+msgid "Forward from cursor position"
+msgstr "커서 위치에서 앞으로"
+
+#: src/plugin_snippets/snippets_wizard.c:113
+msgid "Selection"
+msgstr "선택"
+
+#: src/plugin_snippets/snippets_wizard.c:114
+msgid "All open files"
+msgstr "전체 열린 파일"
+
+#: src/plugin_snippets/snippets_wizard.c:118
+msgid "Normal"
+msgstr "보통"
+
+#: src/plugin_snippets/snippets_wizard.c:119
+msgid "PERL"
+msgstr "PERL"
+
+#: src/plugin_snippets/snippets_wizard.c:130
+#, fuzzy
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right. (Please use %% if you need "
+"literal % in your string!)"
+msgstr ""
+"찾기/교체하기 패턴을 지정하세요. You may use %0, %1, ...%5 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right."
+
+#: src/plugin_snippets/snippets_wizard.c:140
+msgid "_Search for: "
+msgstr "찾기(_S): "
+
+#: src/plugin_snippets/snippets_wizard.c:144
+msgid "Replace _with: "
+msgstr "교체하기(_W): "
+
+#: src/plugin_snippets/snippets_wizard.c:151
+msgid "Sco_pe: "
+msgstr "범위(_P): "
+
+#: src/plugin_snippets/snippets_wizard.c:158
+msgid "Match Patter_n: "
+msgstr "패턴 일치(_N): "
+
+#: src/plugin_snippets/snippets_wizard.c:161
+msgid "Case sensitive _matching"
+msgstr "대소문자 구분 일치(_M)"
+
+#: src/plugin_snippets/snippets_wizard.c:162
+msgid "Only match if case (upper/lower) is identical."
+msgstr "대소문자까지 동일한 경우만 일치"
+
+#: src/plugin_snippets/snippets_wizard.c:165
+msgid "_Use escape chars"
+msgstr "Escape 문자 사용(_U)"
+
+#: src/plugin_snippets/snippets_wizard.c:166
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:335
+#, fuzzy
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right. (Please use %% if you need literal % in your "
+"string!)"
+msgstr ""
+"찾기/교체하기 패턴을 지정하세요. You may use %0, %1, ...%5 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right."
+
+#: src/plugin_snippets/snippets_wizard.c:344
+msgid "<i>Before</i> text"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:354
+msgid "<i>After</i> text"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:362
+msgid "Number"
+msgstr "숫자"
+
+#: src/plugin_snippets/snippets_wizard.c:364
+msgid "Name"
+msgstr "이름"
+
+#: src/plugin_snippets/snippets_wizard.c:366
+msgid "Is file path"
+msgstr "ls 파일 경로"
+
+#: src/plugin_snippets/snippets_wizard.c:492
+msgid "Enter the name of the branch:"
+msgstr "Branch 이름을 입력하시오"
+
+#: src/plugin_snippets/snippets_wizard.c:584
+msgid "Name of the new item:"
+msgstr "새 아이템 이름:"
+
+#: src/plugin_snippets/snippets_wizard.c:589
+msgid "Description:"
+msgstr "설명"
+
+#: src/plugin_snippets/snippets_wizard.c:639
+msgid "Select what you want to add"
+msgstr "추가하고자 하는 것을 선택하시오"
+
+#: src/plugin_snippets/snippets_wizard.c:641
+msgid "Branch"
+msgstr "Branch"
+
+#: src/plugin_snippets/snippets_wizard.c:643
+msgid "Insert string"
+msgstr "스트링을 입력하시오"
+
+#: src/plugin_snippets/snippets_wizard.c:645
+msgid "Search and replace pattern"
+msgstr "패턴 찾아 교체하기"
+
+#~ msgid "Entire word only"
+#~ msgstr "전체 단어만"
+
+#~ msgid "POSIX"
+#~ msgstr "POSIX"

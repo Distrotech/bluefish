@@ -35,6 +35,7 @@
 	<mime type="application/x-wordpress"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
+	<option name="show_in_menu" default="0"/>
 	<option name="load_php_functions" default="1" description="All php functions" />
 	<option name="load_wordpress_functions" default="1" description="All wordpress functions" />
 	<option name="php_short_open_tag" default="0" />
@@ -54,6 +55,7 @@
 	<option name="javascript_window_object" default="1" description="Window object" />
 	<option name="sql-in-php-string" default="1" description="scan for sql in php strings" />
 	<option name="javascript_css_properties" default="1" description="CSS properties" />
+	<option name="autocomplete-html-entities" default="0" description="HTML entities" />
 	<highlight name="php-block-tag" style="special-value"  />
 	<highlight name="string" style="string"   />
 	<highlight name="brackets" style="brackets"  />

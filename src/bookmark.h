@@ -44,11 +44,12 @@ void bmark_add_extern(Tdocument * doc, gint offset, const gchar * name, const gc
 void bmark_toggle(Tdocument * doc, gint offset, const gchar * name, const gchar * text);
 
 gboolean bmark_have_bookmark_at_stored_bevent(Tdocument * doc);
+gchar *bmark_get_tooltip_for_line(Tdocument *doc, gint line);
 void bmark_add_at_bevent(Tdocument * doc);
 void bmark_del_at_bevent(Tdocument * doc);
 void bmark_store_bevent_location(Tdocument * doc, gint charoffset);
 
 void bmark_cleanup(Tbfwin * bfwin);
-void bookmark_data_cleanup();
+gpointer bookmark_data_cleanup(gpointer data);
 
 #endif							/* __BOOKMARK_H__ */

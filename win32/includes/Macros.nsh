@@ -65,9 +65,12 @@
 	${EndIf}
 
 	${If} $R0 != ""
-		${StrLoc} $R1 ${BF_FILE_CLASSES} $R0 "<"
+		${StrLoc} $R1 ${BF_FILE_CLASSES} ",$R0" "<"
+
 		StrLen $R2 ${BF_FILE_CLASSES}
-		${If} $R1 != $R2
+		${If} $R1 > 0
+		${AndIf} $R1 < $R2
+		${AndIf} $R1 != $R2
 			${NSD_Check} ${HWND}
 		${EndIf}
 	${EndIf}
@@ -206,7 +209,7 @@
 !define RegisterHTMLType `!insertmacro RegisterHTMLType`
 
 !macro Localize DEF LANG
-	!if ${LANG} == "ENGLISH"
+	!if "${LANG}" == "ENGLISH"
 		!define DEFAULT_${DEF} "${${DEF}}"
 	!endif
 	!ifdef "${DEF}"

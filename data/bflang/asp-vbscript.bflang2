@@ -33,6 +33,7 @@
 	<mime type="application/x-asp"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
+	<option name="show_in_menu" default="1"/>
 	<option name="javascript_anchors_object" default="1" description="Anchors object" />
 	<option name="javascript_applets_object" default="1" description="Applet object" />
 	<option name="javascript_date_object" default="1" description="Date object" />
@@ -47,7 +48,7 @@
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
 	<option name="javascript_css_properties" default="1" description="CSS properties" />
-
+	<option name="autocomplete-html-entities" default="0" description="HTML entities" />
 	<!--
 	<option name="load_asp_functions" default="1" description="All asp functions" />
 	-->
@@ -110,12 +111,6 @@
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;%@=">
 
 &all-html;
-<element id="e.asp.comment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
-	<context symbols="-&gt; &#9;&#10;&#13;&#35;" highlight="html-comment">
-		<element pattern="#include" highlight="asp-keyword" case_insens="1" />
-		<element pattern="--&gt;" ends_block="1" blockstartelement="e.asp.comment" highlight="html-comment" mayfold="1" ends_context="1" />
-	</context>
-</element>
 
 <element id="e.asp.block.start" pattern="(&lt;%|&lt;%@|&lt;%=)" is_regex="1" starts_block="1" highlight="asp-block-tag" mayfold="1">
 	<context symbols=" ():\&#34;\',&gt;&lt;*+=-/_&#9;&#10;&#13;.%" commentid_block="none" commentid_line="cm.vbcomment">

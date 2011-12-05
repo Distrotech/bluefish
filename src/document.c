@@ -63,7 +63,6 @@
 #include "file_dialogs.h"
 #include "gtk_easy.h"			/* *_dialog() */
 #include "pixmap.h"
-#include "snr2.h"				/* snr2_run_extern_replace */
 #include "stringlist.h"			/* free_stringlist() */
 #include "undo_redo.h"			/* doc_unre_init() */
 #include "file_autosave.h"
@@ -236,23 +235,27 @@ gint return_num_untitled_documents(GList *doclist) {
 }*/
 
 /**
- * add_filename_to_history:
+ * add_filename_to_recentlist:
  * @bfwin: #Tbfwin*
- * @filename: a #gchar
+ * @uri: a #GFile*
  *
  * adds a filename to the recently opened files list
  * will not add it to the menu, only to the list and the file
  **/
 void
-add_filename_to_history(Tbfwin * bfwin, GFile * file)
+add_filename_to_recentlist(Tbfwin * bfwin, GFile * uri)
 {
-/*	gchar *dirname;*/
-
-/*	add_to_recent_list(bfwin, file, 0, FALSE); the recent menu
-	dirname = g_path_get_dirname(filename);
-	DEBUG_MSG("add_filename_to_history, adding %s\n",dirname);
-	main_v->recent_directories = add_to_history_stringlist(main_v->recent_directories,dirname,FALSE,TRUE);
-	g_free(dirname);*/
+	gchar *curi = g_file_get_uri(uri);
+	bfwin->session->recent_files =
+				add_to_history_stringlist(bfwin->session->recent_files, curi, FALSE, TRUE);
+	bfwin_recent_menu_remove(bfwin, FALSE, curi);
+	
+	if (main_v->props.register_recent_mode == 0)
+		return;
+	if (main_v->props.register_recent_mode == 1) {
+		gtk_recent_manager_add_item(main_v->recentm, curi);
+	}
+	g_free(curi);
 }
 
 /**
@@ -370,7 +373,7 @@ doc_update_highlighting(Tbfwin * bfwin, guint callback_action, GtkWidget * widge
 	if (!bfwin->current_document)
 		return;
 	if (!bluefish_text_view_get_enable_scanner(BLUEFISH_TEXT_VIEW(bfwin->current_document->view))) {
-		DEBUG_MSG("doc_update_highlighting, set enable_scanner to TRUE\n");
+		g_print("doc_update_highlighting, set enable_scanner to TRUE\n");
 		bluefish_text_view_set_enable_scanner(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), TRUE);
 	}
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
@@ -387,9 +390,9 @@ doc_update_highlighting(Tbfwin * bfwin, guint callback_action, GtkWidget * widge
  * Return value: void
  **/
 void
-doc_set_wrap(Tdocument * doc)
+doc_set_wrap(Tdocument * doc, gboolean enabled)
 {
-	GtkWrapMode wmode = doc->wrapstate ? GTK_WRAP_WORD : GTK_WRAP_NONE;
+	GtkWrapMode wmode = enabled ? GTK_WRAP_WORD : GTK_WRAP_NONE;
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view), wmode);
 	if (doc->slave)
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->slave), wmode);
@@ -552,10 +555,17 @@ doc_reset_filetype(Tdocument * doc, GFile * newuri, gconstpointer buf, gssize bu
 	g_free(conttype);
 	conttype = tmp;
 #endif
-	if (strcmp(conttype, "text/html") == 0 && buf
-		&& strstr(buf, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML") != NULL) {
-		g_free(conttype);
-		conttype = g_strdup("application/xhtml+xml");
+	if (strcmp(conttype, "text/html") == 0 && buf) {
+		const gchar *newtype=NULL;
+		if (strstr(buf, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML") != NULL) {
+			newtype = "application/xhtml+xml";
+		} else if (strstr(buf, "<!DOCTYPE html>")!=NULL) {
+			newtype = "text/x-html5";
+		}
+		if (newtype) {
+			g_free(conttype);
+			conttype = g_strdup(newtype);
+		}
 	}
 
 	doc_set_mimetype(doc, conttype, filename);
@@ -1054,13 +1064,13 @@ doc_set_statusbar_lncol(Tdocument * doc)
  *
  * Return value: void
  **/
-void
+static void
 doc_set_statusbar_insovr(Tdocument * doc)
 {
 	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0);
 	if (!doc->readonly)
 		gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0,
-						   (doc->overwrite_mode ? _(" OVR") : _(" INS")));
+						   (gtk_text_view_get_overwrite(GTK_TEXT_VIEW(doc->view)) ? _(" OVR") : _(" INS")));
 	else
 		gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0, _(" RO"));
 }
@@ -1093,13 +1103,12 @@ void
 doc_insert_text_backend(Tdocument * doc, const gchar * newstring, gint position)
 {
 	GtkTextIter iter;
-	doc_unbind_signals(doc);
+	doc_block_undo_reg(doc);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, position);
 	gtk_text_buffer_insert(doc->buffer, &iter, newstring, -1);
 	doc_unre_add(doc, newstring, position, position + g_utf8_strlen(newstring, -1), UndoInsert);
-	doc_bind_signals(doc);
+	doc_unblock_undo_reg(doc);
 	doc_set_modified(doc, 1);
-	doc->need_highlighting = TRUE;
 }
 
 /**
@@ -1125,7 +1134,7 @@ doc_insert_text_backend(Tdocument * doc, const gchar * newstring, gint position)
 void
 doc_replace_text_backend(Tdocument * doc, const gchar * newstring, gint start, gint end)
 {
-	doc_unbind_signals(doc);
+	doc_block_undo_reg(doc);
 	/* delete region, and add that to undo/redo list */
 	if (end == -1 || end > start) {
 		gchar *buf;
@@ -1155,7 +1164,7 @@ doc_replace_text_backend(Tdocument * doc, const gchar * newstring, gint start, g
 		gtk_text_buffer_insert(doc->buffer, &itstart, newstring, -1);
 		doc_unre_add(doc, newstring, insert, insert + g_utf8_strlen(newstring, -1), UndoInsert);
 	}
-	doc_bind_signals(doc);
+	doc_unblock_undo_reg(doc);
 	doc_set_modified(doc, 1);
 }
 
@@ -1223,7 +1232,7 @@ doc_insert_two_strings(Tdocument * doc, const gchar * before_str, const gchar * 
 	gboolean have_diag_marks = FALSE;
 
 	doc_unre_new_group(doc);
-	doc_unbind_signals(doc);
+	doc_block_undo_reg(doc);
 	insert = gtk_text_buffer_get_mark(doc->buffer, "diag_ins");
 	select = gtk_text_buffer_get_mark(doc->buffer, "diag_sel");
 	if (insert && select) {
@@ -1303,7 +1312,7 @@ doc_insert_two_strings(Tdocument * doc, const gchar * before_str, const gchar * 
 		gtk_text_buffer_delete_mark(doc->buffer, select);
 	}
 	doc_unre_new_group(doc);
-	doc_bind_signals(doc);
+	doc_unblock_undo_reg(doc);
 	doc_set_modified(doc, 1);
 	DEBUG_MSG("doc_insert_two_strings, finished\n");
 }
@@ -1425,7 +1434,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 			 sessionencoding);
 		newbuf = g_convert(buffer, -1, "UTF-8", sessionencoding, NULL, &wsize, NULL);
 		if (newbuf) {
-			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", sessionencoding);
+			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s, newbuf=%p, wsize=%"G_GSIZE_FORMAT", strlen(newbuf)=%zd\n", sessionencoding, newbuf, wsize, strlen(newbuf));
 			*encoding = g_strdup(sessionencoding);
 			return newbuf;
 		}
@@ -1514,7 +1523,7 @@ doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean en
 	}
 
 	if (!enable_undo) {
-		doc_unbind_signals(doc);
+		doc_block_undo_reg(doc);
 	}
 	/* now get the current cursor position */
 	insert = gtk_text_buffer_get_insert(doc->buffer);
@@ -1539,7 +1548,7 @@ doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean en
 	gtk_text_buffer_insert_at_cursor(doc->buffer, newbuf, -1);
 	g_free(newbuf);
 	if (!enable_undo) {
-		doc_bind_signals(doc);
+		doc_unblock_undo_reg(doc);
 	}
 
 	{
@@ -1554,128 +1563,75 @@ doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean en
 	return TRUE;
 }
 
-/**
- * doc_file_to_textbox:
- * @doc: The #Tdocument target.
- * @filename: Filename to read in.
- * @enable_undo: #gboolean
- * @delay: Whether to delay GUI-calls.
- *
- * Open and read in a file to the doc buffer.
- * The data is inserted starting at the current cursor position.
- * Charset is detected, and highlighting performed (if applicable).
- *
- * Return value: A #gboolean, TRUE if successful, FALSE on error.
- ** /
-gboolean doc_file_to_textbox(Tdocument *doc, gchar *filename, gboolean enable_undo, gboolean delay) {
-	gchar *buffer, *message;
-	int document_size=0;
-	gboolean ret;
-	message = g_strconcat(_("Opening file "), filename, NULL);
-	statusbar_message(BFWIN(doc->bfwin),message, 1);
-	g_free(message);
-
-	buffer = get_buffer_from_filename(BFWIN(doc->bfwin), filename, &document_size);
-	ret = doc_buffer_to_textbox(doc, buffer, document_size, enable_undo, delay);
-	g_free(buffer);
-	return ret;
-}*/
-/* code moved to file.c
-void doc_set_fileinfo(Tdocument *doc, GFileInfo *finfo) {
-	DEBUG_MSG("doc_set_fileinfo, doc=%p, new finfo=%p, old fileinfo=%p\n",doc,finfo,doc->fileinfo);
-	if (doc->fileinfo) {
-		DEBUG_MSG("doc_set_fileinfo, unref doc->fileinfo at %p\n",doc->fileinfo);
-		g_object_unref(doc->fileinfo);
-		doc->fileinfo = NULL;
-	}
-
-	if (finfo != NULL) {
-		g_object_ref(finfo);
-		doc->fileinfo = finfo;
-	}
-
-	doc_set_tooltip(doc);
-}*/
-
 static void
 doc_buffer_insert_text_lcb(GtkTextBuffer * textbuffer, GtkTextIter * iter, gchar * string, gint len,
 						   Tdocument * doc)
 {
+	GSList *tmpslist;
 	gint pos = gtk_text_iter_get_offset(iter);
 	gint clen = g_utf8_strlen(string, len);
 	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s', len=%d, clen=%d\n", string, len, clen);
 	/* 'len' is the number of bytes and not the number of characters.. */
-
-	if (!doc->in_paste_operation && (!doc_unre_test_last_entry(doc, UndoInsert, -1, pos)
+	if (!doc->block_undo_reg) {
+		if (!doc->in_paste_operation && (!doc_unre_test_last_entry(doc, UndoInsert, -1, pos)
 									 || string[0] == ' '
 									 || string[0] == '\n' || string[0] == '\t' || string[0] == '\r')) {
-		DEBUG_MSG("doc_buffer_insert_text_lcb, create a new undogroup\n");
-		doc_unre_new_group(doc);
+			DEBUG_MSG("doc_buffer_insert_text_lcb, create a new undogroup\n");
+			doc_unre_new_group(doc);
+		}
+		doc_unre_add(doc, string, pos, pos + clen, UndoInsert);
+		
+		doc_set_modified(doc, 1);
 	}
-	doc_unre_add(doc, string, pos, pos + clen, UndoInsert);
-	doc_set_modified(doc, 1);
+	/* see if any other code wants to see document changes */
+	for (tmpslist=BFWIN(doc->bfwin)->doc_insert_text;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+		Tcallback *cb = tmpslist->data;
+		((DocInsertTextCallback)cb->func)(doc, string, iter, pos, len, clen, cb->data);
+	}
 	DEBUG_MSG("doc_buffer_insert_text_lcb, done\n");
 }
-
-/*
-static gboolean find_char(gunichar ch,gchar *data) {
-#ifdef DEBUG
-	if (ch < 127) {
-		DEBUG_MSG("find_char, looking at character %c, searching for '%s', returning %d\n",ch,data,(strchr(data, ch) != NULL));
-	} else {
-		DEBUG_MSG("find_char, looking at character code %d, searching for '%s', returning %d\n",ch,data,(strchr(data, ch) != NULL));
-	}
-#endif
-	return (strchr(data, ch) != NULL);
-}
-
-static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIter *iter) {
-	return NULL;
-}
-*/
-/*
-static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
-	DEBUG_MSG("doc_buffer_insert_text_after_lcb, started for string '%s'\n",string);
-	if (!doc->paste_operation) {
-	}
-#ifdef DEBUG
-	else {
-		DEBUG_MSG("doc_buffer_insert_text_after_lcb, paste_operation, NOT DOING ANYTHING\n");
-	}
-#endif
-}*/
 
 static void
 doc_buffer_delete_range_lcb(GtkTextBuffer * textbuffer, GtkTextIter * itstart, GtkTextIter * itend,
 							Tdocument * doc)
 {
+	GSList *tmpslist;
 	gchar *string;
+	gint start, end, len;
+
+	start = gtk_text_iter_get_offset(itstart);
+	end = gtk_text_iter_get_offset(itend);
+	len = end - start;
 	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, TRUE);
+	
 	DEBUG_MSG("doc_buffer_delete_range_lcb, string='%s'\n", string);
-	if (string) {
-		/* undo_redo stuff */
-		gint start, end, len;
-		start = gtk_text_iter_get_offset(itstart);
-		end = gtk_text_iter_get_offset(itend);
-		len = end - start;
-		DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len,
-				  string);
-		if (!doc->in_paste_operation) {
-			if (len == 1) {
-				if ((!doc_unre_test_last_entry(doc, UndoDelete, start, -1)	/* delete */
-					 &&!doc_unre_test_last_entry(doc, UndoDelete, end, -1))	/* backspace */
-					||string[0] == ' ' || string[0] == '\n' || string[0] == '\t' || string[0] == '\r') {
-					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
+	if (!doc->block_undo_reg) {
+		if (string) {
+			/* undo_redo stuff */
+			DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len,
+						  string);
+			if (!doc->in_paste_operation) {
+				if (len == 1) {
+					if ((!doc_unre_test_last_entry(doc, UndoDelete, start, -1)	/* delete */
+					 	&&!doc_unre_test_last_entry(doc, UndoDelete, end, -1))	/* backspace */
+						||string[0] == ' ' || string[0] == '\n' || string[0] == '\t' || string[0] == '\r') {
+						DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
+						doc_unre_new_group(doc);
+					}
+				} else {
 					doc_unre_new_group(doc);
 				}
-			} else {
-				doc_unre_new_group(doc);
 			}
+			doc_unre_add(doc, string, start, end, UndoDelete);
 		}
-		doc_unre_add(doc, string, start, end, UndoDelete);
-		g_free(string);
+		doc_set_modified(doc, 1);
 	}
-	doc_set_modified(doc, 1);
+	/* see if any other code wants to see document changes */
+	for (tmpslist=BFWIN(doc->bfwin)->doc_delete_range;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+		Tcallback *cb = tmpslist->data;
+		((DocDeleteRangeCallback)cb->func)(doc, itstart, start, itend, end, string, cb->data);
+	}
+	g_free(string);	
 }
 
 void
@@ -1737,7 +1693,7 @@ doc_view_populate_popup_lcb(GtkTextView * textview, GtkMenu * menu, Tdocument * 
 #endif*/
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
-	menuitem = gtk_image_menu_item_new_with_label(_("Replace"));
+/*	menuitem = gtk_image_menu_item_new_with_label(_("Replace"));
 	g_signal_connect(menuitem, "activate", G_CALLBACK(replace_cb), doc->bfwin);
 	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),
 								  gtk_image_new_from_stock(GTK_STOCK_FIND_AND_REPLACE, GTK_ICON_SIZE_MENU));
@@ -1750,7 +1706,7 @@ doc_view_populate_popup_lcb(GtkTextView * textview, GtkMenu * menu, Tdocument * 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
-
+*/
 	if (bmark_have_bookmark_at_stored_bevent(doc)) {
 		menuitem = gtk_menu_item_new_with_label(_("Delete bookmark"));
 		g_signal_connect(menuitem, "activate", G_CALLBACK(rpopup_del_bookmark_lcb), doc);
@@ -1807,57 +1763,76 @@ doc_buffer_changed_lcb(GtkTextBuffer * textbuffer, Tdocument * doc)
 static void
 doc_view_toggle_overwrite_lcb(GtkTextView * view, Tdocument * doc)
 {
-	doc->overwrite_mode = (doc->overwrite_mode ? FALSE : TRUE);
+	/* if there is a slave bview, toggle that too! */
+	if (doc->slave) {
+		if (view == (GtkTextView *)doc->view)
+			gtk_text_view_set_overwrite(GTK_TEXT_VIEW(doc->slave), gtk_text_view_get_overwrite(GTK_TEXT_VIEW(view)));
+		else
+			gtk_text_view_set_overwrite(GTK_TEXT_VIEW(doc->view), gtk_text_view_get_overwrite(GTK_TEXT_VIEW(view)));
+	}
+
 	doc_set_statusbar_insovr(doc);
 }
 
 /**
- * doc_bind_signals:
- * @doc: a #Tdocument
+ * update_encoding_meta_in_file:
+ * @doc: a #Tdocument*
+ * @encoding: #gchar*, The documents character encoding
  *
- * Bind signals related to the doc's buffer:
- * "insert-text", "delete-range" and "insert-text" for autoindent
- *
- * Return value: void
- **/
-void
-doc_bind_signals(Tdocument * doc)
-{
-	doc->ins_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
-									   "insert-text", G_CALLBACK(doc_buffer_insert_text_lcb), doc);
-	doc->del_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
-									   "delete-range", G_CALLBACK(doc_buffer_delete_range_lcb), doc);
-/*	doc->ins_aft_txt_id = g_signal_connect_after(G_OBJECT(doc->buffer),
-					 "insert-text",
-					 G_CALLBACK(doc_buffer_insert_text_after_lcb), doc);*/
-}
-
-/**
- * doc_unbind_signals:
- * @doc: a #Tdocument
- *
- * Unbind signals related to the doc's buffer:
- * "insert-text", "delete-range" and "insert-text" for autoindent.
- * This function checks if each individual signal has been bound before unbinding.
+ * Update the HTML meta encoding tags for the supplied document.
  *
  * Return value: void
  **/
 void
-doc_unbind_signals(Tdocument * doc)
+update_encoding_meta_in_file(Tdocument * doc, gchar * encoding)
 {
-/*	g_print("doc_unbind_signals, before unbind ins=%lu, del=%lu\n", doc->ins_txt_id, doc->del_txt_id);*/
-	if (doc->ins_txt_id != 0) {
-		g_signal_handler_disconnect(G_OBJECT(doc->buffer), doc->ins_txt_id);
-		doc->ins_txt_id = 0;
+	if (!encoding)
+		return;
+	GRegex *regex;
+	GMatchInfo *match_info;
+	gchar *type, *xhtmlend, *fulltext, *replacestring=NULL;
+	gint so, eo, cso, ceo;
+	/* first find if there is a meta encoding tag already */
+	
+	fulltext = doc_get_chars(doc, 0, -1);
+	regex = g_regex_new("<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"([^;]*);[ \t\n]*charset=[a-z0-9-]*\"[ \t\n]*(/?)>", G_REGEX_MULTILINE|G_REGEX_CASELESS, 0, NULL);
+	if (g_regex_match(regex, fulltext, 0, &match_info)) {
+		DEBUG_MSG("we have a match, replace the encoding\n");
+		if (g_match_info_get_match_count(match_info)>2) {
+			type = g_match_info_fetch(match_info, 1);
+			xhtmlend = g_match_info_fetch(match_info, 2);
+		} else {
+			type = g_strdup("text/html");
+			xhtmlend = g_strdup(main_v->props.xhtml ? "/" : "");
+		}
+		replacestring =
+			g_strconcat("<meta http-equiv=\"content-type\" content=\"", type, "; charset=", encoding,
+						"\" ", xhtmlend, ">", NULL);
+		g_free(type);
+		g_free(xhtmlend);
+	} else {
+		DEBUG_MSG("no match, add the encoding\n");
+		/* no <meta encoding tag yet */
+		g_regex_unref(regex);
+		g_match_info_free(match_info);
+		regex = g_regex_new("<head>", G_REGEX_CASELESS, 0, NULL);
+		g_regex_match(regex, fulltext, 0, &match_info);
+		if (g_match_info_matches(match_info)) {
+			replacestring = g_strconcat("<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=", encoding,
+						"\" ", (main_v->props.xhtml? "/>": ">"), NULL);
+		}
 	}
-	if (doc->del_txt_id != 0) {
-		g_signal_handler_disconnect(G_OBJECT(doc->buffer), doc->del_txt_id);
-		doc->del_txt_id = 0;
+	if (replacestring) {
+		g_match_info_fetch_pos(match_info, 0, &so, &eo);
+		cso = utf8_byteoffset_to_charsoffset(fulltext,so);
+		ceo = utf8_byteoffset_to_charsoffset(fulltext,eo);
+		DEBUG_MSG("update_encoding_meta_in_file, update from %d to %d\n",cso,ceo);
+		doc_replace_text(doc, replacestring, cso, ceo);
+		g_free(replacestring);
+		g_match_info_free(match_info);
 	}
-/*	if (doc->ins_aft_txt_id != 0) {
-		g_signal_handler_disconnect(G_OBJECT(doc->buffer),doc->ins_aft_txt_id);
-		doc->ins_txt_id = 0;
-	}*/
+	g_regex_unref(regex);
+	g_free(fulltext);
 }
 
 /*
@@ -1903,8 +1878,8 @@ doc_get_buffer_in_encoding(Tdocument * doc)
 										 _("File encoding conversion failure"), tmpstr);
 			g_free(tmpstr);
 			if (retval == 0) {
-				DEBUG_MSG("doc_get_buffer_in_encoding, character set conversion failed, user aborted!\n");
-				return NULL;
+				DEBUG_MSG("doc_textbox_to_file, character set conversion failed, user aborted!\n");
+				return -4;
 			} else {
 				/* continue in UTF-8 */
 				update_encoding_meta_in_file(doc, "UTF-8");
@@ -1916,124 +1891,6 @@ doc_get_buffer_in_encoding(Tdocument * doc)
 	}
 	return buffer;
 }
-
-/**
- * gint doc_textbox_to_file
- * @doc: a #Tdocument*
- * @filename: a #gchar*
- * @window_closing: a #gboolean if the window is closing, we should supress any statusbar messages then
- *
- * If applicable, backup existing file,
- * possibly update meta-tags (HTML),
- * and finally write the document to the specified file.
- *
- * Return value: #gint set to
- * 1: on success
- * 2: on success but the backup failed
- * -1: if the backup failed and save was aborted
- * -2: if the file could not be opened or written
- * -3: if the backup failed and save was aborted by the user
- * -4: if the charset encoding conversion failed and the save was aborted by the user
- **
-gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_closing) {
-	gint backup_retval;
-	gint write_retval;
-	gchar *buffer;
-	GtkTextIter itstart, itend;
-
-	if (!window_closing) statusbar_message(BFWIN(doc->bfwin),_("Saving file"), 1);
-	if (main_v->props.auto_update_meta) {
-		const gchar *realname = g_get_real_name();
-		if (realname && strlen(realname) > 0)  {
-			gchar *tmp;
-			Tsearch_result res = doc_search_run_extern(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*bluefish[^\"]*\"[ \t\n]*>",1,0);
-			if (res.end > 0) {
-				snr2_run_extern_replace(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,"<meta name=\"generator\" content=\"Bluefish, see http://bluefish.openoffice.nl/\">", FALSE);
-			}
-			tmp = g_strconcat("<meta name=\"author\" content=\"",realname,"\">",NULL);
-			snr2_run_extern_replace(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,tmp,FALSE);
-			g_free(tmp);
-		}
-	}
-
-	/ * This writes the contents of a textbox to a file * /
-	backup_retval = doc_check_backup(doc);
-
-	if (!backup_retval) {
-		if (main_v->props.backup_abort_action == DOCUMENT_BACKUP_ABORT_ABORT) {
-			DEBUG_MSG("doc_textbox_to_file, backup failure, abort!\n");
-			return -1;
-		} else if (main_v->props.backup_abort_action == DOCUMENT_BACKUP_ABORT_ASK) {
-			gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
-			gint retval;
-			gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), filename);
-			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File backup failure"), tmpstr, 1, 0, options);
-			g_free(tmpstr);
-			if (retval == 0) {
-				DEBUG_MSG("doc_textbox_to_file, backup failure, user aborted!\n");
-				return -3;
-			}
-		}
-	}
-
-	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-	buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
-
-	if (doc->encoding) {
-		gchar *newbuf;
-		gsize bytes_written=0, bytes_read=0;
-		DEBUG_MSG("doc_textbox_to_file, converting from UTF-8 to %s\n", doc->encoding);
-		newbuf = g_convert(buffer,-1,doc->encoding,"UTF-8",&bytes_read,&bytes_written,NULL);
-		if (newbuf) {
-			g_free(buffer);
-			buffer = newbuf;
-		} else {
-			gchar *options[] = {_("_Abort save"), _("_Continue save in UTF-8"), NULL};
-			gint retval, line, column;
-			glong position;
-			gchar *tmpstr, failed[6];
-			GtkTextIter iter;
-			position = g_utf8_pointer_to_offset(buffer,buffer+bytes_read);
-			gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,position);
-			line = gtk_text_iter_get_line(&iter);
-			column = gtk_text_iter_get_line_offset(&iter);
-			failed[0]='\0';
-			g_utf8_strncpy(failed,buffer+bytes_read,1);
-			tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n\nContinue saving in UTF-8 encoding?"), filename, doc->encoding, failed, line+1, column+1);
-			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File encoding conversion failure"), tmpstr, 1, 0, options);
-			g_free(tmpstr);
-			if (retval == 0) {
-				DEBUG_MSG("doc_textbox_to_file, character set conversion failed, user aborted!\n");
-				return -4;
-			} else {
-				/ * continue in UTF-8 * /
-				update_encoding_meta_in_file(doc, "UTF-8");
-				g_free(buffer);
-				gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-				buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
-			}
-		}
-	}
-
-	write_retval = buffer_to_file(BFWIN(doc->bfwin), buffer, filename);
-	DEBUG_MSG("doc_textbox_to_file, write_retval=%d\n",write_retval);
-	g_free(buffer);
-	if (!write_retval) {
-		return -2;
-	}
-
-	if (main_v->props.clear_undo_on_save) {
-		doc_unre_clear_all(doc);
-	}
-	DEBUG_MSG("doc_textbox_to_file, calling doc_set_modified(doc, 0)\n");
-	doc_set_modified(doc, 0);
-	if (!backup_retval) {
-		return 2;
-	} else {
-		return 1;
-	}
-}
-*/
 
 static void
 delete_backupfile_lcb(gpointer data)
@@ -2061,27 +1918,28 @@ void
 doc_destroy(Tdocument * doc, gboolean delay_activation)
 {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
+	GSList *tmpslist;
 	DEBUG_MSG("doc_destroy(%p,%d);\n", doc, delay_activation);
 	if (doc->status == DOC_STATUS_ERROR) {
 		bfwin_docs_not_complete(doc->bfwin, FALSE);
+	}
+	for (tmpslist=bfwin->doc_destroy;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+		Tcallback *cb = tmpslist->data;
+		((DocDestroyCallback)cb->func)(doc, cb->data);
 	}
 
 	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n", doc);
 	bmark_clean_for_doc(doc);
 	if (doc->uri && bfwin->session) {	/* in a special situation the bfwin does not have a session: if a project window is closing */
-		bfwin_recent_menu_add(doc->bfwin, doc->uri, doc->fileinfo, FALSE);
+		gchar *curi = g_file_get_uri(doc->uri);
+		bfwin_recent_menu_add(doc->bfwin,FALSE, curi);
+		g_free(curi); 
 	}
 	bfwin_notebook_block_signals(BFWIN(doc->bfwin));
 	if (doc->newdoc_autodetect_lang_id) {
 		g_source_remove(doc->newdoc_autodetect_lang_id);
 		doc->newdoc_autodetect_lang_id = 0;
 	}
-
-	/* NOT USED ANYMORE: to make this go really quick, we first only destroy the notebook page and run flush_queue(),
-	   (in notebook_changed())
-	   after the document is gone from the GUI we complete the destroy, to destroy only the notebook
-	   page we ref+ the scrolthingie, remove the page, and unref it again */
-	/*g_object_ref_sink(gtk_widget_get_parent(doc->view)); */
 
 	if (doc->floatingview) {
 		gtk_widget_destroy(FLOATINGVIEW(doc->floatingview)->window);
@@ -2123,8 +1981,6 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 		bfwin_notebook_changed(BFWIN(doc->bfwin), newpage);
 	}
 	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed(), vsplit=%p\n", doc, doc->vsplit);
-	/* NOT USED ANYMORE: now we really start to destroy the document */
-	/*g_object_unref(G_OBJECT(doc->view)); */
 	remove_autosave(doc);
 	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {
@@ -2301,6 +2157,21 @@ doc_view_button_release_lcb(GtkWidget * widget, GdkEventButton * bevent, Tdocume
 	return FALSE;
 }
 
+static gboolean
+doc_focus_in_lcb(GtkWidget *widget,GdkEvent  *event, Tdocument *doc)
+{
+	bfwin_set_cutcopypaste_actions(doc->bfwin, TRUE);
+	return FALSE;
+}  
+
+static gboolean
+doc_focus_out_lcb(GtkWidget *widget,GdkEvent  *event, Tdocument *doc)
+{
+	if (gtk_window_get_focus(GTK_WINDOW(BFWIN(doc->bfwin)->main_window))!=widget) {
+		bfwin_set_cutcopypaste_actions(doc->bfwin, FALSE);
+	}
+	return FALSE;
+}  
 
 Tdocument *
 doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
@@ -2333,7 +2204,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scroll), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
-	newdoc->highlightstate = 1;
+	newdoc->highlightstate = bfwin->session->enable_syntax_scan;
 	newdoc->tab_label = gtk_label_new(NULL);
 	gtk_widget_set_can_focus(newdoc->tab_label, FALSE);
 	if (!main_v->props.use_system_tab_font)
@@ -2345,27 +2216,24 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 
 	doc_unre_init(newdoc);
 	apply_font_style(newdoc->view, main_v->props.editor_font_string);
-	newdoc->wrapstate = bfwin->session->wrap_text_default;
-	doc_set_wrap(newdoc);
+	doc_set_wrap(newdoc, bfwin->session->wrap_text_default);
 
 	/* we initialize already with 0 , so we don't need these:
-	   newdoc->need_highlighting = 0;
 	   newdoc->uri = NULL;
 	   newdoc->modified = 0;
 	   newdoc->fileinfo = NULL; */
-	newdoc->is_symlink = 0;
 	newdoc->encoding =
 		g_strdup((bfwin->session->encoding) ? bfwin->session->encoding : main_v->
 				 props.newfile_default_encoding);
 	DEBUG_MSG("doc_new_backend, encoding is %s\n", newdoc->encoding);
-	newdoc->overwrite_mode = FALSE;
 
 	doc_set_title(newdoc);
-	doc_bind_signals(newdoc);
-
+	
+	g_signal_connect(G_OBJECT(newdoc->buffer), "insert-text", G_CALLBACK(doc_buffer_insert_text_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->buffer), "delete-range", G_CALLBACK(doc_buffer_delete_range_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "changed", G_CALLBACK(doc_buffer_changed_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set", G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
-	g_signal_connect(G_OBJECT(newdoc->view), "toggle-overwrite",
+	g_signal_connect_after(G_OBJECT(newdoc->view), "toggle-overwrite",
 					 G_CALLBACK(doc_view_toggle_overwrite_lcb), newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view), "populate-popup",
 						   G_CALLBACK(doc_view_populate_popup_lcb), newdoc);
@@ -2373,14 +2241,18 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 					 G_CALLBACK(doc_view_button_release_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event",
 					 G_CALLBACK(doc_view_button_press_lcb), newdoc);
-
+	g_signal_connect(G_OBJECT(newdoc->view), "focus-in-event",
+					 G_CALLBACK(doc_focus_in_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->view), "focus-out-event",
+					 G_CALLBACK(doc_focus_out_lcb), newdoc);
 	bfwin->documentlist = g_list_append(bfwin->documentlist, newdoc);
 
+	gtk_widget_show(newdoc->tab_label);
 	gtk_widget_show(scroll);
 
 	DEBUG_MSG("doc_new_backend, appending doc to notebook\n");
 
-	hbox = gtk_hbox_new(FALSE, 12);
+	hbox = gtk_hbox_new(FALSE, 0);
 	button = bluefish_small_close_button_new();
 	g_signal_connect(button, "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
 	gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
@@ -2396,10 +2268,8 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->notebook), newdoc->vsplit, hbox, newdoc->tab_menu);
 	gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(bfwin->notebook), newdoc->vsplit, TRUE);
 	/* for some reason it only works after the document is appended to the notebook */
-	/* FIXME: This should be set when the text view is created */
 	bluefish_text_view_set_tabsize(BLUEFISH_TEXT_VIEW(newdoc->view), BFWIN(bfwin)->session->editor_tab_width);
 
-	DEBUG_MSG("doc_new_backend, doc %p need_highlighting=%d\n", newdoc, newdoc->need_highlighting);
 	return newdoc;
 }
 
@@ -2420,7 +2290,9 @@ doc_new_loading_in_background(Tbfwin * bfwin, GFile * uri, GFileInfo * finfo, gb
 	} else {
 		doc->fileinfo = NULL;
 	}
-	doc_set_filename(doc, uri);
+	doc->uri = uri;
+	g_object_ref(doc->uri);
+	doc_set_title(doc);
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	bfwin_docs_not_complete(bfwin, TRUE);
 	return doc;
@@ -2612,13 +2484,12 @@ doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolean del
 				g_strdup_printf(_
 								("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."),
 glib_major_version, glib_minor_version, glib_micro_version);
-			statusbar_message(bfwin, message, 20);
+			bfwin_statusbar_message(bfwin, message, 20);
 			g_free(message);
 		}
 #endif
 		file_doc_from_uri(bfwin, uri, NULL, finfo, goto_line, goto_offset, open_readonly);
 	}
-	add_filename_to_history(bfwin, uri);
 	session_set_opendir(bfwin, tmpcuri);
 	g_free(tmpcuri);
 }
@@ -2656,7 +2527,8 @@ doc_create_slave_view(Tdocument * doc)
 	GtkWidget *scroll;
 	DEBUG_MSG("doc_create_slave_view, create slave view for %p\n", doc->view);
 	doc->slave = bftextview2_new_slave(BLUEFISH_TEXT_VIEW(doc->view));
-	g_signal_connect(G_OBJECT(doc->slave), "toggle-overwrite",
+	gtk_text_view_set_overwrite(GTK_TEXT_VIEW(doc->slave), gtk_text_view_get_overwrite(GTK_TEXT_VIEW(doc->view)));
+	g_signal_connect_after(G_OBJECT(doc->slave), "toggle-overwrite",
 					 G_CALLBACK(doc_view_toggle_overwrite_lcb), doc);
 	g_signal_connect_after(G_OBJECT(doc->slave), "populate-popup",
 						   G_CALLBACK(doc_view_populate_popup_lcb), doc);
@@ -2670,10 +2542,14 @@ doc_create_slave_view(Tdocument * doc)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scroll), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scroll), doc->slave);
-
 	/* FIXME: This should be set when the text view is created */
-	bluefish_text_view_set_tabsize(BLUEFISH_TEXT_VIEW(doc->view), BFWIN(doc->bfwin)->session->editor_tab_width);
+	bluefish_text_view_set_tabsize(BLUEFISH_TEXT_VIEW(doc->view),
+								   BFWIN(doc->bfwin)->session->editor_tab_width);
 
+	g_signal_connect(G_OBJECT(doc->slave), "focus-in-event",
+					 G_CALLBACK(doc_focus_in_lcb), doc);
+	g_signal_connect(G_OBJECT(doc->slave), "focus-out-event",
+					 G_CALLBACK(doc_focus_out_lcb), doc);
 	return scroll;
 }
 
@@ -2810,12 +2686,13 @@ doc_activate(Tdocument * doc)
 #endif
 	if (doc == NULL)
 		return;
-
-	if (doc == BFWIN(doc->bfwin)->last_activated_doc || doc->action.close_doc) {
+	DEBUG_MSG("doc_activate, started for %p\n",doc);
+	if (doc == BFWIN(doc->bfwin)->last_activated_doc || doc->close_doc) {
 		/* DO enable the scanner, because it is disabled in notebook_changed(), but if the last document is also the new document it needs to be re-enabled again */
+		DEBUG_MSG("doc_activate, enable the scanner for doc %p\n", doc);
 		bluefish_text_view_set_enable_scanner(BLUEFISH_TEXT_VIEW(doc->view), TRUE);
 		DEBUG_MSG("doc_activate, not doing anything, doc=%p, last_avtivated_doc=%p, close_doc=%d\n", doc,
-				  BFWIN(doc->bfwin)->last_activated_doc, doc->action.close_doc);
+				  BFWIN(doc->bfwin)->last_activated_doc, doc->close_doc);
 		return;
 	}
 	DEBUG_MSG("doc_activate for doc with view %p..\n", doc->view);
@@ -2908,11 +2785,12 @@ doc_activate(Tdocument * doc)
 /*		g_free(dir1);
 		g_free(dir2);*/
 	}
+	if (doc->highlightstate)
+		bluefish_text_view_set_enable_scanner(BLUEFISH_TEXT_VIEW(doc->view), TRUE);
 	DEBUG_MSG("doc_activate, doc=%p, about to grab focus\n", doc);
 	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
 
 	DEBUG_MSG("doc_activate, doc=%p, finished\n", doc);
-
 }
 
 void
@@ -3021,7 +2899,11 @@ doc_toggle_highlighting(Tbfwin * bfwin, gboolean active)
 
 	bluefish_text_view_set_enable_scanner(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
 										  bfwin->current_document->highlightstate);
-	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+	if (active) {
+		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+	} else { 
+		bluefish_text_view_scan_cleanup(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+	}
 }
 
 /**
@@ -3035,14 +2917,15 @@ void
 all_documents_apply_settings()
 {
 	GList *tmplist = g_list_first(return_allwindows_documentlist());
+	PangoFontDescription *font_desc;
+	font_desc = pango_font_description_from_string(main_v->props.editor_font_string);
 	while (tmplist) {
 		Tdocument *doc = tmplist->data;
-		/*doc_set_tabsize(doc, main_v->props.editor_tab_width); */
-		apply_font_style(doc->view, main_v->props.editor_font_string);
+		bluefish_text_view_set_font(BLUEFISH_TEXT_VIEW(doc->view), font_desc);
 		bluefish_text_view_set_colors(BLUEFISH_TEXT_VIEW(doc->view), main_v->props.btv_color_str);
 		tmplist = g_list_next(tmplist);
 	}
-
+	pango_font_description_free(font_desc);
 }
 
 void
@@ -3089,7 +2972,7 @@ doc_indent_selection(Tdocument * doc, gboolean unindent)
 		GtkTextMark *end;
 /*		gboolean firstrun=TRUE;*/
 
-		doc_unbind_signals(doc);
+		doc_block_undo_reg(doc);
 		doc_unre_new_group(doc);
 		/* we have a selection, now we loop trough the characters, and for every newline
 		   we add or remove a tab, we set the end with a mark */
@@ -3168,7 +3051,7 @@ doc_indent_selection(Tdocument * doc, gboolean unindent)
 					  gtk_text_iter_get_offset(&itstart), gtk_text_iter_get_offset(&itend));
 		}
 		gtk_text_buffer_delete_mark(doc->buffer, end);
-		doc_bind_signals(doc);
+		doc_unblock_undo_reg(doc);
 		doc_set_modified(doc, 1);
 	} else {
 		/* there is no selection, work on the current line */

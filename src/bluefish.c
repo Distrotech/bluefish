@@ -100,11 +100,16 @@ static void
 init_default_session(Tsessionvars * session)
 {
 	session->view_main_toolbar = session->view_left_panel
-		= session->filebrowser_focus_follow
-		= session->view_statusbar
-		= session->autoindent
-		= session->view_line_numbers
-		= session->view_cline = session->view_blocks = session->autocomplete = session->show_mbhl = 1;
+			= session->filebrowser_focus_follow
+			= session->view_statusbar
+			= session->autoindent
+			= session->view_line_numbers
+			= session->view_cline
+			= session->view_blocks
+			= session->view_blockstack
+			= session->autocomplete
+			= session->show_mbhl
+			= 1;
 #ifdef HAVE_LIBENCHANT
 	session->spell_check_default = 1;
 #endif
@@ -347,24 +352,23 @@ main(int argc, char *argv[])
 	   filenames from the commandline to GFile objects */
 	
 #ifdef WIN32
-		path = g_malloc0(MAX_PATH + 1);
-	if (GetModuleFileName(NULL, path, MAX_PATH)) {
-		
-			/* set current working directory */ 
-			gchar * cwd = g_malloc0(strlen(path + 1));
-		strncpy(cwd, path, (strrchr(path, '\\') - path));
-		if (cwd) {
-			SetCurrentDirectory(cwd);
-			DEBUG_MSG("Current directory set to: %s\n", cwd);
-		}
+ 	path = g_malloc0(MAX_PATH+1);
+	if (GetModuleFileName(NULL, path, MAX_PATH)) {
+		/* set current working directory */
+		gchar *cwd = g_malloc0(strlen(path+1));
+		strncpy(cwd, path, (strrchr(path,'\\')-path));
+		if (cwd) {
+			SetCurrentDirectory(cwd);
+			DEBUG_MSG("Current directory set to: %s\n", cwd);
+		}
 		g_free(cwd);
-	} else {
-		g_print("Configuration file(s) could not be found.\nExiting now.\n");
-		g_free(path);
-		bluefish_exit_request();
-	}
-	g_free(path);
-	
+	}
+	else {
+		g_print("Configuration file(s) could not be found.\nExiting now.\n");
+		g_free(path);
+		bluefish_exit_request();	
+	}
+	g_free(path);
 #endif
 #ifdef DEBUG_PATHS
 	{
@@ -422,8 +426,12 @@ main(int argc, char *argv[])
 #ifdef MEMORY_LEAK_DEBUG
 	DEBUG_MSG("calling fb2config_cleanup()\n");
 	fb2config_cleanup();
+	main_v->bmarkdata = bookmark_data_cleanup(main_v->bmarkdata);
 	langmgr_cleanup();
 	xmlCleanupParser();
+	
+	/*cairo_debug_reset_static_data();
+	FcFini();*/ 
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
 #else
 	exit(0);

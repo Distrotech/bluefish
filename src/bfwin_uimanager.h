@@ -29,10 +29,9 @@
 #define BF_RECENT_PROJECT_GROUP		"bluefish-recent-project"
 
 
-void bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox);
-void bfwin_main_toolbar_init(Tbfwin * bfwin);
-
+void bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox);
 void bfwin_set_undo_redo_actions(Tbfwin * bfwin, gboolean undo, gboolean redo);
+void bfwin_set_cutcopypaste_actions(Tbfwin * bfwin, gboolean enabled);
 void bfwin_set_document_menu_items(Tdocument * doc);
 
 void bfwin_action_set_sensitive(GtkUIManager * manager, const gchar * path, gboolean sensitive);
@@ -47,8 +46,12 @@ void bfwin_commands_menu_create(Tbfwin * bfwin);
 void bfwin_encodings_menu_create(Tbfwin * bfwin);
 void bfwin_filters_menu_create(Tbfwin * bfwin);
 void bfwin_outputbox_menu_create(Tbfwin * bfwin);
-void bfwin_recent_menu_add(Tbfwin * bfwin, GFile * file, GFileInfo * finfo, gboolean is_project);
-void bfwin_recent_menu_create(Tbfwin * bfwin);
+void lang_mode_menu_create(Tbfwin * bfwin);
+
+/*void bfwin_recent_menu_add(Tbfwin * bfwin, GFile * file, GFileInfo * finfo, gboolean is_project);*/
+void bfwin_recent_menu_add(Tbfwin *bfwin, gboolean project, const gchar *curi);
+void bfwin_recent_menu_remove(Tbfwin *bfwin, gboolean project, const gchar *curi);
+void bfwin_recent_menu_create(Tbfwin *bfwin, gboolean only_update_session);
 void bfwin_templates_menu_create(Tbfwin * bfwin);
 
 

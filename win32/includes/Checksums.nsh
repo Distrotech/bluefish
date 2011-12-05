@@ -26,6 +26,7 @@
 !define MD5_de-alt_2.1-1	"f4eca08f44b50eab92c913bf6294ee1b"
 !define MD5_el_0.50-3	"51a290e2d3ab8e76652678081f6e1722"
 !define MD5_en_6.0-0	"a11f5fbb5cf1197383404391e0975c63"
+!define MD5_en_7.1-0 "a3b13a7238c2a7742a832a02f12f75cd"
 !define MD5_eo_2.1.20000225a-2	"f68026b42239eae45afe037ae5eb4b23"
 !define MD5_es_1.9a-1	"75605ef9a19d2dababdf31a1f46e2e12"
 !define MD5_et_0.1.21-1	"c82f85a6c585f8ac88a2052bf3c236ac"

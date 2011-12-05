@@ -72,9 +72,45 @@ about_options_dialog_create(GtkAction * action, gpointer user_data)
 #else	/* SVN_REVISION */
 							   PACKAGE_STRING);
 #endif	/* SVN_REVISION */
-
 	sec_text = g_strconcat(_("This version of Bluefish was built with:\n"), CONFIGURE_OPTIONS, NULL);
-	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), "%s", sec_text);
+	
+	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), 
+			"%s\ngtk %d.%d.%d (runtime gtk %d.%d.%d)\nglib %d.%d.%d (runtime %d.%d.%d)\n"
+			"with libenchant... %s\nwith libenchant >= 1.4... %s\n"
+			"with libgucharmap... %s\nwith libgucharmap_2... %s\n"
+			"with python... %s"
+			, sec_text
+			, GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION
+			, gtk_major_version, gtk_minor_version, gtk_micro_version
+			, GLIB_MAJOR_VERSION, GLIB_MINOR_VERSION, GLIB_MICRO_VERSION
+			, glib_major_version, glib_minor_version, glib_micro_version
+#ifdef HAVE_LIBENCHANT
+			, "yes"
+#else
+			, "no"
+#endif
+#ifdef HAVE_LIBENCHANT_1_4
+			, "yes"
+#else
+			, "no"
+#endif
+#ifdef HAVE_LIBGUCHARMAP
+			, "yes"
+#else
+			, "no"
+#endif
+#ifdef HAVE_LIBGUCHARMAP_2
+			, "yes"
+#else
+			, "no"
+#endif
+#ifdef HAVE_PYTHON
+			, "yes"
+#else
+			, "no"
+#endif
+			);
+	
 	g_free(sec_text);
 
 	gtk_dialog_run(GTK_DIALOG(dialog));
@@ -95,7 +131,7 @@ about_report_bug(GtkAction * action, gpointer user_data)
 #ifdef SVN_REVISION
 	string = g_string_append(string, "development (SVN TRUNK)");
 #else	/* SVN_REVISION */
-	string = g_string_apend(string, PACKAGE_VERSION);
+	string = g_string_append(string, PACKAGE_VERSION);
 #endif	/* SVN_REVISION */
 	string = g_string_append(string, ";comment=");
 
@@ -117,6 +153,14 @@ about_show_homepage(GtkAction * action, gpointer user_data)
 {
 	bluefish_url_show("http://bluefish.openoffice.nl");
 }
+
+#if !GTK_CHECK_VERSION(3, 0, 0)
+static void
+about_activate_url(GtkAboutDialog * about, const gchar * url, gpointer data)
+{
+	bluefish_url_show(url);
+}
+#endif
 
 static void
 about_dialog_create(GtkAction * action, gpointer user_data)
@@ -172,7 +216,7 @@ about_dialog_create(GtkAction * action, gpointer user_data)
 		NULL
 	};
 
-	const gchar *copyright = "Copyright \xc2\xa9 1998-2010 Olivier Sessink and others.\n";
+	const gchar *copyright = "Copyright \xc2\xa9 1998-2011 Olivier Sessink and others.\n";
 
 	/* wrap the license here,
 	 * the "wrap-license" property is only available with GTK >= 2.8
@@ -213,6 +257,10 @@ about_dialog_create(GtkAction * action, gpointer user_data)
 			g_error_free(error);
 		}
 	}
+
+#if !GTK_CHECK_VERSION(3, 0, 0)
+	gtk_about_dialog_set_url_hook(about_activate_url, NULL, NULL);
+#endif /* gtk3 */
 
 	gtk_show_about_dialog(GTK_WINDOW(bfwin->main_window), "logo", logo, "name", PACKAGE,
 #ifdef SVN_REVISION
@@ -271,7 +319,7 @@ about_initgui(Tbfwin * bfwin)
 		{"HelpReportBug", NULL, N_("Report a _Bug"), NULL, N_("Report a bug"), G_CALLBACK(about_report_bug)},
 		{"HelpAbout", GTK_STOCK_ABOUT, N_("_About"), NULL, N_("About Bluefish"),
 		 G_CALLBACK(about_dialog_create)},
-		{"HelpBuildInfo", GTK_STOCK_INFO, N_("_Build Info"), NULL, N_("Build info"),
+		{"HelpBuildInfo", GTK_STOCK_INFO, N_("Build _Info"), NULL, N_("Build info"),
 		 G_CALLBACK(about_options_dialog_create)}
 	};
 
@@ -315,34 +363,34 @@ about_register_session_config(GHashTable * configlist, Tsessionvars * session)
 	return configlist;
 }
 
-static TBluefishPlugin bfplugin = {
-	"About Dialog",
-	BFPLUGIN_VERSION,
-	sizeof(Tdocument),
-	sizeof(Tsessionvars),
-	sizeof(Tglobalsession),
-	sizeof(Tbfwin),
-	sizeof(Tproject),
-	sizeof(Tmain),
-	sizeof(Tproperties),
-	BFPLUGIN_PRIORITY_LAST,
-	1,
-	NULL,						/* private */
-	about_init,					/* init */
-	about_initgui,
-	about_enforce_session,
-	about_cleanup,
-	about_cleanup_gui,
-	about_register_globses_config,
-	about_register_session_config,
-	NULL,						/* binary compatibility */
-	NULL,
-	NULL,
-	NULL
-};
-
 G_MODULE_EXPORT TBluefishPlugin *
 getplugin(void)
 {
+	static TBluefishPlugin bfplugin = {
+		"About Dialog",
+		BFPLUGIN_VERSION,
+		GTK_MAJOR_VERSION,
+		sizeof(Tdocument),
+		sizeof(Tsessionvars),
+		sizeof(Tglobalsession),
+		sizeof(Tbfwin),
+		sizeof(Tproject),
+		sizeof(Tmain),
+		sizeof(Tproperties),
+		BFPLUGIN_PRIORITY_LAST,
+		1,
+		NULL,						/* private */
+		about_init,					/* init */
+		about_initgui,
+		about_enforce_session,
+		about_cleanup,
+		about_cleanup_gui,
+		about_register_globses_config,
+		about_register_session_config,
+		NULL,						/* binary compatibility */
+		NULL,
+		NULL,
+		NULL
+	};
 	return &bfplugin;
 }

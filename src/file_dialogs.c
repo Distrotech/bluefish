@@ -34,7 +34,7 @@
 #include "file.h"
 #include "filebrowser2.h"
 #include "gtk_easy.h"
-#include "snr2.h"				/* snr2_run_extern_replace() */
+#include "snr3.h"				/* snr3_run_extern_replace() */
 #include "stringlist.h"
 #include "undo_redo.h"
 
@@ -79,8 +79,10 @@ files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 	basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
 	baseuri = g_file_new_for_uri(basedir);
 	content_filter = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(tfs->grep_pattern));
-	tfs->bfwin->session->searchlist =
-		add_to_history_stringlist(tfs->bfwin->session->searchlist, content_filter, FALSE, TRUE);
+	if (content_filter && content_filter[0]!='\0')
+		tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist, content_filter, FALSE, TRUE);
+	if (extension_filter && extension_filter[0] != '\0') 
+		tfs->bfwin->session->filegloblist = add_to_history_stringlist(tfs->bfwin->session->filegloblist, extension_filter,FALSE, TRUE);
 
 	retval =
 		open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
@@ -102,6 +104,8 @@ files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 	tfs->bfwin->session->adv_open_recursive = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive));
 	tfs->bfwin->session->adv_open_matchname =
 		!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname));
+	if (retval)
+		bfwin_statusbar_message(tfs->bfwin,_("Started open advanced..."), 1);
 	return retval;
 }
 
@@ -129,29 +133,7 @@ void
 files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 {
 	GtkWidget *alignment, *button, *carea, *table, *vbox, *vbox2;
-	GtkListStore *lstore;
-	GtkTreeIter iter;
 	Tfiles_advanced *tfs;
-	unsigned int i = 0;
-
-	const gchar *fileExts[] = {
-		"*",
-		"*.c",
-		"*.cgi",
-		"*.cpp",
-		"*.css",
-		"*.h",
-		"*.html",
-		"*.htm",
-		"*.java",
-		"*.js",
-		"*.php",
-		"*.pl",
-		"*.py",
-		"*.shtml",
-		"*.txt",
-		"*.xml"
-	};
 
 	tfs = g_new(Tfiles_advanced, 1);
 	tfs->bfwin = bfwin;
@@ -182,18 +164,19 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	dialog_mnemonic_label_in_table(_("Base _Dir:"), tfs->basedir, table, 0, 1, 0, 1);
 
 	button =
-		dialog_button_new_with_image_in_table(NULL, -1, GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU, table, 5, 6, 0,
-											  1);
-	g_signal_connect(button, "clicked", G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
+		dialog_button_new_with_image_in_table(NULL, GTK_STOCK_OPEN, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs, 
+						TRUE, FALSE,
+						table, 5, 6, 0,1);
 
-	lstore = gtk_list_store_new(1, G_TYPE_STRING);
-	for (i = 0; i < G_N_ELEMENTS(fileExts); i++) {
+
+	/*lstore = gtk_list_store_new(1, G_TYPE_STRING);
+	for (tmplist = g_list_first(bfwin->session->filegloblist); tmplist; tmplist = g_list_next(tmplist)) {
 		gtk_list_store_append(GTK_LIST_STORE(lstore), &iter);
-		gtk_list_store_set(GTK_LIST_STORE(lstore), &iter, 0, fileExts[i], -1);
-	};
-	tfs->find_pattern = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(lstore));
-	gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(tfs->find_pattern), 0);
-	g_object_unref(lstore);
+		gtk_list_store_set(GTK_LIST_STORE(lstore), &iter, 0, tmplist->data, -1);
+	}
+	tfs->find_pattern = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(lstore), 0);
+	g_object_unref(lstore);*/
+	tfs->find_pattern = combobox_with_popdown(NULL, bfwin->session->filegloblist, TRUE);
 	dialog_mnemonic_label_in_table(_("_Pattern:"), tfs->find_pattern, table, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 1, 5, 1, 2);
 	g_signal_connect(G_OBJECT(tfs->find_pattern), "changed",
@@ -223,7 +206,6 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 
 	table = dialog_table_in_vbox(2, 4, 0, vbox2, FALSE, FALSE, 6);
 
-	/* TODO: This needs to be converted to use GtkComboBoxEntry */
 	tfs->grep_pattern = combobox_with_popdown("", bfwin->session->searchlist, TRUE);
 	dialog_mnemonic_label_in_table(_("Pa_ttern:"), tfs->grep_pattern, table, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 1, 4, 0, 1);
@@ -382,7 +364,7 @@ open_url_ok_lcb(GtkWidget * widget, Tou * ou)
  * Return value: void
  **/
 void
-file_open_url_cb(GtkWidget * widget, Tbfwin * bfwin)
+file_open_url_cb(GtkAction * action, Tbfwin * bfwin)
 {
 	GtkWidget *vbox, *hbox, *but;
 	Tou *ou;
@@ -473,7 +455,7 @@ doc_checkNsave_lcb(TcheckNsave_status status, GError * gerror, gpointer data)
 		if (main_v->props.backup_abort_action == 0) {
 			return CHECKNSAVE_CONT;
 		} else if (main_v->props.backup_abort_action == 1) {
-			doc->action.save = NULL;
+			doc->save = NULL;
 			gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
 			return CHECKNSAVE_STOP;
 		} else {				/* if (main_v->props.backup_abort_action == 2) */
@@ -492,7 +474,7 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 			DEBUG_MSG("doc_checkNsave_lcb, retval=%d, returning %d\n", retval,
 					  (retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT);
 			if (retval == 0) {
-				doc->action.save = NULL;
+				doc->save = NULL;
 				gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
 				return CHECKNSAVE_STOP;
 			}
@@ -510,7 +492,7 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 		}
 		/* no break - fall through */
 	case CHECKANDSAVE_ERROR_CANCELLED:
-		doc->action.save = NULL;
+		doc->save = NULL;
 		gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
 		docsavebackend_cleanup(dsb);
 		break;
@@ -541,7 +523,7 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 										 _("File changed on disk\n"), tmpstr);
 			g_free(tmpstr);
 			if (retval == 0) {
-				doc->action.save = NULL;
+				doc->save = NULL;
 				gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
 				return CHECKNSAVE_STOP;
 			}
@@ -552,11 +534,11 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 			file_delete_async(dsb->unlink_uri, FALSE, docsavebackend_async_unlink_lcb, dsb);
 		}
 		/* if the user wanted to close the doc we should do very diffferent things here !! */
-		doc->action.save = NULL;
-		if (doc->action.close_doc) {
+		doc->save = NULL;
+		if (doc->close_doc) {
 			Tbfwin *bfwin = doc->bfwin;
-			gboolean close_window = doc->action.close_window;
-			doc_destroy(doc, doc->action.close_window);
+			gboolean close_window = doc->close_window;
+			doc_destroy(doc, doc->close_window);
 			if (close_window && test_only_empty_doc_left(bfwin->documentlist)) {
 				gtk_widget_destroy(bfwin->main_window);
 			}
@@ -715,9 +697,9 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 		if (realname && strlen(realname) > 0) {
 			gchar *author_tmp;
 			author_tmp = g_strconcat("<meta name=\"author\" content=\"", realname, "\" ", NULL);
-			snr2_run_extern_replace(doc,
+			snr3_run_extern_replace(doc,
 									"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
-									0, match_perl, 0, author_tmp, FALSE);
+									snr3scope_doc, snr3type_pcre, FALSE, author_tmp, FALSE);
 			g_free(author_tmp);
 		}
 	}
@@ -749,24 +731,24 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 		DEBUG_MSG("doc_save_backend, ISO-8601 time %s\n", isotime);
 
 		date_tmp = g_strconcat("<meta name=\"date\" content=\"", isotime, "\" ", NULL);
-		snr2_run_extern_replace(doc,
+		snr3_run_extern_replace(doc,
 								"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"date\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
-								0, match_perl, 0, date_tmp, FALSE);
+								snr3scope_doc, snr3type_pcre, FALSE, date_tmp, FALSE);
 		g_free(date_tmp);
 	}
 
 	/* update generator meta tag */
 	if (main_v->props.auto_update_meta_generator) {
-		snr2_run_extern_replace(doc,
+		snr3_run_extern_replace(doc,
 								"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
-								0, match_perl, 0,
+								snr3scope_doc, snr3type_pcre, FALSE,
 								"<meta name=\"generator\" content=\"Bluefish " VERSION "\" ", FALSE);
 	}
 
 	if (doc->uri)
 		curi = g_file_get_uri(doc->uri);
 
-	if (doc->action.save) {
+	if (doc->save) {
 		gchar *errmessage;
 		/* this message is not in very nice english I'm afraid */
 		errmessage =
@@ -826,16 +808,16 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 			g_strdup_printf(_
 							("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."),
 glib_major_version, glib_minor_version, glib_micro_version);
-		statusbar_message(BFWIN(doc->bfwin), message, 20);
+		bfwin_statusbar_message(BFWIN(doc->bfwin), message, 20);
 		g_free(message);
 	}
 #endif
 	buffer = refcpointer_new(tmp);
-	doc->action.close_doc = close_doc;
-	doc->action.close_window = close_window;
+	doc->close_doc = close_doc;
+	doc->close_window = close_window;
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), FALSE);
 	DEBUG_MSG("doc_save_backend, calling file_checkNsave_uri_async for %zd bytes\n", strlen(buffer->data));
-	doc->action.save =
+	doc->save =
 		file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as,
 								  main_v->props.backup_file, doc_checkNsave_lcb, dsb);
 
@@ -1017,26 +999,26 @@ gboolean
 doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean close_window)
 {
 	Tbfwin *bfwin = doc->bfwin;
-	if (doc->action.checkmodified)
-		checkmodified_cancel(doc->action.checkmodified);
+	if (doc->checkmodified)
+		checkmodified_cancel(doc->checkmodified);
 	if (doc->autosave_progress || doc->autosaved || doc->need_autosave)
 		remove_autosave(doc);
-	if (doc->action.load != NULL || doc->action.info != NULL) {
+	if (doc->load != NULL || doc->info != NULL) {
 		/* we should cancel the action now..., and then let the callbacks close it...
 		   the order is important, because the info callback will not close the document, 
 		   only the load callback will call doc_close_single_backend */
-		doc->action.close_doc = TRUE;
-		doc->action.close_window = close_window;
-		if (doc->action.info)
-			file_asyncfileinfo_cancel(doc->action.info);
-		if (doc->action.load)
-			file2doc_cancel(doc->action.load);
+		doc->close_doc = TRUE;
+		doc->close_window = close_window;
+		if (doc->info)
+			file_asyncfileinfo_cancel(doc->info);
+		if (doc->load)
+			file2doc_cancel(doc->load);
 		/* we will not cancel save operations, because it might corrupt the file, let 
 		   them just timeout */
 		DEBUG_MSG("doc_close_single_backend, cancelled load/info and set close_doc to TRUE, returning now\n");
 		return FALSE;
 	}
-	if (doc->autosaved || doc->need_autosave) {
+	if (doc->autosaved || doc->autosave_progress || doc->need_autosave) {
 		remove_autosave(doc);
 	}
 	if (doc_is_empty_non_modified_and_nameless(doc)
@@ -1247,13 +1229,19 @@ typedef struct {
 } Tsyncdialog;
 
 static void
-sync_progress(gint total, gint done, gint failed, gpointer user_data)
+sync_progress(GFile *uri, gint total, gint done, gint failed, gpointer user_data)
 {
 	Tsyncdialog *sd = user_data;
 	if (total > 0) {
 		gchar *text;
 		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(sd->progress), 1.0 * done / total);
-		text = g_strdup_printf("%d / %d", done, total);
+		if (uri) {
+			gchar * curi = g_file_get_uri(uri);
+			text = g_strdup_printf("%s (%d / %d)", curi, done, total);
+			g_free(curi);
+		} else {
+			text = g_strdup_printf("%d / %d", done, total);
+		}
 		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress), text);
 /*		g_print("%s\n",text);*/
 		g_free(text);
@@ -1263,6 +1251,7 @@ sync_progress(gint total, gint done, gint failed, gpointer user_data)
 								("<span color=\"red\">%d failure</span>",
 								 "<span color=\"red\">%d failures</span>", failed), failed);
 			gtk_label_set_markup(GTK_LABEL(sd->messagelabel), text);
+			gtk_widget_show(sd->messagelabel);
 			g_free(text);
 		}
 	} else if (total == -1) {
@@ -1284,6 +1273,7 @@ sync_dialog_response_lcb(GtkDialog * dialog, gint response_id, gpointer user_dat
 	if (response_id > 0) {
 		GFile *local, *remote;
 		gtk_label_set_text(GTK_LABEL(sd->messagelabel), "");
+		gtk_widget_hide(sd->messagelabel);
 		local = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_local)));
 		remote = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_remote)));
 		if (response_id == 1) {
@@ -1312,7 +1302,7 @@ sync_dialog_response_lcb(GtkDialog * dialog, gint response_id, gpointer user_dat
 		g_object_unref(remote);
 	} else {
 		gtk_widget_destroy(sd->dialog);
-		g_free(sd);
+		g_slice_free(Tsyncdialog, sd);
 	}
 }
 
@@ -1320,9 +1310,9 @@ void
 sync_dialog(Tbfwin * bfwin)
 {
 	Tsyncdialog *sd;
-	GtkWidget *carea, *hbox;
+	GtkWidget *carea, *table;
 
-	sd = g_new0(Tsyncdialog, 1);
+	sd = g_slice_new0(Tsyncdialog);
 	sd->bfwin = bfwin;
 	sd->dialog = gtk_dialog_new_with_buttons(_("Upload / Download"),
 											 GTK_WINDOW(bfwin->main_window),
@@ -1347,34 +1337,33 @@ sync_dialog(Tbfwin * bfwin)
 						   4);
 	}
 #endif
-	hbox = gtk_hbox_new(FALSE, 4);
-	sd->entry_local = gtk_entry_new();
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Local directory")), FALSE, FALSE, 4);
-	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_local, TRUE, TRUE, 4);
-	gtk_box_pack_start(GTK_BOX(hbox),
-					   file_but_new2(sd->entry_local, 1, bfwin, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), FALSE,
-					   FALSE, 4);
-	gtk_box_pack_start(GTK_BOX(carea), hbox, FALSE, FALSE, 4);
+	table = dialog_table_in_vbox(4, 3, 6, carea, TRUE,TRUE, 3);
 
-	hbox = gtk_hbox_new(FALSE, 4);
-	sd->entry_remote = gtk_entry_new();
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Remote directory")), FALSE, FALSE, 4);
-	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_remote, TRUE, TRUE, 4);
-	gtk_box_pack_start(GTK_BOX(hbox),
-					   file_but_new2(sd->entry_remote, 1, bfwin, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER),
-					   FALSE, FALSE, 4);
-	gtk_box_pack_start(GTK_BOX(carea), hbox, FALSE, FALSE, 4);
+	sd->entry_local = dialog_entry_in_table(NULL, table, 1, 2,0, 1);
+	dialog_mnemonic_label_in_table(_("Local directory"), sd->entry_local, table,
+									0, 1, 0,1);
+	gtk_table_attach(GTK_TABLE(table), file_but_new2(sd->entry_local, 1, bfwin, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER),
+									2, 3, 0, 1, GTK_FILL, GTK_FILL, 3, 3);
 
-	sd->delete_deprecated =
-		boxed_checkbut_with_value(_("Delete deprecated files"), bfwin->session->sync_delete_deprecated,
-								  carea);
-	sd->include_hidden =
-		boxed_checkbut_with_value(_("Include hidden files"), bfwin->session->sync_include_hidden, carea);
+	sd->entry_remote = dialog_entry_in_table(NULL, table, 1, 2,1, 2);
+	dialog_mnemonic_label_in_table(_("Remote directory"), sd->entry_remote, table,
+									0, 1, 1,2);
+	gtk_table_attach(GTK_TABLE(table), file_but_new2(sd->entry_remote, 1, bfwin, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER),
+									2, 3, 1, 2, GTK_FILL, GTK_FILL, 3, 3);
 
+	sd->delete_deprecated = dialog_check_button_in_table(_("Delete deprecated files"), 
+						bfwin->session->sync_delete_deprecated, table,
+						0, 3, 2, 3);
+	
+	sd->include_hidden = dialog_check_button_in_table(_("Include hidden files"), 
+						bfwin->session->sync_include_hidden, table,
+						0, 3, 3, 4);
+	
 	sd->messagelabel = gtk_label_new(NULL);
 	gtk_box_pack_start(GTK_BOX(carea), sd->messagelabel, FALSE, FALSE, 4);
 
 	sd->progress = gtk_progress_bar_new();
+	gtk_progress_bar_set_ellipsize(GTK_PROGRESS_BAR(sd->progress), PANGO_ELLIPSIZE_MIDDLE);
 	gtk_box_pack_start(GTK_BOX(carea), sd->progress, FALSE, FALSE, 4);
 
 	if (bfwin->session->sync_local_uri && bfwin->session->sync_local_uri[0] != '\0') {
@@ -1390,6 +1379,7 @@ sync_dialog(Tbfwin * bfwin)
 
 	sd->signal_id = g_signal_connect(sd->dialog, "response", G_CALLBACK(sync_dialog_response_lcb), sd);
 	gtk_widget_show_all(sd->dialog);
+	gtk_widget_hide(sd->messagelabel);
 }
 
 static gchar *
@@ -1410,7 +1400,7 @@ modified_on_disk_warning_string(const gchar * filename, GFileInfo * oldfinfo, GF
 							   "Original modification time was %s\n"
 							   "New modification time is %s\n"
 							   "Original size was %lu\n"
-							   "New size is %lu"), filename, oldtimestr, newtimestr, oldsize, newsize);
+							   "New size is %lu"), filename, oldtimestr, newtimestr, (long unsigned int)oldsize, (long unsigned int)newsize);
 	g_free(newtimestr);
 	g_free(oldtimestr);
 	return tmpstr;
@@ -1496,14 +1486,14 @@ doc_activate_modified_lcb(Tcheckmodified_status status, GError * gerror, GFileIn
 		/* do nothing */
 		break;
 	}
-	doc->action.checkmodified = NULL;
+	doc->checkmodified = NULL;
 }
 
 void
 doc_start_modified_check(Tdocument * doc)
 {
-	if (doc->uri && doc->fileinfo && !doc->action.checkmodified && !doc->action.save) {	/* don't check during another check, or during save */
-		doc->action.checkmodified =
+	if (doc->uri && doc->fileinfo && !doc->checkmodified && !doc->save) {	/* don't check during another check, or during save */
+		doc->checkmodified =
 			file_checkmodified_uri_async(doc->uri, doc->fileinfo, doc_activate_modified_lcb, doc);
 	}
 }

@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 2.0.3\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-12 12:24-0800\n"
-"PO-Revision-Date: 2010-01-17 00:21+0100\n"
+"POT-Creation-Date: 2011-12-04 13:51-0800\n"
+"PO-Revision-Date: 2011-09-02 16:10+0100\n"
 "Last-Translator: Roberto Bellingeri <bellingeri@netguru.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -19,155 +19,136 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 
-#: src/plugin_snippets/snippets_gui.c:407
+#: src/plugin_snippets/snippets_gui.c:414
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr "Clicca col destro per aggiungere, modificare o cancellare i ritagli."
 
-#: src/plugin_snippets/snippets_gui.c:408
+#: src/plugin_snippets/snippets_gui.c:415
 msgid "Use drag and drop to re-order snippets"
 msgstr "Trascina per ri-ordinare i ritagli"
 
-#: src/plugin_snippets/snippets_gui.c:409
+#: src/plugin_snippets/snippets_gui.c:416
 msgid "To exchange snippets with others use import or export"
 msgstr ""
 "Per scambiare i ritagli con altri usa le funzioni di importazione ed "
 "esportazione"
 
-#: src/plugin_snippets/snippets_gui.c:598
+#: src/plugin_snippets/snippets_gui.c:638
 msgid "snippets"
 msgstr "ritagli"
 
-#: src/plugin_snippets/snippets_gui.c:685
+#: src/plugin_snippets/snippets_gui.c:701
 msgid "Snippet export filename"
 msgstr "Nome del file di esportazione"
 
-#: src/plugin_snippets/snippets_gui.c:723
+#: src/plugin_snippets/snippets_gui.c:739
 msgid "Snippet import filename"
 msgstr "Nome del file di importazione"
 
-#: src/plugin_snippets/snippets_gui.c:741
+#: src/plugin_snippets/snippets_gui.c:757
 msgid "Set accelerator key"
 msgstr "Imposta scorciatoia"
 
-#: src/plugin_snippets/snippets_gui.c:797
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets menu"
-msgstr "/Visualizza/Menù ritagli"
+msgstr "Menù ritagli"
 
-#: src/plugin_snippets/snippets_gui.c:798
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:814
 msgid "_New Snippet"
-msgstr "/_Nuovo ritaglio"
+msgstr "_Nuovo Ritaglio"
 
-#: src/plugin_snippets/snippets_gui.c:798
-#: src/plugin_snippets/snippets_wizard.c:756
+#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
 msgstr "Nuovo ritaglio"
 
-#: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:815
 msgid "_Edit Snippet"
-msgstr "/_Modifica ritaglio"
+msgstr "_Modifica Ritaglio"
 
-#: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
-msgstr "/_Modifica ritaglio"
+msgstr "Modifica Ritaglio"
 
-#: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:816
 msgid "_Delete Snippet"
-msgstr "/_Cancella ritaglio"
+msgstr "_Cancella Ritaglio"
 
-#: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:816
 msgid "Delete snippet"
-msgstr "/_Cancella ritaglio"
+msgstr "Cancella Ritaglio"
 
-#: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:817
 msgid "Delete _Branch"
-msgstr "/Cancella il ramo"
+msgstr "Cancella il _Ramo"
 
-#: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:817
 msgid "Delete branch"
-msgstr "/Cancella il ramo"
+msgstr "Cancella il ramo"
 
-#: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "Set Snippet _Accelerator"
-msgstr "/Imposta scorciatoia"
+msgstr "Imposta _Scorciatoia al Ritaglio"
 
-#: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "Set snippet accelerator"
-msgstr "/Imposta scorciatoia"
+msgstr "Imposta scorciatoia al ritaglio"
 
-#: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Ex_pand All"
-msgstr "/Espandi tutti"
+msgstr "Es_pandi Tutti"
 
-#: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Expand all"
-msgstr "/Espandi tutti"
+msgstr "Espandi tutti"
 
-#: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:821
 msgid "_Collapse All"
-msgstr "/Riduci tutti"
+msgstr "_Riduci Tutti"
 
-#: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:821
 msgid "Collapse all"
-msgstr "/Riduci tutti"
+msgstr "Riduci tutti"
 
-#: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "E_xport"
-msgstr "/Esporta"
+msgstr "E_sporta"
 
-#: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "Export snippets"
-msgstr "ritagli"
+msgstr "Esporta ritagli"
 
-#: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "I_mport"
-msgstr "/Importa"
+msgstr "I_mporta"
 
-#: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "Import snippets"
-msgstr "ritagli"
+msgstr "Importa ritagli"
 
-#: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "_Show as menu"
-msgstr "/Visualizza come menù"
+msgstr "_Visualizza come menù"
 
-#: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Show snippets menu"
-msgstr "/Visualizza come menù"
+msgstr "Visualizza il menù ritagli"
 
-#: src/plugin_snippets/snippets_gui.c:813
+#: src/plugin_snippets/snippets_gui.c:829
 #, fuzzy
-msgid "Snippets Menu"
-msgstr "/Visualizza/Menù ritagli"
+msgid "S_nippets Menu"
+msgstr "Menù ritagli"
 
-#: src/plugin_snippets/snippets_leaf_insert.c:63
+#: src/plugin_snippets/snippets_leaf_insert.c:64
 msgid "[cursor position or selection]"
 msgstr "[posizione del cursore o selezione]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:156
+#: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "Search for: '"
 msgstr "Cerca: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:156
+#: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "', replace with: '"
 msgstr "', sustituisci con: '"
 
@@ -192,117 +173,119 @@ msgid "Normal"
 msgstr "Normale"
 
 #: src/plugin_snippets/snippets_wizard.c:119
-msgid "Entire word only"
-msgstr "Solo parole intere"
-
-#: src/plugin_snippets/snippets_wizard.c:120
-msgid "POSIX"
-msgstr "POSIX"
-
-#: src/plugin_snippets/snippets_wizard.c:121
 msgid "PERL"
 msgstr "PERL"
 
-#: src/plugin_snippets/snippets_wizard.c:132
+#: src/plugin_snippets/snippets_wizard.c:130
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
-"placeholders an appropriate name on the right."
+"placeholders an appropriate name on the right. (Please use %% if you need "
+"literal % in your string!)"
 msgstr ""
 "Specificate il modello di ricerca e sostituzione. Potete utilizzare i "
-"segnaposto %0, %1, ...%5 per richiedere valori quando viene attivato. Date a "
-"questi segnaposto un nome appropriato sulla destra."
+"segnaposto %0, %1, ...%5 per richiedere valori quando questo viene attivato. "
+"Date a questi segnaposto un nome appropriato sulla destra. (Utilizzate %% se "
+"necessitate del carattere %)"
 
-#: src/plugin_snippets/snippets_wizard.c:139
+#: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
 msgstr "_Cerca:"
 
-#: src/plugin_snippets/snippets_wizard.c:143
+#: src/plugin_snippets/snippets_wizard.c:144
 msgid "Replace _with: "
 msgstr "_Sostituisci con:"
 
-#: src/plugin_snippets/snippets_wizard.c:150
+#: src/plugin_snippets/snippets_wizard.c:151
 msgid "Sco_pe: "
 msgstr "_Ambito:"
 
-#: src/plugin_snippets/snippets_wizard.c:157
+#: src/plugin_snippets/snippets_wizard.c:158
 msgid "Match Patter_n: "
 msgstr "Modello di _ricerca:"
 
-#: src/plugin_snippets/snippets_wizard.c:160
+#: src/plugin_snippets/snippets_wizard.c:161
 msgid "Case sensitive _matching"
 msgstr "Distingui maiuscole e minuscole"
 
-#: src/plugin_snippets/snippets_wizard.c:161
+#: src/plugin_snippets/snippets_wizard.c:162
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Corrispondenza di maiuscole e minuscole."
 
-#: src/plugin_snippets/snippets_wizard.c:164
+#: src/plugin_snippets/snippets_wizard.c:165
 msgid "_Use escape chars"
 msgstr "_Usa carattere escape"
 
-#: src/plugin_snippets/snippets_wizard.c:165
+#: src/plugin_snippets/snippets_wizard.c:166
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr "Elimina le barre rovesciate dei caratteri di escape come \\n, \\t ecc."
 
-#: src/plugin_snippets/snippets_wizard.c:340
+#: src/plugin_snippets/snippets_wizard.c:335
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
 "position or the current selection. You may use %0, %1, ...%9 placeholders to "
 "ask for values when you activate this item. Give these placeholders an "
-"appropriate name on the right."
+"appropriate name on the right. (Please use %% if you need literal % in your "
+"string!)"
 msgstr ""
 "Il testo <i>precedente</i> verrà inserito prima della posizione del cursore "
 "o della selezione, il testo <i>successivo</i> verrà inserito dopo la "
 "posizione dl cursore o della selezione. Potete utilizzare i segnaposto %0, "
-"%1, ...%9 per richiedere valori quando viene attivato. Date a questi "
-"segnaposto un nome appropriato sulla destra."
+"%1, ...%9 per richiedere valori quando questo viene attivato. Date a questi "
+"segnaposto un nome appropriato sulla destra. (Utilizzate %% se necessitate "
+"del carattere %)"
 
-#: src/plugin_snippets/snippets_wizard.c:346
+#: src/plugin_snippets/snippets_wizard.c:344
 msgid "<i>Before</i> text"
 msgstr "Testo <i>precedente</i>"
 
-#: src/plugin_snippets/snippets_wizard.c:356
+#: src/plugin_snippets/snippets_wizard.c:354
 msgid "<i>After</i> text"
 msgstr "Testo <i>successivo</i>"
 
-#: src/plugin_snippets/snippets_wizard.c:364
+#: src/plugin_snippets/snippets_wizard.c:362
 msgid "Number"
 msgstr "Numero"
 
-#: src/plugin_snippets/snippets_wizard.c:366
+#: src/plugin_snippets/snippets_wizard.c:364
 msgid "Name"
 msgstr "Nome"
 
-#: src/plugin_snippets/snippets_wizard.c:368
+#: src/plugin_snippets/snippets_wizard.c:366
 msgid "Is file path"
 msgstr "È un percorso"
 
-#: src/plugin_snippets/snippets_wizard.c:494
+#: src/plugin_snippets/snippets_wizard.c:492
 msgid "Enter the name of the branch:"
 msgstr "Inserisci il nome del ramo:"
 
-#: src/plugin_snippets/snippets_wizard.c:586
+#: src/plugin_snippets/snippets_wizard.c:584
 msgid "Name of the new item:"
 msgstr "Nome del nuovo elemento:"
 
-#: src/plugin_snippets/snippets_wizard.c:591
+#: src/plugin_snippets/snippets_wizard.c:589
 msgid "Description:"
 msgstr "Descrizione:"
 
-#: src/plugin_snippets/snippets_wizard.c:641
+#: src/plugin_snippets/snippets_wizard.c:639
 msgid "Select what you want to add"
 msgstr "Selezionate cosa volete aggiungere"
 
-#: src/plugin_snippets/snippets_wizard.c:643
+#: src/plugin_snippets/snippets_wizard.c:641
 msgid "Branch"
 msgstr "Ramo"
 
-#: src/plugin_snippets/snippets_wizard.c:645
+#: src/plugin_snippets/snippets_wizard.c:643
 msgid "Insert string"
 msgstr "Inserisci stinga"
 
-#: src/plugin_snippets/snippets_wizard.c:647
+#: src/plugin_snippets/snippets_wizard.c:645
 msgid "Search and replace pattern"
 msgstr "Modello di ricerca e sostituzione"
+
+#~ msgid "Entire word only"
+#~ msgstr "Solo parole intere"
+
+#~ msgid "POSIX"
+#~ msgstr "POSIX"

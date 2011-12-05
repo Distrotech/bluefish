@@ -540,6 +540,7 @@ process_regex_part(Tscantable * st, gchar * regexpart, gint16 context, gboolean 
 		}
 		i++;
 	}
+	/* cannot get here */
 }
 
 static void
@@ -793,37 +794,6 @@ match_set_reference(Tscantable * st, guint16 matchnum, const gchar * reference)
 		g_array_index(st->matches, Tpattern, matchnum).reference = g_strdup(reference);
 }
 
-static guint16
-new_match(Tscantable * st, const gchar * pattern, const gchar * lang, const gchar * selfhighlight,
-		  const gchar * blockhighlight, gint16 context, gint16 nextcontext, gboolean starts_block,
-		  gboolean ends_block, guint16 blockstartpattern, gboolean case_insens, gboolean is_regex,
-		  gboolean tagclose_from_blockstack, guint8 identmode)
-{
-	guint matchnum;
-/* add the match */
-	if (context == nextcontext)
-		g_print("context=nextcontext=%d for %s\n", context, pattern);
-	matchnum = st->matches->len;
-	DBG_BLOCKMATCH("new match %s at matchnum %d has blockstartpattern %d and nextcontext %d\n", pattern,
-				   matchnum, blockstartpattern, nextcontext);
-	g_array_set_size(st->matches, st->matches->len + 1);
-
-	g_array_index(st->matches, Tpattern, matchnum).pattern = g_strdup(pattern);
-	g_array_index(st->matches, Tpattern, matchnum).ends_block = ends_block;
-	g_array_index(st->matches, Tpattern, matchnum).starts_block = starts_block;
-	g_array_index(st->matches, Tpattern, matchnum).blockstartpattern = blockstartpattern;
-	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
-	g_array_index(st->matches, Tpattern, matchnum).case_insens = case_insens;
-	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
-	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = (gchar *) selfhighlight;
-	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = (gchar *) blockhighlight;
-	g_array_index(st->matches, Tpattern, matchnum).tagclose_from_blockstack = tagclose_from_blockstack;
-#ifdef IDENTSTORING
-	g_array_index(st->matches, Tpattern, matchnum).identmode = identmode;
-#endif
-	return matchnum;
-}
-
 void
 compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context)
 {
@@ -844,8 +814,9 @@ guint16
 add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * lang,
 							  const gchar * selfhighlight, const gchar * blockhighlight, gboolean is_regex,
 							  gboolean case_insens, gint16 context, gint16 nextcontext, gboolean starts_block,
-							  gboolean ends_block, guint blockstartpattern, gboolean tagclose_from_blockstack,
-							  guint8 identmode)
+							  gboolean ends_block, guint blockstartpattern, 
+							  gboolean tagclose_from_blockstack, gboolean stretch_blockstart,
+							  guint8 identmode, gboolean identjump, gboolean identautocomp)
 {
 	guint16 matchnum;
 
@@ -853,9 +824,32 @@ add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * la
 		g_print("CORRUPT LANGUAGE FILE: empty pattern/tag/keyword\n");
 		return 0;
 	}
-	matchnum =
-		new_match(st, pattern, lang, selfhighlight, blockhighlight, context, nextcontext, starts_block,
-				  ends_block, blockstartpattern, case_insens, is_regex, tagclose_from_blockstack, identmode);
+	
+	if (context == nextcontext)
+		g_print("context=nextcontext=%d for %s\n", context, pattern);
+
+	matchnum = st->matches->len;
+	DBG_BLOCKMATCH("new match %s at matchnum %d has blockstartpattern %d and nextcontext %d\n", pattern,
+				   matchnum, blockstartpattern, nextcontext);
+	g_array_set_size(st->matches, st->matches->len + 1);
+
+	g_array_index(st->matches, Tpattern, matchnum).pattern = g_strdup(pattern);
+	g_array_index(st->matches, Tpattern, matchnum).ends_block = ends_block;
+	g_array_index(st->matches, Tpattern, matchnum).starts_block = starts_block;
+	g_array_index(st->matches, Tpattern, matchnum).blockstartpattern = blockstartpattern;
+	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
+	g_array_index(st->matches, Tpattern, matchnum).case_insens = case_insens;
+	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
+	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = (gchar *) selfhighlight;
+	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = (gchar *) blockhighlight;
+	g_array_index(st->matches, Tpattern, matchnum).tagclose_from_blockstack = tagclose_from_blockstack;
+	g_array_index(st->matches, Tpattern, matchnum).stretch_blockstart = stretch_blockstart;
+#ifdef IDENTSTORING
+	if (identjump || identautocomp) {
+		g_array_index(st->matches, Tpattern, matchnum).identmode = identmode;
+		g_array_index(st->matches, Tpattern, matchnum).identaction = (identjump?1:0) | (identautocomp?2:0);
+	}
+#endif
 	DBG_PATCOMPILE
 		("add_keyword_to_scanning_table,pattern=%s,starts_block=%d,ends_block=%d,blockstartpattern=%d, context=%d,nextcontext=%d and got matchnum %d\n",
 		 pattern, starts_block, ends_block, blockstartpattern, context, nextcontext, matchnum);

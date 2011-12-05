@@ -107,7 +107,7 @@ typedef enum {
 	OPENFILE_FINISHED
 } Topenfile_status;
 
-typedef void (*OpenfileAsyncCallback) (Topenfile_status status, GError * gerror, gchar * buffer,
+typedef void (*OpenfileAsyncCallback) (Topenfile_status status, GError * gerror, Trefcpointer * buffer,
 									   goffset buflen, gpointer callback_data);
 typedef struct {
 	GFile *uri;
@@ -127,6 +127,10 @@ void file_doc_fill_from_uri(Tdocument * doc, GFile * uri, GFileInfo * finfo, gin
 void file_doc_from_uri(Tbfwin * bfwin, GFile * uri, GFile * recover_uri, GFileInfo * finfo, gint goto_line,
 					   gint goto_offset, gboolean readonly);
 void file_into_doc(Tdocument * doc, GFile * uri, gboolean isTemplate, gboolean untiledRecovery);
+gpointer findfiles(GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname,
+			  gchar * name_filter, GCallback filematch_cb, GCallback finished_cb, gpointer data);
+void findfiles_cancel(gpointer data);
+
 gboolean open_advanced(Tbfwin * bfwin, GFile * basedir, gboolean recursive, guint max_recursion,
 					   gboolean matchname, gchar * name_filter, gchar * content_filter, gboolean use_regex,
 					   GError ** reterror);
@@ -135,7 +139,7 @@ void copy_files_async(Tbfwin * bfwin, GFile * destdir, gchar * sources);
 void file_doc_retry_uri(Tdocument * doc);
 void file_docs_from_uris(Tbfwin * bfwin, GSList * urislist);
 
-typedef void (*SyncProgressCallback) (gint total, gint done, gint failed, gpointer user_data);
+typedef void (*SyncProgressCallback) (GFile *uri, gint total, gint done, gint failed, gpointer user_data);
 void sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, gboolean include_hidden,
 					SyncProgressCallback progress_callback, gpointer callback_data);
 							/* __FILE_H_ */

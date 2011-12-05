@@ -17,7 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* #define DEBUG */
+/*#define DEBUG*/
+
+#define _GNU_SOURCE
 
 #include <string.h>
 
@@ -31,6 +33,7 @@
 #include "../bfwin_uimanager.h"
 #include "../document.h"
 #include "../gtk_easy.h"
+#include "../bf_lib.h"
 
 /* GdkPixbuf RGBA C-Source image dump 1-byte-run-length-encoded */
 
@@ -165,6 +168,7 @@ accelerator_cbdata_free(gpointer data)
 static void
 snippets_connect_accelerators_from_doc(Tsnippetswin * snw, xmlNodePtr cur, GtkAccelGroup * accel_group)
 {
+	DEBUG_MSG("snippets_connect_accelerators_from_doc\n");
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
 		if ((xmlStrEqual(cur->name, (const xmlChar *) "branch"))) {
@@ -204,9 +208,12 @@ snippets_rebuild_accelerators(void)
 {
 	/* loop over all windows and rebuild the accelerators */
 	GList *tmplist;
+	DEBUG_MSG("snippets_rebuild_accelerators\n");
 	for (tmplist = g_list_first(main_v->bfwinlist); tmplist; tmplist = tmplist->next) {
 		Tbfwin *bfwin = tmplist->data;
 		Tsnippetswin *snw = g_hash_table_lookup(snippets_v.lookup, bfwin);
+		if (!snw)
+			continue;
 		gtk_window_remove_accel_group(GTK_WINDOW(bfwin->main_window), snw->accel_group);
 		g_object_unref(G_OBJECT(snw->accel_group));
 
@@ -347,7 +354,7 @@ snippets_gen_treetip_string(xmlNodePtr cur)
 		gchar *tooltip2 = NULL, *accelerator2 = NULL;
 		tooltip = xmlGetProp(cur, (const xmlChar *) "tooltip");
 		accelerator = xmlGetProp(cur, (const xmlChar *) "accelerator");
-		if (tooltip) {
+		if (tooltip && tooltip[0]!='\0') {
 			tooltip2 = g_markup_escape_text((gchar *) tooltip, -1);
 			xmlFree(tooltip);
 		} else {
@@ -445,7 +452,7 @@ snippetview_drag_data_received_lcb(GtkWidget * widget, GdkDragContext * context,
 								   GtkSelectionData * sd, guint info, guint time, gpointer user_data)
 {
 	g_signal_stop_emission_by_name(widget, "drag_data_received");
-	DEBUG_MSG("snippetview_drag_data_received_lcb received node %p (%s)\n", sd->data, sd->data);
+	DEBUG_MSG("snippetview_drag_data_received_lcb \n");
 	if (gtk_selection_data_get_target(sd) == gdk_atom_intern("BLUEFISH_SNIPPET", FALSE)
 		&& gtk_selection_data_get_data(sd)) {
 		GtkTreePath *destpath = NULL, *srcpath;
@@ -536,6 +543,36 @@ snippetview_drag_data_received_lcb(GtkWidget * widget, GdkDragContext * context,
 	gtk_drag_finish(context, FALSE, TRUE, time);
 }
 
+static gboolean
+snippets_search(GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data)
+{
+	xmlNodePtr node;
+	gchar *tmp=NULL, *title=NULL;
+	gboolean retval = TRUE;
+	
+	gtk_tree_model_get(model, iter, NODE_COLUMN, &node, TITLE_COLUMN, &title, -1);
+	if (title && strcasestr(title, key)!= NULL) {
+		retval = FALSE;
+	}
+	g_free(title);
+		
+	if (node) {
+		xmlChar *type = xmlGetProp(node, (const xmlChar *) "type");
+		if (type && xmlStrEqual(type, (const xmlChar *) "insert")) {
+			tmp = snippets_tooltip_from_insert_content(node);
+		}					/*else if (type && xmlStrEqual(type, (const xmlChar *)"snr")) {
+		   TODO
+	   } */
+		if (type)
+			xmlFree(type);
+		if (tmp && strcasestr(tmp, key)!= NULL) {
+			retval = FALSE;
+		}
+		g_free(tmp);
+	}
+	return retval;
+}
+
 void
 snippets_sidepanel_initgui(Tbfwin * bfwin)
 {
@@ -566,6 +603,9 @@ snippets_sidepanel_initgui(Tbfwin * bfwin)
 	snw->view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(snippets_v.store));
 /*	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(snw->view));
 	gtk_tree_selection_set_mode(selection,GTK_SELECTION_NONE);*/
+
+	gtk_tree_view_set_search_entry(GTK_TREE_VIEW(snw->view), GTK_ENTRY(entry));
+	gtk_tree_view_set_search_equal_func(GTK_TREE_VIEW(snw->view), snippets_search, snw, NULL);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(snw->view), FALSE);
 	renderer = gtk_cell_renderer_pixbuf_new();
 	column = gtk_tree_view_column_new();
@@ -598,32 +638,8 @@ snippets_sidepanel_initgui(Tbfwin * bfwin)
 								  gtk_label_new(_("snippets")), 2);
 	g_object_set(snw->view, "has-tooltip", TRUE, NULL);
 	g_signal_connect(snw->view, "query-tooltip", G_CALLBACK(snippets_treetip_lcb), snw);
-	/*snw->ttips = tree_tips_new_full(snw->bfwin,GTK_TREE_VIEW(snw->view),snippets_treetip_lcb); */
 
-	/* now parse the accelerator, and make it active for this item */
-	snw->accel_group = gtk_accel_group_new();
-	gtk_window_add_accel_group(GTK_WINDOW(snw->bfwin->main_window), snw->accel_group);
-	DEBUG_MSG("snippets_sidepanel_initgui, connect accelerators\n");
-	if (snippets_v.doc) {
-		xmlNodePtr cur = xmlDocGetRootElement(snippets_v.doc);
-		if (cur) {
-			snippets_connect_accelerators_from_doc(snw, cur, snw->accel_group);
-		}
-	}
 	DEBUG_MSG("snippets_sidepanel_initgui, finished\n");
-}
-
-void
-snippets_sidepanel_destroygui(Tbfwin * bfwin)
-{
-	Tsnippetswin *snw;
-	/* the widget is auto destroyed, and there is nothing more to destroy */
-	snw = snippets_get_win(bfwin);
-	if (snw) {
-		/*tree_tips_destroy(snw->ttips); */
-		gtk_window_remove_accel_group(GTK_WINDOW(snw->bfwin->main_window), snw->accel_group);
-		g_object_unref(G_OBJECT(snw->accel_group));
-	}
 }
 
 static void
@@ -810,7 +826,7 @@ static const GtkActionEntry snippets_actions[] = {
 static const GtkToggleActionEntry snippets_toggle_actions[] = {
 	{"ShowAsMenu", NULL, N_("_Show as menu"), NULL, N_("Show snippets menu"),
 	 G_CALLBACK(popup_menu_show_as_menu)},
-	{"ViewSnippetsMenu", NULL, N_("Snippets Menu"), NULL, NULL, G_CALLBACK(popup_menu_show_as_menu), TRUE},
+	{"ViewSnippetsMenu", NULL, N_("S_nippets Menu"), NULL, NULL, G_CALLBACK(popup_menu_show_as_menu), TRUE},
 };
 
 void
@@ -822,6 +838,9 @@ snippets_create_gui(Tbfwin * bfwin)
 	GtkActionGroup *action_group;
 	GError *error = NULL;
 
+	if (!snw || !sns)
+		return;
+	DEBUG_MSG("snippets_create_gui, bfwin=%p\n",bfwin);
 	action_group = gtk_action_group_new("SnippetsActions");
 	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE "_plugin_snippets");
 	gtk_action_group_add_actions(action_group, snippets_actions, G_N_ELEMENTS(snippets_actions), snw);
@@ -840,6 +859,16 @@ snippets_create_gui(Tbfwin * bfwin)
 	if (error != NULL) {
 		g_warning("building snippets plugin popup menu failed: %s", error->message);
 		g_error_free(error);
+	}
+	/* now parse the accelerator, and make it active for this item */
+	snw->accel_group = gtk_accel_group_new();
+	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), snw->accel_group);
+	DEBUG_MSG("snippets_create_gui, connect accelerators to bfwin %p\n",bfwin);
+	if (snippets_v.doc) {
+		xmlNodePtr cur = xmlDocGetRootElement(snippets_v.doc);
+		if (cur) {
+			snippets_connect_accelerators_from_doc(snw, cur, snw->accel_group);
+		}
 	}
 
 	if (sns->show_as_menu) {

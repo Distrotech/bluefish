@@ -25,7 +25,7 @@
 #include "bluefish.h"
 #include "document.h"        /* doc_replace_text() */
 #include "gtk_easy.h"        /* a lot of GUI functions */
-#include "snr2.h"
+#include "snr3.h"
 
 typedef enum {
 	page_no_selection,
@@ -275,7 +275,7 @@ static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *
 		g_free(tmp1);
 		g_free(tmp2);
 		/* BUG: what if the start or endmarkers contain special pcre patterns ? */
-		snr2_run_extern_replace(bsdialog->bfwin->current_document, searchpat, 3,2,1, bsdialog->allblock,FALSE);
+		snr3_run_extern_replace(bsdialog->bfwin->current_document, searchpat, snr3scope_alldocs,snr3type_pcre,TRUE, bsdialog->allblock,FALSE);
 		g_free(searchpat);
 		
 		/* cleanup */

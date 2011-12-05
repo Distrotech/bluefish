@@ -65,7 +65,7 @@ typedef struct {
 } Turi_in_refresh;
 
 enum {
-	PIXMAP_COLUMN,
+	/*PIXMAP_COLUMN,*/
 	ICON_NAME_COLUMN,
 	FILENAME_COLUMN,
 	URI_COLUMN,
@@ -100,6 +100,7 @@ typedef struct {
 	GtkWidget *file_v;			/* treeview widget */
 
 	gulong expand_signal;
+	gulong dirselection_changed_id;
 
 	GFile *basedir;
 	Tfilter *curfilter;
@@ -390,9 +391,11 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 		}
 	} else {					/* child does not yet exist */
 		gchar *display_name;
-		gchar *mime_type;
 #ifdef WIN32
 		const gchar *cont_type;
+		gchar *mime_type;
+#else
+		const gchar *mime_type;
 #endif
 		GIcon *icon;
 		gchar *icon_name = NULL;
@@ -408,10 +411,8 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 			cont_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 			mime_type = g_content_type_get_mime_type(cont_type);
 		}
-		/*g_print("display_name=%s, cont_type=%s, mime_type=%s\n",display_name,cont_type,mime_type); */
 #else
-		mime_type =
-			(gchar *) g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+		mime_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 		if (mime_type == NULL && g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY) {
 			/* GVFS SMB module on Ubuntu 8.10 returns NULL as FAST_CONTENT_TYPE, but it does set
 			   the type (regular file or directory). In the case of a directory we manually set the 
@@ -427,10 +428,14 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 		   ICON_NAME_COLUMN, icon_name, FILENAME_COLUMN, display_name, URI_COLUMN,
 		   child_uri, REFRESH_COLUMN, 0, TYPE_COLUMN, mime_type, FILEINFO_COLUMN,
 		   finfo, -1); */
+		DEBUG_MSG("fb2_add_filesystem_entry, store child_uri %p, finfo %p\n",child_uri, finfo);
 		gtk_tree_store_insert_with_values(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
 										  newiter, parent, 0,
-										  ICON_NAME_COLUMN, icon_name, FILENAME_COLUMN, display_name,
-										  URI_COLUMN, child_uri, REFRESH_COLUMN, 0, TYPE_COLUMN, mime_type,
+										  ICON_NAME_COLUMN, icon_name, 
+										  FILENAME_COLUMN, display_name,
+										  URI_COLUMN, child_uri, 
+										  REFRESH_COLUMN, 0, 
+										  TYPE_COLUMN, mime_type,
 										  FILEINFO_COLUMN, finfo, -1);
 		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
 		g_free(icon_name);
@@ -675,7 +680,7 @@ fb2_fill_dir_async(GtkTreeIter * parent, GFile * uri)
 static GFile *
 fb2_uri_from_iter(GtkTreeIter * iter)
 {
-	GFile *uri;
+	GFile *uri=NULL;
 	gtk_tree_model_get(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), iter,
 					   URI_COLUMN, &uri, -1);
 	return uri;
@@ -752,10 +757,12 @@ get_toplevel_name(GFile * uri)
 	GMount *mount;
 	gchar *name;
 	mount = g_file_find_enclosing_mount(uri, NULL, &error);
+	DEBUG_MSG("retrieved mount %p\n",mount);
 	if (!error && mount) {
 		name = g_mount_get_name(mount);
 		g_object_unref(mount);
 	} else {
+		DEBUG_MSG("error, no unref mount %p\n",mount);
 		name = g_file_get_basename(uri);
 		if (error)
 			g_error_free(error);
@@ -991,7 +998,7 @@ tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 	gint len;
 	GFile *uri;
 	gboolean retval = TRUE;
-
+	g_print("tree_model_filter_func, model=%p, fb2=%p\n",model,fb2);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri,
 					   TYPE_COLUMN, &mime_type, -1);
 	if (!name || !uri) {
@@ -1074,7 +1081,7 @@ file_list_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 	gchar *name, *mime_type;
 	gint len;
 	gboolean retval = TRUE;
-/*  DEBUG_MSG("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);*/
+	g_print("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);
 	gtk_tree_model_get((GtkTreeModel *) model, iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &mime_type, -1);
 	if (!name)
 		return FALSE;
@@ -1327,9 +1334,10 @@ fb2_uri_from_file_sort_path(Tfilebrowser2 * fb2, GtkTreePath * sort_path, gchar 
 	   uri = fb2_uri_from_fspath(fb2, fs_path);
 	   gtk_tree_path_free(fs_path); */
 	if (gtk_tree_model_get_iter(fb2->file_lsort, &iter, sort_path)) {
-		gtk_tree_model_get(fb2->file_lsort, &iter, URI_COLUMN, &uri, -1);
-		if (mime) {
-			gtk_tree_model_get(fb2->file_lsort, &iter, TYPE_COLUMN, &mime, -1);
+		gchar *tmpmime=NULL;
+		gtk_tree_model_get(fb2->file_lsort, &iter, URI_COLUMN, &uri,TYPE_COLUMN, &tmpmime, -1);
+		if (mime && tmpmime) {
+			*mime = tmpmime;
 		}
 	}
 	return uri;
@@ -1458,27 +1466,6 @@ fb2_uri_from_dir_selection(Tfilebrowser2 * fb2)
 	return NULL;
 }
 
-/**
- * handle_activate_on_file:
- *
- * opens the file, project or inserts the image pointer to by 'uri'
- */
-/*
-static void handle_activate_on_file(Tfilebrowser2 * fb2, GFile * uri, gchar *mimetype) {
-	if (mimetype) {
-		if (strncmp(mimetype, "image", 5) == 0) {
-			/ * image! * /
-			g_print("handle_activate_on_file, TODO, handle image activate!\n");
-		} else if (strcmp(mimetype, "application/x-bluefish-project") == 0) {
-			project_open_from_file(fb2->bfwin, uri);
-			return;
-		}
-	}
-	doc_new_from_uri(fb2->bfwin, uri, NULL, FALSE, FALSE, -1, -1);
-	DEBUG_MSG("handle_activate_on_file, finished\n");
-}
-*/
-
 static void
 rename_not_open_file(Tbfwin * bfwin, GFile * olduri)
 {
@@ -1579,7 +1566,7 @@ fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * noselectionbaseuri
 			done = g_file_make_directory(newuri, NULL, &error);
 			if (error) {
 				gchar *tmp = g_file_get_uri(newuri);
-				g_print("fb2rpopup_new, failed to create directory %s: %s, done=%d\n", tmp, error->message,
+				DEBUG_MSG("fb2rpopup_new, failed to create directory %s: %s, done=%d\n", tmp, error->message,
 						done);
 				g_error_free(error);
 				g_free(tmp);
@@ -1610,7 +1597,7 @@ fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * noselectionbaseuri
 				} else {
 					counter = 100;
 					if (error) {
-						g_print("fb2rpopup_new, failed to create file: %s\n", error->message);
+						DEBUG_MSG("fb2rpopup_new, failed to create file: %s\n", error->message);
 						g_error_free(error);
 					}
 				}
@@ -1620,7 +1607,7 @@ fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * noselectionbaseuri
 			}
 		}
 		if (done) {
-			g_print("calling for newuri %p %s\n", newuri, g_file_get_uri(newuri));
+			DEBUG_MSG("calling for newuri %p %s\n", newuri, g_file_get_uri(newuri));
 			fb2_refresh_parent_of_uri(newuri);
 		}
 		g_object_unref(newuri);
@@ -1694,7 +1681,7 @@ popup_menu_delete(GtkAction * action, gpointer user_data)
 		if (retval == 1) {
 			/* ref the uri, it is unreffed by the callback */
 			g_object_ref(uri);
-			g_print("fb2rpopup_delete, calling file_delete_file_async\n");
+			DEBUG_MSG("fb2rpopup_delete, calling file_delete_file_async\n");
 			file_delete_async(uri, FALSE, rcpopup_async_delete_lcb, uri);
 		}
 		g_free(filename);
@@ -1739,8 +1726,6 @@ popup_menu_new_directory(GtkAction * action, gpointer user_data)
 {
 	Tfilebrowser2 *fb2 = FILEBROWSER2(user_data);
 
-	/* BUG: in the case of a click in a dual-view fileview, we should not use the basedir
-	   as third argument */
 	fb2rpopup_new(fb2, TRUE, fb2->basedir);
 }
 
@@ -1749,8 +1734,6 @@ popup_menu_new_file(GtkAction * action, gpointer user_data)
 {
 	Tfilebrowser2 *fb2 = FILEBROWSER2(user_data);
 
-	/* BUG: in the case of a click in a dual-view fileview, we should not use the basedir
-	   as third argument */
 	if (fb2->file_v == NULL) {
 		fb2rpopup_new(fb2, FALSE, fb2->basedir);
 	} else {
@@ -1939,76 +1922,75 @@ popup_menu_new_filter(GtkAction * action, gpointer user_data)
 static const gchar *filebrowser_menu_ui =
 	"<ui>"
 	"  <popup action='FileBrowserMenu'>"
-	"    <menuitem action='Open'/>"
-	"    <menuitem action='OpenAdvanced'/>"
-	"    <menuitem action='Rename'/>"
-	"    <menuitem action='Delete'/>"
+	"    <menuitem action='FB2Open'/>"
+	"    <menuitem action='FB2OpenAdvanced'/>"
+	"    <menuitem action='FB2Rename'/>"
+	"    <menuitem action='FB2Delete'/>"
 	"    <separator/>"
-	"    <menuitem action='NewFile'/>"
-	"    <menuitem action='NewDirectory'/>"
+	"    <menuitem action='FB2NewFile'/>"
+	"    <menuitem action='FB2NewDirectory'/>"
 	"    <separator/>"
-	"    <menuitem action='Refresh'/>"
-	"    <menuitem action='FollowActiveDoc'/>"
-	"    <menuitem action='SetBaseDir'/>"
-	"    <menuitem action='SetDocumentRoot'/>"
+	"    <menuitem action='FB2Refresh'/>"
+	"    <menuitem action='FB2FollowActiveDoc'/>"
+	"    <menuitem action='FB2SetBaseDir'/>"
+	"    <menuitem action='FB2SetDocumentRoot'/>"
 	"    <separator/>"
-	"    <menuitem action='ShowFullTree'/>"
-	"    <menuitem action='ShowBackupFiles'/>"
-	"    <menuitem action='ShowHiddenFiles'/>"
+	"    <menuitem action='FB2ShowFullTree'/>"
+	"    <menuitem action='FB2ShowBackupFiles'/>"
+	"    <menuitem action='FB2ShowHiddenFiles'/>"
 	"    <separator/>"
-	"    <menu action='ViewModeMenu'>"
-	"      <menuitem action='ViewModeDual'/>"
-	"      <menuitem action='ViewModeFlat'/>"
-	"      <menuitem action='ViewModeTree'/>"
+	"    <menu action='FB2ViewModeMenu'>"
+	"      <menuitem action='FB2ViewModeDual'/>"
+	"      <menuitem action='FB2ViewModeFlat'/>"
+	"      <menuitem action='FB2ViewModeTree'/>"
 	"    </menu>"
-	"    <menu action='FilterMenu'>"
-	"      <placeholder name='FilterPlaceholder'/>"
+	"    <menu action='FB2FilterMenu'>"
+	"      <placeholder name='FB2FilterPlaceholder'/>"
 	"      <separator/>"
-	"      <menuitem action='NewFilter'/>"
-	"      <menuitem action='EditFilter'/>"
-	"      <menuitem action='DeleteFilter'/>"
+	"      <menuitem action='FB2NewFilter'/>"
+	"      <menuitem action='FB2EditFilter'/>"
+	"      <menuitem action='FB2DeleteFilter'/>"
 	"    </menu>"
 	"  </popup>"
 	"</ui>";
 
 static const GtkActionEntry filebrowser_actions[] = {
-	{"FileBrowserMenu", NULL, N_("File Browser menu")},
-	{"Open", NULL, N_("_Open"), NULL, N_("Open"), G_CALLBACK(popup_menu_open)},
-	{"OpenAdvanced", NULL, N_("Open _Advanced..."), NULL, N_("Open advanced"),
+	{"FB2FileBrowserMenu", NULL, N_("File Browser menu")},
+	{"FB2Open", NULL, N_("_Open"), NULL, N_("Open"), G_CALLBACK(popup_menu_open)},
+	{"FB2OpenAdvanced", NULL, N_("Open _Advanced..."), NULL, N_("Open advanced"),
 	 G_CALLBACK(popup_menu_open_advanced)},
-	{"Rename", NULL, N_("Rena_me"), NULL, N_("Rename"), G_CALLBACK(popup_menu_rename)},
-	{"Delete", NULL, N_("_Delete"), NULL, N_("Delete"), G_CALLBACK(popup_menu_delete)},
-	{"NewFile", NULL, N_("New _File"), NULL, N_("New file"), G_CALLBACK(popup_menu_new_file)},
-	{"NewDirectory", NULL, N_("_New Directory"), NULL, N_("New directory"),
+	{"FB2Rename", NULL, N_("Rena_me"), NULL, N_("Rename"), G_CALLBACK(popup_menu_rename)},
+	{"FB2Delete", NULL, N_("_Delete"), NULL, N_("Delete"), G_CALLBACK(popup_menu_delete)},
+	{"FB2NewFile", NULL, N_("New _File"), NULL, N_("New file"), G_CALLBACK(popup_menu_new_file)},
+	{"FB2NewDirectory", NULL, N_("_New Directory"), NULL, N_("New directory"),
 	 G_CALLBACK(popup_menu_new_directory)},
-	{"Refresh", NULL, N_("_Refresh"), NULL, N_("Refresh"), G_CALLBACK(popup_menu_refresh)},
-	{"SetBaseDir", NULL, N_("_Set as base dir"), NULL, N_("Set as base directory"),
+	{"FB2Refresh", NULL, N_("_Refresh"), NULL, N_("Refresh"), G_CALLBACK(popup_menu_refresh)},
+	{"FB2SetBaseDir", NULL, N_("_Set as base dir"), NULL, N_("Set as base directory"),
 	 G_CALLBACK(popup_menu_set_basedir)},
-	{"SetDocumentRoot", NULL, N_("Set as document root"), NULL, N_("Set as document root"),
+	{"FB2SetDocumentRoot", NULL, N_("Set as document root"), NULL, N_("Set as document root"),
 	 G_CALLBACK(popup_menu_set_document_root)},
-	{"ShowFullTree", NULL, N_("Show Full _Tree"), NULL, N_("Show full tree"),
+	{"FB2ShowFullTree", NULL, N_("Show Full _Tree"), NULL, N_("Show full tree"),
 	 G_CALLBACK(popup_menu_show_full_tree)},
-	{"ViewModeMenu", NULL, N_("View Mode")},
-	{"FilterMenu", NULL, N_("Filter")},
-	{"NewFilter", NULL, N_("New Filter"), NULL, N_("New filter"), G_CALLBACK(popup_menu_new_filter)},
-	{"EditFilter", NULL, N_("Edit Filter"), NULL, N_("Edit filter"), G_CALLBACK(popup_menu_edit_filter)},
-	{"DeleteFilter", NULL, N_("Delete Filter"), NULL, N_("Delete filter"),
-	 G_CALLBACK(popup_menu_delete_filter)}
+	{"FB2ViewModeMenu", NULL, N_("View Mode")},
+	{"FB2FilterMenu", NULL, N_("Filter")},
+	{"FB2NewFilter", NULL, N_("New Filter"), NULL, N_("New filter"), G_CALLBACK(popup_menu_new_filter)},
+	{"FB2EditFilter", NULL, N_("Edit Filter"), NULL, N_("Edit filter"), G_CALLBACK(popup_menu_edit_filter)},
+	{"FB2DeleteFilter", NULL, N_("Delete Filter"), NULL, N_("Delete filter"), G_CALLBACK(popup_menu_delete_filter)}
 };
 
 static const GtkToggleActionEntry filebrowser_toggle_actions[] = {
-	{"FollowActiveDoc", NULL, N_("Follow Active Document"), NULL, N_("Follow active document"),
+	{"FB2FollowActiveDoc", NULL, N_("Follow Active Document"), NULL, N_("Follow active document"),
 	 G_CALLBACK(popup_menu_follow_active_doc), FALSE},
-	{"ShowBackupFiles", NULL, N_("Show Backup Files"), NULL, N_("Show backup files"),
+	{"FB2ShowBackupFiles", NULL, N_("Show Backup Files"), NULL, N_("Show backup files"),
 	 G_CALLBACK(popup_menu_show_backup_files), FALSE},
-	{"ShowHiddenFiles", NULL, N_("Show Hidden Files"), NULL, N_("Show hidden files"),
+	{"FB2ShowHiddenFiles", NULL, N_("Show Hidden Files"), NULL, N_("Show hidden files"),
 	 G_CALLBACK(popup_menu_show_hidden_files), FALSE}
 };
 
 static const GtkRadioActionEntry filebrowser_radio_actions[] = {
-	{"ViewModeDual", NULL, N_("Dual"), NULL, NULL, viewmode_dual},
-	{"ViewModeFlat", NULL, N_("Flat"), NULL, NULL, viewmode_flat},
-	{"ViewModeTree", NULL, N_("Tree"), NULL, NULL, viewmode_tree}
+	{"FB2ViewModeDual", NULL, N_("Dual"), NULL, NULL, viewmode_dual},
+	{"FB2ViewModeFlat", NULL, N_("Flat"), NULL, NULL, viewmode_flat},
+	{"FB2ViewModeTree", NULL, N_("Tree"), NULL, NULL, viewmode_tree}
 };
 
 static void
@@ -2019,17 +2001,18 @@ popup_menu_action_group_init(Tbfwin * bfwin)
 
 	bfwin->filebrowserGroup = gtk_action_group_new("FileBrowserActions");
 	gtk_action_group_set_translation_domain(bfwin->filebrowserGroup, GETTEXT_PACKAGE);
-	gtk_action_group_add_actions(bfwin->filebrowserGroup, filebrowser_actions,
-								 G_N_ELEMENTS(filebrowser_actions), fb2);
+	gtk_action_group_add_actions(bfwin->filebrowserGroup, filebrowser_actions, G_N_ELEMENTS(filebrowser_actions), fb2);
 	gtk_action_group_add_toggle_actions(bfwin->filebrowserGroup, filebrowser_toggle_actions,
 										G_N_ELEMENTS(filebrowser_toggle_actions), fb2);
+	DEBUG_MSG("popup_menu_action_group_init, set default viewmode to %d\n",fb2->filebrowser_viewmode);
 	gtk_action_group_add_radio_actions(bfwin->filebrowserGroup, filebrowser_radio_actions,
-									   G_N_ELEMENTS(filebrowser_radio_actions), fb2->filebrowser_viewmode,
-									   G_CALLBACK(popup_menu_view_mode_changed), fb2);
+									   G_N_ELEMENTS(filebrowser_radio_actions),
+									   fb2->filebrowser_viewmode, G_CALLBACK(popup_menu_view_mode_changed),
+									   fb2);
 	gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->filebrowserGroup, 1);
 	g_object_unref(bfwin->filebrowserGroup);
 
-	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, filebrowser_menu_ui, -1, &error);
+	bfwin->filebrowser_merge_id = gtk_ui_manager_add_ui_from_string(bfwin->uimanager, filebrowser_menu_ui, -1, &error);
 	if (error != NULL) {
 		g_warning("building file browser popup menu failed: %s", error->message);
 		g_error_free(error);
@@ -2044,32 +2027,33 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 	GSList *group = NULL;
 	GList *list;
 	gint value = 0;
-
+	g_print("popup_menu_create fb2=%p\n", fb2);
 	menu = gtk_ui_manager_get_widget(bfwin->uimanager, "/FileBrowserMenu");
 	if (!menu) {
 		g_warning("showing file browser popup menu failed");
 		return;
-	}
+	}	
 	fb2->last_popup_on_dir = is_directory;
 	 
-	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FollowActiveDoc",
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FB2FollowActiveDoc",
 										 fb2->bfwin->session->filebrowser_focus_follow);
-	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/ShowBackupFiles",
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FB2ShowBackupFiles",
 										 fb2->filebrowser_show_backup_files);
-	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/ShowHiddenFiles",
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FB2ShowHiddenFiles",
 										 fb2->filebrowser_show_hidden_files);
 
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Rename", (is_directory || is_file));
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Delete", (is_directory || is_file));
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/OpenAdvanced", is_directory);
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetDocumentRoot", is_directory);
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetBaseDir", is_directory);
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Open", is_file);
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/ShowFullTree",
-							   (fb2->basedir != NULL && fb2->filebrowser_viewmode != viewmode_flat));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2Rename", (is_directory || is_file));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2Delete", (is_directory || is_file));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2OpenAdvanced", is_directory);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2SetDocumentRoot", is_directory);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2SetBaseDir", is_directory);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2Open", is_file);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2ShowFullTree", (fb2->basedir != NULL && fb2->filebrowser_viewmode != viewmode_flat));
+
+	gtk_radio_action_set_current_value((GtkRadioAction *)gtk_ui_manager_get_action(bfwin->uimanager, "/FileBrowserMenu/FB2ViewModeMenu/FB2ViewModeDual"),fb2->filebrowser_viewmode);
 
 	if (!bfwin->fb2_filters_group) {
-		bfwin->fb2_filters_group = gtk_action_group_new("FileBrowserFilterActions");
+		bfwin->fb2_filters_group = gtk_action_group_new("FB2FileBrowserFilterActions");
 		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->fb2_filters_group, 1);
 	} else {
 		GList *actions, *list;
@@ -2099,7 +2083,7 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 		g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(popup_menu_filter_activate), fb2);
 
 		gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->fb2_filters_merge_id,
-							  "/FileBrowserMenu/FilterMenu/FilterPlaceholder", filter->name,
+							  "/FileBrowserMenu/FB2FilterMenu/FB2FilterPlaceholder", filter->name,
 							  filter->name, GTK_UI_MANAGER_MENUITEM, FALSE);
 
 		if (fb2->curfilter == filter)
@@ -2135,12 +2119,12 @@ dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser2
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->dir_v), event->x, event->y, &path, NULL, NULL, NULL);
 		if (path) {
 			gboolean is_dir = fb2_isdir_from_dir_sort_path(fb2, path);
-			g_print("context menu: %s selected\n", is_dir ? "dir" : "file");
+			DEBUG_MSG("context menu: %s selected\n",is_dir?"dir":"file");
 			popup_menu_create(fb2, is_dir, !is_dir, event);
 			gtk_tree_path_free(path);
 		} else {
 			DEBUG_MSG("dir_v_button_press_lcb, no path for position\n");
-			g_print("context menu: nothing selected\n");
+			DEBUG_MSG("context menu: nothing selected\n");
 			popup_menu_create(fb2, FALSE, FALSE, event);
 		}
 	} else if (!(fb2->filebrowser_viewmode == viewmode_dual) && event->button == 1
@@ -2158,9 +2142,8 @@ dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser2
 				g_free(basename);
 #endif
 				file_handle(uri, fb2->bfwin, mime, FALSE);
-				/*handle_activate_on_file(fb2, uri,mime); */
 			}
-			/* BUG??: do we need to free mime here ?? */
+			g_free(mime);
 		}
 	}
 	return FALSE;				/* pass the event on */
@@ -2171,32 +2154,25 @@ file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser
 {
 	DEBUG_MSG("file_v_button_press_lcb, called for fb2=%p and event->button=%d\n", fb2, event->button);
 	if (event->button == 3) {
-		GtkTreePath *path;
-		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &path, NULL,
-									  NULL, NULL);
-		if (path) {
-			g_print("context menu: file selected\n");
+		GtkTreePath *path=NULL;
+		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &path, NULL,
+									  NULL, NULL) && path) {
+			DEBUG_MSG("context menu: file selected\n");
 			popup_menu_create(fb2, FALSE, TRUE, event);
 			gtk_tree_path_free(path);
 		} else {
-			g_print("context menu: nothing selected\n");
+			DEBUG_MSG("context menu: nothing selected\n");
 			DEBUG_MSG("no path for position\n");
 			popup_menu_create(fb2, FALSE, FALSE, event);
 		}
 	} else if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
-		GtkTreePath *sort_path;
-		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &sort_path,
-									  NULL, NULL, NULL);
-		if (sort_path) {
+		GtkTreePath *sort_path=NULL;
+		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &sort_path,
+									  NULL, NULL, NULL) && sort_path) {
 			GFile *uri;
 			gchar *mime = NULL;
 			uri = fb2_uri_from_file_sort_path(fb2, sort_path, &mime);
 			if (uri) {
-#ifdef DEBUG
-				gchar *basename = g_file_get_basename(uri);
-				DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", basename);
-				g_free(basename);
-#endif
 				file_handle(uri, fb2->bfwin, mime, FALSE);
 				/*handle_activate_on_file(fb2, uri,mime); */
 			}
@@ -2226,7 +2202,7 @@ dirmenu_idle_cleanup_lcb(gpointer callback_data)
 		gtk_tree_model_get(GTK_TREE_MODEL(oldmodel), &iter, DIR_URI_COLUMN, &uri, -1);
 		if (uri)
 			g_object_unref(uri);
-		/* hmm if this last remove results in an empty listtore there is a crash?? */
+		/* hmm if this last remove results in an empty liststore there is a crash?? */
 		cont = gtk_list_store_remove(GTK_LIST_STORE(oldmodel), &iter);
 	}
 	DEBUG_MSG("dirmenu_idle_cleanup_lcb, unref the old model\n");
@@ -2244,7 +2220,7 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	GFile *tmp;
 	GVolumeMonitor *gvolmon;
 	gboolean cont, havesetiter = FALSE;
-	DEBUG_MSG("dirmenu_set_curdir(fb2=%p, newcurdir=%p)\n", fb2, newcurdir);
+	g_print("dirmenu_set_curdir(fb2=%p, newcurdir=%p)\n", fb2, newcurdir);
 	if (fb2->currentdir) {
 		if (newcurdir && (fb2->currentdir == newcurdir || g_file_equal(fb2->currentdir, newcurdir)))
 			return;
@@ -2365,15 +2341,34 @@ static void
 dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 						GtkTreeViewColumn * column, Tfilebrowser2 * fb2)
 {
-	if (fb2->filebrowser_viewmode == viewmode_flat) {
-		gchar *mime = NULL;
-		GFile *uri = fb2_uri_from_dir_sort_path(fb2, path, &mime);	/* this is a pointer to the uri stored in the treemodel */
-		if (mime && MIME_ISDIR(mime)) {
+	gchar *mime = NULL;
+	GFile *uri = fb2_uri_from_dir_sort_path(fb2, path, &mime);	/* this is a pointer to the uri stored in the treemodel */
+	if (!mime || !MIME_ISDIR(mime)) {
+		file_handle(uri, fb2->bfwin, mime, FALSE);
+	} else { /* a directory */
+		if (fb2->filebrowser_viewmode == viewmode_flat) {
 			fb2_set_basedir_backend(fb2, uri);
 			dirmenu_set_curdir(fb2, uri);
+		} else {
+			if (gtk_tree_view_row_expanded(tree, path)) {
+				gtk_tree_view_collapse_row(tree, path);
+			} else {
+				gtk_tree_view_expand_row(tree, path, FALSE);
+			}
 		}
-		/* BUG?? do we need to free mime here ? */
 	}
+	g_free(mime);
+}
+
+static void
+file_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
+						GtkTreeViewColumn * column, Tfilebrowser2 * fb2)
+{
+	gchar *mime = NULL;
+	GFile *uri = fb2_uri_from_file_sort_path(fb2, path, &mime); /* this is a pointer to the uri stored in the treemodel */
+	DEBUG_MSG("handle file with mime %s\n",mime);
+	file_handle(uri, fb2->bfwin, mime, FALSE);
+	g_free(mime);
 }
 
 static void
@@ -2382,7 +2377,7 @@ dir_v_selection_changed_lcb(GtkTreeSelection * treeselection, Tfilebrowser2 * fb
 	GtkTreeModel *sort_model = NULL;
 	GtkTreeIter sort_iter;
 	/* Get the current selected row and the model. */
-	DEBUG_MSG("dir_v_selection_changed_lcb, treeselection=%p, fb2=%p\n", treeselection, fb2);
+	g_print("dir_v_selection_changed_lcb, treeselection=%p, fb2=%p\n", treeselection, fb2);
 	if (treeselection && gtk_tree_selection_get_selected(treeselection, &sort_model, &sort_iter)) {
 		GFile *uri;
 		gchar *mime_type;
@@ -2463,7 +2458,7 @@ dirmenu_changed_lcb(GtkComboBox * widget, gpointer data)
 {
 	Tfilebrowser2 *fb2 = data;
 	GtkTreeIter iter;
-	DEBUG_MSG("dirmenu_changed_lcb, started\n");
+	g_print("dirmenu_changed_lcb, started for fb2 %p\n", fb2);
 	if (gtk_combo_box_get_active_iter(widget, &iter)) {
 		GFile *uri;
 		DEBUG_MSG("dirmenu_changed_lcb. we have an active iter\n");
@@ -2641,6 +2636,23 @@ fb2_tooltip_lcb(GtkWidget * widget, gint x, gint y, gboolean keyboard_tip, GtkTo
 	return retval;
 }
 
+static gboolean
+file_search_func(GtkTreeModel *model, gint column,const gchar *key, GtkTreeIter *iter,gpointer search_data)
+{
+	gint len;
+	gchar *tmp=NULL;
+	gboolean retval = TRUE;
+	if (!key || key[0]=='\0')
+		return TRUE;
+	gtk_tree_model_get(model, iter, FILENAME_COLUMN, &tmp, -1);
+	len = strlen(key);
+	if (strncmp(key, tmp, len)==0){
+		retval = FALSE;
+	}
+	g_free(tmp);
+	return retval;
+}
+
 static void
 fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 {
@@ -2708,11 +2720,12 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	g_object_unref(G_OBJECT(fb2->dir_tsort));
 
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fb2->dir_v), FALSE);
+	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW(fb2->dir_v),file_search_func,fb2,NULL);
 	if (fb2->filebrowser_viewmode != viewmode_flat) {
 		dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
-		DEBUG_MSG("fb2_init, NEW FILEBROWSER2, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
+		g_print("fb2_init, NEW FILEBROWSER2, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
 				  dirselection, fb2, fb2->dir_tfilter);
-		g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(dir_v_selection_changed_lcb), fb2);
+		fb2->dirselection_changed_id = g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(dir_v_selection_changed_lcb), fb2);
 	}
 
 	renderer = gtk_cell_renderer_pixbuf_new();
@@ -2720,8 +2733,8 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
 	gtk_tree_view_column_set_attributes(column, renderer,
 										"icon-name", ICON_NAME_COLUMN,
-										"pixbuf_expander_closed", PIXMAP_COLUMN,
-										"pixbuf_expander_open", PIXMAP_COLUMN, NULL);
+										/*"pixbuf_expander_closed", PIXMAP_COLUMN,
+										"pixbuf_expander_open", PIXMAP_COLUMN,*/ NULL);
 	renderer = gtk_cell_renderer_text_new();
 	g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
 	gtk_tree_view_column_pack_start(column, renderer, TRUE);
@@ -2763,13 +2776,14 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		g_object_unref(G_OBJECT(fb2->file_lsort));
 
 		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fb2->file_v), FALSE);
+		gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW(fb2->file_v),file_search_func,fb2,NULL);
 		renderer = gtk_cell_renderer_pixbuf_new();
 		column = gtk_tree_view_column_new();
 		gtk_tree_view_column_pack_start(column, renderer, FALSE);
 		gtk_tree_view_column_set_attributes(column, renderer,
 											"icon-name", ICON_NAME_COLUMN,
-											"pixbuf_expander_closed", PIXMAP_COLUMN,
-											"pixbuf_expander_open", PIXMAP_COLUMN, NULL);
+											/*"pixbuf_expander_closed", PIXMAP_COLUMN,
+											"pixbuf_expander_open", PIXMAP_COLUMN,*/ NULL);
 		renderer = gtk_cell_renderer_text_new();
 		g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
 		gtk_tree_view_column_pack_start(column, renderer, TRUE);
@@ -2784,6 +2798,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		gtk_box_pack_start(GTK_BOX(fb2->vbox), fb2->vpaned, TRUE, TRUE, 0);
 		g_signal_connect(G_OBJECT(fb2->file_v), "button_press_event",
 						 G_CALLBACK(file_v_button_press_lcb), fb2);
+		g_signal_connect(G_OBJECT(fb2->file_v), "row-activated", G_CALLBACK(file_v_row_activated_lcb), fb2);
 		gtk_drag_dest_set(fb2->file_v, (GTK_DEST_DEFAULT_ALL), drag_dest_types, 2,
 						  (GDK_ACTION_DEFAULT | GDK_ACTION_COPY));
 		g_signal_connect(G_OBJECT(fb2->file_v), "drag_data_received",
@@ -2813,6 +2828,9 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 
 		DEBUG_MSG("fb2_update_settings_from_session, started, bfwin=%p, fb2=%p, viewmode=%d\n",
 				  bfwin, fb2, fb2->filebrowser_viewmode);
+
+		if (!bfwin->filebrowserGroup)
+			popup_menu_action_group_init(bfwin);
 
 		fb2_set_viewmode_widgets(fb2, bfwin->session->filebrowser_viewmode);
 
@@ -2854,6 +2872,19 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 	}
 }
 
+void
+fb2destroy_signal_lcb(GtkWidget *widget, Tfilebrowser2 *fb2)
+{
+	g_print("fb2destroy_signal_lcb widget=%p, fb2=%p\n",widget,fb2);
+	if (fb2->dir_v) {
+		GtkTreeSelection *dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
+		if (dirselection) {
+			g_signal_handler_disconnect(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v))), fb2->dirselection_changed_id);
+			g_print("disconnected!\n");
+		}
+	}
+}
+
 GtkWidget *
 fb2_init(Tbfwin * bfwin)
 {
@@ -2870,12 +2901,12 @@ fb2_init(Tbfwin * bfwin)
 
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;
-	DEBUG_MSG("fb2_init, started for bfwin=%p, fb2=%p, fb2->filebrowser_viewmode=%d\n", bfwin, fb2,
+	g_print("fb2_init, started for bfwin=%p, fb2=%p, fb2->filebrowser_viewmode=%d\n", bfwin, fb2,
 			  fb2->filebrowser_viewmode);
 
 	fb2->vbox = gtk_vbox_new(FALSE, 0);
-
-	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_STRING));
+/*	g_signal_connect(G_OBJECT(fb2->vbox), "destroy", G_CALLBACK(fb2destroy_signal_lcb), fb2);*/
+	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING));
 	fb2->dirmenu_v = gtk_combo_box_new_with_model(fb2->dirmenu_m);
 	/*gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(fb2->dirmenu_v),3); */
 	renderer = gtk_cell_renderer_pixbuf_new();
@@ -2885,6 +2916,9 @@ fb2_init(Tbfwin * bfwin)
 								      "pixbuf_expander_open", DIR_ICON_COLUMN, */ NULL);
 
 	renderer = gtk_cell_renderer_text_new();
+#if GTK_CHECK_VERSION(3,0,0)
+	g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_START, NULL);
+#endif
 	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, TRUE);
 	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, "text", DIR_NAME_COLUMN, NULL);
 	gtk_box_pack_start(GTK_BOX(fb2->vbox), fb2->dirmenu_v, FALSE, FALSE, 0);
@@ -2892,9 +2926,6 @@ fb2_init(Tbfwin * bfwin)
 		g_signal_connect(fb2->dirmenu_v, "changed", G_CALLBACK(dirmenu_changed_lcb), fb2);
 
 	fb2_update_settings_from_session(bfwin);
-
-	if (!bfwin->filebrowserGroup)
-		popup_menu_action_group_init(bfwin);
 
 	gtk_widget_show_all(fb2->vbox);
 /*  {
@@ -2929,8 +2960,22 @@ fb2_cleanup(Tbfwin * bfwin)
 {
 	if (bfwin->fb2) {
 		Tfilebrowser2 *fb2 = FILEBROWSER2(bfwin->fb2);
+		GList *actions, *list;
+
+		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->filebrowser_merge_id);
+		actions = gtk_action_group_list_actions(bfwin->filebrowserGroup);
+		for (list = actions; list; list = list->next) {
+			gtk_action_group_remove_action(bfwin->filebrowserGroup, GTK_ACTION(list->data));
+		}
+		g_list_free(actions);
+		bfwin->filebrowserGroup = NULL;
+		
+		g_signal_handler_disconnect(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
+		dirmenu_idle_cleanup_lcb(fb2->dirmenu_m);
+
 		if (fb2->basedir)
 			g_object_unref(fb2->basedir);
+		g_print("fb2_cleanup, free %p\n",fb2);
 		g_free(fb2);
 		bfwin->fb2 = NULL;
 	}
@@ -2962,7 +3007,7 @@ fb2config_init(void)
 	fb2config->filesystem_itable =
 		g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, uri_hash_destroy, iter_value_destroy);
 	fb2config->filesystem_tstore =
-		gtk_tree_store_new(N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
+		gtk_tree_store_new(N_COLUMNS, /*GDK_TYPE_PIXBUF,*/ G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
 						   G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
 	DEBUG_MSG("fb2config_init, finished\n");
 }

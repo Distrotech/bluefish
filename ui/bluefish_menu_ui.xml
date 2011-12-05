@@ -32,6 +32,7 @@
       <menuitem action="FileNewWindow"/>
       <menuitem action="FileOpen"/>
       <menu action="FileOpenRecent">
+      <placeholder name="FileOpenRecentPlaceholder"/>
 	  </menu>
 	  <menuitem action="FileOpenAdvanced"/>
 	  <placeholder name="OpenURLPlaceholder"/>
@@ -69,7 +70,7 @@
       <menuitem action="FindAgain"/>
       <menuitem action="FindSelection"/>
       <menuitem action="Replace"/>
-      <menuitem action="ReplaceAgain"/>
+      <!--<menuitem action="ReplaceAgain"/>-->
       <separator/>
       <menuitem action="EditIndent"/>
       <menuitem action="EditUnindent"/>
@@ -169,6 +170,7 @@
 	  <separator/>
 	  <menuitem action="SynchTextBlock"/>
 	  <menuitem action="ToggleComment"/>
+	  <menuitem action="SelectBlock"/>
 	  <menuitem action="WordCount"/>
 	  <separator/>
 	  <menuitem action="IndentingToSpaces"/>
@@ -180,4 +182,29 @@
 	  <menuitem action="StripTrailingWhitespace"/>
     </menu>
   </menubar>
+  <toolbar name="MainToolbar">
+     <toolitem action="FileNew"/>
+     <toolitem action="FileOpen"/>
+     <toolitem action="FileSave"/>
+     <toolitem action="FileSaveAs"/>
+     <toolitem action="FileClose"/>
+     <separator/>
+     <toolitem action="Cut"/>
+     <toolitem action="Copy"/>
+     <toolitem action="Paste"/>
+     <separator/>
+     <toolitem action="Find"/>
+     <toolitem action="Replace"/>
+     <separator/>
+     <toolitem action="Undo"/>
+     <toolitem action="Redo"/>
+     <separator/>
+     <toolitem action="EditUnindent"/>
+     <toolitem action="EditIndent"/>
+     <separator/>
+     <toolitem action="EditPreferences"/>
+     <separator/>
+     <toolitem action="ViewFullScreen"/>
+  </toolbar>
+
 </ui>

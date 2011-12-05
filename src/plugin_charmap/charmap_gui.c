@@ -168,6 +168,9 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 /*	charmap_v.model = gucharmap_script_chapters_model_new();*/	
 	cm->chaptersv = gtk_combo_box_new_with_model(charmap_v.model);
 	renderer = gtk_cell_renderer_text_new();
+#if GTK_CHECK_VERSION(3,0,0)
+	g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_MIDDLE, NULL);
+#endif
 	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(cm->chaptersv),renderer, TRUE);
 	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(cm->chaptersv), renderer, "text", 0, NULL);
 	g_signal_connect(G_OBJECT(cm->chaptersv), "changed",G_CALLBACK(chaptersv_changed_lcb),cm);
@@ -199,6 +202,9 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(vbox),scrolwin,TRUE,TRUE,4);
 	
 	cm->entities = boxed_checkbut_with_value(_("Insert as HTML entity"), 0, vbox);
+#if GTK_CHECK_VERSION(3,0,0)
+	gtk_label_set_ellipsize(GTK_LABEL(gtk_bin_get_child(GTK_BIN(cm->entities))), PANGO_ELLIPSIZE_MIDDLE);
+#endif
 	/*gtk_box_pack_start(GTK_BOX(vbox),cm->entities,FALSE,TRUE,4);*/
 	
 	pixbuf = gdk_pixbuf_new_from_inline(-1,charmap_icon,FALSE,NULL);

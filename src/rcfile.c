@@ -408,6 +408,7 @@ props_init_main(GHashTable * config_rc)
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "monospace 10");
 	init_prop_integer(&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.editor_tab_indent_sel, "editor_tab_indent_sel:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.editor_auto_close_brackets, "editor_auto_close_brackets:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.use_system_tab_font, "use_system_tab_font:", 1, TRUE);
 	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
 	init_prop_string(&config_rc, &main_v->props.tab_color_modified, "tab_color_modified:", "#0000FF");
@@ -452,6 +453,7 @@ props_init_main(GHashTable * config_rc)
 					  TRUE);
 	init_prop_integer(&config_rc, &main_v->props.encoding_search_Nbytes, "encoding_search_Nbytes:", 500,
 					  TRUE);
+	init_prop_integer(&config_rc, &main_v->props.encoding_search_Nbytes, "max_window_title:", 0,TRUE);
 	init_prop_integer(&config_rc, &main_v->props.document_tabposition, "document_tabposition:",
 					  (gint) GTK_POS_BOTTOM, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.leftpanel_tabposition, "leftpanel_tabposition:",
@@ -480,8 +482,9 @@ props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.open_in_new_window, "open_in_new_window:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.register_recent_mode, "register_recent_mode:", 2, TRUE);
 	init_prop_arraylist(&config_rc, &main_v->props.plugin_config, "plugin_config:", 3, TRUE);
-	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_FG], "editor_fg:", "#000000");
-	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_BG], "editor_bg:", "#FFFFFF");
+	init_prop_integer(&config_rc, &main_v->props.use_system_colors, "use_system_colors:", 1, TRUE);
+	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_FG], "editor_fg:", "");
+	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_BG], "editor_bg:", "");
 	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE], "cline_bg:",
 					 "#E0E0E0");
 	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], "visible_ws:",
@@ -502,7 +505,7 @@ props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.delay_full_scan, "delay_full_scan:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.delay_scan_time, "delay_scan_time:", 900, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.autocomp_popup_mode, "autocomp_popup_mode:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.reduced_scan_triggers, "reduced_scan_triggers:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.reduced_scan_triggers, "reduce_scan_triggers:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.autosave, "autosave:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.autosave_time, "autosave_time:", 60, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.autosave_location_mode, "autosave_location_mode:", 0, TRUE);
@@ -519,7 +522,6 @@ merge_config_files(GFile * oldrc, GFile * oldsession, GFile * newrc, GFile * new
 	GError *gerror = NULL;
 	GInputStream *istream;
 	GOutputStream *ostream;
-	gssize size;
 
 	istream = (GInputStream *) g_file_read(oldrc, NULL, &gerror);
 	if (gerror) {
@@ -534,7 +536,7 @@ merge_config_files(GFile * oldrc, GFile * oldsession, GFile * newrc, GFile * new
 		g_input_stream_close(istream, NULL, &gerror);
 		return FALSE;
 	}
-	size = g_output_stream_splice(ostream, istream, G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE, NULL, &gerror);
+	g_output_stream_splice(ostream, istream, G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE, NULL, &gerror);
 	if (gerror) {
 		g_print("config file migration error %d:%s", gerror->code, gerror->message);
 		g_error_free(gerror);
@@ -548,7 +550,7 @@ merge_config_files(GFile * oldrc, GFile * oldsession, GFile * newrc, GFile * new
 		g_output_stream_close(ostream, NULL, &gerror);
 		return FALSE;
 	}
-	size = g_output_stream_splice(ostream, istream, G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE, NULL, &gerror);
+	g_output_stream_splice(ostream, istream, G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE, NULL, &gerror);
 	if (gerror) {
 		g_print("config file migration error %d:%s", gerror->code, gerror->message);
 		g_error_free(gerror);
@@ -816,7 +818,7 @@ rcfile_parse_main(void)
 						  array_from_arglist(_("Links2 (graphics)"), "links2 -g '%p'&", "0", NULL));
 		main_v->props.external_command =
 			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("chmod a+x"), "chmod a+x %s", "0", NULL));
+						  array_from_arglist(_("chmod a+x"), "chmod a+x %f", "0", NULL));
 	}
 #endif							/* ifdef WIN32 elif PLATFORM_DARWIN */
 	if (main_v->props.templates == NULL) {
@@ -835,6 +837,7 @@ rcfile_parse_main(void)
 		main_v->props.templates =
 			g_list_append(main_v->props.templates,
 						  array_from_arglist(_("PHP"), PKGDATADIR "/templates/PHP", NULL));
+		/* TODO: list the templates in the directory */
 	}
 }
 
@@ -867,21 +870,11 @@ rcfile_check_directory(void)
 }
 
 void
-rcfile_save_configfile_menu_cb(gpointer callback_data, guint action, GtkWidget * widget)
+rcfile_save_accelerators(void)
 {
-	switch (action) {
-	case 0:
-		{
-			gchar *shortcutfilename = g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
-			gtk_accel_map_save(shortcutfilename);
-			g_free(shortcutfilename);
-		}
-		break;
-	default:
-		DEBUG_MSG_C("rcfile_save_configfile_menu_cb, unknown action %d\n", action);
-		g_return_if_reached();
-		break;
-	}
+	gchar *shortcutfilename = g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
+	gtk_accel_map_save(shortcutfilename);
+	g_free(shortcutfilename);
 }
 
 static GHashTable *
@@ -928,6 +921,7 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	/* this function should *NOT* initialize any values to default values
 	   because it is also used on existing sessions that already have a value, and
 	   that would wipe out the value of the existing session */
+	init_prop_integer(&configlist, &session->enable_syntax_scan, "enable_syntax_scan:", 1, FALSE);
 	init_prop_integer(&configlist, &session->wrap_text_default, "wrap_text_default:", 1, FALSE);
 	init_prop_integer(&configlist, &session->autoindent, "autoindent:", 1, FALSE);
 	init_prop_integer(&configlist, &session->editor_tab_width, "editor_tab_width:", 3, FALSE);
@@ -935,8 +929,17 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_integer(&configlist, &session->view_line_numbers, "view_line_numbers:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_cline, "view_cline:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_blocks, "view_blocks:", 1, FALSE);
+	init_prop_integer(&configlist, &session->view_blockstack, "view_blockstack:", 1, FALSE);
 	init_prop_integer(&configlist, &session->autocomplete, "autocomplete:", 1, FALSE);
 	init_prop_integer(&configlist, &session->show_mbhl, "show_mbhl:", 1, FALSE);
+	
+	init_prop_integer(&configlist, &session->snr3_type, "snr_type:", 1, 0);
+	init_prop_integer(&configlist, &session->snr3_replacetype, "snr_replacetype:", 1, 0);
+	init_prop_integer(&configlist, &session->snr3_scope, "snr_scope:", 1, 0);
+	init_prop_integer(&configlist, &session->snr3_casesens, "snr_casesens:", 1, 0);
+	init_prop_integer(&configlist, &session->snr3_escape_chars, "snr_escape_chars:", 1, 0);
+	init_prop_integer(&configlist, &session->snr3_dotmatchall, "snr_dotmatchall:", 1, 1);
+
 	init_prop_integer(&configlist, &session->display_right_margin, "display_right_margin:", 0, FALSE);
 #ifdef HAVE_LIBENCHANT
 	init_prop_integer(&configlist, &session->spell_check_default, "spell_check_default:", 1, FALSE);
@@ -946,8 +949,9 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_string(&configlist, &session->template, "template:", NULL);
 	init_prop_string_with_escape(&configlist, &session->webroot, "webroot:", NULL);
 	init_prop_string_with_escape(&configlist, &session->documentroot, "documentroot:", NULL);
-	init_prop_limitedstringlist(&configlist, &session->searchlist, "searchlist:", 10, FALSE);
-	init_prop_limitedstringlist(&configlist, &session->replacelist, "replacelist:", 10, FALSE);
+	init_prop_limitedstringlist(&configlist, &session->searchlist, "searchlist:", 15, FALSE);
+	init_prop_limitedstringlist(&configlist, &session->replacelist, "replacelist:", 15, FALSE);
+	init_prop_limitedstringlist(&configlist, &session->filegloblist, "filegloblist:", 15, FALSE);
 	init_prop_stringlist(&configlist, &session->classlist, "classlist:", FALSE);
 	init_prop_stringlist(&configlist, &session->colorlist, "colorlist:", FALSE);
 	init_prop_stringlist(&configlist, &session->targetlist, "targetlist:", FALSE);
@@ -1000,6 +1004,25 @@ setup_session_after_parse(Tsessionvars * session)
 
 	if (session->default_mime_type == NULL)
 		session->default_mime_type = g_strdup("text/plain");
+	
+	if (session->filegloblist == NULL) {
+		session->filegloblist = list_from_arglist(TRUE, "*", 
+				"*.c",
+				"*.cgi",
+				"*.cpp",
+				"*.css",
+				"*.h",
+				"*.html",
+				"*.htm",
+				"*.java",
+				"*.js",
+				"*.php",
+				"*.pl",
+				"*.py",
+				"*.shtml",
+				"*.txt",
+				"*.xml" , NULL);
+	}
 /* TODO: set spell check language to a sensible default
 	 
 #ifdef HAVE_LIBENCHANT
