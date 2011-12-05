@@ -3,7 +3,7 @@ SUBDIRS = po
 
 MAINTAINERCLEANFILES = Makefile.in
 
-# EXTRA_DIST = zencoding.def
+EXTRA_DIST = zencoding.def
 
 DEFS += -DLOCALEDIR=\"$(localedir)\" -DPKGDATADIR=\"$(pkgdatadir)\"
 

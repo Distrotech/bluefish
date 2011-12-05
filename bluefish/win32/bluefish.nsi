@@ -2,7 +2,7 @@
 ; Bluefish Windows NSIS Install Script
 ; [bluefish.nsi]
 ; 
-;  Copyright (C) 2009-2010 The Bluefish Developers
+;  Copyright (C) 2009-2012 The Bluefish Developers
 ;   Shawn Novak <Kernel86@gmail.com>
 ;   Daniel Leidert <daniel.leidert@wgdd.de>
 ;----------------------------------------------
@@ -92,7 +92,7 @@ ShowUninstDetails show
 
 ; Installer version information
 ;----------------------------------------------
-VIProductVersion "2.2.0.0"
+VIProductVersion "2.2.1.0"
 VIAddVersionKey "ProductName" "${PRODUCT}"
 VIAddVersionKey "FileVersion" "${VERSION}"
 VIAddVersionKey "ProductVersion" "${VERSION}"
@@ -130,7 +130,7 @@ ${StrRep}
 !define MUI_FINISHPAGE_NOREBOOTSUPPORT
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_FINISHPAGE_LINK		"$(FINISHPAGE_LINK)"
-!define MUI_FINISHPAGE_LINK_LOCATION	"http://bluefish.openoffice.nl/"
+!define MUI_FINISHPAGE_LINK_LOCATION	"${HOMEPAGE}"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 
@@ -142,7 +142,7 @@ ${StrRep}
 ; Pages
 ;----------------------------------------------
 !insertmacro MUI_PAGE_WELCOME
-!insertmacro MUI_PAGE_LICENSE 		"..\COPYING"
+!insertmacro MUI_PAGE_LICENSE 		"..\COPYING"	; Possibly provide localized versions of the GPL
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_STARTMENU			"${PRODUCT}"	$StartMenuFolder
@@ -239,12 +239,12 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	File "build\lib\${PACKAGE}\about.dll"
 
 	SetOutPath "$INSTDIR\share\${PACKAGE}"
-	File /r "build\share\${PACKAGE}\*"
+	File /r /x "plugins"  "build\share\${PACKAGE}\*"
 	SetOutPath "$INSTDIR\share\enchant"
 	File /r "build\share\enchant\*"
 
 	SetOutPath "$INSTDIR\share\locale"
-	File /r /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
+	File /r /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
 
 	SetOutPath "$INSTDIR"
 	WriteUninstaller "$INSTDIR\${UNINSTALL_EXE}"
@@ -354,31 +354,41 @@ SectionGroup "$(SECT_PLUGINS)" SecPlugins
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\charmap.dll"
 		SetOutPath "$INSTDIR\share\locale"
-		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
+		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
 	SectionEnd
 	Section "$(PLUG_ENTITIES)" SecPlEntities
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\entities.dll"
 		SetOutPath "$INSTDIR\share\locale"
-		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
+		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
 	SectionEnd
 	Section "$(PLUG_HTMLBAR)" SecPlHTMLbar
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\htmlbar.dll"
+		SetOutPath "$INSTDIR\share\${PACKAGE}\plugins\htmlbar"
+		File /r "build\share\${PACKAGE}\plugins\htmlbar\*"
 		SetOutPath "$INSTDIR\share\locale"
-		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
+		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
 	SectionEnd
 	Section "$(PLUG_INFBROWSER)" SecPlInfBrowser
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\infbrowser.dll"
 		SetOutPath "$INSTDIR\share\locale"
-		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_snippets.mo" "build\share\locale\*"
+		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
 	SectionEnd
 	Section "$(PLUG_SNIPPETS)" SecPlSnippets
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\snippets.dll"
 		SetOutPath "$INSTDIR\share\locale"
-		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" "build\share\locale\*"
+		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_zencoding.mo" "build\share\locale\*"
+	SectionEnd
+	Section /o "-$(PLUG_ZENCODING)" SecPlZencoding
+		SetOutPath "$INSTDIR\lib\${PACKAGE}"
+		File "build\lib\${PACKAGE}\zencoding.dll"
+		SetOutPath "$INSTDIR\share\${PACKAGE}\plugins\zencoding"
+		File /r "build\share\${PACKAGE}\plugins\zencoding\*"
+		SetOutPath "$INSTDIR\share\locale"
+		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
 	SectionEnd
 	SetOverwrite off
 SectionGroupEnd
