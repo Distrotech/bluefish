@@ -158,9 +158,9 @@ static void
 side_panel_destroy_cleanup(Tbfwin * bfwin)
 {
 	g_print("side_panel_destroy_cleanup called for bfwin %p\n", bfwin);
-	gtk_widget_destroy(bfwin->leftpanel_notebook);
 	bmark_cleanup(bfwin);
 	fb2_cleanup(bfwin);
+	gtk_widget_destroy(bfwin->leftpanel_notebook);
 	if (main_v->sidepanel_destroygui) {
 		GSList *tmplist = main_v->sidepanel_destroygui;
 		while (tmplist) {

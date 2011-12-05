@@ -482,6 +482,7 @@ typedef struct {
 	GtkActionGroup *undoGroup;
 	GtkActionGroup *bookmarkGroup;
 	GtkActionGroup *filebrowserGroup;
+	guint filebrowser_merge_id;
 
 	GtkWidget *menubar;
 	gint last_notebook_page;	/* a check to see if the notebook changed to a new page */

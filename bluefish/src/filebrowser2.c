@@ -2960,7 +2960,17 @@ fb2_cleanup(Tbfwin * bfwin)
 {
 	if (bfwin->fb2) {
 		Tfilebrowser2 *fb2 = FILEBROWSER2(bfwin->fb2);
+		GList *actions, *list;
+
+		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->filebrowser_merge_id);
+		actions = gtk_action_group_list_actions(bfwin->filebrowserGroup);
+		for (list = actions; list; list = list->next) {
+			gtk_action_group_remove_action(bfwin->filebrowserGroup, GTK_ACTION(list->data));
+		}
+		g_list_free(actions);
+		bfwin->filebrowserGroup = NULL;
 		
+		g_signal_handler_disconnect(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 		dirmenu_idle_cleanup_lcb(fb2->dirmenu_m);
 		
 		if (fb2->basedir)
