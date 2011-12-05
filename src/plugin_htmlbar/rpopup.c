@@ -49,8 +49,8 @@ typedef struct {
 /* a global var for this module */
 /********************************/
 
-Tevent_substring rec_tag;
-Tevent_substring rec_color;
+Tevent_substring rec_tag = {NULL, -1, -1, FALSE};
+Tevent_substring rec_color = {NULL, -1, -1, FALSE};
 
 /*****************/
 /* the functions */
@@ -452,8 +452,10 @@ void rpopup_edit_color_cb(GtkMenuItem *menuitem,Tdocument *doc) {
 void edit_tag_under_cursor_cb(Tbfwin *bfwin) {
 	GtkTextIter iter;
 	Tdocument *doc = bfwin->current_document;
-	GtkTextMark* imark = gtk_text_buffer_get_insert(doc->buffer);
-	gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,imark);
+	
+	if (!doc) return;
+	
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,gtk_text_buffer_get_insert(doc->buffer));
 	if (locate_current_tag(doc, &iter)) {
 		rpopup_edit_tag_cb(NULL, doc);
 	}
