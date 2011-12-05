@@ -2012,7 +2012,7 @@ popup_menu_action_group_init(Tbfwin * bfwin)
 	gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->filebrowserGroup, 1);
 	g_object_unref(bfwin->filebrowserGroup);
 
-	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, filebrowser_menu_ui, -1, &error);
+	bfwin->filebrowser_merge_id = gtk_ui_manager_add_ui_from_string(bfwin->uimanager, filebrowser_menu_ui, -1, &error);
 	if (error != NULL) {
 		g_warning("building file browser popup menu failed: %s", error->message);
 		g_error_free(error);
