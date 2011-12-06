@@ -203,7 +203,7 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	
 	cm->entities = boxed_checkbut_with_value(_("Insert as HTML entity"), 0, vbox);
 #if GTK_CHECK_VERSION(3,0,0)
-	gtk_label_set_ellipsize(GTK_LABEL(gtk_bin_get_child(cm->entities)), PANGO_ELLIPSIZE_MIDDLE);
+	gtk_label_set_ellipsize(GTK_LABEL(gtk_bin_get_child(GTK_BIN(cm->entities))), PANGO_ELLIPSIZE_MIDDLE);
 #endif
 	/*gtk_box_pack_start(GTK_BOX(vbox),cm->entities,FALSE,TRUE,4);*/
 	

@@ -171,7 +171,9 @@ bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 
 static void bftextview2_set_margin_size(BluefishTextView * btv);
 static gboolean bftextview2_scanner_idle(gpointer data);
+#ifdef ENABLE_DELAYED_SCANNING
 static gboolean bftextview2_scanner_timeout(gpointer data);
+#endif
 
 static gboolean
 bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
