@@ -2723,7 +2723,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW(fb2->dir_v),file_search_func,fb2,NULL);
 	if (fb2->filebrowser_viewmode != viewmode_flat) {
 		dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
-		g_print("fb2_init, NEW FILEBROWSER2, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
+		g_print("fb2_set_viewmode_widgets, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
 				  dirselection, fb2, fb2->dir_tfilter);
 		fb2->dirselection_changed_id = g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(dir_v_selection_changed_lcb), fb2);
 	}
@@ -2872,7 +2872,7 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 	}
 }
 
-void
+/*void
 fb2destroy_signal_lcb(GtkWidget *widget, Tfilebrowser2 *fb2)
 {
 	g_print("fb2destroy_signal_lcb widget=%p, fb2=%p\n",widget,fb2);
@@ -2883,7 +2883,7 @@ fb2destroy_signal_lcb(GtkWidget *widget, Tfilebrowser2 *fb2)
 			g_print("disconnected!\n");
 		}
 	}
-}
+}*/
 
 GtkWidget *
 fb2_init(Tbfwin * bfwin)
@@ -2905,7 +2905,7 @@ fb2_init(Tbfwin * bfwin)
 			  fb2->filebrowser_viewmode);
 
 	fb2->vbox = gtk_vbox_new(FALSE, 0);
-	g_signal_connect(G_OBJECT(fb2->vbox), "destroy", G_CALLBACK(fb2destroy_signal_lcb), fb2);
+	/*g_signal_connect(G_OBJECT(fb2->vbox), "destroy", G_CALLBACK(fb2destroy_signal_lcb), fb2);*/
 	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING));
 	fb2->dirmenu_v = gtk_combo_box_new_with_model(fb2->dirmenu_m);
 	/*gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(fb2->dirmenu_v),3); */
@@ -2961,7 +2961,7 @@ fb2_cleanup(Tbfwin * bfwin)
 	if (bfwin->fb2) {
 		Tfilebrowser2 *fb2 = FILEBROWSER2(bfwin->fb2);
 		GList *actions, *list;
-
+		g_print("fb2_cleanup, remove ui_manager actions\n");
 		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->filebrowser_merge_id);
 		actions = gtk_action_group_list_actions(bfwin->filebrowserGroup);
 		for (list = actions; list; list = list->next) {
@@ -2969,10 +2969,14 @@ fb2_cleanup(Tbfwin * bfwin)
 		}
 		g_list_free(actions);
 		bfwin->filebrowserGroup = NULL;
-		
+		g_print("fb2_cleanup, disconnect dirmenu_changed_signal\n");
 		g_signal_handler_disconnect(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 		dirmenu_idle_cleanup_lcb(fb2->dirmenu_m);
-		
+		g_print("fb2_cleanup, destroy view(s)\n");
+		/*gtk_widget_destroy(fb2->dir_v);
+		if (fb2->file_v)
+			gtk_widget_destroy(fb2->file_v);*/
+		gtk_widget_destroy(fb2->vbox);
 		if (fb2->basedir)
 			g_object_unref(fb2->basedir);
 		g_print("fb2_cleanup, free %p\n",fb2);
