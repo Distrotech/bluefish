@@ -154,11 +154,13 @@ about_show_homepage(GtkAction * action, gpointer user_data)
 	bluefish_url_show("http://bluefish.openoffice.nl");
 }
 
+#if !GTK_CHECK_VERSION(3,0,0)
 static void
 about_activate_url(GtkAboutDialog * about, const gchar * url, gpointer data)
 {
 	bluefish_url_show(url);
 }
+#endif
 
 static void
 about_dialog_create(GtkAction * action, gpointer user_data)
