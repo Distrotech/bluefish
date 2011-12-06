@@ -1878,8 +1878,8 @@ doc_get_buffer_in_encoding(Tdocument * doc)
 										 _("File encoding conversion failure"), tmpstr);
 			g_free(tmpstr);
 			if (retval == 0) {
-				DEBUG_MSG("doc_textbox_to_file, character set conversion failed, user aborted!\n");
-				return -4;
+				DEBUG_MSG("doc_get_buffer_in_encoding, character set conversion failed, user aborted!\n");
+				return NULL;
 			} else {
 				/* continue in UTF-8 */
 				update_encoding_meta_in_file(doc, "UTF-8");
@@ -2749,7 +2749,7 @@ doc_activate(Tdocument * doc)
 		DEBUG_MSG("doc_activate, STILL LOADING! returning\n");
 		return;
 	} else {
-		if (doc->highlightstate && BLUEFISH_TEXT_VIEW(doc->view)) {
+		if (doc->highlightstate && !bluefish_text_view_get_enable_scanner(BLUEFISH_TEXT_VIEW(doc->view))) {
 			DBG_MSG("doc_activate, enable scanner for %p\n", doc);
 			bluefish_text_view_set_enable_scanner(BLUEFISH_TEXT_VIEW(doc->view), TRUE);
 			bftextview2_schedule_scanning(BLUEFISH_TEXT_VIEW(doc->view));
