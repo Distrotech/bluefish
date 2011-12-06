@@ -1501,10 +1501,10 @@ bfwin_set_title(Tbfwin * bfwin, Tdocument * doc, gint num_modified_change)
 			prfilepart = g_strconcat(tablabel, NULL);
 		}
 	}
-	if (modified_docs == 0) {
-		title = g_strconcat(prfilepart, " - Bluefish " VERSION, NULL);
-	} else {
+	if (doc->modified) {
 		title = g_strconcat("* ", prfilepart, " - Bluefish " VERSION, NULL);
+	} else {
+		title = g_strconcat(prfilepart, " - Bluefish " VERSION, NULL);
 	}
 	if (main_v->props.max_window_title > 0 && strlen(title) > main_v->props.max_window_title)
 		title[main_v->props.max_window_title] = '\0';
