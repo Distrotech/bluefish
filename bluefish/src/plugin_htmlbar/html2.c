@@ -1035,27 +1035,12 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 	gtk_container_add(GTK_CONTAINER(csd->win), vbox);
 	csd->csel = gtk_color_selection_new();
 	gtk_color_selection_set_has_opacity_control(GTK_COLOR_SELECTION(csd->csel), FALSE);
-	
 	if (this_color) {
 		if (gdk_color_parse(this_color, &gcolor)) {
 			gtk_color_selection_set_current_color(GTK_COLOR_SELECTION(csd->csel), &gcolor);
 		} else {
 			this_color=NULL;
 		}
-	}
-	if (bfwin && bfwin->session->colorlist) {
-		GtkSettings* gtksettings;
-		gchar *strings = stringlist_to_string(bfwin->session->colorlist, ":");
-		strings[strlen(strings)-1] = '\0';
-		gtksettings = gtk_widget_get_settings(GTK_WIDGET(csd->csel));
-		g_object_set(G_OBJECT(gtksettings), "gtk-color-palette", strings, NULL); 
-/*		DEBUG_MSG("colsel_dialog, setting palette from %s\n", strings);
-		if (gtk_color_selection_palette_from_string(strings, &gcolorarr, &num)) {
-			DEBUG_MSG("num=%d, gcolorarr=%p\n",num,gcolorarr);
-		} else {
-			DEBUG_MSG("hmm, failed to parse our string :(\n");
-		} */
-		g_free(strings);
 	}
 	gtk_color_selection_set_has_palette(GTK_COLOR_SELECTION(csd->csel), TRUE);
 	gtk_box_pack_start(GTK_BOX(vbox), csd->csel, TRUE, TRUE, 0);
@@ -1074,6 +1059,25 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 	but = bf_stock_ok_button(G_CALLBACK(colsel_ok_clicked_lcb), csd);
 	gtk_window_set_default(GTK_WINDOW(csd->win), but);
 	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
+
+	if (bfwin && bfwin->session->colorlist) {
+		GtkSettings* gtksettings;
+		/* Note that this function can only be called when the GtkWidget is attached to a toplevel, since the settings object is specific to a particular GdkScreen.  */
+		gtksettings = gtk_widget_get_settings(GTK_WIDGET(csd->csel));
+		if (gtksettings) {
+			gchar *strings = stringlist_to_string(bfwin->session->colorlist, ":");
+			strings[strlen(strings)-1] = '\0';
+			g_object_set(G_OBJECT(gtksettings), "gtk-color-palette", strings, NULL);
+			g_free(strings);
+		} 
+/*		DEBUG_MSG("colsel_dialog, setting palette from %s\n", strings);
+		if (gtk_color_selection_palette_from_string(strings, &gcolorarr, &num)) {
+			DEBUG_MSG("num=%d, gcolorarr=%p\n",num,gcolorarr);
+		} else {
+			DEBUG_MSG("hmm, failed to parse our string :(\n");
+		} */
+	}
+
 	gtk_widget_show_all(csd->win);
 
 	DEBUG_MSG("colsel_dialog, finished\n");
