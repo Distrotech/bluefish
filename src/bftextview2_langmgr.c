@@ -125,8 +125,8 @@ skip_to_end_tag(xmlTextReaderPtr reader, int depth)
 }
 
 static GtkTextTag *
-langmrg_create_style(const gchar * name, const gchar * fgcolor, const gchar * bgcolor, gchar * bold,
-					 gchar * italic)
+langmrg_create_style(const gchar * name, const gchar * fgcolor, const gchar * bgcolor, const gchar * bold,
+					 const gchar * italic)
 {
 	GtkTextTag *tag;
 	gboolean newtag = FALSE;
@@ -175,43 +175,6 @@ langmrg_create_style(const gchar * name, const gchar * fgcolor, const gchar * bg
 	return tag;
 }
 
-static void
-langmgr_load_default_styles(void)
-{
-	gint i = 0;
-	/* init the textstyles, most important on the bottom
-	   order of the items is {name, foreground, background, bold, italic} */
-	const gchar *arr[][7] = {
-		{"preprocessor", "#aaaa00", "", "0", "0", "0", NULL},
-		{"comment", "#555555", "", "0", "1", "1", NULL},
-		{"string", "#009900", "", "0", "0", "1", NULL},
-		{"type", "", "", "1", "0", "0", NULL},
-		{"special-type", "#990000", "", "1", "", "0", NULL},
-		{"function", "#000099", "", "0", "0", "0", NULL},
-		{"special-function", "#990000", "", "", "", "0", NULL},
-		{"keyword", "#000000", "", "1", "0", "0", NULL},
-		{"special-keyword", "#005050", "", "1", "", "0", NULL},
-		{"value", "#0000FF", "", "0", "0", "1", NULL},
-		{"special-value", "#0000FF", "", "1", "", "0", NULL},
-		{"variable", "#990000", "", "1", "0", "0", NULL},
-		{"operator", "#C86400", "", "0", "0", "0", NULL},
-		{"tag", "#990099", "", "1", "", "0", NULL},
-		{"special-tag", "#990000", "", "1", "", "0", NULL},
-		{"special-tag2", "#005500", "", "1", "", "0", NULL},
-		{"special-tag3", "#FF9900", "", "1", "", "0", NULL},
-		{"attribute", "#000099", "", "", "", "0", NULL},
-		{"special-attribute", "#FF0000", "", "", "", "0", NULL},
-		{"brackets", "#000000", "", "1", "0", "0", NULL},
-		{"warning", "#FF0000", "", "1", "0", "0", NULL},
-		{"special-warning", "", "#FF0000", "", "", "", NULL},
-		{NULL, NULL, NULL, NULL, NULL, NULL, NULL}
-	};
-	while (arr[i][0]) {
-		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv((gchar **) arr[i]));
-		i++;
-	}
-}
-
 static GtkTextTag **
 texttag_array_from_list(GList * thelist)
 {
@@ -233,14 +196,39 @@ langmgr_reload_user_styles(void)
 #ifdef HAVE_LIBENCHANT
 	GList *needlist = NULL, *noscanlist = NULL;
 #endif
-	if (main_v->props.textstyles == NULL) {
-		langmgr_load_default_styles();
-	}
-
+	gint i=0;
+	GtkTextTag *tag;
+	const gchar *defaultarr[][7] = {
+		{"preprocessor", "#aaaa00", "", "0", "0", "0", NULL},
+		{"comment", "#555555", "", "0", "1", "1", NULL},
+		{"string", "#009900", "", "0", "0", "1", NULL},
+		{"special-string", "#005400", "", "0", "0", "1", NULL},
+		{"special-string2", "#00D000", "", "0", "0", "1", NULL},
+		{"special-string3", "#999900", "", "0", "0", "1", NULL},
+		{"type", "", "", "1", "0", "0", NULL},
+		{"special-type", "#990000", "", "1", "", "0", NULL},
+		{"function", "#000099", "", "0", "0", "0", NULL},
+		{"special-function", "#990000", "", "", "", "0", NULL},
+		{"keyword", "#000000", "", "1", "0", "0", NULL},
+		{"special-keyword", "#005050", "", "1", "", "0", NULL},
+		{"value", "#0000FF", "", "0", "0", "1", NULL},
+		{"special-value", "#0000FF", "", "1", "", "0", NULL},
+		{"variable", "#990000", "", "1", "0", "0", NULL},
+		{"operator", "#C86400", "", "0", "0", "0", NULL},
+		{"tag", "#990099", "", "1", "", "0", NULL},
+		{"special-tag", "#990000", "", "1", "", "0", NULL},
+		{"special-tag2", "#005500", "", "1", "", "0", NULL},
+		{"special-tag3", "#FF9900", "", "1", "", "0", NULL},
+		{"attribute", "#000099", "", "", "", "0", NULL},
+		{"special-attribute", "#FF0000", "", "", "", "0", NULL},
+		{"brackets", "#000000", "", "1", "0", "0", NULL},
+		{"warning", "#FF0000", "", "1", "0", "0", NULL},
+		{"special-warning", "", "#FF0000", "", "", "", NULL},
+		{NULL, NULL, NULL, NULL, NULL, NULL, NULL}
+	};
 	/* because the order of the styles is important (last added GtkTextTag is most important)
 	   we begin with the last style in the list */
 	for (tmplist = g_list_last(main_v->props.textstyles); tmplist; tmplist = tmplist->prev) {
-		GtkTextTag *tag;
 		gchar **arr = (gchar **) tmplist->data;
 		if (g_strv_length(arr) == 6) {
 			tag = langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
@@ -253,6 +241,22 @@ langmgr_reload_user_styles(void)
 #endif
 		}
 	}
+	/* now see if all the default styles are defined, if not -> add them */
+	while (defaultarr[i][0]) {
+		if (gtk_text_tag_table_lookup(langmgr.tagtable, defaultarr[i][0])==NULL) {
+			tag = langmrg_create_style(defaultarr[i][0], defaultarr[i][1], defaultarr[i][2], defaultarr[i][3], defaultarr[i][4]);
+			highlightlist = g_list_prepend(highlightlist, tag);
+#ifdef HAVE_LIBENCHANT
+			if (defaultarr[i][5][0] == '1')
+				needlist = g_list_prepend(needlist, tag);
+			else
+				noscanlist = g_list_prepend(noscanlist, tag);
+#endif
+			main_v->props.textstyles = g_list_append(main_v->props.textstyles, g_strdupv((gchar **) defaultarr[i]));
+		}
+		i++;
+	}
+	
 	langmgr.highlight_tags = texttag_array_from_list(highlightlist);
 #ifdef HAVE_LIBENCHANT
 	langmgr.need_spellcheck_tags = texttag_array_from_list(needlist);
@@ -269,19 +273,6 @@ langmgr_insert_user_option(gchar * lang, gchar * option, gchar * val)
 	}
 }
 
-void
-langmgr_reload_user_options(void)
-{
-	GList *tmplist;
-	g_hash_table_remove_all(langmgr.bflang_options);
-	for (tmplist = g_list_first(main_v->props.bflang_options); tmplist; tmplist = tmplist->next) {
-		gchar **arr = (gchar **) tmplist->data;
-		langmgr_insert_user_option(arr[0], arr[1], arr[2]);
-	}
-
-	/* we don't apply anything in this function (yet) */
-}
-
 static const gchar *
 lookup_user_option(const gchar * lang, const gchar * option)
 {
@@ -290,6 +281,27 @@ lookup_user_option(const gchar * lang, const gchar * option)
 		return g_hash_table_lookup(langmgr.bflang_options, arr);
 	}
 	return NULL;
+}
+
+void
+langmgr_reload_user_options(void)
+{
+	GList *tmplist;
+	const gchar *tmp;
+	g_hash_table_remove_all(langmgr.bflang_options);
+	for (tmplist = g_list_first(main_v->props.bflang_options); tmplist; tmplist = tmplist->next) {
+		gchar **arr = (gchar **) tmplist->data;
+		langmgr_insert_user_option(arr[0], arr[1], arr[2]);
+	}
+
+	/* loop over the languages and set some of the options */
+	
+	tmplist = g_list_first(langmgr.bflang_list);
+	while (tmplist) {
+		tmp = lookup_user_option(BFLANG(tmplist->data)->name, "show_in_menu");
+		BFLANG(tmplist->data)->in_menu = !(tmp && tmp[0] == '0');
+		tmplist = tmplist->next;
+	}
 }
 
 void
@@ -355,7 +367,7 @@ static gboolean
 build_lang_finished_lcb(gpointer data)
 {
 	Tbflangparsing *bfparser = data;
-
+	
 	if (bfparser->st) {
 		bfparser->bflang->st = bfparser->st;
 		/*bfparser->bflang->line = bfparser->line;
@@ -428,6 +440,7 @@ set_boolean_if_attribute_name(xmlTextReaderPtr reader, xmlChar * aname, xmlChar 
 static void
 process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 {
+	const gchar *tmp;
 	while (xmlTextReaderRead(reader) == 1) {
 		xmlChar *name = xmlTextReaderName(reader);
 		if (xmlStrEqual(name, (xmlChar *) "mime")) {
@@ -507,6 +520,9 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 		}
 		xmlFree(name);
 	}
+	
+	tmp = lookup_user_option(bflang->name, "show_in_menu");
+	bflang->in_menu = !(tmp && tmp[0] == '0');
 }
 
 /* declaration needed for recursive calling */
@@ -524,10 +540,10 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 	gchar *pattern = NULL, *idref = NULL, *highlight = NULL, *blockstartelement = NULL, *blockhighlight =
 		NULL, *class = NULL, *notclass = NULL, *autocomplete_append = NULL, *autocomplete_string = NULL, *id =
 		NULL;
-	gboolean starts_block = FALSE, ends_block = FALSE, is_empty, tagclose_from_blockstack = FALSE;
+	gboolean starts_block = FALSE, ends_block = FALSE, is_empty, tagclose_from_blockstack = FALSE, stretch_blockstart=FALSE;
 	gint case_insens = UNDEFINED, is_regex = UNDEFINED, autocomplete = UNDEFINED;
 	gint ends_context = 0, autocomplete_backup_cursor = 0;
-	gint identifier_mode;
+	gint identifier_mode=0, identifier_jump=0, identifier_autocomp=0;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 
 
@@ -548,6 +564,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 		set_integer_if_attribute_name(reader, aname, (xmlChar *) "ends_context", &ends_context);
 		set_integer_if_attribute_name(reader, aname, (xmlChar *) "tagclose_from_blockstack",
 									  &tagclose_from_blockstack);
+		set_integer_if_attribute_name(reader, aname, (xmlChar *) "stretch_blockstart",&stretch_blockstart);
 		if (bfparser->load_completion) {
 			set_boolean_if_attribute_name(reader, aname, (xmlChar *) "autocomplete", &autocomplete);
 			set_string_if_attribute_name(reader, aname, (xmlChar *) "autocomplete_string",
@@ -558,7 +575,16 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 										  &autocomplete_backup_cursor);
 		}
 		set_integer_if_attribute_name(reader, aname, (xmlChar *) "identifier_mode", &identifier_mode);
+		set_integer_if_attribute_name(reader, aname, (xmlChar *) "identifier_jump", &identifier_jump);
+		set_integer_if_attribute_name(reader, aname, (xmlChar *) "identifier_autocomp", &identifier_autocomp);
 		xmlFree(aname);
+	}
+	if (stretch_blockstart && ends_block) {
+		g_print("Error in language file, id %s / pattern %s has mutually exclusive options stretch_blockstart and ends_block both enabled\n", id?id:"-", pattern?pattern:"null");
+		stretch_blockstart = FALSE;
+	}
+	if ((stretch_blockstart || ends_block) && !blockstartelement) {
+		g_print("Error in language file, id %s / pattern %s has stretch_blockstart or ends_block enabled without blockstartelement\n", id?id:"-", pattern?pattern:"null");
 	}
 	tmp = lookup_user_option(bfparser->bflang->name, class);
 	tmp2 = lookup_user_option(bfparser->bflang->name, notclass);
@@ -588,8 +614,8 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 				nextcontext = -1 * ends_context;	/*GPOINTER_TO_INT(g_queue_peek_nth(contextstack,ends_context)); */
 				if (ends_context >= g_queue_get_length(contextstack)) {
 					g_print
-						("Possible error in language file, id %s / pattern %s ends_context=%d, but has only %d parent contexts\n",
-						 id, pattern, ends_context, g_queue_get_length(contextstack));
+						("Possible error in language file, id %s / pattern %s has ends_context=%d, but has only %d parent contexts\n",
+						 id?id:"-", pattern?pattern:"null", ends_context, g_queue_get_length(contextstack));
 				}
 			}
 			if (blockstartelement) {
@@ -613,8 +639,10 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 																						UNDEFINED ?
 																						ih_case_insens :
 																						FALSE)
-											  , context, nextcontext, starts_block, ends_block, blockstartelementum, tagclose_from_blockstack	/* the very special case for the generix xml tag close pattern */
-											  , identifier_mode);
+											  , context, nextcontext, starts_block, ends_block, blockstartelementum
+											  , tagclose_from_blockstack	/* the very special case for the generix xml tag close pattern */
+											  , stretch_blockstart
+											  , identifier_mode, identifier_jump, identifier_autocomp);
 			if (autocomplete == TRUE || (autocomplete == UNDEFINED && ih_autocomplete == TRUE)) {
 				match_add_autocomp_item(bfparser->st, matchnum, autocomplete_string,
 										autocomplete_append ? autocomplete_append : ih_autocomplete_append,
@@ -783,7 +811,8 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				matchnum =
 					add_keyword_to_scanning_table(bfparser->st, tmp, bfparser->bflang->name,
 												  highlight ? highlight : ih_highlight, NULL, FALSE,
-												  case_insens, context, contexttag, TRUE, FALSE, 0, TRUE, 0);
+												  case_insens, context, contexttag, TRUE, FALSE, 0, TRUE, FALSE,
+												  0, FALSE, FALSE);
 				match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag) + 3);
 				/*g_print("context %d: id %s gets matchnum %d\n",context,id,matchnum); */
 				g_free(tmp2);
@@ -791,7 +820,8 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				matchnum =
 					add_keyword_to_scanning_table(bfparser->st, tmp, bfparser->bflang->name,
 												  highlight ? highlight : ih_highlight, NULL, FALSE,
-												  case_insens, context, contexttag, TRUE, FALSE, 0, TRUE, 0);
+												  case_insens, context, contexttag, TRUE, FALSE, 0, TRUE, FALSE,
+												  0, FALSE, FALSE);
 				match_add_autocomp_item(bfparser->st, matchnum, NULL,
 										autocomplete_append ? autocomplete_append : ih_autocomplete_append,
 										autocomplete_backup_cursor ? autocomplete_backup_cursor :
@@ -809,8 +839,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			if (!contexttag) {
 				static const gchar *internal_tag_string_d = "__internal_tag_string_d__";
 				static const gchar *internal_tag_string_s = "__internal_tag_string_s__";
-				contexttag =
-					new_context(bfparser->st, 8, bfparser->bflang->name, "/>\"=' \t\n\r<", NULL, FALSE);
+				contexttag = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r<", NULL, FALSE);
 				match_set_nextcontext(bfparser->st, matchnum, contexttag);
 				if (attrib_arr) {
 					gchar **tmp2;
@@ -821,7 +850,8 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 							add_keyword_to_scanning_table(bfparser->st, *tmp2, bfparser->bflang->name,
 														  attribhighlight ? attribhighlight :
 														  ih_attribhighlight, NULL, FALSE, TRUE, contexttag,
-														  0, FALSE, FALSE, 0, 0, 0);
+														  0, FALSE, FALSE, 0, 0, FALSE,
+														  0, FALSE, FALSE);
 						match_add_autocomp_item(bfparser->st, attrmatch, NULL,
 												attrib_autocomplete_append ? attrib_autocomplete_append :
 												ih_attrib_autocomplete_append,
@@ -848,7 +878,8 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					matchstring =
 						add_keyword_to_scanning_table(bfparser->st, "\"[^\"]*\"", bfparser->bflang->name,
 													  stringhighlight, NULL, TRUE, FALSE, contexttag, 0,
-													  FALSE, FALSE, 0, 0, 0);
+													  FALSE, FALSE, 0, 0, FALSE,
+													  0, FALSE, FALSE);
 					g_hash_table_insert(bfparser->patterns, g_strdup(internal_tag_string_d),
 										GINT_TO_POINTER((gint) matchstring));
 				}
@@ -861,7 +892,8 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					matchstring =
 						add_keyword_to_scanning_table(bfparser->st, "'[^']*'", bfparser->bflang->name,
 													  stringhighlight, NULL, TRUE, FALSE, contexttag, 0,
-													  FALSE, FALSE, 0, 0, 0);
+													  FALSE, FALSE, 0, 0, FALSE,
+													  0, FALSE, FALSE);
 					g_hash_table_insert(bfparser->patterns, g_strdup(internal_tag_string_s),
 										GINT_TO_POINTER((gint) matchstring));
 				}
@@ -871,7 +903,8 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					tmpnum =
 						add_keyword_to_scanning_table(bfparser->st, "/>", bfparser->bflang->name,
 													  highlight ? highlight : ih_highlight, NULL, FALSE,
-													  FALSE, contexttag, -1, FALSE, TRUE, -1, 0, 0);
+													  FALSE, contexttag, -1, FALSE, TRUE, -1, 0, FALSE, 
+													  0, FALSE, FALSE);
 					if (bfparser->autoclose_tags)
 						match_add_autocomp_item(bfparser->st, tmpnum, NULL, NULL, 0);
 					match_autocomplete_reference(bfparser->st, tmpnum, contexttag);
@@ -880,7 +913,9 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				starttagmatch =
 					add_keyword_to_scanning_table(bfparser->st, ">", bfparser->bflang->name,
 												  highlight ? highlight : ih_highlight, NULL, FALSE, FALSE,
-												  contexttag, -1, FALSE, FALSE, 0, 0, 0);
+												  contexttag, -1, FALSE, FALSE, 
+												  matchnum /* blockstartpattern for stretch_block */, FALSE, TRUE,
+												  0, FALSE, FALSE);
 				if (bfparser->autoclose_tags && !no_close)
 					match_add_autocomp_item(bfparser->st, starttagmatch, NULL, tmp, tmp ? strlen(tmp) : 0);
 				if (tmp)
@@ -941,7 +976,8 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 												  highlight ? highlight : ih_highlight, NULL, FALSE,
 												  case_insens, innercontext,
 												  (innercontext == context) ? 0 : -2, FALSE, TRUE, matchnum,
-												  0, 0);
+												  0, FALSE,
+												  0, FALSE, FALSE);
 /*				g_print("context %d: matchnum %d is ended by endtagmatch %d while working on id %s\n",innercontext,matchnum, endtagmatch, id);*/
 				match_add_autocomp_item(bfparser->st, endtagmatch, NULL, NULL, 0);
 				match_autocomplete_reference(bfparser->st, endtagmatch, innercontext);
@@ -1091,12 +1127,15 @@ set_commentid(Tbflangparsing * bfparser, gboolean topevel_context, guint8 * tose
 {
 	*toset = COMMENT_INDEX_INHERIT;
 	if (string) {
+		DEBUG_MSG("set_commentid, request for commentid %s\n",string);
 		if (g_strcmp0(string, "none") == 0) {
 			*toset = COMMENT_INDEX_NONE;
 		} else {
 			gint tmp = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->commentid_table, string));
+			/* decrement 1 because to store index 0 in the hashtable, all numbers in the hastable are incremented with 1 */
+			DEBUG_MSG("set_commentid, id %s has index %d\n",string,(gint)(tmp-1));
 			if (tmp != 0)
-				*toset = (guint8) (tmp - 1);
+				*toset = (guint8) (tmp-1);
 		}
 	}
 	if (topevel_context && *toset == COMMENT_INDEX_INHERIT) {
@@ -1111,10 +1150,10 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 {
 	gchar *symbols = NULL, *highlight = NULL, *id = NULL, *idref = NULL, *commentid_block =
 		NULL, *commentid_line = NULL;
-	gboolean autocomplete_case_insens = FALSE, is_empty;
+	gboolean autocomplete_case_insens = FALSE;
 	gint context;
 
-	is_empty = xmlTextReaderIsEmptyElement(reader);
+	xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
 		set_string_if_attribute_name(reader, aname, (xmlChar *) "id", &id);
@@ -1140,8 +1179,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	}
 	/* create context */
 	DBG_PARSING("create context symbols %s and highlight %s\n", symbols, highlight);
-	context =
-		new_context(bfparser->st, 32, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens);
+	context = new_context(bfparser->st, 32, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens);
 	g_queue_push_head(contextstack, GINT_TO_POINTER(context));
 	if (id) {
 		DBG_PARSING("insert context %s into hash table as %d\n", id, context);
@@ -1196,6 +1234,7 @@ build_lang_thread(gpointer data)
 	Tbflang *bflang = data;
 	Tbflangparsing *bfparser;
 	const gchar *tmp;
+	GList *tmplist;
 
 	bfparser = g_slice_new0(Tbflangparsing);
 	bfparser->patterns = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
@@ -1214,6 +1253,14 @@ build_lang_thread(gpointer data)
 	bfparser->load_completion = !(tmp && tmp[0] == '0');
 	tmp = lookup_user_option(bflang->name, "autoclose_tags");
 	bfparser->autoclose_tags = !(tmp && tmp[0] == '0');
+
+	/* insert the special option is_LANGNAME to the hashtable, so you can check for the language file being parsed using class or notclass */
+	for (tmplist=g_list_first(langmgr.bflang_list);tmplist;tmplist=g_list_next(tmplist)) {
+		Tbflang* tmpbflang = tmplist->data;
+		gchar *tmp2 = g_strconcat("is_", tmpbflang->name, NULL);
+		langmgr_insert_user_option(bflang->name, tmp2, (tmpbflang == bflang) ? "1" : "0");
+		g_free(tmp2);
+	}
 
 	DBG_PARSING("build_lang_thread %p, started for %s\n", g_thread_self(), bfparser->bflang->filename);
 	reader = xmlNewTextReaderFilename(bfparser->bflang->filename);
@@ -1236,7 +1283,7 @@ build_lang_thread(gpointer data)
 			if (xmlTextReaderIsEmptyElement(reader)) {
 				DBG_PARSING("empty <definition />\n");
 				/* empty <definition />, probably text/plain */
-
+				
 				/* TODO: MEMLEAK: BUG: cleanup the DFA table for each context !!!!!!!!!!!!! */
 				g_array_free(bfparser->st->matches, TRUE);
 				g_array_free(bfparser->st->contexts, TRUE);
@@ -1279,6 +1326,8 @@ build_lang_thread(gpointer data)
 					if (com.so && (com.type == comment_type_line || com.eo)) {
 						g_array_append_val(bfparser->st->comments, com);
 						if (id)
+							/* we insert one position higher than the actual index in the hashtable, because index 0 would 
+							otherwise produce pointer NULL in the hashtable. set_comment() should thus decrement by 1) */
 							g_hash_table_insert(bfparser->commentid_table, id,
 												GINT_TO_POINTER(bfparser->st->comments->len));
 					} else {
@@ -1324,7 +1373,7 @@ build_lang_thread(gpointer data)
 	xmlFreeTextReader(reader);
 	/* do some final memory management */
 	if (bfparser->st) {
-		gint i, tablenum = 0, largest_table = 0;
+		gint i, tablenum=0, largest_table=0;
 		bfparser->st->contexts->data =
 			g_realloc(bfparser->st->contexts->data, (bfparser->st->contexts->len + 1) * sizeof(Tcontext));
 		bfparser->st->matches->data =
@@ -1332,19 +1381,17 @@ build_lang_thread(gpointer data)
 
 		/* now optimise the DFA tables for each context */
 		for (i = 1; i < bfparser->st->contexts->len; i++) {
-			g_array_index(bfparser->st->contexts, Tcontext, i).table->data =
-				g_realloc(g_array_index(bfparser->st->contexts, Tcontext, i).table->data,
-						  (g_array_index(bfparser->st->contexts, Tcontext, i).table->len +
-						   1) * sizeof(Ttablerow));
+			g_array_index(bfparser->st->contexts, Tcontext, i).table->data = g_realloc(g_array_index(bfparser->st->contexts, Tcontext, i).table->data, (g_array_index(bfparser->st->contexts, Tcontext, i).table->len + 1) * sizeof(Ttablerow));
 			tablenum += get_table(bfparser->st, i)->len + 1;
 			if (get_table(bfparser->st, i)->len > largest_table)
 				largest_table = get_table(bfparser->st, i)->len;
 		}
 		g_print("Language statistics for %s from %s\n", bfparser->bflang->name, bfparser->bflang->filename);
-		g_print("reference size       %9.2f Kbyte\n", bfparser->reference_size/1024.0);
+		g_print("reference size       %9.2f Kbytes\n", bfparser->reference_size/1024.0);
 		g_print("largest table %5d (%9.2f Kbytes)\n", largest_table,
 				1.0 * largest_table * sizeof(Ttablerow) / 1024.0);
-		g_print("total tables  %5d (%9.2f Kbytes)\n", tablenum, 1.0 * tablenum * sizeof(Ttablerow) / 1024.0);
+		g_print("total tables  %5d (%9.2f Kbytes)\n", tablenum,
+				1.0 * tablenum * sizeof(Ttablerow) / 1024.0);
 		g_print("contexts      %5d (%9.2f Kbytes)\n", bfparser->st->contexts->len,
 				1.0 * bfparser->st->contexts->len * sizeof(Tcontext) / 1024.0);
 		g_print("matches       %5d (%9.2f Kbytes)\n", bfparser->st->matches->len,
@@ -1356,7 +1403,7 @@ build_lang_thread(gpointer data)
 	}
 	DBG_PARSING("build_lang_thread finished bflang=%p\n", bflang);
 	/* when done call mainloop, see the top of bftextview2.c why we use priority 122 here */
-	g_idle_add_full(122, build_lang_finished_lcb, bfparser, NULL);
+	g_idle_add_full(BUILD_LANG_FINISHED_PRIORITY, build_lang_finished_lcb, bfparser, NULL);
 	return bflang;
 }
 
@@ -1526,8 +1573,13 @@ bflang_cleanup_scantable(Tbflang * bflang)
 		g_free(g_array_index(bflang->st->contexts, Tcontext, i).contexthighlight);
 		g_array_free(g_array_index(bflang->st->contexts, Tcontext, i).table, TRUE);
 	}
+	for (i = 1; i < bflang->st->comments->len; i++) {
+		g_free(g_array_index(bflang->st->comments, Tcomment, i).so);
+		g_free(g_array_index(bflang->st->comments, Tcomment, i).eo);
+	}
 	g_array_free(bflang->st->matches, TRUE);
 	g_array_free(bflang->st->contexts, TRUE);
+	g_array_free(bflang->st->comments, TRUE);
 	g_slice_free(Tscantable, bflang->st);
 	bflang->st = NULL;
 }
@@ -1558,6 +1610,9 @@ langmgr_cleanup(void)
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(langmgr.bflang_list);
+	
+	g_object_unref(G_OBJECT(langmgr.tagtable));
+	
 }
 #endif
 
