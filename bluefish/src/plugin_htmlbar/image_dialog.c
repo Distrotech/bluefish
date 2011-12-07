@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
 * image_dialog.c
 *
-* Copyright (C) 2008-2010 James Hayward and Olivier Sessink
+* Copyright (C) 2008-2011 James Hayward and Olivier Sessink
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -161,8 +161,11 @@ bluefish_image_dialog_set_property(GObject * object, guint prop_id, const GValue
 		dialog->priv->bfwin = g_value_get_pointer(value);
 		break;
 	case PROP_SRC:
-		if (g_value_get_string(value) != NULL)
+/*		g_print("bluefish_image_dialog_set_property, src will be set to:\n");*/
+		if (g_value_get_string(value) != NULL) {
+/*			g_print("bluefish_image_dialog_set_property, %s\n", g_value_get_string(value));*/
 			gtk_entry_set_text(GTK_ENTRY(dialog->priv->source), g_value_get_string(value));
+		}
 		break;
 	case PROP_WIDTH:
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(dialog->priv->width), g_value_get_double(value));
@@ -1119,7 +1122,7 @@ image_dialog_ok_clicked(BluefishImageDialog * dialog)
 	}
 
 	g_string_append_printf(tag, (main_v->props.xhtml == 1) ? " />" : ">");
-
+	/*g_print("image_dialog_ok_clicked, tagStart=%d\n", dialog->priv->tagStart);*/
 	if (dialog->priv->tagStart >= 0) {
 		doc_replace_text(dialog->priv->doc, tag->str, dialog->priv->tagStart, dialog->priv->tagEnd);
 	} else if (gtk_text_buffer_get_selection_bounds(dialog->priv->doc->buffer, &start, &end)) {
@@ -1196,7 +1199,7 @@ bluefish_image_dialog_new_with_data(Tbfwin * bfwin, Ttagpopup * data)
 		NULL
 	};
 
-	gchar *tagvalues[15] = { NULL };
+	gchar *tagvalues[15];
 
 	parse_html_for_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data);
 
@@ -1252,11 +1255,13 @@ bluefish_image_dialog_new_with_data(Tbfwin * bfwin, Ttagpopup * data)
 
 	if (tagvalues[9] || tagvalues[10] || tagvalues[11] || tagvalues[12])
 		usetransitional = TRUE;
-
+/*	g_print("bluefish_image_dialog_new_with_data, src=%s, tag-start=%d, tag-end=%d\n", tagvalues[0], data->pos, data->end);*/
 	dialog = g_object_new(BLUEFISH_TYPE_IMAGE_DIALOG,
 						  "bfwin", bfwin,
 						  "destroy-with-parent", TRUE,
+#if !GTK_CHECK_VERSION(3, 0, 0)
 						  "has-separator", FALSE,
+#endif
 						  "title", _("Insert Image"),
 						  "transient-for", bfwin->main_window,
 						  "src", tagvalues[0],
