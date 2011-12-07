@@ -438,28 +438,28 @@ entity_initgui(Tbfwin * bfwin)
 	}
 }
 
-static void
+/*static void
 entity_enforce_session(Tbfwin * bfwin)
 {
 }
-
+*/
 static void
 entity_cleanup(void)
 {
 	g_hash_table_unref(entities_v.lookup);
 }
 
-static void
+/*static void
 entity_cleanup_gui(Tbfwin * bfwin)
 {
 }
-
-static GHashTable *
+*/
+/*static GHashTable *
 entity_register_globses_config(GHashTable * configlist)
 {
 	return configlist;
 }
-
+*/
 static GHashTable *
 entity_register_session_config(GHashTable * configlist, Tsessionvars * session)
 {
@@ -507,10 +507,10 @@ static TBluefishPlugin bfplugin = {
 	NULL,						/* private */
 	entity_init,				/* init */
 	entity_initgui,
-	entity_enforce_session,
+	NULL /*entity_enforce_session*/,
 	entity_cleanup,
-	entity_cleanup_gui,
-	entity_register_globses_config,
+	NULL /*entity_cleanup_gui*/,
+	NULL /*entity_register_globses_config*/,
 	entity_register_session_config,
 	entity_session_cleanup,
 	NULL,						/* binary compatibility */

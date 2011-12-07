@@ -336,33 +336,33 @@ about_initgui(Tbfwin * bfwin)
 	}
 }
 
-static void
+/*static void
 about_enforce_session(Tbfwin * bfwin)
 {
 }
-
-static void
+*/
+/*static void
 about_cleanup(void)
 {
 }
-
-static void
+*/
+/*static void
 about_cleanup_gui(Tbfwin * bfwin)
 {
 }
-
-static GHashTable *
+*/
+/*static GHashTable *
 about_register_globses_config(GHashTable * configlist)
 {
 	return configlist;
-}
+}*/
 
-static GHashTable *
+/*static GHashTable *
 about_register_session_config(GHashTable * configlist, Tsessionvars * session)
 {
 	return configlist;
 }
-
+*/
 G_MODULE_EXPORT TBluefishPlugin *
 getplugin(void)
 {
@@ -382,11 +382,11 @@ getplugin(void)
 		NULL,						/* private */
 		about_init,					/* init */
 		about_initgui,
-		about_enforce_session,
-		about_cleanup,
-		about_cleanup_gui,
-		about_register_globses_config,
-		about_register_session_config,
+		NULL /*about_enforce_session*/,
+		NULL /*about_cleanup*/,
+		NULL /*about_cleanup_gui*/,
+		NULL /*about_register_globses_config*/,
+		NULL /*about_register_session_config*/,
 		NULL,						/* binary compatibility */
 		NULL,
 		NULL,
