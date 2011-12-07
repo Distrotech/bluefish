@@ -9,10 +9,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.4\n"
+"Project-Id-Version: Bluefish 2.2.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-22 03:12+0200\n"
-"PO-Revision-Date: 2009-02-21 14:25+0100 \n"
+"POT-Creation-Date: 2011-12-04 14:16+0100\n"
+"PO-Revision-Date: 2011-12-07 17:47+0100 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: français <fr@li.org>\n"
 "Language: fr\n"
@@ -21,75 +21,53 @@ msgstr ""
 "Content-Transfer-Encoding: 8 bit\n"
 "Plural-Forms: nplurals=2; plural=n >1;\n"
 
-#. _DM_ Alert box asking if user would like to change request from add to
-#. * update.
-#.
-#: src/plugin_htmlbar/html2.c:500
-msgid "_Update"
-msgstr " _Mettre à jour"
-
-#: src/plugin_htmlbar/html2.c:505
-#, c-format
-msgid "The %s %s property already exists.\n"
-msgstr "La propriété %s %s existe déjà.\n"
-
-#: src/plugin_htmlbar/html2.c:507
-#, c-format
-msgid "The %s property already exists.\n"
-msgstr "La propriété %s existe déjà.\n"
-
-#: src/plugin_htmlbar/html2.c:510
-#, c-format
-msgid "Update its value from %s to %s?"
-msgstr "Voulez-vous modifier sa valeur de %s à %s ?"
-
-#: src/plugin_htmlbar/html2.c:641
+#: src/plugin_htmlbar/html2.c:550
 msgid "Cascading Style Sheet Builder"
 msgstr "Constructeur de feuilles de style CSS"
 
-#: src/plugin_htmlbar/html2.c:661
+#: src/plugin_htmlbar/html2.c:570
 msgid "_Selector:"
 msgstr "Sé_lecteur :"
 
-#: src/plugin_htmlbar/html2.c:680
+#: src/plugin_htmlbar/html2.c:589
 msgid "_Property:"
 msgstr "_Propriété :"
 
-#: src/plugin_htmlbar/html2.c:682 src/plugin_htmlbar/html_form.c:375
+#: src/plugin_htmlbar/html2.c:591 src/plugin_htmlbar/html_form.c:375
 #: src/plugin_htmlbar/html_form.c:540 src/plugin_htmlbar/html_form.c:635
 msgid "_Value:"
 msgstr "Vale_ur :"
 
-#: src/plugin_htmlbar/html2.c:700
+#: src/plugin_htmlbar/html2.c:608
 msgid "Selector"
 msgstr "Sélecteur"
 
-#: src/plugin_htmlbar/html2.c:700 src/plugin_htmlbar/html2.c:703
+#: src/plugin_htmlbar/html2.c:612
 msgid "Property"
 msgstr "Propriété"
 
-#: src/plugin_htmlbar/html2.c:700 src/plugin_htmlbar/html2.c:703
+#: src/plugin_htmlbar/html2.c:615
 msgid "Value"
 msgstr "Valeur"
 
-#: src/plugin_htmlbar/html2.c:718
+#: src/plugin_htmlbar/html2.c:643
 msgid " _Add "
 msgstr " _Ajouter "
 
-#: src/plugin_htmlbar/html2.c:721
+#: src/plugin_htmlbar/html2.c:647
 msgid " _Update "
 msgstr " _Mettre à jour "
 
-#: src/plugin_htmlbar/html2.c:724
+#: src/plugin_htmlbar/html2.c:651
 msgid " _Delete "
 msgstr " _Supprimer "
 
-#: src/plugin_htmlbar/html2.c:977 src/plugin_htmlbar/html2.c:1014
+#: src/plugin_htmlbar/html2.c:911 src/plugin_htmlbar/html2.c:948
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1639
 msgid "_Style..."
 msgstr "_Style..."
 
-#: src/plugin_htmlbar/html2.c:1099
+#: src/plugin_htmlbar/html2.c:1033
 msgid "Bluefish: Select color"
 msgstr "Bluefish : Sélection de couleurs"
 
@@ -107,7 +85,7 @@ msgstr "_Balises"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1359
 msgid "_Headings"
-msgstr "En-tête"
+msgstr "_En-tête"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1360
 msgid "H_1"
@@ -604,8 +582,8 @@ msgid "Middle _dot ·"
 msgstr "Point médi_an ·"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1496
-msgid "F_ormat by context"
-msgstr "F_ormatage contextuel"
+msgid "_Format by Context"
+msgstr "Formatage conte_xtuel"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1497
 msgid "_Strong"
@@ -706,8 +684,8 @@ msgid "Delete"
 msgstr "Supprimé"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1517
-msgid "_Format by layout"
-msgstr "_Formatage du style"
+msgid "Format by L_ayout"
+msgstr "Formatage du st_yle"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1518
 msgid "_Bold"
@@ -758,7 +736,8 @@ msgid "Big"
 msgstr "Grand corps"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1528
-msgid "Format _general"
+#, fuzzy
+msgid "Format _General"
 msgstr "Formatage _général"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1529
@@ -948,12 +927,13 @@ msgid "Menu"
 msgstr "Menu"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1576
-msgid "Fo_rm"
-msgstr "F_ormulaire"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1650
+msgid "F_orm"
+msgstr "_Formulaire"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1577
 msgid "_Form"
-msgstr "F_ormulaire"
+msgstr "_Formulaire"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1577
 #: src/plugin_htmlbar/html_form.c:156
@@ -1232,10 +1212,6 @@ msgstr "_Cadre..."
 msgid "Frame..."
 msgstr "Cadre..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1650
-msgid "F_orm"
-msgstr "F_ormulaire"
-
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1651
 msgid "F_orm..."
 msgstr "F_ormulaire..."
@@ -1249,12 +1225,18 @@ msgid "_Input..."
 msgstr "Text input..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
-msgid "Input Buttons..."
+#, fuzzy
+msgid "Input B_uttons..."
 msgstr "Submit input..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
 msgid "Input Button..."
 msgstr "Submit input..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1655
+#, fuzzy
+msgid "Input T_ext..."
+msgstr "Text input..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
 msgid "Input Text..."
@@ -1301,6 +1283,7 @@ msgid "Button..."
 msgstr "Balise button..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1667
+#, fuzzy
 msgid "_Edit tag under cursor..."
 msgstr "É_diter la balise sous le curseur..."
 
@@ -1350,7 +1333,8 @@ msgstr "Checkbox input..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1697
-msgid "_HTML5"
+#, fuzzy
+msgid "HTML_5"
 msgstr "_HTML 5 "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
@@ -1370,11 +1354,12 @@ msgid "Aside"
 msgstr "Aside"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-msgid "Figcaption"
+#, fuzzy
+msgid "Fig_caption"
 msgstr "Figcaption"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-msgid "Figcaption "
+msgid "Figcaption"
 msgstr "Figcaption"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1687
@@ -1426,7 +1411,8 @@ msgid "Nav"
 msgstr "Nav"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1693
-msgid "Rp"
+#, fuzzy
+msgid "R_p"
 msgstr "Rp"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1693
@@ -1434,7 +1420,8 @@ msgid "Ruby parenthesis"
 msgstr "Ruby parenthesis"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1694
-msgid "Rt"
+#, fuzzy
+msgid "R_t"
 msgstr "Rt"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1694
@@ -1597,7 +1584,7 @@ msgstr "Ancre rapide"
 msgid "Attributes"
 msgstr "Attributs"
 
-#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:2381
+#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:2454
 msgid "_HREF:"
 msgstr "_HREF :"
 
@@ -1613,24 +1600,26 @@ msgstr "Cible :"
 msgid "_Name:"
 msgstr "_Nom :"
 
-#: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/quickstart.c:555
+#: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/quickstart.c:552
 msgid "Titl_e:"
 msgstr "_Title :"
 
 #: src/plugin_htmlbar/html.c:700 src/plugin_htmlbar/html.c:1215
-#: src/plugin_htmlbar/html.c:1364 src/plugin_htmlbar/html.c:2293
+#: src/plugin_htmlbar/html.c:1364 src/plugin_htmlbar/html.c:2366
 msgid "_Language:"
 msgstr "_Langue :"
 
 #: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:939
 #: src/plugin_htmlbar/html.c:1109 src/plugin_htmlbar/html.c:1218
 #: src/plugin_htmlbar/html.c:1370 src/plugin_htmlbar/html.c:1757
-#: src/plugin_htmlbar/html.c:1871 src/plugin_htmlbar/html.c:2312
+#: src/plugin_htmlbar/html.c:1871 src/plugin_htmlbar/html.c:1976
+#: src/plugin_htmlbar/html.c:2045 src/plugin_htmlbar/html.c:2176
+#: src/plugin_htmlbar/html.c:2251 src/plugin_htmlbar/html.c:2385
 #: src/plugin_htmlbar/html_form.c:204 src/plugin_htmlbar/html_form.c:267
 #: src/plugin_htmlbar/html_form.c:328 src/plugin_htmlbar/html_form.c:644
 #: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
 #: src/plugin_htmlbar/html_table.c:383 src/plugin_htmlbar/image.c:509
-#: src/plugin_htmlbar/image_dialog.c:382
+#: src/plugin_htmlbar/image_dialog.c:391
 msgid "Custo_m:"
 msgstr "Pers_onnaliser :"
 
@@ -1719,7 +1708,7 @@ msgstr "Ali_gnement horizontal :"
 #: src/plugin_htmlbar/html.c:923 src/plugin_htmlbar/html.c:1209
 #: src/plugin_htmlbar/html_diag.c:445 src/plugin_htmlbar/html_table.c:98
 #: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
-#: src/plugin_htmlbar/image_dialog.c:368
+#: src/plugin_htmlbar/image_dialog.c:371
 msgid "Cl_ass:"
 msgstr "Cl_asse :"
 
@@ -1738,22 +1727,22 @@ msgstr "_ID :"
 msgid "Horizontal Rule"
 msgstr "Règle horizontale"
 
-#: src/plugin_htmlbar/html.c:1083 src/plugin_htmlbar/html.c:2227
-#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/html.c:1083 src/plugin_htmlbar/html.c:2300
+#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:414
 msgid "_Align:"
 msgstr "_Alignement horizontal :"
 
-#: src/plugin_htmlbar/html.c:1090 src/plugin_htmlbar/html.c:2000
-#: src/plugin_htmlbar/html.c:2111 src/plugin_htmlbar/html.c:2235
-#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:338
+#: src/plugin_htmlbar/html.c:1090 src/plugin_htmlbar/html.c:2041
+#: src/plugin_htmlbar/html.c:2161 src/plugin_htmlbar/html.c:2308
+#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:344
 msgid "_Height:"
 msgstr "_Hauteur :"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1096 src/plugin_htmlbar/html.c:1995
-#: src/plugin_htmlbar/html.c:2106 src/plugin_htmlbar/html.c:2231
+#: src/plugin_htmlbar/html.c:1096 src/plugin_htmlbar/html.c:2036
+#: src/plugin_htmlbar/html.c:2156 src/plugin_htmlbar/html.c:2304
 #: src/plugin_htmlbar/html_table.c:139 src/plugin_htmlbar/html_table.c:401
-#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:329
+#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:335
 msgid "_Width:"
 msgstr "Lar_geur :"
 
@@ -1889,7 +1878,7 @@ msgstr "Or_donné"
 msgid "_Unordered"
 msgstr "Non-_ordonné"
 
-#: src/plugin_htmlbar/html.c:1656
+#: src/plugin_htmlbar/html.c:1656 src/plugin_htmlbar/image_dialog.c:385
 msgid "Style:"
 msgstr "Style :"
 
@@ -1905,9 +1894,9 @@ msgstr "_Lignes :"
 msgid "_Add <frame> elements"
 msgstr "_Ajouter des éléments <frame>"
 
-#: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1927
-#: src/plugin_htmlbar/html.c:2058 src/plugin_htmlbar/html.c:2222
-#: src/plugin_htmlbar/html.c:2285 src/plugin_htmlbar/image_dialog.c:290
+#: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1933
+#: src/plugin_htmlbar/html.c:2109 src/plugin_htmlbar/html.c:2295
+#: src/plugin_htmlbar/html.c:2358 src/plugin_htmlbar/image_dialog.c:297
 msgid "_Source:"
 msgstr "_Source :"
 
@@ -1932,103 +1921,135 @@ msgid "No _Resize:"
 msgstr "Pas de _redimensionnement :"
 
 #. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:1917
+#: src/plugin_htmlbar/html.c:1925
 msgid "Audio"
 msgstr "Audio"
 
-#: src/plugin_htmlbar/html.c:1933 src/plugin_htmlbar/html.c:2071
+#: src/plugin_htmlbar/html.c:1939 src/plugin_htmlbar/html.c:2122
 msgid "_Autoplay:"
 msgstr "_Autoplay:"
 
-#: src/plugin_htmlbar/html.c:1940 src/plugin_htmlbar/html.c:2078
+#: src/plugin_htmlbar/html.c:1946 src/plugin_htmlbar/html.c:2129
 msgid "_Controls:"
 msgstr "_Controls:"
 
-#: src/plugin_htmlbar/html.c:1947 src/plugin_htmlbar/html.c:2085
+#: src/plugin_htmlbar/html.c:1953 src/plugin_htmlbar/html.c:2136
 msgid "_Loop:"
 msgstr "_Loop:"
 
-#: src/plugin_htmlbar/html.c:1955 src/plugin_htmlbar/html.c:2093
+#: src/plugin_htmlbar/html.c:1960 src/plugin_htmlbar/html.c:2143
 msgid "_Preload:"
 msgstr "_Preload:"
 
+#: src/plugin_htmlbar/html.c:1965 src/plugin_htmlbar/html.c:2024
+#: src/plugin_htmlbar/html.c:2165
+msgid "_Id:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:1968 src/plugin_htmlbar/html.c:2027
+#: src/plugin_htmlbar/html.c:2173
+#, fuzzy
+msgid "_Class:"
+msgstr "Cl_asse :"
+
+#: src/plugin_htmlbar/html.c:1971 src/plugin_htmlbar/html.c:2030
+#: src/plugin_htmlbar/html.c:2168
+#, fuzzy
+msgid "_Style:"
+msgstr "Style :"
+
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:1990
+#: src/plugin_htmlbar/html.c:2019
 msgid "Canvas"
 msgstr "Canvas"
 
-#. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:2048
+#: src/plugin_htmlbar/html.c:2101
 msgid "Video"
 msgstr "Video..."
 
-#: src/plugin_htmlbar/html.c:2065
+#: src/plugin_htmlbar/html.c:2116
 msgid "_Poster:"
 msgstr "_Poster:"
 
-#: src/plugin_htmlbar/html.c:2100
+#: src/plugin_htmlbar/html.c:2150
 msgid "_Audio:"
 msgstr "_Audio:"
 
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:2162
+#: src/plugin_htmlbar/html.c:2226
 msgid "Time"
 msgstr "Time"
 
-#: src/plugin_htmlbar/html.c:2168
-msgid "_Pubdate:"
-msgstr "_Pubdate:"
+#. Datetime help
+#: src/plugin_htmlbar/html.c:2231
+msgid ""
+"Datetime format (ex. YYYY-MM-DDThh:mm:ssTZD) :\n"
+"\n"
+"YYYY - year (e.g. 2009)\n"
+"MM - month (e.g. 01 for January)\n"
+"DD - day of the month (e.g. 08)\n"
+"T - a required separator\n"
+"hh - hour (e.g. 22 for 10.00pm)\n"
+"mm - minutes (e.g. 55)\n"
+"ss - seconds (e.g. 03)\n"
+"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean "
+"Time)\n"
+msgstr ""
 
-#: src/plugin_htmlbar/html.c:2174
+#: src/plugin_htmlbar/html.c:2241
 msgid "_Datetime:"
 msgstr "_Datetime:"
 
-#: src/plugin_htmlbar/html.c:2218
+#: src/plugin_htmlbar/html.c:2246
+msgid "_Pubdate:"
+msgstr "_Pubdate:"
+
+#: src/plugin_htmlbar/html.c:2291
 msgid "Embed"
 msgstr "Incrustation"
 
-#: src/plugin_htmlbar/html.c:2239 src/plugin_htmlbar/html_table.c:145
+#: src/plugin_htmlbar/html.c:2312 src/plugin_htmlbar/html_table.c:145
 msgid "Bo_rder:"
 msgstr "Bo_rdure :"
 
-#: src/plugin_htmlbar/html.c:2279
+#: src/plugin_htmlbar/html.c:2352
 msgid "Script"
 msgstr "Script"
 
-#: src/plugin_htmlbar/html.c:2308 src/plugin_htmlbar/html.c:2412
+#: src/plugin_htmlbar/html.c:2381 src/plugin_htmlbar/html.c:2485
 #: src/plugin_htmlbar/html_form.c:531 src/plugin_htmlbar/html_form.c:640
 msgid "_Type:"
 msgstr "_Type :"
 
-#: src/plugin_htmlbar/html.c:2370
+#: src/plugin_htmlbar/html.c:2443
 msgid "Link"
 msgstr "Lien"
 
-#: src/plugin_htmlbar/html.c:2387
+#: src/plugin_htmlbar/html.c:2460
 msgid "HREF_LANG:"
 msgstr "HREF_LANG :"
 
-#: src/plugin_htmlbar/html.c:2390
+#: src/plugin_htmlbar/html.c:2463
 msgid "T_itle:"
 msgstr "_Titre :"
 
-#: src/plugin_htmlbar/html.c:2435
+#: src/plugin_htmlbar/html.c:2508
 msgid "_Forward Relation:"
 msgstr "Lien pro_gressif :"
 
-#: src/plugin_htmlbar/html.c:2440
+#: src/plugin_htmlbar/html.c:2513
 msgid "_Reverse Relation:"
 msgstr "Lien _inverse :"
 
-#: src/plugin_htmlbar/html.c:2454
+#: src/plugin_htmlbar/html.c:2527
 msgid "Media:"
 msgstr "Media :"
 
-#: src/plugin_htmlbar/html.c:2458
+#: src/plugin_htmlbar/html.c:2531
 msgid "L_ang:"
 msgstr "L_angue :"
 
-#: src/plugin_htmlbar/html.c:2461
+#: src/plugin_htmlbar/html.c:2534
 msgid "_Custom:"
 msgstr "Pers_onnalisé :"
 
@@ -2168,11 +2189,11 @@ msgstr "Échec du chargement d'image"
 msgid "Loading file %s..."
 msgstr "Chargement de fichier %s… "
 
-#: src/plugin_htmlbar/image.c:456
+#: src/plugin_htmlbar/image.c:457
 msgid "Insert thumbnail"
 msgstr "Insérer une vignette"
 
-#: src/plugin_htmlbar/image.c:460 src/plugin_htmlbar/image_dialog.c:308
+#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:314
 msgid "Preview"
 msgstr "Prévisualiser"
 
@@ -2184,7 +2205,7 @@ msgstr "Emplacement de l'_image :"
 msgid "Hei_ght:"
 msgstr "Ha_uteur :"
 
-#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:377
+#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:380
 msgid "_Usemap:"
 msgstr "_Usemap :"
 
@@ -2192,11 +2213,11 @@ msgstr "_Usemap :"
 msgid "Alternate _text:"
 msgstr "_Texte de remplacement :"
 
-#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:414
+#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:423
 msgid "_Hspace:"
 msgstr "Espacement _horizontal"
 
-#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:418
+#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:427
 msgid "_Vspace:"
 msgstr "Espacement _vertical :"
 
@@ -2252,31 +2273,31 @@ msgstr ""
 "%x : largeur de la vignette  %y : hauteur de la vignette\n"
 "%b : taille originale (en octets)"
 
-#: src/plugin_htmlbar/image_dialog.c:345
+#: src/plugin_htmlbar/image_dialog.c:351
 msgid "_Reset Dimensions"
 msgstr "Dimensions par défaut"
 
-#: src/plugin_htmlbar/image_dialog.c:358
+#: src/plugin_htmlbar/image_dialog.c:361
 msgid "Alternate te_xt:"
 msgstr "_Texte de remplacement :"
 
-#: src/plugin_htmlbar/image_dialog.c:363
+#: src/plugin_htmlbar/image_dialog.c:366
 msgid "_Long description:"
 msgstr "Long description :"
 
-#: src/plugin_htmlbar/image_dialog.c:372
+#: src/plugin_htmlbar/image_dialog.c:375
 msgid "I_D:"
 msgstr "_ID :"
 
-#: src/plugin_htmlbar/image_dialog.c:394
+#: src/plugin_htmlbar/image_dialog.c:403
 msgid "_Use Transitional options"
 msgstr "Utiliser les options 'Transitional'"
 
-#: src/plugin_htmlbar/image_dialog.c:410
+#: src/plugin_htmlbar/image_dialog.c:419
 msgid "_Border:"
 msgstr "Border :"
 
-#: src/plugin_htmlbar/image_dialog.c:713
+#: src/plugin_htmlbar/image_dialog.c:729
 #, c-format
 msgid ""
 "\n"
@@ -2285,7 +2306,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/plugin_htmlbar/image_dialog.c:718
+#: src/plugin_htmlbar/image_dialog.c:734
 #, c-format
 msgid ""
 "\n"
@@ -2294,7 +2315,7 @@ msgstr ""
 "\n"
 "%d x %d pixels"
 
-#: src/plugin_htmlbar/image_dialog.c:816
+#: src/plugin_htmlbar/image_dialog.c:832
 msgid ""
 "\n"
 "\n"
@@ -2306,80 +2327,80 @@ msgstr ""
 "\t<b>Chargement de la prévisualisation… </b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:918
+#: src/plugin_htmlbar/image_dialog.c:934
 msgid "Select Image"
 msgstr "Sélectionner une image"
 
-#: src/plugin_htmlbar/image_dialog.c:925
+#: src/plugin_htmlbar/image_dialog.c:941
 msgid "All images"
 msgstr "Toutes les images"
 
-#: src/plugin_htmlbar/image_dialog.c:1136
-#: src/plugin_htmlbar/image_dialog.c:1237
+#: src/plugin_htmlbar/image_dialog.c:1157
+#: src/plugin_htmlbar/image_dialog.c:1260
 msgid "Insert Image"
 msgstr "Insérer une image"
 
-#: src/plugin_htmlbar/quickstart.c:516
+#: src/plugin_htmlbar/quickstart.c:513
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>Feuille de styles _externe</b>"
 
-#: src/plugin_htmlbar/quickstart.c:527
+#: src/plugin_htmlbar/quickstart.c:524
 msgid "Ty_pe:"
 msgstr "T_ype :"
 
-#: src/plugin_htmlbar/quickstart.c:545
+#: src/plugin_htmlbar/quickstart.c:542
 msgid "HRE_F:"
 msgstr "_HREF :"
 
-#: src/plugin_htmlbar/quickstart.c:550
+#: src/plugin_htmlbar/quickstart.c:547
 msgid "_Media:"
 msgstr "_Media :"
 
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
 #.
-#: src/plugin_htmlbar/quickstart.c:562
+#: src/plugin_htmlbar/quickstart.c:559
 msgid "<b>Style Area</b>"
 msgstr "<b>Zone de styles</b>"
 
-#: src/plugin_htmlbar/quickstart.c:566
+#: src/plugin_htmlbar/quickstart.c:563
 msgid "Cre_ate empty style area"
 msgstr "Créer une _zone de styles vierge"
 
-#: src/plugin_htmlbar/quickstart.c:588
+#: src/plugin_htmlbar/quickstart.c:582
 msgid "<b>Attributes</b>"
 msgstr "<b>Attributs</b>"
 
-#: src/plugin_htmlbar/quickstart.c:603
+#: src/plugin_htmlbar/quickstart.c:597
 msgid "_Src:"
 msgstr "_Source :"
 
 #. TODO: add an option to place content in the script area
-#: src/plugin_htmlbar/quickstart.c:610
+#: src/plugin_htmlbar/quickstart.c:604
 msgid "<b>Script Area</b>"
 msgstr "<b>Zone de script</b>"
 
-#: src/plugin_htmlbar/quickstart.c:614
+#: src/plugin_htmlbar/quickstart.c:608
 msgid "Cre_ate empty script area"
 msgstr "Créer une zone de script _vierge"
 
-#: src/plugin_htmlbar/quickstart.c:641
+#: src/plugin_htmlbar/quickstart.c:635
 msgid "Quick Start"
 msgstr "Démarrage rapide"
 
-#: src/plugin_htmlbar/quickstart.c:656
+#: src/plugin_htmlbar/quickstart.c:652
 msgid "_DTD:"
 msgstr " _DTD :"
 
-#: src/plugin_htmlbar/quickstart.c:660 src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/quickstart.c:656 src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "_Titre :"
 
-#: src/plugin_htmlbar/quickstart.c:683
+#: src/plugin_htmlbar/quickstart.c:679
 msgid "_Head:"
 msgstr "_En-tête :"
 
-#: src/plugin_htmlbar/quickstart.c:700
+#: src/plugin_htmlbar/quickstart.c:696
 msgid "Open in _new document."
 msgstr "Ouvrir dans un _nouveau document"
 
@@ -2438,3 +2459,21 @@ msgstr "Source :"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Taille :"
+
+#~ msgid "Fo_rm"
+#~ msgstr "F_ormulaire"
+
+#~ msgid "Figcaption "
+#~ msgstr "Figcaption"
+
+#~ msgid "_Update"
+#~ msgstr " _Mettre à jour"
+
+#~ msgid "The %s %s property already exists.\n"
+#~ msgstr "La propriété %s %s existe déjà.\n"
+
+#~ msgid "The %s property already exists.\n"
+#~ msgstr "La propriété %s existe déjà.\n"
+
+#~ msgid "Update its value from %s to %s?"
+#~ msgstr "Voulez-vous modifier sa valeur de %s à %s ?"
