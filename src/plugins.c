@@ -218,15 +218,19 @@ void bluefish_load_plugins(void) {
 void bfplugins_gui(gpointer data, gpointer user_data) {
 	Tbfwin *bfwin = user_data;
 	TBluefishPlugin *bfplugin = data;
-	DEBUG_MSG("bfplugins_gui, init_gui for plugin %p and bfwin %p\n",bfplugin,bfwin);	
-	bfplugin->init_gui(bfwin);
+	if (bfplugin->init_gui) {
+		DEBUG_MSG("bfplugins_gui, init_gui for plugin %p and bfwin %p\n",bfplugin,bfwin);	
+		bfplugin->init_gui(bfwin);
+	}
 }
 /* can be called by g_list_foreach() */
 void bfplugins_enforce_session(gpointer data, gpointer user_data) {
 	Tbfwin *bfwin = user_data;
 	TBluefishPlugin *bfplugin = data;
-	DEBUG_MSG("bfplugins_enforce_session, enforce_session for plugin %p and bfwin %p\n",bfplugin,bfwin);	
-	bfplugin->enforce_session(bfwin);
+	if (bfplugin->enforce_session) {
+		DEBUG_MSG("bfplugins_enforce_session, enforce_session for plugin %p and bfwin %p\n",bfplugin,bfwin);
+		bfplugin->enforce_session(bfwin);
+	}
 }
 
 GHashTable *bfplugins_register_globses_config(GHashTable *list) {

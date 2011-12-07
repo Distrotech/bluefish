@@ -136,7 +136,7 @@ static TBluefishPlugin bfplugin = {
 	snippets_enforce_session,
 	snippets_cleanup,
 	snippets_cleanup_gui,
-	snippets_register_globses_config,
+	NULL /*snippets_register_globses_config*/,
 	snippets_register_session_config,
 	snippets_session_cleanup,
 	NULL, /* binary compatibility */
