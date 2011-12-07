@@ -1,13 +1,14 @@
 # Simple Chinese(zh_CN) language file for Bluefish.
 # Copyright (C) 2011 ZhiFeng Ma
 # ZhiFeng Ma <mzf9527@gmail.com>, 2011.
+# william9527 <mzf9527@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.2.0\n"
+"Project-Id-Version: Bluefish 2.2.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-12-02 18:31+0100\n"
-"PO-Revision-Date: 2011-11-05 22:18+0800\n"
+"POT-Creation-Date: 2011-12-07 22:54+0800\n"
+"PO-Revision-Date: 2011-12-07 22:39+0800\n"
 "Last-Translator: william9527 <mzf9527@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -576,8 +577,8 @@ msgid "Middle _dot ·"
 msgstr "中间点 ·(_d)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1496
-msgid "F_ormat by context"
-msgstr "根据环境格式化文本(_o)"
+msgid "_Format by Context"
+msgstr "根据上下文格式化文本(_F)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1497
 msgid "_Strong"
@@ -678,8 +679,8 @@ msgid "Delete"
 msgstr "删除"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1517
-msgid "_Format by layout"
-msgstr "根据布局格式化文本(_F)"
+msgid "Format by L_ayout"
+msgstr "根据布局格式化文本(_a)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1518
 msgid "_Bold"
@@ -730,8 +731,8 @@ msgid "Big"
 msgstr "Big标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1528
-msgid "Format _general"
-msgstr "常规格式(_g)"
+msgid "Format _General"
+msgstr "常规格式(_G)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1529
 msgid "_Paragraph"
@@ -920,8 +921,9 @@ msgid "Menu"
 msgstr "菜单"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1576
-msgid "Fo_rm"
-msgstr "表单(_r)"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1650
+msgid "F_orm"
+msgstr "表单(_o)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1577
 msgid "_Form"
@@ -1204,10 +1206,6 @@ msgstr "框架(_F)..."
 msgid "Frame..."
 msgstr "框架..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1650
-msgid "F_orm"
-msgstr "表单(_o)"
-
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1651
 msgid "F_orm..."
 msgstr "表单(_o)..."
@@ -1221,12 +1219,16 @@ msgid "_Input..."
 msgstr "输入(_I)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
-msgid "Input Buttons..."
-msgstr "表单按钮..."
+msgid "Input B_uttons..."
+msgstr "表单按钮(_u)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
 msgid "Input Button..."
 msgstr "表单按钮..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1655
+msgid "Input T_ext..."
+msgstr "文本框(_e)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
 msgid "Input Text..."
@@ -1322,8 +1324,8 @@ msgstr "复选框..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1697
-msgid "_HTML5"
-msgstr "HTML5(_H)"
+msgid "HTML_5"
+msgstr "HTML_5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
 msgid "_Article"
@@ -2452,6 +2454,9 @@ msgstr "源文件："
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "大小："
+
+#~ msgid "Fo_rm"
+#~ msgstr "表单(_r)"
 
 #~ msgid "Figcaption "
 #~ msgstr "Figcaption标签"
