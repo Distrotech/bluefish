@@ -165,6 +165,12 @@ parse_html_for_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[]
 	GList *tmplist;
 	gboolean found = FALSE;
 
+	/* init all dialogvalues with NULL */
+	while (dialogitems[count]) {
+		dialogvalues[count]=NULL;
+		count++;
+	}
+	count = 0;
 	*custom = g_strdup("");
 	tmplist = g_list_first(data->taglist);
 	DEBUG_MSG("fill_dialogvalues, data, and no sending widget!\n");
