@@ -269,23 +269,23 @@ zencoding_cleanup_gui(Tbfwin * bfwin)
 {
 }
 
-static GHashTable *
+/*static GHashTable *
 zencoding_register_globses_config(GHashTable * configlist)
 {
 	return configlist;
 }
-
-static GHashTable *
+*/
+/*static GHashTable *
 zencoding_register_session_config(GHashTable * configlist, Tsessionvars * session)
 {
 	return configlist;
 }
-
-static void
+*/
+/*static void
 zencoding_session_cleanup(Tsessionvars * session)
 {
 }
-
+*/
 static TBluefishPlugin bfplugin = {
 	"zencoding",
 	BFPLUGIN_VERSION,
@@ -305,9 +305,9 @@ static TBluefishPlugin bfplugin = {
 	zencoding_enforce_session,
 	zencoding_cleanup,
 	zencoding_cleanup_gui,
-	zencoding_register_globses_config,
-	zencoding_register_session_config,
-	zencoding_session_cleanup,
+	NULL /*zencoding_register_globses_config*/,
+	NULL /*zencoding_register_session_config*/,
+	NULL /*zencoding_session_cleanup*/,
 	NULL,						/* binary compatibility */
 	NULL,
 	NULL
