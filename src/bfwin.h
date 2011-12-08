@@ -66,7 +66,7 @@ void bfwin_statusbar_show(Tbfwin * bfwin, gboolean active);
 
 void bfwin_apply_session(Tbfwin * bfwin);
 void bfwin_apply_settings(Tbfwin * bfwin);
-
+void bfwin_destroy_and_cleanup(Tbfwin *bfwin);
 gboolean bfwin_delete_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin);
 
 void bfwin_create_main(Tbfwin * bfwin);
