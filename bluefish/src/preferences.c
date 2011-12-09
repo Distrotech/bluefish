@@ -556,6 +556,7 @@ create_plugin_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	pd->lists[pluginconfig] = duplicate_arraylist(main_v->props.plugin_config);
 	pd->pd.lstore = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
 	pd->pd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->pd.lstore));
+	g_object_unref(G_OBJECT(pd->pd.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 1, NULL, pd, _("Name"), 0, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 2, G_CALLBACK(plugin_1_toggled_lcb), pd, _("Enabled"), 1,
 					   FALSE);
@@ -774,6 +775,7 @@ create_textstyle_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	pd->lists[textstyles] = duplicate_arraylist(main_v->props.textstyles);
 	pd->tsd.lstore = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_POINTER);
 	pd->tsd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->tsd.lstore));
+	g_object_unref(G_OBJECT(pd->tsd.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 1, G_CALLBACK(textstyle_0_edited_lcb), pd, _("Label"), 0,
 					   FALSE);
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->tsd.lview));
@@ -914,6 +916,7 @@ create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	pd->lists[extcommands] = duplicate_arraylist(main_v->props.external_command);
 	pd->bd.lstore = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER);
 	pd->bd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bd.lstore));
+	g_object_unref(G_OBJECT(pd->bd.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 1, G_CALLBACK(extcommands_0_edited_lcb), pd, _("Label"),
 					   0, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 1, G_CALLBACK(extcommands_1_edited_lcb), pd, _("Command"),
@@ -1009,6 +1012,7 @@ create_filters_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	pd->lists[extfilters] = duplicate_arraylist(main_v->props.external_filter);
 	pd->ed.lstore = gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
 	pd->ed.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->ed.lstore));
+	g_object_unref(G_OBJECT(pd->ed.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->ed.lview), 1, G_CALLBACK(external_filter_0_edited_lcb), pd,
 					   _("Label"), 0, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->ed.lview), 1, G_CALLBACK(external_filter_1_edited_lcb), pd,
@@ -1138,6 +1142,7 @@ create_outputbox_gui(Tprefdialog * pd, GtkWidget * vbox1)
 		gtk_list_store_new(7, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
 						   G_TYPE_STRING, G_TYPE_POINTER);
 	pd->od.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->od.lstore));
+	g_object_unref(G_OBJECT(pd->od.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_0_edited_lcb), pd, _("Name"), 0,
 					   FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_1_edited_lcb), pd, _("Pattern"),
@@ -1243,6 +1248,7 @@ create_template_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	pd->lists[templates] = duplicate_arraylist(main_v->props.templates);
 	pd->tg.lstore = gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
 	pd->tg.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->tg.lstore));
+	g_object_unref(G_OBJECT(pd->tg.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->tg.lview), 1, G_CALLBACK(template_0_edited_lcb), pd, _("Name"), 0,
 					   FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->tg.lview), 1, G_CALLBACK(template_1_edited_lcb), pd, _("File"), 1,
@@ -1407,6 +1413,7 @@ create_bflang_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	pd->bld.lstore = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER);
 	pd->bld.lfilter = (GtkTreeModelFilter *) gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore), NULL);
+	g_object_unref(G_OBJECT(pd->bld.lstore));
 	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter, bflang_gui_filter_func_lcb, pd, NULL);
 	pd->bld.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter));
 
@@ -1423,6 +1430,7 @@ create_bflang_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	pd->bld.lstore2 = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
 	pd->bld.lfilter2 =
 		(GtkTreeModelFilter *) gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore2), NULL);
+	g_object_unref(G_OBJECT(pd->bld.lstore2));
 	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter2, bflang_gui_filter_func_lcb, pd, NULL);
 	pd->bld.lview2 = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter2));
 
