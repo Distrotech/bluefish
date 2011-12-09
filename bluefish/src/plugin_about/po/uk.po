@@ -6,23 +6,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-08-24 21:37+0200\n"
-"PO-Revision-Date: 2011-09-22 07:36+0300\n"
+"POT-Creation-Date: 2011-12-09 21:16+0100\n"
+"PO-Revision-Date: 2011-12-09 22:31+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
-"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
 "X-Generator: Lokalize 1.2\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/plugin_about/about.c:76
+#: src/plugin_about/about.c:75
 msgid "This version of Bluefish was built with:\n"
 msgstr "Цю версію Bluefish було зібрано за допомогою:\n"
 
-#: src/plugin_about/about.c:143
+#: src/plugin_about/about.c:181
 msgid ""
 "\n"
 "Developers of previous releases:"
@@ -30,7 +30,7 @@ msgstr ""
 "\n"
 "Розробники попередніх випусків:"
 
-#: src/plugin_about/about.c:158
+#: src/plugin_about/about.c:196
 msgid ""
 "\n"
 "Package maintainers:"
@@ -38,7 +38,7 @@ msgstr ""
 "\n"
 "Супровідники пакунків:"
 
-#: src/plugin_about/about.c:165
+#: src/plugin_about/about.c:203
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
@@ -48,7 +48,7 @@ msgstr ""
 "Якщо автори пропустили когось у цьому списку,\n"
 "будь ласка, напишіть про це на адресу <bluefish@bluefish.openoffice.nl>."
 
-#: src/plugin_about/about.c:166
+#: src/plugin_about/about.c:204
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
@@ -57,7 +57,7 @@ msgstr ""
 "Дякуємо всім, чиї зусилля зробили можливим створення цього програмного "
 "забезпечення."
 
-#: src/plugin_about/about.c:202
+#: src/plugin_about/about.c:240
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
@@ -75,43 +75,43 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:212
+#: src/plugin_about/about.c:250
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: src/plugin_about/about.c:276
+#: src/plugin_about/about.c:316
 msgid "_Help"
 msgstr "_Довідка"
 
-#: src/plugin_about/about.c:277
+#: src/plugin_about/about.c:317
 msgid "Bluefish _Homepage"
 msgstr "_Домашня сторінка Bluefish"
 
-#: src/plugin_about/about.c:277
+#: src/plugin_about/about.c:317
 msgid "Bluefish homepage"
 msgstr "Домашня сторінка Bluefish"
 
-#: src/plugin_about/about.c:279
+#: src/plugin_about/about.c:319
 msgid "Report a _Bug"
 msgstr "П_овідомити про ваду"
 
-#: src/plugin_about/about.c:279
+#: src/plugin_about/about.c:319
 msgid "Report a bug"
 msgstr "Повідомити про ваду"
 
-#: src/plugin_about/about.c:280
+#: src/plugin_about/about.c:320
 msgid "_About"
 msgstr "_Про програму"
 
-#: src/plugin_about/about.c:280
+#: src/plugin_about/about.c:320
 msgid "About Bluefish"
 msgstr "Про Bluefish"
 
-#: src/plugin_about/about.c:282
-msgid "_Build Info"
+#: src/plugin_about/about.c:322
+msgid "Build _Info"
 msgstr "Від_омості щодо збирання"
 
-#: src/plugin_about/about.c:282
+#: src/plugin_about/about.c:322
 msgid "Build info"
 msgstr "Відомості щодо збирання"
 
