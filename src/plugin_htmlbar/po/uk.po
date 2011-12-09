@@ -6,87 +6,65 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-22 07:59+0300\n"
-"PO-Revision-Date: 2011-10-06 08:33+0300\n"
+"POT-Creation-Date: 2011-12-09 21:16+0100\n"
+"PO-Revision-Date: 2011-12-09 22:38+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
-"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
 "X-Generator: Lokalize 1.2\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#. _DM_ Alert box asking if user would like to change request from add to
-#. * update.
-#.
-#: src/plugin_htmlbar/html2.c:500
-msgid "_Update"
-msgstr "_Оновити"
-
-#: src/plugin_htmlbar/html2.c:505
-#, c-format
-msgid "The %s %s property already exists.\n"
-msgstr "Властивість %s %s вже існує.\n"
-
-#: src/plugin_htmlbar/html2.c:507
-#, c-format
-msgid "The %s property already exists.\n"
-msgstr "Властивість %s вже існує.\n"
-
-#: src/plugin_htmlbar/html2.c:510
-#, c-format
-msgid "Update its value from %s to %s?"
-msgstr "Оновити її значення з %s до %s?"
-
-#: src/plugin_htmlbar/html2.c:641
+#: src/plugin_htmlbar/html2.c:550
 msgid "Cascading Style Sheet Builder"
 msgstr "Побудова каскадних таблиць стилів (CSS)"
 
-#: src/plugin_htmlbar/html2.c:661
+#: src/plugin_htmlbar/html2.c:570
 msgid "_Selector:"
 msgstr "_Селектор:"
 
-#: src/plugin_htmlbar/html2.c:680
+#: src/plugin_htmlbar/html2.c:589
 msgid "_Property:"
 msgstr "_Властивість:"
 
-#: src/plugin_htmlbar/html2.c:682 src/plugin_htmlbar/html_form.c:375
+#: src/plugin_htmlbar/html2.c:591 src/plugin_htmlbar/html_form.c:375
 #: src/plugin_htmlbar/html_form.c:540 src/plugin_htmlbar/html_form.c:635
 msgid "_Value:"
 msgstr "_Значення:"
 
-#: src/plugin_htmlbar/html2.c:700
+#: src/plugin_htmlbar/html2.c:608
 msgid "Selector"
 msgstr "Селектор"
 
-#: src/plugin_htmlbar/html2.c:700 src/plugin_htmlbar/html2.c:703
+#: src/plugin_htmlbar/html2.c:612
 msgid "Property"
 msgstr "Властивість"
 
-#: src/plugin_htmlbar/html2.c:700 src/plugin_htmlbar/html2.c:703
+#: src/plugin_htmlbar/html2.c:615
 msgid "Value"
 msgstr "Значення"
 
-#: src/plugin_htmlbar/html2.c:718
+#: src/plugin_htmlbar/html2.c:643
 msgid " _Add "
 msgstr " _Додати "
 
-#: src/plugin_htmlbar/html2.c:721
+#: src/plugin_htmlbar/html2.c:647
 msgid " _Update "
 msgstr " _Оновити "
 
-#: src/plugin_htmlbar/html2.c:724
+#: src/plugin_htmlbar/html2.c:651
 msgid " _Delete "
 msgstr " В_илучити "
 
-#: src/plugin_htmlbar/html2.c:977 src/plugin_htmlbar/html2.c:1014
+#: src/plugin_htmlbar/html2.c:911 src/plugin_htmlbar/html2.c:948
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1639
 msgid "_Style..."
 msgstr "_Стиль…"
 
-#: src/plugin_htmlbar/html2.c:1099
+#: src/plugin_htmlbar/html2.c:1033
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Вибір кольору"
 
@@ -601,7 +579,7 @@ msgid "Middle _dot ·"
 msgstr "К_рапка посередині рядка ·"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1496
-msgid "F_ormat by context"
+msgid "_Format by Context"
 msgstr "Ф_орматування за контекстом"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1497
@@ -703,7 +681,7 @@ msgid "Delete"
 msgstr "Вилучити"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1517
-msgid "_Format by layout"
+msgid "Format by L_ayout"
 msgstr "_Форматування за компонуванням"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1518
@@ -755,7 +733,7 @@ msgid "Big"
 msgstr "Великі"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1528
-msgid "Format _general"
+msgid "Format _General"
 msgstr "За_гальне форматування"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1529
@@ -945,8 +923,9 @@ msgid "Menu"
 msgstr "Меню"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1576
-msgid "Fo_rm"
-msgstr "_Форма"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1650
+msgid "F_orm"
+msgstr "Ф_орма"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1577
 msgid "_Form"
@@ -1229,10 +1208,6 @@ msgstr "_Фрейм…"
 msgid "Frame..."
 msgstr "Фрейм…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1650
-msgid "F_orm"
-msgstr "Ф_орма"
-
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1651
 msgid "F_orm..."
 msgstr "_Форма…"
@@ -1246,12 +1221,16 @@ msgid "_Input..."
 msgstr "_Поле введення…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
-msgid "Input Buttons..."
-msgstr "Кнопки введення…"
+msgid "Input B_uttons..."
+msgstr "Кноп_ки введення…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
 msgid "Input Button..."
 msgstr "Кнопка введення…"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1655
+msgid "Input T_ext..."
+msgstr "Поле вв_едення тексту…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
 msgid "Input Text..."
@@ -1347,8 +1326,8 @@ msgstr "Поле позначки варіанта…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1697
-msgid "_HTML5"
-msgstr "_HTML5"
+msgid "HTML_5"
+msgstr "HTML_5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
 msgid "_Article"
@@ -1367,12 +1346,12 @@ msgid "Aside"
 msgstr "Aside"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-msgid "Figcaption"
-msgstr "Підпис до зображення"
+msgid "Fig_caption"
+msgstr "Підпис_до_зображення"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-msgid "Figcaption "
-msgstr "Підпис "
+msgid "Figcaption"
+msgstr "Підпис до зображення"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1687
 msgid "Fig_ure"
@@ -1423,16 +1402,16 @@ msgid "Nav"
 msgstr "Nav"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1693
-msgid "Rp"
-msgstr "Rp"
+msgid "R_p"
+msgstr "R_p"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1693
 msgid "Ruby parenthesis"
 msgstr "Дужка Ruby"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1694
-msgid "Rt"
-msgstr "Rt"
+msgid "R_t"
+msgstr "R_t"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1694
 msgid "Ruby text"
@@ -1594,7 +1573,7 @@ msgstr "Якір"
 msgid "Attributes"
 msgstr "Атрибути"
 
-#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:2381
+#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:2454
 msgid "_HREF:"
 msgstr "_HREF:"
 
@@ -1610,24 +1589,26 @@ msgstr "_Ціль:"
 msgid "_Name:"
 msgstr "_Назва:"
 
-#: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/quickstart.c:555
+#: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/quickstart.c:552
 msgid "Titl_e:"
 msgstr "_Заголовок:"
 
 #: src/plugin_htmlbar/html.c:700 src/plugin_htmlbar/html.c:1215
-#: src/plugin_htmlbar/html.c:1364 src/plugin_htmlbar/html.c:2293
+#: src/plugin_htmlbar/html.c:1364 src/plugin_htmlbar/html.c:2366
 msgid "_Language:"
 msgstr "_Мова:"
 
 #: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:939
 #: src/plugin_htmlbar/html.c:1109 src/plugin_htmlbar/html.c:1218
 #: src/plugin_htmlbar/html.c:1370 src/plugin_htmlbar/html.c:1757
-#: src/plugin_htmlbar/html.c:1871 src/plugin_htmlbar/html.c:2312
+#: src/plugin_htmlbar/html.c:1871 src/plugin_htmlbar/html.c:1976
+#: src/plugin_htmlbar/html.c:2045 src/plugin_htmlbar/html.c:2176
+#: src/plugin_htmlbar/html.c:2251 src/plugin_htmlbar/html.c:2385
 #: src/plugin_htmlbar/html_form.c:204 src/plugin_htmlbar/html_form.c:267
 #: src/plugin_htmlbar/html_form.c:328 src/plugin_htmlbar/html_form.c:644
 #: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
 #: src/plugin_htmlbar/html_table.c:383 src/plugin_htmlbar/image.c:509
-#: src/plugin_htmlbar/image_dialog.c:382
+#: src/plugin_htmlbar/image_dialog.c:394
 msgid "Custo_m:"
 msgstr "Нет_иповий:"
 
@@ -1714,20 +1695,20 @@ msgid "Ali_gn:"
 msgstr "Ви_рівнювання:"
 
 #: src/plugin_htmlbar/html.c:923 src/plugin_htmlbar/html.c:1209
-#: src/plugin_htmlbar/html_diag.c:445 src/plugin_htmlbar/html_table.c:98
+#: src/plugin_htmlbar/html_diag.c:451 src/plugin_htmlbar/html_table.c:98
 #: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
-#: src/plugin_htmlbar/image_dialog.c:368
+#: src/plugin_htmlbar/image_dialog.c:374
 msgid "Cl_ass:"
 msgstr "_Клас:"
 
 #: src/plugin_htmlbar/html.c:927 src/plugin_htmlbar/html.c:1202
-#: src/plugin_htmlbar/html_diag.c:459 src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html_diag.c:465 src/plugin_htmlbar/html_table.c:102
 #: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:378
 msgid "St_yle:"
 msgstr "Ст_иль:"
 
 #: src/plugin_htmlbar/html.c:936 src/plugin_htmlbar/html.c:1212
-#: src/plugin_htmlbar/html_diag.c:453
+#: src/plugin_htmlbar/html_diag.c:459
 msgid "_ID:"
 msgstr "_ID:"
 
@@ -1735,22 +1716,22 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "Горизонтальна лінійка"
 
-#: src/plugin_htmlbar/html.c:1083 src/plugin_htmlbar/html.c:2227
-#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/html.c:1083 src/plugin_htmlbar/html.c:2300
+#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:417
 msgid "_Align:"
 msgstr "Ви_рівнювання:"
 
-#: src/plugin_htmlbar/html.c:1090 src/plugin_htmlbar/html.c:2000
-#: src/plugin_htmlbar/html.c:2111 src/plugin_htmlbar/html.c:2235
-#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:338
+#: src/plugin_htmlbar/html.c:1090 src/plugin_htmlbar/html.c:2041
+#: src/plugin_htmlbar/html.c:2161 src/plugin_htmlbar/html.c:2308
+#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:347
 msgid "_Height:"
 msgstr "_Висота:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1096 src/plugin_htmlbar/html.c:1995
-#: src/plugin_htmlbar/html.c:2106 src/plugin_htmlbar/html.c:2231
+#: src/plugin_htmlbar/html.c:1096 src/plugin_htmlbar/html.c:2036
+#: src/plugin_htmlbar/html.c:2156 src/plugin_htmlbar/html.c:2304
 #: src/plugin_htmlbar/html_table.c:139 src/plugin_htmlbar/html_table.c:401
-#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:329
+#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:338
 msgid "_Width:"
 msgstr "_Ширина:"
 
@@ -1886,7 +1867,7 @@ msgstr "Вп_орядкований"
 msgid "_Unordered"
 msgstr "_Невпорядкований"
 
-#: src/plugin_htmlbar/html.c:1656
+#: src/plugin_htmlbar/html.c:1656 src/plugin_htmlbar/image_dialog.c:388
 msgid "Style:"
 msgstr "Стиль:"
 
@@ -1902,9 +1883,9 @@ msgstr "_Рядків:"
 msgid "_Add <frame> elements"
 msgstr "_Додати елементи <frame>"
 
-#: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1927
-#: src/plugin_htmlbar/html.c:2058 src/plugin_htmlbar/html.c:2222
-#: src/plugin_htmlbar/html.c:2285 src/plugin_htmlbar/image_dialog.c:290
+#: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1933
+#: src/plugin_htmlbar/html.c:2109 src/plugin_htmlbar/html.c:2295
+#: src/plugin_htmlbar/html.c:2358 src/plugin_htmlbar/image_dialog.c:300
 msgid "_Source:"
 msgstr "Д_жерело:"
 
@@ -1929,103 +1910,143 @@ msgid "No _Resize:"
 msgstr "Без _зміни розмірів:"
 
 #. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:1917
+#: src/plugin_htmlbar/html.c:1925
 msgid "Audio"
 msgstr "Звук"
 
-#: src/plugin_htmlbar/html.c:1933 src/plugin_htmlbar/html.c:2071
+#: src/plugin_htmlbar/html.c:1939 src/plugin_htmlbar/html.c:2122
 msgid "_Autoplay:"
 msgstr "_Автовідтворення:"
 
-#: src/plugin_htmlbar/html.c:1940 src/plugin_htmlbar/html.c:2078
+#: src/plugin_htmlbar/html.c:1946 src/plugin_htmlbar/html.c:2129
 msgid "_Controls:"
 msgstr "_Керування:"
 
-#: src/plugin_htmlbar/html.c:1947 src/plugin_htmlbar/html.c:2085
+#: src/plugin_htmlbar/html.c:1953 src/plugin_htmlbar/html.c:2136
 msgid "_Loop:"
 msgstr "_Цикл:"
 
-#: src/plugin_htmlbar/html.c:1955 src/plugin_htmlbar/html.c:2093
+#: src/plugin_htmlbar/html.c:1960 src/plugin_htmlbar/html.c:2143
 msgid "_Preload:"
 msgstr "_Передзавантаження:"
 
+#: src/plugin_htmlbar/html.c:1965 src/plugin_htmlbar/html.c:2024
+#: src/plugin_htmlbar/html.c:2165
+msgid "_Id:"
+msgstr "_Ід.:"
+
+#: src/plugin_htmlbar/html.c:1968 src/plugin_htmlbar/html.c:2027
+#: src/plugin_htmlbar/html.c:2173
+msgid "_Class:"
+msgstr "_Клас:"
+
+#: src/plugin_htmlbar/html.c:1971 src/plugin_htmlbar/html.c:2030
+#: src/plugin_htmlbar/html.c:2168
+msgid "_Style:"
+msgstr "С_тиль:"
+
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:1990
+#: src/plugin_htmlbar/html.c:2019
 msgid "Canvas"
 msgstr "Canvas"
 
-#. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:2048
+#: src/plugin_htmlbar/html.c:2101
 msgid "Video"
 msgstr "Відео"
 
-#: src/plugin_htmlbar/html.c:2065
+#: src/plugin_htmlbar/html.c:2116
 msgid "_Poster:"
 msgstr "_Постер:"
 
-#: src/plugin_htmlbar/html.c:2100
+#: src/plugin_htmlbar/html.c:2150
 msgid "_Audio:"
 msgstr "_Звук:"
 
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:2162
+#: src/plugin_htmlbar/html.c:2226
 msgid "Time"
 msgstr "Час"
 
-#: src/plugin_htmlbar/html.c:2168
-msgid "_Pubdate:"
-msgstr "_Дата оприлюднення:"
+#. Datetime help
+#: src/plugin_htmlbar/html.c:2231
+msgid ""
+"Datetime format (ex. YYYY-MM-DDThh:mm:ssTZD) :\n"
+"\n"
+"YYYY - year (e.g. 2009)\n"
+"MM - month (e.g. 01 for January)\n"
+"DD - day of the month (e.g. 08)\n"
+"T - a required separator\n"
+"hh - hour (e.g. 22 for 10.00pm)\n"
+"mm - minutes (e.g. 55)\n"
+"ss - seconds (e.g. 03)\n"
+"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean "
+"Time)\n"
+msgstr ""
+"Формат дати і часу (наприклад, YYYY-MM-DDThh:mm:ssTZD) :\n"
+"\n"
+"YYYY — рік (наприклад 2009)\n"
+"MM — місяць (наприклад 01 для січня)\n"
+"DD — день місяця (наприклад 08)\n"
+"T — обов’язковий роздільник\n"
+"hh — години (наприклад 22 для десятої вечора)\n"
+"mm — хвилини (наприклад 55)\n"
+"ss — секунди (наприклад 03)\n"
+"TZD — позначення часового поясу (Z — нульовий час або час Гринвіча)\n"
 
-#: src/plugin_htmlbar/html.c:2174
+#: src/plugin_htmlbar/html.c:2241
 msgid "_Datetime:"
 msgstr "_Час оприлюднення:"
 
-#: src/plugin_htmlbar/html.c:2218
+#: src/plugin_htmlbar/html.c:2246
+msgid "_Pubdate:"
+msgstr "_Дата оприлюднення:"
+
+#: src/plugin_htmlbar/html.c:2291
 msgid "Embed"
 msgstr "Вбудувати"
 
-#: src/plugin_htmlbar/html.c:2239 src/plugin_htmlbar/html_table.c:145
+#: src/plugin_htmlbar/html.c:2312 src/plugin_htmlbar/html_table.c:145
 msgid "Bo_rder:"
 msgstr "_Рамка:"
 
-#: src/plugin_htmlbar/html.c:2279
+#: src/plugin_htmlbar/html.c:2352
 msgid "Script"
 msgstr "Скрипт"
 
-#: src/plugin_htmlbar/html.c:2308 src/plugin_htmlbar/html.c:2412
+#: src/plugin_htmlbar/html.c:2381 src/plugin_htmlbar/html.c:2485
 #: src/plugin_htmlbar/html_form.c:531 src/plugin_htmlbar/html_form.c:640
 msgid "_Type:"
 msgstr "_Тип:"
 
-#: src/plugin_htmlbar/html.c:2370
+#: src/plugin_htmlbar/html.c:2443
 msgid "Link"
 msgstr "Посилання"
 
-#: src/plugin_htmlbar/html.c:2387
+#: src/plugin_htmlbar/html.c:2460
 msgid "HREF_LANG:"
 msgstr "HREF_LANG:"
 
-#: src/plugin_htmlbar/html.c:2390
+#: src/plugin_htmlbar/html.c:2463
 msgid "T_itle:"
 msgstr "З_аголовок:"
 
-#: src/plugin_htmlbar/html.c:2435
+#: src/plugin_htmlbar/html.c:2508
 msgid "_Forward Relation:"
 msgstr "П_ерехід вперед на:"
 
-#: src/plugin_htmlbar/html.c:2440
+#: src/plugin_htmlbar/html.c:2513
 msgid "_Reverse Relation:"
 msgstr "Перехід наза_д на:"
 
-#: src/plugin_htmlbar/html.c:2454
+#: src/plugin_htmlbar/html.c:2527
 msgid "Media:"
 msgstr "Дані:"
 
-#: src/plugin_htmlbar/html.c:2458
+#: src/plugin_htmlbar/html.c:2531
 msgid "L_ang:"
 msgstr "L_ang:"
 
-#: src/plugin_htmlbar/html.c:2461
+#: src/plugin_htmlbar/html.c:2534
 msgid "_Custom:"
 msgstr "_Нетипове:"
 
@@ -2165,11 +2186,11 @@ msgstr "Спроба завантаження зображення заверш�
 msgid "Loading file %s..."
 msgstr "Завантаження файла %s…"
 
-#: src/plugin_htmlbar/image.c:456
+#: src/plugin_htmlbar/image.c:457
 msgid "Insert thumbnail"
 msgstr "Вставити мініатюру"
 
-#: src/plugin_htmlbar/image.c:460 src/plugin_htmlbar/image_dialog.c:308
+#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:317
 msgid "Preview"
 msgstr "Перегляд"
 
@@ -2181,7 +2202,7 @@ msgstr "Адреса _зображення:"
 msgid "Hei_ght:"
 msgstr "Ви_сота:"
 
-#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:377
+#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:383
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
@@ -2189,11 +2210,11 @@ msgstr "_Usemap:"
 msgid "Alternate _text:"
 msgstr "Альтернативний _текст:"
 
-#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:414
+#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:426
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:418
+#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Vspace:"
 msgstr "_Vspace:"
 
@@ -2249,31 +2270,31 @@ msgstr ""
 "%x: ширина мініатюри  %y: висота мініатюри\n"
 "%b: початковий розмір (у байтах)"
 
-#: src/plugin_htmlbar/image_dialog.c:345
+#: src/plugin_htmlbar/image_dialog.c:354
 msgid "_Reset Dimensions"
 msgstr "Ві_дновити розміри"
 
-#: src/plugin_htmlbar/image_dialog.c:358
+#: src/plugin_htmlbar/image_dialog.c:364
 msgid "Alternate te_xt:"
 msgstr "Альтернативний те_кст:"
 
-#: src/plugin_htmlbar/image_dialog.c:363
+#: src/plugin_htmlbar/image_dialog.c:369
 msgid "_Long description:"
 msgstr "_Довгий опис:"
 
-#: src/plugin_htmlbar/image_dialog.c:372
+#: src/plugin_htmlbar/image_dialog.c:378
 msgid "I_D:"
 msgstr "I_D:"
 
-#: src/plugin_htmlbar/image_dialog.c:394
+#: src/plugin_htmlbar/image_dialog.c:406
 msgid "_Use Transitional options"
 msgstr "Ви_користовувати проміжні параметри"
 
-#: src/plugin_htmlbar/image_dialog.c:410
+#: src/plugin_htmlbar/image_dialog.c:422
 msgid "_Border:"
 msgstr "_Рамка:"
 
-#: src/plugin_htmlbar/image_dialog.c:713
+#: src/plugin_htmlbar/image_dialog.c:732
 #, c-format
 msgid ""
 "\n"
@@ -2282,7 +2303,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/plugin_htmlbar/image_dialog.c:718
+#: src/plugin_htmlbar/image_dialog.c:737
 #, c-format
 msgid ""
 "\n"
@@ -2291,7 +2312,7 @@ msgstr ""
 "\n"
 "%d x %d пікселів"
 
-#: src/plugin_htmlbar/image_dialog.c:816
+#: src/plugin_htmlbar/image_dialog.c:835
 msgid ""
 "\n"
 "\n"
@@ -2303,80 +2324,80 @@ msgstr ""
 "\t<b>Завантаження попереднього перегляду…</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:918
+#: src/plugin_htmlbar/image_dialog.c:937
 msgid "Select Image"
 msgstr "Вибір зображення"
 
-#: src/plugin_htmlbar/image_dialog.c:925
+#: src/plugin_htmlbar/image_dialog.c:944
 msgid "All images"
 msgstr "Всі зображення"
 
-#: src/plugin_htmlbar/image_dialog.c:1136
-#: src/plugin_htmlbar/image_dialog.c:1237
+#: src/plugin_htmlbar/image_dialog.c:1160
+#: src/plugin_htmlbar/image_dialog.c:1265
 msgid "Insert Image"
 msgstr "Вставити зображення"
 
-#: src/plugin_htmlbar/quickstart.c:516
+#: src/plugin_htmlbar/quickstart.c:513
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>_Зовнішня таблиця стилів</b>"
 
-#: src/plugin_htmlbar/quickstart.c:527
+#: src/plugin_htmlbar/quickstart.c:524
 msgid "Ty_pe:"
 msgstr "_Тип:"
 
-#: src/plugin_htmlbar/quickstart.c:545
+#: src/plugin_htmlbar/quickstart.c:542
 msgid "HRE_F:"
 msgstr "HRE_F:"
 
-#: src/plugin_htmlbar/quickstart.c:550
+#: src/plugin_htmlbar/quickstart.c:547
 msgid "_Media:"
 msgstr "_Дані:"
 
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
 #.
-#: src/plugin_htmlbar/quickstart.c:562
+#: src/plugin_htmlbar/quickstart.c:559
 msgid "<b>Style Area</b>"
 msgstr "<b>Область стилю</b>"
 
-#: src/plugin_htmlbar/quickstart.c:566
+#: src/plugin_htmlbar/quickstart.c:563
 msgid "Cre_ate empty style area"
 msgstr "Ст_ворити порожню область для стилів"
 
-#: src/plugin_htmlbar/quickstart.c:588
+#: src/plugin_htmlbar/quickstart.c:582
 msgid "<b>Attributes</b>"
 msgstr "<b>Атрибути</b>"
 
-#: src/plugin_htmlbar/quickstart.c:603
+#: src/plugin_htmlbar/quickstart.c:597
 msgid "_Src:"
 msgstr "_Src:"
 
 #. TODO: add an option to place content in the script area
-#: src/plugin_htmlbar/quickstart.c:610
+#: src/plugin_htmlbar/quickstart.c:604
 msgid "<b>Script Area</b>"
 msgstr "<b>Область скриптів</b>"
 
-#: src/plugin_htmlbar/quickstart.c:614
+#: src/plugin_htmlbar/quickstart.c:608
 msgid "Cre_ate empty script area"
 msgstr "С_творити порожню область для скриптів"
 
-#: src/plugin_htmlbar/quickstart.c:641
+#: src/plugin_htmlbar/quickstart.c:635
 msgid "Quick Start"
 msgstr "Майстер швидкого створення"
 
-#: src/plugin_htmlbar/quickstart.c:656
+#: src/plugin_htmlbar/quickstart.c:652
 msgid "_DTD:"
 msgstr "_DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:660 src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/quickstart.c:656 src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "_Заголовок:"
 
-#: src/plugin_htmlbar/quickstart.c:683
+#: src/plugin_htmlbar/quickstart.c:679
 msgid "_Head:"
 msgstr "_Шапка:"
 
-#: src/plugin_htmlbar/quickstart.c:700
+#: src/plugin_htmlbar/quickstart.c:696
 msgid "Open in _new document."
 msgstr "Відкрити у _новому документі"
 
@@ -2435,6 +2456,24 @@ msgstr "Джерело:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Розмір:"
+
+#~ msgid "_Update"
+#~ msgstr "_Оновити"
+
+#~ msgid "The %s %s property already exists.\n"
+#~ msgstr "Властивість %s %s вже існує.\n"
+
+#~ msgid "The %s property already exists.\n"
+#~ msgstr "Властивість %s вже існує.\n"
+
+#~ msgid "Update its value from %s to %s?"
+#~ msgstr "Оновити її значення з %s до %s?"
+
+#~ msgid "Fo_rm"
+#~ msgstr "_Форма"
+
+#~ msgid "Figcaption "
+#~ msgstr "Підпис "
 
 #~ msgid "_Aside"
 #~ msgstr "_Aside"
