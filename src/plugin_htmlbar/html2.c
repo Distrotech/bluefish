@@ -603,6 +603,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	diag->lstore = gtk_list_store_new(3, G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(diag->lstore),0,GTK_SORT_ASCENDING);
 	diag->lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(diag->lstore));
+	g_object_unref(G_OBJECT(diag->lstore));
 	if (diag->styletype == multistyle) {
 		renderer = gtk_cell_renderer_text_new();
 		column = gtk_tree_view_column_new_with_attributes (_("Selector"),renderer,"text", 0,NULL);

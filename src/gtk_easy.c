@@ -1318,6 +1318,7 @@ file_chooser_dialog(Tbfwin * bfwin, const gchar * title, GtkFileChooserAction ac
 		gtk_list_store_set(store, &iter, 0, _("Automatic detection"), 1, NULL, -1);
 
 		combo = gtk_combo_box_new_with_model(GTK_TREE_MODEL(store));
+		g_object_unref(G_OBJECT(store));
 		gtk_combo_box_set_row_separator_func(GTK_COMBO_BOX(combo), is_separator, NULL, NULL);
 		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(combo), have_seliter ? &seliter : &iter);
 
