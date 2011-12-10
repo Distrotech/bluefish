@@ -1401,7 +1401,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 
 	snrwin->dialog =
 		gtk_dialog_new_with_buttons(_("Find and Replace"), GTK_WINDOW(bfwin->main_window),
-									GTK_DIALOG_DESTROY_WITH_PARENT, NULL);
+									GTK_DIALOG_DESTROY_WITH_PARENT, NULL, NULL);
 /*	gtk_window_set_resizable(GTK_WINDOW(snrwin->dialog), FALSE);
 	gtk_dialog_set_has_separator(GTK_DIALOG(snrwin->dialog), FALSE);*/
 	window_delete_on_escape(GTK_WINDOW(snrwin->dialog));
