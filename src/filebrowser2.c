@@ -2754,7 +2754,6 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		gtk_box_pack_start(GTK_BOX(fb2->vbox), fb2->dirscrolwin, TRUE, TRUE, 0);
 	} else {
 		fb2->vpaned = gtk_vpaned_new();
-		gtk_widget_set_size_request(fb2->vpaned, main_v->globses.left_panel_width, -1);
 		gtk_paned_set_position(GTK_PANED(fb2->vpaned), main_v->globses.two_pane_filebrowser_height);
 		g_signal_connect(G_OBJECT(fb2->vpaned), "notify::position",
 						 G_CALLBACK(fb2_two_pane_notify_position_lcb), NULL);
