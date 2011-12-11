@@ -2969,6 +2969,17 @@ fb2_cleanup(Tbfwin * bfwin)
 		}
 		
 		g_print("fb2_cleanup, remove ui_manager actions\n");
+		if (bfwin->fb2_filters_group) {
+			gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->fb2_filters_merge_id);
+			actions = gtk_action_group_list_actions(bfwin->fb2_filters_group);
+			for (list = actions; list; list = list->next) {
+				g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
+						G_CALLBACK(popup_menu_filter_activate), fb2);
+				gtk_action_group_remove_action(bfwin->fb2_filters_group, GTK_ACTION(list->data));
+			}
+			g_list_free(actions);
+			bfwin->fb2_filters_group = NULL;
+		}
 		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->filebrowser_merge_id);
 		actions = gtk_action_group_list_actions(bfwin->filebrowserGroup);
 		for (list = actions; list; list = list->next) {
