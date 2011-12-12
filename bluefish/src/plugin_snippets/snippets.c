@@ -101,11 +101,11 @@ static void snippets_cleanup_gui(Tbfwin *bfwin) {
 	g_hash_table_remove(snippets_v.lookup,bfwin);
 }
 
-static GHashTable *snippets_register_globses_config(GHashTable *configlist) {
-/*	DEBUG_MSG("snippets_register_globses_config, started\n");
-	configlist = make_config_list_item(configlist, &snippets_v.quickbar_items, 'l', "snippets_quickbar:", 0);*/
+/*static GHashTable *snippets_register_globses_config(GHashTable *configlist) {
+/ *	DEBUG_MSG("snippets_register_globses_config, started\n");
+	configlist = make_config_list_item(configlist, &snippets_v.quickbar_items, 'l', "snippets_quickbar:", 0);* /
 	return configlist;
-}
+}*/
 static GHashTable *snippets_register_session_config(GHashTable *configlist, Tsessionvars *session) {
 	Tsnippetssession *sns;
 	sns = snippets_get_session(session);
