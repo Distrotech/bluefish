@@ -1692,8 +1692,14 @@ popup_menu_delete(GtkAction * action, gpointer user_data)
 static void
 popup_menu_filter_activate(GtkAction * action, gpointer user_data)
 {
-	Tfilebrowser2 *fb2 = FILEBROWSER2(user_data);
-
+	
+	Tbfwin *bfwin=user_data;
+	Tfilebrowser2 *fb2;
+	
+	if (!bfwin || !bfwin->fb2)
+		return;
+	
+	fb2 = FILEBROWSER2(bfwin->fb2);
 	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
 		/* loop trough the filters for a filter with this name */
 		const gchar *name = gtk_action_get_name(action);
@@ -1894,8 +1900,15 @@ popup_menu_show_full_tree(GtkAction * action, gpointer user_data)
 static void
 popup_menu_view_mode_changed(GtkRadioAction * action, GtkRadioAction * current, gpointer user_data)
 {
-	Tfilebrowser2 *fb2 = FILEBROWSER2(user_data);
-	gint view_mode = gtk_radio_action_get_current_value(action);
+	Tbfwin *bfwin = user_data;
+	Tfilebrowser2 *fb2;
+	gint view_mode;
+	
+	if (!bfwin || !bfwin->fb2)
+		return;
+	
+	fb2 = FILEBROWSER2(bfwin->fb2);
+	view_mode = gtk_radio_action_get_current_value(action);
 
 	BFWIN(fb2->bfwin)->session->filebrowser_viewmode = view_mode;
 	fb2_set_viewmode_widgets(fb2, view_mode);
@@ -2008,7 +2021,7 @@ popup_menu_action_group_init(Tbfwin * bfwin)
 	gtk_action_group_add_radio_actions(bfwin->filebrowserGroup, filebrowser_radio_actions,
 									   G_N_ELEMENTS(filebrowser_radio_actions),
 									   fb2->filebrowser_viewmode, G_CALLBACK(popup_menu_view_mode_changed),
-									   fb2);
+									   bfwin);
 	gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->filebrowserGroup, 1);
 	g_object_unref(bfwin->filebrowserGroup);
 
@@ -2063,7 +2076,7 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 		actions = gtk_action_group_list_actions(bfwin->fb2_filters_group);
 		for (list = actions; list; list = list->next) {
 			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
-												 G_CALLBACK(popup_menu_filter_activate), fb2);
+												 G_CALLBACK(popup_menu_filter_activate), bfwin);
 			gtk_action_group_remove_action(bfwin->fb2_filters_group, GTK_ACTION(list->data));
 		}
 		g_list_free(actions);
@@ -2080,7 +2093,7 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 		gtk_radio_action_set_group(action, group);
 		group = gtk_radio_action_get_group(action);
 
-		g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(popup_menu_filter_activate), fb2);
+		g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(popup_menu_filter_activate), bfwin);
 
 		gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->fb2_filters_merge_id,
 							  "/FileBrowserMenu/FB2FilterMenu/FB2FilterPlaceholder", filter->name,
@@ -2098,9 +2111,13 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 
 static void
 dir_v_row_expanded_lcb(GtkTreeView * tree, GtkTreeIter * sort_iter,
-					   GtkTreePath * sort_path, Tfilebrowser2 * fb2)
+					   GtkTreePath * sort_path, Tbfwin *bfwin)
 {
 	GFile *uri;
+	Tfilebrowser2 * fb2;
+	if (!bfwin || !bfwin->fb2)
+		return;
+	fb2 = bfwin->fb2;
 	DEBUG_MSG("dir_v_row_expanded_lcb, called for fb2=%p with sort_path=\n", fb2);
 	/* refresh the directory that is being expanded */
 	gtk_tree_model_get(fb2->dir_tsort, sort_iter, URI_COLUMN, &uri, -1);
@@ -2372,12 +2389,16 @@ file_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 }
 
 static void
-dir_v_selection_changed_lcb(GtkTreeSelection * treeselection, Tfilebrowser2 * fb2)
+dir_v_selection_changed_lcb(GtkTreeSelection * treeselection, Tbfwin *bfwin)
 {
 	GtkTreeModel *sort_model = NULL;
 	GtkTreeIter sort_iter;
+	Tfilebrowser2 *fb2;
+	if (!bfwin || !bfwin->fb2)
+		return;
+	fb2 = bfwin->fb2;
 	/* Get the current selected row and the model. */
-	g_print("dir_v_selection_changed_lcb, treeselection=%p, fb2=%p\n", treeselection, fb2);
+	DEBUG_MSG("dir_v_selection_changed_lcb, treeselection=%p, fb2=%p\n", treeselection, fb2);
 	if (treeselection && gtk_tree_selection_get_selected(treeselection, &sort_model, &sort_iter)) {
 		GFile *uri;
 		gchar *mime_type;
@@ -2456,9 +2477,14 @@ fb2_set_basedir(Tbfwin * bfwin, const gchar * curi)
 static void
 dirmenu_changed_lcb(GtkComboBox * widget, gpointer data)
 {
-	Tfilebrowser2 *fb2 = data;
+	Tbfwin *bfwin = data;
+	Tfilebrowser2 *fb2;
 	GtkTreeIter iter;
-	g_print("dirmenu_changed_lcb, started for fb2 %p\n", fb2);
+	
+	if (!bfwin || !bfwin->fb2)
+		return;
+	fb2 = bfwin->fb2;
+	DEBUG_MSG("dirmenu_changed_lcb, started for fb2 %p\n", fb2);
 	if (gtk_combo_box_get_active_iter(widget, &iter)) {
 		GFile *uri;
 		DEBUG_MSG("dirmenu_changed_lcb. we have an active iter\n");
@@ -2725,7 +2751,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
 		g_print("fb2_set_viewmode_widgets, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
 				  dirselection, fb2, fb2->dir_tfilter);
-		fb2->dirselection_changed_id = g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(dir_v_selection_changed_lcb), fb2);
+		fb2->dirselection_changed_id = g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(dir_v_selection_changed_lcb), fb2->bfwin);
 	}
 
 	renderer = gtk_cell_renderer_pixbuf_new();
@@ -2809,7 +2835,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	g_signal_connect(G_OBJECT(fb2->dir_v), "row-activated", G_CALLBACK(dir_v_row_activated_lcb), fb2);
 	g_signal_connect(G_OBJECT(fb2->dir_v), "button_press_event", G_CALLBACK(dir_v_button_press_lcb), fb2);
 	fb2->expand_signal =
-		g_signal_connect(G_OBJECT(fb2->dir_v), "row-expanded", G_CALLBACK(dir_v_row_expanded_lcb), fb2);
+		g_signal_connect(G_OBJECT(fb2->dir_v), "row-expanded", G_CALLBACK(dir_v_row_expanded_lcb), fb2->bfwin);
 	g_signal_connect(fb2->dir_v, "query-tooltip", G_CALLBACK(fb2_tooltip_lcb), fb2->dir_v);
 	g_object_set(fb2->dir_v, "has-tooltip", TRUE, NULL);
 	/*gtk_container_resize_children(GTK_CONTAINER(fb2->vbox)); */
@@ -2871,19 +2897,6 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 	}
 }
 
-void
-fb2destroy_signal_lcb(GtkWidget *widget, Tfilebrowser2 *fb2)
-{
-	g_print("fb2destroy_signal_lcb widget=%p, fb2=%p\n",widget,fb2);
-/*	if (fb2->dir_v) {
-		GtkTreeSelection *dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
-		if (dirselection) {
-			g_signal_handler_disconnect(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v))), fb2->dirselection_changed_id);
-			g_print("disconnected!\n");
-		}
-	}*/
-}
-
 GtkWidget *
 fb2_init(Tbfwin * bfwin)
 {
@@ -2905,7 +2918,6 @@ fb2_init(Tbfwin * bfwin)
 
 	fb2->vbox = gtk_vbox_new(FALSE, 0);
 	g_signal_connect(G_OBJECT(fb2->vbox), "destroy", G_CALLBACK(gtk_widget_destroyed), &fb2->vbox);
-/*	g_signal_connect(G_OBJECT(fb2->vbox), "destroy", G_CALLBACK(fb2destroy_signal_lcb), fb2);*/
 	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING));
 	fb2->dirmenu_v = gtk_combo_box_new_with_model(fb2->dirmenu_m);
 	/*gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(fb2->dirmenu_v),3); */
@@ -2923,7 +2935,7 @@ fb2_init(Tbfwin * bfwin)
 	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, "text", DIR_NAME_COLUMN, NULL);
 	gtk_box_pack_start(GTK_BOX(fb2->vbox), fb2->dirmenu_v, FALSE, FALSE, 0);
 	fb2->dirmenu_changed_signal =
-		g_signal_connect(fb2->dirmenu_v, "changed", G_CALLBACK(dirmenu_changed_lcb), fb2);
+		g_signal_connect(fb2->dirmenu_v, "changed", G_CALLBACK(dirmenu_changed_lcb), bfwin);
 
 	fb2_update_settings_from_session(bfwin);
 
@@ -2973,7 +2985,7 @@ fb2_cleanup(Tbfwin * bfwin)
 			actions = gtk_action_group_list_actions(bfwin->fb2_filters_group);
 			for (list = actions; list; list = list->next) {
 				g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
-						G_CALLBACK(popup_menu_filter_activate), fb2);
+						G_CALLBACK(popup_menu_filter_activate), bfwin);
 				gtk_action_group_remove_action(bfwin->fb2_filters_group, GTK_ACTION(list->data));
 			}
 			g_list_free(actions);
