@@ -2,159 +2,144 @@
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # Rasmus Toftdahl Olesen <rto@pohldata.dk>, 2003.
 # Finn Gruwier Larsen <finngruwierlarsen@gmail.com>, 2010.
+# flemming christensen <fc@stromata.dk>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.4\n"
+"Project-Id-Version: bluefish 2.2.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2010-08-29 22:30+0100\n"
-"Last-Translator: Finn Gruwier Larsen <finngruwierlarsen@gmail.com>\n"
-"Language-Team: None\n"
-"Language: da\n"
+"POT-Creation-Date: 2011-12-09 21:16+0100\n"
+"PO-Revision-Date: 2011-12-10 12:48+0100\n"
+"Last-Translator: flemming christensen <fc@stromata.dk>\n"
+"Language-Team: Dansk <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8 bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: src/plugin_snippets/snippets_gui.c:407
+#: src/plugin_snippets/snippets_gui.c:414
 msgid "Click the right mouse button to add, edit or delete snippets."
-msgstr "Klik med højre musetast for at tilføje, redigere eller slette snipper."
+msgstr ""
+"Klik med højre musetast for at tilføje, redigere eller slette tekststumper."
 
-#: src/plugin_snippets/snippets_gui.c:408
+#: src/plugin_snippets/snippets_gui.c:415
 msgid "Use drag and drop to re-order snippets"
-msgstr "Brug træk-og-slip for at rearrangere snipper."
+msgstr "Brug træk-og-slip for at omarrangere tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:409
+#: src/plugin_snippets/snippets_gui.c:416
 msgid "To exchange snippets with others use import or export"
-msgstr "Brug import og eksport til at udveksle snipper med andre brugere"
+msgstr "Brug import og eksport til at udveksle tekststumper med andre brugere"
 
-#: src/plugin_snippets/snippets_gui.c:598
+#: src/plugin_snippets/snippets_gui.c:638
 msgid "snippets"
-msgstr "snipper"
+msgstr "tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:685
+#: src/plugin_snippets/snippets_gui.c:701
 msgid "Snippet export filename"
-msgstr "Filnavn for eksport af snip"
+msgstr "Filnavn for eksport af tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:723
+#: src/plugin_snippets/snippets_gui.c:739
 msgid "Snippet import filename"
-msgstr "Filnavn for import af snip"
+msgstr "Filnavn for import af tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:741
+#: src/plugin_snippets/snippets_gui.c:757
 msgid "Set accelerator key"
-msgstr "Sæt acceleratortast"
+msgstr "Angiv genvejstast"
 
-#: src/plugin_snippets/snippets_gui.c:797
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets menu"
-msgstr "Snip-menu"
+msgstr "Menu for tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:798
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:814
 msgid "_New Snippet"
-msgstr "_Ny snip"
+msgstr "_Ny tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:798
-#: src/plugin_snippets/snippets_wizard.c:748
+#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
-msgstr "Ny snip"
+msgstr "Ny tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:815
 msgid "_Edit Snippet"
-msgstr "_Redigér snip"
+msgstr "_Redigér tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:799
-#: src/plugin_snippets/snippets_wizard.c:748
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
-msgstr "_Redigér snip"
+msgstr "Redigér tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:816
 msgid "_Delete Snippet"
-msgstr "_Slet snip"
+msgstr "_Slet tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:816
 msgid "Delete snippet"
-msgstr "_Slet snip"
+msgstr "Slet tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:817
 msgid "Delete _Branch"
-msgstr "Slet gren"
+msgstr "Slet _gren"
 
-#: src/plugin_snippets/snippets_gui.c:801
+#: src/plugin_snippets/snippets_gui.c:817
 msgid "Delete branch"
 msgstr "Slet gren"
 
-#: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "Set Snippet _Accelerator"
-msgstr "Sæt _accelerator for snip"
+msgstr "Angiv _genvejstast for tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "Set snippet accelerator"
-msgstr "Sæt _accelerator for snip"
+msgstr "Sæt genvejstast for tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Ex_pand All"
-msgstr "Udvid alle"
+msgstr "Ud_vid alle"
 
-#: src/plugin_snippets/snippets_gui.c:804
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Expand all"
 msgstr "Udvid alle"
 
-#: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:821
 msgid "_Collapse All"
-msgstr "Sammenklap alle"
+msgstr "Sammen_fold alle"
 
-#: src/plugin_snippets/snippets_gui.c:805
+#: src/plugin_snippets/snippets_gui.c:821
 msgid "Collapse all"
-msgstr "Sammenklap alle"
+msgstr "Sammenfold alle"
 
-#: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "E_xport"
-msgstr "Eksportér"
+msgstr "E_ksportér"
 
-#: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "Export snippets"
-msgstr "snipper"
+msgstr "Eksportér tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "I_mport"
-msgstr "Importér"
+msgstr "I_mportér"
 
-#: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "Import snippets"
-msgstr "snipper"
+msgstr "Importér tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "_Show as menu"
-msgstr "Vis som menu"
+msgstr "Vi_s som menu"
 
-#: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Show snippets menu"
-msgstr "Vis som menu"
+msgstr "Vis menuen tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:813
-msgid "Snippets Menu"
-msgstr "Snip-menu"
+#: src/plugin_snippets/snippets_gui.c:829
+msgid "S_nippets Menu"
+msgstr "Me_nuen tekststumper"
 
 #: src/plugin_snippets/snippets_leaf_insert.c:64
 msgid "[cursor position or selection]"
-msgstr "[cursorposition eller udvalg]"
+msgstr "[markørplacering eller markering]"
 
 #: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "Search for: '"
@@ -170,11 +155,11 @@ msgstr "Hele dokumentet"
 
 #: src/plugin_snippets/snippets_wizard.c:112
 msgid "Forward from cursor position"
-msgstr "Freamd fra cursorposition"
+msgstr "Fremad fra markørpositionen"
 
 #: src/plugin_snippets/snippets_wizard.c:113
 msgid "Selection"
-msgstr "Udvalg"
+msgstr "Markering"
 
 #: src/plugin_snippets/snippets_wizard.c:114
 msgid "All open files"
@@ -189,53 +174,51 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-#, fuzzy
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
 "placeholders an appropriate name on the right. (Please use %% if you need "
 "literal % in your string!)"
 msgstr ""
-"Specifér et søg- og erstat-mønster. Du kan bruge pladsholdere %0, %1, ...%5 "
-"til at spørge på værdier, når du aktiverer dette punkt. Giv disse "
-"pladsholdere passende navne til højre."
+"Specifér et mønster for søg og erstat. Du kan bruge pladsholdere %0, %1, ..."
+"%5 til at bede om værdier, når du aktiverer dette punkt. Giv disse "
+"pladsholdere passende navne til højre. (Brug %% hvis du har brug for "
+"bogstaveligt % i strengen!)"
 
-#: src/plugin_snippets/snippets_wizard.c:137
+#: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
 msgstr "_Søg efter: "
 
-#: src/plugin_snippets/snippets_wizard.c:141
+#: src/plugin_snippets/snippets_wizard.c:144
 msgid "Replace _with: "
-msgstr "_Erstat med:"
+msgstr "_Erstat med: "
 
-#: src/plugin_snippets/snippets_wizard.c:148
+#: src/plugin_snippets/snippets_wizard.c:151
 msgid "Sco_pe: "
-msgstr "Sco_pe:"
+msgstr "Om_fang: "
 
-#: src/plugin_snippets/snippets_wizard.c:155
+#: src/plugin_snippets/snippets_wizard.c:158
 msgid "Match Patter_n: "
 msgstr "Søgemø_nster: "
 
-#: src/plugin_snippets/snippets_wizard.c:158
+#: src/plugin_snippets/snippets_wizard.c:161
 msgid "Case sensitive _matching"
 msgstr "Forskel på store og s_må bogstaver"
 
-#: src/plugin_snippets/snippets_wizard.c:159
-msgid "Only match if case (upper/lower) is identical."
-msgstr "Match kun hvis identisk m. h. t. store/små bogstaver."
-
 #: src/plugin_snippets/snippets_wizard.c:162
-msgid "_Use escape chars"
-msgstr "Br_ug escape-tegn"
+msgid "Only match if case (upper/lower) is identical."
+msgstr "Vis kun hvis identisk mht. store/små bogstaver."
 
-#: src/plugin_snippets/snippets_wizard.c:163
+#: src/plugin_snippets/snippets_wizard.c:165
+msgid "_Use escape chars"
+msgstr "Br_ug undvigelsestegn"
+
+#: src/plugin_snippets/snippets_wizard.c:166
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr ""
-"Unescape backslash-escapede tegn såsom \n"
-", \\t o. l."
+"Undvig ikke tegn der er undveget med baglæns skråstreg, som feks. \\t osv."
 
-#: src/plugin_snippets/snippets_wizard.c:332
-#, fuzzy
+#: src/plugin_snippets/snippets_wizard.c:335
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -244,59 +227,60 @@ msgid ""
 "appropriate name on the right. (Please use %% if you need literal % in your "
 "string!)"
 msgstr ""
-"Teksten i <i>før</i> vil blive indsat før cursorpositionen eller det "
-"aktuelle udvalg. Teksten i <i>efter</i> vil blive indsat efter "
-"cursorpositionen eller det aktuelle udvalg. Du kan bruge pladsholderne %0, "
-"%1, ...%9 til at spørge på værdier, når du aktiverer dette punkt. Giv disse "
-"pladsholdere passende navne til højre."
+"Teksten i <i>før</i> vil blive indsat før markørpositionen eller den "
+"aktuelle markering. Teksten i <i>efter</i> vil blive indsat efter "
+"markørpositionen eller den aktuelle markering. Du kan bruge pladsholderne "
+"%0, %1, ...%9 til at spørge efter værdier, når du aktiverer dette punkt. Giv "
+"disse pladsholdere passende navne til højre. (Brug %% hvis du har brug for "
+"bogstavelig % i din streng!)"
 
-#: src/plugin_snippets/snippets_wizard.c:338
+#: src/plugin_snippets/snippets_wizard.c:344
 msgid "<i>Before</i> text"
-msgstr "i> tekst"
+msgstr "<i>Før</i> tekst"
 
-#: src/plugin_snippets/snippets_wizard.c:348
+#: src/plugin_snippets/snippets_wizard.c:354
 msgid "<i>After</i> text"
-msgstr "i> tekst"
+msgstr "<i>Efter</i> tekst"
 
-#: src/plugin_snippets/snippets_wizard.c:356
+#: src/plugin_snippets/snippets_wizard.c:362
 msgid "Number"
 msgstr "Nummer"
 
-#: src/plugin_snippets/snippets_wizard.c:358
+#: src/plugin_snippets/snippets_wizard.c:364
 msgid "Name"
 msgstr "Navn"
 
-#: src/plugin_snippets/snippets_wizard.c:360
+#: src/plugin_snippets/snippets_wizard.c:366
 msgid "Is file path"
 msgstr "Er sti"
 
-#: src/plugin_snippets/snippets_wizard.c:486
+#: src/plugin_snippets/snippets_wizard.c:492
 msgid "Enter the name of the branch:"
 msgstr "Indtast grenens navn:"
 
-#: src/plugin_snippets/snippets_wizard.c:578
+#: src/plugin_snippets/snippets_wizard.c:584
 msgid "Name of the new item:"
 msgstr "Navn på nyt emne:"
 
-#: src/plugin_snippets/snippets_wizard.c:583
+#: src/plugin_snippets/snippets_wizard.c:589
 msgid "Description:"
 msgstr "Beskrivelse:"
 
-#: src/plugin_snippets/snippets_wizard.c:633
+#: src/plugin_snippets/snippets_wizard.c:639
 msgid "Select what you want to add"
 msgstr "Vælg hvad du vil tilføje"
 
-#: src/plugin_snippets/snippets_wizard.c:635
+#: src/plugin_snippets/snippets_wizard.c:641
 msgid "Branch"
 msgstr "Gren"
 
-#: src/plugin_snippets/snippets_wizard.c:637
+#: src/plugin_snippets/snippets_wizard.c:643
 msgid "Insert string"
 msgstr "Indsæt streng"
 
-#: src/plugin_snippets/snippets_wizard.c:639
+#: src/plugin_snippets/snippets_wizard.c:645
 msgid "Search and replace pattern"
-msgstr "Søg-og-erstat-mønster"
+msgstr "Mønster for søg-og-erstat"
 
 #~ msgid "Entire word only"
 #~ msgstr "Kun hele ord"
