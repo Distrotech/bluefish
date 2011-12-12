@@ -2549,8 +2549,7 @@
 	<element pattern="FALSE"  highlight="value" />
 </group>
 
-<group class="load_gobject_functions">
-<group  highlight="gobject-function" autocomplete="1" autocomplete_append="();" autocomplete_backup_cursor="2" >
+<group  class="load_gobject_functions" highlight="gobject-function" autocomplete="1" autocomplete_append="();" autocomplete_backup_cursor="2" >
 	<element pattern="g_type_init" />
 	<element pattern="g_type_init_with_debug_flags" />
 	<element pattern="g_type_name" />
@@ -2903,7 +2902,6 @@
 	<element pattern="g_value_array_remove" />
 	<element pattern="g_value_array_sort" />
 	<element pattern="g_value_array_sort_with_data" />
-</group>
 </group>
 
 <element pattern="NULL" autocomplete="1" highlight="value" />

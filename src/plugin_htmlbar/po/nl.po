@@ -10,14 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-12-04 13:50-0800\n"
+"POT-Creation-Date: 2011-12-09 09:03+0100\n"
 "PO-Revision-Date: 2011-09-25 22:31+0200\n"
 "Last-Translator: Olivier <olivier@bluefish.openoffice.nl>\n"
 "Language-Team: nl\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Virtaal 0.7.0\n"
 
@@ -582,9 +582,8 @@ msgid "Middle _dot ·"
 msgstr "Midden stip ·"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1496
-#, fuzzy
 msgid "_Format by Context"
-msgstr "Opmaak naar context"
+msgstr "Opmaak naar _Context"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1497
 msgid "_Strong"
@@ -685,9 +684,8 @@ msgid "Delete"
 msgstr "Delete"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1517
-#, fuzzy
 msgid "Format by L_ayout"
-msgstr "Opmaak naar layout"
+msgstr "Opmaak naar Layout"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1518
 msgid "_Bold"
@@ -738,9 +736,8 @@ msgid "Big"
 msgstr "Groot"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1528
-#, fuzzy
 msgid "Format _General"
-msgstr "Opmaak _algemeen"
+msgstr "Opmaak _Algemeen"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1529
 msgid "_Paragraph"
@@ -1227,18 +1224,16 @@ msgid "_Input..."
 msgstr "Invoer..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
-#, fuzzy
 msgid "Input B_uttons..."
-msgstr "Invoerknop..."
+msgstr "Invoer_knop..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
 msgid "Input Button..."
 msgstr "Input Button..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
-#, fuzzy
 msgid "Input T_ext..."
-msgstr "Input Tekst..."
+msgstr "Input T_ekst..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
 msgid "Input Text..."
@@ -1334,9 +1329,8 @@ msgstr "Aankruisvakje..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1697
-#, fuzzy
 msgid "HTML_5"
-msgstr "_HTML5"
+msgstr "HTML_5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
 msgid "_Article"
@@ -1355,9 +1349,8 @@ msgid "Aside"
 msgstr "Ernaast"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-#, fuzzy
 msgid "Fig_caption"
-msgstr "Figcaption"
+msgstr "Fig_caption"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
 msgid "Figcaption"
@@ -1412,18 +1405,16 @@ msgid "Nav"
 msgstr "Nav"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1693
-#, fuzzy
 msgid "R_p"
-msgstr "Rp"
+msgstr "R_p"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1693
 msgid "Ruby parenthesis"
 msgstr "Ruby parenthesis"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1694
-#, fuzzy
 msgid "R_t"
-msgstr "Rt"
+msgstr "R_t"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1694
 msgid "Ruby text"
@@ -1620,7 +1611,7 @@ msgstr "Taal:"
 #: src/plugin_htmlbar/html_form.c:328 src/plugin_htmlbar/html_form.c:644
 #: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
 #: src/plugin_htmlbar/html_table.c:383 src/plugin_htmlbar/image.c:509
-#: src/plugin_htmlbar/image_dialog.c:391
+#: src/plugin_htmlbar/image_dialog.c:394
 msgid "Custo_m:"
 msgstr "Aangepast:"
 
@@ -1707,20 +1698,20 @@ msgid "Ali_gn:"
 msgstr "Uitlĳnen:"
 
 #: src/plugin_htmlbar/html.c:923 src/plugin_htmlbar/html.c:1209
-#: src/plugin_htmlbar/html_diag.c:447 src/plugin_htmlbar/html_table.c:98
+#: src/plugin_htmlbar/html_diag.c:451 src/plugin_htmlbar/html_table.c:98
 #: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
-#: src/plugin_htmlbar/image_dialog.c:371
+#: src/plugin_htmlbar/image_dialog.c:374
 msgid "Cl_ass:"
 msgstr "Klasse:"
 
 #: src/plugin_htmlbar/html.c:927 src/plugin_htmlbar/html.c:1202
-#: src/plugin_htmlbar/html_diag.c:461 src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html_diag.c:465 src/plugin_htmlbar/html_table.c:102
 #: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:378
 msgid "St_yle:"
 msgstr "Stĳl:"
 
 #: src/plugin_htmlbar/html.c:936 src/plugin_htmlbar/html.c:1212
-#: src/plugin_htmlbar/html_diag.c:455
+#: src/plugin_htmlbar/html_diag.c:459
 msgid "_ID:"
 msgstr "ID:"
 
@@ -1729,13 +1720,13 @@ msgid "Horizontal Rule"
 msgstr "Horizontale Lĳn"
 
 #: src/plugin_htmlbar/html.c:1083 src/plugin_htmlbar/html.c:2300
-#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:414
+#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:417
 msgid "_Align:"
 msgstr "Uitlĳnen:"
 
 #: src/plugin_htmlbar/html.c:1090 src/plugin_htmlbar/html.c:2041
 #: src/plugin_htmlbar/html.c:2161 src/plugin_htmlbar/html.c:2308
-#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:344
+#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:347
 msgid "_Height:"
 msgstr "Hoogte:"
 
@@ -1743,7 +1734,7 @@ msgstr "Hoogte:"
 #: src/plugin_htmlbar/html.c:1096 src/plugin_htmlbar/html.c:2036
 #: src/plugin_htmlbar/html.c:2156 src/plugin_htmlbar/html.c:2304
 #: src/plugin_htmlbar/html_table.c:139 src/plugin_htmlbar/html_table.c:401
-#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:335
+#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:338
 msgid "_Width:"
 msgstr "Breedte:"
 
@@ -1879,7 +1870,7 @@ msgstr "Geordend"
 msgid "_Unordered"
 msgstr "Ongeordend"
 
-#: src/plugin_htmlbar/html.c:1656 src/plugin_htmlbar/image_dialog.c:385
+#: src/plugin_htmlbar/html.c:1656 src/plugin_htmlbar/image_dialog.c:388
 msgid "Style:"
 msgstr "Stĳl:"
 
@@ -1897,7 +1888,7 @@ msgstr "<frame> elementen toevoegen"
 
 #: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1933
 #: src/plugin_htmlbar/html.c:2109 src/plugin_htmlbar/html.c:2295
-#: src/plugin_htmlbar/html.c:2358 src/plugin_htmlbar/image_dialog.c:297
+#: src/plugin_htmlbar/html.c:2358 src/plugin_htmlbar/image_dialog.c:300
 msgid "_Source:"
 msgstr "Bron:"
 
@@ -1945,19 +1936,17 @@ msgstr "_Preload:"
 #: src/plugin_htmlbar/html.c:1965 src/plugin_htmlbar/html.c:2024
 #: src/plugin_htmlbar/html.c:2165
 msgid "_Id:"
-msgstr ""
+msgstr "_ID:"
 
 #: src/plugin_htmlbar/html.c:1968 src/plugin_htmlbar/html.c:2027
 #: src/plugin_htmlbar/html.c:2173
-#, fuzzy
 msgid "_Class:"
-msgstr "Klasse:"
+msgstr "_Class:"
 
 #: src/plugin_htmlbar/html.c:1971 src/plugin_htmlbar/html.c:2030
 #: src/plugin_htmlbar/html.c:2168
-#, fuzzy
 msgid "_Style:"
-msgstr "Stĳl:"
+msgstr "_Stĳl:"
 
 #. Dialog construction
 #: src/plugin_htmlbar/html.c:2019
@@ -2194,7 +2183,7 @@ msgstr "Bestand %s wordt geladen..."
 msgid "Insert thumbnail"
 msgstr "Voeg voorbeeldafbeelding in"
 
-#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:314
+#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:317
 msgid "Preview"
 msgstr "Voorbeeld"
 
@@ -2206,7 +2195,7 @@ msgstr "Locatie van afbeelding:"
 msgid "Hei_ght:"
 msgstr "Hoogte:"
 
-#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:380
+#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:383
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
@@ -2214,11 +2203,11 @@ msgstr "_Usemap:"
 msgid "Alternate _text:"
 msgstr "Alternatieve tekst:"
 
-#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:423
+#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:426
 msgid "_Hspace:"
 msgstr "Horizontale ruimte:"
 
-#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:427
+#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Vspace:"
 msgstr "Verticale ruimte:"
 
@@ -2274,31 +2263,31 @@ msgstr ""
 "%x: voorbeeldafbeelding breedte  %y:voorbeeldafbeelding hoogte\n"
 "%b: originele  grootte (bytes)"
 
-#: src/plugin_htmlbar/image_dialog.c:351
+#: src/plugin_htmlbar/image_dialog.c:354
 msgid "_Reset Dimensions"
 msgstr "Reset formaat"
 
-#: src/plugin_htmlbar/image_dialog.c:361
+#: src/plugin_htmlbar/image_dialog.c:364
 msgid "Alternate te_xt:"
 msgstr "Alternatieve tekst:"
 
-#: src/plugin_htmlbar/image_dialog.c:366
+#: src/plugin_htmlbar/image_dialog.c:369
 msgid "_Long description:"
 msgstr "Lange beschrijving"
 
-#: src/plugin_htmlbar/image_dialog.c:375
+#: src/plugin_htmlbar/image_dialog.c:378
 msgid "I_D:"
 msgstr "ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:403
+#: src/plugin_htmlbar/image_dialog.c:406
 msgid "_Use Transitional options"
 msgstr "Gebruik 'transitional' opties"
 
-#: src/plugin_htmlbar/image_dialog.c:419
+#: src/plugin_htmlbar/image_dialog.c:422
 msgid "_Border:"
 msgstr "Rand:"
 
-#: src/plugin_htmlbar/image_dialog.c:729
+#: src/plugin_htmlbar/image_dialog.c:732
 #, c-format
 msgid ""
 "\n"
@@ -2307,7 +2296,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/plugin_htmlbar/image_dialog.c:734
+#: src/plugin_htmlbar/image_dialog.c:737
 #, c-format
 msgid ""
 "\n"
@@ -2316,7 +2305,7 @@ msgstr ""
 "\n"
 "%d x %d pixels"
 
-#: src/plugin_htmlbar/image_dialog.c:832
+#: src/plugin_htmlbar/image_dialog.c:835
 msgid ""
 "\n"
 "\n"
@@ -2328,16 +2317,16 @@ msgstr ""
 "\t<b>Bezig met laden van voorbeeld...</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:934
+#: src/plugin_htmlbar/image_dialog.c:937
 msgid "Select Image"
 msgstr "Selecteer Afbeelding"
 
-#: src/plugin_htmlbar/image_dialog.c:941
+#: src/plugin_htmlbar/image_dialog.c:944
 msgid "All images"
 msgstr "Alle afbeeldingen"
 
-#: src/plugin_htmlbar/image_dialog.c:1156
-#: src/plugin_htmlbar/image_dialog.c:1258
+#: src/plugin_htmlbar/image_dialog.c:1160
+#: src/plugin_htmlbar/image_dialog.c:1265
 msgid "Insert Image"
 msgstr "Afbeelding invoegen"
 

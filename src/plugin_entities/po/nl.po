@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-12-05 19:30-0800\n"
+"POT-Creation-Date: 2011-12-09 09:03+0100\n"
 "PO-Revision-Date: 2010-02-16 23:28+0100\n"
 "Last-Translator: elve <elve@savage-elve.net>\n"
 "Language-Team: Dutch <nl@li.org>\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
@@ -27,96 +27,90 @@ msgstr "Karakters naar entiteiten"
 msgid "Entities to characters"
 msgstr "Entiteiten naar karakters"
 
-#: src/plugin_entities/entities.c:283
+#: src/plugin_entities/entities.c:286
 msgid "In current document"
 msgstr "In huidige document"
 
-#: src/plugin_entities/entities.c:284
+#: src/plugin_entities/entities.c:287
 msgid "In selection"
 msgstr "In selectie"
 
-#: src/plugin_entities/entities.c:285
+#: src/plugin_entities/entities.c:288
 msgid "In all documents"
 msgstr "In alle documenten"
 
-#: src/plugin_entities/entities.c:286
+#: src/plugin_entities/entities.c:289
 msgid "Sco_pe:"
 msgstr "Bereik:"
 
-#: src/plugin_entities/entities.c:289
+#: src/plugin_entities/entities.c:292
 msgid "Convert numerical encoded characters &#99;"
 msgstr "Converteer numeriek gecodeerde karakters &#99;"
 
-#: src/plugin_entities/entities.c:293
+#: src/plugin_entities/entities.c:296
 msgid "Convert _iso-8859-1 characters"
 msgstr "Converteer iso-8895-1 karakters"
 
-#: src/plugin_entities/entities.c:297
+#: src/plugin_entities/entities.c:300
 msgid "Convert spe_cial characters"
 msgstr "Converteer speciale karakters"
 
-#: src/plugin_entities/entities.c:301
+#: src/plugin_entities/entities.c:304
 msgid "Convert _symbol characters"
 msgstr "Converteer symbool karakters"
 
-#: src/plugin_entities/entities.c:305
+#: src/plugin_entities/entities.c:308
 msgid "Convert _XML characters < > & \" '"
 msgstr "Converteer XML karakters < > & \" '"
 
-#: src/plugin_entities/entities.c:311
+#: src/plugin_entities/entities.c:314
 msgid "Work around missing &apos; entity on IE"
 msgstr "Werk om de missende &apos; entity van IE heen"
 
-#: src/plugin_entities/entities.c:415
-#, fuzzy
+#: src/plugin_entities/entities.c:418
 msgid "C_haracters to Entities"
-msgstr "Karakters naar entiteiten"
+msgstr "_Karakters naar Entiteiten"
 
-#: src/plugin_entities/entities.c:416
+#: src/plugin_entities/entities.c:419
 msgid "Change characters to entities"
 msgstr "Karakters naar entiteiten"
 
-#: src/plugin_entities/entities.c:417
-#, fuzzy
+#: src/plugin_entities/entities.c:420
 msgid "Ent_ities to Characters"
-msgstr "Entiteiten naar karakters"
+msgstr "Entiteiten naar _Karakters"
 
-#: src/plugin_entities/entities.c:418
+#: src/plugin_entities/entities.c:421
 msgid "Change entities to characters"
 msgstr "Entiteiten naar karakters"
 
-#: src/plugin_entities/entities.c:419
-#, fuzzy
+#: src/plugin_entities/entities.c:422
 msgid "URL _Decode"
 msgstr "URL _Decodering"
 
-#: src/plugin_entities/entities.c:419
+#: src/plugin_entities/entities.c:422
 msgid "URL decode"
 msgstr "URL _Decodering"
 
-#: src/plugin_entities/entities.c:420
-#, fuzzy
+#: src/plugin_entities/entities.c:423
 msgid "URL _Encode"
 msgstr "URL K_odering"
 
-#: src/plugin_entities/entities.c:420
+#: src/plugin_entities/entities.c:423
 msgid "URL encode"
 msgstr "URL K_odering"
 
-#: src/plugin_entities/entities.c:421
-#, fuzzy
+#: src/plugin_entities/entities.c:424
 msgid "To Lo_wercase"
 msgstr "Naar _Kleine Letters"
 
-#: src/plugin_entities/entities.c:421
+#: src/plugin_entities/entities.c:424
 msgid "To lowercase"
 msgstr "Naar _Kleine Letters"
 
-#: src/plugin_entities/entities.c:422
-#, fuzzy
+#: src/plugin_entities/entities.c:425
 msgid "To Upperc_ase"
 msgstr "Naar _Hoofdletters"
 
-#: src/plugin_entities/entities.c:422
+#: src/plugin_entities/entities.c:425
 msgid "To uppercase"
 msgstr "Naar _Hoofdletters"

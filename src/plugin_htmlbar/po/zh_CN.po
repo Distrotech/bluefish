@@ -1,13 +1,15 @@
 # Simple Chinese(zh_CN) language file for Bluefish.
-# Copyright (C) 2011 ZhiFeng Ma
+# Copyright (C) 2001, 2011 Free Software Foundation, Inc.
+# Dormouse <mouselinux@163.com>, 2003
+# Funda Wang <fundawang@linux.net.cn>, 2004
 # ZhiFeng Ma <mzf9527@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.2.0\n"
+"Project-Id-Version: Bluefish 2.2.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-12-04 13:50-0800\n"
-"PO-Revision-Date: 2011-11-05 22:18+0800\n"
+"POT-Creation-Date: 2011-12-07 22:54+0800\n"
+"PO-Revision-Date: 2011-12-07 22:39+0800\n"
 "Last-Translator: william9527 <mzf9527@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -576,9 +578,8 @@ msgid "Middle _dot ·"
 msgstr "中间点 ·(_d)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1496
-#, fuzzy
 msgid "_Format by Context"
-msgstr "根据环境格式化文本(_o)"
+msgstr "根据上下文格式化文本(_F)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1497
 msgid "_Strong"
@@ -679,9 +680,8 @@ msgid "Delete"
 msgstr "删除"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1517
-#, fuzzy
 msgid "Format by L_ayout"
-msgstr "根据布局格式化文本(_F)"
+msgstr "根据布局格式化文本(_a)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1518
 msgid "_Bold"
@@ -732,9 +732,8 @@ msgid "Big"
 msgstr "Big标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1528
-#, fuzzy
 msgid "Format _General"
-msgstr "常规格式(_g)"
+msgstr "常规格式(_G)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1529
 msgid "_Paragraph"
@@ -1221,18 +1220,16 @@ msgid "_Input..."
 msgstr "输入(_I)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
-#, fuzzy
 msgid "Input B_uttons..."
-msgstr "表单按钮..."
+msgstr "表单按钮(_u)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
 msgid "Input Button..."
 msgstr "表单按钮..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
-#, fuzzy
 msgid "Input T_ext..."
-msgstr "文本框..."
+msgstr "文本框(_e)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
 msgid "Input Text..."
@@ -1328,9 +1325,8 @@ msgstr "复选框..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1697
-#, fuzzy
 msgid "HTML_5"
-msgstr "HTML5(_H)"
+msgstr "HTML_5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
 msgid "_Article"
@@ -1698,20 +1694,20 @@ msgid "Ali_gn:"
 msgstr "对齐(_g)："
 
 #: src/plugin_htmlbar/html.c:923 src/plugin_htmlbar/html.c:1209
-#: src/plugin_htmlbar/html_diag.c:447 src/plugin_htmlbar/html_table.c:98
+#: src/plugin_htmlbar/html_diag.c:445 src/plugin_htmlbar/html_table.c:98
 #: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
 #: src/plugin_htmlbar/image_dialog.c:371
 msgid "Cl_ass:"
 msgstr "类："
 
 #: src/plugin_htmlbar/html.c:927 src/plugin_htmlbar/html.c:1202
-#: src/plugin_htmlbar/html_diag.c:461 src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html_diag.c:459 src/plugin_htmlbar/html_table.c:102
 #: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:378
 msgid "St_yle:"
 msgstr "样式(_y)："
 
 #: src/plugin_htmlbar/html.c:936 src/plugin_htmlbar/html.c:1212
-#: src/plugin_htmlbar/html_diag.c:455
+#: src/plugin_htmlbar/html_diag.c:453
 msgid "_ID:"
 msgstr "_ID:"
 
@@ -2335,8 +2331,8 @@ msgstr "选择图像"
 msgid "All images"
 msgstr "所有图像"
 
-#: src/plugin_htmlbar/image_dialog.c:1156
-#: src/plugin_htmlbar/image_dialog.c:1258
+#: src/plugin_htmlbar/image_dialog.c:1157
+#: src/plugin_htmlbar/image_dialog.c:1260
 msgid "Insert Image"
 msgstr "插入图像"
 

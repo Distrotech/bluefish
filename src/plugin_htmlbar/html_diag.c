@@ -34,8 +34,6 @@
 #include "../gtk_easy.h"		/* window_full() */
 #include "../stringlist.h"		/* add_to_stringlist */
 
-
-
 Trecent_attribs recent_attribs;
 /*****************************************/
 /********** DIALOG FUNCTIONS *************/
@@ -160,13 +158,20 @@ html_diag_finish(Thtml_diag * dg, GCallback ok_func)
 /*************************************************/
 
 void
-parse_html_for_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[], gchar ** custom, Ttagpopup * data)
+parse_html_for_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[]
+							, gchar ** custom, Ttagpopup * data)
 {
 	gint count = 0;
 	gchar *customnew;
 	GList *tmplist;
 	gboolean found = FALSE;
 
+	/* init all dialogvalues with NULL */
+	while (dialogitems[count]) {
+		dialogvalues[count]=NULL;
+		count++;
+	}
+	count = 0;
 	*custom = g_strdup("");
 	tmplist = g_list_first(data->taglist);
 	DEBUG_MSG("fill_dialogvalues, data, and no sending widget!\n");
@@ -200,8 +205,8 @@ parse_html_for_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[], gchar
 }
 
 void
-fill_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[],
-				  gchar ** custom, Ttagpopup * data, Thtml_diag * diag)
+fill_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[]
+				  , gchar ** custom, Ttagpopup * data, Thtml_diag * diag)
 {
 
 	gint count = 0;

@@ -36,9 +36,9 @@ static void charmap_init(void) {
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,charmap_sidepanel_destroygui);
 }
 
-static void charmap_initgui(Tbfwin* bfwin) {
+/*static void charmap_initgui(Tbfwin* bfwin) {
 }
-
+*/
 static void charmap_enforce_session(Tbfwin* bfwin) {
 	Tcharmapsession *cms;
 	Tcharmapwin *cmw;
@@ -55,13 +55,13 @@ static void charmap_cleanup(void) {
 	main_v->sidepanel_destroygui=g_slist_remove(main_v->sidepanel_destroygui,charmap_sidepanel_destroygui);
 }
 
-static void charmap_cleanup_gui(Tbfwin *bfwin) {
+/*static void charmap_cleanup_gui(Tbfwin *bfwin) {
 }
-
-static GHashTable *charmap_register_globses_config(GHashTable *configlist) {
+*/
+/*static GHashTable *charmap_register_globses_config(GHashTable *configlist) {
   return configlist;
 }
-
+*/
 Tcharmapsession *get_charmap_session(gpointer session) {
 	Tcharmapsession *cms = g_hash_table_lookup(charmap_v.lookup,session);
 	if (!cms) {
@@ -96,11 +96,11 @@ static TBluefishPlugin bfplugin = {
   1,
   NULL, /* private */
   charmap_init, /* init */
-  charmap_initgui, 
+  NULL /*charmap_initgui*/, 
   charmap_enforce_session,
   charmap_cleanup,
-  charmap_cleanup_gui,
-  charmap_register_globses_config,
+  NULL /*charmap_cleanup_gui*/,
+  NULL /*charmap_register_globses_config*/,
   charmap_register_session_config,
   charmap_session_cleanup,
   NULL,

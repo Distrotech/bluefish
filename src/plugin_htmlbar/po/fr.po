@@ -9,10 +9,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.4\n"
+"Project-Id-Version: Bluefish 2.2.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-12-04 13:50-0800\n"
-"PO-Revision-Date: 2009-02-21 14:25+0100 \n"
+"POT-Creation-Date: 2011-12-04 14:16+0100\n"
+"PO-Revision-Date: 2011-12-07 17:47+0100 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: français <fr@li.org>\n"
 "Language: fr\n"
@@ -85,7 +85,7 @@ msgstr "_Balises"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1359
 msgid "_Headings"
-msgstr "En-tête"
+msgstr "_En-tête"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1360
 msgid "H_1"
@@ -582,9 +582,8 @@ msgid "Middle _dot ·"
 msgstr "Point médi_an ·"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1496
-#, fuzzy
 msgid "_Format by Context"
-msgstr "F_ormatage contextuel"
+msgstr "Formatage conte_xtuel"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1497
 msgid "_Strong"
@@ -685,9 +684,8 @@ msgid "Delete"
 msgstr "Supprimé"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1517
-#, fuzzy
 msgid "Format by L_ayout"
-msgstr "_Formatage du style"
+msgstr "Formatage du st_yle"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1518
 msgid "_Bold"
@@ -931,11 +929,11 @@ msgstr "Menu"
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1576
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1650
 msgid "F_orm"
-msgstr "F_ormulaire"
+msgstr "_Formulaire"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1577
 msgid "_Form"
-msgstr "F_ormulaire"
+msgstr "_Formulaire"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1577
 #: src/plugin_htmlbar/html_form.c:156
@@ -1285,6 +1283,7 @@ msgid "Button..."
 msgstr "Balise button..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1667
+#, fuzzy
 msgid "_Edit tag under cursor..."
 msgstr "É_diter la balise sous le curseur..."
 
@@ -1707,20 +1706,20 @@ msgid "Ali_gn:"
 msgstr "Ali_gnement horizontal :"
 
 #: src/plugin_htmlbar/html.c:923 src/plugin_htmlbar/html.c:1209
-#: src/plugin_htmlbar/html_diag.c:447 src/plugin_htmlbar/html_table.c:98
+#: src/plugin_htmlbar/html_diag.c:445 src/plugin_htmlbar/html_table.c:98
 #: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
 #: src/plugin_htmlbar/image_dialog.c:371
 msgid "Cl_ass:"
 msgstr "Cl_asse :"
 
 #: src/plugin_htmlbar/html.c:927 src/plugin_htmlbar/html.c:1202
-#: src/plugin_htmlbar/html_diag.c:461 src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html_diag.c:459 src/plugin_htmlbar/html_table.c:102
 #: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:378
 msgid "St_yle:"
 msgstr "St_yle :"
 
 #: src/plugin_htmlbar/html.c:936 src/plugin_htmlbar/html.c:1212
-#: src/plugin_htmlbar/html_diag.c:455
+#: src/plugin_htmlbar/html_diag.c:453
 msgid "_ID:"
 msgstr "_ID :"
 
@@ -2336,8 +2335,8 @@ msgstr "Sélectionner une image"
 msgid "All images"
 msgstr "Toutes les images"
 
-#: src/plugin_htmlbar/image_dialog.c:1156
-#: src/plugin_htmlbar/image_dialog.c:1258
+#: src/plugin_htmlbar/image_dialog.c:1157
+#: src/plugin_htmlbar/image_dialog.c:1260
 msgid "Insert Image"
 msgstr "Insérer une image"
 
@@ -2461,6 +2460,12 @@ msgstr "Source :"
 msgid "Size:"
 msgstr "Taille :"
 
+#~ msgid "Fo_rm"
+#~ msgstr "F_ormulaire"
+
+#~ msgid "Figcaption "
+#~ msgstr "Figcaption"
+
 #~ msgid "_Update"
 #~ msgstr " _Mettre à jour"
 
@@ -2472,9 +2477,3 @@ msgstr "Taille :"
 
 #~ msgid "Update its value from %s to %s?"
 #~ msgstr "Voulez-vous modifier sa valeur de %s à %s ?"
-
-#~ msgid "Fo_rm"
-#~ msgstr "F_ormulaire"
-
-#~ msgid "Figcaption "
-#~ msgstr "Figcaption"

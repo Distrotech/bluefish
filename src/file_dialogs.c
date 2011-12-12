@@ -540,7 +540,7 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 			gboolean close_window = doc->close_window;
 			doc_destroy(doc, doc->close_window);
 			if (close_window && test_only_empty_doc_left(bfwin->documentlist)) {
-				gtk_widget_destroy(bfwin->main_window);
+				bfwin_destroy_and_cleanup(bfwin);
 			}
 			return CHECKNSAVE_STOP;	/* it actually doesn't matter what we return, this was the last callback anyway */
 		} else {
@@ -1024,7 +1024,7 @@ doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean clos
 	if (doc_is_empty_non_modified_and_nameless(doc)
 		&& g_list_length(BFWIN(doc->bfwin)->documentlist) <= 1) {
 		if (close_window) {
-			gtk_widget_destroy(BFWIN(doc->bfwin)->main_window);
+			bfwin_destroy_and_cleanup(BFWIN(doc->bfwin));
 		}
 		return TRUE;
 	}
@@ -1045,7 +1045,7 @@ doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean clos
 		doc_destroy(doc, close_window || delay_activate);
 	}
 	if (close_window && bfwin->documentlist == NULL) {	/* the documentlist is empty */
-		gtk_widget_destroy(bfwin->main_window);
+		bfwin_destroy_and_cleanup(bfwin);
 	}
 	DEBUG_MSG("doc_close_single_backend, finished!\n");
 	return TRUE;

@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #ifdef MAC_INTEGRATION
 #include <gtkosxapplication.h>
@@ -162,17 +162,16 @@ bfwin_output_pane_show(Tbfwin * bfwin, gboolean active)
 }
 
 static void
-side_panel_destroy_cleanup(Tbfwin * bfwin)
+side_panel_cleanup(Tbfwin * bfwin)
 {
-	g_print("side_panel_destroy_cleanup called for bfwin %p\n", bfwin);
+	g_print("side_panel_cleanup called for bfwin %p\n", bfwin);
 	bmark_cleanup(bfwin);
 	fb2_cleanup(bfwin);
-	gtk_widget_destroy(bfwin->leftpanel_notebook);
 	if (main_v->sidepanel_destroygui) {
 		GSList *tmplist = main_v->sidepanel_destroygui;
 		while (tmplist) {
 			void *(*func) () = tmplist->data;
-			DEBUG_MSG("side_panel_rebuild, calling plugin func %p on bfwin %p\n", tmplist->data, bfwin);
+			DEBUG_MSG("side_panel_cleanup, calling plugin sidepanel_destroygui func %p on bfwin %p\n", tmplist->data, bfwin);
 			func(bfwin);
 			tmplist = g_slist_next(tmplist);
 		}
@@ -230,7 +229,7 @@ side_panel_build(Tbfwin * bfwin)
 		GSList *tmplist = main_v->sidepanel_initgui;
 		while (tmplist) {
 			void *(*func) () = tmplist->data;
-			DEBUG_MSG("side_panel_build, calling plugin func %p\n", tmplist->data);
+			DEBUG_MSG("side_panel_build, calling plugin sidepanel_initgui func %p\n", tmplist->data);
 			func(bfwin);
 			tmplist = g_slist_next(tmplist);
 		}
@@ -253,7 +252,8 @@ bfwin_side_panel_rebuild(Tbfwin * bfwin)
 {
 	if (bfwin->hpane) {
 		DEBUG_MSG("bfwin_side_panel_rebuild, destroying widgets for bfwin %p\n", bfwin);
-		side_panel_destroy_cleanup(bfwin);
+		gtk_widget_destroy(bfwin->leftpanel_notebook);
+		side_panel_cleanup(bfwin);
 		DEBUG_MSG("bfwin_side_panel_rebuild, re-init\n");
 		side_panel_build(bfwin);
 		if (main_v->props.left_panel_left) {
@@ -290,8 +290,9 @@ bfwin_side_panel_show_hide_toggle(Tbfwin * bfwin, gboolean first_time, gboolean 
 			gtk_container_remove(GTK_CONTAINER(bfwin->middlebox), bfwin->notebook_box);
 		} else {
 			gtk_container_remove(GTK_CONTAINER(bfwin->hpane), bfwin->notebook_box);
-			side_panel_destroy_cleanup(bfwin);
+			g_print("bfwin_side_panel_show_hide_toggle, destroy bfwin->hpane\n");
 			gtk_widget_destroy(bfwin->hpane);
+			side_panel_cleanup(bfwin);
 			bfwin->hpane = NULL;
 		}
 	}
@@ -433,87 +434,19 @@ bfwin_configure_event(GtkWidget * widget, GdkEvent * revent, Tbfwin * bfwin)
 	return FALSE;
 }
 
-gboolean
-bfwin_delete_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin)
-{
-	/*
-	   If you return FALSE in the "delete_event" signal handler GTK will emit the "destroy" signal.
-	   Returning TRUE means you handled the event, and it should not be further propagated
-	 */
-	DEBUG_MSG("bfwin_delete_event, started for bfwin %p\n", bfwin);
-	if (!bfwin->documentlist)
-		return FALSE;
-
-	if (have_modified_documents(bfwin->documentlist)) {
-		Tclose_mode retval = multiple_files_modified_dialog(bfwin);
-
-		switch (retval) {
-		case close_mode_per_file:
-			DEBUG_MSG("bfwin_delete_event, per file\n");
-			project_save_and_mark_closed(bfwin);
-			if (choose_per_file(bfwin, TRUE)) {
-				DEBUG_MSG("bfwin_delete_event, all saved or all closed, return TRUE\n");
-				return TRUE;
-			} else {
-				DEBUG_MSG("bfwin_delete_event, cancelled!\n");
-				if (bfwin->project)
-					bfwin->project->close = FALSE;
-				return TRUE;
-			}
-			break;
-		case close_mode_close_all:
-			DEBUG_MSG("bfwin_delete_event, close all\n");
-			if (bfwin->project) {
-				project_save_and_mark_closed(bfwin);
-			} else {
-				doc_close_multiple_backend(bfwin, TRUE, retval);
-			}
-			/* the last document that closes should close the window, so return TRUE */
-			return FALSE;
-			break;
-		case close_mode_cancel:
-			DEBUG_MSG("bfwin_delete_event, cancel\n");
-			return TRUE;
-			break;
-		case close_mode_save_all:
-		default:
-			/* save all and close */
-			project_save_and_mark_closed(bfwin);
-			DEBUG_MSG("bfwin_delete_event, save all\n");
-			doc_save_all_close(bfwin);
-			return TRUE;
-			break;
-		}
-	} else {
-		DEBUG_MSG("bfwin_delete_event, nothing modified, close all\n");
-		project_save_and_mark_closed(bfwin);
-		doc_close_multiple_backend(bfwin, TRUE, close_mode_close_all);
-		/* the last document that closes should close the window, so return TRUE */
-		return TRUE;
-	}
-
-}
-
-static void
-bfwin_cleanup(Tbfwin * bfwin)
+/* called *before the widget is destroyed, this function will destroy the widget */
+void
+bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 {
 	GList *tmplist;
-
-	/* call all cleanup functions here */
-
-	bfwin->statusbar = NULL;	/* make sure no new statusbar messages have to be popped */
-
-	if (bfwin->statusbar_pop_id != 0) {
-		g_source_remove(bfwin->statusbar_pop_id);
-		bfwin->statusbar_pop_id = 0;
-	}
-
-	/* all documents have to be freed for this window */
+	DEBUG_MSG("bfwin_destroy_and_cleanup, started for %p\n", bfwin);
+	
+		/* all documents have to be freed for this window */
 	tmplist = g_list_first(bfwin->documentlist);
-	DEBUG_MSG("gui_bfwin_cleanup, have %d documents in window %p\n", g_list_length(bfwin->documentlist),
+	DEBUG_MSG("bfwin_cleanup, have %d documents in window %p\n", g_list_length(bfwin->documentlist),
 			  bfwin);
 	while (tmplist) {
-		DEBUG_MSG("gui_bfwin_cleanup closing doc=%p\n", tmplist->data);
+		DEBUG_MSG("bfwin_cleanup closing doc=%p\n", tmplist->data);
 		doc_destroy(DOCUMENT(tmplist->data), TRUE);
 		/* no this is not an indefinite loop, because the documents remove themselves
 		   from the documentlist, we remove the top document untill there are no documents
@@ -522,12 +455,24 @@ bfwin_cleanup(Tbfwin * bfwin)
 	}
 
 	g_signal_handler_disconnect(bfwin->notebook, bfwin->notebook_switch_signal);
+	
+	gtk_widget_destroy(bfwin->main_window);
+	DEBUG_MSG("bfwin_destroy_and_cleanup, main_window destroyed for bfwin %p\n", bfwin);
+
+	/* the widgets are destroyed now, don't touch any widgets any more from now on */
+
+	bfwin->statusbar = NULL;	/* make sure no new statusbar messages have to be popped */
+
+	if (bfwin->statusbar_pop_id != 0) {
+		g_source_remove(bfwin->statusbar_pop_id);
+		bfwin->statusbar_pop_id = 0;
+	}
 
 #ifdef HAVE_LIBENCHANT
 	unload_spell_dictionary(bfwin);
 #endif
 	g_print("bfwin_cleanup called for bfwin %p\n",bfwin);
-	side_panel_destroy_cleanup(bfwin);
+	side_panel_cleanup(bfwin);
 	outputbox_cleanup(bfwin);
 
 	if (bfwin->notebook_changed_doc_activate_id != 0) {
@@ -562,6 +507,76 @@ bfwin_cleanup(Tbfwin * bfwin)
 		g_object_unref(G_OBJECT(bfwin->fb2_filters_group));
 	}
 	DEBUG_MSG("finished unref actiongroups\n");
+
+#ifdef IDENTSTORING
+	bftextview2_identifier_hash_destroy(bfwin);
+#endif
+
+	DEBUG_MSG("bfwin_cleanup, going to free bfwin %p\n", bfwin);
+	g_free(bfwin);
+}
+
+gboolean
+bfwin_delete_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin)
+{
+	/*
+	   If you return FALSE in the "delete_event" signal handler GTK will emit the "destroy" signal.
+	   Returning TRUE means you handled the event, and it should not be further propagated
+	   
+	   we always handle it, so we always return TRUE
+	 */
+	DEBUG_MSG("bfwin_delete_event, started for bfwin %p\n", bfwin);
+	if (!bfwin->documentlist) {
+		bfwin_destroy_and_cleanup(bfwin);
+		return TRUE;
+	}
+	
+	if (have_modified_documents(bfwin->documentlist)) {
+		Tclose_mode retval = multiple_files_modified_dialog(bfwin);
+
+		switch (retval) {
+		case close_mode_per_file:
+			DEBUG_MSG("bfwin_delete_event, per file\n");
+			project_save_and_mark_closed(bfwin);
+			if (choose_per_file(bfwin, TRUE)) {
+				DEBUG_MSG("bfwin_delete_event, all saved or all closed, return TRUE\n");
+				return TRUE;
+			} else {
+				DEBUG_MSG("bfwin_delete_event, cancelled!\n");
+				if (bfwin->project)
+					bfwin->project->close = FALSE;
+				return TRUE;
+			}
+			break;
+		case close_mode_close_all:
+			DEBUG_MSG("bfwin_delete_event, close all\n");
+			if (bfwin->project) {
+				project_save_and_mark_closed(bfwin);
+			}
+			doc_close_multiple_backend(bfwin, TRUE, retval);
+			/* the last document that closes should close the window, so return TRUE */
+			return TRUE; /* this had FALSE the comment above sais it should return TRUE ??? */
+			break;
+		case close_mode_cancel:
+			DEBUG_MSG("bfwin_delete_event, cancel\n");
+			return TRUE;
+			break;
+		case close_mode_save_all:
+		default:
+			/* save all and close */
+			project_save_and_mark_closed(bfwin);
+			DEBUG_MSG("bfwin_delete_event, save all\n");
+			doc_save_all_close(bfwin);
+			return TRUE;
+			break;
+		}
+	} else {
+		DEBUG_MSG("bfwin_delete_event, nothing modified, close all\n");
+		project_save_and_mark_closed(bfwin);
+		doc_close_multiple_backend(bfwin, TRUE, close_mode_close_all);
+		/* the last document that closes should close the window, so return TRUE */
+		return TRUE;
+	}
 
 }
 
@@ -779,7 +794,6 @@ gotoline_frame_create(Tbfwin * bfwin)
 	g_signal_connect(button, "clicked", G_CALLBACK(gotoline_close_button_clicked), bfwin);
 
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Goto Line:")), FALSE, FALSE, 0);
-
 	bfwin->gotoline_entry = gtk_entry_new();
 	gtk_box_pack_start(GTK_BOX(hbox), bfwin->gotoline_entry, FALSE, FALSE, 0);
 	g_signal_connect(bfwin->gotoline_entry, "changed", G_CALLBACK(gotoline_entry_changed), bfwin);
@@ -814,25 +828,8 @@ bfwin_destroy_event(GtkWidget * widget, Tbfwin * bfwin)
 		project_final_close(bfwin, TRUE);
 		bfwin->session = NULL;
 	}
-
-	DEBUG_MSG("bfwin_destroy_event, will hide the window now\n");
-	gtk_widget_hide(bfwin->main_window);
-
 	main_v->bfwinlist = g_list_remove(main_v->bfwinlist, bfwin);
 	DEBUG_MSG("bfwin_destroy_event, bfwin(%p) is removed from bfwinlist\n", bfwin);
-
-	DEBUG_MSG("bfwin_destroy_event, will destroy the window now\n");
-	gtk_widget_destroy(bfwin->main_window);
-
-	bfwin_cleanup(bfwin);
-
-
-#ifdef IDENTSTORING
-	bftextview2_identifier_hash_destroy(bfwin);
-#endif
-
-	DEBUG_MSG("bfwin_destroy_event, going to free bfwin %p\n", bfwin);
-	g_free(bfwin);
 
 	if (NULL == main_v->bfwinlist) {
 		rcfile_save_global_session();
@@ -1449,8 +1446,7 @@ bfwin_window_new(void)
 void
 bfwin_window_close(Tbfwin * bfwin)
 {
-	if (bfwin_delete_event(NULL, NULL, bfwin) == FALSE)
-		gtk_widget_destroy(bfwin->main_window);
+	bfwin_delete_event(NULL, NULL, bfwin);
 }
 
 gboolean

@@ -1,13 +1,15 @@
 # Simple Chinese(zh_CN) language file for Bluefish.
-# Copyright (C) 2011 ZhiFeng Ma
+# Copyright (C) 2001, 2011 Free Software Foundation, Inc.
+# Dormouse <mouselinux@163.com>, 2003
+# Funda Wang <fundawang@linux.net.cn>, 2004
 # ZhiFeng Ma <mzf9527@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.2.0\n"
+"Project-Id-Version: Bluefish 2.2.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-12-04 13:51-0800\n"
-"PO-Revision-Date: 2011-07-01 15:57+0800\n"
+"POT-Creation-Date: 2011-12-07 22:54+0800\n"
+"PO-Revision-Date: 2011-12-07 22:41+0800\n"
 "Last-Translator: william9527 <mzf9527@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -130,9 +132,8 @@ msgid "Show snippets menu"
 msgstr "显示代码片段菜单"
 
 #: src/plugin_snippets/snippets_gui.c:829
-#, fuzzy
 msgid "S_nippets Menu"
-msgstr "代码片段菜单"
+msgstr "代码片段菜单(_n)"
 
 #: src/plugin_snippets/snippets_leaf_insert.c:64
 msgid "[cursor position or selection]"

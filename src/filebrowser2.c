@@ -2027,7 +2027,7 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 	GSList *group = NULL;
 	GList *list;
 	gint value = 0;
-	g_print("popup_menu_create fb2=%p\n", fb2);
+
 	menu = gtk_ui_manager_get_widget(bfwin->uimanager, "/FileBrowserMenu");
 	if (!menu) {
 		g_warning("showing file browser popup menu failed");
@@ -2723,7 +2723,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW(fb2->dir_v),file_search_func,fb2,NULL);
 	if (fb2->filebrowser_viewmode != viewmode_flat) {
 		dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
-		g_print("fb2_init, NEW FILEBROWSER2, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
+		g_print("fb2_set_viewmode_widgets, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
 				  dirselection, fb2, fb2->dir_tfilter);
 		fb2->dirselection_changed_id = g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(dir_v_selection_changed_lcb), fb2);
 	}
@@ -2754,7 +2754,6 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		gtk_box_pack_start(GTK_BOX(fb2->vbox), fb2->dirscrolwin, TRUE, TRUE, 0);
 	} else {
 		fb2->vpaned = gtk_vpaned_new();
-		gtk_widget_set_size_request(fb2->vpaned, main_v->globses.left_panel_width, -1);
 		gtk_paned_set_position(GTK_PANED(fb2->vpaned), main_v->globses.two_pane_filebrowser_height);
 		g_signal_connect(G_OBJECT(fb2->vpaned), "notify::position",
 						 G_CALLBACK(fb2_two_pane_notify_position_lcb), NULL);
@@ -2876,13 +2875,13 @@ void
 fb2destroy_signal_lcb(GtkWidget *widget, Tfilebrowser2 *fb2)
 {
 	g_print("fb2destroy_signal_lcb widget=%p, fb2=%p\n",widget,fb2);
-	if (fb2->dir_v) {
+/*	if (fb2->dir_v) {
 		GtkTreeSelection *dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
 		if (dirselection) {
 			g_signal_handler_disconnect(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v))), fb2->dirselection_changed_id);
 			g_print("disconnected!\n");
 		}
-	}
+	}*/
 }
 
 GtkWidget *
@@ -2905,6 +2904,7 @@ fb2_init(Tbfwin * bfwin)
 			  fb2->filebrowser_viewmode);
 
 	fb2->vbox = gtk_vbox_new(FALSE, 0);
+	g_signal_connect(G_OBJECT(fb2->vbox), "destroy", G_CALLBACK(gtk_widget_destroyed), &fb2->vbox);
 /*	g_signal_connect(G_OBJECT(fb2->vbox), "destroy", G_CALLBACK(fb2destroy_signal_lcb), fb2);*/
 	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING));
 	fb2->dirmenu_v = gtk_combo_box_new_with_model(fb2->dirmenu_m);
@@ -2919,7 +2919,7 @@ fb2_init(Tbfwin * bfwin)
 #if GTK_CHECK_VERSION(3,0,0)
 	g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_START, NULL);
 #endif
-	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, TRUE);
+	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, FALSE);
 	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, "text", DIR_NAME_COLUMN, NULL);
 	gtk_box_pack_start(GTK_BOX(fb2->vbox), fb2->dirmenu_v, FALSE, FALSE, 0);
 	fb2->dirmenu_changed_signal =
@@ -2961,7 +2961,24 @@ fb2_cleanup(Tbfwin * bfwin)
 	if (bfwin->fb2) {
 		Tfilebrowser2 *fb2 = FILEBROWSER2(bfwin->fb2);
 		GList *actions, *list;
-
+		g_print("fb2_cleanup, fb2->vbox=%p\n",fb2->vbox);
+		if (fb2->vbox) {
+			g_print("fb2_cleanup, we still have a vbox, destroy vbox\n");
+			gtk_widget_destroy(fb2->vbox);
+		}
+		
+		g_print("fb2_cleanup, remove ui_manager actions\n");
+		if (bfwin->fb2_filters_group) {
+			gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->fb2_filters_merge_id);
+			actions = gtk_action_group_list_actions(bfwin->fb2_filters_group);
+			for (list = actions; list; list = list->next) {
+				g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
+						G_CALLBACK(popup_menu_filter_activate), fb2);
+				gtk_action_group_remove_action(bfwin->fb2_filters_group, GTK_ACTION(list->data));
+			}
+			g_list_free(actions);
+			bfwin->fb2_filters_group = NULL;
+		}
 		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->filebrowser_merge_id);
 		actions = gtk_action_group_list_actions(bfwin->filebrowserGroup);
 		for (list = actions; list; list = list->next) {
@@ -2969,10 +2986,9 @@ fb2_cleanup(Tbfwin * bfwin)
 		}
 		g_list_free(actions);
 		bfwin->filebrowserGroup = NULL;
-		
+/*		g_print("fb2_cleanup, disconnect dirmenu_changed_signal\n");
 		g_signal_handler_disconnect(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
-		dirmenu_idle_cleanup_lcb(fb2->dirmenu_m);
-
+*/		dirmenu_idle_cleanup_lcb(fb2->dirmenu_m);
 		if (fb2->basedir)
 			g_object_unref(fb2->basedir);
 		g_print("fb2_cleanup, free %p\n",fb2);
