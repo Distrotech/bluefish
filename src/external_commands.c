@@ -43,41 +43,39 @@
  *
  */
 typedef struct {
-	gint refcount;
+	gint refcount; /* the reference count for this structure, on 0 we can free this structure */
 	Tbfwin *bfwin;
 	Tdocument *doc;
 	gint begin; /* 0 for begin of the file */
 	gint end; /* -1 for end of the file */
-	const gchar *formatstring;
-	gchar *commandstring;
+	const gchar *formatstring; /* the command from the configuration, so including placeholders such as %i, %f, |,  etc. */
+	gchar *commandstring; /* the command that will be started by g_spawn, the placeholders should have been replaced/removed */
 
 	gchar *securedir; /* if we need any local temporary files for input or output we'll use fifo's */
-	gchar *fifo_in;
+	gchar *fifo_in; /* the path for the iput and output fifo */
 	gchar *fifo_out;
-	gchar *tmp_in;
+	gchar *tmp_in; /* the path for the input/output temporary filename */
 	gchar *tmp_out;
-	gchar *inplace;
-	gboolean pipe_in;
+	gchar *inplace; /* if we use in-place editing, so the input file will become the output file */
+	gboolean pipe_in; /* if we use pipes for input and output */
 	gboolean pipe_out;
 
-	#ifdef WIN32
-		gpointer fifo_in_handle;
-		gpointer fifo_out_handle;
-	#endif
+#ifdef WIN32
+	gpointer fifo_in_handle; /* the path for 'named pipes' on win32 */
+	gpointer fifo_out_handle;
+#endif
 
-	gboolean include_stderr;
+	gboolean include_stderr; /* if stderr should be included in the output */
 	
-	GIOChannel* channel_in;
-	gchar *buffer_out;
-	gchar *buffer_out_position;
-	GIOChannel* channel_out;
+	GIOChannel* channel_in; /* the GIO channels for input into the filter */
+	gchar *buffer_out; /* the buffer that is the input for the filter */
+	gchar *buffer_out_position; /* a pointer inside the above buffer that points to the data that has not yet been written to the filter */
 	
-	GIOFunc channel_out_lcb;
-	gpointer channel_out_data;
+	GIOChannel* channel_out; /* the GIO channel for output from the filter */
+	GIOFunc channel_out_lcb; /* the callback that will be registered for output data  */
+	gpointer channel_out_data; /* the corresponding callback data */
 	
-	GPid child_pid;
-	
-	gpointer data;
+	GPid child_pid; /* PID of the filter */
 } Texternalp;
 
 static void start_command_backend(Texternalp *ep);
