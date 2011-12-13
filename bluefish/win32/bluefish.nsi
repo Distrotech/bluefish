@@ -382,7 +382,7 @@ SectionGroup "$(SECT_PLUGINS)" SecPlugins
 		SetOutPath "$INSTDIR\share\locale"
 		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_zencoding.mo" "build\share\locale\*"
 	SectionEnd
-	Section /o "-$(PLUG_ZENCODING)" SecPlZencoding
+	Section "$(PLUG_ZENCODING)" SecPlZencoding
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\zencoding.dll"
 		SetOutPath "$INSTDIR\share\${PACKAGE}\plugins\zencoding"
