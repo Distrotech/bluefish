@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -67,6 +67,9 @@ typedef struct {
 
 	gboolean include_stderr; /* if stderr should be included in the output */
 	
+	gint standard_input; /* the pipes that will be filled by g_spawn_async_with_pipes */
+	gint standard_output; 
+	
 	GIOChannel* channel_in; /* the GIO channels for input into the filter */
 	gchar *buffer_out; /* the buffer that is the input for the filter */
 	gchar *buffer_out_position; /* a pointer inside the above buffer that points to the data that has not yet been written to the filter */
@@ -76,6 +79,7 @@ typedef struct {
 	gpointer channel_out_data; /* the corresponding callback data */
 	
 	GPid child_pid; /* PID of the filter */
+	guint start_command_idle_id;
 } Texternalp;
 
 static void start_command_backend(Texternalp *ep);
@@ -178,6 +182,15 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	Texternalp *ep = data;
 	GError *gerror=NULL;
 	DEBUG_MSG("child_watch_lcb, child exited with status=%d\n",status);
+	
+	if (!ep->buffer_out) {
+		/* the child has exited before we actually started to write data to the child, just abort now */
+		g_source_remove(ep->start_command_idle_id);
+		externalp_unref(ep); /* unref twice, once for the start_command_idle, once for child_watch_lcb */
+		externalp_unref(ep);
+		return;
+	}
+	
 	/* if there was a temporary output file, we should now open it and start to read it */
 	if (ep->tmp_out) {
 		
@@ -205,13 +218,75 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	externalp_unref(ep);
 }
 
+static gboolean
+start_command_idle(gpointer data)
+{
+	Texternalp *ep = data;
+	GError *gerror=NULL;
+
+	if (ep->pipe_in) {
+		DEBUG_MSG("start_command_idle, creating channel_in from pipe\n");
+#ifdef WIN32
+		ep->channel_in = g_io_channel_win32_new_fd(ep->standard_input);
+#else
+		ep->channel_in = g_io_channel_unix_new(ep->standard_input);
+#endif
+	} else if (ep->fifo_in) {
+		DEBUG_MSG("start_command_idle, connecting channel_in to fifo %s\n",ep->fifo_in);
+		/* problem: this can hang if there is no process actually reading from this fifo... so if the 
+		command died in some way (a nonexisting command), this call will hang bluefish */
+		ep->channel_in = g_io_channel_new_file(ep->fifo_in,"w",&gerror);
+		if (gerror) {
+			DEBUG_MSG("start_command_idle, error connecting to fifo %s: %s\n",ep->fifo_in,gerror->message);
+			g_warning("failed to create fifo %s %d: %s\n",ep->fifo_in, gerror->code, gerror->message);
+			g_error_free(gerror);
+			/* BUG TODO: free Texternalp */
+			return FALSE;
+		}
+	}
+	if (ep->pipe_in || ep->fifo_in) {
+		ep->refcount++;
+		ep->buffer_out = ep->buffer_out_position = doc_get_chars(ep->bfwin->current_document,ep->begin,ep->end);
+		g_io_channel_set_flags(ep->channel_in,G_IO_FLAG_NONBLOCK,NULL);
+		/* now we should start writing, correct ? */
+		DEBUG_MSG("start_command_idle, begin=%d, end=%d, add watch for channel_in\n",ep->begin, ep->end);
+		g_io_add_watch(ep->channel_in,G_IO_OUT,start_command_write_lcb,ep);
+	}
+	if (ep->pipe_out) {
+#ifdef WIN32
+		ep->channel_out = g_io_channel_win32_new_fd(ep->standard_output);
+#else
+		ep->channel_out = g_io_channel_unix_new(ep->standard_output);
+#endif
+		DEBUG_MSG("start_command_idle, created channel_out from pipe\n");
+	} else if (ep->fifo_out) {
+		ep->channel_out = g_io_channel_new_file(ep->fifo_out,"r",&gerror);
+		DEBUG_MSG("start_command_idle, created channel_out from fifo %s\n",ep->fifo_out);
+		if (gerror) {
+			g_warning("failed to start reading from file %s %d: %s\n",ep->fifo_out, gerror->code, gerror->message);
+			g_error_free(gerror);
+			/* BUG TODO: free Texternalp */
+			return FALSE;
+		}
+	}
+	if (ep->channel_out_lcb && (ep->pipe_out || ep->fifo_out)) {
+		ep->refcount++;
+		g_io_channel_set_flags(ep->channel_out,G_IO_FLAG_NONBLOCK,NULL);
+		DEBUG_MSG("start_command_idle, add watch for channel_out\n");
+		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,ep->channel_out_lcb,ep->channel_out_data);
+	}
+	externalp_unref(ep);
+	
+	
+	return FALSE; /* don't call me again */
+}
+
 static void start_command_backend(Texternalp *ep) {
 #ifdef USEBINSH	
 	gchar *argv[4];
 #else
 	gchar **argv;
 #endif
-	gint standard_input=0,standard_output=0;
 	GError *error=NULL;
 
 	if (!ep->bfwin->current_document)
@@ -262,8 +337,8 @@ static void start_command_backend(Texternalp *ep) {
 	DEBUG_MSG("start_command_backend, pipe_in=%d, pipe_out=%d, fifo_in=%s, fifo_out=%s,include_stderr=%d\n",ep->pipe_in,ep->pipe_out,ep->fifo_in,ep->fifo_out,ep->include_stderr);
 	DEBUG_MSG("start_command_backend, about to spawn process /bin/sh -c %s\n",argv[2]);
 	g_spawn_async_with_pipes(NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH, (ep->include_stderr)?spawn_setup_lcb:NULL, ep, &ep->child_pid, 
-				(ep->pipe_in) ? &standard_input : NULL,
-				(ep->pipe_out) ? &standard_output : NULL,
+				(ep->pipe_in) ? &ep->standard_input : NULL,
+				(ep->pipe_out) ? &ep->standard_output : NULL,
 				NULL, &error);
 	ep->refcount+=2; /* one reference for this function (cleared in the end), one reference for the child_watch function */
 	g_child_watch_add(ep->child_pid,child_watch_lcb,ep);
@@ -274,57 +349,7 @@ static void start_command_backend(Texternalp *ep) {
 		externalp_unref(ep);
 		return;
 	}
-	flush_queue();
-	if (ep->pipe_in) {
-		DEBUG_MSG("start_command_backend, creating channel_in from pipe\n");
-		#ifdef WIN32
-			ep->channel_in = g_io_channel_win32_new_fd(standard_input);
-		#else
-			ep->channel_in = g_io_channel_unix_new(standard_input);
-		#endif
-	} else if (ep->fifo_in) {
-		DEBUG_MSG("start_command_backend, connecting channel_in to fifo %s\n",ep->fifo_in);
-		/* problem: this can hang if there is no process actually reading from this fifo... so if the 
-		command died in some way (a nonexisting command), this call will hang bluefish */
-		ep->channel_in = g_io_channel_new_file(ep->fifo_in,"w",&error);
-		if (error) {
-			DEBUG_MSG("start_command_backend, error connecting to fifo %s: %s\n",ep->fifo_in,error->message);
-			g_warning("failed to create fifo %s %d: %s\n",ep->fifo_in, error->code, error->message);
-			g_error_free(error);
-			return;
-		}
-	}
-	if (ep->pipe_in || ep->fifo_in) {
-		ep->refcount++;
-		ep->buffer_out = ep->buffer_out_position = doc_get_chars(ep->bfwin->current_document,ep->begin,ep->end);
-		g_io_channel_set_flags(ep->channel_in,G_IO_FLAG_NONBLOCK,NULL);
-		/* now we should start writing, correct ? */
-		DEBUG_MSG("start_command_backend, begin=%d, end=%d, add watch for channel_in\n",ep->begin, ep->end);
-		g_io_add_watch(ep->channel_in,G_IO_OUT,start_command_write_lcb,ep);
-	}
-	if (ep->pipe_out) {
-		#ifdef WIN32
-			ep->channel_out = g_io_channel_win32_new_fd(standard_output);
-		#else
-			ep->channel_out = g_io_channel_unix_new(standard_output);
-		#endif
-		DEBUG_MSG("start_command_backend, created channel_out from pipe\n");
-	} else if (ep->fifo_out) {
-		ep->channel_out = g_io_channel_new_file(ep->fifo_out,"r",&error);
-		DEBUG_MSG("start_command_backend, created channel_out from fifo %s\n",ep->fifo_out);
-		if (error) {
-			g_warning("failed to start reading from file %s %d: %s\n",ep->fifo_out, error->code, error->message);
-			g_error_free(error);
-			return;
-		}
-	}
-	if (ep->channel_out_lcb && (ep->pipe_out || ep->fifo_out)) {
-		ep->refcount++;
-		g_io_channel_set_flags(ep->channel_out,G_IO_FLAG_NONBLOCK,NULL);
-		DEBUG_MSG("start_command_backend, add watch for channel_out\n");
-		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,ep->channel_out_lcb,ep->channel_out_data);
-	}
-	externalp_unref(ep);
+	ep->start_command_idle_id = g_idle_add(start_command_idle, ep);
 }
 
 static void start_command(Texternalp *ep) {
