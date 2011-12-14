@@ -126,11 +126,11 @@ static void externalp_unref(Texternalp *ep) {
 			rmdir(ep->securedir);
 			g_free(ep->securedir);
 		}
-		g_free(ep);
 		if (ep->channel_in)
 			g_io_channel_unref(ep->channel_in);
 		if (ep->channel_out)
 			g_io_channel_unref(ep->channel_out);
+		g_free(ep);
 	}
 }
 
