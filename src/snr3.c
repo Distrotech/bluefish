@@ -1013,7 +1013,7 @@ snr3run_multiset(Tsnr3run *s3run,
 	s3run->query = g_strdup(query);
 	g_free(s3run->replace);
 	s3run->replace = g_strdup(replace);
-	DEBUG_MSG("snr3run_init, query=%s, replace=%s, type=%d, replacetype=%d, scope=%d\n",query, replace, type,replacetype, scope);
+	DEBUG_MSG("snr3run_init, query=%s, replace=%s, type=%d, replacetype=%d, scope=%d\n", query ? query : "null",replace ? replace : "null", type, replacetype, scope);
 	s3run->type = type;
 	s3run->replacetype = replacetype;
 	s3run->scope = scope;
