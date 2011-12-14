@@ -211,6 +211,8 @@ side_panel_build(Tbfwin * bfwin)
 #if !GTK_CHECK_VERSION(3, 0, 0)
 	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(bfwin->leftpanel_notebook), 0);
 	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(bfwin->leftpanel_notebook), 0);
+#else
+	gtk_notebook_set_scrollable(GTK_NOTEBOOK(bfwin->leftpanel_notebook), TRUE);
 #endif
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(bfwin->leftpanel_notebook), FALSE);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->leftpanel_notebook));
