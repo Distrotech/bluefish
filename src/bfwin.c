@@ -478,7 +478,7 @@ bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 		g_source_remove(bfwin->notebook_changed_doc_activate_id);
 	}
 	
-	DEBUG_MSG("unref static actiongroups\n");
+	DEBUG_MSG("bfwin_cleanup, unref static actiongroups\n");
 	g_object_unref(G_OBJECT(bfwin->uimanager));
 	/*g_object_unref(G_OBJECT(bfwin->globalGroup));
 	g_object_unref(G_OBJECT(bfwin->documentGroup));
@@ -505,8 +505,7 @@ bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 		DEBUG_MSG("unref dynamic fb2_filters actiongroups\n");
 		g_object_unref(G_OBJECT(bfwin->fb2_filters_group));
 	}
-	DEBUG_MSG("finished unref actiongroups\n");
-
+	DEBUG_MSG("bfwin_cleanup, finished unref actiongroups\n");
 #ifdef IDENTSTORING
 	bftextview2_identifier_hash_destroy(bfwin);
 #endif
