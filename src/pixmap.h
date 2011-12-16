@@ -19,7 +19,7 @@
 
 GtkWidget *new_pixmap(gint type);
 void set_default_icon(void);
-
+void register_bf_stock_icons(void);
 extern const guint8 pixmap_edit_tag[];
 extern const guint8 pixmap_abbr[];
 extern const guint8 pixmap_acronym[];
@@ -140,3 +140,5 @@ extern const guint8 pixmap_underline[];
 extern const guint8 pixmap_unindent[];
 extern const guint8 pixmap_var[];
 extern const guint8 pixmap_view_in_browser[];
+
+#define BF_STOCK_BROWSER_PREVIEW				"bf-stock-browser-preview"
