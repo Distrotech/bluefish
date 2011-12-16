@@ -32,6 +32,7 @@
 #include "blocksync.h"
 #include "bookmark.h"
 #include "document.h"
+#include "pixmap.h"
 #include "doc_comments.h"
 #include "doc_text_tools.h"
 #include "encodings_dialog.h"
@@ -710,6 +711,26 @@ ui_statusbar_show(GtkAction * action, gpointer user_data)
 	bfwin_statusbar_show(BFWIN(user_data), gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)));
 }
 
+static void
+ui_browser_preview(GtkAction * action, gpointer user_data)
+{
+	GList *list;
+	DEBUG_MSG("ui_browser_preview\n");
+	/* TODO find the default browser and start it */
+	for (list = g_list_first(main_v->props.external_command); list; list = list->next) {
+		gchar **arr = list->data;
+		/*  arr[0] = name
+		 *  arr[1] = command
+		 *  arr[2] = is_default_browser
+		 */
+		if (g_strv_length(arr) == 3 && arr[2][0] == '1') {
+			DEBUG_MSG("ui_browser_preview, start %s\n",arr[1]);
+			external_command(BFWIN(user_data), arr[1]);
+		}
+	}
+}
+
+
 static const GtkActionEntry top_level_menus[] = {
 	{"FileMenu", NULL, N_("_File")},
 	{"NewFromTemplate", NULL, N_("New From Template")},
@@ -793,7 +814,9 @@ static const GtkActionEntry global_actions[] = {
 	 G_CALLBACK(ui_merge_lines)},
 	{"RewrapLines", NULL, N_("Rewrap _Lines"), NULL, N_("Rewrap lines"), G_CALLBACK(ui_rewrap_lines)},
 	{"StripTrailingWhitespace", NULL, N_("Strip T_railing Whitespace"), NULL, N_("Strip trailing whitespace"),
-	 G_CALLBACK(ui_strip_trailing_whitespace)}
+	 G_CALLBACK(ui_strip_trailing_whitespace)},
+	 {"BrowserPreview", BF_STOCK_BROWSER_PREVIEW, /*_("Preview in browser")*/NULL, NULL, /*N_("Preview in browser")*/NULL,
+	 G_CALLBACK(ui_browser_preview)}
 };
 
 static const GtkToggleActionEntry global_toggle_actions[] = {

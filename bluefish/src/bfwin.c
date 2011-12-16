@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #ifdef MAC_INTEGRATION
 #include <gtkosxapplication.h>
