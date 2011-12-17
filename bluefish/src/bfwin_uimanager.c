@@ -1256,7 +1256,12 @@ dynamic_menu_item_create(GtkUIManager *uimanager, GtkActionGroup *action_group,
 void
 bfwin_encoding_set_wo_activate(Tbfwin * bfwin, const gchar * encoding)
 {
-	GtkAction *action = gtk_action_group_get_action(bfwin->encodings_group, encoding);
+	/* We do case insensitive comparisons when checking to see if an encoding exists.
+	 * However GtkAction is case sensitive, so force all encodings upper case.
+	 */
+	gchar *temp = g_ascii_strup(encoding, -1);
+	GtkAction *action = gtk_action_group_get_action(bfwin->encodings_group, temp);
+	g_free(temp);
 	
 	if (!action) {
 		g_warning("Cannot set menu action encoding %s\n", encoding);

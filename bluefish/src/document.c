@@ -1455,8 +1455,10 @@ add_encoding_to_list(gchar * encoding)
 		tmplist = g_list_next(tmplist);
 	}
 	if (!found) {
+		gchar *temp = g_ascii_strup(encoding, -1);
 		main_v->globses.encodings =
-			g_list_insert(main_v->globses.encodings, array_from_arglist(encoding, encoding, "1", NULL), 1);
+			g_list_insert(main_v->globses.encodings, array_from_arglist(temp, temp, "1", NULL), 1);
+		g_free(temp);
 		changed = TRUE;
 	}
 	if (changed) {
