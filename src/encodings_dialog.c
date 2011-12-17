@@ -56,10 +56,6 @@ enum {
 	NUM_COLUMNS
 };
 
-/* static function prototypes */
-
-/* end static function prototypes */
-
 
 static void
 bluefish_encodings_dialog_finalize(GObject * object)
@@ -350,12 +346,12 @@ bluefish_encodings_dialog_create(GType type,
 	vbox = gtk_vbox_new(FALSE, 6);
 	gtk_container_add(GTK_CONTAINER(alignment), vbox);
 
-	dialog->priv->addButton = dialog_button_new_with_image(NULL, GTK_STOCK_GO_FORWARD, G_CALLBACK(enc_add_button_clicked), dialog, FALSE, FALSE);
+	dialog->priv->addButton = dialog_button_new_with_image(NULL, GTK_STOCK_GO_FORWARD, G_CALLBACK(enc_add_button_clicked), dialog, TRUE, FALSE);
 	gtk_button_set_focus_on_click(GTK_BUTTON(dialog->priv->addButton), FALSE);
 	gtk_box_pack_start(GTK_BOX(vbox), dialog->priv->addButton, FALSE, FALSE, 0);
 	gtk_widget_set_sensitive(dialog->priv->addButton, FALSE);
 
-	dialog->priv->removeButton = dialog_button_new_with_image(NULL, GTK_STOCK_GO_BACK, G_CALLBACK(enc_remove_button_clicked), dialog, FALSE, FALSE);
+	dialog->priv->removeButton = dialog_button_new_with_image(NULL, GTK_STOCK_GO_BACK, G_CALLBACK(enc_remove_button_clicked), dialog, TRUE, FALSE);
 	gtk_button_set_focus_on_click(GTK_BUTTON(dialog->priv->removeButton), FALSE);
 	gtk_box_pack_start(GTK_BOX(vbox), dialog->priv->removeButton, FALSE, FALSE, 0);
 	gtk_widget_set_sensitive(dialog->priv->removeButton, FALSE);
@@ -434,7 +430,9 @@ bluefish_encodings_dialog_new(Tbfwin * bfwin)
 	dialog = g_object_new(BLUEFISH_TYPE_ENCODINGS_DIALOG,
 						  "bfwin", bfwin,
 						  "destroy-with-parent", TRUE,
+#if !GTK_CHECK_VERSION(3,0,0)
 						  "has-separator", FALSE,
+#endif
 						  "title", _("Add or remove document encodings"),
 						  "transient-for", bfwin->main_window, NULL);
 
