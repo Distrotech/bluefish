@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * dialog_utils.c - dialog utility functions
  *
- * Copyright (C) 2005-2010 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2011 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,8 @@
 #include "dialog_utils.h"
 #include "pixmap.h"
 
+
+#if !GTK_CHECK_VERSION(3,0,0)
 static void
 button_set_style(GtkWidget * button, GtkStyle * previous_style, gpointer user_data)
 {
@@ -35,11 +37,27 @@ button_set_style(GtkWidget * button, GtkStyle * previous_style, gpointer user_da
 
 	gtk_widget_set_size_request(button, w + 2, h + 2);
 }
+#endif
 
 GtkWidget *
 bluefish_small_close_button_new(void)
 {
+	/* TODO: Add a tooltip to the button */
 	GtkWidget *button, *image;
+#if GTK_CHECK_VERSION(3,0,0)
+	GtkCssProvider *provider;
+	GtkStyleContext *context;
+
+	static const gchar button_style[] =
+		"GtkButton#bluefish-small-close-button {\n"
+		  "-GtkButton-default-border: 0;\n"
+		  "-GtkButton-default-outside-border: 0;\n"
+		  "-GtkButton-inner-border: 0;\n"
+		  "-GtkWidget-focus-line-width: 0;\n"
+		  "-GtkWidget-focus-padding: 0;\n"
+		  "padding: 0;\n"
+		"}";
+#endif
 
 	button = gtk_button_new();
 	gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
@@ -49,7 +67,15 @@ bluefish_small_close_button_new(void)
 	image = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
 	gtk_button_set_image(GTK_BUTTON(button), image);
 
+#if GTK_CHECK_VERSION(3,0,0)
+	provider = gtk_css_provider_new();
+	gtk_css_provider_load_from_data(provider, button_style, -1, NULL);
+	context = gtk_widget_get_style_context(GTK_WIDGET(button));
+	gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+	g_object_unref(provider);
+#else
 	g_signal_connect(button, "style-set", G_CALLBACK(button_set_style), NULL);
+#endif
 
 	return button;
 }
