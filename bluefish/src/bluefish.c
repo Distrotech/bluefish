@@ -293,15 +293,6 @@ int main(int argc, char *argv[])
 	textdomain(PACKAGE);
 #endif							/* ENABLE_NLS */
 
-	gtk_rc_parse_string ("style \"bluefish-small-close-button-style\"\n"
-                       "{\n"
-                          "GtkWidget::focus-padding = 0\n"
-                          "GtkWidget::focus-line-width = 0\n"
-                          "xthickness = 0\n"
-                          "ythickness = 0\n"
-                       "}\n"
-                       "widget \"*.bluefish-small-close-button\" style \"bluefish-small-close-button-style\""
-                       );
 	context = g_option_context_new(_(" [FILE(S)]"));
 #ifdef ENABLE_NLS
 	g_option_context_add_main_entries(context, options, PACKAGE);
@@ -320,6 +311,18 @@ int main(int argc, char *argv[])
 	g_option_context_free(context);
 	if (error)
 		g_error_free(error);
+
+#if !GTK_CHECK_VERSION(3,0,0)
+	gtk_rc_parse_string ("style \"bluefish-small-close-button-style\"\n"
+                       "{\n"
+                          "GtkWidget::focus-padding = 0\n"
+                          "GtkWidget::focus-line-width = 0\n"
+                          "xthickness = 0\n"
+                          "ythickness = 0\n"
+                       "}\n"
+                       "widget \"*.bluefish-small-close-button\" style \"bluefish-small-close-button-style\""
+                       );
+#endif
 
 	xmlInitParser();
 	startup = g_new0(Tstartup,1);
