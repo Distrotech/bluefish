@@ -1423,10 +1423,10 @@ gchar *gfile_display_name(GFile *uri, GFileInfo *finfo) {
 
 gboolean gfile_uri_is_parent(GFile *parent, GFile *child, gboolean recursive) {
 	if (parent == NULL) {
-		g_print("gfile_uri_is_parent, parent=NULL ??\n");
+		DEBUG_MSG("gfile_uri_is_parent, parent=NULL ??\n");
 		return FALSE;
 	} else if (child == NULL) {
-		g_print("gfile_uri_is_parent, child=NULL ??\n");
+		DEBUG_MSG("gfile_uri_is_parent, child=NULL ??\n");
 		return FALSE;
 	} else {
 		gboolean retval = FALSE;

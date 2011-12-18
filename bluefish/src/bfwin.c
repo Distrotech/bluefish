@@ -157,7 +157,7 @@ bfwin_output_pane_show(Tbfwin * bfwin, gboolean active)
 static void
 side_panel_cleanup(Tbfwin * bfwin)
 {
-	g_print("side_panel_cleanup called for bfwin %p\n", bfwin);
+	DEBUG_MSG("side_panel_cleanup called for bfwin %p\n", bfwin);
 	bmark_cleanup(bfwin);
 	fb2_cleanup(bfwin);
 	if (main_v->sidepanel_destroygui) {
@@ -289,7 +289,7 @@ bfwin_side_panel_show_hide_toggle(Tbfwin * bfwin, gboolean first_time, gboolean 
 			gtk_container_remove(GTK_CONTAINER(bfwin->middlebox), bfwin->notebook_box);
 		} else {
 			gtk_container_remove(GTK_CONTAINER(bfwin->hpane), bfwin->notebook_box);
-			g_print("bfwin_side_panel_show_hide_toggle, destroy bfwin->hpane\n");
+			DEBUG_MSG("bfwin_side_panel_show_hide_toggle, destroy bfwin->hpane\n");
 			gtk_widget_destroy(bfwin->hpane);
 			side_panel_cleanup(bfwin);
 			bfwin->hpane = NULL;
@@ -470,7 +470,7 @@ bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 #ifdef HAVE_LIBENCHANT
 	unload_spell_dictionary(bfwin);
 #endif
-	g_print("bfwin_cleanup called for bfwin %p\n",bfwin);
+	DEBUG_MSG("bfwin_cleanup called for bfwin %p\n",bfwin);
 	side_panel_cleanup(bfwin);
 	outputbox_cleanup(bfwin);
 
