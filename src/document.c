@@ -367,7 +367,7 @@ doc_update_highlighting(Tbfwin * bfwin, guint callback_action, GtkWidget * widge
 	if (!bfwin->current_document)
 		return;
 	if (!BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner) {
-		g_print("doc_update_highlighting, set enable_scanner to TRUE\n");
+		DEBUG_MSG("doc_update_highlighting, set enable_scanner to TRUE\n");
 		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = TRUE;
 	}
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
@@ -3022,7 +3022,7 @@ void
 doc_toggle_highlighting(Tbfwin * bfwin, gboolean active)
 {
 	bfwin->current_document->highlightstate = active;
-	g_print("doc_toggle_highlighting_cb, set enable_scanner=%d\n", bfwin->current_document->highlightstate);
+	DEBUG_MSG("doc_toggle_highlighting_cb, set enable_scanner=%d\n", bfwin->current_document->highlightstate);
 	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner =
 		bfwin->current_document->highlightstate;
 	if (active) {

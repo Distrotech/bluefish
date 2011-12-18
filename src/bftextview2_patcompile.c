@@ -835,7 +835,7 @@ add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * la
 	}
 	
 	if (context == nextcontext)
-		g_print("context=nextcontext=%d for %s\n", context, pattern);
+		DBG_PATCOMPILE("context=nextcontext=%d for %s\n", context, pattern);
 
 	matchnum = st->matches->len;
 	DBG_BLOCKMATCH("new match %s at matchnum %d has blockstartpattern %d and nextcontext %d\n", pattern,

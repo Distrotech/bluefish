@@ -1051,7 +1051,7 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 	gtk_ui_manager_insert_action_group(manager, action_group, 0);
 	g_object_unref(action_group);
 	bfwin->projectGroup = action_group;
-	g_print("loading UI from %s\n",MAIN_MENU_UI);
+	/*g_print("loading UI from %s\n",MAIN_MENU_UI);*/
 	gtk_ui_manager_add_ui_from_file(manager, MAIN_MENU_UI, &error);
 	if (error != NULL) {
 		g_warning("building main menu failed: %s", error->message);
@@ -1306,7 +1306,7 @@ static void
 commands_menu_activate(GtkAction * action, gpointer user_data)
 {
 	gchar **arr = g_object_get_data(G_OBJECT(action), "adata");
-	g_print("commands_menu_activate, call external_command with bfwin=%p and command_string=%s\n",user_data,arr[1]);
+	DEBUG_MSG("commands_menu_activate, call external_command with bfwin=%p and command_string=%s\n",user_data,arr[1]);
 	external_command(BFWIN(user_data), arr[1]);
 }
 

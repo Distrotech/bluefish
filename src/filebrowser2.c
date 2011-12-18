@@ -998,7 +998,7 @@ tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 	gint len;
 	GFile *uri;
 	gboolean retval = TRUE;
-	g_print("tree_model_filter_func, model=%p, fb2=%p\n",model,fb2);
+	DEBUG_MSG("tree_model_filter_func, model=%p, fb2=%p\n",model,fb2);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri,
 					   TYPE_COLUMN, &mime_type, -1);
 	if (!name || !uri) {
@@ -1081,7 +1081,7 @@ file_list_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 	gchar *name, *mime_type;
 	gint len;
 	gboolean retval = TRUE;
-	g_print("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);
+	DEBUG_MSG("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);
 	gtk_tree_model_get((GtkTreeModel *) model, iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &mime_type, -1);
 	if (!name)
 		return FALSE;
@@ -2237,7 +2237,7 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	GFile *tmp;
 	GVolumeMonitor *gvolmon;
 	gboolean cont, havesetiter = FALSE;
-	g_print("dirmenu_set_curdir(fb2=%p, newcurdir=%p)\n", fb2, newcurdir);
+	DEBUG_MSG("dirmenu_set_curdir(fb2=%p, newcurdir=%p)\n", fb2, newcurdir);
 	if (fb2->currentdir) {
 		if (newcurdir && (fb2->currentdir == newcurdir || g_file_equal(fb2->currentdir, newcurdir)))
 			return;
@@ -2749,7 +2749,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW(fb2->dir_v),file_search_func,fb2,NULL);
 	if (fb2->filebrowser_viewmode != viewmode_flat) {
 		dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
-		g_print("fb2_set_viewmode_widgets, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
+		DEBUG_MSG("fb2_set_viewmode_widgets, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
 				  dirselection, fb2, fb2->dir_tfilter);
 		fb2->dirselection_changed_id = g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(dir_v_selection_changed_lcb), fb2->bfwin);
 	}
@@ -2913,7 +2913,7 @@ fb2_init(Tbfwin * bfwin)
 
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;
-	g_print("fb2_init, started for bfwin=%p, fb2=%p, fb2->filebrowser_viewmode=%d\n", bfwin, fb2,
+	DEBUG_MSG("fb2_init, started for bfwin=%p, fb2=%p, fb2->filebrowser_viewmode=%d\n", bfwin, fb2,
 			  fb2->filebrowser_viewmode);
 
 	fb2->vbox = gtk_vbox_new(FALSE, 0);
@@ -2973,13 +2973,13 @@ fb2_cleanup(Tbfwin * bfwin)
 	if (bfwin->fb2) {
 		Tfilebrowser2 *fb2 = FILEBROWSER2(bfwin->fb2);
 		GList *actions, *list;
-		g_print("fb2_cleanup, fb2->vbox=%p\n",fb2->vbox);
+		DEBUG_MSG("fb2_cleanup, fb2->vbox=%p\n",fb2->vbox);
 		if (fb2->vbox) {
-			g_print("fb2_cleanup, we still have a vbox, destroy vbox\n");
+			DEBUG_MSG("fb2_cleanup, we still have a vbox, destroy vbox\n");
 			gtk_widget_destroy(fb2->vbox);
 		}
 		
-		g_print("fb2_cleanup, remove ui_manager actions\n");
+		DEBUG_MSG("fb2_cleanup, remove ui_manager actions\n");
 		if (bfwin->fb2_filters_group) {
 			gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->fb2_filters_merge_id);
 			actions = gtk_action_group_list_actions(bfwin->fb2_filters_group);
@@ -3003,7 +3003,7 @@ fb2_cleanup(Tbfwin * bfwin)
 */		dirmenu_idle_cleanup_lcb(fb2->dirmenu_m);
 		if (fb2->basedir)
 			g_object_unref(fb2->basedir);
-		g_print("fb2_cleanup, free %p\n",fb2);
+		DEBUG_MSG("fb2_cleanup, free %p\n",fb2);
 		g_free(fb2);
 		bfwin->fb2 = NULL;
 	}

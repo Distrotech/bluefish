@@ -1222,7 +1222,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 		xmlFree(name);
 	}
 	/* can we ever get here ?? */
-	g_print("pop context %d\n", GPOINTER_TO_INT(g_queue_peek_head(contextstack)));
+	DBG_PARSING("pop context %d\n", GPOINTER_TO_INT(g_queue_peek_head(contextstack)));
 	g_queue_pop_head(contextstack);
 	return context;
 }
@@ -1588,7 +1588,7 @@ static void
 bflang_cleanup(Tbflang * bflang)
 {
 	if (bflang->parsing) {
-		g_print("cannot cleanup a language that is still parsing\n");
+		DBG_PARSING("cannot cleanup a language that is still parsing\n");
 		return;
 	}
 	if (bflang->st) {
