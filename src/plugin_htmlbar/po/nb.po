@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-22 03:12+0200\n"
-"PO-Revision-Date: 2011-09-26 12:00+0200\n"
+"PO-Revision-Date: 2011-12-18 12:00+0200\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "Language: nb\n"
@@ -53,7 +53,7 @@ msgstr "_Egenska_p:"
 #: src/plugin_htmlbar/html2.c:682 src/plugin_htmlbar/html_form.c:375
 #: src/plugin_htmlbar/html_form.c:540 src/plugin_htmlbar/html_form.c:635
 msgid "_Value:"
-msgstr "_Verdi:"
+msgstr "Ve_rdi:"
 
 #: src/plugin_htmlbar/html2.c:700
 msgid "Selector"
@@ -69,7 +69,7 @@ msgstr "Verdi"
 
 #: src/plugin_htmlbar/html2.c:718
 msgid " _Add "
-msgstr " Tilfø_y "
+msgstr "_Legg til"
 
 #: src/plugin_htmlbar/html2.c:721
 msgid " _Update "
@@ -90,19 +90,19 @@ msgstr "Bluefish: Velg farge"
 
 #: src/plugin_htmlbar/htmlbar.c:42
 msgid "Edit color"
-msgstr "Rediger farge"
+msgstr "Endre farge"
 
 #: src/plugin_htmlbar/htmlbar.c:50
 msgid "Edit tag"
-msgstr "Rediger tag"
+msgstr "Rediger etikett"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1358
 msgid "T_ags"
-msgstr "_Tags"
+msgstr "E_tiketter"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1359
 msgid "_Headings"
-msgstr "Overskrifter"
+msgstr "_Overskrifter"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1360
 msgid "H_1"
@@ -1470,11 +1470,11 @@ msgstr "Video..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1700
 msgid "_Canvas..."
-msgstr ""
+msgstr "_Canvas..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1700
 msgid "Canvas..."
-msgstr ""
+msgstr "Canvas..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1701
 msgid "_Time..."
@@ -1950,7 +1950,7 @@ msgstr "_Preload:"
 #. Dialog construction
 #: src/plugin_htmlbar/html.c:1990
 msgid "Canvas"
-msgstr ""
+msgstr "Canvas"
 
 #. Dialog construction and settings
 #: src/plugin_htmlbar/html.c:2048
@@ -2434,6 +2434,3 @@ msgstr "Kilde:"
 msgid "Size:"
 msgstr "Størrelse:"
 
-#, fuzzy
-#~ msgid "_Figcaption"
-#~ msgstr "Inneholder"
