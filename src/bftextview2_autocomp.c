@@ -414,7 +414,7 @@ acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar * closetag, g
 		list = g_list_prepend(list, closetag);
 	if (reverse) {
 		list = g_list_reverse(list);
-		g_print("reverse list!\n");
+		DBG_AUTOCOMP("reverse list!\n");
 	}
 	tmplist = g_list_first(list);
 	while (tmplist /* && numitems < 50 */ ) {

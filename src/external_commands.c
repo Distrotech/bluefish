@@ -126,11 +126,11 @@ static void externalp_unref(Texternalp *ep) {
 			rmdir(ep->securedir);
 			g_free(ep->securedir);
 		}
-		g_free(ep);
 		if (ep->channel_in)
 			g_io_channel_unref(ep->channel_in);
 		if (ep->channel_out)
 			g_io_channel_unref(ep->channel_out);
+		g_free(ep);
 	}
 }
 
@@ -322,14 +322,14 @@ static void start_command_backend(Texternalp *ep) {
 #else
 	if (ep->fifo_in) {
 		if (mkfifo(ep->fifo_in, 0600) != 0) {
-			g_print("some error happened creating fifo %s??\n",ep->fifo_in);
+			DEBUG_MSG("some error happened creating fifo %s??\n",ep->fifo_in);
 			return;
 		}
 		DEBUG_MSG("start_command_backend, created fifo %s\n",ep->fifo_in);
 	}
 	if (ep->fifo_out) {
 		if (mkfifo(ep->fifo_out, 0600) != 0) {
-			g_print("some error happened creating fifo %s??\n",ep->fifo_out);
+			DEBUG_MSG("some error happened creating fifo %s??\n",ep->fifo_out);
 			return;
 		}
 	}

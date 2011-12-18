@@ -373,7 +373,7 @@ doc_update_highlighting(Tbfwin * bfwin, guint callback_action, GtkWidget * widge
 	if (!bfwin->current_document)
 		return;
 	if (!bluefish_text_view_get_enable_scanner(BLUEFISH_TEXT_VIEW(bfwin->current_document->view))) {
-		g_print("doc_update_highlighting, set enable_scanner to TRUE\n");
+		DEBUG_MSG("doc_update_highlighting, set enable_scanner to TRUE\n");
 		bluefish_text_view_set_enable_scanner(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), TRUE);
 	}
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
@@ -1337,8 +1337,10 @@ add_encoding_to_list(gchar * encoding)
 		tmplist = g_list_next(tmplist);
 	}
 	if (!found) {
+		gchar *temp = g_ascii_strup(encoding, -1);
 		main_v->globses.encodings =
-			g_list_insert(main_v->globses.encodings, array_from_arglist(encoding, encoding, "1", NULL), 1);
+			g_list_insert(main_v->globses.encodings, array_from_arglist(temp, temp, "1", NULL), 1);
+		g_free(temp);
 		changed = TRUE;
 	}
 	if (changed) {
@@ -2252,7 +2254,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 
 	DEBUG_MSG("doc_new_backend, appending doc to notebook\n");
 
-	hbox = gtk_hbox_new(FALSE, 0);
+	hbox = gtk_hbox_new(FALSE, 4);
 	button = bluefish_small_close_button_new();
 	g_signal_connect(button, "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
 	gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);

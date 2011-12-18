@@ -1067,9 +1067,9 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 		gtksettings = gtk_widget_get_settings(GTK_WIDGET(csd->csel));
 		if (gtksettings) {
 			gchar *strings;
-			g_print("pallette list=%d\n",g_list_length(bfwin->session->colorlist));
+			DEBUG_MSG("pallette list=%d\n",g_list_length(bfwin->session->colorlist));
 			bfwin->session->colorlist = limit_stringlist(bfwin->session->colorlist, 20, TRUE);
-			g_print("pallette list=%d\n",g_list_length(bfwin->session->colorlist));
+			DEBUG_MSG("pallette list=%d\n",g_list_length(bfwin->session->colorlist));
 			strings = stringlist_to_string(bfwin->session->colorlist, ":");
 			strings[strlen(strings)-1] = '\0';
 			/* this property may contain max 20 colors, otherwise gtk will crash */

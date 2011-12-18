@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #ifdef MAC_INTEGRATION
 #include <gtkosxapplication.h>
@@ -164,7 +164,7 @@ bfwin_output_pane_show(Tbfwin * bfwin, gboolean active)
 static void
 side_panel_cleanup(Tbfwin * bfwin)
 {
-	g_print("side_panel_cleanup called for bfwin %p\n", bfwin);
+	DEBUG_MSG("side_panel_cleanup called for bfwin %p\n", bfwin);
 	bmark_cleanup(bfwin);
 	fb2_cleanup(bfwin);
 	if (main_v->sidepanel_destroygui) {
@@ -215,6 +215,7 @@ side_panel_build(Tbfwin * bfwin)
 	bfwin->leftpanel_notebook = gtk_notebook_new();
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook), main_v->props.leftpanel_tabposition);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(bfwin->leftpanel_notebook), TRUE);
+	gtk_notebook_set_scrollable(GTK_NOTEBOOK(bfwin->leftpanel_notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(bfwin->leftpanel_notebook), FALSE);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->leftpanel_notebook));
 	DEBUG_MSG("side_panel_build, building side panel for bfwin %p\n", bfwin);
@@ -290,7 +291,7 @@ bfwin_side_panel_show_hide_toggle(Tbfwin * bfwin, gboolean first_time, gboolean 
 			gtk_container_remove(GTK_CONTAINER(bfwin->middlebox), bfwin->notebook_box);
 		} else {
 			gtk_container_remove(GTK_CONTAINER(bfwin->hpane), bfwin->notebook_box);
-			g_print("bfwin_side_panel_show_hide_toggle, destroy bfwin->hpane\n");
+			DEBUG_MSG("bfwin_side_panel_show_hide_toggle, destroy bfwin->hpane\n");
 			gtk_widget_destroy(bfwin->hpane);
 			side_panel_cleanup(bfwin);
 			bfwin->hpane = NULL;
@@ -471,7 +472,7 @@ bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 #ifdef HAVE_LIBENCHANT
 	unload_spell_dictionary(bfwin);
 #endif
-	g_print("bfwin_cleanup called for bfwin %p\n",bfwin);
+	DEBUG_MSG("bfwin_cleanup called for bfwin %p\n",bfwin);
 	side_panel_cleanup(bfwin);
 	outputbox_cleanup(bfwin);
 
@@ -479,7 +480,7 @@ bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 		g_source_remove(bfwin->notebook_changed_doc_activate_id);
 	}
 	
-	DEBUG_MSG("unref static actiongroups\n");
+	DEBUG_MSG("bfwin_cleanup, unref static actiongroups\n");
 	g_object_unref(G_OBJECT(bfwin->uimanager));
 	/*g_object_unref(G_OBJECT(bfwin->globalGroup));
 	g_object_unref(G_OBJECT(bfwin->documentGroup));
@@ -506,8 +507,7 @@ bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 		DEBUG_MSG("unref dynamic fb2_filters actiongroups\n");
 		g_object_unref(G_OBJECT(bfwin->fb2_filters_group));
 	}
-	DEBUG_MSG("finished unref actiongroups\n");
-
+	DEBUG_MSG("bfwin_cleanup, finished unref actiongroups\n");
 #ifdef IDENTSTORING
 	bftextview2_identifier_hash_destroy(bfwin);
 #endif

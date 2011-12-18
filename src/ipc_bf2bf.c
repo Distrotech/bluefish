@@ -250,7 +250,7 @@ ipc_bf2bf_start(GList * filenames, gboolean new_window)
 	if (socket_is_valid(ibf.path)) {
 		if (become_client()) {
 			GList *tmplist = g_list_first(filenames);
-			g_print("sending files to existing bluefish process... ");
+			DEBUG_MSG("sending files to existing bluefish process... ");
 			if (new_window)
 				send_openwin();
 			/* send all files and exit */
@@ -258,7 +258,7 @@ ipc_bf2bf_start(GList * filenames, gboolean new_window)
 				send_filename(tmplist->data);
 				tmplist = g_list_next(tmplist);
 			}
-			g_print("done\n");
+			DEBUG_MSG("done\n");
 			return FALSE;
 		}
 	}
