@@ -58,58 +58,29 @@ init_python(void) {
 		DEBUG_MSG("failed to get editor interface\n");
 		return FALSE;
 	}
-	/*interface = PyObject_GetAttrString(mod, "zeneditor");
-	if (!interface) {
-		if (PyErr_Occurred()) PyErr_Print();
-		DEBUG_MSG("failed to get zeneditor interface module\n");
-		return FALSE;
-	}
-	zencoding.editor = PyObject_CallObject(interface, NULL);
-	if (!zencoding.editor) {
-		if (PyErr_Occurred()) PyErr_Print();
-		DEBUG_MSG("failed to get editor interface\n");
-		return FALSE;
-	}
-	Py_XDECREF(interface);*/
-	return TRUE;
-}
 
-static void
-zencoding_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data) {
-	PyObject *ptr, *result;
-	DEBUG_MSG("zencoding_curdocchanged_cb, module=%p, editor=%p\n",zencoding.module, zencoding.editor);
-	DEBUG_MSG("zencoding_curdocchanged_cb, started for newdoc %p\n",newdoc);
-	
-	if (!zencoding.module || !zencoding.editor) {
-		return;
-	}
-	
-	if (!newdoc) {
-		DEBUG_MSG("zencoding_curdocchanged_cb, no newdoc\n");
-		return;
-	}
-	ptr = PyLong_FromVoidPtr((void *) newdoc);
-	DEBUG_MSG("calling set_context for document %p wrapped in python object %p\n",newdoc, ptr);
-	result = PyObject_CallMethod(zencoding.editor, "set_context", "O", ptr);
-	if (!result) {
-		if (PyErr_Occurred()) PyErr_Print();
-		DEBUG_MSG("failed to call set_context()\n");
-		return;
-	}
-	Py_XDECREF(result);
-	Py_XDECREF(ptr);
+	return TRUE;
 }
 
 static void
 zencoding_run_action(Tdocument *doc, const gchar *action_name)
 {
 	PyObject *result;
+	PyObject *ptr;
 	if (!zencoding.module || !zencoding.editor) {
 		if (!init_python())
 			return;
-		zencoding_curdocchanged_cb(doc->bfwin, NULL, doc, NULL);
 	}
-	
+	ptr = PyLong_FromVoidPtr((void *) doc);
+	DEBUG_MSG("zencoding_run_action, calling set_context for document %p wrapped in python object %p\n",newdoc, ptr);
+	result = PyObject_CallMethod(zencoding.editor, "set_context", "O", ptr);
+	if (!result) {
+		if (PyErr_Occurred()) PyErr_Print();
+		DEBUG_MSG("zencoding_run_action, failed to call set_context()\n");
+		return;
+	}
+	Py_XDECREF(result);
+	Py_XDECREF(ptr);
 	result = PyObject_CallMethod(zencoding.module, "run_action", "sO", action_name, zencoding.editor);
 	if (!result) {
 		if (PyErr_Occurred()) PyErr_Print();
@@ -199,8 +170,6 @@ static const gchar *zencoding_plugin_ui =
 static void
 zencoding_initgui(Tbfwin * bfwin)
 {
-	bfwin_current_document_change_register(bfwin, zencoding_curdocchanged_cb, NULL);
-	
 	GtkActionGroup *action_group;
 	GError *error = NULL;
 
