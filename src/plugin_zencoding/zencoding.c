@@ -258,10 +258,13 @@ zencoding_enforce_session(Tbfwin * bfwin)
 static void
 zencoding_cleanup(void)
 {
-	Py_XDECREF(zencoding.module);
-	Py_XDECREF(zencoding.editor);
-	zencoding.module = NULL;
-	zencoding.editor = NULL;
+	if (zencoding.module || zencoding.editor) {
+		Py_XDECREF(zencoding.module);
+		Py_XDECREF(zencoding.editor);
+		zencoding.module = NULL;
+		zencoding.editor = NULL;
+		Py_Finalize();
+	}
 }
 
 static void
