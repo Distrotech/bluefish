@@ -314,7 +314,11 @@ static PyObject *
 zeneditor_get_file_path(Tzeneditor *self, PyObject *args)
 {
 	PyObject *result;
-	gchar *path = g_file_get_path(DOCUMENT(self->context)->uri);
+	gchar *path;
+	if (!DOCUMENT(self->context)->uri) {
+		Py_RETURN_NONE;
+	}
+	path = g_file_get_path(DOCUMENT(self->context)->uri);
 	result = Py_BuildValue("s", path);
 	DEBUG_MSG("zeneditor_get_file_path, return %s\n",path);
 	g_free(path);
@@ -381,10 +385,10 @@ zeneditor_init(Tzeneditor *self, PyObject *args, PyObject *kwds)
 }
 
 static void
-zeneditor_dealloc()
+zeneditor_dealloc(Tzeneditor * obj)
 {
-	DEBUG_MSG("zeneditor_dealloc, TODO, NOT IMPLEMENTED YET\n");
-	
+    g_free(obj->profile);
+    PyObject_DEL(obj);
 }
 
 static PyMethodDef zeneditor_methods[] = {
