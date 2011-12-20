@@ -58,7 +58,7 @@ init_python(void) {
 		DEBUG_MSG("failed to get editor interface\n");
 		return FALSE;
 	}
-	
+	Py_XDECREF(mod);
 	/*interface = PyObject_GetAttrString(mod, "zeneditor");
 	if (!interface) {
 		if (PyErr_Occurred()) PyErr_Print();
