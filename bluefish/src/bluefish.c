@@ -417,6 +417,7 @@ int main(int argc, char *argv[])
 	DEBUG_MSG("calling fb2config_cleanup()\n");
 	fb2config_cleanup();
 	main_v->bmarkdata = bookmark_data_cleanup(main_v->bmarkdata);
+	bluefish_cleanup_plugins();
 	langmgr_cleanup();
 	xmlCleanupParser();
 	

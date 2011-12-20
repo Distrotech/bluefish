@@ -31,6 +31,7 @@
 
 typedef struct {
 	PyObject *module;
+	PyObject *zenmod;
 	PyObject *editor;
 } Tzencoding;
 

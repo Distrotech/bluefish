@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*#define DEBUG*/
+
 #include <Python.h>
 #include <gtk/gtk.h>
 
@@ -27,12 +29,10 @@
 #include "../plugins.h"
 #include "../bfwin.h"
 
-Tzencoding zencoding = {NULL, NULL};
+Tzencoding zencoding = {NULL, NULL, NULL};
 
 static gboolean
 init_python(void) {
-	PyObject *mod/*, *interface*/;
-	
 	DEBUG_MSG("init_python()\n");
 	Py_Initialize();
 	PyRun_SimpleString("import sys");
@@ -45,20 +45,19 @@ init_python(void) {
 		return FALSE;
 	}
 	/* now call my own module */
-	mod = zeneditor_module_init();
-	if (!mod) {
+	zencoding.zenmod = zeneditor_module_init();
+	if (!zencoding.zenmod) {
 		if (PyErr_Occurred()) PyErr_Print();
 		DEBUG_MSG("failed to initialize zeneditor-interface module\n");
 		return FALSE;
 	}
 	
-	zencoding.editor = PyObject_CallMethod(mod, "zeneditor", NULL);
+	zencoding.editor = PyObject_CallMethod(zencoding.zenmod, "zeneditor", NULL);
 	if (!zencoding.editor) {
 		if (PyErr_Occurred()) PyErr_Print();
 		DEBUG_MSG("failed to get editor interface\n");
 		return FALSE;
 	}
-	Py_XDECREF(mod);
 	/*interface = PyObject_GetAttrString(mod, "zeneditor");
 	if (!interface) {
 		if (PyErr_Occurred()) PyErr_Print();
@@ -78,7 +77,7 @@ init_python(void) {
 static void
 zencoding_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data) {
 	PyObject *ptr, *result;
-	
+	DEBUG_MSG("zencoding_curdocchanged_cb, module=%p, editor=%p\n",zencoding.module, zencoding.editor);
 	DEBUG_MSG("zencoding_curdocchanged_cb, started for newdoc %p\n",newdoc);
 	
 	if (!zencoding.module || !zencoding.editor) {
@@ -250,27 +249,30 @@ zencoding_init(void)
 }
 
 
-static void
+/*static void
 zencoding_enforce_session(Tbfwin * bfwin)
 {
-}
+}*/
 
 static void
 zencoding_cleanup(void)
 {
+	DEBUG_MSG("zencoding_cleanup\n");
 	if (zencoding.module || zencoding.editor) {
 		Py_XDECREF(zencoding.module);
 		Py_XDECREF(zencoding.editor);
+		/*Py_XDECREF(zencoding.zenmod); valgrind returns an error if we try to unref this*/
 		zencoding.module = NULL;
 		zencoding.editor = NULL;
+		zencoding.zenmod = NULL;
 		Py_Finalize();
 	}
 }
 
-static void
+/*static void
 zencoding_cleanup_gui(Tbfwin * bfwin)
 {
-}
+}*/
 
 /*static GHashTable *
 zencoding_register_globses_config(GHashTable * configlist)
@@ -305,9 +307,9 @@ static TBluefishPlugin bfplugin = {
 	NULL,						/* private */
 	zencoding_init,				/* init */
 	zencoding_initgui,
-	zencoding_enforce_session,
+	NULL /*zencoding_enforce_session*/,
 	zencoding_cleanup,
-	zencoding_cleanup_gui,
+	NULL /*zencoding_cleanup_gui*/,
 	NULL /*zencoding_register_globses_config*/,
 	NULL /*zencoding_register_session_config*/,
 	NULL /*zencoding_session_cleanup*/,

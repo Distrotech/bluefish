@@ -267,3 +267,18 @@ void bfplugins_session_cleanup(Tsessionvars *session) {
 		tmplist =  g_slist_next(tmplist);
 	}
 }
+
+void bluefish_cleanup_plugins(void) {
+	GSList *tmplist = main_v->plugins;
+	while (tmplist) {
+		TBluefishPlugin *bfplugin = tmplist->data;
+		if (bfplugin->cleanup) {
+			bfplugin->cleanup();
+		}
+		g_free(PRIVATE(bfplugin)->filename);
+		g_module_close(PRIVATE(bfplugin)->module);
+		tmplist =  g_slist_next(tmplist);
+	}
+	g_slist_free(main_v->plugins);
+	
+}
