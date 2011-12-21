@@ -246,7 +246,6 @@ typedef struct {
 	GtkWidget *tab_menu;
 	GtkTextBuffer *buffer;
 	gboolean in_paste_operation;
-	gint last_rbutton_event;	/* index of last 3rd button click */
 	gboolean highlightstate;	/* does this document use highlighting ? */
 	gpointer floatingview;		/* a 2nd textview widget that has its own window */
 	gpointer bfwin;
@@ -561,7 +560,6 @@ typedef struct {
 	guint periodic_check_id;	/* used with g_timeout_add */
 	GList *bfwinlist;
 	Tsessionvars *session;		/* holds all session variables for non-project windows */
-	gpointer filebrowserconfig;
 	gpointer fb2config;			/* filebrowser2config */
 	GList *filefilters;			/* initialized by fb2config functions */
 	Tdocument *bevent_doc;
