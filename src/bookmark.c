@@ -1230,6 +1230,9 @@ bmark_gui(Tbfwin * bfwin)
 	g_signal_connect(G_OBJECT(entry), "button-press-event", G_CALLBACK(bmark_search_button_press), bfwin);
 #endif
 	g_signal_connect(G_OBJECT(entry), "changed", G_CALLBACK(bmark_search_changed), bfwin);
+#if GTK_CHECK_VERSION(3,2,0)
+	gtk_entry_set_width_chars(GTK_ENTRY(entry), 1);
+#endif
 	gtk_box_pack_start(GTK_BOX(vbox), entry, FALSE, TRUE, 0);
 	hbox = gtk_toolbar_new();
 	gtk_toolbar_set_icon_size(GTK_TOOLBAR(hbox), GTK_ICON_SIZE_MENU);
