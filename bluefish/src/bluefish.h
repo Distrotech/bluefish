@@ -28,7 +28,7 @@
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
 
-/*#define MEMORY_LEAK_DEBUG*/
+#define MEMORY_LEAK_DEBUG
 /*#define DEBUG_PATHS*/
 
 #define ENABLEPLUGINS
