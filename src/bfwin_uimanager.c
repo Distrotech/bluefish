@@ -1645,18 +1645,19 @@ static void recent_create_backend(Tbfwin *bfwin, const gchar *menupath, GList *r
 		}
 	}
 	g_list_free(list);
-
 	for (tmplist = g_list_first(recentlist); tmplist; tmplist = tmplist->next) {
 		if (num > main_v->props.max_recent_files)
 			break;
 		recent_menu_add(bfwin, GTK_MENU(menu), (const gchar *)tmplist->data);
 		num++;
 	}
+	gtk_widget_show_all(menuitem);
 }
 
 void
 bfwin_recent_menu_create(Tbfwin *bfwin, gboolean only_update_session)
 {
+	DEBUG_MSG("bfwin_recent_menu_create, only_update_session=%d\n",only_update_session);
 	recent_create_backend(bfwin, "/MainMenu/FileMenu/FileOpenRecent", bfwin->session->recent_files);
 	if (!only_update_session)
 		recent_create_backend(bfwin, "/MainMenu/ProjectMenu/ProjectOpenRecent", main_v->globses.recent_projects);
