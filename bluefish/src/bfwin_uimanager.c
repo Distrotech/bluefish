@@ -815,7 +815,7 @@ static const GtkActionEntry global_actions[] = {
 	{"RewrapLines", NULL, N_("Rewrap _Lines"), NULL, N_("Rewrap lines"), G_CALLBACK(ui_rewrap_lines)},
 	{"StripTrailingWhitespace", NULL, N_("Strip T_railing Whitespace"), NULL, N_("Strip trailing whitespace"),
 	 G_CALLBACK(ui_strip_trailing_whitespace)},
-	 {"BrowserPreview", BF_STOCK_BROWSER_PREVIEW, /*_("Preview in browser")*/NULL, NULL, /*N_("Preview in browser")*/NULL,
+	 {"BrowserPreview", BF_STOCK_BROWSER_PREVIEW, N_("Preview in browser"), NULL, N_("Preview in browser"),
 	 G_CALLBACK(ui_browser_preview)}
 };
 
