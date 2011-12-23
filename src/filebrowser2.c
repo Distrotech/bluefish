@@ -131,7 +131,7 @@ debug_gfile(GFile * uri, gboolean newline)
 {
 	if (uri) {
 		gchar *name = g_file_get_uri(uri);
-		g_print("%s%s", name, newline ? "\n" : "");
+		g_print("%s (%p)%s", name, uri, newline ? "\n" : "");
 		g_free(name);
 	} else {
 		g_print("(GFile=NULL)%s", newline ? "\n" : "");
@@ -303,7 +303,7 @@ fb2_get_uri_in_refresh(GFile * uri)
 static void
 fb2_uri_in_refresh_cleanup(Turi_in_refresh * uir)
 {
-	DEBUG_MSG("fb2_uri_in_refresh_cleanup, called for %p\n", uir);
+	DEBUG_MSG("fb2_uri_in_refresh_cleanup, called for %p with uri %p\n", uir, uir->uri);
 	FB2CONFIG(main_v->fb2config)->uri_in_refresh =
 		g_list_remove(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
 	g_object_unref(uir->uri);
@@ -657,8 +657,7 @@ fb2_fill_dir_async(GtkTreeIter * parent, GFile * uri)
 		fb2_treestore_mark_children_refresh1(FB2CONFIG(main_v->fb2config)->filesystem_tstore, parent);
 		uir = g_slice_new0(Turi_in_refresh);
 		uir->parent = parent;
-		uir->uri = uri;
-		g_object_ref(uir->uri);
+		uir->uri = g_object_ref(uri);
 		DEBUG_MSG("fb2_fill_dir_async, opening ");
 		DEBUG_GFILE(uir->uri, TRUE);
 		uir->cancel = g_cancellable_new();
@@ -882,7 +881,7 @@ static void
 fb2_focus_dir(Tfilebrowser2 * fb2, GFile * uri, gboolean noselect)
 {
 	GtkTreeIter *dir;
-	DEBUG_MSG("fb2_focus_dir(fb2=%p, uri=%p, noselect=%d)", fb2, uri, noselect);
+	DEBUG_MSG("fb2_focus_dir(fb2=%p, uri=%p, noselect=%d)\n", fb2, uri, noselect);
 	if (!uri) {
 		DEBUG_MSG("fb2_focus_dir, WARNING, CANNOT FOCUS WITHOUT URI\n");
 		return;
@@ -2210,15 +2209,17 @@ dirmenu_idle_cleanup_lcb(gpointer callback_data)
 	GtkTreeModel *oldmodel = callback_data;
 	gboolean cont;
 	GtkTreeIter iter;
-	DEBUG_MSG("dirmenu_idle_cleanup_lcb, cleanup the old model\n");
+	DEBUG_MSG("dirmenu_idle_cleanup_lcb, cleanup the old model %p\n", oldmodel);
 	/* now we cleanup the old model and it's contents */
 
 	cont = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(oldmodel), &iter);
 	while (cont) {
 		GFile *uri = NULL;
 		gtk_tree_model_get(GTK_TREE_MODEL(oldmodel), &iter, DIR_URI_COLUMN, &uri, -1);
-		if (uri)
+		if (uri) {
+			DEBUG_MSG("dirmenu_idle_cleanup_lcb, unref uri %p\n",uri);
 			g_object_unref(uri);
+		}
 		/* hmm if this last remove results in an empty liststore there is a crash?? */
 		cont = gtk_list_store_remove(GTK_LIST_STORE(oldmodel), &iter);
 	}
@@ -2237,15 +2238,14 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	GFile *tmp;
 	GVolumeMonitor *gvolmon;
 	gboolean cont, havesetiter = FALSE;
-	DEBUG_MSG("dirmenu_set_curdir(fb2=%p, newcurdir=%p)\n", fb2, newcurdir);
+	DEBUG_MSG("dirmenu_set_curdir(fb2=%p, newcurdir uri=%p)\n", fb2, newcurdir);
 	if (fb2->currentdir) {
 		if (newcurdir && (fb2->currentdir == newcurdir || g_file_equal(fb2->currentdir, newcurdir)))
 			return;
 		if (fb2->currentdir)
 			g_object_unref(fb2->currentdir);
 	}
-	fb2->currentdir = newcurdir;
-	g_object_ref(fb2->currentdir);
+	fb2->currentdir = g_object_ref(newcurdir);
 #ifdef DEBUG
 	DEBUG_MSG("dirmenu_set_curdir, newcurdir=");
 	DEBUG_GFILE(newcurdir, TRUE);
@@ -2256,11 +2256,13 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	hasht = g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, NULL, NULL);
 
 	/* rebuild the current uri */
-	tmp = g_file_dup(newcurdir);
+	tmp = g_object_ref(newcurdir);
 	do {
 		gchar *name = g_file_get_uri(tmp);
-		GFile *tmp2 = g_file_get_parent(tmp);
-		DEBUG_MSG("dirmenu_set_curdir, appending %s to the new model\n", name);
+		GFile *tmp2;
+		tmp2 = g_file_get_parent(tmp);
+		DEBUG_MSG("parent for uri %p is at %p\n", tmp, tmp2);
+		DEBUG_MSG("dirmenu_set_curdir, appending %s (uri=%p) to the new model %p\n", name, tmp, fb2->dirmenu_m);
 		gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
 		if (!havesetiter) {
 			setiter = iter;
@@ -2299,14 +2301,17 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 		gchar *name;
 
 		uri = g_file_new_for_uri(tmplist->data);
+		DEBUG_MSG("new uri at %p for session recent directory %s\n", uri, tmplist->data);
 		if (uri && g_hash_table_lookup(hasht, uri) == NULL) {
 			name = g_file_get_uri(uri);
-			DEBUG_MSG("dirmenu_set_curdir, appending %s\n", name);
+			DEBUG_MSG("dirmenu_set_curdir, appending %s (uri=%p) to model %p\n", name, uri, fb2->dirmenu_m);
 			gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name,
 							   DIR_URI_COLUMN, uri, DIR_ICON_COLUMN, "folder", -1);
 			g_hash_table_insert(hasht, uri, GINT_TO_POINTER(1));
 			g_free(name);
+		} else if (uri) {
+			g_object_unref(uri);
 		}
 		tmplist = g_list_previous(tmplist);
 	}
@@ -3003,6 +3008,8 @@ fb2_cleanup(Tbfwin * bfwin)
 */		dirmenu_idle_cleanup_lcb(fb2->dirmenu_m);
 		if (fb2->basedir)
 			g_object_unref(fb2->basedir);
+		if (fb2->currentdir)
+			g_object_unref(fb2->currentdir);
 		DEBUG_MSG("fb2_cleanup, free %p\n",fb2);
 		g_free(fb2);
 		bfwin->fb2 = NULL;
