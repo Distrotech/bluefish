@@ -72,7 +72,7 @@ zencoding_run_action(Tdocument *doc, const gchar *action_name)
 			return;
 	}
 	ptr = PyLong_FromVoidPtr((void *) doc);
-	DEBUG_MSG("zencoding_run_action, calling set_context for document %p wrapped in python object %p\n",newdoc, ptr);
+	DEBUG_MSG("zencoding_run_action, calling set_context for document %p wrapped in python object %p\n",doc, ptr);
 	result = PyObject_CallMethod(zencoding.editor, "set_context", "O", ptr);
 	if (!result) {
 		if (PyErr_Occurred()) PyErr_Print();
