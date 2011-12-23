@@ -142,6 +142,7 @@ bmark_free(gpointer ptr)
 		DEBUG_MSG("bmark_free, NOT GOOD, strarr should be NULL here...\n");
 	}
 #endif
+	DEBUG_MSG("bmark_free, unref filepath %p\n",m->filepath);
 	g_object_unref(m->filepath);
 	g_free(m->text);
 	g_free(m->name);
@@ -1358,7 +1359,7 @@ bmark_sort_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter * b, gpointer
 	}
 }
 
-void
+static void
 bmark_hash_value_free(gpointer data)
 {
 	DEBUG_MSG("bmark_hash_value_free, free iter %p\n",data);
@@ -1368,6 +1369,15 @@ bmark_hash_value_free(gpointer data)
 #endif
 	g_slice_free(GtkTreeIter, data);
 /*	g_free(data);*/
+}
+
+static void
+bmark_hash_key_free(gpointer data)
+{
+	if (!data)
+		return;
+	DEBUG_MSG("bmark_hash_key_free, unref %p\n",data);
+	g_object_unref(data);
 }
 
 /*
@@ -1385,7 +1395,7 @@ bookmark_data_new(void)
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(bmd->bookmarkstore),
 										 GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, GTK_SORT_ASCENDING);
 	/* BUG: shouldn't we free the data in the hash table when we close a project? */
-	bmd->bmarkfiles = g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, NULL, bmark_hash_value_free);
+	bmd->bmarkfiles = g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, bmark_hash_key_free, bmark_hash_value_free);
 	DEBUG_MSG("bookmark_data_new, created bookmarkstore at %p\n", bmd->bookmarkstore);
 	return bmd;
 }
@@ -1460,10 +1470,11 @@ bmark_reload(Tbfwin * bfwin)
 			}
 			/* because the bookmark list is usually sorted, we try to cache the uri's and consume less memory */
 			if (cacheduri && (cacheduri == b->filepath || g_file_equal(cacheduri, b->filepath))) {
+				DEBUG_MSG("bmark_reload, uri %p and %p are identical, unref %p and use %p\n", cacheduri, b->filepath, b->filepath, cacheduri);
 				g_object_unref(b->filepath);
-				g_object_ref(cacheduri);
-				b->filepath = cacheduri;
+				b->filepath = g_object_ref(cacheduri);;
 			} else {
+				DEBUG_MSG("bmark_reload, new uri %p\n", b->filepath);
 				cacheduri = b->filepath;
 			}
 
@@ -1767,8 +1778,7 @@ bmark_add_backend(Tdocument * doc, GtkTextIter * itoffset, gint offset, const gc
 	}
 
 	m->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
-	g_object_ref(doc->uri);
-	m->filepath = doc->uri;
+	m->filepath = g_object_ref(doc->uri);
 	m->is_temp = is_temp;
 	m->text = g_strdup(text);
 	m->name = (name) ? g_strdup(name) : g_strdup("");
