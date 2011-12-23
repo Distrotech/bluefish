@@ -315,11 +315,8 @@ file_checkmodified_uri_async(GFile * uri, GFileInfo * curinfo, CheckmodifiedAsyn
 	cm = g_slice_new(Tcheckmodified);
 	cm->callback_func = callback_func;
 	cm->callback_data = callback_data;
-	g_object_ref(uri);
-	cm->uri = uri;
-	g_object_ref(curinfo);
-	cm->orig_finfo = curinfo;
-	g_object_ref(curinfo);
+	cm->uri = g_object_ref(uri);;
+	cm->orig_finfo = g_object_ref(curinfo);;
 	cm->cancel = g_cancellable_new();
 	/* if the user chooses ignore, the size, mtime and etag are copied into doc->fileinfo */
 	g_file_query_info_async(uri, "time::modified,time::modified-usec,standard::size,etag::value", G_FILE_QUERY_INFO_NONE, G_PRIORITY_DEFAULT, cm->cancel	/*cancellable */
@@ -938,8 +935,7 @@ fill_fileinfo_lcb(GObject * source_object, GAsyncResult * res, gpointer user_dat
 		if (fi->doc->fileinfo) {
 			g_object_unref(fi->doc->fileinfo);
 		}
-		fi->doc->fileinfo = info;
-		g_object_ref(info);
+		fi->doc->fileinfo = info; /* no need to ref it, the call to g_file_query_info_finish returns a reference */
 #ifdef DEBUG
 		/* weird.. since I (Olivier) have a SSD in my laptop I sometimes receive wrong values 
 		   for the file size here. And then I get a 'file changed on disk' error.
@@ -1001,8 +997,7 @@ file_doc_fill_fileinfo(Tdocument * doc, GFile * uri)
 	DEBUG_MSG("file_doc_fill_fileinfo, started for doc %p and uri %p at fi=%p\n", doc, uri, fi);
 	fi->doc = doc;
 	fi->doc->info = fi;
-	g_object_ref(uri);
-	fi->uri = uri;
+	fi->uri = g_object_ref(uri);
 	fi->cancel = g_cancellable_new();
 	queue_push(&fiqueue, fi);
 }

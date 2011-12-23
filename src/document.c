@@ -2122,6 +2122,7 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 		g_free(doc->encoding);
 
 	if (doc->fileinfo) {
+		DEBUG_MSG("doc_destroy, unref doc->fileinfo %p\n",doc->fileinfo);
 		g_object_unref(doc->fileinfo);
 	}
 
@@ -2294,7 +2295,7 @@ doc_focus_out_lcb(GtkWidget *widget,GdkEvent  *event, Tdocument *doc)
 }  
 
 Tdocument *
-doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
+doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean init_fileinfo)
 {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
@@ -2328,8 +2329,10 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	bluefish_text_view_select_language(BLUEFISH_TEXT_VIEW(newdoc->view), bfwin->session->default_mime_type,
 									   NULL);
 	gtk_widget_show(newdoc->view);
-	newdoc->fileinfo = g_file_info_new();
-	g_file_info_set_content_type(newdoc->fileinfo, bfwin->session->default_mime_type);
+	if (init_fileinfo) {
+		newdoc->fileinfo = g_file_info_new();
+		g_file_info_set_content_type(newdoc->fileinfo, bfwin->session->default_mime_type);
+	}
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	g_signal_connect(scroll, "scroll-event", G_CALLBACK(doc_scroll_event_lcb), newdoc);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
@@ -2413,16 +2416,14 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 Tdocument *
 doc_new_loading_in_background(Tbfwin * bfwin, GFile * uri, GFileInfo * finfo, gboolean readonly)
 {
-	Tdocument *doc = doc_new_backend(bfwin, FALSE, readonly);
+	Tdocument *doc = doc_new_backend(bfwin, FALSE, readonly, FALSE);
 	DEBUG_MSG("doc_new_loading_in_background, bfwin=%p, doc=%p, for uri %p\n", bfwin, doc, uri);
 	if (finfo) {
-		doc->fileinfo = finfo;
-		g_object_ref(finfo);
+		doc->fileinfo = g_object_ref(finfo);
 	} else {
 		doc->fileinfo = NULL;
 	}
-	doc->uri = uri;
-	g_object_ref(doc->uri);
+	doc->uri = g_object_ref(uri);
 	doc_set_title(doc);
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	bfwin_docs_not_complete(bfwin, TRUE);
@@ -2482,7 +2483,7 @@ doc_auto_detect_lang_lcb(gpointer data)
 Tdocument *
 doc_new(Tbfwin * bfwin, gboolean delay_activate)
 {
-	Tdocument *doc = doc_new_backend(bfwin, TRUE, FALSE);
+	Tdocument *doc = doc_new_backend(bfwin, TRUE, FALSE, TRUE);
 	doc_set_status(doc, DOC_STATUS_COMPLETE);
 	DEBUG_MSG("doc_new, status=%d\n", doc->status);
 
@@ -2500,7 +2501,7 @@ doc_new_with_template(Tbfwin * bfwin, GFile * uri, gboolean force_new)
 	Tdocument *doc;
 	if (!uri)
 		return doc_new(bfwin, FALSE);
-	doc = doc_new_backend(bfwin, force_new, FALSE);
+	doc = doc_new_backend(bfwin, force_new, FALSE, FALSE);
 	file_into_doc(doc, uri, TRUE, FALSE);
 	gtk_widget_show(doc->view);
 	return doc;
