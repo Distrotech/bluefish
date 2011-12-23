@@ -2114,6 +2114,7 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 			file_delete_async(backupuri, FALSE, delete_backupfile_lcb, backupuri);
 			g_object_unref(backupuri);
 		}
+		DEBUG_MSG("doc_destroy, unref doc->uri %p\n",doc->uri);
 		g_object_unref(doc->uri);
 	}
 
@@ -2573,7 +2574,6 @@ doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolean del
 		return;
 	}
 	uri = opturi;
-	g_object_ref(opturi);
 	tmpcuri = g_file_get_uri(opturi);
 	DEBUG_MSG("doc_new_from_uri, started for uri(%p)=%s\n", uri, tmpcuri);
 
