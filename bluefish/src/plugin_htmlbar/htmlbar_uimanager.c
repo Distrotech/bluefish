@@ -1467,7 +1467,7 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"UppercaseETH", NULL, N_("_ETH (Icelandic) Ð"), NULL, NULL, G_CALLBACK(htmlbar_insert_eth)},
 	{"UppercaseTHORN", NULL, N_("_THORN (Icelandic) Þ"), NULL, NULL, G_CALLBACK(htmlbar_insert_thorn)},
 	{"LowercaseETH", NULL, N_("et_h (Icelandic) ð"), NULL, NULL, G_CALLBACK(htmlbar_insert_eth)},
-	{"LowercaseTHORN", NULL, N_("th_orn ÿ"), NULL, NULL, G_CALLBACK(htmlbar_insert_thorn)},
+	{"LowercaseTHORN", NULL, N_("th_orn þ"), NULL, NULL, G_CALLBACK(htmlbar_insert_thorn)},
 	{"NonLatinSharp", NULL, N_("Sharp _s ß"), NULL, NULL, G_CALLBACK(htmlbar_insert_sharp)},
 	{"NonLatinMicroSign", NULL, N_("_Micro sign µ"), NULL, NULL, G_CALLBACK(htmlbar_insert_micro_sign)},
 	{"SpecialOtherMenu", NULL, N_("_Other")},
