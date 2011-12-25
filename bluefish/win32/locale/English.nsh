@@ -33,8 +33,9 @@
 !define GTK_DOWNLOAD "Downloading GTK+..."
 !define GTK_FAILED "GTK+ Download failed:"
 !define GTK_INSTALL "Installing GTK+..."
+!define GTK_UNINSTALL "Uninstalling GTK+..."
 !define GTK_PATH "Installing GTK+ in the system path."
-!define GTK_REQUIRED "Please install GTK+ 2.14.7 or higher and make sure it is in your PATH before running Bluefish."
+!define GTK_REQUIRED "Please install GTK+ ${GTK_MIN_VERSION} or higher and make sure it is in your PATH before running Bluefish."
 
 ; Plugin Names
 !define PLUG_CHARMAP "Character Map"

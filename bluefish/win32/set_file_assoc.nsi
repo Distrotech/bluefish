@@ -4,7 +4,7 @@
 ; 
 ;  This is just the file association portion
 ;   of the main install script.
-;
+; 
 ;  Copyright (C) 2009-2012 The Bluefish Developers
 ;   Shawn Novak <Kernel86@gmail.com>
 ;   Daniel Leidert <daniel.leidert@wgdd.de>

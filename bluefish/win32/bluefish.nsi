@@ -8,6 +8,22 @@
 ;----------------------------------------------
 
 
+; Includes
+;----------------------------------------------
+!include "MUI2.nsh"
+!include "Sections.nsh"
+!include "WinVer.nsh"
+!include "WinMessages.nsh"
+!include "LogicLib.nsh"
+!include "nsDialogs.nsh"
+!include "StrFunc.nsh"
+${StrLoc}
+${StrTok}
+${UnStrLoc}
+${StrRep}
+!include "includes\Checksums.nsh"
+
+
 ; External Defines
 ;----------------------------------------------
 !ifndef PACKAGE
@@ -16,6 +32,9 @@
 ;!define LOCALE
 !ifndef VERSION
 	!define VERSION "2.0-nodef"
+!endif
+!ifndef BUILD
+	!define BUILD "2.24.8"
 !endif
 
 
@@ -27,11 +46,21 @@
 !define HELPURL		"http://bluefish.openoffice.nl/manual/"
 !define PROGRAM_EXE	"${PACKAGE}.exe"
 !define UNINSTALL_EXE	"bluefish-uninst.exe"
+!define UNINSTALL_GTK	"gtk2_runtime_uninst.exe"
 
-!define GTK_MIN_VERSION	"2.14.7"
-!define GTK_URL		"http://downloads.sourceforge.net/project/pidgin/GTK%2B%20for%20Windows/2.14.7%20Rev%20A"
-!define GTK_FILENAME 	"gtk-runtime-2.14.7-rev-a.exe"
-!define GTK_SIZE	"34549" ; Install size in Kilobytes
+!if ${BUILD} == "2.16.6"
+	!define GTK_MIN_VERSION	"2.14.7"
+	!define GTK_VERSION	"${BUILD}"
+	!define GTK_URL		"http://downloads.sourceforge.net/project/gtk-win/GTK%2B%20Runtime%20Environment/GTK%2B%202.16"
+	!define GTK_FILENAME	"gtk2-runtime-2.16.6-2010-05-12-ash.exe"
+	!define GTK_SIZE	"27183" ; Install size in Kilobytes
+!else
+	!define GTK_MIN_VERSION	"2.22.0"
+	!define GTK_VERSION	"${BUILD}"
+	!define GTK_URL		"http://downloads.sourceforge.net/project/gtk-win/GTK%2B%20Runtime%20Environment/GTK%2B%202.24"
+	!define GTK_FILENAME	"gtk2-runtime-2.24.8-2011-12-03-ash.exe"
+	!define GTK_SIZE	"14803" ; Install size in Kilobytes
+!endif
 
 !define AS_DICT_URL	"http://www.muleslow.net/files/aspell/lang"
 
@@ -92,30 +121,12 @@ ShowUninstDetails show
 
 ; Installer version information
 ;----------------------------------------------
-VIProductVersion "2.2.1.0"
+VIProductVersion "2.2.2.0"
 VIAddVersionKey "ProductName" "${PRODUCT}"
 VIAddVersionKey "FileVersion" "${VERSION}"
 VIAddVersionKey "ProductVersion" "${VERSION}"
 VIAddVersionKey "LegalCopyright" ""
 VIAddVersionKey "FileDescription" "Bluefish Installer"
-
-
-; Includes
-;----------------------------------------------
-!include "MUI2.nsh"
-!include "Sections.nsh"
-!include "WinVer.nsh"
-!include "WinMessages.nsh"
-!include "LogicLib.nsh"
-!include "nsDialogs.nsh"
-!include "StrFunc.nsh"
-${StrLoc}
-${StrStr}
-${StrTok}
-${UnStrLoc}
-${StrRep}
-!include "includes\Checksums.nsh"
-
 
 
 ; MUI configuration
@@ -309,8 +320,8 @@ Section "-GTK+ Installer" SecGTK
   			Pop $R0
   			${If} $R0 == ${MD5_${GTK_FILENAME}}
   				DetailPrint "$(DOWN_CHKSUM)"
-  				ExecWait '"$EXEDIR\redist\${GTK_FILENAME}"'
-  				Goto +30 ; Jump to 'Call GtkInstallPath'
+  				ExecWait '"$EXEDIR\redist\${GTK_FILENAME}" /S /sideeffects=no /dllpath=root /D=$INSTDIR'
+  				Goto +30 ; Jump to setting version
   			${Else}
   				DetailPrint "$(DOWN_CHKSUM_ERROR)"
   				Goto +2 ; Jump to '${EndIf}+1
@@ -338,11 +349,15 @@ Section "-GTK+ Installer" SecGTK
 				MessageBox MB_OK|MB_ICONEXCLAMATION "$(GTK_FAILED) $R0$\n$\n$(GTK_REQUIRED)"
 				Return
 		DetailPrint "$(GTK_INSTALL) (${GTK_FILENAME})"
-		ExecWait '"$TEMP\${GTK_FILENAME}"'
+		ExecWait '"$TEMP\${GTK_FILENAME}" /S /sideeffects=no /dllpath=root /D=$INSTDIR'
 		Delete "$TEMP\${GTK_FILENAME}"
-		Call GtkInstallPath
-	${Else}
-		Call GtkInstallPath
+
+		IfFileExists "$INSTDIR\${UNINSTALL_GTK}" 0 +6 ; If the uninstaller exists install completed successively
+			${If} $HKEY == "Classic"
+				WriteRegStr HKCU "${REG_USER_SET}" "GTK" "${GTK_VERSION}"
+			${Else}
+				WriteRegStr HKLM "${REG_USER_SET}" "GTK" "${GTK_VERSION}"
+			${EndIf}
 	${EndIf}
 SectionEnd
 
@@ -382,14 +397,14 @@ SectionGroup "$(SECT_PLUGINS)" SecPlugins
 		SetOutPath "$INSTDIR\share\locale"
 		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_zencoding.mo" "build\share\locale\*"
 	SectionEnd
-	Section "$(PLUG_ZENCODING)" SecPlZencoding
-		SetOutPath "$INSTDIR\lib\${PACKAGE}"
-		File "build\lib\${PACKAGE}\zencoding.dll"
-		SetOutPath "$INSTDIR\share\${PACKAGE}\plugins\zencoding"
-		File /r "build\share\${PACKAGE}\plugins\zencoding\*"
-		SetOutPath "$INSTDIR\share\locale"
-		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
-	SectionEnd
+;	Section "$(PLUG_ZENDCODING)" SecPlZendcoding
+;		SetOutPath "$INSTDIR\lib\${PACKAGE}"
+;		File "build\lib\${PACKAGE}\zendcoding.dll"
+;		SetOutPath "$INSTDIR\share\${PACKAGE}\plugins\zendcoding"
+;		File /r "build\share\${PACKAGE}\plugins\zendcoding\*"
+;		SetOutPath "$INSTDIR\share\locale"
+;		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
+;	SectionEnd
 	SetOverwrite off
 SectionGroupEnd
 
@@ -486,8 +501,14 @@ Section "Uninstall"
 	RMDir /r "$INSTDIR\docs"
 	RMDir /r "$INSTDIR\lib"
 	RMDir /r "$INSTDIR\share"
+
+	DetailPrint "$(GTK_UNINSTALL)"
+	ExecWait '"$INSTDIR\${UNINSTALL_GTK}" /S /sideeffects=no /dllpath=root /remove_config=yes'
+	Delete "$INSTDIR\${UNINSTALL_GTK}"
+
 	Delete "$INSTDIR\${UNINSTALL_EXE}"
 	RMDir  "$INSTDIR"
+
 	Delete "$DESKTOP\${PRODUCT}.lnk"
 
 	Delete "$SMPROGRAMS\$StartMenuFolder\${PRODUCT}.lnk"
@@ -598,7 +619,7 @@ Function .onInit
 	
 	Call GtkVersionCheck
 	${If} $GTK_STATUS == ""	
-		SectionSetSize ${SecGTK} ${GTK_SIZE}	; 6.69MB Download
+		SectionSetSize ${SecGTK} ${GTK_SIZE}	; 7.54MB Download
 	${EndIf}
 
 	SectionSetSize ${SecLangBg} 2501		; 842KB Download
