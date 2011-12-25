@@ -245,6 +245,7 @@
 	!insertmacro Localize "GTK_DOWNLOAD" "${LANG}"
 	!insertmacro Localize "GTK_FAILED" "${LANG}"
 	!insertmacro Localize "GTK_INSTALL" "${LANG}"
+	!insertmacro Localize "GTK_UNINSTALL" "${LANG}"
 	!insertmacro Localize "GTK_PATH" "${LANG}"
 	!insertmacro Localize "GTK_REQUIRED" "${LANG}"
 

@@ -230,10 +230,12 @@ Function GtkVersionCheck
 	Push $R1
 	Push $R2
 	; Get the current user's installed version of GTK+ from the registry
-	ReadRegStr $R0 HKCU "Software\GTK\2.0" "Version"
-	${If} $R0 == "" ; If the user doesn't have GTK+ installed check also HKLM
-		ReadRegStr $R0 HKLM "Software\GTK\2.0" "Version"
+	${If} $HKEY == "Classic"
+		ReadRegStr $R0 HKCU "${REG_USER_SET}" "GTK"
+	${Else}
+		ReadRegStr $R0 HKLM "${REG_USER_SET}" "GTK"
 	${EndIf}
+
 	; If we were unable to retrieve the current GTK+ version from the registry
 	;  we can assume that it is not currently installed
 	StrLen $R1 $R0
@@ -267,47 +269,6 @@ Function GtkVersionCheck
 			StrCpy $GTK_STATUS ""
 		${EndIf}
 	${EndIf}
-	Pop $R2
-	Pop $R1
-	Pop $R0
-FunctionEnd
-
-Function GtkInstallPath
-	Push $R0
-	Push $R1
-	Push $R2
-	Push $R3
-	DetailPrint "$(GTK_PATH)"
-	${If} $HKEY == "HKLM"
-	${OrIf} $HKEY == "Classic"
-		; Get the current system path variable from the registry
-		ReadRegStr $R2 HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
-	${Else}
-		; Get the current system path variable from the registry
-		ReadRegStr $R2 HKCU "Environment" "Path"
-	${EndIf}
-	ReadRegStr $R3 HKCU "Software\GTK\2.0" "DllPath" ; Get the installation path of GTK+ from the registry
-	${If} $R3 == "" ; We already know GTK+ is installed so if our read from HKCU failed try HKLM
-		ReadRegStr $R3 HKLM "Software\GTK\2.0" "DllPath"
-	${EndIf}
-	; Check if the GTK+ path is found in the current system path
-	${StrStr} $R0 $R2 $R3
-	; If the GTK+ path was not found in the system path ${StrStr} will return an
-	;  empty string and we should update the system path
-	StrLen $R1 $R0
-	${If} $R1 == 0
-		StrCpy $R2 "$R2;$R3"
-		; Write the updated system path to the registry
-		${If} $HKEY == "HKLM"
-		${OrIf} $HKEY == "Classic"
-			WriteRegExpandStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
-		${Else}
-			WriteRegExpandStr HKCU "Environment" "Path" $R2
-		${EndIf}
-		; Alert the system that an environment variable has been changed so it propagates
-		SendMessage ${HWND_BROADCAST} ${WM_SETTINGCHANGE} "0" "STR:Environment" /TIMEOUT=5000
-	${EndIf}
-	Pop $R3
 	Pop $R2
 	Pop $R1
 	Pop $R0
