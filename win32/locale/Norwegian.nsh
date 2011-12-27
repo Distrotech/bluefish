@@ -18,6 +18,11 @@
 !define LICENSEPAGE_BUTTON "Neste"
 !define LICENSEPAGE_FOOTER "${PRODUCT} er lisensiert etter GNU General Public License. Lisensen er tilgjengelig for gjennomsyn. $_CLICK"
 
+; General Download Messages
+; !define DOWN_LOCAL "Local copy of %s found..."
+; !define DOWN_CHKSUM "Checksum verified..."
+; !define DOWN_CHKSUM_ERROR "Checksum mismatch..."
+
 ; Aspell Strings
 !define DICT_INSTALLED "Siste versjon av denne ordboken er allerede installert. Trenger ikke laste ned:"
 !define DICT_DOWNLOAD "Laster ned ordliste for stavekontroll..."
@@ -28,7 +33,9 @@
 !define GTK_DOWNLOAD "Laster ned GTK+..."
 !define GTK_FAILED "Nedlasting av GTK+ feilet:"
 !define GTK_INSTALL "Installerer GTK+..."
+; !define GTK_UNINSTALL "Uninstalling GTK+..."
 !define GTK_PATH "Installerer GTK+ i system path."
+; !define GTK_REQUIRED "Please install GTK+ ${GTK_MIN_VERSION} or higher and make sure it is in your PATH before running Bluefish."
 
 ; Plugin Names
 !define PLUG_CHARMAP "Tegnkart"
@@ -36,6 +43,7 @@
 !define PLUG_HTMLBAR "HTML verktøylinje"
 !define PLUG_INFBROWSER "Info Browser"
 !define PLUG_SNIPPETS "Utklipp"
+; !define PLUG_ZENCODING "Zencoding"
 
 ; File Associations Page
 !define FA_TITLE "Filtypeassosiasjoner"
@@ -46,6 +54,19 @@
 ; Misc
 !define FINISHPAGE_LINK "Besøk nettsiden vår."
 !define UNINSTALL_SHORTCUT "Avinstaller ${PRODUCT}"
+; !define FILETYPE_REGISTER "Registering File Type:"
+; !define UNSTABLE_UPGRADE "An unstable release of ${PRODUCT} is installed.$\nShould previous versions be removed before we continue (Recommended)?"
+
+; InetC Plugin Translations
+;  /TRANSLATE downloading connecting second minute hour plural progress remaining
+; !define INETC_DOWN "Downloading %s"
+; !define INETC_CONN "Connecting ..."
+; !define INETC_TSEC "second"
+; !define INETC_TMIN "minute"
+; !define INETC_THOUR "hour"
+; !define INETC_TPLUR "s"
+; !define INETC_PROGRESS "%dkB (%d%%) of %dkB @ %d.%01dkB/s"
+; !define INETC_REMAIN " (%d %s%s remaining)"
 
 ; Content Types
 !define CT_ADA	"Ada Source File"
@@ -59,14 +80,17 @@
 !define CT_HPP	"C++ Header File"
 !define CT_CSS "Cascading Stylesheet"
 !define CT_D	"D Source File"
+; !define CT_DIFF "Diff/Patch File"
 !define CT_PO	"Gettext Translation"
 !define CT_JAVA	"Java Source File"	
 !define CT_JS	"JavaScript Script"
 !define CT_JSP	"JavaServer Pages Script"
+; !define CT_MW	"MediaWiki File"
 !define CT_NSI	"NSIS Script"
 !define CT_NSH	"NSIS Header File"
 !define CT_PL	"Perl Script"
 !define CT_PHP	"PHP Script"
+; !define CT_INC	"PHP Include Script"
 !define CT_TXT	"Plain Text"
 !define CT_PY	"Python Script"
 !define CT_RB	"Ruby Script"
