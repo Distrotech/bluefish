@@ -1,6 +1,6 @@
 ;----------------------------------------------
 ; Bluefish Windows NSIS Install Script
-;  English Language Header
+;  Norwegian Nynorsk Language Header
 ; 
 ;  The Bluefish Developers
 ;

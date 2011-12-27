@@ -17,6 +17,7 @@ EXTRA_DIST = \
 	locale/Italian.nsh \
 	locale/Japanese.nsh \
 	locale/Norwegian.nsh \
+	locale/NorwegianNynorsk.nsh \
 	locale/SimpChinese.nsh \
 	locale/Swedish.nsh \
 	locale/Ukrainian.nsh \
