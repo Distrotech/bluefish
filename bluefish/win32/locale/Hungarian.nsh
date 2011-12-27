@@ -33,6 +33,7 @@
 !define GTK_DOWNLOAD "GTK+ letöltése..."
 !define GTK_FAILED "GTK+ letöltése sikertelen:"
 !define GTK_INSTALL "GTK+ telepítése..."
+; !define GTK_UNINSTALL "Uninstalling GTK+..."
 !define GTK_PATH "GTK+ telepítése a rendszer elérési útra."
 !define GTK_REQUIRED "Kérjük telepítse a GTK+ 2.14.7 vagy újabb verzióját és győződjön meg arról, hogy az a PATH változóhoz hozzá van adva, mielőtt a Bluefish-t futtatná."
 
@@ -42,6 +43,7 @@
 !define PLUG_HTMLBAR "HTML eszköztár"
 !define PLUG_INFBROWSER "Infó böngésző"
 !define PLUG_SNIPPETS "Kódrészletek"
+; !define PLUG_ZENCODING "Zencoding"
 
 ; File Associations Page
 !define FA_TITLE "Fájltársítások"

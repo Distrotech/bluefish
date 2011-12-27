@@ -33,6 +33,7 @@
 !define GTK_DOWNLOAD "GTK+ 下载中..."
 !define GTK_FAILED "GTK+ 下载失败："
 !define GTK_INSTALL "GTK+ 安装中..."
+; !define GTK_UNINSTALL "Uninstalling GTK+..."
 !define GTK_PATH "GTK+ 正被安装到系统路径中。"
 !define GTK_REQUIRED "请安装 GTK+ 2.14.7 或更高的版本，并保证运行 Bluefish 前将其放在你系统的 PATH 中。"
 
@@ -42,6 +43,7 @@
 !define PLUG_HTMLBAR "HTML 栏"
 !define PLUG_INFBROWSER "消息浏览器"
 !define PLUG_SNIPPETS "代码片段"
+; !define PLUG_ZENCODING "Zencoding"
 
 ; File Associations Page
 !define FA_TITLE "文件关联"
