@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru.po\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-23 11:41+0000\n"
+"POT-Creation-Date: 2011-12-27 10:24+0000\n"
 "PO-Revision-Date: 2011-03-30 23:42+0400\n"
 "Last-Translator: Fr. Br. George <george@altlinux.org>\n"
 "Language-Team: Russian\n"
@@ -20,75 +20,53 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#. _DM_ Alert box asking if user would like to change request from add to
-#. * update.
-#.
-#: src/plugin_htmlbar/html2.c:500
-msgid "_Update"
-msgstr "О_бновить"
-
-#: src/plugin_htmlbar/html2.c:505
-#, c-format
-msgid "The %s %s property already exists.\n"
-msgstr "Свойство %s %s уже существует.\n"
-
-#: src/plugin_htmlbar/html2.c:507
-#, c-format
-msgid "The %s property already exists.\n"
-msgstr "Свойство %s уже существует.\n"
-
-#: src/plugin_htmlbar/html2.c:510
-#, c-format
-msgid "Update its value from %s to %s?"
-msgstr "Изменить значение с %s на %s?"
-
-#: src/plugin_htmlbar/html2.c:641
+#: src/plugin_htmlbar/html2.c:550
 msgid "Cascading Style Sheet Builder"
 msgstr "Конструктор Cascading Style Sheet"
 
-#: src/plugin_htmlbar/html2.c:661
+#: src/plugin_htmlbar/html2.c:570
 msgid "_Selector:"
 msgstr "Панель в_ыбора:"
 
-#: src/plugin_htmlbar/html2.c:680
+#: src/plugin_htmlbar/html2.c:589
 msgid "_Property:"
 msgstr "_Свойство:"
 
-#: src/plugin_htmlbar/html2.c:682 src/plugin_htmlbar/html_form.c:375
+#: src/plugin_htmlbar/html2.c:591 src/plugin_htmlbar/html_form.c:375
 #: src/plugin_htmlbar/html_form.c:540 src/plugin_htmlbar/html_form.c:635
 msgid "_Value:"
 msgstr "_Значение:"
 
-#: src/plugin_htmlbar/html2.c:700
+#: src/plugin_htmlbar/html2.c:609
 msgid "Selector"
 msgstr "Панель выбора"
 
-#: src/plugin_htmlbar/html2.c:700 src/plugin_htmlbar/html2.c:703
+#: src/plugin_htmlbar/html2.c:613
 msgid "Property"
 msgstr "Свойство"
 
-#: src/plugin_htmlbar/html2.c:700 src/plugin_htmlbar/html2.c:703
+#: src/plugin_htmlbar/html2.c:616
 msgid "Value"
 msgstr "Значение"
 
-#: src/plugin_htmlbar/html2.c:718
+#: src/plugin_htmlbar/html2.c:644
 msgid " _Add "
 msgstr " _Добавить "
 
-#: src/plugin_htmlbar/html2.c:721
+#: src/plugin_htmlbar/html2.c:648
 msgid " _Update "
 msgstr " О_бновить  "
 
-#: src/plugin_htmlbar/html2.c:724
+#: src/plugin_htmlbar/html2.c:652
 msgid " _Delete "
 msgstr " _Удалить "
 
-#: src/plugin_htmlbar/html2.c:977 src/plugin_htmlbar/html2.c:1014
+#: src/plugin_htmlbar/html2.c:912 src/plugin_htmlbar/html2.c:949
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1639
 msgid "_Style..."
 msgstr "_Стиль..."
 
-#: src/plugin_htmlbar/html2.c:1099
+#: src/plugin_htmlbar/html2.c:1034
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Выберите цвет"
 
@@ -527,8 +505,8 @@ msgid "et_h (Icelandic) ð"
 msgstr "et_h (Icelandic) ð"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1470
-msgid "th_orn ÿ"
-msgstr "th_orn ÿ"
+msgid "th_orn þ"
+msgstr "th_orn þ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1471
 msgid "Sharp _s ß"
@@ -603,7 +581,7 @@ msgid "Middle _dot ·"
 msgstr "_Точка посредине ·"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1496
-msgid "F_ormat by context"
+msgid "_Format by Context"
 msgstr "Контекстное _форматирование"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1497
@@ -705,7 +683,7 @@ msgid "Delete"
 msgstr "Удалить"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1517
-msgid "_Format by layout"
+msgid "Format by L_ayout"
 msgstr "_Форматирование по расположению"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1518
@@ -757,7 +735,7 @@ msgid "Big"
 msgstr "Крупный"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1528
-msgid "Format _general"
+msgid "Format _General"
 msgstr "_Общее форматирование"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1529
@@ -947,7 +925,8 @@ msgid "Menu"
 msgstr "Меню"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1576
-msgid "Fo_rm"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1650
+msgid "F_orm"
 msgstr "Ф_орма"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1577
@@ -1231,10 +1210,6 @@ msgstr "_Фрейм..."
 msgid "Frame..."
 msgstr "Фрейм..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1650
-msgid "F_orm"
-msgstr "Ф_орма"
-
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1651
 msgid "F_orm..."
 msgstr "Ф_орма..."
@@ -1248,12 +1223,16 @@ msgid "_Input..."
 msgstr "Поле _ввода..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
-msgid "Input Buttons..."
-msgstr "Кнопки поля ввода..."
+msgid "Input B_uttons..."
+msgstr "_Кнопки поля ввода..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
 msgid "Input Button..."
 msgstr "Кнопк поля вводаа..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1655
+msgid "Input T_ext..."
+msgstr "_Текстовое поле ввода..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
 msgid "Input Text..."
@@ -1349,8 +1328,8 @@ msgstr "Флажок..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1697
-msgid "_HTML5"
-msgstr "_HTML5"
+msgid "HTML_5"
+msgstr "HTML_5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
 msgid "_Article"
@@ -1369,12 +1348,12 @@ msgid "Aside"
 msgstr "Боковая панель"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-msgid "Figcaption"
-msgstr "Figcaption"
+msgid "Fig_caption"
+msgstr "Fig_caption"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-msgid "Figcaption "
-msgstr "Подпись к иллюстрации "
+msgid "Figcaption"
+msgstr "Описание иллюстрации"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1687
 msgid "Fig_ure"
@@ -1425,16 +1404,16 @@ msgid "Nav"
 msgstr "Навигационный блок"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1693
-msgid "Rp"
-msgstr "Rp"
+msgid "R_p"
+msgstr "R_p"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1693
 msgid "Ruby parenthesis"
 msgstr "Идеографические скобки"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1694
-msgid "Rt"
-msgstr "Rt"
+msgid "R_t"
+msgstr "R_t"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1694
 msgid "Ruby text"
@@ -1596,7 +1575,7 @@ msgstr "Заготовка ссылки"
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:2381
+#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:2454
 msgid "_HREF:"
 msgstr "_HREF:"
 
@@ -1612,24 +1591,26 @@ msgstr "_Цель:"
 msgid "_Name:"
 msgstr "_Имя:"
 
-#: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/quickstart.c:555
+#: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/quickstart.c:552
 msgid "Titl_e:"
 msgstr "Название _T:"
 
 #: src/plugin_htmlbar/html.c:700 src/plugin_htmlbar/html.c:1215
-#: src/plugin_htmlbar/html.c:1364 src/plugin_htmlbar/html.c:2293
+#: src/plugin_htmlbar/html.c:1364 src/plugin_htmlbar/html.c:2366
 msgid "_Language:"
 msgstr "_Язык:"
 
 #: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:939
 #: src/plugin_htmlbar/html.c:1109 src/plugin_htmlbar/html.c:1218
 #: src/plugin_htmlbar/html.c:1370 src/plugin_htmlbar/html.c:1757
-#: src/plugin_htmlbar/html.c:1871 src/plugin_htmlbar/html.c:2312
+#: src/plugin_htmlbar/html.c:1871 src/plugin_htmlbar/html.c:1976
+#: src/plugin_htmlbar/html.c:2045 src/plugin_htmlbar/html.c:2176
+#: src/plugin_htmlbar/html.c:2251 src/plugin_htmlbar/html.c:2385
 #: src/plugin_htmlbar/html_form.c:204 src/plugin_htmlbar/html_form.c:267
 #: src/plugin_htmlbar/html_form.c:328 src/plugin_htmlbar/html_form.c:644
 #: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
 #: src/plugin_htmlbar/html_table.c:383 src/plugin_htmlbar/image.c:509
-#: src/plugin_htmlbar/image_dialog.c:382
+#: src/plugin_htmlbar/image_dialog.c:394
 msgid "Custo_m:"
 msgstr "Про_чее:"
 
@@ -1716,20 +1697,20 @@ msgid "Ali_gn:"
 msgstr "_Выравнивание:"
 
 #: src/plugin_htmlbar/html.c:923 src/plugin_htmlbar/html.c:1209
-#: src/plugin_htmlbar/html_diag.c:445 src/plugin_htmlbar/html_table.c:98
+#: src/plugin_htmlbar/html_diag.c:451 src/plugin_htmlbar/html_table.c:98
 #: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
-#: src/plugin_htmlbar/image_dialog.c:368
+#: src/plugin_htmlbar/image_dialog.c:374
 msgid "Cl_ass:"
 msgstr "_Класс:"
 
 #: src/plugin_htmlbar/html.c:927 src/plugin_htmlbar/html.c:1202
-#: src/plugin_htmlbar/html_diag.c:459 src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html_diag.c:465 src/plugin_htmlbar/html_table.c:102
 #: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:378
 msgid "St_yle:"
 msgstr "Ст_иль:"
 
 #: src/plugin_htmlbar/html.c:936 src/plugin_htmlbar/html.c:1212
-#: src/plugin_htmlbar/html_diag.c:453
+#: src/plugin_htmlbar/html_diag.c:459
 msgid "_ID:"
 msgstr "_ID:"
 
@@ -1737,22 +1718,22 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "Горизонтальный разделитель"
 
-#: src/plugin_htmlbar/html.c:1083 src/plugin_htmlbar/html.c:2227
-#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/html.c:1083 src/plugin_htmlbar/html.c:2300
+#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:417
 msgid "_Align:"
 msgstr "В_ыравнивание"
 
-#: src/plugin_htmlbar/html.c:1090 src/plugin_htmlbar/html.c:2000
-#: src/plugin_htmlbar/html.c:2111 src/plugin_htmlbar/html.c:2235
-#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:338
+#: src/plugin_htmlbar/html.c:1090 src/plugin_htmlbar/html.c:2041
+#: src/plugin_htmlbar/html.c:2161 src/plugin_htmlbar/html.c:2308
+#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:347
 msgid "_Height:"
 msgstr "Вы_сота:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1096 src/plugin_htmlbar/html.c:1995
-#: src/plugin_htmlbar/html.c:2106 src/plugin_htmlbar/html.c:2231
+#: src/plugin_htmlbar/html.c:1096 src/plugin_htmlbar/html.c:2036
+#: src/plugin_htmlbar/html.c:2156 src/plugin_htmlbar/html.c:2304
 #: src/plugin_htmlbar/html_table.c:139 src/plugin_htmlbar/html_table.c:401
-#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:329
+#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:338
 msgid "_Width:"
 msgstr "_Ширина:"
 
@@ -1888,7 +1869,7 @@ msgstr "_Упорядоченный"
 msgid "_Unordered"
 msgstr "_Неупорядоченный"
 
-#: src/plugin_htmlbar/html.c:1656
+#: src/plugin_htmlbar/html.c:1656 src/plugin_htmlbar/image_dialog.c:388
 msgid "Style:"
 msgstr "Стиль:"
 
@@ -1904,9 +1885,9 @@ msgstr "Ст_рок"
 msgid "_Add <frame> elements"
 msgstr "_Добавить элементы <frame>"
 
-#: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1927
-#: src/plugin_htmlbar/html.c:2058 src/plugin_htmlbar/html.c:2222
-#: src/plugin_htmlbar/html.c:2285 src/plugin_htmlbar/image_dialog.c:290
+#: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1933
+#: src/plugin_htmlbar/html.c:2109 src/plugin_htmlbar/html.c:2295
+#: src/plugin_htmlbar/html.c:2358 src/plugin_htmlbar/image_dialog.c:300
 msgid "_Source:"
 msgstr "_Источник:"
 
@@ -1931,103 +1912,144 @@ msgid "No _Resize:"
 msgstr "Не позволять _менять размер:"
 
 #. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:1917
+#: src/plugin_htmlbar/html.c:1925
 msgid "Audio"
 msgstr "Аудио"
 
-#: src/plugin_htmlbar/html.c:1933 src/plugin_htmlbar/html.c:2071
+#: src/plugin_htmlbar/html.c:1939 src/plugin_htmlbar/html.c:2122
 msgid "_Autoplay:"
 msgstr "_Autoplay:"
 
-#: src/plugin_htmlbar/html.c:1940 src/plugin_htmlbar/html.c:2078
+#: src/plugin_htmlbar/html.c:1946 src/plugin_htmlbar/html.c:2129
 msgid "_Controls:"
 msgstr "_Controls:"
 
-#: src/plugin_htmlbar/html.c:1947 src/plugin_htmlbar/html.c:2085
+#: src/plugin_htmlbar/html.c:1953 src/plugin_htmlbar/html.c:2136
 msgid "_Loop:"
 msgstr "_Loop:"
 
-#: src/plugin_htmlbar/html.c:1955 src/plugin_htmlbar/html.c:2093
+#: src/plugin_htmlbar/html.c:1960 src/plugin_htmlbar/html.c:2143
 msgid "_Preload:"
 msgstr "_Preload:"
 
+#: src/plugin_htmlbar/html.c:1965 src/plugin_htmlbar/html.c:2024
+#: src/plugin_htmlbar/html.c:2165
+msgid "_Id:"
+msgstr "_ID:"
+
+#: src/plugin_htmlbar/html.c:1968 src/plugin_htmlbar/html.c:2027
+#: src/plugin_htmlbar/html.c:2173
+msgid "_Class:"
+msgstr "_Класс:"
+
+#: src/plugin_htmlbar/html.c:1971 src/plugin_htmlbar/html.c:2030
+#: src/plugin_htmlbar/html.c:2168
+msgid "_Style:"
+msgstr "Стиль:"
+
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:1990
+#: src/plugin_htmlbar/html.c:2019
 msgid "Canvas"
 msgstr "Графическая область"
 
-#. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:2048
+#: src/plugin_htmlbar/html.c:2101
 msgid "Video"
 msgstr "Видео"
 
-#: src/plugin_htmlbar/html.c:2065
+#: src/plugin_htmlbar/html.c:2116
 msgid "_Poster:"
 msgstr "_Poster:"
 
-#: src/plugin_htmlbar/html.c:2100
+#: src/plugin_htmlbar/html.c:2150
 msgid "_Audio:"
 msgstr "_Audio:"
 
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:2162
+#: src/plugin_htmlbar/html.c:2226
 msgid "Time"
 msgstr "Время"
 
-#: src/plugin_htmlbar/html.c:2168
-msgid "_Pubdate:"
-msgstr "_Pubdate:"
+#. Datetime help
+#: src/plugin_htmlbar/html.c:2231
+msgid ""
+"Datetime format (ex. YYYY-MM-DDThh:mm:ssTZD) :\n"
+"\n"
+"YYYY - year (e.g. 2009)\n"
+"MM - month (e.g. 01 for January)\n"
+"DD - day of the month (e.g. 08)\n"
+"T - a required separator\n"
+"hh - hour (e.g. 22 for 10.00pm)\n"
+"mm - minutes (e.g. 55)\n"
+"ss - seconds (e.g. 03)\n"
+"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean "
+"Time)\n"
+msgstr ""
+"Формат даты и времени: ГГГГ-ММ-ДДРчч:мм:ссTZD, где\n"
+"\n"
+"ГГГГ — год (например, 2007)\n"
+"ММ — месяц (например, 01 — это январь)\n"
+"ДД — число (например, 15)\n"
+"Р — обязательный разделитель\n"
+"чч — час (например, 22 — это 10 часов вечера)\n"
+"мм — минуты (например, 55)\n"
+"сс — секунды (например, 00)\n"
+"TZD — часовой пояс (например, MSK — московское время, GMT — время по "
+"Гринвичу)\n"
 
-#: src/plugin_htmlbar/html.c:2174
+#: src/plugin_htmlbar/html.c:2241
 msgid "_Datetime:"
 msgstr "_Datetime:"
 
-#: src/plugin_htmlbar/html.c:2218
+#: src/plugin_htmlbar/html.c:2246
+msgid "_Pubdate:"
+msgstr "_Pubdate:"
+
+#: src/plugin_htmlbar/html.c:2291
 msgid "Embed"
 msgstr "Внедрить"
 
-#: src/plugin_htmlbar/html.c:2239 src/plugin_htmlbar/html_table.c:145
+#: src/plugin_htmlbar/html.c:2312 src/plugin_htmlbar/html_table.c:145
 msgid "Bo_rder:"
 msgstr "_Рамка:"
 
-#: src/plugin_htmlbar/html.c:2279
+#: src/plugin_htmlbar/html.c:2352
 msgid "Script"
 msgstr "Сценарий"
 
-#: src/plugin_htmlbar/html.c:2308 src/plugin_htmlbar/html.c:2412
+#: src/plugin_htmlbar/html.c:2381 src/plugin_htmlbar/html.c:2485
 #: src/plugin_htmlbar/html_form.c:531 src/plugin_htmlbar/html_form.c:640
 msgid "_Type:"
 msgstr "_Тип:"
 
-#: src/plugin_htmlbar/html.c:2370
+#: src/plugin_htmlbar/html.c:2443
 msgid "Link"
 msgstr "Ссылка"
 
-#: src/plugin_htmlbar/html.c:2387
+#: src/plugin_htmlbar/html.c:2460
 msgid "HREF_LANG:"
 msgstr "HREF_LANG:"
 
-#: src/plugin_htmlbar/html.c:2390
+#: src/plugin_htmlbar/html.c:2463
 msgid "T_itle:"
 msgstr "Название _T:"
 
-#: src/plugin_htmlbar/html.c:2435
+#: src/plugin_htmlbar/html.c:2508
 msgid "_Forward Relation:"
 msgstr "Ссылка _вперед:"
 
-#: src/plugin_htmlbar/html.c:2440
+#: src/plugin_htmlbar/html.c:2513
 msgid "_Reverse Relation:"
 msgstr "Ссылка _назад:"
 
-#: src/plugin_htmlbar/html.c:2454
+#: src/plugin_htmlbar/html.c:2527
 msgid "Media:"
 msgstr "Носитель:"
 
-#: src/plugin_htmlbar/html.c:2458
+#: src/plugin_htmlbar/html.c:2531
 msgid "L_ang:"
 msgstr "_Язык:"
 
-#: src/plugin_htmlbar/html.c:2461
+#: src/plugin_htmlbar/html.c:2534
 msgid "_Custom:"
 msgstr "Про_чее:"
 
@@ -2167,11 +2189,11 @@ msgstr "Ошибка при загрузке изображения..."
 msgid "Loading file %s..."
 msgstr "Загрузка файла %s..."
 
-#: src/plugin_htmlbar/image.c:456
+#: src/plugin_htmlbar/image.c:457
 msgid "Insert thumbnail"
 msgstr "Вставить эскиз"
 
-#: src/plugin_htmlbar/image.c:460 src/plugin_htmlbar/image_dialog.c:308
+#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:317
 msgid "Preview"
 msgstr "Просмотр"
 
@@ -2183,7 +2205,7 @@ msgstr "Ссылка на _изображение:"
 msgid "Hei_ght:"
 msgstr "В_ысота:"
 
-#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:377
+#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:383
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
@@ -2191,11 +2213,11 @@ msgstr "_Usemap:"
 msgid "Alternate _text:"
 msgstr "Альтернативный _текст:"
 
-#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:414
+#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:426
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:418
+#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Vspace:"
 msgstr "_Vspace:"
 
@@ -2251,31 +2273,31 @@ msgstr ""
 "%x: ширина эскиза  %y: высота эскиза\n"
 "%b: размер исходного файла (в байтах)"
 
-#: src/plugin_htmlbar/image_dialog.c:345
+#: src/plugin_htmlbar/image_dialog.c:354
 msgid "_Reset Dimensions"
 msgstr "_Сбросить Размеры"
 
-#: src/plugin_htmlbar/image_dialog.c:358
+#: src/plugin_htmlbar/image_dialog.c:364
 msgid "Alternate te_xt:"
 msgstr "Альтернативный _текст:"
 
-#: src/plugin_htmlbar/image_dialog.c:363
+#: src/plugin_htmlbar/image_dialog.c:369
 msgid "_Long description:"
 msgstr "Полное _Описание"
 
-#: src/plugin_htmlbar/image_dialog.c:372
+#: src/plugin_htmlbar/image_dialog.c:378
 msgid "I_D:"
 msgstr "I_D:"
 
-#: src/plugin_htmlbar/image_dialog.c:394
+#: src/plugin_htmlbar/image_dialog.c:406
 msgid "_Use Transitional options"
 msgstr "Использовать параметры _Tramsitional DTD"
 
-#: src/plugin_htmlbar/image_dialog.c:410
+#: src/plugin_htmlbar/image_dialog.c:422
 msgid "_Border:"
 msgstr "_Рамка:"
 
-#: src/plugin_htmlbar/image_dialog.c:713
+#: src/plugin_htmlbar/image_dialog.c:732
 #, c-format
 msgid ""
 "\n"
@@ -2284,7 +2306,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/plugin_htmlbar/image_dialog.c:718
+#: src/plugin_htmlbar/image_dialog.c:737
 #, c-format
 msgid ""
 "\n"
@@ -2293,7 +2315,7 @@ msgstr ""
 "\n"
 "%d x %d точек растра"
 
-#: src/plugin_htmlbar/image_dialog.c:816
+#: src/plugin_htmlbar/image_dialog.c:835
 msgid ""
 "\n"
 "\n"
@@ -2305,80 +2327,80 @@ msgstr ""
 "\t<b>Загрузка предпросмотра...</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:918
+#: src/plugin_htmlbar/image_dialog.c:937
 msgid "Select Image"
 msgstr "Выберите изображение"
 
-#: src/plugin_htmlbar/image_dialog.c:925
+#: src/plugin_htmlbar/image_dialog.c:944
 msgid "All images"
 msgstr "Все изображения"
 
-#: src/plugin_htmlbar/image_dialog.c:1136
-#: src/plugin_htmlbar/image_dialog.c:1237
+#: src/plugin_htmlbar/image_dialog.c:1160
+#: src/plugin_htmlbar/image_dialog.c:1265
 msgid "Insert Image"
 msgstr "Вставить изображение"
 
-#: src/plugin_htmlbar/quickstart.c:516
+#: src/plugin_htmlbar/quickstart.c:513
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>Внешний CSS</b>"
 
-#: src/plugin_htmlbar/quickstart.c:527
+#: src/plugin_htmlbar/quickstart.c:524
 msgid "Ty_pe:"
 msgstr "_Тип:"
 
-#: src/plugin_htmlbar/quickstart.c:545
+#: src/plugin_htmlbar/quickstart.c:542
 msgid "HRE_F:"
 msgstr "HRE_F:"
 
-#: src/plugin_htmlbar/quickstart.c:550
+#: src/plugin_htmlbar/quickstart.c:547
 msgid "_Media:"
 msgstr "Носитель:"
 
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
 #.
-#: src/plugin_htmlbar/quickstart.c:562
+#: src/plugin_htmlbar/quickstart.c:559
 msgid "<b>Style Area</b>"
 msgstr "<b>Область стиля</b>"
 
-#: src/plugin_htmlbar/quickstart.c:566
+#: src/plugin_htmlbar/quickstart.c:563
 msgid "Cre_ate empty style area"
 msgstr "Создать пустую область стиля"
 
-#: src/plugin_htmlbar/quickstart.c:588
+#: src/plugin_htmlbar/quickstart.c:582
 msgid "<b>Attributes</b>"
 msgstr "<b>Атрибуты</b>"
 
-#: src/plugin_htmlbar/quickstart.c:603
+#: src/plugin_htmlbar/quickstart.c:597
 msgid "_Src:"
 msgstr "_Источник:"
 
 #. TODO: add an option to place content in the script area
-#: src/plugin_htmlbar/quickstart.c:610
+#: src/plugin_htmlbar/quickstart.c:604
 msgid "<b>Script Area</b>"
 msgstr "<b>Область сценария</b>"
 
-#: src/plugin_htmlbar/quickstart.c:614
+#: src/plugin_htmlbar/quickstart.c:608
 msgid "Cre_ate empty script area"
 msgstr "Создать пустую область сценария"
 
-#: src/plugin_htmlbar/quickstart.c:641
+#: src/plugin_htmlbar/quickstart.c:635
 msgid "Quick Start"
 msgstr "Заготовка страницы"
 
-#: src/plugin_htmlbar/quickstart.c:656
+#: src/plugin_htmlbar/quickstart.c:652
 msgid "_DTD:"
 msgstr "Использовать _DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:660 src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/quickstart.c:656 src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "Название _T:"
 
-#: src/plugin_htmlbar/quickstart.c:683
+#: src/plugin_htmlbar/quickstart.c:679
 msgid "_Head:"
 msgstr "_Заголовок:"
 
-#: src/plugin_htmlbar/quickstart.c:700
+#: src/plugin_htmlbar/quickstart.c:696
 msgid "Open in _new document."
 msgstr "Открыть в _новом документе."
 
@@ -2437,6 +2459,24 @@ msgstr "Источник:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Размер:"
+
+#~ msgid "_Update"
+#~ msgstr "О_бновить"
+
+#~ msgid "The %s %s property already exists.\n"
+#~ msgstr "Свойство %s %s уже существует.\n"
+
+#~ msgid "The %s property already exists.\n"
+#~ msgstr "Свойство %s уже существует.\n"
+
+#~ msgid "Update its value from %s to %s?"
+#~ msgstr "Изменить значение с %s на %s?"
+
+#~ msgid "Fo_rm"
+#~ msgstr "Ф_орма"
+
+#~ msgid "Figcaption "
+#~ msgstr "Подпись к иллюстрации "
 
 #, fuzzy
 #~ msgid "_Figcaption"
@@ -3078,10 +3118,6 @@ msgstr "Размер:"
 #, fuzzy
 #~ msgid "Clas_s:"
 #~ msgstr "_Класс:"
-
-#, fuzzy
-#~ msgid "_Style:"
-#~ msgstr "Стиль:"
 
 #, fuzzy
 #~ msgid "C_harset:"
