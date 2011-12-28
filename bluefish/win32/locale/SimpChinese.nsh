@@ -16,7 +16,7 @@
 
 ; License Page
 !define LICENSEPAGE_BUTTON "下一个"
-!define LICENSEPAGE_FOOTER "${PRODUCT} 根据 GNU General Public License 发布。这里提供的许可仅为查阅之用。$_CLICK"
+!define LICENSEPAGE_FOOTER "${PRODUCT} 基于 GNU General Public License 发布。这里提供的许可仅为查阅之用。$_CLICK"
 
 ; General Download Messages
 !define DOWN_LOCAL "已发现 %s 的本地备份..."
@@ -24,7 +24,7 @@
 !define DOWN_CHKSUM_ERROR "校验和不匹配..."
 
 ; Aspell Strings
-!define DICT_INSTALLED "该字典的最新版本已安装，跳过下载："
+!define DICT_INSTALLED "字典的最新版本已安装，跳过下载："
 !define DICT_DOWNLOAD "语法检查字典下载中..."
 !define DICT_FAILED "字典下载失败："
 !define DICT_EXTRACT "字典提取中..."
@@ -33,9 +33,9 @@
 !define GTK_DOWNLOAD "GTK+ 下载中..."
 !define GTK_FAILED "GTK+ 下载失败："
 !define GTK_INSTALL "GTK+ 安装中..."
-; !define GTK_UNINSTALL "Uninstalling GTK+..."
+!define GTK_UNINSTALL "GTK+ 卸载中..."
 !define GTK_PATH "GTK+ 正被安装到系统路径中。"
-!define GTK_REQUIRED "请安装 GTK+ 2.14.7 或更高的版本，并保证运行 Bluefish 前将其放在你系统的 PATH 中。"
+!define GTK_REQUIRED "请安装 GTK+ ${GTK_MIN_VERSION} 或更高的版本，并保证运行 Bluefish 前将其置于你系统的 PATH 中。"
 
 ; Plugin Names
 !define PLUG_CHARMAP "字符映射"
@@ -43,7 +43,7 @@
 !define PLUG_HTMLBAR "HTML 栏"
 !define PLUG_INFBROWSER "消息浏览器"
 !define PLUG_SNIPPETS "代码片段"
-; !define PLUG_ZENCODING "Zencoding"
+!define PLUG_ZENCODING "Zencoding"
 
 ; File Associations Page
 !define FA_TITLE "文件关联"
@@ -55,7 +55,7 @@
 !define FINISHPAGE_LINK "访问 Bluefish 主页"
 !define UNINSTALL_SHORTCUT "卸载 ${PRODUCT}"
 !define FILETYPE_REGISTER "注册文件类型："
-!define UNSTABLE_UPGRADE "${PRODUCT} 的一个不稳定版本已安装。$\n在继续前删除前一个版本吗（推荐）？"
+!define UNSTABLE_UPGRADE "${PRODUCT} 的一个不稳定版本已被安装。$\n在继续前删除前一个版本吗（推荐）？"
 
 ; InetC Plugin Translations
 ;  /TRANSLATE downloading connecting second minute hour plural progress remaining
