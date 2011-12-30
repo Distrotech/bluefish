@@ -422,7 +422,7 @@ entity_initgui(Tbfwin * bfwin)
 		{"URLDecode", NULL, N_("URL _Decode"), NULL, N_("URL decode"), G_CALLBACK(entity_url_decode)},
 		{"URLEncode", NULL, N_("URL _Encode"), NULL, N_("URL encode"), G_CALLBACK(entity_url_encode)},
 		{"ToLowercase", NULL, N_("To Lo_wercase"), NULL, N_("To lowercase"), G_CALLBACK(entity_to_lowercase)},
-		{"ToUppercase", NULL, N_("To Upperc_ase"), NULL, N_("To uppercase"), G_CALLBACK(entity_to_uppercase)}
+		{"ToUppercase", NULL, N_("To _Uppercase"), NULL, N_("To uppercase"), G_CALLBACK(entity_to_uppercase)}
 	};
 
 	action_group = gtk_action_group_new("EntitiesActions");
