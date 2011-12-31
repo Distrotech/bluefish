@@ -1199,6 +1199,7 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 		snrwin->bfwin->session->snr3_casesens = is_case_sens;
 		snrwin->bfwin->session->snr3_escape_chars = escapechars;
 		snrwin->bfwin->session->snr3_dotmatchall = dotmatchall;
+		snrwin->bfwin->session->snr3_recursion_level = recursion_level;
 	}
 	
 	DEBUG_MSG("snr3run_init_from_gui, return %d\n", retval);
