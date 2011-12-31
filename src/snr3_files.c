@@ -18,7 +18,7 @@
  *
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #define _GNU_SOURCE
 #include <string.h>
@@ -436,5 +436,5 @@ void snr3_run_in_files(Tsnr3run *s3run) {
 	g_atomic_int_set(&s3run->cancelled, 0);
 	queue_init_full(&s3run->threadqueue, 4, TRUE, TRUE, (QueueFunc)files_replace_run);
 	g_print("filepattern=%s\n",s3run->filepattern);
-	s3run->findfiles = findfiles(s3run->basedir, s3run->recursive, 1, TRUE,s3run->filepattern, G_CALLBACK(filematch_cb), G_CALLBACK(finished_finding_files_cb), s3run);
+	s3run->findfiles = findfiles(s3run->basedir, (s3run->recursion_level > 0), s3run->recursion_level, TRUE,s3run->filepattern, G_CALLBACK(filematch_cb), G_CALLBACK(finished_finding_files_cb), s3run);
 }

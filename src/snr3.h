@@ -64,7 +64,7 @@ typedef struct {
 	GList *doclist; /* the files to do the replace in */
 	GFile *basedir; /* when replace in files */
 	gchar *filepattern;
-	gboolean recursive;
+	gint recursion_level;
 	gboolean is_case_sens;
 	gboolean overlapping;
 	gboolean escape_chars;
@@ -138,6 +138,8 @@ typedef struct {
 	GtkWidget *basedirB;
 	GtkWidget *filepattern;
 	GtkWidget *filepatternL;
+	GtkWidget *recursion_level;
+	GtkWidget *recursion_levelL;
 	GtkWidget *countlabel;
 	GtkWidget *warninglabel;
 	GtkWidget *searchType;

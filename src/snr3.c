@@ -37,7 +37,7 @@ texttag from the tag table??
 
 */
 
-/*#define DEBUG*/
+#define DEBUG
 /*#define SNR3_PROFILING*/
 
 #define _GNU_SOURCE
@@ -682,11 +682,9 @@ snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void
 			if (s3run->replaceall) {
 				DEBUG_MSG("scope files, run with filepattern %s\n", s3run->filepattern);
 				s3run->showinoutputbox=TRUE;
-				s3run->recursive = TRUE;
 				snr3_run_in_files(s3run);
 			} else if (s3run->findall) { 
 				s3run->showinoutputbox=TRUE;
-				s3run->recursive = TRUE;
 				snr3_run_in_files(s3run);
 			}
 		break;
@@ -1090,7 +1088,7 @@ static gint
 snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 {
 	const gchar *query, *replace;
-	gint type, replacetype, scope, dotmatchall, escapechars;
+	gint type, replacetype, scope, dotmatchall, escapechars, recursion_level;
 	gboolean is_case_sens;
 	gint retval=0;
 	GFile *basedir;
@@ -1107,6 +1105,7 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	is_case_sens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->matchCase));
 	dotmatchall = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->dotmatchall));
 	escapechars = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->escapeChars));
+	recursion_level = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(snrwin->recursion_level));
 	
 	basedir = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(snrwin->basedir)));
 	filepattern = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->filepattern))));
@@ -1166,6 +1165,11 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 		g_free(s3run->filepattern);
 		s3run->filepattern = g_strdup(filepattern);
 		DEBUG_MSG("filepattern =%s\n",filepattern);
+		retval |= 1;
+	}
+	if (s3run->recursion_level != recursion_level) {
+		snr3_cancel_run(s3run);
+		s3run->recursion_level = recursion_level;
 		retval |= 1;
 	}
 	if (!s3run->basedir || !g_file_equal(s3run->basedir, basedir)) {
@@ -1323,6 +1327,8 @@ static void snr_dialog_show_widgets(TSNRWin * snrwin) {
 
 	widget_set_visible(snrwin->filepattern, (scope == snr3scope_files));
 	widget_set_visible(snrwin->filepatternL, (scope == snr3scope_files));
+	widget_set_visible(snrwin->recursion_level, (scope == snr3scope_files));
+	widget_set_visible(snrwin->recursion_levelL, (scope == snr3scope_files));
 	widget_set_visible(snrwin->basedir, (scope == snr3scope_files));
 	widget_set_visible(snrwin->basedirL, (scope == snr3scope_files));
 	widget_set_visible(snrwin->basedirB, (scope == snr3scope_files));
@@ -1536,7 +1542,13 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	g_object_unref(lstore);*/
 	snrwin->filepattern = combobox_with_popdown(NULL, bfwin->session->filegloblist, TRUE);
 	snrwin->filepatternL = dialog_mnemonic_label_in_table(_("Filename pattern: "), snrwin->filepattern, table, 0, 1, currentrow, currentrow+1);
-	gtk_table_attach(GTK_TABLE(table), snrwin->filepattern, 1, 4, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), snrwin->filepattern, 1, 2, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+
+	snrwin->recursion_level = gtk_spin_button_new_with_range(0, 1000, 1);
+	gtk_spin_button_set_digits(GTK_SPIN_BUTTON(snrwin->recursion_level), 0);
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(snrwin->recursion_level), bfwin->session->snr3_recursion_level);
+	snrwin->recursion_levelL = dialog_mnemonic_label_in_table(_("Recursion level: "), snrwin->recursion_level, table, 2, 3, currentrow, currentrow+1);
+	gtk_table_attach(GTK_TABLE(table), snrwin->recursion_level, 3, 4, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	
 	currentrow++;
 	
