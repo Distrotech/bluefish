@@ -800,6 +800,13 @@ static gint update_snr3run(Tsnr3run *s3run) {
 		g_free(s3run->replacereal);
 		s3run->replacereal=NULL;
 	}
+	if (!s3run->query || s3run->query[0] == '\0') {
+		DEBUG_MSG("update_snr3run, empty query, return -1\n");
+		gtk_label_set_markup(GTK_LABEL(((TSNRWin *)s3run->dialog)->searchfeedback), "<span foreground=\"red\">Empty search string</span>");
+		gtk_widget_show(((TSNRWin *)s3run->dialog)->searchfeedback);
+		return -1;
+	}
+	
 	if (s3run->type == snr3type_pcre) {
 		if (!compile_regex(s3run)) {
 			g_free(s3run->query);
@@ -994,9 +1001,8 @@ snr3run_new(Tbfwin *bfwin, gpointer dialog)
 } 
 
 void snr3run_unrun(Tsnr3run *s3run) {
-	DEBUG_MSG("snr3run_unrun, runcont=%d\n",s3run->runcount);
+	DEBUG_MSG("snr3run_unrun, before decrement runcount=%d\n",s3run->runcount);
 	if (g_atomic_int_dec_and_test(&s3run->runcount)) {
-		DEBUG_MSG("runcount 0, run the callback\n");
 		s3run->callback(s3run);
 		DEBUG_MSG("runcount 0, after the callback\n");
 	}
