@@ -1180,7 +1180,7 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	}
 	if (!s3run->basedir || !g_file_equal(s3run->basedir, basedir)) {
 		snr3_cancel_run(s3run);
-		if (!s3run->basedir)
+		if (s3run->basedir)
 			g_object_unref(s3run->basedir);
 		s3run->basedir = basedir;
 		retval |= 1;
