@@ -222,7 +222,7 @@ zeneditor_replace_content(Tzeneditor *self, PyObject *args)
 		doc_replace_text(self->context, toinsert, start, end);
 		g_free(toinsert);
 		if (new_caret_position >= 0) {
-			gtk_text_buffer_get_iter_at_offset(DOCUMENT(self->context)->buffer, &itcursor, new_caret_position);
+			gtk_text_buffer_get_iter_at_offset(DOCUMENT(self->context)->buffer, &itcursor, start + new_caret_position);
 			gtk_text_buffer_place_cursor(DOCUMENT(self->context)->buffer,&itcursor);
 		}
 	} else {
