@@ -723,30 +723,36 @@ gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
 	
 }
 
-static void
-simplesearch_entry_changed_or_activate(GtkEditable * editable, Tbfwin * bfwin)
-{
-	gchar *tmpstr;
+static gboolean simplesearch_start(Tbfwin *bfwin, gboolean allow_single_char_search) {
+	const gchar *tmpstr;
+	gboolean retval=FALSE;
 
 	if (!bfwin->current_document)
-		return;
-	tmpstr = gtk_editable_get_chars(editable, 0, -1);
+		return FALSE;
+	tmpstr = gtk_entry_get_text(GTK_ENTRY(bfwin->simplesearch_entry));
 	if (bfwin->simplesearch_snr3run) {
 		DEBUG_MSG("free simple search run %p\n", bfwin->simplesearch_snr3run);
 		snr3run_free(bfwin->simplesearch_snr3run);
 		bfwin->simplesearch_snr3run=NULL;
 	}
-	if (tmpstr && tmpstr[0]!='\0' && tmpstr[1] != '\0') {
+	if (tmpstr && tmpstr[0]!='\0' && (allow_single_char_search || tmpstr[1] != '\0')) {
 		DEBUG_MSG("start simple search run\n");
 		bfwin->simplesearch_snr3run = simple_search_run(bfwin, tmpstr);
+		retval = TRUE;
 	}
-	g_free(tmpstr);
+	return retval;	
+}
+
+static void
+simplesearch_entry_changed_or_activate(GtkEditable * editable, Tbfwin * bfwin)
+{
+	simplesearch_start(bfwin, FALSE);
 }
 
 static void
 simplesearch_forward_clicked(GtkButton * button, Tbfwin * bfwin)
 {
-	if (!bfwin->simplesearch_snr3run)
+	if (!bfwin->simplesearch_snr3run && !simplesearch_start(bfwin, TRUE))
 		return;
 	snr3_run_go(bfwin->simplesearch_snr3run, TRUE);
 }
@@ -754,17 +760,16 @@ simplesearch_forward_clicked(GtkButton * button, Tbfwin * bfwin)
 static void
 simplesearch_back_clicked(GtkButton * button, Tbfwin * bfwin)
 {
-	if (!bfwin->simplesearch_snr3run)
+	if (!bfwin->simplesearch_snr3run && !simplesearch_start(bfwin, TRUE))
 		return;
 	snr3_run_go(bfwin->simplesearch_snr3run, FALSE);
 }
 static void
 simplesearch_advanced_clicked(GtkButton * button, Tbfwin * bfwin)
 {
-	gchar *tmpstr = gtk_editable_get_chars(GTK_EDITABLE(bfwin->simplesearch_entry) , 0, -1);
+	const gchar *tmpstr = gtk_entry_get_text(GTK_ENTRY(bfwin->simplesearch_entry));
 	snr3_advanced_dialog(bfwin, tmpstr?tmpstr:"");
 	gotoline_close_button_clicked(NULL, bfwin);
-	g_free(tmpstr);
 }
 
 static gboolean
