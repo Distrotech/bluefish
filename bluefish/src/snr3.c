@@ -546,6 +546,9 @@ void
 snr3_run_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, gboolean update) {
 	Truninidle *rii;
 	
+	if (!s3run->queryreal && !s3run->regex)
+		return; 
+	
 	rii = g_slice_new(Truninidle);
 	rii->doc = doc;
 	rii->s3run=s3run;
