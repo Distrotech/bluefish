@@ -2,14 +2,14 @@
 # Copyright (C) 2001, 2011 Free Software Foundation, Inc.
 # Dormouse <mouselinux@163.com>, 2003
 # Funda Wang <fundawang@linux.net.cn>, 2004
-# ZhiFeng Ma <mzf9527@gmail.com>, 2011.
+# ZhiFeng Ma <mzf9527@gmail.com>, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-12-26 16:08+0800\n"
-"PO-Revision-Date: 2011-12-26 16:18+0800\n"
+"POT-Creation-Date: 2012-01-04 21:05+0800\n"
+"PO-Revision-Date: 2012-01-04 21:19+0800\n"
 "Last-Translator: ZhiFeng Ma <mzf9527@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -364,20 +364,20 @@ msgid "Word count"
 msgstr "字数统计"
 
 #: ../src/bfwin_uimanager.c:805
-msgid "Indenting To S_paces"
-msgstr "用空格缩进(_p)"
+msgid "Indenting to S_paces"
+msgstr "缩进到空格(_p)"
 
 #: ../src/bfwin_uimanager.c:805
 msgid "Indenting to spaces"
-msgstr "用空格缩进"
+msgstr "缩进到空格"
 
 #: ../src/bfwin_uimanager.c:807
-msgid "Indenting To T_abs"
-msgstr "用跳格键缩进(_a)"
+msgid "Indenting to T_abs"
+msgstr "缩进到跳格符(_a)"
 
 #: ../src/bfwin_uimanager.c:807
 msgid "Indenting to tabs"
-msgstr "用跳格键缩进"
+msgstr "缩进到跳格符"
 
 #: ../src/bfwin_uimanager.c:809
 msgid "_Join Lines Together"
@@ -1966,7 +1966,7 @@ msgstr "模板(_T)："
 #. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 #. G_CALLBACK(snr_combo_activate_lcb), snrwin);
 #.
-#: ../src/preferences.c:483 ../src/preferences.c:1881 ../src/snr3.c:1487
+#: ../src/preferences.c:483 ../src/preferences.c:1881 ../src/snr3.c:1500
 msgid "<b>Options</b>"
 msgstr "<b>选项</b>"
 
@@ -2649,7 +2649,7 @@ msgstr "文档被修改时的标签色(_m)："
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2305 ../src/rcfile.c:1118
+#: ../src/preferences.c:2305 ../src/rcfile.c:1119
 msgid "Images"
 msgstr "图像"
 
@@ -2929,19 +2929,19 @@ msgstr "HTML 5"
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:1039
+#: ../src/rcfile.c:1040
 msgid "Untitled Project"
 msgstr "未命名的项目"
 
-#: ../src/rcfile.c:1110
+#: ../src/rcfile.c:1111
 msgid "C programming"
 msgstr "C 语言编程"
 
-#: ../src/rcfile.c:1114
+#: ../src/rcfile.c:1115
 msgid "Web files"
 msgstr "Web 文件（集）"
 
-#: ../src/rcfile.c:1121
+#: ../src/rcfile.c:1122
 msgid "Hide objectfiles"
 msgstr "隐藏目标文件"
 
@@ -2964,78 +2964,78 @@ msgid ""
 "span>"
 msgstr "<span foreground=\"red\" weight=\"bold\">部分文档仍在读取中</span>"
 
-#: ../src/snr3.c:848
+#: ../src/snr3.c:853
 #, c-format
 msgid "<i>Replaced %d entry</i>"
 msgid_plural "<i>Replaced %d entries</i>"
 msgstr[0] "<i>已替换 %d 个条目</i>"
 msgstr[1] "<i>已替换 %d 个条目</i>"
 
-#: ../src/snr3.c:851
+#: ../src/snr3.c:856
 #, c-format
 msgid "<i>Found %d entry</i>"
 msgid_plural "<i>Found %d entries</i>"
 msgstr[0] "<i>找到 %d 个条目</i>"
 msgstr[1] "<i>找到 %d 个条目</i>"
 
-#: ../src/snr3.c:1070
+#: ../src/snr3.c:1074
 #, c-format
 msgid "<i>Found %d result in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr[0] "<i>已找到 %d 个结果在 %d 个文档中，在 %d 个文档中搜索</i>"
 msgstr[1] "<i>已找到 %d 个结果在 %d 个文档中，在 %d 个文档中搜索</i>"
 
-#: ../src/snr3.c:1074
+#: ../src/snr3.c:1078
 #, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
 msgstr[0] "<i>已找到 %d 个结果，从字符 %d 到 %d</i>"
 msgstr[1] "<i>已找到 %d 个结果，从字符 %d 到 %d</i>"
 
-#: ../src/snr3.c:1077
+#: ../src/snr3.c:1081
 #, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
 msgstr[0] "<i>在激活的文档中找到 %d 个结果</i>"
 msgstr[1] "<i>在激活的文档中找到 %d 个结果</i>"
 
-#: ../src/snr3.c:1381
+#: ../src/snr3.c:1394
 msgid "Active document"
 msgstr "当前激活的文档"
 
-#: ../src/snr3.c:1382
+#: ../src/snr3.c:1395
 msgid "Forward from cursor position"
 msgstr "从光标处向前"
 
-#: ../src/snr3.c:1383
+#: ../src/snr3.c:1396
 msgid "Current selection"
 msgstr "当前选择区域"
 
-#: ../src/snr3.c:1384
+#: ../src/snr3.c:1397
 msgid "All open documents"
 msgstr "所有已打开的文档"
 
-#: ../src/snr3.c:1385
+#: ../src/snr3.c:1398
 msgid "Files on disk"
 msgstr "磁盘上的文件"
 
-#: ../src/snr3.c:1389 ../src/snr3.c:1394
+#: ../src/snr3.c:1402 ../src/snr3.c:1407
 msgid "Normal"
 msgstr "普通"
 
-#: ../src/snr3.c:1390
+#: ../src/snr3.c:1403
 msgid "Regular expression (pcre)"
 msgstr "正则表达式（pcre）"
 
-#: ../src/snr3.c:1395
+#: ../src/snr3.c:1408
 msgid "Uppercase"
 msgstr "大写"
 
-#: ../src/snr3.c:1396
+#: ../src/snr3.c:1409
 msgid "Lowercase"
 msgstr "小写"
 
-#: ../src/snr3.c:1403
+#: ../src/snr3.c:1416
 msgid "Find and Replace"
 msgstr "查找与替换"
 
@@ -3043,75 +3043,79 @@ msgstr "查找与替换"
 #. search/replace within the selection
 #. if (bfwin->session->searchlist)
 #. gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->search), 0);
-#: ../src/snr3.c:1442
+#: ../src/snr3.c:1455
 msgid "<b>_Search for</b>"
 msgstr "<b>搜索项（_S）</b>"
 
-#: ../src/snr3.c:1475
+#: ../src/snr3.c:1488
 msgid "<b>Replace _with</b>"
 msgstr "<b>替换为(_w)</b>"
 
-#: ../src/snr3.c:1497
+#: ../src/snr3.c:1510
 msgid "Match Patter_n: "
 msgstr "匹配模式(_n)："
 
-#: ../src/snr3.c:1509
+#: ../src/snr3.c:1522
 msgid "Replace T_ype: "
 msgstr "替换类型(_y)："
 
-#: ../src/snr3.c:1522
+#: ../src/snr3.c:1535
 msgid "Sco_pe: "
 msgstr "范围(_p)："
 
-#: ../src/snr3.c:1538
+#: ../src/snr3.c:1551
 msgid "Filename pattern: "
 msgstr "文件名模式："
 
-#: ../src/snr3.c:1544
+#: ../src/snr3.c:1557
+msgid "Recursion level: "
+msgstr "递归级别："
+
+#: ../src/snr3.c:1563
 msgid "Basedir: "
 msgstr "基础目录："
 
-#: ../src/snr3.c:1563
+#: ../src/snr3.c:1582
 msgid "Case sensitive _matching"
 msgstr "大小写敏感匹配(_m)"
 
-#: ../src/snr3.c:1565
+#: ../src/snr3.c:1584
 msgid "Only match if case (upper/lower) is identical."
 msgstr "仅匹配大小写一致的情况。"
 
-#: ../src/snr3.c:1569
+#: ../src/snr3.c:1588
 msgid "Pattern contains escape-se_quences"
 msgstr "包含了转义序列的模式"
 
-#: ../src/snr3.c:1572
+#: ../src/snr3.c:1591
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr "包含了反斜线转义字符的模式，如：\\n、\\t等等。"
 
-#: ../src/snr3.c:1576
+#: ../src/snr3.c:1595
 msgid "Dot character in regex pattern matches newlines"
 msgstr "在正则表达式中的豆点字符为匹配新行"
 
-#: ../src/snr3.c:1579
+#: ../src/snr3.c:1598
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr "字符 . 将匹配包括新行在内的任意项，用于多行匹配。"
 
-#: ../src/snr3.c:1601
+#: ../src/snr3.c:1620
 msgid "Replace _All"
 msgstr "全部替换(_A)"
 
-#: ../src/snr3.c:1603
+#: ../src/snr3.c:1622
 msgid "_Replace"
 msgstr "替换(_R)"
 
-#: ../src/snr3.c:1607
-msgid "Find All"
-msgstr "查找全部"
+#: ../src/snr3.c:1626
+msgid "_Find All"
+msgstr "查找全部(_F)"
 
-#: ../src/snr3.c:1609
-msgid "_Bookmark All"
-msgstr "全部设为书签(_B)"
+#: ../src/snr3.c:1628
+msgid "B_ookmark All"
+msgstr "全部设为书签(_o)"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
 msgid "Undo in _all documents"
