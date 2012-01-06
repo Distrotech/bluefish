@@ -909,9 +909,17 @@ handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 	Toffsetupdate offsetupdate = {doc,pos,len};
 	Truninidle *rii;
 	gint comparepos;
-	if (s3run->in_replace) {
+	if (s3run->in_replace || s3run->scope == snr3scope_files) {
 		return;
 	}
+	if (s3run->scope != snr3scope_alldocs) { /* allfiles does already return in the 
+			previous check, so if it is not alldocs it must be in a single document */
+		GList *tmplist = g_list_first(s3run->results.head);
+		/* see if the user was actually searching in this doc */
+		if (tmplist && ((Tsnr3result *)tmplist->data)->doc != doc)
+			return;
+	}
+	
 	comparepos = (len > 0) ? pos : pos - len;
 	if (s3run->so > comparepos) {
 		s3run->so += len;
