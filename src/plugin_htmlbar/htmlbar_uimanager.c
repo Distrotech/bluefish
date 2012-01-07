@@ -2,7 +2,7 @@
  * Bluefish HTML Editor
  * htmlbar_uimanager.c
  *
- * Copyright (C) 2005-2011 Olivier Sessink
+ * Copyright (C) 2005-2012 Olivier Sessink
  * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
@@ -1706,24 +1706,78 @@ htmlbar_menu_create(Thtmlbarwin * hbw)
 {
 	Tbfwin *bfwin = hbw->bfwin;
 	Thtmlbarsession *hbs;
-	GtkActionGroup *action_group;
 
 	static const GtkToggleActionEntry htmlbar_toggle_actions[] = {
 		{"ViewHTMLToolbar", NULL, N_("_HTML Toolbar"), NULL, NULL, G_CALLBACK(htmlbar_toolbar_show_toogle),
 		 TRUE},
 	};
 
-	action_group = gtk_action_group_new("htmlbarActions");
-	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE "_plugin_htmlbar");
-	gtk_action_group_add_actions(action_group, htmlbar_actions, G_N_ELEMENTS(htmlbar_actions), bfwin);
-	gtk_action_group_add_toggle_actions(action_group, htmlbar_toggle_actions,
+	hbw->actiongroup = gtk_action_group_new("htmlbarActions");
+	gtk_action_group_set_translation_domain(hbw->actiongroup, GETTEXT_PACKAGE "_plugin_htmlbar");
+	gtk_action_group_add_actions(hbw->actiongroup, htmlbar_actions, G_N_ELEMENTS(htmlbar_actions), bfwin);
+	gtk_action_group_add_toggle_actions(hbw->actiongroup, htmlbar_toggle_actions,
 										G_N_ELEMENTS(htmlbar_toggle_actions), hbw);
-	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 0);
-	g_object_unref(action_group);
+	gtk_ui_manager_insert_action_group(bfwin->uimanager, hbw->actiongroup, 0);
+	g_object_unref(hbw->actiongroup);
 	hbs = g_hash_table_lookup(htmlbar_v.lookup, bfwin->session);
 	if (hbs)
-		bfwin_set_menu_toggle_item(action_group, "ViewHTMLToolbar", hbs->view_htmlbar);
+		bfwin_set_menu_toggle_item(hbw->actiongroup, "ViewHTMLToolbar", hbs->view_htmlbar);
 
+}
+
+static gboolean
+toolbar_button_press_event_lcb(GtkWidget *widget,GdkEvent  *event,gpointer   user_data)
+{
+	Thtmlbarwin * hbw=user_data;
+	g_print("toolbar_button_press_event_lcb, called for widget %p\n",widget);
+	if (event->button.button == 3) {
+		GtkWidget *p;
+		GtkAction *action;
+		g_print("right click, return TRUE\n");
+		p = gtk_widget_get_parent(widget);
+		if (!p)
+			return FALSE;
+		action = gtk_activatable_get_related_action(GTK_ACTIVATABLE(p));
+		if (!action)
+			return FALSE;
+		g_print("toolbar_button_press_event_lcb, add action %s \n", gtk_action_get_name(action));
+		htmlbar_v.quickbar_items = g_list_prepend(htmlbar_v.quickbar_items, g_strdup(gtk_action_get_name(action)));
+		return TRUE;
+	}
+	return FALSE;
+}
+
+static void
+htmlbar_load_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
+{
+	GList *tmplist;
+	for (tmplist=g_list_first(htmlbar_v.quickbar_items);tmplist;tmplist=g_list_next(tmplist)) {
+		GtkWidget *toolitem;
+		GtkAction *action;
+		action = gtk_action_group_get_action(hbw->actiongroup, tmplist->data);
+		toolitem = gtk_action_create_tool_item(action);
+		gtk_container_add(GTK_CONTAINER(toolbar), toolitem);
+	}
+}
+
+static void
+setup_items_for_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
+{
+	GList *children, *tmplist, *children2, *tmplist2;
+	g_print("setup_items_for_quickbar, about to connect signals to toolbar buttons\n");
+	children = gtk_container_get_children(GTK_CONTAINER(toolbar));
+	for (tmplist=g_list_first(children);tmplist;tmplist=g_list_next(tmplist)) {
+/*		g_print("have child %p of type %s\n", tmplist->data, G_OBJECT_TYPE_NAME(tmplist->data));*/
+		GtkAction *action = gtk_activatable_get_related_action(tmplist->data);
+		if (action) {
+			children2 = gtk_container_get_children(GTK_CONTAINER(tmplist->data));
+			for (tmplist2=g_list_first(children2);tmplist2;tmplist2=g_list_next(tmplist2)) {
+				/*g_print("have child-child %p of type %s\n", tmplist2->data, G_OBJECT_TYPE_NAME(tmplist2->data));*/
+				g_signal_connect(tmplist2->data, "button-press-event", G_CALLBACK(toolbar_button_press_event_lcb), hbw);
+			}			
+		}
+		/*g_print("action=%p %s\n", action, action? gtk_action_get_name(action): "NULL");*/
+	}
 }
 
 void
@@ -1742,41 +1796,55 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw)
 	gtk_container_add(GTK_CONTAINER(hbw->handlebox), html_notebook);
 	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), hbw->handlebox, FALSE, FALSE, 0);
 
+	toolbar = gtk_toolbar_new();
+	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Quickbar ")));
+	htmlbar_load_quickbar(hbw, toolbar);
+
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Standard ")));
+	setup_items_for_quickbar(hbw, toolbar);
 
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFontsToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Fonts ")));
+	setup_items_for_quickbar(hbw, toolbar);
 
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFormattingToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Formatting ")));
+	setup_items_for_quickbar(hbw, toolbar);
 
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLTablesToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Tables ")));
+	setup_items_for_quickbar(hbw, toolbar);
 
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFramesToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Frames ")));
+	setup_items_for_quickbar(hbw, toolbar);
 
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFormsToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Forms ")));
+	setup_items_for_quickbar(hbw, toolbar);
 
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLListToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" List ")));
+	setup_items_for_quickbar(hbw, toolbar);
 
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLCSSToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" CSS ")));
+	setup_items_for_quickbar(hbw, toolbar);
 
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLHTML5Toolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" HTML 5 ")));
+	setup_items_for_quickbar(hbw, toolbar);
 
 	gtk_widget_show_all(hbw->handlebox);
 }
