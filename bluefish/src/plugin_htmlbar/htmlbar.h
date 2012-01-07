@@ -40,6 +40,7 @@ typedef struct {
 typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *handlebox;
+	GtkActionGroup *actiongroup;
 } Thtmlbarwin;
 
 typedef struct {
