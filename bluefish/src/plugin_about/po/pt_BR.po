@@ -5,22 +5,22 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.4\n"
+"Project-Id-Version: Bluefish 2.2.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-08-24 21:37+0200\n"
-"PO-Revision-Date: 2009-09-20 12:13-0300\n"
+"POT-Creation-Date: 2011-12-09 21:16+0100\n"
+"PO-Revision-Date: 2012-01-07 08:30-0300\n"
 "Last-Translator: Esfinge Metal <esfingemetal@gmail.com>\n"
 "Language-Team: \n"
-"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 
-#: src/plugin_about/about.c:76
+#: src/plugin_about/about.c:75
 msgid "This version of Bluefish was built with:\n"
 msgstr "Essa versão do Bluefish foi construída com:\n"
 
-#: src/plugin_about/about.c:143
+#: src/plugin_about/about.c:181
 msgid ""
 "\n"
 "Developers of previous releases:"
@@ -28,7 +28,7 @@ msgstr ""
 "\n"
 "Desenvolvedores de versões anteriores:"
 
-#: src/plugin_about/about.c:158
+#: src/plugin_about/about.c:196
 msgid ""
 "\n"
 "Package maintainers:"
@@ -36,7 +36,7 @@ msgstr ""
 "\n"
 "Mantenedores de pacotes:"
 
-#: src/plugin_about/about.c:165
+#: src/plugin_about/about.c:203
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
@@ -46,7 +46,7 @@ msgstr ""
 "Se você souber de alguem faltando nessa lista,\n"
 "por favor deixe-nos saber via <bluefish@bluefish.openoffice.nl>."
 
-#: src/plugin_about/about.c:166
+#: src/plugin_about/about.c:204
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
@@ -54,15 +54,9 @@ msgstr ""
 "\n"
 "Obrigado a todos que ajudaram a tornar esse software disponível."
 
-#: src/plugin_about/about.c:202
-msgid ""
-"An open-source editor for experienced web designers and programmers, "
-"supporting many programming and markup languages, but focusing on creating "
-"dynamic and interactive websites."
-msgstr ""
-"Um editor open source (código aberto) para web designers experientes e "
-"programadores, suportando muitas linguagens de programação e markup, mas "
-"focando na criação de websites dinâmicos e interativos."
+#: src/plugin_about/about.c:240
+msgid "An open-source editor for experienced web designers and programmers, supporting many programming and markup languages, but focusing on creating dynamic and interactive websites."
+msgstr "Um editor open source (código aberto) para web designers experientes e programadores, suportando muitas linguagens de programação e markup, mas focando na criação de websites dinâmicos e interativos."
 
 #. Translators: This is a special message that shouldn't be translated
 #. * literally. It is used in the about box to give credits to
@@ -72,48 +66,45 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:212
+#: src/plugin_about/about.c:250
 msgid "translator-credits"
 msgstr ""
 "Anderson Rocha  <anderson@ilheusnet.com.br>\n"
 "Esfinge Metal <esfingemetal@gmail.com>"
 
-#: src/plugin_about/about.c:276
+#: src/plugin_about/about.c:316
 msgid "_Help"
 msgstr "Aj_uda"
 
-#: src/plugin_about/about.c:277
+#: src/plugin_about/about.c:317
 msgid "Bluefish _Homepage"
 msgstr "Bluefish _Homepage"
 
-#: src/plugin_about/about.c:277
-#, fuzzy
+#: src/plugin_about/about.c:317
 msgid "Bluefish homepage"
-msgstr "Bluefish _Homepage"
+msgstr "Bluefish homepage"
 
-#: src/plugin_about/about.c:279
+#: src/plugin_about/about.c:319
 msgid "Report a _Bug"
 msgstr "Reportar um bug"
 
-#: src/plugin_about/about.c:279
-#, fuzzy
+#: src/plugin_about/about.c:319
 msgid "Report a bug"
-msgstr "Reportar um bug"
+msgstr "Reportar bug"
 
-#: src/plugin_about/about.c:280
+#: src/plugin_about/about.c:320
 msgid "_About"
-msgstr ""
+msgstr "_Sobre"
 
-#: src/plugin_about/about.c:280
+#: src/plugin_about/about.c:320
 msgid "About Bluefish"
-msgstr ""
+msgstr "Sobre Bluefish"
 
-#: src/plugin_about/about.c:282
-#, fuzzy
-msgid "_Build Info"
-msgstr "Informação de construção..."
+#: src/plugin_about/about.c:322
+msgid "Build _Info"
+msgstr "_Informação de build"
 
-#: src/plugin_about/about.c:282
-#, fuzzy
+#: src/plugin_about/about.c:322
 msgid "Build info"
-msgstr "Informação de construção..."
+msgstr "Informação de build"
+
