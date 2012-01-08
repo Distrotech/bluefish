@@ -1888,6 +1888,7 @@ notebook_switch_page_lcb(GtkNotebook *notebook,GtkWidget   *page,guint        pa
 	Thtmlbarsession *hbs;
 	hbs = g_hash_table_lookup(htmlbar_v.lookup, hbw->bfwin->session);
 	if (hbs) {
+		g_print("htmlbar notebook_switch_page_lcb, set page %d\n", page_num);
 		hbs->notebooktab = page_num;
 	}
 }
@@ -1957,11 +1958,14 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw, Thtmlbarsession *hbs)
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" HTML 5 ")));
 	setup_items_for_quickbar(hbw, toolbar);
-
+	
+	gtk_widget_show_all(hbw->handlebox);
+	
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(html_notebook), hbs->notebooktab);
+	g_print("htmlbar htmlbar_toolbar_create, make page %d active\n", hbs->notebooktab);
 	g_signal_connect(G_OBJECT(html_notebook), "switch-page", G_CALLBACK(notebook_switch_page_lcb), hbw);
 
-	gtk_widget_show_all(hbw->handlebox);
+	
 }
 
 void htmlbar_load_ui(Thtmlbarwin * hbw)
