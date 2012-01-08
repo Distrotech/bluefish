@@ -24,6 +24,7 @@
 #include "../bluefish.h"
 #include "../bfwin_uimanager.h"
 #include "../document.h"
+#include "../stringlist.h"
 #include "cap.h"
 #include "html.h"
 #include "html2.h"
@@ -1725,13 +1726,47 @@ htmlbar_menu_create(Thtmlbarwin * hbw)
 
 }
 
+
+static GtkWidget *quickbar_create_popup_menu(gboolean add, const gchar *actionname);
+
+static gboolean
+quickbar_button_press_event_lcb(GtkWidget *widget,GdkEvent  *event,gpointer   user_data)
+{
+	if (event->button.button == 3) {
+		GtkWidget *p, *menu;
+		GtkAction *action;
+		p = gtk_widget_get_parent(widget);
+		if (!p)
+			return FALSE;
+		action = gtk_activatable_get_related_action(GTK_ACTIVATABLE(p));
+		if (!action)
+			return FALSE;
+		menu = quickbar_create_popup_menu(FALSE, gtk_action_get_name(action));
+		gtk_menu_popup(GTK_MENU(menu),NULL,NULL,NULL,NULL,3,event->button.time);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+
 static void
 htmlbar_quickbar_add_item(Thtmlbarwin * hbw, const gchar *actionname)
 {
 	GtkWidget *toolitem;
 	GtkAction *action;
+	GList *children2, *tmplist2;
 	action = gtk_action_group_get_action(hbw->actiongroup, actionname);
+	if (!action)
+		return;
 	toolitem = gtk_action_create_tool_item(action);
+	if (!toolitem)
+		return;
+	children2 = gtk_container_get_children(GTK_CONTAINER(toolitem));
+	for (tmplist2=g_list_first(children2);tmplist2;tmplist2=g_list_next(tmplist2)) {
+		/*g_print("have child-child %p of type %s\n", tmplist2->data, G_OBJECT_TYPE_NAME(tmplist2->data));*/
+		g_signal_connect(tmplist2->data, "button-press-event", G_CALLBACK(quickbar_button_press_event_lcb), hbw);
+	}	
+	
 	gtk_container_add(GTK_CONTAINER(hbw->quickbar_toolbar), toolitem);	
 }
 
@@ -1751,13 +1786,45 @@ add_to_quickbar_activate_lcb(GtkMenuItem *m, gpointer data)
 	}
 }
 
+static void
+htmlbar_quickbar_remove_item(Thtmlbarwin * hbw, const gchar *actionname)
+{
+	GList *children, *tmplist;
+	children = gtk_container_get_children(GTK_CONTAINER(hbw->quickbar_toolbar));
+	for (tmplist=g_list_first(children);tmplist;tmplist=g_list_next(tmplist)) {
+/*		g_print("have child %p of type %s\n", tmplist->data, G_OBJECT_TYPE_NAME(tmplist->data));*/
+		GtkAction *action = gtk_activatable_get_related_action(tmplist->data);
+		if (action && strcmp(gtk_action_get_name(action), actionname)==0) {
+			gtk_container_remove(GTK_CONTAINER(hbw->quickbar_toolbar), tmplist->data);
+			return;
+		}
+		/*g_print("action=%p %s\n", action, action? gtk_action_get_name(action): "NULL");*/
+	}
+}
+
+static void
+remove_from_quickbar_activate_lcb(GtkMenuItem *m, gpointer data)
+{
+	GList *tmplist;
+	g_print("remove_from_quickbar_activate_lcb, removing %s from quickbar_items\n", (gchar *)data);
+	htmlbar_v.quickbar_items = remove_from_stringlist(htmlbar_v.quickbar_items, data);
+	/* now loop over all the windows that have a htmlbar, and remove the item */
+	for (tmplist=g_list_first(main_v->bfwinlist);tmplist;tmplist=g_list_next(tmplist)) {
+		Thtmlbarwin * hbw;
+		hbw = g_hash_table_lookup(htmlbar_v.lookup, tmplist->data);
+		if (hbw) {
+			htmlbar_quickbar_remove_item(hbw, (const gchar *)data);
+		}
+	}
+}
+
 static GtkWidget *
-quickbar_create_popup_menu(const gchar *actionname)
+quickbar_create_popup_menu(gboolean add, const gchar *actionname)
 {
 	GtkWidget *menu, *menuitem;
 	menu = gtk_menu_new();
-	menuitem = gtk_menu_item_new_with_label(_("Add to Quickbar"));
-	g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(add_to_quickbar_activate_lcb), (gpointer)actionname);
+	menuitem = gtk_menu_item_new_with_label(add ? _("Add to Quickbar") : _("Remove from Quickbar"));
+	g_signal_connect(G_OBJECT(menuitem), "activate", add ? G_CALLBACK(add_to_quickbar_activate_lcb) : G_CALLBACK(remove_from_quickbar_activate_lcb), (gpointer)actionname);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 	gtk_widget_show_all(menu);
 	return menu;
@@ -1780,7 +1847,7 @@ toolbar_button_press_event_lcb(GtkWidget *widget,GdkEvent  *event,gpointer   use
 			return FALSE;
 		g_print("toolbar_button_press_event_lcb, add action %s \n", gtk_action_get_name(action));
 		
-		menu = quickbar_create_popup_menu(gtk_action_get_name(action));
+		menu = quickbar_create_popup_menu(TRUE, gtk_action_get_name(action));
 		gtk_menu_popup(GTK_MENU(menu),NULL,NULL,NULL,NULL,3,event->button.time);
 /*		htmlbar_v.quickbar_items = g_list_prepend(htmlbar_v.quickbar_items, g_strdup(gtk_action_get_name(action)));*/
 		return TRUE;
