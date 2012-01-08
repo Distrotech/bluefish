@@ -1771,7 +1771,7 @@ static void
 add_to_quickbar_activate_lcb(GtkMenuItem *m, gpointer data)
 {
 	GList *tmplist;
-	g_print("add_to_quickbar_activate_lcb, adding %s to quickbar_items\n", (gchar *)data);
+	DEBUG_MSG("add_to_quickbar_activate_lcb, adding %s to quickbar_items\n", (gchar *)data);
 	htmlbar_v.quickbar_items = g_list_append(htmlbar_v.quickbar_items, g_strdup(data));
 	/* now loop over all the windows that have a htmlbar, and add the item */
 	for (tmplist=g_list_first(main_v->bfwinlist);tmplist;tmplist=g_list_next(tmplist)) {
@@ -1803,7 +1803,7 @@ static void
 remove_from_quickbar_activate_lcb(GtkMenuItem *m, gpointer data)
 {
 	GList *tmplist;
-	g_print("remove_from_quickbar_activate_lcb, removing %s from quickbar_items\n", (gchar *)data);
+	DEBUG_MSG("remove_from_quickbar_activate_lcb, removing %s from quickbar_items\n", (gchar *)data);
 	htmlbar_v.quickbar_items = remove_from_stringlist(htmlbar_v.quickbar_items, data);
 	/* now loop over all the windows that have a htmlbar, and remove the item */
 	for (tmplist=g_list_first(main_v->bfwinlist);tmplist;tmplist=g_list_next(tmplist)) {
@@ -1831,18 +1831,17 @@ static gboolean
 toolbar_button_press_event_lcb(GtkWidget *widget,GdkEvent  *event,gpointer   user_data)
 {
 	/*Thtmlbarwin * hbw=user_data;*/
-	g_print("toolbar_button_press_event_lcb, called for widget %p\n",widget);
+	DEBUG_MSG("toolbar_button_press_event_lcb, called for widget %p\n",widget);
 	if (event->button.button == 3) {
 		GtkWidget *p, *menu;
 		GtkAction *action;
-		g_print("right click, return TRUE\n");
 		p = gtk_widget_get_parent(widget);
 		if (!p)
 			return FALSE;
 		action = gtk_activatable_get_related_action(GTK_ACTIVATABLE(p));
 		if (!action)
 			return FALSE;
-		g_print("toolbar_button_press_event_lcb, add action %s \n", gtk_action_get_name(action));
+		DEBUG_MSG("toolbar_button_press_event_lcb, add action %s \n", gtk_action_get_name(action));
 		
 		menu = quickbar_create_popup_menu(TRUE, gtk_action_get_name(action));
 		gtk_menu_popup(GTK_MENU(menu),NULL,NULL,NULL,NULL,3,event->button.time);
@@ -1865,7 +1864,7 @@ static void
 setup_items_for_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
 {
 	GList *children, *tmplist, *children2, *tmplist2;
-	g_print("setup_items_for_quickbar, about to connect signals to toolbar buttons\n");
+	DEBUG_MSG("setup_items_for_quickbar, about to connect signals to toolbar buttons\n");
 	children = gtk_container_get_children(GTK_CONTAINER(toolbar));
 	for (tmplist=g_list_first(children);tmplist;tmplist=g_list_next(tmplist)) {
 /*		g_print("have child %p of type %s\n", tmplist->data, G_OBJECT_TYPE_NAME(tmplist->data));*/
@@ -1888,7 +1887,7 @@ notebook_switch_page_lcb(GtkNotebook *notebook,GtkWidget   *page,guint        pa
 	Thtmlbarsession *hbs;
 	hbs = g_hash_table_lookup(htmlbar_v.lookup, hbw->bfwin->session);
 	if (hbs) {
-		g_print("htmlbar notebook_switch_page_lcb, set page %d\n", page_num);
+		DEBUG_MSG("htmlbar notebook_switch_page_lcb, set page %d\n", page_num);
 		hbs->notebooktab = page_num;
 	}
 }
@@ -1962,7 +1961,7 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw, Thtmlbarsession *hbs)
 	gtk_widget_show_all(hbw->handlebox);
 	
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(html_notebook), hbs->notebooktab);
-	g_print("htmlbar htmlbar_toolbar_create, make page %d active\n", hbs->notebooktab);
+	DEBUG_MSG("htmlbar htmlbar_toolbar_create, make page %d active\n", hbs->notebooktab);
 	g_signal_connect(G_OBJECT(html_notebook), "switch-page", G_CALLBACK(notebook_switch_page_lcb), hbw);
 
 	

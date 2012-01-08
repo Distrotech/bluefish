@@ -165,6 +165,7 @@ static void
 htmlbar_cleanup_gui(Tbfwin * bfwin)
 {
 	/* BUG: clean the keys and structures in the hashtable */
+	DEBUG_MSG("htmlbar_cleanup_gui, cleanup bfwin %p\n",bfwin);
 	g_hash_table_remove(htmlbar_v.lookup, bfwin);
 }
 
@@ -198,6 +199,7 @@ htmlbar_register_session_config(GHashTable * configlist, Tsessionvars * session)
 static void
 htmlbar_session_cleanup(Tsessionvars * session)
 {
+	DEBUG_MSG("htmlbar_session_cleanup, cleanup session %p\n", session);
 	g_hash_table_remove(htmlbar_v.lookup, session);
 }
 
