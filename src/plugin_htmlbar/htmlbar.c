@@ -120,7 +120,7 @@ htmlbar_initgui(Tbfwin * bfwin)
 	DEBUG_MSG("htmlbar_initgui, started, will call htmlbar_load_ui\n");
 	htmlbar_load_ui(hbw);
 	htmlbar_menu_create(hbw);
-	htmlbar_toolbar_show(hbw, hbs->view_htmlbar);
+	htmlbar_toolbar_show(hbw, hbs, hbs->view_htmlbar);
 	DEBUG_MSG("htmlbar_initgui, finished\n");
 }
 
@@ -133,7 +133,7 @@ htmlbar_enforce_session(Tbfwin * bfwin)
 	hbs = g_hash_table_lookup(htmlbar_v.lookup, bfwin->session);
 	hbw = g_hash_table_lookup(htmlbar_v.lookup, bfwin);
 	if (hbs && hbw) {
-		htmlbar_toolbar_show(hbw, hbs->view_htmlbar);
+		htmlbar_toolbar_show(hbw, hbs, hbs->view_htmlbar);
 	}
 }
 
@@ -191,6 +191,7 @@ htmlbar_register_session_config(GHashTable * configlist, Tsessionvars * session)
 				  htmlbar_v.lookup, session);
 	}
 	configlist = make_config_list_item(configlist, &hbs->view_htmlbar, 'i', "htmlbar_view:", 0);
+	configlist = make_config_list_item(configlist, &hbs->notebooktab, 'i', "htmlbar_notebooktab:", 0);
 	return configlist;
 }
 
