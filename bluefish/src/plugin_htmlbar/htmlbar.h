@@ -46,6 +46,7 @@ typedef struct {
 
 typedef struct {
 	gint view_htmlbar;
+	gint notebooktab;
 } Thtmlbarsession;
 
 extern Thtmlbar htmlbar_v;

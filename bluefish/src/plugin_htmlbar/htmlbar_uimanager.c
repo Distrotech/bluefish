@@ -1223,13 +1223,13 @@ htmlbar_insert_middot(GtkAction * action, gpointer user_data)
 }
 
 void
-htmlbar_toolbar_show(Thtmlbarwin * hbw, gboolean show)
+htmlbar_toolbar_show(Thtmlbarwin * hbw, Thtmlbarsession *hbs, gboolean show)
 {
 	if (show) {
 		if (hbw->handlebox)
 			gtk_widget_show(hbw->handlebox);
 		else
-			htmlbar_toolbar_create(hbw);
+			htmlbar_toolbar_create(hbw, hbs);
 	} else {
 		if (hbw->handlebox)
 			gtk_widget_hide(hbw->handlebox);
@@ -1243,13 +1243,10 @@ htmlbar_toolbar_show_toogle(GtkAction * action, gpointer user_data)
 	Thtmlbarsession *hbs;
 
 	hbs = g_hash_table_lookup(htmlbar_v.lookup, hbw->bfwin->session);
-	if (hbs) {
-		hbs->view_htmlbar = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
-	} else {
-		DEBUG_MSG("htmlbar_toolbar_show_toogle, ERROR, no htmlbarsession ???\n");
-	}
-
-	htmlbar_toolbar_show(hbw, gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)));
+	if (!hbs) 
+		return;
+	hbs->view_htmlbar = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
+	htmlbar_toolbar_show(hbw, hbs, gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)));
 }
 
 static void
@@ -1884,8 +1881,19 @@ setup_items_for_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
 	}
 }
 
+static void
+notebook_switch_page_lcb(GtkNotebook *notebook,GtkWidget   *page,guint        page_num,gpointer     user_data)
+{
+	Thtmlbarwin * hbw = user_data;
+	Thtmlbarsession *hbs;
+	hbs = g_hash_table_lookup(htmlbar_v.lookup, hbw->bfwin->session);
+	if (hbs) {
+		hbs->notebooktab = page_num;
+	}
+}
+
 void
-htmlbar_toolbar_create(Thtmlbarwin * hbw)
+htmlbar_toolbar_create(Thtmlbarwin * hbw, Thtmlbarsession *hbs)
 {
 	Tbfwin *bfwin = hbw->bfwin;
 
@@ -1949,6 +1957,9 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw)
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" HTML 5 ")));
 	setup_items_for_quickbar(hbw, toolbar);
+
+	gtk_notebook_set_current_page(GTK_NOTEBOOK(html_notebook), hbs->notebooktab);
+	g_signal_connect(G_OBJECT(html_notebook), "switch-page", G_CALLBACK(notebook_switch_page_lcb), hbw);
 
 	gtk_widget_show_all(hbw->handlebox);
 }
