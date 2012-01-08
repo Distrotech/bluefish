@@ -41,6 +41,7 @@ typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *handlebox;
 	GtkActionGroup *actiongroup;
+	GtkWidget *quickbar_toolbar;
 } Thtmlbarwin;
 
 typedef struct {

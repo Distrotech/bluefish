@@ -1725,13 +1725,51 @@ htmlbar_menu_create(Thtmlbarwin * hbw)
 
 }
 
+static void
+htmlbar_quickbar_add_item(Thtmlbarwin * hbw, const gchar *actionname)
+{
+	GtkWidget *toolitem;
+	GtkAction *action;
+	action = gtk_action_group_get_action(hbw->actiongroup, actionname);
+	toolitem = gtk_action_create_tool_item(action);
+	gtk_container_add(GTK_CONTAINER(hbw->quickbar_toolbar), toolitem);	
+}
+
+static void
+add_to_quickbar_activate_lcb(GtkMenuItem *m, gpointer data)
+{
+	GList *tmplist;
+	g_print("add_to_quickbar_activate_lcb, adding %s to quickbar_items\n", (gchar *)data);
+	htmlbar_v.quickbar_items = g_list_append(htmlbar_v.quickbar_items, g_strdup(data));
+	/* now loop over all the windows that have a htmlbar, and add the item */
+	for (tmplist=g_list_first(main_v->bfwinlist);tmplist;tmplist=g_list_next(tmplist)) {
+		Thtmlbarwin * hbw;
+		hbw = g_hash_table_lookup(htmlbar_v.lookup, tmplist->data);
+		if (hbw) {
+			htmlbar_quickbar_add_item(hbw, (gchar *)data);
+		}
+	}
+}
+
+static GtkWidget *
+quickbar_create_popup_menu(const gchar *actionname)
+{
+	GtkWidget *menu, *menuitem;
+	menu = gtk_menu_new();
+	menuitem = gtk_menu_item_new_with_label(_("Add to Quickbar"));
+	g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(add_to_quickbar_activate_lcb), (gpointer)actionname);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+	gtk_widget_show_all(menu);
+	return menu;
+}
+
 static gboolean
 toolbar_button_press_event_lcb(GtkWidget *widget,GdkEvent  *event,gpointer   user_data)
 {
-	Thtmlbarwin * hbw=user_data;
+	/*Thtmlbarwin * hbw=user_data;*/
 	g_print("toolbar_button_press_event_lcb, called for widget %p\n",widget);
 	if (event->button.button == 3) {
-		GtkWidget *p;
+		GtkWidget *p, *menu;
 		GtkAction *action;
 		g_print("right click, return TRUE\n");
 		p = gtk_widget_get_parent(widget);
@@ -1741,7 +1779,10 @@ toolbar_button_press_event_lcb(GtkWidget *widget,GdkEvent  *event,gpointer   use
 		if (!action)
 			return FALSE;
 		g_print("toolbar_button_press_event_lcb, add action %s \n", gtk_action_get_name(action));
-		htmlbar_v.quickbar_items = g_list_prepend(htmlbar_v.quickbar_items, g_strdup(gtk_action_get_name(action)));
+		
+		menu = quickbar_create_popup_menu(gtk_action_get_name(action));
+		gtk_menu_popup(GTK_MENU(menu),NULL,NULL,NULL,NULL,3,event->button.time);
+/*		htmlbar_v.quickbar_items = g_list_prepend(htmlbar_v.quickbar_items, g_strdup(gtk_action_get_name(action)));*/
 		return TRUE;
 	}
 	return FALSE;
@@ -1752,11 +1793,7 @@ htmlbar_load_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
 {
 	GList *tmplist;
 	for (tmplist=g_list_first(htmlbar_v.quickbar_items);tmplist;tmplist=g_list_next(tmplist)) {
-		GtkWidget *toolitem;
-		GtkAction *action;
-		action = gtk_action_group_get_action(hbw->actiongroup, tmplist->data);
-		toolitem = gtk_action_create_tool_item(action);
-		gtk_container_add(GTK_CONTAINER(toolbar), toolitem);
+		htmlbar_quickbar_add_item(hbw, tmplist->data);
 	}
 }
 
@@ -1796,10 +1833,10 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw)
 	gtk_container_add(GTK_CONTAINER(hbw->handlebox), html_notebook);
 	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), hbw->handlebox, FALSE, FALSE, 0);
 
-	toolbar = gtk_toolbar_new();
-	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Quickbar ")));
-	htmlbar_load_quickbar(hbw, toolbar);
+	hbw->quickbar_toolbar = gtk_toolbar_new();
+	gtk_toolbar_set_style(GTK_TOOLBAR(hbw->quickbar_toolbar), GTK_TOOLBAR_ICONS);
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), hbw->quickbar_toolbar, gtk_label_new(_(" Quickbar ")));
+	htmlbar_load_quickbar(hbw, hbw->quickbar_toolbar);
 
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
