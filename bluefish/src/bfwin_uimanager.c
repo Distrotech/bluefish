@@ -1234,6 +1234,14 @@ dynamic_menu_item_create(GtkUIManager *uimanager, GtkActionGroup *action_group,
 						GCallback callback, gpointer callbackdata, gpointer actiondata)
 {
 	GtkAction *action;
+	
+	/* avoid duplicate actions */
+	action = gtk_action_group_get_action(action_group, action_name);
+	if (action) {
+		g_warning("duplicate action %s, ignoring\n", action_name);
+		return;
+	}
+	
 	if (radio_value == -1) {
 		action = gtk_action_new(action_name, action_label, NULL, NULL);
 	} else {
