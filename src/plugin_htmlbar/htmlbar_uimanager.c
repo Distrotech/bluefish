@@ -1762,15 +1762,24 @@ htmlbar_quickbar_add_item(Thtmlbarwin * hbw, const gchar *actionname)
 	for (tmplist2=g_list_first(children2);tmplist2;tmplist2=g_list_next(tmplist2)) {
 		/*g_print("have child-child %p of type %s\n", tmplist2->data, G_OBJECT_TYPE_NAME(tmplist2->data));*/
 		g_signal_connect(tmplist2->data, "button-press-event", G_CALLBACK(quickbar_button_press_event_lcb), hbw);
-	}	
+	}
+	g_list_free(children2);	
 	
-	gtk_container_add(GTK_CONTAINER(hbw->quickbar_toolbar), toolitem);	
+	gtk_toolbar_insert(GTK_TOOLBAR(hbw->quickbar_toolbar), GTK_TOOL_ITEM(toolitem), -1);	
 }
 
 static void
 add_to_quickbar_activate_lcb(GtkMenuItem *m, gpointer data)
 {
 	GList *tmplist;
+	gboolean firstitem;
+	/* first check if it is not a duplicate */
+	if (find_in_stringlist(htmlbar_v.quickbar_items, (gchar *)data)) {
+		DEBUG_MSG("add_to_quickbar_activate_lcb, duplicate entry for %s\n",(gchar *)data);
+		return;
+	}
+	firstitem = (htmlbar_v.quickbar_items==NULL);
+	
 	DEBUG_MSG("add_to_quickbar_activate_lcb, adding %s to quickbar_items\n", (gchar *)data);
 	htmlbar_v.quickbar_items = g_list_append(htmlbar_v.quickbar_items, g_strdup(data));
 	/* now loop over all the windows that have a htmlbar, and add the item */
@@ -1778,6 +1787,12 @@ add_to_quickbar_activate_lcb(GtkMenuItem *m, gpointer data)
 		Thtmlbarwin * hbw;
 		hbw = g_hash_table_lookup(htmlbar_v.lookup, tmplist->data);
 		if (hbw) {
+			if (firstitem) {
+				GList *children = gtk_container_get_children(GTK_CONTAINER(hbw->quickbar_toolbar));
+				if (children)
+					gtk_container_remove(GTK_CONTAINER(hbw->quickbar_toolbar), children->data);
+			}
+			
 			htmlbar_quickbar_add_item(hbw, (gchar *)data);
 		}
 	}
@@ -1797,6 +1812,7 @@ htmlbar_quickbar_remove_item(Thtmlbarwin * hbw, const gchar *actionname)
 		}
 		/*g_print("action=%p %s\n", action, action? gtk_action_get_name(action): "NULL");*/
 	}
+	g_list_free(children);
 }
 
 static void
@@ -1855,6 +1871,14 @@ static void
 htmlbar_load_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
 {
 	GList *tmplist;
+	if (htmlbar_v.quickbar_items == NULL) {
+		GtkWidget *label;
+		GtkToolItem *ti = gtk_tool_item_new();
+		label = gtk_label_new(_("Right click any html toolbar button to add it to the Quickbar."));
+		/*gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_END);*/
+		gtk_container_add(GTK_CONTAINER(ti), label);
+		gtk_toolbar_insert(GTK_TOOLBAR(toolbar),ti,0);
+	}
 	for (tmplist=g_list_first(htmlbar_v.quickbar_items);tmplist;tmplist=g_list_next(tmplist)) {
 		htmlbar_quickbar_add_item(hbw, tmplist->data);
 	}
@@ -1874,10 +1898,12 @@ setup_items_for_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
 			for (tmplist2=g_list_first(children2);tmplist2;tmplist2=g_list_next(tmplist2)) {
 				/*g_print("have child-child %p of type %s\n", tmplist2->data, G_OBJECT_TYPE_NAME(tmplist2->data));*/
 				g_signal_connect(tmplist2->data, "button-press-event", G_CALLBACK(toolbar_button_press_event_lcb), hbw);
-			}			
+			}
+			g_list_free(children2);			
 		}
 		/*g_print("action=%p %s\n", action, action? gtk_action_get_name(action): "NULL");*/
 	}
+	g_list_free(children);
 }
 
 static void
