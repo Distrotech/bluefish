@@ -3,7 +3,7 @@
 	Bluefish HTML Editor
 	css.bflang2 $Revision$
 
-	Copyright (C) 2008-2011 Olivier Sessink
+	Copyright (C) 2008-2012 Olivier Sessink
 
     This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 ]>
-<bflang name="CSS" version="2.0" table="7505" contexts="73" matches="1275">
+<bflang name="CSS" version="2.0" table="7864" contexts="75" matches="1307">
 <header>
 	<mime type="text/css" />
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -46,7 +46,7 @@
 	<smartoutdent characters="}" />
 </properties>
 <definition>
-	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[],">
+	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[](),">
 		<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
 				<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
