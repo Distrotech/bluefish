@@ -619,6 +619,8 @@ void bluefish_exit_request(void);
 #define GDK_KEY_7 GDK_7
 #define GDK_KEY_8 GDK_8
 #define GDK_KEY_9 GDK_9
+#define GDK_KEY_F1 GDK_F1 
+#define GDK_KEY_F12 GDK_F12
 #define GDK_KEY_Delete GDK_Delete
 #define GDK_KEY_BackSpace GDK_BackSpace
 #define GDK_KEY_KP_Delete GDK_KP_Delete
