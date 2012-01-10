@@ -22,22 +22,23 @@
 	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 ]>
-<bflang name="CSS" version="2.0" table="7864" contexts="75" matches="1307">
+<bflang name="CSS" version="2.0" table="7886" contexts="77" matches="1323">
 <header>
 	<mime type="text/css" />
-	<option name="load_reference" default="1" description="load reference data"/>
-	<option name="load_completion" default="1" description="load completion data"/>
-	<option name="show_in_menu" default="1"/>
-	<highlight name="css-brackets" style="brackets"  />
+	<option name="load_reference" default="1" description="load reference data" />
+	<option name="load_completion" default="1" description="load completion data" />
+	<option name="show_in_menu" default="1" />
+	<highlight name="css-brackets" style="brackets" />
 	<highlight name="css-comment" style="comment" />
-	<highlight name="css-html-tag" style="tag"  />
+	<highlight name="css-html-tag" style="tag" />
 	<highlight name="css-html-classid" style="tag" />
 	<highlight name="css-html-media" style="special-tag" />
-	<highlight name="css-keyword" style="keyword"  />
-	<highlight name="css-property" style="special-keyword"  />
-	<highlight name="css-draft-property" style="special-tag3"  />
+	<highlight name="css-keyword" style="keyword" />
+	<highlight name="css-property" style="special-keyword" />
+	<highlight name="css-draft-property" style="special-tag3" />
 	<highlight name="css-string" style="string" />
-	<highlight name="css-value" style="value"   />
+	<highlight name="css-value" style="value" />
+	<highlight name="css-operator" style="operator" />
 </header>
 <properties>
 	<comment type="block" start="/*" end="*/" />
@@ -46,7 +47,7 @@
 	<smartoutdent characters="}" />
 </properties>
 <definition>
-	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[](),">
+	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[]()#,">
 		<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
 				<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
@@ -86,10 +87,10 @@
 					<context symbols=" &#9;&#10;&#13;{}.:&quot;';*/" id="c.css.rules">
 						&css-rules;
 						<element idref="e.css.grouping.lcomment" />
-						<element id="e.css.grouping.rbrace1" pattern="}" ends_block="1" blockstartelement="e.css.grouping.lbrace" highlight="css-brackets" ends_context="1"/>
+						<element id="e.css.grouping.rbrace1" pattern="}" ends_block="1" blockstartelement="e.css.grouping.lbrace" highlight="css-brackets" ends_context="1" />
 					</context>
 				</element>
-				<element pattern="/\* @end[^*]+\*/" ends_block="1" blockstartelement="e.css.grouping" highlight="css-keyword" mayfold="1" ends_context="1" is_regex="1"/>
+				<element pattern="/\* @end[^*]+\*/" ends_block="1" blockstartelement="e.css.grouping" highlight="css-keyword" mayfold="1" ends_context="1" is_regex="1" />
 			</context>
 		</element>
 		&css-selectors;
