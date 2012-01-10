@@ -1369,7 +1369,7 @@ accelerator_key_press_lcb(GtkWidget * widget, GdkEventKey * event, gpointer user
 			if (accel_key != event->keyval) {
 				accel_mods |= GDK_SHIFT_MASK;
 			}
-			if (gtk_accelerator_valid(accel_key, accel_mods)) {
+			if (accel_key != 0 && (accel_mods != 0 || (accel_key >= GDK_KEY_F1 && accel_key <= GDK_KEY_F12)) && gtk_accelerator_valid(accel_key, accel_mods)) {
 				g_object_set_data(G_OBJECT(dlg), "keyname", gtk_accelerator_name(accel_key, accel_mods));
 				gtk_dialog_response(dlg, GTK_RESPONSE_OK);
 			} else {

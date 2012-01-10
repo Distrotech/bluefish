@@ -227,7 +227,9 @@ G_DEFINE_TYPE(SnippetsMenu, snippets_menu, GTK_TYPE_MENU_BAR)
 
 static void snippets_menu_finalize(GObject * object)
 {
-	/*g_print("finalize\n");*/
+	DEBUG_MSG("snippets_menu_finalize, finalize\n");
+	if (G_OBJECT_CLASS(snippets_menu_parent_class)->finalize)
+		G_OBJECT_CLASS(snippets_menu_parent_class)->finalize(object);
 }
 
 static void snippets_menu_class_init(SnippetsMenuClass * klass)

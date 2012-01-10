@@ -22,6 +22,7 @@
 #define _GNU_SOURCE
 
 #include <string.h>
+#include <gdk/gdkkeysyms.h>
 
 #include "snippets.h"
 #include "snippets_gui.h"
@@ -181,7 +182,7 @@ snippets_connect_accelerators_from_doc(Tsnippetswin * snw, xmlNodePtr cur, GtkAc
 				guint key;
 				GdkModifierType mod;
 				gtk_accelerator_parse((const gchar *) accelerator, &key, &mod);
-				if (key != 0 && mod != 0 && gtk_accelerator_valid(key, mod)) {
+				if (key != 0 && (mod != 0 || (key >= GDK_KEY_F1 && key <= GDK_KEY_F12)) && gtk_accelerator_valid(key, mod)) {
 					GClosure *closure;
 					Taccelerator_cbdata *hcbdata;
 					hcbdata = g_slice_new(Taccelerator_cbdata);
