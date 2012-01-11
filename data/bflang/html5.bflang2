@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		html5.bflang2 $Revision$
  
-		Copyright (C) 2008-2011 Olivier Sessink
+		Copyright (C) 2008-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@
 	<!ENTITY svg SYSTEM "svg.bfinc">
 ]>
 
-<bflang name="HTML5" version="2.0" table="56215" contexts="189" matches="9952">
+<bflang name="HTML5" version="2.0" table="59239" contexts="192" matches="10435">
 <header>
 	<mime type="text/x-html5"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -85,6 +85,7 @@
 	<highlight name="css-string" style="string" />
 	<highlight name="css-value" style="value" />
 	<highlight name="css-pseudo-element" style="keyword" />
+	<highlight name="css-operator" style="operator" />
 </header>
 <properties>
 	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />

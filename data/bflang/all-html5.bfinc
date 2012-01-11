@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		all-html5.bfinc $Revision$
  
-		Copyright (C) 2008-2011 Olivier Sessink
+		Copyright (C) 2008-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -39,11 +39,11 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="address" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Contact information for a page or section
-<b>Categories:</b> flow, formatBlock candidate
-<b>Parents:</b> flow
-<b>Children:</b> flow*
+<tag name="address" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;"> 
+<reference>Contact information for a page or article element 
+<b>Categories:</b>flow 
+<b>Parents:</b>flow 
+<b>Children:</b>flow*
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="area" highlight="html-tag" attribhighlight="html-attribute" attributes="alt,coords,shape,href,target,ping,rel,media,hreflang,type,&globals;" sgml_shorttag="1">
 <reference>Hyperlink or dead area on an image map
@@ -51,23 +51,23 @@
 <b>Parents:</b> phrasing*
 <b>Children:</b> empty
 <b>Interface:</b> HTMLAreaElement</reference></tag>
-<tag name="article" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Self-contained syndicatable or reusable composition
-<b>Categories:</b> flow, sectioning, formatBlock candidate
-<b>Parents:</b> flow
-<b>Children:</b> flow
+<tag name="article" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;"> 
+<reference>Self-contained syndicatable or reusable composition 
+<b>Categories:</b>flow; sectioning 
+<b>Parents:</b>flow 
+<b>Children:</b>flow 
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="aside" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Sidebar for tangentially related content
-<b>Categories:</b> flow, sectioning, formatBlock candidate
-<b>Parents:</b> flow
-<b>Children:</b> flow
+<reference>Sidebar for tangentially related content 
+<b>Categories:</b>flow; sectioning 
+<b>Parents:</b>flow 
+<b>Children:</b>flow
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="audio" highlight="html-tag" attribhighlight="html-attribute" attributes="src,preload,autoplay,loop,controls,&globals;">
-<reference>Audio player
-<b>Categories:</b> flow, phrasing, embedded, interactive
-<b>Parents:</b> phrasing
-<b>Children:</b> source*, transparent*
+<tag name="audio" highlight="html-tag" attribhighlight="html-attribute" attributes="src,crossorigin,preload,autoplay,mediagroup,loop,controls,muted,&globals;">
+<reference>Audio player 
+<b>Categories:</b>flow; phrasing; embedded; interactive 
+<b>Parents:</b>phrasing 
+<b>Children:</b>source*; transparent*
 <b>Interface:</b> HTMLAudioElement</reference></tag>
 <tag name="b" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Keywords
@@ -94,16 +94,16 @@
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="blockquote" highlight="html-tag" attribhighlight="html-attribute" attributes="cite,&globals;">
-<reference>A section quoted from another source
-<b>Categories:</b> flow, sectioning root, formatBlock candidate
-<b>Parents:</b> flow
-<b>Children:</b> flow
+<reference>A section quoted from another source 
+<b>Categories:</b>flow; sectioning root 
+<b>Parents:</b>flow 
+<b>Children:</b>flow 
 <b>Interface:</b> HTMLQuoteElement</reference></tag>
-<tag name="body" highlight="html-tag" attribhighlight="html-attribute" attributes="onafterprint,onbeforeprint,onbeforeunload,onhashchange,onmessage,onoffline,ononline,onpagehide,onpageshow,onpopstate,onredo,onresize,onstorage,onundo,onunload,&globals;">
-<reference>Document body
-<b>Categories:</b> sectioning root
-<b>Parents:</b> html
-<b>Children:</b> flow
+<tag name="body" highlight="html-tag" attribhighlight="html-attribute" attributes="onafterprint,onbeforeprint,onbeforeunload,onhashchange,onmessage,onoffline,ononline,onpagehide,onpageshow,onpopstate,onresize,onstorage,onunload,&globals;">
+<reference>Document body 
+<b>Categories:</b>sectioning root 
+<b>Parents:</b>html 
+<b>Children:</b>flow 
 <b>Interface:</b> HTMLBodyElement</reference></tag>
 <tag name="br" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;" sgml_shorttag="1">
 <reference>Line break, e.g. in poem or postal address
@@ -190,10 +190,10 @@
 <b>Children:</b> phrasing*
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="div" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Generic flow container
-<b>Categories:</b> flow, formatBlock candidate
-<b>Parents:</b> flow
-<b>Children:</b> flow
+<reference>Generic flow container 
+<b>Categories:</b>flow 
+<b>Parents:</b>flow 
+<b>Children:</b>flow 
 <b>Interface:</b> HTMLDivElement</reference></tag>
 <tag name="dl" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Association list consisting of zero or more name-value groups
@@ -202,10 +202,10 @@
 <b>Children:</b> dt*, dd*
 <b>Interface:</b> HTMLDListElement</reference></tag>
 <tag name="dt" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Legend for correspondingdd element(s)
-<b>Categories:</b> none
-<b>Parents:</b> dl
-<b>Children:</b> phrasing
+<reference>Legend for corresponding dd element(s) 
+<b>Categories:</b>none 
+<b>Parents:</b>dl 
+<b>Children:</b>flow* 
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="em" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Stress emphasis
@@ -238,10 +238,10 @@
 <b>Children:</b> figcaption*, flow
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="footer" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Footer for a page or section
-<b>Categories:</b> flow, formatBlock candidate
-<b>Parents:</b> flow
-<b>Children:</b> flow*
+<reference>Footer for a page or section 
+<b>Categories:</b>flow 
+<b>Parents:</b>flow 
+<b>Children:</b>flow* 
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="form" highlight="html-tag" attribhighlight="html-attribute" attributes="accept-charset,action,autocomplete,enctype,method,name,novalidate,target,&globals;">
 <reference>User-submittable form
@@ -250,38 +250,38 @@
 <b>Children:</b> flow*
 <b>Interface:</b> HTMLFormElement</reference></tag>
 <tag name="h1" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Section heading
-<b>Categories:</b> flow, heading, formatBlock candidate
-<b>Parents:</b> hgroup, flow
-<b>Children:</b> phrasing
+<reference>Section heading 
+<b>Categories:</b>flow; heading 
+<b>Parents:</b>hgroup; flow 
+<b>Children:</b>phrasing 
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
 <tag name="h2" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Section heading
-<b>Categories:</b> flow, heading, formatBlock candidate
+<b>Categories:</b> flow, heading
 <b>Parents:</b> hgroup, flow
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
 <tag name="h3" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Section heading
-<b>Categories:</b> flow, heading, formatBlock candidate
+<b>Categories:</b> flow, heading
 <b>Parents:</b> hgroup, flow
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
 <tag name="h4" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Section heading
-<b>Categories:</b> flow, heading, formatBlock candidate
+<b>Categories:</b> flow, heading
 <b>Parents:</b> hgroup, flow
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
 <tag name="h5" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Section heading
-<b>Categories:</b> flow, heading, formatBlock candidate
+<b>Categories:</b> flow, heading
 <b>Parents:</b> hgroup, flow
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
 <tag name="h6" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Section heading
-<b>Categories:</b> flow, heading, formatBlock candidate
+<b>Categories:</b> flow, heading
 <b>Parents:</b> hgroup, flow
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
@@ -292,16 +292,16 @@
 <b>Children:</b> metadata content*
 <b>Interface:</b> HTMLHeadElement</reference></tag>
 <tag name="header" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Introductory or navigational aids for a page or section
-<b>Categories:</b> flow, formatBlock candidate
-<b>Parents:</b> flow
-<b>Children:</b> flow*
+<reference>Introductory or navigational aids for a page or section 
+<b>Categories:</b>flow 
+<b>Parents:</b>flow 
+<b>Children:</b>flow* 
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="hgroup" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>heading group
-<b>Categories:</b> flow, heading, formatBlock candidate
-<b>Parents:</b> flow
-<b>Children:</b> One or moreh1,h2,h3,h4,h5, and/orh6
+<reference>heading group 
+<b>Categories:</b>flow; heading 
+<b>Parents:</b>flow 
+<b>Children:</b>One or more h1, h2, h3, h4, h5, and/or h6 
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="hr" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;" sgml_shorttag="1">
 <reference>Thematic break
@@ -327,11 +327,11 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> text*
 <b>Interface:</b> HTMLIFrameElement</reference></tag>
-<tag name="img" highlight="html-tag" attribhighlight="html-attribute" attributes="alt,src,usemap,ismap,width,height,&globals;" sgml_shorttag="1">
-<reference>Image
-<b>Categories:</b> flow, phrasing, embedded, interactive*
-<b>Parents:</b> phrasing
-<b>Children:</b> empty
+<tag name="img" highlight="html-tag" attribhighlight="html-attribute" attributes="alt,src,crossorigin,usemap,ismap,width,height,&globals;" sgml_shorttag="1">
+<reference>Image 
+<b>Categories:</b>flow; phrasing; embedded; interactive* 
+<b>Parents:</b>phrasing 
+<b>Children:</b>empty 
 <b>Interface:</b> HTMLImageElement</reference></tag>
 <tag name="input" highlight="html-tag" attribhighlight="html-attribute" attributes="accept,alt,autocomplete,autofocus,checked,dirname,disabled,form,formaction,formenctype,formmethod,formnovalidate,formtarget,height,list,max,maxlength,min,multiple,name,pattern,placeholder,readonly,required,size,src,step,type,value,width,&globals;" sgml_shorttag="1">
 <reference>Form control
@@ -406,16 +406,16 @@
 <b>Children:</b> empty
 <b>Interface:</b> HTMLMetaElement</reference></tag>
 <tag name="meter" highlight="html-tag" attribhighlight="html-attribute" attributes="value,min,max,low,high,optimum,form,&globals;">
-<reference>Gauge
-<b>Categories:</b> flow, phrasing, labelable, form-associated
-<b>Parents:</b> phrasing
-<b>Children:</b> phrasing*
+<reference>Gauge 
+<b>Categories:</b>flow; phrasing; labelable 
+<b>Parents:</b>phrasing 
+<b>Children:</b>phrasing* 
 <b>Interface:</b> HTMLMeterElement</reference></tag>
 <tag name="nav" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Section with navigational links
-<b>Categories:</b> flow, sectioning, formatBlock candidate
-<b>Parents:</b> flow
-<b>Children:</b> flow
+<reference>Section with navigational links 
+<b>Categories:</b>flow; sectioning 
+<b>Parents:</b>flow 
+<b>Children:</b>flow 
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="noscript" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Fallback content for script
@@ -423,11 +423,11 @@
 <b>Parents:</b> head*, phrasing*
 <b>Children:</b> varies*
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="object" highlight="html-tag" attribhighlight="html-attribute" attributes="data,type,name,usemap,form,width,height,&globals;">
-<reference>Image,nested browsing context, orplugin
-<b>Categories:</b> flow, phrasing, embedded, interactive*, listed, submittable, form-associated
-<b>Parents:</b> phrasing
-<b>Children:</b> param*, transparent
+<tag name="object" highlight="html-tag" attribhighlight="html-attribute" attributes="data,type,typemustmatch,name,usemap,form,width,height,&globals;">
+<reference>Image, nested browsing context, or plugin 
+<b>Categories:</b>flow; phrasing; embedded; interactive*; listed; submittable; form-associated 
+<b>Parents:</b>phrasing 
+<b>Children:</b>param*; transparent 
 <b>Interface:</b> HTMLObjectElement</reference></tag>
 <tag name="ol" highlight="html-tag" attribhighlight="html-attribute" attributes="reversed,start,&globals;">
 <reference>Ordered list
@@ -454,10 +454,10 @@
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLOutputElement</reference></tag>
 <tag name="p" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Paragraph
-<b>Categories:</b> flow, formatBlock candidate
-<b>Parents:</b> flow
-<b>Children:</b> phrasing
+<reference>Paragraph 
+<b>Categories:</b>flow 
+<b>Parents:</b>flow 
+<b>Children:</b>phrasing 
 <b>Interface:</b> HTMLParagraphElement</reference></tag>
 <tag name="param" highlight="html-tag" attribhighlight="html-attribute" attributes="name,value,&globals;" sgml_shorttag="1">
 <reference>Parameter forobject
@@ -466,16 +466,16 @@
 <b>Children:</b> empty
 <b>Interface:</b> HTMLParamElement</reference></tag>
 <tag name="pre" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Block of preformatted text
-<b>Categories:</b> flow, formatBlock candidate
-<b>Parents:</b> flow
-<b>Children:</b> phrasing
+<reference>Block of preformatted text 
+<b>Categories:</b>flow 
+<b>Parents:</b>flow 
+<b>Children:</b>phrasing
 <b>Interface:</b> HTMLPreElement</reference></tag>
 <tag name="progress" highlight="html-tag" attribhighlight="html-attribute" attributes="value,max,form,&globals;">
-<reference>Progress bar
-<b>Categories:</b> flow, phrasing, labelable, form-associated
-<b>Parents:</b> phrasing
-<b>Children:</b> phrasing*
+<reference>Progress bar 
+<b>Categories:</b>flow; phrasing; labelable 
+<b>Parents:</b>phrasing 
+<b>Children:</b>phrasing* 
 <b>Interface:</b> HTMLProgressElement</reference></tag>
 <tag name="q" highlight="html-tag" attribhighlight="html-attribute" attributes="cite,&globals;">
 <reference>Quotation
@@ -496,10 +496,10 @@
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="ruby" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Ruby annotation(s)
-<b>Categories:</b> flow, phrasing
-<b>Parents:</b> phrasing
-<b>Children:</b> phrasing, rt element, rp element*
+<reference>Ruby annotation(s) 
+<b>Categories:</b>flow; phrasing 
+<b>Parents:</b>phrasing 
+<b>Children:</b>phrasing; rt; rp* 
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="s" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Inaccurate text
@@ -543,13 +543,11 @@
 <b>Children:</b> script, data, or script documentation*
 <b>Interface:</b> HTMLScriptElement</reference></tag>
 <tag name="section" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Generic document or application section
-<b>Categories:</b> flow, sectioning, formatBlock candidate
-<b>Parents:</b> flow
-<b>Children:</b> flow
-<b>Interface:</b> HTMLElement</reference>
-</tag>
-
+<reference>Generic document or application section 
+<b>Categories:</b>flow; sectioning 
+<b>Parents:</b>flow 
+<b>Children:</b>flow 
+<b>Interface:</b> HTMLElement</reference></tag>
 <tag name="select" highlight="html-tag" attribhighlight="html-attribute" attributes="autofocus,disabled,form,multiple,name,required,size,&globals;">
 <reference>List box control
 <b>Categories:</b> flow, phrasing, interactive, listed, labelable, submittable, resettable, form-associated
@@ -654,11 +652,11 @@
 &svg;
 </context>
 </tag> -->
-<tag name="table" highlight="html-tag" attribhighlight="html-attribute" attributes="summary,&globals;">
-<reference>Table
-<b>Categories:</b> flow
-<b>Parents:</b> flow
-<b>Children:</b> caption*, colgroup*, thead*, tbody*, tfoot*, tr*
+<tag name="table" highlight="html-tag" attribhighlight="html-attribute" attributes="border,&globals;">
+<reference>Table 
+<b>Categories:</b>flow 
+<b>Parents:</b>flow 
+<b>Children:</b>caption*; colgroup*; thead*; tbody*; tfoot*; tr* 
 <b>Interface:</b> HTMLTableElement</reference></tag>
 <tag name="tbody" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Group of rows in a table
@@ -672,11 +670,11 @@
 <b>Parents:</b> tr
 <b>Children:</b> flow
 <b>Interface:</b> HTMLTableDataCellElement</reference></tag>
-<tag name="textarea" highlight="html-tag" attribhighlight="html-attribute" attributes="autofocus,cols,disabled,form,maxlength,name,placeholder,readonly,required,rows,wrap,&globals;">
-<reference>Multiline text field
-<b>Categories:</b> flow, phrasing, interactive, listed, labelable, submittable, resettable, form-associated
-<b>Parents:</b> phrasing
-<b>Children:</b> text
+<tag name="textarea" highlight="html-tag" attribhighlight="html-attribute" attributes="autofocus,cols,dirname,disabled,form,maxlength,name,placeholder,readonly,required,rows,wrap,&globals;">
+<reference>Multiline text field 
+<b>Categories:</b>flow; phrasing; interactive; listed; labelable; submittable; resettable; form-associated 
+<b>Parents:</b>phrasing 
+<b>Children:</b>text 
 <b>Interface:</b> HTMLTextAreaElement</reference></tag>
 <tag name="tfoot" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Group of footer rows in a table
@@ -685,10 +683,10 @@
 <b>Children:</b> tr
 <b>Interface:</b> HTMLTableSectionElement</reference></tag>
 <tag name="th" highlight="html-tag" attribhighlight="html-attribute" attributes="colspan,rowspan,headers,scope,&globals;">
-<reference>Table header cell
-<b>Categories:</b> none
-<b>Parents:</b> tr
-<b>Children:</b> phrasing
+<reference>Table header cell 
+<b>Categories:</b>none 
+<b>Parents:</b>tr 
+<b>Children:</b>flow* 
 <b>Interface:</b> HTMLTableHeaderCellElement</reference></tag>
 <tag name="thead" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Group of heading rows in a table
@@ -696,11 +694,11 @@
 <b>Parents:</b> table
 <b>Children:</b> tr
 <b>Interface:</b> HTMLTableSectionElement</reference></tag>
-<tag name="time" highlight="html-tag" attribhighlight="html-attribute" attributes="datetime,pubdate,&globals;">
-<reference>Date and/or time
-<b>Categories:</b> flow, phrasing
-<b>Parents:</b> phrasing
-<b>Children:</b> phrasing*
+<tag name="time" highlight="html-tag" attribhighlight="html-attribute" attributes="datetime,&globals;">
+<reference>Machine-readable equivalent of date- or time-related data 
+<b>Categories:</b>flow; phrasing 
+<b>Parents:</b>phrasing 
+<b>Children:</b>phrasing 
 <b>Interface:</b> HTMLTimeElement</reference></tag>
 <tag name="title" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Document title
@@ -721,10 +719,10 @@
 <b>Children:</b> empty
 <b>Interface:</b> HTMLTrackElement</reference></tag>
 <tag name="u" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
-<reference>Keywords
-<b>Categories:</b> flow, phrasing
-<b>Parents:</b> phrasing
-<b>Children:</b> phrasing
+<reference>Keywords 
+<b>Categories:</b>flow; phrasing 
+<b>Parents:</b>phrasing 
+<b>Children:</b>phrasing 
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="ul" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>List
@@ -738,11 +736,11 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="video" highlight="html-tag" attribhighlight="html-attribute" attributes="src,poster,preload,autoplay,loop,controls,width,height,&globals;">
-<reference>Video player
-<b>Categories:</b> flow, phrasing, embedded, interactive
-<b>Parents:</b> phrasing
-<b>Children:</b> source*, transparent*
+<tag name="video" highlight="html-tag" attribhighlight="html-attribute" attributes="src,crossorigin,poster,preload,autoplay,mediagroup,loop,muted,controls,width,height,&globals;">
+<reference>Video player 
+<b>Categories:</b>flow; phrasing; embedded; interactive 
+<b>Parents:</b>phrasing 
+<b>Children:</b>source*; transparent* 
 <b>Interface:</b> HTMLVideoElement</reference></tag>
 <tag name="wbr" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;" sgml_shorttag="1">
 <reference>Line breaking opportunity
