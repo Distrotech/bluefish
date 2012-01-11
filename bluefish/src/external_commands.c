@@ -183,7 +183,7 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	GError *gerror=NULL;
 	DEBUG_MSG("child_watch_lcb, child exited with status=%d\n",status);
 	
-	if (!ep->buffer_out) {
+	if ((ep->pipe_in || ep->fifo_in) && !ep->buffer_out) {
 		/* the child has exited before we actually started to write data to the child, just abort now */
 		g_source_remove(ep->start_command_idle_id);
 		externalp_unref(ep); /* unref twice, once for the start_command_idle, once for child_watch_lcb */
