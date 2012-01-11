@@ -4,7 +4,7 @@
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
  * modifications Copyright (C) 1999 Antti-Juhani Kaijanaho
  * rewrite November 2000 (C) Olivier Sessink
- * Copyright (C) 1999-2011 Olivier Sessink
+ * Copyright (C) 1999-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -2125,7 +2125,7 @@ video_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	
 	/* Controls */
 	tmplist = list_from_arglist(FALSE, "", "controls", NULL);
-	dg->combo[4] = combobox_with_popdown(tagvalues[3], NULL, 1);
+	dg->combo[4] = combobox_with_popdown(tagvalues[3], tmplist, 1);
 	dialog_mnemonic_label_in_table(_("_Controls:"), dg->combo[4], dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[4]), 1, 2, 3, 4);
 	g_list_free(tmplist);
