@@ -155,7 +155,7 @@ static void
 bluefish_image_dialog_set_property(GObject * object, guint prop_id, const GValue * value, GParamSpec * pspec)
 {
 	BluefishImageDialog *dialog = BLUEFISH_IMAGE_DIALOG(object);
-
+	DEBUG_MSG("bluefish_image_dialog_set_property, called for prop_id=%d\n",prop_id);
 	switch (prop_id) {
 	case PROP_BFWIN:
 		dialog->priv->bfwin = g_value_get_pointer(value);
@@ -237,9 +237,11 @@ bluefish_image_dialog_set_property(GObject * object, guint prop_id, const GValue
 		break;
 	case PROP_TAG_START:
 		dialog->priv->tagStart = g_value_get_int(value);
+		DEBUG_MSG("bluefish_image_dialog_set_property, tagStart set to %d\n", dialog->priv->tagStart);
 		break;
 	case PROP_TAG_END:
 		dialog->priv->tagEnd = g_value_get_int(value);
+		DEBUG_MSG("bluefish_image_dialog_set_property, tagEnd set to %d\n", dialog->priv->tagEnd);
 		break;
 	case PROP_STYLE:
 		if (g_value_get_string(value) != NULL)
@@ -1122,7 +1124,7 @@ image_dialog_ok_clicked(BluefishImageDialog * dialog)
 	}
 
 	g_string_append_printf(tag, (main_v->props.xhtml == 1) ? " />" : ">");
-	/*g_print("image_dialog_ok_clicked, tagStart=%d\n", dialog->priv->tagStart);*/
+	DEBUG_MSG("image_dialog_ok_clicked, tagStart=%d\n", dialog->priv->tagStart);
 	if (dialog->priv->tagStart >= 0) {
 		doc_replace_text(dialog->priv->doc, tag->str, dialog->priv->tagStart, dialog->priv->tagEnd);
 	} else if (gtk_text_buffer_get_selection_bounds(dialog->priv->doc->buffer, &start, &end)) {
@@ -1156,13 +1158,21 @@ bluefish_image_dialog_new(Tbfwin * bfwin)
 	dialog = g_object_new(BLUEFISH_TYPE_IMAGE_DIALOG,
 						  "bfwin", bfwin,
 						  "destroy-with-parent", TRUE,
+#if !GTK_CHECK_VERSION(3, 0, 0)
 						  "has-separator", FALSE,
+#endif
 						  "title", _("Insert Image"),
-						  "transient-for", bfwin->main_window, "tag-start", -1, "tag-end", -1, NULL);
-
+						  "transient-for", bfwin->main_window, 
+						  "tag-start", -1, "tag-end", -1, NULL);
+	DEBUG_MSG("bluefish_image_dialog_new, tag-start set to -1 in g_object_new\n");
 	g_return_if_fail(dialog != NULL);
-
-	gtk_widget_show_all(GTK_WIDGET(dialog));
+/*#ifdef DEBUG
+	g_object_set(G_OBJECT(dialog), "tag-start", -1, NULL);
+	gint tagstart;
+	g_object_get(G_OBJECT(dialog), "tag-start", &tagstart, NULL);
+	g_print("tag start actually is at %d\n",tagstart);
+#endif
+*/	gtk_widget_show_all(GTK_WIDGET(dialog));
 }
 
 void
@@ -1255,7 +1265,7 @@ bluefish_image_dialog_new_with_data(Tbfwin * bfwin, Ttagpopup * data)
 
 	if (tagvalues[9] || tagvalues[10] || tagvalues[11] || tagvalues[12])
 		usetransitional = TRUE;
-/*	g_print("bluefish_image_dialog_new_with_data, src=%s, tag-start=%d, tag-end=%d\n", tagvalues[0], data->pos, data->end);*/
+	DEBUG_MSG("bluefish_image_dialog_new_with_data, src=%s, tag-start=%d, tag-end=%d\n", tagvalues[0], data->pos, data->end);
 	dialog = g_object_new(BLUEFISH_TYPE_IMAGE_DIALOG,
 						  "bfwin", bfwin,
 						  "destroy-with-parent", TRUE,
