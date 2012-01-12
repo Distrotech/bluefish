@@ -18,8 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#define DEBUG
+/*#define DEBUG*/
 
 #include <stdlib.h>				/* atoi */
 
@@ -1242,11 +1241,6 @@ dynamic_menu_item_create(GtkUIManager *uimanager, GtkActionGroup *action_group,
 						GCallback callback, gpointer callbackdata, gpointer actiondata)
 {
 	GtkAction *action;
-#ifdef DEBUG
-	gchar *npath, *apath;
-	GtkMenuItem *menuitem; 
-#endif
-
 	/* avoid duplicate actions */
 	action = gtk_action_group_get_action(action_group, action_name);
 	if (action) {
@@ -1266,29 +1260,13 @@ dynamic_menu_item_create(GtkUIManager *uimanager, GtkActionGroup *action_group,
 		*radio_group = gtk_radio_action_get_group(GTK_RADIO_ACTION(action));
 	}
 
-	gtk_action_group_add_action(action_group, action);
+/*	gtk_action_group_add_action(action_group, action);*/
+	gtk_action_group_add_action_with_accel(action_group, action, "");
 	g_object_set_data(G_OBJECT(action), "adata", actiondata);
 	g_signal_connect(G_OBJECT(action), "activate", callback, callbackdata);
 	DEBUG_MSG("dynamic_menu_item_create, add action %s at path %s\n", action_name, path);
 	gtk_ui_manager_add_ui(uimanager, merge_id,path, action_name,action_name, GTK_UI_MANAGER_MENUITEM, TRUE);
 	g_object_unref(action);
-
-#ifdef DEBUG	
-	npath = g_strconcat(path, "/", action_name, NULL);
-	apath = g_strconcat("<DynamicActions>/", action_name, NULL);
-	menuitem = (GtkMenuItem *)gtk_ui_manager_get_widget(uimanager, npath);
-	if (menuitem)
-		gtk_menu_item_set_accel_path(menuitem, apath);
-	
-	
-	g_print("got widget %p for path %s\n", menuitem, npath);
-	if (menuitem) {
-		g_print("menuitem %p has accel path %s\n", menuitem, gtk_menu_item_get_accel_path(menuitem));
-	}
-	g_free(npath);
-	g_free(apath);
-
-#endif
 } 
 
 void
