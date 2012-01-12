@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * doc_text_tools.c - text tools
  *
- * Copyright (C) 2008-2011 Olivier Sessink
+ * Copyright (C) 2008-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -446,4 +446,18 @@ select_between_matching_block_boundaries(Tdocument *doc)
 		}	
 	}
 	gtk_text_buffer_select_range(doc->buffer, &so, &eo);
+}
+
+void
+duplicate_line(Tdocument *doc)
+{
+	GtkTextIter it1, it2;
+	gchar *text;
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &it1, gtk_text_buffer_get_insert(doc->buffer));
+	gtk_text_iter_set_line_offset(&it1,0);
+	it2 = it1;
+	gtk_text_iter_forward_line(&it2);
+	text = gtk_text_buffer_get_text(doc->buffer,&it1,&it2,TRUE);
+	gtk_text_buffer_insert(doc->buffer,&it2,text,-1);
+	g_free(text);
 }

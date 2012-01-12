@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * doc_text_tools.h - text editing tools header
  *
- * Copyright (C) 2008-2010 Olivier Sessink
+ * Copyright (C) 2008-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,4 +28,5 @@ void convert_identing(Tdocument *doc, gboolean to_tabs);
 void toggle_comment(Tdocument *doc);
 void convert_to_columns(Tdocument *doc);
 void select_between_matching_block_boundaries(Tdocument *doc);
+void duplicate_line(Tdocument *doc);
 #endif							/* __DOC_TEXT_TOOLS_H_ */

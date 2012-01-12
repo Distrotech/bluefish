@@ -2,7 +2,7 @@
  * Bluefish HTML Editor
  * bfwin_uimanager.c
  *
- * Copyright (C) 2011 James Hayward and Olivier Sessink
+ * Copyright (C) 2011, 2012 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -634,6 +634,12 @@ ui_select_block(GtkAction * action, gpointer user_data)
 }
 
 static void
+ui_duplicate_line(GtkAction * action, gpointer user_data)
+{
+	duplicate_line(BFWIN(user_data)->current_document);
+}
+
+static void
 ui_rewrap_lines(GtkAction * action, gpointer user_data)
 {
 	rewrap_lines(BFWIN(user_data)->current_document);
@@ -801,6 +807,8 @@ static const GtkActionEntry global_actions[] = {
 	 G_CALLBACK(ui_toggle_comment)},
 	 {"SelectBlock", NULL, N_("Select _Block"), "<shift><control>b", N_("Select block, use multiple times to select parent blocks "),
 	 G_CALLBACK(ui_select_block)},
+	 {"DuplicateLine", NULL, N_("Duplicate Line"), "<control>d", N_("Duplicate the current line"),
+	 G_CALLBACK(ui_duplicate_line)},
 	{"WordCount", NULL, N_("Word Cou_nt"), NULL, N_("Word count"), G_CALLBACK(ui_word_count)},
 	{"IndentingToSpaces", NULL, N_("Indenting to S_paces"), NULL, N_("Indenting to spaces"),
 	 G_CALLBACK(ui_indenting_to_spaces)},
