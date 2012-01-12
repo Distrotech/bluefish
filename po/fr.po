@@ -5,13 +5,13 @@
 # romeo viuberges <apostledemencia@free.fr>, 2003.
 # Romeo VIU-BERGES <romda@free.fr>, 2003.
 # Michèle Garoche <michele.garoche@easyconnect.fr>, 2004.
-# Frédéric Falsetti <falsetti@clansco.org>,2009-2011.
+# Frédéric Falsetti <falsetti@clansco.org>,2009-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-12-31 09:23+0100\n"
+"POT-Creation-Date: 2012-01-12 08:53+0100\n"
 "PO-Revision-Date: 2011-12-31 18:15+0100\n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
@@ -69,24 +69,24 @@ msgstr "Explorateur de fichiers"
 msgid "Bookmarks"
 msgstr "Signets"
 
-#: ../src/bfwin.c:794
+#: ../src/bfwin.c:799
 msgid "Goto Line:"
 msgstr "Aller à la ligne :"
 
-#: ../src/bfwin.c:803
+#: ../src/bfwin.c:808
 msgid "Find:"
 msgstr "Rechercher :"
 
-#: ../src/bfwin.c:813
+#: ../src/bfwin.c:818
 msgid "Advanced"
 msgstr "Options"
 
-#: ../src/bfwin.c:1140
+#: ../src/bfwin.c:1145
 msgid "New Bluefish Window"
 msgstr "Nouvelle fenêtre Bluefish"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1191
+#: ../src/bfwin.c:1196
 msgid "Stand by..."
 msgstr "Veuillez patienter..."
 
@@ -840,15 +840,15 @@ msgstr "Ouvrir une _URL… "
 msgid "_Spell Check"
 msgstr "Vérifier l'orthographe"
 
-#: ../src/bfwin_uimanager.c:1450
+#: ../src/bfwin_uimanager.c:1458
 msgid "Text area to filter"
 msgstr "Zone de texte comme filtre"
 
-#: ../src/bfwin_uimanager.c:1451
+#: ../src/bfwin_uimanager.c:1459
 msgid "All text"
 msgstr "Tout le texte"
 
-#: ../src/bfwin_uimanager.c:1452
+#: ../src/bfwin_uimanager.c:1460
 msgid "Selected text only"
 msgstr "Texte sélectionné uniquement"
 
@@ -1985,7 +1985,7 @@ msgstr "Modèle :"
 #. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 #. G_CALLBACK(snr_combo_activate_lcb), snrwin);
 #.
-#: ../src/preferences.c:483 ../src/preferences.c:1881 ../src/snr3.c:1493
+#: ../src/preferences.c:483 ../src/preferences.c:1881 ../src/snr3.c:1511
 msgid "<b>Options</b>"
 msgstr "<b>Options</b>"
 
@@ -2242,8 +2242,9 @@ msgstr ""
 "%n nom du fichier sans son chemin (disponible pour tous les fichiers portant "
 "un nom)\n"
 "%u URL (disponible pour tous les fichiers portant un nom)\n"
-"%p preview URL if basedir and preview dir are set in project settings, else "
-"identical to %u</small>"
+"%p URL de prévisualisation si le répertoire de base et le répertoire \n"
+"de prévisualisation ont été définis dans les préférences du projet, "
+"autrement identique à %u</small>"
 
 #: ../src/preferences.c:1254
 msgid "File"
@@ -2687,7 +2688,7 @@ msgstr "Documents, onglet modifié :"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2305 ../src/rcfile.c:1118
+#: ../src/preferences.c:2305 ../src/rcfile.c:1119
 msgid "Images"
 msgstr "Images"
 
@@ -2967,38 +2968,38 @@ msgstr "HTML 5"
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:1039
+#: ../src/rcfile.c:1040
 msgid "Untitled Project"
 msgstr "Projet sans titre"
 
-#: ../src/rcfile.c:1110
+#: ../src/rcfile.c:1111
 msgid "C programming"
 msgstr "Programmation C"
 
-#: ../src/rcfile.c:1114
+#: ../src/rcfile.c:1115
 msgid "Web files"
 msgstr "fichiers de type web"
 
-#: ../src/rcfile.c:1121
+#: ../src/rcfile.c:1122
 msgid "Hide objectfiles"
 msgstr "Cacher les fichiers objets"
 
-#: ../src/snr3.c:641
+#: ../src/snr3.c:644
 msgid "<i>Replace started</i>"
 msgstr "<b>Remplacement en cours…</b>"
 
-#: ../src/snr3.c:646
+#: ../src/snr3.c:649
 msgid "<i>Search started</i>"
 msgstr "<b>Recherche en cours…</b>"
 
-#: ../src/snr3.c:664
+#: ../src/snr3.c:667
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
 msgstr ""
 "<span foreground=\"red\"><b>Aucune sélection, abandon de la recherche</b></"
 "span>"
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr3.c:673
+#: ../src/snr3.c:676
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
 "span>"
@@ -3006,78 +3007,78 @@ msgstr ""
 "<span foreground=\"red\" weight=\"bold\">Certains documents sont en cours de "
 "chargement</span>"
 
-#: ../src/snr3.c:846
+#: ../src/snr3.c:856
 #, c-format
 msgid "<i>Replaced %d entry</i>"
 msgid_plural "<i>Replaced %d entries</i>"
 msgstr[0] "<i>%d occurence remplacée</i>"
 msgstr[1] "<i>%d occurences remplacées</i>"
 
-#: ../src/snr3.c:849
+#: ../src/snr3.c:859
 #, c-format
 msgid "<i>Found %d entry</i>"
 msgid_plural "<i>Found %d entries</i>"
 msgstr[0] "<i>%d occurence trouvée</i>"
 msgstr[1] "<i>%d occurences trouvées</i>"
 
-#: ../src/snr3.c:1068
+#: ../src/snr3.c:1085
 #, c-format
 msgid "<i>Found %d result in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr[0] "<i>%d résultat trouvé dans  %d des %d documents parcourus</i>"
 msgstr[1] "<i>%d résultats trouvés dans  %d des %d documents parcourus</i>"
 
-#: ../src/snr3.c:1072
+#: ../src/snr3.c:1089
 #, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
 msgstr[0] "<i>%d résultat trouvé du caractère %d à %d</i>"
 msgstr[1] "<i>%d résultats trouvés du caractère %d à %d</i>"
 
-#: ../src/snr3.c:1075
+#: ../src/snr3.c:1092
 #, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
 msgstr[0] "<i>%d résultat trouvé dans le document courant</i>"
 msgstr[1] "<i>%d résultats trouvés dans le document courant</i>"
 
-#: ../src/snr3.c:1387
+#: ../src/snr3.c:1405
 msgid "Active document"
 msgstr "Document courant"
 
-#: ../src/snr3.c:1388
+#: ../src/snr3.c:1406
 msgid "Forward from cursor position"
 msgstr "Vers le bas à partir de la position du curseur"
 
-#: ../src/snr3.c:1389
+#: ../src/snr3.c:1407
 msgid "Current selection"
 msgstr "Sélection courante"
 
-#: ../src/snr3.c:1390
+#: ../src/snr3.c:1408
 msgid "All open documents"
 msgstr "Tous les fichiers ouverts"
 
-#: ../src/snr3.c:1391
+#: ../src/snr3.c:1409
 msgid "Files on disk"
 msgstr "Fichiers sur le disque"
 
-#: ../src/snr3.c:1395 ../src/snr3.c:1400
+#: ../src/snr3.c:1413 ../src/snr3.c:1418
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/snr3.c:1396
+#: ../src/snr3.c:1414
 msgid "Regular expression (pcre)"
 msgstr "Expression régulière (pcre)"
 
-#: ../src/snr3.c:1401
+#: ../src/snr3.c:1419
 msgid "Uppercase"
 msgstr "Mettre en majuscules"
 
-#: ../src/snr3.c:1402
+#: ../src/snr3.c:1420
 msgid "Lowercase"
 msgstr "Mettre en minuscules"
 
-#: ../src/snr3.c:1409
+#: ../src/snr3.c:1427
 msgid "Find and Replace"
 msgstr "Chercher et Remplacer"
 
@@ -3085,63 +3086,63 @@ msgstr "Chercher et Remplacer"
 #. search/replace within the selection
 #. if (bfwin->session->searchlist)
 #. gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->search), 0);
-#: ../src/snr3.c:1448
+#: ../src/snr3.c:1466
 msgid "<b>_Search for</b>"
 msgstr "<b>_Chercher</b>"
 
-#: ../src/snr3.c:1481
+#: ../src/snr3.c:1499
 msgid "<b>Replace _with</b>"
 msgstr "<b>_Remplacer par</b>"
 
-#: ../src/snr3.c:1503
+#: ../src/snr3.c:1521
 msgid "Match Patter_n: "
 msgstr "_Modèle de recherche : "
 
-#: ../src/snr3.c:1515
+#: ../src/snr3.c:1533
 msgid "Replace T_ype: "
 msgstr "T_ype de remplacement : "
 
-#: ../src/snr3.c:1528
+#: ../src/snr3.c:1546
 msgid "Sco_pe: "
 msgstr "_Zone de recherche :"
 
-#: ../src/snr3.c:1544
+#: ../src/snr3.c:1562
 msgid "Filename pattern: "
 msgstr "Modèle de nom de fichier : "
 
-#: ../src/snr3.c:1550
+#: ../src/snr3.c:1568
 msgid "Recursion level: "
 msgstr "Niveau de récursion :"
 
-#: ../src/snr3.c:1556
+#: ../src/snr3.c:1574
 msgid "Basedir: "
 msgstr "Répertoire de _base : "
 
-#: ../src/snr3.c:1575
+#: ../src/snr3.c:1593
 msgid "Case sensitive _matching"
 msgstr "Respecter la c_asse"
 
-#: ../src/snr3.c:1577
+#: ../src/snr3.c:1595
 msgid "Only match if case (upper/lower) is identical."
 msgstr ""
 "Recherche fructueuse seulement si la casse (majuscules/minuscules) est "
 "identique."
 
-#: ../src/snr3.c:1581
+#: ../src/snr3.c:1599
 msgid "Pattern contains escape-se_quences"
 msgstr "Le modèle contient des caractères d'échappement"
 
-#: ../src/snr3.c:1584
+#: ../src/snr3.c:1602
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr ""
 "Le modèle contient des caractères échappés par un antislash tels  \\n, \\t, "
 "etc."
 
-#: ../src/snr3.c:1588
+#: ../src/snr3.c:1606
 msgid "Dot character in regex pattern matches newlines"
 msgstr "Un point dans le modèle correspond à un saut de ligne"
 
-#: ../src/snr3.c:1591
+#: ../src/snr3.c:1609
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
@@ -3149,19 +3150,19 @@ msgstr ""
 "Le point correspond à tout, y compris les nouvelles lignes, utiliser pour la "
 "recherche multiligne."
 
-#: ../src/snr3.c:1613
+#: ../src/snr3.c:1631
 msgid "Replace _All"
 msgstr "Tout _remplacer"
 
-#: ../src/snr3.c:1615
+#: ../src/snr3.c:1633
 msgid "_Replace"
 msgstr "_Remplacer"
 
-#: ../src/snr3.c:1619
+#: ../src/snr3.c:1637
 msgid "_Find All"
 msgstr "Tout _chercher"
 
-#: ../src/snr3.c:1621
+#: ../src/snr3.c:1639
 msgid "B_ookmark All"
 msgstr "_Marquer tous les signets"
 
