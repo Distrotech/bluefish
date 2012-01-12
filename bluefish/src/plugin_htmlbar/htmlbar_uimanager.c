@@ -232,7 +232,7 @@ htmlbar_dialog_span(GtkAction * action, gpointer user_data)
 }
 
 static void
-htmlbar_dialog_style(GtkAction * action, gpointer user_data)
+htmlbar_misc_style(GtkAction * action, gpointer user_data)
 {
 	gchar *tmp = g_strdup_printf("<%s=\"text/css\"><!--\n", cap("STYLE TYPE"));
 	doc_insert_two_strings(BFWIN(user_data)->current_document, tmp, cap("\n--></STYLE>"));
@@ -335,7 +335,7 @@ htmlbar_insert_align_right_tag(GtkAction * action, gpointer user_data)
 static void
 htmlbar_insert_anchor_tag(GtkAction * action, gpointer user_data)
 {
-	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<A>"), cap("</A>"));
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<A HREF=\""), cap("\"></A>"));
 }
 
 static void
@@ -1634,8 +1634,8 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"DialogsSpan", BF_STOCK_CSSSPAN, N_("S_pan..."), NULL, N_("Span..."), G_CALLBACK(htmlbar_dialog_span)},
 	{"DialogsDiv", BF_STOCK_CSSDIV, N_("_Div..."), "<shift><alt>D", N_("Div..."),
 	 G_CALLBACK(htmlbar_dialog_div)},
-	{"DialogsStyle", BF_STOCK_CSSSTYLE, N_("_Style..."), NULL, N_("Style..."),
-	 G_CALLBACK(htmlbar_dialog_style)},
+	{"MiscStyle", BF_STOCK_CSSSTYLE, N_("_Style"), NULL, N_("Style"),
+	 G_CALLBACK(htmlbar_misc_style)},
 	{"DialogsLinkStylesheet", BF_STOCK_LINK_STYLESHEET, N_("_Link to Stylesheet..."), NULL,
 	 N_("Link to Stylesheet..."),
 	 G_CALLBACK(htmlbar_dialog_style_link_to)},

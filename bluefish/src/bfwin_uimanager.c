@@ -807,7 +807,7 @@ static const GtkActionEntry global_actions[] = {
 	 G_CALLBACK(ui_toggle_comment)},
 	 {"SelectBlock", NULL, N_("Select _Block"), "<shift><control>b", N_("Select block, use multiple times to select parent blocks "),
 	 G_CALLBACK(ui_select_block)},
-	 {"DuplicateLine", NULL, N_("Duplicate Line"), "<control>d", N_("Duplicate the current line"),
+	 {"DuplicateLine", NULL, N_("Duplica_te Line"), "<control>d", N_("Duplicate the current line"),
 	 G_CALLBACK(ui_duplicate_line)},
 	{"WordCount", NULL, N_("Word Cou_nt"), NULL, N_("Word count"), G_CALLBACK(ui_word_count)},
 	{"IndentingToSpaces", NULL, N_("Indenting to S_paces"), NULL, N_("Indenting to spaces"),

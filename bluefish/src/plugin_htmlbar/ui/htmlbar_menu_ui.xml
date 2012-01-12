@@ -167,13 +167,13 @@
 			<menuitem action='FormatAcronym'/>
 			<menuitem action='FormatCitation'/>
 			<menuitem action='FormatCode'/>
-	<menuitem action='FormatDefine'/>
-	<menuitem action='FormatDelete'/>
+			<menuitem action='FormatDefine'/>
+			<menuitem action='FormatDelete'/>
 			<menuitem action='FormatEmphasis'/>
 			<menuitem action='FormatInsert'/>
 			<menuitem action='FormatKeyboard'/>
 			<menuitem action='FormatSample'/>
-	<menuitem action='FormatStrong'/>        
+			<menuitem action='FormatStrong'/>        
 			<menuitem action='FormatVariable'/>
 		</menu>
 		<menu action='FormatLayoutMenu'>
@@ -243,6 +243,7 @@
 			<menuitem action='MiscDiv'/>
 			<menuitem action='MiscLink'/>
 			<menuitem action='MiscScript'/>
+			<menuitem action='MiscStyle'/>
 			<menuitem action='MiscAnchor'/>
 			<menuitem action='MiscImage'/>
 		</menu>
@@ -265,6 +266,7 @@
 			<menuitem action='DialogsTime'/>
 			<menuitem action='DialogsImage'/>
 			<menuitem action='DialogsThumbnail'/>
+<!--			<menuitem action='DialogsMultiThumbnail'/>-->
 		</menu>
 		<menu action='DialogsTableMenu'>
 			<menuitem action='DialogsTableWizard'/>
@@ -277,7 +279,7 @@
 			<menuitem action='DialogsCreateStyle'/>
 			<menuitem action='DialogsSpan'/>
 			<menuitem action='DialogsDiv'/>
-			<menuitem action='DialogsStyle'/>
+			<menuitem action='MiscStyle'/>
 			<menuitem action='DialogsLinkStylesheet'/>
 		</menu>
 		<menu action='DialogsFrameMenu'>
@@ -297,10 +299,10 @@
 			<menuitem action='DialogsFormButton'/>
 		</menu>
 		<menu action='DialogsHTML5Menu'>
-		<menuitem action='DialogsAudio'/>
-		<menuitem action='DialogsVideo'/>
-		<menuitem action='DialogsCanvas'/>
-		<menuitem action='DialogsHtml5Time'/>		
+			<menuitem action='DialogsAudio'/>
+			<menuitem action='DialogsVideo'/>
+			<menuitem action='DialogsCanvas'/>
+			<menuitem action='DialogsHtml5Time'/>		
 		</menu>
 		<separator/>
 		<menuitem action='DialogsEditTag'/>
@@ -415,9 +417,7 @@
 </toolbar>
 
 <toolbar name='HTMLCSSToolbar'>
-<toolitem action='DialogsCreateStyle'/>
-	<toolitem action='DialogsSpan'/>
-	<toolitem action='DialogsDiv'/>	<toolitem action='DialogsCreateStyle'/>
+	<toolitem action='DialogsCreateStyle'/>
 	<toolitem action='DialogsSpan'/>
 	<toolitem action='DialogsDiv'/>
 </toolbar>
