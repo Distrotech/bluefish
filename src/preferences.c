@@ -65,6 +65,7 @@ enum {
 	leave_to_window_manager,
 	restore_dimensions,
 	left_panel_left,
+	save_accelmap, 
 	max_recent_files,			/* length of Open Recent list */
 	max_dir_history,			/* length of directory history */
 	backup_file,				/* wheather to use a backup file */
@@ -1571,6 +1572,7 @@ preferences_apply(Tprefdialog * pd)
 	main_v->props.leftpanel_tabposition =
 		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[leftpanel_tabposition]));
 	main_v->props.left_panel_left = gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[left_panel_left]));
+	integer_apply(&main_v->props.save_accelmap, pd->prefs[save_accelmap], TRUE);
 
 	string_apply(&main_v->props.language, pd->prefs[language]);
 	if (g_strcmp0(main_v->props.language, _("Auto")) == 0) {
@@ -1795,6 +1797,10 @@ static void save_user_menu_accelerators(GObject *object, gpointer data)
 	rcfile_save_accelerators();
 }
 
+static void reset_menu_accelerators(GObject *object, gpointer data)
+{
+	rcfile_load_accelerators(TRUE);
+}
 
 void
 preferences_dialog_new(void)
@@ -2169,8 +2175,15 @@ preferences_dialog_new(void)
 															 main_v->props.transient_htdialogs);
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[transient_htdialogs], FALSE, FALSE, 0);
 
-	but = gtk_button_new_with_label(_("Save user customised menu accelerators"));
+	pd->prefs[save_accelmap] = dialog_check_button_new(_("Save menu accelerators on exit"),
+															 main_v->props.save_accelmap);
+	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[save_accelmap], FALSE, FALSE, 0);
+	but = gtk_button_new_with_label(_("Save user customised menu accelerators now"));
 	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(save_user_menu_accelerators), NULL);
+	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
+
+	but = gtk_button_new_with_label(_("Reset menu accelerators to application defaults"));
+	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(reset_menu_accelerators), NULL);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Recent Files</b>"), vbox1);

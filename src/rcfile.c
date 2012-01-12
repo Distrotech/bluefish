@@ -429,6 +429,7 @@ props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);
 
 	init_prop_integer(&config_rc, &main_v->props.left_panel_left, "left_panel_left:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.save_accelmap, "save_accelmap:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.backup_file, "backup_file:", 1, TRUE);
@@ -869,11 +870,30 @@ rcfile_check_directory(void)
 	g_free(rcdir);
 }
 
+static gchar *
+get_user_accelmap(void)
+{
+	return g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
+}
+
 void
 rcfile_save_accelerators(void)
 {
-	gchar *shortcutfilename = g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
+	gchar *shortcutfilename = get_user_accelmap();
 	gtk_accel_map_save(shortcutfilename);
+	g_free(shortcutfilename);
+}
+
+void
+rcfile_load_accelerators(gboolean defaultmap)
+{
+	gchar *shortcutfilename;
+	if (defaultmap) {
+		shortcutfilename = g_strdup(PKGDATADIR"/default_accelmap");
+	} else {
+		shortcutfilename = get_user_accelmap();
+	}
+	gtk_accel_map_load(shortcutfilename);
 	g_free(shortcutfilename);
 }
 

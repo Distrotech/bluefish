@@ -7,5 +7,6 @@ MAINTAINERCLEANFILES = Makefile.in
 
 bfdatadir = $(pkgdatadir)
 bfdata_DATA = \
+	default_accelmap \
 	encodings \
 	snippets

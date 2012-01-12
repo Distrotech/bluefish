@@ -213,12 +213,9 @@ static gboolean startup_in_idle(gpointer data) {
 				bmark_reload(startup->firstbfwin); /* do not reload bookmarks for a project */
 			/* set GTK settings, must be AFTER the menu is created */
 			{
-				gchar *shortcutfilename;
 				GtkSettings *gtksettings = gtk_settings_get_default();
 				g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL);
-				shortcutfilename = g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
-				gtk_accel_map_load(shortcutfilename);
-				g_free(shortcutfilename);
+				rcfile_load_accelerators(FALSE);
 			}
 			autosave_init(TRUE, startup->firstbfwin);
 		#ifdef WITH_MSG_QUEUE
@@ -406,6 +403,8 @@ int main(int argc, char *argv[])
 	DEBUG_MSG("main, after gtk_main()\n");
 
 	autosave_cleanup();
+	if (main_v->props.save_accelmap)
+		rcfile_save_accelerators();
 #ifdef WITH_MSG_QUEUE
 	/* do the cleanup */
 	msg_queue_cleanup();

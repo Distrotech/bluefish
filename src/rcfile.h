@@ -25,7 +25,7 @@ void rcfile_parse_main(void);
 void rcfile_parse_highlighting(void);
 void rcfile_check_directory(void);
 void rcfile_save_accelerators(void);
-
+void rcfile_load_accelerators(gboolean defaultmap);
 gint rcfile_save_main(void);
 
 gboolean rcfile_parse_project(Tproject *project, GFile *file);
