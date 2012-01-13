@@ -523,8 +523,9 @@ inputdialog_dialog(Tbfwin * bfwin, Ttagpopup * data, const gchar * type)
 		GList *poplist;
 		const gchar *type2 = (type) ? type : "text";
 		poplist =
-			list_from_arglist(FALSE, "text", "password", "checkbox", "radio", "submit", "reset", "file",
-							  "hidden", "image", "button", NULL);
+			list_from_arglist(FALSE, "hidden", "text", "search", "tel", "url", "email", "password", "datetime", 
+				"date", "month", "week", "time", "datetime-local", "number", "range", "color", "checkbox", "radio", 
+				"file", "submit", "image", "reset", "button" , NULL);
 		dg->combo[0] = combobox_with_popdown(tagvalues[0] ? tagvalues[0] : type2, poplist, 0);
 		g_list_free(poplist);
 	}
