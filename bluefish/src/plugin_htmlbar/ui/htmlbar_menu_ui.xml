@@ -218,9 +218,21 @@
 		</menu>
 		<menu action='FormMenu'>
 			<menuitem action='FormForm'/>
-			<menuitem action='FormButton'/>
+			<menuitem action='FormFieldset'/>
+			<menuitem action='FormLegend'/>
+			<menuitem action='FormLabel'/>
 			<menuitem action='FormInput'/>
+			<menuitem action='FormButton'/>
+			<menuitem action='FormSelect'/>
+			<menuitem action='FormOptgroup'/>
+			<menuitem action='FormOption'/>
 			<menuitem action='FormTextArea'/>
+			<separator/>			
+			<menuitem action='FormDatalist'/>
+			<menuitem action='FormKeygen'/>
+			<menuitem action='FormOutput'/>
+			<menuitem action='FormProgress'/>
+			<menuitem action='FormMeter'/>
 		</menu>
 		<menu action='HTML5Menu'>
 			<menuitem action='FormatSection'/>
