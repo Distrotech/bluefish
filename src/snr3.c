@@ -252,7 +252,18 @@ s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, GMatchInfo *matchinfo)
 {
 	Toffsetupdate offsetupdate = {NULL,0,0};
 	s3run->in_replace=TRUE;
-	if (s3run->replacetype == snr3replace_string) {
+	if (s3run->type == snr3type_pcre && s3run->replacetype != snr3replace_string) {
+		gchar *tmp1, *tmp2;
+		DEBUG_MSG("s3result_replace, replace uppercase/lowercase\n");
+		tmp1 = doc_get_chars(s3result->doc, s3result->so, s3result->eo);
+		if (s3run->replacetype == snr3replace_upper) 
+			tmp2 = g_utf8_strup(tmp1, -1);
+		else
+			tmp2 = g_utf8_strdown(tmp1, -1);
+		doc_replace_text_backend(s3result->doc, tmp2, s3result->so, s3result->eo);
+		g_free(tmp1);
+		g_free(tmp2);
+	} else if (s3run->replacetype == snr3replace_string) {
 		if (s3run->type == snr3type_string) {
 			DEBUG_MSG("s3result_replace, replace %d:%d with %s\n", s3result->so, s3result->eo, s3run->replacereal);
 			doc_replace_text_backend(s3result->doc, s3run->replacereal, s3result->so, s3result->eo);
@@ -267,16 +278,6 @@ s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, GMatchInfo *matchinfo)
 				g_free(newstr);
 			}
 		}
-	} else {
-		gchar *tmp1, *tmp2;
-		tmp1 = doc_get_chars(s3result->doc, s3result->so, s3result->eo);
-		if (s3run->replacetype == snr3replace_upper) 
-			tmp2 = g_utf8_strup(tmp1, -1);
-		else
-			tmp2 = g_utf8_strdown(tmp1, -1);
-		doc_replace_text_backend(s3result->doc, tmp2, s3result->so, s3result->eo);
-		g_free(tmp1);
-		g_free(tmp2);
 	}
 	offsetupdate.startingpoint = s3result->eo;
 	offsetupdate.doc = s3result->doc;
