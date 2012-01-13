@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file_autosave.c - autosave 
  *
- * Copyright (C) 2009-2011 Olivier Sessink
+ * Copyright (C) 2009,2010,2011,2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,9 +37,14 @@ the GList* element that has this reference is stored in doc->needs_autosave
 
 Every X seconds we loop over main_v->need_autosave
 for every Tdocument that needs autosave
- - if it does not exist create autosave_uri
+ - if it does not exist create autosave_uri (which is placed in a hash table, so 
+    if we have to create autosave uri's for 100 documents that are named 
+    index.html we just do a lookup in the hash table if it exists already)
  - move the need_autosave pointer to autosave_progress 
  - start an async call to store the contents in a autosave file
+ - if there are no documents that need to store their context, we only see if 
+   main_v->autosave_need_journal_save is TRUE is which case we store the autosave_journal 
+   to disk (for example after a document has saved it's changes or a document has been closed)
 
 In the callback after the save is finished:
  - register the Tdocument* in main_v->autosaved and store the GList* element in doc->autosaved
@@ -51,6 +56,7 @@ during document close/save etc.
  - remove the Tdocument* reference from main_v->need_autosave using the GList* element stored in doc->need_autosave
  - delete the doc->autosave_uri file
  - remove the entry in main_v->autosave_journal using the GList* entry in doc->autosaved
+ - the journal is only updated on disk on the next autosave_run, so the journal on disk might still mention the autosave_uri !
 
 during quit:
  - remove the autosave_journal file
@@ -174,11 +180,6 @@ remove_autosave(Tdocument * doc)
 {
 	DEBUG_MSG("remove_autosave for doc %p, autosave_uri=%p, autosaved=%p, need_autosave=%p\n", doc,
 			  doc->autosave_uri, doc->autosaved, doc->need_autosave);
-	/* delete autosaved file */
-	if (doc->autosave_uri) {
-		file_delete_async(doc->autosave_uri, FALSE, NULL, NULL);
-	}
-
 	/* remove from journal */
 	if (doc->autosaved) {
 		main_v->autosave_journal = g_list_delete_link(main_v->autosave_journal, doc->autosaved);
@@ -200,6 +201,11 @@ remove_autosave(Tdocument * doc)
 		}
 		main_v->autosave_progress = g_list_delete_link(main_v->autosave_progress, doc->autosave_progress);
 		doc->autosave_progress = NULL;
+	}
+
+	/* delete autosaved file */
+	if (doc->autosave_uri) {
+		file_delete_async(doc->autosave_uri, FALSE, NULL, NULL);
 	}
 
 	if (doc->autosave_uri) {
@@ -311,17 +317,24 @@ autosave_recover(Tbfwin * bfwin, GFile * file)
 			continue;
 		}
 		DEBUG_MSG("recover %s for %s\n", arr[0], arr[1]);
+		
+		/* it might be that the file was mentioned in the journal, but the document 
+		was closed already and the corresponding autosave file was deleted before the next
+		autosave_run (which would have updated the journal. we should thus check if the 
+		autosave file actualy exists before we try to restore it. */
 		recover_uri = g_file_new_for_uri(arr[0]);
-		if (arr[1] && arr[1][0] != '\0') {
-			GFile *uri = g_file_new_for_uri(arr[1]);
-			DEBUG_MSG("recover named document \n");
-			file_doc_from_uri(bfwin, uri, recover_uri, NULL, -1, -1, FALSE);
-		} else {
-			Tdocument *doc = doc_new_loading_in_background(bfwin, NULL, NULL, FALSE);
-			DEBUG_MSG("recover unnamed document into %p\n", doc);
-			file_into_doc(doc, recover_uri, FALSE, TRUE);
-			doc->autosave_uri = recover_uri;
-			doc->autosaved = register_autosave_journal(recover_uri, NULL, NULL);
+		if (g_file_query_exists(recover_uri, NULL)) {
+			if (arr[1] && arr[1][0] != '\0') {
+				GFile *uri = g_file_new_for_uri(arr[1]);
+				DEBUG_MSG("recover named document \n");
+				file_doc_from_uri(bfwin, uri, recover_uri, NULL, -1, -1, FALSE);
+			} else {
+				Tdocument *doc = doc_new_loading_in_background(bfwin, NULL, NULL, FALSE);
+				DEBUG_MSG("recover unnamed document into %p\n", doc);
+				file_into_doc(doc, recover_uri, FALSE, TRUE);
+				doc->autosave_uri = recover_uri;
+				doc->autosaved = register_autosave_journal(recover_uri, NULL, NULL);
+			}
 		}
 		tmplist = g_list_next(tmplist);
 	}
