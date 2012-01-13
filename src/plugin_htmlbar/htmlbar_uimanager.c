@@ -454,9 +454,21 @@ htmlbar_insert_form_tag(GtkAction * action, gpointer user_data)
 }
 
 static void
-htmlbar_insert_form_button_tag(GtkAction * action, gpointer user_data)
+htmlbar_insert_form_fieldset_tag(GtkAction * action, gpointer user_data)
 {
-	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<BUTTON>"), cap("</BUTTON>"));
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<FIELDSET>"), cap("</FIELDSET>"));
+}
+
+static void
+htmlbar_insert_form_legend_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<LEGEND>"), cap("<LEGEND/>"));
+}
+
+static void
+htmlbar_insert_form_label_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<LABEL>"), cap("</LABEL>"));
 }
 
 static void
@@ -467,9 +479,64 @@ htmlbar_insert_form_input_tag(GtkAction * action, gpointer user_data)
 }
 
 static void
+htmlbar_insert_form_button_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<BUTTON>"), cap("</BUTTON>"));
+}
+
+static void
+htmlbar_insert_form_select_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<SELECT>"), cap("</SELECT>"));
+}
+
+static void
+htmlbar_insert_form_datalist_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<DATALIST>"), cap("</DATALIST>"));
+}
+
+static void
+htmlbar_insert_form_optgroup_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<OPTGROUP>"), cap("</OPTGROUP>"));
+}
+
+static void
+htmlbar_insert_form_option_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<OPTION>"), cap("</OPTION>"));
+}
+
+static void
 htmlbar_insert_form_textarea_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<TEXTAREA>"), cap("</TEXTAREA>"));
+}
+
+static void
+htmlbar_insert_form_keygen_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document,
+						   main_v->props.xhtml == 1 ? cap("<KEYGEN />") : cap("<KEYGEN>"), NULL);
+}
+
+static void
+htmlbar_insert_form_output_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<OUTPUT>"), cap("</OUTPUT>"));
+}
+
+static void
+htmlbar_insert_form_progress_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<PROGRESS>"), cap("</PROGRESS>"));
+}
+
+static void
+htmlbar_insert_form_meter_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<METER>"), cap("</METER>"));
 }
 
 static void
@@ -1572,10 +1639,21 @@ static const GtkActionEntry htmlbar_actions[] = {
 	 G_CALLBACK(htmlbar_insert_definition_tag)},
 	{"ListListMenu", NULL, N_("Men_u"), NULL, N_("Menu"), G_CALLBACK(htmlbar_insert_menu_tag)},
 	{"FormMenu", NULL, N_("F_orm")},
-	{"FormForm", BF_STOCK_FORM, N_("_Form"), NULL, N_("Form"), G_CALLBACK(htmlbar_insert_form_tag)},
-	{"FormButton", NULL, N_("_Button"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_button_tag)},
+	{"FormForm", BF_STOCK_FORM, N_("F_orm"), NULL, N_("Form"), G_CALLBACK(htmlbar_insert_form_tag)},
+	{"FormFieldset", NULL, N_("_Fieldset"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_fieldset_tag)},
+	{"FormLegend", NULL, N_("_Legend"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_legend_tag)},
+	{"FormLabel", NULL, N_("L_abel"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_label_tag)},
 	{"FormInput", NULL, N_("_Input"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_input_tag)},
+	{"FormButton", NULL, N_("_Button"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_button_tag)},
+	{"FormSelect", NULL, N_("_Select"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_select_tag)},
+	{"FormDatalist", NULL, N_("_Datalist"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_datalist_tag)},
+	{"FormOptgroup", NULL, N_("Opt_group"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_optgroup_tag)},
+	{"FormOption", NULL, N_("Optio_n"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_option_tag)},
 	{"FormTextArea", NULL, N_("_Textarea"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_textarea_tag)},
+	{"FormKeygen", NULL, N_("_Keygen"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_keygen_tag)},
+	{"FormOutput", NULL, N_("O_utput"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_output_tag)},
+	{"FormProgress", NULL, N_("_Progress"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_progress_tag)},
+	{"FormMeter", NULL, N_("_Meter"), NULL, NULL, G_CALLBACK(htmlbar_insert_form_meter_tag)},
 	{"MiscMenu", NULL, N_("_Misc")},
 	{"MiscGenMETATag", NULL, N_("Insert Generator _META-Tag"), NULL, NULL,
 	 G_CALLBACK(htmlbar_insert_generator_meta_tag)},
