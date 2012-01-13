@@ -136,6 +136,8 @@ Page custom FileAssociations SetFileAssociations
 ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
 !insertmacro MUI_LANGUAGE	"Basque" 	; 1069
 ${LoadLocalization}	"BASQUE"	"locale\Basque.nsh"
+!insertmacro MUI_LANGUAGE	"PortugueseBR" 	; 1046
+${LoadLocalization}	"BRAZILIAN PORTUGUESE"	"locale\PortugueseBR.nsh"
 !insertmacro MUI_LANGUAGE	"Czech" 	; 1029
 ${LoadLocalization}	"CZECH"		"locale\Czech.nsh"
 !insertmacro MUI_LANGUAGE	"Dutch" 	; 1043
@@ -152,10 +154,10 @@ ${LoadLocalization}	"HUNGARIAN"	"locale\Hungarian.nsh"
 ${LoadLocalization}	"ITALIAN"	"locale\Italian.nsh"
 !insertmacro MUI_LANGUAGE	"Japanese" 	; 1041
 ${LoadLocalization}	"JAPANESE"	"locale\Japanese.nsh"
-!insertmacro MUI_LANGUAGE	"Norwegian" ; 2068
-${LoadLocalization}	"NORWEGIAN"	"locale\Norwegian.nsh"
-;!insertmacro MUI_LANGUAGE "NorwegianNynorsk"  ; 2068
-;${LoadLocalization} "NYNORSK" "locale\NorwegianNynorsk.nsh"
+!insertmacro MUI_LANGUAGE	"Norwegian Bokmål" ; 1044
+${LoadLocalization}	"NORWEGIAN BOKMAAL"	"locale\NorwegianBokmaal.nsh"
+!insertmacro MUI_LANGUAGE "Norwegian Nynorsk"  ; 2068
+${LoadLocalization} "NORWEGIAN NYNORSK" "locale\NorwegianNynorsk.nsh"
 !insertmacro MUI_LANGUAGE	"Swedish" 	; 1053
 ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 !insertmacro MUI_LANGUAGE	"SimpChinese" 	; 2052
@@ -170,7 +172,6 @@ ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
 ;;!insertmacro MUI_LANGUAGE	"Korean" 	; 1042
 ;;!insertmacro MUI_LANGUAGE	"Polish" 	; 1045
 ;;!insertmacro MUI_LANGUAGE	"Portuguese" 	; 2070
-;;!insertmacro MUI_LANGUAGE	"PortugueseBR" 	; 1046
 ;;!insertmacro MUI_LANGUAGE	"Romanian" 	; 1048
 ;;!insertmacro MUI_LANGUAGE	"Russian" 	; 1049
 ;;!insertmacro MUI_LANGUAGE	"Serbian" 	; 3098
