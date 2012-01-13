@@ -54,12 +54,14 @@ ${StrRep}
 	!define GTK_URL		"http://downloads.sourceforge.net/project/gtk-win/GTK%2B%20Runtime%20Environment/GTK%2B%202.16"
 	!define GTK_FILENAME	"gtk2-runtime-2.16.6-2010-05-12-ash.exe"
 	!define GTK_SIZE	"27183" ; Install size in Kilobytes
+	OutFile		"${PRODUCT}-${VERSION}-classic-setup.exe"
 !else
 	!define GTK_MIN_VERSION	"2.22.0"
 	!define GTK_VERSION	"${BUILD}"
 	!define GTK_URL		"http://downloads.sourceforge.net/project/gtk-win/GTK%2B%20Runtime%20Environment/GTK%2B%202.24"
 	!define GTK_FILENAME	"gtk2-runtime-2.24.8-2011-12-03-ash.exe"
 	!define GTK_SIZE	"14803" ; Install size in Kilobytes
+	OutFile		"${PRODUCT}-${VERSION}-setup.exe"
 !endif
 
 !define AS_DICT_URL	"http://www.muleslow.net/files/aspell/lang"
@@ -108,7 +110,6 @@ Var FA_SelectAll
 ; Installer configuration settings
 ;----------------------------------------------
 Name		"${PRODUCT} v${VERSION}"
-OutFile		"${PRODUCT}-${VERSION}-setup.exe"
 InstallDir	"$PROGRAMFILES32\${PRODUCT}"
 
 ; Tell Windows Vista and Windows 7 that we want admin rights to install
@@ -175,10 +176,15 @@ Page custom FileAssociations SetFileAssociations
 ; English goes first as the default language
 !insertmacro MUI_LANGUAGE	"English" 	; 1033
 ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
+; Localization Notes
+;   MUI_LANGUAGE definitions are defined by NSIS and should not be changed
+;    see 'nsisu\Contrib\Language files' for appropriate definitions for missing entries
+;   LoadLocalization entries should match the MUI_LANGUAGE name but be in all caps, if they
+;    don't match they cannot contain spaces for proper operation
 !insertmacro MUI_LANGUAGE	"Basque" 	; 1069
 ${LoadLocalization}	"BASQUE"	"locale\Basque.nsh"
 !insertmacro MUI_LANGUAGE	"PortugueseBR" 	; 1046
-${LoadLocalization}	"BRAZILIAN PORTUGUESE"	"locale\PortugueseBR.nsh"
+${LoadLocalization}	"PORTUGUESEBR"	"locale\PortugueseBR.nsh"
 !insertmacro MUI_LANGUAGE	"Czech" 	; 1029
 ${LoadLocalization}	"CZECH"		"locale\Czech.nsh"
 !insertmacro MUI_LANGUAGE	"Dutch" 	; 1043
@@ -196,13 +202,13 @@ ${LoadLocalization}	"ITALIAN"	"locale\Italian.nsh"
 !insertmacro MUI_LANGUAGE	"Japanese" 	; 1041
 ${LoadLocalization}	"JAPANESE"	"locale\Japanese.nsh"
 !insertmacro MUI_LANGUAGE	"Norwegian" ; 1044
-${LoadLocalization}	"NORWEGIAN BOKMAAL"	"locale\NorwegianBokmaal.nsh"
+${LoadLocalization}	"NORWEGIAN"	"locale\NorwegianBokmaal.nsh"
 !insertmacro MUI_LANGUAGE "NorwegianNynorsk"  ; 2068
-${LoadLocalization} "NORWEGIAN NYNORSK" "locale\NorwegianNynorsk.nsh"
+${LoadLocalization}	"NORWEGIANNYNORSK" "locale\NorwegianNynorsk.nsh"
 !insertmacro MUI_LANGUAGE	"Swedish" 	; 1053
 ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 !insertmacro MUI_LANGUAGE	"SimpChinese" 	; 2052
-${LoadLocalization}	"SIMPLE CHINESE"	"locale\SimpChinese.nsh"
+${LoadLocalization}	"SIMPCHINESE"	"locale\SimpChinese.nsh"
 !insertmacro MUI_LANGUAGE	"Ukrainian" ; 1058
 ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
 ; Translations needed for the following commented languages
