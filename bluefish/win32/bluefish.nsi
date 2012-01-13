@@ -195,9 +195,9 @@ ${LoadLocalization}	"HUNGARIAN"	"locale\Hungarian.nsh"
 ${LoadLocalization}	"ITALIAN"	"locale\Italian.nsh"
 !insertmacro MUI_LANGUAGE	"Japanese" 	; 1041
 ${LoadLocalization}	"JAPANESE"	"locale\Japanese.nsh"
-!insertmacro MUI_LANGUAGE	"Norwegian Bokmål" ; 1044
+!insertmacro MUI_LANGUAGE	"Norwegian" ; 1044
 ${LoadLocalization}	"NORWEGIAN BOKMAAL"	"locale\NorwegianBokmaal.nsh"
-!insertmacro MUI_LANGUAGE "Norwegian Nynorsk"  ; 2068
+!insertmacro MUI_LANGUAGE "NorwegianNynorsk"  ; 2068
 ${LoadLocalization} "NORWEGIAN NYNORSK" "locale\NorwegianNynorsk.nsh"
 !insertmacro MUI_LANGUAGE	"Swedish" 	; 1053
 ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
@@ -353,7 +353,7 @@ Section "-GTK+ Installer" SecGTK
 		ExecWait '"$TEMP\${GTK_FILENAME}" /S /sideeffects=no /dllpath=root /D=$INSTDIR'
 		Delete "$TEMP\${GTK_FILENAME}"
 
-		IfFileExists "$INSTDIR\${UNINSTALL_GTK}" 0 +6 ; If the uninstaller exists install completed successively
+		IfFileExists "$INSTDIR\${UNINSTALL_GTK}" 0 -6 ; If the uninstaller exists install completed successfully, otherwise display an error
 			${If} $HKEY == "Classic"
 				WriteRegStr HKCU "${REG_USER_SET}" "GTK" "${GTK_VERSION}"
 			${Else}
