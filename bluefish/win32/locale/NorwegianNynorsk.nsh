@@ -33,7 +33,7 @@
 !define GTK_DOWNLOAD "Lastar ned GTK+ …"
 !define GTK_FAILED "GTK+-nedlastinga feila:"
 !define GTK_INSTALL "Installerer GTK+ …"
-; !define GTK_UNINSTALL "Uninstalling GTK+..."
+!define GTK_UNINSTALL "Avinstallerer GTK+ …"
 !define GTK_PATH "Installerer GTK+ i systemfilbana."
 !define GTK_REQUIRED "Installer GTK+ 2.14.7 eller nyare og sjå til at det er i systemfilbana (PATH) før du kjører  Bluefish."
 
@@ -43,7 +43,7 @@
 !define PLUG_HTMLBAR "HTML-verktøylinje"
 !define PLUG_INFBROWSER "Info Browser"
 !define PLUG_SNIPPETS "Utklipp"
-; !define PLUG_ZENCODING "Zencoding"
+!define PLUG_ZENCODING "Zencoding"
 
 ; File Associations Page
 !define FA_TITLE "Filtilknytingar"

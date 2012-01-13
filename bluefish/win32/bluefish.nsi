@@ -177,6 +177,8 @@ Page custom FileAssociations SetFileAssociations
 ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
 !insertmacro MUI_LANGUAGE	"Basque" 	; 1069
 ${LoadLocalization}	"BASQUE"	"locale\Basque.nsh"
+!insertmacro MUI_LANGUAGE	"PortugueseBR" 	; 1046
+${LoadLocalization}	"BRAZILIAN PORTUGUESE"	"locale\PortugueseBR.nsh"
 !insertmacro MUI_LANGUAGE	"Czech" 	; 1029
 ${LoadLocalization}	"CZECH"		"locale\Czech.nsh"
 !insertmacro MUI_LANGUAGE	"Dutch" 	; 1043
@@ -193,10 +195,10 @@ ${LoadLocalization}	"HUNGARIAN"	"locale\Hungarian.nsh"
 ${LoadLocalization}	"ITALIAN"	"locale\Italian.nsh"
 !insertmacro MUI_LANGUAGE	"Japanese" 	; 1041
 ${LoadLocalization}	"JAPANESE"	"locale\Japanese.nsh"
-!insertmacro MUI_LANGUAGE	"Norwegian" ; 2068
-${LoadLocalization}	"NORWEGIAN"	"locale\Norwegian.nsh"
-;!insertmacro MUI_LANGUAGE "NorwegianNynorsk"  ; 2068
-;${LoadLocalization} "NYNORSK" "locale\NorwegianNynorsk.nsh"
+!insertmacro MUI_LANGUAGE	"Norwegian Bokmål" ; 1044
+${LoadLocalization}	"NORWEGIAN BOKMAAL"	"locale\NorwegianBokmaal.nsh"
+!insertmacro MUI_LANGUAGE "Norwegian Nynorsk"  ; 2068
+${LoadLocalization} "NORWEGIAN NYNORSK" "locale\NorwegianNynorsk.nsh"
 !insertmacro MUI_LANGUAGE	"Swedish" 	; 1053
 ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 !insertmacro MUI_LANGUAGE	"SimpChinese" 	; 2052
@@ -211,7 +213,6 @@ ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
 ;;!insertmacro MUI_LANGUAGE	"Korean" 	; 1042
 ;;!insertmacro MUI_LANGUAGE	"Polish" 	; 1045
 ;;!insertmacro MUI_LANGUAGE	"Portuguese" 	; 2070
-;;!insertmacro MUI_LANGUAGE	"PortugueseBR" 	; 1046
 ;;!insertmacro MUI_LANGUAGE	"Romanian" 	; 1048
 ;;!insertmacro MUI_LANGUAGE	"Russian" 	; 1049
 ;;!insertmacro MUI_LANGUAGE	"Serbian" 	; 3098
@@ -455,7 +456,7 @@ SectionGroup /e "$(SECT_DICT)" SecLang
 	Section /o "Italian" SecLangIt
 		${InstallAspellDict} "it" "2.2_20050523-0"
 	SectionEnd
-	Section /o "Norwegian" SecLangNb
+	Section /o "Norwegian Bokmål" SecLangNb
 		${InstallAspellDict} "nb" "0.50.1-0"
 	SectionEnd
 	Section /o "Norwegian Nynorsk" SecLangNn
@@ -625,26 +626,28 @@ Function .onInit
 	SectionSetSize ${SecLangBg} 2501		; 842KB Download
 	SectionSetSize ${SecLangCs} 6640		; 2.21MB Download
 	SectionSetSize ${SecLangDa} 12394		; 3.86MB Download
-	SectionSetSize ${SecLangNl} 4430		; 1.54MB Download
+	SectionSetSize ${SecLangDe} 11355		; 3.63MB Download
+	SectionSetSize ${SecLangEl} 12975		; 4.03MB Download
 	SectionSetSize ${SecLangEn} 3557		; 1.21MB Download
+	SectionSetSize ${SecLangEs} 1198		; 403KB Download
 	SectionSetSize ${SecLangFi} 2750		; 680KB Download
 	SectionSetSize ${SecLangFr} 17762		; 5.55MB Download
 	SectionSetSize ${SecLangGl} 814		; 299KB Download
-	SectionSetSize ${SecLangDe} 11355		; 3.63MB Download
-	SectionSetSize ${SecLangEl} 12975		; 4.03MB Download
 	SectionSetSize ${SecLangHu} 7098		; 1.74MB Download
 	SectionSetSize ${SecLangIt} 2119		; 690KB Download
 	SectionSetSize ${SecLangNb} 11040		; 3.47MB Download
-	SectionSetSize ${SecLangPt_PT} 734		; 273KB Download
+	SectionSetSize ${SecLangNn} 6321		;  2.0M B Download 	
+	SectionSetSize ${SecLangNl} 4430		; 1.54MB Download
 	SectionSetSize ${SecLangPt_BR} 7946	; 2.54MB Download
+	SectionSetSize ${SecLangPt_PT} 734		; 273KB Download
 	SectionSetSize ${SecLangRo} 30943		; 9.64MB Download
 	SectionSetSize ${SecLangRu} 5904		; 1.87MB Download
-	SectionSetSize ${SecLangSr} 12196		; 4.35MB Download
 	SectionSetSize ${SecLangSk} 3810		; 1.34MB Download
-	SectionSetSize ${SecLangEs} 1198		; 403KB Download
+	SectionSetSize ${SecLangSr} 12196		; 4.35MB Download
 	SectionSetSize ${SecLangSv} 3522		; 1.19MB Download
 	SectionSetSize ${SecLangTa} 283 		; 112KB Download
 	SectionSetSize ${SecLangTr} 1554		; 534KB Download
+
 
 ; If we're updating from bluefish-unstable to bluefish we should uninstall first
 	Push $R0
@@ -804,6 +807,9 @@ Function .onInit
 				${Case} "nb"
 					SectionSetFlags ${SecLangNb} ${SF_SELECTED}
 					${Break}
+				${Case} "nn"
+					SectionSetFlags ${SecLangNn} ${SF_SELECTED}
+					${Break}
 				${Case} "pt_pt"
 					SectionSetFlags ${SecLangPt_PT} ${SF_SELECTED}
 					${Break}
@@ -876,8 +882,11 @@ Function .onInit
 			${Case} 1110 ; Galician
 				SectionSetFlags ${SecLangGl} ${SF_SELECTED}
 				${Break}
-			${Case} 2068 ; Norwegian
+			${Case} 1044 ; Norwegian Bokmål
 				SectionSetFlags ${SecLangNb} ${SF_SELECTED}
+				${Break}
+			${Case} 2068 ; Norwegian Nynorsk
+				SectionSetFlags ${SecLangNn} ${SF_SELECTED}
 				${Break}
 			${Case} 2070 ; Portuguese
 				SectionSetFlags ${SecLangPt_PT} ${SF_SELECTED}
