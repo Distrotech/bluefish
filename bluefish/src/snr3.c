@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snr3.c - search and replace
  *
- * Copyright (C) 2011 Olivier Sessink
+ * Copyright (C) 2011,2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -978,13 +978,18 @@ static void
 snr3_docdestroy_cb(Tdocument *doc, gpointer data)
 {
 	Tsnr3run *s3run = data;
+	GList *tmplist;
 	/* see if this is the current document of an ongoing search, if so, cancel the search */
 	DEBUG_MSG("snr3_docdestroy_cb, doc=%p, s3run=%p\n",doc,s3run);
 	if (s3run->curdoc == doc || s3run->scope == snr3scope_alldocs) {
 		snr3_cancel_run(s3run);
 	}
 	/* remove any existing search results for this doc */
-	GList *tmplist=g_list_first(s3run->results.head);
+	if (((Tsnr3result *)s3run->current)->doc == doc) {
+		s3run->current = NULL;
+	}	
+	
+	tmplist=g_list_first(s3run->results.head);
 	while(tmplist) {
 		GList *next = tmplist->next;
 		Tsnr3result *s3result=tmplist->data;
