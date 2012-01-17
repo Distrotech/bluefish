@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2.c
  *
- * Copyright (C) 2008-2011 Olivier Sessink
+ * Copyright (C) 2008-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1112,7 +1112,11 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 
 		if (master->show_right_margin) {
 			GdkRectangle rect, rect2;
+#if GTK_CHECK_VERSION(3, 0, 0)
+			guint pix = master->margin_pixels_per_char * main_v->props.right_margin_pos + master->margin_pixels_block + master->margin_pixels_symbol + master->margin_pixels_chars;
+#else
 			guint pix = master->margin_pixels_per_char * main_v->props.right_margin_pos;
+#endif
 			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
 			rect2 = rect;
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, rect.x,
