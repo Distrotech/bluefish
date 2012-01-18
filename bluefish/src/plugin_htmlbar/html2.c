@@ -508,6 +508,12 @@ static void cs3d_prop_activate_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 			if (!tmp->force_pos) {
 					tmpstr2 = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->value))), 0, -1);
 			}
+#if GTK_CHECK_VERSION(3,0,0)
+			gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(diag->value));
+#else
+			GtkListStore *store = GTK_LIST_STORE(gtk_combo_box_get_model(GTK_COMBO_BOX(diag->value)));
+  			gtk_list_store_clear(store);
+#endif
 			for (tmplist=g_list_first(list);tmplist;tmplist=g_list_next(tmplist)) {
 				if (tmplist->data) {
 					gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(diag->value),tmplist->data);
