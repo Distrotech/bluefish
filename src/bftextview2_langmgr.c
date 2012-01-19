@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_langmgr.c
  *
- * Copyright (C) 2008,2009,2010,2011 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2011,2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,6 +48,7 @@ typedef struct {
 	gboolean load_reference;
 	guint reference_size;
 	gboolean autoclose_tags;
+	gboolean stretch_tag_block;
 #ifdef HAVE_LIBENCHANT
 	gboolean default_spellcheck;
 	gboolean spell_decode_entities;
@@ -914,7 +915,8 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					add_keyword_to_scanning_table(bfparser->st, ">", bfparser->bflang->name,
 												  highlight ? highlight : ih_highlight, NULL, FALSE, FALSE,
 												  contexttag, -1, FALSE, FALSE, 
-												  matchnum /* blockstartpattern for stretch_block */, FALSE, TRUE,
+												  matchnum /* blockstartpattern for stretch_block */, FALSE, 
+												  bfparser->stretch_tag_block /* stretch_blockstart */,
 												  0, FALSE, FALSE);
 				if (bfparser->autoclose_tags && !no_close)
 					match_add_autocomp_item(bfparser->st, starttagmatch, NULL, tmp, tmp ? strlen(tmp) : 0);
@@ -1253,6 +1255,8 @@ build_lang_thread(gpointer data)
 	bfparser->load_completion = !(tmp && tmp[0] == '0');
 	tmp = lookup_user_option(bflang->name, "autoclose_tags");
 	bfparser->autoclose_tags = !(tmp && tmp[0] == '0');
+	tmp = lookup_user_option(bflang->name, "stretch_tag_block");
+	bfparser->stretch_tag_block = !(tmp && tmp[0] == '0');
 
 	/* insert the special option is_LANGNAME to the hashtable, so you can check for the language file being parsed using class or notclass */
 	for (tmplist=g_list_first(langmgr.bflang_list);tmplist;tmplist=g_list_next(tmplist)) {
