@@ -1,6 +1,7 @@
 BLUEFISH_PACKAGE = @PACKAGE@
 BLUEFISH_VERSION = @VERSION@
 BLUEFISH_LOCALES = @ALL_LINGUAS@
+BLUEFISH_GTK_VER = $(shell pkg-config gtk+-2.0 --modversion)
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -48,6 +49,7 @@ installer: strip prepare
 	$(MAKENSIS) -V3 \
 	    -DPACKAGE="$(BLUEFISH_PACKAGE)" \
 	    -DVERSION="$(BLUEFISH_VERSION)" \
+	    -DBUILD="$(BLUEFISH_GTK_VER)" \
 	    -DLOCALES="$(BLUEFISH_LOCALES)" \
 	    bluefish.nsi
 
