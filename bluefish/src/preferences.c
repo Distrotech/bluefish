@@ -1380,10 +1380,12 @@ fill_bflang_gui(Tprefdialog * pd)
 		gchar **strarr = (gchar **) tmplist->data;
 		if (g_strv_length(strarr) == 3) {
 			GtkTreeIter iter;
+			gchar *tmp;
+			tmp = langmgr_get_option_description(strarr[1]);
 			gtk_list_store_append(GTK_LIST_STORE(pd->bld.lstore), &iter);
-			gtk_list_store_set(GTK_LIST_STORE(pd->bld.lstore), &iter, 0, strarr[0], 1, strarr[1], 2,
-							   strarr[2][0]
-							   == '1', 3, strarr, -1);
+			gtk_list_store_set(GTK_LIST_STORE(pd->bld.lstore), &iter, 0, strarr[0], 1, 
+								tmp ? tmp : strarr[1], 2,
+							   strarr[2][0] == '1', 3, strarr, -1);
 		}
 		tmplist = g_list_next(tmplist);
 	}
