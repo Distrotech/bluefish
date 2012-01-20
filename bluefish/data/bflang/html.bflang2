@@ -33,26 +33,26 @@
 <header>
 	<mime type="text/html"/>
 	<mime type="text/plain?shtml"/>
-	<option name="load_reference" default="1" description="load reference data"/>
-	<option name="load_completion" default="1" description="load completion data"/>
-	<option name="show_in_menu" default="1"/>
-	<option name="autocomplete_tags" default="1" />
-	<option name="stretch_tag_block" default="1" />
-	<option name="javascript_anchors_object" default="1" description="Anchors object" />
-	<option name="javascript_applets_object" default="1" description="Applet object" />
-	<option name="javascript_date_object" default="1" description="Date object" />
-	<option name="javascript_document_object" default="1" description="Document object" />
-	<option name="javascript_event_object" default="1" description="Event object" />
-	<option name="javascript_history_object" default="1" description="History object" />
-	<option name="javascript_location_object" default="1" description="Location object" />
-	<option name="javascript_math_object" default="1" description="Math object" />
-	<option name="javascript_navigator_object" default="1" description="Navigator object" />
-	<option name="javascript_node_object" default="1" description="Node object" />
-	<option name="javascript_screen_object" default="1" description="Screen object" />
-	<option name="javascript_string_object" default="1" description="String object" />
-	<option name="javascript_window_object" default="1" description="Window object" />
-	<option name="javascript_css_properties" default="1" description="CSS properties" />
-	<option name="autocomplete-html-entities" default="0" description="HTML entities" />
+	<option name="load_reference" default="1" description="Load reference data"/>
+	<option name="load_completion" default="1" description="Load auto-completion data"/>
+	<option name="show_in_menu" default="1" description="Show this language in the menu"/>
+	<option name="autocomplete_tags" default="1" description="Autocomplete tags" />
+	<option name="stretch_tag_block" default="1" description="Tag block-start includes all attributes" />
+	<option name="javascript_anchors_object" default="1" description="Javascript anchors object" />
+	<option name="javascript_applets_object" default="1" description="Javascript Applet object" />
+	<option name="javascript_date_object" default="1" description="Javascript Date object" />
+	<option name="javascript_document_object" default="1" description="Javascript Document object" />
+	<option name="javascript_event_object" default="1" description="Javascript Event object" />
+	<option name="javascript_history_object" default="1" description="Javascript History object" />
+	<option name="javascript_location_object" default="1" description="Javascript Location object" />
+	<option name="javascript_math_object" default="1" description="Javascript Math object" />
+	<option name="javascript_navigator_object" default="1" description="Javascript Navigator object" />
+	<option name="javascript_node_object" default="1" description="Javascript Node object" />
+	<option name="javascript_screen_object" default="1" description="Javascript Screen object" />
+	<option name="javascript_string_object" default="1" description="Javascript String object" />
+	<option name="javascript_window_object" default="1" description="Javascript Window object" />
+	<option name="javascript_css_properties" default="1" description="Javascript CSS properties" />
+	<option name="autocomplete-html-entities" default="0" description="Autocomplete HTML entities" />
 	<highlight name="html-tag" style="tag" />
 	<highlight name="html-reference-external-tag" style="special-tag" />
 	<highlight name="html-table-tag" style="special-tag2" />
