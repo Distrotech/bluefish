@@ -66,6 +66,7 @@ typedef struct {
 	GHashTable *bflang_options;	/* key: a NULL terminated char **array with first value the language name,
 								   second value the option name, third NULL
 								   and as value a gchar * with the value of the option */
+	GHashTable *option_descriptions; /* key: the option name, value a description */
 	GtkTextTag **highlight_tags;	/* text used for highlighting, so not _needscanning_ or _needspellcheck_ or _folded_ and such */
 #ifdef HAVE_LIBENCHANT
 	GtkTextTag **need_spellcheck_tags;
@@ -331,6 +332,12 @@ langmgr_reload_user_highlights(void)
 	}
 }
 
+gchar *
+langmgr_get_option_description(const gchar *optionname)
+{
+	return g_hash_table_lookup(langmgr.option_descriptions, optionname);
+}
+
 static gchar *
 langmgr_lookup_style_for_highlight(const gchar * lang, const gchar * highlight)
 {
@@ -454,11 +461,13 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 				xmlFree(aname);
 			}
 		} else if (xmlStrEqual(name, (xmlChar *) "option")) {
-			gchar *optionname = NULL;
+			gchar *optionname = NULL, *description = NULL;
 			gboolean defaultval = FALSE;
+			gboolean free_description=TRUE;
 			while (xmlTextReaderMoveToNextAttribute(reader)) {
 				xmlChar *aname = xmlTextReaderName(reader);
 				set_string_if_attribute_name(reader, aname, (xmlChar *) "name", &optionname);
+				set_string_if_attribute_name(reader, aname, (xmlChar *) "description", &description);
 				set_boolean_if_attribute_name(reader, aname, (xmlChar *) "default", &defaultval);
 				xmlFree(aname);
 			}
@@ -472,7 +481,19 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 														  NULL));
 					langmgr_insert_user_option(bflang->name, optionname, defaultval ? "1" : "0");
 				}
-				g_free(optionname);
+				if (description) {
+					gpointer val = g_hash_table_lookup(langmgr.option_descriptions, optionname);
+/*					g_print("optionname=%s, description=%s, val=%p\n",optionname,description, val);*/
+					if (!val) {
+						g_hash_table_insert(langmgr.option_descriptions, optionname, description);
+						free_description = FALSE;
+					}
+				
+				}
+				if (free_description) {
+					g_free(optionname);
+					g_free(description);
+				}
 			}
 		} else if (xmlStrEqual(name, (xmlChar *) "highlight")) {
 			gchar *name = NULL, *style = NULL /*, *fgcolor=NULL, *bgcolor=NULL, *italic=NULL,*bold=NULL */ ;
@@ -1682,7 +1703,8 @@ langmgr_init(void)
 		g_hash_table_new_full(arr2_hash, arr2_equal, (GDestroyNotify) g_strfreev, g_free);
 	langmgr.bflang_options =
 		g_hash_table_new_full(arr2_hash, arr2_equal, (GDestroyNotify) g_strfreev, g_free);
-
+	langmgr.option_descriptions =
+		g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
 	tag = gtk_text_tag_new("_needscanning_");
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
