@@ -39,22 +39,22 @@
 	<option name="php_short_open_tag" default="1" description="Enable the PHP short open tag"/>
 	<option name="autocomplete_tags" default="1" />
 	<option name="stretch_tag_block" default="1" />
-	<option name="javascript_anchors_object" default="1" description="Anchors object" />
-	<option name="javascript_applets_object" default="1" description="Applet object" />
-	<option name="javascript_date_object" default="1" description="Date object" />
-	<option name="javascript_document_object" default="1" description="Document object" />
-	<option name="javascript_event_object" default="1" description="Event object" />
-	<option name="javascript_history_object" default="1" description="History object" />
-	<option name="javascript_location_object" default="1" description="Location object" />
-	<option name="javascript_math_object" default="1" description="Math object" />
-	<option name="javascript_navigator_object" default="1" description="Navigator object" />
-	<option name="javascript_node_object" default="1" description="Node object" />
-	<option name="javascript_screen_object" default="1" description="Screen object" />
-	<option name="javascript_string_object" default="1" description="String object" />
-	<option name="javascript_window_object" default="1" description="Window object" />
-	<option name="javascript_css_properties" default="1" description="CSS properties" />
-	<option name="sql-in-php-string" default="1" description="scan for sql in php strings" />
-	<option name="autocomplete-html-entities" default="0" description="HTML entities" />
+	<option name="javascript_anchors_object" default="1" />
+	<option name="javascript_applets_object" default="1" />
+	<option name="javascript_date_object" default="1"  />
+	<option name="javascript_document_object" default="1" />
+	<option name="javascript_event_object" default="1"  />
+	<option name="javascript_history_object" default="1"  />
+	<option name="javascript_location_object" default="1"  />
+	<option name="javascript_math_object" default="1"  />
+	<option name="javascript_navigator_object" default="1"  />
+	<option name="javascript_node_object" default="1"  />
+	<option name="javascript_screen_object" default="1" />
+	<option name="javascript_string_object" default="1" />
+	<option name="javascript_window_object" default="1"  />
+	<option name="javascript_css_properties" default="1"  />
+	<option name="sql-in-php-string" default="1" description="Scan for sql in strings" />
+	<option name="autocomplete-html-entities" default="0" />
 	<highlight name="php-block-tag" style="special-value"  />
 	<highlight name="string" style="string"   />
 	<highlight name="brackets" style="brackets"  />
@@ -124,13 +124,13 @@
 		<element pattern="*/" ends_block="1" blockstartelement="e.php.short.lcomment" highlight="php-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
-<element id="e.php.short.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" mayfold="1" highlight="brackets" >
+<element id="e.php.short.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" mayfold="1" highlight="brackets" autocomplete="1">
 	<context symbols="EOF" highlight="php-comment">
 <element pattern="EOF" ends_block="1" ends_context="1" blockstartelement="e.php.short.multiline_string" highlight="brackets" />
 	</context>
 </element>
 <element id="e.php.short.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" identifier_mode="2" identifier_autocomp="1" />
-<element pattern="&#34;" highlight="string">
+<element id="e.php.short.doublequotedstring" pattern="&#34;" highlight="string" starts_block="1">
 	<context symbols="\&#34;$ &#9;&#10;&#13;' -&lt;&gt;{}[]" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
 <!--		<element pattern="\$" highlight="string" />-->
@@ -166,7 +166,7 @@
 			<element pattern="VALUES" />
 			<element pattern="WHERE" />
 		</group>
-		<element pattern="&#34;" highlight="string" ends_context="1" />
+		<element pattern="&#34;" highlight="string" ends_context="1" ends_block="1" blockstartelement="e.php.short.doublequotedstring" />
 	</context>
 </element>
 <element pattern="//" highlight="php-comment">
@@ -202,13 +202,13 @@ was disabled, this whole section is not parsed by the language manager, so the c
 		<element pattern="*/" ends_block="1" blockstartelement="e.php.lcomment" highlight="php-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
-<element id="e.php.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" mayfold="1" highlight="brackets" >
+<element id="e.php.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" mayfold="1" highlight="brackets" autocomplete="1">
 	<context symbols="EOF" highlight="php-comment">
 <element pattern="EOF" ends_block="1" ends_context="1" blockstartelement="e.php.multiline_string" highlight="brackets" />
 	</context>
 </element>
 <element id="e.php.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" identifier_mode="2" identifier_autocomp="1"/>
-<element pattern="&#34;" highlight="string">
+<element pattern="&#34;" highlight="string" id="e.php.doublequotedstring">
 	<context symbols="\&#34;$ &#9;&#10;&#13;' -&lt;&gt;{}[]" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
 <!--		<element pattern="\$" highlight="string" />-->
@@ -244,7 +244,7 @@ was disabled, this whole section is not parsed by the language manager, so the c
 			<element pattern="VALUES" />
 			<element pattern="WHERE" />
 		</group>
-		<element pattern="&#34;" highlight="string" ends_context="1" />
+		<element pattern="&#34;" highlight="string" ends_context="1" ends_block="1" blockstartelement="e.php.doublequotedstring"/>
 	</context>
 </element>
 <element pattern="//" highlight="php-comment">
