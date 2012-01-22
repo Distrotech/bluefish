@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		all-php.bfinc $Revision$
  
-		Copyright (C) 2008-2010 Olivier Sessink
+		Copyright (C) 2008-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -22950,7 +22950,7 @@ or false.
 <element pattern="true" autocomplete="1" highlight="php-value"/>
 <element pattern="NULL" autocomplete="1" highlight="php-value"/>
 <element pattern="null" autocomplete="1" highlight="php-value"/>
-<element pattern="'" highlight="string">
+<element pattern="'" highlight="string" id="e.php.singlequotedstring" starts_block="1">
 	<context symbols="\'" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
 		<group class="sql-in-php-string" highlight="php-string-sql-keyword" case_insens="1">
@@ -22984,7 +22984,7 @@ or false.
 			<element pattern="VALUES" />
 			<element pattern="WHERE" />
 		</group>
-		<element pattern="'" highlight="string" ends_context="1" />
+		<element pattern="'" highlight="string" ends_context="1" ends_block="1" blockstartelement="e.php.singlequotedstring"/>
 	</context>
 </element>
 </bfinc>
