@@ -84,10 +84,6 @@
 #include "plugins.h"
 #include "stringlist.h"
 
-#ifdef WIN32
-#include <shlobj.h>
-#endif
-
 
 typedef struct {
 	void *pointer;				/* where should the value be stored ? */
@@ -856,36 +852,26 @@ rcfile_save_main(void)
 	return ret;
 }
 
-#ifndef WIN32
-#define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
-#endif
 void
 rcfile_check_directory(void)
 {
-	gchar *rcdir = g_strconcat(g_get_home_dir(), "/." PACKAGE, NULL);
-	DEBUG_PATH("test if rcfile directory %s exists\n", rcdir);
-	if (!g_file_test(rcdir, G_FILE_TEST_IS_DIR)) {
-#ifndef WIN32
-		mkdir(rcdir, DIR_MODE);
-#else
-		WCHAR *whome;
-		WCHAR wrcdir[MAX_PATH];
+	GFile *file, *rcpath;
+	GError *gerror = NULL;
 
-		if ((whome = _wgetenv(L"HOME")) && (GetFileAttributesW(whome) != INVALID_FILE_ATTRIBUTES))
-		{
-			wsprintfW(wrcdir, L"%ls\\.%S", whome, PACKAGE);
-			free(whome);
-		}
-		else
-		{
-			SHGetFolderPathW(NULL, CSIDL_PROFILE, NULL, 0, wrcdir);
-			wsprintfW(wrcdir, L"%ls\\.%S", wrcdir, PACKAGE);
-		}
+	file = g_file_new_for_path(g_get_home_dir());
+	rcpath = g_file_get_child(file, ".bluefish");
 
-		CreateDirectoryW(wrcdir, NULL);
-#endif
+	DEBUG_PATH("test if rcfile directory %s exists\n", rcpath);
+	if (g_file_query_file_type(rcpath, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_UNKNOWN) {
+		g_file_make_directory(rcpath, NULL, &gerror);
+		if (gerror) {
+			/* Do something with error */
+			g_error_free(gerror);
+		}
 	}
-	g_free(rcdir);
+
+	g_object_unref(rcpath);
+	g_object_unref(file);
 }
 
 static gchar *
