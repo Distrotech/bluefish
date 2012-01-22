@@ -84,6 +84,8 @@
 #include "plugins.h"
 #include "stringlist.h"
 
+#include <shlobj.h>
+
 
 typedef struct {
 	void *pointer;				/* where should the value be stored ? */
@@ -864,7 +866,21 @@ rcfile_check_directory(void)
 #ifndef WIN32
 		mkdir(rcdir, DIR_MODE);
 #else
-		mkdir(rcdir);
+		WCHAR *whome;
+		WCHAR wrcdir[MAX_PATH];
+
+		if ((whome = _wgetenv(L"HOME")) && (GetFileAttributesW(whome) != INVALID_FILE_ATTRIBUTES))
+		{
+			wsprintfW(wrcdir, L"%ls\\.%S", whome, PACKAGE);
+			free(whome);
+		}
+		else
+		{
+			SHGetFolderPathW(NULL, CSIDL_PROFILE, NULL, 0, wrcdir);
+			wsprintfW(wrcdir, L"%ls\\.%S", wrcdir, PACKAGE);
+		}
+
+		CreateDirectoryW(wrcdir, NULL);
 #endif
 	}
 	g_free(rcdir);
