@@ -84,7 +84,9 @@
 #include "plugins.h"
 #include "stringlist.h"
 
+#ifdef WIN32
 #include <shlobj.h>
+#endif
 
 
 typedef struct {
