@@ -985,7 +985,7 @@ snr3_docdestroy_cb(Tdocument *doc, gpointer data)
 		snr3_cancel_run(s3run);
 	}
 	/* remove any existing search results for this doc */
-	if (((Tsnr3result *)s3run->current)->doc == doc) {
+	if (s3run->current && ((Tsnr3result *)s3run->current)->doc == doc) {
 		s3run->current = NULL;
 	}	
 	
