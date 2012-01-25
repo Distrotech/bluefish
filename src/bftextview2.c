@@ -1496,8 +1496,9 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
 
+	DEBUG_MSG("bluefish_text_view_button_press_event, widget=%p, btv=%p, master=%p\n", widget, btv, master);
 	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT)) {
-		DBG_SIGNALS("bluefish_text_view_button_press_event\n");
+		
 		if (event->button == 1) {
 			gint x, y;
 			GtkTextIter it;
@@ -1571,12 +1572,12 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 		GSList *tmplist = main_v->doc_view_button_press_cbs;
 		while (tmplist) {
 			void *(*func) () = tmplist->data;
-			DEBUG_MSG("doc_view_button_press_lcb, calling plugin func %p\n", tmplist->data);
+			DEBUG_MSG("bluefish_text_view_button_press_event, calling plugin func %p for widget %p, master %p and doc %p\n", tmplist->data, widget, master, master->doc);
 			func(widget, event, (Tdocument *) master->doc);
 			tmplist = g_slist_next(tmplist);
 		}
 	}
-
+	DEBUG_MSG("bluefish_text_view_button_press_event, call parent button_press_event for widget %p\n", widget);
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->button_press_event(widget, event);
 }
 
@@ -2015,8 +2016,13 @@ bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, c
 {
 	GtkTextIter start, end;
 	GtkTextBuffer *buffer;
-	Tbflang *bflang = langmgr_get_bflang(mime,filename);
 	BluefishTextView *master = btv->master;
+	Tbflang *bflang = langmgr_get_bflang(mime,filename);
+	
+	if (bflang == master->bflang) {
+		DBG_MSG("bluefish_text_view_set_mimetype, nothing to do for btv %p\n", btv);
+		return;
+	}
 	buffer = master->buffer;
 	/* remove all highlighting */
 	cleanup_scanner(master);
@@ -2038,7 +2044,7 @@ bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, c
 	} else {
 		master->bflang = NULL;
 	}
-	DBG_MSG("bluefish_text_view_set_mimetype, done for %p\n", btv);
+	DBG_MSG("bluefish_text_view_set_mimetype, done for btv %p\n", btv);
 }
 
 gboolean
@@ -2317,8 +2323,8 @@ bluefish_text_view_finalize(GObject * object)
 	BluefishTextView *btv;
 
 	g_return_if_fail(object != NULL);
-	DBG_MSG("destroy BluefishTextView %p\n", object);
 	btv = BLUEFISH_TEXT_VIEW(object);
+	DEBUG_MSG("bluefish_text_view_finalize, destroy BluefishTextView btv=%p, btv->slave=%p, btv->master=%p\n", btv, btv->slave, btv->master);
 	if (btv->master != btv && BLUEFISH_TEXT_VIEW(btv->master)->slave == btv) {
 		BLUEFISH_TEXT_VIEW(btv->master)->slave = NULL;
 	}
@@ -2350,7 +2356,7 @@ bluefish_text_view_finalize(GObject * object)
 		btv->user_idle_timer = NULL;
 	}
 	if (btv->buffer) {
-		DBG_MSG("bluefish_text_view_finalize %p, disconnect signals from buffer %p\n", btv, btv->buffer);
+		DEBUG_MSG("bluefish_text_view_finalize %p, disconnect signals from buffer %p\n", btv, btv->buffer);
 		if (btv->insert_text_id)
 			g_signal_handler_disconnect(btv->buffer, btv->insert_text_id);
 		if (btv->insert_text_after_id)
@@ -2364,8 +2370,10 @@ bluefish_text_view_finalize(GObject * object)
 	}
 	btv->bflang = NULL;
 	btv->enable_scanner = FALSE;
-	if (G_OBJECT_CLASS(bluefish_text_view_parent_class)->finalize)
+	if (G_OBJECT_CLASS(bluefish_text_view_parent_class)->finalize) {
+		DEBUG_MSG("call parent class finalize() on %p\n", object);
 		G_OBJECT_CLASS(bluefish_text_view_parent_class)->finalize(object);
+	}
 }
 
 /* *************************************************************** */
@@ -2492,13 +2500,13 @@ bftextview2_new_slave(BluefishTextView * master)
 
 	g_return_val_if_fail(master != NULL, NULL);
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(master));
-	DBG_MSG("bftextview2_new_slave, master=%p, buffer=%p\n", master, buffer);
+	DEBUG_MSG("bftextview2_new_slave, master=%p, buffer=%p\n", master, buffer);
 	textview = (BluefishTextView *) bftextview2_new_with_buffer(buffer);
 	g_return_val_if_fail(textview != NULL, NULL);
 
 	textview->master = master;
 	master->slave = textview;
-	DBG_MSG("bftextview2_new_slave, created slave %p for master %p\n", textview, master);
+	DEBUG_MSG("bftextview2_new_slave, created slave %p for master %p\n", textview, master);
 	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(textview), GTK_TEXT_WINDOW_LEFT,
 										 BLUEFISH_TEXT_VIEW(master)->margin_pixels_chars
 										 + BLUEFISH_TEXT_VIEW(master)->margin_pixels_block
