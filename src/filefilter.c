@@ -146,7 +146,7 @@ patternlist_from_string(const gchar * patterns)
 static Tfilter *
 new_filter(const gchar * name, const gchar * mode, const gchar * mimetypes, const gchar * patterns)
 {
-	Tfilter *filter = g_new(Tfilter, 1);
+	Tfilter *filter = g_slice_new(Tfilter);
 	filter->name = g_strdup(name);
 	filter->refcount = 1;
 	filter->mode = atoi(mode);
@@ -167,7 +167,7 @@ filter_destroy(Tfilter * filter)
 		g_free(pat->pattern);
 	}
 	g_list_free(filter->patterns);
-	g_free(filter);
+	g_slice_free(Tfilter, filter);
 }
 
 void
