@@ -96,6 +96,9 @@
 						<reference>reference is a tag that can be added to tag or to element. The text within the reference opening/closing is the reference information about the pertinent tag or element. Simple layout is available because the string is passed to Pango. <i>i</i>, <b>b</b>, <tt>tt</tt>, <small>small</small>, <big>big</big>, <s>s</s>, <u>u</u>, <sub>sub</sub>
 <sup>sup</sup> tags are permitted. <span foreground="blue">&lt;span foreground="blue"&gt;</span> is also permitted, see Pango Text Attribute Markup Language.</reference>
 					</tag>
+					<tag name="autocomplete_append" highlight="tag" attributes="autocomplete_backup_cursor,class,notclass">
+						<reference>autocomplete_append strings that are defined using an autocomplete_append tag inside a element tag override the autocomplete_append attribute on the element tag itself. The class and notclass attributes can be used to use different autocomplete_append settings dependiong on the users preferences</reference>
+					</tag>
 					<tag idref="t.context" />
 				</context>
 			</tag>
@@ -121,7 +124,7 @@
 </tag>
 
 <tag name="bfinc" highlight="tag" autocomplete_append="&gt;">
-<reference>the <i>bflang</i> tag is the root tag of the bluefish language include file.</reference>
+<reference>the <i>bfinc</i> tag is the root tag of the bluefish language include file.</reference>
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" >
 		<element idref="e.comment"/>
 		<element idref="e.entity" />

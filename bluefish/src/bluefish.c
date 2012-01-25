@@ -320,7 +320,7 @@ int main(int argc, char *argv[])
                        "widget \"*.bluefish-small-close-button\" style \"bluefish-small-close-button-style\""
                        );
 #endif
-
+	xmlMemSetup((xmlFreeFunc) g_free, (xmlMallocFunc) g_malloc, (xmlReallocFunc) g_realloc, (xmlStrdupFunc) g_strdup);
 	xmlInitParser();
 	startup = g_new0(Tstartup,1);
 	main_v = g_new0(Tmain, 1);

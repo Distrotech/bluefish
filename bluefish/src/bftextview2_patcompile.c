@@ -785,7 +785,7 @@ match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * autocom
 	Tpattern_autocomplete *pac = g_slice_new(Tpattern_autocomplete);
 	if (autocomplete_string) {
 		pac->autocomplete_string = (gchar *) autocomplete_string;
-	} else if (autocomplete_append) {
+	} else if (autocomplete_append && autocomplete_append[0]!='\0') {
 		pac->autocomplete_string =
 			g_strconcat(g_array_index(st->matches, Tpattern, matchnum).pattern, autocomplete_append, NULL);
 	} else {
@@ -819,7 +819,67 @@ compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context)
 	match_autocomplete_reference(st, matchnum, context);
 }
 
+void
+pattern_set_blockmatch(Tscantable * st, guint16 matchnum, 
+							gboolean starts_block,
+							gboolean ends_block, 
+							guint blockstartpattern,
+							const gchar * blockhighlight) 
+{
+	g_array_index(st->matches, Tpattern, matchnum).ends_block = ends_block;
+	g_array_index(st->matches, Tpattern, matchnum).starts_block = starts_block;
+	g_array_index(st->matches, Tpattern, matchnum).blockstartpattern = blockstartpattern;
+	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = (gchar *) blockhighlight;
+}
+
+void
+pattern_set_runtime_properties(Tscantable * st, guint16 matchnum, 
+								const gchar * selfhighlight,
+								gint16 nextcontext,
+								gboolean tagclose_from_blockstack,
+								gboolean stretch_blockstart,
+								guint8 identmode,
+								gboolean identjump,
+								gboolean identautocomp)
+{
+	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = (gchar *) selfhighlight;
+	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
+	g_array_index(st->matches, Tpattern, matchnum).tagclose_from_blockstack = tagclose_from_blockstack;
+	g_array_index(st->matches, Tpattern, matchnum).stretch_blockstart = stretch_blockstart;
+	if (identjump || identautocomp) {
+		g_array_index(st->matches, Tpattern, matchnum).identmode = identmode;
+		g_array_index(st->matches, Tpattern, matchnum).identaction = (identjump?1:0) | (identautocomp?2:0);
+	}
+}
+
 guint16
+add_pattern_to_scanning_table(Tscantable * st, gchar * pattern,
+								gboolean is_regex,
+								gboolean case_insens,
+								gint16 context)
+{
+	guint16 matchnum;
+	if (!pattern || pattern[0] == '\0') {
+		g_warning("corrupt language file: found empty pattern. Results are undefined\n");
+		return 0;
+	}
+	matchnum = st->matches->len;
+	g_array_set_size(st->matches, st->matches->len + 1);
+	g_array_index(st->matches, Tpattern, matchnum).pattern = g_strdup(pattern);
+	g_array_index(st->matches, Tpattern, matchnum).case_insens = case_insens;
+	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
+	DBG_PATCOMPILE("add_pattern_to_scanning_table,pattern=%s for context=%d got matchnum %d\n",pattern, context, matchnum);
+	if (is_regex) {
+		compile_limitedregex_to_DFA(st, pattern, case_insens, matchnum, context);
+	} else {
+		compile_keyword_to_DFA(st, pattern, matchnum, context, case_insens);
+	}
+	/*print_DFA(st, 'a', 'z'); */
+	return matchnum;
+} 
+
+
+/*guint16
 add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * lang,
 							  const gchar * selfhighlight, const gchar * blockhighlight, gboolean is_regex,
 							  gboolean case_insens, gint16 context, gint16 nextcontext, gboolean starts_block,
@@ -846,11 +906,12 @@ add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * la
 	g_array_index(st->matches, Tpattern, matchnum).ends_block = ends_block;
 	g_array_index(st->matches, Tpattern, matchnum).starts_block = starts_block;
 	g_array_index(st->matches, Tpattern, matchnum).blockstartpattern = blockstartpattern;
+	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = (gchar *) blockhighlight;
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
 	g_array_index(st->matches, Tpattern, matchnum).case_insens = case_insens;
 	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
 	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = (gchar *) selfhighlight;
-	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = (gchar *) blockhighlight;
+	
 	g_array_index(st->matches, Tpattern, matchnum).tagclose_from_blockstack = tagclose_from_blockstack;
 	g_array_index(st->matches, Tpattern, matchnum).stretch_blockstart = stretch_blockstart;
 #ifdef IDENTSTORING
@@ -868,9 +929,10 @@ add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * la
 	} else {
 		compile_keyword_to_DFA(st, pattern, matchnum, context, case_insens);
 	}
-	/*print_DFA(st, 'a', 'z'); */
+	/ *print_DFA(st, 'a', 'z'); * /
 	return matchnum;
-}
+}*/
+
 #if 0
 void
 print_DFA_subset(Tscantable * st, char *chars)

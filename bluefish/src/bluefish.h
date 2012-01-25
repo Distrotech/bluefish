@@ -166,6 +166,8 @@ scanning in a lower priority timeout than the language file notice
 so a newly loaded language file uses a priority 113 event to notice all documents to be rescanned. */
 #define BUILD_LANG_FINISHED_PRIORITY 113
 
+#define BFLANGSCAN_FINISHED_PRIORITY 101
+
 /*********************/
 /* undo/redo structs */
 /*********************/
