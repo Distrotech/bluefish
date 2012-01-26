@@ -450,6 +450,47 @@ set_boolean_if_attribute_name(xmlTextReaderPtr reader, xmlChar * aname, xmlChar 
 	return FALSE;
 }
 
+typedef enum {
+	attribtype_int,
+	attribtype_string,
+	attribtype_boolean
+} Tattribtype;
+
+typedef struct {
+	gchar *name;
+	gpointer var;
+	Tattribtype type;
+} Tattrib;
+
+static void
+parse_attributes(xmlTextReaderPtr reader, Tattrib *attribs, gint num_attribs)
+{
+	while (xmlTextReaderMoveToNextAttribute(reader)) {
+		gint i;
+		xmlChar *aname = xmlTextReaderName(reader);
+		for (i=0;i<num_attribs;i++) {
+			if (xmlStrEqual(aname, (xmlChar *)attribs[i].name)) {
+				gchar *value = (gchar *)xmlTextReaderValue(reader);
+				switch (attribs[i].type) {
+					case attribtype_int:
+						*((gint *)attribs[i].var) = (gint) g_ascii_strtoll(value, NULL, 10);
+						xmlFree(value);
+					break;
+					case attribtype_string:
+						*((gchar **)attribs[i].var) = value;
+					break;
+					case attribtype_boolean:
+						*((gboolean *)attribs[i].var) = (value[0]=='1');
+						xmlFree(value);
+					break;
+				}
+				break;
+			}	
+		}
+		xmlFree(aname);
+	}
+}
+
 static void
 process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 {
@@ -457,25 +498,19 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 	while (xmlTextReaderRead(reader) == 1) {
 		xmlChar *name = xmlTextReaderName(reader);
 		if (xmlStrEqual(name, (xmlChar *) "mime")) {
-			while (xmlTextReaderMoveToNextAttribute(reader)) {
-				gchar *mimetype = NULL;
-				xmlChar *aname = xmlTextReaderName(reader);
-				set_string_if_attribute_name(reader, aname, (xmlChar *) "type", &mimetype);
-				if (mimetype)
-					bflang->mimetypes = g_list_prepend(bflang->mimetypes, mimetype);
-				xmlFree(aname);
-			}
+			gchar *mimetype=NULL;
+			Tattrib attribs[] = {{"type", &mimetype, attribtype_string}};
+			parse_attributes(reader, attribs, 1);
+			if (mimetype)
+				bflang->mimetypes = g_list_prepend(bflang->mimetypes, mimetype);
 		} else if (xmlStrEqual(name, (xmlChar *) "option")) {
 			gchar *optionname = NULL, *description = NULL;
 			gboolean defaultval = FALSE;
 			gboolean free_description=TRUE;
-			while (xmlTextReaderMoveToNextAttribute(reader)) {
-				xmlChar *aname = xmlTextReaderName(reader);
-				set_string_if_attribute_name(reader, aname, (xmlChar *) "name", &optionname);
-				set_string_if_attribute_name(reader, aname, (xmlChar *) "description", &description);
-				set_boolean_if_attribute_name(reader, aname, (xmlChar *) "default", &defaultval);
-				xmlFree(aname);
-			}
+			Tattrib attribs[] = {{"name", &optionname, attribtype_string},
+					{"description", &description, attribtype_string},
+					{"default", &defaultval, attribtype_boolean}};
+			parse_attributes(reader, attribs, 3);
 			if (optionname) {
 				const gchar *val = lookup_user_option(bflang->name, optionname);
 				if (!val) {
@@ -501,17 +536,10 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 				}
 			}
 		} else if (xmlStrEqual(name, (xmlChar *) "highlight")) {
-			gchar *name = NULL, *style = NULL /*, *fgcolor=NULL, *bgcolor=NULL, *italic=NULL,*bold=NULL */ ;
-			while (xmlTextReaderMoveToNextAttribute(reader)) {
-				xmlChar *aname = xmlTextReaderName(reader);
-				set_string_if_attribute_name(reader, aname, (xmlChar *) "name", &name);
-				set_string_if_attribute_name(reader, aname, (xmlChar *) "style", &style);
-/*				set_string_if_attribute_name(reader,aname,(xmlChar *)"fgcolor", &fgcolor);
-				set_string_if_attribute_name(reader,aname,(xmlChar *)"bgcolor", &bgcolor);
-				set_string_if_attribute_name(reader,aname,(xmlChar *)"italic", &italic);
-				set_string_if_attribute_name(reader,aname,(xmlChar *)"bold", &bold);*/
-				xmlFree(aname);
-			}
+			gchar *name = NULL, *style = NULL;
+			Tattrib attribs[] = {{"name", &name, attribtype_string},
+					{"style", &style, attribtype_string}};
+			parse_attributes(reader, attribs, 2);
 			if (name) {
 				gchar *use_textstyle = langmgr_lookup_style_for_highlight(bflang->name, name);
 				if (use_textstyle) {	/* we have a user-configured textstyle for this highlight */
@@ -537,10 +565,6 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 			}
 			g_free(name);
 			g_free(style);
-/*			g_free(fgcolor);
-			g_free(bgcolor);
-			g_free(italic);
-			g_free(bold);*/
 		} else if (xmlStrEqual(name, (xmlChar *) "header")) {
 			xmlFree(name);
 			break;
