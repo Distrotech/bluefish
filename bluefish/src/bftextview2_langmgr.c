@@ -635,39 +635,29 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 	gint identifier_mode=0, identifier_jump=0, identifier_autocomp=0;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 
-
-	while (xmlTextReaderMoveToNextAttribute(reader)) {
-		xmlChar *aname = xmlTextReaderName(reader);
-		set_string_if_attribute_name(reader, aname, (xmlChar *) "pattern", &pattern);
-		set_string_if_attribute_name(reader, aname, (xmlChar *) "id", &id);
-		set_string_if_attribute_name(reader, aname, (xmlChar *) "idref", &idref);
-		set_string_if_attribute_name(reader, aname, (xmlChar *) "highlight", &highlight);
-		set_string_if_attribute_name(reader, aname, (xmlChar *) "blockhighlight", &blockhighlight);
-		set_string_if_attribute_name(reader, aname, (xmlChar *) "blockstartelement", &blockstartelement);
-		set_string_if_attribute_name(reader, aname, (xmlChar *) "class", &class);
-		set_string_if_attribute_name(reader, aname, (xmlChar *) "notclass", &notclass);
-		set_boolean_if_attribute_name(reader, aname, (xmlChar *) "is_regex", &is_regex);
-		set_boolean_if_attribute_name(reader, aname, (xmlChar *) "starts_block", &starts_block);
-		set_boolean_if_attribute_name(reader, aname, (xmlChar *) "ends_block", &ends_block);
-		set_boolean_if_attribute_name(reader, aname, (xmlChar *) "case_insens", &case_insens);
-		set_integer_if_attribute_name(reader, aname, (xmlChar *) "ends_context", &ends_context);
-		set_integer_if_attribute_name(reader, aname, (xmlChar *) "tagclose_from_blockstack",
-									  &tagclose_from_blockstack);
-		set_integer_if_attribute_name(reader, aname, (xmlChar *) "stretch_blockstart",&stretch_blockstart);
-		if (bfparser->load_completion) {
-			set_boolean_if_attribute_name(reader, aname, (xmlChar *) "autocomplete", &autocomplete);
-			set_string_if_attribute_name(reader, aname, (xmlChar *) "autocomplete_string",
-										 &autocomplete_string);
-			set_string_if_attribute_name(reader, aname, (xmlChar *) "autocomplete_append",
-										 &autocomplete_append);
-			set_integer_if_attribute_name(reader, aname, (xmlChar *) "autocomplete_backup_cursor",
-										  &autocomplete_backup_cursor);
-		}
-		set_integer_if_attribute_name(reader, aname, (xmlChar *) "identifier_mode", &identifier_mode);
-		set_integer_if_attribute_name(reader, aname, (xmlChar *) "identifier_jump", &identifier_jump);
-		set_integer_if_attribute_name(reader, aname, (xmlChar *) "identifier_autocomp", &identifier_autocomp);
-		xmlFree(aname);
-	}
+	Tattrib attribs[] = {{"pattern", &pattern, attribtype_string},
+					{"id", &id, attribtype_string},
+					{"idref", &idref, attribtype_string},
+					{"highlight", &highlight, attribtype_string},
+					{"blockhighlight", &blockhighlight, attribtype_string},
+					{"blockstartelement", &blockstartelement, attribtype_string},
+					{"class", &class, attribtype_string},
+					{"notclass", &notclass, attribtype_string},
+					{"is_regex", &is_regex, attribtype_boolean},
+					{"is_regex", &is_regex, attribtype_boolean},
+					{"starts_block", &starts_block, attribtype_boolean},
+					{"ends_block", &ends_block, attribtype_boolean},
+					{"case_insens", &case_insens, attribtype_boolean},
+					{"ends_context", &ends_context, attribtype_int},
+					{"tagclose_from_blockstack", &tagclose_from_blockstack, attribtype_int},
+					{"stretch_blockstart", &stretch_blockstart, attribtype_int},
+					{"identifier_mode", &identifier_mode, attribtype_int},
+					{"identifier_jump", &identifier_jump, attribtype_int},
+					{"identifier_autocomp", &identifier_autocomp, attribtype_int},
+					{"autocomplete", &autocomplete, attribtype_boolean},
+					{"autocomplete_string", &autocomplete_string, attribtype_string},
+					{"autocomplete_append", &autocomplete_append, attribtype_string}};
+	parse_attributes(reader, attribs, bfparser->load_completion ? 21 : 18);
 	if (stretch_blockstart && ends_block) {
 		g_print("Error in language file, id %s / pattern %s has mutually exclusive options stretch_blockstart and ends_block both enabled\n", id?id:"-", pattern?pattern:"null");
 		stretch_blockstart = FALSE;
