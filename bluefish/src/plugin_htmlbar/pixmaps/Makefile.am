@@ -73,6 +73,7 @@ EXTRA_DIST = \
 	quick_start.png \
 	right.png \
 	samp.png \
+	script.png \
 	strikeout.png \
 	table.png \
 	table2.png \
@@ -182,6 +183,7 @@ HTMLBAR = \
 	pixmap_quick_start $(srcdir)/quick_start.png \
 	pixmap_right $(srcdir)/right.png \
 	pixmap_samp $(srcdir)/samp.png \
+	pixmap_script $(srcdir)/script.png \
 	pixmap_strikeout $(srcdir)/strikeout.png \
 	pixmap_table $(srcdir)/table.png \
 	pixmap_table2 $(srcdir)/table2.png \

@@ -76,6 +76,12 @@ htmlbar_dialog_body(GtkAction * action, gpointer user_data)
 }
 
 static void
+htmlbar_dialog_script(GtkAction * action, gpointer user_data)
+{
+	script_dialog(BFWIN(user_data), NULL);
+}
+
+static void
 htmlbar_dialog_color(GtkAction * action, gpointer user_data)
 {
 	sel_colour_cb(NULL, BFWIN(user_data));
@@ -1673,19 +1679,21 @@ static const GtkActionEntry htmlbar_actions[] = {
 	 G_CALLBACK(htmlbar_dialog_link_header)},
 	{"DialogsBody", BF_STOCK_BODY, N_("_Body..."), "<shift><alt>B", N_("Body..."),
 	 G_CALLBACK(htmlbar_dialog_body)},
-	{"DialogsAnchor", BF_STOCK_ANCHOR, N_("_Anchor..."), "<shift><alt>a", N_("Anchor / Hyperlink..."),
+	{"DialogsScript", BF_STOCK_SCRIPT, N_("_Script..."), "<shift><alt>P", N_("SCRIPT..."),
+	 G_CALLBACK(htmlbar_dialog_script)},
+	{"DialogsAnchor", BF_STOCK_ANCHOR, N_("_Anchor..."), "<shift><alt>A", N_("Anchor / Hyperlink..."),
 	 G_CALLBACK(htmlbar_dialog_anchor)},
-	{"DialogsEmail", BF_STOCK_EMAIL, N_("_E-mail..."), "<shift><alt>e", N_("E-mail..."),
+	{"DialogsEmail", BF_STOCK_EMAIL, N_("_E-mail..."), "<shift><alt>E", N_("E-mail..."),
 	 G_CALLBACK(htmlbar_dialog_email)},
-	{"DialogsRule", BF_STOCK_HRULE, N_("_Rule..."), "<shift><alt>r", N_("Horizontal Rule..."),
+	{"DialogsRule", BF_STOCK_HRULE, N_("_Rule..."), "<shift><alt>R", N_("Horizontal Rule..."),
 	 G_CALLBACK(htmlbar_dialog_rule)},
-	{"DialogsFont", BF_STOCK_FONT, N_("_Font..."), "<shift><alt>f", N_("Font..."),
+	{"DialogsFont", BF_STOCK_FONT, N_("_Font..."), "<shift><alt>F", N_("Font..."),
 	 G_CALLBACK(htmlbar_dialog_font)},
 	{"DialogsFontBase", BF_STOCK_FONT_BASE, N_("Basef_ont..."), NULL, N_("Base font..."),
 	 G_CALLBACK(htmlbar_dialog_basefont)},
 	{"DialogsQuicklist", BF_STOCK_LIST, N_("Quick_list..."), "<shift><alt>L", N_("Quick List..."),
 	 G_CALLBACK(htmlbar_dialog_quicklist)},
-	{"DialogsMeta", NULL, N_("_Meta..."), "<shift><alt>m", NULL, G_CALLBACK(htmlbar_dialog_meta)},
+	{"DialogsMeta", NULL, N_("_Meta..."), "<shift><alt>M", NULL, G_CALLBACK(htmlbar_dialog_meta)},
 	{"DialogsEmbed", NULL, N_("Embe_d..."), NULL, NULL, G_CALLBACK(htmlbar_dialog_embed)},
 	{"DialogsColor", NULL, N_("Select _Color..."), NULL, NULL, G_CALLBACK(htmlbar_dialog_color)},
 	{"DialogsTime", NULL, N_("Insert _Time..."), NULL, NULL, G_CALLBACK(htmlbar_dialog_time)},
@@ -2161,6 +2169,7 @@ htmlbar_register_stock_icons(void)
 			{pixmap_quick_start, BF_STOCK_QUICKSTART},
 			{pixmap_right, BF_STOCK_RIGHT},
 			{pixmap_samp, BF_STOCK_SAMP},
+			{pixmap_script, BF_STOCK_SCRIPT},
 			{pixmap_strikeout, BF_STOCK_STRIKEOUT},
 			{pixmap_table_capt, BF_STOCK_TABLE_CAPTION},
 			{pixmap_table_td, BF_STOCK_TABLE_TD},
