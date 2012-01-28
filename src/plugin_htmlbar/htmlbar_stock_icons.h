@@ -94,6 +94,7 @@
 #define BF_STOCK_QUICKSTART			"bf-stock-quickstart"
 #define BF_STOCK_RIGHT				"bf-stock-right"
 #define BF_STOCK_SAMP				"bf-stock-samp"
+#define BF_STOCK_SCRIPT				"bf-stock-script"
 #define BF_STOCK_STRIKEOUT			"bf-stock-strikeout"
 #define BF_STOCK_TABLE_CAPTION		"bf-stock-table-caption"
 #define BF_STOCK_TABLE_TD			"bf-stock-table-td"
