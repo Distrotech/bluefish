@@ -1403,7 +1403,6 @@ htmlbar_insert_section_tag(GtkAction * action, gpointer user_data)
 static void
 htmlbar_dialog_audio(GtkAction * action, gpointer user_data)
 {
-	
 	audio_dialog(BFWIN(user_data), NULL);
 }
 
@@ -1679,7 +1678,7 @@ static const GtkActionEntry htmlbar_actions[] = {
 	 G_CALLBACK(htmlbar_dialog_link_header)},
 	{"DialogsBody", BF_STOCK_BODY, N_("_Body..."), "<shift><alt>B", N_("Body..."),
 	 G_CALLBACK(htmlbar_dialog_body)},
-	{"DialogsScript", BF_STOCK_SCRIPT, N_("_Script..."), "<shift><alt>P", N_("SCRIPT..."),
+	{"DialogsScript", BF_STOCK_SCRIPT, N_("_Script..."), "<shift><alt>P", N_("Script..."),
 	 G_CALLBACK(htmlbar_dialog_script)},
 	{"DialogsAnchor", BF_STOCK_ANCHOR, N_("_Anchor..."), "<shift><alt>A", N_("Anchor / Hyperlink..."),
 	 G_CALLBACK(htmlbar_dialog_anchor)},
