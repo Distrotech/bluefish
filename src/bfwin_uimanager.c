@@ -964,6 +964,9 @@ lang_mode_menu_create(Tbfwin * bfwin)
 	GList *list, *freelist;
 	gint value = 0;
 
+	if (!bfwin->uimanager)
+		return;
+
 	if (!bfwin->lang_mode_group) {
 		bfwin->lang_mode_group = gtk_action_group_new("LangModeActions");
 		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->lang_mode_group, 1);

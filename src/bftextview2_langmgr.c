@@ -1687,9 +1687,11 @@ bflang2scan_finished_lcb(gpointer data)
 		lang_mode_menu_create(BFWIN(tmplist->data));
 		for (tmplist2 = g_list_first(BFWIN(tmplist->data)->documentlist); tmplist2; tmplist2 = g_list_next(tmplist2)) {
 			DBG_MSG("bflang2scan_finished, request bflang for document %p\n", tmplist2->data);
-			bluefish_text_view_select_language(BLUEFISH_TEXT_VIEW(DOCUMENT(tmplist2->data)->view), 
+			if (DOCUMENT(tmplist2->data)->info || DOCUMENT(tmplist2->data)->uri) {
+				bluefish_text_view_select_language(BLUEFISH_TEXT_VIEW(DOCUMENT(tmplist2->data)->view), 
 						DOCUMENT(tmplist2->data)->info ? g_file_info_get_content_type(DOCUMENT(tmplist2->data)->info) : NULL, 
 						DOCUMENT(tmplist2->data)->uri ? g_file_get_path(DOCUMENT(tmplist2->data)->uri): NULL);
+			}
 		}
 	}
 	return FALSE;
