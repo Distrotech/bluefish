@@ -40,8 +40,16 @@
 #define DBG_SCANNING g_print*/
 
 /* use 
-G_SLICE=always-malloc valgrind --tool=memcheck --leak-check=full --num-callers=32 --freelist-vol=100000000 src/bluefish-unstable
+G_SLICE=always-malloc G_DEBUG=gc-friendly valgrind --tool=memcheck --num-callers=32 src/bluefish
 to memory-debug this code
+
+for memory leak debugging:
+G_SLICE=always-malloc G_DEBUG=gc-friendly valgrind --tool=memcheck --leak-check=full --num-callers=32 src/bluefish
+
+if you have the suppressions file from http://www.gnome.org/~johan/gtk.suppression
+
+G_SLICE=always-malloc G_DEBUG=gc-friendly,resident-modules valgrind --tool=memcheck --leak-check=full --leak-resolution=high --num-callers=40 --track-origins=yes --suppressions=~/gtk.suppression src/bluefish
+
 */
 #ifdef VALGRIND_PROFILING
 #define MAX_CONTINUOUS_SCANNING_INTERVAL 1.0	/* float in seconds */
