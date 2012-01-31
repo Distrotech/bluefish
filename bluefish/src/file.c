@@ -848,7 +848,7 @@ file2doc_finished_idle_lcb(gpointer data)
 		}
 	}
 	refcpointer_unref(refp);
-	DEBUG_MSG("file2doc_finished_idle_lcb, finished data in document view %p\n", f2d->doc->view);
+	DEBUG_MSG("file2doc_finished_idle_lcb, finished data\n");
 	return FALSE;
 }
 
