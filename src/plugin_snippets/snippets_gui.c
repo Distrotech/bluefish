@@ -328,6 +328,7 @@ snippetview_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tsnippe
 				if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {	/* left mouse button double-clicked */
 					if (xmlStrEqual(cur->name, (const xmlChar *) "leaf")) {
 						snippet_activate_leaf(snw, cur);
+						return TRUE;
 					}
 				} else if (event->button == 3) {	/* right mouse button clicked */
 					popup_menu_create(snw, cur, event);
