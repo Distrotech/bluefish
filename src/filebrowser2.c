@@ -868,6 +868,43 @@ treepath_for_uri(Tfilebrowser2 * fb2, GFile * uri)
 	return NULL;
 }
 
+static gboolean
+need_to_scroll_to_dir(Tfilebrowser2 * fb2, GFile *diruri)
+{
+	GtkTreePath *start_path=NULL, *end_path=NULL;
+	GtkTreeIter it1;
+	gboolean retval=FALSE;
+	if (!gtk_tree_view_get_visible_range(GTK_TREE_VIEW(fb2->dir_v),&start_path,&end_path))
+		return FALSE;
+
+	if (!gtk_tree_model_get_iter(fb2->dir_tsort,&it1,start_path)) {
+		GFile *uri=NULL;
+		
+		gtk_tree_model_get(fb2->dir_tsort, &it1, URI_COLUMN, &uri, -1);
+		
+		if (uri) {
+			/* now see if diruri is the parent of uri */
+			retval = !g_file_has_parent(uri,diruri);
+		}
+	}
+	gtk_tree_path_free(start_path);
+	gtk_tree_path_free(end_path);
+	return retval;
+}
+
+static GtkTreePath *dir_sort_path_from_treestore_path(Tfilebrowser2 * fb2, GtkTreePath *treestorepath) 
+{
+	GtkTreePath *filter_path =
+					gtk_tree_model_filter_convert_child_path_to_path(GTK_TREE_MODEL_FILTER
+																	 (fb2->dir_tfilter), treestorepath);
+	if (filter_path) {
+		GtkTreePath *sort_path = gtk_tree_model_sort_convert_child_path_to_path(GTK_TREE_MODEL_SORT(fb2->dir_tsort),
+																	   filter_path);
+		gtk_tree_path_free(filter_path);
+		return sort_path;
+	}
+	return NULL;
+}
 
 /**
  * fb2_focus_dir:
@@ -906,6 +943,7 @@ fb2_focus_dir(Tfilebrowser2 * fb2, GFile * uri, gboolean noselect)
 	if (dir) {
 		GtkTreePath *fs_path;
 		DEBUG_DIRITER(dir);
+		
 		/* set this directory as the top tree for the file widget */
 		fs_path =
 			gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), dir);
@@ -913,14 +951,11 @@ fb2_focus_dir(Tfilebrowser2 * fb2, GFile * uri, gboolean noselect)
 			refilter_filelist(fb2, fs_path);
 			DEBUG_MSG("fb2_focus_dir, fb2=%p, expand dir tree to this dir..\n", fb2);
 			if (!noselect && fb2->filebrowser_viewmode != viewmode_flat) {
-				GtkTreePath *filter_path =
-					gtk_tree_model_filter_convert_child_path_to_path(GTK_TREE_MODEL_FILTER
-																	 (fb2->dir_tfilter), fs_path);
-				if (filter_path) {
-					GtkTreePath *sort_path =
-						gtk_tree_model_sort_convert_child_path_to_path(GTK_TREE_MODEL_SORT(fb2->dir_tsort),
-																	   filter_path);
-					if (sort_path) {
+				GtkTreePath *sort_path = dir_sort_path_from_treestore_path(fb2, fs_path);
+				if (sort_path) {
+					if (fb2->filebrowser_viewmode == viewmode_tree && gtk_tree_view_row_expanded(GTK_TREE_VIEW(fb2->dir_v), sort_path) && !need_to_scroll_to_dir(fb2, uri)) {
+						/* do nothing */
+					} else {
 						g_signal_handler_block(fb2->dir_v, fb2->expand_signal);
 						gtk_tree_view_expand_to_path(GTK_TREE_VIEW(fb2->dir_v), sort_path);
 						g_signal_handler_unblock(fb2->dir_v, fb2->expand_signal);
@@ -928,13 +963,10 @@ fb2_focus_dir(Tfilebrowser2 * fb2, GFile * uri, gboolean noselect)
 						gtk_tree_selection_select_path(gtk_tree_view_get_selection
 													   (GTK_TREE_VIEW(fb2->dir_v)), sort_path);
 						gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(fb2->dir_v), sort_path, 0, TRUE, 0.5, 0.5);
-						gtk_tree_path_free(sort_path);
-					} else {
-						DEBUG_MSG("fb2_focus_dir, no sort_path\n");
 					}
-					gtk_tree_path_free(filter_path);
+					gtk_tree_path_free(sort_path);
 				} else {
-					DEBUG_MSG("fb2_focus_dir, no filter_path\n");
+					DEBUG_MSG("fb2_focus_dir, no sort_path\n");
 				}
 			} else {
 				/* 'uri' is not persistent, 'dir' is peristent, so only pass 'dir' 
