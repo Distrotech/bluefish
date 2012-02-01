@@ -884,7 +884,7 @@ need_to_scroll_to_dir(Tfilebrowser2 * fb2, GFile *diruri)
 		
 		if (uri) {
 			/* now see if diruri is the parent of uri */
-			retval = !g_file_has_parent(uri,diruri);
+			retval = !gfile_uri_is_parent(diruri,uri,TRUE);
 		}
 	}
 	gtk_tree_path_free(start_path);
@@ -1025,9 +1025,9 @@ static gboolean
 tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 {
 	Tfilebrowser2 *fb2 = data;
-	gchar *name, *mime_type;
+	gchar *name=NULL, *mime_type=NULL;
 	gint len;
-	GFile *uri;
+	GFile *uri=NULL;
 	gboolean retval = TRUE;
 	DEBUG_MSG("tree_model_filter_func, model=%p, fb2=%p\n",model,fb2);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri,
