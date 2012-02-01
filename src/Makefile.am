@@ -71,8 +71,6 @@ bluefish_SOURCES = \
 	doc_text_tools.h \
 	doc_text_tools.c \
 	document.h \
-	embed_python.c \
-	embed_python.h \
 	encodings_dialog.c \
 	encodings_dialog.h \
 	external_commands.c \
