@@ -1434,7 +1434,7 @@ gboolean gfile_uri_is_parent(GFile *parent, GFile *child, gboolean recursive) {
 		return FALSE;
 	}
 	g_object_ref(child);
-	tmp2=child
+	tmp2=child;
 	do {
 		tmp = g_file_get_parent(tmp2);
 		g_object_unref(tmp2);
