@@ -20,6 +20,8 @@
 
 /*#define DEBUG*/
 
+#define DEBUG_TREEMODELREFS g_print
+
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
 and all directories used in all bluefish windows. This treestore has a column for the pixmap
@@ -1243,6 +1245,7 @@ refilter_dirlist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 	}
 	fb2->dir_tfilter =
 		gtk_tree_model_filter_new(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), useroot);
+	DEBUG_TREEMODELREFS("refilter_dirlist, created new tree model filter at %p for fb2 %p\n",fb2->dir_tfilter, fb2);
 	gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),
 										   tree_model_filter_func, fb2, NULL);
 
@@ -1295,6 +1298,7 @@ refilter_filelist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 		fb2->file_lfilter =
 			gtk_tree_model_filter_new(GTK_TREE_MODEL
 									  (FB2CONFIG(main_v->fb2config)->filesystem_tstore), newroot);
+		DEBUG_TREEMODELREFS("refilter_filelist, created new tree model filter at %p for fb2 %p\n",fb2->file_lfilter, fb2);
 		DEBUG_MSG("refilter_filelist, set file list filter func, fb2=%p\n", fb2);
 		gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->file_lfilter),
 											   file_list_filter_func, fb2, NULL);
@@ -1308,6 +1312,7 @@ refilter_filelist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 		gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v), GTK_TREE_MODEL(fb2->file_lsort));
 		/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
 		g_object_unref(fb2->file_lfilter);
+		DEBUG_TREEMODELREFS("refilter_filelist, unreffed tree model filter at %p for fb2 %p\n",fb2->file_lfilter, fb2);
 		g_object_unref(fb2->file_lsort);
 	}
 }
@@ -2763,6 +2768,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 
 	fb2->dir_tfilter =
 		gtk_tree_model_filter_new(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), basepath);
+	DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, created new tree model filter at %p for fb2 %p\n",fb2->dir_tfilter, fb2);
 	gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),
 										   tree_model_filter_func, fb2, NULL);
 
@@ -2780,6 +2786,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	fb2->dir_v = gtk_tree_view_new_with_model(fb2->dir_tsort);
 	/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
 	g_object_unref(G_OBJECT(fb2->dir_tfilter));
+	DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, unreffed tree model filter at %p for fb2 %p\n",fb2->dir_tfilter, fb2);
 	g_object_unref(G_OBJECT(fb2->dir_tsort));
 
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fb2->dir_v), FALSE);
@@ -2825,6 +2832,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 
 		fb2->file_lfilter =
 			gtk_tree_model_filter_new(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), NULL);
+		DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, created new tree model filter at %p for fb2 %p\n",fb2->file_lfilter, fb2);
 		gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->file_lfilter),
 											   file_list_filter_func, fb2, NULL);
 
@@ -2835,6 +2843,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		fb2->file_v = gtk_tree_view_new_with_model(fb2->file_lsort);
 		/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
 		g_object_unref(G_OBJECT(fb2->file_lfilter));
+		DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, unreffed tree model filter at %p for fb2 %p\n",fb2->file_lfilter, fb2);
 		g_object_unref(G_OBJECT(fb2->file_lsort));
 
 		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fb2->file_v), FALSE);
