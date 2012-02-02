@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #define DEBUG_TREEMODELREFS g_print
 
@@ -480,6 +480,7 @@ fb2_treestore_delete(GtkTreeStore * tstore, GtkTreeIter * iter)
 		fb2_treestore_delete_children(tstore, iter, FALSE);
 	}
 	gtk_tree_model_get(GTK_TREE_MODEL(tstore), iter, URI_COLUMN, &d_uri, FILEINFO_COLUMN, &finfo, -1);
+	DEBUG_MSG("fb2_treestore_delete, remove iter %p with uri '%s'\n",iter, g_file_get_path(d_uri));
 	gtk_tree_store_remove(tstore, iter);
 	/* remove from hash table too! */
 	g_hash_table_remove(FB2CONFIG(main_v->fb2config)->filesystem_itable, d_uri);
@@ -524,6 +525,7 @@ fb2_treestore_delete_children(GtkTreeStore * tstore, GtkTreeIter * iter, gboolea
 static void
 fb2_treestore_delete_children_refresh1(GtkTreeStore * tstore, GtkTreeIter * iter)
 {
+	DEBUG_MSG("fb2_treestore_delete_children_refresh1 for iter %p\n",iter);
 	fb2_treestore_delete_children(tstore, iter, TRUE);
 }
 
@@ -553,6 +555,7 @@ fb2_enumerator_close_lcb(GObject * source_object, GAsyncResult * res, gpointer u
 {
 	Turi_in_refresh *uir = user_data;
 	GError *error = NULL;
+	DEBUG_MSG("fb2_enumerator_close_lcb, close uir %p\n",uir);
 	g_file_enumerator_close_finish(uir->gfe, res, &error);
 	g_object_unref(uir->gfe);
 	fb2_treestore_delete_children_refresh1(FB2CONFIG(main_v->fb2config)->filesystem_tstore, uir->parent);
@@ -565,7 +568,7 @@ fb2_enumerate_next_files_lcb(GObject * source_object, GAsyncResult * res, gpoint
 	Turi_in_refresh *uir = user_data;
 	GError *error = NULL;
 	GList *list, *tmplist;
-	DEBUG_MSG("fb2_enumerate_next_files_lcb, started for uir %p\n", uir);
+	DEBUG_MSG("fb2_enumerate_next_files_lcb, started for uir %p which has uri %s\n", uir, g_file_get_path(uir->uri));
 	list = g_file_enumerator_next_files_finish(uir->gfe, res, &error);
 	if (error) {
 		g_warning("ERROR: unhandled error %d in fb2_enumerate_next_files_lcb(): %s\n", error->code,
@@ -642,7 +645,7 @@ static gboolean
 fb2_fill_dir_async_low_priority(gpointer data)
 {
 	Turi_in_refresh *uir = data;
-/*	g_print("start fill dir async low priority\n");*/
+	DEBUG_MSG("fb2_fill_dir_async_low_priority, start fill dir %s async low priority\n",g_file_get_path(uir->uri));
 	g_file_enumerate_children_async(uir->uri,
 									"standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
 									G_FILE_QUERY_INFO_NONE, G_PRIORITY_LOW, uir->cancel,
@@ -1250,6 +1253,7 @@ refilter_dirlist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 										   tree_model_filter_func, fb2, NULL);
 
 	fb2->dir_tsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->dir_tfilter));
+	DEBUG_TREEMODELREFS("refilter_dirlist, created new tree model sort at %p for fb2 %p\n",fb2->dir_tsort, fb2);
 	if (fb2->filebrowser_viewmode != viewmode_dual) {
 		gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(fb2->dir_tsort), FILENAME_COLUMN,
 										filebrowser_sort_func, NULL, NULL);
@@ -1303,6 +1307,7 @@ refilter_filelist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 		gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->file_lfilter),
 											   file_list_filter_func, fb2, NULL);
 		fb2->file_lsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->file_lfilter));
+		DEBUG_TREEMODELREFS("refilter_filelist, created new tree model sort at %p for fb2 %p\n",fb2->file_lsort, fb2);
 		gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(fb2->file_lsort), FILENAME_COLUMN,
 										filebrowser_sort_func, NULL, NULL);
 		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->file_lsort), FILENAME_COLUMN,
@@ -1312,8 +1317,9 @@ refilter_filelist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 		gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v), GTK_TREE_MODEL(fb2->file_lsort));
 		/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
 		g_object_unref(fb2->file_lfilter);
-		DEBUG_TREEMODELREFS("refilter_filelist, unreffed tree model filter at %p for fb2 %p\n",fb2->file_lfilter, fb2);
+		DEBUG_TREEMODELREFS("refilter_filelist, unreffed tree model filter at %p for fb2 %p, refcount should be set by sort model %p\n",fb2->file_lfilter, fb2, fb2->file_lsort);
 		g_object_unref(fb2->file_lsort);
+		DEBUG_TREEMODELREFS("refilter_filelist, unreffed tree model sort at %p for fb2 %p, ref should be added by view %p\n",fb2->file_lsort, fb2, fb2->file_v);
 	}
 }
 
@@ -2338,7 +2344,7 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 		gchar *name;
 
 		uri = g_file_new_for_uri(tmplist->data);
-		DEBUG_MSG("new uri at %p for session recent directory %s\n", uri, tmplist->data);
+		DEBUG_MSG("new uri at %p for session recent directory %s\n", uri, (gchar *)tmplist->data);
 		if (uri && g_hash_table_lookup(hasht, uri) == NULL) {
 			name = g_file_get_uri(uri);
 			DEBUG_MSG("dirmenu_set_curdir, appending %s (uri=%p) to model %p\n", name, uri, fb2->dirmenu_m);
@@ -2773,6 +2779,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 										   tree_model_filter_func, fb2, NULL);
 
 	fb2->dir_tsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->dir_tfilter));
+	DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, created new tree model sort at %p for fb2 %p\n",fb2->dir_tsort, fb2);
 	if (fb2->filebrowser_viewmode != viewmode_dual) {
 		DEBUG_MSG("setting sort function\n");
 		gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(fb2->dir_tsort), FILENAME_COLUMN,
@@ -2786,8 +2793,8 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	fb2->dir_v = gtk_tree_view_new_with_model(fb2->dir_tsort);
 	/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
 	g_object_unref(G_OBJECT(fb2->dir_tfilter));
-	DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, unreffed tree model filter at %p for fb2 %p\n",fb2->dir_tfilter, fb2);
 	g_object_unref(G_OBJECT(fb2->dir_tsort));
+	DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, unreffed tree model filter at %p for fb2 %p, ref is added to sort model %p which is added to view %p\n",fb2->dir_tfilter, fb2, fb2->dir_tsort, fb2->dir_v);
 
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fb2->dir_v), FALSE);
 	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW(fb2->dir_v),file_search_func,fb2,NULL);
@@ -2837,14 +2844,16 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 											   file_list_filter_func, fb2, NULL);
 
 		fb2->file_lsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->file_lfilter));
+		DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, created new tree model sort at %p for fb2 %p\n",fb2->file_lsort, fb2);
 		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->file_lsort), FILENAME_COLUMN,
 											 GTK_SORT_ASCENDING);
 		DEBUG_MSG("fb2_init, file_lfilter=%p\n", fb2->file_lfilter);
 		fb2->file_v = gtk_tree_view_new_with_model(fb2->file_lsort);
 		/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
 		g_object_unref(G_OBJECT(fb2->file_lfilter));
-		DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, unreffed tree model filter at %p for fb2 %p\n",fb2->file_lfilter, fb2);
+		DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, unreffed tree model filter at %p for fb2 %p, ref should have been added by sort model %p\n",fb2->file_lfilter, fb2, fb2->file_lsort);
 		g_object_unref(G_OBJECT(fb2->file_lsort));
+		DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, unreffed tree model sort at %p for fb2 %p, ref should have been added by view %p\n",fb2->file_lfilter, fb2, fb2->file_v);
 
 		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fb2->file_v), FALSE);
 		gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW(fb2->file_v),file_search_func,fb2,NULL);
@@ -3085,6 +3094,7 @@ fb2config_init(void)
 	fb2config->filesystem_tstore =
 		gtk_tree_store_new(N_COLUMNS, /*GDK_TYPE_PIXBUF,*/ G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
 						   G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
+	DEBUG_TREEMODELREFS("fb2config_init, created filesystem treestore at %p\n",fb2config->filesystem_tstore);
 	DEBUG_MSG("fb2config_init, finished\n");
 }
 
@@ -3128,6 +3138,7 @@ fb2config_cleanup(void)
 	g_print("fake_finfo_ref=%d\n", fake_finfo_ref);
 #endif
 	g_object_unref(FB2CONFIG(main_v->fb2config)->filesystem_tstore);
+	DEBUG_TREEMODELREFS("fb2config_cleanup, unreffed filesystem treestore at %p\n",FB2CONFIG(main_v->fb2config)->filesystem_tstore);
 	g_free(main_v->fb2config);
 }
 #endif
