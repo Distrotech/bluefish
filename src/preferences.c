@@ -1874,6 +1874,7 @@ preferences_dialog_new(void)
 	pd->fixed = gtk_hbox_new(FALSE, 5);
 	pd->nstore = gtk_tree_store_new(4, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_POINTER, G_TYPE_POINTER);
 	pd->noteb = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->nstore));
+	g_object_unref(pd->nstore);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->noteb);
