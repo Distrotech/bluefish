@@ -198,6 +198,8 @@ typedef struct {
 	GList *lists[lists_num_max];
 	Tsessionprefs sprefs;
 	GtkWidget *win;
+	GtkWidget *curchild;
+	GSList *widgetfreelist;
 	GtkWidget *noteb;
 	GtkTreeStore *nstore;
 	GtkWidget *fixed;
@@ -1416,9 +1418,11 @@ create_bflang_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	pd->bld.lstore = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER);
 	pd->bld.lfilter = (GtkTreeModelFilter *) gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore), NULL);
+	g_print("create_bflang_gui, create lfilter at %p\n",pd->bld.lfilter );
 	g_object_unref(G_OBJECT(pd->bld.lstore));
 	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter, bflang_gui_filter_func_lcb, pd, NULL);
 	pd->bld.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter));
+	g_object_unref(G_OBJECT(pd->bld.lfilter));
 
 	pref_create_column(GTK_TREE_VIEW(pd->bld.lview), 1 /* 1=text */ , NULL, NULL, _("Option name"), 1, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->bld.lview), 2 /* 2=boolean */ , G_CALLBACK(bflang_1_edited_lcb), pd,
@@ -1433,9 +1437,11 @@ create_bflang_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	pd->bld.lstore2 = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
 	pd->bld.lfilter2 =
 		(GtkTreeModelFilter *) gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore2), NULL);
+	g_print("create_bflang_gui, create lfilter2 at %p\n",pd->bld.lfilter2);
 	g_object_unref(G_OBJECT(pd->bld.lstore2));
 	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter2, bflang_gui_filter_func_lcb, pd, NULL);
 	pd->bld.lview2 = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter2));
+	g_object_unref(G_OBJECT(pd->bld.lfilter2));
 
 	pref_create_column(GTK_TREE_VIEW(pd->bld.lview2), 1 /* 1=text */ , NULL, NULL, _("Highlight name"), 1,
 					   FALSE);
@@ -1462,6 +1468,19 @@ create_bflang_gui(Tprefdialog * pd, GtkWidget * vbox1)
 /**************************************/
 
 static void
+destroy_widgets_in_freelist_lcb(gpointer child,gpointer user_data)
+{
+	Tprefdialog * pd = user_data;
+	if (child && child != pd->curchild) {
+		DEBUG_MSG("destroy_widgets_in_listmodel_lcb, got child %p\n",child);
+		if (g_object_is_floating(child)) {
+			g_object_ref_sink(child);
+		}
+		g_object_unref(child);
+	}
+}
+
+static void
 preferences_destroy_lcb(GtkWidget * widget, Tprefdialog * pd)
 {
 	GtkTreeSelection *select;
@@ -1486,6 +1505,10 @@ preferences_destroy_lcb(GtkWidget * widget, Tprefdialog * pd)
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ed.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
 	lingua_cleanup();
+	
+	DEBUG_MSG("preferences_destroy_lcb, about to destroy all widgets in the model\n");
+	g_slist_foreach(pd->widgetfreelist,destroy_widgets_in_freelist_lcb,pd);	
+	
 	DEBUG_MSG("preferences_destroy_lcb, about to destroy the window\n");
 	window_destroy(pd->win);
 	main_v->prefdialog = NULL;
@@ -1726,11 +1749,13 @@ preftree_cursor_changed_cb(GtkTreeView * treeview, gpointer user_data)
 	lst = gtk_container_get_children(GTK_CONTAINER(pd->fixed));
 	while (lst) {
 		if (GTK_IS_WIDGET(lst->data)) {
+			g_print("preftree_cursor_changed_cb, ref %p\n",lst->data);
 			g_object_ref(G_OBJECT(lst->data));
 			gtk_container_remove(GTK_CONTAINER(pd->fixed), lst->data);
 		}
 		lst = g_list_next(lst);
 	}
+	pd->curchild = NULL;
 
 	gtk_tree_view_get_cursor(treeview, &path, NULL);
 	if (path) {
@@ -1740,7 +1765,9 @@ preftree_cursor_changed_cb(GtkTreeView * treeview, gpointer user_data)
 		gtk_tree_model_get_iter(GTK_TREE_MODEL(pd->nstore), &iter, path);
 		gtk_tree_model_get(GTK_TREE_MODEL(pd->nstore), &iter, WIDGETCOL, &child, FUNCCOL, &func, DATACOL,
 						   &data, -1);
+		g_print("preftree_cursor_changed_cb, got child %p\n",child);
 		if (child) {
+			pd->curchild = child;
 			gtk_box_pack_start(GTK_BOX(pd->fixed), child, TRUE, TRUE, 1);
 			gtk_widget_show_all(pd->fixed);
 			if (func && data) {
@@ -1870,6 +1897,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
 	gtk_tree_store_set(pd->nstore, &iter, NAMECOL, _("Editor settings"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Auto-completion</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(2, 2, 0, vbox2);
@@ -1932,6 +1960,7 @@ preferences_dialog_new(void)
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Font & Colors"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox1 = gtk_vbox_new(FALSE, 12);
 	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
@@ -1981,6 +2010,7 @@ preferences_dialog_new(void)
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Initial document settings"), WIDGETCOL, vbox1, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, vbox1);
 
 	sessionprefs(_("<b>Non Project Defaults</b>"), &pd->sprefs, main_v->session);
 	gtk_box_pack_start(GTK_BOX(vbox1), pd->sprefs.frame, FALSE, FALSE, 5);
@@ -1996,6 +2026,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
 	gtk_tree_store_set(pd->nstore, &iter, NAMECOL, _("Files"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Backup</b>"), vbox1);
 
@@ -2091,6 +2122,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("HTML"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>HTML Toolbar</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(4, 1, 0, vbox2);
@@ -2134,6 +2166,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Templates"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Templates</b>"), vbox1);
 	create_template_gui(pd, vbox2);
@@ -2149,6 +2182,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
 	gtk_tree_store_set(pd->nstore, &iter, NAMECOL, _("User interface"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Document Tabs</b>"), vbox1);
 
@@ -2222,6 +2256,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Dimensions"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Dimensions</b>"), vbox1);
 
@@ -2262,6 +2297,7 @@ preferences_dialog_new(void)
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Font & Colors"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox1 = gtk_vbox_new(FALSE, 12);
 	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
@@ -2318,6 +2354,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Images"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Thumbnails</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(2, 2, 0, vbox2);
@@ -2343,6 +2380,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("External commands"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>External Commands</b>"), vbox1);
 	create_extcommands_gui(pd, vbox2);
@@ -2358,6 +2396,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("External filters"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>External Filters</b>"), vbox1);
 	create_filters_gui(pd, vbox2);
@@ -2373,6 +2412,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Output parsers"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Output Parsers</b>"), vbox1);
 	create_outputbox_gui(pd, vbox2);
@@ -2388,6 +2428,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Plugins"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Plugins</b>"), vbox1);
 	create_plugin_gui(pd, vbox2);
@@ -2403,6 +2444,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Text styles"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Text Styles</b>"), vbox1);
 	create_textstyle_gui(pd, vbox2);
@@ -2418,6 +2460,7 @@ preferences_dialog_new(void)
 
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
 	gtk_tree_store_set(pd->nstore, &iter, NAMECOL, _("Language support"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Reference Information</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(3, 1, 0, vbox2);
@@ -2436,7 +2479,7 @@ preferences_dialog_new(void)
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	create_bflang_gui(pd, vbox1);
-
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, vbox1);
 	tmplist = g_list_first(langmgr_get_languages());
 	while (tmplist) {
 		Tbflang *bflang = tmplist->data;
