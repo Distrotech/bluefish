@@ -1485,7 +1485,6 @@ preferences_destroy_lcb(GtkWidget * widget, Tprefdialog * pd)
 {
 	GtkTreeSelection *select;
 	DEBUG_MSG("preferences_destroy_lcb, started\n");
-
 	free_arraylist(pd->lists[textstyles]);
 	free_arraylist(pd->lists[highlight_styles]);
 	free_arraylist(pd->lists[bflang_options]);
@@ -1498,6 +1497,8 @@ preferences_destroy_lcb(GtkWidget * widget, Tprefdialog * pd)
 	pd->lists[extoutputbox] = NULL;
 	free_arraylist(pd->lists[templates]);
 	pd->lists[templates] = NULL;
+	free_arraylist(pd->lists[pluginconfig]);
+	pd->lists[pluginconfig] = NULL;
 	/*  g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list)); */
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->bd.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
@@ -1836,7 +1837,7 @@ preferences_dialog_new(void)
 {
 	Tprefdialog *pd;
 	gint index;
-	GList *tmplist, *poplist;
+	GList *tmplist, *poplist, *freelist;
 	GtkWidget *dvbox, *frame, *hbox, *label, *table, *vbox1, *vbox2, *vbox3;
 	GtkWidget *dhbox, *scrolwin, *but;
 	GtkCellRenderer *cell;
@@ -2481,7 +2482,7 @@ preferences_dialog_new(void)
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	create_bflang_gui(pd, vbox1);
 	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, vbox1);
-	tmplist = g_list_first(langmgr_get_languages());
+	freelist = tmplist = g_list_first(langmgr_get_languages());
 	while (tmplist) {
 		Tbflang *bflang = tmplist->data;
 		gtk_tree_store_append(pd->nstore, &auxit, &iter);
@@ -2489,6 +2490,7 @@ preferences_dialog_new(void)
 						   bflanggui_set_bflang, DATACOL, bflang, -1);
 		tmplist = g_list_next(tmplist);
 	}
+	g_list_free(freelist);
 
 	{
 		GtkWidget *ahbox, *but;
