@@ -1625,6 +1625,11 @@ langmgr_cleanup(void)
 	g_hash_table_destroy(langmgr.bflang_options);
 	g_hash_table_destroy(langmgr.option_descriptions);
 	g_hash_table_destroy(langmgr.bflang_lookup);
+	g_free(langmgr.highlight_tags);
+#ifdef HAVE_LIBENCHANT
+	g_free(langmgr.need_spellcheck_tags);
+	g_free(langmgr.no_spellcheck_tags);
+#endif
 }
 #endif
 

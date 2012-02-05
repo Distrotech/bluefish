@@ -2207,7 +2207,7 @@ preferences_dialog_new(void)
 																  lingua_locale_to_lang(main_v->
 																						props.language) :
 																  _("Auto"), _("_Language:"), hbox, 0);
-	g_list_free(poplist);
+	free_stringlist(poplist);
 
 	pd->prefs[transient_htdialogs] = dialog_check_button_new(_("_Make HTML dialogs transient"),
 															 main_v->props.transient_htdialogs);
