@@ -6,9 +6,9 @@
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.4\n"
+"Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-08-24 21:37+0200\n"
+"POT-Creation-Date: 2011-12-24 11:43+0100\n"
 "PO-Revision-Date: 2009-09-21 12:28+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
@@ -19,11 +19,11 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/plugin_about/about.c:76
+#: src/plugin_about/about.c:75
 msgid "This version of Bluefish was built with:\n"
 msgstr "Bluefish-en bertsio hau honekin eraiki zen:\n"
 
-#: src/plugin_about/about.c:143
+#: src/plugin_about/about.c:181
 msgid ""
 "\n"
 "Developers of previous releases:"
@@ -31,7 +31,7 @@ msgstr ""
 "\n"
 "Aurreko argitalpeneko garatzaileak:"
 
-#: src/plugin_about/about.c:158
+#: src/plugin_about/about.c:196
 msgid ""
 "\n"
 "Package maintainers:"
@@ -39,7 +39,7 @@ msgstr ""
 "\n"
 "Paketearen mantentzaileak:"
 
-#: src/plugin_about/about.c:165
+#: src/plugin_about/about.c:203
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
@@ -50,7 +50,7 @@ msgstr ""
 "eskertuko genizuke jakinaraziko bazeniguke\n"
 "honako helbidean: <bluefish@bluefish.openoffice.nl>"
 
-#: src/plugin_about/about.c:166
+#: src/plugin_about/about.c:204
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
@@ -58,7 +58,7 @@ msgstr ""
 "\n"
 "Mila esker software hau eskuragarri egiten lagundu duten guztiei."
 
-#: src/plugin_about/about.c:202
+#: src/plugin_about/about.c:240
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
@@ -76,46 +76,46 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:212
+#: src/plugin_about/about.c:250
 msgid "translator-credits"
 msgstr "Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>"
 
-#: src/plugin_about/about.c:276
+#: src/plugin_about/about.c:316
 msgid "_Help"
 msgstr "_Laguntza"
 
-#: src/plugin_about/about.c:277
+#: src/plugin_about/about.c:317
 msgid "Bluefish _Homepage"
 msgstr "Bluefish webgune _nagusia"
 
-#: src/plugin_about/about.c:277
+#: src/plugin_about/about.c:317
 #, fuzzy
 msgid "Bluefish homepage"
 msgstr "Bluefish webgune _nagusia"
 
-#: src/plugin_about/about.c:279
+#: src/plugin_about/about.c:319
 msgid "Report a _Bug"
 msgstr "_Akatsen berri eman"
 
-#: src/plugin_about/about.c:279
+#: src/plugin_about/about.c:319
 #, fuzzy
 msgid "Report a bug"
 msgstr "_Akatsen berri eman"
 
-#: src/plugin_about/about.c:280
+#: src/plugin_about/about.c:320
 msgid "_About"
 msgstr ""
 
-#: src/plugin_about/about.c:280
+#: src/plugin_about/about.c:320
 msgid "About Bluefish"
 msgstr ""
 
-#: src/plugin_about/about.c:282
+#: src/plugin_about/about.c:322
 #, fuzzy
-msgid "_Build Info"
+msgid "Build _Info"
 msgstr "_Eraikitzeari buruz..."
 
-#: src/plugin_about/about.c:282
+#: src/plugin_about/about.c:322
 #, fuzzy
 msgid "Build info"
 msgstr "_Eraikitzeari buruz..."

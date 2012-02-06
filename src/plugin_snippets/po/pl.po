@@ -4,132 +4,133 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.4\n"
+"Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-12-09 21:16+0100\n"
+"POT-Creation-Date: 2012-02-06 10:54+0100\n"
 "PO-Revision-Date: 2011-12-14 19:13+0100\n"
 "Last-Translator: Quick-Master SI <dawajpoczte@gmail.com>\n"
 "Language-Team: None\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
 
-#: src/plugin_snippets/snippets_gui.c:414
+#: src/plugin_snippets/snippets_gui.c:416
 msgid "Click the right mouse button to add, edit or delete snippets."
-msgstr "Kliknij prawym przyciskiem myszy aby dodać, zmienić lub usunąc skrawki."
+msgstr ""
+"Kliknij prawym przyciskiem myszy aby dodać, zmienić lub usunąc skrawki."
 
-#: src/plugin_snippets/snippets_gui.c:415
+#: src/plugin_snippets/snippets_gui.c:417
 msgid "Use drag and drop to re-order snippets"
 msgstr "Użyj metody przeciągnij i upuśc aby zmienić kolejność skrawków"
 
-#: src/plugin_snippets/snippets_gui.c:416
+#: src/plugin_snippets/snippets_gui.c:418
 msgid "To exchange snippets with others use import or export"
 msgstr "Aby wymienić skrawki z innymi użyj importu lub eksportu"
 
-#: src/plugin_snippets/snippets_gui.c:638
+#: src/plugin_snippets/snippets_gui.c:640
 msgid "snippets"
 msgstr "skrawki"
 
-#: src/plugin_snippets/snippets_gui.c:701
+#: src/plugin_snippets/snippets_gui.c:703
 msgid "Snippet export filename"
 msgstr "Nazwa eksportowanego skrawka"
 
-#: src/plugin_snippets/snippets_gui.c:739
+#: src/plugin_snippets/snippets_gui.c:741
 msgid "Snippet import filename"
 msgstr "Nazwa importowanego skrawka"
 
-#: src/plugin_snippets/snippets_gui.c:757
+#: src/plugin_snippets/snippets_gui.c:759
 msgid "Set accelerator key"
 msgstr "Ustaw skrót klawiszowy"
 
-#: src/plugin_snippets/snippets_gui.c:813
+#: src/plugin_snippets/snippets_gui.c:815
 msgid "Snippets menu"
 msgstr "Menu skrawków"
 
-#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_gui.c:816
 msgid "_New Snippet"
 msgstr "Nowy skrawek"
 
-#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_gui.c:816
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
 msgstr "Nowy skrawek"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_gui.c:817
 msgid "_Edit Snippet"
 msgstr "Edytuj skrawek"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_gui.c:817
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
 msgstr "Edytuj skrawek"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "_Delete Snippet"
 msgstr "Usuń skrawek"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "Delete snippet"
 msgstr "Usuń skrawek "
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:819
 msgid "Delete _Branch"
 msgstr "Usuń gałąź"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:819
 msgid "Delete branch"
 msgstr "Usuń gałąź"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Set Snippet _Accelerator"
 msgstr "Ustaw skrót do skrawka"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Set snippet accelerator"
 msgstr "Ustaw skrót do skrawka "
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "Ex_pand All"
 msgstr "Rozwiń wszystkie"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "Expand all"
 msgstr "Rozwiń wszystkie"
 
-#: src/plugin_snippets/snippets_gui.c:821
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "_Collapse All"
 msgstr "Zwiń wszystkie"
 
-#: src/plugin_snippets/snippets_gui.c:821
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "Collapse all"
 msgstr "Zwiń wszystkie"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:824
 msgid "E_xport"
 msgstr "Eksportuj"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:824
 msgid "Export snippets"
 msgstr "Eksportuj skrawki"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:825
 msgid "I_mport"
 msgstr "Importuj"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:825
 msgid "Import snippets"
 msgstr "Importuj skrawki"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:829
 msgid "_Show as menu"
 msgstr "Pokaż jako menu"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:829
 msgid "Show snippets menu"
 msgstr "Pokaż menu skrawków"
 
-#: src/plugin_snippets/snippets_gui.c:829
+#: src/plugin_snippets/snippets_gui.c:831
 msgid "S_nippets Menu"
 msgstr "Menu skrawków"
 
@@ -170,8 +171,16 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-msgid "Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
-msgstr "Określ wzorzec wyszukiwania i zastępowania. Możesz użyć %0, %1, ...%5 wartości zastępczych aby odwołać się do tych wartości kiedy zostaną aktywowane. Te wartości zastępcze zostaną nadane na odpowiedniej nazwie po prawej stronie. (Użyj %% jeśli potrzebujesz dosłowny % w swoim wzorcu!)"
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right. (Please use %% if you need "
+"literal % in your string!)"
+msgstr ""
+"Określ wzorzec wyszukiwania i zastępowania. Możesz użyć %0, %1, ...%5 "
+"wartości zastępczych aby odwołać się do tych wartości kiedy zostaną "
+"aktywowane. Te wartości zastępcze zostaną nadane na odpowiedniej nazwie po "
+"prawej stronie. (Użyj %% jeśli potrzebujesz dosłowny % w swoim wzorcu!)"
 
 #: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
@@ -202,16 +211,24 @@ msgid "_Use escape chars"
 msgstr "Użyj specjalnych znaków wyjścia (tzw. escape char)"
 
 #: src/plugin_snippets/snippets_wizard.c:166
-msgid ""
-"Unescape backslash escaped characters such as \\n"
-", \\t etc."
-msgstr ""
-"Usuń znaki backslasha użytych znaków wyjścia np. \\n"
-", \\t itd."
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgstr "Usuń znaki backslasha użytych znaków wyjścia np. \\n, \\t itd."
 
 #: src/plugin_snippets/snippets_wizard.c:335
-msgid "The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
-msgstr "<i>Przed</i> tekstem zostanie wstawiony przed pozycją  kursora lub bieżącym zaznaczeniem, <i>Za</i> tekstem zostanie wstawione za pozycją kursora lub bieżącym zaznaczeniem. Możesz użyć %0, %1, ...%9 znaków zastępczych aby aby odwołać się do tych wartości kiedy zostaną aktywowane. Te wartości zastępcze zostaną nadane na odpowiedniej nazwie po prawej stronie. (Użyj %% jeśli potrzebujesz dosłowny % w swoim wzorcu!)"
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right. (Please use %% if you need literal % in your "
+"string!)"
+msgstr ""
+"<i>Przed</i> tekstem zostanie wstawiony przed pozycją  kursora lub bieżącym "
+"zaznaczeniem, <i>Za</i> tekstem zostanie wstawione za pozycją kursora lub "
+"bieżącym zaznaczeniem. Możesz użyć %0, %1, ...%9 znaków zastępczych aby aby "
+"odwołać się do tych wartości kiedy zostaną aktywowane. Te wartości zastępcze "
+"zostaną nadane na odpowiedniej nazwie po prawej stronie. (Użyj %% jeśli "
+"potrzebujesz dosłowny % w swoim wzorcu!)"
 
 #: src/plugin_snippets/snippets_wizard.c:344
 msgid "<i>Before</i> text"
@@ -263,6 +280,6 @@ msgstr "Szukaj i zamień wzorzec"
 
 #~ msgid "Entire word only"
 #~ msgstr "Tylko całe słowa"
+
 #~ msgid "POSIX"
 #~ msgstr "POSIX"
-

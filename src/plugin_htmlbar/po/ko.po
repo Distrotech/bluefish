@@ -4,10 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.4Report-Msgid-Bugs-To: bluefish-dev@lists."
-"ems.ru\n"
+"Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-22 03:12+0200\n"
+"POT-Creation-Date: 2012-02-06 10:54+0100\n"
 "PO-Revision-Date: 2009-05-26 08:48+0900\n"
 "Last-Translator: Taehun Kang 강태헌 <u4800330@anu.edu.au>\n"
 "Language-Team: \n"
@@ -16,75 +15,52 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. _DM_ Alert box asking if user would like to change request from add to
-#. * update.
-#.
-#: src/plugin_htmlbar/html2.c:500
-msgid "_Update"
-msgstr " 업데이트(_U)"
-
-#: src/plugin_htmlbar/html2.c:505
-#, c-format
-msgid "The %s %s property already exists.\n"
-msgstr "%s %s 속성은 이미 존재합니다.\n"
-
-#: src/plugin_htmlbar/html2.c:507
-#, c-format
-msgid "The %s property already exists.\n"
-msgstr "%s 속성은 이미 존재합니다.\n"
-
-#: src/plugin_htmlbar/html2.c:510
-#, c-format
-msgid "Update its value from %s to %s?"
-msgstr "%s 부터 %s까지 업데이트 합니까?"
-
-#: src/plugin_htmlbar/html2.c:641
+#: src/plugin_htmlbar/html2.c:556
 msgid "Cascading Style Sheet Builder"
 msgstr "Cascading Style Sheet 빌더"
 
-#: src/plugin_htmlbar/html2.c:661
+#: src/plugin_htmlbar/html2.c:576
 msgid "_Selector:"
 msgstr "선택기(_S)"
 
-#: src/plugin_htmlbar/html2.c:680
+#: src/plugin_htmlbar/html2.c:595
 msgid "_Property:"
 msgstr "속성(_P)"
 
-#: src/plugin_htmlbar/html2.c:682 src/plugin_htmlbar/html_form.c:375
-#: src/plugin_htmlbar/html_form.c:540 src/plugin_htmlbar/html_form.c:635
+#: src/plugin_htmlbar/html2.c:597 src/plugin_htmlbar/html_form.c:375
+#: src/plugin_htmlbar/html_form.c:541 src/plugin_htmlbar/html_form.c:636
 msgid "_Value:"
 msgstr "값(_V)"
 
-#: src/plugin_htmlbar/html2.c:700
+#: src/plugin_htmlbar/html2.c:615
 msgid "Selector"
 msgstr "선택기"
 
-#: src/plugin_htmlbar/html2.c:700 src/plugin_htmlbar/html2.c:703
+#: src/plugin_htmlbar/html2.c:619
 msgid "Property"
 msgstr "속성"
 
-#: src/plugin_htmlbar/html2.c:700 src/plugin_htmlbar/html2.c:703
+#: src/plugin_htmlbar/html2.c:622
 msgid "Value"
 msgstr "값"
 
-#: src/plugin_htmlbar/html2.c:718
+#: src/plugin_htmlbar/html2.c:650
 msgid " _Add "
 msgstr " 추가(_A) "
 
-#: src/plugin_htmlbar/html2.c:721
+#: src/plugin_htmlbar/html2.c:654
 msgid " _Update "
 msgstr " 업데이트(_U) "
 
-#: src/plugin_htmlbar/html2.c:724
+#: src/plugin_htmlbar/html2.c:658
 msgid " _Delete "
 msgstr " 삭제(_D) "
 
-#: src/plugin_htmlbar/html2.c:977 src/plugin_htmlbar/html2.c:1014
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1639
+#: src/plugin_htmlbar/html2.c:918 src/plugin_htmlbar/html2.c:955
 msgid "_Style..."
 msgstr "스타일(_S)..."
 
-#: src/plugin_htmlbar/html2.c:1099
+#: src/plugin_htmlbar/html2.c:1040
 msgid "Bluefish: Select color"
 msgstr "Bluefish: 색상 선택"
 
@@ -96,1957 +72,2097 @@ msgstr "색상 편집"
 msgid "Edit tag"
 msgstr "태그 편집"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1358
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1428
 msgid "T_ags"
 msgstr "태그(_A)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1359
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1429
 msgid "_Headings"
 msgstr "헤딩(_H)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1360
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1430
 msgid "H_1"
 msgstr "H_1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1360
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1430
 msgid "Insert H1 tag"
 msgstr "H1 태그 추가"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1362
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1432
 msgid "H_2"
 msgstr "H_2"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1362
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1432
 msgid "Insert H2 tag"
 msgstr "H2 태그 추가"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1364
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1434
 msgid "H_3"
 msgstr "H_3"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1364
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1434
 msgid "Insert H3 tag"
 msgstr "H3 태그 추가"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1366
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1436
 msgid "H_4"
 msgstr "H_4"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1366
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1436
 msgid "Insert H4 tag"
 msgstr "H4 태그 추가"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1368
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1438
 msgid "H_5"
 msgstr "H_5"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1368
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1438
 msgid "Insert H5 tag"
 msgstr "H5 태그 추가"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1370
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1440
 msgid "H_6"
 msgstr "H_6"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1370
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1440
 msgid "Insert H6 tag"
 msgstr "H6 태그 추가"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1372
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1442
 msgid "_Special"
 msgstr "특수문자(_S)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1373
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1443
 msgid "_Accent"
 msgstr "강조(_A)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1374
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1444
 msgid "_Uppercase"
 msgstr "대문자(_U)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1375
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1407
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1445
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1477
 msgid "_A-I"
 msgstr "_A-I"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1376
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1446
 msgid "A grave À"
 msgstr "A grave À"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1377
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1447
 msgid "A acute Á"
 msgstr "A acute Á"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1378
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1448
 msgid "A circumflex Â"
 msgstr "A circumflex Â"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1379
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1449
 msgid "A tilde Ã"
 msgstr "A tilde Ã"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1380
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1450
 msgid "AE ligature Æ"
 msgstr "AE ligature Æ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1381
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1451
 msgid "A diaeresis Ä"
 msgstr "A diaeresis Ä"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1382
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1452
 msgid "A ring Å"
 msgstr "A ring Å"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1383
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1453
 msgid "C cedilla Ç"
 msgstr "C cedilla Ç"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1384
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1454
 msgid "E grave È"
 msgstr "E grave È"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1385
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1455
 msgid "E acute É"
 msgstr "E acute É"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1386
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1456
 msgid "E circumflex Ê"
 msgstr "E circumflex Ê"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1387
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1457
 msgid "E diaeresis Ë"
 msgstr "E diaeresis Ë"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1388
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1458
 msgid "I grave Ì"
 msgstr "I grave Ì"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1389
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1459
 msgid "I acute Í"
 msgstr "I acute Í"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1390
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1460
 msgid "I circumflex Î"
 msgstr "I circumflex Î"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1391
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1461
 msgid "I diaeresis Ï"
 msgstr "I diaeresis Ï"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1392
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1424
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1462
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1494
 msgid "_J-Z"
 msgstr "_J-Z"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1393
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1463
 msgid "N tilde Ñ"
 msgstr "N tilde Ñ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1394
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1464
 msgid "O grave Ò"
 msgstr "O grave Ò"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1395
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1465
 msgid "O acute Ó"
 msgstr "O acute Ó"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1396
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1466
 msgid "O circumflex Ô"
 msgstr "O circumflex Ô"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1397
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1467
 msgid "OE ligature Œ"
 msgstr "OE ligature Œ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1398
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1468
 msgid "O tilde Õ"
 msgstr "O tilde Õ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1399
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1469
 msgid "O diaeresis Ö"
 msgstr "O diaeresis Ö"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1400
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1470
 msgid "O slash Ø"
 msgstr "O slash Ø"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1401
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1471
 msgid "U grave Ù"
 msgstr "U grave Ù"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1402
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1472
 msgid "U acute Ú"
 msgstr "U acute Ú"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1403
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1473
 msgid "U circumflex Û"
 msgstr "U circumflex Û"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1404
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1474
 msgid "U diaeresis Ü"
 msgstr "U diaeresis Ü"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1405
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1475
 msgid "Y acute Ý"
 msgstr "Y acute Ý"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1406
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1476
 msgid "_Lowercase"
 msgstr "소문자(_L)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1408
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1478
 msgid "a grave à"
 msgstr "a grave à"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1409
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1479
 msgid "a acute á"
 msgstr "a acute á"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1410
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1480
 msgid "a circumflex â"
 msgstr "a circumflex â"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1411
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1481
 msgid "a tilde ã"
 msgstr "a tilde ã"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1412
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1482
 msgid "a ring å"
 msgstr "a ring å"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1413
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1483
 msgid "ae ligature æ"
 msgstr "ae ligature æ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1414
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1484
 msgid "a diaeresis ä"
 msgstr "a diaeresis ä"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1415
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1485
 msgid "c cedilla ç"
 msgstr "c cedilla ç"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1416
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1486
 msgid "e grave è"
 msgstr "e grave è"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1417
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1487
 msgid "e acute é"
 msgstr "e acute é"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1418
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1488
 msgid "e circumflex ê"
 msgstr "e circumflex ê"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1419
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1489
 msgid "e diaeresis ë"
 msgstr "e diaeresis ë"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1420
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1490
 msgid "i grave ì"
 msgstr "i grave ì"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1421
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1491
 msgid "i acute í"
 msgstr "i acute í"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1422
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1492
 msgid "i circumflex î"
 msgstr "i circumflex î"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1423
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
 msgid "i diaeresis ï"
 msgstr "i diaeresis ï"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1425
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
 msgid "n tilde ñ"
 msgstr "n tilde ñ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1426
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1496
 msgid "o grave ò"
 msgstr "o grave ò"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1427
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
 msgid "o acute ó"
 msgstr "o acute ó"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1428
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1498
 msgid "oe ligature œ"
 msgstr "oe ligature œ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1429
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
 msgid "o circumflex ô"
 msgstr "o circumflex ô"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1430
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1500
 msgid "o tilde õ"
 msgstr "o tilde õ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1431
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
 msgid "o diaeresis ö"
 msgstr "o diaeresis ö"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1432
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1502
 msgid "o slash ø"
 msgstr "o slash ø"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1433
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
 msgid "u grave ù"
 msgstr "u grave ù"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1434
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1504
 msgid "u acute ú"
 msgstr "u acute ú"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1435
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
 msgid "u circumflex û"
 msgstr "u circumflex û"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1436
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1506
 msgid "u diaeresis ü"
 msgstr "u diaeresis ü"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1437
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
 msgid "y acute ý"
 msgstr "y acute ý"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1438
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1508
 msgid "y diaeresis ÿ"
 msgstr "y diaeresis ÿ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1439
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1509
 msgid "_Acute ´"
 msgstr "_Acute ´"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1440
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1510
 msgid "_Cedilla ¸"
 msgstr "_Cedilla ¸"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1441
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1511
 msgid "U_mlaut ¨"
 msgstr "U_mlaut ¨"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1442
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1512
 msgid "_Currency"
 msgstr "통화(_C)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1443
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1513
 msgid "_Cent sign ¢"
 msgstr "센트 ¢ (_C)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1444
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1514
 msgid "_Pound sterling £"
 msgstr "파운드 £ (_P)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1445
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1515
 msgid "C_urrency sign ¤"
 msgstr "통화 기호 ¤ (_U)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1446
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
 msgid "_Yen sign ¥"
 msgstr "옌 ¥ (_Y)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1447
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1517
 msgid "_Euro €"
 msgstr "유로 € (_E)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1448
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
 msgid "_Math-Science"
 msgstr "수학-과학(_M)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1449
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1519
 msgid "Logical _not sign ¬"
 msgstr "논리 기호 not ¬ (_N)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1450
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
 msgid "_Multiplication sign ×"
 msgstr "곱하기 부호 × (_M)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1451
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1521
 msgid "_Division sign ÷"
 msgstr "나누기 부호 ÷ (_D)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1453
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1523
 msgid "_Plus-minus sign ±"
 msgstr "더하기-빼기 부호 ± (_P)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1454
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1524
 msgid "_Less-than sign <"
 msgstr "보다 작은 부호 < (_L)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1456
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1526
 msgid "_Greater-than sign >"
 msgstr "보다 큰 부호 > (_G)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1458
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1528
 msgid "Superscript _1 ¹"
 msgstr "위첨자 1 ¹ (_1)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1459
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1529
 msgid "Superscript _2 ²"
 msgstr "위첨자 2 ² (_2)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1460
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1530
 msgid "Superscript _3 ³"
 msgstr "위첨자 3 ³ (_3)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1461
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1531
 msgid "One _quarter ¼"
 msgstr "사분의 일 ¼ (_Q)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1462
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1532
 msgid "One _half ½"
 msgstr "이분의 일 ½ (_H)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1463
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1533
 msgid "_Three quarters ¾"
 msgstr "사분에 삼 ¾ (_T)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1465
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1535
 msgid "Deg_ree sign °"
 msgstr "기호 도씨 ° (_R)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1466
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1536
 msgid "_Non Latin"
 msgstr "비(非)라틴(_N)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1467
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1537
 msgid "_ETH (Icelandic) Ð"
 msgstr "_ETH (Islandsk) Ð"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1468
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1538
 msgid "_THORN (Icelandic) Þ"
 msgstr "_THORN (Islandsk) Þ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1469
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1539
 msgid "et_h (Icelandic) ð"
 msgstr "et_h (Islandsk) ð"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1470
-msgid "th_orn ÿ"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1540
+#, fuzzy
+msgid "th_orn þ"
 msgstr "th_orn ÿ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1471
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1541
 msgid "Sharp _s ß"
 msgstr "Sharp _s ß"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1472
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1542
 msgid "_Micro sign µ"
 msgstr "마이크로 µ (_M)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1473
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1543
 msgid "_Other"
 msgstr "그 외 (_O)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1474
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1544
 msgid "_Non-breaking space"
 msgstr "공백 (_N)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1475
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1545
 msgid "_Section sign §"
 msgstr "구획 부호 § (_S)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1476
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1546
 msgid "_Copyright sign ©"
 msgstr "기호 저작권 © (_C)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1477
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1547
 #, fuzzy
 msgid "_Left angle quotes «"
 msgstr "좌측 각도 인용부호 « (_V)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1479
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1549
 #, fuzzy
 msgid "_Right angle quotes »"
 msgstr "우측 각도 인용부호 » (_H)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1481
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1551
 msgid "Registered _trademark ®"
 msgstr "Registered _trademark ®"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1482
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
 msgid "Inverted _exclamation ¡"
 msgstr "역감탄사 ¡ (_E)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1484
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1554
 msgid "Inverted _question mark ¿"
 msgstr "역물음표 ¿ (_Q)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1486
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1556
 msgid "_Feminine ordinal ª"
 msgstr "여성 서수 ª (_F)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1487
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1557
 msgid "_Masculine ordinal º"
 msgstr "남성 서수 º (_M)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1489
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1559
 msgid "_Pilcrow (paragraph sign) ¶"
 msgstr "단락 부호 ¶ (_P)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1491
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1561
 msgid "_Broken bar ¦"
 msgstr "끊어진 막대기 ¦ (_B)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1492
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1562
 msgid "Soft _hyphen -"
 msgstr "소프트 하이폰 - (_H)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1563
 msgid "Spa_cing macron ¯"
 msgstr "장음기호 ¯ (_C)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1565
 msgid "Middle _dot ·"
 msgstr "가운데 점 · (_D)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1496
-msgid "F_ormat by context"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1566
+#, fuzzy
+msgid "_Format by Context"
 msgstr "문맥 형식(_O)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1567
 msgid "_Strong"
 msgstr "_Strong"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1567
 msgid "Strong"
 msgstr "Strong"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1569
 msgid "_Emphasis"
 msgstr "_Emphasis"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1569
 msgid "Emphasis"
 msgstr "Emphasis"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1573
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1571
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1643
 msgid "_Definition"
 msgstr "_Definition"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1573
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1571
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1643
 msgid "Definition"
 msgstr "Definition"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1573
 msgid "_Code"
 msgstr "_Code"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1573
 msgid "Code"
 msgstr "Code"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1504
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1574
 msgid "Sa_mple"
 msgstr "Sa_mple"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1504
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1574
 msgid "Sample"
 msgstr "Sample"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1575
 msgid "_Keyboard"
 msgstr "_Keyboard"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1575
 msgid "Keyboard"
 msgstr "Keyboard"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1577
 msgid "_Variable"
 msgstr "_Variable"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1577
 msgid "Variable"
 msgstr "Variable"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1509
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1579
 msgid "Ci_tation"
 msgstr "Ci_tation"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1509
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1579
 msgid "Citation"
 msgstr "Citation"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1511
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1581
 msgid "_Abbreviation"
 msgstr "_Abbreviation"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1511
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1581
 msgid "Abbreviation"
 msgstr "Abbreviation"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1513
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1583
 msgid "Ac_ronym"
 msgstr "Ac_ronym"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1513
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1583
 msgid "Acronym"
 msgstr "Acronym"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1515
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1585
 msgid "_Insert"
 msgstr "_Insert"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1515
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1585
 msgid "Insert"
 msgstr "Insert"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1586
 msgid "De_lete"
 msgstr "De_lete"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1586
 msgid "Delete"
 msgstr "Delete"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1517
-msgid "_Format by layout"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1587
+#, fuzzy
+msgid "Format by L_ayout"
 msgstr "레이아웃 형식(_F)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1588
 msgid "_Bold"
 msgstr "굵음(_B)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1588
 msgid "Bold"
 msgstr "굵음"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1590
 msgid "_Italic"
 msgstr "기울이기(_I)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1590
 msgid "Italic"
 msgstr "기울이기"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1522
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1592
 msgid "_Underline"
 msgstr "밑줄(_U)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1522
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1592
 msgid "Underline"
 msgstr "밑줄"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1524
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1594
 msgid "_Strikeout"
 msgstr "취소선(_S)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1524
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1594
 msgid "Strikeout"
 msgstr "취소선"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1526
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1596
 msgid "Sm_all"
 msgstr "작게(_A)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1526
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1596
 msgid "Small"
 msgstr "작게"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1527
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1597
 msgid "Bi_g"
 msgstr "크게(_G)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1527
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1597
 msgid "Big"
 msgstr "크게"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1528
-msgid "Format _general"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1598
+#, fuzzy
+msgid "Format _General"
 msgstr "일반 형식(_G)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1529
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1599
 msgid "_Paragraph"
 msgstr "_Paragraph"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1529 src/plugin_htmlbar/html.c:878
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1599 src/plugin_htmlbar/html.c:855
 msgid "Paragraph"
 msgstr "Paragraph"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1531
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1601
 msgid "_Break"
 msgstr "_Break"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1531
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1601
 msgid "Break"
 msgstr "Break"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1533
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1603
 msgid "Break clear _all"
 msgstr "Break clear _all"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1533
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1603
 msgid "Break and clear"
 msgstr "Break and clear"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1535
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1605
 msgid "_Non-Breaking Space"
 msgstr "_nbsp"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1535
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1605
 msgid "Non-breaking space"
 msgstr "nbsp"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1537
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1607
 msgid "Font Si_ze +1"
 msgstr "폰트 사이즈 +1(_Z)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1537
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1607
 msgid "Font Size +1"
 msgstr "폰트 사이즈 +1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1539
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1609
 msgid "Font _Size -1"
 msgstr "폰트 사이즈 -1(_S)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1539
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1609
 msgid "Font Size -1"
 msgstr "폰트 사이즈 -1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1541
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1611
 msgid "Preformatted _Text"
 msgstr "Preformatted _Text"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1541
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1611
 msgid "Preformatted Text"
 msgstr "Preformatted Text"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1543
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1613
 msgid "Su_bscript"
 msgstr "아랫글짜(_B)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1543
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1613
 msgid "Subscript"
 msgstr "아랫글짜"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1545
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1615
 msgid "Su_perscript"
 msgstr "어깨글짜(_P)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1545
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1615
 msgid "Superscript"
 msgstr "어깨글짜"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1547
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1617
 msgid "_Center"
 msgstr "_Center"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1547
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1617
 msgid "Center"
 msgstr "Center"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1549
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1619
 msgid "Align _right"
 msgstr "Align _right"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1549
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1619
 msgid "Right Justify"
 msgstr "Right Justify"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1551
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1621
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1622
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1704
 msgid "_Table"
 msgstr "테이블(_T)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1622
 #: src/plugin_htmlbar/html_table.c:84
 msgid "Table"
 msgstr "테이블"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1554
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1624
 msgid "Table _Row"
 msgstr "테이블 행(_R)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1554
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1624
 #: src/plugin_htmlbar/html_table.c:218
 msgid "Table Row"
 msgstr "테이블 행"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1556
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1626
 msgid "Table _Header"
 msgstr "테이블 헤더(_H)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1556
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1626
 #: src/plugin_htmlbar/html_table.c:343
 msgid "Table Header"
 msgstr "테이블 헤더"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1558
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1628
 msgid "Table _Data"
 msgstr "데이블 데이터(_D)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1558
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1628
 #: src/plugin_htmlbar/html_table.c:341
 msgid "Table Data"
 msgstr "테이블 데이터"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1560
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1630
 msgid "Table _Caption"
 msgstr "테이블 표제(_C)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1560
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1630
 msgid "Table Caption"
 msgstr "테이블 표제"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1562
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1632
 msgid "_List"
 msgstr "_List"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1563
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1633
 msgid "Unordered _List"
 msgstr "Unordered _List"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1563
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1633
 msgid "Unordered List"
 msgstr "Unordered List"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1565
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1635
 msgid "_Ordered List"
 msgstr "_Ordered List"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1565
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1635
 msgid "Ordered List"
 msgstr "Ordered List"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1567
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1637
 msgid "List Ite_m"
 msgstr "List Ite_m"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1567
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1637
 msgid "List Item"
 msgstr "List Item"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1569
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1639
 msgid "De_finition List"
 msgstr "De_finition List"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1569
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1639
 msgid "Definition List"
 msgstr "Definition List"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1571
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1641
 msgid "Definition _Term"
 msgstr "Definition _Term"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1571
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1641
 msgid "Definition Term"
 msgstr "Definition Term"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1575
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
 msgid "Men_u"
 msgstr "Men_u"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1575
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
 msgid "Menu"
 msgstr "Menu"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1576
-msgid "Fo_rm"
-msgstr "Fo_rm"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1646
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1647
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1733
+msgid "F_orm"
+msgstr "양식(_O)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1577
-msgid "_Form"
-msgstr "_Form"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1577
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1647
 #: src/plugin_htmlbar/html_form.c:156
 msgid "Form"
 msgstr "Form"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1578
-msgid "_Button"
-msgstr "_Button"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1648
+msgid "_Fieldset"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1579
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1649
+msgid "_Legend"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1650
+#, fuzzy
+msgid "L_abel"
+msgstr "라벨(_L):"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1651
 msgid "_Input"
 msgstr "_Input"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1580
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1652
+msgid "_Button"
+msgstr "_Button"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1653
+#, fuzzy
+msgid "_Select"
+msgstr "선택"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1654
+#, fuzzy
+msgid "_Datalist"
+msgstr "기울이기(_I)"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1655
+#, fuzzy
+msgid "Opt_group"
+msgstr "Option group"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1656
+#, fuzzy
+msgid "Optio_n"
+msgstr "옵션"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1657
 msgid "_Textarea"
 msgstr "_Textarea"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1581
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1658
+msgid "_Keygen"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1659
+msgid "O_utput"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1660
+msgid "_Progress"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1661
+msgid "_Meter"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1662
 msgid "_Misc"
 msgstr "잡동사니(_M)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1582
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1663
 msgid "Insert Generator _META-Tag"
 msgstr "Generator _META-Tag 삽입"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1584
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1665
 msgid "_Span"
 msgstr "_Span"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1585
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1666
 msgid "_Div"
 msgstr "_Div"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1586
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1667
 msgid "_Link"
 msgstr "_Link"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1587
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1668
 msgid "S_cript"
 msgstr "S_cript"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1588
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1669
 msgid "_Anchor"
 msgstr "_Anchor"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1589
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1670
 msgid "_Image"
 msgstr "_Image"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1590
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1671
 msgid "_Comment"
 msgstr "주석(_C)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1590
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1671
 msgid "HTML Comment"
 msgstr "HTML 주석"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1592
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1673
 msgid "Dial_ogs"
 msgstr "대화창(_O)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1593
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1674
 msgid "_General"
 msgstr "일반(_G)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1594
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1675
 msgid "_Quickstart..."
 msgstr "빠른 시작(_Q)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1594
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1675
 msgid "Quickstart..."
 msgstr "빠른시작..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1596
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1677
 msgid "_Link Header..."
 msgstr "_Link Header..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1596
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1677
 msgid "Link Header..."
 msgstr "Link Header..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1598
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1679
 msgid "_Body..."
 msgstr "_Body..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1598
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1679
 msgid "Body..."
 msgstr "Body..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1600
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1681
+#, fuzzy
+msgid "_Script..."
+msgstr "스크립트"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1681
+#, fuzzy
+msgid "Script..."
+msgstr "스크립트"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 msgid "_Anchor..."
 msgstr "_Anchor..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1600
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 msgid "Anchor / Hyperlink..."
 msgstr "Anchor / Hyperlink..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1602
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
 msgid "_E-mail..."
 msgstr "_E-mail..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1602
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
 msgid "E-mail..."
 msgstr "E-mail..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1604
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
 msgid "_Rule..."
 msgstr "_Rule..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1604
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
 msgid "Horizontal Rule..."
 msgstr "수평자..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1606
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
 msgid "_Font..."
 msgstr "폰트(_F)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1606
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
 msgid "Font..."
 msgstr "폰트..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1608
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1691
 msgid "Basef_ont..."
 msgstr "기본폰트(_O)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1608
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1691
 msgid "Base font..."
 msgstr "기본폰트"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1610
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1693
 msgid "Quick_list..."
 msgstr "퀵리스트(_L)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1610
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1693
 msgid "Quick List..."
 msgstr "퀵리스트..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1612
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1695
 msgid "_Meta..."
 msgstr "메타(_M)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1613
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1696
 msgid "Embe_d..."
 msgstr "임베드(_D)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1614
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1697
 msgid "Select _Color..."
 msgstr "색상 선택(_C)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1615
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1698
 msgid "Insert _Time..."
 msgstr "시간 삽입(_T)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1616
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1699
 msgid "Insert _Image..."
 msgstr "이미지 삽입(_I)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1616
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1699
 msgid "Insert image..."
 msgstr "이미지 삽입..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1618
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1701
 msgid "Insert T_humbnail..."
 msgstr "썸네일 삽입(_H)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1619
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1702
 msgid "Insert thumbnail..."
 msgstr "썸네일 삽입..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1622
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1705
 msgid "Table _Wizard..."
 msgstr "테이블 도우미(_W)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1622
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1705
 msgid "Table Wizard..."
 msgstr "테이블 도우미..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1624
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1707
 msgid "_Table..."
 msgstr "테이블(_T)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1624
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1707
 msgid "Table..."
 msgstr "테이블..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1626
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1709
 msgid "Table _Row..."
 msgstr "테이블 행(_R)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1626
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1709
 msgid "Table Row..."
 msgstr "테이블 행..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1628
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1711
 msgid "Table _Head..."
 msgstr "테이블 헤드(_H)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1628
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1711
 msgid "Table Head..."
 msgstr "테이블 헤드..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1630
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1713
 msgid "Table _Data..."
 msgstr "테이블 데이타(_D)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1630
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1713
 msgid "Table Data..."
 msgstr "테이블 데이타..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1632
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1715
 msgid "_CSS"
 msgstr "_CSS"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1633
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1716
 msgid "_Create Style..."
 msgstr "스타일 생성(_C)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1634
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1717
 msgid "Create stylesheet..."
 msgstr "스타일시트 생성..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1636
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1719
 msgid "S_pan..."
 msgstr "S_pan..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1636
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1719
 msgid "Span..."
 msgstr "Span..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1637
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1720
 msgid "_Div..."
 msgstr "_Div..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1637
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1720
 msgid "Div..."
 msgstr "Div..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1639
-msgid "Style..."
-msgstr "Style..."
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1722
+#, fuzzy
+msgid "_Style"
+msgstr "Stil:"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1641
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1722
+#: src/plugin_htmlbar/html_form.c:565
+msgid "Style"
+msgstr "스타일"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1724
 msgid "_Link to Stylesheet..."
 msgstr "스타일시트 링크하기(_L)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1642
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1725
 msgid "Link to Stylesheet..."
 msgstr "스타일시트 링크하기..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1644
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1727
 msgid "_Frame"
 msgstr "프레임(_F)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1728
 msgid "Frame _Wizard..."
 msgstr "프레임 도우미(_W)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1728
 msgid "Frame Wizard..."
 msgstr "프레임 도우미..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1647
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1730
 msgid "Frame_set..."
 msgstr "프레임 세트(_S)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1647
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1730
 msgid "Frameset..."
 msgstr "프레임 세트..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1649
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1732
 msgid "_Frame..."
 msgstr "프레임(_F)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1649
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1732
 msgid "Frame..."
 msgstr "프레임..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1650
-msgid "F_orm"
-msgstr "양식(_O)"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1651
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1734
 msgid "F_orm..."
 msgstr "F_orm..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1651
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1734
 msgid "Form..."
 msgstr "Form..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1652
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1735
 msgid "_Input..."
 msgstr "_Input..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1653
-msgid "Input Buttons..."
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1736
+#, fuzzy
+msgid "Input B_uttons..."
 msgstr "Input Buttons..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1653
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1736
 msgid "Input Button..."
 msgstr "Input Button..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1655
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1738
+#, fuzzy
+msgid "Input T_ext..."
+msgstr "Input Text..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1738
 msgid "Input Text..."
 msgstr "Input Text..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1657
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1740
 msgid "Text_area..."
 msgstr "Text_area..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1657
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1740
 msgid "Textarea..."
 msgstr "Textarea..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1659
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1742
 msgid "_Select..."
 msgstr "_Select..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1659
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1742
 msgid "Select..."
 msgstr "Select..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1661
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1744
 msgid "O_ption..."
 msgstr "O_ption..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1661
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1744
 msgid "Option..."
 msgstr "Option..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1663
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1746
 msgid "Option _Group..."
 msgstr "Option _Group..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1663
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1746
 msgid "Option group..."
 msgstr "Option group..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1665
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1748
 msgid "_Button..."
 msgstr "_Button..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1665
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1748
 msgid "Button..."
 msgstr "Button..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1667
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1750
 msgid "_Edit tag under cursor..."
 msgstr "커서가 놓여 있는 지점의 태그 편집(_E)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1669
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1752
 msgid "_Multi Thumbnail..."
 msgstr "다중 썸네일(_M)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1669
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1752
 msgid "Multi thumbnail..."
 msgstr "다중 썸네일..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1671 src/plugin_htmlbar/html.c:1822
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1754 src/plugin_htmlbar/html.c:1765
 msgid "Frame"
 msgstr "프레임"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1672 src/plugin_htmlbar/html.c:1726
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1755 src/plugin_htmlbar/html.c:1678
 msgid "Frameset"
 msgstr "프레임세트"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1674
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1757
 msgid "Noframes"
 msgstr "프레임 없음"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1676
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1759
 msgid "Target"
 msgstr "타겟"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1678
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1761
 msgid "Input Hidden..."
 msgstr "Input Hidden..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1679
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1762
 msgid "Input Radio button..."
 msgstr "Input Radio button..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1680
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1763
 msgid "Input Radio Button..."
 msgstr "Input Radio Button..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1681
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1764
 msgid "Input Check box..."
 msgstr "Input Check box..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1682
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1765
 msgid "Input Check Box..."
 msgstr "Input Check Box..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1683
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1697
-msgid "_HTML5"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1766
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1780
+msgid "HTML_5"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1684
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1767
 #, fuzzy
 msgid "_Article"
 msgstr "수직(_V)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1684
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1767
 #, fuzzy
 msgid "Article"
 msgstr "수직(_V)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1768
 msgid "As_ide"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1768
 msgid "Aside"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1686
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1769
+#, fuzzy
+msgid "Fig_caption"
+msgstr "Citation"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1769
 #, fuzzy
 msgid "Figcaption"
 msgstr "Citation"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-#, fuzzy
-msgid "Figcaption "
-msgstr "Citation"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1770
 msgid "Fig_ure"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1770
 msgid "Figure"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1688
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1771
 msgid "_Footer"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1688
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1771
 msgid "Footer"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1772
 #, fuzzy
 msgid "_Header"
 msgstr "헤드(_H)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1772
 #, fuzzy
 msgid "Header"
 msgstr "테이블 헤더"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1690
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1773
 msgid "H_group"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1690
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1773
 msgid "Hgroup"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1691
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1774
 msgid "_Mark"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1691
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1774
 msgid "Mark"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1692
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1775
 msgid "_Nav"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1692
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1775
 msgid "Nav"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1693
-msgid "Rp"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1776
+msgid "R_p"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1693
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1776
 msgid "Ruby parenthesis"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1694
-msgid "Rt"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1777
+msgid "R_t"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1694
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1777
 msgid "Ruby text"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1695
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1778
 msgid "_Ruby"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1695
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1778
 msgid "Ruby"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1696
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1779
 #, fuzzy
 msgid "_Section"
 msgstr "액션(_A):"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1696
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1779
 #, fuzzy
 msgid "Section"
 msgstr "액션(_A):"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1698
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1781
 msgid "Au_dio..."
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1698
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1781
 msgid "Audio..."
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1699
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1782
 msgid "_Video..."
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1699
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1782
 msgid "Video..."
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1700
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1783
 msgid "_Canvas..."
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1700
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1783
 msgid "Canvas..."
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1701
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1784
 #, fuzzy
 msgid "_Time..."
 msgstr "프레임(_F)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1701
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1784
 #, fuzzy
 msgid "Time..."
 msgstr "프레임(_F)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1712
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1794
 msgid "_HTML Toolbar"
 msgstr "HTML 도구막대(_H)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1747
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1924
+#, fuzzy
+msgid "Add to Quickbar"
+msgstr "Tilføj til quickbar"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1924
+#, fuzzy
+msgid "Remove from Quickbar"
+msgstr "Fjern fra quickbar"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1962
+msgid "Right click any html toolbar button to add it to the Quickbar."
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:2024
+#, fuzzy
+msgid " Quickbar "
+msgstr " Quick Bar "
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:2029
 msgid " Standard "
 msgstr " 표준 "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1751
+#: src/plugin_htmlbar/htmlbar_uimanager.c:2034
 msgid " Fonts "
 msgstr " 폰트 "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1755
+#: src/plugin_htmlbar/htmlbar_uimanager.c:2039
 msgid " Formatting "
 msgstr " 서식"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1759
+#: src/plugin_htmlbar/htmlbar_uimanager.c:2044
 msgid " Tables "
 msgstr " 테이블 "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1763
+#: src/plugin_htmlbar/htmlbar_uimanager.c:2049
 msgid " Frames "
 msgstr " 프레임 "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1767
+#: src/plugin_htmlbar/htmlbar_uimanager.c:2054
 msgid " Forms "
 msgstr " 양식 "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1771
+#: src/plugin_htmlbar/htmlbar_uimanager.c:2059
 msgid " List "
 msgstr " 리스트 "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1775
+#: src/plugin_htmlbar/htmlbar_uimanager.c:2064
 msgid " CSS "
 msgstr " CSS "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1779
+#: src/plugin_htmlbar/htmlbar_uimanager.c:2069
 msgid " HTML 5 "
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:428
+#: src/plugin_htmlbar/html.c:419
 msgid "Insert Time"
 msgstr "시간 삽입"
 
-#: src/plugin_htmlbar/html.c:437
+#: src/plugin_htmlbar/html.c:427
 #, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr "  시간(_T) (%i:%i:%i)"
 
-#: src/plugin_htmlbar/html.c:443
+#: src/plugin_htmlbar/html.c:432
 msgid "  Day of the _week (Sunday)"
 msgstr "  요일 (일요일)(_W)"
 
-#: src/plugin_htmlbar/html.c:446
+#: src/plugin_htmlbar/html.c:435
 msgid "  Day of the _week (Monday)"
 msgstr "  요일 (월요일)(_W)"
 
-#: src/plugin_htmlbar/html.c:449
+#: src/plugin_htmlbar/html.c:438
 msgid "  Day of the _week (Tuesday)"
 msgstr "  요일 (화요일)(_W)"
 
-#: src/plugin_htmlbar/html.c:452
+#: src/plugin_htmlbar/html.c:441
 msgid "  Day of the _week (Wednesday)"
 msgstr "  요일 (수요일)(_W)"
 
-#: src/plugin_htmlbar/html.c:455
+#: src/plugin_htmlbar/html.c:444
 msgid "  Day of the _week (Thursday)"
 msgstr "  요일 (목요일)(_W)"
 
-#: src/plugin_htmlbar/html.c:458
+#: src/plugin_htmlbar/html.c:447
 msgid "  Day of the _week (Friday)"
 msgstr "  요일 (금요일)(_W)"
 
-#: src/plugin_htmlbar/html.c:461
+#: src/plugin_htmlbar/html.c:450
 msgid "  Day of the _week (Saturday)"
 msgstr "  요일 (토요일)(_W)"
 
-#: src/plugin_htmlbar/html.c:464
+#: src/plugin_htmlbar/html.c:453
 msgid "You appear to have a non existant day!\n"
 msgstr "존재하지 않는 요일입니다!\n"
 
-#: src/plugin_htmlbar/html.c:472
+#: src/plugin_htmlbar/html.c:461
 #, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr "  날짜(_D) (%i/%i/%i)"
 
-#: src/plugin_htmlbar/html.c:475
+#: src/plugin_htmlbar/html.c:464
 #, c-format
 msgid "  _Unix Time (%i)"
 msgstr "  _Unix 시간 (%i)"
 
-#: src/plugin_htmlbar/html.c:480
+#: src/plugin_htmlbar/html.c:469
 #, c-format
 msgid "  Unix Date _String (%s)"
 msgstr "  Unix 날짜 스트링(_S) (%s)"
 
-#: src/plugin_htmlbar/html.c:488
+#: src/plugin_htmlbar/html.c:477
 msgid "  ISO-8601 Ti_me "
 msgstr "  ISO-8601 시간(_M)"
 
-#: src/plugin_htmlbar/html.c:662
+#: src/plugin_htmlbar/html.c:641
 msgid "Quick Anchor"
 msgstr "빠른 책갈비"
 
-#: src/plugin_htmlbar/html.c:668 src/plugin_htmlbar/html_form.c:520
+#: src/plugin_htmlbar/html.c:647 src/plugin_htmlbar/html_form.c:520
 msgid "Attributes"
 msgstr "Attributes"
 
-#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:2381
+#: src/plugin_htmlbar/html.c:661 src/plugin_htmlbar/html.c:2412
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:688 src/plugin_htmlbar/html_form.c:200
+#: src/plugin_htmlbar/html.c:667 src/plugin_htmlbar/html_form.c:200
 msgid "_Target:"
 msgstr "_Target:"
 
-#: src/plugin_htmlbar/html.c:692 src/plugin_htmlbar/html.c:933
-#: src/plugin_htmlbar/html.c:1346 src/plugin_htmlbar/html.c:1834
+#: src/plugin_htmlbar/html.c:671 src/plugin_htmlbar/html.c:910
+#: src/plugin_htmlbar/html.c:1301 src/plugin_htmlbar/html.c:1777
 #: src/plugin_htmlbar/html_form.c:251 src/plugin_htmlbar/html_form.c:315
-#: src/plugin_htmlbar/html_form.c:537 src/plugin_htmlbar/html_form.c:632
+#: src/plugin_htmlbar/html_form.c:538 src/plugin_htmlbar/html_form.c:633
 #: src/plugin_htmlbar/image.c:503
 msgid "_Name:"
 msgstr "이름(_N):"
 
-#: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/quickstart.c:555
+#: src/plugin_htmlbar/html.c:674 src/plugin_htmlbar/quickstart.c:552
 msgid "Titl_e:"
 msgstr "제목(_E):"
 
-#: src/plugin_htmlbar/html.c:700 src/plugin_htmlbar/html.c:1215
-#: src/plugin_htmlbar/html.c:1364 src/plugin_htmlbar/html.c:2293
+#: src/plugin_htmlbar/html.c:679 src/plugin_htmlbar/html.c:1175
+#: src/plugin_htmlbar/html.c:1318 src/plugin_htmlbar/html.c:2319
 msgid "_Language:"
 msgstr "언어(_L):"
 
-#: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:939
-#: src/plugin_htmlbar/html.c:1109 src/plugin_htmlbar/html.c:1218
-#: src/plugin_htmlbar/html.c:1370 src/plugin_htmlbar/html.c:1757
-#: src/plugin_htmlbar/html.c:1871 src/plugin_htmlbar/html.c:2312
-#: src/plugin_htmlbar/html_form.c:204 src/plugin_htmlbar/html_form.c:267
-#: src/plugin_htmlbar/html_form.c:328 src/plugin_htmlbar/html_form.c:644
-#: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
-#: src/plugin_htmlbar/html_table.c:383 src/plugin_htmlbar/image.c:509
-#: src/plugin_htmlbar/image_dialog.c:382
+#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:916
+#: src/plugin_htmlbar/html.c:1082 src/plugin_htmlbar/html.c:1178
+#: src/plugin_htmlbar/html.c:1324 src/plugin_htmlbar/html.c:1708
+#: src/plugin_htmlbar/html.c:1814 src/plugin_htmlbar/html.c:1913
+#: src/plugin_htmlbar/html.c:1982 src/plugin_htmlbar/html.c:2106
+#: src/plugin_htmlbar/html.c:2171 src/plugin_htmlbar/html.c:2255
+#: src/plugin_htmlbar/html.c:2342 src/plugin_htmlbar/html_form.c:204
+#: src/plugin_htmlbar/html_form.c:267 src/plugin_htmlbar/html_form.c:328
+#: src/plugin_htmlbar/html_form.c:645 src/plugin_htmlbar/html_table.c:107
+#: src/plugin_htmlbar/html_table.c:261 src/plugin_htmlbar/html_table.c:383
+#: src/plugin_htmlbar/image.c:509 src/plugin_htmlbar/image_dialog.c:396
 msgid "Custo_m:"
 msgstr "커스텀(_M):"
 
-#: src/plugin_htmlbar/html.c:705 src/plugin_htmlbar/html.c:1222
-#: src/plugin_htmlbar/html_form.c:568
+#: src/plugin_htmlbar/html.c:684 src/plugin_htmlbar/html.c:1182
+#: src/plugin_htmlbar/html_form.c:569
 msgid "Events"
 msgstr "이벤트"
 
-#: src/plugin_htmlbar/html.c:708
+#: src/plugin_htmlbar/html.c:687
 msgid "OnClic_k:"
 msgstr "OnClic_k"
 
-#: src/plugin_htmlbar/html.c:711
+#: src/plugin_htmlbar/html.c:690
 msgid "OnD_blClick:"
 msgstr "OnD_blClick"
 
-#: src/plugin_htmlbar/html.c:714
+#: src/plugin_htmlbar/html.c:693
 msgid "OnMouseO_ver:"
 msgstr "OnMouseO_ver:"
 
-#: src/plugin_htmlbar/html.c:717
+#: src/plugin_htmlbar/html.c:696
 msgid "OnMouse_Down:"
 msgstr "OnMouse_Down:"
 
-#: src/plugin_htmlbar/html.c:720
+#: src/plugin_htmlbar/html.c:699
 msgid "OnMouse_Move:"
 msgstr "OnMouse_Move:"
 
-#: src/plugin_htmlbar/html.c:723
+#: src/plugin_htmlbar/html.c:702
 msgid "OnMouseOu_t:"
 msgstr "OnMouseOu_t:"
 
-#: src/plugin_htmlbar/html.c:726
+#: src/plugin_htmlbar/html.c:705
 msgid "OnMouse_Up:"
 msgstr "OnMouse_Up:"
 
-#: src/plugin_htmlbar/html.c:729
+#: src/plugin_htmlbar/html.c:708
 msgid "OnKeyDo_wn:"
 msgstr "OnKeyDo_wn:"
 
-#: src/plugin_htmlbar/html.c:732
+#: src/plugin_htmlbar/html.c:711
 msgid "OnKey_Press:"
 msgstr "OnKey_Press:"
 
-#: src/plugin_htmlbar/html.c:735
+#: src/plugin_htmlbar/html.c:714
 msgid "OnKe_yUp:"
 msgstr "OnKe_yUp:"
 
-#: src/plugin_htmlbar/html.c:881
+#: src/plugin_htmlbar/html.c:858
 msgid "Div"
 msgstr "Div"
 
-#: src/plugin_htmlbar/html.c:884
+#: src/plugin_htmlbar/html.c:861
 msgid "Span"
 msgstr "Span"
 
-#: src/plugin_htmlbar/html.c:887
+#: src/plugin_htmlbar/html.c:864
 msgid "Heading 1"
 msgstr "헤딩 1"
 
-#: src/plugin_htmlbar/html.c:890
+#: src/plugin_htmlbar/html.c:867
 msgid "Heading 2"
 msgstr "헤딩 2"
 
-#: src/plugin_htmlbar/html.c:893
+#: src/plugin_htmlbar/html.c:870
 msgid "Heading 3"
 msgstr "헤딩 3"
 
-#: src/plugin_htmlbar/html.c:896
+#: src/plugin_htmlbar/html.c:873
 msgid "Heading 4"
 msgstr "헤딩 4"
 
-#: src/plugin_htmlbar/html.c:899
+#: src/plugin_htmlbar/html.c:876
 msgid "Heading 5"
 msgstr "헤딩 5"
 
-#: src/plugin_htmlbar/html.c:902
+#: src/plugin_htmlbar/html.c:879
 msgid "Heading 6"
 msgstr "헤딩 6"
 
-#: src/plugin_htmlbar/html.c:919 src/plugin_htmlbar/html_table.c:114
+#: src/plugin_htmlbar/html.c:896 src/plugin_htmlbar/html_table.c:114
 #: src/plugin_htmlbar/html_table.c:228 src/plugin_htmlbar/html_table.c:356
 msgid "Ali_gn:"
 msgstr "정렬(_G):"
 
-#: src/plugin_htmlbar/html.c:923 src/plugin_htmlbar/html.c:1209
-#: src/plugin_htmlbar/html_diag.c:445 src/plugin_htmlbar/html_table.c:98
+#: src/plugin_htmlbar/html.c:900 src/plugin_htmlbar/html.c:1169
+#: src/plugin_htmlbar/html.c:1905 src/plugin_htmlbar/html.c:1964
+#: src/plugin_htmlbar/html.c:2091 src/plugin_htmlbar/html.c:2247
+#: src/plugin_htmlbar/html_diag.c:451 src/plugin_htmlbar/html_table.c:98
 #: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
-#: src/plugin_htmlbar/image_dialog.c:368
+#: src/plugin_htmlbar/image_dialog.c:376
 msgid "Cl_ass:"
 msgstr "클래스(_A):"
 
-#: src/plugin_htmlbar/html.c:927 src/plugin_htmlbar/html.c:1202
-#: src/plugin_htmlbar/html_diag.c:459 src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html.c:904 src/plugin_htmlbar/html.c:1162
+#: src/plugin_htmlbar/html_diag.c:465 src/plugin_htmlbar/html_table.c:102
 #: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:378
 msgid "St_yle:"
 msgstr "스타일(_Y):"
 
-#: src/plugin_htmlbar/html.c:936 src/plugin_htmlbar/html.c:1212
-#: src/plugin_htmlbar/html_diag.c:453
+#: src/plugin_htmlbar/html.c:913 src/plugin_htmlbar/html.c:1172
+#: src/plugin_htmlbar/html_diag.c:459
 msgid "_ID:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/html.c:1072
+#: src/plugin_htmlbar/html.c:1045
 msgid "Horizontal Rule"
 msgstr "수평자"
 
-#: src/plugin_htmlbar/html.c:1083 src/plugin_htmlbar/html.c:2227
-#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/html.c:1056 src/plugin_htmlbar/image.c:526
+#: src/plugin_htmlbar/image_dialog.c:419
 msgid "_Align:"
 msgstr "정렬(_A):"
 
-#: src/plugin_htmlbar/html.c:1090 src/plugin_htmlbar/html.c:2000
-#: src/plugin_htmlbar/html.c:2111 src/plugin_htmlbar/html.c:2235
-#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:338
+#: src/plugin_htmlbar/html.c:1063 src/plugin_htmlbar/html.c:1978
+#: src/plugin_htmlbar/html.c:2082 src/plugin_htmlbar/html.c:2239
+#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:349
 msgid "_Height:"
 msgstr "높이(_H):"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1096 src/plugin_htmlbar/html.c:1995
-#: src/plugin_htmlbar/html.c:2106 src/plugin_htmlbar/html.c:2231
+#: src/plugin_htmlbar/html.c:1069 src/plugin_htmlbar/html.c:1973
+#: src/plugin_htmlbar/html.c:2077 src/plugin_htmlbar/html.c:2235
 #: src/plugin_htmlbar/html_table.c:139 src/plugin_htmlbar/html_table.c:401
-#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:329
+#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:340
 msgid "_Width:"
 msgstr "폭(_W):"
 
-#: src/plugin_htmlbar/html.c:1099
+#: src/plugin_htmlbar/html.c:1072
 #, fuzzy
 msgid "Is _percent"
 msgstr "I _procent"
 
-#: src/plugin_htmlbar/html.c:1104
+#: src/plugin_htmlbar/html.c:1077
 msgid "No _shading"
 msgstr "쉐이딩 없음"
 
-#: src/plugin_htmlbar/html.c:1187
+#: src/plugin_htmlbar/html.c:1147
 msgid "Body"
 msgstr "바디"
 
-#: src/plugin_htmlbar/html.c:1195
+#: src/plugin_htmlbar/html.c:1155
 msgid "Options"
 msgstr "옵션"
 
-#: src/plugin_htmlbar/html.c:1228
+#: src/plugin_htmlbar/html.c:1188
 msgid "On _Load:"
 msgstr "On _Load"
 
-#: src/plugin_htmlbar/html.c:1232
+#: src/plugin_htmlbar/html.c:1192
 msgid "On _Unload:"
 msgstr "On _Unload:"
 
-#: src/plugin_htmlbar/html.c:1238
+#: src/plugin_htmlbar/html.c:1198
 msgid "Depreciated options"
 msgstr "추천하지 않는 옵션"
 
-#: src/plugin_htmlbar/html.c:1247
+#: src/plugin_htmlbar/html.c:1207
 msgid "Background _Image:"
 msgstr "배경 이미지(_I):"
 
-#: src/plugin_htmlbar/html.c:1254
+#: src/plugin_htmlbar/html.c:1213
 msgid "Back_ground Color:"
 msgstr "배경 색상(_G):"
 
-#: src/plugin_htmlbar/html.c:1261
+#: src/plugin_htmlbar/html.c:1219
 msgid "_Text Color:"
 msgstr "문자열 색상(_T):"
 
-#: src/plugin_htmlbar/html.c:1267
+#: src/plugin_htmlbar/html.c:1225
 msgid "_Link Color:"
 msgstr "링크 색상(_L):"
 
-#: src/plugin_htmlbar/html.c:1273
+#: src/plugin_htmlbar/html.c:1231
 msgid "_Visited Link Color:"
 msgstr "_Visited 링크 색상:"
 
-#: src/plugin_htmlbar/html.c:1280
+#: src/plugin_htmlbar/html.c:1237
 msgid "_Active Link Color:"
 msgstr "_Active 링크 색상:"
 
-#: src/plugin_htmlbar/html.c:1337
+#: src/plugin_htmlbar/html.c:1293
 msgid "Meta"
 msgstr "메타"
 
-#: src/plugin_htmlbar/html.c:1356
+#: src/plugin_htmlbar/html.c:1310
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: src/plugin_htmlbar/html.c:1361
+#: src/plugin_htmlbar/html.c:1315
 msgid "Con_tent:"
 msgstr "Con_tent:"
 
-#: src/plugin_htmlbar/html.c:1367
+#: src/plugin_htmlbar/html.c:1321
 msgid "_Scheme:"
 msgstr "_Scheme:"
 
-#: src/plugin_htmlbar/html.c:1451
+#: src/plugin_htmlbar/html.c:1405
 msgid "Font"
 msgstr "글꼴 "
 
-#: src/plugin_htmlbar/html.c:1454
+#: src/plugin_htmlbar/html.c:1408
 msgid "Base Font"
 msgstr "기본 글꼴"
 
-#: src/plugin_htmlbar/html.c:1469
+#: src/plugin_htmlbar/html.c:1423
 msgid "Size"
 msgstr "크기"
 
-#: src/plugin_htmlbar/html.c:1478
+#: src/plugin_htmlbar/html.c:1432
 msgid "Color"
 msgstr "색상"
 
-#: src/plugin_htmlbar/html.c:1483
+#: src/plugin_htmlbar/html.c:1437
 #, fuzzy
 msgid "Face"
 msgstr "Face"
 
-#: src/plugin_htmlbar/html.c:1487
+#: src/plugin_htmlbar/html.c:1441
 msgid "Custom"
 msgstr "커스텀"
 
-#: src/plugin_htmlbar/html.c:1577
+#: src/plugin_htmlbar/html.c:1531
 msgid "E-mail"
 msgstr "E-mail"
 
-#: src/plugin_htmlbar/html.c:1585
+#: src/plugin_htmlbar/html.c:1539
 #, fuzzy
 msgid "_Mail to:"
 msgstr "_Mail to:"
 
-#: src/plugin_htmlbar/html.c:1588
+#: src/plugin_htmlbar/html.c:1542
 #, fuzzy
 msgid "_Copy to:"
 msgstr "_Copy to:"
 
-#: src/plugin_htmlbar/html.c:1591
+#: src/plugin_htmlbar/html.c:1545
 #, fuzzy
 msgid "Blin_d copy to:"
 msgstr "Blin_d copy to:"
 
-#: src/plugin_htmlbar/html.c:1594
+#: src/plugin_htmlbar/html.c:1548
 #, fuzzy
 msgid "with _Subject:"
 msgstr "with _Subject:"
 
-#: src/plugin_htmlbar/html.c:1597
+#: src/plugin_htmlbar/html.c:1551
 #, fuzzy
 msgid "with _Body:"
 msgstr "with _Body"
 
-#: src/plugin_htmlbar/html.c:1643
+#: src/plugin_htmlbar/html.c:1597
 msgid "Quick List"
 msgstr "Quick List"
 
-#: src/plugin_htmlbar/html.c:1648 src/plugin_htmlbar/wizards.c:81
+#: src/plugin_htmlbar/html.c:1602 src/plugin_htmlbar/wizards.c:81
 msgid "Number of _rows:"
 msgstr "행 갯수(_R):"
 
-#: src/plugin_htmlbar/html.c:1651
+#: src/plugin_htmlbar/html.c:1605
 msgid "Or_dered"
 msgstr "Or_dered"
 
-#: src/plugin_htmlbar/html.c:1654
+#: src/plugin_htmlbar/html.c:1606
 msgid "_Unordered"
 msgstr "_Unordered"
 
-#: src/plugin_htmlbar/html.c:1656
+#: src/plugin_htmlbar/html.c:1608 src/plugin_htmlbar/image_dialog.c:390
 msgid "Style:"
 msgstr "스타일:"
 
-#: src/plugin_htmlbar/html.c:1732 src/plugin_htmlbar/html_form.c:259
+#: src/plugin_htmlbar/html.c:1684 src/plugin_htmlbar/html_form.c:259
 msgid "Co_ls:"
 msgstr "열(_L):"
 
-#: src/plugin_htmlbar/html.c:1735 src/plugin_htmlbar/html_form.c:255
+#: src/plugin_htmlbar/html.c:1687 src/plugin_htmlbar/html_form.c:255
 msgid "_Rows:"
 msgstr "행(_R):"
 
-#: src/plugin_htmlbar/html.c:1739
+#: src/plugin_htmlbar/html.c:1691
 msgid "_Add <frame> elements"
 msgstr "<frame> 요소 추가(_A)"
 
-#: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1927
-#: src/plugin_htmlbar/html.c:2058 src/plugin_htmlbar/html.c:2222
-#: src/plugin_htmlbar/html.c:2285 src/plugin_htmlbar/image_dialog.c:290
+#: src/plugin_htmlbar/html.c:1773 src/plugin_htmlbar/html.c:1875
+#: src/plugin_htmlbar/html.c:2045 src/plugin_htmlbar/html.c:2228
+#: src/plugin_htmlbar/html.c:2315 src/plugin_htmlbar/image_dialog.c:302
 msgid "_Source:"
 msgstr "소스(_S):"
 
-#: src/plugin_htmlbar/html.c:1838
+#: src/plugin_htmlbar/html.c:1781
 msgid "Margin _Width:"
 msgstr "여백 폭(_W):"
 
-#: src/plugin_htmlbar/html.c:1842
+#: src/plugin_htmlbar/html.c:1785
 msgid "Margin _Height:"
 msgstr "여백 높이(_H):"
 
-#: src/plugin_htmlbar/html.c:1850
+#: src/plugin_htmlbar/html.c:1793
 msgid "Scrollin_g:"
 msgstr "스크롤링(_G):"
 
-#: src/plugin_htmlbar/html.c:1854
+#: src/plugin_htmlbar/html.c:1797
 msgid "_Frameborder:"
 msgstr "프레임보더(_F):"
 
-#: src/plugin_htmlbar/html.c:1859
+#: src/plugin_htmlbar/html.c:1802
 msgid "No _Resize:"
 msgstr "크기 변환 안됨(_R)"
 
 #. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:1917
+#: src/plugin_htmlbar/html.c:1868
 msgid "Audio"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1933 src/plugin_htmlbar/html.c:2071
+#: src/plugin_htmlbar/html.c:1879 src/plugin_htmlbar/html.c:2057
 msgid "_Autoplay:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1940 src/plugin_htmlbar/html.c:2078
-msgid "_Controls:"
+#: src/plugin_htmlbar/html.c:1883 src/plugin_htmlbar/html.c:2062
+msgid "C_ontrols:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1947 src/plugin_htmlbar/html.c:2085
+#: src/plugin_htmlbar/html.c:1887 src/plugin_htmlbar/html.c:2067
 msgid "_Loop:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1955 src/plugin_htmlbar/html.c:2093
+#: src/plugin_htmlbar/html.c:1891 src/plugin_htmlbar/html.c:2072
+msgid "M_ute:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:1896 src/plugin_htmlbar/html.c:2096
 #, fuzzy
 msgid "_Preload:"
 msgstr "On _Unload:"
 
+#: src/plugin_htmlbar/html.c:1901 src/plugin_htmlbar/html.c:1960
+#: src/plugin_htmlbar/html.c:2087 src/plugin_htmlbar/html.c:2243
+msgid "_Id:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:1908 src/plugin_htmlbar/html.c:1967
+#: src/plugin_htmlbar/html.c:2101 src/plugin_htmlbar/html.c:2250
+#, fuzzy
+msgid "_Style:"
+msgstr "Stil:"
+
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:1990
+#: src/plugin_htmlbar/html.c:1955
 msgid "Canvas"
 msgstr ""
 
-#. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:2048
+#: src/plugin_htmlbar/html.c:2037
 msgid "Video"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:2065
+#: src/plugin_htmlbar/html.c:2052
 msgid "_Poster:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:2100
-msgid "_Audio:"
-msgstr ""
-
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:2162
+#: src/plugin_htmlbar/html.c:2151
 msgid "Time"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:2168
-#, fuzzy
-msgid "_Pubdate:"
-msgstr " 업데이트(_U)"
+#. Datetime help
+#: src/plugin_htmlbar/html.c:2156
+msgid ""
+"Datetime format (ex. YYYY-MM-DDThh:mm:ssTZD) :\n"
+"\n"
+"YYYY - year (e.g. 2009)\n"
+"MM - month (e.g. 01 for January)\n"
+"DD - day of the month (e.g. 08)\n"
+"T - a required separator\n"
+"hh - hour (e.g. 22 for 10.00pm)\n"
+"mm - minutes (e.g. 55)\n"
+"ss - seconds (e.g. 03)\n"
+"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean "
+"Time)\n"
+msgstr ""
 
-#: src/plugin_htmlbar/html.c:2174
+#: src/plugin_htmlbar/html.c:2166
 msgid "_Datetime:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:2218
+#: src/plugin_htmlbar/html.c:2221
 msgid "Embed"
 msgstr "임베드"
 
-#: src/plugin_htmlbar/html.c:2239 src/plugin_htmlbar/html_table.c:145
-msgid "Bo_rder:"
-msgstr "보더(_R):"
+#: src/plugin_htmlbar/html.c:2232
+#, fuzzy
+msgid "_MIME Type:"
+msgstr "타입(_T)"
 
-#: src/plugin_htmlbar/html.c:2279
+#: src/plugin_htmlbar/html.c:2297
 msgid "Script"
 msgstr "스크립트"
 
-#: src/plugin_htmlbar/html.c:2308 src/plugin_htmlbar/html.c:2412
-#: src/plugin_htmlbar/html_form.c:531 src/plugin_htmlbar/html_form.c:640
-msgid "_Type:"
+#: src/plugin_htmlbar/html.c:2321
+msgid "(HTML4 only)"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2324
+#, fuzzy
+msgid "MIME _Type:"
 msgstr "타입(_T)"
 
-#: src/plugin_htmlbar/html.c:2370
+#: src/plugin_htmlbar/html.c:2328
+#, fuzzy
+msgid "_Charset:"
+msgstr "_Target:"
+
+#: src/plugin_htmlbar/html.c:2330 src/plugin_htmlbar/html.c:2339
+msgid "(HTML5)"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2333
+msgid "_Async:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2337
+msgid "_Defer:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2401
 msgid "Link"
 msgstr "링크"
 
-#: src/plugin_htmlbar/html.c:2387
+#: src/plugin_htmlbar/html.c:2418
 msgid "HREF_LANG:"
 msgstr "_HREF 언어:"
 
-#: src/plugin_htmlbar/html.c:2390
+#: src/plugin_htmlbar/html.c:2421
 msgid "T_itle:"
 msgstr "제목(_I):"
 
-#: src/plugin_htmlbar/html.c:2435
+#: src/plugin_htmlbar/html.c:2442 src/plugin_htmlbar/html_form.c:532
+#: src/plugin_htmlbar/html_form.c:641
+msgid "_Type:"
+msgstr "타입(_T)"
+
+#: src/plugin_htmlbar/html.c:2464
 #, fuzzy
 msgid "_Forward Relation:"
 msgstr "_Fremad-rettet Relation:"
 
-#: src/plugin_htmlbar/html.c:2440
+#: src/plugin_htmlbar/html.c:2468
 #, fuzzy
 msgid "_Reverse Relation:"
 msgstr "행을 거꾸로"
 
-#: src/plugin_htmlbar/html.c:2454
+#: src/plugin_htmlbar/html.c:2480
 msgid "Media:"
 msgstr "미디어:"
 
-#: src/plugin_htmlbar/html.c:2458
+#: src/plugin_htmlbar/html.c:2484
 msgid "L_ang:"
 msgstr "언어(_A):"
 
-#: src/plugin_htmlbar/html.c:2461
+#: src/plugin_htmlbar/html.c:2487
 msgid "_Custom:"
 msgstr "커스텀(_C):"
 
@@ -2070,7 +2186,7 @@ msgstr "문자열 영역"
 msgid "Select"
 msgstr "선택"
 
-#: src/plugin_htmlbar/html_form.c:319 src/plugin_htmlbar/html_form.c:548
+#: src/plugin_htmlbar/html_form.c:319 src/plugin_htmlbar/html_form.c:549
 msgid "Si_ze:"
 msgstr "크기(_Z):"
 
@@ -2099,43 +2215,39 @@ msgstr "Option group"
 msgid "Input"
 msgstr "입력"
 
-#: src/plugin_htmlbar/html_form.c:543
+#: src/plugin_htmlbar/html_form.c:544
 msgid "_Checked:"
 msgstr "확인됨(_C):"
 
-#: src/plugin_htmlbar/html_form.c:552
+#: src/plugin_htmlbar/html_form.c:553
 msgid "Max _Length:"
 msgstr "최대 길이(_L):"
 
-#: src/plugin_htmlbar/html_form.c:556
+#: src/plugin_htmlbar/html_form.c:557
 msgid "_Accept:"
 msgstr "수락(_A):"
 
-#: src/plugin_htmlbar/html_form.c:559
+#: src/plugin_htmlbar/html_form.c:560
 msgid "C_ustom:"
 msgstr "커스텀(_U):"
 
-#: src/plugin_htmlbar/html_form.c:564
-msgid "Style"
-msgstr "스타일"
-
-#: src/plugin_htmlbar/html_form.c:571
+#: src/plugin_htmlbar/html_form.c:572
 msgid "On_Focus:"
 msgstr "On_Focus:"
 
-#: src/plugin_htmlbar/html_form.c:574
+#: src/plugin_htmlbar/html_form.c:575
 msgid "On_Blur:"
 msgstr "On_Blur:"
 
-#: src/plugin_htmlbar/html_form.c:577
+#: src/plugin_htmlbar/html_form.c:578
 msgid "On_Select:"
 msgstr "On_Select:"
 
-#: src/plugin_htmlbar/html_form.c:580
+#: src/plugin_htmlbar/html_form.c:581
 msgid "On_Change:"
 msgstr "On_Change:"
 
-#: src/plugin_htmlbar/html_form.c:626
+#: src/plugin_htmlbar/html_form.c:627
 msgid "Button"
 msgstr "버튼"
 
@@ -2156,6 +2268,10 @@ msgstr "수직정렬(_V):"
 #: src/plugin_htmlbar/html_table.c:413
 msgid "Backgrou_nd Color:"
 msgstr "배경 색상(_N):"
+
+#: src/plugin_htmlbar/html_table.c:145
+msgid "Bo_rder:"
+msgstr "보더(_R):"
 
 #: src/plugin_htmlbar/html_table.c:159
 msgid "_Frame:"
@@ -2188,11 +2304,11 @@ msgstr "이미지 로딩 실패..."
 msgid "Loading file %s..."
 msgstr "파일 %s 로딩 중..."
 
-#: src/plugin_htmlbar/image.c:456
+#: src/plugin_htmlbar/image.c:457
 msgid "Insert thumbnail"
 msgstr "썸네일 삽입"
 
-#: src/plugin_htmlbar/image.c:460 src/plugin_htmlbar/image_dialog.c:308
+#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:319
 msgid "Preview"
 msgstr "미리 보기"
 
@@ -2204,7 +2320,7 @@ msgstr "이미지 위치(_I):"
 msgid "Hei_ght:"
 msgstr "높이(_G):"
 
-#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:377
+#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:385
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
@@ -2212,11 +2328,11 @@ msgstr "_Usemap:"
 msgid "Alternate _text:"
 msgstr "Alternate _text:"
 
-#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:414
+#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:428
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:418
+#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:432
 msgid "_Vspace:"
 msgstr "_Vspace:"
 
@@ -2272,31 +2388,31 @@ msgstr ""
 "%x: 썸네일 폭  %y: 썸네일 높이\n"
 "%b: 원래 크기 (bytes)"
 
-#: src/plugin_htmlbar/image_dialog.c:345
+#: src/plugin_htmlbar/image_dialog.c:356
 msgid "_Reset Dimensions"
 msgstr "작업창 초기화(_R)"
 
-#: src/plugin_htmlbar/image_dialog.c:358
+#: src/plugin_htmlbar/image_dialog.c:366
 msgid "Alternate te_xt:"
 msgstr "Alternate te_xt:"
 
-#: src/plugin_htmlbar/image_dialog.c:363
+#: src/plugin_htmlbar/image_dialog.c:371
 msgid "_Long description:"
 msgstr "_Long description:"
 
-#: src/plugin_htmlbar/image_dialog.c:372
+#: src/plugin_htmlbar/image_dialog.c:380
 msgid "I_D:"
 msgstr "I_D:"
 
-#: src/plugin_htmlbar/image_dialog.c:394
+#: src/plugin_htmlbar/image_dialog.c:408
 msgid "_Use Transitional options"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:410
+#: src/plugin_htmlbar/image_dialog.c:424
 msgid "_Border:"
 msgstr "_Border:"
 
-#: src/plugin_htmlbar/image_dialog.c:713
+#: src/plugin_htmlbar/image_dialog.c:734
 #, c-format
 msgid ""
 "\n"
@@ -2305,7 +2421,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/plugin_htmlbar/image_dialog.c:718
+#: src/plugin_htmlbar/image_dialog.c:739
 #, c-format
 msgid ""
 "\n"
@@ -2314,7 +2430,7 @@ msgstr ""
 "\n"
 "%d x %d 픽셀"
 
-#: src/plugin_htmlbar/image_dialog.c:816
+#: src/plugin_htmlbar/image_dialog.c:837
 msgid ""
 "\n"
 "\n"
@@ -2326,80 +2442,80 @@ msgstr ""
 "\t<b>미리보기 로딩중...</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:918
+#: src/plugin_htmlbar/image_dialog.c:939
 msgid "Select Image"
 msgstr "이미지 선택"
 
-#: src/plugin_htmlbar/image_dialog.c:925
+#: src/plugin_htmlbar/image_dialog.c:946
 msgid "All images"
 msgstr "모든 이미지"
 
-#: src/plugin_htmlbar/image_dialog.c:1136
-#: src/plugin_htmlbar/image_dialog.c:1237
+#: src/plugin_htmlbar/image_dialog.c:1164
+#: src/plugin_htmlbar/image_dialog.c:1275
 msgid "Insert Image"
 msgstr "이미지 삽입"
 
-#: src/plugin_htmlbar/quickstart.c:516
+#: src/plugin_htmlbar/quickstart.c:513
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>외부 스타일시트</b>"
 
-#: src/plugin_htmlbar/quickstart.c:527
+#: src/plugin_htmlbar/quickstart.c:524
 msgid "Ty_pe:"
 msgstr "Ty_pe:"
 
-#: src/plugin_htmlbar/quickstart.c:545
+#: src/plugin_htmlbar/quickstart.c:542
 msgid "HRE_F:"
 msgstr "HRE_F:"
 
-#: src/plugin_htmlbar/quickstart.c:550
+#: src/plugin_htmlbar/quickstart.c:547
 msgid "_Media:"
 msgstr "미디어(_M):"
 
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
 #.
-#: src/plugin_htmlbar/quickstart.c:562
+#: src/plugin_htmlbar/quickstart.c:559
 msgid "<b>Style Area</b>"
 msgstr "<b>스타일 영역</b>"
 
-#: src/plugin_htmlbar/quickstart.c:566
+#: src/plugin_htmlbar/quickstart.c:563
 msgid "Cre_ate empty style area"
 msgstr "빈 스타일 영역 생성(_A)"
 
-#: src/plugin_htmlbar/quickstart.c:588
+#: src/plugin_htmlbar/quickstart.c:582
 msgid "<b>Attributes</b>"
 msgstr "<b>Attributes</b>"
 
-#: src/plugin_htmlbar/quickstart.c:603
+#: src/plugin_htmlbar/quickstart.c:597
 msgid "_Src:"
 msgstr "소스(_S):"
 
 #. TODO: add an option to place content in the script area
-#: src/plugin_htmlbar/quickstart.c:610
+#: src/plugin_htmlbar/quickstart.c:604
 msgid "<b>Script Area</b>"
 msgstr "<b>스크립트 영역</b>"
 
-#: src/plugin_htmlbar/quickstart.c:614
+#: src/plugin_htmlbar/quickstart.c:608
 msgid "Cre_ate empty script area"
 msgstr "빈 스크립트 영역 생성(_A)"
 
-#: src/plugin_htmlbar/quickstart.c:641
+#: src/plugin_htmlbar/quickstart.c:635
 msgid "Quick Start"
 msgstr "빠른 시작"
 
-#: src/plugin_htmlbar/quickstart.c:656
+#: src/plugin_htmlbar/quickstart.c:652
 msgid "_DTD:"
 msgstr "_DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:660 src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/quickstart.c:656 src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "제목(_T):"
 
-#: src/plugin_htmlbar/quickstart.c:683
+#: src/plugin_htmlbar/quickstart.c:679
 msgid "_Head:"
 msgstr "헤드(_H)"
 
-#: src/plugin_htmlbar/quickstart.c:700
+#: src/plugin_htmlbar/quickstart.c:696
 msgid "Open in _new document."
 msgstr "새 문서에서 열기(_N)"
 
@@ -2459,6 +2575,43 @@ msgstr "소스:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "크기:"
+
+#, fuzzy
+#~ msgid "_Class:"
+#~ msgstr "클래스(_A):"
+
+#, fuzzy
+#~ msgid "_Pubdate:"
+#~ msgstr " 업데이트(_U)"
+
+#~ msgid "_Form"
+#~ msgstr "_Form"
+
+#, fuzzy
+#~ msgid "_Option"
+#~ msgstr "옵션"
+
+#~ msgid "Style..."
+#~ msgstr "Style..."
+
+#~ msgid "_Update"
+#~ msgstr " 업데이트(_U)"
+
+#~ msgid "The %s %s property already exists.\n"
+#~ msgstr "%s %s 속성은 이미 존재합니다.\n"
+
+#~ msgid "The %s property already exists.\n"
+#~ msgstr "%s 속성은 이미 존재합니다.\n"
+
+#~ msgid "Update its value from %s to %s?"
+#~ msgstr "%s 부터 %s까지 업데이트 합니까?"
+
+#~ msgid "Fo_rm"
+#~ msgstr "Fo_rm"
+
+#, fuzzy
+#~ msgid "Figcaption "
+#~ msgstr "Citation"
 
 #, fuzzy
 #~ msgid "_Figcaption"
@@ -3062,20 +3215,11 @@ msgstr "크기:"
 #~ msgid "/Dialogs/Form/_Button..."
 #~ msgstr "/대화창/폼/단추(_B)..."
 
-#~ msgid "Remove from quickbar"
-#~ msgstr "Fjern fra quickbar"
-
 #~ msgid "Move Left"
 #~ msgstr "Flyt til Venstre"
 
 #~ msgid "Move Right"
 #~ msgstr "Flyt til Højre"
-
-#~ msgid "Add to quickbar"
-#~ msgstr "Tilføj til quickbar"
-
-#~ msgid " Quick bar "
-#~ msgstr " Quick Bar "
 
 #~ msgid "Insert image"
 #~ msgstr "Indsæt billede"
@@ -3091,14 +3235,6 @@ msgstr "크기:"
 #, fuzzy
 #~ msgid "Clas_s:"
 #~ msgstr "_Klasse:"
-
-#, fuzzy
-#~ msgid "_Style:"
-#~ msgstr "Stil:"
-
-#, fuzzy
-#~ msgid "C_harset:"
-#~ msgstr "_Target:"
 
 #, fuzzy
 #~ msgid "_Dir:"
