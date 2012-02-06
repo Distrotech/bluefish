@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the bluefish package.
 # Automatically generated, 2011.
 #
-#: src/plugin_zencoding/zencoding.c:215 src/plugin_zencoding/zencoding.c:216
-#: src/plugin_zencoding/zencoding.c:217 src/plugin_zencoding/zencoding.c:218
-#: src/plugin_zencoding/zencoding.c:219 src/plugin_zencoding/zencoding.c:220
-#: src/plugin_zencoding/zencoding.c:221
+#: src/plugin_zencoding/zencoding.c:183 src/plugin_zencoding/zencoding.c:184
+#: src/plugin_zencoding/zencoding.c:185 src/plugin_zencoding/zencoding.c:186
+#: src/plugin_zencoding/zencoding.c:187 src/plugin_zencoding/zencoding.c:188
+#: src/plugin_zencoding/zencoding.c:189
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 2.2.1\n"
+"Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-11-23 21:18+0100\n"
+"POT-Creation-Date: 2011-12-24 11:43+0100\n"
 "PO-Revision-Date: 2011-12-18 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -21,58 +21,70 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/plugin_zencoding/zencoding.c:209
+#: src/plugin_zencoding/zencoding.c:177
 msgid "_Zencoding"
 msgstr "_Zencoding"
 
-#: src/plugin_zencoding/zencoding.c:210
-msgid "Expand zen-coding"
+#: src/plugin_zencoding/zencoding.c:178
+#, fuzzy
+msgid "E_xpand zen-coding"
 msgstr "Utvid zen-coding"
 
-#: src/plugin_zencoding/zencoding.c:210
+#: src/plugin_zencoding/zencoding.c:178
 msgid "Expand zen-code at cursor"
 msgstr "Utvid zen-coding ved markøren"
 
-#: src/plugin_zencoding/zencoding.c:211
-msgid "Select Tag Content"
+#: src/plugin_zencoding/zencoding.c:179
+#, fuzzy
+msgid "Select Tag _Content"
 msgstr "Velg etikettinnhold"
 
-#: src/plugin_zencoding/zencoding.c:212
-msgid "Select Tag and Content"
+#: src/plugin_zencoding/zencoding.c:180
+#, fuzzy
+msgid "Select _Tag and Content"
 msgstr "Velg etikett og innhold"
 
-#: src/plugin_zencoding/zencoding.c:213
-msgid "Wrap with Abbreviation"
+#: src/plugin_zencoding/zencoding.c:181
+#, fuzzy
+msgid "Wrap with _Abbreviation"
 msgstr "Brekk ved forkorting"
 
-#: src/plugin_zencoding/zencoding.c:214
-msgid "Split or Join Tag"
+#: src/plugin_zencoding/zencoding.c:182
+#, fuzzy
+msgid "_Split or Join Tag"
 msgstr "Del eller slå sammen etikett"
 
-#: src/plugin_zencoding/zencoding.c:215
-msgid "Previous Edit Point"
+#: src/plugin_zencoding/zencoding.c:183
+#, fuzzy
+msgid "_Previous Edit Point"
 msgstr "Forrige endringspunkt"
 
-#: src/plugin_zencoding/zencoding.c:216
-msgid "Next Edit Point"
+#: src/plugin_zencoding/zencoding.c:184
+#, fuzzy
+msgid "_Next Edit Point"
 msgstr "Neste endringspunkt"
 
-#: src/plugin_zencoding/zencoding.c:217
-msgid "Insert Formatted Newline"
+#: src/plugin_zencoding/zencoding.c:185
+#, fuzzy
+msgid "_Insert Formatted Newline"
 msgstr "Sett inn formatert ny linje"
 
-#: src/plugin_zencoding/zencoding.c:218
-msgid "Go to Matching Pair"
+#: src/plugin_zencoding/zencoding.c:186
+#, fuzzy
+msgid "_Go to Matching Pair"
 msgstr "Gå til samsvarende par"
 
-#: src/plugin_zencoding/zencoding.c:219
-msgid "Merge Lines"
+#: src/plugin_zencoding/zencoding.c:187
+#, fuzzy
+msgid "_Merge Lines"
 msgstr "Slå sammen linjer"
 
-#: src/plugin_zencoding/zencoding.c:220
-msgid "Remove Tag"
+#: src/plugin_zencoding/zencoding.c:188
+#, fuzzy
+msgid "_Remove Tag"
 msgstr "Fjern etiketten"
 
-#: src/plugin_zencoding/zencoding.c:221
-msgid "Evaluate Math Expression"
+#: src/plugin_zencoding/zencoding.c:189
+#, fuzzy
+msgid "_Evaluate Math Expression"
 msgstr "Regn ut matematisk uttrykk"

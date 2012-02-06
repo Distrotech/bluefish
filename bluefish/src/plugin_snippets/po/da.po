@@ -6,134 +6,134 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 2.2.1\n"
+"Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-12-09 21:16+0100\n"
+"POT-Creation-Date: 2012-02-06 10:54+0100\n"
 "PO-Revision-Date: 2011-12-10 12:48+0100\n"
 "Last-Translator: flemming christensen <fc@stromata.dk>\n"
 "Language-Team: Dansk <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: src/plugin_snippets/snippets_gui.c:414
+#: src/plugin_snippets/snippets_gui.c:416
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr ""
 "Klik med højre musetast for at tilføje, redigere eller slette tekststumper."
 
-#: src/plugin_snippets/snippets_gui.c:415
+#: src/plugin_snippets/snippets_gui.c:417
 msgid "Use drag and drop to re-order snippets"
 msgstr "Brug træk-og-slip for at omarrangere tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:416
+#: src/plugin_snippets/snippets_gui.c:418
 msgid "To exchange snippets with others use import or export"
 msgstr "Brug import og eksport til at udveksle tekststumper med andre brugere"
 
-#: src/plugin_snippets/snippets_gui.c:638
+#: src/plugin_snippets/snippets_gui.c:640
 msgid "snippets"
 msgstr "tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:701
+#: src/plugin_snippets/snippets_gui.c:703
 msgid "Snippet export filename"
 msgstr "Filnavn for eksport af tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:739
+#: src/plugin_snippets/snippets_gui.c:741
 msgid "Snippet import filename"
 msgstr "Filnavn for import af tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:757
+#: src/plugin_snippets/snippets_gui.c:759
 msgid "Set accelerator key"
 msgstr "Angiv genvejstast"
 
-#: src/plugin_snippets/snippets_gui.c:813
+#: src/plugin_snippets/snippets_gui.c:815
 msgid "Snippets menu"
 msgstr "Menu for tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_gui.c:816
 msgid "_New Snippet"
 msgstr "_Ny tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_gui.c:816
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
 msgstr "Ny tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_gui.c:817
 msgid "_Edit Snippet"
 msgstr "_Redigér tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_gui.c:817
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
 msgstr "Redigér tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "_Delete Snippet"
 msgstr "_Slet tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "Delete snippet"
 msgstr "Slet tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:819
 msgid "Delete _Branch"
 msgstr "Slet _gren"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:819
 msgid "Delete branch"
 msgstr "Slet gren"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Set Snippet _Accelerator"
 msgstr "Angiv _genvejstast for tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Set snippet accelerator"
 msgstr "Sæt genvejstast for tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "Ex_pand All"
 msgstr "Ud_vid alle"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "Expand all"
 msgstr "Udvid alle"
 
-#: src/plugin_snippets/snippets_gui.c:821
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "_Collapse All"
 msgstr "Sammen_fold alle"
 
-#: src/plugin_snippets/snippets_gui.c:821
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "Collapse all"
 msgstr "Sammenfold alle"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:824
 msgid "E_xport"
 msgstr "E_ksportér"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:824
 msgid "Export snippets"
 msgstr "Eksportér tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:825
 msgid "I_mport"
 msgstr "I_mportér"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:825
 msgid "Import snippets"
 msgstr "Importér tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:829
 msgid "_Show as menu"
 msgstr "Vi_s som menu"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:829
 msgid "Show snippets menu"
 msgstr "Vis menuen tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:829
+#: src/plugin_snippets/snippets_gui.c:831
 msgid "S_nippets Menu"
 msgstr "Me_nuen tekststumper"
 

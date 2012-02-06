@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.4\n"
+"Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-12-09 23:06+0100\n"
+"POT-Creation-Date: 2012-02-06 10:54+0100\n"
 "PO-Revision-Date: 2011-12-18 12:00+0200\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -33,11 +33,11 @@ msgstr "Språkdefinisjonsfil for Bluefish"
 msgid "Bluefish project file"
 msgstr "Bluefish prosjektfil"
 
-#: ../src/bftextview2.c:1465
+#: ../src/bftextview2.c:1469
 msgid "Collapse all"
 msgstr "Fold alle"
 
-#: ../src/bftextview2.c:1468
+#: ../src/bftextview2.c:1472
 msgid "Expand all"
 msgstr "Utvid alle"
 
@@ -57,790 +57,807 @@ msgstr "Ignorer stavefeil"
 msgid "Insert special characters as entities"
 msgstr "Sett inn spesialtegn som HTML-entiteter"
 
-#: ../src/bfwin.c:221
+#: ../src/bfwin.c:223
 msgid "Filebrowser"
 msgstr "Filbehandler"
 
-#: ../src/bfwin.c:223
+#: ../src/bfwin.c:225
 msgid "Bookmarks"
 msgstr "Bokmerker"
 
-#: ../src/bfwin.c:793
+#: ../src/bfwin.c:799
 msgid "Goto Line:"
 msgstr "Gå til linje:"
 
-#: ../src/bfwin.c:802
+#: ../src/bfwin.c:808
 msgid "Find:"
 msgstr "Finn:"
 
-#: ../src/bfwin.c:812
+#: ../src/bfwin.c:818
 msgid "Advanced"
 msgstr "Avansert"
 
-#: ../src/bfwin.c:1139
+#: ../src/bfwin.c:1145
 msgid "New Bluefish Window"
 msgstr "Nytt Bluefish-vindu"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1190
+#: ../src/bfwin.c:1196
 msgid "Stand by..."
 msgstr "Vennligst vent..."
 
-#: ../src/bfwin_uimanager.c:684
+#: ../src/bfwin_uimanager.c:690
 msgid "Leave Fullscreen"
 msgstr "Gå ut av fullskjermvisningen"
 
-#: ../src/bfwin_uimanager.c:684
+#: ../src/bfwin_uimanager.c:690
 msgid "Fullscreen"
 msgstr "Fullskjermsvisning"
 
-#: ../src/bfwin_uimanager.c:714
+#: ../src/bfwin_uimanager.c:740
 msgid "_File"
 msgstr "_Fil"
 
-#: ../src/bfwin_uimanager.c:715
+#: ../src/bfwin_uimanager.c:741
 msgid "New From Template"
 msgstr "Lag ny fra mal"
 
-#: ../src/bfwin_uimanager.c:716 ../src/bfwin_uimanager.c:726
+#: ../src/bfwin_uimanager.c:742 ../src/bfwin_uimanager.c:752
 msgid "Open _Recent"
 msgstr "Nylig åpn_ede"
 
-#: ../src/bfwin_uimanager.c:717
+#: ../src/bfwin_uimanager.c:743
 msgid "_Edit"
 msgstr "_Rediger"
 
-#: ../src/bfwin_uimanager.c:718
+#: ../src/bfwin_uimanager.c:744
 msgid "_View"
 msgstr "_Vis"
 
-#: ../src/bfwin_uimanager.c:719
+#: ../src/bfwin_uimanager.c:745
 msgid "_Document"
 msgstr "_Dokument"
 
-#: ../src/bfwin_uimanager.c:720
+#: ../src/bfwin_uimanager.c:746
 msgid "_Tab Size"
 msgstr "_Tabulatorstørrelse"
 
-#: ../src/bfwin_uimanager.c:721
+#: ../src/bfwin_uimanager.c:747
 msgid "_Font Size"
 msgstr "_Skriftstørrelse"
 
-#: ../src/bfwin_uimanager.c:722
+#: ../src/bfwin_uimanager.c:748
 msgid "Language M_ode"
 msgstr "Språkm_odus"
 
-#: ../src/bfwin_uimanager.c:723
+#: ../src/bfwin_uimanager.c:749
 msgid "Character _Encoding"
 msgstr "T_egnsett"
 
-#: ../src/bfwin_uimanager.c:724
+#: ../src/bfwin_uimanager.c:750
 msgid "_Go"
 msgstr "_Gå til"
 
-#: ../src/bfwin_uimanager.c:725
+#: ../src/bfwin_uimanager.c:751
 msgid "_Project"
 msgstr "_Prosjekt"
 
-#: ../src/bfwin_uimanager.c:727
+#: ../src/bfwin_uimanager.c:753
 msgid "_Tools"
 msgstr "Verkt_øy"
 
-#: ../src/bfwin_uimanager.c:728
+#: ../src/bfwin_uimanager.c:754
 msgid "_Commands"
 msgstr "_Kommandoer"
 
-#: ../src/bfwin_uimanager.c:729
+#: ../src/bfwin_uimanager.c:755
 msgid "_Filters"
 msgstr "_Filter"
 
-#: ../src/bfwin_uimanager.c:730
+#: ../src/bfwin_uimanager.c:756
 msgid "_Outputbox"
 msgstr "_Utdatavindu"
 
-#: ../src/bfwin_uimanager.c:734
+#: ../src/bfwin_uimanager.c:760
 msgid "_New"
 msgstr "_Ny"
 
-#: ../src/bfwin_uimanager.c:734 ../src/filebrowser2.c:1581
-#: ../src/filebrowser2.c:1583 ../src/filebrowser2.c:1964
+#: ../src/bfwin_uimanager.c:760 ../src/filebrowser2.c:1623
+#: ../src/filebrowser2.c:1625 ../src/filebrowser2.c:2019
 msgid "New file"
 msgstr "Ny fil"
 
-#: ../src/bfwin_uimanager.c:735
+#: ../src/bfwin_uimanager.c:761
 msgid "New _Window"
 msgstr "Nytt _vindu"
 
-#: ../src/bfwin_uimanager.c:735
+#: ../src/bfwin_uimanager.c:761
 msgid "New window"
 msgstr "Nytt vindu"
 
-#: ../src/bfwin_uimanager.c:737
+#: ../src/bfwin_uimanager.c:763
 msgid "Close Win_dow"
 msgstr "Lukk vin_du"
 
-#: ../src/bfwin_uimanager.c:737
+#: ../src/bfwin_uimanager.c:763
 msgid "Close window"
 msgstr "Lukk vinduet"
 
-#: ../src/bfwin_uimanager.c:738
+#: ../src/bfwin_uimanager.c:764
 msgid "_Open..."
 msgstr "Å_pne..."
 
-#: ../src/bfwin_uimanager.c:738
+#: ../src/bfwin_uimanager.c:764
 msgid "Open file"
 msgstr "Åpne fil"
 
-#: ../src/bfwin_uimanager.c:739
+#: ../src/bfwin_uimanager.c:765
 msgid "Open Ad_vanced..."
 msgstr "Åpn_e (avansert)..."
 
-#: ../src/bfwin_uimanager.c:739 ../src/filebrowser2.c:1960
+#: ../src/bfwin_uimanager.c:765 ../src/filebrowser2.c:2015
 msgid "Open advanced"
 msgstr "Åpne avansert"
 
-#: ../src/bfwin_uimanager.c:741
+#: ../src/bfwin_uimanager.c:767
 msgid "Open _from Selection"
 msgstr "Åpne _fra markert tekst"
 
-#: ../src/bfwin_uimanager.c:741
+#: ../src/bfwin_uimanager.c:767
 msgid "Open from Selection"
 msgstr "Åpne fra markert tekst"
 
-#: ../src/bfwin_uimanager.c:743
+#: ../src/bfwin_uimanager.c:769
 msgid "_Insert..."
 msgstr "Sett _inn..."
 
-#: ../src/bfwin_uimanager.c:743
+#: ../src/bfwin_uimanager.c:769
 msgid "Insert file"
 msgstr "Sett inn fil"
 
-#: ../src/bfwin_uimanager.c:744
+#: ../src/bfwin_uimanager.c:770
 msgid "U_pload / Download..."
 msgstr "Last opp / ned..."
 
-#: ../src/bfwin_uimanager.c:746
+#: ../src/bfwin_uimanager.c:772
 msgid "_Quit"
 msgstr "Avsl_utt"
 
-#: ../src/bfwin_uimanager.c:746
+#: ../src/bfwin_uimanager.c:772
 msgid "Quit Bluefish"
 msgstr "Avslutt Bluefish"
 
-#: ../src/bfwin_uimanager.c:747
+#: ../src/bfwin_uimanager.c:773
 msgid "Preference_s..."
 msgstr "_Innstillinger..."
 
-#: ../src/bfwin_uimanager.c:747
+#: ../src/bfwin_uimanager.c:773
 msgid "Edit Preferences"
 msgstr "Endre innstillinger"
 
-#: ../src/bfwin_uimanager.c:749
+#: ../src/bfwin_uimanager.c:775
 msgid "Select _All"
 msgstr "_Velg alt"
 
-#: ../src/bfwin_uimanager.c:749
+#: ../src/bfwin_uimanager.c:775
 msgid "Select all"
 msgstr "Velg alle"
 
-#: ../src/bfwin_uimanager.c:750
+#: ../src/bfwin_uimanager.c:776
 msgid "Add Boo_kmark"
 msgstr "_Legg til bokmerke"
 
-#: ../src/bfwin_uimanager.c:750 ../src/document.c:1833
+#: ../src/bfwin_uimanager.c:776 ../src/document.c:1835
 msgid "Add bookmark"
 msgstr "Legg til bokmerke"
 
-#: ../src/bfwin_uimanager.c:752
+#: ../src/bfwin_uimanager.c:778
 msgid "_Add or Remove..."
 msgstr "Legg _til eller fjern..."
 
-#: ../src/bfwin_uimanager.c:752
+#: ../src/bfwin_uimanager.c:778
 msgid "Add or remove character encoding"
 msgstr "Legg til eller fjern tegnsett"
 
-#: ../src/bfwin_uimanager.c:754
+#: ../src/bfwin_uimanager.c:780
 msgid "Floati_ng Window"
 msgstr "_Flytende vindu"
 
-#: ../src/bfwin_uimanager.c:754
+#: ../src/bfwin_uimanager.c:780
 msgid "Open current document in floating window"
 msgstr "Åpne dokumentet i et flytende vindu"
 
-#: ../src/bfwin_uimanager.c:756 ../src/bfwin_uimanager.c:762
+#: ../src/bfwin_uimanager.c:782 ../src/bfwin_uimanager.c:788
 msgid "_Increase"
 msgstr "_Øk skriftstørrelsen"
 
-#: ../src/bfwin_uimanager.c:756
+#: ../src/bfwin_uimanager.c:782
 msgid "Increase document font size"
 msgstr "Øk skriftstørrelsen"
 
-#: ../src/bfwin_uimanager.c:758 ../src/bfwin_uimanager.c:764
+#: ../src/bfwin_uimanager.c:784 ../src/bfwin_uimanager.c:790
 msgid "_Decrease"
 msgstr "Re_duser"
 
-#: ../src/bfwin_uimanager.c:758
+#: ../src/bfwin_uimanager.c:784
 msgid "Decrease document font size"
 msgstr "Reduser skriftstørrelsen"
 
-#: ../src/bfwin_uimanager.c:760 ../src/bfwin_uimanager.c:766
+#: ../src/bfwin_uimanager.c:786 ../src/bfwin_uimanager.c:792
 msgid "_Reset"
 msgstr "_Nullstill"
 
-#: ../src/bfwin_uimanager.c:760
+#: ../src/bfwin_uimanager.c:786
 msgid "Reset document font size"
 msgstr "Nullstill skriftstørrelsen"
 
-#: ../src/bfwin_uimanager.c:762
+#: ../src/bfwin_uimanager.c:788
 msgid "Increase document tab size"
 msgstr "Øk tabulatorbredde"
 
-#: ../src/bfwin_uimanager.c:764
+#: ../src/bfwin_uimanager.c:790
 msgid "Decrease document tab size"
 msgstr "Reduser tabulatorstørrelse"
 
-#: ../src/bfwin_uimanager.c:766
+#: ../src/bfwin_uimanager.c:792
 msgid "Reset document tab size"
 msgstr "Nullstill tabulatorstørrelse"
 
-#: ../src/bfwin_uimanager.c:769
+#: ../src/bfwin_uimanager.c:795
 msgid "Rescan Syntax & S_pelling"
 msgstr "Les syntaks og stavekontroll _på nytt"
 
-#: ../src/bfwin_uimanager.c:769 ../src/bfwin_uimanager.c:772
+#: ../src/bfwin_uimanager.c:795 ../src/bfwin_uimanager.c:798
 msgid "Rescan document highlighting"
 msgstr "Oppdater syntaksmarkering"
 
-#: ../src/bfwin_uimanager.c:772
+#: ../src/bfwin_uimanager.c:798
 msgid "_Rescan Syntax"
 msgstr "K_ontroller syntaksen på nytt"
 
-#: ../src/bfwin_uimanager.c:775
+#: ../src/bfwin_uimanager.c:801
 msgid "_New Project..."
 msgstr "_Nytt prosjekt..."
 
-#: ../src/bfwin_uimanager.c:775 ../src/project.c:208
+#: ../src/bfwin_uimanager.c:801 ../src/project.c:208
 msgid "New project"
 msgstr "Nytt prosjekt"
 
-#: ../src/bfwin_uimanager.c:776
+#: ../src/bfwin_uimanager.c:802
 msgid "_Open Project..."
 msgstr "Åpne pr_osjekt..."
 
-#: ../src/bfwin_uimanager.c:776
+#: ../src/bfwin_uimanager.c:802
 msgid "Open project"
 msgstr "Åpne prosjekt"
 
-#: ../src/bfwin_uimanager.c:777
+#: ../src/bfwin_uimanager.c:803
 msgid "_Synchronize Text Block"
 msgstr "_Synkroniser tekstblokk"
 
-#: ../src/bfwin_uimanager.c:777 ../src/blocksync.c:296
+#: ../src/bfwin_uimanager.c:803 ../src/blocksync.c:296
 msgid "Synchronize text block"
 msgstr "Synkroniser tekstblokken"
 
-#: ../src/bfwin_uimanager.c:779
+#: ../src/bfwin_uimanager.c:805
 msgid "To_ggle Comment"
 msgstr "Merknader a_v/på"
 
-#: ../src/bfwin_uimanager.c:779
+#: ../src/bfwin_uimanager.c:805
 msgid "Toggle comment"
 msgstr "Merknader av/på"
 
-#: ../src/bfwin_uimanager.c:781
+#: ../src/bfwin_uimanager.c:807
 msgid "Select _Block"
 msgstr "Velg blokk"
 
-#: ../src/bfwin_uimanager.c:781
+#: ../src/bfwin_uimanager.c:807
 msgid "Select block, use multiple times to select parent blocks "
 msgstr "Velg blokk, brukes flere ganger for å velge overordnede blokker "
 
-#: ../src/bfwin_uimanager.c:783
+#: ../src/bfwin_uimanager.c:809
+#, fuzzy
+msgid "Duplica_te Line"
+msgstr "Fargelegg linjen der markøren er"
+
+#: ../src/bfwin_uimanager.c:809
+#, fuzzy
+msgid "Duplicate the current line"
+msgstr "Fargelegg linjen der markøren er"
+
+#: ../src/bfwin_uimanager.c:811
 msgid "Word Cou_nt"
 msgstr "Ord_telling"
 
-#: ../src/bfwin_uimanager.c:783
+#: ../src/bfwin_uimanager.c:811
 msgid "Word count"
 msgstr "Ordtelling"
 
-#: ../src/bfwin_uimanager.c:784
-msgid "Indenting To S_paces"
+#: ../src/bfwin_uimanager.c:812
+#, fuzzy
+msgid "Indenting to S_paces"
 msgstr "Innrykk til _mellomrom"
 
-#: ../src/bfwin_uimanager.c:784
+#: ../src/bfwin_uimanager.c:812
 msgid "Indenting to spaces"
 msgstr "Innrykk til mellomrom"
 
-#: ../src/bfwin_uimanager.c:786
-msgid "Indenting To T_abs"
+#: ../src/bfwin_uimanager.c:814
+#, fuzzy
+msgid "Indenting to T_abs"
 msgstr "_Innrykk til tabulatorer"
 
-#: ../src/bfwin_uimanager.c:786
+#: ../src/bfwin_uimanager.c:814
 msgid "Indenting to tabs"
 msgstr "Innrykk til tabulatorer"
 
-#: ../src/bfwin_uimanager.c:788
+#: ../src/bfwin_uimanager.c:816
 msgid "_Join Lines Together"
 msgstr "Sl_å sammen linjer"
 
-#: ../src/bfwin_uimanager.c:788
+#: ../src/bfwin_uimanager.c:816
 msgid "Join lines together"
 msgstr "Slå sammen linjer"
 
-#: ../src/bfwin_uimanager.c:790
+#: ../src/bfwin_uimanager.c:818
 msgid "Split Lines on Right _Margin"
 msgstr "Del linjer på høyre _marg"
 
-#: ../src/bfwin_uimanager.c:790
+#: ../src/bfwin_uimanager.c:818
 msgid "Split lines on right margin"
 msgstr "Del linjer på høyre marg"
 
-#: ../src/bfwin_uimanager.c:792
+#: ../src/bfwin_uimanager.c:820
 msgid "Merge Lines Into Col_umns"
 msgstr "Slå sammen linjer til _kolonner"
 
-#: ../src/bfwin_uimanager.c:792
+#: ../src/bfwin_uimanager.c:820
 msgid "Merge lines into columns"
 msgstr "Slå sammen linjer til kolonner"
 
-#: ../src/bfwin_uimanager.c:794
+#: ../src/bfwin_uimanager.c:822
 msgid "Rewrap _Lines"
 msgstr "Brekk _linjer på ny"
 
-#: ../src/bfwin_uimanager.c:794
+#: ../src/bfwin_uimanager.c:822
 msgid "Rewrap lines"
 msgstr "Brekk linjer"
 
-#: ../src/bfwin_uimanager.c:795
+#: ../src/bfwin_uimanager.c:823
 msgid "Strip T_railing Whitespace"
 msgstr "Fje_rn blanke tegn på enden av hver linje"
 
-#: ../src/bfwin_uimanager.c:795
+#: ../src/bfwin_uimanager.c:823
 msgid "Strip trailing whitespace"
 msgstr "Fjern blanke tegn på enden av hver linje"
 
-#: ../src/bfwin_uimanager.c:800
+#: ../src/bfwin_uimanager.c:825
+#, fuzzy
+msgid "Preview in browser"
+msgstr "Filbehandler"
+
+#: ../src/bfwin_uimanager.c:830
 msgid "_Full Screen"
 msgstr "_Fullskjerm"
 
-#: ../src/bfwin_uimanager.c:800
+#: ../src/bfwin_uimanager.c:830
 msgid "Full screen"
 msgstr "Fullskjerm"
 
-#: ../src/bfwin_uimanager.c:802
+#: ../src/bfwin_uimanager.c:832
 msgid "_Main Toolbar"
 msgstr "Hoved-_verktøylinje"
 
-#: ../src/bfwin_uimanager.c:802
+#: ../src/bfwin_uimanager.c:832
 msgid "Show main toolbar"
 msgstr "Vis hovedverktøylinje"
 
-#: ../src/bfwin_uimanager.c:804
+#: ../src/bfwin_uimanager.c:834
 msgid "_Side Pane"
 msgstr "_Sidepanel"
 
-#: ../src/bfwin_uimanager.c:804
+#: ../src/bfwin_uimanager.c:834
 msgid "Show side pane"
 msgstr "Vis sidepanelet"
 
-#: ../src/bfwin_uimanager.c:805
+#: ../src/bfwin_uimanager.c:835
 msgid "_Output Pane"
 msgstr "_Utdatafeltet"
 
-#: ../src/bfwin_uimanager.c:805
+#: ../src/bfwin_uimanager.c:835
 msgid "Show output pane"
 msgstr "Vis utdatafelt"
 
-#: ../src/bfwin_uimanager.c:807
+#: ../src/bfwin_uimanager.c:837
 msgid "Status_bar"
 msgstr "Vis statuslinj_e"
 
-#: ../src/bfwin_uimanager.c:807
+#: ../src/bfwin_uimanager.c:837
 msgid "Show statusbar"
 msgstr "Vis statuslinje"
 
-#: ../src/bfwin_uimanager.c:809
+#: ../src/bfwin_uimanager.c:839
 msgid "Auto _Completion Popup"
 msgstr "Vindu for for autoutfylling"
 
-#: ../src/bfwin_uimanager.c:809
+#: ../src/bfwin_uimanager.c:839
 msgid "Show auto completion popup"
 msgstr "Vis i autofullfør _pop-up-vindu"
 
-#: ../src/bfwin_uimanager.c:811
+#: ../src/bfwin_uimanager.c:841
 msgid "_Auto Indent"
 msgstr "_Automatisk tabulering"
 
-#: ../src/bfwin_uimanager.c:811
+#: ../src/bfwin_uimanager.c:841
 msgid "Auto indent"
 msgstr "Autoindentering"
 
-#: ../src/bfwin_uimanager.c:812
+#: ../src/bfwin_uimanager.c:842
 msgid "Highlight Block _Delimiters"
 msgstr "Fremhev blokkskille"
 
-#: ../src/bfwin_uimanager.c:813
+#: ../src/bfwin_uimanager.c:843
 msgid "Highlight block delimiters"
 msgstr "Frem_hev blokkskille"
 
-#: ../src/bfwin_uimanager.c:814
+#: ../src/bfwin_uimanager.c:844
 msgid "_Highlight Syntax"
 msgstr "F_remhev syntaksen"
 
-#: ../src/bfwin_uimanager.c:814
+#: ../src/bfwin_uimanager.c:844
 msgid "Highlight syntax"
 msgstr "Marker syntaks som standard"
 
-#: ../src/bfwin_uimanager.c:816
+#: ../src/bfwin_uimanager.c:846
 msgid "Show _Blocks"
 msgstr "Vis _blokker"
 
-#: ../src/bfwin_uimanager.c:816
+#: ../src/bfwin_uimanager.c:846
 msgid "Show blocks"
 msgstr "Vis blokker"
 
-#: ../src/bfwin_uimanager.c:817
+#: ../src/bfwin_uimanager.c:847
 msgid "Show Line N_umbers"
 msgstr "Vis linje_nummer"
 
-#: ../src/bfwin_uimanager.c:817
+#: ../src/bfwin_uimanager.c:847
 msgid "Show line numbers"
 msgstr "Vis linjenummer"
 
-#: ../src/bfwin_uimanager.c:819
+#: ../src/bfwin_uimanager.c:849
 msgid "Show Right _Margin"
 msgstr "Vis høyremarg"
 
-#: ../src/bfwin_uimanager.c:819
+#: ../src/bfwin_uimanager.c:849
 msgid "Show right margin"
 msgstr "Vis høyremarg"
 
-#: ../src/bfwin_uimanager.c:821
+#: ../src/bfwin_uimanager.c:851
 msgid "Show Split _View"
 msgstr "Bruk delt _visning"
 
-#: ../src/bfwin_uimanager.c:821
+#: ../src/bfwin_uimanager.c:851
 msgid "Show split view"
 msgstr "Bruk delt visning"
 
-#: ../src/bfwin_uimanager.c:823
+#: ../src/bfwin_uimanager.c:853
 msgid "Show V_isible Spacing"
 msgstr "Vis synlige _mellomrom"
 
-#: ../src/bfwin_uimanager.c:823
+#: ../src/bfwin_uimanager.c:853
 msgid "Show visible spacing"
 msgstr "Vis synlige mellomrom"
 
-#: ../src/bfwin_uimanager.c:825
+#: ../src/bfwin_uimanager.c:855
 msgid "_Wrap Text"
 msgstr "_Brekk tekst"
 
-#: ../src/bfwin_uimanager.c:825
+#: ../src/bfwin_uimanager.c:855
 msgid "Wrap text"
 msgstr "Brekk tekst"
 
-#: ../src/bfwin_uimanager.c:829 ../src/document.c:2826
+#: ../src/bfwin_uimanager.c:859 ../src/document.c:2829
 msgid "_Close"
 msgstr "Lukk"
 
-#: ../src/bfwin_uimanager.c:829
+#: ../src/bfwin_uimanager.c:859
 msgid "Close current file"
 msgstr "Lukk fil"
 
-#: ../src/bfwin_uimanager.c:831
+#: ../src/bfwin_uimanager.c:861
 msgid "Close A_ll"
 msgstr "Lu_kk alle"
 
-#: ../src/bfwin_uimanager.c:831
+#: ../src/bfwin_uimanager.c:861
 msgid "Close all files"
 msgstr "Lukk alle filer"
 
-#: ../src/bfwin_uimanager.c:833 ../src/bfwin_uimanager.c:891
+#: ../src/bfwin_uimanager.c:863 ../src/bfwin_uimanager.c:921
 #: ../src/file_dialogs.c:1423
 msgid "_Save"
 msgstr "_Lagre"
 
-#: ../src/bfwin_uimanager.c:833
+#: ../src/bfwin_uimanager.c:863
 msgid "Save current file"
 msgstr "Lagre fil"
 
-#: ../src/bfwin_uimanager.c:835 ../src/bfwin_uimanager.c:892
+#: ../src/bfwin_uimanager.c:865 ../src/bfwin_uimanager.c:922
 msgid "Save _as..."
 msgstr "L_agre som..."
 
-#: ../src/bfwin_uimanager.c:835
+#: ../src/bfwin_uimanager.c:865
 msgid "Save file as"
 msgstr "Lagre fil som"
 
-#: ../src/bfwin_uimanager.c:837
+#: ../src/bfwin_uimanager.c:867
 msgid "Sav_e All"
 msgstr "Lagr_e alle"
 
-#: ../src/bfwin_uimanager.c:837
+#: ../src/bfwin_uimanager.c:867
 msgid "Save all files"
 msgstr "Lagre alle filer"
 
-#: ../src/bfwin_uimanager.c:838
+#: ../src/bfwin_uimanager.c:868
 msgid "Rever_t to Saved"
 msgstr "Gjenopp_rett fra disk"
 
-#: ../src/bfwin_uimanager.c:838
+#: ../src/bfwin_uimanager.c:868
 msgid "Reload current file"
 msgstr "Les inn fil på nytt"
 
-#: ../src/bfwin_uimanager.c:840
+#: ../src/bfwin_uimanager.c:870
 msgid "Rena_me..."
 msgstr "Gi nytt navn..."
 
-#: ../src/bfwin_uimanager.c:840
+#: ../src/bfwin_uimanager.c:870
 msgid "Rename file"
 msgstr "Gi filen nytt navn"
 
-#: ../src/bfwin_uimanager.c:841
+#: ../src/bfwin_uimanager.c:871
 msgid "_Indent"
 msgstr "_Innrykk"
 
-#: ../src/bfwin_uimanager.c:841
+#: ../src/bfwin_uimanager.c:871
 msgid "Indent"
 msgstr "Innrykk"
 
-#: ../src/bfwin_uimanager.c:842
+#: ../src/bfwin_uimanager.c:872
 msgid "Unin_dent"
 msgstr "Reduser innrykk"
 
-#: ../src/bfwin_uimanager.c:842
+#: ../src/bfwin_uimanager.c:872
 msgid "Unindent"
 msgstr "Reduser innrykk"
 
-#: ../src/bfwin_uimanager.c:844
+#: ../src/bfwin_uimanager.c:874
 msgid "F_irst Bookmark"
 msgstr "Første _bokmerke"
 
-#: ../src/bfwin_uimanager.c:844
+#: ../src/bfwin_uimanager.c:874
 msgid "Goto first bookmark"
 msgstr "Gå til første bokmerke"
 
-#: ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:876
 msgid "L_ast Bookmark"
 msgstr "_Siste bokmerke"
 
-#: ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:876
 msgid "Goto last bookmark"
 msgstr "Gå til siste bokmerke"
 
-#: ../src/bfwin_uimanager.c:848
+#: ../src/bfwin_uimanager.c:878
 msgid "N_ext Bookmark"
 msgstr "N_este bokmerke"
 
-#: ../src/bfwin_uimanager.c:848
+#: ../src/bfwin_uimanager.c:878
 msgid "Goto next bookmark"
 msgstr "Gå til neste bokmerke"
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:880
 msgid "P_revious Bookmark"
 msgstr "Fo_rrige Bokmerke"
 
-#: ../src/bfwin_uimanager.c:851 ../src/bfwin_uimanager.c:862
+#: ../src/bfwin_uimanager.c:881 ../src/bfwin_uimanager.c:892
 msgid "Goto previous document"
 msgstr "Gå til forrige dokument"
 
-#: ../src/bfwin_uimanager.c:852
+#: ../src/bfwin_uimanager.c:882
 msgid "Move Tab _Left"
 msgstr "Flytt tabulatoren til venstre"
 
-#: ../src/bfwin_uimanager.c:852
+#: ../src/bfwin_uimanager.c:882
 msgid "Move current tab left"
 msgstr "Flytt den aktive tabulatoren til venstre"
 
-#: ../src/bfwin_uimanager.c:854
+#: ../src/bfwin_uimanager.c:884
 msgid "Move Tab _Right"
 msgstr "Flytt tabulatoren til høyre"
 
-#: ../src/bfwin_uimanager.c:854
+#: ../src/bfwin_uimanager.c:884
 msgid "Move current tab right"
 msgstr "Flytt aktiv tabulator mot høyre"
 
-#: ../src/bfwin_uimanager.c:856
+#: ../src/bfwin_uimanager.c:886
 msgid "_First Document"
 msgstr "_Første dokument"
 
-#: ../src/bfwin_uimanager.c:856
+#: ../src/bfwin_uimanager.c:886
 msgid "Goto first document"
 msgstr "Gå til første dokument"
 
-#: ../src/bfwin_uimanager.c:858
+#: ../src/bfwin_uimanager.c:888
 msgid "_Last Document"
 msgstr "_Siste dokument"
 
-#: ../src/bfwin_uimanager.c:858
+#: ../src/bfwin_uimanager.c:888
 msgid "Goto last document"
 msgstr "Gå til siste dokument"
 
-#: ../src/bfwin_uimanager.c:860
+#: ../src/bfwin_uimanager.c:890
 msgid "_Next Document"
 msgstr "_Neste dokument"
 
-#: ../src/bfwin_uimanager.c:860
+#: ../src/bfwin_uimanager.c:890
 msgid "Goto next document"
 msgstr "Gå til neste dokument"
 
-#: ../src/bfwin_uimanager.c:862
+#: ../src/bfwin_uimanager.c:892
 msgid "_Previous Document"
 msgstr "_Forrige dokument"
 
-#: ../src/bfwin_uimanager.c:864
+#: ../src/bfwin_uimanager.c:894
 msgid "Goto _Line"
 msgstr "Gå til _linje..."
 
-#: ../src/bfwin_uimanager.c:864
+#: ../src/bfwin_uimanager.c:894
 msgid "Goto line"
 msgstr "Gå til linje"
 
-#: ../src/bfwin_uimanager.c:865
+#: ../src/bfwin_uimanager.c:895
 msgid "Goto Line Number from _Clipboard"
 msgstr "Gå til linjenummeret fra ut_klippstavlen"
 
-#: ../src/bfwin_uimanager.c:866
+#: ../src/bfwin_uimanager.c:896
 msgid "Goto line number in clipboard or selection"
 msgstr "Gå til linjenummeret i utklippstablen eller markert tekst..."
 
-#: ../src/bfwin_uimanager.c:867
+#: ../src/bfwin_uimanager.c:897
 msgid "_Jump to Reference"
 msgstr "_Gå til referansen"
 
-#: ../src/bfwin_uimanager.c:867
+#: ../src/bfwin_uimanager.c:897
 msgid "Jump to reference"
 msgstr "Gå til referansen"
 
-#: ../src/bfwin_uimanager.c:872
+#: ../src/bfwin_uimanager.c:902
 msgid "Cu_t"
 msgstr "Klipp _ut"
 
-#: ../src/bfwin_uimanager.c:872
+#: ../src/bfwin_uimanager.c:902
 msgid "Cut"
 msgstr "Klipp ut"
 
-#: ../src/bfwin_uimanager.c:873
+#: ../src/bfwin_uimanager.c:903
 msgid "_Copy"
 msgstr "_Kopier"
 
-#: ../src/bfwin_uimanager.c:873
+#: ../src/bfwin_uimanager.c:903
 msgid "Copy"
 msgstr "Kopier"
 
-#: ../src/bfwin_uimanager.c:874
+#: ../src/bfwin_uimanager.c:904
 msgid "_Paste"
 msgstr "Sett inn"
 
-#: ../src/bfwin_uimanager.c:874
+#: ../src/bfwin_uimanager.c:904
 msgid "Paste"
 msgstr "Lim inn"
 
-#: ../src/bfwin_uimanager.c:878
+#: ../src/bfwin_uimanager.c:908
 msgid "_Find..."
 msgstr "Søk..."
 
-#: ../src/bfwin_uimanager.c:878
+#: ../src/bfwin_uimanager.c:908
 msgid "Find"
 msgstr "Finn"
 
-#: ../src/bfwin_uimanager.c:879
+#: ../src/bfwin_uimanager.c:909
 msgid "Find A_gain"
 msgstr "Søk i_gjen"
 
-#: ../src/bfwin_uimanager.c:879
+#: ../src/bfwin_uimanager.c:909
 msgid "Find again"
 msgstr "Søk igjen"
 
-#: ../src/bfwin_uimanager.c:880
+#: ../src/bfwin_uimanager.c:910
 msgid "Find from Clip_board"
 msgstr "Finn fra utklippstavlen"
 
-#: ../src/bfwin_uimanager.c:880
+#: ../src/bfwin_uimanager.c:910
 msgid "Find from clipboard"
 msgstr "Finn teksten i utklippstavlen"
 
-#: ../src/bfwin_uimanager.c:882
+#: ../src/bfwin_uimanager.c:912
 msgid "Re_place..."
 msgstr "Ers_tatt..."
 
-#: ../src/bfwin_uimanager.c:882
+#: ../src/bfwin_uimanager.c:912
 msgid "Replace"
 msgstr "Erstatt"
 
-#: ../src/bfwin_uimanager.c:889
+#: ../src/bfwin_uimanager.c:919
 msgid "Save & _close"
 msgstr "Lagre & l_ukk"
 
-#: ../src/bfwin_uimanager.c:889
+#: ../src/bfwin_uimanager.c:919
 msgid "Save & close project"
 msgstr "Lagre og lukk prosjektet"
 
-#: ../src/bfwin_uimanager.c:891
+#: ../src/bfwin_uimanager.c:921
 msgid "Save project"
 msgstr "Lagre prosjektet"
 
-#: ../src/bfwin_uimanager.c:892
+#: ../src/bfwin_uimanager.c:922
 msgid "Save project as"
 msgstr "Lagre prosjektet som"
 
-#: ../src/bfwin_uimanager.c:893
+#: ../src/bfwin_uimanager.c:923
 msgid "_Edit Project Options..."
 msgstr "R_ediger prosjektalternativer..."
 
-#: ../src/bfwin_uimanager.c:893
+#: ../src/bfwin_uimanager.c:923
 msgid "Edit project options"
 msgstr "Rediger prosjektopsjoner"
 
-#: ../src/bfwin_uimanager.c:898
+#: ../src/bfwin_uimanager.c:928
 msgid "_Undo"
 msgstr "_Angre"
 
-#: ../src/bfwin_uimanager.c:898
+#: ../src/bfwin_uimanager.c:928
 msgid "Undo"
 msgstr "Angre"
 
-#: ../src/bfwin_uimanager.c:899
+#: ../src/bfwin_uimanager.c:929
 msgid "U_ndo All"
 msgstr "A_ngre alle"
 
-#: ../src/bfwin_uimanager.c:899
+#: ../src/bfwin_uimanager.c:929
 msgid "Undo All"
 msgstr "Angre alle"
 
-#: ../src/bfwin_uimanager.c:900
+#: ../src/bfwin_uimanager.c:930
 msgid "_Redo"
 msgstr "Gjenta"
 
-#: ../src/bfwin_uimanager.c:900
+#: ../src/bfwin_uimanager.c:930
 msgid "Redo"
 msgstr "Gjenta"
 
-#: ../src/bfwin_uimanager.c:901
+#: ../src/bfwin_uimanager.c:931
 msgid "R_edo All"
 msgstr "Gj_enta alle"
 
-#: ../src/bfwin_uimanager.c:901
+#: ../src/bfwin_uimanager.c:931
 msgid "Redo All"
 msgstr "Gjenta alle"
 
-#: ../src/bfwin_uimanager.c:1039
+#: ../src/bfwin_uimanager.c:1072
 msgid "Open _URL..."
 msgstr "Åpne _URL..."
 
-#: ../src/bfwin_uimanager.c:1052
+#: ../src/bfwin_uimanager.c:1085
 msgid "_Spell Check"
 msgstr "_Stavekontroll"
 
-#: ../src/bfwin_uimanager.c:1422
+#: ../src/bfwin_uimanager.c:1469
 msgid "Text area to filter"
 msgstr "Velg tekstområde som skal filtreres"
 
-#: ../src/bfwin_uimanager.c:1423
+#: ../src/bfwin_uimanager.c:1470
 msgid "All text"
 msgstr "All tekst"
 
-#: ../src/bfwin_uimanager.c:1424
+#: ../src/bfwin_uimanager.c:1471
 msgid "Selected text only"
 msgstr "Kun markert tekst"
 
@@ -915,23 +932,23 @@ msgstr ""
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr "Besøk oss på http://bluefish.openoffice.nl"
 
-#: ../src/bluefish.c:269
+#: ../src/bluefish.c:267
 msgid "Open in existing window."
 msgstr "Åpne i dette vinduet."
 
-#: ../src/bluefish.c:271
+#: ../src/bluefish.c:269
 msgid "Open in new window."
 msgstr "Åpne i nytt vindu."
 
-#: ../src/bluefish.c:273
+#: ../src/bluefish.c:271
 msgid "Print version information."
 msgstr "Skriv versjonsinformasjon."
 
-#: ../src/bluefish.c:304
+#: ../src/bluefish.c:293
 msgid " [FILE(S)]"
 msgstr " [FIL(ER)]"
 
-#: ../src/bluefish.c:315
+#: ../src/bluefish.c:304
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
@@ -940,146 +957,146 @@ msgstr ""
 "Feil i kommandolinjeparametre. %s\n"
 "For hjelp, kjør: %s -?\n"
 
-#: ../src/bookmark.c:557
+#: ../src/bookmark.c:558
 msgid "_Name:"
 msgstr "_Navn:"
 
-#: ../src/bookmark.c:561
+#: ../src/bookmark.c:562
 msgid "_Description:"
 msgstr "Beskrivelse"
 
-#: ../src/bookmark.c:563
+#: ../src/bookmark.c:564
 msgid "Temporary"
 msgstr "Midlertidig"
 
-#: ../src/bookmark.c:722
+#: ../src/bookmark.c:723
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Er du sikker på at du vil slette %s?"
 
-#: ../src/bookmark.c:725
+#: ../src/bookmark.c:726
 msgid "Delete permanent bookmark."
 msgstr "Slett permanent bokmerke."
 
-#: ../src/bookmark.c:751
+#: ../src/bookmark.c:752
 msgid "Delete all bookmarks."
 msgstr "Slett alle bokmerker"
 
-#: ../src/bookmark.c:789
+#: ../src/bookmark.c:790
 #, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "Er du sikker på at du vil slette alle bokmerkene for %s?"
 
-#: ../src/bookmark.c:791
+#: ../src/bookmark.c:792
 msgid "Delete bookmarks?"
 msgstr "Slett bokmerker?"
 
-#: ../src/bookmark.c:812 ../src/bookmark.c:873
+#: ../src/bookmark.c:813 ../src/bookmark.c:874
 msgid "Edit bookmark"
 msgstr "Rediger bokmerke"
 
-#: ../src/bookmark.c:869
+#: ../src/bookmark.c:870
 msgid "Bookmark menu"
 msgstr "Bokmerkemeny"
 
-#: ../src/bookmark.c:870
+#: ../src/bookmark.c:871
 msgid "Show Bookmark"
 msgstr "Vis bokmerke"
 
-#: ../src/bookmark.c:871
+#: ../src/bookmark.c:872
 msgid "Show File"
 msgstr "Vis fil"
 
-#: ../src/bookmark.c:872
+#: ../src/bookmark.c:873
 msgid "Bookmark search menu"
 msgstr "Søkemeny for bokmerker"
 
-#: ../src/bookmark.c:873
+#: ../src/bookmark.c:874
 msgid "_Edit..."
 msgstr "_Rediger"
 
-#: ../src/bookmark.c:875 ../src/filebrowser2.c:1963
+#: ../src/bookmark.c:876 ../src/filebrowser2.c:2018
 msgid "_Delete"
 msgstr "_Slett"
 
-#: ../src/bookmark.c:875 ../src/document.c:1829
+#: ../src/bookmark.c:876 ../src/document.c:1831
 msgid "Delete bookmark"
 msgstr "Slett bokmerke"
 
-#: ../src/bookmark.c:876
+#: ../src/bookmark.c:877
 msgid "Delete All"
 msgstr "Slett alle"
 
-#: ../src/bookmark.c:876
+#: ../src/bookmark.c:877
 msgid "Delete all bookmarks"
 msgstr "Slett alle bokmerker"
 
-#: ../src/bookmark.c:878
+#: ../src/bookmark.c:879
 msgid "Delete All in Document"
 msgstr "Slett Alle i dokumentet"
 
-#: ../src/bookmark.c:878
+#: ../src/bookmark.c:879
 msgid "Delete all bookmarks in document"
 msgstr "Slett alle bokmerker i dokumentet"
 
-#: ../src/bookmark.c:883
+#: ../src/bookmark.c:884
 msgid "Permanent by default"
 msgstr "Gjør permanent som standard"
 
-#: ../src/bookmark.c:888
+#: ../src/bookmark.c:889
 msgid "By Name"
 msgstr "Navn"
 
-#: ../src/bookmark.c:889
+#: ../src/bookmark.c:890
 msgid "By Full Path"
 msgstr "Full sti"
 
-#: ../src/bookmark.c:890
+#: ../src/bookmark.c:891
 msgid "By Full URI"
 msgstr "Full URI"
 
-#: ../src/bookmark.c:894 ../src/bookmark.c:900
+#: ../src/bookmark.c:895 ../src/bookmark.c:901
 msgid "Content"
 msgstr "Innhold"
 
-#: ../src/bookmark.c:895 ../src/bookmark.c:901 ../src/preferences.c:560
-#: ../src/preferences.c:1146 ../src/preferences.c:1252
+#: ../src/bookmark.c:896 ../src/bookmark.c:902 ../src/preferences.c:563
+#: ../src/preferences.c:1149 ../src/preferences.c:1255
 msgid "Name"
 msgstr "Navn"
 
-#: ../src/bookmark.c:896 ../src/bookmark.c:902
+#: ../src/bookmark.c:897 ../src/bookmark.c:903
 msgid "Name & Content"
 msgstr "Navn og Innhold"
 
-#: ../src/bookmark.c:1240
+#: ../src/bookmark.c:1244
 msgid "First bookmark"
 msgstr "Første bokmerke"
 
-#: ../src/bookmark.c:1244
+#: ../src/bookmark.c:1248
 msgid "Previous bookmark"
 msgstr "Forrige bokmerke"
 
-#: ../src/bookmark.c:1248
+#: ../src/bookmark.c:1252
 msgid "Next bookmark"
 msgstr "Neste bokmerke"
 
-#: ../src/bookmark.c:1252
+#: ../src/bookmark.c:1256
 msgid "Last bookmark"
 msgstr "Siste bokmerke"
 
-#: ../src/bookmark.c:1935 ../src/bookmark.c:2082
+#: ../src/bookmark.c:1948 ../src/bookmark.c:2095
 msgid "Error adding bookmark"
 msgstr "Feil med bokmerke"
 
-#: ../src/bookmark.c:1935 ../src/bookmark.c:2082
+#: ../src/bookmark.c:1948 ../src/bookmark.c:2095
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Kan ikke legge til bokmerker før filen er lagret og gitt navn."
 
-#: ../src/bookmark.c:2016
+#: ../src/bookmark.c:2029
 msgid "Can't add bookmark"
 msgstr "Kunne ikke legge til bokmerke"
 
-#: ../src/bookmark.c:2016
+#: ../src/bookmark.c:2029
 msgid "You already have a bookmark here!"
 msgstr "Du har allerede et bokmarke her!"
 
@@ -1191,22 +1208,22 @@ msgstr " RO"
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: ../src/document.c:1658
+#: ../src/document.c:1660
 msgid "Cannot display file, unknown characters found."
 msgstr "Filen kan ikke vises, ukjente tegn funnet"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1978 ../src/file_dialogs.c:467 ../src/file_dialogs.c:505
+#: ../src/document.c:1980 ../src/file_dialogs.c:467 ../src/file_dialogs.c:505
 msgid "_Abort save"
 msgstr "_Avbryt lagring"
 
-#: ../src/document.c:1978
+#: ../src/document.c:1980
 msgid "_Continue save in UTF-8"
 msgstr "Fortsett lagring som UTF-8"
 
-#: ../src/document.c:1991
+#: ../src/document.c:1993
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1219,15 +1236,15 @@ msgstr ""
 "\n"
 "Fortsett lagring med UTF-8 som tegnsett?"
 
-#: ../src/document.c:1996
+#: ../src/document.c:1998
 msgid "File encoding conversion failure"
 msgstr "Feil ved konvertering av tegnsett"
 
-#: ../src/document.c:2145
+#: ../src/document.c:2149
 msgid "Previously: "
 msgstr "Tidligere: "
 
-#: ../src/document.c:2613 ../src/file_dialogs.c:812
+#: ../src/document.c:2616 ../src/file_dialogs.c:812
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1237,11 +1254,11 @@ msgstr ""
 "filer Du bør oppgradere til versjon 2.18.0 eller nyere."
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2742
+#: ../src/document.c:2745
 msgid "Unable to open file"
 msgstr "Kunne ikke åpne filen"
 
-#: ../src/document.c:2754
+#: ../src/document.c:2757
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1250,68 +1267,68 @@ msgstr ""
 "Dette tilbakestiller \"%s\" til den sist lagrade versjonen.Du vil miste alle "
 "endringer gjort etter forrige gang du lagret filen."
 
-#: ../src/document.c:2758
+#: ../src/document.c:2761
 msgid "Revert changes to last saved copy?"
 msgstr "Tilbakestill filen til siste lagrede versjon?"
 
-#: ../src/document.c:2826
+#: ../src/document.c:2829
 msgid "_Retry"
 msgstr "P_røv på nytt"
 
-#: ../src/document.c:2826
+#: ../src/document.c:2829
 msgid "Retry _all failed"
 msgstr "Prøv _alle feilede på nytt"
 
-#: ../src/document.c:2826
+#: ../src/document.c:2829
 msgid "Close all _failed"
 msgstr "Lukk alle feilede"
 
-#: ../src/document.c:2831
+#: ../src/document.c:2834
 msgid "File "
 msgstr "Fil "
 
-#: ../src/document.c:2831
+#: ../src/document.c:2834
 msgid " failed to load."
 msgstr " kunne ikke lastes."
 
-#: ../src/document.c:2835
+#: ../src/document.c:2838
 msgid "File failed to load\n"
 msgstr "Filen kunne ikke lastes inn\n"
 
-#: ../src/document.c:2952
+#: ../src/document.c:2955
 msgid "Select file to insert"
 msgstr "Velg en fil"
 
-#: ../src/document.c:2961
+#: ../src/document.c:2964
 msgid "No file to insert"
 msgstr "Du må velge en fil"
 
-#: ../src/document.c:3068
+#: ../src/document.c:3071
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d linje"
 msgstr[1] "%d linjer"
 
-#: ../src/document.c:3069
+#: ../src/document.c:3072
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d ord"
 msgstr[1] "%d ord"
 
-#: ../src/document.c:3070
+#: ../src/document.c:3073
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d tegn"
 msgstr[1] "%d tegn"
 
-#: ../src/document.c:3072
+#: ../src/document.c:3075
 msgid "Selection statistics: "
 msgstr "Statistikk: "
 
-#: ../src/document.c:3072
+#: ../src/document.c:3075
 msgid "Statistics: "
 msgstr "Statistikk: "
 
@@ -1335,31 +1352,31 @@ msgstr "Kolonnedeler:"
 msgid "Fill empty entries:"
 msgstr "Fyll tomme innslag:"
 
-#: ../src/encodings_dialog.c:291
+#: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
 msgstr "Tilgjengelige tegnsett:"
 
-#: ../src/encodings_dialog.c:337 ../src/encodings_dialog.c:389
+#: ../src/encodings_dialog.c:333 ../src/encodings_dialog.c:385
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: ../src/encodings_dialog.c:343 ../src/encodings_dialog.c:394
+#: ../src/encodings_dialog.c:339 ../src/encodings_dialog.c:390
 msgid "Encoding"
 msgstr "Tegnsett"
 
-#: ../src/encodings_dialog.c:366
+#: ../src/encodings_dialog.c:362
 msgid "Encodings in _menu:"
 msgstr "Tegnsett i _menyen:"
 
-#: ../src/encodings_dialog.c:438
+#: ../src/encodings_dialog.c:436
 msgid "Add or remove document encodings"
 msgstr "Legg til eller fjern tegnsett"
 
-#: ../src/filebrowser2.c:254
+#: ../src/filebrowser2.c:256
 msgid "Set documentroot and webroot"
 msgstr "Sett dokument-rot og web-rot"
 
-#: ../src/filebrowser2.c:263
+#: ../src/filebrowser2.c:265
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
@@ -1368,19 +1385,19 @@ msgstr ""
 "<i>dokument-rot</i> er stedet Bluefish finner filen,\n"
 "<i>web-rot</i> er stedet filene hentes via webserveren."
 
-#: ../src/filebrowser2.c:270
+#: ../src/filebrowser2.c:272
 msgid "Documentroot"
 msgstr "Dokument-rot"
 
-#: ../src/filebrowser2.c:281
+#: ../src/filebrowser2.c:283
 msgid "Webroot"
 msgstr "Web-rot"
 
-#: ../src/filebrowser2.c:1485
+#: ../src/filebrowser2.c:1527
 msgid "Could not rename\n"
 msgstr "Kunne ikke gi nytt navn\n"
 
-#: ../src/filebrowser2.c:1558 ../src/filebrowser2.c:1965
+#: ../src/filebrowser2.c:1600 ../src/filebrowser2.c:2020
 msgid "New directory"
 msgstr "Ny katalog"
 
@@ -1393,7 +1410,7 @@ msgstr "Ny katalog"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1675
+#: ../src/filebrowser2.c:1717
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -1402,178 +1419,178 @@ msgstr ""
 "Er du sikker på at du vil slette\n"
 "\"%s\"?"
 
-#: ../src/filebrowser2.c:1676
+#: ../src/filebrowser2.c:1718
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "Dette vil permanent slette %s."
 
-#: ../src/filebrowser2.c:1958
+#: ../src/filebrowser2.c:2013
 msgid "File Browser menu"
 msgstr "Filbrowser"
 
-#: ../src/filebrowser2.c:1959
+#: ../src/filebrowser2.c:2014
 msgid "_Open"
 msgstr "_Åpne"
 
-#: ../src/filebrowser2.c:1959
+#: ../src/filebrowser2.c:2014
 msgid "Open"
 msgstr "Åpne"
 
-#: ../src/filebrowser2.c:1960
+#: ../src/filebrowser2.c:2015
 msgid "Open _Advanced..."
 msgstr "Åpn_e Avansert..."
 
-#: ../src/filebrowser2.c:1962
+#: ../src/filebrowser2.c:2017
 msgid "Rena_me"
 msgstr "Gi _nytt navn"
 
-#: ../src/filebrowser2.c:1962
+#: ../src/filebrowser2.c:2017
 msgid "Rename"
 msgstr "Gi nytt navn"
 
-#: ../src/filebrowser2.c:1963
+#: ../src/filebrowser2.c:2018
 msgid "Delete"
 msgstr "Slett"
 
-#: ../src/filebrowser2.c:1964
+#: ../src/filebrowser2.c:2019
 msgid "New _File"
 msgstr "Ny _Fil"
 
-#: ../src/filebrowser2.c:1965
+#: ../src/filebrowser2.c:2020
 msgid "_New Directory"
 msgstr "_Ny _Katalog"
 
-#: ../src/filebrowser2.c:1967
+#: ../src/filebrowser2.c:2022
 msgid "_Refresh"
 msgstr "_Oppdater"
 
-#: ../src/filebrowser2.c:1967
+#: ../src/filebrowser2.c:2022
 msgid "Refresh"
 msgstr "Oppdater"
 
-#: ../src/filebrowser2.c:1968
+#: ../src/filebrowser2.c:2023
 msgid "_Set as base dir"
 msgstr "_Sett som basekatalog"
 
-#: ../src/filebrowser2.c:1968
+#: ../src/filebrowser2.c:2023
 msgid "Set as base directory"
 msgstr "Sett som basekatalog"
 
-#: ../src/filebrowser2.c:1970
+#: ../src/filebrowser2.c:2025
 msgid "Set as document root"
 msgstr "Sett som dokumentrot"
 
-#: ../src/filebrowser2.c:1972
+#: ../src/filebrowser2.c:2027
 msgid "Show Full _Tree"
 msgstr "Vis hele _treet"
 
-#: ../src/filebrowser2.c:1972
+#: ../src/filebrowser2.c:2027
 msgid "Show full tree"
 msgstr "Vis hele treet"
 
-#: ../src/filebrowser2.c:1974
+#: ../src/filebrowser2.c:2029
 msgid "View Mode"
 msgstr "Visningsmodus"
 
-#: ../src/filebrowser2.c:1975
+#: ../src/filebrowser2.c:2030
 msgid "Filter"
 msgstr "Filter"
 
-#: ../src/filebrowser2.c:1976
+#: ../src/filebrowser2.c:2031
 msgid "New Filter"
 msgstr "Nytt filter"
 
-#: ../src/filebrowser2.c:1976 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:2031 ../src/filefilter.c:534
 msgid "New filter"
 msgstr "Nytt filter"
 
-#: ../src/filebrowser2.c:1977
+#: ../src/filebrowser2.c:2032
 msgid "Edit Filter"
 msgstr "Rediger filter"
 
-#: ../src/filebrowser2.c:1977 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:2032 ../src/filefilter.c:540
 msgid "Edit filter"
 msgstr "Rediger filter"
 
-#: ../src/filebrowser2.c:1978
+#: ../src/filebrowser2.c:2033
 msgid "Delete Filter"
 msgstr "Slett filter"
 
-#: ../src/filebrowser2.c:1978
+#: ../src/filebrowser2.c:2033
 msgid "Delete filter"
 msgstr "Slett filter"
 
-#: ../src/filebrowser2.c:1982
+#: ../src/filebrowser2.c:2037
 msgid "Follow Active Document"
 msgstr "Følg aktivt dokument"
 
-#: ../src/filebrowser2.c:1982
+#: ../src/filebrowser2.c:2037
 msgid "Follow active document"
 msgstr "Følg aktivt dokument"
 
-#: ../src/filebrowser2.c:1984
+#: ../src/filebrowser2.c:2039
 msgid "Show Backup Files"
 msgstr "Vis backupfiler"
 
-#: ../src/filebrowser2.c:1984 ../src/gtk_easy.c:1237
+#: ../src/filebrowser2.c:2039 ../src/gtk_easy.c:1237
 msgid "Show backup files"
 msgstr "Vis backupfiler"
 
-#: ../src/filebrowser2.c:1986
+#: ../src/filebrowser2.c:2041
 msgid "Show Hidden Files"
 msgstr "Vis skjulte filer"
 
-#: ../src/filebrowser2.c:1986
+#: ../src/filebrowser2.c:2041
 msgid "Show hidden files"
 msgstr "Vis skjulte filer"
 
-#: ../src/filebrowser2.c:1991
+#: ../src/filebrowser2.c:2046
 msgid "Dual"
 msgstr "Delt"
 
-#: ../src/filebrowser2.c:1992
+#: ../src/filebrowser2.c:2047
 msgid "Flat"
 msgstr "Flat"
 
-#: ../src/filebrowser2.c:1993
+#: ../src/filebrowser2.c:2048
 msgid "Tree"
 msgstr "Tre"
 
-#: ../src/file.c:832
+#: ../src/file.c:829
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "Laster %d fil, ferdig med %s"
 msgstr[1] "Laster %d filer, ferdig med %s"
 
-#: ../src/file.c:837
+#: ../src/file.c:834
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "Alle filer lastet, totalt %s"
 
-#: ../src/file.c:1347
+#: ../src/file.c:1342
 msgid "Finished advanced open"
 msgstr "Fullført avansert åpne"
 
-#: ../src/file.c:1521
+#: ../src/file.c:1516
 msgid "_Skip"
 msgstr "_Hopp over"
 
-#: ../src/file.c:1521 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
+#: ../src/file.c:1516 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
 #: ../src/project.c:308
 msgid "_Overwrite"
 msgstr "Over_skriv"
 
-#: ../src/file.c:1525
+#: ../src/file.c:1520
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s kan ikke kopieres, den eksisterer allerede. Skriv over?"
 
-#: ../src/file.c:1527
+#: ../src/file.c:1522
 msgid "Overwrite file?"
 msgstr "Overskriv filen?"
 
-#: ../src/file_autosave.c:279
+#: ../src/file_autosave.c:285
 msgid "Autosave in progress..."
 msgstr "Autolagring pågår..."
 
@@ -1839,7 +1856,7 @@ msgid "Check and reload all documents"
 msgstr "Sjekk og last alle dokumenter på nytt"
 
 #. build a list of filters
-#: ../src/filefilter.c:241 ../src/gtk_easy.c:1248 ../src/preferences.c:1818
+#: ../src/filefilter.c:241 ../src/gtk_easy.c:1248 ../src/preferences.c:1854
 msgid "All files"
 msgstr "Alle filer"
 
@@ -1949,19 +1966,19 @@ msgstr "Output"
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "Kunne ikke kompilere outputboks-filter %s: %s"
 
-#: ../src/preferences.c:304
+#: ../src/preferences.c:307
 msgid "Untitled"
 msgstr "Uten navn"
 
-#: ../src/preferences.c:464
+#: ../src/preferences.c:467
 msgid "_Mime type:"
 msgstr "_Mime type:"
 
-#: ../src/preferences.c:476 ../src/preferences.c:478
+#: ../src/preferences.c:479 ../src/preferences.c:481
 msgid "None"
 msgstr "Ingen"
 
-#: ../src/preferences.c:480
+#: ../src/preferences.c:483
 msgid "_Template:"
 msgstr "_Mal:"
 
@@ -1971,75 +1988,75 @@ msgstr "_Mal:"
 #. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 #. G_CALLBACK(snr_combo_activate_lcb), snrwin);
 #.
-#: ../src/preferences.c:483 ../src/preferences.c:1881 ../src/snr3.c:1487
+#: ../src/preferences.c:486 ../src/preferences.c:1919 ../src/snr3.c:1517
 msgid "<b>Options</b>"
 msgstr "<b>_Alternativer</b>"
 
-#: ../src/preferences.c:487
+#: ../src/preferences.c:490
 msgid "Enable a_uto-completion"
 msgstr "Skru på auto-completion"
 
-#: ../src/preferences.c:489
+#: ../src/preferences.c:492
 msgid "Enable _block folding"
 msgstr "Bruk _blokkfolding"
 
-#: ../src/preferences.c:491
+#: ../src/preferences.c:494
 msgid "Display block stack in statusbar"
 msgstr "Vis blokkstabelen i statusbar"
 
-#: ../src/preferences.c:493
+#: ../src/preferences.c:496
 msgid "Highlight block _delimiters"
 msgstr "Marker blokk_delere"
 
-#: ../src/preferences.c:495
+#: ../src/preferences.c:498
 msgid "_Highlight current line"
 msgstr "Fargelegg linjen der markøren er"
 
-#: ../src/preferences.c:497
+#: ../src/preferences.c:500
 msgid "Show line _numbers"
 msgstr "Vis linje_nummer"
 
-#: ../src/preferences.c:501
+#: ../src/preferences.c:504
 msgid "Show _right margin indicator"
 msgstr "Vis høy_remarg"
 
-#: ../src/preferences.c:503 ../src/preferences.c:1892
+#: ../src/preferences.c:506 ../src/preferences.c:1930
 msgid "Smart auto indentin_g"
 msgstr "Avansert autoindenterin_g"
 
-#: ../src/preferences.c:505
+#: ../src/preferences.c:508
 msgid "Wra_p lines"
 msgstr "Brek_k linjer"
 
-#: ../src/preferences.c:508
+#: ../src/preferences.c:511
 msgid "Enable syntax scanning"
 msgstr "Skru på syntaksskanning"
 
-#: ../src/preferences.c:511
+#: ../src/preferences.c:514
 msgid "_Enable spell check"
 msgstr "Utfør stav_ekontroll"
 
-#: ../src/preferences.c:516
+#: ../src/preferences.c:519
 msgid "<b>Tab Stops</b>"
 msgstr "<b>_Tabulatorer</b>"
 
-#: ../src/preferences.c:521
+#: ../src/preferences.c:524
 msgid "Tab _width:"
 msgstr "Tabulatorstørrelse:"
 
-#: ../src/preferences.c:524
+#: ../src/preferences.c:527
 msgid "Insert _spaces instead of tabs"
 msgstr "Bruk mellomrom for indentering, ikke tabulatorer"
 
-#: ../src/preferences.c:561
+#: ../src/preferences.c:564
 msgid "Enabled"
 msgstr "Aktivert"
 
-#: ../src/preferences.c:563
+#: ../src/preferences.c:566
 msgid "Path to plugin"
 msgstr "Sti til plugin"
 
-#: ../src/preferences.c:768
+#: ../src/preferences.c:771
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
 "applied to the same text, the top-most style in this list has the highest "
@@ -2049,56 +2066,56 @@ msgstr ""
 "teksten, vil den øverste stilen få høyest prioritet. Dra og slipp stiler for "
 "å endre rekkefølgen.</small>"
 
-#: ../src/preferences.c:779 ../src/preferences.c:920 ../src/preferences.c:1017
+#: ../src/preferences.c:782 ../src/preferences.c:923 ../src/preferences.c:1020
 msgid "Label"
 msgstr "Label"
 
-#: ../src/preferences.c:795 ../src/preferences.c:1948
+#: ../src/preferences.c:798 ../src/preferences.c:1987
 msgid "Foreground color"
 msgstr "Tekstfarge"
 
-#: ../src/preferences.c:796 ../src/preferences.c:1949
+#: ../src/preferences.c:799 ../src/preferences.c:1988
 msgid "_Foreground color:"
 msgstr "Tekst_farge"
 
-#: ../src/preferences.c:797 ../src/preferences.c:1952
+#: ../src/preferences.c:800 ../src/preferences.c:1991
 msgid "Background color"
 msgstr "Bakgrunnsfarge"
 
-#: ../src/preferences.c:798 ../src/preferences.c:1953
+#: ../src/preferences.c:801 ../src/preferences.c:1992
 msgid "_Background color:"
 msgstr "_Bakgrunnsfarge"
 
-#: ../src/preferences.c:802
+#: ../src/preferences.c:805
 msgid "_Normal weight"
 msgstr "_Normal tykkelse"
 
-#: ../src/preferences.c:804
+#: ../src/preferences.c:807
 msgid "Bold _weight"
 msgstr "_Fet skrift"
 
-#: ../src/preferences.c:806
+#: ../src/preferences.c:809
 msgid "Normal st_yle"
 msgstr "Norm_al stil"
 
-#: ../src/preferences.c:809
+#: ../src/preferences.c:812
 msgid "_Italic style"
 msgstr "Kurs_iv stil"
 
-#: ../src/preferences.c:811
+#: ../src/preferences.c:814
 msgid "_Spell check"
 msgstr "_Stavekontroll"
 
-#: ../src/preferences.c:922 ../src/preferences.c:1019
-#: ../src/preferences.c:1156
+#: ../src/preferences.c:925 ../src/preferences.c:1022
+#: ../src/preferences.c:1159
 msgid "Command"
 msgstr "Kommando"
 
-#: ../src/preferences.c:925
+#: ../src/preferences.c:928
 msgid "Default browser"
 msgstr "Standard browser"
 
-#: ../src/preferences.c:929
+#: ../src/preferences.c:932
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2128,7 +2145,7 @@ msgstr ""
 "%p URL for forhåndsvisning hvis basekatalog og forhåndsvisningskatalog er "
 "satt i prosjektinnstillingene, ellers identisk til %u</small>"
 
-#: ../src/preferences.c:1024
+#: ../src/preferences.c:1027
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2165,23 +2182,23 @@ msgstr ""
 "%p URL for forhåndsvisning, når basekatalog og forhåndsvisningskatalog er "
 "satt i prosjektinnstillingene, ellers identisk til %u</small>"
 
-#: ../src/preferences.c:1148
+#: ../src/preferences.c:1151
 msgid "Pattern"
 msgstr "Mønster"
 
-#: ../src/preferences.c:1150
+#: ../src/preferences.c:1153
 msgid "File #"
 msgstr "Fil #"
 
-#: ../src/preferences.c:1152
+#: ../src/preferences.c:1155
 msgid "Line #"
 msgstr "Linje #"
 
-#: ../src/preferences.c:1154
+#: ../src/preferences.c:1157
 msgid "Output #"
 msgstr "Output #"
 
-#: ../src/preferences.c:1161
+#: ../src/preferences.c:1164
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2223,517 +2240,527 @@ msgstr ""
 "%p URL for foråndsvisning når basekatalog og forhåndsvisningskatalog er satt "
 "i prosjektinnstillingene, ellers identisk til %u</small>"
 
-#: ../src/preferences.c:1254
+#: ../src/preferences.c:1257
 msgid "File"
 msgstr "Fil"
 
 #. 1=text
-#: ../src/preferences.c:1420
+#: ../src/preferences.c:1427
 msgid "Option name"
 msgstr "Navn"
 
 #. 2=boolean
-#: ../src/preferences.c:1422
+#: ../src/preferences.c:1429
 msgid "value"
 msgstr "verdi"
 
 #. 1=text
-#: ../src/preferences.c:1437
+#: ../src/preferences.c:1446
 msgid "Highlight name"
 msgstr "Uthev navn"
 
-#: ../src/preferences.c:1442
+#: ../src/preferences.c:1451
 msgid "Textstyle"
 msgstr "Tekststil"
 
-#: ../src/preferences.c:1576 ../src/preferences.c:2165
+#: ../src/preferences.c:1604 ../src/preferences.c:2209
 msgid "Auto"
 msgstr "Automatisk"
 
-#: ../src/preferences.c:1812
+#: ../src/preferences.c:1848
 msgid "Delayed"
 msgstr "Forsinket"
 
-#: ../src/preferences.c:1812
+#: ../src/preferences.c:1848
 msgid "Immediately"
 msgstr "Øyeblikkelig"
 
-#: ../src/preferences.c:1813
+#: ../src/preferences.c:1849
 msgid "Continue save"
 msgstr "Fortsett lagring"
 
-#: ../src/preferences.c:1813
+#: ../src/preferences.c:1849
 msgid "Abort save"
 msgstr "Avbryt lagring"
 
-#: ../src/preferences.c:1813
+#: ../src/preferences.c:1849
 msgid "Ask what to do"
 msgstr "Spør ved behov"
 
-#: ../src/preferences.c:1815
+#: ../src/preferences.c:1851
 msgid "Nothing"
 msgstr "Ingen"
 
-#: ../src/preferences.c:1815
+#: ../src/preferences.c:1851
 msgid "Modified time and file size"
 msgstr "Tidspunkt for siste endring og filstørrelse"
 
-#: ../src/preferences.c:1815
+#: ../src/preferences.c:1851
 msgid "Modified time"
 msgstr "Tidspunkt for siste endring"
 
-#: ../src/preferences.c:1815
+#: ../src/preferences.c:1851
 msgid "File size"
 msgstr "Filstørrelse"
 
-#: ../src/preferences.c:1816 ../src/preferences.c:1817
+#: ../src/preferences.c:1852 ../src/preferences.c:1853
 msgid "left"
 msgstr "venstre"
 
-#: ../src/preferences.c:1816 ../src/preferences.c:1817
+#: ../src/preferences.c:1852 ../src/preferences.c:1853
 msgid "right"
 msgstr "høyre"
 
-#: ../src/preferences.c:1816
+#: ../src/preferences.c:1852
 msgid "top"
 msgstr "top"
 
-#: ../src/preferences.c:1816
+#: ../src/preferences.c:1852
 msgid "bottom"
 msgstr "bunn"
 
-#: ../src/preferences.c:1818
+#: ../src/preferences.c:1854
 msgid "Never"
 msgstr "Aldri"
 
-#: ../src/preferences.c:1818
+#: ../src/preferences.c:1854
 msgid "Only project files"
 msgstr "Bare prosjektfiler"
 
-#: ../src/preferences.c:1821
+#: ../src/preferences.c:1857
 msgid "All"
 msgstr "Alle"
 
-#: ../src/preferences.c:1821
+#: ../src/preferences.c:1857
 msgid "All except spaces"
 msgstr "Alle unntatt mellomrom"
 
-#: ../src/preferences.c:1821
+#: ../src/preferences.c:1857
 msgid "All trailing"
 msgstr "Alle på slutten av linjer"
 
-#: ../src/preferences.c:1821
+#: ../src/preferences.c:1857
 msgid "All except non-trailing spaces"
 msgstr "Alle unntatt mellomrom på slutten av linjer"
 
-#: ../src/preferences.c:1834
+#: ../src/preferences.c:1870
 msgid "Edit preferences"
 msgstr "Endre innstillinger"
 
-#: ../src/preferences.c:1864
+#: ../src/preferences.c:1901
 msgid "Editor settings"
 msgstr "Innstillinger for teksteditoren"
 
-#: ../src/preferences.c:1866
+#: ../src/preferences.c:1904
 msgid "<b>Auto-completion</b>"
 msgstr "<b>Auto-fullfør</b>"
 
-#: ../src/preferences.c:1872
+#: ../src/preferences.c:1910
 msgid "Show _pop-up window:"
 msgstr "Vis _pop-up vindu:"
 
-#: ../src/preferences.c:1878
+#: ../src/preferences.c:1916
 msgid "Shortcut _key combination:"
 msgstr "Tastatursnarvei:"
 
-#: ../src/preferences.c:1887
+#: ../src/preferences.c:1925
 msgid "Right _margin/split line end position:"
 msgstr "Sluttposisjon for høyre _marg/delelinje"
 
-#: ../src/preferences.c:1895
+#: ../src/preferences.c:1933
 msgid "Smart Home/_End cursor positioning"
 msgstr "Avansert Home/End markørflytting"
 
-#: ../src/preferences.c:1899
+#: ../src/preferences.c:1937
 msgid "_Tab key indents selection"
 msgstr "_Tab-tast indenterer valgt tekst"
 
-#: ../src/preferences.c:1903
+#: ../src/preferences.c:1941
 msgid "Auto close brackets"
 msgstr "Automatisk sluttparentes"
 
-#: ../src/preferences.c:1909
+#: ../src/preferences.c:1947
 msgid "Visible _whitespace mode:"
 msgstr "Visning av blanke tegn:"
 
-#: ../src/preferences.c:1912
+#: ../src/preferences.c:1950
 msgid "<b>Undo</b>"
 msgstr "<b>Angre</b>"
 
-#: ../src/preferences.c:1917
+#: ../src/preferences.c:1955
 msgid "_Number of actions in history:"
 msgstr "A_ntall aksjoner i angrehistorikk"
 
-#: ../src/preferences.c:1920
+#: ../src/preferences.c:1958
 msgid "Clear _history on save"
 msgstr "Nullstill angre_historikk ved lagring"
 
-#: ../src/preferences.c:1926 ../src/preferences.c:2249
+#: ../src/preferences.c:1964 ../src/preferences.c:2301
 msgid "Font & Colors"
 msgstr "Skrift & Farger"
 
-#: ../src/preferences.c:1931 ../src/preferences.c:2254
+#: ../src/preferences.c:1970 ../src/preferences.c:2307
 msgid "<b>Font</b>"
 msgstr "<b>Skrifttype</b>"
 
-#: ../src/preferences.c:1935
+#: ../src/preferences.c:1974
 msgid "_Editor font:"
 msgstr "Skrift for _editor:"
 
-#: ../src/preferences.c:1940 ../src/preferences.c:2274
+#: ../src/preferences.c:1979 ../src/preferences.c:2327
 msgid "<b>Colors</b>"
 msgstr "<b>Farger</b>"
 
-#: ../src/preferences.c:1944
+#: ../src/preferences.c:1983
 msgid "Use system wide color settings"
 msgstr "Bruk systemets fargeinstillinger"
 
-#: ../src/preferences.c:1956
+#: ../src/preferences.c:1995
 msgid "Cursor color"
 msgstr "Markørfarge"
 
-#: ../src/preferences.c:1957
+#: ../src/preferences.c:1996
 msgid "C_ursor color:"
 msgstr "Mark_ørfarge:"
 
-#: ../src/preferences.c:1963
+#: ../src/preferences.c:2002
 msgid "Current line color"
 msgstr "Markering av aktiv linje"
 
-#: ../src/preferences.c:1964
+#: ../src/preferences.c:2003
 msgid "Cu_rrent line color:"
 msgstr "Farge for ak_tiv linje:"
 
-#: ../src/preferences.c:1967
+#: ../src/preferences.c:2006
 msgid "Visible whitespace color"
 msgstr "Markering av blanke tegn"
 
-#: ../src/preferences.c:1968
+#: ../src/preferences.c:2007
 msgid "_Visible whitespace color:"
 msgstr "Ma_rkering av blanke tegn:"
 
-#: ../src/preferences.c:1975
+#: ../src/preferences.c:2014
 msgid "Initial document settings"
 msgstr "Standardinnstillinger"
 
-#: ../src/preferences.c:1977
+#: ../src/preferences.c:2017
 msgid "<b>Non Project Defaults</b>"
 msgstr "<b>Standardinstillinger (Utenfor prosjekt)</b>"
 
-#: ../src/preferences.c:1990
+#: ../src/preferences.c:2030
 msgid "Files"
 msgstr "Filer"
 
-#: ../src/preferences.c:1992
+#: ../src/preferences.c:2033
 msgid "<b>Backup</b>"
 msgstr "<b>Backup</b>"
 
-#: ../src/preferences.c:1994
+#: ../src/preferences.c:2035
 msgid "Create _backup file during file save"
 msgstr "Opprett _backupfil ved lagring"
 
-#: ../src/preferences.c:1999
+#: ../src/preferences.c:2040
 msgid "_Remove backup file on close"
 msgstr "Fjern backup når filen lukkes"
 
-#: ../src/preferences.c:2004
+#: ../src/preferences.c:2045
 msgid "If back_up fails:"
 msgstr "Hvis back_up feiler:"
 
-#: ../src/preferences.c:2011
+#: ../src/preferences.c:2052
 msgid "<b>Document Recovery</b>"
 msgstr "<b>Dokumentgjenoppretting</b>"
 
-#: ../src/preferences.c:2014
+#: ../src/preferences.c:2055
 msgid "_Enable recovery of modified documents"
 msgstr "Gj_enopprett modifiserte filer etter kræsj"
 
-#: ../src/preferences.c:2018
+#: ../src/preferences.c:2059
 msgid "_Frequency to store changes (seconds):"
 msgstr "_Frekvens for autolagring (sekunder)"
 
-#: ../src/preferences.c:2026
+#: ../src/preferences.c:2067
 msgid "<b>Encoding</b>"
 msgstr "<b>Tegnsett</b>"
 
-#: ../src/preferences.c:2042
+#: ../src/preferences.c:2083
 msgid "_Default character set for new files:"
 msgstr "Stan_dard tegnsett for nye filer:"
 
-#: ../src/preferences.c:2048
+#: ../src/preferences.c:2089
 msgid "Auto set <meta> _HTML tag on encoding change"
 msgstr "Oppdater <meta> HTML tag ved endring av tegnsett"
 
-#: ../src/preferences.c:2052 ../src/preferences.c:2156
+#: ../src/preferences.c:2093 ../src/preferences.c:2200
 msgid "<b>Misc</b>"
 msgstr "<b>Diverse</b>"
 
-#: ../src/preferences.c:2056
+#: ../src/preferences.c:2097
 msgid "Open co_mmandline files in running bluefish process"
 msgstr "Åpne ko_mmandolinjefiler i den kjørende bluefish-prosessen"
 
-#: ../src/preferences.c:2061
+#: ../src/preferences.c:2102
 msgid "Open commandline files in new _window"
 msgstr "Åpne kommandolinjefiler i nytt _vindu"
 
-#: ../src/preferences.c:2066
+#: ../src/preferences.c:2107
 msgid "_Periodically check if file is modified on disk"
 msgstr "Sjekk _periodisk hvorvidt filen er blitt endret av andre program"
 
-#: ../src/preferences.c:2072
+#: ../src/preferences.c:2113
 msgid "File properties to check on dis_k for modifications:"
 msgstr "Filegens_kaper som skal overvåkes for endringer"
 
-#: ../src/preferences.c:2085
+#: ../src/preferences.c:2126
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:2087
+#: ../src/preferences.c:2129
 msgid "<b>HTML Toolbar</b>"
 msgstr "<b>HTML verktøylinje</b>"
 
-#: ../src/preferences.c:2090
+#: ../src/preferences.c:2132
 msgid "Use lo_wercase HTML tags"
 msgstr "Br_uk små bokstaver for HTML-tags"
 
-#: ../src/preferences.c:2092
+#: ../src/preferences.c:2134
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
 msgstr "B_ruk utdaterte tags (e.g. <font> og <nobr>)"
 
-#: ../src/preferences.c:2096
+#: ../src/preferences.c:2138
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
 msgstr ""
 "_Formater etter retningslinjer for tilgjengelighet (f.eks <strong> for <b>)"
 
-#: ../src/preferences.c:2099
+#: ../src/preferences.c:2141
 msgid "Use _XHTML style tags (<br />)"
 msgstr "Bruk XHTML-syntaks (som <br />)"
 
-#: ../src/preferences.c:2105
+#: ../src/preferences.c:2147
 msgid "<b>Auto Update Tag Options</b>"
 msgstr "<b>Automatisk oppdatering av HTML-tags</b>"
 
-#: ../src/preferences.c:2109
+#: ../src/preferences.c:2151
 msgid "Automatically update a_uthor meta tag"
 msgstr "Oppdater metadata for forfatteren a_utomatisk"
 
-#: ../src/preferences.c:2112
+#: ../src/preferences.c:2154
 msgid "Automatically update _date meta tag"
 msgstr "Oppdater dato automatisk (<date>)"
 
-#: ../src/preferences.c:2115
+#: ../src/preferences.c:2157
 msgid "Automatically update _generator meta tag"
 msgstr "Oppdater <generator> automatisk"
 
-#: ../src/preferences.c:2128
+#: ../src/preferences.c:2170
 msgid "Templates"
 msgstr "Maler"
 
-#: ../src/preferences.c:2130
+#: ../src/preferences.c:2173
 msgid "<b>Templates</b>"
 msgstr "<b>Maler</b>"
 
-#: ../src/preferences.c:2143
+#: ../src/preferences.c:2186
 msgid "User interface"
 msgstr "Brukergrensesnitt"
 
-#: ../src/preferences.c:2145
+#: ../src/preferences.c:2189
 msgid "<b>Document Tabs</b>"
 msgstr "<b>Document Tabs</b>"
 
-#: ../src/preferences.c:2149
+#: ../src/preferences.c:2193
 msgid "_Tab position:"
 msgstr "_Tabulatorposisjon:"
 
-#: ../src/preferences.c:2153
+#: ../src/preferences.c:2197
 msgid "_Switch between tabs with <Alt>+0..9"
 msgstr "B_ytt mellom åpne filer med <Alt>+0..9"
 
-#: ../src/preferences.c:2165
+#: ../src/preferences.c:2209
 msgid "_Language:"
 msgstr "_Språk:"
 
-#: ../src/preferences.c:2168
+#: ../src/preferences.c:2212
 msgid "_Make HTML dialogs transient"
 msgstr "Behold HTML dialoger øverst"
 
-#: ../src/preferences.c:2172
-msgid "Save user customised menu accelerators"
+#: ../src/preferences.c:2216
+#, fuzzy
+msgid "Save menu accelerators on exit"
 msgstr "Lagre brukerdefinerte menysnarveier"
 
-#: ../src/preferences.c:2176
+#: ../src/preferences.c:2219
+#, fuzzy
+msgid "Save user customised menu accelerators now"
+msgstr "Lagre brukerdefinerte menysnarveier"
+
+#: ../src/preferences.c:2223
+msgid "Reset menu accelerators to application defaults"
+msgstr ""
+
+#: ../src/preferences.c:2227
 msgid "<b>Recent Files</b>"
 msgstr "<b>Sist åpnede filer</b>"
 
-#: ../src/preferences.c:2181
+#: ../src/preferences.c:2232
 msgid "_Number of files in 'Open recent' menu:"
 msgstr "A_ntall filer i 'Sist åpnede' menyen"
 
-#: ../src/preferences.c:2187
+#: ../src/preferences.c:2238
 msgid "_Register recent files with your desktop:"
 msgstr "_Registrer sist åpnede filer med skrivebordsmiljøet:"
 
-#: ../src/preferences.c:2191
+#: ../src/preferences.c:2242
 msgid "<b>Sidebar</b>"
 msgstr "<b>Sidefane</b>"
 
-#: ../src/preferences.c:2196
+#: ../src/preferences.c:2247
 msgid "L_ocation:"
 msgstr "Plasseri_ng:"
 
-#: ../src/preferences.c:2200
+#: ../src/preferences.c:2251
 msgid "Tab _position:"
 msgstr "Tabulatorposisjon"
 
-#: ../src/preferences.c:2209
+#: ../src/preferences.c:2260
 msgid "Dimensions"
 msgstr "Størrelser"
 
-#: ../src/preferences.c:2211
+#: ../src/preferences.c:2263
 msgid "<b>Dimensions</b>"
 msgstr "<b>Størrelser</b>"
 
-#: ../src/preferences.c:2213
+#: ../src/preferences.c:2265
 msgid "_Leave dimensions to window manager"
 msgstr "_La window manager styre vindustørrelsen"
 
-#: ../src/preferences.c:2220
+#: ../src/preferences.c:2272
 msgid "_Restore last used dimensions"
 msgstr "Gjenopp_rett sist brukte vindustørrelser"
 
-#: ../src/preferences.c:2228
+#: ../src/preferences.c:2280
 msgid "Initial _sidebar width:"
 msgstr "Standard bredde for sidefane:"
 
-#: ../src/preferences.c:2232
+#: ../src/preferences.c:2284
 msgid "Initial window _height:"
 msgstr "Standard vindushøyde:"
 
-#: ../src/preferences.c:2235
+#: ../src/preferences.c:2287
 msgid "Initial window _width:"
 msgstr "Standard vindusbredde:"
 
-#: ../src/preferences.c:2242
+#: ../src/preferences.c:2294
 msgid "_Limit window title length"
 msgstr "Begrens lengden for vindutitler"
 
-#: ../src/preferences.c:2259
+#: ../src/preferences.c:2312
 msgid "_Use system document tab font"
 msgstr "Br_uk systemets skrifttype for fil-fanene"
 
-#: ../src/preferences.c:2264
+#: ../src/preferences.c:2317
 msgid "_Document tab font:"
 msgstr "Skrift for fil-fane:"
 
-#: ../src/preferences.c:2278
+#: ../src/preferences.c:2331
 msgid "Document error tab color"
 msgstr "Fanefarge ved dokumentfeil"
 
-#: ../src/preferences.c:2280
+#: ../src/preferences.c:2333
 msgid "Document tab _error color:"
 msgstr "Fanefarge v_ed dokumentfeil"
 
-#: ../src/preferences.c:2284
+#: ../src/preferences.c:2337
 msgid "Document loading tab color"
 msgstr "Fanefarge når dokumentet leses inn"
 
-#: ../src/preferences.c:2286
+#: ../src/preferences.c:2339
 msgid "Document tab loadin_g color:"
 msgstr "Fanefar_ge når dokumentet leses inn"
 
-#: ../src/preferences.c:2290
+#: ../src/preferences.c:2343
 msgid "Document modified tab color"
 msgstr "Fanefarge for modifiserte dokument"
 
-#: ../src/preferences.c:2292
+#: ../src/preferences.c:2345
 msgid "Document tab _modified color:"
 msgstr "Fanefarge for _modifiserte dokument:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2305 ../src/rcfile.c:1118
+#: ../src/preferences.c:2358 ../src/rcfile.c:1143
 msgid "Images"
 msgstr "Bilder"
 
-#: ../src/preferences.c:2307
+#: ../src/preferences.c:2361
 msgid "<b>Thumbnails</b>"
 msgstr "<b>Thumbnails</b>"
 
-#: ../src/preferences.c:2313
+#: ../src/preferences.c:2367
 msgid "Thumbnail _filetype:"
 msgstr "Thumbnail _filtype:"
 
-#: ../src/preferences.c:2317
+#: ../src/preferences.c:2371
 msgid "Thumbnail _suffix:"
 msgstr "Thumbnail filendel_se"
 
-#: ../src/preferences.c:2330
+#: ../src/preferences.c:2384
 msgid "External commands"
 msgstr "Eksterne kommandoer"
 
-#: ../src/preferences.c:2332
+#: ../src/preferences.c:2387
 msgid "<b>External Commands</b>"
 msgstr "<b>Eksterne kommandoer</b>"
 
-#: ../src/preferences.c:2345
+#: ../src/preferences.c:2400
 msgid "External filters"
 msgstr "Eksterne filtre"
 
-#: ../src/preferences.c:2347
+#: ../src/preferences.c:2403
 msgid "<b>External Filters</b>"
 msgstr "<b>Eksterne filtre</b>"
 
-#: ../src/preferences.c:2360
+#: ../src/preferences.c:2416
 msgid "Output parsers"
 msgstr "Output parsere"
 
-#: ../src/preferences.c:2362
+#: ../src/preferences.c:2419
 msgid "<b>Output Parsers</b>"
 msgstr "<b>Output parsere</b>"
 
-#: ../src/preferences.c:2375
+#: ../src/preferences.c:2432
 msgid "Plugins"
 msgstr "Plugins"
 
-#: ../src/preferences.c:2377
+#: ../src/preferences.c:2435
 msgid "<b>Plugins</b>"
 msgstr "<b>Plugins</b>"
 
-#: ../src/preferences.c:2390
+#: ../src/preferences.c:2448
 msgid "Text styles"
 msgstr "Tekststiler"
 
-#: ../src/preferences.c:2392
+#: ../src/preferences.c:2451
 msgid "<b>Text Styles</b>"
 msgstr "<b>Tekststiler</b>"
 
-#: ../src/preferences.c:2405
+#: ../src/preferences.c:2464
 msgid "Language support"
 msgstr "Språkstøtte"
 
-#: ../src/preferences.c:2407
+#: ../src/preferences.c:2467
 msgid "<b>Reference Information</b>"
 msgstr "<b>Referanseinformasjon</b>"
 
-#: ../src/preferences.c:2410
+#: ../src/preferences.c:2470
 msgid "_Load from language file"
 msgstr "_Les fra språkfil"
 
-#: ../src/preferences.c:2413
+#: ../src/preferences.c:2473
 msgid "Show in auto-completion _pop-up window"
 msgstr "Vis i autocomplete _pop-up-vindu"
 
-#: ../src/preferences.c:2416
+#: ../src/preferences.c:2476
 msgid "Show in _tooltip window"
 msgstr "Vis i _tooltip vindu"
 
@@ -2789,190 +2816,190 @@ msgstr "Opprett prosjekt basert på de åpne dokumentene"
 msgid "Create empty project"
 msgstr "Opprett tomt prosjekt"
 
-#: ../src/rcfile.c:616 ../src/rcfile.c:699 ../src/rcfile.c:756
+#: ../src/rcfile.c:617 ../src/rcfile.c:700 ../src/rcfile.c:757
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:622 ../src/rcfile.c:704 ../src/rcfile.c:769
+#: ../src/rcfile.c:623 ../src/rcfile.c:705 ../src/rcfile.c:770
 msgid "Sort"
 msgstr "Sorter"
 
-#: ../src/rcfile.c:625 ../src/rcfile.c:707 ../src/rcfile.c:772
+#: ../src/rcfile.c:626 ../src/rcfile.c:708 ../src/rcfile.c:773
 msgid "Sort / Uniq"
 msgstr "Sort / Uniq"
 
-#: ../src/rcfile.c:628 ../src/rcfile.c:775
+#: ../src/rcfile.c:629 ../src/rcfile.c:776
 msgid "Reverse lines"
 msgstr "Reverser linjerekkefølge"
 
-#: ../src/rcfile.c:631 ../src/rcfile.c:778
+#: ../src/rcfile.c:632 ../src/rcfile.c:779
 msgid "Dos2unix"
 msgstr "Dos2Unix"
 
-#: ../src/rcfile.c:633 ../src/rcfile.c:710 ../src/rcfile.c:780
+#: ../src/rcfile.c:634 ../src/rcfile.c:711 ../src/rcfile.c:781
 msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
-#: ../src/rcfile.c:636 ../src/rcfile.c:713 ../src/rcfile.c:783
+#: ../src/rcfile.c:637 ../src/rcfile.c:714 ../src/rcfile.c:784
 msgid "Strip empty lines"
 msgstr "Fjern tomme linjer"
 
-#: ../src/rcfile.c:641
+#: ../src/rcfile.c:642
 msgid "Windows XP Firefox"
 msgstr "Windowx XP Firefox"
 
-#: ../src/rcfile.c:646
+#: ../src/rcfile.c:647
 msgid "Windows XP Internet Explorer"
 msgstr "Windows XP Internet Explorer"
 
-#: ../src/rcfile.c:651
+#: ../src/rcfile.c:652
 msgid "Windows XP Opera"
 msgstr "Windows XP Opera"
 
-#: ../src/rcfile.c:655
+#: ../src/rcfile.c:656
 msgid "Windows XP Safari"
 msgstr "Windows XP Safari"
 
-#: ../src/rcfile.c:659
+#: ../src/rcfile.c:660
 msgid "Windows 7 Firefox 32-bit"
 msgstr "Windows 7 Firefox 32-bit"
 
-#: ../src/rcfile.c:664
+#: ../src/rcfile.c:665
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr "Windows 7 Internet Explorer 32-bit"
 
-#: ../src/rcfile.c:669
+#: ../src/rcfile.c:670
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr "Windows 7 Internet Explorer 64-bit"
 
-#: ../src/rcfile.c:677 ../src/rcfile.c:734
+#: ../src/rcfile.c:678 ../src/rcfile.c:735
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:681 ../src/rcfile.c:738
+#: ../src/rcfile.c:682 ../src/rcfile.c:739
 msgid "weblint HTML checker"
 msgstr "weblint HTML-skanner"
 
-#: ../src/rcfile.c:686 ../src/rcfile.c:743
+#: ../src/rcfile.c:687 ../src/rcfile.c:744
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:690 ../src/rcfile.c:747
+#: ../src/rcfile.c:691 ../src/rcfile.c:748
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:694 ../src/rcfile.c:751
+#: ../src/rcfile.c:695 ../src/rcfile.c:752
 msgid "xmllint XML checker"
 msgstr "xmllint XML-sjekker "
 
-#: ../src/rcfile.c:718
+#: ../src/rcfile.c:719
 msgid "Safari"
 msgstr "Safari"
 
-#: ../src/rcfile.c:721 ../src/rcfile.c:791
+#: ../src/rcfile.c:722 ../src/rcfile.c:792
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:724 ../src/rcfile.c:795
+#: ../src/rcfile.c:725 ../src/rcfile.c:796
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:727 ../src/rcfile.c:821
+#: ../src/rcfile.c:728 ../src/rcfile.c:822
 msgid "chmod a+x"
 msgstr "chmod a+x"
 
-#: ../src/rcfile.c:760
+#: ../src/rcfile.c:761
 msgid "php syntax check"
 msgstr "Syntakssjekk for php"
 
-#: ../src/rcfile.c:764
+#: ../src/rcfile.c:765
 msgid "perl syntax check"
 msgstr "Syntakssjekk for perl"
 
-#: ../src/rcfile.c:786
+#: ../src/rcfile.c:787
 msgid "Render HTML to text"
 msgstr "Rendre HTML til tekst"
 
-#: ../src/rcfile.c:799
+#: ../src/rcfile.c:800
 msgid "Chrome"
 msgstr "Chrome"
 
-#: ../src/rcfile.c:802
+#: ../src/rcfile.c:803
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:806
+#: ../src/rcfile.c:807
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:809
+#: ../src/rcfile.c:810
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:812
+#: ../src/rcfile.c:813
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:815
+#: ../src/rcfile.c:816
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:818
+#: ../src/rcfile.c:819
 msgid "Links2 (graphics)"
 msgstr "Links2 (grafikk)"
 
-#: ../src/rcfile.c:827
+#: ../src/rcfile.c:828
 msgid "C Header"
 msgstr "C header"
 
-#: ../src/rcfile.c:830
+#: ../src/rcfile.c:831
 msgid "C Header GPL"
 msgstr "C Header GPL"
 
-#: ../src/rcfile.c:833
+#: ../src/rcfile.c:834
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:836
+#: ../src/rcfile.c:837
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: ../src/rcfile.c:839
+#: ../src/rcfile.c:840
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:1039
+#: ../src/rcfile.c:1064
 msgid "Untitled Project"
 msgstr "Navnløst prosjekt"
 
-#: ../src/rcfile.c:1110
+#: ../src/rcfile.c:1135
 msgid "C programming"
 msgstr "C programmering"
 
-#: ../src/rcfile.c:1114
+#: ../src/rcfile.c:1139
 msgid "Web files"
 msgstr "Webfiler"
 
-#: ../src/rcfile.c:1121
+#: ../src/rcfile.c:1146
 msgid "Hide objectfiles"
 msgstr "Skjul objektfiler"
 
-#: ../src/snr3.c:641
+#: ../src/snr3.c:645
 msgid "<i>Replace started</i>"
 msgstr "<i>Startet søk og erstatt</i>"
 
-#: ../src/snr3.c:646
+#: ../src/snr3.c:650
 msgid "<i>Search started</i>"
 msgstr "<i>Startet søk</i>"
 
-#: ../src/snr3.c:664
+#: ../src/snr3.c:668
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
 msgstr ""
 "<span foreground=\"red\"><b>Du har ikke markert noen tekst. Søket ble "
 "avbrutt.</b></span>"
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr3.c:673
+#: ../src/snr3.c:677
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
 "span>"
@@ -2980,78 +3007,78 @@ msgstr ""
 "<span foreground=\"red\" weight=\"bold\">Ikke alle dokumenter har blitt lest "
 "inn ennå</span>"
 
-#: ../src/snr3.c:848
+#: ../src/snr3.c:857
 #, c-format
 msgid "<i>Replaced %d entry</i>"
 msgid_plural "<i>Replaced %d entries</i>"
 msgstr[0] "<i>Erstattet %d oppføring</i>"
 msgstr[1] "<i>Erstattet %d oppføringer</i>"
 
-#: ../src/snr3.c:851
+#: ../src/snr3.c:860
 #, c-format
 msgid "<i>Found %d entry</i>"
 msgid_plural "<i>Found %d entries</i>"
 msgstr[0] "<i>Fant %d treff</i>"
 msgstr[1] "<i>Fant %d treff</i>"
 
-#: ../src/snr3.c:1070
+#: ../src/snr3.c:1091
 #, c-format
 msgid "<i>Found %d result in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr[0] "<i>Fant %d treff i %d av de %d gjennomsøkte dokumentene</i>"
 msgstr[1] "<i>Fant %d treff i %d av de %d gjennomsøkte dokumentene</i>"
 
-#: ../src/snr3.c:1074
+#: ../src/snr3.c:1095
 #, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
 msgstr[0] "<i>Fant %d treff fra tegn %d til %d</i>"
 msgstr[1] "<i>Fant %d treff fra tegn %d til %d</i>"
 
-#: ../src/snr3.c:1077
+#: ../src/snr3.c:1098
 #, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
 msgstr[0] "<i>Fant %d treff i det aktive dokumenet</i>"
 msgstr[1] "<i>Fant %d treff i det aktive dokumenet</i>"
 
-#: ../src/snr3.c:1381
+#: ../src/snr3.c:1411
 msgid "Active document"
 msgstr "Aktivt dokument"
 
-#: ../src/snr3.c:1382
+#: ../src/snr3.c:1412
 msgid "Forward from cursor position"
 msgstr "Fremover fra markørens posisjon"
 
-#: ../src/snr3.c:1383
+#: ../src/snr3.c:1413
 msgid "Current selection"
 msgstr "Markert område"
 
-#: ../src/snr3.c:1384
+#: ../src/snr3.c:1414
 msgid "All open documents"
 msgstr "Alle åpne filer"
 
-#: ../src/snr3.c:1385
+#: ../src/snr3.c:1415
 msgid "Files on disk"
 msgstr "Filer på disk"
 
-#: ../src/snr3.c:1389 ../src/snr3.c:1394
+#: ../src/snr3.c:1419 ../src/snr3.c:1424
 msgid "Normal"
 msgstr "Standard"
 
-#: ../src/snr3.c:1390
+#: ../src/snr3.c:1420
 msgid "Regular expression (pcre)"
 msgstr "Regulært uttrykk (pcre)"
 
-#: ../src/snr3.c:1395
+#: ../src/snr3.c:1425
 msgid "Uppercase"
 msgstr "Store bokstaver"
 
-#: ../src/snr3.c:1396
+#: ../src/snr3.c:1426
 msgid "Lowercase"
 msgstr "Små bokstaver"
 
-#: ../src/snr3.c:1403
+#: ../src/snr3.c:1433
 msgid "Find and Replace"
 msgstr "Søk og Erstatt"
 
@@ -3059,55 +3086,60 @@ msgstr "Søk og Erstatt"
 #. search/replace within the selection
 #. if (bfwin->session->searchlist)
 #. gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->search), 0);
-#: ../src/snr3.c:1442
+#: ../src/snr3.c:1472
 msgid "<b>_Search for</b>"
 msgstr "<b>_Søk etter:</b>"
 
-#: ../src/snr3.c:1475
+#: ../src/snr3.c:1505
 msgid "<b>Replace _with</b>"
 msgstr "<b>_Erstatt med</b>"
 
-#: ../src/snr3.c:1497
+#: ../src/snr3.c:1527
 msgid "Match Patter_n: "
 msgstr "Søkemønster: "
 
-#: ../src/snr3.c:1509
+#: ../src/snr3.c:1539
 msgid "Replace T_ype: "
 msgstr "Erstatt T_ype: "
 
-#: ../src/snr3.c:1522
+#: ../src/snr3.c:1552
 msgid "Sco_pe: "
 msgstr "Søkeområde: "
 
-#: ../src/snr3.c:1538
+#: ../src/snr3.c:1568
 msgid "Filename pattern: "
 msgstr "Filnavnmønster:"
 
-#: ../src/snr3.c:1544
+#: ../src/snr3.c:1574
+#, fuzzy
+msgid "Recursion level: "
+msgstr "_Rekursivt:"
+
+#: ../src/snr3.c:1580
 msgid "Basedir: "
 msgstr "Rotkatalog: "
 
-#: ../src/snr3.c:1563
+#: ../src/snr3.c:1599
 msgid "Case sensitive _matching"
 msgstr "Skill store/s_må bokstaver"
 
-#: ../src/snr3.c:1565
+#: ../src/snr3.c:1601
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Indikerer bare et treff dersom store/små bokstaver er like."
 
-#: ../src/snr3.c:1569
+#: ../src/snr3.c:1605
 msgid "Pattern contains escape-se_quences"
 msgstr "Uttrykket inneholder escape-sekvenser (\\n, \\t)"
 
-#: ../src/snr3.c:1572
+#: ../src/snr3.c:1608
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr "Tillater bruk av spesialtegn som \\n, \\t etc i søkeuttrykket."
 
-#: ../src/snr3.c:1576
+#: ../src/snr3.c:1612
 msgid "Dot character in regex pattern matches newlines"
 msgstr "Punktum i regulære uttrykk inkluderer tegn for ny linje"
 
-#: ../src/snr3.c:1579
+#: ../src/snr3.c:1615
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
@@ -3115,20 +3147,22 @@ msgstr ""
 "Punktum (.) vil inkludere alle tegn, inkludert linjebrekk. Denne opsjonen "
 "kan brukes for å lage et søkeuttrykk som dekker flere linjer."
 
-#: ../src/snr3.c:1601
+#: ../src/snr3.c:1637
 msgid "Replace _All"
 msgstr "Erstatt _alle"
 
-#: ../src/snr3.c:1603
+#: ../src/snr3.c:1639
 msgid "_Replace"
 msgstr "E_rstatt"
 
-#: ../src/snr3.c:1607
-msgid "Find All"
+#: ../src/snr3.c:1643
+#, fuzzy
+msgid "_Find All"
 msgstr "Finn Alle"
 
-#: ../src/snr3.c:1609
-msgid "_Bookmark All"
+#: ../src/snr3.c:1645
+#, fuzzy
+msgid "B_ookmark All"
 msgstr "Lagre alle som _bokmerker"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685

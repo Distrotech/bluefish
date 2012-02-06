@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the bluefish package.
 # Marek Černocký <marek@manet.cz>, 2011.
 #
-#: src/plugin_zencoding/zencoding.c:215 src/plugin_zencoding/zencoding.c:216
-#: src/plugin_zencoding/zencoding.c:217 src/plugin_zencoding/zencoding.c:218
-#: src/plugin_zencoding/zencoding.c:219 src/plugin_zencoding/zencoding.c:220
-#: src/plugin_zencoding/zencoding.c:221
+#: src/plugin_zencoding/zencoding.c:183 src/plugin_zencoding/zencoding.c:184
+#: src/plugin_zencoding/zencoding.c:185 src/plugin_zencoding/zencoding.c:186
+#: src/plugin_zencoding/zencoding.c:187 src/plugin_zencoding/zencoding.c:188
+#: src/plugin_zencoding/zencoding.c:189
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 2.2.1\n"
+"Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-12-13 12:09+0100\n"
+"POT-Creation-Date: 2011-12-24 11:43+0100\n"
 "PO-Revision-Date: 2011-12-13 18:27+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
@@ -21,58 +21,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: src/plugin_zencoding/zencoding.c:209
+#: src/plugin_zencoding/zencoding.c:177
 msgid "_Zencoding"
 msgstr "Z_enkód"
 
-#: src/plugin_zencoding/zencoding.c:210
+#: src/plugin_zencoding/zencoding.c:178
 msgid "E_xpand zen-coding"
 msgstr "Rozvést _zen-kód"
 
-#: src/plugin_zencoding/zencoding.c:210
+#: src/plugin_zencoding/zencoding.c:178
 msgid "Expand zen-code at cursor"
 msgstr "Rozvést zen-kód pod kurzorem"
 
-#: src/plugin_zencoding/zencoding.c:211
+#: src/plugin_zencoding/zencoding.c:179
 msgid "Select Tag _Content"
 msgstr "Vybrat o_bsah značky"
 
-#: src/plugin_zencoding/zencoding.c:212
+#: src/plugin_zencoding/zencoding.c:180
 msgid "Select _Tag and Content"
 msgstr "Vybrat znač_ku a její obsah"
 
-#: src/plugin_zencoding/zencoding.c:213
+#: src/plugin_zencoding/zencoding.c:181
 msgid "Wrap with _Abbreviation"
 msgstr "Zalomit pomocí zkr_atky"
 
-#: src/plugin_zencoding/zencoding.c:214
+#: src/plugin_zencoding/zencoding.c:182
 msgid "_Split or Join Tag"
 msgstr "Páro_vá/nepárová značka"
 
-#: src/plugin_zencoding/zencoding.c:215
+#: src/plugin_zencoding/zencoding.c:183
 msgid "_Previous Edit Point"
 msgstr "_Předchozí koncový bod"
 
-#: src/plugin_zencoding/zencoding.c:216
+#: src/plugin_zencoding/zencoding.c:184
 msgid "_Next Edit Point"
 msgstr "_Následující koncový bod"
 
-#: src/plugin_zencoding/zencoding.c:217
+#: src/plugin_zencoding/zencoding.c:185
 msgid "_Insert Formatted Newline"
 msgstr "Vlož_it formátovaný nový řádek"
 
-#: src/plugin_zencoding/zencoding.c:218
+#: src/plugin_zencoding/zencoding.c:186
 msgid "_Go to Matching Pair"
 msgstr "Pře_jít na párovou značku"
 
-#: src/plugin_zencoding/zencoding.c:219
+#: src/plugin_zencoding/zencoding.c:187
 msgid "_Merge Lines"
 msgstr "Slo_učit řádky"
 
-#: src/plugin_zencoding/zencoding.c:220
+#: src/plugin_zencoding/zencoding.c:188
 msgid "_Remove Tag"
 msgstr "Odst_ranit značku"
 
-#: src/plugin_zencoding/zencoding.c:221
+#: src/plugin_zencoding/zencoding.c:189
 msgid "_Evaluate Math Expression"
 msgstr "Vyhodnotit mat_ematický výraz"
