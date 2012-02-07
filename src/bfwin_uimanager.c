@@ -792,10 +792,10 @@ static const GtkActionEntry global_actions[] = {
 	{"DocTabSizeReset", NULL, N_("_Reset"), NULL, N_("Reset document tab size"),
 	 G_CALLBACK(ui_tab_size_reset)},
 #ifdef HAVE_LIBENCHANT
-	{"DocumentRescan", NULL, N_("Rescan Syntax & S_pelling"), "F5", N_("Rescan document highlighting"),
+	{"DocumentRescan", NULL, N_("Rescan Synta_x & Spelling"), "F5", N_("Rescan document highlighting"),
 	 G_CALLBACK(ui_highlighting_update)},
 #else
-	{"DocumentRescan", NULL, N_("_Rescan Syntax"), "F5", N_("Rescan document highlighting"),
+	{"DocumentRescan", NULL, N_("Rescan Synta_x"), "F5", N_("Rescan document highlighting"),
 	 G_CALLBACK(ui_highlighting_update)},
 #endif
 	{"ProjectNew", NULL, N_("_New Project..."), NULL, N_("New project"), G_CALLBACK(ui_project_new)},
