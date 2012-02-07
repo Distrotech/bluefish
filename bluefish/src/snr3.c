@@ -184,8 +184,11 @@ typedef struct {
 
 static void 
 snr3run_update_offsets(Tsnr3run *s3run, Tdocument *doc, guint startpos, gint offset) {
+/* in the case of a replace of '/usr/bin/' in the string '/usr/bin/foo, /usr/bin/bar, /usr/bin/foobar'
+the startpos=9 (the end of the replaced result), offset=-9 and the first next result is at 14
+*/
 	GList *tmplist = g_list_first(s3run->results.head);
-	gint comparepos = (offset > 0) ? startpos : startpos - offset; 
+	gint comparepos = startpos/*(offset > 0) ? startpos : startpos - offset*/; 
 	DEBUG_MSG("snr3run_update_offsets, startpos=%d, offset=%d, comparepos=%d\n",startpos,offset,comparepos);
 	while (tmplist) {
 		if (doc == ((Tsnr3result *)tmplist->data)->doc 
@@ -306,6 +309,7 @@ s3run_replace_current(Tsnr3run *s3run)
 	if (!current)
 		return;
 	s3result = current->data;
+	doc_unre_new_group(s3result->doc);
 	offsetupdate = s3result_replace(s3run, s3result, NULL);
 
 	snr3result_free(s3result, s3run);
@@ -313,13 +317,14 @@ s3run_replace_current(Tsnr3run *s3run)
 	g_queue_delete_link(&s3run->results, current);
 	s3run->current = next;
 	
-	if (s3run->current) {
-		scroll_to_result(s3run->current->data, GTK_WINDOW(((TSNRWin *)s3run->dialog)->dialog));
-	}
 	if (offsetupdate.offset != 0) {
 		/* now re-calculate all the offsets in the results lists!!!!!!!!!!! */
 		snr3run_update_offsets(s3run, offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
 	}
+	if (s3run->current) {
+		scroll_to_result(s3run->current->data, GTK_WINDOW(((TSNRWin *)s3run->dialog)->dialog));
+	}
+
 }
 
 static Tsnr3result * sn3run_add_result(Tsnr3run *s3run, gulong so, gulong eo, gpointer doc) {
