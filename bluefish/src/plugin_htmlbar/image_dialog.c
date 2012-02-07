@@ -109,7 +109,7 @@ static void image_dialog_source_activate(GtkWidget * widget, BluefishImageDialog
 
 static void image_dialog_source_changed(GtkWidget * widget, BluefishImageDialog * dialog);
 
-static void filebutton_clicked(GtkButton * button, BluefishImageDialog * imageDialog);
+/*static void filebutton_clicked(GtkButton * button, BluefishImageDialog * imageDialog);*/
 
 static void image_dialog_height_percent_toggled(GtkToggleButton * togglebutton, BluefishImageDialog * dialog);
 
@@ -307,7 +307,8 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 	g_signal_connect(dialog->priv->source, "activate", G_CALLBACK(image_dialog_source_activate), dialog);
 	g_signal_connect(dialog->priv->source, "changed", G_CALLBACK(image_dialog_source_changed), dialog);
 
-	dialog->priv->fileButton = dialog_button_new_with_image(NULL, GTK_STOCK_OPEN, G_CALLBACK(filebutton_clicked), dialog, TRUE, FALSE);
+	dialog->priv->fileButton = file_but_new2(dialog->priv->source, 0, dialog->priv->bfwin, GTK_FILE_CHOOSER_ACTION_OPEN);
+	/*dialog_button_new_with_image(NULL, GTK_STOCK_OPEN, G_CALLBACK(filebutton_clicked), dialog, TRUE, FALSE);*/
 	gtk_button_set_focus_on_click(GTK_BUTTON(dialog->priv->fileButton), FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), dialog->priv->fileButton, FALSE, FALSE, 0);
 
@@ -928,7 +929,7 @@ image_dialog_source_changed(GtkWidget * widget, BluefishImageDialog * dialog)
 {
 	source_changed_or_activate(dialog, FALSE);
 }
-
+#ifdef NOT_GENERIC_FILEBUT
 static void
 filebutton_clicked(GtkButton * button, BluefishImageDialog * imageDialog)
 {
@@ -994,7 +995,7 @@ filebutton_clicked(GtkButton * button, BluefishImageDialog * imageDialog)
 
 	gtk_widget_destroy(dialog);
 }
-
+#endif 
 static void
 image_dialog_percent_toggled(GtkToggleButton * togglebutton, GtkSpinButton * spinbutton, gdouble origsize)
 {
