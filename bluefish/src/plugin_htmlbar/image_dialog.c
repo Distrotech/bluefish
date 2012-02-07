@@ -29,7 +29,7 @@
 #include "../dialog_utils.h"
 #include "../document.h"
 #include "../file.h"
-
+#include "../gtk_easy.h"
 
 #define BLUEFISH_IMAGE_DIALOG_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE ((object), BLUEFISH_TYPE_IMAGE_DIALOG, BluefishImageDialogPrivate))
 
