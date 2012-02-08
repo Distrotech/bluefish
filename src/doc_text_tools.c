@@ -68,7 +68,7 @@ strip_trailing_spaces(Tdocument * doc)
 	doc_unre_new_group(doc);
 }
 
-static void
+static gint
 join_lines_backend(Tdocument * doc, gint start, gint end)
 {
 	gint i = 0, cstart, cend, coffset;
@@ -76,10 +76,10 @@ join_lines_backend(Tdocument * doc, gint start, gint end)
 	gboolean in_split = FALSE;
 	gint so_line_split = 0, eo_line_split = 0;
 
-	coffset = start;
+	coffset = start; /* the offset in 'buf' compared to the gtktextbuffer */
 	buf = doc_get_chars(doc, start, end);
 	utf8_offset_cache_reset();
-
+	DEBUG_MSG("join_lines_backend, from %d:%d\n",start,end);
 	while (buf[i] != '\0') {
 		if (in_split) {
 			if (buf[i] == '\n' || buf[i] == '\r') {
@@ -109,7 +109,8 @@ join_lines_backend(Tdocument * doc, gint start, gint end)
 		i++;
 	}
 	g_free(buf);
-
+	DEBUG_MSG("join_lines_backend, return offset %d\n",coffset-start);
+	return coffset - start;
 }
 
 void
@@ -128,8 +129,10 @@ join_lines(Tdocument * doc)
 static void
 split_lines_backend(Tdocument * doc, gint start, gint end)
 {
-	gint coffset = 0, count = 0, tabsize;
-	gint startws = 0, endws = 0, starti = 0, endi = -1, requested_size;	/* ws= whitespace, i=indenting */
+	gint coffset = 0; /* the offset that we have introduced since the start of this function call */
+	gint count = 0, tabsize;
+	gint startws = 0, endws = 0, starti = start, endi = -1, requested_size;	
+	/* ws= whitespace, i=indenting, these are character positions in the GtkTextBufferr !!!!!!!! */
 	gint charpos;
 	gchar *buf, *p;
 	gunichar c;
@@ -138,7 +141,9 @@ split_lines_backend(Tdocument * doc, gint start, gint end)
 	p = buf = doc_get_chars(doc, start, end);
 	utf8_offset_cache_reset();
 	requested_size = main_v->props.right_margin_pos;
-	coffset = charpos = start;
+	coffset = 0;
+	charpos = start;
+	DEBUG_MSG("split_lines_backend, from %d:%d on right margin %d\n",start,end, requested_size);
 	c = g_utf8_get_char(p);
 	while (c != '\0') {
 		if (count > requested_size) {
@@ -147,21 +152,22 @@ split_lines_backend(Tdocument * doc, gint start, gint end)
 				endws = charpos;
 			DEBUG_MSG("split_lines, count=%d, startws=%d, endws=%d, coffset=%d c='%c'\n", count, startws,
 					  endws, coffset, c);
-			if (starti == endi) {
+			if (starti == endi || endi==-1) {
 				new_indenting = g_strdup("\n");
 			} else {
-				tmp1 = g_utf8_offset_to_pointer(buf, starti);
-				tmp2 = g_utf8_offset_to_pointer(buf, endi);
+				tmp1 = buf+utf8_byteoffset_to_charsoffset_cached(buf, starti-start);
+				tmp2 = buf+utf8_byteoffset_to_charsoffset_cached(buf, endi-start);
+				/*tmp1 = g_utf8_offset_to_pointer(buf, starti-start);
+				tmp2 = g_utf8_offset_to_pointer(buf, endi-start);*/
 				new_indenting = g_strndup(tmp1, (tmp2 - tmp1));
-				DEBUG_MSG("tmp1=%p, tmp2=%p, len=%d, new_indenting='%s'\n", tmp1, tmp2, (gint) (tmp2 - tmp1),
+				DEBUG_MSG("split_lines_backend, starti=%d,endi=%d, len=%d, bytes=%d, new_indenting='%s'\n", starti, endi, endi-starti, (gint) (tmp2 - tmp1),
 						  new_indenting);
 			}
-			DEBUG_MSG("split_lines, replace from %d to %d with new indenting\n", startws + coffset,
-					  endws + coffset);
+			DEBUG_MSG("split_lines_backend, replace from startws=%d to endws=%d with offset %d with new indenting\n", startws, endws, coffset);
 			count = charpos - endws;
 			doc_replace_text_backend(doc, new_indenting, startws + coffset, endws + coffset);
 			coffset += (g_utf8_strlen(new_indenting, -1) - (endws - startws));
-			DEBUG_MSG("split_lines, new coffset=%d, new count=%d\n", coffset, count);
+			DEBUG_MSG("split_lines_backend, new coffset=%d, new count=%d\n", coffset, count);
 			startws = charpos;
 			endws = charpos;
 			g_free(new_indenting);
@@ -171,28 +177,28 @@ split_lines_backend(Tdocument * doc, gint start, gint end)
 			if (startws < endws) {
 				startws = charpos;
 				endws = charpos;
-				DEBUG_MSG("tab, set startws to %d\n", startws);
+				DEBUG_MSG("split_lines_backend, tab, set startws to %d\n", startws);
 			}
 		} else if (c == ' ') {
 			count++;
 			if (startws < endws) {
 				startws = charpos;
 				endws = charpos;
-				DEBUG_MSG("space, set startws to %d\n", startws);
+				DEBUG_MSG("split_lines_backend, space, set startws to %d\n", startws);
 			}
 		} else if (c == '\n') {
 			count = 0;
 			starti = charpos;
 			endws = startws = charpos + 1;
-			DEBUG_MSG("newline, set starti=%d, endws=startws=%d\n", starti, endws);
+			DEBUG_MSG("split_lines_backend, newline, set starti=%d, endws=startws=%d\n", starti, endws);
 		} else {
 			count++;
 			if (starti > endi) {
 				endi = charpos;
-				DEBUG_MSG("non-whitespace, set endi to %d, starti=%d\n", endi, starti);
+				DEBUG_MSG("split_lines_backend, non-whitespace, set endi to %d, starti=%d\n", endi, starti);
 			} else if (startws >= endws) {
 				endws = charpos;
-				DEBUG_MSG("non-whitespace, set endws to %d\n", endws);
+				DEBUG_MSG("split_lines_backend, non-whitespace, set endws to %d\n", endws);
 			}
 		}
 		p = g_utf8_next_char(p);
@@ -219,14 +225,15 @@ split_lines(Tdocument * doc)
 void
 rewrap_lines(Tdocument * doc)
 {
-	gint start, end;
+	gint start, end, offset;
 	if (!doc_get_selection(doc, &start, &end)) {
 		start = 0;
 		end = -1;
 	}
 	doc_unre_new_group(doc);
-	join_lines_backend(doc, start, end);
-	split_lines_backend(doc, start, end);
+	offset = join_lines_backend(doc, start, end);
+	DEBUG_MSG("rewrap_lines, offset=%d\n",offset);
+	split_lines_backend(doc, start, end == -1 ? end : end+offset);
 	doc_unre_new_group(doc);
 }
 
@@ -458,6 +465,21 @@ duplicate_line(Tdocument *doc)
 	it2 = it1;
 	gtk_text_iter_forward_line(&it2);
 	text = gtk_text_buffer_get_text(doc->buffer,&it1,&it2,TRUE);
+	doc_unre_new_group(doc);
 	gtk_text_buffer_insert(doc->buffer,&it2,text,-1);
 	g_free(text);
+	doc_unre_new_group(doc);
+}
+
+void
+delete_line(Tdocument *doc)
+{
+	GtkTextIter it1, it2;
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &it1, gtk_text_buffer_get_insert(doc->buffer));
+	gtk_text_iter_set_line_offset(&it1,0);
+	it2 = it1;
+	gtk_text_iter_forward_line(&it2);
+	doc_unre_new_group(doc);
+	gtk_text_buffer_delete(doc->buffer, &it1,&it2);
+	doc_unre_new_group(doc);
 }
