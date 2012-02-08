@@ -29,4 +29,5 @@ void toggle_comment(Tdocument *doc);
 void convert_to_columns(Tdocument *doc);
 void select_between_matching_block_boundaries(Tdocument *doc);
 void duplicate_line(Tdocument *doc);
+void delete_line(Tdocument *doc);
 #endif							/* __DOC_TEXT_TOOLS_H_ */

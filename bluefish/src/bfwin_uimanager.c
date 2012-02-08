@@ -639,6 +639,12 @@ ui_duplicate_line(GtkAction * action, gpointer user_data)
 }
 
 static void
+ui_delete_line(GtkAction * action, gpointer user_data)
+{
+	delete_line(BFWIN(user_data)->current_document);
+}
+
+static void
 ui_rewrap_lines(GtkAction * action, gpointer user_data)
 {
 	rewrap_lines(BFWIN(user_data)->current_document);
@@ -808,6 +814,8 @@ static const GtkActionEntry global_actions[] = {
 	 G_CALLBACK(ui_select_block)},
 	 {"DuplicateLine", NULL, N_("Duplica_te Line"), "<control>d", N_("Duplicate the current line"),
 	 G_CALLBACK(ui_duplicate_line)},
+	 {"DeleteLine", NULL, N_("Delete Line"), "<control>y", N_("Delete the current line"),
+	 G_CALLBACK(ui_delete_line)},
 	{"WordCount", NULL, N_("Word Cou_nt"), NULL, N_("Word count"), G_CALLBACK(ui_word_count)},
 	{"IndentingToSpaces", NULL, N_("Indenting to S_paces"), NULL, N_("Indenting to spaces"),
 	 G_CALLBACK(ui_indenting_to_spaces)},
@@ -864,7 +872,7 @@ static const GtkActionEntry document_actions[] = {
 	 G_CALLBACK(ui_file_save)},
 	{"FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _as..."), "<shift><control>S", N_("Save file as"),
 	 G_CALLBACK(ui_file_save_as)},
-	{"FileSaveAll", NULL, N_("Sav_e All"), NULL, N_("Save all files"), G_CALLBACK(ui_file_save_all)},
+	{"FileSaveAll", NULL, N_("Sav_e All"), "<alt><shift>s", N_("Save all files"), G_CALLBACK(ui_file_save_all)},
 	{"FileRevert", GTK_STOCK_REVERT_TO_SAVED, N_("Rever_t to Saved"), NULL, N_("Reload current file"),
 	 G_CALLBACK(ui_file_reload)},
 	{"FileRename", NULL, N_("Rena_me..."), "F2", N_("Rename file"), G_CALLBACK(ui_file_rename)},
@@ -905,11 +913,11 @@ static const GtkActionEntry edit_actions[] = {
 };
 
 static const GtkActionEntry find_replace_actions[] = {
-	{"Find", GTK_STOCK_FIND, N_("_Find..."), "<control>F", N_("Find"), G_CALLBACK(ui_find)},
+	{"Find", GTK_STOCK_FIND, N_("_Find"), "<control>F", N_("Show find bar"), G_CALLBACK(ui_find)},
 	{"FindAgain", NULL, N_("Find A_gain"), "<control>G", N_("Find again"), G_CALLBACK(ui_find_again)},
-	{"FindSelection", NULL, N_("Find from Clip_board"), "<shift><control>F", N_("Find from clipboard"),
+	{"FindSelection", NULL, N_("Find from Clip_board"), "<shift><control>F", N_("Find from clipboard or selection"),
 	 G_CALLBACK(ui_find_from_clipboard)},
-	{"Replace", GTK_STOCK_FIND_AND_REPLACE, N_("Re_place..."), "<control>H", N_("Replace"),
+	{"Replace", GTK_STOCK_FIND_AND_REPLACE, N_("Advanced Find & Re_place..."), "<control>H", N_("Advanced Find and Replace"),
 	 G_CALLBACK(ui_replace)}/*,
 	{"ReplaceAgain", NULL, N_("Replace Agai_n"), "<shift><control>H", N_("Replace again"),
 	 G_CALLBACK(ui_replace_again)}*/

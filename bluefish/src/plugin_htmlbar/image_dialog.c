@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
 * image_dialog.c
 *
-* Copyright (C) 2008-2011 James Hayward and Olivier Sessink
+* Copyright (C) 2008-2012 James Hayward and Olivier Sessink
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
