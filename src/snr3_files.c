@@ -18,7 +18,7 @@
  *
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #define _GNU_SOURCE
 #include <string.h>
