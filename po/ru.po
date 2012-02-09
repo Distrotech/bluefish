@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-02-06 10:54+0100\n"
+"POT-Creation-Date: 2012-02-09 11:11+0000\n"
 "PO-Revision-Date: 2011-03-30 21:43+0400\n"
 "Last-Translator: Fr. Br. George <george@altlinux.org>\n"
 "Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
@@ -32,12 +32,12 @@ msgid "Web Development Editor"
 msgstr "Редактор для веб-разработки"
 
 #: ../desktop-data/bluefish.xml.in.h:1
-msgid "Bluefish language definition file"
-msgstr "Файл определений языка Bluefish"
-
-#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish project file"
 msgstr "Файл проекта Bluefish"
+
+#: ../desktop-data/bluefish.xml.in.h:2
+msgid "Bluefish language definition file"
+msgstr "Файл определений языка Bluefish"
 
 #: ../src/bftextview2.c:1469
 msgid "Collapse all"
@@ -92,777 +92,781 @@ msgstr "Новое окно Bluefish"
 msgid "Stand by..."
 msgstr "Почти готово..."
 
-#: ../src/bfwin_uimanager.c:690
+#: ../src/bfwin_uimanager.c:696
 msgid "Leave Fullscreen"
 msgstr "Завершить полноэкранный режим"
 
-#: ../src/bfwin_uimanager.c:690
+#: ../src/bfwin_uimanager.c:696
 msgid "Fullscreen"
 msgstr "Войти в полноэкранный режим"
 
-#: ../src/bfwin_uimanager.c:740
+#: ../src/bfwin_uimanager.c:746
 msgid "_File"
 msgstr "_Файл"
 
-#: ../src/bfwin_uimanager.c:741
+#: ../src/bfwin_uimanager.c:747
 msgid "New From Template"
 msgstr "Создать из шаблона"
 
-#: ../src/bfwin_uimanager.c:742 ../src/bfwin_uimanager.c:752
+#: ../src/bfwin_uimanager.c:748 ../src/bfwin_uimanager.c:758
 msgid "Open _Recent"
 msgstr "Открыть _недавние"
 
-#: ../src/bfwin_uimanager.c:743
+#: ../src/bfwin_uimanager.c:749
 msgid "_Edit"
 msgstr "_Правка"
 
-#: ../src/bfwin_uimanager.c:744
+#: ../src/bfwin_uimanager.c:750
 msgid "_View"
 msgstr "_Вид"
 
-#: ../src/bfwin_uimanager.c:745
+#: ../src/bfwin_uimanager.c:751
 msgid "_Document"
 msgstr "_Документ"
 
-#: ../src/bfwin_uimanager.c:746
+#: ../src/bfwin_uimanager.c:752
 msgid "_Tab Size"
 msgstr "Размер _табуляции"
 
-#: ../src/bfwin_uimanager.c:747
+#: ../src/bfwin_uimanager.c:753
 msgid "_Font Size"
 msgstr "Размер _шрифта"
 
-#: ../src/bfwin_uimanager.c:748
+#: ../src/bfwin_uimanager.c:754
 msgid "Language M_ode"
 msgstr "Режим _языка"
 
-#: ../src/bfwin_uimanager.c:749
+#: ../src/bfwin_uimanager.c:755
 msgid "Character _Encoding"
 msgstr "Кодировка _символов:"
 
-#: ../src/bfwin_uimanager.c:750
+#: ../src/bfwin_uimanager.c:756
 msgid "_Go"
 msgstr "Пере_ход"
 
-#: ../src/bfwin_uimanager.c:751
+#: ../src/bfwin_uimanager.c:757
 msgid "_Project"
 msgstr "Прое_кт"
 
-#: ../src/bfwin_uimanager.c:753
+#: ../src/bfwin_uimanager.c:759
 msgid "_Tools"
 msgstr "С_ервис"
 
-#: ../src/bfwin_uimanager.c:754
+#: ../src/bfwin_uimanager.c:760
 msgid "_Commands"
 msgstr "_Команды"
 
-#: ../src/bfwin_uimanager.c:755
+#: ../src/bfwin_uimanager.c:761
 msgid "_Filters"
 msgstr "_Фильтры"
 
-#: ../src/bfwin_uimanager.c:756
+#: ../src/bfwin_uimanager.c:762
 msgid "_Outputbox"
 msgstr "Окно _вывода"
 
-#: ../src/bfwin_uimanager.c:760
+#: ../src/bfwin_uimanager.c:766
 msgid "_New"
 msgstr "_Новый"
 
-#: ../src/bfwin_uimanager.c:760 ../src/filebrowser2.c:1623
+#: ../src/bfwin_uimanager.c:766 ../src/filebrowser2.c:1623
 #: ../src/filebrowser2.c:1625 ../src/filebrowser2.c:2019
 msgid "New file"
 msgstr "Новый файл"
 
-#: ../src/bfwin_uimanager.c:761
+#: ../src/bfwin_uimanager.c:767
 msgid "New _Window"
 msgstr "Новое о_кно"
 
-#: ../src/bfwin_uimanager.c:761
+#: ../src/bfwin_uimanager.c:767
 msgid "New window"
 msgstr "Новое окно"
 
-#: ../src/bfwin_uimanager.c:763
+#: ../src/bfwin_uimanager.c:769
 msgid "Close Win_dow"
 msgstr "Закры_ть окно"
 
-#: ../src/bfwin_uimanager.c:763
+#: ../src/bfwin_uimanager.c:769
 msgid "Close window"
 msgstr "Закрыть окно"
 
-#: ../src/bfwin_uimanager.c:764
+#: ../src/bfwin_uimanager.c:770
 msgid "_Open..."
 msgstr "_Открыть..."
 
-#: ../src/bfwin_uimanager.c:764
+#: ../src/bfwin_uimanager.c:770
 msgid "Open file"
 msgstr "Открыть файл"
 
-#: ../src/bfwin_uimanager.c:765
+#: ../src/bfwin_uimanager.c:771
 msgid "Open Ad_vanced..."
 msgstr "Открыть рас_ширенный диалог..."
 
-#: ../src/bfwin_uimanager.c:765 ../src/filebrowser2.c:2015
+#: ../src/bfwin_uimanager.c:771 ../src/filebrowser2.c:2015
 msgid "Open advanced"
 msgstr "Специальное открытие..."
 
-#: ../src/bfwin_uimanager.c:767
+#: ../src/bfwin_uimanager.c:773
 msgid "Open _from Selection"
 msgstr "Открыть из в_ыделения"
 
-#: ../src/bfwin_uimanager.c:767
+#: ../src/bfwin_uimanager.c:773
 msgid "Open from Selection"
 msgstr "Открыть из выделения"
 
-#: ../src/bfwin_uimanager.c:769
+#: ../src/bfwin_uimanager.c:775
 msgid "_Insert..."
 msgstr "_Вставить..."
 
-#: ../src/bfwin_uimanager.c:769
+#: ../src/bfwin_uimanager.c:775
 msgid "Insert file"
 msgstr "Вставить файл"
 
-#: ../src/bfwin_uimanager.c:770
+#: ../src/bfwin_uimanager.c:776
 msgid "U_pload / Download..."
 msgstr "В_ыгрузка / Загрузка..."
 
-#: ../src/bfwin_uimanager.c:772
+#: ../src/bfwin_uimanager.c:778
 msgid "_Quit"
 msgstr "Вы_ход"
 
-#: ../src/bfwin_uimanager.c:772
+#: ../src/bfwin_uimanager.c:778
 msgid "Quit Bluefish"
 msgstr "Выйти из Bluefish"
 
-#: ../src/bfwin_uimanager.c:773
+#: ../src/bfwin_uimanager.c:779
 msgid "Preference_s..."
 msgstr "_Настройки..."
 
-#: ../src/bfwin_uimanager.c:773
+#: ../src/bfwin_uimanager.c:779
 msgid "Edit Preferences"
 msgstr "Редактирование настроек"
 
-#: ../src/bfwin_uimanager.c:775
+#: ../src/bfwin_uimanager.c:781
 msgid "Select _All"
 msgstr "В_ыбрать все"
 
-#: ../src/bfwin_uimanager.c:775
+#: ../src/bfwin_uimanager.c:781
 msgid "Select all"
 msgstr "Выбрать все"
 
-#: ../src/bfwin_uimanager.c:776
+#: ../src/bfwin_uimanager.c:782
 msgid "Add Boo_kmark"
 msgstr "Добавить _закладку"
 
-#: ../src/bfwin_uimanager.c:776 ../src/document.c:1835
+#: ../src/bfwin_uimanager.c:782 ../src/document.c:1835
 msgid "Add bookmark"
 msgstr "Добавить закладку"
 
-#: ../src/bfwin_uimanager.c:778
+#: ../src/bfwin_uimanager.c:784
 msgid "_Add or Remove..."
 msgstr "_Добавить или удалить"
 
-#: ../src/bfwin_uimanager.c:778
+#: ../src/bfwin_uimanager.c:784
 msgid "Add or remove character encoding"
 msgstr "Добавить или удалить кодировки"
 
-#: ../src/bfwin_uimanager.c:780
+#: ../src/bfwin_uimanager.c:786
 msgid "Floati_ng Window"
 msgstr "П_лавающее окно"
 
-#: ../src/bfwin_uimanager.c:780
+#: ../src/bfwin_uimanager.c:786
 msgid "Open current document in floating window"
 msgstr "Открыть текущий документ в плавающем окне"
 
-#: ../src/bfwin_uimanager.c:782 ../src/bfwin_uimanager.c:788
+#: ../src/bfwin_uimanager.c:788 ../src/bfwin_uimanager.c:794
 msgid "_Increase"
 msgstr "_Увеличить"
 
-#: ../src/bfwin_uimanager.c:782
+#: ../src/bfwin_uimanager.c:788
 msgid "Increase document font size"
 msgstr "Увеличить размер шрифта в документе"
 
-#: ../src/bfwin_uimanager.c:784 ../src/bfwin_uimanager.c:790
+#: ../src/bfwin_uimanager.c:790 ../src/bfwin_uimanager.c:796
 msgid "_Decrease"
 msgstr "У_меньшить"
 
-#: ../src/bfwin_uimanager.c:784
+#: ../src/bfwin_uimanager.c:790
 msgid "Decrease document font size"
 msgstr "Уменьшить размер шрифта в документе"
 
-#: ../src/bfwin_uimanager.c:786 ../src/bfwin_uimanager.c:792
+#: ../src/bfwin_uimanager.c:792 ../src/bfwin_uimanager.c:798
 msgid "_Reset"
 msgstr "_Восстановить"
 
-#: ../src/bfwin_uimanager.c:786
+#: ../src/bfwin_uimanager.c:792
 msgid "Reset document font size"
 msgstr "Восстановить размер шрифта в документе"
 
-#: ../src/bfwin_uimanager.c:788
+#: ../src/bfwin_uimanager.c:794
 msgid "Increase document tab size"
 msgstr "Увеличить отступ в документе"
 
-#: ../src/bfwin_uimanager.c:790
+#: ../src/bfwin_uimanager.c:796
 msgid "Decrease document tab size"
 msgstr "Уменьшить отступ в документе"
 
-#: ../src/bfwin_uimanager.c:792
+#: ../src/bfwin_uimanager.c:798
 msgid "Reset document tab size"
 msgstr "Восстановить отступ в документе"
 
-#: ../src/bfwin_uimanager.c:795
-msgid "Rescan Syntax & S_pelling"
+#: ../src/bfwin_uimanager.c:801
+msgid "Rescan Synta_x & Spelling"
 msgstr "_Перепроверить синтаксис и орфографию"
 
-#: ../src/bfwin_uimanager.c:795 ../src/bfwin_uimanager.c:798
+#: ../src/bfwin_uimanager.c:801 ../src/bfwin_uimanager.c:804
 msgid "Rescan document highlighting"
 msgstr "Обновить подсветку документа"
 
-#: ../src/bfwin_uimanager.c:798
-msgid "_Rescan Syntax"
+#: ../src/bfwin_uimanager.c:804
+msgid "Rescan Synta_x"
 msgstr "_Перепроверить синтаксис"
 
-#: ../src/bfwin_uimanager.c:801
+#: ../src/bfwin_uimanager.c:807
 msgid "_New Project..."
 msgstr "_Новый проект..."
 
-#: ../src/bfwin_uimanager.c:801 ../src/project.c:208
+#: ../src/bfwin_uimanager.c:807 ../src/project.c:208
 msgid "New project"
 msgstr "Новый проект"
 
-#: ../src/bfwin_uimanager.c:802
+#: ../src/bfwin_uimanager.c:808
 msgid "_Open Project..."
 msgstr "_Открыть проект..."
 
-#: ../src/bfwin_uimanager.c:802
+#: ../src/bfwin_uimanager.c:808
 msgid "Open project"
 msgstr "Новый проект"
 
-#: ../src/bfwin_uimanager.c:803
+#: ../src/bfwin_uimanager.c:809
 msgid "_Synchronize Text Block"
 msgstr "_Синхронизация текстового блока"
 
-#: ../src/bfwin_uimanager.c:803 ../src/blocksync.c:296
+#: ../src/bfwin_uimanager.c:809 ../src/blocksync.c:296
 msgid "Synchronize text block"
 msgstr "Синхронизация текстового блока"
 
-#: ../src/bfwin_uimanager.c:805
+#: ../src/bfwin_uimanager.c:811
 msgid "To_ggle Comment"
 msgstr "Режим _комментария"
 
-#: ../src/bfwin_uimanager.c:805
+#: ../src/bfwin_uimanager.c:811
 msgid "Toggle comment"
 msgstr "Включить/выключить режим комментария"
 
-#: ../src/bfwin_uimanager.c:807
+#: ../src/bfwin_uimanager.c:813
 msgid "Select _Block"
 msgstr "Выбрать _блок"
 
-#: ../src/bfwin_uimanager.c:807
+#: ../src/bfwin_uimanager.c:813
 msgid "Select block, use multiple times to select parent blocks "
 msgstr "Выделить блок (повторное выделение определяет родительские блок) "
 
-#: ../src/bfwin_uimanager.c:809
-#, fuzzy
+#: ../src/bfwin_uimanager.c:815
 msgid "Duplica_te Line"
-msgstr "_Подсвечивать текущую строку"
+msgstr "_Удвоить строку"
 
-#: ../src/bfwin_uimanager.c:809
-#, fuzzy
+#: ../src/bfwin_uimanager.c:815
 msgid "Duplicate the current line"
-msgstr "_Подсвечивать текущую строку"
+msgstr "Удвоить текущую строку"
 
-#: ../src/bfwin_uimanager.c:811
+#: ../src/bfwin_uimanager.c:817
+msgid "Delete Line"
+msgstr "Удалить строку"
+
+#: ../src/bfwin_uimanager.c:817
+msgid "Delete the current line"
+msgstr "Удалить текущую строку"
+
+#: ../src/bfwin_uimanager.c:819
 msgid "Word Cou_nt"
 msgstr "_Количество слов"
 
-#: ../src/bfwin_uimanager.c:811
+#: ../src/bfwin_uimanager.c:819
 msgid "Word count"
 msgstr "Количество слов"
 
-#: ../src/bfwin_uimanager.c:812
-#, fuzzy
+#: ../src/bfwin_uimanager.c:820
 msgid "Indenting to S_paces"
 msgstr "Отступы по _пробелам"
 
-#: ../src/bfwin_uimanager.c:812
+#: ../src/bfwin_uimanager.c:820
 msgid "Indenting to spaces"
 msgstr "Отступы по пробелам"
 
-#: ../src/bfwin_uimanager.c:814
-#, fuzzy
+#: ../src/bfwin_uimanager.c:822
 msgid "Indenting to T_abs"
 msgstr "Отступы по _табуляции"
 
-#: ../src/bfwin_uimanager.c:814
+#: ../src/bfwin_uimanager.c:822
 msgid "Indenting to tabs"
 msgstr "Отступы по табуляции"
 
-#: ../src/bfwin_uimanager.c:816
+#: ../src/bfwin_uimanager.c:824
 msgid "_Join Lines Together"
 msgstr "_Объединить строки"
 
-#: ../src/bfwin_uimanager.c:816
+#: ../src/bfwin_uimanager.c:824
 msgid "Join lines together"
 msgstr "Объединить строки"
 
-#: ../src/bfwin_uimanager.c:818
+#: ../src/bfwin_uimanager.c:826
 msgid "Split Lines on Right _Margin"
 msgstr "_Разбить строки по правому полю"
 
-#: ../src/bfwin_uimanager.c:818
+#: ../src/bfwin_uimanager.c:826
 msgid "Split lines on right margin"
 msgstr "Разбить строки по правому полю"
 
-#: ../src/bfwin_uimanager.c:820
+#: ../src/bfwin_uimanager.c:828
 msgid "Merge Lines Into Col_umns"
 msgstr "Объединить строки в несколько _колонок"
 
-#: ../src/bfwin_uimanager.c:820
+#: ../src/bfwin_uimanager.c:828
 msgid "Merge lines into columns"
 msgstr "Объединить строки в несколько колонок"
 
-#: ../src/bfwin_uimanager.c:822
+#: ../src/bfwin_uimanager.c:830
 msgid "Rewrap _Lines"
 msgstr "Повторно _разбить строки"
 
-#: ../src/bfwin_uimanager.c:822
+#: ../src/bfwin_uimanager.c:830
 msgid "Rewrap lines"
 msgstr "Повторно разбить строки"
 
-#: ../src/bfwin_uimanager.c:823
+#: ../src/bfwin_uimanager.c:831
 msgid "Strip T_railing Whitespace"
 msgstr "Убрать _пробелы в конце строк"
 
-#: ../src/bfwin_uimanager.c:823
+#: ../src/bfwin_uimanager.c:831
 msgid "Strip trailing whitespace"
 msgstr "Убрать пробелы в конце строк"
 
-#: ../src/bfwin_uimanager.c:825
+#: ../src/bfwin_uimanager.c:833
 msgid "Preview in browser"
 msgstr "Просмотр в браузере"
 
-#: ../src/bfwin_uimanager.c:830
+#: ../src/bfwin_uimanager.c:838
 msgid "_Full Screen"
 msgstr "На весь _экран"
 
-#: ../src/bfwin_uimanager.c:830
+#: ../src/bfwin_uimanager.c:838
 msgid "Full screen"
 msgstr "На весь экран"
 
-#: ../src/bfwin_uimanager.c:832
+#: ../src/bfwin_uimanager.c:840
 msgid "_Main Toolbar"
 msgstr "Основная _панель инструментов"
 
-#: ../src/bfwin_uimanager.c:832
+#: ../src/bfwin_uimanager.c:840
 msgid "Show main toolbar"
 msgstr "Показать основную панель инструментов"
 
-#: ../src/bfwin_uimanager.c:834
+#: ../src/bfwin_uimanager.c:842
 msgid "_Side Pane"
 msgstr "_Боковая панель"
 
-#: ../src/bfwin_uimanager.c:834
+#: ../src/bfwin_uimanager.c:842
 msgid "Show side pane"
 msgstr "Показывать боковую панель"
 
-#: ../src/bfwin_uimanager.c:835
+#: ../src/bfwin_uimanager.c:843
 msgid "_Output Pane"
 msgstr "Панель в_ывода"
 
-#: ../src/bfwin_uimanager.c:835
+#: ../src/bfwin_uimanager.c:843
 msgid "Show output pane"
 msgstr "Показать панель вывода"
 
-#: ../src/bfwin_uimanager.c:837
+#: ../src/bfwin_uimanager.c:845
 msgid "Status_bar"
 msgstr "_Строка состояния"
 
-#: ../src/bfwin_uimanager.c:837
+#: ../src/bfwin_uimanager.c:845
 msgid "Show statusbar"
 msgstr "Показать строку состояния"
 
-#: ../src/bfwin_uimanager.c:839
+#: ../src/bfwin_uimanager.c:847
 msgid "Auto _Completion Popup"
 msgstr "Подска_зки автодополнения"
 
-#: ../src/bfwin_uimanager.c:839
+#: ../src/bfwin_uimanager.c:847
 msgid "Show auto completion popup"
 msgstr "Показывать всплывающие подсказки автодополнения"
 
-#: ../src/bfwin_uimanager.c:841
+#: ../src/bfwin_uimanager.c:849
 msgid "_Auto Indent"
 msgstr "_Автоотступ"
 
-#: ../src/bfwin_uimanager.c:841
+#: ../src/bfwin_uimanager.c:849
 msgid "Auto indent"
 msgstr "Ставить отступы автоматически"
 
-#: ../src/bfwin_uimanager.c:842
+#: ../src/bfwin_uimanager.c:850
 msgid "Highlight Block _Delimiters"
 msgstr "Подсвечивать _границы соответствующего блока"
 
-#: ../src/bfwin_uimanager.c:843
+#: ../src/bfwin_uimanager.c:851
 msgid "Highlight block delimiters"
 msgstr "Подсвечивать границы соответствующего блока"
 
-#: ../src/bfwin_uimanager.c:844
+#: ../src/bfwin_uimanager.c:852
 msgid "_Highlight Syntax"
 msgstr "_Подсветка синтаксиса"
 
-#: ../src/bfwin_uimanager.c:844
+#: ../src/bfwin_uimanager.c:852
 msgid "Highlight syntax"
 msgstr "Подсвечивать синтаксис"
 
-#: ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:854
 msgid "Show _Blocks"
 msgstr "Показывать _блоки"
 
-#: ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:854
 msgid "Show blocks"
 msgstr "Показывать блоки"
 
-#: ../src/bfwin_uimanager.c:847
+#: ../src/bfwin_uimanager.c:855
 msgid "Show Line N_umbers"
 msgstr "Показывать _номера строк"
 
-#: ../src/bfwin_uimanager.c:847
+#: ../src/bfwin_uimanager.c:855
 msgid "Show line numbers"
 msgstr "Показывать номера строк"
 
-#: ../src/bfwin_uimanager.c:849
+#: ../src/bfwin_uimanager.c:857
 msgid "Show Right _Margin"
 msgstr "Показать _правое поле"
 
-#: ../src/bfwin_uimanager.c:849
+#: ../src/bfwin_uimanager.c:857
 msgid "Show right margin"
 msgstr "Показать правое поле"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:859
 msgid "Show Split _View"
 msgstr "Разделить _окна"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:859
 msgid "Show split view"
 msgstr "Показывать окна раздельно"
 
-#: ../src/bfwin_uimanager.c:853
+#: ../src/bfwin_uimanager.c:861
 msgid "Show V_isible Spacing"
 msgstr "Показать видимые _отступы"
 
-#: ../src/bfwin_uimanager.c:853
+#: ../src/bfwin_uimanager.c:861
 msgid "Show visible spacing"
 msgstr "Показать видимые отступы"
 
-#: ../src/bfwin_uimanager.c:855
+#: ../src/bfwin_uimanager.c:863
 msgid "_Wrap Text"
 msgstr "_Перенести текст"
 
-#: ../src/bfwin_uimanager.c:855
+#: ../src/bfwin_uimanager.c:863
 msgid "Wrap text"
 msgstr "Перенести текст"
 
-#: ../src/bfwin_uimanager.c:859 ../src/document.c:2829
+#: ../src/bfwin_uimanager.c:867 ../src/document.c:2829
 msgid "_Close"
 msgstr "_Закрыть"
 
-#: ../src/bfwin_uimanager.c:859
+#: ../src/bfwin_uimanager.c:867
 msgid "Close current file"
 msgstr "Закрыть текущий файл"
 
-#: ../src/bfwin_uimanager.c:861
+#: ../src/bfwin_uimanager.c:869
 msgid "Close A_ll"
 msgstr "Закрыть _все"
 
-#: ../src/bfwin_uimanager.c:861
+#: ../src/bfwin_uimanager.c:869
 msgid "Close all files"
 msgstr "Закрыть все файлы"
 
-#: ../src/bfwin_uimanager.c:863 ../src/bfwin_uimanager.c:921
+#: ../src/bfwin_uimanager.c:871 ../src/bfwin_uimanager.c:929
 #: ../src/file_dialogs.c:1423
 msgid "_Save"
 msgstr "_Сохранить"
 
-#: ../src/bfwin_uimanager.c:863
+#: ../src/bfwin_uimanager.c:871
 msgid "Save current file"
 msgstr "Сохранить текущий файл"
 
-#: ../src/bfwin_uimanager.c:865 ../src/bfwin_uimanager.c:922
+#: ../src/bfwin_uimanager.c:873 ../src/bfwin_uimanager.c:930
 msgid "Save _as..."
 msgstr "Сохранить _как..."
 
-#: ../src/bfwin_uimanager.c:865
+#: ../src/bfwin_uimanager.c:873
 msgid "Save file as"
 msgstr "Сохранить файл как"
 
-#: ../src/bfwin_uimanager.c:867
+#: ../src/bfwin_uimanager.c:875
 msgid "Sav_e All"
 msgstr "_Сохранить все"
 
-#: ../src/bfwin_uimanager.c:867
+#: ../src/bfwin_uimanager.c:875
 msgid "Save all files"
 msgstr "Сохранить все файлы"
 
-#: ../src/bfwin_uimanager.c:868
+#: ../src/bfwin_uimanager.c:876
 msgid "Rever_t to Saved"
 msgstr "Вернуть к сохраненному вариан_ту"
 
-#: ../src/bfwin_uimanager.c:868
+#: ../src/bfwin_uimanager.c:876
 msgid "Reload current file"
 msgstr "Загрузить текущий файл по новой"
 
-#: ../src/bfwin_uimanager.c:870
+#: ../src/bfwin_uimanager.c:878
 msgid "Rena_me..."
 msgstr "Переи_меновать..."
 
-#: ../src/bfwin_uimanager.c:870
+#: ../src/bfwin_uimanager.c:878
 msgid "Rename file"
 msgstr "Переименовать файл"
 
-#: ../src/bfwin_uimanager.c:871
+#: ../src/bfwin_uimanager.c:879
 msgid "_Indent"
 msgstr "Сдвинуть в_право"
 
-#: ../src/bfwin_uimanager.c:871
+#: ../src/bfwin_uimanager.c:879
 msgid "Indent"
 msgstr "Сдвинуть вправо"
 
-#: ../src/bfwin_uimanager.c:872
+#: ../src/bfwin_uimanager.c:880
 msgid "Unin_dent"
 msgstr "Сдвинуть в_лево"
 
-#: ../src/bfwin_uimanager.c:872
+#: ../src/bfwin_uimanager.c:880
 msgid "Unindent"
 msgstr "Сдвинуть влево"
 
-#: ../src/bfwin_uimanager.c:874
+#: ../src/bfwin_uimanager.c:882
 msgid "F_irst Bookmark"
 msgstr "_Первая закладка"
 
-#: ../src/bfwin_uimanager.c:874
+#: ../src/bfwin_uimanager.c:882
 msgid "Goto first bookmark"
 msgstr "Перейти на первую закладку"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:884
 msgid "L_ast Bookmark"
 msgstr "Последняя _закладка"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:884
 msgid "Goto last bookmark"
 msgstr "Перейти на последнюю закладку"
 
-#: ../src/bfwin_uimanager.c:878
+#: ../src/bfwin_uimanager.c:886
 msgid "N_ext Bookmark"
 msgstr "С_ледующая закладка"
 
-#: ../src/bfwin_uimanager.c:878
+#: ../src/bfwin_uimanager.c:886
 msgid "Goto next bookmark"
 msgstr "Перейти на следующую закладку"
 
-#: ../src/bfwin_uimanager.c:880
+#: ../src/bfwin_uimanager.c:888
 msgid "P_revious Bookmark"
 msgstr "П_редыдущая закладка"
 
-#: ../src/bfwin_uimanager.c:881 ../src/bfwin_uimanager.c:892
+#: ../src/bfwin_uimanager.c:889 ../src/bfwin_uimanager.c:900
 msgid "Goto previous document"
 msgstr "Перейти к предыдущему документу"
 
-#: ../src/bfwin_uimanager.c:882
+#: ../src/bfwin_uimanager.c:890
 msgid "Move Tab _Left"
 msgstr "Вкладку в_лево"
 
-#: ../src/bfwin_uimanager.c:882
+#: ../src/bfwin_uimanager.c:890
 msgid "Move current tab left"
 msgstr "Переместить текущую вкладку влево"
 
-#: ../src/bfwin_uimanager.c:884
+#: ../src/bfwin_uimanager.c:892
 msgid "Move Tab _Right"
 msgstr "Вкладку в_право"
 
-#: ../src/bfwin_uimanager.c:884
+#: ../src/bfwin_uimanager.c:892
 msgid "Move current tab right"
 msgstr "Переместить текущую вкладку вправо"
 
-#: ../src/bfwin_uimanager.c:886
+#: ../src/bfwin_uimanager.c:894
 msgid "_First Document"
 msgstr "Пе_рвый документ"
 
-#: ../src/bfwin_uimanager.c:886
+#: ../src/bfwin_uimanager.c:894
 msgid "Goto first document"
 msgstr "перейти к первому документу"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:896
 msgid "_Last Document"
 msgstr "Пос_ледний документ"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:896
 msgid "Goto last document"
 msgstr "Перейти к последнему документу"
 
-#: ../src/bfwin_uimanager.c:890
+#: ../src/bfwin_uimanager.c:898
 msgid "_Next Document"
 msgstr "_Следующий документ"
 
-#: ../src/bfwin_uimanager.c:890
+#: ../src/bfwin_uimanager.c:898
 msgid "Goto next document"
 msgstr "Перейти к следующему документу"
 
-#: ../src/bfwin_uimanager.c:892
+#: ../src/bfwin_uimanager.c:900
 msgid "_Previous Document"
 msgstr "_Предыдущий документ"
 
-#: ../src/bfwin_uimanager.c:894
+#: ../src/bfwin_uimanager.c:902
 msgid "Goto _Line"
 msgstr "Перейти к _строке:"
 
-#: ../src/bfwin_uimanager.c:894
+#: ../src/bfwin_uimanager.c:902
 msgid "Goto line"
 msgstr "Перейти к строке:"
 
-#: ../src/bfwin_uimanager.c:895
+#: ../src/bfwin_uimanager.c:903
 msgid "Goto Line Number from _Clipboard"
 msgstr "Перейти к номеру строки из буфера _обмена"
 
-#: ../src/bfwin_uimanager.c:896
+#: ../src/bfwin_uimanager.c:904
 msgid "Goto line number in clipboard or selection"
 msgstr "Перейти к номеру строки из отмеченного или буфера обмена"
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:905
 msgid "_Jump to Reference"
 msgstr "Перейти по _ссылке"
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:905
 msgid "Jump to reference"
 msgstr "Перейти по ссылке"
 
-#: ../src/bfwin_uimanager.c:902
+#: ../src/bfwin_uimanager.c:910
 msgid "Cu_t"
 msgstr "_Вырезать"
 
-#: ../src/bfwin_uimanager.c:902
+#: ../src/bfwin_uimanager.c:910
 msgid "Cut"
 msgstr "Вырезать"
 
-#: ../src/bfwin_uimanager.c:903
+#: ../src/bfwin_uimanager.c:911
 msgid "_Copy"
 msgstr "_Копировать"
 
-#: ../src/bfwin_uimanager.c:903
+#: ../src/bfwin_uimanager.c:911
 msgid "Copy"
 msgstr "Копировать"
 
-#: ../src/bfwin_uimanager.c:904
+#: ../src/bfwin_uimanager.c:912
 msgid "_Paste"
 msgstr "_Вставить"
 
-#: ../src/bfwin_uimanager.c:904
+#: ../src/bfwin_uimanager.c:912
 msgid "Paste"
 msgstr "Вставить"
 
-#: ../src/bfwin_uimanager.c:908
-msgid "_Find..."
-msgstr "_Найти..."
+#: ../src/bfwin_uimanager.c:916
+msgid "_Find"
+msgstr "_Найти"
 
-#: ../src/bfwin_uimanager.c:908
-msgid "Find"
-msgstr "Найти"
+#: ../src/bfwin_uimanager.c:916
+msgid "Show find bar"
+msgstr "Показать панель поиска"
 
-#: ../src/bfwin_uimanager.c:909
+#: ../src/bfwin_uimanager.c:917
 msgid "Find A_gain"
 msgstr "Найти _следующее"
 
-#: ../src/bfwin_uimanager.c:909
+#: ../src/bfwin_uimanager.c:917
 msgid "Find again"
 msgstr "Найти _следующее"
 
-#: ../src/bfwin_uimanager.c:910
+#: ../src/bfwin_uimanager.c:918
 msgid "Find from Clip_board"
 msgstr "Найти содержимое _буфера обмена"
 
-#: ../src/bfwin_uimanager.c:910
-msgid "Find from clipboard"
-msgstr "содержимое буфера обмена"
+#: ../src/bfwin_uimanager.c:918
+msgid "Find from clipboard or selection"
+msgstr "Найти содержимое буфера обмена"
 
-#: ../src/bfwin_uimanager.c:912
-msgid "Re_place..."
-msgstr "_Заменить..."
+#: ../src/bfwin_uimanager.c:920
+msgid "Advanced Find & Re_place..."
+msgstr "_Разширенные поиск и замена"
 
-#: ../src/bfwin_uimanager.c:912
-msgid "Replace"
-msgstr "Заменить"
+#: ../src/bfwin_uimanager.c:920
+msgid "Advanced Find and Replace"
+msgstr "Разширенные поиск и замена"
 
-#: ../src/bfwin_uimanager.c:919
+#: ../src/bfwin_uimanager.c:927
 msgid "Save & _close"
 msgstr "Сохранить и _закрыть"
 
-#: ../src/bfwin_uimanager.c:919
+#: ../src/bfwin_uimanager.c:927
 msgid "Save & close project"
 msgstr "Сохранить и закрыть"
 
-#: ../src/bfwin_uimanager.c:921
+#: ../src/bfwin_uimanager.c:929
 msgid "Save project"
 msgstr "Сохранить проект"
 
-#: ../src/bfwin_uimanager.c:922
+#: ../src/bfwin_uimanager.c:930
 msgid "Save project as"
 msgstr "Сохранить проект как"
 
-#: ../src/bfwin_uimanager.c:923
+#: ../src/bfwin_uimanager.c:931
 msgid "_Edit Project Options..."
 msgstr "Ре_дактировать параметры проекта..."
 
-#: ../src/bfwin_uimanager.c:923
+#: ../src/bfwin_uimanager.c:931
 msgid "Edit project options"
 msgstr "Редактировать параметры проекта"
 
-#: ../src/bfwin_uimanager.c:928
+#: ../src/bfwin_uimanager.c:936
 msgid "_Undo"
 msgstr "_Отменить"
 
-#: ../src/bfwin_uimanager.c:928
+#: ../src/bfwin_uimanager.c:936
 msgid "Undo"
 msgstr "Отменить действие"
 
-#: ../src/bfwin_uimanager.c:929
+#: ../src/bfwin_uimanager.c:937
 msgid "U_ndo All"
 msgstr "Отменить _все"
 
-#: ../src/bfwin_uimanager.c:929
+#: ../src/bfwin_uimanager.c:937
 msgid "Undo All"
 msgstr "Отменить все"
 
-#: ../src/bfwin_uimanager.c:930
+#: ../src/bfwin_uimanager.c:938
 msgid "_Redo"
 msgstr "_Повторить действие"
 
-#: ../src/bfwin_uimanager.c:930
+#: ../src/bfwin_uimanager.c:938
 msgid "Redo"
 msgstr "Повторить действие"
 
-#: ../src/bfwin_uimanager.c:931
+#: ../src/bfwin_uimanager.c:939
 msgid "R_edo All"
 msgstr "Ве_рнуть все"
 
-#: ../src/bfwin_uimanager.c:931
+#: ../src/bfwin_uimanager.c:939
 msgid "Redo All"
 msgstr "Вернуть все"
 
-#: ../src/bfwin_uimanager.c:1072
+#: ../src/bfwin_uimanager.c:1080
 msgid "Open _URL..."
 msgstr "Открыть _URL..."
 
-#: ../src/bfwin_uimanager.c:1085
+#: ../src/bfwin_uimanager.c:1093
 msgid "_Spell Check"
 msgstr "Проверка _орфографии"
 
-#: ../src/bfwin_uimanager.c:1469
+#: ../src/bfwin_uimanager.c:1477
 msgid "Text area to filter"
 msgstr "Фильтруемый текст"
 
-#: ../src/bfwin_uimanager.c:1470
+#: ../src/bfwin_uimanager.c:1478
 msgid "All text"
 msgstr "Весь текст"
 
-#: ../src/bfwin_uimanager.c:1471
+#: ../src/bfwin_uimanager.c:1479
 msgid "Selected text only"
 msgstr "Только выделенный текст"
 
@@ -1340,23 +1344,23 @@ msgstr "Статистика выделенного: "
 msgid "Statistics: "
 msgstr "Статистика: "
 
-#: ../src/doc_text_tools.c:384
+#: ../src/doc_text_tools.c:391
 msgid "Lines into columns"
 msgstr "Строки в столбцы"
 
-#: ../src/doc_text_tools.c:396
+#: ../src/doc_text_tools.c:403
 msgid "Number of columns:"
 msgstr "Количество столбцов:"
 
-#: ../src/doc_text_tools.c:400
+#: ../src/doc_text_tools.c:407
 msgid "Spread lines horizontally"
 msgstr "Распределить полосы горизонтально"
 
-#: ../src/doc_text_tools.c:407
+#: ../src/doc_text_tools.c:414
 msgid "Column separator:"
 msgstr "Разделитель колонок:"
 
-#: ../src/doc_text_tools.c:411
+#: ../src/doc_text_tools.c:418
 msgid "Fill empty entries:"
 msgstr "Заполнить пустые строки:"
 
@@ -1995,7 +1999,7 @@ msgstr "_Шаблон:"
 #. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 #. G_CALLBACK(snr_combo_activate_lcb), snrwin);
 #.
-#: ../src/preferences.c:486 ../src/preferences.c:1919 ../src/snr3.c:1517
+#: ../src/preferences.c:486 ../src/preferences.c:1919 ../src/snr3.c:1522
 msgid "<b>Options</b>"
 msgstr "<b>Параметры</b>"
 
@@ -2597,18 +2601,16 @@ msgid "_Make HTML dialogs transient"
 msgstr "_Сделать диалоги HTML постоянными"
 
 #: ../src/preferences.c:2216
-#, fuzzy
 msgid "Save menu accelerators on exit"
-msgstr "Сохранить пользовательские быстрые клавиши меню"
+msgstr "Сохранять пользовательские быстрые клавиши меню при выходе"
 
 #: ../src/preferences.c:2219
-#, fuzzy
 msgid "Save user customised menu accelerators now"
 msgstr "Сохранить пользовательские быстрые клавиши меню"
 
 #: ../src/preferences.c:2223
 msgid "Reset menu accelerators to application defaults"
-msgstr ""
+msgstr "Восстановить быстрые клавиши меню по умолчанию"
 
 #: ../src/preferences.c:2227
 msgid "<b>Recent Files</b>"
@@ -2997,21 +2999,21 @@ msgstr "Web-файлы"
 msgid "Hide objectfiles"
 msgstr "Спрятать объектные файлы"
 
-#: ../src/snr3.c:645
+#: ../src/snr3.c:650
 msgid "<i>Replace started</i>"
 msgstr "<i>Идёт замена</i>"
 
-#: ../src/snr3.c:650
+#: ../src/snr3.c:655
 msgid "<i>Search started</i>"
 msgstr "<i>Идёт поиск</i>"
 
-#: ../src/snr3.c:668
+#: ../src/snr3.c:673
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
 msgstr ""
 "<span foreground=\"red\"><b>Ничего не выбрано, поиск прерван</b></span>"
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr3.c:677
+#: ../src/snr3.c:682
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
 "span>"
@@ -3020,7 +3022,7 @@ msgstr ""
 "span>"
 
 # c-format
-#: ../src/snr3.c:857
+#: ../src/snr3.c:862
 #, c-format
 msgid "<i>Replaced %d entry</i>"
 msgid_plural "<i>Replaced %d entries</i>"
@@ -3029,7 +3031,7 @@ msgstr[1] "<i>Заменено %d вхождения</i>"
 msgstr[2] "<i>Заменено %d вхождений</i>"
 
 # c-format
-#: ../src/snr3.c:860
+#: ../src/snr3.c:865
 #, c-format
 msgid "<i>Found %d entry</i>"
 msgid_plural "<i>Found %d entries</i>"
@@ -3038,7 +3040,7 @@ msgstr[1] "<i>Найдено %d вхождения</i>"
 msgstr[2] "<i>Найдено %d вхождений</i>"
 
 # c-format
-#: ../src/snr3.c:1091
+#: ../src/snr3.c:1096
 #, c-format
 msgid "<i>Found %d result in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
@@ -3047,7 +3049,7 @@ msgstr[1] "<i>Найдено %d совпадения в %d из %d докуме�
 msgstr[2] "<i>Найдено %d совпадений в %d из %d документов</i>"
 
 # c-format
-#: ../src/snr3.c:1095
+#: ../src/snr3.c:1100
 #, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
@@ -3056,7 +3058,7 @@ msgstr[1] "<i>Найдено %d совпадения с символа %d до %
 msgstr[2] "<i>Найдено %d совпадений с символа %d до %d</i>"
 
 # c-format
-#: ../src/snr3.c:1098
+#: ../src/snr3.c:1103
 #, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
@@ -3064,43 +3066,43 @@ msgstr[0] "<i>Найдено %d совпадение в текущем доку�
 msgstr[1] "<i>Найдено %d совпадения в текущем документе</i>"
 msgstr[2] "<i>Найдено %d совпадений в текущем документе</i>"
 
-#: ../src/snr3.c:1411
+#: ../src/snr3.c:1416
 msgid "Active document"
 msgstr "Текущий документ"
 
-#: ../src/snr3.c:1412
+#: ../src/snr3.c:1417
 msgid "Forward from cursor position"
 msgstr "Вперед от курсора"
 
-#: ../src/snr3.c:1413
+#: ../src/snr3.c:1418
 msgid "Current selection"
 msgstr "Текущее выделение"
 
-#: ../src/snr3.c:1414
+#: ../src/snr3.c:1419
 msgid "All open documents"
 msgstr "Все открытые документы"
 
-#: ../src/snr3.c:1415
+#: ../src/snr3.c:1420
 msgid "Files on disk"
 msgstr "Файлы на диске"
 
-#: ../src/snr3.c:1419 ../src/snr3.c:1424
+#: ../src/snr3.c:1424 ../src/snr3.c:1429
 msgid "Normal"
 msgstr "Обычный"
 
-#: ../src/snr3.c:1420
+#: ../src/snr3.c:1425
 msgid "Regular expression (pcre)"
 msgstr "Регулярное выражение (pcre)"
 
-#: ../src/snr3.c:1425
+#: ../src/snr3.c:1430
 msgid "Uppercase"
 msgstr "Прописные буквы"
 
-#: ../src/snr3.c:1426
+#: ../src/snr3.c:1431
 msgid "Lowercase"
 msgstr "Строчные буквы"
 
-#: ../src/snr3.c:1433
+#: ../src/snr3.c:1438
 msgid "Find and Replace"
 msgstr "Найти и Заменить"
 
@@ -3108,61 +3110,60 @@ msgstr "Найти и Заменить"
 #. search/replace within the selection
 #. if (bfwin->session->searchlist)
 #. gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->search), 0);
-#: ../src/snr3.c:1472
+#: ../src/snr3.c:1477
 msgid "<b>_Search for</b>"
 msgstr "<b>_Искать</b>"
 
-#: ../src/snr3.c:1505
+#: ../src/snr3.c:1510
 msgid "<b>Replace _with</b>"
 msgstr "<b>Заменить _на</b>"
 
-#: ../src/snr3.c:1527
+#: ../src/snr3.c:1532
 msgid "Match Patter_n: "
 msgstr "Шаблон _поиска:"
 
-#: ../src/snr3.c:1539
+#: ../src/snr3.c:1544
 msgid "Replace T_ype: "
 msgstr "_Тип замены:"
 
-#: ../src/snr3.c:1552
+#: ../src/snr3.c:1557
 msgid "Sco_pe: "
 msgstr "_Диапазон:"
 
-#: ../src/snr3.c:1568
+#: ../src/snr3.c:1573
 msgid "Filename pattern: "
 msgstr "Шаблон имени файла: "
 
-#: ../src/snr3.c:1574
-#, fuzzy
+#: ../src/snr3.c:1579
 msgid "Recursion level: "
-msgstr "П_росматривать подкаталоги:"
+msgstr "_Уровень вложенности:"
 
-#: ../src/snr3.c:1580
+#: ../src/snr3.c:1585
 msgid "Basedir: "
 msgstr "Основной каталог:"
 
-#: ../src/snr3.c:1599
+#: ../src/snr3.c:1604
 msgid "Case sensitive _matching"
 msgstr "_Учитывать регистр букв"
 
-#: ../src/snr3.c:1601
+#: ../src/snr3.c:1606
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Считать совпадением только, если совпадают регистры (верхний/нижний)"
 
-#: ../src/snr3.c:1605
+#: ../src/snr3.c:1610
 msgid "Pattern contains escape-se_quences"
 msgstr "_Шаблоны содержат escape-последовательности"
 
-#: ../src/snr3.c:1608
+#: ../src/snr3.c:1613
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr ""
 "Шаблоны содержат escape-последовательности с обратной дробью (\\n, \\t)"
 
-#: ../src/snr3.c:1612
+#: ../src/snr3.c:1617
 msgid "Dot character in regex pattern matches newlines"
 msgstr "Точка в регулярном выражении сопоставляется с концом строки"
 
-#: ../src/snr3.c:1615
+#: ../src/snr3.c:1620
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
@@ -3170,21 +3171,19 @@ msgstr ""
 "Символ '.' в регулярном выражении будет сопоставляться с любым символом, "
 "включая конец строки (используется для многострочных сопоставлений)."
 
-#: ../src/snr3.c:1637
+#: ../src/snr3.c:1642
 msgid "Replace _All"
 msgstr "Заменить вс_ё"
 
-#: ../src/snr3.c:1639
+#: ../src/snr3.c:1644
 msgid "_Replace"
 msgstr "_Заменить"
 
-#: ../src/snr3.c:1643
-#, fuzzy
+#: ../src/snr3.c:1648
 msgid "_Find All"
-msgstr "Найти всё"
+msgstr "Найти _всё"
 
-#: ../src/snr3.c:1645
-#, fuzzy
+#: ../src/snr3.c:1650
 msgid "B_ookmark All"
 msgstr "_Поместить всё в закладки"
 
@@ -3203,6 +3202,15 @@ msgstr "Отменить изменение во всех документах?"
 #: ../src/undo_redo.c:547 ../src/undo_redo.c:689
 msgid "This change concerns multiple documents."
 msgstr "Это изменение затрагивает много документов."
+
+#~ msgid "_Find..."
+#~ msgstr "_Найти..."
+
+#~ msgid "Re_place..."
+#~ msgstr "_Заменить..."
+
+#~ msgid "Replace"
+#~ msgstr "Заменить"
 
 #~ msgid "Save _As..."
 #~ msgstr "Сохранить _как..."
