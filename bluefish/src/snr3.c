@@ -37,7 +37,7 @@ texttag from the tag table??
 
 */
 
-#define DEBUG
+/*#define DEBUG*/
 /*#define SNR3_PROFILING*/
 
 #define _GNU_SOURCE
@@ -69,6 +69,8 @@ typedef struct {
 Tsnr3profiling s3profiling= {NULL};
 
 #endif
+
+static const gchar *searchresulttagname = "searchresult";
 
 typedef struct {
 	Tdocument *doc;
@@ -134,7 +136,7 @@ remove_all_highlights_in_doc(Tdocument * doc)
 		return;
 		
 	tagtable = gtk_text_buffer_get_tag_table(doc->buffer);
-	tag = gtk_text_tag_table_lookup(tagtable, "snr3match");
+	tag = gtk_text_tag_table_lookup(tagtable, searchresulttagname);
 	if (!tag)
 		return;
 	
@@ -144,18 +146,16 @@ remove_all_highlights_in_doc(Tdocument * doc)
 
 static void highlight_result(Tsnr3result *s3result) {
 	GtkTextIter itstart, itend;
-	static const gchar *tagname = "snr3match";
 	static GtkTextTag *tag=NULL;
 	
 	gtk_text_buffer_get_iter_at_offset(DOCUMENT(s3result->doc)->buffer, &itstart, s3result->so);
 	gtk_text_buffer_get_iter_at_offset(DOCUMENT(s3result->doc)->buffer, &itend, s3result->eo);
 
 	if (!tag) {
-		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(DOCUMENT(s3result->doc)->buffer), tagname);
+		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(DOCUMENT(s3result->doc)->buffer), searchresulttagname);
 		if (!tag) {
-			tag =
-				gtk_text_buffer_create_tag(DOCUMENT(s3result->doc)->buffer, tagname, "background", "#FFFF57", "foreground", "#000000",
-										   NULL);
+			g_warning("Failed to highlight search result, there is no text style 'searchresult' defined.");
+			return;
 		}
 	}
 	gtk_text_buffer_apply_tag(DOCUMENT(s3result->doc)->buffer, tag, &itstart, &itend);
