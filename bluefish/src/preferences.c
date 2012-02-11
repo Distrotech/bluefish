@@ -1297,18 +1297,18 @@ string_path_to_child_string_path(GtkTreeModelFilter * lfilter, const gchar * pat
 	gchar *ret;
 	tpath = gtk_tree_path_new_from_string(path);
 	if (!tpath) {
-		g_print("no tree path for string path %s\n", path);
+		DEBUG_MSG("no tree path for string path %s\n", path);
 		return NULL;
 	}
 	ctpath = gtk_tree_model_filter_convert_path_to_child_path(lfilter, tpath);
 	gtk_tree_path_free(tpath);
 	if (!ctpath) {
-		g_print("no child path for string path %s\n", path);
+		DEBUG_MSG("no child path for string path %s\n", path);
 		return NULL;
 	}
 	ret = gtk_tree_path_to_string(ctpath);
 	gtk_tree_path_free(ctpath);
-	g_print("return child path %s for path %s\n", ret, path);
+	DEBUG_MSG("return child path %s for path %s\n", ret, path);
 	return ret;
 }
 
@@ -1334,7 +1334,7 @@ static void
 bflang_highlight_edited_lcb(GtkCellRendererCombo * combo, gchar * path, gchar * val, Tprefdialog * pd)
 {
 	gchar *cpath = string_path_to_child_string_path(pd->bld.lfilter2, path);
-	g_print("bflang_highlight_edited_lcb, val=%s\n", val);
+	DEBUG_MSG("bflang_highlight_edited_lcb, val=%s\n", val);
 	pref_apply_change(GTK_LIST_STORE(pd->bld.lstore2), 3, 1 /* 1 is text, not a combo */ , cpath, val, 2);
 	g_free(cpath);
 }
@@ -1418,7 +1418,7 @@ create_bflang_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	pd->bld.lstore = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER);
 	pd->bld.lfilter = (GtkTreeModelFilter *) gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore), NULL);
-	g_print("create_bflang_gui, create lfilter at %p\n",pd->bld.lfilter );
+	DEBUG_MSG("create_bflang_gui, create lfilter at %p\n",pd->bld.lfilter );
 	g_object_unref(G_OBJECT(pd->bld.lstore));
 	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter, bflang_gui_filter_func_lcb, pd, NULL);
 	pd->bld.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter));
@@ -1437,7 +1437,7 @@ create_bflang_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	pd->bld.lstore2 = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
 	pd->bld.lfilter2 =
 		(GtkTreeModelFilter *) gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore2), NULL);
-	g_print("create_bflang_gui, create lfilter2 at %p\n",pd->bld.lfilter2);
+	DEBUG_MSG("create_bflang_gui, create lfilter2 at %p\n",pd->bld.lfilter2);
 	g_object_unref(G_OBJECT(pd->bld.lstore2));
 	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter2, bflang_gui_filter_func_lcb, pd, NULL);
 	pd->bld.lview2 = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter2));
@@ -1750,7 +1750,7 @@ preftree_cursor_changed_cb(GtkTreeView * treeview, gpointer user_data)
 	lst = gtk_container_get_children(GTK_CONTAINER(pd->fixed));
 	while (lst) {
 		if (GTK_IS_WIDGET(lst->data)) {
-			g_print("preftree_cursor_changed_cb, ref %p\n",lst->data);
+			DEBUG_MSG("preftree_cursor_changed_cb, ref %p\n",lst->data);
 			g_object_ref(G_OBJECT(lst->data));
 			gtk_container_remove(GTK_CONTAINER(pd->fixed), lst->data);
 		}
@@ -1766,7 +1766,7 @@ preftree_cursor_changed_cb(GtkTreeView * treeview, gpointer user_data)
 		gtk_tree_model_get_iter(GTK_TREE_MODEL(pd->nstore), &iter, path);
 		gtk_tree_model_get(GTK_TREE_MODEL(pd->nstore), &iter, WIDGETCOL, &child, FUNCCOL, &func, DATACOL,
 						   &data, -1);
-		g_print("preftree_cursor_changed_cb, got child %p\n",child);
+		DEBUG_MSG("preftree_cursor_changed_cb, got child %p\n",child);
 		if (child) {
 			pd->curchild = child;
 			gtk_box_pack_start(GTK_BOX(pd->fixed), child, TRUE, TRUE, 1);
