@@ -25,8 +25,8 @@
 <bflang name="Lua" version="2.0" table="1636" contexts="11" matches="329">
 <header>
 	<mime type="text/x-lua?lua"/>
-	<option name="load_reference" default="1" description="load reference data"/>
-	<option name="load_completion" default="1" description="load completion data"/>
+	<option name="load_reference" default="1"/>
+	<option name="load_completion" default="1"/>
 	<option name="show_in_menu" default="1"/>
 	<highlight name="keyword" style="keyword" />
 	<highlight name="brackets" style="brackets" />
