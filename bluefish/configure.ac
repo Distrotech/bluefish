@@ -533,7 +533,7 @@ if test "x$enable_python" = "xyes" ; then
 		[PYTHON],
 		[The 'python' binary with path. Use it to define or override the location of 'python'.]
 	)
-	AC_PATH_PROGS([PYTHON], [python python2.6 python2.5 python2.4 python2.3 python2.2 python2])
+	AC_PATH_PROGS([PYTHON], [python python2.6 python2.5 python2.4 python2])
 	if test -n "$PYTHON" ; then
 		# The following was inspired by Andrew Collier's AC_PYTHON_MODULE macro.
 		for python_module in "sys" "distutils.sysconfig" ; do
@@ -558,7 +558,7 @@ the python binary '$PYTHON' does not exist.])
 			PY_INC=`$PYTHON -c 'import distutils.sysconfig; print distutils.sysconfig.get_python_inc();'`
 			AC_MSG_RESULT([$PY_VER])
 			changequote([<<, >>])
-			$PYTHON -c "import sys; map(int,sys.version[:3].split('.'))>= [2,2] or sys.exit(1)"
+			$PYTHON -c "import sys; map(int,sys.version[:3].split('.'))>= [2,4] or sys.exit(1)"
 			changequote([, ])
 			if test "$?" -ne "1" ; then
 				AC_MSG_CHECKING([for Python $PY_VER compile flags])
@@ -576,7 +576,7 @@ the python binary '$PYTHON' does not exist.])
 					AC_MSG_RESULT([Can't find Python.h])
 				fi
 			else
-				AC_MSG_WARN([Python too old. Only 2.2 or above is supported.])
+				AC_MSG_WARN([Python too old. Only 2.4 or above is supported.])
 				enable_python="no"
 			fi
 		fi
