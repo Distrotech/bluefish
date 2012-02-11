@@ -18,9 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
-#define DEBUG_TREEMODELREFS g_print
+#if defined(__GNUC__) || (defined(__SUNPRO_C) && __SUNPRO_C > 0x580)
+#define DBG_NONE(args...)
+ /**/
+#else							/* notdef __GNUC__ || __SUNPRO_C */
+extern void g_none(char *first, ...);
+#define DBG_NONE g_none
+#endif
+
+#define DEBUG_TREEMODELREFS DBG_NONE
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
