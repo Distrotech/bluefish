@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-02-06 10:54+0100\n"
-"PO-Revision-Date: 2011-12-22 23:57+0100\n"
+"PO-Revision-Date: 2012-02-11 23:51+0100\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: None\n"
 "Language: de\n"
@@ -129,9 +129,8 @@ msgid "_Font Size"
 msgstr "_Schriftgröße"
 
 #: ../src/bfwin_uimanager.c:748
-#, fuzzy
 msgid "Language M_ode"
-msgstr "Sprache_modus"
+msgstr "Sprachem_odus"
 
 #: ../src/bfwin_uimanager.c:749
 msgid "Character _Encoding"
@@ -203,14 +202,12 @@ msgid "Open advanced"
 msgstr "Erweitertes Öffnen..."
 
 #: ../src/bfwin_uimanager.c:767
-#, fuzzy
 msgid "Open _from Selection"
-msgstr "A_uswahl öffnen"
+msgstr "Auswahl ö_ffnen"
 
 #: ../src/bfwin_uimanager.c:767
-#, fuzzy
 msgid "Open from Selection"
-msgstr "Auswahl öffnen"
+msgstr "Aus Auswahl öffnen"
 
 #: ../src/bfwin_uimanager.c:769
 msgid "_Insert..."
@@ -221,9 +218,8 @@ msgid "Insert file"
 msgstr "Inhalt einer Datei einfügen"
 
 #: ../src/bfwin_uimanager.c:770
-#, fuzzy
 msgid "U_pload / Download..."
-msgstr "Hoch- / Herunterladen..."
+msgstr "H_och- / Herunterladen..."
 
 #: ../src/bfwin_uimanager.c:772
 msgid "_Quit"
@@ -310,9 +306,8 @@ msgid "Reset document tab size"
 msgstr "Größe des Dokument-Tabreiters zurücksetzen"
 
 #: ../src/bfwin_uimanager.c:795
-#, fuzzy
 msgid "Rescan Syntax & S_pelling"
-msgstr "Syntaxhe_rvorhebung und Rechtschreibung aktualisieren"
+msgstr "Syntaxhervorhe_bung und Rechtschreibung aktualisieren"
 
 #: ../src/bfwin_uimanager.c:795 ../src/bfwin_uimanager.c:798
 msgid "Rescan document highlighting"
@@ -347,7 +342,6 @@ msgid "Synchronize text block"
 msgstr "Textblock synchronisieren"
 
 #: ../src/bfwin_uimanager.c:805
-#, fuzzy
 msgid "To_ggle Comment"
 msgstr "Aus_kommentieren"
 
@@ -356,28 +350,24 @@ msgid "Toggle comment"
 msgstr "Auskommentieren"
 
 #: ../src/bfwin_uimanager.c:807
-#, fuzzy
 msgid "Select _Block"
-msgstr "Block wählen"
+msgstr "_Block wählen"
 
 #: ../src/bfwin_uimanager.c:807
 msgid "Select block, use multiple times to select parent blocks "
-msgstr ""
+msgstr "Block wählen; mehrfache Ausführung für die übergeordneten Blöcke"
 
 #
 #: ../src/bfwin_uimanager.c:809
-#, fuzzy
 msgid "Duplica_te Line"
-msgstr "Aktuelle Zeile _hervorheben"
+msgstr "Zeile du_plizieren"
 
 #
 #: ../src/bfwin_uimanager.c:809
-#, fuzzy
 msgid "Duplicate the current line"
-msgstr "Aktuelle Zeile _hervorheben"
+msgstr "Aktuelle Zeile duplizieren"
 
 #: ../src/bfwin_uimanager.c:811
-#, fuzzy
 msgid "Word Cou_nt"
 msgstr "_Wörter zählen"
 
@@ -386,7 +376,6 @@ msgid "Word count"
 msgstr "Wörter zählen"
 
 #: ../src/bfwin_uimanager.c:812
-#, fuzzy
 msgid "Indenting to S_paces"
 msgstr "Einrückung mit _Leerzeichen ersetzen"
 
@@ -395,7 +384,6 @@ msgid "Indenting to spaces"
 msgstr "Einrückung mit Leerzeichen ersetzen"
 
 #: ../src/bfwin_uimanager.c:814
-#, fuzzy
 msgid "Indenting to T_abs"
 msgstr "Einrückung mit _Tabulatoren ersetzen"
 
@@ -412,7 +400,6 @@ msgid "Join lines together"
 msgstr "Zeilen zusammenführen"
 
 #: ../src/bfwin_uimanager.c:818
-#, fuzzy
 msgid "Split Lines on Right _Margin"
 msgstr "Zei_len am rechten Begrenzer teilen"
 
@@ -445,9 +432,8 @@ msgid "Strip trailing whitespace"
 msgstr "Führende Leerzeichen entfernen"
 
 #: ../src/bfwin_uimanager.c:825
-#, fuzzy
 msgid "Preview in browser"
-msgstr "Dateibrowser"
+msgstr "Vorschau im Browser"
 
 #: ../src/bfwin_uimanager.c:830
 msgid "_Full Screen"
@@ -507,7 +493,6 @@ msgstr "(Cleveres) Automatisches Einrücken"
 
 #
 #: ../src/bfwin_uimanager.c:842
-#, fuzzy
 msgid "Highlight Block _Delimiters"
 msgstr "Blockbegrenzer hervorheben"
 
@@ -526,41 +511,37 @@ msgstr "Syntaxhervorhebung einschalten"
 
 #: ../src/bfwin_uimanager.c:846
 msgid "Show _Blocks"
-msgstr "_Blockeanzeige"
+msgstr "_Blockanzeige"
 
 #: ../src/bfwin_uimanager.c:846
 msgid "Show blocks"
 msgstr "Blockanzeige einschalten"
 
 #: ../src/bfwin_uimanager.c:847
-#, fuzzy
 msgid "Show Line N_umbers"
-msgstr "Zei_lennummerierung"
+msgstr "Zeilenn_ummern"
 
 #: ../src/bfwin_uimanager.c:847
 msgid "Show line numbers"
-msgstr "Zeilen_nummernanzeige einschalten"
+msgstr "Anzeige der Zeilennummern einschalten"
 
 #: ../src/bfwin_uimanager.c:849
-#, fuzzy
 msgid "Show Right _Margin"
-msgstr "Rechter Begrenzer"
+msgstr "Rechten Begrenzer anzeigen"
 
 #: ../src/bfwin_uimanager.c:849
 msgid "Show right margin"
 msgstr "Rechten Begrenzers anzeigen"
 
 #: ../src/bfwin_uimanager.c:851
-#, fuzzy
 msgid "Show Split _View"
-msgstr "Fensterteilung"
+msgstr "_Fensterteilung"
 
 #: ../src/bfwin_uimanager.c:851
 msgid "Show split view"
 msgstr "Fensterteilung einschalten"
 
 #: ../src/bfwin_uimanager.c:853
-#, fuzzy
 msgid "Show V_isible Spacing"
 msgstr "Sichtbare _Leerzeichen"
 
@@ -642,9 +623,8 @@ msgid "Indent"
 msgstr "Einrücken"
 
 #: ../src/bfwin_uimanager.c:872
-#, fuzzy
 msgid "Unin_dent"
-msgstr "Ausrücken"
+msgstr "_Ausrücken"
 
 #: ../src/bfwin_uimanager.c:872
 msgid "Unindent"
@@ -659,7 +639,6 @@ msgid "Goto first bookmark"
 msgstr "Zum ersten Lesezeichen wechseln"
 
 #: ../src/bfwin_uimanager.c:876
-#, fuzzy
 msgid "L_ast Bookmark"
 msgstr "_Letztes Lesezeichen"
 
@@ -685,19 +664,19 @@ msgstr "Gehe zu letztem Dokument"
 
 #: ../src/bfwin_uimanager.c:882
 msgid "Move Tab _Left"
-msgstr ""
+msgstr "Tab nach _links"
 
 #: ../src/bfwin_uimanager.c:882
 msgid "Move current tab left"
-msgstr ""
+msgstr "Tab nach links verschieben"
 
 #: ../src/bfwin_uimanager.c:884
 msgid "Move Tab _Right"
-msgstr ""
+msgstr "Tab nach rechts"
 
 #: ../src/bfwin_uimanager.c:884
 msgid "Move current tab right"
-msgstr ""
+msgstr "Tab nach rechts verschieben"
 
 #: ../src/bfwin_uimanager.c:886
 msgid "_First Document"
@@ -708,7 +687,6 @@ msgid "Goto first document"
 msgstr "Gehe zum ersten Dokument"
 
 #: ../src/bfwin_uimanager.c:888
-#, fuzzy
 msgid "_Last Document"
 msgstr "Le_tztes Dokument"
 
@@ -737,7 +715,6 @@ msgid "Goto line"
 msgstr "Zu Zeile gehen"
 
 #: ../src/bfwin_uimanager.c:895
-#, fuzzy
 msgid "Goto Line Number from _Clipboard"
 msgstr "Gehe zu Zeile aus Zwis_chenablage"
 
@@ -746,9 +723,8 @@ msgid "Goto line number in clipboard or selection"
 msgstr "Gehe zu Zeile aus Zwischenablage oder Auswahl"
 
 #: ../src/bfwin_uimanager.c:897
-#, fuzzy
 msgid "_Jump to Reference"
-msgstr "Zu Bezugspunkt springen"
+msgstr "Zu Bezugs_punkt springen"
 
 #: ../src/bfwin_uimanager.c:897
 msgid "Jump to reference"
@@ -795,7 +771,6 @@ msgid "Find again"
 msgstr "Weitersuchen"
 
 #: ../src/bfwin_uimanager.c:910
-#, fuzzy
 msgid "Find from Clip_board"
 msgstr "In Zwischenablage suchen"
 
@@ -804,7 +779,6 @@ msgid "Find from clipboard"
 msgstr "In Zwischenablage suchen"
 
 #: ../src/bfwin_uimanager.c:912
-#, fuzzy
 msgid "Re_place..."
 msgstr "_Ersetzen..."
 
@@ -829,7 +803,6 @@ msgid "Save project as"
 msgstr "Projekt speichern als"
 
 #: ../src/bfwin_uimanager.c:923
-#, fuzzy
 msgid "_Edit Project Options..."
 msgstr "Projekte_instellungen bearbeiten..."
 
@@ -846,9 +819,8 @@ msgid "Undo"
 msgstr "Rückgängig"
 
 #: ../src/bfwin_uimanager.c:929
-#, fuzzy
 msgid "U_ndo All"
-msgstr "Alles Rückgängig"
+msgstr "Alles Rückgä_ngig"
 
 #: ../src/bfwin_uimanager.c:929
 msgid "Undo All"
@@ -863,9 +835,8 @@ msgid "Redo"
 msgstr "Wiederholen"
 
 #: ../src/bfwin_uimanager.c:931
-#, fuzzy
 msgid "R_edo All"
-msgstr "Alles Wiederherstellen"
+msgstr "Alles Wi_ederholen"
 
 #: ../src/bfwin_uimanager.c:931
 msgid "Redo All"
@@ -1076,15 +1047,15 @@ msgstr "Standardmäßig permanent"
 
 #: ../src/bookmark.c:889
 msgid "By Name"
-msgstr ""
+msgstr "Name"
 
 #: ../src/bookmark.c:890
 msgid "By Full Path"
-msgstr ""
+msgstr "Pfad"
 
 #: ../src/bookmark.c:891
 msgid "By Full URI"
-msgstr ""
+msgstr "URI"
 
 #: ../src/bookmark.c:895 ../src/bookmark.c:901
 msgid "Content"
@@ -1141,7 +1112,7 @@ msgid ""
 "Language mode: "
 msgstr ""
 "\n"
-"Sprachemodus: "
+"Sprachmodus: "
 
 #: ../src/document.c:418
 msgid ""
@@ -2036,7 +2007,7 @@ msgstr "Ausklappbare _Blöcke einschalten"
 
 #: ../src/preferences.c:494
 msgid "Display block stack in statusbar"
-msgstr ""
+msgstr "Blockspeicher in Statusleiste anzeigen"
 
 #
 #: ../src/preferences.c:496
@@ -2454,7 +2425,7 @@ msgstr "<b>Farben</b>"
 
 #: ../src/preferences.c:1983
 msgid "Use system wide color settings"
-msgstr ""
+msgstr "Systemweite Farbeinstellungen nutzen"
 
 #: ../src/preferences.c:1995
 msgid "Cursor color"
@@ -2638,18 +2609,16 @@ msgid "_Make HTML dialogs transient"
 msgstr "HTML-Dialoge durchsichtig _machen"
 
 #: ../src/preferences.c:2216
-#, fuzzy
 msgid "Save menu accelerators on exit"
-msgstr "Benutzerdefinierte Menü-Tastenkürzel speichern"
+msgstr "Menü-Tastenkürzel beim Beenden speichern"
 
 #: ../src/preferences.c:2219
-#, fuzzy
 msgid "Save user customised menu accelerators now"
-msgstr "Benutzerdefinierte Menü-Tastenkürzel speichern"
+msgstr "Benutzerdefinierte Menü-Tastenkürzel jetzt speichern"
 
 #: ../src/preferences.c:2223
 msgid "Reset menu accelerators to application defaults"
-msgstr ""
+msgstr "Menü-Tastenkürzel auf Standardwerte zurückstellen"
 
 #: ../src/preferences.c:2227
 msgid "<b>Recent Files</b>"
@@ -3063,35 +3032,35 @@ msgstr ""
 "geladen.</span>"
 
 #: ../src/snr3.c:857
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Replaced %d entry</i>"
 msgid_plural "<i>Replaced %d entries</i>"
 msgstr[0] "<b>%d Einträge ersetzt</b>"
-msgstr[1] "<b>%d Einträge ersetzt</b>"
+msgstr[1] "<b>%d Eintrag ersetzt</b>"
 
 #: ../src/snr3.c:860
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d entry</i>"
 msgid_plural "<i>Found %d entries</i>"
 msgstr[0] "<b>%d Einträge gefunden</b>"
-msgstr[1] "<b>%d Einträge gefunden</b>"
+msgstr[1] "<b>%d Eintrag gefunden</b>"
 
 #: ../src/snr3.c:1091
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d result in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr[0] "<i>%d Treffer in %d von %d durchsuchten Dokumenten</i>"
 msgstr[1] "<i>%d Treffer in %d von %d durchsuchten Dokumenten</i>"
 
 #: ../src/snr3.c:1095
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
 msgstr[0] "<i>%d Treffer im aktiven Dokument</i>"
 msgstr[1] "<i>%d Treffer im aktiven Dokument</i>"
 
 #: ../src/snr3.c:1098
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
 msgstr[0] "<i>%d Treffer im aktiven Dokument</i>"
@@ -3166,21 +3135,20 @@ msgstr "Bereic_h: "
 
 #: ../src/snr3.c:1568
 msgid "Filename pattern: "
-msgstr ""
+msgstr "Dateinamenmuster: "
 
 #: ../src/snr3.c:1574
-#, fuzzy
 msgid "Recursion level: "
-msgstr "_Rekursiv:"
+msgstr "_Rekursivstiefe: "
 
 #: ../src/snr3.c:1580
 msgid "Basedir: "
-msgstr "Basisverzeichnis:"
+msgstr "Basisverzeichnis: "
 
 #
 #: ../src/snr3.c:1599
 msgid "Case sensitive _matching"
-msgstr "Groß- und Kleinschreibung be_achten"
+msgstr "Groß- und Kleinschreibung _beachten"
 
 #: ../src/snr3.c:1601
 msgid "Only match if case (upper/lower) is identical."
@@ -3188,7 +3156,7 @@ msgstr "Nur finden falls Groß-/Kleinschreibung identisch ist"
 
 #: ../src/snr3.c:1605
 msgid "Pattern contains escape-se_quences"
-msgstr "Suchmuster enthält Flucht_zeichen"
+msgstr "Suchmuster enthält Fluch_tzeichen"
 
 #: ../src/snr3.c:1608
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
@@ -3198,13 +3166,15 @@ msgstr ""
 
 #: ../src/snr3.c:1612
 msgid "Dot character in regex pattern matches newlines"
-msgstr ""
+msgstr "Punkt-Zeichen tri_fft auch auf Zeilenumbruch zu"
 
 #: ../src/snr3.c:1615
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
+"Ein Punkt . trifft auf alle Zeichen zu, auch Zeilenumbrüche und kann für "
+"Mehrzeilen-Treffer genutzt werden."
 
 #
 #: ../src/snr3.c:1637
@@ -3216,14 +3186,12 @@ msgid "_Replace"
 msgstr "E_rsetzen"
 
 #: ../src/snr3.c:1643
-#, fuzzy
 msgid "_Find All"
-msgstr "Alles finden"
+msgstr "Alles _finden"
 
 #: ../src/snr3.c:1645
-#, fuzzy
 msgid "B_ookmark All"
-msgstr "Für alle Treffer Lesezeichen erstellen"
+msgstr "_Lesezeichen erstellen"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
 msgid "Undo in _all documents"

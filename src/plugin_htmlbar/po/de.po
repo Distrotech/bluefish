@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-02-06 10:54+0100\n"
-"PO-Revision-Date: 2011-12-22 22:50+0100\n"
+"PO-Revision-Date: 2012-02-11 23:20+0100\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: none\n"
 "Language: de\n"
@@ -501,7 +501,6 @@ msgid "et_h (Icelandic) ð"
 msgstr "ð"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1540
-#, fuzzy
 msgid "th_orn þ"
 msgstr "þ"
 
@@ -934,44 +933,39 @@ msgstr "Formular"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1648
 msgid "_Fieldset"
-msgstr ""
+msgstr "Formularelementgruppe"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1649
 msgid "_Legend"
-msgstr ""
+msgstr "Überschrift"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1650
-#, fuzzy
 msgid "L_abel"
-msgstr "_Label:"
+msgstr "Beschriftung"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1651
 msgid "_Input"
-msgstr "E_ingabe..."
+msgstr "Eingabeelement"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1652
 msgid "_Button"
-msgstr "_Knopf..."
+msgstr "Knopf"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
-#, fuzzy
 msgid "_Select"
-msgstr "Auswahl"
+msgstr "Auswahlliste"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1654
-#, fuzzy
 msgid "_Datalist"
-msgstr "_Kursiv"
+msgstr "Optionsliste"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
-#, fuzzy
 msgid "Opt_group"
 msgstr "Optionsgruppe"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1656
-#, fuzzy
 msgid "Optio_n"
-msgstr "Option"
+msgstr "Eintrag in Auswahlliste"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1657
 msgid "_Textarea"
@@ -979,19 +973,19 @@ msgstr "Text_bereich..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1658
 msgid "_Keygen"
-msgstr ""
+msgstr "Hashschlüsselgenerator"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1659
 msgid "O_utput"
-msgstr ""
+msgstr "Dynamisch erzeugte Ausgabe"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1660
 msgid "_Progress"
-msgstr ""
+msgstr "Fortschrittsbalken"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1661
 msgid "_Meter"
-msgstr ""
+msgstr "Skalenwert"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1662
 msgid "_Misc"
@@ -1066,14 +1060,12 @@ msgid "Body..."
 msgstr "Body..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1681
-#, fuzzy
 msgid "_Script..."
-msgstr "Script"
+msgstr "_Script..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1681
-#, fuzzy
 msgid "Script..."
-msgstr "Script"
+msgstr "Script..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 msgid "_Anchor..."
@@ -1224,9 +1216,8 @@ msgid "Div..."
 msgstr "Div..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1722
-#, fuzzy
 msgid "_Style"
-msgstr "_Stil:"
+msgstr "_Stil"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1722
 #: src/plugin_htmlbar/html_form.c:565
@@ -1531,23 +1522,20 @@ msgid "_HTML Toolbar"
 msgstr "_HTML Werkzeugleiste"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1924
-#, fuzzy
 msgid "Add to Quickbar"
-msgstr "Schnellstart"
+msgstr "Zu Schnellstartleiste hinzufügen"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1924
-#, fuzzy
 msgid "Remove from Quickbar"
-msgstr "Schnellstart"
+msgstr "Aus Schnellstartleiste entfernen"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1962
 msgid "Right click any html toolbar button to add it to the Quickbar."
-msgstr ""
+msgstr "Zum Hinzufügen zur Schnellstartleiste Rechtsklick auf beliebigen Eintrag in Werkzeugleiste"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:2024
-#, fuzzy
 msgid " Quickbar "
-msgstr "Schnellstart"
+msgstr " Schnellstartleiste "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:2029
 msgid " Standard "
@@ -1559,7 +1547,7 @@ msgstr " Schriftarten "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:2039
 msgid " Formatting "
-msgstr "Formatierung"
+msgstr " Formatierung "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:2044
 msgid " Tables "
@@ -2001,9 +1989,8 @@ msgid "_Autoplay:"
 msgstr "_Automatisches Abspielen"
 
 #: src/plugin_htmlbar/html.c:1883 src/plugin_htmlbar/html.c:2062
-#, fuzzy
 msgid "C_ontrols:"
-msgstr "_Bedienelemente anzeigen"
+msgstr "Bedienele_mente anzeigen"
 
 #: src/plugin_htmlbar/html.c:1887 src/plugin_htmlbar/html.c:2067
 msgid "_Loop:"
@@ -2011,7 +1998,7 @@ msgstr "Endlossch_leife"
 
 #: src/plugin_htmlbar/html.c:1891 src/plugin_htmlbar/html.c:2072
 msgid "M_ute:"
-msgstr ""
+msgstr "St_umm schalten:"
 
 #: src/plugin_htmlbar/html.c:1896 src/plugin_htmlbar/html.c:2096
 msgid "_Preload:"
@@ -2081,9 +2068,8 @@ msgid "Embed"
 msgstr "Embed"
 
 #: src/plugin_htmlbar/html.c:2232
-#, fuzzy
 msgid "_MIME Type:"
-msgstr "_Typ:"
+msgstr "_MIME-Typ:"
 
 #: src/plugin_htmlbar/html.c:2297
 msgid "Script"
@@ -2091,30 +2077,27 @@ msgstr "Script"
 
 #: src/plugin_htmlbar/html.c:2321
 msgid "(HTML4 only)"
-msgstr ""
+msgstr "(nur HTML4)"
 
 #: src/plugin_htmlbar/html.c:2324
-#, fuzzy
 msgid "MIME _Type:"
-msgstr "_Typ:"
+msgstr "MIME-_Typ:"
 
 #: src/plugin_htmlbar/html.c:2328
-#, fuzzy
 msgid "_Charset:"
-msgstr "Bei Ä_nderung:"
+msgstr "Zei_chenkodierung:"
 
 #: src/plugin_htmlbar/html.c:2330 src/plugin_htmlbar/html.c:2339
-#, fuzzy
 msgid "(HTML5)"
-msgstr "HTML_5"
+msgstr "(HTML5)"
 
 #: src/plugin_htmlbar/html.c:2333
 msgid "_Async:"
-msgstr ""
+msgstr "_Asynchrone Skriptausführung:"
 
 #: src/plugin_htmlbar/html.c:2337
 msgid "_Defer:"
-msgstr ""
+msgstr "Verzögerte Skrip_tausführung:"
 
 #: src/plugin_htmlbar/html.c:2401
 msgid "Link"
@@ -2559,22 +2542,3 @@ msgstr "Quelle:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Grösse:"
-
-#~ msgid "_Class:"
-#~ msgstr "Kl_asse:"
-
-#~ msgid "_Audio:"
-#~ msgstr "_Audio:"
-
-#~ msgid "_Pubdate:"
-#~ msgstr "_Datum der Veröffentlichung"
-
-#~ msgid "_Form"
-#~ msgstr "F_ormular..."
-
-#, fuzzy
-#~ msgid "_Option"
-#~ msgstr "Option"
-
-#~ msgid "Style..."
-#~ msgstr "Stil..."
