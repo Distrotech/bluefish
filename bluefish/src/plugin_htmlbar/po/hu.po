@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-02-06 10:54+0100\n"
-"PO-Revision-Date: 2011-12-10 19:20+0100\n"
+"POT-Creation-Date: 2012-02-08 21:55+0100\n"
+"PO-Revision-Date: 2012-02-11 19:06+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: magyar <hu@li.org>\n"
-"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
 
 #: src/plugin_htmlbar/html2.c:556
 msgid "Cascading Style Sheet Builder"
@@ -28,8 +28,10 @@ msgstr "_Szelektor:"
 msgid "_Property:"
 msgstr "_Tulajdonság:"
 
-#: src/plugin_htmlbar/html2.c:597 src/plugin_htmlbar/html_form.c:375
-#: src/plugin_htmlbar/html_form.c:541 src/plugin_htmlbar/html_form.c:636
+#: src/plugin_htmlbar/html2.c:597
+#: src/plugin_htmlbar/html_form.c:375
+#: src/plugin_htmlbar/html_form.c:541
+#: src/plugin_htmlbar/html_form.c:636
 msgid "_Value:"
 msgstr "É_rték:"
 
@@ -57,7 +59,8 @@ msgstr " _Frissít "
 msgid " _Delete "
 msgstr " _Töröl "
 
-#: src/plugin_htmlbar/html2.c:918 src/plugin_htmlbar/html2.c:955
+#: src/plugin_htmlbar/html2.c:918
+#: src/plugin_htmlbar/html2.c:955
 msgid "_Style..."
 msgstr "_Stílus..."
 
@@ -500,9 +503,8 @@ msgid "et_h (Icelandic) ð"
 msgstr "et_h (izlandi) ð"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1540
-#, fuzzy
 msgid "th_orn þ"
-msgstr "th_orn ÿ"
+msgstr "th_orn þ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1541
 msgid "Sharp _s ß"
@@ -738,7 +740,8 @@ msgstr "Általános _formázások"
 msgid "_Paragraph"
 msgstr "_Bekezdés"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1599 src/plugin_htmlbar/html.c:855
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1599
+#: src/plugin_htmlbar/html.c:855
 msgid "Paragraph"
 msgstr "Bekezdés"
 
@@ -933,16 +936,15 @@ msgstr "Űrlap"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1648
 msgid "_Fieldset"
-msgstr ""
+msgstr "_Fieldset"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1649
 msgid "_Legend"
-msgstr ""
+msgstr "_Legend"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1650
-#, fuzzy
 msgid "L_abel"
-msgstr "_Címke:"
+msgstr "_Címke"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1651
 msgid "_Input"
@@ -953,24 +955,20 @@ msgid "_Button"
 msgstr "G_omb"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
-#, fuzzy
 msgid "_Select"
-msgstr "Választómező"
+msgstr "_Választómező"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1654
-#, fuzzy
 msgid "_Datalist"
-msgstr "_Dőlt"
+msgstr "_Datalist"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
-#, fuzzy
 msgid "Opt_group"
-msgstr "Választás csoport"
+msgstr "Opt_group"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1656
-#, fuzzy
 msgid "Optio_n"
-msgstr "Választás"
+msgstr "Optio_n"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1657
 msgid "_Textarea"
@@ -978,19 +976,19 @@ msgstr "_Szövegdoboz"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1658
 msgid "_Keygen"
-msgstr ""
+msgstr "_Keygen"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1659
 msgid "O_utput"
-msgstr ""
+msgstr "Kime_net"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1660
 msgid "_Progress"
-msgstr ""
+msgstr "_Folyamat"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1661
 msgid "_Meter"
-msgstr ""
+msgstr "_Méter"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1662
 msgid "_Misc"
@@ -1065,14 +1063,12 @@ msgid "Body..."
 msgstr "Törzs..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1681
-#, fuzzy
 msgid "_Script..."
-msgstr "Szkript"
+msgstr "_Szkript..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1681
-#, fuzzy
 msgid "Script..."
-msgstr "Szkript"
+msgstr "Szkript..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 msgid "_Anchor..."
@@ -1223,9 +1219,8 @@ msgid "Div..."
 msgstr "Div..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1722
-#, fuzzy
 msgid "_Style"
-msgstr "_Stílus:"
+msgstr "_Stílus"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1722
 #: src/plugin_htmlbar/html_form.c:565
@@ -1348,11 +1343,13 @@ msgstr "_Több bélyegkép..."
 msgid "Multi thumbnail..."
 msgstr "Több bélyegkép..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1754 src/plugin_htmlbar/html.c:1765
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1754
+#: src/plugin_htmlbar/html.c:1765
 msgid "Frame"
 msgstr "Keret"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1755 src/plugin_htmlbar/html.c:1678
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1755
+#: src/plugin_htmlbar/html.c:1678
 msgid "Frameset"
 msgstr "Keretcsoport"
 
@@ -1530,23 +1527,20 @@ msgid "_HTML Toolbar"
 msgstr "_HTML eszköztár"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1924
-#, fuzzy
 msgid "Add to Quickbar"
-msgstr "Gyors kezdés"
+msgstr "Hozzáadás a gyorsmenühöz"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1924
-#, fuzzy
 msgid "Remove from Quickbar"
-msgstr "Gyors kezdés"
+msgstr "Eltávolítás a gyorsmenüből"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1962
 msgid "Right click any html toolbar button to add it to the Quickbar."
-msgstr ""
+msgstr "Bármely HTML eszköztár gombra jobb egérgombbal kattintva hozzáadható a gyorsmenühöz."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:2024
-#, fuzzy
 msgid " Quickbar "
-msgstr "Gyors kezdés"
+msgstr "Gyorsmenü"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:2029
 msgid " Standard "
@@ -1648,50 +1642,72 @@ msgstr "  ISO-8601 i_dő "
 msgid "Quick Anchor"
 msgstr "Gyors horgony"
 
-#: src/plugin_htmlbar/html.c:647 src/plugin_htmlbar/html_form.c:520
+#: src/plugin_htmlbar/html.c:647
+#: src/plugin_htmlbar/html_form.c:520
 msgid "Attributes"
 msgstr "Attribútumok"
 
-#: src/plugin_htmlbar/html.c:661 src/plugin_htmlbar/html.c:2412
+#: src/plugin_htmlbar/html.c:661
+#: src/plugin_htmlbar/html.c:2412
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:667 src/plugin_htmlbar/html_form.c:200
+#: src/plugin_htmlbar/html.c:667
+#: src/plugin_htmlbar/html_form.c:200
 msgid "_Target:"
 msgstr "_Cél:"
 
-#: src/plugin_htmlbar/html.c:671 src/plugin_htmlbar/html.c:910
-#: src/plugin_htmlbar/html.c:1301 src/plugin_htmlbar/html.c:1777
-#: src/plugin_htmlbar/html_form.c:251 src/plugin_htmlbar/html_form.c:315
-#: src/plugin_htmlbar/html_form.c:538 src/plugin_htmlbar/html_form.c:633
+#: src/plugin_htmlbar/html.c:671
+#: src/plugin_htmlbar/html.c:910
+#: src/plugin_htmlbar/html.c:1301
+#: src/plugin_htmlbar/html.c:1777
+#: src/plugin_htmlbar/html_form.c:251
+#: src/plugin_htmlbar/html_form.c:315
+#: src/plugin_htmlbar/html_form.c:538
+#: src/plugin_htmlbar/html_form.c:633
 #: src/plugin_htmlbar/image.c:503
 msgid "_Name:"
 msgstr "_Név:"
 
-#: src/plugin_htmlbar/html.c:674 src/plugin_htmlbar/quickstart.c:552
+#: src/plugin_htmlbar/html.c:674
+#: src/plugin_htmlbar/quickstart.c:552
 msgid "Titl_e:"
 msgstr "Cí_m:"
 
-#: src/plugin_htmlbar/html.c:679 src/plugin_htmlbar/html.c:1175
-#: src/plugin_htmlbar/html.c:1318 src/plugin_htmlbar/html.c:2319
+#: src/plugin_htmlbar/html.c:679
+#: src/plugin_htmlbar/html.c:1175
+#: src/plugin_htmlbar/html.c:1318
+#: src/plugin_htmlbar/html.c:2319
 msgid "_Language:"
 msgstr "Nye_lv:"
 
-#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:916
-#: src/plugin_htmlbar/html.c:1082 src/plugin_htmlbar/html.c:1178
-#: src/plugin_htmlbar/html.c:1324 src/plugin_htmlbar/html.c:1708
-#: src/plugin_htmlbar/html.c:1814 src/plugin_htmlbar/html.c:1913
-#: src/plugin_htmlbar/html.c:1982 src/plugin_htmlbar/html.c:2106
-#: src/plugin_htmlbar/html.c:2171 src/plugin_htmlbar/html.c:2255
-#: src/plugin_htmlbar/html.c:2342 src/plugin_htmlbar/html_form.c:204
-#: src/plugin_htmlbar/html_form.c:267 src/plugin_htmlbar/html_form.c:328
-#: src/plugin_htmlbar/html_form.c:645 src/plugin_htmlbar/html_table.c:107
-#: src/plugin_htmlbar/html_table.c:261 src/plugin_htmlbar/html_table.c:383
-#: src/plugin_htmlbar/image.c:509 src/plugin_htmlbar/image_dialog.c:396
+#: src/plugin_htmlbar/html.c:682
+#: src/plugin_htmlbar/html.c:916
+#: src/plugin_htmlbar/html.c:1082
+#: src/plugin_htmlbar/html.c:1178
+#: src/plugin_htmlbar/html.c:1324
+#: src/plugin_htmlbar/html.c:1708
+#: src/plugin_htmlbar/html.c:1814
+#: src/plugin_htmlbar/html.c:1913
+#: src/plugin_htmlbar/html.c:1982
+#: src/plugin_htmlbar/html.c:2106
+#: src/plugin_htmlbar/html.c:2171
+#: src/plugin_htmlbar/html.c:2255
+#: src/plugin_htmlbar/html.c:2342
+#: src/plugin_htmlbar/html_form.c:204
+#: src/plugin_htmlbar/html_form.c:267
+#: src/plugin_htmlbar/html_form.c:328
+#: src/plugin_htmlbar/html_form.c:645
+#: src/plugin_htmlbar/html_table.c:107
+#: src/plugin_htmlbar/html_table.c:261
+#: src/plugin_htmlbar/html_table.c:383
+#: src/plugin_htmlbar/image.c:509
+#: src/plugin_htmlbar/image_dialog.c:397
 msgid "Custo_m:"
 msgstr "_Egyéb:"
 
-#: src/plugin_htmlbar/html.c:684 src/plugin_htmlbar/html.c:1182
+#: src/plugin_htmlbar/html.c:684
+#: src/plugin_htmlbar/html.c:1182
 #: src/plugin_htmlbar/html_form.c:569
 msgid "Events"
 msgstr "Események"
@@ -1768,27 +1784,38 @@ msgstr "Címsor 5"
 msgid "Heading 6"
 msgstr "Címsor 6"
 
-#: src/plugin_htmlbar/html.c:896 src/plugin_htmlbar/html_table.c:114
-#: src/plugin_htmlbar/html_table.c:228 src/plugin_htmlbar/html_table.c:356
+#: src/plugin_htmlbar/html.c:896
+#: src/plugin_htmlbar/html_table.c:114
+#: src/plugin_htmlbar/html_table.c:228
+#: src/plugin_htmlbar/html_table.c:356
 msgid "Ali_gn:"
 msgstr "I_gazítás:"
 
-#: src/plugin_htmlbar/html.c:900 src/plugin_htmlbar/html.c:1169
-#: src/plugin_htmlbar/html.c:1905 src/plugin_htmlbar/html.c:1964
-#: src/plugin_htmlbar/html.c:2091 src/plugin_htmlbar/html.c:2247
-#: src/plugin_htmlbar/html_diag.c:451 src/plugin_htmlbar/html_table.c:98
-#: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
-#: src/plugin_htmlbar/image_dialog.c:376
+#: src/plugin_htmlbar/html.c:900
+#: src/plugin_htmlbar/html.c:1169
+#: src/plugin_htmlbar/html.c:1905
+#: src/plugin_htmlbar/html.c:1964
+#: src/plugin_htmlbar/html.c:2091
+#: src/plugin_htmlbar/html.c:2247
+#: src/plugin_htmlbar/html_diag.c:451
+#: src/plugin_htmlbar/html_table.c:98
+#: src/plugin_htmlbar/html_table.c:246
+#: src/plugin_htmlbar/html_table.c:374
+#: src/plugin_htmlbar/image_dialog.c:377
 msgid "Cl_ass:"
 msgstr "_Osztály:"
 
-#: src/plugin_htmlbar/html.c:904 src/plugin_htmlbar/html.c:1162
-#: src/plugin_htmlbar/html_diag.c:465 src/plugin_htmlbar/html_table.c:102
-#: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:378
+#: src/plugin_htmlbar/html.c:904
+#: src/plugin_htmlbar/html.c:1162
+#: src/plugin_htmlbar/html_diag.c:465
+#: src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html_table.c:256
+#: src/plugin_htmlbar/html_table.c:378
 msgid "St_yle:"
 msgstr "Stíl_us:"
 
-#: src/plugin_htmlbar/html.c:913 src/plugin_htmlbar/html.c:1172
+#: src/plugin_htmlbar/html.c:913
+#: src/plugin_htmlbar/html.c:1172
 #: src/plugin_htmlbar/html_diag.c:459
 msgid "_ID:"
 msgstr "_Azonosító:"
@@ -1797,22 +1824,30 @@ msgstr "_Azonosító:"
 msgid "Horizontal Rule"
 msgstr "Vízszintes vonal"
 
-#: src/plugin_htmlbar/html.c:1056 src/plugin_htmlbar/image.c:526
-#: src/plugin_htmlbar/image_dialog.c:419
+#: src/plugin_htmlbar/html.c:1056
+#: src/plugin_htmlbar/image.c:526
+#: src/plugin_htmlbar/image_dialog.c:420
 msgid "_Align:"
 msgstr "Ig_azítás:"
 
-#: src/plugin_htmlbar/html.c:1063 src/plugin_htmlbar/html.c:1978
-#: src/plugin_htmlbar/html.c:2082 src/plugin_htmlbar/html.c:2239
-#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:349
+#: src/plugin_htmlbar/html.c:1063
+#: src/plugin_htmlbar/html.c:1978
+#: src/plugin_htmlbar/html.c:2082
+#: src/plugin_htmlbar/html.c:2239
+#: src/plugin_htmlbar/html_table.c:408
+#: src/plugin_htmlbar/image_dialog.c:350
 msgid "_Height:"
 msgstr "_Magasság:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1069 src/plugin_htmlbar/html.c:1973
-#: src/plugin_htmlbar/html.c:2077 src/plugin_htmlbar/html.c:2235
-#: src/plugin_htmlbar/html_table.c:139 src/plugin_htmlbar/html_table.c:401
-#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/html.c:1069
+#: src/plugin_htmlbar/html.c:1973
+#: src/plugin_htmlbar/html.c:2077
+#: src/plugin_htmlbar/html.c:2235
+#: src/plugin_htmlbar/html_table.c:139
+#: src/plugin_htmlbar/html_table.c:401
+#: src/plugin_htmlbar/image.c:488
+#: src/plugin_htmlbar/image_dialog.c:341
 msgid "_Width:"
 msgstr "_Szélesség:"
 
@@ -1936,7 +1971,8 @@ msgstr "_Levéltörzs:"
 msgid "Quick List"
 msgstr "Gyorslista"
 
-#: src/plugin_htmlbar/html.c:1602 src/plugin_htmlbar/wizards.c:81
+#: src/plugin_htmlbar/html.c:1602
+#: src/plugin_htmlbar/wizards.c:81
 msgid "Number of _rows:"
 msgstr "So_rok száma:"
 
@@ -1948,15 +1984,18 @@ msgstr "_Sorszámozott"
 msgid "_Unordered"
 msgstr "_Nem sorszámozott"
 
-#: src/plugin_htmlbar/html.c:1608 src/plugin_htmlbar/image_dialog.c:390
+#: src/plugin_htmlbar/html.c:1608
+#: src/plugin_htmlbar/image_dialog.c:391
 msgid "Style:"
 msgstr "Stílus:"
 
-#: src/plugin_htmlbar/html.c:1684 src/plugin_htmlbar/html_form.c:259
+#: src/plugin_htmlbar/html.c:1684
+#: src/plugin_htmlbar/html_form.c:259
 msgid "Co_ls:"
 msgstr "Osz_lopok:"
 
-#: src/plugin_htmlbar/html.c:1687 src/plugin_htmlbar/html_form.c:255
+#: src/plugin_htmlbar/html.c:1687
+#: src/plugin_htmlbar/html_form.c:255
 msgid "_Rows:"
 msgstr "So_rok:"
 
@@ -1964,9 +2003,12 @@ msgstr "So_rok:"
 msgid "_Add <frame> elements"
 msgstr "<frame> elemek hozzá_adása"
 
-#: src/plugin_htmlbar/html.c:1773 src/plugin_htmlbar/html.c:1875
-#: src/plugin_htmlbar/html.c:2045 src/plugin_htmlbar/html.c:2228
-#: src/plugin_htmlbar/html.c:2315 src/plugin_htmlbar/image_dialog.c:302
+#: src/plugin_htmlbar/html.c:1773
+#: src/plugin_htmlbar/html.c:1875
+#: src/plugin_htmlbar/html.c:2045
+#: src/plugin_htmlbar/html.c:2228
+#: src/plugin_htmlbar/html.c:2315
+#: src/plugin_htmlbar/image_dialog.c:302
 msgid "_Source:"
 msgstr "Forrá_s:"
 
@@ -1995,34 +2037,42 @@ msgstr "Nem átmé_retezhető:"
 msgid "Audio"
 msgstr "Audió"
 
-#: src/plugin_htmlbar/html.c:1879 src/plugin_htmlbar/html.c:2057
+#: src/plugin_htmlbar/html.c:1879
+#: src/plugin_htmlbar/html.c:2057
 msgid "_Autoplay:"
 msgstr "_Autoplay:"
 
-#: src/plugin_htmlbar/html.c:1883 src/plugin_htmlbar/html.c:2062
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1883
+#: src/plugin_htmlbar/html.c:2062
 msgid "C_ontrols:"
-msgstr "_Controls:"
+msgstr "C_ontrols:"
 
-#: src/plugin_htmlbar/html.c:1887 src/plugin_htmlbar/html.c:2067
+#: src/plugin_htmlbar/html.c:1887
+#: src/plugin_htmlbar/html.c:2067
 msgid "_Loop:"
 msgstr "_Loop:"
 
-#: src/plugin_htmlbar/html.c:1891 src/plugin_htmlbar/html.c:2072
+#: src/plugin_htmlbar/html.c:1891
+#: src/plugin_htmlbar/html.c:2072
 msgid "M_ute:"
-msgstr ""
+msgstr "_Némítás:"
 
-#: src/plugin_htmlbar/html.c:1896 src/plugin_htmlbar/html.c:2096
+#: src/plugin_htmlbar/html.c:1896
+#: src/plugin_htmlbar/html.c:2096
 msgid "_Preload:"
 msgstr "_Preload:"
 
-#: src/plugin_htmlbar/html.c:1901 src/plugin_htmlbar/html.c:1960
-#: src/plugin_htmlbar/html.c:2087 src/plugin_htmlbar/html.c:2243
+#: src/plugin_htmlbar/html.c:1901
+#: src/plugin_htmlbar/html.c:1960
+#: src/plugin_htmlbar/html.c:2087
+#: src/plugin_htmlbar/html.c:2243
 msgid "_Id:"
 msgstr "_Azonosító:"
 
-#: src/plugin_htmlbar/html.c:1908 src/plugin_htmlbar/html.c:1967
-#: src/plugin_htmlbar/html.c:2101 src/plugin_htmlbar/html.c:2250
+#: src/plugin_htmlbar/html.c:1908
+#: src/plugin_htmlbar/html.c:1967
+#: src/plugin_htmlbar/html.c:2101
+#: src/plugin_htmlbar/html.c:2250
 msgid "_Style:"
 msgstr "_Stílus:"
 
@@ -2056,8 +2106,7 @@ msgid ""
 "hh - hour (e.g. 22 for 10.00pm)\n"
 "mm - minutes (e.g. 55)\n"
 "ss - seconds (e.g. 03)\n"
-"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean "
-"Time)\n"
+"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean Time)\n"
 msgstr ""
 "Dátum és idő formátum (pl. YYYY-MM-DDThh:mm:ssTZD) :\n"
 "\n"
@@ -2080,9 +2129,8 @@ msgid "Embed"
 msgstr "Beágyazott"
 
 #: src/plugin_htmlbar/html.c:2232
-#, fuzzy
 msgid "_MIME Type:"
-msgstr "_Típus:"
+msgstr "_MIME-típus:"
 
 #: src/plugin_htmlbar/html.c:2297
 msgid "Script"
@@ -2090,30 +2138,28 @@ msgstr "Szkript"
 
 #: src/plugin_htmlbar/html.c:2321
 msgid "(HTML4 only)"
-msgstr ""
+msgstr "(csak HTML4)"
 
 #: src/plugin_htmlbar/html.c:2324
-#, fuzzy
 msgid "MIME _Type:"
-msgstr "_Típus:"
+msgstr "MIME -_típus:"
 
 #: src/plugin_htmlbar/html.c:2328
-#, fuzzy
 msgid "_Charset:"
-msgstr "On_Change:"
+msgstr "_Karakterkódolás:"
 
-#: src/plugin_htmlbar/html.c:2330 src/plugin_htmlbar/html.c:2339
-#, fuzzy
+#: src/plugin_htmlbar/html.c:2330
+#: src/plugin_htmlbar/html.c:2339
 msgid "(HTML5)"
-msgstr "_HTML5"
+msgstr "(HTML5)"
 
 #: src/plugin_htmlbar/html.c:2333
 msgid "_Async:"
-msgstr ""
+msgstr "_Async:"
 
 #: src/plugin_htmlbar/html.c:2337
 msgid "_Defer:"
-msgstr ""
+msgstr "_Defer:"
 
 #: src/plugin_htmlbar/html.c:2401
 msgid "Link"
@@ -2127,7 +2173,8 @@ msgstr "_HREFLANG:"
 msgid "T_itle:"
 msgstr "_Cím:"
 
-#: src/plugin_htmlbar/html.c:2442 src/plugin_htmlbar/html_form.c:532
+#: src/plugin_htmlbar/html.c:2442
+#: src/plugin_htmlbar/html_form.c:532
 #: src/plugin_htmlbar/html_form.c:641
 msgid "_Type:"
 msgstr "_Típus:"
@@ -2172,7 +2219,8 @@ msgstr "Szövegmező"
 msgid "Select"
 msgstr "Választómező"
 
-#: src/plugin_htmlbar/html_form.c:319 src/plugin_htmlbar/html_form.c:549
+#: src/plugin_htmlbar/html_form.c:319
+#: src/plugin_htmlbar/html_form.c:549
 msgid "Si_ze:"
 msgstr "_Méret:"
 
@@ -2184,7 +2232,8 @@ msgstr "Többszörö_s választás:"
 msgid "Option"
 msgstr "Választás"
 
-#: src/plugin_htmlbar/html_form.c:378 src/plugin_htmlbar/html_form.c:424
+#: src/plugin_htmlbar/html_form.c:378
+#: src/plugin_htmlbar/html_form.c:424
 msgid "_Label:"
 msgstr "_Címke:"
 
@@ -2244,12 +2293,14 @@ msgstr "Cella_bélés:"
 msgid "C_ell Spacing:"
 msgstr "Cella_köz:"
 
-#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:128
+#: src/plugin_htmlbar/html_table.c:242
 #: src/plugin_htmlbar/html_table.c:370
 msgid "_Valign:"
 msgstr "_Függőleges igazítás:"
 
-#: src/plugin_htmlbar/html_table.c:133 src/plugin_htmlbar/html_table.c:251
+#: src/plugin_htmlbar/html_table.c:133
+#: src/plugin_htmlbar/html_table.c:251
 #: src/plugin_htmlbar/html_table.c:413
 msgid "Backgrou_nd Color:"
 msgstr "Háttérszí_n:"
@@ -2292,7 +2343,8 @@ msgstr "%s betöltése..."
 msgid "Insert thumbnail"
 msgstr "Bélyegkép beszúrása"
 
-#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:319
+#: src/plugin_htmlbar/image.c:461
+#: src/plugin_htmlbar/image_dialog.c:320
 msgid "Preview"
 msgstr "Előnézet"
 
@@ -2304,7 +2356,8 @@ msgstr "_Kép helye:"
 msgid "Hei_ght:"
 msgstr "Ma_gasság:"
 
-#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:385
+#: src/plugin_htmlbar/image.c:500
+#: src/plugin_htmlbar/image_dialog.c:386
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
@@ -2312,11 +2365,13 @@ msgstr "_Usemap:"
 msgid "Alternate _text:"
 msgstr "Helye_ttesítő szöveg:"
 
-#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:428
+#: src/plugin_htmlbar/image.c:512
+#: src/plugin_htmlbar/image_dialog.c:429
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:432
+#: src/plugin_htmlbar/image.c:516
+#: src/plugin_htmlbar/image_dialog.c:433
 msgid "_Vspace:"
 msgstr "_Vspace:"
 
@@ -2332,11 +2387,13 @@ msgstr "Fájlok kiválasztása bélyegkép készítéséhez"
 msgid "Scaling (%)"
 msgstr "Átméretezés (%)"
 
-#: src/plugin_htmlbar/image.c:991 src/plugin_htmlbar/image.c:999
+#: src/plugin_htmlbar/image.c:991
+#: src/plugin_htmlbar/image.c:999
 msgid "Width"
 msgstr "Szélesség"
 
-#: src/plugin_htmlbar/image.c:995 src/plugin_htmlbar/image.c:1036
+#: src/plugin_htmlbar/image.c:995
+#: src/plugin_htmlbar/image.c:1036
 msgid "Height"
 msgstr "Magasság"
 
@@ -2372,31 +2429,31 @@ msgstr ""
 "%x: bélyegkép szélessség  %y: bélyegkép magasság\n"
 "%b: eredeti méret (bájt)"
 
-#: src/plugin_htmlbar/image_dialog.c:356
+#: src/plugin_htmlbar/image_dialog.c:357
 msgid "_Reset Dimensions"
 msgstr "Méretek _visszaállítása"
 
-#: src/plugin_htmlbar/image_dialog.c:366
+#: src/plugin_htmlbar/image_dialog.c:367
 msgid "Alternate te_xt:"
 msgstr "_Helyettesítő szöveg:"
 
-#: src/plugin_htmlbar/image_dialog.c:371
+#: src/plugin_htmlbar/image_dialog.c:372
 msgid "_Long description:"
 msgstr "Hosszú _leírás:"
 
-#: src/plugin_htmlbar/image_dialog.c:380
+#: src/plugin_htmlbar/image_dialog.c:381
 msgid "I_D:"
 msgstr "_Azonosító:"
 
-#: src/plugin_htmlbar/image_dialog.c:408
+#: src/plugin_htmlbar/image_dialog.c:409
 msgid "_Use Transitional options"
 msgstr "_Transitional opciók használata"
 
-#: src/plugin_htmlbar/image_dialog.c:424
+#: src/plugin_htmlbar/image_dialog.c:425
 msgid "_Border:"
 msgstr "_Szegély:"
 
-#: src/plugin_htmlbar/image_dialog.c:734
+#: src/plugin_htmlbar/image_dialog.c:735
 #, c-format
 msgid ""
 "\n"
@@ -2405,7 +2462,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/plugin_htmlbar/image_dialog.c:739
+#: src/plugin_htmlbar/image_dialog.c:740
 #, c-format
 msgid ""
 "\n"
@@ -2414,7 +2471,7 @@ msgstr ""
 "\n"
 "%d x %d pixel"
 
-#: src/plugin_htmlbar/image_dialog.c:837
+#: src/plugin_htmlbar/image_dialog.c:838
 msgid ""
 "\n"
 "\n"
@@ -2426,16 +2483,16 @@ msgstr ""
 "\t<b>Előnézet betöltése...</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:939
+#: src/plugin_htmlbar/image_dialog.c:940
 msgid "Select Image"
 msgstr "Válasszon képet"
 
-#: src/plugin_htmlbar/image_dialog.c:946
+#: src/plugin_htmlbar/image_dialog.c:947
 msgid "All images"
 msgstr "Minden kép"
 
-#: src/plugin_htmlbar/image_dialog.c:1164
-#: src/plugin_htmlbar/image_dialog.c:1275
+#: src/plugin_htmlbar/image_dialog.c:1165
+#: src/plugin_htmlbar/image_dialog.c:1276
 msgid "Insert Image"
 msgstr "Kép beszúrása"
 
@@ -2491,7 +2548,8 @@ msgstr "Gyors kezdés"
 msgid "_DTD:"
 msgstr "_DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:656 src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/quickstart.c:656
+#: src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "_Cím:"
 
