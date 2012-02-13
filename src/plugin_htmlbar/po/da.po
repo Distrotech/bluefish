@@ -2,20 +2,20 @@
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # Rasmus Toftdahl Olesen <rto@pohldata.dk>, 2003.
 # Finn Gruwier Larsen <finngruwierlarsen@gmail.com>, 2010.
-# flemming christensen <fc@stromata.dk>, 2011.
+# flemming christensen <fc@stromata.dk>, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-02-06 10:54+0100\n"
-"PO-Revision-Date: 2011-12-12 14:46+0100\n"
+"POT-Creation-Date: 2012-02-08 21:55+0100\n"
+"PO-Revision-Date: 2012-02-12 20:59+0100\n"
 "Last-Translator: flemming christensen <fc@stromata.dk>\n"
 "Language-Team: Dansk <dansk@dansk-gruppen.dk>\n"
-"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: src/plugin_htmlbar/html2.c:556
@@ -502,9 +502,8 @@ msgid "et_h (Icelandic) ð"
 msgstr "et_h (Islandsk) ð"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1540
-#, fuzzy
 msgid "th_orn þ"
-msgstr "diaeres_is ÿ"
+msgstr "th_orn þ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1541
 msgid "Sharp _s ß"
@@ -935,16 +934,15 @@ msgstr "Formular"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1648
 msgid "_Fieldset"
-msgstr ""
+msgstr "_Felter"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1649
 msgid "_Legend"
-msgstr ""
+msgstr "_Forklaring"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1650
-#, fuzzy
 msgid "L_abel"
-msgstr "_Etiket:"
+msgstr "_Etiket"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1651
 msgid "_Input"
@@ -955,24 +953,20 @@ msgid "_Button"
 msgstr "_Knap"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
-#, fuzzy
 msgid "_Select"
-msgstr "Vælg"
+msgstr "_Vælg"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1654
-#, fuzzy
 msgid "_Datalist"
-msgstr "_Kursiv"
+msgstr "_Dataliste"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
-#, fuzzy
 msgid "Opt_group"
-msgstr "Valggruppe"
+msgstr "_Gruppe af muligheder"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1656
-#, fuzzy
 msgid "Optio_n"
-msgstr "Valgmulighed"
+msgstr "_Valg"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1657
 msgid "_Textarea"
@@ -980,19 +974,19 @@ msgstr "_Tekstfelt"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1658
 msgid "_Keygen"
-msgstr ""
+msgstr "_Nøglegenerator"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1659
 msgid "O_utput"
-msgstr ""
+msgstr "_Uddata"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1660
 msgid "_Progress"
-msgstr ""
+msgstr "_Fremgang"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1661
 msgid "_Meter"
-msgstr ""
+msgstr "_Måler"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1662
 msgid "_Misc"
@@ -1067,14 +1061,12 @@ msgid "Body..."
 msgstr "Body..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1681
-#, fuzzy
 msgid "_Script..."
-msgstr "Skript"
+msgstr "_Skript"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1681
-#, fuzzy
 msgid "Script..."
-msgstr "Skript"
+msgstr "Skript..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 msgid "_Anchor..."
@@ -1225,9 +1217,8 @@ msgid "Div..."
 msgstr "Div..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1722
-#, fuzzy
 msgid "_Style"
-msgstr "_Stil:"
+msgstr "_Stil"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1722
 #: src/plugin_htmlbar/html_form.c:565
@@ -1532,21 +1523,20 @@ msgid "_HTML Toolbar"
 msgstr "_HTML-værktøjslinje"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1924
-#, fuzzy
 msgid "Add to Quickbar"
-msgstr "Hurtigstart"
+msgstr "Tilføj til hurtigstart"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1924
-#, fuzzy
 msgid "Remove from Quickbar"
-msgstr "Hurtigstart"
+msgstr "Fjern fra hurtigstart"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1962
 msgid "Right click any html toolbar button to add it to the Quickbar."
 msgstr ""
+"Højreklik på en vilkårlig knap på html-værktøjslinjen for at føje den til "
+"hurtigstart."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:2024
-#, fuzzy
 msgid " Quickbar "
 msgstr "Hurtigstart"
 
@@ -1689,7 +1679,7 @@ msgstr "_Sprog:"
 #: src/plugin_htmlbar/html_form.c:267 src/plugin_htmlbar/html_form.c:328
 #: src/plugin_htmlbar/html_form.c:645 src/plugin_htmlbar/html_table.c:107
 #: src/plugin_htmlbar/html_table.c:261 src/plugin_htmlbar/html_table.c:383
-#: src/plugin_htmlbar/image.c:509 src/plugin_htmlbar/image_dialog.c:396
+#: src/plugin_htmlbar/image.c:509 src/plugin_htmlbar/image_dialog.c:397
 msgid "Custo_m:"
 msgstr "Til_passet:"
 
@@ -1780,7 +1770,7 @@ msgstr "_Justér:"
 #: src/plugin_htmlbar/html.c:2091 src/plugin_htmlbar/html.c:2247
 #: src/plugin_htmlbar/html_diag.c:451 src/plugin_htmlbar/html_table.c:98
 #: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
-#: src/plugin_htmlbar/image_dialog.c:376
+#: src/plugin_htmlbar/image_dialog.c:377
 msgid "Cl_ass:"
 msgstr "_Klasse:"
 
@@ -1800,13 +1790,13 @@ msgid "Horizontal Rule"
 msgstr "Vandret linje"
 
 #: src/plugin_htmlbar/html.c:1056 src/plugin_htmlbar/image.c:526
-#: src/plugin_htmlbar/image_dialog.c:419
+#: src/plugin_htmlbar/image_dialog.c:420
 msgid "_Align:"
 msgstr "J_ustér:"
 
 #: src/plugin_htmlbar/html.c:1063 src/plugin_htmlbar/html.c:1978
 #: src/plugin_htmlbar/html.c:2082 src/plugin_htmlbar/html.c:2239
-#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:349
+#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:350
 msgid "_Height:"
 msgstr "_Højde:"
 
@@ -1814,7 +1804,7 @@ msgstr "_Højde:"
 #: src/plugin_htmlbar/html.c:1069 src/plugin_htmlbar/html.c:1973
 #: src/plugin_htmlbar/html.c:2077 src/plugin_htmlbar/html.c:2235
 #: src/plugin_htmlbar/html_table.c:139 src/plugin_htmlbar/html_table.c:401
-#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:341
 msgid "_Width:"
 msgstr "_Bredde:"
 
@@ -1950,7 +1940,7 @@ msgstr "Or_dnet"
 msgid "_Unordered"
 msgstr "_Uordnet"
 
-#: src/plugin_htmlbar/html.c:1608 src/plugin_htmlbar/image_dialog.c:390
+#: src/plugin_htmlbar/html.c:1608 src/plugin_htmlbar/image_dialog.c:391
 msgid "Style:"
 msgstr "Stil:"
 
@@ -2002,7 +1992,6 @@ msgid "_Autoplay:"
 msgstr "_Automatisk afspilning:"
 
 #: src/plugin_htmlbar/html.c:1883 src/plugin_htmlbar/html.c:2062
-#, fuzzy
 msgid "C_ontrols:"
 msgstr "_Kontroller:"
 
@@ -2012,7 +2001,7 @@ msgstr "_Loop:"
 
 #: src/plugin_htmlbar/html.c:1891 src/plugin_htmlbar/html.c:2072
 msgid "M_ute:"
-msgstr ""
+msgstr "_Lydløs:"
 
 #: src/plugin_htmlbar/html.c:1896 src/plugin_htmlbar/html.c:2096
 msgid "_Preload:"
@@ -2082,9 +2071,8 @@ msgid "Embed"
 msgstr "Indlejr"
 
 #: src/plugin_htmlbar/html.c:2232
-#, fuzzy
 msgid "_MIME Type:"
-msgstr "_Type:"
+msgstr "_MIME-type:"
 
 #: src/plugin_htmlbar/html.c:2297
 msgid "Script"
@@ -2092,30 +2080,27 @@ msgstr "Skript"
 
 #: src/plugin_htmlbar/html.c:2321
 msgid "(HTML4 only)"
-msgstr ""
+msgstr "(Kun HTML4)"
 
 #: src/plugin_htmlbar/html.c:2324
-#, fuzzy
 msgid "MIME _Type:"
-msgstr "_Type:"
+msgstr "MIME-type:"
 
 #: src/plugin_htmlbar/html.c:2328
-#, fuzzy
 msgid "_Charset:"
-msgstr "On_Change:"
+msgstr "_Tegnsæt:"
 
 #: src/plugin_htmlbar/html.c:2330 src/plugin_htmlbar/html.c:2339
-#, fuzzy
 msgid "(HTML5)"
-msgstr "HTML_5"
+msgstr "(HTML5)"
 
 #: src/plugin_htmlbar/html.c:2333
 msgid "_Async:"
-msgstr ""
+msgstr "_Asynkront:"
 
 #: src/plugin_htmlbar/html.c:2337
 msgid "_Defer:"
-msgstr ""
+msgstr "_Undgå:"
 
 #: src/plugin_htmlbar/html.c:2401
 msgid "Link"
@@ -2294,7 +2279,7 @@ msgstr "Henter fil %s..."
 msgid "Insert thumbnail"
 msgstr "Indsæt miniature"
 
-#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:319
+#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:320
 msgid "Preview"
 msgstr "Smugkig"
 
@@ -2306,7 +2291,7 @@ msgstr "B_illedplacering:"
 msgid "Hei_ght:"
 msgstr "Hø_jde:"
 
-#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:385
+#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:386
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
@@ -2314,11 +2299,11 @@ msgstr "_Usemap:"
 msgid "Alternate _text:"
 msgstr "Alternativ _tekst:"
 
-#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:428
+#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:429
 msgid "_Hspace:"
 msgstr "_Vandret afstand:"
 
-#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:432
+#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:433
 msgid "_Vspace:"
 msgstr "_Lodret afstand:"
 
@@ -2374,31 +2359,31 @@ msgstr ""
 "%x: miniaturebredde  %y: miniaturehøjde\n"
 "%b: oprindelig størrelse (bytes)"
 
-#: src/plugin_htmlbar/image_dialog.c:356
+#: src/plugin_htmlbar/image_dialog.c:357
 msgid "_Reset Dimensions"
 msgstr "Nulstil dimensione_r"
 
-#: src/plugin_htmlbar/image_dialog.c:366
+#: src/plugin_htmlbar/image_dialog.c:367
 msgid "Alternate te_xt:"
 msgstr "Alternativ te_kst:"
 
-#: src/plugin_htmlbar/image_dialog.c:371
+#: src/plugin_htmlbar/image_dialog.c:372
 msgid "_Long description:"
 msgstr "_Lang beskrivelse:"
 
-#: src/plugin_htmlbar/image_dialog.c:380
+#: src/plugin_htmlbar/image_dialog.c:381
 msgid "I_D:"
 msgstr "I_D:"
 
-#: src/plugin_htmlbar/image_dialog.c:408
+#: src/plugin_htmlbar/image_dialog.c:409
 msgid "_Use Transitional options"
 msgstr "_Brug overgangs-valgmuligheder"
 
-#: src/plugin_htmlbar/image_dialog.c:424
+#: src/plugin_htmlbar/image_dialog.c:425
 msgid "_Border:"
 msgstr "_Ramme:"
 
-#: src/plugin_htmlbar/image_dialog.c:734
+#: src/plugin_htmlbar/image_dialog.c:735
 #, c-format
 msgid ""
 "\n"
@@ -2407,7 +2392,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/plugin_htmlbar/image_dialog.c:739
+#: src/plugin_htmlbar/image_dialog.c:740
 #, c-format
 msgid ""
 "\n"
@@ -2416,7 +2401,7 @@ msgstr ""
 "\n"
 "%d x %d pixels"
 
-#: src/plugin_htmlbar/image_dialog.c:837
+#: src/plugin_htmlbar/image_dialog.c:838
 msgid ""
 "\n"
 "\n"
@@ -2428,16 +2413,16 @@ msgstr ""
 "\t<b>Henter preview...</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:939
+#: src/plugin_htmlbar/image_dialog.c:940
 msgid "Select Image"
 msgstr "Vælg billede"
 
-#: src/plugin_htmlbar/image_dialog.c:946
+#: src/plugin_htmlbar/image_dialog.c:947
 msgid "All images"
 msgstr "Alle billeder"
 
-#: src/plugin_htmlbar/image_dialog.c:1164
-#: src/plugin_htmlbar/image_dialog.c:1275
+#: src/plugin_htmlbar/image_dialog.c:1165
+#: src/plugin_htmlbar/image_dialog.c:1276
 msgid "Insert Image"
 msgstr "Indsæt billede"
 
