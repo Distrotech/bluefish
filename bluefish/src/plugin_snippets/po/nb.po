@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-02-06 10:54+0100\n"
-"PO-Revision-Date: 2010-04-26 12:00+0100\n"
+"PO-Revision-Date: 2012-02-13 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "Language: nb\n"
@@ -25,7 +25,7 @@ msgstr "Bruk dra-og-slipp for å omorganisere utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:418
 msgid "To exchange snippets with others use import or export"
-msgstr "For å bytte utklipp med andre, bruk import- eller eksportfunksjonen"
+msgstr "Bruk import eller eksport for å utveksle utklipp med andre"
 
 #: src/plugin_snippets/snippets_gui.c:640
 msgid "snippets"
@@ -33,7 +33,7 @@ msgstr "utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:703
 msgid "Snippet export filename"
-msgstr "Eksportfil for utklipp"
+msgstr "Eksportfilnavn for utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:741
 msgid "Snippet import filename"
@@ -58,7 +58,7 @@ msgstr "Nytt utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:817
 msgid "_Edit Snippet"
-msgstr "_Rediger utklipp"
+msgstr "_Endre utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:817
 #: src/plugin_snippets/snippets_wizard.c:754
@@ -87,15 +87,15 @@ msgstr "Sett sn_arveitast for utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:820
 msgid "Set snippet accelerator"
-msgstr "Sett snarveitast for utklipp"
+msgstr "Velg snarveitast for utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:822
 msgid "Ex_pand All"
-msgstr "Eks_pander alle"
+msgstr "_Utvid alle"
 
 #: src/plugin_snippets/snippets_gui.c:822
 msgid "Expand all"
-msgstr "Ekspander alle"
+msgstr "Utvid alle"
 
 #: src/plugin_snippets/snippets_gui.c:823
 msgid "_Collapse All"
@@ -107,7 +107,7 @@ msgstr "Skjul alle"
 
 #: src/plugin_snippets/snippets_gui.c:824
 msgid "E_xport"
-msgstr "Ek_sporter"
+msgstr "_Eksporter"
 
 #: src/plugin_snippets/snippets_gui.c:824
 msgid "Export snippets"
@@ -115,7 +115,7 @@ msgstr "Eksporter utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:825
 msgid "I_mport"
-msgstr "I_mporter"
+msgstr "_Importer"
 
 #: src/plugin_snippets/snippets_gui.c:825
 msgid "Import snippets"
@@ -123,16 +123,15 @@ msgstr "Importer utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:829
 msgid "_Show as menu"
-msgstr "Vi_s som meny"
+msgstr "_Vis som meny"
 
 #: src/plugin_snippets/snippets_gui.c:829
 msgid "Show snippets menu"
-msgstr "Vis utklippsmeny"
+msgstr "Vis utklippsmenyen"
 
 #: src/plugin_snippets/snippets_gui.c:831
-#, fuzzy
 msgid "S_nippets Menu"
-msgstr "Utklippsmeny"
+msgstr "Ut_klippsmeny"
 
 #: src/plugin_snippets/snippets_leaf_insert.c:64
 msgid "[cursor position or selection]"
@@ -164,7 +163,7 @@ msgstr "Alle åpne filer"
 
 #: src/plugin_snippets/snippets_wizard.c:118
 msgid "Normal"
-msgstr "Standard"
+msgstr "Vanlig"
 
 #: src/plugin_snippets/snippets_wizard.c:119
 msgid "PERL"
@@ -199,7 +198,7 @@ msgstr "Søkeuttrykk: "
 
 #: src/plugin_snippets/snippets_wizard.c:161
 msgid "Case sensitive _matching"
-msgstr "Treff store-s_må bokstaver"
+msgstr "Skill mellom _store og små bokstaver"
 
 #: src/plugin_snippets/snippets_wizard.c:162
 msgid "Only match if case (upper/lower) is identical."
