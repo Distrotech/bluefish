@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-02-06 10:54+0100\n"
-"PO-Revision-Date: 2011-12-18 12:00+0200\n"
+"PO-Revision-Date: 2012-02-13 12:00+0200\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "Language: nb\n"
@@ -356,12 +356,10 @@ msgid "Select block, use multiple times to select parent blocks "
 msgstr "Velg blokk, brukes flere ganger for å velge overordnede blokker "
 
 #: ../src/bfwin_uimanager.c:809
-#, fuzzy
 msgid "Duplica_te Line"
-msgstr "Fargelegg linjen der markøren er"
+msgstr "Dupliser linjen"
 
 #: ../src/bfwin_uimanager.c:809
-#, fuzzy
 msgid "Duplicate the current line"
 msgstr "Fargelegg linjen der markøren er"
 
@@ -374,7 +372,6 @@ msgid "Word count"
 msgstr "Ordtelling"
 
 #: ../src/bfwin_uimanager.c:812
-#, fuzzy
 msgid "Indenting to S_paces"
 msgstr "Innrykk til _mellomrom"
 
@@ -383,7 +380,6 @@ msgid "Indenting to spaces"
 msgstr "Innrykk til mellomrom"
 
 #: ../src/bfwin_uimanager.c:814
-#, fuzzy
 msgid "Indenting to T_abs"
 msgstr "_Innrykk til tabulatorer"
 
@@ -432,9 +428,8 @@ msgid "Strip trailing whitespace"
 msgstr "Fjern blanke tegn på enden av hver linje"
 
 #: ../src/bfwin_uimanager.c:825
-#, fuzzy
 msgid "Preview in browser"
-msgstr "Filbehandler"
+msgstr "Forhåndsvis i filbehandler"
 
 #: ../src/bfwin_uimanager.c:830
 msgid "_Full Screen"
@@ -446,7 +441,7 @@ msgstr "Fullskjerm"
 
 #: ../src/bfwin_uimanager.c:832
 msgid "_Main Toolbar"
-msgstr "Hoved-_verktøylinje"
+msgstr "Hoved_verktøylinje"
 
 #: ../src/bfwin_uimanager.c:832
 msgid "Show main toolbar"
@@ -2585,18 +2580,16 @@ msgid "_Make HTML dialogs transient"
 msgstr "Behold HTML dialoger øverst"
 
 #: ../src/preferences.c:2216
-#, fuzzy
 msgid "Save menu accelerators on exit"
-msgstr "Lagre brukerdefinerte menysnarveier"
+msgstr "Lagre de brukerdefinerte menysnarveiene"
 
 #: ../src/preferences.c:2219
-#, fuzzy
 msgid "Save user customised menu accelerators now"
-msgstr "Lagre brukerdefinerte menysnarveier"
+msgstr "Lagre de brukerdefinerte menysnarveier nå"
 
 #: ../src/preferences.c:2223
 msgid "Reset menu accelerators to application defaults"
-msgstr ""
+msgstr "Tilbakestill alle brukerdefinerte menysnarveier"
 
 #: ../src/preferences.c:2227
 msgid "<b>Recent Files</b>"
@@ -3111,9 +3104,8 @@ msgid "Filename pattern: "
 msgstr "Filnavnmønster:"
 
 #: ../src/snr3.c:1574
-#, fuzzy
 msgid "Recursion level: "
-msgstr "_Rekursivt:"
+msgstr "Grense for rekursivt søk:"
 
 #: ../src/snr3.c:1580
 msgid "Basedir: "
@@ -3121,11 +3113,11 @@ msgstr "Rotkatalog: "
 
 #: ../src/snr3.c:1599
 msgid "Case sensitive _matching"
-msgstr "Skill store/s_må bokstaver"
+msgstr "Skill mellom store/sm_å bokstaver"
 
 #: ../src/snr3.c:1601
 msgid "Only match if case (upper/lower) is identical."
-msgstr "Indikerer bare et treff dersom store/små bokstaver er like."
+msgstr "Treff bare om små/store bokstaver samsvarer."
 
 #: ../src/snr3.c:1605
 msgid "Pattern contains escape-se_quences"
@@ -3156,14 +3148,12 @@ msgid "_Replace"
 msgstr "E_rstatt"
 
 #: ../src/snr3.c:1643
-#, fuzzy
 msgid "_Find All"
-msgstr "Finn Alle"
+msgstr "Finn alle"
 
 #: ../src/snr3.c:1645
-#, fuzzy
 msgid "B_ookmark All"
-msgstr "Lagre alle som _bokmerker"
+msgstr "Legg til alle som _bokmerke"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
 msgid "Undo in _all documents"
