@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-02-08 21:55+0100\n"
-"PO-Revision-Date: 2012-02-12 21:22+0100\n"
+"POT-Creation-Date: 2012-02-14 09:47+0100\n"
+"PO-Revision-Date: 2012-02-13 14:14+0100\n"
 "Last-Translator: flemming christensen <fc@stromata.dk>\n"
 "Language-Team: Dansk <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
@@ -163,8 +163,8 @@ msgstr "_Uddataboks"
 msgid "_New"
 msgstr "_Ny"
 
-#: ../src/bfwin_uimanager.c:766 ../src/filebrowser2.c:1623
-#: ../src/filebrowser2.c:1625 ../src/filebrowser2.c:2019
+#: ../src/bfwin_uimanager.c:766 ../src/filebrowser2.c:1631
+#: ../src/filebrowser2.c:1633 ../src/filebrowser2.c:2027
 msgid "New file"
 msgstr "Ny fil"
 
@@ -196,7 +196,7 @@ msgstr "Åbn fil"
 msgid "Open Ad_vanced..."
 msgstr "Åbn a_vanceret..."
 
-#: ../src/bfwin_uimanager.c:771 ../src/filebrowser2.c:2015
+#: ../src/bfwin_uimanager.c:771 ../src/filebrowser2.c:2023
 msgid "Open advanced"
 msgstr "Åbn avanceret"
 
@@ -783,11 +783,11 @@ msgstr "Find i udklipsholder eller markering"
 
 #: ../src/bfwin_uimanager.c:920
 msgid "Advanced Find & Re_place..."
-msgstr "Avanceret søg og erstat..."
+msgstr "_Avanceret søg og erstat..."
 
 #: ../src/bfwin_uimanager.c:920
 msgid "Advanced Find and Replace"
-msgstr "Avanceret søg og erstat"
+msgstr "_Avanceret søg og erstat"
 
 #: ../src/bfwin_uimanager.c:927
 msgid "Save & _close"
@@ -1019,7 +1019,7 @@ msgstr "Søgemenu for bogmærker"
 msgid "_Edit..."
 msgstr "_Redigér..."
 
-#: ../src/bookmark.c:876 ../src/filebrowser2.c:2018
+#: ../src/bookmark.c:876 ../src/filebrowser2.c:2026
 msgid "_Delete"
 msgstr "_Slet"
 
@@ -1376,11 +1376,11 @@ msgstr "Tegnkodninger i _menu:"
 msgid "Add or remove document encodings"
 msgstr "Tilføj eller fjern tegnkodninger"
 
-#: ../src/filebrowser2.c:256
+#: ../src/filebrowser2.c:264
 msgid "Set documentroot and webroot"
 msgstr "Indstil dokumentrod og webrod"
 
-#: ../src/filebrowser2.c:265
+#: ../src/filebrowser2.c:273
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
@@ -1389,19 +1389,19 @@ msgstr ""
 "<i>Dokumentroden</i> er det sted, hvor Bluefish finder filerne,\n"
 "<i>webroden</i> er det sted, hvor de kan ses på serveren"
 
-#: ../src/filebrowser2.c:272
+#: ../src/filebrowser2.c:280
 msgid "Documentroot"
 msgstr "Dokumentrod"
 
-#: ../src/filebrowser2.c:283
+#: ../src/filebrowser2.c:291
 msgid "Webroot"
 msgstr "Webrod"
 
-#: ../src/filebrowser2.c:1527
+#: ../src/filebrowser2.c:1535
 msgid "Could not rename\n"
 msgstr "Kunne ikke omdøbe\n"
 
-#: ../src/filebrowser2.c:1600 ../src/filebrowser2.c:2020
+#: ../src/filebrowser2.c:1608 ../src/filebrowser2.c:2028
 msgid "New directory"
 msgstr "Ny mappe"
 
@@ -1413,7 +1413,7 @@ msgstr "Ny mappe"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1717
+#: ../src/filebrowser2.c:1725
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -1422,140 +1422,140 @@ msgstr ""
 "Er du sikker på at du vil slette\n"
 "\"%s\"?"
 
-#: ../src/filebrowser2.c:1718
+#: ../src/filebrowser2.c:1726
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "Hvis du sletter %s, vil den være tabt for bestandig."
 
-#: ../src/filebrowser2.c:2013
+#: ../src/filebrowser2.c:2021
 msgid "File Browser menu"
 msgstr "Menu for filhåndtering"
 
-#: ../src/filebrowser2.c:2014
+#: ../src/filebrowser2.c:2022
 msgid "_Open"
 msgstr "_Åbn"
 
-#: ../src/filebrowser2.c:2014
+#: ../src/filebrowser2.c:2022
 msgid "Open"
 msgstr "Åbn"
 
-#: ../src/filebrowser2.c:2015
+#: ../src/filebrowser2.c:2023
 msgid "Open _Advanced..."
 msgstr "Åbn _avanceret..."
 
-#: ../src/filebrowser2.c:2017
+#: ../src/filebrowser2.c:2025
 msgid "Rena_me"
 msgstr "O_mdøb"
 
-#: ../src/filebrowser2.c:2017
+#: ../src/filebrowser2.c:2025
 msgid "Rename"
 msgstr "Omdøb"
 
-#: ../src/filebrowser2.c:2018
+#: ../src/filebrowser2.c:2026
 msgid "Delete"
 msgstr "Slet"
 
-#: ../src/filebrowser2.c:2019
+#: ../src/filebrowser2.c:2027
 msgid "New _File"
 msgstr "Ny _fil"
 
-#: ../src/filebrowser2.c:2020
+#: ../src/filebrowser2.c:2028
 msgid "_New Directory"
 msgstr "_Ny mappe"
 
-#: ../src/filebrowser2.c:2022
+#: ../src/filebrowser2.c:2030
 msgid "_Refresh"
 msgstr "_Opdatér"
 
-#: ../src/filebrowser2.c:2022
+#: ../src/filebrowser2.c:2030
 msgid "Refresh"
 msgstr "Opdatér"
 
-#: ../src/filebrowser2.c:2023
+#: ../src/filebrowser2.c:2031
 msgid "_Set as base dir"
 msgstr "_Angiv som basismappe"
 
-#: ../src/filebrowser2.c:2023
+#: ../src/filebrowser2.c:2031
 msgid "Set as base directory"
 msgstr "Angiv som basismappe"
 
-#: ../src/filebrowser2.c:2025
+#: ../src/filebrowser2.c:2033
 msgid "Set as document root"
 msgstr "Angiv som dokumentrod"
 
-#: ../src/filebrowser2.c:2027
+#: ../src/filebrowser2.c:2035
 msgid "Show Full _Tree"
 msgstr "Vis fuldt _træ"
 
-#: ../src/filebrowser2.c:2027
+#: ../src/filebrowser2.c:2035
 msgid "Show full tree"
 msgstr "Vis fuldt træ"
 
-#: ../src/filebrowser2.c:2029
+#: ../src/filebrowser2.c:2037
 msgid "View Mode"
 msgstr "Visningstilstand"
 
-#: ../src/filebrowser2.c:2030
+#: ../src/filebrowser2.c:2038
 msgid "Filter"
 msgstr "Filtrér"
 
-#: ../src/filebrowser2.c:2031
+#: ../src/filebrowser2.c:2039
 msgid "New Filter"
 msgstr "Nyt filter"
 
-#: ../src/filebrowser2.c:2031 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:2039 ../src/filefilter.c:534
 msgid "New filter"
 msgstr "Nyt filter"
 
-#: ../src/filebrowser2.c:2032
+#: ../src/filebrowser2.c:2040
 msgid "Edit Filter"
 msgstr "Redigér filter"
 
-#: ../src/filebrowser2.c:2032 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:2040 ../src/filefilter.c:540
 msgid "Edit filter"
 msgstr "Redigér filter"
 
-#: ../src/filebrowser2.c:2033
+#: ../src/filebrowser2.c:2041
 msgid "Delete Filter"
 msgstr "Slet filter"
 
-#: ../src/filebrowser2.c:2033
+#: ../src/filebrowser2.c:2041
 msgid "Delete filter"
 msgstr "Slet filter"
 
-#: ../src/filebrowser2.c:2037
+#: ../src/filebrowser2.c:2045
 msgid "Follow Active Document"
 msgstr "Følg det aktive dokument"
 
-#: ../src/filebrowser2.c:2037
+#: ../src/filebrowser2.c:2045
 msgid "Follow active document"
 msgstr "Følg det aktive dokument"
 
-#: ../src/filebrowser2.c:2039
+#: ../src/filebrowser2.c:2047
 msgid "Show Backup Files"
 msgstr "Vis sikkerhedskopier"
 
-#: ../src/filebrowser2.c:2039 ../src/gtk_easy.c:1237
+#: ../src/filebrowser2.c:2047 ../src/gtk_easy.c:1237
 msgid "Show backup files"
 msgstr "Vis sikkerhedskopier"
 
-#: ../src/filebrowser2.c:2041
+#: ../src/filebrowser2.c:2049
 msgid "Show Hidden Files"
 msgstr "Vis skjulte filer"
 
-#: ../src/filebrowser2.c:2041
+#: ../src/filebrowser2.c:2049
 msgid "Show hidden files"
 msgstr "Vis skjulte filer"
 
-#: ../src/filebrowser2.c:2046
+#: ../src/filebrowser2.c:2054
 msgid "Dual"
 msgstr "Dobbelt"
 
-#: ../src/filebrowser2.c:2047
+#: ../src/filebrowser2.c:2055
 msgid "Flat"
 msgstr "Flad"
 
-#: ../src/filebrowser2.c:2048
+#: ../src/filebrowser2.c:2056
 msgid "Tree"
 msgstr "Træ"
 
