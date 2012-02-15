@@ -5,7 +5,7 @@
 ;  The Bluefish Developers
 ;
 ;  Translators:
-;   Daniel Leidert <daniel.leidert@wgdd.de>, 2009
+;   Daniel Leidert <daniel.leidert@wgdd.de>, 2009, 2012
 ;----------------------------------------------
 
 ; Section Names
@@ -19,9 +19,9 @@
 !define LICENSEPAGE_FOOTER "${PRODUCT} wird unter der GNU General Public License (GPL) veröffentlicht. Die Lizenz dient der Information. $_CLICK"
 
 ; General Download Messages
-; !define DOWN_LOCAL "Local copy of %s found..."
-; !define DOWN_CHKSUM "Checksum verified..."
-; !define DOWN_CHKSUM_ERROR "Checksum mismatch..."
+!define DOWN_LOCAL "Lokale Kopie von %s gefunden..."
+!define DOWN_CHKSUM "Prüfsumme verifiziert..."
+!define DOWN_CHKSUM_ERROR "Prüfsummenfehler..."
 
 ; Aspell Strings
 !define DICT_INSTALLED "Die aktuellste Version des Wörterbuches ist bereits installiert. Der Download wird übersprungen:"
@@ -33,9 +33,9 @@
 !define GTK_DOWNLOAD "Herunterladen von GTK+..."
 !define GTK_FAILED "Das Herunterladen von GTK+ ist fehlgeschlagen:"
 !define GTK_INSTALL "Installieren von GTK+..."
-; !define GTK_UNINSTALL "Uninstalling GTK+..."
+!define GTK_UNINSTALL "Deinstallieren von GTK+..."
 !define GTK_PATH "GTK+ wird in das Systemverzeichnis installiert."
-; !define GTK_REQUIRED "Please install GTK+ ${GTK_MIN_VERSION} or higher and make sure it is in your PATH before running Bluefish."
+!define GTK_REQUIRED "Bitte installieren Sie GTK+ ${GTK_MIN_VERSION} oder neuer und stellen Sie sicher, dass der Installationspfad in PATH enthalten ist, bevor Sie Bluefish starten."
 
 ; Plugin Names
 !define PLUG_CHARMAP "Zeichentabelle"
@@ -43,7 +43,7 @@
 !define PLUG_HTMLBAR "HTML-Werkzeugleiste"
 !define PLUG_INFBROWSER "Info-Browser"
 !define PLUG_SNIPPETS "Schnipsel"
-; !define PLUG_ZENCODING "Zencoding"
+!define PLUG_ZENCODING "Zen-Coding"
 
 ; File Associations Page
 !define FA_TITLE "Dateitypen zuordnen"
@@ -55,18 +55,18 @@
 !define FINISHPAGE_LINK "Besuchen Sie die Bluefish Webseite"
 !define UNINSTALL_SHORTCUT "${PRODUCT} deinstallieren"
 !define FILETYPE_REGISTER "Registriere Dateityp:"
-!define UNSTABLE_UPGRADE "Eine Entwicklerversion von ${PRODUCT} ist installiert.$\nSollen alle älteren Versionen entferent werden, bevor mit der Installation fortgefahren wird? (Empfohlen)"
+!define UNSTABLE_UPGRADE "Eine Entwicklerversion von ${PRODUCT} ist installiert.$\nSollen alle älteren Versionen entfernt werden, bevor mit der Installation fortgefahren wird? (Empfohlen)"
 
 ; InetC Plugin Translations
 ;  /TRANSLATE downloading connecting second minute hour plural progress remaining
-; !define INETC_DOWN "Downloading %s"
-; !define INETC_CONN "Connecting ..."
-; !define INETC_TSEC "second"
-; !define INETC_TMIN "minute"
-; !define INETC_THOUR "hour"
-; !define INETC_TPLUR "s"
-; !define INETC_PROGRESS "%dkB (%d%%) of %dkB @ %d.%01dkB/s"
-; !define INETC_REMAIN " (%d %s%s remaining)"
+!define INETC_DOWN "Herunterladen %s"
+!define INETC_CONN "Verbinden ..."
+!define INETC_TSEC "Sekunde"
+!define INETC_TMIN "Minute"
+!define INETC_THOUR "Stunde"
+!define INETC_TPLUR "n"
+!define INETC_PROGRESS "%dkB (%d%%) von %dkB @ %d.%01dkB/s"
+!define INETC_REMAIN " (%d %s%s verbleibend)"
 
 ; Content Types
 !define CT_ADA	"Ada Quelldatei"
@@ -90,7 +90,7 @@
 !define CT_NSH	"NSIS Header"
 !define CT_PL	"Perl Skript"
 !define CT_PHP	"PHP Skript"
-; !define CT_INC	"PHP Include Script"
+!define CT_INC	"PHP Include Skript"
 !define CT_TXT	"Textdatei"
 !define CT_PY	"Python Skript"
 !define CT_RB	"Ruby Skript"
