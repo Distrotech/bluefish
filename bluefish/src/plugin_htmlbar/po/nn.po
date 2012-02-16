@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-02-06 10:54+0100\n"
-"PO-Revision-Date: 2012-01-12 20:56+0100\n"
+"POT-Creation-Date: 2012-02-08 21:55+0100\n"
+"PO-Revision-Date: 2012-02-15 19:46+0100\n"
 "Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
-"Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
+"Language: nn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\\\\n\n"
 
 #: src/plugin_htmlbar/html2.c:556
@@ -598,7 +598,7 @@ msgstr "Kursiv"
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1571
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1643
 msgid "_Definition"
-msgstr "De_finisjon"
+msgstr "_Definisjon"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1571
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1643
@@ -647,7 +647,7 @@ msgstr "Sitat"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1581
 msgid "_Abbreviation"
-msgstr "Fo_rkorting (abbr)"
+msgstr "F_orkorting (abbr)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1581
 msgid "Abbreviation"
@@ -699,11 +699,11 @@ msgstr "Kursiv"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1592
 msgid "_Underline"
-msgstr "_Understreka"
+msgstr "_Understreking"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1592
 msgid "Underline"
-msgstr "Understreka"
+msgstr "Understreking"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1594
 msgid "_Strikeout"
@@ -861,7 +861,7 @@ msgstr "Tabelldata"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1630
 msgid "Table _Caption"
-msgstr "Tabell_tittel"
+msgstr "T_abelltittel"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1630
 msgid "Table Caption"
@@ -932,16 +932,15 @@ msgstr "Skjema"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1648
 msgid "_Fieldset"
-msgstr ""
+msgstr "E_lementgruppering"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1649
 msgid "_Legend"
-msgstr ""
+msgstr "_Forklaring"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1650
-#, fuzzy
 msgid "L_abel"
-msgstr "_Etikett:"
+msgstr "_Etikett"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1651
 msgid "_Input"
@@ -952,24 +951,20 @@ msgid "_Button"
 msgstr "_Knapp"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1653
-#, fuzzy
 msgid "_Select"
-msgstr "Vel"
+msgstr "_Vel"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1654
-#, fuzzy
 msgid "_Datalist"
-msgstr "_Kursiv"
+msgstr "_Dataliste"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
-#, fuzzy
 msgid "Opt_group"
-msgstr "Valgruppe"
+msgstr "Val_gruppe"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1656
-#, fuzzy
 msgid "Optio_n"
-msgstr "Val"
+msgstr "V_al"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1657
 msgid "_Textarea"
@@ -977,19 +972,19 @@ msgstr "_Tekstområde"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1658
 msgid "_Keygen"
-msgstr ""
+msgstr "N_økkellagar"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1659
 msgid "O_utput"
-msgstr ""
+msgstr "_Utdata"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1660
 msgid "_Progress"
-msgstr ""
+msgstr "F_ramdrift"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1661
 msgid "_Meter"
-msgstr ""
+msgstr "M_ålar"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1662
 msgid "_Misc"
@@ -1064,14 +1059,12 @@ msgid "Body..."
 msgstr "Innhald …"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1681
-#, fuzzy
 msgid "_Script..."
-msgstr "Skript"
+msgstr "Sk_ript …"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1681
-#, fuzzy
 msgid "Script..."
-msgstr "Skript"
+msgstr "Skript …"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 msgid "_Anchor..."
@@ -1397,7 +1390,7 @@ msgstr "Artikkel"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1768
 msgid "As_ide"
-msgstr "Sidestolpe"
+msgstr "Sidesto_lpe"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1768
 msgid "Aside"
@@ -1413,7 +1406,7 @@ msgstr "Figurbilettekst"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1770
 msgid "Fig_ure"
-msgstr "Figur"
+msgstr "Fig_ur"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1770
 msgid "Figure"
@@ -1437,7 +1430,7 @@ msgstr "Hovud"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1773
 msgid "H_group"
-msgstr "Hovudgruppering"
+msgstr "H_ovudgruppering"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1773
 msgid "Hgroup"
@@ -1445,7 +1438,7 @@ msgstr "Hovudgruppering"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1774
 msgid "_Mark"
-msgstr "Marker"
+msgstr "_Marker"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1774
 msgid "Mark"
@@ -1684,7 +1677,7 @@ msgstr "Spr_åk:"
 #: src/plugin_htmlbar/html_form.c:267 src/plugin_htmlbar/html_form.c:328
 #: src/plugin_htmlbar/html_form.c:645 src/plugin_htmlbar/html_table.c:107
 #: src/plugin_htmlbar/html_table.c:261 src/plugin_htmlbar/html_table.c:383
-#: src/plugin_htmlbar/image.c:509 src/plugin_htmlbar/image_dialog.c:396
+#: src/plugin_htmlbar/image.c:509 src/plugin_htmlbar/image_dialog.c:397
 msgid "Custo_m:"
 msgstr "_Tilpassa:"
 
@@ -1775,7 +1768,7 @@ msgstr "_Plasser:"
 #: src/plugin_htmlbar/html.c:2091 src/plugin_htmlbar/html.c:2247
 #: src/plugin_htmlbar/html_diag.c:451 src/plugin_htmlbar/html_table.c:98
 #: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
-#: src/plugin_htmlbar/image_dialog.c:376
+#: src/plugin_htmlbar/image_dialog.c:377
 msgid "Cl_ass:"
 msgstr "Kl_asse:"
 
@@ -1795,13 +1788,13 @@ msgid "Horizontal Rule"
 msgstr "Vassrett linje"
 
 #: src/plugin_htmlbar/html.c:1056 src/plugin_htmlbar/image.c:526
-#: src/plugin_htmlbar/image_dialog.c:419
+#: src/plugin_htmlbar/image_dialog.c:420
 msgid "_Align:"
 msgstr "_Plasser:"
 
 #: src/plugin_htmlbar/html.c:1063 src/plugin_htmlbar/html.c:1978
 #: src/plugin_htmlbar/html.c:2082 src/plugin_htmlbar/html.c:2239
-#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:349
+#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:350
 msgid "_Height:"
 msgstr "_Høgde:"
 
@@ -1809,7 +1802,7 @@ msgstr "_Høgde:"
 #: src/plugin_htmlbar/html.c:1069 src/plugin_htmlbar/html.c:1973
 #: src/plugin_htmlbar/html.c:2077 src/plugin_htmlbar/html.c:2235
 #: src/plugin_htmlbar/html_table.c:139 src/plugin_htmlbar/html_table.c:401
-#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:341
 msgid "_Width:"
 msgstr "_Breidd:"
 
@@ -1945,7 +1938,7 @@ msgstr "Or_dna"
 msgid "_Unordered"
 msgstr "_Uordna"
 
-#: src/plugin_htmlbar/html.c:1608 src/plugin_htmlbar/image_dialog.c:390
+#: src/plugin_htmlbar/html.c:1608 src/plugin_htmlbar/image_dialog.c:391
 msgid "Style:"
 msgstr "Stil:"
 
@@ -1997,7 +1990,6 @@ msgid "_Autoplay:"
 msgstr "_Autoavspeling:"
 
 #: src/plugin_htmlbar/html.c:1883 src/plugin_htmlbar/html.c:2062
-#, fuzzy
 msgid "C_ontrols:"
 msgstr "_Kontrollar:"
 
@@ -2007,7 +1999,7 @@ msgstr "_Sløyfe:"
 
 #: src/plugin_htmlbar/html.c:1891 src/plugin_htmlbar/html.c:2072
 msgid "M_ute:"
-msgstr ""
+msgstr "_Demp:"
 
 #: src/plugin_htmlbar/html.c:1896 src/plugin_htmlbar/html.c:2096
 msgid "_Preload:"
@@ -2076,9 +2068,8 @@ msgid "Embed"
 msgstr "Kapsla inn"
 
 #: src/plugin_htmlbar/html.c:2232
-#, fuzzy
 msgid "_MIME Type:"
-msgstr "_Type:"
+msgstr "_MIME-type:"
 
 #: src/plugin_htmlbar/html.c:2297
 msgid "Script"
@@ -2086,30 +2077,28 @@ msgstr "Skript"
 
 #: src/plugin_htmlbar/html.c:2321
 msgid "(HTML4 only)"
-msgstr ""
+msgstr "(berre HTML4)"
 
 #: src/plugin_htmlbar/html.c:2324
-#, fuzzy
 msgid "MIME _Type:"
-msgstr "_Type:"
+msgstr "MIME-_type:"
 
 #: src/plugin_htmlbar/html.c:2328
-#, fuzzy
 msgid "_Charset:"
-msgstr "On_Change:"
+msgstr "_Teiknkoding:"
 
 #: src/plugin_htmlbar/html.c:2330 src/plugin_htmlbar/html.c:2339
-#, fuzzy
 msgid "(HTML5)"
-msgstr "HTML_5"
+msgstr "(HTML5)"
 
 #: src/plugin_htmlbar/html.c:2333
 msgid "_Async:"
-msgstr ""
+msgstr "As_ynk:"
 
+# utsetja, avvisa, …
 #: src/plugin_htmlbar/html.c:2337
 msgid "_Defer:"
-msgstr ""
+msgstr "_Utset:"
 
 #: src/plugin_htmlbar/html.c:2401
 msgid "Link"
@@ -2288,7 +2277,7 @@ msgstr "Lastar inn fila %s …"
 msgid "Insert thumbnail"
 msgstr "Set inn miniatyr"
 
-#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:319
+#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:320
 msgid "Preview"
 msgstr "Førehandsvising"
 
@@ -2300,7 +2289,7 @@ msgstr "_Biletplassering:"
 msgid "Hei_ght:"
 msgstr "Høgd:"
 
-#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:385
+#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:386
 msgid "_Usemap:"
 msgstr "_Usemap-attributt:"
 
@@ -2308,11 +2297,11 @@ msgstr "_Usemap-attributt:"
 msgid "Alternate _text:"
 msgstr "Alternativ _tekst:"
 
-#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:428
+#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:429
 msgid "_Hspace:"
 msgstr "_Vassrett avstand:"
 
-#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:432
+#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:433
 msgid "_Vspace:"
 msgstr "_Loddrett avstand:"
 
@@ -2368,31 +2357,31 @@ msgstr ""
 "%x: miniatyrbreidda  %y: miniatyrhøgda\n"
 "%b: originalstorleiken (bytar)"
 
-#: src/plugin_htmlbar/image_dialog.c:356
+#: src/plugin_htmlbar/image_dialog.c:357
 msgid "_Reset Dimensions"
 msgstr "_Nullstill dimensjonane"
 
-#: src/plugin_htmlbar/image_dialog.c:366
+#: src/plugin_htmlbar/image_dialog.c:367
 msgid "Alternate te_xt:"
 msgstr "Alternativ _tekst:"
 
-#: src/plugin_htmlbar/image_dialog.c:371
+#: src/plugin_htmlbar/image_dialog.c:372
 msgid "_Long description:"
 msgstr "_Lang skildring:"
 
-#: src/plugin_htmlbar/image_dialog.c:380
+#: src/plugin_htmlbar/image_dialog.c:381
 msgid "I_D:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:408
+#: src/plugin_htmlbar/image_dialog.c:409
 msgid "_Use Transitional options"
 msgstr "Br_uk overgangsval (Transitional)"
 
-#: src/plugin_htmlbar/image_dialog.c:424
+#: src/plugin_htmlbar/image_dialog.c:425
 msgid "_Border:"
 msgstr "_Kant:"
 
-#: src/plugin_htmlbar/image_dialog.c:734
+#: src/plugin_htmlbar/image_dialog.c:735
 #, c-format
 msgid ""
 "\n"
@@ -2401,7 +2390,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/plugin_htmlbar/image_dialog.c:739
+#: src/plugin_htmlbar/image_dialog.c:740
 #, c-format
 msgid ""
 "\n"
@@ -2410,7 +2399,7 @@ msgstr ""
 "\n"
 "%d x %d pikslar"
 
-#: src/plugin_htmlbar/image_dialog.c:837
+#: src/plugin_htmlbar/image_dialog.c:838
 msgid ""
 "\n"
 "\n"
@@ -2422,16 +2411,16 @@ msgstr ""
 "\t<b>Lastar førehandsvisinga …</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:939
+#: src/plugin_htmlbar/image_dialog.c:940
 msgid "Select Image"
 msgstr "Vel bilete"
 
-#: src/plugin_htmlbar/image_dialog.c:946
+#: src/plugin_htmlbar/image_dialog.c:947
 msgid "All images"
 msgstr "Alle bileta"
 
-#: src/plugin_htmlbar/image_dialog.c:1164
-#: src/plugin_htmlbar/image_dialog.c:1275
+#: src/plugin_htmlbar/image_dialog.c:1165
+#: src/plugin_htmlbar/image_dialog.c:1276
 msgid "Insert Image"
 msgstr "Set inn bilete"
 
