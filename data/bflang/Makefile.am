@@ -39,6 +39,7 @@ bflang_bflang2_files = \
 	lua.bflang2 \
 	mediawiki.bflang2 \
 	nsis.bflang2 \
+	octave.bflang2 \
 	pascal.bflang2 \
 	perl.bflang2 \
 	php.bflang2 \
