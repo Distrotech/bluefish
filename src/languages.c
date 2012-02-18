@@ -57,7 +57,7 @@ static const linguas_t linguas[] = {
 #ifdef WIN32
 	  LANG_CZECH, SUBLANG_DEFAULT,
 #endif /* WIN32 */
-	  "cs", "cs_CS"
+	  "cs", "cs_CZ"
 	},
 #endif /* HAVE_LINGUA_CS */
 
@@ -67,7 +67,7 @@ static const linguas_t linguas[] = {
 #ifdef WIN32
 	  LANG_DANISH, SUBLANG_DEFAULT,
 #endif /* WIN32 */
-	  "da", "da_DA"
+	  "da", "da_DK"
 	},
 #endif /* HAVE_LINGUA_DA */
 
@@ -107,7 +107,7 @@ static const linguas_t linguas[] = {
 #ifdef WIN32
 	  LANG_BASQUE, SUBLANG_DEFAULT,
 #endif /* WIN32 */
-	  "eu", "eu_EU"
+	  "eu", "eu_ES"
 	},
 #endif /* HAVE_LINGUA_EU */
 
@@ -137,7 +137,7 @@ static const linguas_t linguas[] = {
 #ifdef WIN32 /* might not exist on Windows! Check before next release. */
 	  LANG_GALICIAN, SUBLANG_GALICIAN_GALICIAN,
 #endif /* WIN32 */
-	  "gl", "gl_GL"
+	  "gl", "gl_ES"
 	},
 #endif /* HAVE_LINGUA_GL */
 
@@ -167,7 +167,7 @@ static const linguas_t linguas[] = {
 #ifdef WIN32
 	  LANG_JAPANESE, SUBLANG_DEFAULT,
 #endif /* WIN32 */
-	  "ja", "ja_JA"
+	  "ja", "ja_JP"
 	},
 #endif /* HAVE_LINGUA_JA */
 
@@ -187,7 +187,7 @@ static const linguas_t linguas[] = {
 #ifdef WIN32
 	  LANG_NORWEGIAN, SUBLANG_NORWEGIAN_BOKMAL,
 #endif /* WIN32 */
-	  "nb", "nb_NB"
+	  "nb", "nb_NO"
 	},
 #endif /* HAVE_LINGUA_NB */
 
@@ -207,7 +207,7 @@ static const linguas_t linguas[] = {
 #ifdef WIN32
 	  LANG_NORWEGIAN, SUBLANG_NORWEGIAN_NYNORSK,
 #endif /* WIN32 */
-	  "nb", "nb_NB"
+	  "nn", "nn_NO"
 	},
 #endif /* HAVE_LINGUA_NN */
 
@@ -317,7 +317,7 @@ static const linguas_t linguas[] = {
 #ifdef WIN32
 	  LANG_UKRAINIAN, SUBLANG_DEFAULT,
 #endif /* WIN32 */
-	  "uk", "uk_UK"
+	  "uk", "uk_UA"
 	},
 #endif /* HAVE_LINGUA_UK */
 
