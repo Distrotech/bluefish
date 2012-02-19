@@ -157,6 +157,7 @@ zeneditor_get_current_line(Tzeneditor *self, PyObject *args)
 
 static inline const gchar *
 get_caret_placeholder(PyObject *mod) {
+	const gchar *retval;
 	/*PyObject *pcaret_placeholder = PyObject_GetAttrString(mod, "caret_placeholder");*/
 	PyObject *pcaret_placeholder = PyObject_CallMethod(mod, "getCaretPlaceholder", NULL);
 	if (!pcaret_placeholder) {
@@ -164,7 +165,9 @@ get_caret_placeholder(PyObject *mod) {
 		DEBUG_MSG("failed to get placeholder\n");
 		return "{%::zen-caret::%}";
 	}
-	return (const gchar *)PyString_AsString(pcaret_placeholder);
+	retval = (const gchar *)PyString_AsString(pcaret_placeholder);
+	Py_DECREF(pcaret_placeholder);
+	return retval;
 }
 
 static gchar *
@@ -464,7 +467,8 @@ PyObject *zeneditor_module_init(void) {
 		return NULL;
 
 	m = Py_InitModule3("bluefish_zeneditor", Module_methods, "Bluefish zeneditor interface");
-
+	if (!m)
+		return NULL;
 	Py_INCREF(&zeneditorType);
 	PyModule_AddObject(m, "zeneditor", (PyObject *) &zeneditorType);
 
