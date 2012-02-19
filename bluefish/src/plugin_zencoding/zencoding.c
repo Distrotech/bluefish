@@ -80,7 +80,7 @@ zencoding_run_action(Tdocument *doc, const gchar *action_name)
 		return;
 	}
 	Py_XDECREF(result);
-	Py_XDECREF(ptr);
+	Py_DECREF(ptr);
 	result = PyObject_CallMethod(zencoding.module, "run_action", "sO", action_name, zencoding.editor);
 	if (!result) {
 		if (PyErr_Occurred()) PyErr_Print();
