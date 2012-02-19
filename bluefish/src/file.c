@@ -366,6 +366,7 @@ checkNsave_replace_async_lcb(GObject * source_object, GAsyncResult * res, gpoint
 		if (error->code == G_IO_ERROR_CANCELLED) {
 			cns->callback_func(CHECKANDSAVE_ERROR_CANCELLED, error, cns->callback_data);
 			checkNsave_cleanup(cns);
+			return;
 		} else if (error->code == G_IO_ERROR_WRONG_ETAG) {
 			if (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED, error, cns->callback_data) == CHECKNSAVE_CONT) {
 				g_file_replace_contents_async(cns->uri, cns->buffer->data, cns->buffer_size, NULL, TRUE,
