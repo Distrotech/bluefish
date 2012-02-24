@@ -2,9 +2,24 @@ The file changelog can be obtained from subversion using the `svn2cl' utility.
 The release changelogs are also available from our homepage: 
 http://bluefish.openoffice.nl
 
-* 2.2.2 &
+* 2.2.2 *
 
-Bluefish 2.2.2 is largely a bug fix release with some very minor new features. A regression in the search functionality was fixed, that caused a segfault if a document with search results was closed. Multiple replace with search results directly next to each other corrupting the text was also fixed. The broken cursor positioning that ruined the Zencoding plugin was also fixed. On the multiplatform front: on Windows handling of the profile directory with non-ascii characters was fixed and on MacOSX image browsing in the image dialog was fixed. Two GTK-3 related bugs where fixed: the CSS dialog was unusable on GTK-3 and the right margin indicator was positioned wrong. Next to the major fixes several small memory leaks where fixed. Next to the bug fixes some small improvements where made. Startup is slightly faster using more threads during startup and improving the document recovery. The annoying scrolling of the side bar filebrowser in 'treeview' mode was fixed, descriptions of language options where fixed, and some menu strings, some HTML5 options where improved, accelerators and shortcut keys got improved. The new features: duplicate line and delete line.
+Bluefish 2.2.2 is largely a bug fix release with some very minor new features. A
+regression in the search functionality was fixed, that caused a segfault if a
+document with search results was closed. Multiple replace with search results
+directly next to each other corrupting the text was also fixed. The broken
+cursor positioning that ruined the Zencoding plugin was also fixed. On the
+multiplatform front: on Windows handling of the profile directory with non-ascii
+characters was fixed and on MacOSX image browsing in the image dialog was fixed.
+Two GTK-3 related bugs where fixed: the CSS dialog was unusable on GTK-3 and the
+right margin indicator was positioned wrong. Next to the major fixes several
+small memory leaks where fixed. Next to the bug fixes some small improvements
+where made. Startup is slightly faster using more threads during startup and
+improving the document recovery. The annoying scrolling of the side bar
+filebrowser in 'treeview' mode was fixed, descriptions of language options where
+fixed, and some menu strings, some HTML5 options where improved, accelerators
+and shortcut keys got improved and translations got better. The new features: 
+duplicate line and delete line.
 
 * 2.2.1 *
 
