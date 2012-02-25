@@ -379,17 +379,21 @@ else
 	GIO_PC="gio-unix-2.0"
 fi
 
-AC_MSG_CHECKING([for gtk+-3 development files])
+AC_MSG_CHECKING([for up to date gtk+-3 development files])
 PKG_CHECK_EXISTS(
-	[gtk+-3.0 gdk-3.0],
-	[
-	have_gtk3=yes
-	AC_MSG_RESULT([yes])
-	],		
-	[
-	have_gtk3=no
-	AC_MSG_RESULT([no])
-	]
+	[gtk+-3.0 > 3.2.2 gdk-3.0],
+	[have_recentgtk3=yes
+	AC_MSG_RESULT([yes])],		
+	[have_recentgtk3=no
+	AC_MSG_RESULT([no])]
+)
+AC_MSG_CHECKING([for gtk+-2 development files])
+PKG_CHECK_EXISTS(
+	[gtk+-2.0 > 2.12.0 gdk-2.0],
+	[have_gtk2=yes
+	AC_MSG_RESULT([yes])],		
+	[have_gtk2=no
+	AC_MSG_RESULT([no])]
 )
 AC_ARG_WITH(
 	gtk2, 
@@ -397,9 +401,10 @@ AC_ARG_WITH(
 )
 if test "x$with_gtk2" = "xyes"; then
 	have_gtk3=no
+	have_recentgtk3=no
 fi
 
-if test "x$have_gtk3" = "xyes"; then
+if test "x$have_recentgtk3" = "xyes" -o "x$have_gtk2" = "xno" ; then
 BF_dependencies="\
 gtk+-3.0  \
 gdk-3.0 \
