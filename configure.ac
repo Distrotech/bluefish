@@ -389,20 +389,30 @@ AC_ARG_WITH(
 	)
 )
 
+BF_dependencies="gtk+-3.0 >= 3.2.2 gdk-3.0 glib-2.0"
+
 dnl Be explicit here and don't accept --with-gtk2=foo
 if test "x$with_gtk2" != "xyes"; then
 	PKG_CHECK_EXISTS(
-		[$BF_dependencies],,
+		[$BF_dependencies],
+		[with_gtk3="yes"],
+		[with_gtk3="no"]
+	)
+fi
+
+dnl Now if we did not find GTK3 or if GTK2 shall be used, check for it first
+dnl and fall back to GTK3 without any required minimum version.
+if test "x$with_gtk2" = "xyes" -o "x$with_gtk3" = "xno"; then
+	BF_dependencies="gtk+-2.0 >= 2.12 gdk-2.0 glib-2.0 >= 2.16"
+	PKG_CHECK_EXISTS(
+		[$BF_dependencies],
+		[with_gtk3="no"],
 		[
-		 dnl GTK3 not found or not in required version
-		 BF_dependencies="gtk+-2.0 >= 2.12 gdk-2.0 glib-2.0 >= 2.16"
-		 with_gtk3="no"
+		 BF_dependencies="gtk+-3.0 gdk-3.0 glib-2.0"
+		 with_gtk3="yes"
+		 with_gtk2="no"
 		]
 	)
-else
-	dnl Disabled via --with-gtk2
-	BF_dependencies="gtk+-2.0 >= 2.12 gdk-2.0 glib-2.0 >= 2.16"
-	with_gtk3="no"
 fi
 
 BF_dependencies="\
