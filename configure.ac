@@ -379,56 +379,41 @@ else
 	GIO_PC="gio-unix-2.0"
 fi
 
-AC_MSG_CHECKING([for up to date gtk+-3 development files])
-PKG_CHECK_EXISTS(
-	[gtk+-3.0 > 3.2.2 gdk-3.0],
-	[have_recentgtk3=yes
-	AC_MSG_RESULT([yes])],		
-	[have_recentgtk3=no
-	AC_MSG_RESULT([no])]
-)
-AC_MSG_CHECKING([for gtk+-2 development files])
-PKG_CHECK_EXISTS(
-	[gtk+-2.0 > 2.12.0 gdk-2.0],
-	[have_gtk2=yes
-	AC_MSG_RESULT([yes])],		
-	[have_gtk2=no
-	AC_MSG_RESULT([no])]
-)
+BF_dependencies="gtk+-3.0 >= 3.2.2 gdk-3.0 glib-2.0"
+
 AC_ARG_WITH(
-	gtk2, 
-	AC_HELP_STRING([--with-gtk2],[use gtk2 even if gtk3 is available])
+	[gtk2],
+	AC_HELP_STRING(
+		[--with-gtk2],
+		[Use GTK2+ instead of GTK3+, even if GTK3+ is available @<:@default=no@:>@]
+	)
 )
-if test "x$with_gtk2" = "xyes"; then
-	have_gtk3=no
-	have_recentgtk3=no
+
+dnl Be explicit here and don't accept --with-gtk2=foo
+if test "x$with_gtk2" != "xyes"; then
+	PKG_CHECK_EXISTS(
+		[$BF_dependencies],,
+		[
+		 dnl GTK3 not found or not in required version
+		 BF_dependencies="gtk+-2.0 >= 2.12 gdk-2.0 glib-2.0 >= 2.16"
+		 with_gtk3="no"
+		]
+	)
+else
+	dnl Disabled via --with-gtk2
+	BF_dependencies="gtk+-2.0 >= 2.12 gdk-2.0 glib-2.0 >= 2.16"
+	with_gtk3="no"
 fi
 
-if test "x$have_recentgtk3" = "xyes" -o "x$have_gtk2" = "xno" ; then
 BF_dependencies="\
-gtk+-3.0  \
-gdk-3.0 \
+$BF_dependencies \
 gmodule-2.0 >= 2.16 \
 gobject-2.0 \
-glib-2.0 \
 pango \
 gdk-pixbuf-2.0 \
 $GIO_PC >= 2.16 \
 gthread-2.0 \
 libxml-2.0"
-else
-BF_dependencies="\
-gtk+-2.0 >= 2.12 \
-gmodule-2.0 >= 2.16 \
-gobject-2.0 \
-glib-2.0 >= 2.16 \
-pango \
-gdk-pixbuf-2.0 \
-gdk-2.0 \
-$GIO_PC >= 2.16 \
-gthread-2.0 \
-libxml-2.0"
-fi
 
 if test "x$enable_spell_check" != "xno"; then
 	AC_MSG_CHECKING([for optional libenchant development files])
@@ -457,7 +442,7 @@ if test "x$enable_spell_check" != "xno"; then
 	)
 fi
 
-AC_MSG_CHECKING([for required development files])
+AC_MSG_NOTICE([checking for required development files])
 PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
 
 # from https://sourceforge.net/apps/trac/gtk-osx/wiki/Integrate
@@ -480,8 +465,8 @@ fi
 
 
 # optionally build the charmap plugin if gucharmap is available
-AC_MSG_CHECKING([for optional libgucharmap development files])
-if test "x$have_gtk3" = "xyes"; then
+AC_MSG_NOTICE([checking for optional libgucharmap development files])
+if test "x$with_gtk3" != "xno"; then
 	PKG_CHECK_MODULES(
 		[CHARMAP_PLUGIN],
 		[gucharmap-2.90],
