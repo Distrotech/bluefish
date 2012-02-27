@@ -1,0 +1,264 @@
+# Catalan translations for bluefish package.
+# Copyright (C) 2012 Mònica Ramírez Arceda <monica@probeta.net>
+# This file is distributed under the same license as the bluefish package. 
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bluefish 2.2.2\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2012-02-19 00:11+0100\n"
+"PO-Revision-Date: 2012-02-25 12:46+0100\n"
+"Last-Translator: Mònica Ramírez Arceda <monica@probeta.net>\n"
+"Language-Team: Catalan\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/plugin_snippets/snippets_gui.c:416
+msgid "Click the right mouse button to add, edit or delete snippets."
+msgstr "Feu clic al botó dret del ratolí­ per obrir, editar o suprimir fragments."
+
+#: src/plugin_snippets/snippets_gui.c:417
+msgid "Use drag and drop to re-order snippets"
+msgstr "Arrossegueu i deixeu anar per reordenar els fragments"
+
+#: src/plugin_snippets/snippets_gui.c:418
+msgid "To exchange snippets with others use import or export"
+msgstr "Utilitza la importació i l'exportació per intercanviar fragments"
+
+#: src/plugin_snippets/snippets_gui.c:640
+msgid "snippets"
+msgstr "fragments"
+
+#: src/plugin_snippets/snippets_gui.c:703
+msgid "Snippet export filename"
+msgstr "Nom de fitxer d'exportació de fragments"
+
+#: src/plugin_snippets/snippets_gui.c:741
+msgid "Snippet import filename"
+msgstr "Nom de fitxer d'importació de fragments"
+
+#: src/plugin_snippets/snippets_gui.c:759
+msgid "Set accelerator key"
+msgstr "Establiu la tecla de drecera"
+
+#: src/plugin_snippets/snippets_gui.c:815
+msgid "Snippets menu"
+msgstr "Menú dels fragments"
+
+#: src/plugin_snippets/snippets_gui.c:816
+msgid "_New Snippet"
+msgstr "Fragment _nou"
+
+#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_wizard.c:754
+msgid "New snippet"
+msgstr "Fragment nou"
+
+#: src/plugin_snippets/snippets_gui.c:817
+msgid "_Edit Snippet"
+msgstr "_Edita el fragment"
+
+#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_wizard.c:754
+msgid "Edit snippet"
+msgstr "Edita el fragment"
+
+#: src/plugin_snippets/snippets_gui.c:818
+msgid "_Delete Snippet"
+msgstr "_Suprimeix el fragment"
+
+#: src/plugin_snippets/snippets_gui.c:818
+msgid "Delete snippet"
+msgstr "Suprimeix el fragment"
+
+#: src/plugin_snippets/snippets_gui.c:819
+msgid "Delete _Branch"
+msgstr "Suprimeix la _branca"
+
+#: src/plugin_snippets/snippets_gui.c:819
+msgid "Delete branch"
+msgstr "Suprimeix la branca"
+
+#: src/plugin_snippets/snippets_gui.c:820
+msgid "Set Snippet _Accelerator"
+msgstr "Estableix la drecer_a del fragment"
+
+#: src/plugin_snippets/snippets_gui.c:820
+msgid "Set snippet accelerator"
+msgstr "Estableix la drecera del fragment"
+
+#: src/plugin_snippets/snippets_gui.c:822
+msgid "Ex_pand All"
+msgstr "Ex_pandeix-ho tot"
+
+#: src/plugin_snippets/snippets_gui.c:822
+msgid "Expand all"
+msgstr "Expandeix-ho tot"
+
+#: src/plugin_snippets/snippets_gui.c:823
+msgid "_Collapse All"
+msgstr "_Redueix-ho tot"
+
+#: src/plugin_snippets/snippets_gui.c:823
+msgid "Collapse all"
+msgstr "Redueix-ho tot"
+
+#: src/plugin_snippets/snippets_gui.c:824
+msgid "E_xport"
+msgstr "E_xporta"
+
+#: src/plugin_snippets/snippets_gui.c:824
+msgid "Export snippets"
+msgstr "Exporta els fragments"
+
+#: src/plugin_snippets/snippets_gui.c:825
+msgid "I_mport"
+msgstr "I_mporta"
+
+#: src/plugin_snippets/snippets_gui.c:825
+msgid "Import snippets"
+msgstr "Importa els fragments"
+
+#: src/plugin_snippets/snippets_gui.c:829
+msgid "_Show as menu"
+msgstr "Mo_stra-ho com a un menú"
+
+#: src/plugin_snippets/snippets_gui.c:829
+msgid "Show snippets menu"
+msgstr "Mostra el menú dels fragments"
+
+#: src/plugin_snippets/snippets_gui.c:831
+msgid "S_nippets Menu"
+msgstr "Me_nú dels fragments"
+
+#: src/plugin_snippets/snippets_leaf_insert.c:64
+msgid "[cursor position or selection]"
+msgstr "[posició del cursor o selecció]"
+
+#: src/plugin_snippets/snippets_leaf_snr.c:152
+msgid "Search for: '"
+msgstr "Cerca: '"
+
+#: src/plugin_snippets/snippets_leaf_snr.c:152
+msgid "', replace with: '"
+msgstr "', reemplaça amb: '"
+
+#: src/plugin_snippets/snippets_wizard.c:111
+msgid "Entire document"
+msgstr "Tot el document"
+
+#: src/plugin_snippets/snippets_wizard.c:112
+msgid "Forward from cursor position"
+msgstr "Avança des de la posició del cursor"
+
+#: src/plugin_snippets/snippets_wizard.c:113
+msgid "Selection"
+msgstr "Selecció"
+
+#: src/plugin_snippets/snippets_wizard.c:114
+msgid "All open files"
+msgstr "Tots els fitxers oberts"
+
+#: src/plugin_snippets/snippets_wizard.c:118
+msgid "Normal"
+msgstr "Normal"
+
+#: src/plugin_snippets/snippets_wizard.c:119
+msgid "PERL"
+msgstr "PERL"
+
+#: src/plugin_snippets/snippets_wizard.c:130
+msgid "Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
+msgstr "Especifiqueu un patró de cerca i reemplaçament. Quan activeu aquest element, podeu utilitzar els textos variables %0, %1... %5 per demanar valors. A la dreta, doneu a aquests textos variables un nom apropiat. (Si necessiteu utilitzar el caràcter % a la cadena, utilitzeu %%)"
+
+#: src/plugin_snippets/snippets_wizard.c:140
+msgid "_Search for: "
+msgstr "_Cerca: "
+
+#: src/plugin_snippets/snippets_wizard.c:144
+msgid "Replace _with: "
+msgstr "Reemplaça _amb: "
+
+#: src/plugin_snippets/snippets_wizard.c:151
+msgid "Sco_pe: "
+msgstr "Àm_bit:"
+
+#: src/plugin_snippets/snippets_wizard.c:158
+msgid "Match Patter_n: "
+msgstr "Patró de coi_ncidència:"
+
+#: src/plugin_snippets/snippets_wizard.c:161
+msgid "Case sensitive _matching"
+msgstr "Considera diferents _majúscules i minúscules"
+
+#: src/plugin_snippets/snippets_wizard.c:162
+msgid "Only match if case (upper/lower) is identical."
+msgstr "Només coincideix si majúscules i minúscules són idèntiques."
+
+#: src/plugin_snippets/snippets_wizard.c:165
+msgid "_Use escape chars"
+msgstr "_Utilitza caràcters alterats"
+
+#: src/plugin_snippets/snippets_wizard.c:166
+msgid ""
+"Unescape backslash escaped characters such as \\n"
+", \\t etc."
+msgstr ""
+"No escapis caràcters alterats amb la barra inversa com \\n"
+", \\t..."
+
+#: src/plugin_snippets/snippets_wizard.c:335
+msgid "The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
+msgstr "El text <i>anterior</i> s'inserirà abans de la posició del cursor o de la selecció actual, el text <i>posterior</i> s'inserirà després de la posició del cursor o de la selecció actual. Quan activeu aquest element, podeu utilitzar els textos variables %0, %1... %9 per demanar valors. Doneu a aquests textos variables un nom apropiat en els camps de text corresponents. (Si necessiteu utilitzar el caràcter % a la cadena, utilitzeu %%)"
+
+#: src/plugin_snippets/snippets_wizard.c:344
+msgid "<i>Before</i> text"
+msgstr "Text <i>anterior</i>"
+
+#: src/plugin_snippets/snippets_wizard.c:354
+msgid "<i>After</i> text"
+msgstr "Text <i>posterior</i>"
+
+#: src/plugin_snippets/snippets_wizard.c:362
+msgid "Number"
+msgstr "Nombre"
+
+#: src/plugin_snippets/snippets_wizard.c:364
+msgid "Name"
+msgstr "Nom"
+
+#: src/plugin_snippets/snippets_wizard.c:366
+msgid "Is file path"
+msgstr "És un camí"
+
+#: src/plugin_snippets/snippets_wizard.c:492
+msgid "Enter the name of the branch:"
+msgstr "Introduïu el nom de la branca:"
+
+#: src/plugin_snippets/snippets_wizard.c:584
+msgid "Name of the new item:"
+msgstr "Nom de l'element nou:"
+
+#: src/plugin_snippets/snippets_wizard.c:589
+msgid "Description:"
+msgstr "Descripció:"
+
+#: src/plugin_snippets/snippets_wizard.c:639
+msgid "Select what you want to add"
+msgstr "Seleccioneu allò que voleu afegir"
+
+#: src/plugin_snippets/snippets_wizard.c:641
+msgid "Branch"
+msgstr "Branca"
+
+#: src/plugin_snippets/snippets_wizard.c:643
+msgid "Insert string"
+msgstr "Insereix una cadena"
+
+#: src/plugin_snippets/snippets_wizard.c:645
+msgid "Search and replace pattern"
+msgstr "Cerca i reemplaça un patró"
+

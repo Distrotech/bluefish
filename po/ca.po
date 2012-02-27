@@ -1,0 +1,3197 @@
+# Catalan translations for bluefish package.
+# Copyright (C) 2012 Mònica Ramírez Arceda <monica@probeta.net>
+# This file is distributed under the same license as the bluefish package. 
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bluefish 2.2.2\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2012-02-17 17:55+0100\n"
+"PO-Revision-Date: 2012-02-27 11:40+0100\n"
+"Last-Translator: Mònica Ramírez Arceda <monica@probeta.net>\n"
+"Language-Team: Catalan\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../desktop-data/bluefish.desktop.in.h:1
+#: ../src/bluefish.c:94
+msgid "Bluefish Editor"
+msgstr "Editor Bluefish"
+
+#: ../desktop-data/bluefish.desktop.in.h:2
+msgid "Web Development Editor"
+msgstr "Editor de Desenvolupament Web"
+
+#: ../desktop-data/bluefish.xml.in.h:1
+msgid "Bluefish language definition file"
+msgstr "Fitxer de definició de la llengua de Bluefish"
+
+#: ../desktop-data/bluefish.xml.in.h:2
+msgid "Bluefish project file"
+msgstr "Fitxer de projecte Bluefish"
+
+#: ../src/bftextview2.c:1469
+msgid "Collapse all"
+msgstr "Redueix-ho tot"
+
+#: ../src/bftextview2.c:1472
+msgid "Expand all"
+msgstr "Expandeix-ho tot"
+
+#: ../src/bftextview2_spell.c:672
+msgid "Spell check language"
+msgstr "Llengua del corrector ortogràfic"
+
+#: ../src/bftextview2_spell.c:705
+msgid "Add to dictionary"
+msgstr "Afegeix-la al diccionari"
+
+#: ../src/bftextview2_spell.c:708
+msgid "Ignore spelling"
+msgstr "Ignora l'ortografia"
+
+#: ../src/bftextview2_spell.c:723
+msgid "Insert special characters as entities"
+msgstr "Insereix els caràcters especials com a entitats"
+
+#: ../src/bfwin.c:223
+msgid "Filebrowser"
+msgstr "Navegador de fitxers"
+
+#: ../src/bfwin.c:225
+msgid "Bookmarks"
+msgstr "Marcadors"
+
+#: ../src/bfwin.c:799
+msgid "Goto Line:"
+msgstr "Vés a la línia:"
+
+#: ../src/bfwin.c:808
+msgid "Find:"
+msgstr "Cerca:"
+
+#: ../src/bfwin.c:818
+msgid "Advanced"
+msgstr "Avançat"
+
+#: ../src/bfwin.c:1145
+msgid "New Bluefish Window"
+msgstr "Nova finestra del Bluefish"
+
+#. Fake-label (for notebook_hide() and _show() ;)
+#: ../src/bfwin.c:1196
+msgid "Stand by..."
+msgstr "Espereu..."
+
+#: ../src/bfwin_uimanager.c:696
+msgid "Leave Fullscreen"
+msgstr "Surt de la pantalla completa"
+
+#: ../src/bfwin_uimanager.c:696
+msgid "Fullscreen"
+msgstr "Pantalla completa"
+
+#: ../src/bfwin_uimanager.c:746
+msgid "_File"
+msgstr "_Fitxer"
+
+#: ../src/bfwin_uimanager.c:747
+msgid "New From Template"
+msgstr "Nou des d'una plantilla"
+
+#: ../src/bfwin_uimanager.c:748
+#: ../src/bfwin_uimanager.c:758
+msgid "Open _Recent"
+msgstr "Oberts _recentment"
+
+#: ../src/bfwin_uimanager.c:749
+msgid "_Edit"
+msgstr "_Edita"
+
+#: ../src/bfwin_uimanager.c:750
+msgid "_View"
+msgstr "_Visualitza"
+
+#: ../src/bfwin_uimanager.c:751
+msgid "_Document"
+msgstr "_Document"
+
+#: ../src/bfwin_uimanager.c:752
+msgid "_Tab Size"
+msgstr "Mida de la pes_tanya"
+
+#: ../src/bfwin_uimanager.c:753
+msgid "_Font Size"
+msgstr "Mida de la _lletra"
+
+#: ../src/bfwin_uimanager.c:754
+msgid "Language M_ode"
+msgstr "M_ode de llenguatge:"
+
+#: ../src/bfwin_uimanager.c:755
+msgid "Character _Encoding"
+msgstr "Codificació dels caràct_ers"
+
+#: ../src/bfwin_uimanager.c:756
+msgid "_Go"
+msgstr "Vé_s"
+
+#: ../src/bfwin_uimanager.c:757
+msgid "_Project"
+msgstr "_Projecte"
+
+#: ../src/bfwin_uimanager.c:759
+msgid "_Tools"
+msgstr "E_ines"
+
+#: ../src/bfwin_uimanager.c:760
+msgid "_Commands"
+msgstr "_Ordres"
+
+#: ../src/bfwin_uimanager.c:761
+msgid "_Filters"
+msgstr "Filt_res"
+
+#: ../src/bfwin_uimanager.c:762
+msgid "_Outputbox"
+msgstr "Analit_zadors"
+
+#: ../src/bfwin_uimanager.c:766
+msgid "_New"
+msgstr "_Nou"
+
+#: ../src/bfwin_uimanager.c:766
+#: ../src/filebrowser2.c:1631
+#: ../src/filebrowser2.c:1633
+#: ../src/filebrowser2.c:2027
+msgid "New file"
+msgstr "Fitxer nou"
+
+#: ../src/bfwin_uimanager.c:767
+msgid "New _Window"
+msgstr "_Finestra nova"
+
+#: ../src/bfwin_uimanager.c:767
+msgid "New window"
+msgstr "Finestra nova"
+
+#: ../src/bfwin_uimanager.c:769
+msgid "Close Win_dow"
+msgstr "Tanca _la finestra"
+
+#: ../src/bfwin_uimanager.c:769
+msgid "Close window"
+msgstr "Tanca la finestra"
+
+#: ../src/bfwin_uimanager.c:770
+msgid "_Open..."
+msgstr "_Obre..."
+
+#: ../src/bfwin_uimanager.c:770
+msgid "Open file"
+msgstr "Obre un fitxer"
+
+#: ../src/bfwin_uimanager.c:771
+msgid "Open Ad_vanced..."
+msgstr "Obre a_vançat..."
+
+#: ../src/bfwin_uimanager.c:771
+#: ../src/filebrowser2.c:2023
+msgid "Open advanced"
+msgstr "Obre avançat"
+
+#: ../src/bfwin_uimanager.c:773
+msgid "Open _from Selection"
+msgstr "Obre a partir _de la selecció"
+
+#: ../src/bfwin_uimanager.c:773
+msgid "Open from Selection"
+msgstr "Obre a partir de la selecció"
+
+#: ../src/bfwin_uimanager.c:775
+msgid "_Insert..."
+msgstr "_Insereix..."
+
+#: ../src/bfwin_uimanager.c:775
+msgid "Insert file"
+msgstr "Insereix un fitxer"
+
+#: ../src/bfwin_uimanager.c:776
+msgid "U_pload / Download..."
+msgstr "_Penja / Baixa..."
+
+#: ../src/bfwin_uimanager.c:778
+msgid "_Quit"
+msgstr "S_urt"
+
+#: ../src/bfwin_uimanager.c:778
+msgid "Quit Bluefish"
+msgstr "Surt del Bluefish"
+
+#: ../src/bfwin_uimanager.c:779
+msgid "Preference_s..."
+msgstr "Preferè_ncies..."
+
+#: ../src/bfwin_uimanager.c:779
+msgid "Edit Preferences"
+msgstr "Edita les preferències"
+
+#: ../src/bfwin_uimanager.c:781
+msgid "Select _All"
+msgstr "Seleccion_a-ho tot"
+
+#: ../src/bfwin_uimanager.c:781
+msgid "Select all"
+msgstr "Selecciona-ho tot"
+
+#: ../src/bfwin_uimanager.c:782
+msgid "Add Boo_kmark"
+msgstr "Afegeix un mar_cador"
+
+#: ../src/bfwin_uimanager.c:782
+#: ../src/document.c:1835
+msgid "Add bookmark"
+msgstr "Afegeix un marcador"
+
+#: ../src/bfwin_uimanager.c:784
+msgid "_Add or Remove..."
+msgstr "_Afegeix o suprimeix..."
+
+#: ../src/bfwin_uimanager.c:784
+msgid "Add or remove character encoding"
+msgstr "Afegeix o suprimeix la codificació de caràcters"
+
+#: ../src/bfwin_uimanager.c:786
+msgid "Floati_ng Window"
+msgstr "Finestra _flotant"
+
+#: ../src/bfwin_uimanager.c:786
+msgid "Open current document in floating window"
+msgstr "Obre el document actual en una finestra flotant"
+
+#: ../src/bfwin_uimanager.c:788
+#: ../src/bfwin_uimanager.c:794
+msgid "_Increase"
+msgstr "_Incrementa"
+
+#: ../src/bfwin_uimanager.c:788
+msgid "Increase document font size"
+msgstr "Increase document font size"
+
+#: ../src/bfwin_uimanager.c:790
+#: ../src/bfwin_uimanager.c:796
+msgid "_Decrease"
+msgstr "Re_dueix"
+
+#: ../src/bfwin_uimanager.c:790
+msgid "Decrease document font size"
+msgstr "Redueix la mida de la lletra del document"
+
+#: ../src/bfwin_uimanager.c:792
+#: ../src/bfwin_uimanager.c:798
+msgid "_Reset"
+msgstr "_Reinicia"
+
+#: ../src/bfwin_uimanager.c:792
+msgid "Reset document font size"
+msgstr "Reinicia la mida de la lletra del document"
+
+#: ../src/bfwin_uimanager.c:794
+msgid "Increase document tab size"
+msgstr "Incrementa la mida de la pestanya del document"
+
+#: ../src/bfwin_uimanager.c:796
+msgid "Decrease document tab size"
+msgstr "Redueix la mida de la pestanya del document"
+
+#: ../src/bfwin_uimanager.c:798
+msgid "Reset document tab size"
+msgstr "Reinicia la mida de la pestanya del document"
+
+#: ../src/bfwin_uimanager.c:801
+msgid "Rescan Synta_x & Spelling"
+msgstr "Revisa de no_u la sintaxi i l'ortografia"
+
+#: ../src/bfwin_uimanager.c:801
+#: ../src/bfwin_uimanager.c:804
+msgid "Rescan document highlighting"
+msgstr "Revisa de nou el ressaltat del document"
+
+#: ../src/bfwin_uimanager.c:804
+msgid "Rescan Synta_x"
+msgstr "Revisa de nou la sinta_xi"
+
+#: ../src/bfwin_uimanager.c:807
+msgid "_New Project..."
+msgstr "Projecte _nou..."
+
+#: ../src/bfwin_uimanager.c:807
+#: ../src/project.c:208
+msgid "New project"
+msgstr "Projecte nou"
+
+#: ../src/bfwin_uimanager.c:808
+msgid "_Open Project..."
+msgstr "_Obre un projecte..."
+
+#: ../src/bfwin_uimanager.c:808
+msgid "Open project"
+msgstr "Obre un projecte"
+
+#: ../src/bfwin_uimanager.c:809
+msgid "_Synchronize Text Block"
+msgstr "_Sincronitza el bloc de text"
+
+#: ../src/bfwin_uimanager.c:809
+#: ../src/blocksync.c:296
+msgid "Synchronize text block"
+msgstr "Sincronitza el bloc de text"
+
+#: ../src/bfwin_uimanager.c:811
+msgid "To_ggle Comment"
+msgstr "Con_verteix en comentari"
+
+#: ../src/bfwin_uimanager.c:811
+msgid "Toggle comment"
+msgstr "Commuta comentaris"
+
+#: ../src/bfwin_uimanager.c:813
+msgid "Select _Block"
+msgstr "Selecciona el _bloc"
+
+#: ../src/bfwin_uimanager.c:813
+msgid "Select block, use multiple times to select parent blocks "
+msgstr "Seleccioneu el bloc, feu-ho diverses vegades per seleccionar els blocs de nivell superior"
+
+#: ../src/bfwin_uimanager.c:815
+msgid "Duplica_te Line"
+msgstr "D_uplica la línia"
+
+#: ../src/bfwin_uimanager.c:815
+msgid "Duplicate the current line"
+msgstr "Duplica la línia actual"
+
+#: ../src/bfwin_uimanager.c:817
+msgid "Delete Line"
+msgstr "Suprimeix la línia"
+
+#: ../src/bfwin_uimanager.c:817
+msgid "Delete the current line"
+msgstr "Suprimeix la línia actual"
+
+#: ../src/bfwin_uimanager.c:819
+msgid "Word Cou_nt"
+msgstr "Co_mpta el nombre de paraules"
+
+#: ../src/bfwin_uimanager.c:819
+msgid "Word count"
+msgstr "Compta el nombre de paraules"
+
+#: ../src/bfwin_uimanager.c:820
+msgid "Indenting to S_paces"
+msgstr "Sagna amb es_pais"
+
+#: ../src/bfwin_uimanager.c:820
+msgid "Indenting to spaces"
+msgstr "Sagna amb espais"
+
+#: ../src/bfwin_uimanager.c:822
+msgid "Indenting to T_abs"
+msgstr "Sa_gna amb tabulacions"
+
+#: ../src/bfwin_uimanager.c:822
+msgid "Indenting to tabs"
+msgstr "Sagna amb tabulacions"
+
+#: ../src/bfwin_uimanager.c:824
+msgid "_Join Lines Together"
+msgstr "Unei_x les línies"
+
+#: ../src/bfwin_uimanager.c:824
+msgid "Join lines together"
+msgstr "Uneix les línies"
+
+#: ../src/bfwin_uimanager.c:826
+msgid "Split Lines on Right _Margin"
+msgstr "_Talla les línies en el marge dret"
+
+#: ../src/bfwin_uimanager.c:826
+msgid "Split lines on right margin"
+msgstr "Talla les línies en el marge dret"
+
+#: ../src/bfwin_uimanager.c:828
+msgid "Merge Lines Into Col_umns"
+msgstr "_Fusiona les línies en columnes"
+
+#: ../src/bfwin_uimanager.c:828
+msgid "Merge lines into columns"
+msgstr "Fusiona les línies en columnes"
+
+#: ../src/bfwin_uimanager.c:830
+msgid "Rewrap _Lines"
+msgstr "Ajusta les _línies"
+
+#: ../src/bfwin_uimanager.c:830
+msgid "Rewrap lines"
+msgstr "Ajusta les línies"
+
+#: ../src/bfwin_uimanager.c:831
+msgid "Strip T_railing Whitespace"
+msgstr "_Elimina els espais en blanc sobrants"
+
+#: ../src/bfwin_uimanager.c:831
+msgid "Strip trailing whitespace"
+msgstr "Elimina els espais en blanc del final"
+
+#: ../src/bfwin_uimanager.c:833
+msgid "Preview in browser"
+msgstr "Previsualitza en el navegador"
+
+#: ../src/bfwin_uimanager.c:838
+msgid "_Full Screen"
+msgstr "_Pantalla completa"
+
+#: ../src/bfwin_uimanager.c:838
+msgid "Full screen"
+msgstr "Pantalla completa"
+
+#: ../src/bfwin_uimanager.c:840
+msgid "_Main Toolbar"
+msgstr "Barra d'_eines principal"
+
+#: ../src/bfwin_uimanager.c:840
+msgid "Show main toolbar"
+msgstr "Visualitza la barra d'eines principal"
+
+#: ../src/bfwin_uimanager.c:842
+msgid "_Side Pane"
+msgstr "_Subfinestra lateral"
+
+#: ../src/bfwin_uimanager.c:842
+msgid "Show side pane"
+msgstr "Mostra la subfinestra lateral"
+
+#: ../src/bfwin_uimanager.c:843
+msgid "_Output Pane"
+msgstr "Subfinestra de s_ortida"
+
+#: ../src/bfwin_uimanager.c:843
+msgid "Show output pane"
+msgstr "Mostra la subfinestra de sortida"
+
+#: ../src/bfwin_uimanager.c:845
+msgid "Status_bar"
+msgstr "_Barra d'estat"
+
+#: ../src/bfwin_uimanager.c:845
+msgid "Show statusbar"
+msgstr "Mostra la barra d'estat"
+
+#: ../src/bfwin_uimanager.c:847
+msgid "Auto _Completion Popup"
+msgstr "Finestra emergent de com_pleció automàtica"
+
+#: ../src/bfwin_uimanager.c:847
+msgid "Show auto completion popup"
+msgstr "Mostra la finestra emergent de compleció automàtica"
+
+#: ../src/bfwin_uimanager.c:849
+msgid "_Auto Indent"
+msgstr "Sa_gna automàticament"
+
+#: ../src/bfwin_uimanager.c:849
+msgid "Auto indent"
+msgstr "Sagna automàticament"
+
+#: ../src/bfwin_uimanager.c:850
+msgid "Highlight Block _Delimiters"
+msgstr "Ressalta els delimitadors de _bloc"
+
+#: ../src/bfwin_uimanager.c:851
+msgid "Highlight block delimiters"
+msgstr "Ressalta els delimitadors de bloc"
+
+#: ../src/bfwin_uimanager.c:852
+msgid "_Highlight Syntax"
+msgstr "_Ressalta la sintaxi"
+
+#: ../src/bfwin_uimanager.c:852
+msgid "Highlight syntax"
+msgstr "Ressalta la sintaxi"
+
+#: ../src/bfwin_uimanager.c:854
+msgid "Show _Blocks"
+msgstr "Mostr_a els blocs"
+
+#: ../src/bfwin_uimanager.c:854
+msgid "Show blocks"
+msgstr "Mostra els blocs"
+
+#: ../src/bfwin_uimanager.c:855
+msgid "Show Line N_umbers"
+msgstr "Mostra els _números de línia"
+
+#: ../src/bfwin_uimanager.c:855
+msgid "Show line numbers"
+msgstr "Mostra els números de línia"
+
+#: ../src/bfwin_uimanager.c:857
+msgid "Show Right _Margin"
+msgstr "Mostra el _marge dret"
+
+#: ../src/bfwin_uimanager.c:857
+msgid "Show right margin"
+msgstr "Mostra el marge dret"
+
+#: ../src/bfwin_uimanager.c:859
+msgid "Show Split _View"
+msgstr "Mostra la _visualització dividida"
+
+#: ../src/bfwin_uimanager.c:859
+msgid "Show split view"
+msgstr "Mostra la visualització dividida"
+
+#: ../src/bfwin_uimanager.c:861
+msgid "Show V_isible Spacing"
+msgstr "Mostra l'espaiat v_isible"
+
+#: ../src/bfwin_uimanager.c:861
+msgid "Show visible spacing"
+msgstr "Mostra l'espaiat visible"
+
+#: ../src/bfwin_uimanager.c:863
+msgid "_Wrap Text"
+msgstr "A_justa el text"
+
+#: ../src/bfwin_uimanager.c:863
+msgid "Wrap text"
+msgstr "Ajusta el text"
+
+#: ../src/bfwin_uimanager.c:867
+#: ../src/document.c:2829
+msgid "_Close"
+msgstr "Tan_ca"
+
+#: ../src/bfwin_uimanager.c:867
+msgid "Close current file"
+msgstr "Tanca el fitxer actual"
+
+#: ../src/bfwin_uimanager.c:869
+msgid "Close A_ll"
+msgstr "Tanca-_ho tot"
+
+#: ../src/bfwin_uimanager.c:869
+msgid "Close all files"
+msgstr "Tanca tots els fitxers"
+
+#: ../src/bfwin_uimanager.c:871
+#: ../src/bfwin_uimanager.c:929
+#: ../src/file_dialogs.c:1423
+msgid "_Save"
+msgstr "De_sa"
+
+#: ../src/bfwin_uimanager.c:871
+msgid "Save current file"
+msgstr "Desa el fitxer actual"
+
+#: ../src/bfwin_uimanager.c:873
+#: ../src/bfwin_uimanager.c:930
+msgid "Save _as..."
+msgstr "_Anomena i desa..."
+
+#: ../src/bfwin_uimanager.c:873
+msgid "Save file as"
+msgstr "Anomena i desa el fitxer"
+
+#: ../src/bfwin_uimanager.c:875
+msgid "Sav_e All"
+msgstr "D_esa-ho tot"
+
+#: ../src/bfwin_uimanager.c:875
+msgid "Save all files"
+msgstr "Desa tots els fitxers"
+
+#: ../src/bfwin_uimanager.c:876
+msgid "Rever_t to Saved"
+msgstr "_Torna al desat"
+
+#: ../src/bfwin_uimanager.c:876
+msgid "Reload current file"
+msgstr "Torna a carregar el fitxer actual"
+
+#: ../src/bfwin_uimanager.c:878
+msgid "Rena_me..."
+msgstr "Canvia el no_m..."
+
+#: ../src/bfwin_uimanager.c:878
+msgid "Rename file"
+msgstr "Canvia el nom del fitxer"
+
+#: ../src/bfwin_uimanager.c:879
+msgid "_Indent"
+msgstr "_Sagna"
+
+#: ../src/bfwin_uimanager.c:879
+msgid "Indent"
+msgstr "Sagna"
+
+#: ../src/bfwin_uimanager.c:880
+msgid "Unin_dent"
+msgstr "Desfés el sa_gnat"
+
+#: ../src/bfwin_uimanager.c:880
+msgid "Unindent"
+msgstr "Desfés el sagnat"
+
+#: ../src/bfwin_uimanager.c:882
+msgid "F_irst Bookmark"
+msgstr "Pr_imer marcador"
+
+#: ../src/bfwin_uimanager.c:882
+msgid "Goto first bookmark"
+msgstr "Vés al primer marcador"
+
+#: ../src/bfwin_uimanager.c:884
+msgid "L_ast Bookmark"
+msgstr "Úl_tim marcador"
+
+#: ../src/bfwin_uimanager.c:884
+msgid "Goto last bookmark"
+msgstr "Vés a l'últim marcador"
+
+#: ../src/bfwin_uimanager.c:886
+msgid "N_ext Bookmark"
+msgstr "Marcador s_egüent"
+
+#: ../src/bfwin_uimanager.c:886
+msgid "Goto next bookmark"
+msgstr "Vés al marcador següent"
+
+#: ../src/bfwin_uimanager.c:888
+msgid "P_revious Bookmark"
+msgstr "Ma_rcador anterior"
+
+#: ../src/bfwin_uimanager.c:889
+#: ../src/bfwin_uimanager.c:900
+msgid "Goto previous document"
+msgstr "Vés al document anterior"
+
+#: ../src/bfwin_uimanager.c:890
+msgid "Move Tab _Left"
+msgstr "Mou la pestanya a l'es_querra"
+
+#: ../src/bfwin_uimanager.c:890
+msgid "Move current tab left"
+msgstr "Mou la pestanya actual a l'esquerra"
+
+#: ../src/bfwin_uimanager.c:892
+msgid "Move Tab _Right"
+msgstr "Mou la pestanya a la _dreta"
+
+#: ../src/bfwin_uimanager.c:892
+msgid "Move current tab right"
+msgstr "Mou la pestanya actual a la dreta"
+
+#: ../src/bfwin_uimanager.c:894
+msgid "_First Document"
+msgstr "_Primer document"
+
+#: ../src/bfwin_uimanager.c:894
+msgid "Goto first document"
+msgstr "Vés al primer document"
+
+#: ../src/bfwin_uimanager.c:896
+msgid "_Last Document"
+msgstr "Últi_m document"
+
+#: ../src/bfwin_uimanager.c:896
+msgid "Goto last document"
+msgstr "Vés a l'últim document"
+
+#: ../src/bfwin_uimanager.c:898
+msgid "_Next Document"
+msgstr "Document següe_nt"
+
+#: ../src/bfwin_uimanager.c:898
+msgid "Goto next document"
+msgstr "Vés al document següent"
+
+#: ../src/bfwin_uimanager.c:900
+msgid "_Previous Document"
+msgstr "Document _anterior"
+
+#: ../src/bfwin_uimanager.c:902
+msgid "Goto _Line"
+msgstr "Vés a la _línia"
+
+#: ../src/bfwin_uimanager.c:902
+msgid "Goto line"
+msgstr "Vés a la línia"
+
+#: ../src/bfwin_uimanager.c:903
+msgid "Goto Line Number from _Clipboard"
+msgstr "_Vés al número de línia del porta-retalls"
+
+#: ../src/bfwin_uimanager.c:904
+msgid "Goto line number in clipboard or selection"
+msgstr "Vés al número de línia del porta-retalls o de la selecció"
+
+#: ../src/bfwin_uimanager.c:905
+msgid "_Jump to Reference"
+msgstr "_Salta a la referència"
+
+#: ../src/bfwin_uimanager.c:905
+msgid "Jump to reference"
+msgstr "Salta a la referència"
+
+#: ../src/bfwin_uimanager.c:910
+msgid "Cu_t"
+msgstr "Re_talla"
+
+#: ../src/bfwin_uimanager.c:910
+msgid "Cut"
+msgstr "Retalla"
+
+#: ../src/bfwin_uimanager.c:911
+msgid "_Copy"
+msgstr "_Copia"
+
+#: ../src/bfwin_uimanager.c:911
+msgid "Copy"
+msgstr "Copia"
+
+#: ../src/bfwin_uimanager.c:912
+msgid "_Paste"
+msgstr "Engan_xa"
+
+#: ../src/bfwin_uimanager.c:912
+msgid "Paste"
+msgstr "Enganxa"
+
+#: ../src/bfwin_uimanager.c:916
+msgid "_Find"
+msgstr "C_erca"
+
+#: ../src/bfwin_uimanager.c:916
+msgid "Show find bar"
+msgstr "Mostra la barra de cerca"
+
+#: ../src/bfwin_uimanager.c:917
+msgid "Find A_gain"
+msgstr "Cerca de no_u"
+
+#: ../src/bfwin_uimanager.c:917
+msgid "Find again"
+msgstr "Cerca de nou"
+
+#: ../src/bfwin_uimanager.c:918
+msgid "Find from Clip_board"
+msgstr "Cerca a partir del porta-reta_lls"
+
+#: ../src/bfwin_uimanager.c:918
+msgid "Find from clipboard or selection"
+msgstr "Cerca a partir del porta-retalls o de la selecció"
+
+#: ../src/bfwin_uimanager.c:920
+msgid "Advanced Find & Re_place..."
+msgstr "Cerca i reem_plaça avançat..."
+
+#: ../src/bfwin_uimanager.c:920
+msgid "Advanced Find and Replace"
+msgstr "Cerca i reemplaça avançat..."
+
+#: ../src/bfwin_uimanager.c:927
+msgid "Save & _close"
+msgstr "Desa i tan_ca"
+
+#: ../src/bfwin_uimanager.c:927
+msgid "Save & close project"
+msgstr "Desa i tanca el projecte"
+
+#: ../src/bfwin_uimanager.c:929
+msgid "Save project"
+msgstr "Desa el projecte"
+
+#: ../src/bfwin_uimanager.c:930
+msgid "Save project as"
+msgstr "Desa el projecte com a"
+
+#: ../src/bfwin_uimanager.c:931
+msgid "_Edit Project Options..."
+msgstr "_Edita les opcions del projecte"
+
+#: ../src/bfwin_uimanager.c:931
+msgid "Edit project options"
+msgstr "Edita les opcions del projecte"
+
+#: ../src/bfwin_uimanager.c:936
+msgid "_Undo"
+msgstr "_Desfés"
+
+#: ../src/bfwin_uimanager.c:936
+msgid "Undo"
+msgstr "Desfés"
+
+#: ../src/bfwin_uimanager.c:937
+msgid "U_ndo All"
+msgstr "Desfés-ho t_ot"
+
+#: ../src/bfwin_uimanager.c:937
+msgid "Undo All"
+msgstr "Desfés-ho tot"
+
+#: ../src/bfwin_uimanager.c:938
+msgid "_Redo"
+msgstr "_Refés"
+
+#: ../src/bfwin_uimanager.c:938
+msgid "Redo"
+msgstr "Refés"
+
+#: ../src/bfwin_uimanager.c:939
+msgid "R_edo All"
+msgstr "Re_fés-ho tot"
+
+#: ../src/bfwin_uimanager.c:939
+msgid "Redo All"
+msgstr "Refés-ho tot"
+
+#: ../src/bfwin_uimanager.c:1080
+msgid "Open _URL..."
+msgstr "Obre un _URL..."
+
+#: ../src/bfwin_uimanager.c:1093
+msgid "_Spell Check"
+msgstr "Revi_sa l'ortografia"
+
+#: ../src/bfwin_uimanager.c:1477
+msgid "Text area to filter"
+msgstr "Àrea de text a filtrar"
+
+#: ../src/bfwin_uimanager.c:1478
+msgid "All text"
+msgstr "Tot el text"
+
+#: ../src/bfwin_uimanager.c:1479
+msgid "Selected text only"
+msgstr "Només el text seleccionat"
+
+#: ../src/blocksync.c:87
+msgid "Select the block to sync to other pages. Include the start-of-block and end-of-block markers in your selection."
+msgstr "Seleccioneu el bloc per sincronitzar amb altres pàgines. A la selecció, s'han d'incloure les marques d'inici i de final de bloc."
+
+#: ../src/blocksync.c:92
+msgid "To proceed with the current selection click forward."
+msgstr "Per seguir endavant amb l'actual selecció, cliqueu Endavant."
+
+#: ../src/blocksync.c:121
+msgid "Below is the block, including start and end marker. Please <b>select the start marker</b> in the text below."
+msgstr "A continuació hi ha el bloc, que inclou les marques d'inici i de final. <b>Seleccioneu la marca d'inici</b> en el text següent."
+
+#: ../src/blocksync.c:156
+msgid "Please <b>select the end marker</b> in the text below."
+msgstr "<b>Seleccioneu la marca final</b> en el següent text."
+
+#: ../src/blocksync.c:194
+#, c-format
+msgid ""
+"Will replace the text between <i>%s</i> and <i>%s</i> in all documents opened in this window.\n"
+"<b>Proceed?</b>"
+msgstr ""
+"Es reemplaçarà el text que hi ha entre <i>%s</i> i <i>%s</i> en tots els documents oberts a la finestra.\n"
+"<b>Voleu seguir endavant?</b>"
+
+#: ../src/blocksync.c:225
+msgid "<span foreground=\"red\" weight=\"bold\">Please select the block of text to synchronize.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Seleccioneu el bloc text que s'ha de sincronitzar.</span>"
+
+#: ../src/blocksync.c:239
+#: ../src/blocksync.c:259
+msgid "<span foreground=\"red\" weight=\"bold\">This marker exists more than once in the block.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Aquest marca apareix més d'un cop en el bloc.</span>"
+
+#: ../src/blocksync.c:245
+msgid "<span foreground=\"red\" weight=\"bold\">Select the text that marks the start of the block.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Seleccioneu el text que marca l'inici del bloc.</span>"
+
+#: ../src/blocksync.c:265
+msgid "<span foreground=\"red\" weight=\"bold\">Select the text that marks the end of the block.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Seleccioneu el text que marca el final del bloc.</span>"
+
+#: ../src/bluefish.c:94
+msgid "Visit us at http://bluefish.openoffice.nl"
+msgstr "Visiteu-nos a http://bluefish.openoffice.nl"
+
+#: ../src/bluefish.c:267
+msgid "Open in existing window."
+msgstr "Obre en una finestra que existeixi."
+
+#: ../src/bluefish.c:269
+msgid "Open in new window."
+msgstr "Obre en una finestra nova."
+
+#: ../src/bluefish.c:271
+msgid "Print version information."
+msgstr "Imprimeix la informació de la versió."
+
+#: ../src/bluefish.c:293
+msgid " [FILE(S)]"
+msgstr " [FITXER(S)]"
+
+#: ../src/bluefish.c:304
+#, c-format
+msgid ""
+"Error parsing command line options. %s\n"
+"Please run: %s -?\n"
+msgstr ""
+"S'ha produït un error en analitzar les opcions de la línia d'ordres. %s\n"
+"Executeu: %s -?\n"
+
+#: ../src/bookmark.c:558
+msgid "_Name:"
+msgstr "_Nom:"
+
+#: ../src/bookmark.c:562
+msgid "_Description:"
+msgstr "_Descripció:"
+
+#: ../src/bookmark.c:564
+msgid "Temporary"
+msgstr "Temporal"
+
+#: ../src/bookmark.c:723
+#, c-format
+msgid "Do you really want to delete %s?"
+msgstr "Esteu segur que voleu suprimir %s?"
+
+#: ../src/bookmark.c:726
+msgid "Delete permanent bookmark."
+msgstr "Suprimeix el marcador definitivament."
+
+#: ../src/bookmark.c:752
+msgid "Delete all bookmarks."
+msgstr "Supimeix tots els marcadors."
+
+#: ../src/bookmark.c:790
+#, c-format
+msgid "Do you really want to delete all bookmarks for %s?"
+msgstr "Esteu segur que voleu esborrar tots els marcadors per a %s?"
+
+#: ../src/bookmark.c:792
+msgid "Delete bookmarks?"
+msgstr "Voleu suprimir els marcadors?"
+
+#: ../src/bookmark.c:813
+#: ../src/bookmark.c:874
+msgid "Edit bookmark"
+msgstr "Edita el marcador"
+
+#: ../src/bookmark.c:870
+msgid "Bookmark menu"
+msgstr "Menú dels marcadors"
+
+#: ../src/bookmark.c:871
+msgid "Show Bookmark"
+msgstr "Mostra el marcador"
+
+#: ../src/bookmark.c:872
+msgid "Show File"
+msgstr "Mostra el fitxer"
+
+#: ../src/bookmark.c:873
+msgid "Bookmark search menu"
+msgstr "Menú de cerca de marcadors"
+
+#: ../src/bookmark.c:874
+msgid "_Edit..."
+msgstr "_Edita..."
+
+#: ../src/bookmark.c:876
+#: ../src/filebrowser2.c:2026
+msgid "_Delete"
+msgstr "_Suprimeix"
+
+#: ../src/bookmark.c:876
+#: ../src/document.c:1831
+msgid "Delete bookmark"
+msgstr "Suprimeix el marcador"
+
+#: ../src/bookmark.c:877
+msgid "Delete All"
+msgstr "Suprimeix-ho tot"
+
+#: ../src/bookmark.c:877
+msgid "Delete all bookmarks"
+msgstr "Suprimeix tots els marcadors"
+
+#: ../src/bookmark.c:879
+msgid "Delete All in Document"
+msgstr "Suprimeix tots els del document"
+
+#: ../src/bookmark.c:879
+msgid "Delete all bookmarks in document"
+msgstr "Suprimeix tots els marcadors del document"
+
+#: ../src/bookmark.c:884
+msgid "Permanent by default"
+msgstr "Definitiu per defecte"
+
+#: ../src/bookmark.c:889
+msgid "By Name"
+msgstr "Per nom"
+
+#: ../src/bookmark.c:890
+msgid "By Full Path"
+msgstr "Per camí complet"
+
+#: ../src/bookmark.c:891
+msgid "By Full URI"
+msgstr "Per URI complet"
+
+#: ../src/bookmark.c:895
+#: ../src/bookmark.c:901
+msgid "Content"
+msgstr "Contingut"
+
+#: ../src/bookmark.c:896
+#: ../src/bookmark.c:902
+#: ../src/preferences.c:563
+#: ../src/preferences.c:1149
+#: ../src/preferences.c:1255
+msgid "Name"
+msgstr "Nom"
+
+#: ../src/bookmark.c:897
+#: ../src/bookmark.c:903
+msgid "Name & Content"
+msgstr "Nom i contingut"
+
+#: ../src/bookmark.c:1244
+msgid "First bookmark"
+msgstr "Primer marcador"
+
+#: ../src/bookmark.c:1248
+msgid "Previous bookmark"
+msgstr "Marcador anterior"
+
+#: ../src/bookmark.c:1252
+msgid "Next bookmark"
+msgstr "Marcador següent"
+
+#: ../src/bookmark.c:1256
+msgid "Last bookmark"
+msgstr "Últim marcador"
+
+#: ../src/bookmark.c:1948
+#: ../src/bookmark.c:2095
+msgid "Error adding bookmark"
+msgstr "S'ha produït un error en afegir el marcador"
+
+#: ../src/bookmark.c:1948
+#: ../src/bookmark.c:2095
+msgid "Cannot add bookmarks to unsaved files."
+msgstr "No es poden afegir marcadors a fitxers no desats."
+
+#: ../src/bookmark.c:2029
+msgid "Can't add bookmark"
+msgstr "No es pot afegir el marcador"
+
+#: ../src/bookmark.c:2029
+msgid "You already have a bookmark here!"
+msgstr "Aquí ja teniu un marcador!"
+
+#: ../src/document.c:411
+msgid "Name: "
+msgstr "_Nom:"
+
+#: ../src/document.c:414
+msgid ""
+"\n"
+"Language mode: "
+msgstr ""
+"\n"
+"Mode de llenguatge:"
+
+#: ../src/document.c:418
+msgid ""
+"\n"
+"Encoding: "
+msgstr ""
+"\n"
+"Codificació: "
+
+#: ../src/document.c:430
+msgid ""
+"\n"
+"Mime type: "
+msgstr ""
+"\n"
+"Tipus MIME:"
+
+#: ../src/document.c:438
+#, c-format
+msgid ""
+"\n"
+"Permissions: %s\n"
+"Uid: %u Gid: %u"
+msgstr ""
+"\n"
+"Permisos: %s\n"
+"Uid: %u Gid: %u"
+
+#: ../src/document.c:448
+msgid ""
+"\n"
+"Size (on disk): "
+msgstr ""
+"\n"
+"Mida (en el disc):"
+
+#: ../src/document.c:457
+msgid ""
+"\n"
+"Last modified: "
+msgstr ""
+"\n"
+"Última modificació:"
+
+#: ../src/document.c:491
+#, c-format
+msgid "Untitled %d"
+msgstr "Sense títol %d"
+
+#: ../src/document.c:676
+#, c-format
+msgid "Changed tab width to %d"
+msgstr "S'ha canviat l'amplada de la pestanya a %d"
+
+#: ../src/document.c:850
+#, c-format
+msgid "Document %s is already open in another Bluefish window."
+msgstr "El document %s ja és obert en una altra finestra de Bluefish."
+
+#: ../src/document.c:852
+msgid "Move to this window"
+msgstr "Mou a aquesta finestra"
+
+#: ../src/document.c:852
+msgid "Open readonly"
+msgstr "Obre en mode només de lectura"
+
+#: ../src/document.c:853
+msgid "Do not open"
+msgstr "No ho obris"
+
+#: ../src/document.c:1165
+#, c-format
+msgid " Ln: %d, Col: %d, Char: %d"
+msgstr "Ln: %d, Col: %d, Car: %d"
+
+#: ../src/document.c:1168
+#, c-format
+msgid " Ln: %d, Col: %d"
+msgstr " Ln: %d, Col: %d"
+
+#: ../src/document.c:1191
+msgid " OVR"
+msgstr " OVR"
+
+#: ../src/document.c:1191
+msgid " INS"
+msgstr "Inser"
+
+#: ../src/document.c:1193
+msgid " RO"
+msgstr " RO"
+
+#: ../src/document.c:1212
+msgid "Unknown"
+msgstr "Desconegut"
+
+#: ../src/document.c:1660
+msgid "Cannot display file, unknown characters found."
+msgstr "No es pot mostrar el fitxer, s'han trobat caràcters desconeguts."
+
+#. if (main_v->props.backup_abort_action == 2)
+#. we have to ask the user
+#. we have to ask the user what to do
+#: ../src/document.c:1980
+#: ../src/file_dialogs.c:467
+#: ../src/file_dialogs.c:505
+msgid "_Abort save"
+msgstr "Interromp l'acció de des_ar"
+
+#: ../src/document.c:1980
+msgid "_Continue save in UTF-8"
+msgstr "_Desa en UTF-8"
+
+#: ../src/document.c:1993
+#, c-format
+msgid ""
+"Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n"
+"\n"
+"Continue saving in UTF-8 encoding?"
+msgstr ""
+"No s'ha pogut convertir %s a la codificació de caràcters %s. La codificació ha fallat en el caràcter '%s' de la línia %d i columna %d\n"
+"\n"
+"Voleu desar amb la codificació UTF-8?"
+
+#: ../src/document.c:1998
+msgid "File encoding conversion failure"
+msgstr "S'ha produït un error en la conversió de la codificació"
+
+#: ../src/document.c:2149
+msgid "Previously: "
+msgstr "Anteriorment:"
+
+#: ../src/document.c:2616
+#: ../src/file_dialogs.c:812
+#, c-format
+msgid "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."
+msgstr "La versió (%d.%d.%d) de glib no és fiable per a fitxers remots. Actualitzeu a la versió 2.18.0 o superior."
+
+#. || (!file_exists_and_readable(doc->uri))
+#: ../src/document.c:2745
+msgid "Unable to open file"
+msgstr "No es pot obrir el fitxer"
+
+#: ../src/document.c:2757
+#, c-format
+msgid "If you revert \"%s\" to your last saved copy, your current changes will be permanently lost."
+msgstr "Si torneu \"%s\" a l'última còpia desada, els canvis actuals es perdran definitivament."
+
+#: ../src/document.c:2761
+msgid "Revert changes to last saved copy?"
+msgstr "Voleu tornar el fitxer a l'última versió desada?"
+
+#: ../src/document.c:2829
+msgid "_Retry"
+msgstr "_Reintenta"
+
+#: ../src/document.c:2829
+msgid "Retry _all failed"
+msgstr "Reintent_a tots els que han fallat"
+
+#: ../src/document.c:2829
+msgid "Close all _failed"
+msgstr "Tanca tots els que han _fallat"
+
+#: ../src/document.c:2834
+msgid "File "
+msgstr "_Fitxer"
+
+#: ../src/document.c:2834
+msgid " failed to load."
+msgstr " ha fallat en carregar."
+
+#: ../src/document.c:2838
+msgid "File failed to load\n"
+msgstr "No s'ha pogut carregar el fitxer\n"
+
+#: ../src/document.c:2955
+msgid "Select file to insert"
+msgstr "Selecciona el fitxer a inserir"
+
+#: ../src/document.c:2964
+msgid "No file to insert"
+msgstr "No hi ha cap fitxer per inserir"
+
+#: ../src/document.c:3071
+#, c-format
+msgid "%d line"
+msgid_plural "%d lines"
+msgstr[0] "%d línia"
+msgstr[1] "%d línies"
+
+#: ../src/document.c:3072
+#, c-format
+msgid "%d word"
+msgid_plural "%d words"
+msgstr[0] "%d paraula"
+msgstr[1] "%d paraules"
+
+#: ../src/document.c:3073
+#, c-format
+msgid "%d character"
+msgid_plural "%d characters"
+msgstr[0] "%d caràcter"
+msgstr[1] "%d caràcters"
+
+#: ../src/document.c:3075
+msgid "Selection statistics: "
+msgstr "Estadístiques de selecció:"
+
+#: ../src/document.c:3075
+msgid "Statistics: "
+msgstr "Estadístiques:"
+
+#: ../src/doc_text_tools.c:391
+msgid "Lines into columns"
+msgstr "Línies a columnes"
+
+#: ../src/doc_text_tools.c:403
+msgid "Number of columns:"
+msgstr "Nombre de columnes:"
+
+#: ../src/doc_text_tools.c:407
+msgid "Spread lines horizontally"
+msgstr "Escampa les línies horitzontalment"
+
+#: ../src/doc_text_tools.c:414
+msgid "Column separator:"
+msgstr "Separador de columna:"
+
+#: ../src/doc_text_tools.c:418
+msgid "Fill empty entries:"
+msgstr "Omple les entrades buides:"
+
+#: ../src/encodings_dialog.c:287
+msgid "_Available encodings:"
+msgstr "_Codificacions disponibles:"
+
+#: ../src/encodings_dialog.c:333
+#: ../src/encodings_dialog.c:385
+msgid "Description"
+msgstr "Descripció"
+
+#: ../src/encodings_dialog.c:339
+#: ../src/encodings_dialog.c:390
+msgid "Encoding"
+msgstr "Codificació"
+
+#: ../src/encodings_dialog.c:362
+msgid "Encodings in _menu:"
+msgstr "Codificacions en el _menú:"
+
+#: ../src/encodings_dialog.c:436
+msgid "Add or remove document encodings"
+msgstr "Afegeix o suprimeix codificacions del document"
+
+#: ../src/filebrowser2.c:264
+msgid "Set documentroot and webroot"
+msgstr "Estableix el document arrel i el web arrel"
+
+#: ../src/filebrowser2.c:273
+msgid ""
+"The <i>documentroot</i> is the place where Bluefish finds the file,\n"
+"the <i>webroot</i> is the location where those same files can be viewed on the webserver"
+msgstr ""
+"El <i>document arrel</i> és on el Bluefish troba el fitxer,\n"
+"el <i>web arrel</i> és la ubicació d'aquests fitxers en el servidor web."
+
+#: ../src/filebrowser2.c:280
+msgid "Documentroot"
+msgstr "Document arrel"
+
+#: ../src/filebrowser2.c:291
+msgid "Webroot"
+msgstr "Web arrel"
+
+#: ../src/filebrowser2.c:1535
+msgid "Could not rename\n"
+msgstr "No s'ha pogut canviar el nom\n"
+
+#: ../src/filebrowser2.c:1608
+#: ../src/filebrowser2.c:2028
+msgid "New directory"
+msgstr "Directori nou"
+
+#. Do we really need to display the full path here?
+#. *
+#. * Having the filename in the both the primary and secondary text seems to be redundant.
+#. * Set back to just the primary text for now.
+#. *
+#. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
+#. * and then this might give you more indication if this is indeed the file you wanted to delete
+#.
+#: ../src/filebrowser2.c:1725
+#, c-format
+msgid ""
+"Are you sure you want to delete\n"
+"\"%s\"?"
+msgstr ""
+"Esteu segur que voleu suprimir\n"
+"\"%s\"?"
+
+#: ../src/filebrowser2.c:1726
+#, c-format
+msgid "If you delete %s, it will be permanently lost."
+msgstr "Si suprimiu %s, es perdrà definitivament."
+
+#: ../src/filebrowser2.c:2021
+msgid "File Browser menu"
+msgstr "Menú del navegador de fitxers"
+
+#: ../src/filebrowser2.c:2022
+msgid "_Open"
+msgstr "_Obre"
+
+#: ../src/filebrowser2.c:2022
+msgid "Open"
+msgstr "Obre"
+
+#: ../src/filebrowser2.c:2023
+msgid "Open _Advanced..."
+msgstr "Obre _avançat..."
+
+#: ../src/filebrowser2.c:2025
+msgid "Rena_me"
+msgstr "Canvia el no_m"
+
+#: ../src/filebrowser2.c:2025
+msgid "Rename"
+msgstr "Canvia el nom"
+
+#: ../src/filebrowser2.c:2026
+msgid "Delete"
+msgstr "Suprimeix"
+
+#: ../src/filebrowser2.c:2027
+msgid "New _File"
+msgstr "_Fitxer nou"
+
+#: ../src/filebrowser2.c:2028
+msgid "_New Directory"
+msgstr "Directori _nou"
+
+#: ../src/filebrowser2.c:2030
+msgid "_Refresh"
+msgstr "_Actualitza"
+
+#: ../src/filebrowser2.c:2030
+msgid "Refresh"
+msgstr "Actualitza"
+
+#: ../src/filebrowser2.c:2031
+msgid "_Set as base dir"
+msgstr "E_stableix com a directori base"
+
+#: ../src/filebrowser2.c:2031
+msgid "Set as base directory"
+msgstr "Estableix com a directori base"
+
+#: ../src/filebrowser2.c:2033
+msgid "Set as document root"
+msgstr "Estableix com a document arrel"
+
+#: ../src/filebrowser2.c:2035
+msgid "Show Full _Tree"
+msgstr "Mostra l'arbre comple_t"
+
+#: ../src/filebrowser2.c:2035
+msgid "Show full tree"
+msgstr "Mostra l'arbre complet"
+
+#: ../src/filebrowser2.c:2037
+msgid "View Mode"
+msgstr "Mode de visualització"
+
+#: ../src/filebrowser2.c:2038
+msgid "Filter"
+msgstr "Filtre"
+
+#: ../src/filebrowser2.c:2039
+msgid "New Filter"
+msgstr "Filtre nou"
+
+#: ../src/filebrowser2.c:2039
+#: ../src/filefilter.c:534
+msgid "New filter"
+msgstr "Filtre nou"
+
+#: ../src/filebrowser2.c:2040
+msgid "Edit Filter"
+msgstr "Edita el filtre"
+
+#: ../src/filebrowser2.c:2040
+#: ../src/filefilter.c:540
+msgid "Edit filter"
+msgstr "Edita el filtre"
+
+#: ../src/filebrowser2.c:2041
+msgid "Delete Filter"
+msgstr "Suprimeix el filtre"
+
+#: ../src/filebrowser2.c:2041
+msgid "Delete filter"
+msgstr "Suprimeix el filtre"
+
+#: ../src/filebrowser2.c:2045
+msgid "Follow Active Document"
+msgstr "Segueix el document actiu"
+
+#: ../src/filebrowser2.c:2045
+msgid "Follow active document"
+msgstr "Segueix el document actiu"
+
+#: ../src/filebrowser2.c:2047
+msgid "Show Backup Files"
+msgstr "Mostra les còpies de seguretat"
+
+#: ../src/filebrowser2.c:2047
+#: ../src/gtk_easy.c:1237
+msgid "Show backup files"
+msgstr "Mostra les còpies de seguretat"
+
+#: ../src/filebrowser2.c:2049
+msgid "Show Hidden Files"
+msgstr "Mostra els fitxers ocults"
+
+#: ../src/filebrowser2.c:2049
+msgid "Show hidden files"
+msgstr "Mostra els fitxers ocults"
+
+#: ../src/filebrowser2.c:2054
+msgid "Dual"
+msgstr "Dual"
+
+#: ../src/filebrowser2.c:2055
+msgid "Flat"
+msgstr "Pla"
+
+#: ../src/filebrowser2.c:2056
+msgid "Tree"
+msgstr "Arbre"
+
+#: ../src/file.c:829
+#, c-format
+msgid "Still loading %d file, finished %s"
+msgid_plural "Still loading %d files, finished %s"
+msgstr[0] "S'està carregant %d fitxer, s'ha finalitzat %s"
+msgstr[1] "S'està carregant %d fitxers, s'han finalitzat %s"
+
+#: ../src/file.c:834
+#, c-format
+msgid "All files loaded, finished %s"
+msgstr "S'han carregat tots els fitxers, %s finalitzat"
+
+#: ../src/file.c:1342
+msgid "Finished advanced open"
+msgstr "L'obertura avançada ha finalitzat"
+
+#: ../src/file.c:1516
+msgid "_Skip"
+msgstr "_Omet"
+
+#: ../src/file.c:1516
+#: ../src/file_dialogs.c:640
+#: ../src/file_dialogs.c:661
+#: ../src/project.c:308
+msgid "_Overwrite"
+msgstr "_Sobreescriu"
+
+#: ../src/file.c:1520
+#, c-format
+msgid "%s cannot be copied, it already exists, overwrite?"
+msgstr "%s no es pot copiar perquè ja existeix, el voleu sobreescriure?"
+
+#: ../src/file.c:1522
+msgid "Overwrite file?"
+msgstr "Voleu sobreescriure el fitxer?"
+
+#: ../src/file_autosave.c:285
+msgid "Autosave in progress..."
+msgstr "El desament automàtic està en curs..."
+
+#: ../src/file_dialogs.c:108
+msgid "Started open advanced..."
+msgstr "L'obertura avançada ha començat..."
+
+#: ../src/file_dialogs.c:119
+msgid "Select basedir"
+msgstr "Selecciona el directori base"
+
+#: ../src/file_dialogs.c:141
+msgid "Advanced open file selector"
+msgstr "Selector d'obertura de fitxers avançat"
+
+#: ../src/file_dialogs.c:158
+msgid "<b>Files</b>"
+msgstr "<b>Fitxers</b>"
+
+#: ../src/file_dialogs.c:167
+msgid "Base _Dir:"
+msgstr "_Directori base:"
+
+#: ../src/file_dialogs.c:183
+msgid "_Pattern:"
+msgstr "_Patró:"
+
+#: ../src/file_dialogs.c:191
+msgid "Pattern matches _full path:"
+msgstr "El patró coincideix amb el camí a_bsolut:"
+
+#: ../src/file_dialogs.c:195
+msgid "_Recursive:"
+msgstr "_Recursiu:"
+
+#: ../src/file_dialogs.c:199
+msgid "Ma_x recursion:"
+msgstr "Mà_x. recursivitat:"
+
+#: ../src/file_dialogs.c:208
+msgid "<b>Contains</b>"
+msgstr "<b>Conté</b>"
+
+#: ../src/file_dialogs.c:213
+msgid "Pa_ttern:"
+msgstr "Pa_tró:"
+
+#: ../src/file_dialogs.c:217
+msgid "Is rege_x:"
+msgstr "És una e_xpressió regular:"
+
+#: ../src/file_dialogs.c:298
+#: ../src/file_dialogs.c:318
+msgid "Select files"
+msgstr "Selecciona fitxers"
+
+#: ../src/file_dialogs.c:378
+msgid "Open URL"
+msgstr "Obre un URL"
+
+#: ../src/file_dialogs.c:388
+#: ../src/file_dialogs.c:1334
+#, c-format
+msgid "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 if you rely on remote file support.</b>"
+msgstr "<b>La versió (%d.%d.%d) de glib no funciona de manera fiable amb fitxers remots (smb, ftp, sftp, webdav...). Si treballeu amb fitxers remots, actualitzeu a la versió 2.18.0 o superior de glib .</b>"
+
+#: ../src/file_dialogs.c:396
+msgid "<b>Open URL</b>"
+msgstr "<b>Obre l'URL</b>"
+
+#: ../src/file_dialogs.c:467
+#: ../src/file_dialogs.c:505
+msgid "_Continue save"
+msgstr "_Continua desant"
+
+#: ../src/file_dialogs.c:471
+#, c-format
+msgid "A backupfile for %s could not be created. If you continue, this file will be overwritten."
+msgstr "No es pot crear una còpia de seguretat de %s. Si seguiu treballant, aquest fitxer es sobreescriurà."
+
+#: ../src/file_dialogs.c:475
+msgid "File backup failure"
+msgstr "S'ha produït un error en la còpia de seguretat del fitxer."
+
+#: ../src/file_dialogs.c:491
+msgid "Could not save file "
+msgstr "No s'ha pogut desar el fitxer"
+
+#: ../src/file_dialogs.c:526
+#: ../src/file_dialogs.c:1464
+msgid "File changed on disk\n"
+msgstr "El fitxer ha canviat al disc\n"
+
+#: ../src/file_dialogs.c:613
+#, c-format
+msgid "Move/rename %s to"
+msgstr "Mou/canvia el nom %s» a"
+
+#: ../src/file_dialogs.c:613
+#, c-format
+msgid "Save %s as"
+msgstr "Anomena i desa %s"
+
+#: ../src/file_dialogs.c:640
+#: ../src/file_dialogs.c:661
+#: ../src/file_dialogs.c:956
+#: ../src/project.c:308
+msgid "_Cancel"
+msgstr "_Cancel·la"
+
+#: ../src/file_dialogs.c:641
+#, c-format
+msgid "File %s exists and is open, overwrite?"
+msgstr "El fitxer %s existeix i està obert, el voleu sobreescriure?"
+
+#: ../src/file_dialogs.c:644
+msgid "The file you have selected is being edited in Bluefish."
+msgstr "El fitxer seleccionat s'està editant a Bluefish."
+
+#: ../src/file_dialogs.c:662
+#: ../src/project.c:310
+#, c-format
+msgid "A file named \"%s\" already exists."
+msgstr "Ja existeix un fitxer anomenat  \"%s\"."
+
+#: ../src/file_dialogs.c:665
+#: ../src/project.c:314
+msgid "Do you want to replace the existing file?"
+msgstr "Voleu reemplaçar el fitxer existent?"
+
+#: ../src/file_dialogs.c:758
+msgid ""
+"File:\n"
+"\""
+msgstr ""
+"Fitxer:\n"
+"\""
+
+#: ../src/file_dialogs.c:759
+msgid "\" save is in progress"
+msgstr "\" desament està en curs"
+
+#: ../src/file_dialogs.c:761
+msgid "Save in progress!"
+msgstr "Desament en curs!"
+
+#: ../src/file_dialogs.c:942
+msgid "Close _Without Saving"
+msgstr "_Tanca sense desar"
+
+#: ../src/file_dialogs.c:945
+#, c-format
+msgid "Save changes to \"%s\" before closing?"
+msgstr "Voleu desar els canvis a \"%s\" abans de tancar?"
+
+#: ../src/file_dialogs.c:948
+#: ../src/file_dialogs.c:960
+msgid "If you don't save your changes they will be lost."
+msgstr "Els canvis es perdran si no els deseu."
+
+#: ../src/file_dialogs.c:956
+msgid "Choose per _File"
+msgstr "Escolliu per a cada _Fitxer"
+
+#: ../src/file_dialogs.c:956
+msgid "Close _All"
+msgstr "Tanc_a-ho tot"
+
+#: ../src/file_dialogs.c:956
+msgid "_Save All"
+msgstr "De_sa-ho tot"
+
+#: ../src/file_dialogs.c:959
+msgid "One or more open files have been changed."
+msgstr "Hi ha hagut canvis en un o més dels fitxers oberts."
+
+#: ../src/file_dialogs.c:1254
+#, c-format
+msgid "<span color=\"red\">%d failure</span>"
+msgid_plural "<span color=\"red\">%d failures</span>"
+msgstr[0] "<span color=\"red\">%d error</span>"
+msgstr[1] "<span color=\"red\">%d errors</span>"
+
+#: ../src/file_dialogs.c:1263
+msgid "incomplete finished"
+msgstr "finalització incompleta"
+
+#: ../src/file_dialogs.c:1265
+msgid "completed"
+msgstr "complet"
+
+#: ../src/file_dialogs.c:1320
+msgid "Upload / Download"
+msgstr "Penja / Baixa"
+
+#: ../src/file_dialogs.c:1323
+msgid "Upload"
+msgstr "Penja"
+
+#: ../src/file_dialogs.c:1323
+msgid "Download"
+msgstr "Baixa"
+
+#: ../src/file_dialogs.c:1346
+msgid "Local directory"
+msgstr "Directori local"
+
+#: ../src/file_dialogs.c:1352
+msgid "Remote directory"
+msgstr "Directori remot"
+
+#: ../src/file_dialogs.c:1357
+msgid "Delete deprecated files"
+msgstr "Suprimeix els fitxers desfasats"
+
+#: ../src/file_dialogs.c:1361
+msgid "Include hidden files"
+msgstr "Inclou els fitxers ocults"
+
+#. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
+#: ../src/file_dialogs.c:1402
+#, c-format
+msgid ""
+"Filename:%s changed on disk.\n"
+"\n"
+"Original modification time was %s\n"
+"New modification time is %s\n"
+"Original size was %lu\n"
+"New size is %lu"
+msgstr ""
+"El fitxer %s ha canviat en el disc.\n"
+"\n"
+"La data original de modificació era %s\n"
+"La nova data de modificació és %s\n"
+"La mida original era %lu\n"
+"La nova mida és %lu"
+
+#: ../src/file_dialogs.c:1423
+msgid "_Unset file name"
+msgstr "An_ul·la el nom del fitxer"
+
+#. file is deleted on disk, what do we do now ?
+#: ../src/file_dialogs.c:1425
+#, c-format
+msgid "File name: %s"
+msgstr "Nom del fitxer: %s"
+
+#: ../src/file_dialogs.c:1428
+msgid "File disappeared from disk\n"
+msgstr "El fitxer ha desaparegut del disc\n"
+
+#: ../src/file_dialogs.c:1447
+msgid "_Ignore"
+msgstr "_Ignora"
+
+#: ../src/file_dialogs.c:1447
+msgid "_Reload"
+msgstr "To_rna a carregar"
+
+#: ../src/file_dialogs.c:1447
+msgid "Check and reload all documents"
+msgstr "Comproveu i torneu a carregar tots els documents"
+
+#. build a list of filters
+#: ../src/filefilter.c:241
+#: ../src/gtk_easy.c:1248
+#: ../src/preferences.c:1854
+msgid "All files"
+msgstr "Tots els fitxers"
+
+#: ../src/filefilter.c:627
+msgid "Hide files that match the filter"
+msgstr "Amaga els fitxers que coincideixen amb el filtre"
+
+#: ../src/filefilter.c:631
+msgid "Add pattern"
+msgstr "Afegeix un patró"
+
+#: ../src/filefilter.c:637
+#: ../src/filefilter.c:649
+msgid "Mime type"
+msgstr "Tipus MIME"
+
+#: ../src/filefilter.c:640
+#: ../src/filefilter.c:652
+msgid "Icon"
+msgstr "Icona"
+
+#: ../src/gtk_easy.c:918
+#, c-format
+msgid "%d of %d"
+msgstr "%d de %d"
+
+#: ../src/gtk_easy.c:1032
+msgid "Select File"
+msgstr "Seleccioneu el fitxer"
+
+#: ../src/gtk_easy.c:1298
+msgid "Character _Encoding:"
+msgstr "Codificació dels caràct_ers:"
+
+#: ../src/gtk_easy.c:1318
+msgid "Automatic detection"
+msgstr "Reconeixement automàtic"
+
+#: ../src/gtk_easy.c:1403
+msgid "<b>Keystroke choice</b>"
+msgstr "<b>Elecció de pulsació de tecla</b>"
+
+#: ../src/gtk_easy.c:1411
+msgid ""
+"\n"
+"Press requested key combination.\n"
+"Please use Ctrl, Shift, Alt key with any other key.\n"
+"<i>Esc to cancel, Delete to remove the accelerator.</i>"
+msgstr ""
+"\n"
+"Premeu la combinació de tecles desitjada.\n"
+"Useu les tecles Ctrl, Maj, Alt amb una altra tecla.\n"
+"<i>Per cancel·lar premeu Esc, per eliminar la drecera  premeu Supr.</i>"
+
+#: ../src/gtk_easy.c:1436
+msgid "Press shortcut key combination"
+msgstr "Premeu la combinació de tecles de drecera"
+
+#: ../src/gtkmountoperation.c:449
+msgid "Co_nnect"
+msgstr "Co_nnecta"
+
+#: ../src/gtkmountoperation.c:516
+msgid "Connect _anonymously"
+msgstr "Connecta _anònimament"
+
+#: ../src/gtkmountoperation.c:525
+msgid "Connect as u_ser:"
+msgstr "Connecta com a u_suari:"
+
+#: ../src/gtkmountoperation.c:563
+msgid "_Username:"
+msgstr "_Nom d'usuari:"
+
+#: ../src/gtkmountoperation.c:568
+msgid "_Domain:"
+msgstr "_Domini:"
+
+#: ../src/gtkmountoperation.c:574
+msgid "_Password:"
+msgstr "_Contrasenya:"
+
+#: ../src/gtkmountoperation.c:592
+msgid "Forget password _immediately"
+msgstr "Oblida la contrasenya _immediatament"
+
+#: ../src/gtkmountoperation.c:602
+msgid "Remember password until you _logout"
+msgstr "Recorda la contrasenya _fins que surti"
+
+#: ../src/gtkmountoperation.c:612
+msgid "Remember _forever"
+msgstr "Recorda-la per se_mpre"
+
+#: ../src/outputbox.c:247
+msgid "Filename"
+msgstr "Nom del fitxer"
+
+#: ../src/outputbox.c:249
+msgid "Line"
+msgstr "Línia"
+
+#: ../src/outputbox.c:251
+msgid "Output"
+msgstr "Sortida"
+
+#: ../src/outputbox.c:469
+#, c-format
+msgid "Failed to compile outputbox pattern %s: %s"
+msgstr "No s'ha pogut compilar el patró del quadre de sortida %s: %s "
+
+#: ../src/preferences.c:307
+msgid "Untitled"
+msgstr "Sense títol"
+
+#: ../src/preferences.c:467
+msgid "_Mime type:"
+msgstr "Tipus _MIME:"
+
+#: ../src/preferences.c:479
+#: ../src/preferences.c:481
+msgid "None"
+msgstr "Cap"
+
+#: ../src/preferences.c:483
+msgid "_Template:"
+msgstr "Plan_tilla:"
+
+#. g_signal_connect(snrwin->replace, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
+#. g_signal_connect(snrwin->replace, "realize", G_CALLBACK(realize_combo_set_tooltip),
+#. _("Replace matching text with"));
+#. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
+#. G_CALLBACK(snr_combo_activate_lcb), snrwin);
+#.
+#: ../src/preferences.c:486
+#: ../src/preferences.c:1919
+#: ../src/snr3.c:1522
+msgid "<b>Options</b>"
+msgstr "<b>Opcions</b>"
+
+#: ../src/preferences.c:490
+msgid "Enable a_uto-completion"
+msgstr "Habilita la compleció automàtica"
+
+#: ../src/preferences.c:492
+msgid "Enable _block folding"
+msgstr "Habilita l'expansió i reducció dels blocs"
+
+#: ../src/preferences.c:494
+msgid "Display block stack in statusbar"
+msgstr "Mostra la pila de blocs a la barra d'estat"
+
+#: ../src/preferences.c:496
+msgid "Highlight block _delimiters"
+msgstr "Ressalta els _delimitadors de bloc"
+
+#: ../src/preferences.c:498
+msgid "_Highlight current line"
+msgstr "_Ressalta la línia actual"
+
+#: ../src/preferences.c:500
+msgid "Show line _numbers"
+msgstr "Mostra els números de línia"
+
+#: ../src/preferences.c:504
+msgid "Show _right margin indicator"
+msgstr "Mostra l'indicador del marge d_ret"
+
+#: ../src/preferences.c:506
+#: ../src/preferences.c:1930
+msgid "Smart auto indentin_g"
+msgstr "Sagnat automàtic intel·ligent"
+
+#: ../src/preferences.c:508
+msgid "Wra_p lines"
+msgstr "A_justa les línies"
+
+#: ../src/preferences.c:511
+msgid "Enable syntax scanning"
+msgstr "Habilita l'escaneig de sintaxi"
+
+#: ../src/preferences.c:514
+msgid "_Enable spell check"
+msgstr "_Habilita la verificació de l'ortografia"
+
+#: ../src/preferences.c:519
+msgid "<b>Tab Stops</b>"
+msgstr "<b>Tabulacions</b>"
+
+#: ../src/preferences.c:524
+msgid "Tab _width:"
+msgstr "_Amplada de la tabulació:"
+
+#: ../src/preferences.c:527
+msgid "Insert _spaces instead of tabs"
+msgstr "Insereix e_spais en lloc de tabulacions"
+
+#: ../src/preferences.c:564
+msgid "Enabled"
+msgstr "Habilitat"
+
+#: ../src/preferences.c:566
+msgid "Path to plugin"
+msgstr "Camí del connector"
+
+#: ../src/preferences.c:771
+msgid "<small>Text styles are applied on top of each other. If multiple styles are applied to the same text, the top-most style in this list has the highest priority. Use drag and drop to re-order the text styles.</small>"
+msgstr "<small>Els estils de text s'apliquen uns damunt dels altres. Si s'apliquen múltiples estils al mateix text, l'estil del capdamunt d'aquesta llista té la prioritat més alta. Arrossegueu i deixeu anar per reordenar els estils de text.</small>"
+
+#: ../src/preferences.c:782
+#: ../src/preferences.c:923
+#: ../src/preferences.c:1020
+msgid "Label"
+msgstr "Etiqueta"
+
+#: ../src/preferences.c:798
+#: ../src/preferences.c:1987
+msgid "Foreground color"
+msgstr "Color del primer pla"
+
+#: ../src/preferences.c:799
+#: ../src/preferences.c:1988
+msgid "_Foreground color:"
+msgstr "Color de _primer pla:"
+
+#: ../src/preferences.c:800
+#: ../src/preferences.c:1991
+msgid "Background color"
+msgstr "Color de fons"
+
+#: ../src/preferences.c:801
+#: ../src/preferences.c:1992
+msgid "_Background color:"
+msgstr "Color del _fons:"
+
+#: ../src/preferences.c:805
+msgid "_Normal weight"
+msgstr "Mida _normal"
+
+#: ../src/preferences.c:807
+msgid "Bold _weight"
+msgstr "Negreta"
+
+#: ../src/preferences.c:809
+msgid "Normal st_yle"
+msgstr "Est_il normal"
+
+#: ../src/preferences.c:812
+msgid "_Italic style"
+msgstr "Curs_iva"
+
+#: ../src/preferences.c:814
+msgid "_Spell check"
+msgstr "_Revisa l'ortografia"
+
+#: ../src/preferences.c:925
+#: ../src/preferences.c:1022
+#: ../src/preferences.c:1159
+msgid "Command"
+msgstr "Ordre"
+
+#: ../src/preferences.c:928
+msgid "Default browser"
+msgstr "Navegador predeterminat"
+
+#: ../src/preferences.c:932
+msgid ""
+"<small><b>Input options</b>\n"
+"start with a | to send the input to the standard input\n"
+"%f local filename (available for local files)\n"
+"%i temporary fifo for input, equals %f if the document is not modified and local\n"
+"%I temporary filename for input, equals %f if the document is not modified and local\n"
+"<b>Other options</b>\n"
+"%c local directory of file (available for local files)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"
+msgstr ""
+"<small><b>Opcions d'entrada</b>\n"
+"comencen amb el caràcter | per enviar l'entrada a l'entrada estàndard\n"
+"%f nom del fitxer local (disponible per a fitxers locals)\n"
+"%i fifo temporal per a l'entrada, igual a %f si el document és local i no es modifica\n"
+"%I nom de fitxer temporal per a l'entrada, igual a %f és local i no es modifica\n"
+"<b>Altres opcions</b>\n"
+"%c directori local del fitxer (disponible per a fitxers locals)\n"
+"%n nom del fitxer sense camí (disponible per a tots els fitxers amb nom)\n"
+"%u URL (disponible per a tots els fitxers amb nom)\n"
+"%p previsualitza la URL si s'han establert el directori base i la previsualització base en els paràmetres del projecte, altrament és idèntic a %u</small>"
+
+#: ../src/preferences.c:1027
+msgid ""
+"<small><b>Input options</b>\n"
+"start with a | to send the input to the standard input\n"
+"%f local filename (requires local file, cannot operate on selection)\n"
+"%i temporary fifo for input\n"
+"%I temporary filename for input\n"
+"<b>Output options</b>\n"
+"end with a | to read the output from the standard output\n"
+"%o temporary fifo\n"
+"%O temporary filename\n"
+"%t temporary filename for both input and output (for in-place-editing filters, cannot operate on selection)\n"
+"<b>Other options</b>\n"
+"%c local directory of file (requires local file)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"
+msgstr ""
+"<small><b>Opcions d'entrada</b>\n"
+"comencen amb el caràcter | per enviar l'entrada a l'entrada estàndard\n"
+"%f nom del fitxer local (necessita un fitxer local, no pot operar amb una selecció)\n"
+"%i fifo temporal per a l'entrada\n"
+"%I nom del fitxer temporal per a l'entrada\n"
+"<b>Opcions de sortida</b>\n"
+"acaben amb el caràcter | per llegir la sortida des de la sortida estàndard\n"
+"%o fifo temporal\n"
+"%O nom del fitxer temporal\n"
+"%t nom del fitxer temporal per a l'entrada i per a la sortida (per als filtres que editen el fitxer, no es pot operar amb una selecció)\n"
+"<b>Altres opcions</b>\n"
+"%c directori local del fitxer (necessita un fitxer local)\n"
+"%n nom del fitxer sense camí (disponible per a tots els fitxers amb nom)\n"
+"%u URL (disponible per a tots els fitxers amb nom)\n"
+"%p previsualitza la URL si s'han establert el directori base i la previsualització base en els paràmetres del projecte, altrament és idèntic a %u</small>"
+
+#: ../src/preferences.c:1151
+msgid "Pattern"
+msgstr "Patró"
+
+#: ../src/preferences.c:1153
+msgid "File #"
+msgstr "Fitxer #"
+
+#: ../src/preferences.c:1155
+msgid "Line #"
+msgstr "Línia #"
+
+#: ../src/preferences.c:1157
+msgid "Output #"
+msgstr "Sortida #"
+
+#: ../src/preferences.c:1164
+msgid ""
+"<small><b>Input options</b>\n"
+"start with a | to send the input to the standard input\n"
+"%f local filename (available for local files)\n"
+"%i temporary fifo for input, equals %f if the document is not modified and local\n"
+"%I temporary filename for input, equals %f if the document is not modified and local\n"
+"<b>Output options</b>\n"
+"end with a | to read the output from the standard output\n"
+"%o temporary fifo\n"
+"%O temporary filename\n"
+"%t temporary filename for both input and output (for in-place-editing filters)\n"
+"<b>Other options</b>\n"
+"%c local directory of file (available for local files)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"
+msgstr ""
+"<small><b>Opcions d'entrada</b>\n"
+"comencen amb el caràcter | per enviar l'entrada a l'entrada estàndard\n"
+"%f nom del fitxer local (disponible per a fitxers locals)\n"
+"%i fifo temporal per a l'entrada, igual a %f si el document és local i no es modifica\n"
+"%I nom del fitxer temporal per a l'entrada, igual a %f si el document és local i no es modifica\n"
+"<b>Opcions de sortida</b>\n"
+"acaben amb el caràcter | per llegir la sortida des de la sortida estàndard\n"
+"%o fifo temporal\n"
+"%O nom del fitxer temporal\n"
+"%t nom del fitxer temporal per a l'entrada i per a la sortida (per als filtres que editen el fitxer)\n"
+"<b>Altres opcions</b>\n"
+"%c directori local del fitxer (disponible per a fitxers local)\n"
+"%n nom del fitxer sense camí (disponible per a tots els fitxers amb nom)\n"
+"%u URL (disponible per a tots els fitxers amb nom)\n"
+"%p previsualitza la URL si s'han establert el directori base i la previsualització base en els paràmetres del projecte, altrament és idèntic a %u</small>"
+
+#: ../src/preferences.c:1257
+msgid "File"
+msgstr "Fitxer"
+
+#. 1=text
+#: ../src/preferences.c:1427
+msgid "Option name"
+msgstr "Nom de l'opció"
+
+#. 2=boolean
+#: ../src/preferences.c:1429
+msgid "value"
+msgstr "valor"
+
+#. 1=text
+#: ../src/preferences.c:1446
+msgid "Highlight name"
+msgstr "Sintaxi a ressaltar"
+
+#: ../src/preferences.c:1451
+msgid "Textstyle"
+msgstr "Estil de text"
+
+#: ../src/preferences.c:1604
+#: ../src/preferences.c:2209
+msgid "Auto"
+msgstr "Auto"
+
+#: ../src/preferences.c:1848
+msgid "Delayed"
+msgstr "Retardat"
+
+#: ../src/preferences.c:1848
+msgid "Immediately"
+msgstr "Immediatament"
+
+#: ../src/preferences.c:1849
+msgid "Continue save"
+msgstr "Continua desant"
+
+#: ../src/preferences.c:1849
+msgid "Abort save"
+msgstr "Interromp el desament"
+
+#: ../src/preferences.c:1849
+msgid "Ask what to do"
+msgstr "Pregunta què s'ha de fer"
+
+#: ../src/preferences.c:1851
+msgid "Nothing"
+msgstr "Res"
+
+#: ../src/preferences.c:1851
+msgid "Modified time and file size"
+msgstr "Data i mida del fitxer modificats"
+
+#: ../src/preferences.c:1851
+msgid "Modified time"
+msgstr "Data modificada"
+
+#: ../src/preferences.c:1851
+msgid "File size"
+msgstr "Mida del fitxer"
+
+#: ../src/preferences.c:1852
+#: ../src/preferences.c:1853
+msgid "left"
+msgstr "esquerra"
+
+#: ../src/preferences.c:1852
+#: ../src/preferences.c:1853
+msgid "right"
+msgstr "dreta"
+
+#: ../src/preferences.c:1852
+msgid "top"
+msgstr "dalt"
+
+#: ../src/preferences.c:1852
+msgid "bottom"
+msgstr "a baix"
+
+#: ../src/preferences.c:1854
+msgid "Never"
+msgstr "Mai"
+
+#: ../src/preferences.c:1854
+msgid "Only project files"
+msgstr "Només els fitxers del projecte"
+
+#: ../src/preferences.c:1857
+msgid "All"
+msgstr "Tots"
+
+#: ../src/preferences.c:1857
+msgid "All except spaces"
+msgstr "Tots menys els espais"
+
+#: ../src/preferences.c:1857
+msgid "All trailing"
+msgstr "Tots els del final"
+
+#: ../src/preferences.c:1857
+msgid "All except non-trailing spaces"
+msgstr "Tots menys els espais que no estan al final"
+
+#: ../src/preferences.c:1870
+msgid "Edit preferences"
+msgstr "Edita les preferències"
+
+#: ../src/preferences.c:1901
+msgid "Editor settings"
+msgstr "Paràmetres de l'editor"
+
+#: ../src/preferences.c:1904
+msgid "<b>Auto-completion</b>"
+msgstr "<b>Compleció automàtica</b>"
+
+#: ../src/preferences.c:1910
+msgid "Show _pop-up window:"
+msgstr "Mostra una finestra _emergent:"
+
+#: ../src/preferences.c:1916
+msgid "Shortcut _key combination:"
+msgstr "Combinació de te_cles de drecera:"
+
+#: ../src/preferences.c:1925
+msgid "Right _margin/split line end position:"
+msgstr "_Marge dret/posició de tall de línia:"
+
+#: ../src/preferences.c:1933
+msgid "Smart Home/_End cursor positioning"
+msgstr "Posicionament del cursor a l'inici/_final intel·ligent"
+
+#: ../src/preferences.c:1937
+msgid "_Tab key indents selection"
+msgstr "La tecla de _tabulació sagna la selecció"
+
+#: ../src/preferences.c:1941
+msgid "Auto close brackets"
+msgstr "Tancament automàtic de parèntesi"
+
+#: ../src/preferences.c:1947
+msgid "Visible _whitespace mode:"
+msgstr "Mode d'espais en _blanc visibles:"
+
+#: ../src/preferences.c:1950
+msgid "<b>Undo</b>"
+msgstr "<b>Desfés</b>"
+
+#: ../src/preferences.c:1955
+msgid "_Number of actions in history:"
+msgstr "_Nombre d'accions a l'historial:"
+
+#: ../src/preferences.c:1958
+msgid "Clear _history on save"
+msgstr "Buida l'historial en desar"
+
+#: ../src/preferences.c:1964
+#: ../src/preferences.c:2301
+msgid "Font & Colors"
+msgstr "Tipus de lletra i colors"
+
+#: ../src/preferences.c:1970
+#: ../src/preferences.c:2307
+msgid "<b>Font</b>"
+msgstr "<b>Tipus de lletra</b>"
+
+#: ../src/preferences.c:1974
+msgid "_Editor font:"
+msgstr "Tipus de lletra de l'_editor:"
+
+#: ../src/preferences.c:1979
+#: ../src/preferences.c:2327
+msgid "<b>Colors</b>"
+msgstr "<b>Colors</b>"
+
+#: ../src/preferences.c:1983
+msgid "Use system wide color settings"
+msgstr "Utilitza els paràmetres de color del sistema"
+
+#: ../src/preferences.c:1995
+msgid "Cursor color"
+msgstr "Color del cursor"
+
+#: ../src/preferences.c:1996
+msgid "C_ursor color:"
+msgstr "Color del c_ursor:"
+
+#: ../src/preferences.c:2002
+msgid "Current line color"
+msgstr "Color de la línia actual"
+
+#: ../src/preferences.c:2003
+msgid "Cu_rrent line color:"
+msgstr "Colo_r de la línia actual:"
+
+#: ../src/preferences.c:2006
+msgid "Visible whitespace color"
+msgstr "Color dels espais en blanc visibles"
+
+#: ../src/preferences.c:2007
+msgid "_Visible whitespace color:"
+msgstr "Color dels espais en blanc _visibles:"
+
+#: ../src/preferences.c:2014
+msgid "Initial document settings"
+msgstr "Paràmetres inicials del document"
+
+#: ../src/preferences.c:2017
+msgid "<b>Non Project Defaults</b>"
+msgstr "<b>Valors predeterminats per a documents fora de projectes</b>"
+
+#: ../src/preferences.c:2030
+msgid "Files"
+msgstr "Fitxers"
+
+#: ../src/preferences.c:2033
+msgid "<b>Backup</b>"
+msgstr "<b>Còpia de seguretat</b>"
+
+#: ../src/preferences.c:2035
+msgid "Create _backup file during file save"
+msgstr "Crea una _còpia de seguretat en desar el fitxer"
+
+#: ../src/preferences.c:2040
+msgid "_Remove backup file on close"
+msgstr "_Suprimeix la còpia de seguretat en tancar"
+
+#: ../src/preferences.c:2045
+msgid "If back_up fails:"
+msgstr "Si la _còpia de seguretat falla:"
+
+#: ../src/preferences.c:2052
+msgid "<b>Document Recovery</b>"
+msgstr "<b>Recuperació de documents</b>"
+
+#: ../src/preferences.c:2055
+msgid "_Enable recovery of modified documents"
+msgstr "_Habilita la recuperació de documents modificats"
+
+#: ../src/preferences.c:2059
+msgid "_Frequency to store changes (seconds):"
+msgstr "_Freqüència d'emmagatzematge dels canvis (en segons):"
+
+#: ../src/preferences.c:2067
+msgid "<b>Encoding</b>"
+msgstr "<b>Codificació</b>"
+
+#: ../src/preferences.c:2083
+msgid "_Default character set for new files:"
+msgstr "_Joc de caràcters per defecte per als fitxers nous:"
+
+#: ../src/preferences.c:2089
+msgid "Auto set <meta> _HTML tag on encoding change"
+msgstr "Estableix automàticament l'etiqueta _HTML <meta> quan hi ha un canvi de codificació"
+
+#: ../src/preferences.c:2093
+#: ../src/preferences.c:2200
+msgid "<b>Misc</b>"
+msgstr "<b>Miscel·lània</b>"
+
+#: ../src/preferences.c:2097
+msgid "Open co_mmandline files in running bluefish process"
+msgstr "Obre els fitxers de la línia d'ordres en el procés bluefish en execució"
+
+#: ../src/preferences.c:2102
+msgid "Open commandline files in new _window"
+msgstr "Obre els fitxers de la línia d'ordres en una _finestra nova"
+
+#: ../src/preferences.c:2107
+msgid "_Periodically check if file is modified on disk"
+msgstr "Comprova _periòdicament si el fitxer s'ha modificat al disc"
+
+#: ../src/preferences.c:2113
+msgid "File properties to check on dis_k for modifications:"
+msgstr "Propietats del fitxer que cal comprovar en el disc per cercar modificacions:"
+
+#: ../src/preferences.c:2126
+msgid "HTML"
+msgstr "HTML"
+
+#: ../src/preferences.c:2129
+msgid "<b>HTML Toolbar</b>"
+msgstr "<b>Barra d'eines de l'HTML</b>"
+
+#: ../src/preferences.c:2132
+msgid "Use lo_wercase HTML tags"
+msgstr "Utilitza les etiquetes HTML en _minúscula"
+
+#: ../src/preferences.c:2134
+msgid "Use de_precated tags (e.g. <font> and <nobr>)"
+msgstr "Utilitza etiquetes desfasades (p. ex. <font> i <nobr>)"
+
+#: ../src/preferences.c:2138
+msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr "_Formata segons les guies d'accessibilitat (p. ex. <strong> enlloc de <b>)"
+
+#: ../src/preferences.c:2141
+msgid "Use _XHTML style tags (<br />)"
+msgstr "Utilitza etiquetes amb l'estil _XHTML (<br />)"
+
+#: ../src/preferences.c:2147
+msgid "<b>Auto Update Tag Options</b>"
+msgstr "<b>Actualitza automàticament els valors de les etiquetes</b>"
+
+#: ../src/preferences.c:2151
+msgid "Automatically update a_uthor meta tag"
+msgstr "Actualitza la metaetiqueta de l'autor automàticament"
+
+#: ../src/preferences.c:2154
+msgid "Automatically update _date meta tag"
+msgstr "Actualitza la metaetiqueta de la data automàticament"
+
+#: ../src/preferences.c:2157
+msgid "Automatically update _generator meta tag"
+msgstr "Actualitza la metaetiqueta de l'editor utilitzat automàticament"
+
+#: ../src/preferences.c:2170
+msgid "Templates"
+msgstr "Plantilles"
+
+#: ../src/preferences.c:2173
+msgid "<b>Templates</b>"
+msgstr "<b>Plantilles</b>"
+
+#: ../src/preferences.c:2186
+msgid "User interface"
+msgstr "Interfície d'usuari"
+
+#: ../src/preferences.c:2189
+msgid "<b>Document Tabs</b>"
+msgstr "<b>Pestanyes del document</b>"
+
+#: ../src/preferences.c:2193
+msgid "_Tab position:"
+msgstr "Posició de les pes_tanyes:"
+
+#: ../src/preferences.c:2197
+msgid "_Switch between tabs with <Alt>+0..9"
+msgstr "Passa d'una pestanya a l'altra mitjançant <Alt>+0..9"
+
+#: ../src/preferences.c:2209
+msgid "_Language:"
+msgstr "_Llengua:"
+
+#: ../src/preferences.c:2212
+msgid "_Make HTML dialogs transient"
+msgstr "Diàlegs HT_ML transitoris"
+
+#: ../src/preferences.c:2216
+msgid "Save menu accelerators on exit"
+msgstr "Desa les tecles de drecera del menú en sortir"
+
+#: ../src/preferences.c:2219
+msgid "Save user customised menu accelerators now"
+msgstr "Desa ara les dreceres de menú personalitzades per l'usuari"
+
+#: ../src/preferences.c:2223
+msgid "Reset menu accelerators to application defaults"
+msgstr "Reinicia les dreceres del menú als valors per defecte de l'aplicació"
+
+#: ../src/preferences.c:2227
+msgid "<b>Recent Files</b>"
+msgstr "<b>Fitxers recents</b>"
+
+#: ../src/preferences.c:2232
+msgid "_Number of files in 'Open recent' menu:"
+msgstr "_Nombre de fitxers en el menú 'Oberts recentment':"
+
+#: ../src/preferences.c:2238
+msgid "_Register recent files with your desktop:"
+msgstr "_Registra els fitxers recents a l'escriptori:"
+
+#: ../src/preferences.c:2242
+msgid "<b>Sidebar</b>"
+msgstr "<b>Barra lateral</b>"
+
+#: ../src/preferences.c:2247
+msgid "L_ocation:"
+msgstr "U_bicació:"
+
+#: ../src/preferences.c:2251
+msgid "Tab _position:"
+msgstr "_Posició de les pestanyes:"
+
+#: ../src/preferences.c:2260
+msgid "Dimensions"
+msgstr "Mides"
+
+#: ../src/preferences.c:2263
+msgid "<b>Dimensions</b>"
+msgstr "<b>Dimensions</b>"
+
+#: ../src/preferences.c:2265
+msgid "_Leave dimensions to window manager"
+msgstr "_Deixa que el gestor de finestres ajusti les dimensions"
+
+#: ../src/preferences.c:2272
+msgid "_Restore last used dimensions"
+msgstr "_Restaura les últimes mides usades"
+
+#: ../src/preferences.c:2280
+msgid "Initial _sidebar width:"
+msgstr "Mida inicial de la _barra lateral:"
+
+#: ../src/preferences.c:2284
+msgid "Initial window _height:"
+msgstr "A_lçada inicial de la finestra:"
+
+#: ../src/preferences.c:2287
+msgid "Initial window _width:"
+msgstr "_Amplada inicial de la finestra:"
+
+#: ../src/preferences.c:2294
+msgid "_Limit window title length"
+msgstr "_Limit de llargada del títol de la finestra"
+
+#: ../src/preferences.c:2312
+msgid "_Use system document tab font"
+msgstr "_Utilitza el tipus de font del sistema per a les pestanyes del document"
+
+#: ../src/preferences.c:2317
+msgid "_Document tab font:"
+msgstr "Tipus de lletra de les pestanyes dels _documents:"
+
+#: ../src/preferences.c:2331
+msgid "Document error tab color"
+msgstr "Color de les pestanyes de documents amb error"
+
+#: ../src/preferences.c:2333
+msgid "Document tab _error color:"
+msgstr "Color de les pestanyes de documents amb _error:"
+
+#: ../src/preferences.c:2337
+msgid "Document loading tab color"
+msgstr "Color de les pestanyes de documents que s'estan carregant"
+
+#: ../src/preferences.c:2339
+msgid "Document tab loadin_g color:"
+msgstr "Color de les pestanyes de documents que s'estan carre_gant:"
+
+#: ../src/preferences.c:2343
+msgid "Document modified tab color"
+msgstr "Color de les pestanyes de documents modificats"
+
+#: ../src/preferences.c:2345
+msgid "Document tab _modified color:"
+msgstr "Color de les pestanyes de documents _modificats:"
+
+#. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
+#. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
+#: ../src/preferences.c:2358
+#: ../src/rcfile.c:1143
+msgid "Images"
+msgstr "Imatges"
+
+#: ../src/preferences.c:2361
+msgid "<b>Thumbnails</b>"
+msgstr "<b>Miniatures</b>"
+
+#: ../src/preferences.c:2367
+msgid "Thumbnail _filetype:"
+msgstr "Tipus de _fitxer de les miniatures:"
+
+#: ../src/preferences.c:2371
+msgid "Thumbnail _suffix:"
+msgstr "_Sufix de les miniatures:"
+
+#: ../src/preferences.c:2384
+msgid "External commands"
+msgstr "Ordres externes"
+
+#: ../src/preferences.c:2387
+msgid "<b>External Commands</b>"
+msgstr "<b>Ordres externes</b>"
+
+#: ../src/preferences.c:2400
+msgid "External filters"
+msgstr "Filtres externs"
+
+#: ../src/preferences.c:2403
+msgid "<b>External Filters</b>"
+msgstr "<b>Filtres externs</b>"
+
+#: ../src/preferences.c:2416
+msgid "Output parsers"
+msgstr "Analitzadors"
+
+#: ../src/preferences.c:2419
+msgid "<b>Output Parsers</b>"
+msgstr "<b>Analitzadors</b>"
+
+#: ../src/preferences.c:2432
+msgid "Plugins"
+msgstr "Connectors"
+
+#: ../src/preferences.c:2435
+msgid "<b>Plugins</b>"
+msgstr "<b>Connectors</b>"
+
+#: ../src/preferences.c:2448
+msgid "Text styles"
+msgstr "Estils de text"
+
+#: ../src/preferences.c:2451
+msgid "<b>Text Styles</b>"
+msgstr "<b>Estils de text</b>"
+
+#: ../src/preferences.c:2464
+msgid "Language support"
+msgstr "Llenguatges"
+
+#: ../src/preferences.c:2467
+msgid "<b>Reference Information</b>"
+msgstr "<b>Informació de referència</b>"
+
+#: ../src/preferences.c:2470
+msgid "_Load from language file"
+msgstr "_Carrega des del fitxer del llenguatge"
+
+#: ../src/preferences.c:2473
+msgid "Show in auto-completion _pop-up window"
+msgstr "Mostra a la finestra emergent de com_pleció automàtica "
+
+#: ../src/preferences.c:2476
+msgid "Show in _tooltip window"
+msgstr "Mostra-ho en una finestra d'_indicador de funció"
+
+#: ../src/project.c:280
+msgid "Enter Bluefish project filename"
+msgstr "Introdueix el nom de fitxer del projecte Bluefish"
+
+#: ../src/project.c:425
+msgid "Select Bluefish project filename"
+msgstr "Seleccioneu el nom de fitxer del projecte Bluefish"
+
+#: ../src/project.c:580
+msgid "Create New Project"
+msgstr "Crea un projecte nou"
+
+#: ../src/project.c:583
+msgid "Edit Project"
+msgstr "Edita el projecte"
+
+#: ../src/project.c:609
+#, c-format
+msgid "This project contains %d file"
+msgid_plural "This project contains %d files"
+msgstr[0] "Aquest projecte conté \"%d\" fitxer"
+msgstr[1] "Aquest projecte conté \"%d\" fitxers"
+
+#: ../src/project.c:622
+msgid "Project _Name:"
+msgstr "Nom del projecte:"
+
+#. pred->entries[template] = entry_with_text(pred->project->template, 255);
+#. bf_mnemonic_label_tad_with_alignment(_("_Template:"), pred->entries[template], 1, 0.5, table, 0, 1, 3, 4);
+#. but = file_but_new(pred->entries[template], 1, NULL);
+#. gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
+#. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
+#: ../src/project.c:630
+msgid "<b>Project Defaults</b>"
+msgstr "<b>Valors predeterminats del projecte</b>"
+
+#: ../src/project.c:640
+msgid "Create _Project"
+msgstr "Crea un _projecte"
+
+#: ../src/project.c:689
+msgid "Create project"
+msgstr "Crea un projecte"
+
+#: ../src/project.c:694
+msgid "Create project with currently opened documents"
+msgstr "Crea un projecte amb els documents oberts actualment"
+
+#: ../src/project.c:696
+msgid "Create empty project"
+msgstr "Crea un projecte buit"
+
+#: ../src/rcfile.c:617
+#: ../src/rcfile.c:700
+#: ../src/rcfile.c:757
+msgid "php"
+msgstr "php"
+
+#: ../src/rcfile.c:623
+#: ../src/rcfile.c:705
+#: ../src/rcfile.c:770
+msgid "Sort"
+msgstr "Ordena"
+
+#: ../src/rcfile.c:626
+#: ../src/rcfile.c:708
+#: ../src/rcfile.c:773
+msgid "Sort / Uniq"
+msgstr "Ordena i elimina els duplicats"
+
+#: ../src/rcfile.c:629
+#: ../src/rcfile.c:776
+msgid "Reverse lines"
+msgstr "Inverteix les línies"
+
+#: ../src/rcfile.c:632
+#: ../src/rcfile.c:779
+msgid "Dos2unix"
+msgstr "Dos2unix"
+
+#: ../src/rcfile.c:634
+#: ../src/rcfile.c:711
+#: ../src/rcfile.c:781
+msgid "Tidy HTML"
+msgstr "Tidy HTML"
+
+#: ../src/rcfile.c:637
+#: ../src/rcfile.c:714
+#: ../src/rcfile.c:784
+msgid "Strip empty lines"
+msgstr "Suprimeix les línies buides"
+
+#: ../src/rcfile.c:642
+msgid "Windows XP Firefox"
+msgstr "Firefox per a Windows XP"
+
+#: ../src/rcfile.c:647
+msgid "Windows XP Internet Explorer"
+msgstr "Internet Explorer per a Windows XP"
+
+#: ../src/rcfile.c:652
+msgid "Windows XP Opera"
+msgstr "Opera per a Windows XP"
+
+#: ../src/rcfile.c:656
+msgid "Windows XP Safari"
+msgstr "Safari per a Windows XP"
+
+#: ../src/rcfile.c:660
+msgid "Windows 7 Firefox 32-bit"
+msgstr "Firefox 32-bit per a Windows 7"
+
+#: ../src/rcfile.c:665
+msgid "Windows 7 Internet Explorer 32-bit"
+msgstr "Windows 7 Internet Explorer 32-bit"
+
+#: ../src/rcfile.c:670
+msgid "Windows 7 Internet Explorer 64-bit"
+msgstr "Windows 7 Internet Explorer 64-bit"
+
+#: ../src/rcfile.c:678
+#: ../src/rcfile.c:735
+msgid "make"
+msgstr "make"
+
+#: ../src/rcfile.c:682
+#: ../src/rcfile.c:739
+msgid "weblint HTML checker"
+msgstr "Verificador HTML weblint"
+
+#: ../src/rcfile.c:687
+#: ../src/rcfile.c:744
+msgid "tidy HTML validator"
+msgstr "Validador HTML tidy"
+
+#: ../src/rcfile.c:691
+#: ../src/rcfile.c:748
+msgid "javac"
+msgstr "javac"
+
+#: ../src/rcfile.c:695
+#: ../src/rcfile.c:752
+msgid "xmllint XML checker"
+msgstr "Verificador XML xmllint"
+
+#: ../src/rcfile.c:719
+msgid "Safari"
+msgstr "Safari"
+
+#: ../src/rcfile.c:722
+#: ../src/rcfile.c:792
+msgid "Firefox"
+msgstr "Firefox"
+
+#: ../src/rcfile.c:725
+#: ../src/rcfile.c:796
+msgid "Opera"
+msgstr "Opera"
+
+#: ../src/rcfile.c:728
+#: ../src/rcfile.c:822
+msgid "chmod a+x"
+msgstr "chmod a+x"
+
+#: ../src/rcfile.c:761
+msgid "php syntax check"
+msgstr "Verificador de sintaxi php"
+
+#: ../src/rcfile.c:765
+msgid "perl syntax check"
+msgstr "Verificador de sintaxi perl"
+
+#: ../src/rcfile.c:787
+msgid "Render HTML to text"
+msgstr "Renderitza l'HTML a text"
+
+#: ../src/rcfile.c:800
+msgid "Chrome"
+msgstr "Chrome"
+
+#: ../src/rcfile.c:803
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: ../src/rcfile.c:807
+msgid "Konqueror"
+msgstr "Konqueror"
+
+#: ../src/rcfile.c:810
+msgid "Galeon"
+msgstr "Galeon"
+
+#: ../src/rcfile.c:813
+msgid "Epiphany"
+msgstr "Epiphany"
+
+#: ../src/rcfile.c:816
+msgid "Kazehakase"
+msgstr "Kazehakase"
+
+#: ../src/rcfile.c:819
+msgid "Links2 (graphics)"
+msgstr "Links2 (gràfics)"
+
+#: ../src/rcfile.c:828
+msgid "C Header"
+msgstr "Capçalera de C"
+
+#: ../src/rcfile.c:831
+msgid "C Header GPL"
+msgstr "Capçalera de C amb GPL"
+
+#: ../src/rcfile.c:834
+msgid "XHTML 1.0"
+msgstr "XHTML 1.0"
+
+#: ../src/rcfile.c:837
+msgid "HTML 5"
+msgstr "HTML 5"
+
+#: ../src/rcfile.c:840
+msgid "PHP"
+msgstr "PHP"
+
+#: ../src/rcfile.c:1064
+msgid "Untitled Project"
+msgstr "Projecte sense títol"
+
+#: ../src/rcfile.c:1135
+msgid "C programming"
+msgstr "Programació en C"
+
+#: ../src/rcfile.c:1139
+msgid "Web files"
+msgstr "Fitxers web"
+
+#: ../src/rcfile.c:1146
+msgid "Hide objectfiles"
+msgstr "Amaga els fitxers objecte"
+
+#: ../src/snr3.c:650
+msgid "<i>Replace started</i>"
+msgstr "<i>El reemplaçament s'ha iniciat</i>"
+
+#: ../src/snr3.c:655
+msgid "<i>Search started</i>"
+msgstr "<i>La cerca s'ha iniciat</i>"
+
+#: ../src/snr3.c:673
+msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
+msgstr "<span foreground=\"red\"><b>No hi ha cap selecció, s'ha interromput la cerca</b></span>"
+
+#. display warning that not all documents have yet finished loading
+#: ../src/snr3.c:682
+msgid "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Encara s'estan carregant alguns documents</span>"
+
+#: ../src/snr3.c:862
+#, c-format
+msgid "<i>Replaced %d entry</i>"
+msgid_plural "<i>Replaced %d entries</i>"
+msgstr[0] "<i>%d entrada reemplaçada</i>"
+msgstr[1] "<i>%d entrades reemplaçades</i>"
+
+#: ../src/snr3.c:865
+#, c-format
+msgid "<i>Found %d entry</i>"
+msgid_plural "<i>Found %d entries</i>"
+msgstr[0] "<i>S'ha trobat %d entrada</i>"
+msgstr[1] "<i>S'han trobat %d entrades</i>"
+
+#: ../src/snr3.c:1096
+#, c-format
+msgid "<i>Found %d result in %d of the %d searched documents</i>"
+msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
+msgstr[0] "<i>S'ha trobat %d resultat en %d dels %d documents cercats</i>"
+msgstr[1] "<i>S'han trobat %d resultats en %d dels %d documents cercats</i>"
+
+#: ../src/snr3.c:1100
+#, c-format
+msgid "<i>Found %d result from character %d to %d</i>"
+msgid_plural "<i>Found %d results from character %d to %d</i>"
+msgstr[0] "<i>S'ha trobat %d resultat des del caràcter %d fins el caràcter %d</i>"
+msgstr[1] "<i>S'han trobat %d resultats des del caràcter %d fins el caràcter %d</i>"
+
+#: ../src/snr3.c:1103
+#, c-format
+msgid "<i>Found %d result in the active document</i>"
+msgid_plural "<i>Found %d results in the active document</i>"
+msgstr[0] "<i>S'ha trobat %d resultat en el document actiu</i>"
+msgstr[1] "<i>S'han trobat %d resultats en el document actiu</i>"
+
+#: ../src/snr3.c:1416
+msgid "Active document"
+msgstr "Document actiu"
+
+#: ../src/snr3.c:1417
+msgid "Forward from cursor position"
+msgstr "Avança des de la posició del cursor"
+
+#: ../src/snr3.c:1418
+msgid "Current selection"
+msgstr "Selecció actual"
+
+#: ../src/snr3.c:1419
+msgid "All open documents"
+msgstr "Tots els documents oberts"
+
+#: ../src/snr3.c:1420
+msgid "Files on disk"
+msgstr "Fitxers en el disc"
+
+#: ../src/snr3.c:1424
+#: ../src/snr3.c:1429
+msgid "Normal"
+msgstr "Normal"
+
+#: ../src/snr3.c:1425
+msgid "Regular expression (pcre)"
+msgstr "Expressió regular (pcre)"
+
+#: ../src/snr3.c:1430
+msgid "Uppercase"
+msgstr "Majúscules"
+
+#: ../src/snr3.c:1431
+msgid "Lowercase"
+msgstr "Minúscules"
+
+#: ../src/snr3.c:1438
+msgid "Find and Replace"
+msgstr "Cerca i reemplaça"
+
+#. this kills the primary selection, which is annoying if you want to
+#. search/replace within the selection
+#. if (bfwin->session->searchlist)
+#. gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->search), 0);
+#: ../src/snr3.c:1477
+msgid "<b>_Search for</b>"
+msgstr "<b>Ce_rca</b>"
+
+#: ../src/snr3.c:1510
+msgid "<b>Replace _with</b>"
+msgstr "<b>Reemplaça _amb</b>"
+
+#: ../src/snr3.c:1532
+msgid "Match Patter_n: "
+msgstr "Patró de coi_ncidència:"
+
+#: ../src/snr3.c:1544
+msgid "Replace T_ype: "
+msgstr "T_ipus de reemplaçament:"
+
+#: ../src/snr3.c:1557
+msgid "Sco_pe: "
+msgstr "Àm_bit:"
+
+#: ../src/snr3.c:1573
+msgid "Filename pattern: "
+msgstr "Patró del nom de fitxer:"
+
+#: ../src/snr3.c:1579
+msgid "Recursion level: "
+msgstr "Nivell de recursivitat:"
+
+#: ../src/snr3.c:1585
+msgid "Basedir: "
+msgstr "Directori base:"
+
+#: ../src/snr3.c:1604
+msgid "Case sensitive _matching"
+msgstr "Considera diferents _majúscules i minúscules"
+
+#: ../src/snr3.c:1606
+msgid "Only match if case (upper/lower) is identical."
+msgstr "Només coincideix si majúscules i minúscules són idèntiques."
+
+#: ../src/snr3.c:1610
+msgid "Pattern contains escape-se_quences"
+msgstr "El patró conté seqüències d'escapament"
+
+#: ../src/snr3.c:1613
+msgid ""
+"Pattern contains backslash escaped characters such as \\n"
+" \\t etc."
+msgstr ""
+"El patró conté caràcters alterats amb la barra inversa com \\n"
+", \\t..."
+
+#: ../src/snr3.c:1617
+msgid "Dot character in regex pattern matches newlines"
+msgstr "El caràcter punt en el patró de l'expressió regular concorda amb les línies noves"
+
+#: ../src/snr3.c:1620
+msgid "The . character will match everything including newlines, use for multiline matching."
+msgstr "El caràcter . concorda amb tot, incloses les línies noves, utilitzeu-ho per a concordances multi-línia."
+
+#: ../src/snr3.c:1642
+msgid "Replace _All"
+msgstr "Reempl_aça'ls tots"
+
+#: ../src/snr3.c:1644
+msgid "_Replace"
+msgstr "_Reemplaça"
+
+#: ../src/snr3.c:1648
+msgid "_Find All"
+msgstr "_Cerca-ho Tot"
+
+#: ../src/snr3.c:1650
+msgid "B_ookmark All"
+msgstr "_Marca-ho tot"
+
+#: ../src/undo_redo.c:543
+#: ../src/undo_redo.c:685
+msgid "Undo in _all documents"
+msgstr "Desfés en _tots els documents"
+
+#: ../src/undo_redo.c:543
+#: ../src/undo_redo.c:685
+msgid "Undo only _this document"
+msgstr "Desfés només en aques_t document"
+
+#: ../src/undo_redo.c:546
+#: ../src/undo_redo.c:688
+msgid "Undo this change in all documents?"
+msgstr "Voleu desfer aquest canvi en tots els documents?"
+
+#: ../src/undo_redo.c:547
+#: ../src/undo_redo.c:689
+msgid "This change concerns multiple documents."
+msgstr "Aquest canvi afecta a múltiples documents."
+

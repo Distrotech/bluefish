@@ -1,0 +1,130 @@
+# Catalan translations for bluefish package.
+# Copyright (C) 2012 Mònica Ramírez Arceda <monica@probeta.net>
+# This file is distributed under the same license as the bluefish package. 
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bluefish 2.2.2\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2012-02-19 00:11+0100\n"
+"PO-Revision-Date: 2012-02-19 16:13+0100\n"
+"Last-Translator: Mònica Ramírez Arceda <monica@probeta.net>\n"
+"Language-Team: Catalan\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/plugin_infbrowser/infb_gui.c:140
+msgid "Loading..."
+msgstr "S'està carregant..."
+
+#: src/plugin_infbrowser/infb_gui.c:146
+#: src/plugin_infbrowser/infb_gui.c:206
+msgid "Cannot load file from network"
+msgstr "No es pot carregar el fitxer des de la xarxa"
+
+#: src/plugin_infbrowser/infb_gui.c:160
+msgid "Cannot find file"
+msgstr "No s'ha pogut trobar el fitxer"
+
+#: src/plugin_infbrowser/infb_gui.c:370
+msgid "Fragment saved"
+msgstr "S'ha desat el fragment"
+
+#: src/plugin_infbrowser/infb_gui.c:374
+msgid "Cannot open file"
+msgstr "No es pot obrir el fitxer"
+
+#: src/plugin_infbrowser/infb_gui.c:458
+#: src/plugin_infbrowser/infb_gui.c:496
+msgid "Nothing found"
+msgstr "No s'ha trobat res"
+
+#: src/plugin_infbrowser/infb_gui.c:562
+msgid "Documentation index"
+msgstr "Índex de la documentació"
+
+#: src/plugin_infbrowser/infb_gui.c:567
+msgid "Document index"
+msgstr "Índex dels documents"
+
+#: src/plugin_infbrowser/infb_gui.c:572
+msgid "Upper level"
+msgstr "Nivell superior"
+
+#: src/plugin_infbrowser/infb_gui.c:578
+msgid "Save current view"
+msgstr "Desa la visualització actual"
+
+#: src/plugin_infbrowser/infb_gui.c:579
+msgid "Go to selected fragment"
+msgstr "Vés al fragment seleccionat"
+
+#: src/plugin_infbrowser/infb_gui.c:601
+msgid "Find"
+msgstr "Cerca"
+
+#: src/plugin_infbrowser/infb_gui.c:607
+msgid "Info Browser"
+msgstr "Informació del navegador"
+
+#: src/plugin_infbrowser/infb_load.c:41
+#, c-format
+msgid "Cannot load reference file %s\n"
+msgstr "No es pot carregar el fitxer de referència %s\n"
+
+#: src/plugin_infbrowser/infb_load.c:164
+msgid "Documentation entries"
+msgstr "Entrades de la documentació"
+
+#: src/plugin_infbrowser/infb_load.c:168
+msgid "References"
+msgstr "Referències"
+
+#: src/plugin_infbrowser/infb_load.c:170
+msgid "DTD"
+msgstr "DTD"
+
+#: src/plugin_infbrowser/infb_load.c:172
+msgid "Web pages"
+msgstr "Pàgines web"
+
+#: src/plugin_infbrowser/infb_text.c:808
+msgid "Unknown document type"
+msgstr "Tipus de document desconegut"
+
+#: src/plugin_infbrowser/infb_wizard.c:116
+#: src/plugin_infbrowser/infb_wizard.c:164
+msgid "Local DTD file"
+msgstr "Fitxer DTD local"
+
+#: src/plugin_infbrowser/infb_wizard.c:124
+msgid "Remote DTD file"
+msgstr "Fitxer DTD remot"
+
+#: src/plugin_infbrowser/infb_wizard.c:161
+msgid "Choose file"
+msgstr "Escolliu un fitxer"
+
+#: src/plugin_infbrowser/infb_wizard.c:213
+msgid "Entry name"
+msgstr "Nom de l'entrada"
+
+#: src/plugin_infbrowser/infb_wizard.c:222
+msgid "Description"
+msgstr "Descripció"
+
+#: src/plugin_infbrowser/infb_wizard.c:258
+msgid "DTD file URI"
+msgstr "URI del fitxer DTD"
+
+#: src/plugin_infbrowser/infb_wizard.c:348
+msgid "New info item"
+msgstr "Element d'informació nou"
+
+#: src/plugin_infbrowser/infb_wizard.c:418
+msgid "Entries you can delete"
+msgstr "Entrades que podeu suprimir"
+
