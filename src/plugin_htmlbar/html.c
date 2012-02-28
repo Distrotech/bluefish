@@ -2286,7 +2286,7 @@ scriptok_lcb(GtkWidget * widget, Thtml_diag * dg)
 void
 script_dialog(Tbfwin * bfwin, Ttagpopup * data)
 {
-	GtkWidget *file_but, *but;
+	GtkWidget *but;
 	GList *tmplist, *tmplist2, *tmplist3;
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
