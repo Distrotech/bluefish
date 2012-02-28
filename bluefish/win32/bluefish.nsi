@@ -183,6 +183,8 @@ ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
 ;    don't match they cannot contain spaces for proper operation
 !insertmacro MUI_LANGUAGE	"Basque" 	; 1069
 ${LoadLocalization}	"BASQUE"	"locale\Basque.nsh"
+!insertmacro MUI_LANGUAGE	"Catalan" 	; 1027
+${LoadLocalization}	"CATALAN"	"locale\Catalan.nsh"
 !insertmacro MUI_LANGUAGE	"PortugueseBR" 	; 1046
 ${LoadLocalization}	"PORTUGUESEBR"	"locale\PortugueseBR.nsh"
 !insertmacro MUI_LANGUAGE	"Czech" 	; 1029
@@ -428,6 +430,9 @@ SectionGroup /e "$(SECT_DICT)" SecLang
 	SectionEnd
 	Section /o "Bulgarian" SecLangBg
 		${InstallAspellDict} "bg" "4.1-0"
+	SectionEnd
+	Section /o "Catalan" SecLangCa
+		${InstallAspellDict} "ca" "2.1.5-1"
 	SectionEnd
 	Section /o "Czech" SecLangCs
 		${InstallAspellDict} "cs" "20040614-1"
@@ -830,6 +835,9 @@ Function .onInit
 		${Switch} $LANGUAGE
 			${Case} 1026 ; Bulgarian
 				SectionSetFlags ${SecLangBg} ${SF_SELECTED}
+				${Break}
+			${Case} 1027 ; Catalan
+				SectionSetFlags ${SecLangCa} ${SF_SELECTED}
 				${Break}
 			${Case} 1029 ; Czech
 				SectionSetFlags ${SecLangCs} ${SF_SELECTED}

@@ -136,6 +136,8 @@ Page custom FileAssociations SetFileAssociations
 ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
 !insertmacro MUI_LANGUAGE	"Basque" 	; 1069
 ${LoadLocalization}	"BASQUE"	"locale\Basque.nsh"
+!insertmacro MUI_LANGUAGE	"Catalan" 	; 1027
+${LoadLocalization}	"CATALAN"	"locale\Catalan.nsh"
 !insertmacro MUI_LANGUAGE	"PortugueseBR" 	; 1046
 ${LoadLocalization}	"BRAZILIAN PORTUGUESE"	"locale\PortugueseBR.nsh"
 !insertmacro MUI_LANGUAGE	"Czech" 	; 1029

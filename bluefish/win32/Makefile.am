@@ -7,6 +7,7 @@ EXTRA_DIST = \
 	includes/Macros.nsh \
 	includes/UnFunctions.nsh \
 	locale/Basque.nsh \
+	locale/Catalan.nsh \
 	locale/Czech.nsh \
 	locale/Dutch.nsh \
 	locale/English.nsh \
