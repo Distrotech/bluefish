@@ -454,7 +454,7 @@ props_init_main(GHashTable * config_rc)
 					  TRUE);
 	init_prop_integer(&config_rc, &main_v->props.encoding_search_Nbytes, "encoding_search_Nbytes:", 500,
 					  TRUE);
-	init_prop_integer(&config_rc, &main_v->props.encoding_search_Nbytes, "max_window_title:", 0,TRUE);
+	init_prop_integer(&config_rc, &main_v->props.max_window_title, "max_window_title:", 0,TRUE);
 	init_prop_integer(&config_rc, &main_v->props.document_tabposition, "document_tabposition:",
 					  (gint) GTK_POS_BOTTOM, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.leftpanel_tabposition, "leftpanel_tabposition:",
