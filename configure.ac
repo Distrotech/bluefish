@@ -379,7 +379,7 @@ else
 	GIO_PC="gio-unix-2.0"
 fi
 
-BF_dependencies="gtk+-3.0 >= 3.2.2 gdk-3.0 glib-2.0"
+BF_dependencies="gtk+-3.0 >= 3.2.2 gdk-3.0"
 
 AC_ARG_WITH(
 	[gtk2],
@@ -388,8 +388,6 @@ AC_ARG_WITH(
 		[Use GTK2+ instead of GTK3+, even if GTK3+ is available @<:@default=no@:>@]
 	)
 )
-
-BF_dependencies="gtk+-3.0 >= 3.2.2 gdk-3.0 glib-2.0"
 
 dnl Be explicit here and don't accept --with-gtk2=foo
 if test "x$with_gtk2" != "xyes"; then
@@ -403,12 +401,12 @@ fi
 dnl Now if we did not find GTK3 or if GTK2 shall be used, check for it first
 dnl and fall back to GTK3 without any required minimum version.
 if test "x$with_gtk2" = "xyes" -o "x$with_gtk3" = "xno"; then
-	BF_dependencies="gtk+-2.0 >= 2.12 gdk-2.0 glib-2.0 >= 2.16"
+	BF_dependencies="gtk+-2.0 >= 2.12 gdk-2.0"
 	PKG_CHECK_EXISTS(
 		[$BF_dependencies],
 		[with_gtk3="no"],
 		[
-		 BF_dependencies="gtk+-3.0 gdk-3.0 glib-2.0"
+		 BF_dependencies="gtk+-3.0 gdk-3.0"
 		 with_gtk3="yes"
 		 with_gtk2="no"
 		]
@@ -417,6 +415,7 @@ fi
 
 BF_dependencies="\
 $BF_dependencies \
+glib-2.0 >= 2.16 \
 gmodule-2.0 >= 2.16 \
 gobject-2.0 \
 pango \
