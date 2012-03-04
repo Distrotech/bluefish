@@ -418,7 +418,7 @@ static gboolean
 backend_string_loop(Tsnr3run *s3run, gboolean indefinitely)
 {
 	GTimer *timer = g_timer_new();
-	gint querylen;
+	gint querylen, bytelen;
 	char *(*f) ();
 	gint loop=0;
 	static guint loops_per_timer=10;
@@ -428,6 +428,7 @@ backend_string_loop(Tsnr3run *s3run, gboolean indefinitely)
 	} else {
 		f = strcasestr;
 	}
+	bytelen = strlen(s3run->queryreal);
 	querylen = g_utf8_strlen(s3run->queryreal, -1);
 	/* now reconstruct the last scan offset */
 	result = s3run->curbuf + utf8_charoffset_to_byteoffset_cached(s3run->curbuf, s3run->curposition);
@@ -445,7 +446,8 @@ backend_string_loop(Tsnr3run *s3run, gboolean indefinitely)
 				s3run->curoffset += offsetupdate.offset;
 			}
 			s3run->curposition = char_o+querylen+s3run->so;
-			result++;
+			/* advance the position to the end of the found result */
+			result += bytelen;
 			loop++;
 		}		
 	} while (result && (indefinitely || loop % loops_per_timer != 0
