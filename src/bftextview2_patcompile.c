@@ -778,6 +778,7 @@ match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context)
 #endif
 }
 
+
 void
 match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * autocomplete_string,
 						const gchar * autocomplete_append, guint8 autocomplete_backup_cursor)
@@ -785,7 +786,7 @@ match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * autocom
 	Tpattern_autocomplete *pac = g_slice_new(Tpattern_autocomplete);
 	if (autocomplete_string) {
 		pac->autocomplete_string = (gchar *) autocomplete_string;
-	} else if (autocomplete_append && autocomplete_append[0]!='\0') {
+	} else if (autocomplete_append) {
 		pac->autocomplete_string =
 			g_strconcat(g_array_index(st->matches, Tpattern, matchnum).pattern, autocomplete_append, NULL);
 	} else {
