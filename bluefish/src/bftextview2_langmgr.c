@@ -1096,6 +1096,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			}
 		}
 	}
+	free_autocomplete(autocomplete);
 	g_free(id);
 	g_free(idref);
 	g_free(tag);
