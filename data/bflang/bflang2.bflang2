@@ -31,6 +31,7 @@
 	<highlight name="pattern-tag" style="special-tag"  />
 	<highlight name="string" style="string"  />
 	<highlight name="tag" style="tag" />
+	<highlight name="markup-tag" style="special-tag2" />
 </header>
 <properties>
 	<comment type="block" start="&lt;!--" end="--&gt;" />
@@ -81,7 +82,9 @@
 			</tag>
 			<tag name="smartindent" highlight="tag" attributes="characters" autocomplete_append=" characters=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
 			<tag name="smartoutdent" highlight="tag" attributes="characters" autocomplete_append=" characters=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
-			<tag name="default_spellcheck" highlight="tag" attributes="enabled,spell_decode_entities" autocomplete_append=" enabled=&quot;1&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;1&quot;"/>
+			<tag name="default_spellcheck" highlight="tag" attributes="enabled,spell_decode_entities" attribhighlight="attribute" attrib_autocomplete_append="=&quot;1&quot;">
+				<autocomplete append=" enabled=&quot;1&quot; /&gt;" /> 
+			</tag>
 		</context>
 	</tag>
 	<tag name="definition" highlight="tag" autocomplete_append="&gt;">
@@ -95,7 +98,7 @@
 			<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 			<element idref="e.comment"/>
 			<element idref="e.entity" />
-			<tag id="t.element" name="element" highlight="pattern-tag" attributes="id,idref,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,stretch_blockstart,blockhighlight,class,notclass,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string,autocomplete_backup_cursor,mayfold,identifier_mode" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" >
+			<tag id="t.element" name="element" highlight="pattern-tag" attributes="id,idref,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,stretch_blockstart,blockhighlight,class,notclass,is_regex,case_insens,mayfold,identifier_mode" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" >
 			<autocomplete append=" pattern=&quot;&quot; /&gt;" backup_cursor="4"/>
 			<reference>Element is an actual language element that is syntax highlighted, autocompleted or has reference information. The most important attribute is pattern. The pattern may be a keyword (such as <b>function</b>) or a regular expression pattern (such as <b>[0-9]+</b>) if attribute is_regex is set to 1.  </reference>
 				<context id="c.innerpattern" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
@@ -105,8 +108,22 @@
 						<autocomplete append="&gt;&lt;/reference&gt;" />
 						<reference>reference is a tag that can be added to tag or to element. The text within the reference opening/closing is the reference information about the pertinent tag or element. Simple layout is available because the string is passed to Pango. <i>i</i>, <b>b</b>, <tt>tt</tt>, <small>small</small>, <big>big</big>, <s>s</s>, <u>u</u>, <sub>sub</sub>
 <sup>sup</sup> tags are permitted. <span foreground="blue">&lt;span foreground="blue"&gt;</span> is also permitted, see Pango Text Attribute Markup Language.</reference>
+						<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+							<group highlight="markup-tag">
+							<tag name="b" />
+							<tag name="i" />
+							<tag name="big" />
+							<tag name="s" />
+							<tag name="sub" />
+							<tag name="sup" />
+							<tag name="small" />
+							<tag name="tt" />
+							<tag name="u" />
+							<tag name="span" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" attributes="font,font_desc,font_family,face,font_size,size,font_style,style,font_weight,weight,font_variant,variant,font_stretch,stretch,fireground,fgcolor,color,background,bgcolor,underline,underline_color,rise,strikethrough,strikethrough_color,fallback,lang,letter_spacing,gravity,gravity_hint " />
+							</group>
+						</context>
 					</tag>
-					<tag name="autocomplete" id="t.autocomplete" highlight="tag" attributes="append,backup_cursor,class,notclass,enabled,string">
+					<tag name="autocomplete" id="t.autocomplete" highlight="tag" attributes="append,backup_cursor,class,notclass,enabled,string" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 						<reference>autocomplete strings that are defined using an autocomplete tag inside a element tag override the autocomplete attribute on the element tag itself. The class and notclass attributes can be used to use different autocomplete settings dependiong on the users preferences</reference>
 					</tag>
 					<tag idref="t.context" />
@@ -117,7 +134,7 @@
 			<reference>tag is added for convenience. Everything within tag is possible with a combination of multiple element and context tags.  </reference>
 				<context idref="c.innerpattern" />
 			</tag>
-			<tag name="group" id="t.group" highlight="tag" attributes="highlight,autocomplete,autocomplete_append,autocomplete_backup_cursor,class,notclass,case_insens,is_regex,attrib_autocomplete_append,attrib_autocomplete_backup_cursor,attribhighlight,no_close,sgml_shorttag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+			<tag name="group" id="t.group" highlight="tag" attributes="highlight,class,notclass,case_insens,is_regex,attrib_autocomplete_append,attrib_autocomplete_backup_cursor,attribhighlight,no_close,sgml_shorttag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 			<autocomplete append="&gt;" />
 			<reference>group is a tag that can be used to group multiple tags or multiple elements that share the same attribute values for the attributes highlight, autocomplete, autocomplete_append, class, case_insens, is_regex, attrib_autocomplete_append or attribhighlight. These attributes are then only set for the group tag, and not for the elements or tags immediately within this group tag.</reference>
 				<context id="c.group" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
