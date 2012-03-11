@@ -91,7 +91,8 @@
 
 <element pattern="[0-9]+\.*[0-9]*" is_regex="1" highlight="value"/> 
 
-<group autocomplete="1" highlight="keyword1">
+<group  highlight="keyword1">
+	<autocomplete enable="1" />
  <element pattern="Boolean"><reference>Datatype true or false
  if (!a){ }
  if (a){ } </reference></element>
@@ -165,7 +166,8 @@ readLine()</reference></element>
  <element pattern="while"><reference></reference></element>
 
 </group>
-<group highlight="method" autocomplete="1" autocomplete_append="();" autocomplete_backup_cursor="2" >
+<group highlight="method" >
+	<autocomplete append="();" backup_cursor="2" />
  <element pattern="ArrayList" />
  <element pattern="HashMap" />
  <element pattern="XML" />
@@ -392,7 +394,8 @@ readLine()</reference></element>
  <element pattern="vertex" />
 </group>
 
-<group highlight="method" autocomplete="1" autocomplete_append=");" autocomplete_backup_cursor="2" >
+<group highlight="method" >
+	<autocomplete append=");" backup_cursor="2" />
  <element pattern="boolean(" />
  <element pattern="byte(" />
  <element pattern="char(" />
@@ -404,7 +407,8 @@ readLine()</reference></element>
  <element pattern="width(" />
 </group>
 
-<group highlight="method" autocomplete="1" autocomplete_append=";">
+<group highlight="method" >
+	<autocomplete append=";" />
  <element pattern="beginCamera()" />
  <element pattern="day()" />	
  <element pattern="endCamera()" />
@@ -441,7 +445,8 @@ readLine()</reference></element>
  <element pattern="readLine()" />
 </group>
 
-<group highlight="method" autocomplete="1" autocomplete_append=" {}" autocomplete_backup_cursor="1">
+<group highlight="method" >
+	<autocomplete append=" {}" backup_cursor="1" />
  <element pattern="keyPressed()" />
  <element pattern="keyReleased()" />
  <element pattern="mousePressed()" />
@@ -450,13 +455,15 @@ readLine()</reference></element>
  <element pattern="mouseMoved()" />
  <element pattern="mouseReleased()" />
 </group>
-<group highlight="special" autocomplete="1" autocomplete_append="() {}" autocomplete_backup_cursor="1">
+<group highlight="special" >
+	<autocomplete append="() {}" backup_cursor="1" />
  <element pattern="setup" />
  <element pattern="draw" />
  <element pattern="popStyle" />
  <element pattern="pushStyle" />
 </group>
-<group class="undescribed_methods" highlight="method" autocomplete="1" autocomplete_append="();" autocomplete_backup_cursor="2" >
+<group class="undescribed_methods" highlight="method" >
+	<autocomplete append="();" backup_cursor="2" />
  <element pattern="PCDataAdded" />
  <element pattern="addChild" />
  <element pattern="addListeners" />
@@ -655,7 +662,8 @@ readLine()</reference></element>
  <element pattern="unregisterSize" />
  <element pattern="update" />
 </group>
-<group autocomplete="1" highlight="constant">
+<group  highlight="constant">
+	<autocomplete enable="1" />
  <element pattern="A"><reference>static int</reference></element>
  <element pattern="AB"><reference>static int</reference></element>
  <element pattern="ADD"><reference>static int</reference></element>
@@ -868,7 +876,8 @@ readLine()</reference></element>
  <element pattern="Z"><reference>static int</reference></element> 
  
 </group>	            
-<group autocomplete="1" highlight="variable">
+<group  highlight="variable">
+	<autocomplete enable="1" />
  <element pattern="focused" />
  <element pattern="frameCount" />
  <element pattern="frameRate" />

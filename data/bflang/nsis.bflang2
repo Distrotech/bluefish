@@ -72,7 +72,8 @@
 		<element pattern="!searchreplace" />
 	</group>
 
-	<group highlight="comment" autocomplete="1">
+	<group highlight="comment" >
+		<autocomplete enable="1" />
 		<element id="e.lcomment" pattern="/*" starts_block="1" highlight="comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="comment">
 				<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
@@ -100,7 +101,8 @@
 
 	<element pattern="[0-9.]+" is_regex="1" highlight="value" />
 
-	<group highlight="function" autocomplete="1">
+	<group highlight="function" >
+		<autocomplete enable="1" />
 <!-- Variables: User Variables -->
 		<element pattern="Var" />
 <!-- Pages -->

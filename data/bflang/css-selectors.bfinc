@@ -21,7 +21,8 @@
 
 <bfinc>
 
-<group highlight="css-html-tag" autocomplete="1">
+<group highlight="css-html-tag" >
+	<autocomplete enable="1" />
 	<element pattern="a"/>
 	<element pattern="abbr"/>
 	<element pattern="acronym"/>
@@ -143,7 +144,8 @@
 	<element pattern="wbr"><reference><b>HTML 5</b> line-break opportunity</reference></element>
 </group>
 <!-- pseudo elements/classes -->
-<group highlight="css-html-tag" autocomplete="1">
+<group highlight="css-html-tag" >
+	<autocomplete enable="1" />
 	<element pattern=":active"/>
 	<element pattern=":after"/>
 	<element pattern=":before"/>
@@ -169,7 +171,8 @@
 	<element pattern="::after"/>
 	<element pattern="::before"/>
 </group>
-<group highlight="css-html-tag" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
+<group highlight="css-html-tag" >
+	<autocomplete append="()" backup_cursor="1" />
 	<element pattern=":nth-child">
 		<context id="c.css.pseudo" symbols="()" highlight="css-html-tag">
 			<element pattern="("/>
@@ -209,7 +212,8 @@
 <!--<element pattern="[^ *+->~|]#[a-z_][a-z0-9._-]+" is_regex="1" case_insens="1"/>-->
 </group>
 
-<element pattern="[" highlight="css-operator" autocomplete="1" autocomplete_append="]" autocomplete_backup_cursor="1">
+<element pattern="[" highlight="css-operator" >
+	<autocomplete append="]" backup_cursor="1" />
 	<context symbols="[]" highlight="css-operator">
 		<element pattern="(["/>
 		<element pattern="]" ends_context="1" highlight="css-operator" />

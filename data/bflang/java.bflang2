@@ -46,7 +46,8 @@
 <definition>
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
-<group autocomplete="1" highlight="keyword"> 
+<group  highlight="keyword">
+	<autocomplete enable="1" /> 
 	<element pattern="assert" />
 	<element pattern="break" />
 	<element pattern="case" />
@@ -70,7 +71,8 @@
 	<element pattern="while" />
 </group>
 
-<group autocomplete="1" highlight="OO-keyword">
+<group  highlight="OO-keyword">
+	<autocomplete enable="1" />
 	<element pattern="abstract" />
 	<element pattern="class" />
 	<element pattern="default" />
@@ -92,7 +94,8 @@
 	<element pattern="volatile" />
 </group>
 
-<group autocomplete="1" highlight="type">
+<group  highlight="type">
+	<autocomplete enable="1" />
 	<element pattern="boolean" />
 	<element pattern="byte" />
 	<element pattern="char" />
@@ -105,7 +108,8 @@
 	<element pattern="void" />
 </group>
 
-<group autocomplete="1" highlight="class-type">
+<group  highlight="class-type">
+	<autocomplete enable="1" />
 	<element pattern="BigDecimal" />	
 	<element pattern="BigInteger" />
 	<element pattern="Boolean" />
@@ -119,7 +123,8 @@
 	<element pattern="String" />
 </group>
 
-<group autocomplete="1" autocomplete_append="&lt;&gt;" autocomplete_backup_cursor="1" highlight="collections">
+<group    highlight="collections">
+	<autocomplete append="&lt;&gt;" backup_cursor="1" />
 	<element pattern="ArrayList" />
 	<element pattern="LinkedList" />
 	<element pattern="ArrayDeque" />
@@ -136,7 +141,9 @@
 	<element pattern="IdentityHashMap" />
 </group>
 
-<element pattern="import" autocomplete="1" highlight="imports" />
+<element pattern="import"  highlight="imports" >
+	<autocomplete enable="1" />
+</element>
 
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;" highlight="string">
@@ -165,9 +172,15 @@
 	</context>
 </element>
 
-<element pattern="true" autocomplete="1" highlight="value"/>
-<element pattern="false" autocomplete="1" highlight="value"/>
-<element pattern="null" autocomplete="1" highlight="value"/>
+<element pattern="true"  highlight="value">
+	<autocomplete enable="1" />
+</element>
+<element pattern="false"  highlight="value">
+	<autocomplete enable="1" />
+</element>
+<element pattern="null"  highlight="value">
+	<autocomplete enable="1" />
+</element>
 <element pattern="[0-9.]+" is_regex="1" highlight="value"/>
 		
 </context>

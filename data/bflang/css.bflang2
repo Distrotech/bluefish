@@ -64,7 +64,8 @@
 				<group highlight="css-html-media">
 					<element pattern="@media">
 					<context symbols=" &#9;&#10;&#13;{}.;,">
-						<group highlight="css-html-media" autocomplete="1">
+						<group highlight="css-html-media" >
+							<autocomplete enable="1" />
 							<element pattern="all" />
 							<element pattern="aural" />
 							<element pattern="braille" />
@@ -97,7 +98,8 @@
 		<group highlight="css-html-media">
 			<element pattern="@media">
 			<context symbols=" &#9;&#10;&#13;{}.;,">
-				<group highlight="css-html-media" autocomplete="1">
+				<group highlight="css-html-media" >
+					<autocomplete enable="1" />
 					<element pattern="all" />
 					<element pattern="aural" />
 					<element pattern="braille" />

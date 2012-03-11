@@ -40,7 +40,8 @@
 				<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.lcomment" highlight="html-comment" mayfold="1" ends_context="1" />
 			</context>
 		</element>
-		<group highlight="tag"  attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+		<group highlight="tag"  attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+			<autocomplete append="&gt;" />
 			<tag name="a" attributes="class,externalResourcesRequired,&univ;,&event;,requiredExtensions,requiredFeatures,style,systemLanguage,target,transform,xlink:actuate,xlink:arcrole,xlink:href,xlink:role,xlink:show,xlink:title,xlink:type,clip-path,color-interpolation,color-rendering,cursor,display,enable-background,filter,mask,opacity,stop-color"></tag>
 			<tag name="altGlyph" attributes="class,dx,dy,externalResourcesRequired,format,glyphRef,&univ;,&event;,requiredExtensions,requiredFeatures,rotate,style,systemLanguage,x,xlink:actuate,xlink:arcrole,xlink:href,xlink:role,xlink:show,xlink:title,xlink:type,y,alignment-baseline,baseline-shift,color,direction,dominant-baseline,fill,fill-opacity,fill-rule,font,font-family,font-size,font-size-adjust,font-stretch,font-style,font-variant,font-weight,glyph-orientation-horizontal,glyph-orientation-vertical,kerning,letter-spacing,shape-rendering,stroke,stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,stroke-opacity,stroke-width,text-anchor,text-decoration,unicode-bidi,word-spacing"></tag>
 			<tag name="altGlyphDef" attributes="&univ;"></tag>

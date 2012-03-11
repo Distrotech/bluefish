@@ -21,7 +21,8 @@
 
 <!-- JavaScript Keywords -->
 <bfinc>
-<group highlight="js-keyword" autocomplete="1">
+<group highlight="js-keyword" >
+	<autocomplete enable="1" />
 	<element pattern="break" />
 	<element pattern="case" />
 	<element pattern="catch" />
@@ -48,7 +49,8 @@
 	<element pattern="with" />
 </group>
 <!-- ECMA-262 reserved words -->
-<group highlight="js-keyword" autocomplete="1">
+<group highlight="js-keyword" >
+	<autocomplete enable="1" />
 	<element pattern="abstract" />
 	<element pattern="boolean" />
 	<element pattern="byte" />
@@ -81,7 +83,8 @@
 	<element pattern="transient" />
 	<element pattern="volatile" />
 </group>
-<group highlight="js-function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
+<group highlight="js-function" >
+	<autocomplete append="()" backup_cursor="1" />
 	<element pattern="arguments"/>
 	<element pattern="acrity"/>
 	<element pattern="apply"/>
@@ -278,7 +281,8 @@
 </group>
 	<!-- string -->
 <group class="javascript_string_object">
-	<group highlight="js-function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
+	<group highlight="js-function" >
+		<autocomplete append="()" backup_cursor="1" />
 		<element pattern="anchor"/>
 		<element pattern="big"/>
 		<element pattern="blink"/>
@@ -308,7 +312,8 @@
 		<element pattern="toUpperCase"/>
 	</group>
 	<!-- elements that may contain a regexp -->
-	<element pattern="replace" highlight="js-function" autocomplete="1" autocomplete_append="(,)" autocomplete_backup_cursor="2">
+	<element pattern="replace" highlight="js-function" >
+		<autocomplete append="(,)" backup_cursor="2" />
 		<context id="c.js.regex" symbols="(" >
 			<element pattern="(" highlight="js-brackets" >
 				<context symbols="()," highlight="js-string">
@@ -332,7 +337,8 @@
 	<!-- TODO highligt regex-string as js-value,  newstring as js-string  -->
 </group>
 <!-- regexp -->
-<group highlight="js-function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
+<group highlight="js-function" >
+	<autocomplete append="()" backup_cursor="1" />
 	<element pattern="exec" >
 		<context idref="c.js.regex" />
 	</element>
@@ -344,7 +350,8 @@
 	</element>
 </group>
 
-<group highlight="js-property" autocomplete="1">
+<group highlight="js-property" >
+	<autocomplete enable="1" />
 	<group class="javascript_window_object">
 		<element pattern="closed"/>
 		<element pattern="defaultStatus"/>
@@ -475,7 +482,8 @@
 <!-- 	<element pattern="length" class="javascript_string_object"/> -->
 </group>
 <!-- JavaScript Objects -->
-<group highlight="js-type" autocomplete="1">
+<group highlight="js-type" >
+	<autocomplete enable="1" />
 	<element pattern="Array"/>
 	<element pattern="Boolean"/>
 	<element pattern="Date"/>
@@ -492,7 +500,8 @@
 	<element pattern="URIError"/>
 </group>
 <!-- These objects appear to be case insensitive -->
-<group highlight="js-variable" autocomplete="1">
+<group highlight="js-variable" >
+	<autocomplete enable="1" />
 	<element pattern="global"/>
 	<group class="javascript_navigator_object">
 		<element pattern="navigator"/>
@@ -513,9 +522,12 @@
 		<element pattern="location" class="javascript_location_object"/>
 	</group>
 </group>
-<group class="javascript_css_properties" autocomplete="1">
+<group class="javascript_css_properties" >
+	<autocomplete enable="1" />
 	<element pattern="style" highlight="js-css-property"/>
-	<element pattern="getComputedStyle()" highlight="js-function" autocomplete_append="()" autocomplete_backup_cursor="1"/>
+	<element pattern="getComputedStyle()" highlight="js-function" >
+		<autocomplete append="()" backup_cursor="1" />
+	</element>
 	<group highlight="js-css-property">
 		<element pattern="azimuth" />
 		<element pattern="background" />
@@ -647,7 +659,8 @@
 	</group>
 </group>
 
-<group highlight="js-value" autocomplete="1">
+<group highlight="js-value" >
+	<autocomplete enable="1" />
 	<element pattern="false" />
 	<element pattern="Infinity" />
 	<element pattern="MAX_VALUE"/>

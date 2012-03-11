@@ -70,16 +70,19 @@
 </element>
 
 <!-- TODO: better use something like e.xml.tag.open for this tag to solve: (1) every xmlns:* element might be allowed, (2) transorm is an alias, (3) version 1 vs 2 via class/notclass -->
-<tag name="xsl:stylesheet" attributes="id,extension-element-prefixes,exclude-result-prefixes,version,xmlns" attribhighlight="attribute" autocomplete="1" autocomplete_append=" xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&#10;                version=&quot;1.0&quot;&gt;" highlight="tag">
+<tag name="xsl:stylesheet" attributes="id,extension-element-prefixes,exclude-result-prefixes,version,xmlns" attribhighlight="attribute" highlight="tag">
+	<autocomplete append=" xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&#10;                version=&quot;1.0&quot;&gt;">
 	<reference>The xsl:stylesheet element represents a stylesheet in an XML document. xsl:transform is allowed synonymously.</reference>
 
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 
 		<group attrib_autocomplete_append="=&quot;&quot;" highlight="tag-import" attribhighlight="attribute">
-			<tag name="xsl:include" attributes="href" autocomplete_append=" href=&quot;&quot; /&gt;">
+			<tag name="xsl:include" attributes="href" >
+				<autocomplete append=" href=&quot;&quot; /&gt;" />
 				<reference>Include another XSLT stylesheet.</reference>
 			</tag>
-			<tag name="xsl:import" attributes="href" autocomplete_append=" href=&quot;&quot; /&gt;">
+			<tag name="xsl:import" attributes="href" >
+				<autocomplete append=" href=&quot;&quot; /&gt;" />
 				<reference>Import another XSLT stylesheet.</reference>
 			</tag>
 		</group>
@@ -88,27 +91,34 @@
 			<tag name="xsl:deciaml-format" attributes="name,decimal-separator,grouping-separator,infinity,minus-sign,NaN,percent,per-mille,zero-digit,digit,pattern-separator">
 				<reference>Declare a decimal-format, which controls the interpretation of a format pattern used by the format-number() function.</reference>
 			</tag>
-			<tag name="xsl:key" attributes="name,match,use" autocomplete_append=" name=&quot;&quot; match=&quot;&quot; use=&quot;&quot; /&gt;">
+			<tag name="xsl:key" attributes="name,match,use" >
+				<autocomplete append=" name=&quot;&quot; match=&quot;&quot; use=&quot;&quot; /&gt;" />
 				<reference>Declare keys. The name attribute specifies the name. The value attribute specifies a QName, which is expanded. And the match attribute is a Pattern. An xsl:key element gives information about the keys of any node that matches the pattern specified in the match attribute.</reference>
 			</tag>
-			<tag name="xsl:namespace-alias" attributes="stylesheet-prefix,result-prefix" autocomplete_append=" stylesheet-prefix=&quot;&quot; result-prefix=&quot;&quot; /&gt;">
+			<tag name="xsl:namespace-alias" attributes="stylesheet-prefix,result-prefix" >
+				<autocomplete append=" stylesheet-prefix=&quot;&quot; result-prefix=&quot;&quot; /&gt;" />
 				<reference>Declare that one namespace URI is an alias for another namespace URI.</reference>
 			</tag>
-			<tag name="xsl:output" attributes="method,version,encoding,omit-xml-declaration,standalone,doctype-public,doctype-system,cdata-section-elements,indent,media-type" autocomplete_append=" /&gt;">
+			<tag name="xsl:output" attributes="method,version,encoding,omit-xml-declaration,standalone,doctype-public,doctype-system,cdata-section-elements,indent,media-type" >
+				<autocomplete append=" /&gt;" />
 				<reference>Specify how the result tree should be output.</reference>
 			</tag>
-			<tag name="xsl:preserve-space" attributes="elements" autocomplete_append=" elements=&quot;&quot; /&gt;">
+			<tag name="xsl:preserve-space" attributes="elements" >
+				<autocomplete append=" elements=&quot;&quot; /&gt;" />
 				<reference>Preserve leading or trailing whitespace in these elements.</reference>
 			</tag>
-			<tag name="xsl:strip-space" attributes="elements" autocomplete_append=" elements=&quot;&quot; /&gt;">
+			<tag name="xsl:strip-space" attributes="elements" >
+				<autocomplete append=" elements=&quot;&quot; /&gt;" />
 				<reference>Strip leading or trailing whitespace in these elements.</reference>
 			</tag>
 		</group>
 
-		<tag name="xsl:attribute-set" attributes="name,use-attribute-sets" autocomplete_append=" name=&quot;&quot;" attrib_autocomplete_append="=&quot;&quot;" highlight="tag-element" attribhighlight="attribute">
+		<tag name="xsl:attribute-set" attributes="name,use-attribute-sets"  attrib_autocomplete_append="=&quot;&quot;" highlight="tag-element" attribhighlight="attribute">
+			<autocomplete append=" name=&quot;&quot;" />
 			<reference>Define a named set of attributes.</reference>
 			<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-				<tag name="xsl:attribute" attributes="name,namespace" autocomplete_append=" name=&quot;&quot;" attrib_autocomplete_append="=&quot;&quot;" highlight="tag-element" attribhighlight="attribute" id="t.xslt.attribute">
+				<tag name="xsl:attribute" attributes="name,namespace"  attrib_autocomplete_append="=&quot;&quot;" highlight="tag-element" attribhighlight="attribute" id="t.xslt.attribute">
+					<autocomplete append=" name=&quot;&quot;" />
 					<reference>Add attributes to a result element, whether created literally or by instruction.</reference>
 				</tag>
 				<!-- <element idref="e.xml.tag.open" /> -->
@@ -121,8 +131,10 @@
 			<reference>Define a template rule.</reference>
 			<context id="c.xslt.generic" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 
-				<group autocomplete="1" attrib_autocomplete_append="=&quot;&quot;" attribhighlight="attribute">
-					<group autocomplete_append=" name=&quot;&quot;" highlight="tag-param">
+				<group  attrib_autocomplete_append="=&quot;&quot;" attribhighlight="attribute">
+					<autocomplete enable="1" />
+					<group  highlight="tag-param">
+						<autocomplete append=" name=&quot;&quot;" />
 						<tag name="xsl:param" attributes="name,select">
 							<reference>Bind a variable to a value. The given one is the default for the binding and can be overridden when calling the template.</reference>
 						</tag>
@@ -134,7 +146,8 @@
 						</tag>
 					</group>
 					<group highlight="tag-element">
-						<tag name="xsl:element" attributes="name,namespace,use-attribute-sets" autocomplete_append=" name=&quot;&quot;">
+						<tag name="xsl:element" attributes="name,namespace,use-attribute-sets" >
+							<autocomplete append=" name=&quot;&quot;" />
 							<reference>Create an element with a computed name.</reference>
 						</tag>
 						<tag idref="t.xslt.attribute" />
@@ -143,43 +156,53 @@
 						<tag name="xsl:copy" attributes="use-attribute-sets">
 							<reference>Copy the current node.</reference>
 						</tag>
-						<tag name="xsl:copy-of" attributes="select" autocomplete_append=" select=&quot;&quot;">
+						<tag name="xsl:copy-of" attributes="select" >
+							<autocomplete append=" select=&quot;&quot;" />
 							<reference>Insert a result tree fragment into the result tree.</reference>
 						</tag>
-						<tag name="xsl:value-of" attributes="select,disable-output-escaping" autocomplete_append=" select=&quot;&quot;">
+						<tag name="xsl:value-of" attributes="select,disable-output-escaping" >
+							<autocomplete append=" select=&quot;&quot;" />
 							<reference>Create a text node in the result tree.</reference>
 						</tag>
 					</group>
 					<group highlight="tag">
-						<tag name="xsl:apply-imports" autocomplete_append=" /&gt;" highlight="tag">
+						<tag name="xsl:apply-imports"  highlight="tag">
+							<autocomplete append=" /&gt;" />
 							<reference>Invoke an overridden template rule.</reference>
 						</tag>
 						<tag name="xsl:apply-templates" attributes="mode,select">
 							<reference>Apply template rules.</reference>
 						</tag>
-						<tag name="xsl:call-template" attributes="name" autocomplete_append=" name=&quot;&quot;">
+						<tag name="xsl:call-template" attributes="name" >
+							<autocomplete append=" name=&quot;&quot;" />
 							<reference>Invoke a template by name.</reference>
 						</tag>
 					</group>
 					<group highlight="tag-condition">
-						<tag name="xsl:choose" autocomplete_append="&gt;&#10;&#10;&lt;/xsl:choose&gt;" autocomplete_backup_cursor="14">
+						<tag name="xsl:choose" >
+							<autocomplete append="&gt;&#10;&#10;&lt;/xsl:choose&gt;" backup_cursor="14" />
 							<reference>Select one among a number of possible alternatives: a dequence of xsl:when followed by an optional xsl:otherwise.</reference>
 						</tag>
-						<tag name="xsl:if" attributes="test" autocomplete_append=" test=&quot;&quot;&gt;&#10;&#10;&lt;/xsl:if&gt;" autocomplete_backup_cursor="10">
+						<tag name="xsl:if" attributes="test" >
+							<autocomplete append=" test=&quot;&quot;&gt;&#10;&#10;&lt;/xsl:if&gt;" backup_cursor="10" />
 							<reference>Specify an expression. If the result is true, then the content template is instantiated.</reference>
 						</tag>
-						<tag name="xsl:otherwise" autocomplete_append="&gt;&#10;&#10;&lt;/xsl:otherwise&gt;" autocomplete_backup_cursor="17">
+						<tag name="xsl:otherwise" >
+							<autocomplete append="&gt;&#10;&#10;&lt;/xsl:otherwise&gt;" backup_cursor="17" />
 							<reference>If no xsl:when is true, the content of the xsl:otherwise element is instantiated.</reference>
 						</tag>
-						<tag name="xsl:when" attributes="test" autocomplete_append="&gt;&#10;&#10;&lt;/xsl:when&gt;" autocomplete_backup_cursor="12">
+						<tag name="xsl:when" attributes="test" >
+							<autocomplete append="&gt;&#10;&#10;&lt;/xsl:when&gt;" backup_cursor="12" />
 							<reference>Specify an expression. Each of the xsl:when elements is tested in turn. The content of the first, and only the first xsl:when element, whose test is true, is instantiated.</reference>
 						</tag>
 					</group>
 					<group highlight="tag-function">
-						<tag name="xsl:for-each" attributes="select" autocomplete_append=" select=&quot;&quot;">
+						<tag name="xsl:for-each" attributes="select" >
+							<autocomplete append=" select=&quot;&quot;" />
 							<reference>Instantiate a template for each node selected by the XPath expression.</reference>
 						</tag>
-						<tag name="xsl:sort" attributes="select,lang,data-type,oder,case-order" autocomplete_append=" /&gt;">
+						<tag name="xsl:sort" attributes="select,lang,data-type,oder,case-order" >
+							<autocomplete append=" /&gt;" />
 							<reference>Specifies the primary, secondary, ... sort keys and order.</reference>
 						</tag>
 					</group>
@@ -195,7 +218,8 @@
 					<tag name="xsl:number" attributes="level,count,from,value,format,lang,letter-value,grouping-separator,grouping-size" highlight="tag-number">
 						<reference>Insert a formatted number into the result tree.</reference>
 					</tag>
-					<tag name="xsl:processing-instruction" attributes="name" autocomplete_append=" name=&quot;&quot;" highlight="tag-preprocessor">
+					<tag name="xsl:processing-instruction" attributes="name"  highlight="tag-preprocessor">
+						<autocomplete append=" name=&quot;&quot;" />
 						<reference>Create a processing instruction node in the result tree.</reference>
 					</tag>
 					<tag name="xsl:text" attributes="disable-output-escaping" highlight="tag-text">

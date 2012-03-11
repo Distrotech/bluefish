@@ -45,7 +45,8 @@
 </properties>
 <definition>
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<group highlight="keyword" autocomplete="1">
+<group highlight="keyword" >
+	<autocomplete enable="1" />
 	<element pattern="break" />
 	<element pattern="case" />
 	<element pattern="chan" />
@@ -72,7 +73,8 @@
 	<element pattern="type" />
 	<element pattern="var" />
 </group>
-<group highlight="function" autocomplete="1">
+<group highlight="function" >
+	<autocomplete enable="1" />
 	<element pattern="append" />
 	<element pattern="cap" />
 	<element pattern="close" />
@@ -88,7 +90,8 @@
 	<element pattern="println" />
 	<element pattern="real" />
 </group>
-<group highlight="storage-keyword" autocomplete="1">
+<group highlight="storage-keyword" >
+	<autocomplete enable="1" />
 	<element pattern="uint8" />
 	<element pattern="uint16" />
 	<element pattern="uint32" />
@@ -120,9 +123,15 @@
 	<element pattern="" />-->
 	
 </group>
-<element pattern="true" autocomplete="1" highlight="value" />
-<element pattern="false" autocomplete="1" highlight="value" />
-<element pattern="nil" autocomplete="1" highlight="value" />
+<element pattern="true"  highlight="value" >
+	<autocomplete enable="1" />
+</element>
+<element pattern="false"  highlight="value" >
+	<autocomplete enable="1" />
+</element>
+<element pattern="nil"  highlight="value" >
+	<autocomplete enable="1" />
+</element>
 <element id="e.number" pattern="[0-9.]+" is_regex="1" highlight="value"/>
 
 

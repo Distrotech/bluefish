@@ -46,7 +46,8 @@
 <definition>
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
-<group autocomplete="1" case_insens="1" highlight="type">
+<group  case_insens="1" highlight="type">
+	<autocomplete enable="1" />
 	<element pattern="CHAR" />
 	<element pattern="CHAR_LENGTH" />
 	<element pattern="CHARACTER" />
@@ -65,7 +66,8 @@
 	<element pattern="VARCHAR" />
 	<element pattern="VARYING" />
 </group>
-<group autocomplete="1" case_insens="1" highlight="keyword">
+<group  case_insens="1" highlight="keyword">
+	<autocomplete enable="1" />
 	<element pattern="ACTION" />
 	<element pattern="ADD" />
 	<element pattern="ALLOCATE" />
@@ -201,7 +203,8 @@
 	<element pattern="WRITE" />
 	<element pattern="ZONE" />
 </group>
-<group autocomplete="1" case_insens="1" highlight="function_def">
+<group  case_insens="1" highlight="function_def">
+	<autocomplete enable="1" />
 	<element pattern="CALL" />
 	<element pattern="CASE" />
 	<element pattern="CONTINUE" />
@@ -227,7 +230,8 @@
 	<element pattern="WITH" />
 	<element pattern="UNTIL" />
 </group>
-<group autocomplete="1" case_insens="1" highlight="function">
+<group  case_insens="1" highlight="function">
+	<autocomplete enable="1" />
 	<element pattern="ASC" />
 	<element pattern="AT" />
 	<element pattern="AVG" />
@@ -259,7 +263,8 @@
 	<element pattern="UPPER" />
 	<element pattern="YEAR" />
 </group>
-<group autocomplete="1" case_insens="1" highlight="data_function">
+<group  case_insens="1" highlight="data_function">
+	<autocomplete enable="1" />
 	<element pattern="FROM" />
 	<element pattern="DELETE" />
 	<element pattern="INSERT" />
@@ -277,7 +282,8 @@
 	<element pattern="VALUES" />
 	<element pattern="WHERE" />
 </group>
-<group autocomplete="1" case_insens="1" highlight="operator">
+<group  case_insens="1" highlight="operator">
+	<autocomplete enable="1" />
 	<element pattern="ALL" />
 	<element pattern="AND" />
 	<element pattern="ANY" />
@@ -298,7 +304,8 @@
 	<element pattern="TRUE" />
 	<element pattern="USING" />
 </group>
-<group autocomplete="1" case_insens="1" highlight="table">
+<group  case_insens="1" highlight="table">
+	<autocomplete enable="1" />
 	<element pattern="ALTER" />
 	<element pattern="COLUMN" />
 	<element pattern="CREATE" />
@@ -309,7 +316,8 @@
 	<element pattern="TABLE" />
 </group>
 
-<group autocomplete="1" case_insens="1" highlight="authorization">
+<group  case_insens="1" highlight="authorization">
+	<autocomplete enable="1" />
 	<element pattern="AUTHORIZATION" />
 	<element pattern="DROP" />
 	<element pattern="GRANT" />

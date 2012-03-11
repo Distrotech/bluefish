@@ -514,7 +514,8 @@
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 
-<tag name="script" id="t.html.script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="src,async,defer,type,charset,&globals;" attribhighlight="html-attribute" autocomplete_append=" type=&quot;text/javascript&quot; &gt;&#10;&#10;&lt;/script&gt;" autocomplete_backup_cursor="10">
+<tag name="script" id="t.html.script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="src,async,defer,type,charset,&globals;" attribhighlight="html-attribute" >
+	<autocomplete append=" type=&quot;text/javascript&quot; &gt;&#10;&#10;&lt;/script&gt;" backup_cursor="10" />
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="cm.cpplinecomment"  commentid_block="none">
 		<element pattern="(" id="e.html.js.lparen" starts_block="1" highlight="js-brackets" />
 		<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lparen" />
@@ -579,7 +580,8 @@
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 
-<tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="media,type,scoped,&globals;" attribhighlight="html-attribute" autocomplete_append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" autocomplete_backup_cursor="9" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+<tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="media,type,scoped,&globals;" attribhighlight="html-attribute"   attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+	<autocomplete append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" backup_cursor="9" />
 	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:" commentid_block="cm.cblockcomment" commentid_line="none">
 		<element idref="e.html.lcomment"/>
 		<element id="e.html.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
@@ -591,7 +593,8 @@
 			<group highlight="css-html-media">
 				<element pattern="@media">
 				<context symbols=" &#9;&#10;&#13;{}.;,">
-					<group highlight="css-html-media" autocomplete="1">
+					<group highlight="css-html-media" >
+						<autocomplete enable="1" />
 						<element pattern="all" />
 						<element pattern="aural" />
 						<element pattern="braille" />

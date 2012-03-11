@@ -49,26 +49,39 @@
 </properties>
 <definition>
 <context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;-%" commentid_block="cm.htmlcomment" commentid_line="none">
-<group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" >
+<group highlight="tag" attribhighlight="attribute" >
+	<autocomplete append="&gt;" />
 <tag name="html" />
 <tag name="head" />
-<tag name="meta" attributes="name,http-equiv,content" autocomplete_append=" /&gt;" />
-<tag name="title" autocomplete_append="&gt; &lt;/title&gt;" />
+<tag name="meta" attributes="name,http-equiv,content" >
+	<autocomplete append=" /&gt;" />
+</tag>
+<tag name="title" >
+	<autocomplete append="&gt; &lt;/title&gt;" />
+</tag>
 <!--
-<tag name="script" attributes="type,src" autocomplete_append=" /&gt;" />
+<tag name="script" attributes="type,src" >
+	<autocomplete append=" /&gt;" />
+</tag>
 -->
-<tag name="link" attributes="rel,type,href" autocomplete_append=" /&gt;" />
+<tag name="link" attributes="rel,type,href" >
+	<autocomplete append=" /&gt;" />
+</tag>
 <tag name="body" />
 <tag name="div" attributes="style,class,id,align" />
 <tag name="p" attributes="style,class,id,align" />
 <tag name="span" attributes="style,class,id,align" />
-<tag name="img" highlight="storage" attributes="src,width,height,align,valign,border,alt" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;"/>
+<tag name="img" highlight="storage" attributes="src,width,height,align,valign,border,alt" >
+	<autocomplete append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" />
+</tag>
 <tag name="i" attributes="style,class,id" />
 <tag name="b" attributes="style,class,id" />
 <tag name="em" attributes="style,class,id" />
 <tag name="strong" attributes="style,class,id" />
 <tag name="u" attributes="style,class,id" />
-<tag name="a" highlight="storage" attributes="style,class,id,href,target" autocomplete_append=" href=&#34;&#34; &gt;" />
+<tag name="a" highlight="storage" attributes="style,class,id,href,target" >
+	<autocomplete append=" href=&#34;&#34; &gt;" />
+</tag>
 <tag name="table" attributes="style,class,id" />
 <tag name="th" attributes="style,class,id" />
 <tag name="tr" attributes="style,class,id" />
@@ -82,7 +95,9 @@
 <tag name="h4" attributes="style,class,id" />
 <tag name="h5" attributes="style,class,id" />
 <tag name="h6" attributes="style,class,id" />
-<tag name="br" attributes="style,class,id" autocomplete_append=" /&gt;" />
+<tag name="br" attributes="style,class,id" >
+	<autocomplete append=" /&gt;" />
+</tag>
 <tag name="kbd" attributes="style,class,id" />
 <tag name="form" attributes="style,class,id,action,method,enctype,target" attrib_autocomplete_append="=&quot;&quot;" />
 <tag name="input" attributes="style,class,id,type,name,value,size,maxlength,checked" attrib_autocomplete_append="=&quot;&quot;" />
@@ -95,7 +110,8 @@
 
 <element id="e.vbscript" pattern="&lt;%" starts_block="1" highlight="region">
 	<context symbols=" '&#34;():.,/*-+=&gt;&lt;&amp; &#9;&#10;&#13;%" highlight="region">
-		<group autocomplete="1" case_insens="1" highlight="keyword">
+		<group  case_insens="1" highlight="keyword">
+			<autocomplete enable="1" />
 		<element pattern="and" />
 		<element pattern="as" />
 		<element pattern="call" />
@@ -144,9 +160,15 @@
 		<element pattern="until" />
 		<element pattern="xor" />
 		</group>
-		<element pattern="TRUE" autocomplete="1" case_insens="1" highlight="value"/>
-		<element pattern="FALSE" autocomplete="1" case_insens="1" highlight="value"/>
-		<element pattern="NOTHING" autocomplete="1" case_insens="1" highlight="value"/>
+		<element pattern="TRUE"  case_insens="1" highlight="value">
+			<autocomplete enable="1" />
+		</element>
+		<element pattern="FALSE"  case_insens="1" highlight="value">
+			<autocomplete enable="1" />
+		</element>
+		<element pattern="NOTHING"  case_insens="1" highlight="value">
+			<autocomplete enable="1" />
+		</element>
 		
 		<element pattern="&#34;" highlight="string">
 			<context symbols="&#34;" highlight="string">
@@ -169,11 +191,26 @@
 			</context>
 		</element>
 		
-		<element pattern="exit[\ \t]+for" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit for" mayfold="1" />
-		<element pattern="exit[\ \t]+do" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit do" mayfold="1" />
-		<element pattern="exit[\ \t]+while" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit while" mayfold="1" />
-		<element pattern="exit[\ \t]+sub" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit sub" mayfold="1" />
-		<element pattern="exit[\ \t]+function" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit function" mayfold="1" />
+		<element pattern="exit[\ \t]+for" is_regex="1" case_insens="1" highlight="keyword"   mayfold="1" >
+			<autocomplete enable="1" />
+			<autocomplete string="exit for" />
+		</element>
+		<element pattern="exit[\ \t]+do" is_regex="1" case_insens="1" highlight="keyword"   mayfold="1" >
+			<autocomplete enable="1" />
+			<autocomplete string="exit do" />
+		</element>
+		<element pattern="exit[\ \t]+while" is_regex="1" case_insens="1" highlight="keyword"   mayfold="1" >
+			<autocomplete enable="1" />
+			<autocomplete string="exit while" />
+		</element>
+		<element pattern="exit[\ \t]+sub" is_regex="1" case_insens="1" highlight="keyword"   mayfold="1" >
+			<autocomplete enable="1" />
+			<autocomplete string="exit sub" />
+		</element>
+		<element pattern="exit[\ \t]+function" is_regex="1" case_insens="1" highlight="keyword"   mayfold="1" >
+			<autocomplete enable="1" />
+			<autocomplete string="exit function" />
+		</element>
 
 		<element id="e.asp.for" pattern="for" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
 		<element pattern="next" case_insens="1" ends_block="1" blockstartelement="e.asp.for" mayfold="1" highlight="keyword" />
@@ -182,24 +219,52 @@
 		<element id="e.asp.while" pattern="while" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
 		<element pattern="wend" case_insens="1" ends_block="1" blockstartelement="e.asp.while" mayfold="1" highlight="keyword" />
 		<element id="e.asp.sub" pattern="sub" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
-		<element pattern="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.sub" autocomplete="1" autocomplete_string="end sub" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.sub"   mayfold="1" highlight="keyword" >
+			<autocomplete enable="1" />
+			<autocomplete string="end sub" />
+		</element>
 		<element id="e.asp.function" pattern="function" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
-		<element pattern="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.function" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end function" />
+		<element pattern="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.function" mayfold="1" highlight="keyword" >
+			<autocomplete enable="1" />
+			<autocomplete string="end function" />
+		</element>
 		<element id="e.asp.property" pattern="property" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
-		<element pattern="end[\ \t]+property" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.property" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end property" />
+		<element pattern="end[\ \t]+property" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.property" mayfold="1" highlight="keyword" >
+			<autocomplete enable="1" />
+			<autocomplete string="end property" />
+		</element>
 <!--
-		<element pattern="if[\ \t].+[\ \t]then[\ \t]*&#10;&#13;" starts_block="1" is_regex="1" case_insens="1" mayfold="1" highlight="keyword" autocomplete_string="if" />
-		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartelement="if[\ \t].+[\ \t]then[\ \t]*&#10;&#13;" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end if" />
-		<element pattern="if.+then[\ \t]*&#10;&#13;" starts_block="1" is_regex="1" case_insens="1" mayfold="1" highlight="keyword" autocomplete_string="if" />
-		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartelement="if.+then[\ \t]*&#10;&#13;" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end if" />
+		<element pattern="if[\ \t].+[\ \t]then[\ \t]*&#10;&#13;" starts_block="1" is_regex="1" case_insens="1" mayfold="1" highlight="keyword" >
+			<autocomplete string="if" />
+		</element>
+		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartelement="if[\ \t].+[\ \t]then[\ \t]*&#10;&#13;" mayfold="1" highlight="keyword" >
+			<autocomplete enable="1" />
+			<autocomplete string="end if" />
+		</element>
+		<element pattern="if.+then[\ \t]*&#10;&#13;" starts_block="1" is_regex="1" case_insens="1" mayfold="1" highlight="keyword" >
+			<autocomplete string="if" />
+		</element>
+		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartelement="if.+then[\ \t]*&#10;&#13;" mayfold="1" highlight="keyword" >
+			<autocomplete enable="1" />
+			<autocomplete string="end if" />
+		</element>
 -->
 
 		<element id="e.asp.with" pattern="with" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
-		<element pattern="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.with" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end with" />
+		<element pattern="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.with" mayfold="1" highlight="keyword" >
+			<autocomplete enable="1" />
+			<autocomplete string="end with" />
+		</element>
 		<element id="e.asp.select" pattern="select" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
-		<element pattern="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.select" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end select" />
+		<element pattern="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.select" mayfold="1" highlight="keyword" >
+			<autocomplete enable="1" />
+			<autocomplete string="end select" />
+		</element>
 		<element id="e.asp.class" pattern="class" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
-		<element pattern="end[\ \t]+class" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.class" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end class" />
+		<element pattern="end[\ \t]+class" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.class" mayfold="1" highlight="keyword" >
+			<autocomplete enable="1" />
+			<autocomplete string="end class" />
+		</element>
 
 		<element pattern="%&gt;" ends_block="1" blockstartelement="e.vbscript" highlight="region" mayfold="1" ends_context="1" />
 		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>

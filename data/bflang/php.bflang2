@@ -37,7 +37,9 @@
 	<option name="load_php_functions" default="1" description="Load all php functions" />
 	<option name="show_in_menu" default="1" />
 	<option name="php_short_open_tag" default="1" description="Enable the PHP short open tag"/>
-	<option name="autocomplete_tags" default="1" />
+<!--	<option name="autocomplete_tags" default="1" />-->
+	<option name="autocomplete_with_arguments" default="1" />
+	<option name="autocomplete_with_parentheses" default="0" />
 	<option name="stretch_tag_block" default="1" />
 	<option name="javascript_anchors_object" default="1" />
 	<option name="javascript_applets_object" default="1" />
@@ -124,7 +126,8 @@
 		<element pattern="*/" ends_block="1" blockstartelement="e.php.short.lcomment" highlight="php-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
-<element id="e.php.short.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" mayfold="1" highlight="brackets" autocomplete="1">
+<element id="e.php.short.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" mayfold="1" highlight="brackets" >
+	<autocomplete enable="1" />
 	<context symbols="EOF" highlight="php-comment">
 <element pattern="EOF" ends_block="1" ends_context="1" blockstartelement="e.php.short.multiline_string" highlight="brackets" />
 	</context>
@@ -202,7 +205,8 @@ was disabled, this whole section is not parsed by the language manager, so the c
 		<element pattern="*/" ends_block="1" blockstartelement="e.php.lcomment" highlight="php-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
-<element id="e.php.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" mayfold="1" highlight="brackets" autocomplete="1">
+<element id="e.php.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" mayfold="1" highlight="brackets" >
+	<autocomplete enable="1" />
 	<context symbols="EOF" highlight="php-comment">
 <element pattern="EOF" ends_block="1" ends_context="1" blockstartelement="e.php.multiline_string" highlight="brackets" />
 	</context>

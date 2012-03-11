@@ -44,7 +44,8 @@
 <definition>
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
-<group autocomplete="1" highlight="keyword">
+<group  highlight="keyword">
+	<autocomplete enable="1" />
 	<element pattern="break" />
 	<element pattern="continue" />
 	<element pattern="do" />
@@ -75,16 +76,19 @@
 	<element pattern="STDIN" />
 	<element pattern="STDERR" />
 </group>
-<group autocomplete="1" highlight="special_keyword">
+<group  highlight="special_keyword">
+	<autocomplete enable="1" />
 	<element pattern="package" />
 	<element pattern="require" />
 	<element pattern="use" />
 </group>
-<group autocomplete="1" highlight="warning">
+<group  highlight="warning">
+	<autocomplete enable="1" />
 	<element pattern="strict" />
 	<element pattern="warnings" />
 </group>
-<group autocomplete="1" highlight="pragma">
+<group  highlight="pragma">
+	<autocomplete enable="1" />
 	<element pattern="attributes" />
 	<element pattern="attrs" />
 	<element pattern="autouse" />
@@ -108,7 +112,8 @@
 	<element pattern="utf8" />
 	<element pattern="vars" />
 </group>
-<group autocomplete="1" highlight="built-in-function">
+<group  highlight="built-in-function">
+	<autocomplete enable="1" />
 	<element pattern="abs" />
 	<element pattern="accept" />
 	<element pattern="alarm" />

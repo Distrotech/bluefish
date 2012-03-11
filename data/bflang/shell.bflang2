@@ -43,7 +43,8 @@
 <element pattern="[0-9.]+" is_regex="1" highlight="value"/>
 <element pattern="\$+[!@?*#\${a-zA-Z0-9_][}a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="variable"/>
 
-<group autocomplete="1" highlight="function">
+<group  highlight="function">
+	<autocomplete enable="1" />
 	<element pattern="alias" />
    <element pattern="bg" />
    <element pattern="bind" />

@@ -38,7 +38,8 @@
 <definition>
 	<context symbols=". ;(){}[]:\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;"> 
 
-<group highlight="function" autocomplete="1" case_insens="1">
+<group highlight="function"  case_insens="1">
+	<autocomplete enable="1" />
 	<element pattern="abs" />
 	<element pattern="arctan" />	
 	<element pattern="chr" />
@@ -59,7 +60,8 @@
 	<element pattern="trunc" />
 </group>	
 	
-<group highlight="keyword" autocomplete="1" case_insens="1">
+<group highlight="keyword"  case_insens="1">
+	<autocomplete enable="1" />
 	<element pattern="and" />
 	<element pattern="and_then" />
 	<element pattern="Begin" />
@@ -109,7 +111,8 @@
 	<element pattern="xor" />	
 </group>
 
-<group highlight="OO-keyword" autocomplete="1" case_insens="1">
+<group highlight="OO-keyword"  case_insens="1">
+	<autocomplete enable="1" />
 	<element pattern="absolute" />
 	<element pattern="Abstract" />
 	<element pattern="all" />
@@ -161,7 +164,8 @@
 	<element pattern="WriteLn" />
 </group>
 
-<group highlight="type" autocomplete="1" case_insens="1"> 
+<group highlight="type"  case_insens="1">
+	<autocomplete enable="1" /> 
 	<element pattern="Boolean" />
 	<element pattern="Byte" />
 	<element pattern="ByteBool" />
@@ -188,9 +192,15 @@
 	<element pattern="WordBool" />
 </group>
 
-<element pattern="False" autocomplete="1" highlight="value" />
-<element pattern="True" autocomplete="1" highlight="value" />
-<element pattern="nil" autocomplete="1" highlight="value" />
+<element pattern="False"  highlight="value" >
+	<autocomplete enable="1" />
+</element>
+<element pattern="True"  highlight="value" >
+	<autocomplete enable="1" />
+</element>
+<element pattern="nil"  highlight="value" >
+	<autocomplete enable="1" />
+</element>
 
 <element pattern="'" highlight="string">
 	<context symbols="\'" highlight="string" >

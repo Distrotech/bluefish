@@ -72,7 +72,8 @@
 
 <element pattern="[0-9]+\.*[0-9]*" is_regex="1" highlight="value"/> 
 
-<group autocomplete="1" highlight="keyword">
+<group  highlight="keyword">
+	<autocomplete enable="1" />
 <element pattern="if"/>
 <element pattern="else"/>
 <element pattern="for"/>
@@ -90,7 +91,8 @@
 <element pattern="endfunction" ends_block="1" blockstartelement="e.function"/>
 </group>
 
-<group autocomplete="1" highlight="type">
+<group  highlight="type">
+	<autocomplete enable="1" />
 <element pattern="text"/>
 <element pattern="string"/>
 <element pattern="longint"/>

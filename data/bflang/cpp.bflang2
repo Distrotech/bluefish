@@ -47,7 +47,8 @@
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
-	<group highlight="keyword" autocomplete="1">
+	<group highlight="keyword" >
+		<autocomplete enable="1" />
 	<element pattern="asm" />
 	<element pattern="break" />
 	<element pattern="case" />
@@ -87,7 +88,8 @@
 	<element pattern="while" />
 	</group>
 
-	<group highlight="storage-keyword" autocomplete="1">
+	<group highlight="storage-keyword" >
+		<autocomplete enable="1" />
 	<element pattern="auto" />
 	<element pattern="const" />
 	<element pattern="extern" />
@@ -98,7 +100,8 @@
 	<element pattern="volatile" />
 	</group>
 
-	<group highlight="data-type" autocomplete="1">
+	<group highlight="data-type" >
+		<autocomplete enable="1" />
 		<element pattern="bool"/>
 		<element pattern="char"><reference><b></b> <b>char</b> is the character storage type, which is 1 byte (8bits)</reference></element>
 		<element pattern="double"><reference><b></b> double is the big floating point storage type, which is 4 or 8 byte (32 or 64bits)</reference></element>
@@ -114,7 +117,8 @@
 		<element pattern="wchar_t" />
 	</group>
 	
-	<group highlight="preprocessor" autocomplete="1">
+	<group highlight="preprocessor" >
+		<autocomplete enable="1" />
 		<element pattern="#include" />
 		<element pattern="#if" />
 		<element pattern="#else" /> 
@@ -125,9 +129,15 @@
 		<element pattern="#pragma" />
 	</group>	
 	
-	<element pattern="true" autocomplete="1" highlight="value" />	
-	<element pattern="false" autocomplete="1" highlight="value" />	
-	<element pattern="NULL" autocomplete="1" highlight="value" />
+	<element pattern="true"  highlight="value" >
+		<autocomplete enable="1" />
+	</element>	
+	<element pattern="false"  highlight="value" >
+		<autocomplete enable="1" />
+	</element>	
+	<element pattern="NULL"  highlight="value" >
+		<autocomplete enable="1" />
+	</element>
 
 	<element id="e.double_quote" pattern="&#34;" highlight="string">
 		<context symbols="\&#34;nrt" highlight="string">

@@ -45,7 +45,8 @@
 </properties>
 <definition>
 <context symbols=" ;(){}[]:\&#34;\\',*&amp;^%!+=-|/?#&#9;&#10;&#13;" commentid_block="cm.blockcomment" commentid_line="cm.linecomment">
-<group highlight="keyword" autocomplete="1">
+<group highlight="keyword" >
+	<autocomplete enable="1" />
 <element pattern="and" />
 <element pattern="break" />
 <element pattern="do" />
@@ -68,7 +69,8 @@
 <element pattern="until" />
 <element pattern="while" />
 </group>
-<group highlight="function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
+<group highlight="function" >
+	<autocomplete append="()" backup_cursor="1" />
 <element pattern="lua_atpanic">
 <reference><span color="blue" stretch="ultracondensed">[-0, +0, <i>-</i>]</span>
 <i>lua_CFunction lua_atpanic (lua_State *L, lua_CFunction panicf);</i>
@@ -2985,7 +2987,8 @@ to start the traceback
 </element>
 </group>
 
-<group highlight="type" autocomplete="1">
+<group highlight="type" >
+	<autocomplete enable="1" />
 <element pattern="lua_Alloc">
 <reference><i>typedef void * (*lua_Alloc) (void *ud,
                              void *ptr,
