@@ -42,7 +42,8 @@
 <element pattern="[0-9.]+" is_regex="1" highlight="value"/>
 <element pattern="true" highlight="value"/>
 <element pattern="false" highlight="value"/>
-<group autocomplete="1" highlight="keyword">
+<group  highlight="keyword">
+	<autocomplete enable="1" />
 <element pattern="abort"/>
 <element pattern="abs"/>
 <element pattern="abstract"/>

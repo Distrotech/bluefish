@@ -136,7 +136,8 @@
 		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="e.asp.block.start" mayfold="1"/>
 	</context>
 </element>
-<group highlight="asp-keyword" autocomplete="1" case_insens="1">
+<group highlight="asp-keyword"  case_insens="1">
+	<autocomplete enable="1" />
 	<element pattern="request" />
 	<element pattern="response" />
 	<element pattern="server" />

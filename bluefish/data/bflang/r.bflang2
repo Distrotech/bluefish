@@ -34,7 +34,8 @@
 <definition>
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
-<group highlight="keyword" autocomplete="1">
+<group highlight="keyword" >
+	<autocomplete enable="1" />
 <element pattern="function"/>
 <element pattern="else"/>
 <element pattern="for"/>
@@ -51,7 +52,8 @@
 <element pattern="switch"/>
 </group>
 
-<group highlight="value" autocomplete="1">
+<group highlight="value" >
+	<autocomplete enable="1" />
 	<element pattern="FALSE"/>
 	<element pattern="NULL"/>
 	<element pattern="TRUE"/>

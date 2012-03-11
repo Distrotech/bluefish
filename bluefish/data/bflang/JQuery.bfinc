@@ -18,7 +18,8 @@
 <!-- http://api.jquery.com/ -->
 
 <bfinc>
-<group highlight="js-function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
+<group highlight="js-function" >
+	<autocomplete append="()" backup_cursor="1" />
 <element pattern="jQuery.ajax"><reference> JQuery Ajax
 Perform an asynchronous HTTP (Ajax) request.</reference></element>
 <element pattern="ajaxComplete"><reference> JQuery Ajax
@@ -469,7 +470,8 @@ Remove the whitespace from the beginning and end of a string.</reference></eleme
 Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on arrays of DOM elements, not strings or numbers.</reference></element>
 </group>
 
-<group highlight="js-function" autocomplete="1">
+<group highlight="js-function" >
+	<autocomplete enable="1" />
 <element pattern="context"><reference> JQuery Plugin Authoring
 The DOM node context originally passed to jQuery(); if none was passed then context will likely be the document.</reference></element>
 <element pattern="jQuery.error"><reference> JQuery Plugin Authoring

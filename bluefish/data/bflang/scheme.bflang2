@@ -42,7 +42,8 @@
 <definition>
 	<context symbols=" ;@\.(){}[]:\&#34;\\',;*&amp;^%!+=|/?#&#9;&#10;&#13;">
 
-<group autocomplete="1" highlight="function"> 
+<group  highlight="function">
+	<autocomplete enable="1" /> 
 <element pattern="abs" />
 <element pattern="acos" />
 <element pattern="alist" />
@@ -281,7 +282,8 @@
 <element pattern="zero?" />
 </group>
 
-<group autocomplete="1" highlight="keyword"> 
+<group  highlight="keyword">
+	<autocomplete enable="1" /> 
 <element pattern="declare" />
 <element pattern="define" />
 <element pattern="define-constant" />
@@ -295,7 +297,8 @@
 <element pattern="letrec-syntax" />
 </group>
 
-<group autocomplete="1" highlight="value"> 
+<group  highlight="value">
+	<autocomplete enable="1" /> 
 <element pattern="#f"><reference>false</reference></element>
 <element pattern="#t"><reference>true</reference></element>
 <element pattern="null" />
@@ -316,8 +319,12 @@
 <element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
 
-<element pattern="[0-9]+\.[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
-<element pattern="[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
+<element pattern="[0-9]+\.[0-9]+" is_regex="1"  highlight="value">
+	<autocomplete enable="0" />
+</element>
+<element pattern="[0-9]+" is_regex="1"  highlight="value">
+	<autocomplete enable="0" />
+</element>
 <element pattern=";[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
 
 </context>

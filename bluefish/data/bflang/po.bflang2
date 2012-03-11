@@ -40,8 +40,12 @@
 	</context>
 </element>
 <element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
-<element pattern="msgid" autocomplete="1" highlight="keyword"/>
-<element pattern="msgstr" autocomplete="1" highlight="keyword"/>
+<element pattern="msgid"  highlight="keyword">
+	<autocomplete enable="1" />
+</element>
+<element pattern="msgstr"  highlight="keyword">
+	<autocomplete enable="1" />
+</element>
 
 </context>
 </definition>

@@ -41,9 +41,14 @@
 
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<element pattern="import[^&#10;&#13;]+" is_regex="1" highlight="imports" autocomplete_string="import"/>
-<element pattern="from[^&#10;&#13;]+" is_regex="1" highlight="imports" autocomplete_string="from"/>
-<group autocomplete="1" highlight="keyword">
+<element pattern="import[^&#10;&#13;]+" is_regex="1" highlight="imports" >
+	<autocomplete string="import" />
+</element>
+<element pattern="from[^&#10;&#13;]+" is_regex="1" highlight="imports" >
+	<autocomplete string="from" />
+</element>
+<group  highlight="keyword">
+	<autocomplete enable="1" />
 <element pattern="and" />
 <element pattern="assert" />
 <element pattern="break" />
@@ -73,7 +78,8 @@
 <element pattern="while" />
 <element pattern="yield" />
 </group>
-<group highlight="built-in-function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
+<group highlight="built-in-function" >
+	<autocomplete append="()" backup_cursor="1" />
 	<element pattern="abs"/>
 	<element pattern="all"/>
 	<element pattern="any"/>
@@ -147,7 +153,8 @@
 	<element pattern="xrange"/>
 	<element pattern="zip"/>
 </group>
-<group highlight="exception" autocomplete="1">
+<group highlight="exception" >
+	<autocomplete enable="1" />
 	<element pattern="ArithmeticError"/>
 	<element pattern="AssertionError"/>
 	<element pattern="AttributeError"/>
@@ -194,7 +201,8 @@
 	<element pattern="RuntimeWarning"/>
 	<element pattern="FutureWarning"/>
 </group>
-<group highlight="function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
+<group highlight="function" >
+	<autocomplete append="()" backup_cursor="1" />
 <element pattern="distutils.Charset" />
 <element pattern="distutils.add_charset" />
 <element pattern="distutils.add_alias" />
@@ -2065,7 +2073,8 @@
 		<element pattern="'''" highlight="string" ends_context="1" />
 	</context>
 </element>
-<group autocomplete="1" highlight="value">
+<group  highlight="value">
+	<autocomplete enable="1" />
 <element pattern="True" />
 <element pattern="False" />
 <element pattern="None" />

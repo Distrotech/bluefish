@@ -43,7 +43,8 @@
 <definition>
 <context symbols=" \.;(){}[]:\&#34;\\',*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
-<group autocomplete="1" highlight="keyword"> 
+<group  highlight="keyword">
+	<autocomplete enable="1" /> 
 	<element pattern="if" />
 	<element pattern="else" />
 	<element pattern="switch" />
@@ -63,7 +64,8 @@
 	<element pattern="throw" />
 </group>
 
-<group autocomplete="1" highlight="OO-keyword">
+<group  highlight="OO-keyword">
+	<autocomplete enable="1" />
 	<element pattern="namespace" />
 	<element pattern="interface" />
 	<element pattern="class" />
@@ -99,7 +101,8 @@
 	<element pattern="this" />
 </group>
 
-<group autocomplete="1" highlight="type">
+<group  highlight="type">
+	<autocomplete enable="1" />
 	<element pattern="true" />
 	<element pattern="false" />
 	<element pattern="null" />

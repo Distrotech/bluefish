@@ -54,35 +54,61 @@
 </properties>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<group highlight="keyword" autocomplete="1">
+<group highlight="keyword" >
+	<autocomplete enable="1" />
 <element pattern="asm" />
 <element pattern="auto" />
-<element pattern="break" autocomplete_append=";"/>
-<element pattern="case" autocomplete_append=" :"  autocomplete_backup_cursor="1"/>
+<element pattern="break" >
+	<autocomplete append=";" />
+</element>
+<element pattern="case" >
+	<autocomplete append=" :" backup_cursor="1" />
+</element>
 <element pattern="const" />
-<element pattern="continue" autocomplete_append=";" />
-<element pattern="default" autocomplete_append=":" />
-<element pattern="do" autocomplete_append=" {" />
-<element pattern="else" autocomplete_append=" {" />
+<element pattern="continue" >
+	<autocomplete append=";" />
+</element>
+<element pattern="default" >
+	<autocomplete append=":" />
+</element>
+<element pattern="do" >
+	<autocomplete append=" {" />
+</element>
+<element pattern="else" >
+	<autocomplete append=" {" />
+</element>
 <element pattern="enum" />
 <element pattern="extern" />
-<element pattern="for" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
+<element pattern="for" >
+	<autocomplete append="() {" backup_cursor="3" />
+</element>
 <element pattern="fortran" />
-<element pattern="goto" autocomplete_append=" ;"  autocomplete_backup_cursor="1" />
-<element pattern="if" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
+<element pattern="goto" >
+	<autocomplete append=" ;" backup_cursor="1" />
+</element>
+<element pattern="if" >
+	<autocomplete append="() {" backup_cursor="3" />
+</element>
 <element pattern="inline" />
 <element pattern="register" />
 <element pattern="restrict" />
-<element pattern="return" autocomplete_append=";" />
+<element pattern="return" >
+	<autocomplete append=";" />
+</element>
 <element pattern="sizeof" />
 <element pattern="static" />
 <element pattern="struct" />
-<element pattern="switch" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
+<element pattern="switch" >
+	<autocomplete append="() {" backup_cursor="3" />
+</element>
 <element pattern="typedef" />
 <element pattern="volatile" />
-<element pattern="while" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
+<element pattern="while" >
+	<autocomplete append="() {" backup_cursor="3" />
+</element>
 </group>
-<group highlight="type" autocomplete="1">
+<group highlight="type" >
+	<autocomplete enable="1" />
 	<element pattern="bool"/>
 	<element pattern="unsigned"/>
 	<element pattern="signed"><reference><b></b> <b>signed</b> means if the storage can have negative numbers or only positive numbers</reference></element>
@@ -95,7 +121,8 @@
 	<element pattern="double"><reference><b></b> double is the big floating point storage type, which is 4 or 8 byte (32 or 64bits)</reference></element>
 </group>
 <group class="load_libc_functions">
-<group highlight="libc-function" autocomplete="1" autocomplete_append="();" autocomplete_backup_cursor="2" >
+<group highlight="libc-function" >
+	<autocomplete append="();" backup_cursor="2" />
 <element pattern="a64l"><reference>Encode Binary Data</reference></element>
 <element pattern="abort"><reference>Aborting a Program</reference></element>
 <element pattern="abs"><reference>Absolute Value</reference></element>
@@ -1306,7 +1333,8 @@
 </group>
 </group>
 <group class="load_glib_functions">
-<group  highlight="glib-function" autocomplete="1" autocomplete_append="();" autocomplete_backup_cursor="2" >
+<group  highlight="glib-function" >
+	<autocomplete append="();" backup_cursor="2" />
 <element pattern="glib_check_version" />
 <element pattern="g_atomic_int_get" />
 <element pattern="g_atomic_int_set" />
@@ -1547,7 +1575,9 @@
 <element pattern="g_clear_error" />
 <element pattern="g_prefix_error" />
 <element pattern="g_propagate_prefixed_error" />
-<element pattern="g_print" autocomplete_append="(&quot;&quot;);" autocomplete_backup_cursor="3"/>
+<element pattern="g_print" >
+	<autocomplete append="(&quot;&quot;);" backup_cursor="3" />
+</element>
 <element pattern="g_set_print_handler" />
 <element pattern="GPrintFunc" />
 <element pattern="g_printerr" />
@@ -2517,7 +2547,8 @@
 <element pattern="g_allocator_new" />
 <element pattern="g_allocator_free" />
 </group>
-	<group highlight="glib-type" autocomplete="1">
+	<group highlight="glib-type" >
+		<autocomplete enable="1" />
 		<element pattern="gboolean" />
 		<element pattern="gchar" />
 		<element pattern="guchar" />
@@ -2549,7 +2580,8 @@
 	<element pattern="FALSE"  highlight="value" />
 </group>
 
-<group  class="load_gobject_functions" highlight="gobject-function" autocomplete="1" autocomplete_append="();" autocomplete_backup_cursor="2" >
+<group  class="load_gobject_functions" highlight="gobject-function" >
+	<autocomplete append="();" backup_cursor="2" />
 	<element pattern="g_type_init" />
 	<element pattern="g_type_init_with_debug_flags" />
 	<element pattern="g_type_name" />
@@ -2904,7 +2936,9 @@
 	<element pattern="g_value_array_sort_with_data" />
 </group>
 
-<element pattern="NULL" autocomplete="1" highlight="value" />
+<element pattern="NULL"  highlight="value" >
+	<autocomplete enable="1" />
+</element>
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;nrt" highlight="string">
 		<element pattern="\\." is_regex="1" highlight="string" />

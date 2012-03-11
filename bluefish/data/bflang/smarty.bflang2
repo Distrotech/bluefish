@@ -500,11 +500,16 @@
 </element>
 		
 <!-- popup -->
-<element pattern="{popup" highlight="smarty-tag" autocomplete="1">
+<element pattern="{popup" highlight="smarty-tag" >
+	<autocomplete enable="1" />
 	<reference>popup - create a JavaScript popup window</reference>
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
-		<element pattern="text" highlight="smarty-attribute" autocomplete="1" />
-		<element pattern="trigger" highlight="smarty-attribute" autocomplete="1" />
+		<element pattern="text" highlight="smarty-attribute" >
+			<autocomplete enable="1" />
+		</element>
+		<element pattern="trigger" highlight="smarty-attribute" >
+			<autocomplete enable="1" />
+		</element>
 		<element pattern="sticky" highlight="smarty-attribute" />
 		<element pattern="caption" highlight="smarty-attribute" />
 		<element pattern="fgcolor" highlight="smarty-attribute" />

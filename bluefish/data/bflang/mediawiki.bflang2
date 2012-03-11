@@ -129,32 +129,32 @@
 
 <!-- wiki title -->
 <group highlight="title">
-<element id="e.title6" pattern="&#10;======" is_regex="1" starts_block="1" autocomplete="1" 
-autocomplete_append=" ======" autocomplete_backup_cursor="7">
+<element id="e.title6" pattern="&#10;======" is_regex="1" starts_block="1" >
+	<autocomplete append=" ======" backup_cursor="7" />
    <context symbols="=">
    <element pattern="======" ends_block="1" blockstartelement="e.title6" ends_context="1" highlight="title" />
    </context>
 </element> 
-<element id="e.title5" pattern="&#10;=====" is_regex="1" starts_block="1" autocomplete="1" 
-autocomplete_append=" =====" autocomplete_backup_cursor="6">
+<element id="e.title5" pattern="&#10;=====" is_regex="1" starts_block="1" >
+	<autocomplete append=" =====" backup_cursor="6" />
    <context symbols="=">
    <element pattern="=====" ends_block="1" blockstartelement="e.title5" ends_context="1" highlight="title" />
    </context>
 </element>
-<element id="e.title4" pattern="&#10;====" is_regex="1" starts_block="1" autocomplete="1" 
-autocomplete_append=" ====" autocomplete_backup_cursor="5">
+<element id="e.title4" pattern="&#10;====" is_regex="1" starts_block="1" >
+	<autocomplete append=" ====" backup_cursor="5" />
    <context symbols="=">
    <element pattern="====" ends_block="1" blockstartelement="e.title4" ends_context="1" highlight="title" />
    </context>
 </element> 
-<element id="e.title3" pattern="&#10;===" is_regex="1" starts_block="1" autocomplete="1" 
-autocomplete_append=" ===" autocomplete_backup_cursor="4">
+<element id="e.title3" pattern="&#10;===" is_regex="1" starts_block="1" >
+	<autocomplete append=" ===" backup_cursor="4" />
    <context symbols="=">
     <element pattern="===" ends_block="1" blockstartelement="e.title3" ends_context="1" highlight="title" />
    </context>
 </element> 
-<element id="e.title2" pattern="&#10;==" is_regex="1" starts_block="1" autocomplete="1" 
-autocomplete_append=" ==" autocomplete_backup_cursor="3">
+<element id="e.title2" pattern="&#10;==" is_regex="1" starts_block="1" >
+	<autocomplete append=" ==" backup_cursor="3" />
    <context symbols="=">
     <element pattern="==" ends_block="1" blockstartelement="e.title2" ends_context="1" highlight="title" />
    </context>
@@ -214,7 +214,8 @@ attrib_autocomplete_backup_cursor="1">
    <tag name="blockquote" attributes="&univ;,&i18n;,&evnt;,cite">
       <reference>Defines a long quotation</reference>
    </tag>
-   <tag name="br" attributes="&univ;" autocomplete_append=" /&gt;">
+   <tag name="br" attributes="&univ;" >
+   	<autocomplete append=" /&gt;" />
       <reference>Defines a single line break</reference>
    </tag>
    <tag name="cite" attributes="&univ;,&i18n;,&evnt;">
@@ -256,7 +257,8 @@ attrib_autocomplete_backup_cursor="1">
    <tag name="h6" attributes="&univ;,&i18n;,&evnt;,align">
       <reference>Defines a HTML heading</reference>
    </tag>
-   <tag name="hr" autocomplete_append=" /&gt;" attributes="&univ;,align,noshade,size,width">
+   <tag name="hr"  attributes="&univ;,align,noshade,size,width">
+   	<autocomplete append=" /&gt;" />
       <reference>Defines a horizontal line</reference>
    </tag>
    <tag name="i" attributes="&univ;,&i18n;,&evnt;">
@@ -305,8 +307,8 @@ attrib_autocomplete_backup_cursor="1">
 </group>
 <group highlight="html_table_tag" attribhighlight="html_attribute" attrib_autocomplete_append="=&quot;&quot;" 
 attrib_autocomplete_backup_cursor="1">
-   <tag name="table" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" 
-autocomplete_append=" summary=&quot;&quot; &gt;&#10;&#10;&lt;/table&gt;" autocomplete_backup_cursor="9">
+   <tag name="table" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" >
+   	<autocomplete append=" summary=&quot;&quot; &gt;&#10;&#10;&lt;/table&gt;" backup_cursor="9" />
       <reference>Defines a table</reference>
    </tag>
    <tag name="caption" attributes="align,&univ;,&i18n;,&evnt;">
@@ -349,7 +351,9 @@ attrib_autocomplete_backup_cursor="1">
 <tag name="rp" />
 <tag name="rt" />
 <tag name="ref" attributes="name" />
-<tag name="references" autocomplete_append=" /&gt;"/>
+<tag name="references" >
+	<autocomplete append=" /&gt;" />
+</tag>
 <tag name="noinclude" />
 <tag name="includeonly" />
 <tag name="nowiki" />

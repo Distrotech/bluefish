@@ -43,7 +43,8 @@
 
 <definition>
 	<context symbols=" ;@\.()[]:\&#34;\\',&gt;&lt;*&amp;^%!+=|/?#&#9;&#10;&#13;">
-<group autocomplete="1" highlight="keyword"> 
+<group  highlight="keyword">
+	<autocomplete enable="1" /> 
 <element pattern="accessor" />
 <element pattern="aclone" />
 <element pattern="add-classpath" />
@@ -507,7 +508,8 @@
 <element pattern="zipmap" />
 </group>
 
-<group autocomplete="1" highlight="keyword1"> 
+<group  highlight="keyword1">
+	<autocomplete enable="1" /> 
 <element pattern="declare" />
 <element pattern="def" />
 <element pattern="definline" />
@@ -539,17 +541,35 @@
 <element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="parens" />
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="parens" />
 
-<element pattern="true" autocomplete="1" highlight="value"/>
-<element pattern="false" autocomplete="1" highlight="value"/>
-<element pattern="nil" autocomplete="1" highlight="value"/>
+<element pattern="true"  highlight="value">
+	<autocomplete enable="1" />
+</element>
+<element pattern="false"  highlight="value">
+	<autocomplete enable="1" />
+</element>
+<element pattern="nil"  highlight="value">
+	<autocomplete enable="1" />
+</element>
 
-<element pattern=":import" autocomplete="1" highlight="import"/>
-<element pattern=":require" autocomplete="1" highlight="import"/>
-<element pattern=":use" autocomplete="1" highlight="import"/>
+<element pattern=":import"  highlight="import">
+	<autocomplete enable="1" />
+</element>
+<element pattern=":require"  highlight="import">
+	<autocomplete enable="1" />
+</element>
+<element pattern=":use"  highlight="import">
+	<autocomplete enable="1" />
+</element>
 
-<element pattern="@[^@][-a-zA-Z][-a-zA-Z0-9]*" is_regex="1" autocomplete="0" highlight="value"/>
-<element pattern="[0-9]+\.[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
-<element pattern="[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
+<element pattern="@[^@][-a-zA-Z][-a-zA-Z0-9]*" is_regex="1"  highlight="value">
+	<autocomplete enable="0" />
+</element>
+<element pattern="[0-9]+\.[0-9]+" is_regex="1"  highlight="value">
+	<autocomplete enable="0" />
+</element>
+<element pattern="[0-9]+" is_regex="1"  highlight="value">
+	<autocomplete enable="0" />
+</element>
 <element pattern=";[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
 		
 </context>
