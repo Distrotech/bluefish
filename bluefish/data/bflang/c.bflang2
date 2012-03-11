@@ -30,6 +30,7 @@
 	<option name="load_libc_functions" default="1" description="Load standard C library functions "/>
 	<option name="load_reference" default="1" description="Load reference data"/>
 	<option name="load_completion" default="1" description="Load completion data"/>
+	<option name="autocompl_with_semicolon" default="0" description="Autocomplete function names with semicolon"/>
 	<option name="show_in_menu" default="1" />
 	<highlight name="error" style="warning" />
 	<highlight name="keyword" style="keyword" />
@@ -122,7 +123,8 @@
 </group>
 <group class="load_libc_functions">
 <group highlight="libc-function" >
-	<autocomplete append="();" backup_cursor="2" />
+	<autocomplete append="();" class="autocompl_with_semicolon" backup_cursor="2" />
+	<autocomplete append="()" notclass="autocompl_with_semicolon" backup_cursor="1" />
 <element pattern="a64l"><reference>Encode Binary Data</reference></element>
 <element pattern="abort"><reference>Aborting a Program</reference></element>
 <element pattern="abs"><reference>Absolute Value</reference></element>
@@ -1334,7 +1336,8 @@
 </group>
 <group class="load_glib_functions">
 <group  highlight="glib-function" >
-	<autocomplete append="();" backup_cursor="2" />
+	<autocomplete append="();" class="autocompl_with_semicolon" backup_cursor="2" />
+	<autocomplete append="()" notclass="autocompl_with_semicolon" backup_cursor="1" />
 <element pattern="glib_check_version" />
 <element pattern="g_atomic_int_get" />
 <element pattern="g_atomic_int_set" />
@@ -2581,7 +2584,8 @@
 </group>
 
 <group  class="load_gobject_functions" highlight="gobject-function" >
-	<autocomplete append="();" backup_cursor="2" />
+	<autocomplete append="();" class="autocompl_with_semicolon" backup_cursor="2" />
+	<autocomplete append="()" notclass="autocompl_with_semicolon" backup_cursor="1" />
 	<element pattern="g_type_init" />
 	<element pattern="g_type_init_with_debug_flags" />
 	<element pattern="g_type_name" />
