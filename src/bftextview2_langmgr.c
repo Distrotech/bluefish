@@ -466,13 +466,21 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 {
 	const gchar *tmp;
 	while (xmlTextReaderRead(reader) == 1) {
-		xmlChar *name = xmlTextReaderName(reader);
+		int nodetype = xmlTextReaderNodeType(reader);
+		xmlChar *name;
+		
+		if (nodetype == 14 /* #text */) {
+			continue;
+		}
+		
+		name = xmlTextReaderName(reader);
 		if (xmlStrEqual(name, (xmlChar *) "mime")) {
 			gchar *mimetype=NULL;
 			Tattrib attribs[] = {{"type", &mimetype, attribtype_string}};
 			parse_attributes(reader, attribs, 1);
-			if (mimetype)
+			if (mimetype) {
 				bflang->mimetypes = g_list_prepend(bflang->mimetypes, mimetype);
+			}
 		} else if (xmlStrEqual(name, (xmlChar *) "option")) {
 			gchar *optionname = NULL, *description = NULL;
 			gboolean defaultval = FALSE;
@@ -660,7 +668,8 @@ process_autocomplete(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GSList 
 		g_free(append);
 	}
 	ac->backup_cursor = backup_cursor;
-	*list = g_slist_append(*list, ac);
+	/*g_print("prepend item %s to autocomplete\n",ac->string);*/
+	*list = g_slist_prepend(*list, ac);
 }
 
 /* declaration needed for recursive calling */
@@ -777,7 +786,12 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 			/* now check if there is a deeper context */
 			if (!is_empty) {
 				while (xmlTextReaderRead(reader) == 1) {
-					xmlChar *name = xmlTextReaderName(reader);
+					xmlChar *name;
+					int nodetype = xmlTextReaderNodeType(reader);
+					if (nodetype == 14 /* #text */) {
+						continue;
+					}
+					name = xmlTextReaderName(reader);
 					if (xmlStrEqual(name, (xmlChar *) "context")) {
 						DBG_PARSING("in pattern, found countext\n");
 						nextcontext = process_scanning_context(reader, bfparser, contextstack);
@@ -791,30 +805,12 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 							skip_to_end_tag(reader, xmlTextReaderDepth(reader));
 						}
 					} else if (xmlStrEqual(name, (xmlChar *) "element")) {
-						DBG_PARSING("in pattern, found 'element' --> must be end-of-element\n");
+						DBG_PARSING("in element, found 'element' --> must be end-of-element\n");
 						xmlFree(name);
 						break;
-					} else if (xmlStrEqual(name, (xmlChar *) "autocomplete")) {
-						process_autocomplete(reader, bfparser, &autocomplete);		
-/*						gchar *aclass, *anotclass;
-						aclass = (gchar *)xmlTextReaderGetAttribute(reader,(xmlChar *)"class");
-						anotclass = (gchar *)xmlTextReaderGetAttribute(reader,(xmlChar *)"notclass");
-						if (do_parse(bfparser, aclass, anotclass)) {
-							xmlChar *tmp;
-							tmp = xmlTextReaderGetAttribute(reader,(xmlChar *)"autocomplete_backup_cursor");
-							if (tmp)
-								autocomplete_backup_cursor = g_ascii_strtoll((gchar *)tmp, NULL, 10);
-							xmlFree(tmp);
-							if (autocomplete_append)
-								g_free(autocomplete_append);
-							autocomplete_append = (gchar *)xmlTextReaderReadInnerXml(reader);
-							DBG_PARSING("set autocomplete_append to %s with backup_cursor=%d\n", autocomplete_append, autocomplete_backup_cursor);
-						}
-						xmlFree(aclass);
-						xmlFree(anotclass);
-						DBG_PARSING("handled autocomplete_append, skip to end of this tag\n");
-						skip_to_end_tag(reader, xmlTextReaderDepth(reader));
-*/					} else {
+					} else if (nodetype == 1 && xmlStrEqual(name, (xmlChar *) "autocomplete")) {
+						process_autocomplete(reader, bfparser, &autocomplete);
+					} else {
 						DBG_PARSING("process_scanning_element, parsing element with name %s\n", name);
 					}
 					xmlFree(name);
@@ -1027,7 +1023,14 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 
 			if (!is_empty) {
 				while (xmlTextReaderRead(reader) == 1) {
-					xmlChar *name = xmlTextReaderName(reader);
+					int nodetype = xmlTextReaderNodeType(reader);
+					xmlChar *name;
+					
+					if (nodetype == 14) {
+						continue;
+					}
+					
+					name = xmlTextReaderName(reader);
 					if (xmlStrEqual(name, (xmlChar *) "reference")) {
 						if (!xmlTextReaderIsEmptyElement(reader)) {
 							if (langmgr.load_reference && bfparser->load_reference)
@@ -1047,7 +1050,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					} else if (xmlStrEqual(name, (xmlChar *) "tag")) {
 						xmlFree(name);
 						break;
-					} else if (xmlStrEqual(name, (xmlChar *) "autocomplete")) {
+					} else if (nodetype == 1 && xmlStrEqual(name, (xmlChar *) "autocomplete")) {
 						process_autocomplete(reader, bfparser, &autocomplete);
 					} else {
 						DBG_PARSING("process_scanning_tag, parsing element with name %s\n", name);
@@ -1146,7 +1149,14 @@ process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gint 
 		skip_to_end_tag(reader, depth);
 	} else {
 		while (xmlTextReaderRead(reader) == 1) {
-			xmlChar *name = xmlTextReaderName(reader);
+			int nodetype = xmlTextReaderNodeType(reader);
+			xmlChar *name;
+			
+			if (nodetype == 14 /* #text */) {
+				continue;
+			} 
+			
+			name = xmlTextReaderName(reader);
 			if (xmlStrEqual(name, (xmlChar *) "element")) {
 				process_scanning_element(reader, bfparser, context, contextstack,
 									highlight ? highlight : ih_highlight,
@@ -1180,7 +1190,7 @@ process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gint 
 									ih_attrib_autocomplete_backup_cursor,
 									autocomplete ? autocomplete : ih_autocomplete);
 				}
-			} else if (xmlStrEqual(name, (xmlChar *) "autocomplete")) {
+			} else if (nodetype == 1 && xmlStrEqual(name, (xmlChar *) "autocomplete")) {
 				process_autocomplete(reader, bfparser, &autocomplete);
 			} else {
 				DBG_PARSING("found %s\n", name);
