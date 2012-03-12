@@ -738,7 +738,7 @@ match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context)
 
 		while (tmpslist) {
 			Tpattern_autocomplete *pac = tmpslist->data;
-			list = g_list_append(list, pac->autocomplete_string);
+			list = g_list_prepend(list, pac->autocomplete_string);
 			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).patternhash,
 								pac->autocomplete_string, GINT_TO_POINTER(pattern_id));
 			tmpslist = g_slist_next(tmpslist);
