@@ -71,7 +71,7 @@
 
 <!-- TODO: better use something like e.xml.tag.open for this tag to solve: (1) every xmlns:* element might be allowed, (2) transorm is an alias, (3) version 1 vs 2 via class/notclass -->
 <tag name="xsl:stylesheet" attributes="id,extension-element-prefixes,exclude-result-prefixes,version,xmlns" attribhighlight="attribute" highlight="tag">
-	<autocomplete append=" xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&#10;                version=&quot;1.0&quot;&gt;">
+	<autocomplete append=" xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&#10;                version=&quot;1.0&quot;&gt;" />
 	<reference>The xsl:stylesheet element represents a stylesheet in an XML document. xsl:transform is allowed synonymously.</reference>
 
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
