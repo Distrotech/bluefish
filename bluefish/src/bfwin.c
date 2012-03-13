@@ -1489,7 +1489,12 @@ bfwin_set_title(Tbfwin * bfwin, Tdocument * doc, gint num_modified_change)
 	}
 	tablabel = gtk_label_get_text(GTK_LABEL(doc->tab_label));
 	if (doc->uri) {
-		gchar *curi = g_file_get_uri(doc->uri);
+		gchar *curi;
+		if (g_file_is_native(doc->uri)) {
+			curi = g_file_get_parse_name(doc->uri);
+		} else {
+			curi = g_file_get_uri(doc->uri);
+		}
 		if (bfwin->project) {
 			prfilepart = g_strconcat(bfwin->project->name, " - ", tablabel, " (", curi, ")", NULL);
 		} else {
