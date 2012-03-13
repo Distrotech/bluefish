@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * dialog_utils.c - dialog utility functions
  *
- * Copyright (C) 2005-2011 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2012 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -498,7 +498,8 @@ dialog_label_new(const gchar * labeltext, gfloat xalign, gfloat yalign, GtkWidge
 	GtkWidget *label;
 
 	label = gtk_label_new(NULL);
-	gtk_label_set_markup_with_mnemonic(GTK_LABEL(label), labeltext);
+	if (labeltext)
+		gtk_label_set_markup_with_mnemonic(GTK_LABEL(label), labeltext);
 	gtk_misc_set_alignment(GTK_MISC(label), xalign, yalign);
 	gtk_box_pack_start(GTK_BOX(box), label, FALSE, FALSE, padding);
 
