@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * preferences.c - the preferences code
  *
- * Copyright (C) 2002-2011 Olivier Sessink
+ * Copyright (C) 2002-2012 Olivier Sessink
  * Copyright (C) 2010-2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
@@ -184,6 +184,7 @@ typedef struct {
 } Tplugindialog;
 
 typedef struct {
+	GtkWidget *title;
 	GtkListStore *lstore;
 	GtkTreeModelFilter *lfilter;
 	GtkWidget *lview;
@@ -1342,8 +1343,12 @@ bflang_highlight_edited_lcb(GtkCellRendererCombo * combo, gchar * path, gchar * 
 static void
 bflanggui_set_bflang(Tprefdialog * pd, gpointer data)
 {
+	gchar *name;
 	Tbflang *bflang = data;
 	pd->bld.curbflang = bflang;
+	name = g_strdup_printf("<b>%s</b>",bflang->name);
+	gtk_label_set_markup(GTK_LABEL(pd->bld.title), name);
+	g_free(name);
 	gtk_tree_model_filter_refilter(pd->bld.lfilter);
 	gtk_tree_model_filter_refilter(pd->bld.lfilter2);
 }
@@ -1409,12 +1414,18 @@ fill_bflang_gui(Tprefdialog * pd)
 static void
 create_bflang_gui(Tprefdialog * pd, GtkWidget * vbox1)
 {
-	GtkWidget *scrolwin;
+	GtkWidget *scrolwin, *label;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 
 	pd->lists[bflang_options] = duplicate_arraylist(main_v->props.bflang_options);
 	pd->lists[highlight_styles] = duplicate_arraylist(main_v->props.highlight_styles);
+
+	pd->bld.title = dialog_label_new(NULL, 0, 0, vbox1, 0);
+	
+	label = gtk_label_new(_("A restart is needed to see the effect of these options"));
+	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
+	gtk_box_pack_start(GTK_BOX(vbox1), label, FALSE, FALSE, 5);
 
 	pd->bld.lstore = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER);
 	pd->bld.lfilter = (GtkTreeModelFilter *) gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore), NULL);
@@ -2479,14 +2490,19 @@ preferences_dialog_new(void)
 	g_signal_connect(G_OBJECT(pd->prefs[load_reference]), "toggled", G_CALLBACK(load_reference_toggled_lcb),
 					 pd);
 
-	vbox1 = gtk_vbox_new(FALSE, 5);
+	frame = gtk_frame_new(NULL);
+	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
+	vbox1 = gtk_vbox_new(FALSE, 12);
+	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
+	gtk_container_add(GTK_CONTAINER(frame), vbox1);
+
 	create_bflang_gui(pd, vbox1);
 	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, vbox1);
 	freelist = tmplist = g_list_first(langmgr_get_languages());
 	while (tmplist) {
 		Tbflang *bflang = tmplist->data;
 		gtk_tree_store_append(pd->nstore, &auxit, &iter);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, bflang->name, WIDGETCOL, vbox1, FUNCCOL,
+		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, bflang->name, WIDGETCOL, frame, FUNCCOL,
 						   bflanggui_set_bflang, DATACOL, bflang, -1);
 		tmplist = g_list_next(tmplist);
 	}
