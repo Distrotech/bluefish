@@ -1811,7 +1811,7 @@ bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its, GtkText
 		gboolean retval;
 		gtk_text_buffer_get_iter_at_mark(buffer, &tmpits, gtk_text_buffer_get_insert(buffer));
 		/* for line comments the \n is usually not part of the comment anymore, so move back one char */
-		if (gtk_text_iter_ends_line(&tmpits))
+		if (!gtk_text_iter_starts_line(&tmpits) && gtk_text_iter_ends_line(&tmpits))
 			gtk_text_iter_backward_char(&tmpits);
 		retval = gtk_text_iter_has_tag(&tmpits, comment_tag);
 		*ite = *its = tmpits;

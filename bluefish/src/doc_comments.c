@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * doc_comments.c - toggle comments
  *
- * Copyright (C) 2010 Olivier Sessink
+ * Copyright (C) 2010-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -192,8 +192,10 @@ void toggle_comment(Tdocument *doc) {
 			selection=TRUE;
 		 } else {
 		 	gtk_text_iter_set_line_offset(&its,0);
-		 	gtk_text_iter_forward_to_line_end(&ite);
-		 	sameline = gtk_text_iter_get_line(&its)==gtk_text_iter_get_line(&ite);
+		 	if (!gtk_text_iter_ends_line(&ite)) {
+				gtk_text_iter_forward_to_line_end(&ite);
+			}
+		 	sameline = TRUE;
 		}
 		comment = bluefish_text_view_get_comment(BLUEFISH_TEXT_VIEW(doc->view), &its, sameline?comment_type_line:comment_type_block);
 		DEBUG_MSG("toggle_comment, comment=%p\n",comment);
