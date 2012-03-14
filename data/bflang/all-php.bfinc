@@ -21,7 +21,7 @@
 
 <bfinc>
 <group class="load_php_functions"  highlight="php-function" >
-	<autocomplete append="();" backup_cursor="2" />
+	<autocomplete append="();" backup_cursor="2"  class="autocomplete_with_parentheses" />
 <element pattern="dotnet_load"/>
 <element pattern="apache_child_terminate"/>
 <element pattern="apache_get_modules"/>
