@@ -1346,9 +1346,11 @@ bflanggui_set_bflang(Tprefdialog * pd, gpointer data)
 	gchar *name;
 	Tbflang *bflang = data;
 	pd->bld.curbflang = bflang;
-	name = g_strdup_printf("<b>%s</b>",bflang->name);
-	gtk_label_set_markup(GTK_LABEL(pd->bld.title), name);
-	g_free(name);
+	if (bflang) {
+		name = g_strdup_printf("<b>%s</b>",bflang->name);
+		gtk_label_set_markup(GTK_LABEL(pd->bld.title), name);
+		g_free(name);
+	}
 	gtk_tree_model_filter_refilter(pd->bld.lfilter);
 	gtk_tree_model_filter_refilter(pd->bld.lfilter2);
 }
