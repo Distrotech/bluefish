@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h>				/* strcmp() */
@@ -1483,8 +1483,9 @@ destroy_widgets_in_freelist_lcb(gpointer child,gpointer user_data)
 {
 	Tprefdialog * pd = user_data;
 	if (child && child != pd->curchild) {
-		DEBUG_MSG("destroy_widgets_in_listmodel_lcb, got child %p\n",child);
+		DEBUG_MSG("destroy_widgets_in_freelist_lcb, got child %p\n",child);
 		if (g_object_is_floating(child)) {
+			DEBUG_MSG("%p was floating, sink first\n",child);
 			g_object_ref_sink(child);
 		}
 		g_object_unref(child);
@@ -2497,7 +2498,7 @@ preferences_dialog_new(void)
 	gtk_container_add(GTK_CONTAINER(frame), vbox1);
 
 	create_bflang_gui(pd, vbox1);
-	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, vbox1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 	freelist = tmplist = g_list_first(langmgr_get_languages());
 	while (tmplist) {
 		Tbflang *bflang = tmplist->data;
