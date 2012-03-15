@@ -1298,11 +1298,21 @@ htmlbar_insert_middot(GtkAction * action, gpointer user_data)
 void
 htmlbar_toolbar_show(Thtmlbarwin * hbw, Thtmlbarsession *hbs, gboolean show)
 {
+	if (htmlbar_v.in_sidepanel)
+		return;
+	
 	if (show) {
-		if (hbw->handlebox)
+		if (hbw->handlebox) {
 			gtk_widget_show(hbw->handlebox);
-		else
-			htmlbar_toolbar_create(hbw, hbs);
+		} else {
+			GtkWidget *html_notebook;
+			html_notebook = htmlbar_toolbar_create(hbw, hbs);
+			hbw->handlebox = gtk_handle_box_new();
+			gtk_container_add(GTK_CONTAINER(hbw->handlebox), html_notebook);
+			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP);
+			gtk_box_pack_start(GTK_BOX(hbw->bfwin->toolbarbox), hbw->handlebox, FALSE, FALSE, 0);
+			gtk_widget_show_all(hbw->handlebox);
+		}
 	} else {
 		if (hbw->handlebox)
 			gtk_widget_hide(hbw->handlebox);
@@ -2003,7 +2013,22 @@ notebook_switch_page_lcb(GtkNotebook *notebook,GtkWidget   *page,guint        pa
 	}
 }
 
-void
+static GtkWidget *new_html_subtoolbar(Thtmlbarwin * hbw, GtkWidget *html_notebook, GtkWidget *toolbar, const gchar *labeltext)
+{
+	GtkWidget *label;
+	
+	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
+	if (htmlbar_v.in_sidepanel) {
+		gtk_orientable_set_orientation(GTK_ORIENTABLE(toolbar), GTK_ORIENTATION_VERTICAL);
+	}
+	label = gtk_label_new(labeltext);
+/*	gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_END);*/
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, label);
+	gtk_notebook_set_tab_label_packing(GTK_NOTEBOOK(html_notebook),label,TRUE,TRUE,GTK_PACK_START);
+	return toolbar;	
+}
+
+GtkWidget *
 htmlbar_toolbar_create(Thtmlbarwin * hbw, Thtmlbarsession *hbs)
 {
 	Tbfwin *bfwin = hbw->bfwin;
@@ -2012,70 +2037,46 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw, Thtmlbarsession *hbs)
 	GtkWidget *toolbar;
 
 	html_notebook = gtk_notebook_new();
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP);
+	
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(html_notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(html_notebook), TRUE);
-	hbw->handlebox = gtk_handle_box_new();
-	gtk_container_add(GTK_CONTAINER(hbw->handlebox), html_notebook);
-	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), hbw->handlebox, FALSE, FALSE, 0);
+	gtk_notebook_set_scrollable(GTK_NOTEBOOK(html_notebook), TRUE);
 
-	hbw->quickbar_toolbar = gtk_toolbar_new();
-	gtk_toolbar_set_style(GTK_TOOLBAR(hbw->quickbar_toolbar), GTK_TOOLBAR_ICONS);
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), hbw->quickbar_toolbar, gtk_label_new(_(" Quickbar ")));
+	hbw->quickbar_toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_toolbar_new(), _("Quickbar"));
 	htmlbar_load_quickbar(hbw, hbw->quickbar_toolbar);
 
-	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar");
-	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Standard ")));
+	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar"), _("Standard"));
 	setup_items_for_quickbar(hbw, toolbar);
 
-	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFontsToolbar");
-	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Fonts ")));
+	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLHTML5Toolbar"), _("HTML 5"));
 	setup_items_for_quickbar(hbw, toolbar);
 
-	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFormattingToolbar");
-	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Formatting ")));
+	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFormattingToolbar"), _("Formatting"));
 	setup_items_for_quickbar(hbw, toolbar);
 
-	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLTablesToolbar");
-	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Tables ")));
-	setup_items_for_quickbar(hbw, toolbar);
-
-	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFramesToolbar");
-	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Frames ")));
-	setup_items_for_quickbar(hbw, toolbar);
-
-	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFormsToolbar");
-	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" Forms ")));
-	setup_items_for_quickbar(hbw, toolbar);
-
-	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLListToolbar");
-	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" List ")));
-	setup_items_for_quickbar(hbw, toolbar);
-
-	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLCSSToolbar");
-	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" CSS ")));
-	setup_items_for_quickbar(hbw, toolbar);
-
-	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLHTML5Toolbar");
-	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" HTML 5 ")));
+	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLTablesToolbar"), _("Tables"));
 	setup_items_for_quickbar(hbw, toolbar);
 	
-	gtk_widget_show_all(hbw->handlebox);
+	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLListToolbar"), _("List"));
+	setup_items_for_quickbar(hbw, toolbar);
+	
+	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLCSSToolbar"), _("CSS"));
+	setup_items_for_quickbar(hbw, toolbar);
+
+	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFormsToolbar"), _("Forms"));
+	setup_items_for_quickbar(hbw, toolbar);
+
+	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFontsToolbar"), _("Fonts"));
+	setup_items_for_quickbar(hbw, toolbar);
+
+	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFramesToolbar"), _("Frames"));
+	setup_items_for_quickbar(hbw, toolbar);
 	
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(html_notebook), hbs->notebooktab);
 	DEBUG_MSG("htmlbar htmlbar_toolbar_create, make page %d active\n", hbs->notebooktab);
 	g_signal_connect(G_OBJECT(html_notebook), "switch-page", G_CALLBACK(notebook_switch_page_lcb), hbw);
-
 	
+	return html_notebook;
 }
 
 void htmlbar_load_ui(Thtmlbarwin * hbw)

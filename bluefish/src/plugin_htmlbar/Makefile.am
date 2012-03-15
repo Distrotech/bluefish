@@ -32,6 +32,8 @@ htmlbar_la_SOURCES = \
 	image.h \
 	image_dialog.c \
 	image_dialog.h \
+	prefs.c \
+	prefs.h \
 	quickstart.c \
 	quickstart.h \
 	rpopup.c \

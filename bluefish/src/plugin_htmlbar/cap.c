@@ -44,8 +44,8 @@ char *cap(const char *s)
 	size_t i;
 	size_t slen;
 
-	DEBUG_MSG("cap, lowercase_tags=%d\n", main_v->props.lowercase_tags);
-	if (!main_v->props.lowercase_tags) {
+	DEBUG_MSG("cap, lowercase_tags=%d\n", htmlbar_v.lowercase_tags);
+	if (!htmlbar_v.lowercase_tags) {
 		DEBUG_MSG("cap, we DO NOT want lowercase\n");
 		needschange = islower;
 		dochange = toupper;

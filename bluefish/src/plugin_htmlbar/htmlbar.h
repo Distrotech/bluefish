@@ -35,11 +35,14 @@
 typedef struct {
 	GHashTable *lookup;
 	GList *quickbar_items;
+	gint in_sidepanel;
+	gint lowercase_tags;
 } Thtmlbar;
 
 typedef struct {
 	Tbfwin *bfwin;
-	GtkWidget *handlebox;
+	GtkWidget *handlebox; /* if top toolbar */
+	GtkWidget *npage; /* if notebook page */
 	GtkActionGroup *actiongroup;
 	GtkWidget *quickbar_toolbar;
 } Thtmlbarwin;

@@ -27,9 +27,11 @@
 #include "../document.h"
 #include "../gtk_easy.h"
 #include "../stringlist.h"
+#include "../pixmap.h"
 #include "htmlbar_uimanager.h"
 #include "htmlbar_stock_icons.h"
 #include "rpopup.h"
+#include "prefs.h"
 
 Thtmlbar htmlbar_v;
 
@@ -56,13 +58,6 @@ htmlbar_doc_view_populate_popup(GtkTextView * textview, GtkMenu * menu, Tdocumen
 	} else {
 		gtk_widget_set_sensitive(menuitem, FALSE);
 	}
-
-/*	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
-
-	menuitem = gtk_image_menu_item_new_with_label(_("Plugin test"));
-	g_signal_connect(menuitem, "activate", G_CALLBACK(search_cb), doc->bfwin);
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),gtk_image_new_from_stock(GTK_STOCK_FIND, GTK_ICON_SIZE_MENU));
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem)); */
 }
 
 static void
@@ -75,6 +70,42 @@ htmlbar_doc_view_button_press(GtkWidget * widget, GdkEventButton * bevent, Tdocu
 }
 
 static void
+htmlbar_sidepanel_initgui(Tbfwin *bfwin)
+{
+	
+	if (htmlbar_v.in_sidepanel && bfwin->leftpanel_notebook) {
+		Thtmlbarwin *hbw;
+		Thtmlbarsession *hbs;
+		GtkWidget *html_notebook;
+		GtkWidget *image;
+
+		hbs = g_hash_table_lookup(htmlbar_v.lookup, bfwin->session);
+		hbw = g_hash_table_lookup(htmlbar_v.lookup, bfwin);
+		if (!hbw || !hbs) {
+			g_warning("htmlbar, no hbw/hbs when creating sidebar, please report");
+			return;
+		}
+		if (hbw->handlebox) {
+			gtk_widget_destroy(hbw->handlebox);
+			hbw->handlebox = NULL;
+		}
+		
+		image = gtk_image_new_from_stock(BF_STOCK_BROWSER_PREVIEW, GTK_ICON_SIZE_LARGE_TOOLBAR);
+		html_notebook = htmlbar_toolbar_create(hbw, hbs);
+		
+		gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_LEFT);
+		gtk_widget_show_all(html_notebook);
+		gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),html_notebook,image,gtk_label_new(_("Htmlbar")));
+	} 
+}
+
+static void
+htmlbar_sidepanel_destroygui(Tbfwin *bfwin)
+{
+	/* only widgets to destroy ?? */
+}
+
+static void
 htmlbar_init(void)
 {
 #ifdef ENABLE_NLS
@@ -83,6 +114,9 @@ htmlbar_init(void)
 	bind_textdomain_codeset(PACKAGE "_plugin_htmlbar", "UTF-8");
 #endif
 	htmlbar_v.quickbar_items = NULL;
+	htmlbar_v.in_sidepanel = 0;
+	htmlbar_v.lowercase_tags = 1;
+
 	htmlbar_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */ ,
 											 NULL /* == g_direct_equal() */ ,
 											 NULL, g_free);
@@ -91,6 +125,12 @@ htmlbar_init(void)
 		g_slist_prepend(main_v->doc_view_populate_popup_cbs, htmlbar_doc_view_populate_popup);
 	main_v->doc_view_button_press_cbs =
 		g_slist_prepend(main_v->doc_view_button_press_cbs, htmlbar_doc_view_button_press);
+	main_v->pref_initgui =
+		g_slist_prepend(main_v->pref_initgui, htmlbar_pref_initgui);
+	main_v->pref_apply =
+		g_slist_prepend(main_v->pref_apply, htmlbar_pref_apply);
+	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,htmlbar_sidepanel_initgui);
+/*	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,htmlbar_sidepanel_destroygui);*/
 	DEBUG_MSG("htmlbar_init, finished\n");
 }
 
@@ -99,10 +139,11 @@ htmlbar_initgui(Tbfwin * bfwin)
 {
 	Thtmlbarwin *hbw;
 	Thtmlbarsession *hbs;
+	GtkAction *action;
 
 	hbw = g_new0(Thtmlbarwin, 1);
 	hbw->bfwin = bfwin;
-	if (g_hash_table_size(htmlbar_v.lookup)==1) { /* the first entry is the global session */
+	if (g_hash_table_size(htmlbar_v.lookup)==1) { /* the first entry is the global session, so we make sure now we run this code only once! */
 		htmlbar_register_stock_icons();
 	}
 
@@ -116,11 +157,18 @@ htmlbar_initgui(Tbfwin * bfwin)
 				  bfwin->session);
 		g_hash_table_insert(htmlbar_v.lookup, bfwin->session, hbs);
 	}
+	g_print("htmlbar_initgui, created hbw=%p and hbs=%p\n",hbw,hbs);
 	
 	DEBUG_MSG("htmlbar_initgui, started, will call htmlbar_load_ui\n");
 	htmlbar_load_ui(hbw);
 	htmlbar_menu_create(hbw);
-	htmlbar_toolbar_show(hbw, hbs, hbs->view_htmlbar);
+	action = gtk_ui_manager_get_action(bfwin->uimanager, "/MainMenu/ViewMenu/ViewHTMLToolbar");
+	if (!htmlbar_v.in_sidepanel) {
+		htmlbar_toolbar_show(hbw, hbs, hbs->view_htmlbar);
+		gtk_action_set_visible(action, TRUE);
+	} else {
+		gtk_action_set_visible(action, FALSE);
+	}
 	DEBUG_MSG("htmlbar_initgui, finished\n");
 }
 
@@ -132,7 +180,10 @@ htmlbar_enforce_session(Tbfwin * bfwin)
 	DEBUG_MSG("htmlbar_enforce_session, started for session %p\n", bfwin->session);
 	hbs = g_hash_table_lookup(htmlbar_v.lookup, bfwin->session);
 	hbw = g_hash_table_lookup(htmlbar_v.lookup, bfwin);
-	if (hbs && hbw) {
+	if (!hbs || !hbw) {
+		return;
+	}
+	if (htmlbar_v.in_sidepanel) {
 		htmlbar_toolbar_show(hbw, hbs, hbs->view_htmlbar);
 	}
 }
@@ -173,8 +224,9 @@ static GHashTable *
 htmlbar_register_globses_config(GHashTable * configlist)
 {
 	DEBUG_MSG("htmlbar_register_globses_config, started\n");
-/*	configlist = make_config_list_item(configlist, &htmlbar_v.view_htmlbar, 'i', "view_htmlbar", 0);*/
+	configlist = make_config_list_item(configlist, &htmlbar_v.in_sidepanel, 'i', "htmlbar_in_sidepanel:", 0);
 	configlist = make_config_list_item(configlist, &htmlbar_v.quickbar_items, 'l', "htmlbar_quickbar:", 0);
+	configlist = make_config_list_item(configlist, &htmlbar_v.lowercase_tags, 'i', "lowercase_tags:", 0);
 	return configlist;
 }
 

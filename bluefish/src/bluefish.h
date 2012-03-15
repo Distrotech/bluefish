@@ -2,7 +2,7 @@
  * bluefish.h - global prototypes
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2011 Olivier Sessink
+ * Copyright (C) 1999-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -308,13 +308,10 @@ typedef struct {
 	gint allow_dep;				/* allow <FONT>... */
 	gint format_by_context;		/* use <strong> instead of <b>, <emphasis instead of <i> etc. (W3C reccomendation) */
 	gint xhtml;					/* write <br /> */
-	/*  gint insert_close_tag; *//* write a closingtag after a start tag */
-	/*  gint close_tag_newline; *//* insert the closing tag after a newline */
 	gint allow_ruby;			/* allow <ruby> */
 	gint force_dtd;				/* write <!DOCTYPE...> */
 	gint dtd_url;				/* URL in DTD */
 	gint xml_start;				/* <?XML...> */
-	gint lowercase_tags;		/* use lowercase tags */
 	gint smartindent;			/* add extra indent in certain situations */
 	gint drop_at_drop_pos;		/* drop at drop position instead of cursor position */
 	gint link_management;		/* perform link management */
@@ -546,10 +543,10 @@ typedef struct {
 	GHashTable *identifier_jump;
 	GHashTable *identifier_ac;
 #endif /* IDENTSTORING */
-	GSList *curdoc_changed; /* register a function here that is called when the current document changes*/
-	GSList *doc_insert_text; /* register a function here that is called when text is inserted into a document */
-	GSList *doc_delete_range; /* register a function here that is called when text is deleted from a document */
-	GSList *doc_destroy; /* register a function here that is called when a document is destroyed */
+	GSList *curdoc_changed; /* register a CurdocChangedCallback function here that is called when the current document changes*/
+	GSList *doc_insert_text; /* register a DocInsertTextCallback function here that is called when text is inserted into a document */
+	GSList *doc_delete_range; /* register a DocDeleteRangeCallback function here that is called when text is deleted from a document */
+	GSList *doc_destroy; /* register a DocDestroyCallback function here that is called when a document is destroyed  */
 } Tbfwin;
 
 typedef struct {
@@ -584,6 +581,8 @@ typedef struct {
 								   is initialized */
 	GSList *sidepanel_destroygui;	/* plugins can register a function here that is called when the side pane
 									   is destroyed */
+	GSList *pref_initgui; /* register a PrefInitguiCallback function here to add a preferences panel */
+	GSList *pref_apply; /* PrefApplyCallback */
 } Tmain;
 
 extern EXPORT Tmain *main_v;
