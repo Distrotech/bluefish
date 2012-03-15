@@ -61,7 +61,6 @@ enum {
 	visible_ws_mode,
 	right_margin_pos,
 	/*defaulthighlight, *//* highlight documents by default */
-	transient_htdialogs,		/* set html dialogs transient ro the main window */
 	leave_to_window_manager,
 	restore_dimensions,
 	left_panel_left,
@@ -78,25 +77,16 @@ enum {
 	clear_undo_on_save,			/* clear all undo information on file save */
 	newfile_default_encoding,	/* if you open a new file, what encoding will it use */
 	auto_set_encoding_meta,		/* auto set metatag for the encoding */
-	auto_update_meta_author,	/* auto update author meta tag */
-	auto_update_meta_date,		/* auto update date meta tag */
-	auto_update_meta_generator,	/* auto update generator meta tag */
 	max_window_title,
 	document_tabposition,
 	leftpanel_tabposition,
 	switch_tabs_by_altx,		/* switch tabs using Alt+X (#385860) */
 	/* not yet in use */
 	image_editor_cline,			/* image editor commandline */
-	allow_dep,					/* allow <FONT>... */
-	format_by_context,			/* use <strong> instead of <b>, <emphasis instead of <i> etc. (W3C reccomendation) */
-	xhtml,						/* write <br /> */
-	/*insert_close_tag, *//* write a closingtag after a start tag */
-	/*close_tag_newline, *//* insert the closing tag after a newline */
 	allow_ruby,					/* allow <ruby> */
 	force_dtd,					/* write <!DOCTYPE...> */
 	dtd_url,					/* URL in DTD */
 	xml_start,					/* <?XML...> */
-	lowercase_tags,				/* use lowercase tags */
 	smartindent,
 	drop_at_drop_pos,			/* drop at drop position instead of cursor position */
 	link_management,			/* perform link management */
@@ -170,13 +160,6 @@ typedef struct {
 	GtkListStore *cstore;
 	gchar **curstrarr;
 } Thldialog;
-
-enum {
-	NAMECOL,
-	WIDGETCOL,
-	FUNCCOL,
-	DATACOL
-};
 
 typedef struct {
 	GtkListStore *lstore;
@@ -1533,6 +1516,7 @@ preferences_destroy_lcb(GtkWidget * widget, Tprefdialog * pd)
 static void
 preferences_apply(Tprefdialog * pd)
 {
+	GSList *tmpslist;
 	DEBUG_MSG("preferences_apply, started\n");
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
@@ -1548,19 +1532,6 @@ preferences_apply(Tprefdialog * pd)
 	integer_apply(&main_v->props.right_margin_pos, pd->prefs[right_margin_pos], FALSE);
 	main_v->props.visible_ws_mode = gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[visible_ws_mode]));
 	/*integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE); */
-
-	integer_apply(&main_v->props.xhtml, pd->prefs[xhtml], TRUE);
-	if (main_v->props.xhtml) {
-		main_v->props.lowercase_tags = 1;
-		main_v->props.allow_dep = 0;
-	}
-	integer_apply(&main_v->props.lowercase_tags, pd->prefs[lowercase_tags], TRUE);
-	integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
-	integer_apply(&main_v->props.format_by_context, pd->prefs[format_by_context], TRUE);
-
-	integer_apply(&main_v->props.auto_update_meta_author, pd->prefs[auto_update_meta_author], TRUE);
-	integer_apply(&main_v->props.auto_update_meta_date, pd->prefs[auto_update_meta_date], TRUE);
-	integer_apply(&main_v->props.auto_update_meta_generator, pd->prefs[auto_update_meta_generator], TRUE);
 
 	sessionprefs_apply(&pd->sprefs, main_v->session);
 
@@ -1622,8 +1593,6 @@ preferences_apply(Tprefdialog * pd)
 		main_v->props.language = lingua_lang_to_locale(main_v->props.language);
 	}
 
-	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
-
 	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
 	string_apply(&main_v->props.image_thumbnailtype, pd->prefs[image_thumbnailtype]);
 
@@ -1638,6 +1607,12 @@ preferences_apply(Tprefdialog * pd)
 	integer_apply(&main_v->props.load_reference, pd->prefs[load_reference], TRUE);
 	integer_apply(&main_v->props.show_autocomp_reference, pd->prefs[show_autocomp_reference], TRUE);
 	integer_apply(&main_v->props.show_tooltip_reference, pd->prefs[show_tooltip_reference], TRUE);
+
+	for (tmpslist=main_v->pref_apply;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+		PrefApplyCallback func = tmpslist->data;
+		func();
+	}
+
 
 	free_arraylist(main_v->props.plugin_config);
 	main_v->props.plugin_config = duplicate_arraylist(pd->lists[pluginconfig]);
@@ -1803,13 +1778,6 @@ open_in_running_bluefish_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
 #endif							/* ifndef WIN32 */
 
 static void
-xhtml_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
-{
-	gboolean active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-	gtk_widget_set_sensitive(pd->prefs[lowercase_tags], !active);
-	gtk_widget_set_sensitive(pd->prefs[allow_dep], !active);
-}
-static void
 use_system_colors_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
 {
 	gboolean active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
@@ -1852,6 +1820,7 @@ preferences_dialog_new(void)
 	Tprefdialog *pd;
 	gint index;
 	GList *tmplist, *poplist, *freelist;
+	GSList *tmpslist;
 	GtkWidget *dvbox, *frame, *hbox, *label, *table, *vbox1, *vbox2, *vbox3;
 	GtkWidget *dhbox, *scrolwin, *but;
 	GtkCellRenderer *cell;
@@ -2128,50 +2097,6 @@ preferences_dialog_new(void)
 									  modified_check_types, main_v->props.modified_check_type, hbox, 0);
 
 	/*
-	 *  HTML
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("HTML"), WIDGETCOL, frame, -1);
-	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
-
-	vbox2 = dialog_vbox_labeled(_("<b>HTML Toolbar</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(4, 1, 0, vbox2);
-
-	pd->prefs[lowercase_tags] = dialog_check_button_in_table(_("Use lo_wercase HTML tags"),
-															 main_v->props.lowercase_tags, table, 0, 1, 0, 1);
-	pd->prefs[allow_dep] = dialog_check_button_in_table(_("Use de_precated tags (e.g. <font> and <nobr>)"),
-														main_v->props.allow_dep, table, 0, 1, 1, 2);
-	pd->prefs[format_by_context] =
-		dialog_check_button_in_table(_
-									 ("_Format according to accessibility guidelines (e.g. <strong> for <b>)"),
-									 main_v->props.format_by_context, table, 0, 1, 2, 3);
-	pd->prefs[xhtml] =
-		dialog_check_button_in_table(_("Use _XHTML style tags (<br />)"), main_v->props.xhtml, table, 0, 1, 3,
-									 4);
-	g_signal_connect(G_OBJECT(pd->prefs[xhtml]), "toggled", G_CALLBACK(xhtml_toggled_lcb), pd);
-	xhtml_toggled_lcb(pd->prefs[xhtml], pd);
-
-
-	vbox2 = dialog_vbox_labeled(_("<b>Auto Update Tag Options</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(3, 1, 0, vbox2);
-
-	pd->prefs[auto_update_meta_author] =
-		dialog_check_button_in_table(_("Automatically update a_uthor meta tag"),
-									 main_v->props.auto_update_meta_author, table, 0, 1, 0, 1);
-	pd->prefs[auto_update_meta_date] =
-		dialog_check_button_in_table(_("Automatically update _date meta tag"),
-									 main_v->props.auto_update_meta_date, table, 0, 1, 1, 2);
-	pd->prefs[auto_update_meta_generator] =
-		dialog_check_button_in_table(_("Automatically update _generator meta tag"),
-									 main_v->props.auto_update_meta_generator, table, 0, 1, 2, 3);
-
-	/*
 	 *  Templates
 	 */
 	frame = gtk_frame_new(NULL);
@@ -2222,10 +2147,6 @@ preferences_dialog_new(void)
 																						props.language) :
 																  _("Auto"), _("_Language:"), hbox, 0);
 	free_stringlist(poplist);
-
-	pd->prefs[transient_htdialogs] = dialog_check_button_new(_("_Make HTML dialogs transient"),
-															 main_v->props.transient_htdialogs);
-	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[transient_htdialogs], FALSE, FALSE, 0);
 
 	pd->prefs[save_accelmap] = dialog_check_button_new(_("Save menu accelerators on exit"),
 															 main_v->props.save_accelmap);
@@ -2449,6 +2370,15 @@ preferences_dialog_new(void)
 	vbox2 = dialog_vbox_labeled(_("<b>Plugins</b>"), vbox1);
 	create_plugin_gui(pd, vbox2);
 
+	/* plugin children */
+	
+	for (tmpslist=main_v->pref_initgui;tmpslist;tmpslist=g_slist_next(tmpslist))
+	{
+		PrefInitguiCallback func = tmpslist->data;
+		func(pd->nstore, &auxit, &pd->widgetfreelist);
+	}
+
+
 	/*
 	 *  Text Styles
 	 */
@@ -2530,7 +2460,7 @@ preferences_dialog_new(void)
 	}
 
 	gtk_widget_show_all(pd->win);
-
+	gtk_tree_view_expand_all(GTK_TREE_VIEW(pd->noteb));
 	g_signal_connect(G_OBJECT(pd->noteb), "cursor-changed", G_CALLBACK(preftree_cursor_changed_cb), pd);
 	path = gtk_tree_path_new_first();
 	gtk_tree_view_set_cursor(GTK_TREE_VIEW(pd->noteb), path, NULL, FALSE);

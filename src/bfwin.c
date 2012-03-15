@@ -1213,6 +1213,9 @@ bfwin_create_main(Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->notebook, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->notebook_fake, TRUE, TRUE, 0);
 
+	/* here we ask any plugins to build there gui, BEFORE WE START THE SIDEPANEL */
+	g_slist_foreach(main_v->plugins, bfplugins_gui, bfwin);
+
 	/* output_box * /
 	   init_output_box(bfwin, vbox); */
 	bfwin->outputbox = NULL;
@@ -1250,9 +1253,6 @@ bfwin_create_main(Tbfwin * bfwin)
 		else
 			gtk_widget_show(hbox);
 	}
-
-	/* here we ask any plugins to build there gui */
-	g_slist_foreach(main_v->plugins, bfplugins_gui, bfwin);
 
 	/* We have to know when the notebook changes */
 	bfwin->notebook_switch_signal =

@@ -26,7 +26,7 @@
 
 void htmlbar_load_ui(Thtmlbarwin * hbw);
 void htmlbar_menu_create(Thtmlbarwin *hbw);
-void htmlbar_toolbar_create(Thtmlbarwin *hbw, Thtmlbarsession *hbs);
+GtkWidget *htmlbar_toolbar_create(Thtmlbarwin *hbw, Thtmlbarsession *hbs);
 
 void htmlbar_register_stock_icons(void);
 

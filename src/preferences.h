@@ -50,6 +50,16 @@ typedef struct {
 void sessionprefs_apply(Tsessionprefs * sprefs, Tsessionvars * sessionvars);
 Tsessionprefs *sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * sessionvars);
 
+enum {
+	NAMECOL,
+	WIDGETCOL,
+	FUNCCOL,
+	DATACOL
+};
+
+typedef void (*PrefInitguiCallback) (GtkTreeStore *nstore, GtkTreeIter *pit, GSList **widgetfreelist);
+typedef void (*PrefApplyCallback) (void);
+
 void preferences_dialog_new(void);
 
 #endif							/* __PREFERENCES_H_ */
