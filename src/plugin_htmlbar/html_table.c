@@ -183,7 +183,7 @@ tablerowdialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	gchar *thestring, *finalstring;
 
 	thestring = g_strdup(cap("<TR"));
-	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("ALIGN"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("VALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("BGCOLOR"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[4]), cap("CLASS"), thestring, NULL);
