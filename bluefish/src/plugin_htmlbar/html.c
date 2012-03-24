@@ -1725,7 +1725,9 @@ framedialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[0])), cap("FRAMEBORDER"), thestring, NULL);
 	tmp = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[3]));
-	thestring = insert_string_if_string(tmp, cap("SCROLLING"), thestring, NULL);
+	if(strlen(tmp)) {
+		thestring = g_strconcat(thestring, cap(" SCROLLING=\""), tmp, "\"",NULL);
+	} 
 	g_free(tmp);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("MARGINWIDTH"), thestring, NULL);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[2])), cap("MARGINHEIGHT"), thestring, NULL);
@@ -1785,10 +1787,11 @@ frame_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dialog_mnemonic_label_in_table(_("Margin _Height:"), dg->spin[2], dgtable, 0,1, 3,4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1,5, 3,4);
 
-	popuplist = g_list_append(popuplist, "auto");
-	popuplist = g_list_append(popuplist, "yes");
-	popuplist = g_list_append(popuplist, "no");
-	dg->combo[3] = combobox_with_popdown_sized(tagvalues[3], popuplist, 0, 90);
+	popuplist = g_list_insert(popuplist, "auto",0);
+	popuplist = g_list_insert(popuplist, "yes",1);
+	popuplist = g_list_insert(popuplist, "no",2);
+	popuplist = g_list_insert(popuplist, "",3);
+	dg->combo[3] = combobox_with_popdown("", popuplist, 0);
 	g_list_free(popuplist);
 	dialog_mnemonic_label_in_table(_("Scrollin_g:"), dg->combo[3], dgtable, 5,6, 1,2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 6,10, 1,2);
