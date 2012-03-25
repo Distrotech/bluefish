@@ -53,7 +53,8 @@ tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->spin[1]), cap("CELLPADDING"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->spin[3]), cap("CELLSPACING"), thestring, NULL);
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3]))) {
-		thestring =  g_strconcat(thestring, " border", NULL);
+		thestring = insert_attr_if_checkbox(dg->check[3],
+			main_v->props.xhtml == 1 ? cap("BORDER=\"border\"") : cap("BORDER"), thestring);
 	} else {
 		thestring =
 			insert_integer_if_spin(dg->spin[4], cap("BORDER"), thestring,
@@ -287,24 +288,22 @@ table_head_and_data_dialogok_lcb(gint type, GtkWidget * widget, Thtml_diag * dg)
 		thestring = g_strdup(cap("<TD"));
 	} else {
 		thestring = g_strdup(cap("<TH"));
+		thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[5]), cap("SCOPE"), thestring, NULL);
 	}
-	thestring =
-		insert_integer_if_spin(dg->spin[1], cap("WIDTH"), thestring,
-							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2])), 0);
-	thestring =
-		insert_integer_if_spin(dg->spin[3], cap("HEIGHT"), thestring,
-							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3])), 0);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[3]), cap("HEADERS"), thestring, NULL);
 	thestring = insert_integer_if_spin(dg->spin[5], cap("COLSPAN"), thestring, FALSE, 0);
 	thestring = insert_integer_if_spin(dg->spin[4], cap("ROWSPAN"), thestring, FALSE, 0);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[4]), cap("CLASS"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("STYLE"), thestring, NULL);
+	thestring =	insert_integer_if_spin(dg->spin[1], cap("WIDTH"), thestring,
+							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2])), 0);
+	thestring =	insert_integer_if_spin(dg->spin[3], cap("HEIGHT"), thestring,
+							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3])), 0);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("VALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("BGCOLOR"), thestring, NULL);
-	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[4]), cap("CLASS"), thestring, NULL);
-	thestring =
-		insert_attr_if_checkbox(dg->check[1],
-								main_v->props.xhtml == 1 ? cap("NOWRAP=\"nowrap\"") : cap("NOWRAP"),
-								thestring);
-	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("STYLE"), thestring, NULL);
+	thestring = insert_attr_if_checkbox(dg->check[1],
+							main_v->props.xhtml == 1 ? cap("NOWRAP=\"nowrap\"") : cap("NOWRAP"), thestring);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
@@ -340,10 +339,10 @@ table_head_and_data_dialog_cb(gint type, Tbfwin * bfwin, Ttagpopup * data)
 	GList *alignlist = NULL;
 
 	static gchar *tagitems[] =
-		{ "width", "align", "colspan", "height", "valign", "rowspan", "bgcolor", "nowrap", "class", "style",
-NULL
+		{ "width", "align", "colspan", "height", "valign", "rowspan", "bgcolor", "nowrap", "class", "style", 
+		"headers", "scope", NULL
 	};
-	gchar *tagvalues[11];
+	gchar *tagvalues[12];
 	gchar *custom = NULL;
 	Thtml_diag *dg;
 	GtkWidget *dgtable, *var_but;
@@ -356,17 +355,17 @@ NULL
 
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
-	dgtable = html_diag_table_in_vbox(dg, 5, 7);
+	dgtable = html_diag_table_in_vbox(dg, 6, 7);
 
 	alignlist = g_list_append(NULL, "");
 	alignlist = g_list_insert(alignlist, "left", 0);
 	alignlist = g_list_insert(alignlist, "right", 1);
 	alignlist = g_list_insert(alignlist, "center", 2);
 	alignlist = g_list_insert(alignlist, "justify", 3);
-	dg->combo[1] = combobox_with_popdown_sized(tagvalues[1], alignlist, 0, 80);
+	dg->combo[1] = combobox_with_popdown_sized(tagvalues[1], alignlist, 0, 90);
 	g_list_free(alignlist);
-	dialog_mnemonic_label_in_table(_("Ali_gn:"), dg->combo[1], dgtable, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 2, 0, 1);
+	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">Ali_gn:</span>"), dg->combo[1], dgtable, 2, 3, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 3, 4, 0, 1);
 
 	alignlist = g_list_append(NULL, "");
 	alignlist = g_list_insert(alignlist, "top", 0);
@@ -376,28 +375,43 @@ NULL
 	dg->combo[2] = combobox_with_popdown_sized(tagvalues[4], alignlist, 0, 90);
 	g_list_free(alignlist);
 
-	dialog_mnemonic_label_in_table(_("_Valign:"), dg->combo[2], dgtable, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1, 2, 1, 2);
+	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">_Valign:</span>"), dg->combo[2], dgtable, 2, 3, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 3, 4, 1, 2);
 
 	dg->combo[4] = combobox_with_popdown_sized(tagvalues[8], bfwin->session->classlist, 1, 80);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->combo[4], dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[4])), 1, 2, 2, 3);
 
-	dg->entry[2] = dialog_entry_in_table(tagvalues[9], dgtable, 1, 6, 3, 4);
-	dialog_mnemonic_label_in_table(_("St_yle:"), dg->entry[2], dgtable, 0, 1, 3, 4);
-	var_but = style_but_new(dg->entry[2], dg->dialog);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), var_but, 6, 7, 3, 4);
+	dg->entry[3] = dialog_entry_in_table(tagvalues[10], dgtable, 1, 4, 3, 4);
+	dialog_mnemonic_label_in_table(_("<span color=\"#A36A00\">_Headers:</span>"), dg->entry[3], dgtable, 0, 1, 3, 4);
 
-	dg->entry[1] = dialog_entry_in_table(custom, dgtable, 1, 7, 4, 5);
-	dialog_mnemonic_label_in_table(_("Custo_m:"), dg->entry[1], dgtable, 0, 1, 4, 5);
+	if (type == 0) {
+		alignlist = g_list_append(NULL, "");
+		alignlist = g_list_insert(alignlist, "row", 0);
+		alignlist = g_list_insert(alignlist, "col", 1);
+		alignlist = g_list_insert(alignlist, "rowgroup", 2);
+		alignlist = g_list_insert(alignlist, "colgroup", 3);
+		dg->combo[5] = combobox_with_popdown_sized(tagvalues[11], alignlist, 0, 90);
+		g_list_free(alignlist);
+		dialog_mnemonic_label_in_table(_("<span color=\"#A36A00\">_Scope:</span>"), dg->combo[5], dgtable, 4, 5, 3, 4);
+		gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[5])), 5, 6, 3, 4);
+	}
+
+	dg->entry[2] = dialog_entry_in_table(tagvalues[9], dgtable, 1, 6, 4, 5);
+	dialog_mnemonic_label_in_table(_("St_yle:"), dg->entry[2], dgtable, 0, 1, 4, 5);
+	var_but = style_but_new(dg->entry[2], dg->dialog);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), var_but, 6, 7, 4, 5);
+
+	dg->entry[1] = dialog_entry_in_table(custom, dgtable, 1, 7, 5,6);
+	dialog_mnemonic_label_in_table(_("Custo_m:"), dg->entry[1], dgtable, 0, 1, 5, 6);
 
 	dg->spin[5] = spinbut_with_value(tagvalues[2], 0, 100, 1.0, 2.0);
-	dialog_mnemonic_label_in_table(_("Co_l Span:"), dg->spin[5], dgtable, 2, 3, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[5], 3, 4, 0, 1);
+	dialog_mnemonic_label_in_table(_("Co_l Span:"), dg->spin[5], dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[5], 1, 2, 0, 1);
 
 	dg->spin[4] = spinbut_with_value(tagvalues[5], 0, 100, 1.0, 5.0);
-	dialog_mnemonic_label_in_table(_("_Row Span:"), dg->spin[4], dgtable, 2, 3, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[4], 3, 4, 1, 2);
+	dialog_mnemonic_label_in_table(_("_Row Span:"), dg->spin[4], dgtable, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[4], 1, 2, 1, 2);
 
 	dg->check[1] = gtk_check_button_new();
 	parse_existence_for_dialog(tagvalues[7], dg->check[1]);
