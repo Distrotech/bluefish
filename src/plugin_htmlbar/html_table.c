@@ -32,6 +32,19 @@
 #include "../stringlist.h"
 
 static void
+table_border_clicked_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
+	if (gtk_widget_get_sensitive(dg->spin[4])){
+		gtk_widget_set_sensitive(dg->spin[4], FALSE);
+		gtk_widget_set_sensitive(dg->check[2], FALSE);
+		}
+	else {
+		gtk_widget_set_sensitive(dg->spin[4], TRUE);
+		gtk_widget_set_sensitive(dg->check[2], TRUE);
+		}
+}
+
+static void
 tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
 	gchar *thestring, *finalstring;
@@ -39,7 +52,13 @@ tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = g_strdup(cap("<TABLE"));
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->spin[1]), cap("CELLPADDING"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->spin[3]), cap("CELLSPACING"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_ENTRY(dg->spin[4]), cap("BORDER"), thestring, NULL);
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3]))) {
+		thestring =  g_strconcat(thestring, " border", NULL);
+	} else {
+		thestring =
+			insert_integer_if_spin(dg->spin[4], cap("BORDER"), thestring,
+							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2])), 0);
+	}						   
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("BGCOLOR"), thestring, NULL);
 	thestring =
@@ -74,9 +93,9 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	static gchar *tagitems[] =
 		{ "cellpadding", "cellspacing", "border", "align", "bgcolor", "width", "class", "style",
-"rules", "frame", NULL
+"rules", "frame", "border", NULL
 	};
-	gchar *tagvalues[11];
+	gchar *tagvalues[12];
 	gchar *custom = NULL;
 	Thtml_diag *dg;
 
@@ -86,11 +105,11 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dgtable = html_diag_table_in_vbox(dg, 5, 8);
 /*	TODO: add percentage length for cellpadding and cellspacing */
 	dg->spin[1] = spinbut_with_value(tagvalues[0], 0, 100, 1.0, 5.0);
-	dialog_mnemonic_label_in_table(_("Cell _Padding:"), dg->spin[1], dgtable, 0, 1, 0, 1);
+	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">Cell _Padding:</span>"), dg->spin[1], dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 0, 1);
 
 	dg->spin[3] = spinbut_with_value(tagvalues[1], 0, 100, 1.0, 5.0);
-	dialog_mnemonic_label_in_table(_("C_ell Spacing:"), dg->spin[3], dgtable, 0, 1, 1, 2);
+	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">C_ell Spacing:</span>"), dg->spin[3], dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[3], 1, 2, 1, 2);
 
 	dg->combo[4] = combobox_with_popdown_sized(tagvalues[6], bfwin->session->classlist, 1, 80);
@@ -111,7 +130,7 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	alignlist = g_list_append(alignlist, "center");
 	dg->combo[1] = combobox_with_popdown_sized(tagvalues[3], alignlist, 0, 80);
 	g_list_free(alignlist);
-	dialog_mnemonic_label_in_table(_("Ali_gn:"), dg->combo[1], dgtable, 2, 3, 0, 1);
+	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">Ali_gn:</span>"), dg->combo[1], dgtable, 2, 3, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 3, 5, 0, 1);
 
 	dg->combo[3] = combobox_with_popdown_sized(tagvalues[4], bfwin->session->colorlist, 1, 80);
@@ -122,14 +141,22 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	dg->spin[2] = spinbut_with_value(NULL, 0, 10000, 1.0, 5.0);
 	dg->check[1] = gtk_check_button_new_with_label("%");
-	dialog_mnemonic_label_in_table(_("_Width:"), dg->spin[2], dgtable, 5, 6, 0, 1);
+	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">_Width:</span>"), dg->spin[2], dgtable, 5, 6, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 6, 7, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 7, 8, 0, 1);
 	parse_integer_for_dialog(tagvalues[6], dg->spin[2], NULL, dg->check[1]);
 
-	dg->spin[4] = spinbut_with_value(tagvalues[2], 0, 100, 1.0, 5.0);
-	dialog_mnemonic_label_in_table(_("Bo_rder:"), dg->spin[4], dgtable, 5, 6, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[4], 6, 8, 1, 2);
+	dg->spin[4] = spinbut_with_value(NULL, 0, 100, 1.0, 5.0);
+	dg->check[2] = gtk_check_button_new_with_label("%");
+	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">Bo_rder:</span>"), dg->spin[4], dgtable, 5, 6, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[4], 6, 7, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 7, 8, 1, 2);
+	parse_integer_for_dialog(tagvalues[2], dg->spin[4], NULL, dg->check[2]);
+	
+	dg->check[3] = gtk_check_button_new();
+	dialog_mnemonic_label_in_table(_("<span color=\"#A36A00\">_Border:</span>"), dg->check[3], dgtable, 5,6, 2,3);
+	g_signal_connect(dg->check[3], "clicked", G_CALLBACK(table_border_clicked_lcb), dg);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[3], 6,7, 2,3);	
 
 	popuplist = g_list_append(NULL, "");
 	popuplist = g_list_append(popuplist, "void");
@@ -142,8 +169,8 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	popuplist = g_list_append(popuplist, "box");
 	popuplist = g_list_append(popuplist, "border");
 	dg->combo[5] = combobox_with_popdown_sized(tagvalues[9], popuplist, 0, 80);
-	dialog_mnemonic_label_in_table(_("_Frame:"), dg->combo[5], dgtable, 5, 6, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[5], 6, 8, 2, 3);
+	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">_Frame:</span>"), dg->combo[5], dgtable, 5, 6, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[5], 6, 8, 3, 4);
 	g_list_free(popuplist);
 
 	popuplist = g_list_append(NULL, "");
@@ -153,8 +180,8 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	popuplist = g_list_append(popuplist, "cols");
 	popuplist = g_list_append(popuplist, "all");
 	dg->combo[6] = combobox_with_popdown_sized(tagvalues[8], popuplist, 0, 80);
-	dialog_mnemonic_label_in_table(_("R_ules:"), dg->combo[6], dgtable, 5, 6, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[6], 6, 8, 3, 4);
+	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">R_ules:</span>"), dg->combo[6], dgtable, 5, 6, 4, 5);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[6], 6, 8, 4, 5);
 	g_list_free(popuplist);
 
 	html_diag_finish(dg, G_CALLBACK(tabledialogok_lcb));
