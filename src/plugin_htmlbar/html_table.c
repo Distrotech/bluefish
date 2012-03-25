@@ -384,6 +384,7 @@ table_head_and_data_dialog_cb(gint type, Tbfwin * bfwin, Ttagpopup * data)
 
 	dg->entry[3] = dialog_entry_in_table(tagvalues[10], dgtable, 1, 4, 3, 4);
 	dialog_mnemonic_label_in_table(_("<span color=\"#A36A00\">_Headers:</span>"), dg->entry[3], dgtable, 0, 1, 3, 4);
+	gtk_widget_set_tooltip_text(dg->entry[3],_("Set of space-separated IDs of th elements."));
 
 	if (type == 0) {
 		alignlist = g_list_append(NULL, "");
@@ -391,10 +392,12 @@ table_head_and_data_dialog_cb(gint type, Tbfwin * bfwin, Ttagpopup * data)
 		alignlist = g_list_insert(alignlist, "col", 1);
 		alignlist = g_list_insert(alignlist, "rowgroup", 2);
 		alignlist = g_list_insert(alignlist, "colgroup", 3);
+		alignlist = g_list_insert(alignlist, "auto", 4);		
 		dg->combo[5] = combobox_with_popdown_sized(tagvalues[11], alignlist, 0, 90);
 		g_list_free(alignlist);
 		dialog_mnemonic_label_in_table(_("<span color=\"#A36A00\">_Scope:</span>"), dg->combo[5], dgtable, 4, 5, 3, 4);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[5])), 5, 6, 3, 4);
+		gtk_widget_set_tooltip_text(dg->combo[5],_("the header cell applies to cells in the same:"));
 	}
 
 	dg->entry[2] = dialog_entry_in_table(tagvalues[9], dgtable, 1, 6, 4, 5);
@@ -415,7 +418,7 @@ table_head_and_data_dialog_cb(gint type, Tbfwin * bfwin, Ttagpopup * data)
 
 	dg->check[1] = gtk_check_button_new();
 	parse_existence_for_dialog(tagvalues[7], dg->check[1]);
-	dialog_mnemonic_label_in_table(_("<span color=\"red\">No Wra_p:</span>"), dg->check[1], dgtable, 2, 3, 2, 3);
+	dialog_mnemonic_label_in_table(_("<span color=\"red\">No _Wrap:</span>"), dg->check[1], dgtable, 2, 3, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 3, 4, 2, 3);
 
 	dg->spin[1] = spinbut_with_value(NULL, 0, 10000, 1.0, 5.0);
@@ -433,7 +436,7 @@ table_head_and_data_dialog_cb(gint type, Tbfwin * bfwin, Ttagpopup * data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[3], 6, 7, 1, 2);
 
 	dg->combo[3] = combobox_with_popdown_sized(tagvalues[6], bfwin->session->colorlist, 1, 80);
-	dialog_mnemonic_label_in_table(_("<span color=\"red\">Backgrou_nd Color:</span>"), dg->combo[3], dgtable, 4, 5, 2, 3);
+	dialog_mnemonic_label_in_table(_("<span color=\"red\">b_gcolor:</span>"), dg->combo[3], dgtable, 4, 5, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 5, 6, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable),
 							  GTK_WIDGET(color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[3])), dg->dialog)),
