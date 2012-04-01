@@ -142,6 +142,7 @@ void quickanchor_dialog(Tbfwin * bfwin, Ttagpopup * data);
 void block_tag_edit_cb(gint type, GtkWidget * widget, Tbfwin * bfwin);
 void p_dialog(Tbfwin * bfwin, Ttagpopup * data);
 void div_dialog(Tbfwin * bfwin, Ttagpopup * data);
+void columns_dialog(Tbfwin * bfwin, Ttagpopup * data);
 void span_dialog(Tbfwin * bfwin, Ttagpopup * data);
 void h1_dialog(Tbfwin * bfwin, Ttagpopup * data);
 void h2_dialog(Tbfwin * bfwin, Ttagpopup * data);

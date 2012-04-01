@@ -94,6 +94,12 @@ htmlbar_dialog_div(GtkAction * action, gpointer user_data)
 }
 
 static void
+htmlbar_dialog_columns(GtkAction * action, gpointer user_data)
+{
+	columns_dialog(BFWIN(user_data), NULL);
+}
+
+static void
 htmlbar_dialog_email(GtkAction * action, gpointer user_data)
 {
 	email_dialog(BFWIN(user_data), NULL);
@@ -1731,6 +1737,8 @@ static const GtkActionEntry htmlbar_actions[] = {
 	 G_CALLBACK(htmlbar_dialog_div)},
 	{"MiscStyle", BF_STOCK_CSSSTYLE, N_("_Style"), NULL, N_("Style"),
 	 G_CALLBACK(htmlbar_misc_style)},
+	{"Dialogscolumns", BF_STOCK_CSS_COLUMNS, N_("C_olumns..."), NULL, N_("Columns..."),
+	 G_CALLBACK(htmlbar_dialog_columns)},	 
 	{"DialogsLinkStylesheet", BF_STOCK_LINK_STYLESHEET, N_("_Link to Stylesheet..."), NULL,
 	 N_("Link to Stylesheet..."),
 	 G_CALLBACK(htmlbar_dialog_style_link_to)},
@@ -2114,6 +2122,7 @@ htmlbar_register_stock_icons(void)
 			{pixmap_cssnewstyle, BF_STOCK_CSSNEWSTYLE},
 			{pixmap_cssspan, BF_STOCK_CSSSPAN},
 			{pixmap_cssstyle, BF_STOCK_CSSSTYLE},
+			{pixmap_css_columns, BF_STOCK_CSS_COLUMNS},
 			{pixmap_del, BF_STOCK_DEL},
 			{pixmap_dfn, BF_STOCK_DFN},
 			{pixmap_edit_tag, BF_STOCK_EDIT_TAG},

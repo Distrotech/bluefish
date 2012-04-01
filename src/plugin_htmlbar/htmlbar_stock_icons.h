@@ -39,6 +39,7 @@
 #define BF_STOCK_CSSNEWSTYLE		"bf-stock-css-newstyle"
 #define BF_STOCK_CSSSPAN			"bf-stock-css-span"
 #define BF_STOCK_CSSSTYLE			"bf-stock-css-style"
+#define BF_STOCK_CSS_COLUMNS		"bf-stock-css-columns"
 #define BF_STOCK_DEL				"bf-stock-del"
 #define BF_STOCK_DFN				"bf-stock-dfn"
 #define BF_STOCK_EDIT_TAG			"bf-stock-edit-tag"

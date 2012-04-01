@@ -18,6 +18,7 @@ EXTRA_DIST = \
 	cssnewstyle.png \
 	cssspan.png \
 	cssstyle.png \
+	csscols.png \
 	del.png \
 	dfn.png \
 	edit_tag.png \
@@ -128,6 +129,7 @@ HTMLBAR = \
 	pixmap_cssnewstyle $(srcdir)/cssnewstyle.png \
 	pixmap_cssspan $(srcdir)/cssspan.png \
 	pixmap_cssstyle $(srcdir)/cssstyle.png \
+	pixmap_css_columns $(srcdir)/csscols.png \
 	pixmap_del $(srcdir)/del.png \
 	pixmap_dfn $(srcdir)/dfn.png \
 	pixmap_edit_tag $(srcdir)/edit_tag.png \
