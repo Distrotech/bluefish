@@ -1724,8 +1724,10 @@ framedialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("SRC"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[0])), cap("FRAMEBORDER"), thestring, NULL);
-	tmp = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[3]));
-	thestring = g_strconcat(thestring, cap(" SCROLLING=\""), tmp, "\"",NULL);
+	tmp = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[3]));	
+	if(strlen(tmp)) {
+		thestring = g_strconcat(thestring, cap(" SCROLLING=\""), tmp, "\"",NULL);
+	} 
 	g_free(tmp);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("MARGINWIDTH"), thestring, NULL);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[2])), cap("MARGINHEIGHT"), thestring, NULL);
@@ -1785,11 +1787,11 @@ frame_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dialog_mnemonic_label_in_table(_("Margin _Height:"), dg->spin[2], dgtable, 0,1, 3,4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1,5, 3,4);
 
-	popuplist = g_list_append(NULL, "");
-	popuplist = g_list_append(popuplist, "auto");
-	popuplist = g_list_append(popuplist, "yes");
-	popuplist = g_list_append(popuplist, "no");
-	dg->combo[3] = combobox_with_popdown_sized(tagvalues[3], popuplist, 0, 90);
+	popuplist = g_list_insert(popuplist, "auto",0);
+	popuplist = g_list_insert(popuplist, "yes",1);
+	popuplist = g_list_insert(popuplist, "no",2);
+	popuplist = g_list_insert(popuplist, "",3);
+	dg->combo[3] = combobox_with_popdown("", popuplist, 0);
 	g_list_free(popuplist);
 	dialog_mnemonic_label_in_table(_("Scrollin_g:"), dg->combo[3], dgtable, 5,6, 1,2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 6,10, 1,2);
@@ -2346,6 +2348,270 @@ script_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	g_list_free(tmplist);
 	g_list_free(tmplist2);
 	g_list_free(tmplist3);
+}
+
+static void
+columncount_auto_clicked_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
+	if (gtk_widget_get_sensitive(dg->spin[0])){
+		gtk_widget_set_sensitive(dg->spin[0], FALSE);
+		}
+	else {
+		gtk_widget_set_sensitive(dg->spin[0], TRUE);
+		}
+}
+
+static void
+columnwidth_auto_clicked_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
+	if (gtk_widget_get_sensitive(dg->spin[1])){
+		gtk_widget_set_sensitive(dg->spin[1], FALSE);
+		gtk_widget_set_sensitive(dg->combo[0], FALSE);
+		}
+	else {
+		gtk_widget_set_sensitive(dg->spin[1], TRUE);
+		gtk_widget_set_sensitive(dg->combo[0], TRUE);
+		}
+}
+
+static void
+columngap_normal_clicked_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
+	if (gtk_widget_get_sensitive(dg->spin[2])){
+		gtk_widget_set_sensitive(dg->spin[2], FALSE);
+		gtk_widget_set_sensitive(dg->combo[1], FALSE);
+		}
+	else {
+		gtk_widget_set_sensitive(dg->spin[2], TRUE);
+		gtk_widget_set_sensitive(dg->combo[1], TRUE);
+		}
+}
+
+static void
+columnrulewidth_changed_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
+	if (strlen(gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[5])))) {
+		gtk_widget_set_sensitive(dg->spin[3], FALSE);
+		gtk_widget_set_sensitive(dg->combo[4], FALSE);	
+	} else {
+		gtk_widget_set_sensitive(dg->spin[3], TRUE);
+		gtk_widget_set_sensitive(dg->combo[4], TRUE);
+	}	
+}
+
+static void
+columnselector_toggled_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->radio[0]))) {
+		gtk_widget_set_sensitive(dg->entry[0], TRUE);
+	} else {
+		gtk_widget_set_sensitive(dg->entry[0], FALSE);
+	}	
+}
+
+static void
+columnsok_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
+	gchar *thestring, *finalstring, *endstring, *tmpstring;
+	gboolean moz, webkit;
+	moz = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3]));
+	webkit = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[4]));
+	
+	thestring = g_strdup("");
+	endstring = g_strdup("; ");
+	finalstring = g_strdup("");
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->radio[0]))) {
+		if(gtk_entry_get_text_length(GTK_ENTRY(dg->entry[0]))==0) {
+			finalstring = g_strdup("\n");
+			endstring = g_strdup(";\n");	
+		} else {
+			thestring = g_strconcat(thestring, gtk_entry_get_text(GTK_ENTRY(dg->entry[0])), " {\n",  NULL);
+			finalstring = g_strdup("\n}\n");
+			endstring = g_strdup(";\n");
+		}
+	} 
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->radio[1]))) {
+		thestring = g_strdup(" style=\"");
+		finalstring = g_strdup("\"");
+	}
+	
+	tmpstring = g_strdup("columns: ");
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2]))) {
+	   tmpstring =  g_strconcat(tmpstring, "auto", NULL); 
+	} else {
+		tmpstring = g_strconcat(tmpstring, gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[0]))), NULL);
+	}
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3]))) {
+	   tmpstring =  g_strconcat(tmpstring, " auto", endstring, NULL); 
+	} else {
+		tmpstring = g_strconcat(tmpstring, " ", gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[1]))), 
+		gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[0])), endstring, NULL);
+	}
+	thestring = g_strconcat(thestring, tmpstring, NULL);
+	if (moz) {thestring = g_strconcat(thestring, "-moz-", tmpstring, NULL);}
+	if (webkit) {thestring = g_strconcat(thestring, "-webkit-", tmpstring, NULL);}
+	g_free(tmpstring);
+
+	tmpstring =  g_strdup("column-gap: ");
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[4]))) {
+	   tmpstring =  g_strconcat (tmpstring, "normal", endstring, NULL); 
+	} else {
+		tmpstring = g_strconcat(tmpstring, gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[2]))), 
+		gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[1])), endstring, NULL);
+	}
+	thestring = g_strconcat(thestring, tmpstring, NULL);
+	if (moz) {thestring = g_strconcat(thestring, "-moz-", tmpstring, NULL);}
+	if (webkit) {thestring = g_strconcat(thestring, "-webkit-", tmpstring, NULL);}
+	g_free(tmpstring);
+
+	tmpstring =  g_strdup("column-rule: ");
+	tmpstring = g_strconcat(tmpstring, gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[2])), " ", NULL);
+	tmpstring = g_strconcat(tmpstring, gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[3])), " ", NULL);
+	if (gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[5]))) {
+		tmpstring = g_strconcat(tmpstring, gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[5])), endstring, NULL); 
+/*html.c:2470:2: warning: passing argument 1 of 'gtk_combo_box_get_active_text' from incompatible pointer type
+/usr/include/gtk-2.0/gtk/gtkcombobox.h:141:15: note: expected 'struct GtkComboBox *' but argument is of type 'struct GtkComboBoxText *'*/
+	} else {
+		tmpstring = g_strconcat(tmpstring, gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[3]))), 
+		gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[4])), endstring, NULL);
+	}
+	thestring = g_strconcat(thestring, tmpstring, NULL);
+	if (moz) {thestring = g_strconcat(thestring, "-moz-", tmpstring, NULL);}
+	if (webkit) {thestring = g_strconcat(thestring, "-webkit-", tmpstring, NULL);}
+	g_free(tmpstring);
+
+	if (dg->range.end == -1) {
+		doc_insert_two_strings(dg->doc, thestring, finalstring );
+	} else {
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
+	}
+	g_free(thestring);
+	g_free(finalstring);
+	g_free(endstring);
+	html_diag_destroy_cb(NULL, dg);
+}
+
+void
+columns_dialog(Tbfwin * bfwin, Ttagpopup * data)
+{
+	GtkWidget *color_but;
+	GList *tmplist = 	list_from_arglist(FALSE,"em", "px", "ex", "ch", "rem", "px", "pc", "pt", 
+				"mm", "cm", "in", "%", NULL),
+		*tmplist2 = list_from_arglist(FALSE, "", "none", "hidden", "dotted", "dashed", "solid", 
+				"double", "groove", "ridge", "inset", "outset", NULL), 
+		*tmplist3 = list_from_arglist(FALSE, "", "thin", "medium", "thick", NULL) ;
+	GtkWidget *dgtable;
+	Thtml_diag *dg;
+	static gchar *tagitems[] = { "column-count", "column-width", "column-width-unit", "column-gap", 
+				"column-gap-unit", "column-rule-color", "column-rule-style", "column-rule-width", 
+				"column-rule-width-unit", "column-rule-width-var", "selectors", NULL };
+	gchar *tagvalues[12];
+	gchar *custom = NULL;
+
+/*
+todo check buttons: 
+column-span: all (default none) 
+column-fill: auto (default balance)	 
+*/	
+
+	dg = html_diag_new(bfwin, _("CSS3 multi-column layout"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
+	dgtable = html_diag_table_in_vbox(dg, 9, 4);
+
+	dg->spin[0] = spinbut_with_value(tagvalues[0] ? tagvalues[0]: "2", 1, 100, 1, 5);
+	gtk_widget_set_tooltip_text(
+			dialog_mnemonic_label_in_table("column-c_ount:", dg->spin[0], dgtable, 0,1, 0,1),
+			_("Auto (default) or number of columns"));
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[0], 1,2, 0,1);
+	dg->check[2] = gtk_check_button_new_with_mnemonic("_auto");
+	g_signal_connect(dg->check[2], "clicked", G_CALLBACK(columncount_auto_clicked_lcb), dg);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 3,4, 0,1);
+
+	dg->spin[1] = spinbut_with_value(tagvalues[1] ? tagvalues[1]: "50", 0, 10000, 0.1, 1.0);
+	gtk_widget_set_tooltip_text(
+			dialog_mnemonic_label_in_table("column-_width:", dg->spin[1], dgtable, 0,1, 1,2),
+			_("Auto (default) or width"));
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1,2, 1,2);
+	dg->combo[0] = combobox_with_popdown_sized(tagvalues[2] ? tagvalues[2]: "%", tmplist, 0, 70);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[0], 2,3, 1,2);
+	dg->check[3] = gtk_check_button_new_with_mnemonic("a_uto");
+	g_signal_connect(dg->check[3], "clicked", G_CALLBACK(columnwidth_auto_clicked_lcb), dg);	
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dg->check[3]), TRUE);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[3], 3,4, 1,2);
+
+	dg->spin[2] = spinbut_with_value(tagvalues[3] ? tagvalues[3]: "1", 0, 10000, 0.1, 1.0);
+	gtk_widget_set_tooltip_text(
+			dialog_mnemonic_label_in_table("column-_gap:", dg->spin[2], dgtable, 0,1, 2,3),
+			_("Normal (default) or width of the gap between columns"));
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1,2, 2,3);
+	dg->combo[1] = combobox_with_popdown_sized(tagvalues[4] ? tagvalues[4]: "em", tmplist, 0, 70);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 2,3, 2,3);
+	dg->check[4] = gtk_check_button_new_with_mnemonic("_normal");
+	g_signal_connect(dg->check[4], "clicked", G_CALLBACK(columngap_normal_clicked_lcb), dg);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dg->check[4]), TRUE);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[4], 3,4, 2,3);
+
+	dg->combo[2] = combobox_with_popdown_sized(tagvalues[5], bfwin->session->colorlist, 1, 110);
+	color_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[2])), dg->dialog);
+	dialog_mnemonic_label_in_table("column-rule-co_lor:", dg->combo[2], dgtable, 0,1, 3,4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1,2, 3,4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but), 2,3, 3,4);
+
+	dg->combo[3] = combobox_with_popdown_sized(tagvalues[6] ? tagvalues[6]: "solid", tmplist2, 0, 110);
+	gtk_widget_set_tooltip_text(
+			dialog_mnemonic_label_in_table("column-rule-_style:", dg->combo[3], dgtable, 0,1, 4,5),
+			_("None (default) or style"));	
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 1,2, 4,5);
+
+	dg->spin[3] = spinbut_with_value(tagvalues[7] ? tagvalues[7]: "0.5", 0, 10000, 0.1, 1.0);
+	gtk_widget_set_tooltip_text(
+			dialog_mnemonic_label_in_table("column-rule-wi_dth:", dg->spin[3], dgtable, 0,1, 5,6),
+			_("Medium (default) or width"));
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[3], 1,2, 5,6);
+
+	dg->combo[4] = combobox_with_popdown_sized(tagvalues[8] ? tagvalues[8]: "em", tmplist, 0, 70);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 2,3, 5,6);
+
+	dg->combo[5] = combobox_with_popdown_sized(tagvalues[9] ? tagvalues[9]: "medium", tmplist3, 0, 90);
+	g_signal_connect(dg->combo[5], "changed", G_CALLBACK(columnrulewidth_changed_lcb), dg);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[5])), 3,4, 5,6);
+	gtk_widget_set_sensitive(dg->spin[3], FALSE);
+	gtk_widget_set_sensitive(dg->combo[4], FALSE);	
+
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(gtk_label_new(
+			_("Use vendor-prefixed CSS property:"))), 0,2, 6,7);
+	dg->check[3] = gtk_check_button_new_with_mnemonic("G_ecko");	
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[3], 2,3, 6,7);	
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dg->check[3]), TRUE);
+	dg->check[4] = gtk_check_button_new_with_mnemonic("Web_kit");
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[4], 3,4, 6,7);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dg->check[4]), TRUE);
+
+	dg->radio[0] = gtk_radio_button_new_with_mnemonic(NULL, _("styles_heet"));
+	gtk_widget_set_tooltip_text(dg->radio[0],_("Add selector(s) to create a new rule"));
+	dg->radio[1] = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group
+			(GTK_RADIO_BUTTON(dg->radio[0])), _("style a_ttribute"));
+	gtk_widget_set_tooltip_text(dg->radio[1],_("Add a style attribute in tag"));		
+	dg->radio[2] = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group
+			(GTK_RADIO_BUTTON(dg->radio[0])), _("style _values"));
+	gtk_widget_set_tooltip_text(dg->radio[2],_("Add values in a style attribute"));		
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dg->radio[0]), TRUE);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[0], 0,1, 7,8);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[1], 1,2, 7,8);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[2], 2,4, 7,8);
+	g_signal_connect(GTK_TOGGLE_BUTTON(dg->radio[0]), "toggled", 
+				G_CALLBACK(columnselector_toggled_lcb), dg);
+
+	dg->entry[0] = dialog_entry_in_table(tagvalues[10], dgtable, 1,4, 8,9);
+	gtk_widget_set_tooltip_text(
+			dialog_mnemonic_label_in_table(_("Selecto_rs:"), dg->entry[0], dgtable, 0,1, 8,9),
+			_("Leave empty to insert declarations into an existing rule."));
+		
+	g_list_free(tmplist);
+	g_list_free(tmplist2);
+	g_list_free(tmplist3);
+
+	html_diag_finish(dg, G_CALLBACK(columnsok_lcb));
 }
 
 static void
