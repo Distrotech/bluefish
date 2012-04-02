@@ -216,7 +216,7 @@ about_dialog_create(GtkAction * action, gpointer user_data)
 		NULL
 	};
 
-	const gchar *copyright = "Copyright \xc2\xa9 1998-2010 Olivier Sessink and others.\n";
+	const gchar *copyright = "Copyright \xc2\xa9 1998-2012 Olivier Sessink and others.\n";
 
 	/* wrap the license here,
 	 * the "wrap-license" property is only available with GTK >= 2.8
