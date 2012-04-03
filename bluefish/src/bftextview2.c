@@ -2003,8 +2003,8 @@ bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 		g_string_free(str, TRUE);
 	}
 #else
-	GdkColor color;
 	if (!main_v->props.use_system_colors) {
+		GdkColor color;
 		if (colors[BTV_COLOR_ED_BG] && gdk_color_parse(colors[BTV_COLOR_ED_BG], &color)) {
 			gtk_widget_modify_base(GTK_WIDGET(btv), GTK_STATE_NORMAL, &color);
 			if (btv->slave)
@@ -2017,10 +2017,12 @@ bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 		}
 		if (colors[BTV_COLOR_SELECTION] && gdk_color_parse(colors[BTV_COLOR_SELECTION], &color)) {
 			gtk_widget_modify_base(GTK_WIDGET(btv), GTK_STATE_SELECTED, &color);
-			if (btv->slave)
+			gtk_widget_modify_base(GTK_WIDGET(btv), GTK_STATE_ACTIVE, &color);
+			if (btv->slave) {
 				gtk_widget_modify_base(GTK_WIDGET(btv->slave), GTK_STATE_SELECTED, &color);
+				gtk_widget_modify_base(GTK_WIDGET(btv->slave), GTK_STATE_ACTIVE, &color);
+			}
 		}
-
 	}
 #endif
 }
