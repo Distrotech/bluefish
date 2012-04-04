@@ -2,7 +2,7 @@
  * html2.c - menu/toolbar callbacks, inserting functions, and other cool stuff 
  * otherwise html.c is getting so long ;-)
  *
- * Copyright (C) 1999-2011 Olivier Sessink
+ * Copyright (C) 1999-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,92 +34,128 @@
 #include "../gtk_easy.h"
 #include "../stringlist.h"
 
-static GList *glist_with_html_tags(gint with_pseudo_classes) {
-	GList *tmplist;
+static GList *glist_with_html_tags(gint use_html5) {
+	GList *tmplist = NULL;
 
-	tmplist = g_list_append(NULL, "");
-	if (with_pseudo_classes) {
-		tmplist = g_list_append(tmplist, "a:link");
-		tmplist = g_list_append(tmplist, "a:visited");
-		tmplist = g_list_append(tmplist, "a:active");
-	} else {
-		tmplist = g_list_append(tmplist, "a");
+	tmplist = g_list_prepend(tmplist, "var");
+	tmplist = g_list_prepend(tmplist, "ul");
+	tmplist = g_list_prepend(tmplist, "tr");
+	tmplist = g_list_prepend(tmplist, "title");
+	tmplist = g_list_prepend(tmplist, "thead");
+	tmplist = g_list_prepend(tmplist, "th");
+	tmplist = g_list_prepend(tmplist, "tfoot");
+	tmplist = g_list_prepend(tmplist, "textarea");
+	tmplist = g_list_prepend(tmplist, "td");
+	tmplist = g_list_prepend(tmplist, "tbody");
+	tmplist = g_list_prepend(tmplist, "table");
+	tmplist = g_list_prepend(tmplist, "sup");
+	tmplist = g_list_prepend(tmplist, "sub");
+	tmplist = g_list_prepend(tmplist, "style");
+	tmplist = g_list_prepend(tmplist, "strong");
+	tmplist = g_list_prepend(tmplist, "span");
+	tmplist = g_list_prepend(tmplist, "small");
+	tmplist = g_list_prepend(tmplist, "select");
+	tmplist = g_list_prepend(tmplist, "script");
+	tmplist = g_list_prepend(tmplist, "samp");
+	tmplist = g_list_prepend(tmplist, "q");
+	tmplist = g_list_prepend(tmplist, "pre");
+	tmplist = g_list_prepend(tmplist, "param");
+	tmplist = g_list_prepend(tmplist, "p");
+	tmplist = g_list_prepend(tmplist, "option");
+	tmplist = g_list_prepend(tmplist, "optgroup");
+	tmplist = g_list_prepend(tmplist, "ol");
+	tmplist = g_list_prepend(tmplist, "object");
+	tmplist = g_list_prepend(tmplist, "noscript");
+	tmplist = g_list_prepend(tmplist, "meta");
+	tmplist = g_list_prepend(tmplist, "map");
+	tmplist = g_list_prepend(tmplist, "link");
+	tmplist = g_list_prepend(tmplist, "li");
+	tmplist = g_list_prepend(tmplist, "legend");
+	tmplist = g_list_prepend(tmplist, "label");
+	tmplist = g_list_prepend(tmplist, "kbd");
+	tmplist = g_list_prepend(tmplist, "ins");
+	tmplist = g_list_prepend(tmplist, "input");
+	tmplist = g_list_prepend(tmplist, "img");
+	tmplist = g_list_prepend(tmplist, "iframe");
+	tmplist = g_list_prepend(tmplist, "i");
+	tmplist = g_list_prepend(tmplist, "html");
+	tmplist = g_list_prepend(tmplist, "hr");
+	tmplist = g_list_prepend(tmplist, "head");
+	tmplist = g_list_prepend(tmplist, "h6");
+	tmplist = g_list_prepend(tmplist, "h5");
+	tmplist = g_list_prepend(tmplist, "h4");
+	tmplist = g_list_prepend(tmplist, "h3");
+	tmplist = g_list_prepend(tmplist, "h2");
+	tmplist = g_list_prepend(tmplist, "h1");
+	tmplist = g_list_prepend(tmplist, "form");
+	tmplist = g_list_prepend(tmplist, "fieldset");
+	tmplist = g_list_prepend(tmplist, "em");
+	tmplist = g_list_prepend(tmplist, "dt");
+	tmplist = g_list_prepend(tmplist, "dl");
+	tmplist = g_list_prepend(tmplist, "div");
+	tmplist = g_list_prepend(tmplist, "dfn");
+	tmplist = g_list_prepend(tmplist, "del");
+	tmplist = g_list_prepend(tmplist, "dd");
+	tmplist = g_list_prepend(tmplist, "colgroup");
+	tmplist = g_list_prepend(tmplist, "col");
+	tmplist = g_list_prepend(tmplist, "code");
+	tmplist = g_list_prepend(tmplist, "cite");
+	tmplist = g_list_prepend(tmplist, "caption");
+	tmplist = g_list_prepend(tmplist, "button");
+	tmplist = g_list_prepend(tmplist, "br");
+	tmplist = g_list_prepend(tmplist, "body");
+	tmplist = g_list_prepend(tmplist, "blockquote");
+	tmplist = g_list_prepend(tmplist, "bdo");
+	tmplist = g_list_prepend(tmplist, "base");
+	tmplist = g_list_prepend(tmplist, "b");
+	tmplist = g_list_prepend(tmplist, "area");
+	tmplist = g_list_prepend(tmplist, "address");
+	tmplist = g_list_prepend(tmplist, "abbr");
+	tmplist = g_list_prepend(tmplist, "a");
+	tmplist = g_list_prepend(tmplist, "");
+	if (use_html5) {
+		tmplist = g_list_prepend(tmplist, "wbr");
+		tmplist = g_list_prepend(tmplist, "video");
+		tmplist = g_list_prepend(tmplist, "u");
+		tmplist = g_list_prepend(tmplist, "track");
+		tmplist = g_list_prepend(tmplist, "time");
+		tmplist = g_list_prepend(tmplist, "summary");
+		tmplist = g_list_prepend(tmplist, "source");
+		tmplist = g_list_prepend(tmplist, "section");
+		tmplist = g_list_prepend(tmplist, "s");
+		tmplist = g_list_prepend(tmplist, "ruby");
+		tmplist = g_list_prepend(tmplist, "rt");
+		tmplist = g_list_prepend(tmplist, "rp");
+		tmplist = g_list_prepend(tmplist, "progress");
+		tmplist = g_list_prepend(tmplist, "output");
+		tmplist = g_list_prepend(tmplist, "nav");
+		tmplist = g_list_prepend(tmplist, "meter");
+		tmplist = g_list_prepend(tmplist, "menu");
+		tmplist = g_list_prepend(tmplist, "mark");
+		tmplist = g_list_prepend(tmplist, "keygen");
+		tmplist = g_list_prepend(tmplist, "hgroup");
+		tmplist = g_list_prepend(tmplist, "header");
+		tmplist = g_list_prepend(tmplist, "footer");
+		tmplist = g_list_prepend(tmplist, "figure");
+		tmplist = g_list_prepend(tmplist, "figcaption");
+		tmplist = g_list_prepend(tmplist, "embed");
+		tmplist = g_list_prepend(tmplist, "details");
+		tmplist = g_list_prepend(tmplist, "datalist");
+		tmplist = g_list_prepend(tmplist, "command");
+		tmplist = g_list_prepend(tmplist, "canvas");
+		tmplist = g_list_prepend(tmplist, "bdi");
+		tmplist = g_list_prepend(tmplist, "audio");
+		tmplist = g_list_prepend(tmplist, "aside");
+		tmplist = g_list_prepend(tmplist, "article");
+	}	
+	else {
+		tmplist = g_list_prepend(tmplist, "tt");
+		tmplist = g_list_prepend(tmplist, "noframes");
+		tmplist = g_list_prepend(tmplist, "frameset");
+		tmplist = g_list_prepend(tmplist, "frame");
+		tmplist = g_list_prepend(tmplist, "big");
+		tmplist = g_list_prepend(tmplist, "acronym");
 	}
-	tmplist = g_list_append(tmplist, "abbr");
-	tmplist = g_list_append(tmplist, "acronym");
-	tmplist = g_list_append(tmplist, "address");
-	tmplist = g_list_append(tmplist, "applet");
-	tmplist = g_list_append(tmplist, "area");
-	tmplist = g_list_append(tmplist, "b");
-	tmplist = g_list_append(tmplist, "bdo");
-	tmplist = g_list_append(tmplist, "blockquote");
-	tmplist = g_list_append(tmplist, "body");
-	tmplist = g_list_append(tmplist, "br");
-	tmplist = g_list_append(tmplist, "button");
-	tmplist = g_list_append(tmplist, "caption");
-	tmplist = g_list_append(tmplist, "cite");
-	tmplist = g_list_append(tmplist, "code");
-	tmplist = g_list_append(tmplist, "col");
-	tmplist = g_list_append(tmplist, "colgroup");
-	tmplist = g_list_append(tmplist, "dd");
-	tmplist = g_list_append(tmplist, "del");
-	tmplist = g_list_append(tmplist, "dfn");
-	tmplist = g_list_append(tmplist, "div");
-	tmplist = g_list_append(tmplist, "dl");
-	tmplist = g_list_append(tmplist, "dt");
-	tmplist = g_list_append(tmplist, "em");
-	tmplist = g_list_append(tmplist, "embed");
-	tmplist = g_list_append(tmplist, "fieldset");
-	tmplist = g_list_append(tmplist, "form");
-	tmplist = g_list_append(tmplist, "h1");
-	tmplist = g_list_append(tmplist, "h2");
-	tmplist = g_list_append(tmplist, "h3");
-	tmplist = g_list_append(tmplist, "h4");
-	tmplist = g_list_append(tmplist, "h5");
-	tmplist = g_list_append(tmplist, "h6");
-	tmplist = g_list_append(tmplist, "hr");
-	tmplist = g_list_append(tmplist, "i");
-	tmplist = g_list_append(tmplist, "iframe");
-	tmplist = g_list_append(tmplist, "img");
-	tmplist = g_list_append(tmplist, "input");
-	tmplist = g_list_append(tmplist, "ins");
-	tmplist = g_list_append(tmplist, "kbd");
-	tmplist = g_list_append(tmplist, "label");
-	tmplist = g_list_append(tmplist, "legend");
-	tmplist = g_list_append(tmplist, "li");
-	tmplist = g_list_append(tmplist, "map");
-	tmplist = g_list_append(tmplist, "noframes");
-	tmplist = g_list_append(tmplist, "noscript");
-	tmplist = g_list_append(tmplist, "object");
-	tmplist = g_list_append(tmplist, "ol");
-	tmplist = g_list_append(tmplist, "optgroup");
-	tmplist = g_list_append(tmplist, "option");
-	tmplist = g_list_append(tmplist, "p");
-	tmplist = g_list_append(tmplist, "pre");
-	tmplist = g_list_append(tmplist, "q");
-	if(main_v->props.allow_ruby){
-		tmplist = g_list_append(tmplist, "rb");
-		tmplist = g_list_append(tmplist, "rp");
-		tmplist = g_list_append(tmplist, "rt");
-		tmplist = g_list_append(tmplist, "ruby");
-	}
-	tmplist = g_list_append(tmplist, "samp");
-	tmplist = g_list_append(tmplist, "select");
-	tmplist = g_list_append(tmplist, "small");
-	tmplist = g_list_append(tmplist, "span");
-	tmplist = g_list_append(tmplist, "strong");
-	tmplist = g_list_append(tmplist, "table");
-	tmplist = g_list_append(tmplist, "tbody");
-	tmplist = g_list_append(tmplist, "td");
-	tmplist = g_list_append(tmplist, "textarea");
-	tmplist = g_list_append(tmplist, "tfoot");
-	tmplist = g_list_append(tmplist, "th");
-	tmplist = g_list_append(tmplist, "thead");
-	tmplist = g_list_append(tmplist, "tr");
-	tmplist = g_list_append(tmplist, "tt");
-	tmplist = g_list_append(tmplist, "ul");
-	tmplist = g_list_append(tmplist, "var");
-
 	return tmplist;
 }
 
@@ -144,6 +180,7 @@ typedef struct {
 	gint selected_row;
 	gboolean grab;
 	GtkWidget *selector;
+	GtkWidget *html5;
 	GtkWidget *property;
 	GtkWidget *value;
 	GtkWidget *rule_add_but;
@@ -154,6 +191,7 @@ typedef struct {
 typedef struct {
 	GtkWidget *win;
 	GtkWidget *selector;
+	GtkWidget *html5;
 	GtkWidget *property;
 	GtkWidget *value;
 	GtkWidget *extra_but;
@@ -171,8 +209,8 @@ typedef struct {
 static gchar *cs3_colors[] = {"aqua", "black", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "silver", "teal", "white", "yellow", NULL};
 static gchar *cs3_repeat[] = {"repeat", "repeat-x", "repeat-y", "no-repeat", NULL};
 static gchar *cs3_fonts[] = {"arial, helvetica, sans-serif", "roman, 'times new roman', times, serif", "courier, fixed, monospace", "western, fantasy",  "Zapf-Chancery, cursive", "serif", "sans-serif", "cursive", "fantasy", "monospace", NULL};
-static gchar *cs3_font_size_adjustments[] = {"none", NULL};
-static gchar *cs3_font_stretches[] = {"normal","wider","narrower","ultra-condensed","extra-condensed","condensed","semi-condensed","semi-expanded","expanded","extra-expanded","ultra-expanded", NULL};
+//static gchar *cs3_font_size_adjustments[] = {"0.58", "none", "inherit", NULL};
+//static gchar *cs3_font_stretches[] = {"normal","wider","narrower","ultra-condensed","extra-condensed","condensed","semi-condensed","semi-expanded","expanded","extra-expanded","ultra-expanded", NULL};
 static gchar *cs3_font_styles[] = {"normal", "italic", "oblique", NULL};
 static gchar *cs3_font_variants[] = {"normal", "small-caps", NULL};
 static gchar *cs3_font_weights[] = {"normal", "bold", "bolder", "lighter", "100", "200", "300", "400", "500", "600", "700", "800", "900",  NULL};
@@ -200,19 +238,27 @@ static gchar *cs3_caption_sides[] = {"top", "bottom", "left", "right", NULL};
 static gchar *cs3_table_layouts[] = {"auto", "fixed", NULL};
 static gchar *cs3_border_collapses[] = {"collapse", "separate", NULL};
 static gchar *cs3_empty_cells[] = {"show", "hide", NULL};
+static gchar *cs3_content[] = {"normal", "none", "url()", "counter()", "counters()", "attr()",
+ "open-quote","close-quote", "no-open-quote", "no-close-quote", "inherit", NULL};
+static gchar *cs3_cursor[] = {"url()", "auto", "crosshair", "default", "help", "move",
+ "pointer ", "progress", "text", "wait", "e-resize", "ne-resize", "nw-resize", "n-resize",
+  "se-resize", "sw-resize", "s-resize", "w-resize", NULL};
+static gchar *cs3_width[] = {"thin", "medium", "thick", NULL}; 
 
 static Tcs3_arr cs3_arr[] = {
 {"font-family", cs3_fonts, 0, but_none},
-{"font-stretch", cs3_font_stretches, 0, but_none},
+//{"font-stretch", cs3_font_stretches, 0, but_none}, 
+// None of the major browsers support the font-stretch property.
 {"font-style", cs3_font_styles, 1, but_none},
 {"font-variant", cs3_font_variants, 1, but_none},
 {"font-weight", cs3_font_weights, 1, but_none},
 {"font-size", NULL, 0, but_none},
-{"font-size-adjust", cs3_font_size_adjustments, 0, but_none},
+// {"font-size-adjust", cs3_font_size_adjustments, 0, but_none}, 
+// Gecko only 
 {"font", NULL, 0, but_none},
 {"color", cs3_colors, 0, but_color},
 {"background-color", cs3_colors, 0, but_color},
-{"background-image", NULL, 0, but_file},
+{"background-image", NULL, 0, but_file},//	<uri> | none | inherit  url("images/bg.png")
 {"background-repeat", cs3_repeat, 0, but_none},
 {"background-attachment",cs3_background_attachments , 1, but_none},
 {"background-position",cs3_background_positions , 0, but_none},
@@ -287,6 +333,16 @@ static Tcs3_arr cs3_arr[] = {
 {"border-collapse", cs3_border_collapses, 1, but_none},
 {"border-spacing", NULL, 0, but_none},
 {"empty-cells", cs3_empty_cells, 1, but_none},
+{"content", cs3_content, 0, but_none},
+{"counter-increment", NULL, 0, but_none},
+{"counter-reset", NULL, 0, but_none},
+{"cursor", cs3_cursor, 0, but_none},
+{"opacity", NULL, 0, but_none},
+{"outline", NULL, 0, but_none},
+{"outline-color", cs3_colors, 0, but_color},
+{"outline-style", cs3_border_styles, 0, but_none},
+{"outline-width", cs3_width, 0, but_none},
+{"quotes", NULL, 0, but_none},
 {NULL, NULL, 0, but_none}
 };
 
@@ -493,6 +549,25 @@ static void cs3d_update_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 	}
 }
 
+static void cs3d_html5_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
+	GList *tmplist, *list;
+	list = glist_with_html_tags(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(diag->html5)));
+#if GTK_CHECK_VERSION(3,0,0)
+			gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(diag->selector));
+#else
+			GtkListStore *store = GTK_LIST_STORE(gtk_combo_box_get_model(GTK_COMBO_BOX(diag->selector)));
+  			gtk_list_store_clear(store);
+#endif
+	for (tmplist=g_list_first(list);tmplist;tmplist=g_list_next(tmplist)) {
+		if (tmplist->data) {
+			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(diag->selector),tmplist->data);
+		}
+	}
+	g_list_free(list);
+	g_list_free(tmplist);
+	tmplist = NULL;
+}
+
 static void cs3d_prop_activate_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 	Tcs3_arr *tmp;
 	gchar *tmpstr;
@@ -571,10 +646,15 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	tmplist = NULL;
 	
 	if (diag->styletype == multistyle) {
-		tmplist = glist_with_html_tags(1);
+		tmplist = glist_with_html_tags(0);
 		diag->selector = combobox_with_popdown(NULL, tmplist,1);
-		dialog_mnemonic_label_in_table(_("_Selector:"), diag->selector, table, 0, 1, 0, 1);
+		dialog_mnemonic_label_in_table(_("_Selector(s):"), diag->selector, table, 0, 1, 0, 1);
 		gtk_table_attach_defaults(GTK_TABLE(table), diag->selector, 1 ,5 , 0, 1);
+
+		diag->html5 = gtk_check_button_new_with_mnemonic("_html 5");
+		gtk_table_attach_defaults(GTK_TABLE(table), diag->html5, 5,6, 0,1);
+		g_signal_connect(diag->html5, "clicked", G_CALLBACK(cs3d_html5_clicked_lcb), diag);
+		
 		g_list_free(tmplist);
 		tmplist = NULL;
 	} 
@@ -595,12 +675,14 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	dialog_mnemonic_label_in_table(_("_Property:"), diag->property, table, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), diag->property, 1, 5, 1, 2);
 	dialog_mnemonic_label_in_table(_("_Value:"), diag->value, table, 0, 1, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(table), diag->value, 1, 5, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(table), diag->value, 1, 4, 2, 3);
+
 	
 	gtk_widget_realize(diag->win);
 
+
 	diag->extra_but = color_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(diag->value))), diag->win);
-	gtk_table_attach(GTK_TABLE(table), diag->extra_but, 5, 6, 2, 3, GTK_EXPAND, GTK_EXPAND, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), diag->extra_but, 4, 5, 2, 3, GTK_EXPAND, GTK_EXPAND, 0, 0);
 
 	/* the list widget and the buttons are in a horizontal box */
 	hbox = gtk_hbox_new(FALSE, 12);
@@ -612,7 +694,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	g_object_unref(G_OBJECT(diag->lstore));
 	if (diag->styletype == multistyle) {
 		renderer = gtk_cell_renderer_text_new();
-		column = gtk_tree_view_column_new_with_attributes (_("Selector"),renderer,"text", 0,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Selector(s)"),renderer,"text", 0,NULL);
 		gtk_tree_view_append_column(GTK_TREE_VIEW(diag->lview), column);
 	}
 	renderer = gtk_cell_renderer_text_new();
