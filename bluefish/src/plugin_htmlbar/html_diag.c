@@ -109,7 +109,7 @@ html_diag_new(Tbfwin * bfwin, gchar * title)
 
 	dg->range.pos = -1;
 	dg->range.end = -1;
-	if (main_v->props.transient_htdialogs) {
+	if (htmlbar_v.transient_htdialogs) {
 		/* must be set before realizing */
 		DEBUG_MSG("html_diag_new, setting dg->dialog=%p transient!\n", dg->dialog);
 		gtk_window_set_transient_for(GTK_WINDOW(dg->dialog), GTK_WINDOW(bfwin->main_window));

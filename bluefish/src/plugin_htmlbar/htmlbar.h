@@ -37,6 +37,7 @@ typedef struct {
 	GList *quickbar_items;
 	gint in_sidepanel;
 	gint lowercase_tags;
+	gint transient_htdialogs;
 } Thtmlbar;
 
 typedef struct {

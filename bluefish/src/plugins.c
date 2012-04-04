@@ -68,10 +68,14 @@ static TBluefishPlugin *load_plugin(const gchar *filename) {
 
 static TBluefishPlugin *plugin_from_filename(const gchar *path) {
 	TBluefishPlugin *bfplugin;
+	GSList *tmpslist;
+	
 	bfplugin = load_plugin(path);
 	DEBUG_MSG("plugin_from_filename, bfplugin=%p\n",bfplugin);
-	if (bfplugin) {
-		if (bfplugin->bfplugin_version == BFPLUGIN_VERSION
+	if (!bfplugin)
+		return NULL;
+	
+	if (!(bfplugin->bfplugin_version == BFPLUGIN_VERSION
 					&& bfplugin->gtkmajorversion == GTK_MAJOR_VERSION
 					&& bfplugin->document_size == sizeof(Tdocument)
 					&& bfplugin->sessionvars_size == sizeof(Tsessionvars)
@@ -80,19 +84,26 @@ static TBluefishPlugin *plugin_from_filename(const gchar *path) {
 					&& bfplugin->project_size == sizeof(Tproject)
 					&& bfplugin->main_size == sizeof(Tmain)
 					&& bfplugin->properties_size == sizeof(Tproperties)
-					) {
-			DEBUG_MSG("bluefish_load_plugins, loaded %s properly, init!\n",path);
-			return bfplugin;
-		} else {
-			g_warning("plugin %s is not compatible with this version of bluefish",path);
-			DEBUG_MSG("plugin_from_filename, %s binary compatibility mismatch\n",path);
+			)) {
+		g_warning("plugin %s is not compatible with this version of bluefish",path);
+		DEBUG_MSG("plugin_from_filename, %s binary compatibility mismatch\n",path);
+		g_module_close(PRIVATE(bfplugin)->module);
+		return NULL;
+	}
+	
+	for(tmpslist=main_v->plugins;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+		if (g_strcmp0(bfplugin->name, ((TBluefishPlugin *)tmpslist->data)->name)==0) {
+			g_warning("not loading %s, plugin \"%s\" was already loaded",path, bfplugin->name);
 			g_module_close(PRIVATE(bfplugin)->module);
+			return NULL;
 		}
 	}
-	return NULL;
+	return bfplugin;
 }
 
-static void bluefish_scan_dir_load_plugins(GList **oldlist,const gchar *indirname) {
+static void
+bluefish_scan_dir_load_plugins(GList **oldlist,const gchar *indirname)
+{
 	GError *error = NULL;
 	GPatternSpec* patspec;
 	GDir* gdir;
@@ -171,26 +182,31 @@ static gint plugins_compare_priority(gpointer a, gpointer b) {
 }
 
 void bluefish_load_plugins(void) {
-	GList *oldlist;	
+	GList *oldlist;
+	gchar *path;	
 	oldlist = main_v->props.plugin_config;
 	DEBUG_MSG("bluefish_load_plugins, oldlist %p len=%d\n",oldlist,g_list_length(oldlist));
 	main_v->props.plugin_config = NULL;
 
+	/* load from the user directory first */
+	path = g_strconcat(g_get_home_dir(), "/."PACKAGE"/",NULL);
+	bluefish_scan_dir_load_plugins(&oldlist,path);
+	g_free(path);
+
 #if defined(NSIS) || defined(OSXAPP)
 #ifdef RELPLUGINPATH
 	DEBUG_MSG("using RELPLUGINPATH\n");
-	gchar *path = g_build_path(G_DIR_SEPARATOR_S,RELPLUGINPATH,"lib",PACKAGE,NULL);
+	path = g_build_path(G_DIR_SEPARATOR_S,RELPLUGINPATH,"lib",PACKAGE,NULL);
 	bluefish_scan_dir_load_plugins(&oldlist, path);
 	g_free(path);
 #else /* RELPLUGINPATH */
-	gchar *path = g_build_path(G_DIR_SEPARATOR_S,".","lib",PACKAGE,NULL);
+	path = g_build_path(G_DIR_SEPARATOR_S,".","lib",PACKAGE,NULL);
 	bluefish_scan_dir_load_plugins(&oldlist, path);
 	g_free(path);
 #endif /* RELPLUGINPATH */
 #elif defined WIN32 
-	if (GTK_CHECK_VERSION(2, 16, 0))
-	{
-		gchar *path, *topdir;
+	if (GTK_CHECK_VERSION(2, 16, 0)) {
+		gchar *topdir;
 
 		topdir = g_win32_get_package_installation_directory_of_module(NULL);
 		path = g_build_path(G_DIR_SEPARATOR_S, topdir, "lib", PACKAGE, NULL);
@@ -202,15 +218,8 @@ void bluefish_load_plugins(void) {
 #else /* WIN32 */
 	bluefish_scan_dir_load_plugins(&oldlist,PKGLIBDIR);
 #endif /* NSIS || OSXAPP */
-/* #ifdef DEVELOPMENT */
-	{
-		gchar*dir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/",NULL);
-		bluefish_scan_dir_load_plugins(&oldlist,dir);
-		g_free(dir);
-	}
-/* #endif */ /* DEVELOPMENT */
+
 	free_arraylist(oldlist);
-	
 	main_v->plugins = g_slist_sort(main_v->plugins,(GCompareFunc)plugins_compare_priority);
 }
 

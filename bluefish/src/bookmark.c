@@ -666,6 +666,8 @@ bmark_check_remove(Tbfwin * bfwin, Tbmark * b)
 				if (b->doc)
 					b->doc->bmark_parent = NULL;
 			}
+			bluefish_text_view_set_show_symbols_redraw(BLUEFISH_TEXT_VIEW(b->doc->view), FALSE);
+			
 			return FALSE;
 		}
 	}
@@ -1699,7 +1701,9 @@ bmark_set_for_doc(Tdocument * doc, gboolean check_positions)
 				gtk_tree_model_iter_next(GTK_TREE_MODEL
 										 (BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child);
 		}
-
+		
+		bluefish_text_view_set_show_symbols_redraw(BLUEFISH_TEXT_VIEW(doc->view), TRUE);
+		
 	} else {
 		DEBUG_MSG("no bookmarks for doc %p in hashtable\n", doc);
 	}
@@ -1795,9 +1799,8 @@ bmark_add_backend(Tdocument * doc, GtkTextIter * itoffset, gint offset, const gc
 	if (!m->is_temp) {
 		bmark_store(BFWIN(doc->bfwin), m);
 	}
-	gtk_widget_queue_draw(doc->view);
-	if (doc->slave)
-		gtk_widget_queue_draw(doc->slave);
+	DEBUG_MSG("bmark_add_backend, set show symbols to true and call for redraw\n");
+	bluefish_text_view_set_show_symbols_redraw(BLUEFISH_TEXT_VIEW(doc->view), TRUE);
 	return m;
 }
 

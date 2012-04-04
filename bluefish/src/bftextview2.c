@@ -2085,6 +2085,20 @@ bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show)
 		gtk_widget_queue_draw(GTK_WIDGET(btv->slave));
 }
 
+void
+bluefish_text_view_set_show_symbols_redraw(BluefishTextView * btv, gboolean show)
+{
+	g_return_if_fail(btv != NULL);
+
+	if (show != btv->showsymbols) {
+		btv->showsymbols = show;
+		bftextview2_set_margin_size(btv);
+	}
+	gtk_widget_queue_draw(GTK_WIDGET(btv));
+	if (btv->slave)
+		gtk_widget_queue_draw(GTK_WIDGET(btv->slave));
+}
+
 gboolean
 bluefish_text_view_get_show_line_numbers(BluefishTextView * btv)
 {
@@ -2458,7 +2472,7 @@ bluefish_text_view_init(BluefishTextView * textview)
 	textview->user_idle_timer = g_timer_new();
 	textview->scancache.foundcaches = g_sequence_new(NULL);
 	bluefish_text_view_set_colors(textview, main_v->props.btv_color_str);
-	textview->showsymbols = TRUE;
+	textview->showsymbols = FALSE;
 	ttt = langmgr_get_tagtable();
 	textview->needscanning = gtk_text_tag_table_lookup(ttt, "_needscanning_");
 #ifdef HAVE_LIBENCHANT

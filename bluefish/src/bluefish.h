@@ -274,7 +274,6 @@ typedef struct {
 	GList *external_filter;		/* array: name,command */
 	GList *external_outputbox;	/* array:name,command,....... */
 	/*gint defaulthighlight; *//* highlight documents by default */
-	gint transient_htdialogs;	/* set html dialogs transient ro the main window */
 	gint leave_to_window_manager;	/* don't set any dimensions, leave all to window manager */
 	gint restore_dimensions;	/* use the dimensions as used the previous run */
 	gint left_panel_left;		/* 1 = left, 0 = right */
@@ -313,9 +312,6 @@ typedef struct {
 	gint dtd_url;				/* URL in DTD */
 	gint xml_start;				/* <?XML...> */
 	gint smartindent;			/* add extra indent in certain situations */
-	gint drop_at_drop_pos;		/* drop at drop position instead of cursor position */
-	gint link_management;		/* perform link management */
-	gint cont_highlight_update;	/* update the syntax highlighting continuous */
 	/* key conversion */
 	gint open_in_running_bluefish;	/* open commandline documents in already running process */
 	gint open_in_new_window;	/* open commandline files in a new window as opposed to an existing window */

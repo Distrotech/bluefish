@@ -33,7 +33,7 @@
 #include "rpopup.h"
 #include "prefs.h"
 
-Thtmlbar htmlbar_v;
+Thtmlbar htmlbar_v = {NULL, NULL, 0, 0, 1};
 
 static void
 htmlbar_doc_view_populate_popup(GtkTextView * textview, GtkMenu * menu, Tdocument * doc)
@@ -157,9 +157,7 @@ htmlbar_initgui(Tbfwin * bfwin)
 				  bfwin->session);
 		g_hash_table_insert(htmlbar_v.lookup, bfwin->session, hbs);
 	}
-	g_print("htmlbar_initgui, created hbw=%p and hbs=%p\n",hbw,hbs);
-	
-	DEBUG_MSG("htmlbar_initgui, started, will call htmlbar_load_ui\n");
+	DEBUG_MSG("htmlbar_initgui, created hbw=%p and hbs=%p, will call htmlbar_load_ui\n",hbw,hbs);
 	htmlbar_load_ui(hbw);
 	htmlbar_menu_create(hbw);
 	action = gtk_ui_manager_get_action(bfwin->uimanager, "/MainMenu/ViewMenu/ViewHTMLToolbar");
@@ -227,6 +225,7 @@ htmlbar_register_globses_config(GHashTable * configlist)
 	configlist = make_config_list_item(configlist, &htmlbar_v.in_sidepanel, 'i', "htmlbar_in_sidepanel:", 0);
 	configlist = make_config_list_item(configlist, &htmlbar_v.quickbar_items, 'l', "htmlbar_quickbar:", 0);
 	configlist = make_config_list_item(configlist, &htmlbar_v.lowercase_tags, 'i', "lowercase_tags:", 0);
+	configlist = make_config_list_item(configlist, &htmlbar_v.transient_htdialogs, 'i', "htmlbar_transient:", 0);
 	return configlist;
 }
 
@@ -257,7 +256,7 @@ htmlbar_session_cleanup(Tsessionvars * session)
 
 
 static TBluefishPlugin bfplugin = {
-	"HTML Features",
+	N_("HTML Features"),
 	BFPLUGIN_VERSION,
 	GTK_MAJOR_VERSION,
 	sizeof(Tdocument),

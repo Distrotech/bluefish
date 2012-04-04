@@ -85,11 +85,8 @@ enum {
 	image_editor_cline,			/* image editor commandline */
 	allow_ruby,					/* allow <ruby> */
 	force_dtd,					/* write <!DOCTYPE...> */
-	dtd_url,					/* URL in DTD */
 	xml_start,					/* <?XML...> */
 	smartindent,
-	drop_at_drop_pos,			/* drop at drop position instead of cursor position */
-	link_management,			/* perform link management */
 #ifndef WIN32
 	open_in_running_bluefish,	/* open commandline documents in already running session */
 	open_in_new_window,
@@ -1904,13 +1901,7 @@ preferences_dialog_new(void)
 
 	vbox2 = dialog_vbox_labeled(_("<b>Options</b>"), vbox1);
 
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	pd->prefs[right_margin_pos] =
-		dialog_spin_button_labeled(1, 500, main_v->props.right_margin_pos,
-								   _("Right _margin/split line end position:"), hbox, 0);
-
-	table = dialog_table_in_vbox_defaults(4, 2, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(5, 2, 0, vbox2);
 
 	pd->prefs[smartindent] =
 		dialog_check_button_in_table(_("Smart auto indentin_g"), main_v->props.smartindent, table, 0, 1, 0,
@@ -1926,6 +1917,12 @@ preferences_dialog_new(void)
 	pd->prefs[editor_auto_close_brackets] =
 		dialog_check_button_in_table(_("Auto close brackets"),
 									 main_v->props.editor_auto_close_brackets, table, 0, 1, 3, 4);
+
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
+	pd->prefs[right_margin_pos] =
+		dialog_spin_button_labeled(1, 500, main_v->props.right_margin_pos,
+								   _("Right _margin/split line end position:"), hbox, 0);
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
