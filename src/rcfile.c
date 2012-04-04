@@ -422,7 +422,6 @@ props_init_main(GHashTable * config_rc)
 
 	/*init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE); */
 	/* old type filetypes have a different count, they are converted below */
-	init_prop_integer(&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE);
 
 	init_prop_integer(&config_rc, &main_v->props.leave_to_window_manager, "leave_to_window_manager:", 0,
 					  TRUE);
@@ -472,11 +471,8 @@ props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.close_tag_newline, "close_tag_newline:", 1, TRUE);*/
 	init_prop_integer(&config_rc, &main_v->props.allow_ruby, "allow_the_use_of_ruby:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.force_dtd, "force_an_dtd:", 0, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.dtd_url, "url_in_dtd:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.xml_start, "xml_starting_line:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.smartindent, "smartindent:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.open_in_running_bluefish, "open_in_running_bluefish:", 1,
 					  TRUE);
 	init_prop_integer(&config_rc, &main_v->props.open_in_new_window, "open_in_new_window:", 1, TRUE);

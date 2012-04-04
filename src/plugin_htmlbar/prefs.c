@@ -22,7 +22,7 @@ void htmlbar_pref_apply()
 {
 	/*g_print("htmlbar_pref_apply\n");*/
 	integer_apply(&htmlbar_v.in_sidepanel, hbp->in_sidepanel, TRUE);
-	integer_apply(&main_v->props.transient_htdialogs, hbp->transient_htdialogs, TRUE);	
+	integer_apply(&htmlbar_v.transient_htdialogs, hbp->transient_htdialogs, TRUE);	
 	integer_apply(&main_v->props.xhtml, hbp->xhtml, TRUE);
 	if (main_v->props.xhtml) {
 		htmlbar_v.lowercase_tags = 1;
@@ -60,7 +60,7 @@ void htmlbar_pref_initgui(GtkTreeStore *nstore, GtkTreeIter *pit, GSList **widge
 	gtk_container_add(GTK_CONTAINER(frame), vbox);
 	
 	gtk_tree_store_append(nstore, &it, pit);
-	gtk_tree_store_set(nstore, &it, NAMECOL, _("HTML"), WIDGETCOL, frame, -1);
+	gtk_tree_store_set(nstore, &it, NAMECOL, _("HTML Features"), WIDGETCOL, frame, -1);
 	*widgetfreelist = g_slist_prepend(*widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>HTML Toolbar</b>"), vbox);
@@ -68,7 +68,7 @@ void htmlbar_pref_initgui(GtkTreeStore *nstore, GtkTreeIter *pit, GSList **widge
 	hbp->in_sidepanel =
 		dialog_check_button_in_table(_("Show toolbar in sidepanel"), htmlbar_v.in_sidepanel, table, 0, 1, 0,1);
 	hbp->transient_htdialogs = dialog_check_button_in_table(_("Keep HTML dialogs always on top"),
-															 main_v->props.transient_htdialogs, table, 0, 1, 1, 2);
+															 htmlbar_v.transient_htdialogs, table, 0, 1, 1, 2);
 	
 	
 	
