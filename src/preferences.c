@@ -74,7 +74,7 @@ enum {
 	image_thumbnailtype,		/* fileformat to use for thumbnails, "jpeg" or "png" can be handled by gdkpixbuf */
 	modified_check_type,		/* 0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
 	num_undo_levels,			/* number of undo levels per document */
-	clear_undo_on_save,			/* clear all undo information on file save */
+	clear_undo_on_save,		/* clear all undo information on file save */
 	newfile_default_encoding,	/* if you open a new file, what encoding will it use */
 	auto_set_encoding_meta,		/* auto set metatag for the encoding */
 	max_window_title,
@@ -82,10 +82,6 @@ enum {
 	leftpanel_tabposition,
 	switch_tabs_by_altx,		/* switch tabs using Alt+X (#385860) */
 	/* not yet in use */
-	image_editor_cline,			/* image editor commandline */
-	allow_ruby,					/* allow <ruby> */
-	force_dtd,					/* write <!DOCTYPE...> */
-	xml_start,					/* <?XML...> */
 	smartindent,
 #ifndef WIN32
 	open_in_running_bluefish,	/* open commandline documents in already running session */
@@ -1938,9 +1934,8 @@ preferences_dialog_new(void)
 	dialog_mnemonic_label_in_table(_("_Number of actions in history:"), pd->prefs[num_undo_levels], table, 0,
 								   1, 0, 1);
 	pd->prefs[clear_undo_on_save] =
-		dialog_check_button_in_table(_("Clear _history on save"), main_v->props.clear_undo_on_save, table, 0,
-									 1, 1, 2);
-
+				dialog_check_button_in_table(_("Clear _history on save"), main_v->props.clear_undo_on_save, table, 0,1, 1, 2);
+	
 	frame = gtk_frame_new(NULL);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
