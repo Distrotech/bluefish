@@ -652,6 +652,8 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 		diag->selector = combobox_with_popdown(NULL, tmplist,1);
 		dialog_mnemonic_label_in_table(_("_Selector(s):"), diag->selector, table, 0, 1, 0, 1);
 		gtk_table_attach_defaults(GTK_TABLE(table), diag->selector, 1 ,5 , 0, 1);
+		gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(diag->selector), 5);
+		gtk_combo_box_set_add_tearoffs(GTK_COMBO_BOX(diag->selector), 1);
 
 		diag->html5 = gtk_check_button_new_with_mnemonic("_html 5");
 		gtk_table_attach_defaults(GTK_TABLE(table), diag->html5, 5,6, 0,1);
@@ -676,6 +678,8 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	diag->value = combobox_with_popdown(NULL, tmplist,1);
 	dialog_mnemonic_label_in_table(_("_Property:"), diag->property, table, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), diag->property, 1, 5, 1, 2);
+	gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(diag->property), 4);
+	gtk_combo_box_set_add_tearoffs(GTK_COMBO_BOX(diag->property), 1);
 	dialog_mnemonic_label_in_table(_("_Value:"), diag->value, table, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(table), diag->value, 1, 4, 2, 3);
 
