@@ -563,6 +563,7 @@ static void cs3d_html5_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(diag->selector),tmplist->data);
 		}
 	}
+	gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->selector))), "");
 	g_list_free(list);
 	g_list_free(tmplist);
 	tmplist = NULL;
@@ -594,6 +595,7 @@ static void cs3d_prop_activate_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 					gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(diag->value),tmplist->data);
 				}
 			}
+			gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->value))), "");
 			g_list_free(list);
 			if (tmpstr2) {
 				gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->value))), tmpstr2);
