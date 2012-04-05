@@ -303,14 +303,9 @@ typedef struct {
 	gint switch_tabs_by_altx;
 	gchar *project_suffix;
 	/* not yet in use */
-	gchar *image_editor_cline;	/* image editor commandline */
 	gint allow_dep;				/* allow <FONT>... */
 	gint format_by_context;		/* use <strong> instead of <b>, <emphasis instead of <i> etc. (W3C reccomendation) */
 	gint xhtml;					/* write <br /> */
-	gint allow_ruby;			/* allow <ruby> */
-	gint force_dtd;				/* write <!DOCTYPE...> */
-	gint dtd_url;				/* URL in DTD */
-	gint xml_start;				/* <?XML...> */
 	gint smartindent;			/* add extra indent in certain situations */
 	/* key conversion */
 	gint open_in_running_bluefish;	/* open commandline documents in already running process */
