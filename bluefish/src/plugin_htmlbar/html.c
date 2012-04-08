@@ -2334,7 +2334,7 @@ script_dialog(Tbfwin * bfwin, Ttagpopup * data)
 }
 
 static void
-columncount_auto_clicked_lcb(GtkWidget * checkbutton, Thtml_diag * dg)
+columncount_auto_toggled_lcb(GtkWidget * checkbutton, Thtml_diag * dg)
 {
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton))){
 		gtk_widget_set_sensitive(dg->spin[0], FALSE);
@@ -2344,16 +2344,15 @@ columncount_auto_clicked_lcb(GtkWidget * checkbutton, Thtml_diag * dg)
 }
 
 static void
-columnwidth_auto_toggled_lcb(GtkWidget * widget, Thtml_diag * dg)
+columnwidth_auto_toggled_lcb(GtkWidget * checkbutton, Thtml_diag * dg)
 {
-	if (gtk_widget_get_sensitive(dg->spin[1])){
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton))){
 		gtk_widget_set_sensitive(dg->spin[1], FALSE);
 		gtk_widget_set_sensitive(dg->combo[0], FALSE);
-		}
-	else {
+	} else {
 		gtk_widget_set_sensitive(dg->spin[1], TRUE);
 		gtk_widget_set_sensitive(dg->combo[0], TRUE);
-		}
+	}
 }
 
 static void
@@ -2506,7 +2505,7 @@ column-fill: auto (default balance)
 			_("Auto (default) or number of columns"));
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[0], 1,2, 0,1);
 	dg->check[2] = gtk_check_button_new_with_mnemonic("_auto");
-	g_signal_connect(dg->check[2], "clicked", G_CALLBACK(columncount_auto_clicked_lcb), dg);
+	g_signal_connect(dg->check[2], "toggled", G_CALLBACK(columncount_auto_toggled_lcb), dg);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 3,4, 0,1);
 
 	dg->spin[1] = spinbut_with_value(tagvalues[1] ? tagvalues[1]: "50", 0, 10000, 0.1, 1.0);
