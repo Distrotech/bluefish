@@ -1117,7 +1117,7 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"DialogsTableData", BF_STOCK_TABLE_TD, N_("Table _Data..."), NULL, N_("Table Data..."),
 	 G_CALLBACK(htmlbar_dialog_table_data)},
 	{"DialogsCSSMenu", NULL, N_("_CSS")},
-	{"DialogsCreateStyle", BF_STOCK_CSSNEWSTYLE, N_("_Create Style..."), "<shift><alt>S",
+	{"DialogsCreateStyle", BF_STOCK_CSSNEWSTYLE, N_("_Create Style..."), "<control><shift><alt>S",
 	 N_("Create stylesheet..."),
 	 G_CALLBACK(htmlbar_dialog_style_create)},
 	{"DialogsSpan", BF_STOCK_CSSSPAN, N_("S_pan..."), NULL, N_("Span..."), G_CALLBACK(htmlbar_dialog_span)},
