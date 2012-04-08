@@ -46,24 +46,7 @@ void
 htmlbar_insert_special_char(Tbfwin * bfwin, TBFSpecialChars spchar)
 {
 	const gchar *sp_chars[] = {
-		NULL, "&aacute;", "&acirc;", "&aelig;", "&agrave;", "&aring;", "&atilde;", "&auml;",
-		"&ccedil;", "&eacute;", "&ecirc;", "&egrave;", "&euml;",
-		"&iacute;", "&icirc;", "&igrave;", "&iuml;", "&ntilde;",
-		"&oacute;", "&ocirc;", "&oelig;", "&ograve;", "&oslash;", "&otilde;", "&ouml;",
-		"&uacute;", "&ucirc;", "&ugrave;", "&uuml;", "&yacute;", "&yuml;",
-		"&Aacute;", "&Acirc;", "&AElig;", "&Agrave;", "&Aring;", "&Atilde;", "&Auml;",
-		"&Ccedil;", "&Eacute;", "&Ecirc;", "&Egrave;", "&Euml;",
-		"&Iacute;", "&Icirc;", "&Igrave;", "&Iuml;", "&Ntilde;",
-		"&Oacute;", "&Ocirc;", "&OElig;", "&Ograve;", "&Oslash;", "&Otilde;", "&Ouml;",
-		"&Uacute;", "&Ucirc;", "&Ugrave;", "&Uuml;", "&Yacute;",
-		"&acute;", "&cedil;", "&uml;",
-		"&cent;", "&curren;", "&euro;", "&pound;", "&yen;",
-		"&not;", "&divide;", "&times;", "&plusmn;", "&lt;", "&gt;",
-		"&sup1;", "&sup2;", "&sup3;", "&frac14;", "&frac12;", "&frac34;", "&deg;",
-		"&eth;", "&ETH;", "&thorn;", "&THORN;", "&szlig;", "&micro;", "&nbsp;",
-		"&sect;", "&copy;", "&laquo;", "&raquo;", "&reg;", "&iexcl;", "&iquest;",
-		"&ordf;", "&ordm;", "&para;", "&brvbar;", "&shy;", "&macr;",
-		"&middot;"
+		NULL, "&nbsp;", "&brvbar;", "&shy;"
 	};
 
 	doc_insert_two_strings(bfwin->current_document, sp_chars[spchar], NULL);
