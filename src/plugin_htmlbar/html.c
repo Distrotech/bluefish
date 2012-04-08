@@ -2334,18 +2334,17 @@ script_dialog(Tbfwin * bfwin, Ttagpopup * data)
 }
 
 static void
-columncount_auto_clicked_lcb(GtkWidget * widget, Thtml_diag * dg)
+columncount_auto_clicked_lcb(GtkWidget * checkbutton, Thtml_diag * dg)
 {
-	if (gtk_widget_get_sensitive(dg->spin[0])){
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton))){
 		gtk_widget_set_sensitive(dg->spin[0], FALSE);
-		}
-	else {
+	} else {
 		gtk_widget_set_sensitive(dg->spin[0], TRUE);
-		}
+	}
 }
 
 static void
-columnwidth_auto_clicked_lcb(GtkWidget * widget, Thtml_diag * dg)
+columnwidth_auto_toggled_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
 	if (gtk_widget_get_sensitive(dg->spin[1])){
 		gtk_widget_set_sensitive(dg->spin[1], FALSE);
@@ -2518,7 +2517,7 @@ column-fill: auto (default balance)
 	dg->combo[0] = combobox_with_popdown_sized(tagvalues[2] ? tagvalues[2]: "%", tmplist, 0, 70);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[0], 2,3, 1,2);
 	dg->check[3] = gtk_check_button_new_with_mnemonic("a_uto");
-	g_signal_connect(dg->check[3], "clicked", G_CALLBACK(columnwidth_auto_clicked_lcb), dg);	
+	g_signal_connect(dg->check[3], "toggled", G_CALLBACK(columnwidth_auto_toggled_lcb), dg);	
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dg->check[3]), TRUE);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[3], 3,4, 1,2);
 
