@@ -28,7 +28,7 @@
 !define PUBLISHER	"The Bluefish Developers"
 !define HOMEPAGE	"null"
 !define HELPURL		"null"
-!define PROGRAM_EXE	"null"
+!define PROGRAM_EXE	"bluefish.exe"
 !define UNINSTALL_EXE	"null"
 
 !define GTK_MIN_VERSION	"null"
@@ -134,12 +134,17 @@ Page custom FileAssociations SetFileAssociations
 ; English goes first as the default language
 !insertmacro MUI_LANGUAGE	"English" 	; 1033
 ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
+; Localization Notes
+;   MUI_LANGUAGE definitions are defined by NSIS and should not be changed
+;    see 'nsisu\Contrib\Language files' for appropriate definitions for missing entries
+;   LoadLocalization entries should match the MUI_LANGUAGE name but be in all caps, if they
+;    don't match they cannot contain spaces for proper operation
 !insertmacro MUI_LANGUAGE	"Basque" 	; 1069
 ${LoadLocalization}	"BASQUE"	"locale\Basque.nsh"
 !insertmacro MUI_LANGUAGE	"Catalan" 	; 1027
 ${LoadLocalization}	"CATALAN"	"locale\Catalan.nsh"
 !insertmacro MUI_LANGUAGE	"PortugueseBR" 	; 1046
-${LoadLocalization}	"BRAZILIAN PORTUGUESE"	"locale\PortugueseBR.nsh"
+${LoadLocalization}	"PORTUGUESEBR"	"locale\PortugueseBR.nsh"
 !insertmacro MUI_LANGUAGE	"Czech" 	; 1029
 ${LoadLocalization}	"CZECH"		"locale\Czech.nsh"
 !insertmacro MUI_LANGUAGE	"Dutch" 	; 1043
@@ -156,14 +161,14 @@ ${LoadLocalization}	"HUNGARIAN"	"locale\Hungarian.nsh"
 ${LoadLocalization}	"ITALIAN"	"locale\Italian.nsh"
 !insertmacro MUI_LANGUAGE	"Japanese" 	; 1041
 ${LoadLocalization}	"JAPANESE"	"locale\Japanese.nsh"
-!insertmacro MUI_LANGUAGE	"Norwegian Bokmål" ; 1044
-${LoadLocalization}	"NORWEGIAN BOKMAAL"	"locale\NorwegianBokmaal.nsh"
-!insertmacro MUI_LANGUAGE "Norwegian Nynorsk"  ; 2068
-${LoadLocalization} "NORWEGIAN NYNORSK" "locale\NorwegianNynorsk.nsh"
+!insertmacro MUI_LANGUAGE	"Norwegian" ; 1044
+${LoadLocalization}	"NORWEGIAN"	"locale\NorwegianBokmaal.nsh"
+!insertmacro MUI_LANGUAGE "NorwegianNynorsk"  ; 2068
+${LoadLocalization}	"NORWEGIANNYNORSK" "locale\NorwegianNynorsk.nsh"
 !insertmacro MUI_LANGUAGE	"Swedish" 	; 1053
 ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 !insertmacro MUI_LANGUAGE	"SimpChinese" 	; 2052
-${LoadLocalization}	"SIMPLE CHINESE"	"locale\SimpChinese.nsh"
+${LoadLocalization}	"SIMPCHINESE"	"locale\SimpChinese.nsh"
 !insertmacro MUI_LANGUAGE	"Ukrainian" ; 1058
 ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
 ; Translations needed for the following commented languages
