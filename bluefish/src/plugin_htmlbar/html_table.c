@@ -32,16 +32,15 @@
 #include "../stringlist.h"
 
 static void
-table_border_clicked_lcb(GtkWidget * widget, Thtml_diag * dg)
+table_border_clicked_lcb(GtkWidget * checkbutton, Thtml_diag * dg)
 {
-	if (gtk_widget_get_sensitive(dg->spin[4])){
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton))){
 		gtk_widget_set_sensitive(dg->spin[4], FALSE);
 		gtk_widget_set_sensitive(dg->check[2], FALSE);
-		}
-	else {
+	} else {
 		gtk_widget_set_sensitive(dg->spin[4], TRUE);
 		gtk_widget_set_sensitive(dg->check[2], TRUE);
-		}
+	}
 }
 
 static void
@@ -270,7 +269,7 @@ tablerowdialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	dg->combo[3] = combobox_with_popdown_sized(tagvalues[2], bfwin->session->colorlist, 1, 90);
 	color_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[3])), dg->dialog);
-	dialog_mnemonic_label_in_table(_("<span color=\"red\">_bgolor:</span>"), dg->combo[3], dgtable, 2, 3, 1, 2);
+	dialog_mnemonic_label_in_table(_("<span color=\"red\">_bgcolor:</span>"), dg->combo[3], dgtable, 2, 3, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but), 4, 5, 1, 2);
 
