@@ -2356,16 +2356,15 @@ columnwidth_auto_toggled_lcb(GtkWidget * checkbutton, Thtml_diag * dg)
 }
 
 static void
-columngap_normal_clicked_lcb(GtkWidget * widget, Thtml_diag * dg)
+columngap_normal_clicked_lcb(GtkWidget * checkbutton, Thtml_diag * dg)
 {
-	if (gtk_widget_get_sensitive(dg->spin[2])){
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton))){
 		gtk_widget_set_sensitive(dg->spin[2], FALSE);
 		gtk_widget_set_sensitive(dg->combo[1], FALSE);
-		}
-	else {
+	} else {
 		gtk_widget_set_sensitive(dg->spin[2], TRUE);
 		gtk_widget_set_sensitive(dg->combo[1], TRUE);
-		}
+	}
 }
 
 static void
@@ -2448,10 +2447,8 @@ columnsok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	tmpstring =  g_strdup("column-rule: ");
 	tmpstring = g_strconcat(tmpstring, gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[2])), " ", NULL);
 	tmpstring = g_strconcat(tmpstring, gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[3])), " ", NULL);
-	if (gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[5]))) {
+	if (strlen(gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[5])))) {
 		tmpstring = g_strconcat(tmpstring, gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[5])), endstring, NULL); 
-/*html.c:2470:2: warning: passing argument 1 of 'gtk_combo_box_get_active_text' from incompatible pointer type
-/usr/include/gtk-2.0/gtk/gtkcombobox.h:141:15: note: expected 'struct GtkComboBox *' but argument is of type 'struct GtkComboBoxText *'*/
 	} else {
 		tmpstring = g_strconcat(tmpstring, gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[3]))), 
 		gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[4])), endstring, NULL);
