@@ -3056,8 +3056,8 @@ msgstr[1] "<i>%d Treffer in %d von %d durchsuchten Dokumenten</i>"
 #, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
-msgstr[0] "<i>%d Treffer im aktiven Dokument</i>"
-msgstr[1] "<i>%d Treffer im aktiven Dokument</i>"
+msgstr[0] "<i>%d Treffer von Zeichen %d bis %d</i>"
+msgstr[1] "<i>%d Treffer von Zeichen %d bis %d</i>"
 
 #: ../src/snr3.c:1098
 #, c-format
@@ -3127,7 +3127,7 @@ msgstr "Such_muster: "
 #
 #: ../src/snr3.c:1539
 msgid "Replace T_ype: "
-msgstr "Ersetzeungst_yp:"
+msgstr "Ersetzungst_yp:"
 
 #: ../src/snr3.c:1552
 msgid "Sco_pe: "
@@ -3139,7 +3139,7 @@ msgstr "Dateinamenmuster: "
 
 #: ../src/snr3.c:1574
 msgid "Recursion level: "
-msgstr "_Rekursivstiefe: "
+msgstr "_Rekursionstiefe: "
 
 #: ../src/snr3.c:1580
 msgid "Basedir: "
@@ -3152,7 +3152,7 @@ msgstr "Groß- und Kleinschreibung _beachten"
 
 #: ../src/snr3.c:1601
 msgid "Only match if case (upper/lower) is identical."
-msgstr "Nur finden falls Groß-/Kleinschreibung identisch ist"
+msgstr "Nur finden falls Groß-/Kleinschreibung identisch ist."
 
 #: ../src/snr3.c:1605
 msgid "Pattern contains escape-se_quences"
@@ -3173,7 +3173,7 @@ msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
-"Ein Punkt . trifft auf alle Zeichen zu, auch Zeilenumbrüche und kann für "
+"Ein Punkt . trifft auf alle Zeichen zu, auch Zeilenumbrüche, und kann für "
 "Mehrzeilen-Treffer genutzt werden."
 
 #
