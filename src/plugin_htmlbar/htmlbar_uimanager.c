@@ -1420,7 +1420,11 @@ static GtkWidget *new_html_subtoolbar(Thtmlbarwin * hbw, GtkWidget *html_noteboo
 	label = gtk_label_new(labeltext);
 /*	gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_END);*/
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, label);
+#if GTK_CHECK_VERSION(2,20,0)
+	gtk_container_child_set(GTK_CONTAINER(html_notebook), label, "tab-fill", TRUE, "tab-expand", TRUE, NULL);
+#else
 	gtk_notebook_set_tab_label_packing(GTK_NOTEBOOK(html_notebook),label,TRUE,TRUE,GTK_PACK_START);
+#endif
 	return toolbar;	
 }
 
