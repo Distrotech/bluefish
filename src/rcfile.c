@@ -769,7 +769,7 @@ rcfile_parse_main(void)
 											 "3", "1", "perl -c '%f'|", NULL));
 		main_v->props.external_outputbox =
 			g_list_append(main_v->props.external_outputbox,
-							array_from_arglist(_("php codesniffer"), "\\:([0-9\:]+)\\:(.*)", "-1",
+							array_from_arglist(_("php codesniffer"), ":([0-9\:]+):(.*)", "-1",
 											 "1", "2", "phpcs --report=emacs '%f'|", NULL));
 	}
 	if (main_v->props.external_filter == NULL) {
