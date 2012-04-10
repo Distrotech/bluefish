@@ -963,7 +963,7 @@ static const GtkActionEntry htmlbar_actions[] = {
 	 G_CALLBACK(htmlbar_insert_h5_tag)},
 	{"HeadingsH6", BF_STOCK_FONTH6, N_("H_6"), "<control><alt>6", N_("Insert H6 tag"),
 	 G_CALLBACK(htmlbar_insert_h6_tag)},
-	{"SpecialOtherMenu", NULL, N_("_Other")},
+	{"SpecialMenu", NULL, N_("_Entities")},
 	{"NBSP", NULL, N_("_Non-breaking space"), NULL, NULL, G_CALLBACK(htmlbar_insert_nbsp)},
 	{"BrokenBar", NULL, N_("_Broken bar ¦"), NULL, NULL, G_CALLBACK(htmlbar_insert_broken_bar)},
 	{"SoftHyphen", NULL, N_("Soft _hyphen -"), NULL, NULL, G_CALLBACK(htmlbar_insert_soft_hyphen)},
