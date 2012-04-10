@@ -679,12 +679,24 @@ static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,g
 		if (status == G_IO_STATUS_NORMAL && str_return) {
 			gint end=ep->end;
 			GError *error=NULL;
+			GtkTextIter iter;
+			GtkTextBuffer *buffer = ep->bfwin->current_document->buffer;
 			DEBUG_MSG("filter_io_watch_lcb, received '%s'\n",str_return);
 			if (ep->bfwin->current_document) {
+				gint line=-1,offset=-1;
 				if (ep->end == -1) {
-					end = gtk_text_buffer_get_char_count(ep->bfwin->current_document->buffer);
+					end = gtk_text_buffer_get_char_count(buffer);
+				}
+				if (!gtk_text_buffer_get_has_selection(buffer)) {
+					gtk_text_buffer_get_iter_at_mark(buffer, &iter,gtk_text_buffer_get_insert(buffer));
+					line = gtk_text_iter_get_line(&iter);
+					offset = gtk_text_iter_get_line_offset(&iter);
 				}
 				doc_replace_text(ep->bfwin->current_document, str_return, ep->begin, end);
+				if (line != -1) {
+					gtk_text_buffer_get_iter_at_line_offset(buffer, &iter, line, offset);
+					gtk_text_buffer_place_cursor(buffer, &iter);
+				}
 			}
 			g_io_channel_shutdown(channel,TRUE,&error);
 			externalp_unref(ep);
