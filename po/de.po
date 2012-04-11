@@ -130,7 +130,7 @@ msgstr "_Schriftgröße"
 
 #: ../src/bfwin_uimanager.c:748
 msgid "Language M_ode"
-msgstr "Sprachem_odus"
+msgstr "Sprachm_odus"
 
 #: ../src/bfwin_uimanager.c:749
 msgid "Character _Encoding"
@@ -287,7 +287,7 @@ msgstr "Dokumentschriftgröße verkleinern"
 
 #: ../src/bfwin_uimanager.c:786 ../src/bfwin_uimanager.c:792
 msgid "_Reset"
-msgstr "/_Zurücksetzen"
+msgstr "_Zurücksetzen"
 
 #: ../src/bfwin_uimanager.c:786
 msgid "Reset document font size"
@@ -327,7 +327,7 @@ msgstr "Neues Projekt"
 
 #: ../src/bfwin_uimanager.c:802
 msgid "_Open Project..."
-msgstr "Ö_ffnen"
+msgstr "Projekt ö_ffnen"
 
 #: ../src/bfwin_uimanager.c:802
 msgid "Open project"
@@ -494,7 +494,7 @@ msgstr "(Cleveres) Automatisches Einrücken"
 #
 #: ../src/bfwin_uimanager.c:842
 msgid "Highlight Block _Delimiters"
-msgstr "Blockbegrenzer hervorheben"
+msgstr "Blockbegren_zer hervorheben"
 
 #
 #: ../src/bfwin_uimanager.c:843
@@ -644,7 +644,7 @@ msgstr "_Letztes Lesezeichen"
 
 #: ../src/bfwin_uimanager.c:876
 msgid "Goto last bookmark"
-msgstr "Zum letztes Lesezeichen wechseln"
+msgstr "Zum letzten Lesezeichen wechseln"
 
 #: ../src/bfwin_uimanager.c:878
 msgid "N_ext Bookmark"
@@ -672,7 +672,7 @@ msgstr "Tab nach links verschieben"
 
 #: ../src/bfwin_uimanager.c:884
 msgid "Move Tab _Right"
-msgstr "Tab nach rechts"
+msgstr "Tab nach _rechts"
 
 #: ../src/bfwin_uimanager.c:884
 msgid "Move current tab right"
@@ -772,7 +772,7 @@ msgstr "Weitersuchen"
 
 #: ../src/bfwin_uimanager.c:910
 msgid "Find from Clip_board"
-msgstr "In Zwischenablage suchen"
+msgstr "In Zwischena_blage suchen"
 
 #: ../src/bfwin_uimanager.c:910
 msgid "Find from clipboard"
@@ -824,7 +824,7 @@ msgstr "Alles Rückgä_ngig"
 
 #: ../src/bfwin_uimanager.c:929
 msgid "Undo All"
-msgstr "Alles Rückgängig"
+msgstr "Alle Änderungen rückgängig machen"
 
 #: ../src/bfwin_uimanager.c:930
 msgid "_Redo"
@@ -840,7 +840,7 @@ msgstr "Alles Wi_ederholen"
 
 #: ../src/bfwin_uimanager.c:931
 msgid "Redo All"
-msgstr "Alles Wiederherstellen"
+msgstr "Alle Änderungen wiederherstellen"
 
 #: ../src/bfwin_uimanager.c:1072
 msgid "Open _URL..."
@@ -987,7 +987,7 @@ msgstr "Alle Lesezeichen löschen."
 #: ../src/bookmark.c:790
 #, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
-msgstr "Wirklich alle Lesezeichen von %s löschen?"
+msgstr "Wirklich alle Lesezeichen für %s löschen?"
 
 #: ../src/bookmark.c:792
 msgid "Delete bookmarks?"
@@ -1147,7 +1147,7 @@ msgid ""
 "Size (on disk): "
 msgstr ""
 "\n"
-"Größe (auf Platte): "
+"Größe (auf Laufwerk): "
 
 #: ../src/document.c:457
 msgid ""
@@ -1165,7 +1165,7 @@ msgstr "Ohne Titel %d"
 #: ../src/document.c:676
 #, c-format
 msgid "Changed tab width to %d"
-msgstr "Tabweite zu %d geändert"
+msgstr "Tabbreite zu %d geändert"
 
 #: ../src/document.c:850
 #, c-format
@@ -1178,7 +1178,7 @@ msgstr "In dieses Fenster bewegen"
 
 #: ../src/document.c:852
 msgid "Open readonly"
-msgstr "Read-only Öffnen"
+msgstr "Nur-Lesen Öffnen"
 
 #: ../src/document.c:853
 msgid "Do not open"
@@ -1187,12 +1187,12 @@ msgstr "Nicht öffnen"
 #: ../src/document.c:1165
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
-msgstr " Z: %d, S: %d, Zeichen: %d"
+msgstr " Zeile: %d, Spalte: %d, Zeichen: %d"
 
 #: ../src/document.c:1168
 #, c-format
 msgid " Ln: %d, Col: %d"
-msgstr "Z: %d, S: %d"
+msgstr "Zeile: %d, Spalte: %d"
 
 #: ../src/document.c:1191
 msgid " OVR"
@@ -1252,8 +1252,8 @@ msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
-"Ihre Glib-Version (%d.%d.%d) arbeitet unzuverlässig mit entfernten Dateien. "
-"Bitte aktualisieren Sie Glib auf Version 2.18.0 oder neuer."
+"Ihre Glib-Version (%d.%d.%d) arbeitet unzuverlässig mit Dateieni auf entfernten "
+"Systemen. Bitte aktualisieren Sie Glib auf Version 2.18.0 oder neuer."
 
 #. || (!file_exists_and_readable(doc->uri))
 #: ../src/document.c:2745
@@ -1279,11 +1279,11 @@ msgstr "_Wiederholen"
 
 #: ../src/document.c:2829
 msgid "Retry _all failed"
-msgstr "Alles neu versuchen fehl geschlagen"
+msgstr "Alles neu versuchen fehlgeschlagen"
 
 #: ../src/document.c:2829
 msgid "Close all _failed"
-msgstr "Alles schließen fehl geschlagen"
+msgstr "Alles schließen fehlgeschlagen"
 
 #: ../src/document.c:2834
 msgid "File "
@@ -1303,7 +1303,7 @@ msgstr "Datei zum Einfügen auswählen"
 
 #: ../src/document.c:2964
 msgid "No file to insert"
-msgstr "Keine Datei zum einfügen"
+msgstr "Keine Datei zum Einfügen"
 
 #: ../src/document.c:3071
 #, c-format
