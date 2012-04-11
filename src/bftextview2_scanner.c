@@ -545,8 +545,6 @@ static inline Tfoundblock *
 found_start_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 {
 	Tfoundblock *fblock;
-	DBG_BLOCKMATCH("found_start_of_block, put block for pattern %d (%s) on blockstack\n", match->patternum,
-				   g_array_index(btv->bflang->st->matches, Tpattern, match->patternum).pattern);
 #ifdef HL_PROFILING
 	hl_profiling.numblockstart++;
 	hl_profiling.fblock_refcount++;
@@ -558,6 +556,9 @@ found_start_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scannin
 	fblock->start2_o = BF2_OFFSET_UNDEFINED;
 	fblock->end2_o = BF2_OFFSET_UNDEFINED;
 	fblock->patternum = match->patternum;
+	DBG_BLOCKMATCH("found_start_of_block, %d:%d, put block for pattern %d (%s) on blockstack\n", 
+					fblock->start1_o,fblock->start2_o,match->patternum,
+				   g_array_index(btv->bflang->st->matches, Tpattern, match->patternum).pattern);
 	fblock->parentfblock = scanning->curfblock;
 	DBG_BLOCKMATCH("found_start_of_block, new block at %p with parent %p\n", fblock, fblock->parentfblock);
 	scanning->curfblock = fblock;
@@ -572,7 +573,10 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 {
 	Tfoundblock *retfblock, *fblock = scanning->curfblock;
 	GtkTextIter iter;
-	DBG_BLOCKMATCH("found_end_of_block(), blockstartpattern %d, curfblock=%p\n", pat->blockstartpattern,
+	DBG_BLOCKMATCH("found_end_of_block(), found %d (%s), blockstartpattern %d, curfblock=%p\n", 
+					match->patternum,
+					g_array_index(btv->bflang->st->matches, Tpattern, match->patternum).pattern,
+					pat->blockstartpattern,
 				   scanning->curfblock);
 
 	if (G_UNLIKELY(!scanning->curfblock))
@@ -635,15 +639,14 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 
 	fblock->start2_o = gtk_text_iter_get_offset(&match->start);
 	fblock->end2_o = gtk_text_iter_get_offset(&match->end);
-	DBG_BLOCKMATCH("set end for block %p to %d:%d\n", fblock, fblock->start2_o, fblock->end2_o);
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, fblock->end1_o);
 	if (G_UNLIKELY(pat->blocktag)) {
 		gtk_text_buffer_apply_tag(btv->buffer, pat->blocktag, &iter, &match->start);
 	}
-	if ((gtk_text_iter_get_line(&iter) + 1) < gtk_text_iter_get_line(&match->start)) {
+	if ((gtk_text_iter_get_line(&iter)) < gtk_text_iter_get_line(&match->start)) {
 		fblock->foldable = TRUE;
 	}
-
+	DBG_BLOCKMATCH("found_end_of_block, set end for block %p to %d:%d, foldable=%d\n", fblock, fblock->start2_o, fblock->end2_o, fblock->foldable);
 	scanning->curfblock = fblock->parentfblock;
 	(*numblockchange)--;
 	return retfblock;

@@ -921,7 +921,7 @@ paint_margin(BluefishTextView * btv, cairo_t *cr, GtkTextIter * startvisible,
 						   match, so multiline patterns are drawn on the wrong line */
 						foundpos = found->fblock->start1_o;
 					}
-					/*DBG_FOLD("search block at line %d, curline_o=%d, nextline_o=%d\n",i,curline_o,nextline_o); */
+					DBG_FOLD("search block at line %d, curline_o=%d, nextline_o=%d, foundpos=%d, num_blocks=%d\n",i,curline_o,nextline_o, foundpos, num_blocks); 
 					if (foundpos > nextline_o) {
 						if (num_blocks > 0) {
 							paint_margin_line(master, cr, w, height);
@@ -937,7 +937,7 @@ paint_margin(BluefishTextView * btv, cairo_t *cr, GtkTextIter * startvisible,
 
 							num_blocks = get_num_foldable_blocks(found);
 							break;
-						} else if (IS_FOUNDMODE_BLOCKPOP(found)) {
+						} else if (IS_FOUNDMODE_BLOCKPOP(found) && found->fblock->foldable) {
 							guint new_num_blocks = get_num_foldable_blocks(found);
 							if (new_num_blocks < num_blocks)
 								paint_margin_blockend(master, cr, w, height);
