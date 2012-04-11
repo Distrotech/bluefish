@@ -583,9 +583,9 @@ fb2_enumerate_next_files_lcb(GObject * source_object, GAsyncResult * res, gpoint
 				  error->message);
 		return;
 	}
-#ifdef DEBUG
+/*#ifdef DEBUG*/
 	g_print("fb2_enumerate_next_files_lcb, number of results=%d\n", g_list_length(list));
-#endif
+/*#endif*/
 	if (list == NULL) {
 		/* done */
 		g_file_enumerator_close_async(uir->gfe, G_PRIORITY_LOW, uir->cancel, fb2_enumerator_close_lcb, uir);
@@ -644,6 +644,7 @@ fb2_enumerate_children_lcb(GObject * source_object, GAsyncResult * res, gpointer
 		return;
 	}
 	if (uir->gfe) {
+		g_print("opened the directory\n");
 		g_file_enumerator_next_files_async(uir->gfe, 40, G_PRIORITY_LOW, uir->cancel,
 										   fb2_enumerate_next_files_lcb, uir);
 	}
