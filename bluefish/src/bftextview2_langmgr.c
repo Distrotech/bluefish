@@ -922,7 +922,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				   because a tag can also have a reference, but it is a start  */
 				contexttag = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, attrib_context_id));
 				if (contexttag) {
-				   g_print("HIT for %s, saves %d bytes\n",attrib_context_id, ((GArray *)g_array_index(bfparser->st->contexts, Tcontext, contexttag).table)->len*sizeof(Ttablerow));
+				   g_print("HIT for %s, saves %ld bytes\n",attrib_context_id, ((GArray *)g_array_index(bfparser->st->contexts, Tcontext, contexttag).table)->len*sizeof(Ttablerow));
 				}
 			}
 			tmp = g_strconcat("<", tag, NULL);
