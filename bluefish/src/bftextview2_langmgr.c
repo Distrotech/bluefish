@@ -921,9 +921,9 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				   'is_empty' is not a good measure for the next context,
 				   because a tag can also have a reference, but it is a start  */
 				contexttag = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, attrib_context_id));
-				/*if (contexttag) {
-				   g_print("HIT for %s\n",attrib_context_id);
-				   } */
+				if (contexttag) {
+				   g_print("HIT for %s, saves %d bytes\n",attrib_context_id, ((GArray *)g_array_index(bfparser->st->contexts, Tcontext, contexttag).table)->len*sizeof(Ttablerow));
+				}
 			}
 			tmp = g_strconcat("<", tag, NULL);
 			matchnum = add_pattern_to_scanning_table(bfparser->st, tmp, FALSE, case_insens, context);
