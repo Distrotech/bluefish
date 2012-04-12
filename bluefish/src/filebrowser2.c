@@ -2310,7 +2310,7 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	/* rebuild the current uri */
 	tmp = g_object_ref(newcurdir);
 	do {
-		gchar *name = g_file_get_uri(tmp);
+		gchar *name;
 		GFile *tmp2;
 		tmp2 = g_file_get_parent(tmp);
 		DEBUG_MSG("parent for uri %p is at %p\n", tmp, tmp2);
@@ -2320,6 +2320,8 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 			setiter = iter;
 			havesetiter = TRUE;
 		}
+		name = g_file_is_native(tmp) ? g_file_get_path(tmp) : g_file_get_uri(tmp);
+		
 		if (tmp2 == NULL) {
 			gchar *icon_name;
 			GError *error = NULL;
@@ -2355,7 +2357,7 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 		uri = g_file_new_for_uri(tmplist->data);
 		DEBUG_MSG("new uri at %p for session recent directory %s\n", uri, (gchar *)tmplist->data);
 		if (uri && g_hash_table_lookup(hasht, uri) == NULL) {
-			name = g_file_get_uri(uri);
+			name = name = g_file_is_native(uri) ? g_file_get_path(uri) : g_file_get_uri(uri);
 			DEBUG_MSG("dirmenu_set_curdir, appending %s (uri=%p) to model %p\n", name, uri, fb2->dirmenu_m);
 			gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name,
