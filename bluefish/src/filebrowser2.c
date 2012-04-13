@@ -583,9 +583,9 @@ fb2_enumerate_next_files_lcb(GObject * source_object, GAsyncResult * res, gpoint
 				  error->message);
 		return;
 	}
-/*#ifdef DEBUG*/
+#ifdef DEBUG
 	g_print("fb2_enumerate_next_files_lcb, number of results=%d\n", g_list_length(list));
-/*#endif*/
+#endif
 	if (list == NULL) {
 		/* done */
 		g_file_enumerator_close_async(uir->gfe, G_PRIORITY_LOW, uir->cancel, fb2_enumerator_close_lcb, uir);
@@ -644,7 +644,7 @@ fb2_enumerate_children_lcb(GObject * source_object, GAsyncResult * res, gpointer
 		return;
 	}
 	if (uir->gfe) {
-		g_print("opened the directory\n");
+		/*g_print("opened the directory\n");*/
 		g_file_enumerator_next_files_async(uir->gfe, 40, G_PRIORITY_LOW, uir->cancel,
 										   fb2_enumerate_next_files_lcb, uir);
 	}
@@ -667,7 +667,7 @@ fb2_fill_dir_async(GtkTreeIter * parent, GFile * uri)
 {
 	if (fb2_get_uri_in_refresh(uri) == NULL) {
 		Turi_in_refresh *uir;
-
+		DEBUG_MSG("about to register a low priority callback for fb2_fill_dir_async_low_priority\n");
 		fb2_treestore_mark_children_refresh1(FB2CONFIG(main_v->fb2config)->filesystem_tstore, parent);
 		uir = g_slice_new0(Turi_in_refresh);
 		uir->parent = parent;
@@ -963,12 +963,12 @@ fb2_focus_dir(Tfilebrowser2 * fb2, GFile * uri, gboolean noselect)
 			gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), dir);
 		if (fs_path) {
 			refilter_filelist(fb2, fs_path);
-			DEBUG_MSG("fb2_focus_dir, fb2=%p, expand dir tree to this dir..\n", fb2);
 			if (!noselect && fb2->filebrowser_viewmode != viewmode_flat) {
 				GtkTreePath *sort_path = dir_sort_path_from_treestore_path(fb2, fs_path);
 				if (sort_path) {
 					if (fb2->filebrowser_viewmode == viewmode_tree && gtk_tree_view_row_expanded(GTK_TREE_VIEW(fb2->dir_v), sort_path) && !need_to_scroll_to_dir(fb2, uri)) {
 						/* do nothing */
+						/*g_print("fb2_focus_dir, expanded=%d, need to scroll=%d\n",gtk_tree_view_row_expanded(GTK_TREE_VIEW(fb2->dir_v), sort_path), need_to_scroll_to_dir(fb2, uri));*/
 					} else {
 						g_signal_handler_block(fb2->dir_v, fb2->expand_signal);
 						gtk_tree_view_expand_to_path(GTK_TREE_VIEW(fb2->dir_v), sort_path);
@@ -984,7 +984,7 @@ fb2_focus_dir(Tfilebrowser2 * fb2, GFile * uri, gboolean noselect)
 				}
 			} else {
 				/* 'uri' is not persistent, 'dir' is peristent, so only pass 'dir' 
-				   the "select" or "expand" signal (dual or tree view) will also refresh this directory, so 
+				   the "expand" signal (dual or tree view) will also refresh this directory, so 
 				   we call this only on 'noselect' or in the flat view
 				 */
 				DEBUG_MSG("fb2_focus_dir, noselect, so directly call refresh\n");
@@ -1083,9 +1083,6 @@ tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 				retval = file_visible_in_filter(fb2->curfilter, mime_type, name);
 		}
 		DEBUG_MSG("file %s with mime_type %s: returning %d\n", name, mime_type, retval);
-		g_free(name);
-		g_free(mime_type);
-		return retval;
 	} else {					/* directory */
 		if (fb2->filebrowser_viewmode == viewmode_flat) {
 			if (fb2->basedir) {
@@ -1107,10 +1104,10 @@ tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 			if (name[0] == '.')
 				retval = FALSE;
 		}
+		DEBUG_MSG("dir %s: returning %d\n", name, retval);
 	}
 	g_free(name);
 	g_free(mime_type);
-	DEBUG_MSG("returning %d\n", retval);
 	return retval;
 }
 
@@ -1164,7 +1161,7 @@ file_list_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
  * - files are first sorted without extension, only equal names are sorted by extension
  *
  */
-gint
+static gint
 filebrowser_sort_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter * b, gpointer user_data)
 {
 	gchar *namea, *nameb, *mimea, *mimeb;
@@ -1174,7 +1171,7 @@ filebrowser_sort_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter * b, gp
 	gtk_tree_model_get((GtkTreeModel *) model, b, FILENAME_COLUMN, &nameb, TYPE_COLUMN, &mimeb, -1);
 	isdira = (mimea && MIME_ISDIR(mimea));
 	isdirb = (mimeb && MIME_ISDIR(mimeb));
-	/*g_print("isdira=%d, mimea=%s, isdirb=%d, mimeb=%s\n",isdira,mimea,isdirb,mimeb); */
+	DEBUG_MSG("namea=%s, nameb=%s, isdira=%d, mimea=%s, isdirb=%d, mimeb=%s\n",namea,nameb,isdira,mimea,isdirb,mimeb); 
 	if (isdira == isdirb) {		/* both files, or both directories */
 		if (namea == nameb) {
 			retval = 0;			/* both NULL */
@@ -1204,6 +1201,7 @@ filebrowser_sort_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter * b, gp
 	g_free(nameb);
 	g_free(mimea);
 	g_free(mimeb);
+/*	g_print("filebrowser_sort_func, return %d\n",retval);*/
 	return retval;
 }
 
@@ -1249,12 +1247,13 @@ refilter_dirlist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 				fb2->basedir = uri;
 				add_uri_to_recent_dirs(fb2, fb2->basedir);
 			} else {
-				DEBUG_MSG("there is no parent for this path, so we will set the basedir to NULL\n");
+				DEBUG_MSG("refilter_dirlist, there is no parent for this path, so we will set the basedir to NULL\n");
 				gtk_tree_path_free(useroot);
 				useroot = NULL;
 			}
 		}
 	}
+/*	g_print("refilter_dirlist, creating new filter and sort model\n");*/
 	fb2->dir_tfilter =
 		gtk_tree_model_filter_new(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), useroot);
 	DEBUG_TREEMODELREFS("refilter_dirlist, created new tree model filter at %p for fb2 %p\n",fb2->dir_tfilter, fb2);
@@ -2173,6 +2172,7 @@ dir_v_row_expanded_lcb(GtkTreeView * tree, GtkTreeIter * sort_iter,
 	/* refresh the directory that is being expanded */
 	gtk_tree_model_get(fb2->dir_tsort, sort_iter, URI_COLUMN, &uri, -1);
 	if (uri) {
+		DEBUG_MSG("dir_v_row_expanded_lcb, calling fb2_refresh_dir()\n");
 		fb2_refresh_dir(uri, NULL);
 	}
 }
@@ -2357,7 +2357,7 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 		uri = g_file_new_for_uri(tmplist->data);
 		DEBUG_MSG("new uri at %p for session recent directory %s\n", uri, (gchar *)tmplist->data);
 		if (uri && g_hash_table_lookup(hasht, uri) == NULL) {
-			name = name = g_file_is_native(uri) ? g_file_get_path(uri) : g_file_get_uri(uri);
+			name = g_file_is_native(uri) ? g_file_get_path(uri) : g_file_get_uri(uri);
 			DEBUG_MSG("dirmenu_set_curdir, appending %s (uri=%p) to model %p\n", name, uri, fb2->dirmenu_m);
 			gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name,
@@ -2410,7 +2410,7 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(fb2->dirmenu_v), &setiter);
 	g_signal_handler_unblock(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 	DEBUG_MSG("dirmenu_set_curdir, activated!\n");
-	g_idle_add_full(G_PRIORITY_LOW, dirmenu_idle_cleanup_lcb, oldmodel, NULL);
+	g_idle_add_full(G_PRIORITY_LOW+10, dirmenu_idle_cleanup_lcb, oldmodel, NULL);
 }
 
 static void
@@ -2465,7 +2465,7 @@ dir_v_selection_changed_lcb(GtkTreeSelection * treeselection, Tbfwin *bfwin)
 		DEBUG_MSG("dir_v_selection_changed_lcb, mime_type=%s and uri=", mime_type);
 		DEBUG_GFILE(uri, TRUE);
 		if (uri && (mime_type && MIME_ISDIR(mime_type))) {
-			DEBUG_MSG("uri %p is directory, calling dirmenu_set_curdir\n", uri);
+			DEBUG_MSG("dir_v_selection_changed_lcb, uri %p is directory, calling dirmenu_set_curdir which will refresh this dir\n", uri);
 			dirmenu_set_curdir(fb2, uri);
 			fb2_focus_dir(fb2, uri, TRUE);
 		}
@@ -2497,7 +2497,7 @@ fb2_set_basedir_backend(Tfilebrowser2 * fb2, GFile * uri)
 	DEBUG_MSG("fb2_set_basedir_backend, refilter, basepath=%p\n", basepath);
 	refilter_dirlist(fb2, basepath);
 	if (basepath) {
-		fb2_focus_dir(fb2, fb2->basedir, (fb2->filebrowser_viewmode == viewmode_flat));
+		fb2_focus_dir(fb2, uri, (fb2->filebrowser_viewmode == viewmode_flat));
 		gtk_tree_path_free(basepath);
 	}
 }
