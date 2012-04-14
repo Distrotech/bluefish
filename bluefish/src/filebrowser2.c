@@ -630,16 +630,17 @@ static void
 fb2_enumerate_children_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
 {
 	Turi_in_refresh *uir = user_data;
-	GError *error = NULL;
-	uir->gfe = g_file_enumerate_children_finish(uir->uri, res, &error);
-	if (error) {
-		/* delete the directory from the treestore */
-		GtkTreeIter *iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uir->uri);
-		if (iter) {
-			fb2_treestore_delete(FB2CONFIG(main_v->fb2config)->filesystem_tstore, iter);
+	GError *gerror = NULL;
+	uir->gfe = g_file_enumerate_children_finish(uir->uri, res, &gerror);
+	if (gerror) {
+		if (gerror->code == 14 /* 14 = permission denied */) {
+			fb2_treestore_delete_children(FB2CONFIG(main_v->fb2config)->filesystem_tstore, uir->parent, FALSE);
+		} else {
+			/* delete the directory from the treestore */
+			fb2_treestore_delete(FB2CONFIG(main_v->fb2config)->filesystem_tstore, uir->parent);
 		}
-		g_warning("failed to list directory in filebrowser: %s\n", error->message);
-		g_error_free(error);
+		g_warning("failed to list directory in filebrowser: %s\n", gerror->message);
+		g_error_free(gerror);
 		fb2_uri_in_refresh_cleanup(uir);
 		return;
 	}
