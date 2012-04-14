@@ -256,6 +256,7 @@ typedef struct {
 } Tdocument;
 
 typedef struct {
+	gchar *config_version; /* bluefish version string */
 	gint do_periodic_check;
 	gchar *editor_font_string;	/* editor font */
 	gint editor_smart_cursor;

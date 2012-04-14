@@ -404,6 +404,7 @@ parse_config_file(GHashTable * config_list, GFile * file)
 static GHashTable *
 props_init_main(GHashTable * config_rc)
 {
+	init_prop_string(&config_rc, &main_v->props.config_version, "config_version:", "2.2.2");
 	init_prop_integer(&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "monospace 10");
 	init_prop_integer(&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
@@ -416,9 +417,9 @@ props_init_main(GHashTable * config_rc)
 	init_prop_string(&config_rc, &main_v->props.tab_color_error, "tab_color_error:", "#FF0000");
 	init_prop_integer(&config_rc, &main_v->props.visible_ws_mode, "visible_ws_mode:", 3, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.right_margin_pos, "right_margin_pos:", 80, TRUE);
-	init_prop_arraylist(&config_rc, &main_v->props.external_command, "external_command:", 3, TRUE);
-	init_prop_arraylist(&config_rc, &main_v->props.external_filter, "external_filter:", 2, TRUE);
-	init_prop_arraylist(&config_rc, &main_v->props.external_outputbox, "external_outputbox:", 6, TRUE);
+	init_prop_arraylist(&config_rc, &main_v->props.external_command, "external_command:", 0, TRUE);
+	init_prop_arraylist(&config_rc, &main_v->props.external_filter, "external_filter:", 0, TRUE);
+	init_prop_arraylist(&config_rc, &main_v->props.external_outputbox, "external_outputbox:", 0, TRUE);
 
 	/*init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE); */
 	/* old type filetypes have a different count, they are converted below */
@@ -575,6 +576,246 @@ migrate_config_files(GHashTable * main_configlist, GFile * newrc)
 	}
 }
 
+
+static void update_array_w_offset(gchar **dest, gchar **source) {
+	gint i=2;
+	while (dest[i]) {
+		g_free(dest[i]);
+		dest[i] = g_strdup(source[i-1]);
+		i++;
+	}
+}
+
+/* on array length = newlen-1 we update to the new version
+
+if (overwrite) we free the list and replace it with the default values 
+
+if (!overwrite) we overwrite all bluefish_defined options, and we append any new options
+*/
+GList *update_externals(GList *current, GList *defaults, gboolean overwrite, gint newlen)
+{
+	GList *tmplist;
+	GHashTable *ht=NULL;
+	
+	if (current == NULL)
+		overwrite = TRUE;
+	
+	if (overwrite) {
+		free_arraylist(current);
+		current = NULL;
+	} else {
+		ht = g_hash_table_new(g_str_hash, g_str_equal);
+		for (tmplist=g_list_first(current);tmplist;tmplist = g_list_next(tmplist)) {
+			gchar **arr = tmplist->data;
+			gint len;
+			len = g_strv_length(arr);
+			g_print("got len=%d, want newlen=%d\n",len,newlen);
+			if (len == (newlen-1)) { /* convert the old (2.2.2 or older) format into the new format */
+				gchar **oldarr = arr;
+				g_print("prepend %s in front of %s\n",USER_DEFINED_ENABLED,arr[0]);
+				tmplist->data = arr = prepend_array(USER_DEFINED_ENABLED,arr);
+				g_strfreev(oldarr);
+				len = newlen;
+				g_print("newly created array has length %d\n",g_strv_length(arr));
+			}
+			if (len == newlen) {
+				g_print("insert into hash: %s\n",arr[1]);
+				g_hash_table_insert(ht, arr[1], arr);
+			}
+		}
+	}
+	
+	for (tmplist=g_list_first(defaults);tmplist;tmplist = g_list_next(tmplist)) {
+		gchar **arr=tmplist->data;
+		if (overwrite) {
+			current = g_list_prepend(current, prepend_array(BLUEFISH_DEFINED_ENABLED, arr));
+		} else {
+			gchar **carr = g_hash_table_lookup(ht, arr[0]);
+			if (!carr) {
+				/* does not yet exist, add! */
+				g_print("update_externals, prepend a missing value %s\n",arr[0]);
+				current = g_list_prepend(current, prepend_array(BLUEFISH_DEFINED_ENABLED, arr));
+			} else {
+				if (carr[0][0] == '0' || carr[0][0] == '1') {
+					g_print("update_externals, call update_array_w_offset for %s\n",arr[0]);
+					/* update the existing array */
+					update_array_w_offset(carr, arr);
+				}
+			}
+		}
+	}
+	return current;
+}
+
+void update_outputbox(gboolean overwrite) {
+	GList *defaults = NULL;
+	g_print("update_outputbox, started\n");
+#ifdef WIN32
+	defaults =
+			g_list_append(defaults,
+						  array_from_arglist(_("php"),
+											 "(.*) in (.*:\\\\[a-zA-Z0-9\\\\_.-]+) on line ([0-9]+)", "2",
+											 "3", "1", "php '%f'|", NULL));
+	}
+#else
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("make"), "([a-zA-Z0-9/_.-]+):([0-9]+):(.*)", "1", "2", "3",
+										 "cd %c && make|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("weblint HTML checker"),
+										 "([a-zA-Z0-9/_.-]+) \\(([0-9:]+)\\) (.*)", "1", "2", "3",
+										 "weblint '%f'|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("tidy HTML validator"), "line ([0-9]+) column [0-9]+ - (.*)",
+										 "-1", "1", "2", "tidy -qe '%I'|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("javac"), "([a-zA-Z0-9/_.-]+):([0-9]+):(.*)", "1", "2", "3",
+										 "javac '%f'|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("xmllint XML checker"),
+										 "([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\: (.*)", "1", "2", "3",
+										 "xmllint --noout --valid '%f'|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("php"), "(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)", "2",
+										 "3", "1", "php '%f'|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("php syntax check"), "(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)", "2",
+										 "3", "1", "php -l -q -f '%f'|", NULL));
+	defaults =
+		g_list_append(defaults,
+						array_from_arglist(_("perl syntax check"), "(.*) at (/[a-zA-Z0-9/_.-]+) line ([0-9]+)", "2",
+										 "3", "1", "perl -c '%f'|", NULL));
+	defaults =
+		g_list_append(defaults,
+						array_from_arglist(_("php codesniffer"), ":([0-9:]+):(.*)", "-1",
+										 "1", "2", "phpcs --report=emacs '%f'|", NULL));
+#endif
+	g_print("update_outputbox, call update_externals\n");
+	main_v->props.external_outputbox = update_externals(main_v->props.external_outputbox, defaults, overwrite, 7);
+	g_print("update_outputbox, call free_arraylist\n");
+	free_arraylist(defaults);
+}
+
+void update_filters(gboolean overwrite)
+{
+	GList *defaults=NULL;
+
+	defaults =
+		g_list_append(defaults, array_from_arglist(_("Sort"), "|sort|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Sort / Uniq"), "|sort|uniq|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Reverse lines"), "|tac|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Dos2unix"), "|dos2unix|", NULL));
+	defaults =
+		g_list_append(defaults, array_from_arglist(_("Tidy HTML"), "|tidy|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Tidy HTML (perltidy)"), "|perltidy -b|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Strip empty lines"), "|egrep -v '^[ \t]*$'|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Render HTML to text"), "lynx -force_html -dump %i |", NULL));
+
+	main_v->props.external_filter = update_externals(main_v->props.external_filter, defaults, overwrite, 3);
+	free_arraylist(defaults);
+}
+
+void update_commands(gboolean overwrite)
+{
+	GList *defaults=NULL;
+#ifdef WIN32	
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Windows XP Firefox"),
+										 "\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" '%p'",
+										 "1", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Windows XP Internet Explorer"),
+										 "\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" '%p'",
+										 "0", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Windows XP Opera"),
+										 "\"C:\\Program Files\\Opera\\opera.exe\" '%p'", "0", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Windows XP Safari"),
+										 "\"C:\\Program Files\\Safari\\safari.exe\" '%p'", "0", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Windows 7 Firefox 32-bit"),
+										 "\"C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe\" '%p'",
+										 "1", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Windows 7 Internet Explorer 32-bit"),
+										 "\"C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe\" '%p'",
+										 "0", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Windows 7 Internet Explorer 64-bit"),
+										 "\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" '%p'",
+										 "0", NULL));
+#elif PLATFORM_DARWIN
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Safari"), "open -a Safari '%p'", "0", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Firefox"), "open -a Firefox '%p'", "1", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Opera"), "open -a Opera '%p'", "0", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("chmod a+x"), "chmod a+x %f", "0", NULL));
+#else
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Firefox"), "firefox -remote 'openURL(%p)' || firefox '%p'&",
+										 "1", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Opera"), "opera -remote 'openURL(%p)' || opera '%p'&", "0",
+										 NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Chromium"), "chromium-browser '%p'&", "0", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Konqueror"), "konqueror '%p'&", "0", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Epiphany"), "epiphany-browser -n '%p'&", "0", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Kazehakase"), "kazehakase '%p'&", "0", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Links2 (graphics)"), "links2 -g '%p'&", "0", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("chmod a+x"), "chmod a+x %f", "0", NULL));
+#endif
+	main_v->props.external_command = update_externals(main_v->props.external_command, defaults, overwrite, 4);
+	free_arraylist(defaults);
+}
+
 void
 rcfile_parse_main(void)
 {
@@ -599,236 +840,16 @@ rcfile_parse_main(void)
 	g_object_unref(file);
 	if (main_v->props.encoding_search_Nbytes < 1000)
 		main_v->props.encoding_search_Nbytes = 2048;
+
 	/* do some default configuration for the lists */
-#ifdef WIN32
-	if (main_v->props.external_outputbox == NULL) {
-		/* if the user does not have outputbox settings --> set them to defaults values */
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("php"),
-											 "(.*) in (.*:\\\\[a-zA-Z0-9\\\\_.-]+) on line ([0-9]+)", "2",
-											 "3", "1", "php '%f'|", NULL));
+	g_print("got config version %s\n",main_v->props.config_version);
+	if (!main_v->props.config_version || strlen(main_v->props.config_version)<5 ||main_v->props.config_version[0] < '2' || main_v->props.config_version[2] < '2' || main_v->props.config_version[4] < '3') {
+		g_print("convert!\n");
+		update_commands(FALSE);
+		update_filters(FALSE);
+		update_outputbox(FALSE);
 	}
-	if (main_v->props.external_filter == NULL) {
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter, array_from_arglist(_("Sort"), "|sort|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter,
-						  array_from_arglist(_("Sort / Uniq"), "|sort|uniq|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter,
-						  array_from_arglist(_("Reverse lines"), "|tac|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter,
-						  array_from_arglist(_("Dos2unix"), "|dos2unix|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter, array_from_arglist(_("Tidy HTML"), "|tidy|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter,
-						  array_from_arglist(_("Strip empty lines"), "|egrep -v '^[ \t]*$'|", NULL));
-	}
-	if (main_v->props.external_command == NULL) {
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Windows XP Firefox"),
-											 "\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" '%p'",
-											 "1", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Windows XP Internet Explorer"),
-											 "\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" '%p'",
-											 "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Windows XP Opera"),
-											 "\"C:\\Program Files\\Opera\\opera.exe\" '%p'", "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Windows XP Safari"),
-											 "\"C:\\Program Files\\Safari\\safari.exe\" '%p'", "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Windows 7 Firefox 32-bit"),
-											 "\"C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe\" '%p'",
-											 "1", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Windows 7 Internet Explorer 32-bit"),
-											 "\"C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe\" '%p'",
-											 "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Windows 7 Internet Explorer 64-bit"),
-											 "\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" '%p'",
-											 "0", NULL));
-	}
-#elif PLATFORM_DARWIN
-	if (main_v->props.external_outputbox == NULL) {
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("make"), "([a-zA-Z0-9/_.-]+):([0-9]+):(.*)", "1", "2", "3",
-											 "cd %c && make|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("weblint HTML checker"),
-											 "([a-zA-Z0-9/_.-]+) \\(([0-9:]+)\\) (.*)", "1", "2", "3",
-											 "weblint '%f'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("tidy HTML validator"), "line ([0-9]+) column [0-9]+ - (.*)",
-											 "-1", "1", "2", "perltidy -qe '%I'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("javac"), "([a-zA-Z0-9/_.-]+):([0-9]+):(.*)", "1", "2", "3",
-											 "javac '%f'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("xmllint XML checker"),
-											 "([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\: (.*)", "1", "2", "3",
-											 "xmllint --noout --valid '%f'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("php"), "(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)", "2",
-											 "3", "1", "php '%f'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("php syntax check"), "(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)", "2",
-											 "3", "1", "php -l -q -f '%f'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-							array_from_arglist(_("perl syntax check"), "(.*) at (/[a-zA-Z0-9/_.-]+) line ([0-9]+)", "2",
-											 "3", "1", "perl -c '%f'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-							array_from_arglist(_("php codesniffer"), "\:([0-9\:]+)\:(.*)", "-1",
-											 "1", "2", "phpcs --report=emacs '%f'|", NULL));
-	}
-	if (main_v->props.external_filter == NULL) {
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter, array_from_arglist(_("Sort"), "|sort|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter,
-						  array_from_arglist(_("Sort / Uniq"), "|sort|uniq|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter,
-						  array_from_arglist(_("Tidy HTML"), "|perltidy -b|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter,
-						  array_from_arglist(_("Strip empty lines"), "|egrep -v '^[ \t]*$'|", NULL));
-	}
-	if (main_v->props.external_command == NULL) {
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Safari"), "open -a Safari '%p'", "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Firefox"), "open -a Firefox '%p'", "1", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Opera"), "open -a Opera '%p'", "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("chmod a+x"), "chmod a+x %f", "0", NULL));
-	}
-#else
-	if (main_v->props.external_outputbox == NULL) {
-		/* if the user does not have outputbox settings --> set them to defaults values */
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("make"), "([a-zA-Z0-9/_.-]+):([0-9]+):(.*)", "1", "2", "3",
-											 "cd %c && make|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("weblint HTML checker"),
-											 "([a-zA-Z0-9/_.-]+) \\(([0-9:]+)\\) (.*)", "1", "2", "3",
-											 "weblint '%f'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("tidy HTML validator"), "line ([0-9]+) column [0-9]+ - (.*)",
-											 "-1", "1", "2", "tidy -qe '%I'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("javac"), "([a-zA-Z0-9/_.-]+):([0-9]+):(.*)", "1", "2", "3",
-											 "javac '%f'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("xmllint XML checker"),
-											 "([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\: (.*)", "1", "2", "3",
-											 "xmllint --noout --valid '%f'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("php"), "(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)", "2",
-											 "3", "1", "php '%f'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-						  array_from_arglist(_("php syntax check"), "(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)", "2",
-											 "3", "1", "php -l -q -f '%f'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-							array_from_arglist(_("perl syntax check"), "(.*) at (/[a-zA-Z0-9/_.-]+) line ([0-9]+)", "2",
-											 "3", "1", "perl -c '%f'|", NULL));
-		main_v->props.external_outputbox =
-			g_list_append(main_v->props.external_outputbox,
-							array_from_arglist(_("php codesniffer"), ":([0-9:]+):(.*)", "-1",
-											 "1", "2", "phpcs --report=emacs '%f'|", NULL));
-	}
-	if (main_v->props.external_filter == NULL) {
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter, array_from_arglist(_("Sort"), "|sort|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter,
-						  array_from_arglist(_("Sort / Uniq"), "|sort|uniq|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter,
-						  array_from_arglist(_("Reverse lines"), "|tac|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter,
-						  array_from_arglist(_("Dos2unix"), "|dos2unix|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter, array_from_arglist(_("Tidy HTML"), "|tidy|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter,
-						  array_from_arglist(_("Strip empty lines"), "|egrep -v '^[ \t]*$'|", NULL));
-		main_v->props.external_filter =
-			g_list_append(main_v->props.external_filter,
-						  array_from_arglist(_("Render HTML to text"), "lynx -force_html -dump %i |", NULL));
-	}
-	if (main_v->props.external_command == NULL) {
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Firefox"), "firefox -remote 'openURL(%p)' || firefox '%p'&",
-											 "1", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Opera"), "opera -remote 'openURL(%p)' || opera '%p'&", "0",
-											 NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Chrome"), "chromium-browser '%p'&", "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Mozilla"), "mozilla -remote 'openURL(%p)' || mozilla '%p'&",
-											 "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Konqueror"), "konqueror '%p'&", "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Galeon"), "galeon -n  '%p'&", "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Epiphany"), "epiphany-browser -n '%p'&", "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Kazehakase"), "kazehakase '%p'&", "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("Links2 (graphics)"), "links2 -g '%p'&", "0", NULL));
-		main_v->props.external_command =
-			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("chmod a+x"), "chmod a+x %f", "0", NULL));
-	}
-#endif							/* ifdef WIN32 elif PLATFORM_DARWIN */
+
 	if (main_v->props.templates == NULL) {
 		main_v->props.templates =
 			g_list_append(main_v->props.templates,
@@ -854,6 +875,10 @@ rcfile_save_main(void)
 {
 	gint ret;
 	GFile *filename = user_bfdir(CURCONFIG);
+	
+	g_free(main_v->props.config_version);
+	main_v->props.config_version = g_strdup(VERSION);
+	
 	ret = save_config_file(main_configlist, filename);
 	g_object_unref(filename);
 	return ret;
@@ -1111,10 +1136,6 @@ rcfile_save_global_session(void)
 	configlist = return_globalsession_configlist(FALSE);
 	configlist = return_session_configlist(configlist, main_v->session);
 	DEBUG_MSG("rcfile_save_global_session, saving global session to %s\n", g_file_get_parse_name(filename));
-	DEBUG_MSG("rcfile_save_global_session, length session recent_files=%d\n",
-			  g_list_length(main_v->session->recent_files));
-	DEBUG_MSG("rcfile_save_global_session, length session recent_projects=%d\n",
-			  g_list_length(main_v->globses.recent_projects));
 	retval = save_config_file(configlist, filename);
 	free_configlist(configlist);
 	g_object_unref(filename);
@@ -1148,11 +1169,11 @@ rcfile_parse_global_session(void)
 		/*arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 		   main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr); */
 		arr = array_from_arglist(_("Images"), "1", "image/png:image/jpeg:image/gif:image/tiff", "", NULL);
-		main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
+		main_v->globses.filefilters = g_list_prepend(main_v->globses.filefilters, arr);
 		arr =
 			array_from_arglist(_("Hide objectfiles"), "0", "application/octet-stream:application/x-object",
 							   "", NULL);
-		main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
+		main_v->globses.filefilters = g_list_prepend(main_v->globses.filefilters, arr);
 	}
 	if (main_v->globses.encodings == NULL) {
 		GFile *defaultfile =

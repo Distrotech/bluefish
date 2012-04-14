@@ -1351,20 +1351,20 @@ bfwin_commands_menu_create(Tbfwin * bfwin)
 	bfwin->commands_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
 	for (list = g_list_first(main_v->props.external_command); list; list = list->next) {
 		gchar **arr = list->data;
-		/*  arr[0] = name
-		 *  arr[1] = command
-		 *  arr[2] = is_default_browser
+		/*  arr[0] = state
+		 *  arr[1] = name
+		 *  arr[2] = command
+		 *  arr[3] = is_default_browser
 		 */
-		if (g_strv_length(arr) == 3) {
-			
-			if (arr[2][0] == '1') {
+		if (g_strv_length(arr) == 4 &&(arr[0][0]=='1'||arr[0][0]=='3')) {
+			if (arr[3][0] == '1') {
 				dynamic_menu_item_create(bfwin->uimanager,bfwin->commands_group, bfwin->commands_merge_id, 
 						"/MainMenu/ToolsMenu/DefaultBrowserPlaceholder", 
-						arr[0], arr[0], -1, NULL, G_CALLBACK(commands_menu_activate), bfwin, arr);
+						arr[1], arr[1], -1, NULL, G_CALLBACK(commands_menu_activate), bfwin, arr);
 			} else {
 				dynamic_menu_item_create(bfwin->uimanager,bfwin->commands_group, bfwin->commands_merge_id, 
 						"/MainMenu/ToolsMenu/ToolsCommands/CommandsPlaceholder", 
-						arr[0], arr[0], -1, NULL, G_CALLBACK(commands_menu_activate), bfwin, arr);
+						arr[1], arr[1], -1, NULL, G_CALLBACK(commands_menu_activate), bfwin, arr);
 			}
 		} else {
 			DEBUG_MSG("bfwin_commands_menu_create, CORRUPT ENTRY IN command action; array count =%d\n",
@@ -1505,10 +1505,10 @@ bfwin_filters_menu_create(Tbfwin * bfwin)
 		/*  arr[0] = name
 		 *  arr[1] = command
 		 */
-		if (g_strv_length(arr) == 2) {
+		if (g_strv_length(arr) == 3 && (arr[0][0]=='1' || arr[0][0]=='3')) {
 			dynamic_menu_item_create(bfwin->uimanager, bfwin->filters_group, 
 						bfwin->filters_merge_id, "/MainMenu/ToolsMenu/ToolsFilters/FiltersPlaceholder", 
-						arr[0], arr[0], -1, NULL,  
+						arr[1], arr[1], -1, NULL,  
 						G_CALLBACK(filters_menu_activate), bfwin, arr);
 		} else {
 			DEBUG_MSG("bfwin_filters_menu_create, CORRUPT ENTRY IN filter actions; array count =%d\n",
@@ -1540,18 +1540,18 @@ bfwin_outputbox_menu_create(Tbfwin * bfwin)
 
 	for (list = g_list_first(main_v->props.external_outputbox); list; list = list->next) {
 		gchar **arr = list->data;
-		/* arr[0] = name
-		 * arr[1] = pattern
-		 * arr[2] = file subpattern     gint
-		 * arr[3] = line subpattern     gint
-		 * arr[4] = output subpattern   gint
-		 * arr[5] = command
-		 * arr[6] = show_all_output     gboolean not used
+		/* arr[0] = state
+		 * arr[1] = name
+		 * arr[2] = pattern
+		 * arr[3] = file subpattern     gint
+		 * arr[4] = line subpattern     gint
+		 * arr[5] = output subpattern   gint
+		 * arr[6] = command
 		 */
-		if (g_strv_length(arr) == 6) {
+		if (g_strv_length(arr) == 7 && (arr[0][0]=='1'||arr[0][0]=='3')) {
 			dynamic_menu_item_create(bfwin->uimanager, bfwin->outputbox_group, 
 						bfwin->outputbox_merge_id, "/MainMenu/ToolsMenu/ToolsOutputBox/OutputBoxPlaceholder", 
-						arr[0], arr[0], -1, NULL,  
+						arr[1], arr[1], -1, NULL,  
 						G_CALLBACK(outputbox_menu_activate), bfwin, arr);
 		} else {
 			DEBUG_MSG("bfwin_outputbox_menu_create, CORRUPT ENTRY IN outputbox action; array count =%d\n",
