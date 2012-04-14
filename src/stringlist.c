@@ -219,6 +219,22 @@ gchar **array_from_arglist(const gchar *string1, ...) {
 	*index = NULL;
 	return retval;
 }
+
+gchar **prepend_array(gchar *prepend, gchar **arr)
+{
+	gint len, i;
+	gchar **new;
+	
+	len = g_strv_length(arr);
+	new = g_new(gchar *, len + 2);
+	new[0] = g_strdup(prepend);
+	for (i=0;i<=len;i++) {
+		new[i+1] = g_strdup(arr[i]);
+	}
+	new[i]=NULL;
+	return new;
+}
+
 /**
  * array_from_arglist:
  * @allocate_strings: #gboolean if the strings should be newly allocated
@@ -246,7 +262,7 @@ GList *duplicate_stringlist(GList *list, gint dup_data) {
 	GList *retlist=NULL;
 	if (list) {
 		GList *tmplist;
-		tmplist = g_list_first(list);
+		tmplist = g_list_last(list);
 		while (tmplist) {
 			if (tmplist->data) {
 				gchar *data;
@@ -255,9 +271,9 @@ GList *duplicate_stringlist(GList *list, gint dup_data) {
 				} else {
 					data = (gchar *)tmplist->data;
 				}
-				retlist = g_list_append(retlist, data);
+				retlist = g_list_prepend(retlist, data);
 			}
-			tmplist = g_list_next(tmplist);
+			tmplist = g_list_previous(tmplist);
 		}
 	}
 	return retlist;
@@ -310,7 +326,6 @@ gint free_arraylist(GList * which_list)
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(which_list);
-	which_list = NULL;
 	return 1;
 }
 
@@ -318,10 +333,10 @@ GList *duplicate_arraylist(GList *arraylist) {
 	GList *tmplist;
 	GList *newlist=NULL;
 
-	tmplist = g_list_first(arraylist);
+	tmplist = g_list_last(arraylist);
 	while (tmplist != NULL) {
-		newlist = g_list_append(newlist, g_strdupv((gchar **)tmplist->data));
-		tmplist = g_list_next(tmplist);
+		newlist = g_list_prepend(newlist, g_strdupv((gchar **)tmplist->data));
+		tmplist = g_list_previous(tmplist);
 	}
 	return newlist;
 }
@@ -336,10 +351,10 @@ GList *get_list_from_buffer(gchar *buffer, GList *which_list, gboolean is_arrayl
 		/*g_print("next line: %s\n",pos);*/
 		if (is_arraylist) {
 			gchar **temparr = string_to_array(pos);
-			which_list = g_list_append(which_list, temparr);
+			which_list = g_list_prepend(which_list, temparr);
 		} else {
 			DEBUG_MSG("get_list, adding string \"%s\" to the stringlist=%p\n", pos, which_list);
-			which_list = g_list_append(which_list, g_strdup(pos));
+			which_list = g_list_prepend(which_list, g_strdup(pos));
 		}
 		if (nextpos) {
 			nextpos++;
@@ -352,8 +367,7 @@ GList *get_list_from_buffer(gchar *buffer, GList *which_list, gboolean is_arrayl
 		if (pos)
 			nextpos = strchr(pos, '\n');
 	} while (pos);
-	
-	return which_list;
+	return g_list_reverse(which_list);
 }
 
 /*****************************************************************************
@@ -635,7 +649,7 @@ GList *add_to_stringlist(GList * which_list, const gchar * string) {
 			tmplist = g_list_next(tmplist);
 		}
 		/* if we arrive here the string was not yet in the list */
-		which_list = g_list_append(which_list, g_strdup(string));
+		which_list = g_list_prepend(which_list, g_strdup(string));
 	}
 	return which_list;
 }

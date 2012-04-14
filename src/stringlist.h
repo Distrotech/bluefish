@@ -29,6 +29,7 @@
 gchar *array_to_string(gchar **array);
 gchar **string_to_array(gchar *string);
 gchar **array_from_arglist(const gchar *string1, ...);
+gchar **prepend_array(gchar *prepend, gchar **arr);
 GList *list_from_arglist(gboolean allocate_strings, ...);
 GList *duplicate_stringlist(GList *list, gint dup_data);
 gint free_stringlist(GList * which_list);

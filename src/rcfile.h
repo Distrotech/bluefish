@@ -20,6 +20,11 @@
 #ifndef __RCFILE_H_
 #define __RCFILE_H_
 
+#define BLUEFISH_DEFINED_DISABLED "0"
+#define BLUEFISH_DEFINED_ENABLED "1"
+#define USER_DEFINED_DISABLED "2"
+#define USER_DEFINED_ENABLED "3"
+
 GHashTable *make_config_list_item(GHashTable * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var, gint len);
 void rcfile_parse_main(void);
 void rcfile_parse_highlighting(void);
