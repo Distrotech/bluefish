@@ -1587,7 +1587,7 @@ bmark_clean_for_doc(Tdocument * doc)
 					   doc->bmark_parent, PTR_COLUMN, NULL, -1);
 	gtk_tree_model_filter_convert_child_iter_to_iter(BFWIN(doc->bfwin)->bmarkfilter,&tmpiter,doc->bmark_parent);
 	doc->bmark_parent = NULL;
-	path = gtk_tree_model_get_path(gtk_tree_model_filter_get_model(BFWIN(doc->bfwin)->bmarkfilter),&tmpiter);
+	path = gtk_tree_model_get_path(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bmarkfilter),&tmpiter);
 	gtk_tree_view_collapse_row(BFWIN(doc->bfwin)->bmark,path);
 	gtk_tree_path_free(path);
 }
@@ -1713,7 +1713,7 @@ bmark_set_for_doc(Tdocument * doc, gboolean check_positions)
 	
 	/* expand it */
 	gtk_tree_model_filter_convert_child_iter_to_iter(BFWIN(doc->bfwin)->bmarkfilter,&child,doc->bmark_parent);
-	path = gtk_tree_model_get_path(gtk_tree_model_filter_get_model(BFWIN(doc->bfwin)->bmarkfilter),&child);
+	path = gtk_tree_model_get_path(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bmarkfilter),&child);
 	gtk_tree_view_expand_row(BFWIN(doc->bfwin)->bmark,path,TRUE);
 	gtk_tree_path_free(path);
 	bluefish_text_view_set_show_symbols_redraw(BLUEFISH_TEXT_VIEW(doc->view), TRUE);
