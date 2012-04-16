@@ -861,9 +861,7 @@ static void
 set_extcommands_strarr_in_list(GtkTreeIter * iter, gchar ** strarr, Tprefdialog * pd)
 {
 	gint arrcount = g_strv_length(strarr);
-	g_print("set_extcommands_strarr_in_list, for len=%d\n",arrcount);
 	if (arrcount == 4) {
-		g_print("set_extcommands_strarr_in_list, set %s\n",strarr[1]);
 		gtk_list_store_set(GTK_LIST_STORE(pd->bd.lstore), iter, 
 				0, (strarr[0][0]=='1' || strarr[0][0]=='3'), 
 				1, strarr[1],
@@ -907,15 +905,14 @@ extcommands_3_edited_lcb(GtkCellRendererToggle * cellrenderertoggle, gchar * pat
 static void reload_extcommands(Tprefdialog * pd, GList *list)
 {
 	GList *tmplist = g_list_first(list);
-	g_print("reload_extcommands, list len=%d\n",g_list_length(list));
-	gtk_list_store_clear(GTK_LIST_STORE(pd->bd.lstore));	
+	/* now make sure that the list clear will not actuallt modify the list itself */
+	pd->bd.insertloc = -1;
+	gtk_list_store_clear(GTK_LIST_STORE(pd->bd.lstore));
 	while (tmplist) {
 		GtkTreeIter iter;
-		g_print("reload_extcommands, tmplist %p has arr %p\n",tmplist, tmplist->data);
 		gtk_list_store_append(GTK_LIST_STORE(pd->bd.lstore), &iter);
 		set_extcommands_strarr_in_list(&iter, (gchar **) tmplist->data, pd);
 		tmplist = g_list_next(tmplist);
-		g_print("next tmplist=%p\n",tmplist);
 	}
 }
 
@@ -957,7 +954,6 @@ create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 {
 	GtkWidget *hbox, *but, *scrolwin, *label;
 	pd->lists[extcommands] = duplicate_arraylist(main_v->props.external_command);
-	g_print("create_extcommands_gui, got %d entries\n",g_list_length(pd->lists[extcommands]));
 	pd->bd.lstore = gtk_list_store_new(5, G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER);
 	pd->bd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bd.lstore));
 	g_object_unref(G_OBJECT(pd->bd.lstore));
