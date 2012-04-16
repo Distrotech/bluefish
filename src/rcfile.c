@@ -601,35 +601,33 @@ static GList *update_externals(GList *current, GList *defaults, gboolean overwri
 			gint len;
 			GList *cur;
 			len = g_strv_length(arr);
-			g_print("got len=%d, want newlen=%d\n",len,newlen);
-			
+	
 			cur = tmplist;
 			tmplist = g_list_next(tmplist);
 			
 			if (len == (newlen-1)) { /* convert the old (2.2.2 or older) format into the new format */
 				gchar **oldarr = arr;
-				g_print("prepend %s in front of %s\n",USER_DEFINED_ENABLED,arr[0]);
+				/*g_print("prepend %s in front of %s\n",USER_DEFINED_ENABLED,arr[0]);*/
 				cur->data = arr = prepend_array(USER_DEFINED_ENABLED,arr);
 				g_strfreev(oldarr);
 				len = newlen;
-				g_print("newly created array has length %d\n",g_strv_length(arr));
 			}
 			if (len == newlen && arr[0][0]!='0' && arr[0][0]!='1') {
 				/* keep all the user defined options */
-				g_print("update_externals, insert into hash: %s\n",arr[1]);
+				/*g_print("update_externals, insert into hash: %s\n",arr[1]);*/
 				g_hash_table_insert(ht, arr[1], arr);
 			} else {
 				/* remove all others */
 				current = g_list_delete_link(current, cur);
+				g_print("removed list item %p from list, current =%p\n",cur, current);
 				g_strfreev(arr);
 			}
 		}
 	}
-	g_print("update_externals, current has length %d\n", g_list_length(current)); 
 	for (tmplist=g_list_first(defaults);tmplist;tmplist = g_list_next(tmplist)) {
 		gchar **arr=tmplist->data;
 		if (overwrite || g_hash_table_lookup(ht, arr[0])==NULL) {
-			g_print("update_externals, prepend a missing or removed-default value %s\n",arr[0]);
+			/*g_print("update_externals, prepend a missing or removed-default value %s\n",arr[0]);*/
 			current = g_list_prepend(current, prepend_array(BLUEFISH_DEFINED_ENABLED, arr));
 		}
 	}
@@ -640,7 +638,7 @@ static GList *update_externals(GList *current, GList *defaults, gboolean overwri
 
 GList * update_outputbox(GList *current, gboolean overwrite) {
 	GList *defaults = NULL, *retlist;
-	g_print("update_outputbox, started\n");
+	DEBUG_MSG("update_outputbox, started\n");
 #ifdef WIN32
 	defaults =
 			g_list_append(defaults,
@@ -688,9 +686,7 @@ GList * update_outputbox(GList *current, gboolean overwrite) {
 						array_from_arglist(_("php codesniffer"), ":([0-9:]+):(.*)", "-1",
 										 "1", "2", "phpcs --report=emacs '%f'|", NULL));
 #endif
-	g_print("update_outputbox, call update_externals\n");
 	retlist = update_externals(current, defaults, overwrite, 7);
-	g_print("update_outputbox, call free_arraylist\n");
 	free_arraylist(defaults);
 	return retlist;
 }
