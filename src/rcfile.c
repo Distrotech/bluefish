@@ -576,23 +576,13 @@ migrate_config_files(GHashTable * main_configlist, GFile * newrc)
 	}
 }
 
-
-static void update_array_w_offset(gchar **dest, gchar **source) {
-	gint i=2;
-	while (dest[i]) {
-		g_free(dest[i]);
-		dest[i] = g_strdup(source[i-1]);
-		i++;
-	}
-}
-
 /* on array length = newlen-1 we update to the new version
 
 if (overwrite) we free the list and replace it with the default values 
 
 if (!overwrite) we overwrite all bluefish_defined options, and we append any new options
 */
-GList *update_externals(GList *current, GList *defaults, gboolean overwrite, gint newlen)
+static GList *update_externals(GList *current, GList *defaults, gboolean overwrite, gint newlen)
 {
 	GList *tmplist;
 	GHashTable *ht=NULL;
@@ -605,50 +595,51 @@ GList *update_externals(GList *current, GList *defaults, gboolean overwrite, gin
 		current = NULL;
 	} else {
 		ht = g_hash_table_new(g_str_hash, g_str_equal);
-		for (tmplist=g_list_first(current);tmplist;tmplist = g_list_next(tmplist)) {
+		tmplist = g_list_first(current);
+		while (tmplist) {
 			gchar **arr = tmplist->data;
 			gint len;
+			GList *cur;
 			len = g_strv_length(arr);
 			g_print("got len=%d, want newlen=%d\n",len,newlen);
+			
+			cur = tmplist;
+			tmplist = g_list_next(tmplist);
+			
 			if (len == (newlen-1)) { /* convert the old (2.2.2 or older) format into the new format */
 				gchar **oldarr = arr;
 				g_print("prepend %s in front of %s\n",USER_DEFINED_ENABLED,arr[0]);
-				tmplist->data = arr = prepend_array(USER_DEFINED_ENABLED,arr);
+				cur->data = arr = prepend_array(USER_DEFINED_ENABLED,arr);
 				g_strfreev(oldarr);
 				len = newlen;
 				g_print("newly created array has length %d\n",g_strv_length(arr));
 			}
-			if (len == newlen) {
-				g_print("insert into hash: %s\n",arr[1]);
+			if (len == newlen && arr[0][0]!='0' && arr[0][0]!='1') {
+				/* keep all the user defined options */
+				g_print("update_externals, insert into hash: %s\n",arr[1]);
 				g_hash_table_insert(ht, arr[1], arr);
+			} else {
+				/* remove all others */
+				current = g_list_delete_link(current, cur);
+				g_strfreev(arr);
 			}
 		}
 	}
-	
+	g_print("update_externals, current has length %d\n", g_list_length(current)); 
 	for (tmplist=g_list_first(defaults);tmplist;tmplist = g_list_next(tmplist)) {
 		gchar **arr=tmplist->data;
-		if (overwrite) {
+		if (overwrite || g_hash_table_lookup(ht, arr[0])==NULL) {
+			g_print("update_externals, prepend a missing or removed-default value %s\n",arr[0]);
 			current = g_list_prepend(current, prepend_array(BLUEFISH_DEFINED_ENABLED, arr));
-		} else {
-			gchar **carr = g_hash_table_lookup(ht, arr[0]);
-			if (!carr) {
-				/* does not yet exist, add! */
-				g_print("update_externals, prepend a missing value %s\n",arr[0]);
-				current = g_list_prepend(current, prepend_array(BLUEFISH_DEFINED_ENABLED, arr));
-			} else {
-				if (carr[0][0] == '0' || carr[0][0] == '1') {
-					g_print("update_externals, call update_array_w_offset for %s\n",arr[0]);
-					/* update the existing array */
-					update_array_w_offset(carr, arr);
-				}
-			}
 		}
 	}
+	if (ht)
+		g_hash_table_destroy(ht);
 	return current;
 }
 
-void update_outputbox(gboolean overwrite) {
-	GList *defaults = NULL;
+GList * update_outputbox(GList *current, gboolean overwrite) {
+	GList *defaults = NULL, *retlist;
 	g_print("update_outputbox, started\n");
 #ifdef WIN32
 	defaults =
@@ -698,14 +689,15 @@ void update_outputbox(gboolean overwrite) {
 										 "1", "2", "phpcs --report=emacs '%f'|", NULL));
 #endif
 	g_print("update_outputbox, call update_externals\n");
-	main_v->props.external_outputbox = update_externals(main_v->props.external_outputbox, defaults, overwrite, 7);
+	retlist = update_externals(current, defaults, overwrite, 7);
 	g_print("update_outputbox, call free_arraylist\n");
 	free_arraylist(defaults);
+	return retlist;
 }
 
-void update_filters(gboolean overwrite)
+GList *update_filters(GList *current, gboolean overwrite)
 {
-	GList *defaults=NULL;
+	GList *defaults=NULL, *retlist;
 
 	defaults =
 		g_list_append(defaults, array_from_arglist(_("Sort"), "|sort|", NULL));
@@ -730,90 +722,92 @@ void update_filters(gboolean overwrite)
 		g_list_append(defaults,
 					  array_from_arglist(_("Render HTML to text"), "lynx -force_html -dump %i |", NULL));
 
-	main_v->props.external_filter = update_externals(main_v->props.external_filter, defaults, overwrite, 3);
+	retlist = update_externals(current, defaults, overwrite, 3);
 	free_arraylist(defaults);
+	return retlist;
 }
 
-void update_commands(gboolean overwrite)
+GList *update_commands(GList *current, gboolean overwrite)
 {
-	GList *defaults=NULL;
+	GList *defaults=NULL, *retlist;
 #ifdef WIN32	
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Windows XP Firefox"),
 										 "\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" '%p'",
 										 "1", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Windows XP Internet Explorer"),
 										 "\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" '%p'",
 										 "0", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Windows XP Opera"),
 										 "\"C:\\Program Files\\Opera\\opera.exe\" '%p'", "0", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Windows XP Safari"),
 										 "\"C:\\Program Files\\Safari\\safari.exe\" '%p'", "0", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Windows 7 Firefox 32-bit"),
 										 "\"C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe\" '%p'",
 										 "1", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Windows 7 Internet Explorer 32-bit"),
 										 "\"C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe\" '%p'",
 										 "0", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Windows 7 Internet Explorer 64-bit"),
 										 "\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" '%p'",
 										 "0", NULL));
 #elif PLATFORM_DARWIN
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Safari"), "open -a Safari '%p'", "0", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Firefox"), "open -a Firefox '%p'", "1", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Opera"), "open -a Opera '%p'", "0", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("chmod a+x"), "chmod a+x %f", "0", NULL));
 #else
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Firefox"), "firefox -remote 'openURL(%p)' || firefox '%p'&",
 										 "1", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Opera"), "opera -remote 'openURL(%p)' || opera '%p'&", "0",
 										 NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Chromium"), "chromium-browser '%p'&", "0", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Konqueror"), "konqueror '%p'&", "0", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Epiphany"), "epiphany-browser -n '%p'&", "0", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Kazehakase"), "kazehakase '%p'&", "0", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Links2 (graphics)"), "links2 -g '%p'&", "0", NULL));
 	defaults =
-		g_list_append(defaults,
+		g_list_prepend(defaults,
 					  array_from_arglist(_("chmod a+x"), "chmod a+x %f", "0", NULL));
 #endif
-	main_v->props.external_command = update_externals(main_v->props.external_command, defaults, overwrite, 4);
+	retlist = update_externals(current, defaults, overwrite, 4);
 	free_arraylist(defaults);
+	return retlist;
 }
 
 void
@@ -842,12 +836,10 @@ rcfile_parse_main(void)
 		main_v->props.encoding_search_Nbytes = 2048;
 
 	/* do some default configuration for the lists */
-	g_print("got config version %s\n",main_v->props.config_version);
 	if (!main_v->props.config_version || strlen(main_v->props.config_version)<5 ||main_v->props.config_version[0] < '2' || main_v->props.config_version[2] < '2' || main_v->props.config_version[4] < '3') {
-		g_print("convert!\n");
-		update_commands(FALSE);
-		update_filters(FALSE);
-		update_outputbox(FALSE);
+		main_v->props.external_command = update_commands(main_v->props.external_command, FALSE);
+		main_v->props.external_filter = update_filters(main_v->props.external_filter, FALSE);
+		main_v->props.external_outputbox = update_outputbox(main_v->props.external_outputbox, FALSE);
 	}
 
 	if (main_v->props.templates == NULL) {

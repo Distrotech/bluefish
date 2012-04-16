@@ -26,6 +26,11 @@
 #define USER_DEFINED_ENABLED "3"
 
 GHashTable *make_config_list_item(GHashTable * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var, gint len);
+
+GList *update_outputbox(GList * current, gboolean overwrite);
+GList *update_filters(GList * current, gboolean overwrite);
+GList *update_commands(GList * current, gboolean overwrite);
+
 void rcfile_parse_main(void);
 void rcfile_parse_highlighting(void);
 void rcfile_check_directory(void);
