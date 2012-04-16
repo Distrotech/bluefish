@@ -863,6 +863,7 @@ set_extcommands_strarr_in_list(GtkTreeIter * iter, gchar ** strarr, Tprefdialog 
 	gint arrcount = g_strv_length(strarr);
 	g_print("set_extcommands_strarr_in_list, for len=%d\n",arrcount);
 	if (arrcount == 4) {
+		g_print("set_extcommands_strarr_in_list, set %s\n",strarr[1]);
 		gtk_list_store_set(GTK_LIST_STORE(pd->bd.lstore), iter, 
 				0, (strarr[0][0]=='1' || strarr[0][0]=='3'), 
 				1, strarr[1],
@@ -903,11 +904,27 @@ extcommands_3_edited_lcb(GtkCellRendererToggle * cellrenderertoggle, gchar * pat
 					  gtk_cell_renderer_toggle_get_active(cellrenderertoggle) ? "0" : "1", 3);
 }
 
+static void reload_extcommands(Tprefdialog * pd, GList *list)
+{
+	GList *tmplist = g_list_first(list);
+	g_print("reload_extcommands, list len=%d\n",g_list_length(list));
+	gtk_list_store_clear(GTK_LIST_STORE(pd->bd.lstore));	
+	while (tmplist) {
+		GtkTreeIter iter;
+		g_print("reload_extcommands, tmplist %p has arr %p\n",tmplist, tmplist->data);
+		gtk_list_store_append(GTK_LIST_STORE(pd->bd.lstore), &iter);
+		set_extcommands_strarr_in_list(&iter, (gchar **) tmplist->data, pd);
+		tmplist = g_list_next(tmplist);
+		g_print("next tmplist=%p\n",tmplist);
+	}
+}
+
 static void
 add_new_extcommands_lcb(GtkWidget * wid, Tprefdialog * pd)
 {
 	gchar **strarr;
 	GtkTreeIter iter;
+	
 	strarr = pref_create_empty_strarr(4);
 	gtk_list_store_append(GTK_LIST_STORE(pd->bd.lstore), &iter);
 	set_extcommands_strarr_in_list(&iter, strarr, pd);
@@ -919,6 +936,20 @@ static void
 delete_extcommands_lcb(GtkWidget * wid, Tprefdialog * pd)
 {
 	pref_delete_strarr(pd, &pd->bd, 4);
+}
+
+static void
+updatedefaults_extcommands_lcb(GtkWidget * wid, Tprefdialog * pd)
+{
+	pd->lists[extcommands] = update_commands(pd->lists[extcommands], FALSE);
+	reload_extcommands(pd, pd->lists[extcommands]);
+}
+
+static void
+reset_extcommands_lcb(GtkWidget * wid, Tprefdialog * pd)
+{
+	pd->lists[extcommands] = update_commands(pd->lists[extcommands], TRUE);
+	reload_extcommands(pd, pd->lists[extcommands]);
 }
 
 static void
@@ -950,17 +981,9 @@ create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->bd.lview);
 	gtk_widget_set_size_request(scrolwin, 200, 200);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
-	{
-		GList *tmplist = g_list_first(pd->lists[extcommands]);
-		while (tmplist) {
-			gchar **strarr = (gchar **) tmplist->data;
-			GtkTreeIter iter;
-			DEBUG_MSG("create_extcommands_gui");
-			gtk_list_store_append(GTK_LIST_STORE(pd->bd.lstore), &iter);
-			set_extcommands_strarr_in_list(&iter, strarr, pd);
-			tmplist = g_list_next(tmplist);
-		}
-	}
+	
+	reload_extcommands(pd, pd->lists[extcommands]);
+	
 	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->bd.lview), TRUE);
 	pd->bd.thelist = &pd->lists[extcommands];
 	pd->bd.insertloc = -1;
@@ -972,6 +995,10 @@ create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	but = dialog_button_new_with_image(_("Add entry"), GTK_STOCK_ADD, G_CALLBACK(add_new_extcommands_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 	but = dialog_button_new_with_image(_("Delete entry"), GTK_STOCK_DELETE, G_CALLBACK(delete_extcommands_lcb), pd, TRUE, FALSE);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
+	but = dialog_button_new_with_image(_("Update defaults"), GTK_STOCK_REFRESH, G_CALLBACK(updatedefaults_extcommands_lcb), pd, TRUE, FALSE);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
+	but = dialog_button_new_with_image(_("Reset all"), GTK_STOCK_CONVERT, G_CALLBACK(reset_extcommands_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
 
