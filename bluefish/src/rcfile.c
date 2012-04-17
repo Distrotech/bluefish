@@ -619,7 +619,7 @@ static GList *update_externals(GList *current, GList *defaults, gboolean overwri
 			} else {
 				/* remove all others */
 				current = g_list_delete_link(current, cur);
-				g_print("removed list item %p from list, current =%p\n",cur, current);
+				DEBUG_MSG("removed list item %p from list, current =%p\n",cur, current);
 				g_strfreev(arr);
 			}
 		}

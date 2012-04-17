@@ -205,7 +205,10 @@ typedef enum {
 	prefapply_escapedtext,
 	prefapply_text,
 	prefapply_toggle,
-	prefapply_bit1toggle
+	prefapply_bit1toggle,
+	prefapply_escapedtext_w_userdefined,
+	prefapply_text_w_userdefined,
+	prefapply_toggle_w_userdefined,
 } Tprefapplytype;
 
 void
@@ -297,6 +300,30 @@ pref_create_empty_strarr(gint len)
 	return strarr;
 }
 
+static gchar *
+bittoggle(gchar *orig, gint bit, gboolean value, gint defaultvalue)
+{
+	int i;
+	i = (orig && orig[0]!='\0') ? atoi(orig) : defaultvalue;
+	/*g_print("bittoggle, orig=%s, so i=%d\n",orig,i);*/
+	if (value) {
+		i |= (1 << bit);
+	} else {
+		i &= ~ (1 << bit);
+	}
+	g_print("bittoggle, toggled bit %d, orig=%s, result=%d\n",bit,orig,i);
+	return g_strdup_printf("%d", i);
+}
+
+static void
+set_arr_user_defined(gchar **arr)
+{
+	gchar *tmp = arr[0];
+	arr[0] = bittoggle(tmp, 1, TRUE, 3/* user defined enabled */);
+	g_print("set_arr_user_defined, original was %s, new is %s\n",tmp,arr[0]);
+	g_free(tmp);
+}
+
 /* type 0=escapedtext, 1=text, 2=toggle */
 static void
 pref_apply_change(GtkListStore * lstore, gint pointerindex, Tprefapplytype type, gchar * path, gchar * newval,
@@ -311,9 +338,9 @@ pref_apply_change(GtkListStore * lstore, gint pointerindex, Tprefapplytype type,
 		gtk_tree_model_get(GTK_TREE_MODEL(lstore), &iter, pointerindex, &strarr, -1);
 		DEBUG_MSG("pref_apply_change, lstore=%p, index=%d, type=%d, got strarr=%p\n", lstore, index, type,
 				  strarr);
-		if (type == prefapply_text || type == prefapply_escapedtext) {
+		if (type == prefapply_text || type == prefapply_escapedtext || type == prefapply_escapedtext_w_userdefined || type == prefapply_text_w_userdefined) {
 			gtk_list_store_set(GTK_LIST_STORE(lstore), &iter, index, newval, -1);
-		} else if (type == prefapply_toggle || type == prefapply_bit1toggle){
+		} else if (type == prefapply_toggle || type == prefapply_bit1toggle || type == prefapply_toggle_w_userdefined){
 			gtk_list_store_set(GTK_LIST_STORE(lstore), &iter, index, (newval[0] == '1'), -1);
 		}
 		DEBUG_MSG("pref_apply_change, old value for strarr[%d] was %s\n", index, strarr[index]);
@@ -321,21 +348,27 @@ pref_apply_change(GtkListStore * lstore, gint pointerindex, Tprefapplytype type,
 		if (type == prefapply_escapedtext) {
 			strarr[index] = unescape_string(newval, FALSE);
 		} else if (type == prefapply_bit1toggle) {
-			int i;
+			/*int i;
 			i = (oldval && oldval[0]!='\0') ? atoi(oldval) : 2;
 			g_print("bit1toggle, oldval=%s, so i=%d\n",oldval,i);
 			if (newval[0] == '1') {
 				i |= 0x02;
 			} else {
-				i &= 0x3FE; /* 1111111110 */
+				i &= 0x3FE;
 			}
-			strarr[index] = g_strdup_printf("%d", i);
-			g_print("new value for index %d is %d\n",index,i);
+			strarr[index] = g_strdup_printf("%d", i);*/
+			strarr[index] = bittoggle(oldval, 0, (newval[0] == '1'), 2);
+			g_print("new value for index %d is %s\n",index,strarr[index]);
 		} else {
 			strarr[index] = g_strdup(newval);
 		}
 		g_free(oldval);
 		DEBUG_MSG("pref_apply_change, strarr[%d] now is %s\n", index, strarr[index]);
+		if (type == prefapply_escapedtext_w_userdefined || type == prefapply_text_w_userdefined || type == prefapply_toggle_w_userdefined) {
+			/*g_print("pref_apply_change, type=%d, call set_arr_user_defined()\n", type);*/
+			set_arr_user_defined(strarr);
+		}
+		
 	} else {
 		DEBUG_MSG("ERROR: path %s was not converted to tpath(%p) or iter (lstore=%p)\n", path, tpath, lstore);
 	}
@@ -879,20 +912,18 @@ extcommands_0_edited_lcb(GtkCellRendererToggle * cellrenderertoggle, gchar * pat
 	pref_apply_change(pd->bd.lstore, 4, prefapply_bit1toggle, path, gtk_cell_renderer_toggle_get_active(cellrenderertoggle) ? "0" : "1", 0);
 }
 
-
 static void
 extcommands_1_edited_lcb(GtkCellRendererText * cellrenderertext, gchar * path, gchar * newtext,
 						 Tprefdialog * pd)
 {
-	pref_apply_change(pd->bd.lstore, 4, prefapply_text, path, newtext, 1);
-	/* set user defined */
+	pref_apply_change(pd->bd.lstore, 4, prefapply_text_w_userdefined, path, newtext, 1);
 }
 
 static void
 extcommands_2_edited_lcb(GtkCellRendererText * cellrenderertext, gchar * path, gchar * newtext,
 						 Tprefdialog * pd)
 {
-	pref_apply_change(pd->bd.lstore, 4, prefapply_text, path, newtext, 2);
+	pref_apply_change(pd->bd.lstore, 4, prefapply_text_w_userdefined, path, newtext, 2);
 }
 
 static void
@@ -1023,14 +1054,14 @@ static void
 external_filter_1_edited_lcb(GtkCellRendererText * cellrenderertext, gchar * path, gchar * newtext,
 							 Tprefdialog * pd)
 {
-	pref_apply_change(pd->ed.lstore, 3, prefapply_text, path, newtext, 1);
+	pref_apply_change(pd->ed.lstore, 3, prefapply_text_w_userdefined, path, newtext, 1);
 }
 
 static void
 external_filter_2_edited_lcb(GtkCellRendererText * cellrenderertext, gchar * path, gchar * newtext,
 							 Tprefdialog * pd)
 {
-	pref_apply_change(pd->ed.lstore, 3, prefapply_text, path, newtext, 2);
+	pref_apply_change(pd->ed.lstore, 3, prefapply_text_w_userdefined, path, newtext, 2);
 }
 
 static void
@@ -1049,6 +1080,35 @@ static void
 delete_external_filter_lcb(GtkWidget * wid, Tprefdialog * pd)
 {
 	pref_delete_strarr(pd, &pd->ed, 3);
+}
+
+static void
+reload_extfilters(Tprefdialog * pd, GList *list)
+{
+	GList *tmplist = g_list_first(list);
+	pd->ed.insertloc = -1;
+	gtk_list_store_clear(GTK_LIST_STORE(pd->ed.lstore));
+	while (tmplist) {
+		gchar **strarr = (gchar **) tmplist->data;
+		GtkTreeIter iter;
+		gtk_list_store_append(GTK_LIST_STORE(pd->ed.lstore), &iter);
+		set_external_filters_strarr_in_list(&iter, strarr, pd);
+		tmplist = g_list_next(tmplist);
+	}
+}
+
+static void
+updatedefaults_extfilters_lcb(GtkWidget * wid, Tprefdialog * pd)
+{
+	pd->lists[extfilters] = update_filters(pd->lists[extfilters], FALSE);
+	reload_extfilters(pd, pd->lists[extfilters]);
+}
+
+static void
+reset_extfilters_lcb(GtkWidget * wid, Tprefdialog * pd)
+{
+	pd->lists[extfilters] = update_filters(pd->lists[extfilters], TRUE);
+	reload_extfilters(pd, pd->lists[extfilters]);
 }
 
 static void
@@ -1078,16 +1138,7 @@ create_filters_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ed.lview);
 	gtk_widget_set_size_request(scrolwin, 200, 200);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
-	{
-		GList *tmplist = g_list_first(pd->lists[extfilters]);
-		while (tmplist) {
-			gchar **strarr = (gchar **) tmplist->data;
-			GtkTreeIter iter;
-			gtk_list_store_append(GTK_LIST_STORE(pd->ed.lstore), &iter);
-			set_external_filters_strarr_in_list(&iter, strarr, pd);
-			tmplist = g_list_next(tmplist);
-		}
-	}
+	reload_extfilters(pd, pd->lists[extfilters]);
 	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->ed.lview), TRUE);
 	pd->ed.thelist = &pd->lists[extfilters];
 	pd->ed.insertloc = -1;
@@ -1099,6 +1150,10 @@ create_filters_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	but = dialog_button_new_with_image(_("Add entry"), GTK_STOCK_ADD, G_CALLBACK(add_new_external_filter_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 	but = dialog_button_new_with_image(_("Delete entry"), GTK_STOCK_DELETE, G_CALLBACK(delete_external_filter_lcb), pd, TRUE, FALSE);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
+	but = dialog_button_new_with_image(_("Update defaults"), GTK_STOCK_REFRESH, G_CALLBACK(updatedefaults_extfilters_lcb), pd, TRUE, FALSE);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
+	but = dialog_button_new_with_image(_("Reset all"), GTK_STOCK_CONVERT, G_CALLBACK(reset_extfilters_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
 
@@ -1123,47 +1178,46 @@ outputbox_0_edited_lcb(GtkCellRendererToggle * cellrenderertoggle, gchar * path,
 	pref_apply_change(pd->od.lstore, 7, prefapply_bit1toggle, path, gtk_cell_renderer_toggle_get_active(cellrenderertoggle) ? "0" : "1", 0);
 }
 
-
 static void
 outputbox_1_edited_lcb(GtkCellRendererText * cellrenderertext, gchar * path, gchar * newtext,
 					   Tprefdialog * pd)
 {
-	pref_apply_change(pd->od.lstore, 7, prefapply_text, path, newtext, 1);
+	pref_apply_change(pd->od.lstore, 7, prefapply_text_w_userdefined, path, newtext, 1);
 }
 
 static void
 outputbox_2_edited_lcb(GtkCellRendererText * cellrenderertext, gchar * path, gchar * newtext,
 					   Tprefdialog * pd)
 {
-	pref_apply_change(pd->od.lstore, 7, prefapply_text, path, newtext, 2);
+	pref_apply_change(pd->od.lstore, 7, prefapply_text_w_userdefined, path, newtext, 2);
 }
 
 static void
 outputbox_3_edited_lcb(GtkCellRendererText * cellrenderertext, gchar * path, gchar * newtext,
 					   Tprefdialog * pd)
 {
-	pref_apply_change(pd->od.lstore, 7, prefapply_text, path, newtext, 3);
+	pref_apply_change(pd->od.lstore, 7, prefapply_text_w_userdefined, path, newtext, 3);
 }
 
 static void
 outputbox_4_edited_lcb(GtkCellRendererText * cellrenderertext, gchar * path, gchar * newtext,
 					   Tprefdialog * pd)
 {
-	pref_apply_change(pd->od.lstore, 7, prefapply_text, path, newtext, 4);
+	pref_apply_change(pd->od.lstore, 7, prefapply_text_w_userdefined, path, newtext, 4);
 }
 
 static void
 outputbox_5_edited_lcb(GtkCellRendererText * cellrenderertext, gchar * path, gchar * newtext,
 					   Tprefdialog * pd)
 {
-	pref_apply_change(pd->od.lstore, 7, prefapply_text, path, newtext, 5);
+	pref_apply_change(pd->od.lstore, 7, prefapply_text_w_userdefined, path, newtext, 5);
 }
 
 static void
 outputbox_6_edited_lcb(GtkCellRendererText * cellrenderertext, gchar * path, gchar * newtext,
 					   Tprefdialog * pd)
 {
-	pref_apply_change(pd->od.lstore, 7, prefapply_text, path, newtext, 6);
+	pref_apply_change(pd->od.lstore, 7, prefapply_text_w_userdefined, path, newtext, 6);
 }
 
 static void
@@ -1182,6 +1236,39 @@ static void
 delete_outputbox_lcb(GtkWidget * wid, Tprefdialog * pd)
 {
 	pref_delete_strarr(pd, &pd->od, 7);
+}
+
+static void
+reload_extoutputbox(Tprefdialog * pd, GList *list)
+{
+	GList *tmplist = g_list_first(list);
+	pd->od.insertloc = -1;
+	gtk_list_store_clear(GTK_LIST_STORE(pd->od.lstore));
+	while (tmplist) {
+		gint arrcount;
+		gchar **strarr = (gchar **) tmplist->data;
+		arrcount = g_strv_length(strarr);
+		if (arrcount == 7) {
+			GtkTreeIter iter;
+			gtk_list_store_append(GTK_LIST_STORE(pd->od.lstore), &iter);
+			set_outputbox_strarr_in_list(&iter, strarr, pd);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
+
+static void
+updatedefaults_extoutputbox_lcb(GtkWidget * wid, Tprefdialog * pd)
+{
+	pd->lists[extoutputbox] = update_outputbox(pd->lists[extoutputbox], FALSE);
+	reload_extoutputbox(pd, pd->lists[extoutputbox]);
+}
+
+static void
+reset_extoutputbox_lcb(GtkWidget * wid, Tprefdialog * pd)
+{
+	pd->lists[extoutputbox] = update_outputbox(pd->lists[extoutputbox], TRUE);
+	reload_extoutputbox(pd, pd->lists[extoutputbox]);
 }
 
 static void
@@ -1220,20 +1307,7 @@ create_outputbox_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->od.lview);
 	gtk_widget_set_size_request(scrolwin, 200, 200);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
-	{
-		GList *tmplist = g_list_first(pd->lists[extoutputbox]);
-		while (tmplist) {
-			gint arrcount;
-			gchar **strarr = (gchar **) tmplist->data;
-			arrcount = g_strv_length(strarr);
-			if (arrcount == 7) {
-				GtkTreeIter iter;
-				gtk_list_store_append(GTK_LIST_STORE(pd->od.lstore), &iter);
-				set_outputbox_strarr_in_list(&iter, strarr, pd);
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	}
+	reload_extoutputbox(pd, pd->lists[extoutputbox]);
 	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->od.lview), TRUE);
 	pd->od.thelist = &pd->lists[extoutputbox];
 	pd->od.insertloc = -1;
@@ -1245,6 +1319,10 @@ create_outputbox_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	but = dialog_button_new_with_image(_("Add entry"), GTK_STOCK_ADD, G_CALLBACK(add_new_outputbox_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 	but = dialog_button_new_with_image(_("Delete entry"), GTK_STOCK_DELETE, G_CALLBACK(delete_outputbox_lcb), pd, TRUE, FALSE);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
+	but = dialog_button_new_with_image(_("Update defaults"), GTK_STOCK_REFRESH, G_CALLBACK(updatedefaults_extoutputbox_lcb), pd, TRUE, FALSE);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
+	but = dialog_button_new_with_image(_("Reset all"), GTK_STOCK_CONVERT, G_CALLBACK(reset_extoutputbox_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
 
