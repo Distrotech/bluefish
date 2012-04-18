@@ -1451,40 +1451,68 @@ bftextview2_toggle_fold(BluefishTextView * btv, GtkTextIter * iter)
 }
 
 static void
-bftextview2_collapse_expand_all_toggle(BluefishTextView * btv, gboolean collapse)
+bftextview2_collapse_expand_toggle(BluefishTextView * btv, const gchar *name, gboolean collapse)
 {
 	GSequenceIter *siter = NULL;
 	Tfound *found;
 	found = get_foundcache_first(btv, &siter);
 	while (found) {
-		if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->foldable && found->fblock->folded != collapse)
-			bftextview2_block_toggle_fold(btv, found->fblock);
+		if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->foldable && found->fblock->folded != collapse) {
+			if (name) {
+				if (name == g_array_index(btv->bflang->st->blocks, Tpattern_block, g_array_index(btv->bflang->st->matches, Tpattern, found->fblock->patternum).block).name)
+					bftextview2_block_toggle_fold(btv, found->fblock);
+			} else {
+				bftextview2_block_toggle_fold(btv, found->fblock);
+			}
+		}
 		found = get_foundcache_next(btv, &siter);
 	}
 }
 
 static void
-bftextview2_collapse_all_lcb(GtkMenuItem * mitem, BluefishTextView * btv)
+bftextview2_collapse_lcb(GtkMenuItem * mitem, BluefishTextView * btv)
 {
-	bftextview2_collapse_expand_all_toggle(btv, TRUE);
+	bftextview2_collapse_expand_toggle(btv, g_object_get_data(G_OBJECT(mitem), "block_name"), TRUE);
 }
 
 static void
-bftextview2_expand_all_lcb(GtkMenuItem * mitem, BluefishTextView * btv)
+bftextview2_expand_lcb(GtkMenuItem * mitem, BluefishTextView * btv)
 {
-	bftextview2_collapse_expand_all_toggle(btv, FALSE);
+	bftextview2_collapse_expand_toggle(btv, g_object_get_data(G_OBJECT(mitem), "block_name"), FALSE);
 }
 
 static GtkWidget *
 bftextview2_fold_menu(BluefishTextView * btv)
 {
+	gint i;
 	GtkWidget *mitem, *menu = gtk_menu_new();
 	mitem = gtk_menu_item_new_with_label(_("Collapse all"));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), mitem);
-	g_signal_connect(G_OBJECT(mitem), "activate", G_CALLBACK(bftextview2_collapse_all_lcb), btv);
+	g_signal_connect(G_OBJECT(mitem), "activate", G_CALLBACK(bftextview2_collapse_lcb), btv);
 	mitem = gtk_menu_item_new_with_label(_("Expand all"));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), mitem);
-	g_signal_connect(G_OBJECT(mitem), "activate", G_CALLBACK(bftextview2_expand_all_lcb), btv);
+	g_signal_connect(G_OBJECT(mitem), "activate", G_CALLBACK(bftextview2_expand_lcb), btv);
+	
+	/* loop over the found blocks */
+	for (i = 0; i < (btv->bflang->st->blocks->len); i++) {
+		if (g_array_index(btv->bflang->st->blocks, Tpattern_block, i).name) {
+			gchar *tmp = g_strdup_printf(_("Collapse %s"), g_array_index(btv->bflang->st->blocks, Tpattern_block, i).name);
+			mitem = gtk_menu_item_new_with_label(tmp);
+			g_free(tmp);
+			g_object_set_data(G_OBJECT(mitem), "block_name", g_array_index(btv->bflang->st->blocks, Tpattern_block, i).name);
+			gtk_menu_shell_append(GTK_MENU_SHELL(menu), mitem);
+			g_signal_connect(G_OBJECT(mitem), "activate", G_CALLBACK(bftextview2_collapse_lcb), btv);
+			
+			tmp = g_strdup_printf(_("Expand %s"), g_array_index(btv->bflang->st->blocks, Tpattern_block, i).name);
+			mitem = gtk_menu_item_new_with_label(tmp);
+			g_free(tmp);
+			g_object_set_data(G_OBJECT(mitem), "block_name", g_array_index(btv->bflang->st->blocks, Tpattern_block, i).name);
+			gtk_menu_shell_append(GTK_MENU_SHELL(menu), mitem);
+			g_signal_connect(G_OBJECT(mitem), "activate", G_CALLBACK(bftextview2_expand_lcb), btv);
+		}
+	}
+	
+	
 	gtk_widget_show_all(menu);
 	/* only required for submenu's that have a radioitem ????? g_signal_connect(G_OBJECT(menu), "destroy", destroy_disposable_menu_cb, menu); */
 	return menu;

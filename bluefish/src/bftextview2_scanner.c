@@ -640,8 +640,10 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 	fblock->start2_o = gtk_text_iter_get_offset(&match->start);
 	fblock->end2_o = gtk_text_iter_get_offset(&match->end);
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, fblock->end1_o);
-	if (G_UNLIKELY(pat->blocktag)) {
-		gtk_text_buffer_apply_tag(btv->buffer, pat->blocktag, &iter, &match->start);
+	if (G_UNLIKELY(g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).block 
+				&& g_array_index(btv->bflang->st->blocks, Tpattern_block, g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).block).tag
+			 	)) {
+		gtk_text_buffer_apply_tag(btv->buffer, g_array_index(btv->bflang->st->blocks, Tpattern_block, g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).block).tag, &iter, &match->start);
 	}
 	if ((gtk_text_iter_get_line(&iter)) < gtk_text_iter_get_line(&match->start)) {
 		fblock->foldable = TRUE;

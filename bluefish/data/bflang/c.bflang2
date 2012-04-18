@@ -2961,7 +2961,7 @@
 		<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="bracket-square" />
 		<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="bracket-round" />
 		<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="bracket-round" />
-		<element id="e.lcomment" pattern="/*" starts_block="1" highlight="block-comment">
+		<element id="e.lcomment" pattern="/*" starts_block="1" block_name="Comment" highlight="block-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="block-comment" >
 				<element pattern="/*" highlight="error"/> 
 				<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="block-comment" mayfold="1" ends_context="1" />

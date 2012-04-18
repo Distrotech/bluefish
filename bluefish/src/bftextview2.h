@@ -325,34 +325,43 @@ typedef struct {
 } Tpattern_autocomplete;
 
 typedef struct {
+	gchar *name;
+	GtkTextTag *tag;		/* if this pattern ends a context or a block, we can highlight
+								   the region within the start and end pattern with this tag */
+	gchar *highlight;		/* a string for the highlight corresponding to the  blocktag */
+} Tpattern_block;
+
+typedef struct {
 	GtkTextTag *selftag;		/* the tag used to highlight this pattern */
-	GtkTextTag *blocktag;		/* if this pattern ends a context or a block, we can highlight
+	/*GtkTextTag *blocktag;*/		/* if this pattern ends a context or a block, we can highlight
 								   the region within the start and end pattern with this tag */
 	gchar *reference;			/* the reference data, or NULL. may be inserted in hash tables for multiple keys in multiple contexts */
 	gchar *pattern;				/* the pattern itself. stored in the Tpattern so we can re-use it in another context */
 	GSList *autocomp_items;
 	gchar *selfhighlight;		/* a string with the highlight for this pattern. used when re-linking highlights and textstyles 
 								   if the user changed any of these in the preferences */
-	gchar *blockhighlight;		/* a string for the highlight corresponding to the  blocktag */
-
+	/*gchar *blockhighlight;*/		/* a string for the highlight corresponding to the  blocktag */
+	guint16 block; 
 	gint16 blockstartpattern;	/* the number of the pattern that may start this block, or -1 to end the last started block */
 	gint16 nextcontext;			/* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
 								   to pop a context of the stack */
-	/* TODO:  all following guint8 entries are booleans that can be combined into a single 8 bits integer with a bitmask */
-	guint8 starts_block;		/* wether or not this pattern may start a block */
-	guint8 ends_block;			/* wether or not this pattern may end a block */
-	guint8 case_insens;
-	guint8 is_regex;
-	guint8 tagclose_from_blockstack;	/* this is a generix xml close tag that needs the blockstack to autoclose */
-	guint8 stretch_blockstart; /* the end of this match is the new end-of-blockstart, used for HTML/XML tags */
 #ifdef IDENTSTORING
-	guint8 identmode;
-	guint8 identaction; /* bitwise, first bit is add to jump hashtable, second bit is autocomplete */
+	guint8 identaction :2; /* 2 bits, first bit is add to jump hashtable, second bit is autocomplete */
+#endif
+	/* we use 1 bit integers here because these values are all booleans */
+	guint8 starts_block :1;		/* wether or not this pattern may start a block */
+	guint8 ends_block :1;			/* wether or not this pattern may end a block */
+	guint8 tagclose_from_blockstack :1;	/* this is a generix xml close tag that needs the blockstack to autoclose */
+	guint8 stretch_blockstart :1; /* the end of this match is the new end-of-blockstart, used for HTML/XML tags */
+	guint8 case_insens :1;
+	guint8 is_regex :1;
+#ifdef IDENTSTORING
+	guint8 identmode :1;
 #endif							/* IDENTSTORING */
 } Tpattern;
 /* 
-32bit size = 7 * 32 + 2 * 16 + 8 * 8 = 320 bits = 40 bytes 
-64bit size = 7 * 64 + 2 * 16 + 8 * 8 = 544 bits = 68 bytes
+32bit size = 5*32 + 3*16 + 1*2 + 8*1 = 217 + 7 padding = 28 bytes
+64bit size = 5*64 + 3*16 + 1*2 + 8*1 = 361 + 7 padding = 48 bytes
 */
 
 typedef struct {
@@ -378,7 +387,8 @@ typedef struct {
 	guint8 allsymbols[128];		/* this lookup table holds all symbols for all contexts, and is used to trigger scanning if reduced_scan_triggers is enabled */
 	GArray *contexts;			/* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
 	GArray *matches;			/* dynamic sized array of Tpattern */
-	GArray *comments;			/* Tcomment, has max. 256 entries, we use a guint8 as index */
+	GArray *comments;			/* array of Tcomment, has max. 256 entries, we use a guint8 as index */
+	GArray *blocks; 			/* array of Tpattern_block with a guint16 as index */
 } Tscantable;
 
 #define character_is_symbol(st,context,c) (g_array_index((GArray *)g_array_index(st->contexts, Tcontext, context).table, Ttablerow, 1).row[c] != 1)
