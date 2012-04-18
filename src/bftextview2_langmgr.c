@@ -684,7 +684,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 	guint16 matchnum = 0;
 	gboolean add_element;
 	gchar *pattern = NULL, *idref = NULL, *highlight = NULL, *blockstartelement = NULL, *blockhighlight =
-		NULL, *class = NULL, *notclass = NULL, *id =	NULL;
+		NULL, *block_name = NULL, *class = NULL, *notclass = NULL, *id =	NULL;
 	gboolean starts_block = FALSE, ends_block = FALSE, is_empty, tagclose_from_blockstack = FALSE, stretch_blockstart=FALSE;
 	gint case_insens = UNDEFINED, is_regex = UNDEFINED;
 	gint ends_context = 0;
@@ -702,10 +702,11 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 					{"notclass", &notclass, attribtype_string},
 					{"is_regex", &is_regex, attribtype_boolean},
 					{"starts_block", &starts_block, attribtype_boolean},
+					{"block_name", &block_name, attribtype_string},
 					{"ends_block", &ends_block, attribtype_boolean},
 					{"case_insens", &case_insens, attribtype_boolean},
 					{"ends_context", &ends_context, attribtype_int},
-					{"tagclose_from_blockstack", &tagclose_from_blockstack, attribtype_int},
+					{"tagclose_from_blockstack", &tagclose_from_blockstack, attribtype_boolean},
 					{"stretch_blockstart", &stretch_blockstart, attribtype_int},
 					{"identifier_mode", &identifier_mode, attribtype_int},
 					{"identifier_jump", &identifier_jump, attribtype_int},
@@ -770,7 +771,8 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 								starts_block, 
 								ends_block, 
 								blockstartelementum, 
-								blockhighlight);
+								blockhighlight,
+								block_name);
 			pattern_set_runtime_properties(bfparser->st, matchnum,
 								 highlight ? highlight : ih_highlight,
 								 nextcontext,
@@ -927,7 +929,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			}
 			tmp = g_strconcat("<", tag, NULL);
 			matchnum = add_pattern_to_scanning_table(bfparser->st, tmp, FALSE, case_insens, context);
-			pattern_set_blockmatch(bfparser->st, matchnum,TRUE,FALSE,0,NULL);
+			pattern_set_blockmatch(bfparser->st, matchnum,TRUE,FALSE,0,NULL,NULL);
 			pattern_set_runtime_properties(bfparser->st, matchnum, 
 								highlight ? highlight : ih_highlight,
 								contexttag, TRUE, FALSE,0, FALSE, FALSE);
@@ -995,7 +997,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 								highlight ? highlight : ih_highlight,
 								-1, FALSE, FALSE,0, FALSE, FALSE);
 					pattern_set_blockmatch(bfparser->st, tmpnum,
-								FALSE,TRUE, -1,NULL);
+								FALSE,TRUE, -1,NULL,NULL);
 					if (bfparser->autoclose_tags)
 						match_add_autocomp_item(bfparser->st, tmpnum, NULL, NULL, 0);
 					match_autocomplete_reference(bfparser->st, tmpnum, contexttag);
@@ -1005,7 +1007,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				pattern_set_runtime_properties(bfparser->st, starttagmatch, 
 								highlight ? highlight : ih_highlight,
 								-1, FALSE, bfparser->stretch_tag_block,0, FALSE, FALSE);
-				pattern_set_blockmatch(bfparser->st, starttagmatch, FALSE, FALSE, matchnum /* blockstartpattern for stretch_block */, NULL);
+				pattern_set_blockmatch(bfparser->st, starttagmatch, FALSE, FALSE, matchnum /* blockstartpattern for stretch_block */, NULL, NULL);
 				
 				if (bfparser->autoclose_tags && !no_close)
 					match_add_autocomp_item(bfparser->st, starttagmatch, NULL, tmp, tmp ? strlen(tmp) : 0);
@@ -1085,7 +1087,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 									(innercontext == context) ? 0 : -2,
 									FALSE, FALSE,0, FALSE, FALSE);
 				pattern_set_blockmatch(bfparser->st, endtagmatch,
-									FALSE,TRUE,matchnum,NULL);
+									FALSE,TRUE,matchnum,NULL,NULL);
 /*				g_print("context %d: matchnum %d is ended by endtagmatch %d while working on id %s\n",innercontext,matchnum, endtagmatch, id);*/
 				match_add_autocomp_item(bfparser->st, endtagmatch, NULL, NULL, 0);
 				match_autocomplete_reference(bfparser->st, endtagmatch, innercontext);
@@ -1455,7 +1457,10 @@ build_lang_thread(gpointer data)
 			g_realloc(bfparser->st->contexts->data, (bfparser->st->contexts->len + 1) * sizeof(Tcontext));
 		bfparser->st->matches->data =
 			g_realloc(bfparser->st->matches->data, (bfparser->st->matches->len + 1) * sizeof(Tpattern));
-
+		bfparser->st->comments->data =
+			g_realloc(bfparser->st->comments->data, (bfparser->st->comments->len + 1) * sizeof(Tcomment));
+		bfparser->st->blocks->data =
+			g_realloc(bfparser->st->blocks->data, (bfparser->st->blocks->len + 1) * sizeof(Tpattern_block));
 		/* now optimise the DFA tables for each context */
 		for (i = 1; i < bfparser->st->contexts->len; i++) {
 			g_array_index(bfparser->st->contexts, Tcontext, i).table->data = g_realloc(g_array_index(bfparser->st->contexts, Tcontext, i).table->data, (g_array_index(bfparser->st->contexts, Tcontext, i).table->len + 1) * sizeof(Ttablerow));
@@ -1473,6 +1478,8 @@ build_lang_thread(gpointer data)
 				1.0 * bfparser->st->contexts->len * sizeof(Tcontext) / 1024.0);
 		g_print("matches       %5d (%9.2f Kbytes)\n", bfparser->st->matches->len,
 				1.0 * bfparser->st->matches->len * sizeof(Tpattern) / 1024.0);
+		g_print("blocks        %5d (%9.2f Kbytes)\n", bfparser->st->blocks->len,
+				1.0 * bfparser->st->blocks->len * sizeof(Tpattern_block) / 1024.0);
 		/*print_DFA(bfparser->st, '&','Z'); */
 		/*print_DFA_subset(bfparser->st, "<PpIi>"); */
 
@@ -1630,7 +1637,7 @@ bflang_cleanup_scantable(Tbflang * bflang)
 		   use the same string in memory for this value... for example if they are part of
 		   the same <group>
 		   g_free(g_array_index(bflang->st->matches, Tpattern, i).selfhighlight); */
-		g_free(g_array_index(bflang->st->matches, Tpattern, i).blockhighlight);
+		/*g_free(g_array_index(bflang->st->matches, Tpattern, i).blockhighlight);*/
 		for (slist = g_array_index(bflang->st->matches, Tpattern, i).autocomp_items; slist;
 			 slist = g_slist_next(slist)) {
 			g_slice_free(Tpattern_autocomplete, slist->data);
@@ -1648,6 +1655,10 @@ bflang_cleanup_scantable(Tbflang * bflang)
 	for (i = 1; i < bflang->st->comments->len; i++) {
 		g_free(g_array_index(bflang->st->comments, Tcomment, i).so);
 		g_free(g_array_index(bflang->st->comments, Tcomment, i).eo);
+	}
+	for (i = 1; i < bflang->st->blocks->len; i++) {
+		g_free(g_array_index(bflang->st->blocks, Tpattern_block, i).name);
+		g_free(g_array_index(bflang->st->blocks, Tpattern_block, i).highlight);
 	}
 	g_array_free(bflang->st->matches, TRUE);
 	g_array_free(bflang->st->contexts, TRUE);

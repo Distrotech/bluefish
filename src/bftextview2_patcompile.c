@@ -87,11 +87,18 @@ bftextview2_scantable_rematch_highlights(Tscantable * st, const gchar * lang)
 				g_print("Possible error in language file, no textstyle found for highlight %s\n",
 						g_array_index(st->matches, Tpattern, i).selfhighlight);
 		}
-		if (g_array_index(st->matches, Tpattern, i).blockhighlight) {
+		/*if (g_array_index(st->matches, Tpattern, i).blockhighlight) {
 			g_array_index(st->matches, Tpattern, i).blocktag =
 				langmrg_lookup_tag_highlight(lang, g_array_index(st->matches, Tpattern, i).blockhighlight);
 			if (g_array_index(st->matches, Tpattern, i).blocktag)
 				retlist = g_list_prepend(retlist, g_array_index(st->matches, Tpattern, i).blocktag);
+		}*/
+	}
+	for (i = 0; i < (st->blocks->len); i++) {
+		if (g_array_index(st->blocks, Tpattern_block, i).highlight) {
+			g_array_index(st->blocks, Tpattern_block, i).tag = langmrg_lookup_tag_highlight(lang, g_array_index(st->blocks, Tpattern_block, i).highlight);
+			if (g_array_index(st->blocks, Tpattern_block, i).tag)
+				retlist = g_list_prepend(retlist, g_array_index(st->blocks, Tpattern_block, i).tag);
 		}
 	}
 
@@ -825,12 +832,21 @@ pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
 							gboolean starts_block,
 							gboolean ends_block, 
 							guint blockstartpattern,
-							const gchar * blockhighlight) 
+							const gchar *blockhighlight,
+							const gchar *blockname) 
 {
-	g_array_index(st->matches, Tpattern, matchnum).ends_block = ends_block;
-	g_array_index(st->matches, Tpattern, matchnum).starts_block = starts_block;
+	if (starts_block) {
+		guint16 blocknum = st->blocks->len;
+		g_array_set_size(st->blocks, st->blocks->len + 1);
+		g_array_index(st->blocks, Tpattern_block, blocknum).highlight = (gchar *) blockhighlight;
+		g_array_index(st->blocks, Tpattern_block, blocknum).name = (gchar *) blockname;
+		
+		g_array_index(st->matches, Tpattern, matchnum).starts_block = 1;
+		g_array_index(st->matches, Tpattern, matchnum).block = blocknum;
+	} else if (ends_block) {
+		g_array_index(st->matches, Tpattern, matchnum).ends_block = 1;
+	}
 	g_array_index(st->matches, Tpattern, matchnum).blockstartpattern = blockstartpattern;
-	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = (gchar *) blockhighlight;
 }
 
 void
@@ -1007,8 +1023,10 @@ scantable_new(guint size_table, guint size_matches, guint size_contexts)
 	st->contexts = g_array_sized_new(TRUE, TRUE, sizeof(Tcontext), size_contexts);
 	st->matches = g_array_sized_new(TRUE, TRUE, sizeof(Tpattern), size_matches);
 	st->comments = g_array_sized_new(TRUE, FALSE, sizeof(Tcomment), 8);
+	st->blocks = g_array_sized_new(TRUE, FALSE, sizeof(Tpattern_block), 8);
 	st->matches->len = 1;		/* match 0 means no match */
 	st->contexts->len = 1;		/* a match with nextcontext 0 means no context change, so we cannot use context 0 */
+	st->blocks->len = 1;			/* block 0 means no block */
 	return st;
 }
 
