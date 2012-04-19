@@ -836,11 +836,13 @@ pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
 							const gchar *blockname) 
 {
 	if (starts_block) {
-		guint16 blocknum = st->blocks->len;
-		g_array_set_size(st->blocks, st->blocks->len + 1);
-		g_array_index(st->blocks, Tpattern_block, blocknum).highlight = (gchar *) blockhighlight;
-		g_array_index(st->blocks, Tpattern_block, blocknum).name = (gchar *) blockname;
-		
+		guint16 blocknum = 0;
+		if (blockname || blockhighlight) { /* only create a block if we need it */
+			blocknum = st->blocks->len;
+			g_array_set_size(st->blocks, st->blocks->len + 1);
+			g_array_index(st->blocks, Tpattern_block, blocknum).highlight = (gchar *) blockhighlight;
+			g_array_index(st->blocks, Tpattern_block, blocknum).name = (gchar *) blockname;
+		}
 		g_array_index(st->matches, Tpattern, matchnum).starts_block = 1;
 		g_array_index(st->matches, Tpattern, matchnum).block = blocknum;
 	} else if (ends_block) {
