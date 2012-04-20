@@ -300,11 +300,25 @@ lookup_user_option(const gchar * lang, const gchar * option)
 	return NULL;
 }
 
+static gboolean
+lookup_block_foldable(const gchar *lang_name, const gchar *block_name)
+{
+	gchar *name;
+	const gchar *tmp;
+	gboolean foldable;
+	name = g_strconcat(block_name, "_foldable", NULL);
+	tmp = lookup_user_option(lang_name, name);
+	foldable = !(tmp && tmp[0] == '0');
+	g_free(name);
+	return foldable;
+}
+
 void
 langmgr_reload_user_options(void)
 {
 	GList *tmplist;
 	const gchar *tmp;
+	gint i;
 	g_hash_table_remove_all(langmgr.bflang_options);
 	for (tmplist = g_list_first(main_v->props.bflang_options); tmplist; tmplist = tmplist->next) {
 		gchar **arr = (gchar **) tmplist->data;
@@ -317,6 +331,17 @@ langmgr_reload_user_options(void)
 	while (tmplist) {
 		tmp = lookup_user_option(BFLANG(tmplist->data)->name, "show_in_menu");
 		BFLANG(tmplist->data)->in_menu = !(tmp && tmp[0] == '0');
+		if (BFLANG(tmplist->data)->st) {
+			for (i = 1; i < BFLANG(tmplist->data)->st->blocks->len; i++) {
+				if (g_array_index(BFLANG(tmplist->data)->st->blocks, Tpattern_block, i).name) {
+					g_array_index(BFLANG(tmplist->data)->st->blocks, Tpattern_block, i).foldable 
+							= lookup_block_foldable(
+									BFLANG(tmplist->data)->name,
+									g_array_index(BFLANG(tmplist->data)->st->blocks, Tpattern_block, i).name
+									);
+				}
+			}
+		}
 		tmplist = tmplist->next;
 	}
 }
@@ -769,12 +794,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 								case_insens != UNDEFINED ? case_insens : (ih_case_insens != UNDEFINED ? ih_case_insens :FALSE),
 								context);
 			if (block_name) {
-				gchar *name;
-				const gchar *tmp;
-				name = g_strconcat(block_name, "_foldable", NULL);
-				tmp = lookup_user_option(bfparser->bflang->name, name);
-				foldable = !(tmp && tmp[0] == '0');
-				g_free(name);
+				foldable = lookup_block_foldable(bfparser->bflang->name, block_name);
 			}
 			pattern_set_blockmatch(bfparser->st, matchnum,
 								starts_block, 
@@ -934,7 +954,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				   because a tag can also have a reference, but it is a start  */
 				contexttag = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, attrib_context_id));
 				if (contexttag) {
-				   g_print("HIT for %s, saves %ld bytes\n",attrib_context_id, ((GArray *)g_array_index(bfparser->st->contexts, Tcontext, contexttag).table)->len*sizeof(Ttablerow));
+				   g_print("HIT for %s, saves %ld bytes\n",attrib_context_id, (long int)((GArray *)g_array_index(bfparser->st->contexts, Tcontext, contexttag).table)->len*sizeof(Ttablerow));
 				}
 			}
 			tmp = g_strconcat("<", tag, NULL);
