@@ -329,6 +329,7 @@ typedef struct {
 	GtkTextTag *tag;		/* if this pattern ends a context or a block, we can highlight
 								   the region within the start and end pattern with this tag */
 	gchar *highlight;		/* a string for the highlight corresponding to the  blocktag */
+	gboolean foldable;
 } Tpattern_block;
 
 typedef struct {
