@@ -1728,8 +1728,9 @@ preferences_apply(Tprefdialog * pd)
 	main_v->props.leftpanel_tabposition =
 		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[leftpanel_tabposition]));
 	main_v->props.left_panel_left = gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[left_panel_left]));
+#ifndef MAC_INTEGRATION
 	integer_apply(&main_v->props.save_accelmap, pd->prefs[save_accelmap], TRUE);
-
+#endif
 	string_apply(&main_v->props.language, pd->prefs[language]);
 	if (g_strcmp0(main_v->props.language, _("Auto")) == 0) {
 		g_free(main_v->props.language);
@@ -2296,7 +2297,7 @@ preferences_dialog_new(void)
 																						props.language) :
 																  _("Auto"), _("_Language:"), hbox, 0);
 	free_stringlist(poplist);
-
+#ifndef MAC_INTEGRATION
 	pd->prefs[save_accelmap] = dialog_check_button_new(_("Save menu accelerators on exit"),
 															 main_v->props.save_accelmap);
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[save_accelmap], FALSE, FALSE, 0);
@@ -2307,7 +2308,7 @@ preferences_dialog_new(void)
 	but = gtk_button_new_with_label(_("Reset menu accelerators to application defaults"));
 	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(reset_menu_accelerators), NULL);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
-
+#endif
 	vbox2 = dialog_vbox_labeled(_("<b>Recent Files</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(2, 4, 0, vbox2);
 
