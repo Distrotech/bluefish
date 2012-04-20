@@ -903,14 +903,17 @@ get_user_accelmap(void)
 void
 rcfile_save_accelerators(void)
 {
+#ifndef MAC_INTEGRATION
 	gchar *shortcutfilename = get_user_accelmap();
 	gtk_accel_map_save(shortcutfilename);
 	g_free(shortcutfilename);
+#endif
 }
 
 void
 rcfile_load_accelerators(gboolean defaultmap)
 {
+#ifndef MAC_INTEGRATION
 	gchar *shortcutfilename;
 	if (defaultmap) {
 		shortcutfilename = g_strdup(PKGDATADIR"/default_accelmap");
@@ -919,6 +922,7 @@ rcfile_load_accelerators(gboolean defaultmap)
 	}
 	gtk_accel_map_load(shortcutfilename);
 	g_free(shortcutfilename);
+#endif
 }
 
 static GHashTable *
