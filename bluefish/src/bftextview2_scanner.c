@@ -573,6 +573,7 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 {
 	Tfoundblock *retfblock, *fblock = scanning->curfblock;
 	GtkTextIter iter;
+	gboolean allowfold=TRUE;
 	DBG_BLOCKMATCH("found_end_of_block(), found %d (%s), blockstartpattern %d, curfblock=%p\n", 
 					match->patternum,
 					g_array_index(btv->bflang->st->matches, Tpattern, match->patternum).pattern,
@@ -640,12 +641,14 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 	fblock->start2_o = gtk_text_iter_get_offset(&match->start);
 	fblock->end2_o = gtk_text_iter_get_offset(&match->end);
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, fblock->end1_o);
-	if (G_UNLIKELY(g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).block 
-				&& g_array_index(btv->bflang->st->blocks, Tpattern_block, g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).block).tag
-			 	)) {
-		gtk_text_buffer_apply_tag(btv->buffer, g_array_index(btv->bflang->st->blocks, Tpattern_block, g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).block).tag, &iter, &match->start);
+	if (G_UNLIKELY(g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).block)) {
+		if (g_array_index(btv->bflang->st->blocks, Tpattern_block, g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).block).tag
+			 	) {
+			gtk_text_buffer_apply_tag(btv->buffer, g_array_index(btv->bflang->st->blocks, Tpattern_block, g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).block).tag, &iter, &match->start);
+		}
+		allowfold = g_array_index(btv->bflang->st->blocks, Tpattern_block, g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).block).foldable;
 	}
-	if ((gtk_text_iter_get_line(&iter)) < gtk_text_iter_get_line(&match->start)) {
+	if (allowfold && (gtk_text_iter_get_line(&iter)) < gtk_text_iter_get_line(&match->start)) {
 		fblock->foldable = TRUE;
 	}
 	DBG_BLOCKMATCH("found_end_of_block, set end for block %p to %d:%d, foldable=%d\n", fblock, fblock->start2_o, fblock->end2_o, fblock->foldable);

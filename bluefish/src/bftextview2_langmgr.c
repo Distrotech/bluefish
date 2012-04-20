@@ -741,6 +741,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 			}
 		} else if (pattern && pattern[0]) {
 			gchar *reference = NULL;
+			gboolean foldable=TRUE;
 			guint16 blockstartelementum = 0, nextcontext = 0;
 			DBG_PARSING("pattern %s\n", pattern);
 			if (ends_context) {
@@ -767,12 +768,21 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 								is_regex != UNDEFINED ? is_regex : (ih_is_regex !=UNDEFINED ? ih_is_regex : FALSE),
 								case_insens != UNDEFINED ? case_insens : (ih_case_insens != UNDEFINED ? ih_case_insens :FALSE),
 								context);
+			if (block_name) {
+				gchar *name;
+				const gchar *tmp;
+				name = g_strconcat(block_name, "_foldable", NULL);
+				tmp = lookup_user_option(bfparser->bflang->name, name);
+				foldable = !(tmp && tmp[0] == '0');
+				g_free(name);
+			}
 			pattern_set_blockmatch(bfparser->st, matchnum,
 								starts_block, 
 								ends_block, 
 								blockstartelementum, 
 								blockhighlight,
-								block_name);
+								block_name,
+								foldable);
 			pattern_set_runtime_properties(bfparser->st, matchnum,
 								 highlight ? highlight : ih_highlight,
 								 nextcontext,
@@ -929,7 +939,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			}
 			tmp = g_strconcat("<", tag, NULL);
 			matchnum = add_pattern_to_scanning_table(bfparser->st, tmp, FALSE, case_insens, context);
-			pattern_set_blockmatch(bfparser->st, matchnum,TRUE,FALSE,0,NULL,NULL);
+			pattern_set_blockmatch(bfparser->st, matchnum,TRUE,FALSE,0,NULL,NULL,TRUE);
 			pattern_set_runtime_properties(bfparser->st, matchnum, 
 								highlight ? highlight : ih_highlight,
 								contexttag, TRUE, FALSE,0, FALSE, FALSE);
@@ -997,7 +1007,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 								highlight ? highlight : ih_highlight,
 								-1, FALSE, FALSE,0, FALSE, FALSE);
 					pattern_set_blockmatch(bfparser->st, tmpnum,
-								FALSE,TRUE, -1,NULL,NULL);
+								FALSE,TRUE, -1,NULL,NULL,TRUE);
 					if (bfparser->autoclose_tags)
 						match_add_autocomp_item(bfparser->st, tmpnum, NULL, NULL, 0);
 					match_autocomplete_reference(bfparser->st, tmpnum, contexttag);
@@ -1007,7 +1017,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				pattern_set_runtime_properties(bfparser->st, starttagmatch, 
 								highlight ? highlight : ih_highlight,
 								-1, FALSE, bfparser->stretch_tag_block,0, FALSE, FALSE);
-				pattern_set_blockmatch(bfparser->st, starttagmatch, FALSE, FALSE, matchnum /* blockstartpattern for stretch_block */, NULL, NULL);
+				pattern_set_blockmatch(bfparser->st, starttagmatch, FALSE, FALSE, matchnum /* blockstartpattern for stretch_block */, NULL, NULL, TRUE);
 				
 				if (bfparser->autoclose_tags && !no_close)
 					match_add_autocomp_item(bfparser->st, starttagmatch, NULL, tmp, tmp ? strlen(tmp) : 0);
@@ -1087,7 +1097,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 									(innercontext == context) ? 0 : -2,
 									FALSE, FALSE,0, FALSE, FALSE);
 				pattern_set_blockmatch(bfparser->st, endtagmatch,
-									FALSE,TRUE,matchnum,NULL,NULL);
+									FALSE,TRUE,matchnum,NULL,NULL, TRUE);
 /*				g_print("context %d: matchnum %d is ended by endtagmatch %d while working on id %s\n",innercontext,matchnum, endtagmatch, id);*/
 				match_add_autocomp_item(bfparser->st, endtagmatch, NULL, NULL, 0);
 				match_autocomplete_reference(bfparser->st, endtagmatch, innercontext);

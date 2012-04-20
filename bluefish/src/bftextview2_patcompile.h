@@ -38,7 +38,8 @@ pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
 							gboolean ends_block, 
 							guint blockstartpattern,
 							const gchar *blockhighlight,
-							const gchar *blockname);
+							const gchar *blockname,
+							gboolean foldable);
 
 void
 pattern_set_runtime_properties(Tscantable * st, guint16 matchnum, 
