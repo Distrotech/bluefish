@@ -181,7 +181,7 @@ htmlbar_enforce_session(Tbfwin * bfwin)
 	if (!hbs || !hbw) {
 		return;
 	}
-	if (htmlbar_v.in_sidepanel) {
+	if (!htmlbar_v.in_sidepanel) {
 		htmlbar_toolbar_show(hbw, hbs, hbs->view_htmlbar);
 	}
 }
