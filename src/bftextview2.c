@@ -2280,7 +2280,8 @@ bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean ke
 		gchar *str;
 		gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT,
 												  x , y, &bx, &by);
-		gtk_text_view_get_iter_at_position(GTK_TEXT_VIEW(btv), &iter, &trailing, bx, by);
+		/*g_print("bluefish_text_view_query_tooltip, get bookmark popup for %d:%d got buffer coordinates %d:%d\n",x,y,bx,by);*/
+		gtk_text_view_get_iter_at_position(GTK_TEXT_VIEW(btv), &iter, &trailing, MIN(bx,0), by);
 		str = bmark_get_tooltip_for_line(master->doc, gtk_text_iter_get_line(&iter));
 		if (str) {
 			gtk_tooltip_set_markup(tooltip,str);
@@ -2306,6 +2307,7 @@ bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean ke
 			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT,
 												  x - (btv->margin_pixels_chars + btv->margin_pixels_block +
 													   btv->margin_pixels_symbol), y, &bx, &by);
+			/*g_print("bluefish_text_view_query_tooltip, get reference popup for %d:%d got buffer coordinates %d:%d\n",x,y,bx,by);*/
 			if (bx < 0)
 				return FALSE;
 			/* if I don't do this check, I get the following error during 'Collapse all'
