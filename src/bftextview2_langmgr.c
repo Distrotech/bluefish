@@ -737,7 +737,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 					{"identifier_jump", &identifier_jump, attribtype_int},
 					{"identifier_autocomp", &identifier_autocomp, attribtype_int}
 					};
-	parse_attributes(reader, attribs, 18);
+	parse_attributes(reader, attribs, 19);
 	if (stretch_blockstart && ends_block) {
 		g_print("Error in language file, id %s / pattern %s has mutually exclusive options stretch_blockstart and ends_block both enabled\n", id?id:"-", pattern?pattern:"null");
 		stretch_blockstart = FALSE;
@@ -889,7 +889,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					 gint ih_attrib_autocomplete_backup_cursor, GSList *ih_autocomplete)
 {
 	gchar *tag = NULL, *idref = NULL, *highlight = NULL, *attributes = NULL, *attribhighlight = NULL, *class =
-		NULL, *notclass = NULL, *attrib_autocomplete_append = NULL, *id = NULL;
+		NULL, *notclass = NULL, *attrib_autocomplete_append = NULL, *id = NULL, *block_name = NULL;
 	gint attrib_autocomplete_backup_cursor = 0;
 	guint16 matchnum = 0, innercontext = context;
 	gboolean is_empty, case_insens = FALSE, sgml_shorttag = FALSE, no_close = FALSE;
@@ -899,6 +899,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 
 	Tattrib attribs[] = {{"name", &tag, attribtype_string},
+					{"block_name", &block_name, attribtype_string},
 					{"id", &id, attribtype_string},
 					{"idref", &idref, attribtype_string},
 					{"highlight", &highlight, attribtype_string},
@@ -911,7 +912,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					{"no_close", &no_close, attribtype_boolean},
 					{"attrib_autocomplete_append", &attrib_autocomplete_append, attribtype_string},
 					{"attrib_autocomplete_backup_cursor", &attrib_autocomplete_backup_cursor, attribtype_int}};
-	parse_attributes(reader, attribs, bfparser->load_completion ? 13 : 11);
+	parse_attributes(reader, attribs, bfparser->load_completion ? 14 : 12);
 	add_tag = do_parse(bfparser, class, notclass);
 	if (add_tag) {
 		if (idref && idref[0] && !tag) {
@@ -929,6 +930,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			guint16 starttagmatch = 0, endtagmatch, matchstring;
 			gint contexttag = 0 /*, contextstring */ ;
 			gchar *tmp, *reference = NULL;
+			gboolean foldable=TRUE;
 
 			/* try to re-use the context of other tags. this is only possible if the other tags have exactly the same attribute set
 			   we check this by sorting the attributes, concatenating them comma separated together, and using this as a hash key
@@ -959,7 +961,10 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			}
 			tmp = g_strconcat("<", tag, NULL);
 			matchnum = add_pattern_to_scanning_table(bfparser->st, tmp, FALSE, case_insens, context);
-			pattern_set_blockmatch(bfparser->st, matchnum,TRUE,FALSE,0,NULL,NULL,TRUE);
+			if (block_name) {
+				foldable = lookup_block_foldable(bfparser->bflang->name, block_name);
+			}
+			pattern_set_blockmatch(bfparser->st, matchnum,TRUE,FALSE,0,NULL,block_name,foldable);
 			pattern_set_runtime_properties(bfparser->st, matchnum, 
 								highlight ? highlight : ih_highlight,
 								contexttag, TRUE, FALSE,0, FALSE, FALSE);

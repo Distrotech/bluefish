@@ -836,6 +836,14 @@ pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
 							const gchar *blockname,
 							gboolean foldable) 
 {
+	if (starts_block == ends_block) {
+		g_warning("Error in language file or Bluefish bug: pattern %s both starts and ends a block\n", 
+						g_array_index(st->matches, Tpattern, matchnum).pattern);
+	}
+	if (blockname && !starts_block) {
+		g_warning("Error in language file or Bluefish bug: block_name %s can only be set on a block start\n", blockname);
+	}
+	
 	if (starts_block) {
 		guint16 blocknum = 0;
 		if (blockname || blockhighlight) { /* only create a block if we need it */
