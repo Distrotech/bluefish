@@ -65,10 +65,15 @@ enum {
 void
 bfwin_fullscreen_toggle(Tbfwin * bfwin, gboolean active)
 {
-	if (active)
-		gtk_window_fullscreen(GTK_WINDOW(bfwin->main_window));
-	else
+	if (main_v->props.hide_bars_on_fullscreen) {
+		if (bfwin->main_toolbar_hb)
+			widget_set_visible(bfwin->main_toolbar_hb, !active);
+	}
+	if (active) {
+		gtk_window_fullscreen(GTK_WINDOW(bfwin->main_window));		
+	} else {
 		gtk_window_unfullscreen(GTK_WINDOW(bfwin->main_window));
+	}
 }
 
 static void
