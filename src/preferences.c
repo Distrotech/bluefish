@@ -64,6 +64,7 @@ enum {
 	leave_to_window_manager,
 	restore_dimensions,
 	left_panel_left,
+	hide_bars_on_fullscreen,
 	save_accelmap, 
 	max_recent_files,			/* length of Open Recent list */
 	max_dir_history,			/* length of directory history */
@@ -1725,6 +1726,7 @@ preferences_apply(Tprefdialog * pd)
 	main_v->props.document_tabposition =
 		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[document_tabposition]));
 	integer_apply(&main_v->props.switch_tabs_by_altx, pd->prefs[switch_tabs_by_altx], TRUE);
+	integer_apply(&main_v->props.hide_bars_on_fullscreen, pd->prefs[hide_bars_on_fullscreen], TRUE);
 	main_v->props.leftpanel_tabposition =
 		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[leftpanel_tabposition]));
 	main_v->props.left_panel_left = gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[left_panel_left]));
@@ -2163,40 +2165,6 @@ preferences_dialog_new(void)
 	gtk_tree_store_set(pd->nstore, &iter, NAMECOL, _("Files"), WIDGETCOL, frame, -1);
 	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
-	vbox2 = dialog_vbox_labeled(_("<b>Backup</b>"), vbox1);
-
-	pd->prefs[backup_file] = dialog_check_button_new(_("Create _backup file during file save"),
-													 main_v->props.backup_file);
-	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[backup_file], FALSE, FALSE, 0);
-	vbox3 = gtk_vbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), vbox3, FALSE, FALSE, 0);
-	pd->prefs[backup_cleanuponclose] = dialog_check_button_new(_("_Remove backup file on close"),
-															   main_v->props.backup_cleanuponclose);
-	gtk_box_pack_start(GTK_BOX(vbox3), pd->prefs[backup_cleanuponclose], FALSE, FALSE, 0);
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox3), hbox, FALSE, FALSE, 0);
-	pd->prefs[backup_abort_action] = dialog_combo_box_text_labeled(_("If back_up fails:"), failureactions,
-																   main_v->props.backup_abort_action, hbox,
-																   0);
-	prefs_togglebutton_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[backup_file]), vbox3);
-	g_signal_connect(G_OBJECT(pd->prefs[backup_file]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_lcb),
-					 vbox3);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Document Recovery</b>"), vbox1);
-
-	pd->prefs[autosave] =
-		dialog_check_button_new(_("_Enable recovery of modified documents"), main_v->props.autosave);
-	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[autosave], FALSE, FALSE, 0);
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	label = dialog_label_new(_("_Frequency to store changes (seconds):"), 0, 0.5, hbox, 0);
-	pd->prefs[autosave_time] = dialog_spin_button_new(10, 600, main_v->props.autosave_time);
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[autosave_time]);
-	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[autosave_time], FALSE, FALSE, 0);
-	prefs_togglebutton_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[autosave]), hbox);
-	g_signal_connect(G_OBJECT(pd->prefs[autosave]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_lcb),
-					 hbox);
-
 	vbox2 = dialog_vbox_labeled(_("<b>Encoding</b>"), vbox1);
 
 	hbox = gtk_hbox_new(FALSE, 12);
@@ -2246,6 +2214,63 @@ preferences_dialog_new(void)
 		dialog_combo_box_text_labeled(_("File properties to check on dis_k for modifications:"),
 									  modified_check_types, main_v->props.modified_check_type, hbox, 0);
 
+	vbox2 = dialog_vbox_labeled(_("<b>Recent Files</b>"), vbox1);
+	table = dialog_table_in_vbox_defaults(2, 4, 0, vbox2);
+
+	pd->prefs[max_recent_files] =
+		dialog_spin_button_in_table(3, 25, main_v->props.max_recent_files, table, 1, 2, 0, 1);
+	dialog_mnemonic_label_in_table(_("_Number of files in 'Open recent' menu:"), pd->prefs[max_recent_files],
+								   table, 0, 1, 0, 1);
+#ifndef WIN32
+	pd->prefs[register_recent_mode] =
+		dialog_combo_box_text_in_table(registerrecentmodes, main_v->props.register_recent_mode, table, 1, 4,
+									   1, 2);
+	dialog_mnemonic_label_in_table(_("_Register recent files with your desktop:"),
+								   pd->prefs[register_recent_mode], table, 0, 1, 1, 2);
+#endif
+
+	frame = gtk_frame_new(NULL);
+	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
+	vbox1 = gtk_vbox_new(FALSE, 12);
+	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
+	gtk_container_add(GTK_CONTAINER(frame), vbox1);
+
+	gtk_tree_store_append(pd->nstore, &auxit, &iter);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Backup & Recovery"), WIDGETCOL, frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
+
+	vbox2 = dialog_vbox_labeled(_("<b>Backup</b>"), vbox1);
+
+	pd->prefs[backup_file] = dialog_check_button_new(_("Create _backup file during file save"),
+													 main_v->props.backup_file);
+	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[backup_file], FALSE, FALSE, 0);
+	vbox3 = gtk_vbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), vbox3, FALSE, FALSE, 0);
+	pd->prefs[backup_cleanuponclose] = dialog_check_button_new(_("_Remove backup file on close"),
+															   main_v->props.backup_cleanuponclose);
+	gtk_box_pack_start(GTK_BOX(vbox3), pd->prefs[backup_cleanuponclose], FALSE, FALSE, 0);
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox3), hbox, FALSE, FALSE, 0);
+	pd->prefs[backup_abort_action] = dialog_combo_box_text_labeled(_("If back_up fails:"), failureactions,
+																   main_v->props.backup_abort_action, hbox,
+																   0);
+	prefs_togglebutton_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[backup_file]), vbox3);
+	g_signal_connect(G_OBJECT(pd->prefs[backup_file]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_lcb),
+					 vbox3);
+
+	vbox2 = dialog_vbox_labeled(_("<b>Document Recovery</b>"), vbox1);
+	pd->prefs[autosave] =
+		dialog_check_button_new(_("_Enable recovery of modified documents"), main_v->props.autosave);
+	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[autosave], FALSE, FALSE, 0);
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
+	label = dialog_label_new(_("_Frequency to store changes (seconds):"), 0, 0.5, hbox, 0);
+	pd->prefs[autosave_time] = dialog_spin_button_new(10, 600, main_v->props.autosave_time);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[autosave_time]);
+	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[autosave_time], FALSE, FALSE, 0);
+	prefs_togglebutton_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[autosave]), hbox);
+	g_signal_connect(G_OBJECT(pd->prefs[autosave]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_lcb),
+					 hbox);
 	/*
 	 *  Templates
 	 */
@@ -2287,7 +2312,9 @@ preferences_dialog_new(void)
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[switch_tabs_by_altx], FALSE, FALSE, 0);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Misc</b>"), vbox1);
-
+	pd->prefs[hide_bars_on_fullscreen] =
+		dialog_check_button_new(_("Hide toolbars on full-screen"), main_v->props.hide_bars_on_fullscreen);
+	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[hide_bars_on_fullscreen], FALSE, FALSE, 0);
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
 	poplist = lingua_list_sorted();
@@ -2308,20 +2335,6 @@ preferences_dialog_new(void)
 	but = gtk_button_new_with_label(_("Reset menu accelerators to application defaults"));
 	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(reset_menu_accelerators), NULL);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
-#endif
-	vbox2 = dialog_vbox_labeled(_("<b>Recent Files</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(2, 4, 0, vbox2);
-
-	pd->prefs[max_recent_files] =
-		dialog_spin_button_in_table(3, 25, main_v->props.max_recent_files, table, 1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("_Number of files in 'Open recent' menu:"), pd->prefs[max_recent_files],
-								   table, 0, 1, 0, 1);
-#ifndef WIN32
-	pd->prefs[register_recent_mode] =
-		dialog_combo_box_text_in_table(registerrecentmodes, main_v->props.register_recent_mode, table, 1, 4,
-									   1, 2);
-	dialog_mnemonic_label_in_table(_("_Register recent files with your desktop:"),
-								   pd->prefs[register_recent_mode], table, 0, 1, 1, 2);
 #endif
 
 	vbox2 = dialog_vbox_labeled(_("<b>Sidebar</b>"), vbox1);

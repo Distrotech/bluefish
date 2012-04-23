@@ -278,6 +278,7 @@ typedef struct {
 	gint leave_to_window_manager;	/* don't set any dimensions, leave all to window manager */
 	gint restore_dimensions;	/* use the dimensions as used the previous run */
 	gint left_panel_left;		/* 1 = left, 0 = right */
+	gint hide_bars_on_fullscreen;
 	gint save_accelmap; 	/* save the accelerator map on exit */
 	gint max_recent_files;		/* length of Open Recent list */
 	gint max_dir_history;		/* length of directory history */
