@@ -66,8 +66,8 @@ void
 bfwin_fullscreen_toggle(Tbfwin * bfwin, gboolean active)
 {
 	if (main_v->props.hide_bars_on_fullscreen) {
-		if (bfwin->main_toolbar_hb)
-			widget_set_visible(bfwin->main_toolbar_hb, !active);
+		widget_set_visible(bfwin->toolbarbox, !active);
+		widget_set_visible(gtk_widget_get_parent(bfwin->statusbar), !active);
 	}
 	if (active) {
 		gtk_window_fullscreen(GTK_WINDOW(bfwin->main_window));		
