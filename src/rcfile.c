@@ -429,6 +429,8 @@ props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);
 
 	init_prop_integer(&config_rc, &main_v->props.left_panel_left, "left_panel_left:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.hide_bars_on_fullscreen, "hide_bars_on_fullscreen:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.cursor_size, "cursor_size:", 4, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.save_accelmap, "save_accelmap:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10, TRUE);

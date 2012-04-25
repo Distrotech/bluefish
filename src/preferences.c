@@ -65,6 +65,7 @@ enum {
 	restore_dimensions,
 	left_panel_left,
 	hide_bars_on_fullscreen,
+	cursor_size,
 	save_accelmap, 
 	max_recent_files,			/* length of Open Recent list */
 	max_dir_history,			/* length of directory history */
@@ -1664,6 +1665,7 @@ preferences_apply(Tprefdialog * pd)
 	GSList *tmpslist;
 	DEBUG_MSG("preferences_apply, started\n");
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
+	integer_apply(&main_v->props.cursor_size, pd->prefs[cursor_size], FALSE);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_auto_close_brackets, pd->prefs[editor_auto_close_brackets], TRUE);
 	integer_apply(&main_v->props.editor_tab_indent_sel, pd->prefs[editor_tab_indent_sel], TRUE);
@@ -2106,6 +2108,11 @@ preferences_dialog_new(void)
 	pd->prefs[editor_font_string] = gtk_font_button_new_with_font(main_v->props.editor_font_string);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[editor_font_string]);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[editor_font_string], FALSE, FALSE, 0);
+	
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
+	pd->prefs[cursor_size] = dialog_spin_button_labeled(1, 999, main_v->props.cursor_size,
+								   _("Cursor font ratio (%):"), hbox, 0);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Colors</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(7, 2, 0, vbox2);
