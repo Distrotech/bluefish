@@ -2012,24 +2012,14 @@ bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 {
 #if GTK_CHECK_VERSION(3,0,0)
 	GdkRGBA color;
+	GString *str = g_string_new("");
+	g_string_append_printf(str, "GtkTextView {-GtkWidget-cursor-aspect-ratio: %f;}", (gfloat)(main_v->props.cursor_size/100.0));
 	if (!main_v->props.use_system_colors) {
-		GString *str=g_string_new("");
 		if (colors[BTV_COLOR_ED_BG] && colors[BTV_COLOR_ED_BG][0] != '\0'){
 			g_string_append_printf(str, "GtkTextView.view:focused {background-color: %s;}", colors[BTV_COLOR_ED_BG]);
 		}
 		if (colors[BTV_COLOR_ED_BG] && colors[BTV_COLOR_ED_BG][0] != '\0'){
 			g_string_append_printf(str, "GtkTextView.view:selected {background-color: %s;} GtkTextView.view:selected:focused {background-color: %s;}", colors[BTV_COLOR_SELECTION], colors[BTV_COLOR_SELECTION]);
-		}
-		if (str->len > 0) {
-			GtkStyleContext *stc;
-			GtkCssProvider *cssp = gtk_css_provider_new();
-			gtk_css_provider_load_from_data(cssp, str->str, -1, NULL);
-			stc = gtk_widget_get_style_context(GTK_WIDGET(btv));
-			gtk_style_context_add_provider(stc, GTK_STYLE_PROVIDER(cssp), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-			if (btv->slave) {
-				stc = gtk_widget_get_style_context(GTK_WIDGET(btv));
-				gtk_style_context_add_provider(stc, GTK_STYLE_PROVIDER(cssp), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-			}
 		}
 		if (colors[BTV_COLOR_ED_FG] && gdk_rgba_parse(&color,colors[BTV_COLOR_ED_FG])) {
 			gtk_widget_override_color(GTK_WIDGET(btv), GTK_STATE_NORMAL, &color);
@@ -2041,8 +2031,19 @@ bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 			if (btv->slave)
 				gtk_widget_override_cursor(GTK_WIDGET(btv->slave), &color, &color);
 		}
-		g_string_free(str, TRUE);
 	}
+	if (str->len > 0) {
+		GtkStyleContext *stc;
+		GtkCssProvider *cssp = gtk_css_provider_new();
+		gtk_css_provider_load_from_data(cssp, str->str, -1, NULL);
+		stc = gtk_widget_get_style_context(GTK_WIDGET(btv));
+		gtk_style_context_add_provider(stc, GTK_STYLE_PROVIDER(cssp), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+		if (btv->slave) {
+			stc = gtk_widget_get_style_context(GTK_WIDGET(btv));
+			gtk_style_context_add_provider(stc, GTK_STYLE_PROVIDER(cssp), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+		}
+	}
+	g_string_free(str, TRUE);	
 #else
 	if (!main_v->props.use_system_colors) {
 		GdkColor color;
