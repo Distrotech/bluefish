@@ -787,12 +787,13 @@ paint_margin_symbol(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
 static gint
 get_num_foldable_blocks(Tfound * found)
 {
-	guint count = 0;
+	gint count = 0;
 	Tfoundblock *tmpfblock = found->fblock;
 	if (found->numblockchange < 0) count = found->numblockchange; /* don't count popped blocks */
 	while (tmpfblock) {
+		if (tmpfblock->foldable)
+			count++;
 		tmpfblock = (Tfoundblock *)tmpfblock->parentfblock;
-		count++;
 	}
 	return count;
 }
@@ -868,7 +869,6 @@ paint_margin(BluefishTextView * btv, cairo_t *cr, GtkTextIter * startvisible,
 	for (i = gtk_text_iter_get_line(startvisible); i <= gtk_text_iter_get_line(endvisible); i++) {
 		gint w, height;
 		gchar *string;
-
 
 		gtk_text_iter_set_line(&it, i);
 
