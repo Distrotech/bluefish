@@ -30,6 +30,7 @@
 <bflang name="CFML" version="2.0" table="13765" contexts="136" matches="2797">
 <header>
 	<mime type="application/x-cfml"/>
+	<mime type="text/plain?cfm"/>
 	<option name="load_reference" default="1"/>
 	<option name="load_completion" default="1"/>
 	<option name="show_in_menu" default="0"/>
@@ -50,6 +51,7 @@
 	<option name="autocomplete-html-entities" default="0" description="HTML entities" />
 	<highlight name="brackets" style="brackets" />
 	<highlight name="cfml-attribute" style="special-keyword" />
+	<highlight name="cfml-variable" style="variable" />
 	<highlight name="comment" style="comment" />
 	<highlight name="keyword" style="keyword" />
 	<highlight name="string" style="string" />
@@ -101,14 +103,29 @@
 		<context id="c.cftag" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;&quot;()" >
 			<element pattern="[a-z0-9]+" is_regex="1" highlight="cfml-attribute"/>
 			<element pattern="&quot;[^&quot;]+&quot;" is_regex="1" highlight="string"/>
-			<element pattern="&gt;" ends_context="1"/>
+			<element pattern="&gt;" ends_context="1" highlight="keyword"/>
 		</context>
 	</element>
 	<element pattern="&lt;/?cfif" is_regex="1" highlight="keyword"><context idref="c.cftag" /></element>
 	<element pattern="&lt;/?cfelse" is_regex="1" highlight="keyword"><context idref="c.cftag" /></element>
 	<element pattern="&lt;/?cfloop" is_regex="1" highlight="keyword"><context idref="c.cftag" /></element>
-	<element pattern="&lt;/?cfoutput" is_regex="1" highlight="keyword"><context idref="c.cftag" /></element>
 	<element pattern="&lt;/?cfquery" is_regex="1" highlight="keyword"><context idref="c.cftag" /></element>
+	<element pattern="&lt;/?cfinclude" is_regex="1" highlight="keyword"><context idref="c.cftag" /></element>
+	<element pattern="&lt;/?cfparam" is_regex="1" highlight="keyword"><context idref="c.cftag" /></element>
+	<element pattern="&lt;cfoutput" is_regex="1" highlight="keyword">
+		<context id="c.cftag" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;&quot;()" >
+			<element pattern="[a-z0-9]+" is_regex="1" highlight="cfml-attribute"/>
+			<element pattern="&quot;[^&quot;]+&quot;" is_regex="1" highlight="string"/>
+			<element pattern="&gt;" highlight="keyword">
+				<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-#">
+					<element pattern="#[a-z0-9]+#" is_regex="1" case_insens="1" highlight="cfml-variable"/>
+					<element pattern="&lt;/cfoutput&gt;" highlight="keyword" ends_context="2"/>
+				</context>
+			</element>
+		</context>
+	</element>
+	
+	
 	
 	&all-html;
 	
