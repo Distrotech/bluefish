@@ -1867,6 +1867,14 @@ langmgr_init(void)
 		g_object_unref(tag);
 		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv((gchar **) arr));
 	}
+	if (!gtk_text_tag_table_lookup(langmgr.tagtable, "cursor_highlight")) {
+		const gchar *arr[] = { "cursor_highlight", "#000000", "#FFFF00", "0", "0", "0", NULL };
+		tag = gtk_text_tag_new(arr[0]);
+		g_object_set(tag, "foreground", arr[1], "background", arr[2], NULL);
+		gtk_text_tag_table_add(langmgr.tagtable, tag);
+		g_object_unref(tag);
+		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv((gchar **) arr));
+	}
 	if (!gtk_text_tag_table_lookup(langmgr.tagtable, "searchresult")) {
 		const gchar *arr[] = { "searchresult", "#000000", "#FFFF57", "0", "0", "0", NULL };
 		tag = gtk_text_tag_new(arr[0]);

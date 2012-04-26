@@ -538,6 +538,7 @@ struct _BluefishTextView {
 	GtkTextTag *needspellcheck;
 #endif							/*HAVE_LIBENCHANT */
 	GtkTextTag *blockmatch;
+	GtkTextTag *cursortag;
 	Tscancache scancache;
 
 	guint scanner_immediate; /* event ID for the high priority scanning run */

@@ -280,6 +280,7 @@ typedef struct {
 	gint left_panel_left;		/* 1 = left, 0 = right */
 	gint hide_bars_on_fullscreen;
 	gint cursor_size;
+	gint highlight_cursor;
 	gint save_accelmap; 	/* save the accelerator map on exit */
 	gint max_recent_files;		/* length of Open Recent list */
 	gint max_dir_history;		/* length of directory history */

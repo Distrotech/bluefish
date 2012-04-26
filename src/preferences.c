@@ -66,6 +66,7 @@ enum {
 	left_panel_left,
 	hide_bars_on_fullscreen,
 	cursor_size,
+	highlight_cursor,
 	save_accelmap, 
 	max_recent_files,			/* length of Open Recent list */
 	max_dir_history,			/* length of directory history */
@@ -1666,6 +1667,8 @@ preferences_apply(Tprefdialog * pd)
 	DEBUG_MSG("preferences_apply, started\n");
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.cursor_size, pd->prefs[cursor_size], FALSE);
+	integer_apply(&main_v->props.highlight_cursor, pd->prefs[highlight_cursor], TRUE);
+	g_print("highlight cursor=%d\n", main_v->props.highlight_cursor);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_auto_close_brackets, pd->prefs[editor_auto_close_brackets], TRUE);
 	integer_apply(&main_v->props.editor_tab_indent_sel, pd->prefs[editor_tab_indent_sel], TRUE);
@@ -2115,7 +2118,7 @@ preferences_dialog_new(void)
 								   _("Cursor font ratio (%):"), hbox, 0);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Colors</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(7, 2, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(8, 2, 0, vbox2);
 
 	pd->prefs[use_system_colors] =
 		dialog_check_button_in_table(_("Use system wide color settings"), main_v->props.use_system_colors, table, 0,
@@ -2148,6 +2151,8 @@ preferences_dialog_new(void)
 														 _("Visible whitespace color"), table, 1, 2, 6,7);
 	dialog_mnemonic_label_in_table(_("_Visible whitespace color:"), pd->prefs[visible_ws], table, 0, 1, 6,7);
 
+	pd->prefs[highlight_cursor] = dialog_check_button_in_table(_("Highlight cursor position"), main_v->props.highlight_cursor, table, 0,
+									 1, 7, 8);
 	/*
 	 *  Initial document settings
 	 */
