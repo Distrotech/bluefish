@@ -513,7 +513,6 @@ static gboolean
 mark_set_idle_lcb(gpointer widget)
 {
 	BluefishTextView *btv = widget;
-
 	GtkTextIter it1, it2, location;
 	Tfoundblock *fblock;
 	gchar *tmpstr=NULL;
@@ -523,17 +522,8 @@ mark_set_idle_lcb(gpointer widget)
 	if (btv->showing_blockmatch || main_v->props.highlight_cursor) {
 		gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
 		gtk_text_buffer_remove_tag(btv->buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
-		gtk_text_buffer_remove_tag(btv->buffer, BLUEFISH_TEXT_VIEW(widget)->cursortag, &it1, &it2);
 		btv->showing_blockmatch = FALSE;
 	}
-	if (main_v->props.highlight_cursor) {
-		it1 = it2 = location;
-		gtk_text_iter_backward_char(&it1);
-		gtk_text_iter_forward_char(&it2);
-		gtk_text_buffer_apply_tag(btv->buffer, btv->cursortag, &it1, &it2);
-	}
-	if (!btv->show_mbhl)
-		return FALSE;
 	
 	offset = gtk_text_iter_get_offset(&location);
 	/*fblock = bftextview2_get_block_at_offset(btv, &found, gtk_text_iter_get_offset(&location));*/
@@ -585,7 +575,17 @@ bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location, GtkText
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	DBG_SIGNALS("bftextview2_mark_set_lcb\n");
 	if (arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
-
+		if (main_v->props.highlight_cursor) {
+			GtkTextIter it1, it2;
+			gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
+			gtk_text_buffer_remove_tag(btv->buffer, btv->cursortag, &it1, &it2);
+			gtk_text_buffer_get_iter_at_mark(btv->buffer, &it1, arg2);
+			it2 = it1;
+			gtk_text_iter_backward_char(&it1);
+			gtk_text_iter_forward_char(&it2);
+			gtk_text_buffer_apply_tag(btv->buffer, btv->cursortag, &it1, &it2);
+		}
+		
 		if (btv->autocomp)
 			autocomp_stop(btv);
 
@@ -1799,7 +1799,7 @@ bluefish_text_view_key_release_event(GtkWidget * widget, GdkEventKey * kevent)
 
 	DBG_SIGNALS("bluefish_text_view_key_release_event for %p, keyval=%d\n", widget, kevent->keyval);
 
-	if (!btv->mark_set_idle && (main_v->props.highlight_cursor || (btv->show_mbhl && btv->needs_blockmatch)))
+	if (btv->show_mbhl && !btv->mark_set_idle && btv->needs_blockmatch)
 		btv->mark_set_idle = g_idle_add_full(G_PRIORITY_HIGH_IDLE, mark_set_idle_lcb, btv->master, NULL);
 
 	/* sometimes we receive a release event for a key that was not pressed in the textview widget!
