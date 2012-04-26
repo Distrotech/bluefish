@@ -836,7 +836,7 @@ pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
 							const gchar *blockname,
 							gboolean foldable) 
 {
-	if (starts_block == ends_block) {
+	if (starts_block == TRUE && ends_block == TRUE) {
 		g_warning("Error in language file or Bluefish bug: pattern %s both starts and ends a block\n", 
 						g_array_index(st->matches, Tpattern, matchnum).pattern);
 	}
