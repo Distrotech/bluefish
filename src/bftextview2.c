@@ -1373,10 +1373,9 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 }
 
 static void
-bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * fblock)
+block_fold_apply_tags(BluefishTextView * btv, Tfoundblock * fblock, gboolean expand)
 {
-
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+	GtkTextBuffer *buffer = btv->buffer;
 	GtkTextIter it1, it2, it3, it4;
 
 	bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
@@ -1388,7 +1387,7 @@ bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * fblock)
 		gtk_text_iter_forward_line(&it4);
 	}
 
-	if (fblock->folded) {
+	if (expand) {
 		gtk_text_buffer_remove_tag_by_name(buffer, "foldheader", &it1, &it2);
 		if (main_v->props.block_folding_mode == 0) {
 			gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it3);
@@ -1404,8 +1403,26 @@ bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * fblock)
 		} else if (main_v->props.block_folding_mode == 1) {
 			gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it4);
 		}
+	}	
+}
+
+static void
+reapply_folded_tag_to_folded_blocks(BluefishTextView * btv, Tfoundblock * fblock, GSequenceIter **siter)
+{
+	Tfound *found = get_foundcache_next(btv, siter);
+	while (found && found->charoffset_o < fblock->start2_o) {
+		if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->folded) {
+			block_fold_apply_tags(btv, found->fblock, FALSE);
+		}
+		found = get_foundcache_next(btv, siter);
 	}
+}
+
+static void
+bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * fblock)
+{
 	fblock->folded = (!fblock->folded);
+	block_fold_apply_tags(btv, fblock, !fblock->folded);
 }
 
 static void
@@ -1447,9 +1464,14 @@ bftextview2_toggle_fold(BluefishTextView * btv, GtkTextIter * iter)
 		&& found->fblock->start1_o <= nextline_o && found->fblock->foldable) {
 		DBG_FOLD("toggle fold on found=%p\n", found);
 		bftextview2_block_toggle_fold(btv, found->fblock);
+		if (!found->fblock->folded)
+			reapply_folded_tag_to_folded_blocks(btv, found->fblock, &siter);
 	}
 }
-
+/*
+ * the 'name' pointer should be the identical pointer as the pointer found in st->blocks
+ * it is not compared on it's contents but on the pointer address 
+ */
 static void
 bftextview2_collapse_expand_toggle(BluefishTextView * btv, const gchar *name, gboolean collapse)
 {
