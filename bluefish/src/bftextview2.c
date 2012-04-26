@@ -520,15 +520,25 @@ mark_set_idle_lcb(gpointer widget)
 	guint offset;
 
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &location, gtk_text_buffer_get_insert(btv->buffer));
+	if (btv->showing_blockmatch || main_v->props.highlight_cursor) {
+		gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
+		gtk_text_buffer_remove_tag(btv->buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
+		gtk_text_buffer_remove_tag(btv->buffer, BLUEFISH_TEXT_VIEW(widget)->cursortag, &it1, &it2);
+		btv->showing_blockmatch = FALSE;
+	}
+	if (main_v->props.highlight_cursor) {
+		it1 = it2 = location;
+		gtk_text_iter_backward_char(&it1);
+		gtk_text_iter_forward_char(&it2);
+		gtk_text_buffer_apply_tag(btv->buffer, btv->cursortag, &it1, &it2);
+	}
+	if (!btv->show_mbhl)
+		return FALSE;
+	
 	offset = gtk_text_iter_get_offset(&location);
 	/*fblock = bftextview2_get_block_at_offset(btv, &found, gtk_text_iter_get_offset(&location));*/
 	fblock = bftextview2_get_active_block_at_offset(btv, FALSE, offset);
 	DBG_BLOCKMATCH("mark_set_idle_lcb, got fblock %p\n", fblock);
-	if (btv->showing_blockmatch) {
-		gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
-		gtk_text_buffer_remove_tag(btv->buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
-		btv->showing_blockmatch = FALSE;
-	}
 	DBG_SIGNALS("mark_set_idle_lcb, 'insert' set at %d\n", gtk_text_iter_get_offset(&location));
 	if (fblock)
 		fblock = first_fully_defined_block(fblock);
@@ -1789,7 +1799,7 @@ bluefish_text_view_key_release_event(GtkWidget * widget, GdkEventKey * kevent)
 
 	DBG_SIGNALS("bluefish_text_view_key_release_event for %p, keyval=%d\n", widget, kevent->keyval);
 
-	if (btv->show_mbhl && !btv->mark_set_idle && btv->needs_blockmatch)
+	if (!btv->mark_set_idle && (main_v->props.highlight_cursor || (btv->show_mbhl && btv->needs_blockmatch)))
 		btv->mark_set_idle = g_idle_add_full(G_PRIORITY_HIGH_IDLE, mark_set_idle_lcb, btv->master, NULL);
 
 	/* sometimes we receive a release event for a key that was not pressed in the textview widget!
@@ -2545,6 +2555,7 @@ bluefish_text_view_init(BluefishTextView * textview)
 	textview->needspellcheck = gtk_text_tag_table_lookup(ttt, "_needspellcheck_");
 #endif							/*HAVE_LIBENCHANT */
 	textview->blockmatch = gtk_text_tag_table_lookup(ttt, "blockmatch");
+	textview->cursortag = gtk_text_tag_table_lookup(ttt, "cursor_highlight");
 	textview->enable_scanner = FALSE;
 	/*font_desc = pango_font_description_from_string("Monospace 10");
 	   gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
