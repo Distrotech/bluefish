@@ -1069,25 +1069,25 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
 	gboolean event_handled = FALSE;
 	GdkWindow *wleft, *wtext;
+	GdkRectangle rect, rect2;
+	GtkTextIter startvisible, endvisible;
 	
 #if !GTK_CHECK_VERSION(3, 0, 0)
 	cairo_t *cr = gdk_cairo_create(event->window);
 #endif /* gtk3 */
 	wleft = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT);
+	gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
+	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
+	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, rect.x,
+												  rect.y, &rect2.x, &rect2.y);
 #if GTK_CHECK_VERSION(3, 0, 0)
 	if (wleft && gtk_cairo_should_draw_window(cr, wleft))
 #else
 	if (event->window == wleft)
 #endif /* gtk3 */ 
-	{
-		GtkTextIter startvisible, endvisible;
-		GdkRectangle rect;
+	{  /******** the painting in the MARGIN area of the widget *********/
 		DBG_SIGNALS("bluefish_text_view_expose_event, GTK_TEXT_WINDOW_LEFT\n");
-
-		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
-		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
-		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
-
 		paint_margin(btv, cr, &startvisible, &endvisible);
 		event_handled = TRUE;
 	}
@@ -1097,28 +1097,22 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 #else
 	if (event->window == wtext)
 #endif /* gtk3 */
-	{
+	{  /******** the painting in the TEXT area of the widget ********/
 		if (gtk_widget_is_sensitive(GTK_WIDGET(btv))
 			&& (BFWIN(DOCUMENT(master->doc)->bfwin)->session->view_cline)) {
-			gint w, w2;
+			gint y, y2, height;
 			GtkTextIter it;
-#if !GTK_CHECK_VERSION(3, 0, 0)
-			GdkRectangle rect;
-			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
-			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
-												  rect.x, rect.y, &rect.x, &rect.y);
-#endif
 			DBG_SIGNALS("bluefish_text_view_expose_event, current line highlighting\n");
 			gtk_text_buffer_get_iter_at_mark(master->buffer, &it, gtk_text_buffer_get_insert(master->buffer));
-			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &w2);
+			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &y, &height);
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
-												  0, w, NULL, &w);
+												  0, y, NULL, &y2);
 			gdk_cairo_set_source_color(cr, &st_cline_color);
 			cairo_set_line_width(cr, 1);
 #if GTK_CHECK_VERSION(3, 0, 0)
-			cairo_rectangle(cr, (master->margin_pixels_chars + master->margin_pixels_block + master->margin_pixels_symbol) + .5, w + .5, gtk_widget_get_allocated_width(widget) - 1, w2 - 1);
+			cairo_rectangle(cr, (master->margin_pixels_chars + master->margin_pixels_block + master->margin_pixels_symbol) + .5, y2 + .5, gtk_widget_get_allocated_width(widget) - 1, height - 1);
 #else
-			cairo_rectangle(cr, rect.x + .5, w + .5, rect.width - 1, w2 - 1);
+			cairo_rectangle(cr, rect2.x + .5, y2 + .5, rect2.width - 1, height - 1);
 #endif
 			cairo_stroke_preserve(cr);
 			cairo_fill(cr);
@@ -1132,27 +1126,16 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 			event_handled = GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->expose_event(widget, event);
 #endif /* gtk3 */
 			if (master->visible_spacing) {
-				GtkTextIter startvisible, endvisible;
-				GdkRectangle rect;
 				DBG_SIGNALS("bluefish_text_view_expose_event, paint visible spacing\n");
-
-				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
-				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
-				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
 				paint_spaces(btv, cr, &startvisible, &endvisible);
 			}
 
 		if (master->show_right_margin) {
-			GdkRectangle rect, rect2;
 #if GTK_CHECK_VERSION(3, 0, 0)
 			guint pix = master->margin_pixels_per_char * main_v->props.right_margin_pos + master->margin_pixels_block + master->margin_pixels_symbol + master->margin_pixels_chars;
 #else
 			guint pix = master->margin_pixels_per_char * main_v->props.right_margin_pos;
 #endif
-			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
-			rect2 = rect;
-			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, rect.x,
-												  rect.y, &rect2.x, &rect2.y);
 			cairo_set_line_width(cr, 1.0);	/* 1.0 looks the best, smaller gives a half-transparent color */
 			gdk_cairo_set_source_color(cr,
 							   &gtk_widget_get_style(GTK_WIDGET(btv))->
@@ -1162,7 +1145,7 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 			cairo_clip(cr);
 #endif /* gtk3 */
 			cairo_move_to(cr, pix, rect2.y);
-			cairo_line_to(cr, pix, rect2.y + rect2.height);
+			cairo_line_to(cr, pix, rect2.y + rect.height);
 			cairo_stroke(cr);
 		}
 	}
