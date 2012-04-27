@@ -730,13 +730,14 @@ ui_browser_preview(GtkAction * action, gpointer user_data)
 	/* TODO find the default browser and start it */
 	for (list = g_list_first(main_v->props.external_command); list; list = list->next) {
 		gchar **arr = list->data;
-		/*  arr[0] = name
-		 *  arr[1] = command
-		 *  arr[2] = is_default_browser
+		/* arr[0] = enabled
+		 * arr[1] = name
+		 * arr[2] = command
+		 * arr[3] = is_default_browser
 		 */
-		if (g_strv_length(arr) == 3 && arr[2][0] == '1') {
-			DEBUG_MSG("ui_browser_preview, start %s\n",arr[1]);
-			external_command(BFWIN(user_data), arr[1]);
+		if (g_strv_length(arr) == 4 && arr[3][0] == '1') {
+			DEBUG_MSG("ui_browser_preview, start %s\n",arr[2]);
+			external_command(BFWIN(user_data), arr[2]);
 		}
 	}
 }
@@ -1333,8 +1334,8 @@ static void
 commands_menu_activate(GtkAction * action, gpointer user_data)
 {
 	gchar **arr = g_object_get_data(G_OBJECT(action), "adata");
-	DEBUG_MSG("commands_menu_activate, call external_command with bfwin=%p and command_string=%s\n",user_data,arr[1]);
-	external_command(BFWIN(user_data), arr[1]);
+	DEBUG_MSG("commands_menu_activate, call external_command with bfwin=%p and command_string=%s\n",user_data,arr[2]);
+	external_command(BFWIN(user_data), arr[2]);
 }
 
 void
@@ -1366,9 +1367,6 @@ bfwin_commands_menu_create(Tbfwin * bfwin)
 						"/MainMenu/ToolsMenu/ToolsCommands/CommandsPlaceholder", 
 						arr[1], arr[1], -1, NULL, G_CALLBACK(commands_menu_activate), bfwin, arr);
 			}
-		} else {
-			DEBUG_MSG("bfwin_commands_menu_create, CORRUPT ENTRY IN command action; array count =%d\n",
-					  g_strv_length(arr));
 		}
 	}
 }
@@ -1446,7 +1444,7 @@ filter_dialog_response(GtkWidget * widget, gint response_id, gpointer user_data)
 	doc_restore_selection(fd->selsave, TRUE);	/* the restore will also free the Tselectionsave */
 	if (response_id == 1 && fd->bfwin->current_document)
 		doc_get_selection(fd->bfwin->current_document, &begin, &end);
-
+	DEBUG_MSG("filter_dialog_response, calling filter_command for %s\n", fd->command);
 	filter_command(fd->bfwin, fd->command, begin, end);
 	g_slice_free(Tfilterdialog, fd);
 }
@@ -1456,7 +1454,7 @@ filters_menu_activate(GtkAction * action, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
 	gchar **arr = g_object_get_data(G_OBJECT(action), "adata");
-	const gchar *command = arr[1];
+	const gchar *command = arr[2];
 	gint begin = 0, end = -1;
 	/* if we have a selection, and the filter can be used on a selection,
 	   we should ask if it should be the complete file or the selection */
@@ -1502,8 +1500,9 @@ bfwin_filters_menu_create(Tbfwin * bfwin)
 
 	for (list = g_list_first(main_v->props.external_filter); list; list = list->next) {
 		gchar **arr = list->data;
-		/*  arr[0] = name
-		 *  arr[1] = command
+		/* arr[0] = state 
+		 * arr[1] = name
+		 * arr[2] = command
 		 */
 		if (g_strv_length(arr) == 3 && (arr[0][0]=='1' || arr[0][0]=='3')) {
 			dynamic_menu_item_create(bfwin->uimanager, bfwin->filters_group, 
@@ -1521,7 +1520,8 @@ static void
 outputbox_menu_activate(GtkAction * action, gpointer user_data)
 {
 	gchar **arr = g_object_get_data(G_OBJECT(action), "adata");
-	outputbox(BFWIN(user_data), arr[1], atoi(arr[2]), atoi(arr[3]), atoi(arr[4]), arr[5]);
+	DEBUG_MSG("outputbox_menu_activate, open outputbox with command %s and filter %s\n",arr[6],arr[2]);
+	outputbox(BFWIN(user_data), arr[2], atoi(arr[3]), atoi(arr[4]), atoi(arr[5]), arr[6]);
 }
 
 void
