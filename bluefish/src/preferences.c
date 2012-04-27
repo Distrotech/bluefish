@@ -516,7 +516,7 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 	g_list_free(poplist);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Options</b>"), sprefs->vbox);
-	table = dialog_table_in_vbox_defaults(10, 2, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(6, 4, 0, vbox2);
 
 	sprefs->prefs[autocomplete] =
 		dialog_check_button_in_table(_("Enable a_uto-completion"), sessionvars->autocomplete, table, 0, 1, 0,1);
@@ -2150,18 +2150,17 @@ preferences_dialog_new(void)
 														 _("Visible whitespace color"), table, 1, 2, 6,7);
 	dialog_mnemonic_label_in_table(_("_Visible whitespace color:"), pd->prefs[visible_ws], table, 0, 1, 6,7);
 
-	pd->prefs[highlight_cursor] = dialog_check_button_in_table(_("Highlight cursor position"), main_v->props.highlight_cursor, table, 0,
+	pd->prefs[highlight_cursor] = dialog_check_button_in_table(_("Highlight cursor position (may slow down cursor!)"), main_v->props.highlight_cursor, table, 0,
 									 1, 7, 8);
 	/*
 	 *  Initial document settings
 	 */
-	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Initial document settings"), WIDGETCOL, vbox1, -1);
-	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, vbox1);
-
+	/*vbox1 = gtk_vbox_new(FALSE, 5);*/
 	sessionprefs(_("<b>Non Project Defaults</b>"), &pd->sprefs, main_v->session);
-	gtk_box_pack_start(GTK_BOX(vbox1), pd->sprefs.frame, FALSE, FALSE, 5);
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Initial document settings"), WIDGETCOL, /*vbox1*/pd->sprefs.frame, -1);
+	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, /*vbox1*/pd->sprefs.frame);
+	/*gtk_box_pack_start(GTK_BOX(vbox1), pd->sprefs.frame, FALSE, FALSE, 5);*/
 
 	/*
 	 *  Files
