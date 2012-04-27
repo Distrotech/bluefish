@@ -566,25 +566,34 @@ mark_set_idle_lcb(gpointer widget)
 	return FALSE;
 }
 
+static void
+highlight_cursor_position(BluefishTextView *btv, GtkTextIter *location)
+{
+	if (main_v->props.highlight_cursor) {
+		GtkTextIter it1, it2;
+		gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
+		/*g_print("highlight_cursor_position, remove tag %p from %d to %d\n",btv->cursortag,gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2));*/
+		gtk_text_buffer_remove_tag(btv->buffer, btv->cursortag, &it1, &it2);
+		/*gtk_text_buffer_get_iter_at_mark(btv->buffer, &it1, mark);*/
+		it1 = *location;
+		it2 = it1;
+		gtk_text_iter_backward_char(&it1);
+		gtk_text_iter_forward_char(&it2);
+		/*g_print("highlight_cursor_position, apply tag %p from %d to %d\n",btv->cursortag, gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2));*/
+		gtk_text_buffer_apply_tag(btv->buffer, btv->cursortag, &it1, &it2);
+	}
+}
+
 /* this function slows down scrolling when you hold the cursor pressed, because 
 it is called for every cursor position change. This function is therefore
 an ideal candidate for speed optimization */
 static void
-bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location, GtkTextMark * arg2, gpointer widget)
+bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location, GtkTextMark * mark, gpointer widget)
 {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
-	DBG_SIGNALS("bftextview2_mark_set_lcb\n");
-	if (arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
-		if (main_v->props.highlight_cursor) {
-			GtkTextIter it1, it2;
-			gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
-			gtk_text_buffer_remove_tag(btv->buffer, btv->cursortag, &it1, &it2);
-			gtk_text_buffer_get_iter_at_mark(btv->buffer, &it1, arg2);
-			it2 = it1;
-			gtk_text_iter_backward_char(&it1);
-			gtk_text_iter_forward_char(&it2);
-			gtk_text_buffer_apply_tag(btv->buffer, btv->cursortag, &it1, &it2);
-		}
+	DBG_SIGNALS("bftextview2_mark_set_lcb, mark=%p (insert=%p,selection=%p), location=%d\n",mark,gtk_text_buffer_get_insert(buffer), gtk_text_buffer_get_selection_bound(buffer),gtk_text_iter_get_offset(location));
+	if (mark && gtk_text_buffer_get_insert(buffer) == mark) {
+		highlight_cursor_position(btv, location);
 		
 		if (btv->autocomp)
 			autocomp_stop(btv);
@@ -711,7 +720,7 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 			  gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needspellcheck);
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
 #endif							/*HAVE_LIBENCHANT */
-
+	highlight_cursor_position(btv, iter);
 }
 
 /*static void print_found(Tfound * found)
@@ -1228,6 +1237,7 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	}
 	DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, after run, set needs_autocomp to FALSE\n");
 	btv->needs_autocomp = FALSE;
+	highlight_cursor_position(btv, oend);
 }
 
 static gboolean
