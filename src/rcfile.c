@@ -488,6 +488,7 @@ props_init_main(GHashTable * config_rc)
 					 "#990000");
 	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_CURSOR], "cursor_color:", "");
 	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_SELECTION], "selection_color:", "");
+	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_CURSOR_HIGHLIGHT], "cursor_highlight_color:", "#ffff33");
 	init_prop_arraylist(&config_rc, &main_v->props.textstyles, "textstyles3:", 6, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.block_folding_mode, "block_folding_mode:", 1, TRUE);
 	init_prop_arraylist(&config_rc, &main_v->props.highlight_styles, "highlight_styles:", 3, TRUE);

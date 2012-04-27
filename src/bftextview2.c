@@ -50,8 +50,7 @@
 
 G_DEFINE_TYPE(BluefishTextView, bluefish_text_view, GTK_TYPE_TEXT_VIEW)
 
-static GdkColor st_whitespace_color;
-static GdkColor st_cline_color;
+static GdkColor st_whitespace_color, st_cline_color, st_cursor_highlight_color;
 
 /****************************** utility functions ******************************/
 
@@ -566,24 +565,6 @@ mark_set_idle_lcb(gpointer widget)
 	return FALSE;
 }
 
-static void
-highlight_cursor_position(BluefishTextView *btv, GtkTextIter *location)
-{
-	if (main_v->props.highlight_cursor) {
-		GtkTextIter it1, it2;
-		gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
-		/*g_print("highlight_cursor_position, remove tag %p from %d to %d\n",btv->cursortag,gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2));*/
-		gtk_text_buffer_remove_tag(btv->buffer, btv->cursortag, &it1, &it2);
-		/*gtk_text_buffer_get_iter_at_mark(btv->buffer, &it1, mark);*/
-		it1 = *location;
-		it2 = it1;
-		gtk_text_iter_backward_char(&it1);
-		gtk_text_iter_forward_char(&it2);
-		/*g_print("highlight_cursor_position, apply tag %p from %d to %d\n",btv->cursortag, gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2));*/
-		gtk_text_buffer_apply_tag(btv->buffer, btv->cursortag, &it1, &it2);
-	}
-}
-
 /* this function slows down scrolling when you hold the cursor pressed, because 
 it is called for every cursor position change. This function is therefore
 an ideal candidate for speed optimization */
@@ -593,7 +574,6 @@ bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location, GtkText
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	DBG_SIGNALS("bftextview2_mark_set_lcb, mark=%p (insert=%p,selection=%p), location=%d\n",mark,gtk_text_buffer_get_insert(buffer), gtk_text_buffer_get_selection_bound(buffer),gtk_text_iter_get_offset(location));
 	if (mark && gtk_text_buffer_get_insert(buffer) == mark) {
-		highlight_cursor_position(btv, location);
 		
 		if (btv->autocomp)
 			autocomp_stop(btv);
@@ -720,7 +700,6 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 			  gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needspellcheck);
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
 #endif							/*HAVE_LIBENCHANT */
-	highlight_cursor_position(btv, iter);
 }
 
 /*static void print_found(Tfound * found)
@@ -1069,7 +1048,8 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
 	gboolean event_handled = FALSE;
 	GdkWindow *wleft, *wtext;
-	GdkRectangle rect, rect2;
+	GdkRectangle rect;
+	gint rect2y, rect2x;
 	GtkTextIter startvisible, endvisible;
 	
 #if !GTK_CHECK_VERSION(3, 0, 0)
@@ -1080,7 +1060,7 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
 	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
 	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, rect.x,
-												  rect.y, &rect2.x, &rect2.y);
+												  rect.y, &rect2x, &rect2y);
 #if GTK_CHECK_VERSION(3, 0, 0)
 	if (wleft && gtk_cairo_should_draw_window(cr, wleft))
 #else
@@ -1099,23 +1079,32 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 #endif /* gtk3 */
 	{  /******** the painting in the TEXT area of the widget ********/
 		if (gtk_widget_is_sensitive(GTK_WIDGET(btv))
-			&& (BFWIN(DOCUMENT(master->doc)->bfwin)->session->view_cline)) {
-			gint y, y2, height;
+			&& (BFWIN(DOCUMENT(master->doc)->bfwin)->session->view_cline || main_v->props.highlight_cursor)) {
+			gint y2, x2;
 			GtkTextIter it;
+			GdkRectangle itrect;
 			DBG_SIGNALS("bluefish_text_view_expose_event, current line highlighting\n");
 			gtk_text_buffer_get_iter_at_mark(master->buffer, &it, gtk_text_buffer_get_insert(master->buffer));
-			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &y, &height);
+			gtk_text_view_get_iter_location((GtkTextView *)widget,&it,&itrect);
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
-												  0, y, NULL, &y2);
-			gdk_cairo_set_source_color(cr, &st_cline_color);
-			cairo_set_line_width(cr, 1);
+												  itrect.x, itrect.y, &x2, &y2);
+			if (BFWIN(DOCUMENT(master->doc)->bfwin)->session->view_cline) {
+				/*g_print("cline highlight, got itrect.y=%d, y2=%d, itrect.x=%d, x2=%d, itrect.height=%d, itrect.width=%d\n",itrect.y,y2,itrect.x, x2, itrect.height, itrect.width);*/
+				gdk_cairo_set_source_color(cr, &st_cline_color);
 #if GTK_CHECK_VERSION(3, 0, 0)
-			cairo_rectangle(cr, (master->margin_pixels_chars + master->margin_pixels_block + master->margin_pixels_symbol) + .5, y2 + .5, gtk_widget_get_allocated_width(widget) - 1, height - 1);
+				cairo_rectangle(cr, (gfloat)(master->margin_pixels_chars + master->margin_pixels_block + master->margin_pixels_symbol), (gfloat)y2 , (gfloat)gtk_widget_get_allocated_width(widget), (gfloat)itrect.height);
 #else
-			cairo_rectangle(cr, rect2.x + .5, y2 + .5, rect2.width - 1, height - 1);
+				/*g_print("draw cline rectangle %f:%f %f-%f\n",rect2x + .5, y2 + .5, (gfloat)(rect.width - 1), (gfloat)(itrect.height - 1));*/
+				cairo_rectangle(cr, (gfloat)rect2x , (gfloat)y2 , (gfloat)(rect.width), (gfloat)(itrect.height));
 #endif
-			cairo_stroke_preserve(cr);
-			cairo_fill(cr);
+				cairo_fill(cr);
+			}
+			if (main_v->props.highlight_cursor) {
+				gint width = itrect.width > 5 ? itrect.width : master->margin_pixels_per_char;
+				gdk_cairo_set_source_color(cr, &st_cursor_highlight_color);
+				cairo_rectangle(cr, (gfloat)x2 - width , (gfloat)y2 , (gfloat)(width*2 ), (gfloat)itrect.height);
+				cairo_fill(cr);
+			}
 		}
 
 #if GTK_CHECK_VERSION(3, 0, 0)
@@ -1144,8 +1133,8 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 			cairo_rectangle(cr, event->area.x, event->area.y, event->area.width, event->area.height);
 			cairo_clip(cr);
 #endif /* gtk3 */
-			cairo_move_to(cr, pix, rect2.y);
-			cairo_line_to(cr, pix, rect2.y + rect.height);
+			cairo_move_to(cr, pix, rect2y);
+			cairo_line_to(cr, pix, rect2y + rect.height);
 			cairo_stroke(cr);
 		}
 	}
@@ -1220,7 +1209,6 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	}
 	DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, after run, set needs_autocomp to FALSE\n");
 	btv->needs_autocomp = FALSE;
-	highlight_cursor_position(btv, oend);
 }
 
 static gboolean
@@ -2000,6 +1988,10 @@ bftextview2_parse_static_colors(void)
 	if (!(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE]
 		  && gdk_color_parse(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], &st_whitespace_color))) {
 		gdk_color_parse("#ff0000", &st_whitespace_color);
+	}
+	if (!(main_v->props.btv_color_str[BTV_COLOR_CURSOR_HIGHLIGHT]
+		  && gdk_color_parse(main_v->props.btv_color_str[BTV_COLOR_CURSOR_HIGHLIGHT], &st_cursor_highlight_color))) {
+		gdk_color_parse("#ffff33", &st_cursor_highlight_color);
 	}
 #if !GTK_CHECK_VERSION(3,0,0)
 	GString *str;

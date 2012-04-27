@@ -105,6 +105,7 @@ enum {
 	visible_ws,
 	cursor_color,
 	selected_color,
+	cursor_highlight_color,
 	/* now the entries in globses */
 	left_panel_width,
 	main_window_h,
@@ -1679,6 +1680,7 @@ preferences_apply(Tprefdialog * pd)
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], pd->prefs[visible_ws]);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_CURSOR], pd->prefs[cursor_color]);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_SELECTION], pd->prefs[selected_color]);
+	string_apply(&main_v->props.btv_color_str[BTV_COLOR_CURSOR_HIGHLIGHT], pd->prefs[cursor_highlight_color]);
 	integer_apply(&main_v->props.right_margin_pos, pd->prefs[right_margin_pos], FALSE);
 	main_v->props.visible_ws_mode = gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[visible_ws_mode]));
 	/*integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE); */
@@ -1939,6 +1941,13 @@ use_system_colors_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
 	gtk_widget_set_sensitive(pd->prefs[selected_color], !active);
 }
 
+static void
+highlight_cursor_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
+{
+	gboolean active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+	gtk_widget_set_sensitive(pd->prefs[cursor_highlight_color], active);
+}
+
 static gint
 prefs_combo_box_get_index_from_text(const gchar ** options, const gchar * string)
 {
@@ -2117,11 +2126,10 @@ preferences_dialog_new(void)
 								   _("Cursor font ratio (%):"), hbox, 0);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Colors</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(8, 2, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(5, 4, 0, vbox2);
 
 	pd->prefs[use_system_colors] =
-		dialog_check_button_in_table(_("Use system wide color settings"), main_v->props.use_system_colors, table, 0,
-									 1, 0, 1);
+		dialog_check_button_in_table(_("Use system wide color settings"), main_v->props.use_system_colors, table, 0,2, 0,1);
 	
 	pd->prefs[editor_fg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_ED_FG],
 														_("Foreground color"), table, 1, 2, 1,2);
@@ -2142,16 +2150,21 @@ preferences_dialog_new(void)
 	g_signal_connect(G_OBJECT(pd->prefs[use_system_colors]), "toggled", G_CALLBACK(use_system_colors_toggled_lcb), pd);
 	use_system_colors_toggled_lcb(pd->prefs[use_system_colors], pd);
 
+	pd->prefs[highlight_cursor] = dialog_check_button_in_table(_("Highlight cursor position"), main_v->props.highlight_cursor, table, 2,4, 0,1);
+	pd->prefs[cursor_highlight_color] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_CURSOR_HIGHLIGHT],
+														 _("Cursor highlight color"), table, 3,4, 1,2);
+	dialog_mnemonic_label_in_table(_("_Cursor highlight color:"), pd->prefs[cursor_highlight_color], table, 2,3, 1,2);
+	g_signal_connect(G_OBJECT(pd->prefs[highlight_cursor]), "toggled", G_CALLBACK(highlight_cursor_toggled_lcb), pd);
+	highlight_cursor_toggled_lcb(pd->prefs[highlight_cursor], pd);
+
 	pd->prefs[cline_bg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE],
-													   _("Current line color"), table, 1, 2, 5,6);
-	dialog_mnemonic_label_in_table(_("Cu_rrent line color:"), pd->prefs[cline_bg], table, 0, 1, 5,6);
+													   _("Current line color"), table, 3,4, 2,3);
+	dialog_mnemonic_label_in_table(_("Cu_rrent line color:"), pd->prefs[cline_bg], table, 2,3, 2,3);
 
 	pd->prefs[visible_ws] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE],
-														 _("Visible whitespace color"), table, 1, 2, 6,7);
-	dialog_mnemonic_label_in_table(_("_Visible whitespace color:"), pd->prefs[visible_ws], table, 0, 1, 6,7);
+														 _("Visible whitespace color"), table, 3,4, 3,4);
+	dialog_mnemonic_label_in_table(_("_Visible whitespace color:"), pd->prefs[visible_ws], table, 2,3, 3,4);
 
-	pd->prefs[highlight_cursor] = dialog_check_button_in_table(_("Highlight cursor position (may slow down cursor!)"), main_v->props.highlight_cursor, table, 0,
-									 1, 7, 8);
 	/*
 	 *  Initial document settings
 	 */
