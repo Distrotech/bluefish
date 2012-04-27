@@ -1102,7 +1102,11 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 			if (main_v->props.highlight_cursor) {
 				gint width = itrect.width > 5 ? itrect.width : master->margin_pixels_per_char;
 				gdk_cairo_set_source_color(cr, &st_cursor_highlight_color);
+#if GTK_CHECK_VERSION(3, 0, 0)
+				cairo_rectangle(cr, (gfloat)x2 - width + master->margin_pixels_chars + master->margin_pixels_block + master->margin_pixels_symbol, (gfloat)y2 , (gfloat)(width*2 ), (gfloat)itrect.height);
+#else
 				cairo_rectangle(cr, (gfloat)x2 - width , (gfloat)y2 , (gfloat)(width*2 ), (gfloat)itrect.height);
+#endif
 				cairo_fill(cr);
 			}
 		}
