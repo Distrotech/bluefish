@@ -2009,16 +2009,16 @@ bftextview2_parse_static_colors(void)
 		gdk_color_parse("#ff0000", &st_whitespace_color);
 	}
 #if !GTK_CHECK_VERSION(3,0,0)
+	GString *str;
+	
+	str = g_string_new("style \"bluefish-cursor\" {");
 	if (!main_v->props.use_system_colors && main_v->props.btv_color_str[BTV_COLOR_CURSOR] != NULL
 		&& main_v->props.btv_color_str[BTV_COLOR_CURSOR][0] != '\0') {
-		gchar *tmp;
-		tmp = g_strconcat("style \"bluefish-cursor\" {"
-						  "GtkTextView::cursor-color = \"",
-						  main_v->props.btv_color_str[BTV_COLOR_CURSOR],
-						  "\"}" "class \"GtkTextView\" style \"bluefish-cursor\"", NULL);
-		gtk_rc_parse_string(tmp);
-		g_free(tmp);
+		g_string_append_printf(str, " GtkTextView::cursor-color = \"%s\"", main_v->props.btv_color_str[BTV_COLOR_CURSOR]);
 	}
+	g_string_append_printf(str, " GtkWidget::cursor-aspect-ratio = %f }class \"GtkTextView\" style \"bluefish-cursor\"", ((gfloat)(main_v->props.cursor_size)/100.0));
+	gtk_rc_parse_string(str->str);
+	g_string_free(str, TRUE);
 #endif
 }
 
