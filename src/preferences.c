@@ -1668,7 +1668,6 @@ preferences_apply(Tprefdialog * pd)
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.cursor_size, pd->prefs[cursor_size], FALSE);
 	integer_apply(&main_v->props.highlight_cursor, pd->prefs[highlight_cursor], TRUE);
-	g_print("highlight cursor=%d\n", main_v->props.highlight_cursor);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_auto_close_brackets, pd->prefs[editor_auto_close_brackets], TRUE);
 	integer_apply(&main_v->props.editor_tab_indent_sel, pd->prefs[editor_tab_indent_sel], TRUE);
