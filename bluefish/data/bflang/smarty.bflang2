@@ -128,10 +128,10 @@
 
 </properties>
 <definition>
-<context symbols="{}&gt;&lt;&amp;; &#9;&#10;&#13;">
+<context symbols="{}&gt;&lt;&amp;; &#9;&#10;&#13;/">
 
 <element pattern="{literal}" highlight="smarty-tag">
-	<context symbols="}&gt;&lt;&amp;; &#9;&#10;&#13;">
+	<context symbols="}&gt;&lt;&amp;; &#9;&#10;&#13;/">
 		&all-html;
 		<element pattern="{/literal}" ends_context="1" highlight="smarty-tag" />
 	</context>
