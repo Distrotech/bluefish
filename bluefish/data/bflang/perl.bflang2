@@ -334,11 +334,11 @@
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.lbrace" pattern="{" starts_block="1" highlight="brackets" block_name="Curly brackets block"/>
 <element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
-<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.lbracket" pattern="[" starts_block="1" highlight="brackets" />
 <element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
-<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.lparen" pattern="(" starts_block="1" highlight="brackets" />
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
 <element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment" />
 

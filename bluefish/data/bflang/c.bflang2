@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		c.bflang2 $Revision$
  
-		Copyright (C) 2008-2011 Olivier Sessink
+		Copyright (C) 2008-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -2955,16 +2955,16 @@
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-		<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="bracket-curly" />
+		<element id="e.lbrace" pattern="{" starts_block="1" highlight="bracket-curly" block_name="Curly brackets block"/>
 		<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="bracket-curly" />
-		<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="bracket-square" />
+		<element id="e.lbracket" pattern="[" starts_block="1" highlight="bracket-square" />
 		<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="bracket-square" />
-		<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="bracket-round" />
+		<element id="e.lparen" pattern="(" starts_block="1" highlight="bracket-round" />
 		<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="bracket-round" />
 		<element id="e.lcomment" pattern="/*" starts_block="1" block_name="Comment" highlight="block-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="block-comment" >
 				<element pattern="/*" highlight="error"/> 
-				<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="block-comment" mayfold="1" ends_context="1" />
+				<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="block-comment" ends_context="1" />
 			</context>
 		</element>
 		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>

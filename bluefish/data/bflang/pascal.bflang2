@@ -211,13 +211,13 @@
 
 <element id="e.lcomment.1" pattern="(*" starts_block="1" highlight="comment">
 	<context symbols="*)&#9;&#10;&#13;" highlight="comment" >
-		<element pattern="*)" ends_block="1" blockstartelement="e.lcomment.1" highlight="comment" mayfold="1" ends_context="1" />
+		<element pattern="*)" ends_block="1" blockstartelement="e.lcomment.1" highlight="comment" ends_context="1" />
 	</context>
 </element>
 
 <element id="e.lcomment.2" pattern="{" starts_block="1" highlight="comment">
 	<context symbols="}&#9;&#10;&#13;" highlight="comment" >
-		<element pattern="}" ends_block="1" blockstartelement="e.lcomment.2" highlight="comment" mayfold="1" ends_context="1" />
+		<element pattern="}" ends_block="1" blockstartelement="e.lcomment.2" highlight="comment" ends_context="1" />
 	</context>
 </element>
 
