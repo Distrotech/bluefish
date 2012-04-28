@@ -1543,7 +1543,7 @@ bftextview2_fold_menu(BluefishTextView * btv)
 	
 	/* loop over the found blocks */
 	for (i = 0; i < (btv->bflang->st->blocks->len); i++) {
-		if (g_array_index(btv->bflang->st->blocks, Tpattern_block, i).name) {
+		if (g_array_index(btv->bflang->st->blocks, Tpattern_block, i).name && g_array_index(btv->bflang->st->blocks, Tpattern_block, i).foldable) {
 			gchar *tmp = g_strdup_printf(_("Collapse %s"), g_array_index(btv->bflang->st->blocks, Tpattern_block, i).name);
 			mitem = gtk_menu_item_new_with_label(tmp);
 			g_free(tmp);
