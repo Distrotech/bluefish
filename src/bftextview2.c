@@ -1367,8 +1367,14 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 	return retval;
 }
 
+typedef enum {
+	foldtags_fold,
+	foldtags_expand,
+	foldtags_expand_hidden
+} Tfoldtags;
+
 static void
-block_fold_apply_tags(BluefishTextView * btv, Tfoundblock * fblock, gboolean expand)
+block_fold_tags(BluefishTextView * btv, Tfoundblock * fblock, Tfoldtags mode)
 {
 	GtkTextBuffer *buffer = btv->buffer;
 	GtkTextIter it1, it2, it3, it4;
@@ -1382,15 +1388,18 @@ block_fold_apply_tags(BluefishTextView * btv, Tfoundblock * fblock, gboolean exp
 		gtk_text_iter_forward_line(&it4);
 	}
 
-	if (expand) {
+	if (mode != foldtags_fold) {
+		DBG_FOLD("block_fold_apply_tags, REMOVE folded tags from %d:%d\n",fblock->start1_o,fblock->end2_o);
 		gtk_text_buffer_remove_tag_by_name(buffer, "foldheader", &it1, &it2);
 		if (main_v->props.block_folding_mode == 0) {
-			gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it3);
+			if (mode == foldtags_expand)
+				gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it3);
 			gtk_text_buffer_remove_tag_by_name(buffer, "foldheader", &it3, &it4);
-		} else if (main_v->props.block_folding_mode == 1) {
+		} else if (main_v->props.block_folding_mode == 1 && mode == foldtags_expand) {
 			gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it4);
 		}
 	} else {
+		DBG_FOLD("block_fold_apply_tags, APPLY folded tags from %d:%d\n",fblock->start1_o,fblock->end2_o);
 		gtk_text_buffer_apply_tag_by_name(buffer, "foldheader", &it1, &it2);
 		if (main_v->props.block_folding_mode == 0) {
 			gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it3);
@@ -1405,9 +1414,10 @@ static void
 reapply_folded_tag_to_folded_blocks(BluefishTextView * btv, Tfoundblock * fblock, GSequenceIter **siter)
 {
 	Tfound *found = get_foundcache_next(btv, siter);
+	DBG_FOLD("reapply_folded_tag from %d:%d, starting with found at %d\n",fblock->start1_o, fblock->start2_o, found ? found->charoffset_o : 0);
 	while (found && found->charoffset_o < fblock->start2_o) {
 		if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->folded) {
-			block_fold_apply_tags(btv, found->fblock, FALSE);
+			block_fold_tags(btv, found->fblock, foldtags_fold);
 		}
 		found = get_foundcache_next(btv, siter);
 	}
@@ -1418,8 +1428,10 @@ parent_block_is_folded(Tfoundblock * fblock)
 {
 	Tfoundblock *tmpfblock = (Tfoundblock *)fblock->parentfblock;
 	while (tmpfblock) {
-		if (tmpfblock->folded)
+		if (tmpfblock->folded) {
+			DBG_FOLD("parent_block_is_folded, return TRUE\n");
 			return TRUE;
+		}
 		tmpfblock = (Tfoundblock *)tmpfblock->parentfblock;
 	}
 	return FALSE;
@@ -1428,10 +1440,15 @@ parent_block_is_folded(Tfoundblock * fblock)
 static void
 bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * fblock)
 {
+	Tfoldtags mode;
 	fblock->folded = (!fblock->folded);
-	if (fblock->folded || parent_block_is_folded(fblock)) {
-		block_fold_apply_tags(btv, fblock, !fblock->folded);
+	if (fblock->folded) {
+		mode = foldtags_fold;
+	} else {
+		mode = parent_block_is_folded(fblock) ? foldtags_expand_hidden : foldtags_expand;
 	}
+	DBG_FOLD("bftextview2_block_toggle_fold, block %d:%d has now folded=%d\n",fblock->start1_o,fblock->end2_o,fblock->folded);
+	block_fold_tags(btv, fblock, mode);
 }
 
 static void
