@@ -118,18 +118,18 @@
 <element id="e.php.short.open" pattern="&lt;(\?|\?php)" is_regex="1" starts_block="1" block_name="PHP block" highlight="php-block-tag">
 <context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" commentid_block="cm.cblockcomment" commentid_line="cm.cpplinecomment" >
 &all-php;
-<element id="e.php.short.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.php.short.lbrace" pattern="{" starts_block="1" highlight="brackets" />
 <element pattern="}" ends_block="1" blockstartelement="e.php.short.lbrace" highlight="brackets" />
-<element id="e.php.short.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.php.short.lbracket" pattern="[" starts_block="1" highlight="brackets" />
 <element pattern="]" ends_block="1" blockstartelement="e.php.short.lbracket" highlight="brackets" />
-<element id="e.php.short.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.php.short.lparen" pattern="(" starts_block="1" highlight="brackets" />
 <element pattern=")" ends_block="1" blockstartelement="e.php.short.lparen" highlight="brackets" />
 <element id="e.php.short.lcomment" pattern="/*" starts_block="1" block_name="C style comment" highlight="php-comment">
 	<context symbols="*/&#9;&#10;&#13;" highlight="php-comment">
-		<element pattern="*/" ends_block="1" blockstartelement="e.php.short.lcomment" highlight="php-comment" mayfold="1" ends_context="1" />
+		<element pattern="*/" ends_block="1" blockstartelement="e.php.short.lcomment" highlight="php-comment" ends_context="1" />
 	</context>
 </element>
-<element id="e.php.short.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" mayfold="1" highlight="brackets" >
+<element id="e.php.short.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" highlight="brackets" >
 	<autocomplete enable="1" />
 	<context symbols="EOF" highlight="php-comment">
 <element pattern="EOF" ends_block="1" ends_context="1" blockstartelement="e.php.short.multiline_string" highlight="brackets" />
@@ -179,7 +179,7 @@
 	<context id="c.php.short.linecomment" symbols="?&gt;&#10;&#13;" highlight="php-comment">
 <!-- dos has \r\n -> we should never end a pattern between these two chars  -->
 		<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" ends_context="1" />
-		<element pattern="?&gt;" ends_context="2" ends_block="1" blockstartelement="e.php.short.open" highlight="php-block-tag" mayfold="1" />
+		<element pattern="?&gt;" ends_context="2" ends_block="1" blockstartelement="e.php.short.open" highlight="php-block-tag" />
 	</context>
 </element>
 <!-- there is a bug in the scanning engine such that a regex style pattern like (#|//) won't work. The reason is that
@@ -188,7 +188,7 @@ for this pattern and both of them are a symbol. That's why we have a separate en
 <element pattern="#" highlight="php-comment">
 	<context idref="c.php.short.linecomment"/>
 </element>
-<element pattern="?&gt;" ends_block="1" blockstartelement="e.php.short.open" highlight="php-block-tag" mayfold="1" ends_context="1" />
+<element pattern="?&gt;" ends_block="1" blockstartelement="e.php.short.open" highlight="php-block-tag" ends_context="1" />
 </context></element>
 </group>
 <group notclass="php_short_open_tag">
@@ -197,18 +197,18 @@ for this pattern and both of them are a symbol. That's why we have a separate en
 <!-- unfortunately we cannot refer the context as previously used, because if option php_short_open_tag 
 was disabled, this whole section is not parsed by the language manager, so the context does not yet exist..  -->
 &all-php;
-<element id="e.php.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.php.lbrace" pattern="{" starts_block="1" highlight="brackets" block_name="Curly brackets block"/>
 <element pattern="}" ends_block="1" blockstartelement="e.php.lbrace" highlight="brackets" />
-<element id="e.php.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.php.lbracket" pattern="[" starts_block="1" highlight="brackets" />
 <element pattern="]" ends_block="1" blockstartelement="e.php.lbracket" highlight="brackets" />
-<element id="e.php.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.php.lparen" pattern="(" starts_block="1" highlight="brackets" />
 <element pattern=")" ends_block="1" blockstartelement="e.php.lparen" highlight="brackets" />
 <element id="e.php.lcomment" pattern="/*" starts_block="1" block_name="C style comment" highlight="php-comment">
 	<context symbols="*/&#9;&#10;&#13;" highlight="php-comment">
-		<element pattern="*/" ends_block="1" blockstartelement="e.php.lcomment" highlight="php-comment" mayfold="1" ends_context="1" />
+		<element pattern="*/" ends_block="1" blockstartelement="e.php.lcomment" highlight="php-comment" ends_context="1" />
 	</context>
 </element>
-<element id="e.php.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" mayfold="1" highlight="brackets" >
+<element id="e.php.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" highlight="brackets" >
 	<autocomplete enable="1" />
 	<context symbols="EOF" highlight="php-comment">
 <element pattern="EOF" ends_block="1" ends_context="1" blockstartelement="e.php.multiline_string" highlight="brackets" />
@@ -257,7 +257,7 @@ was disabled, this whole section is not parsed by the language manager, so the c
 <element pattern="//" highlight="php-comment">
 	<context id="c.php.linecomment" symbols="?&gt;&#10;&#13;" highlight="php-comment">
 		<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" ends_context="1" />
-		<element pattern="?&gt;" ends_context="2" ends_block="1" blockstartelement="e.php.open" highlight="php-block-tag" mayfold="1" />
+		<element pattern="?&gt;" ends_context="2" ends_block="1" blockstartelement="e.php.open" highlight="php-block-tag" />
 	</context>
 </element>
 <!-- there is a bug in the scanning engine such that a regex style pattern like (#|//) won't work. The reason is that
@@ -266,7 +266,7 @@ for this pattern and both of them are a symbol. That's why we have a separate en
 <element pattern="#" highlight="php-comment">
 	<context idref="c.php.linecomment"/>
 </element>
-<element pattern="?&gt;" ends_block="1" blockstartelement="e.php.open" highlight="php-block-tag" mayfold="1" ends_context="1" />
+<element pattern="?&gt;" ends_block="1" blockstartelement="e.php.open" highlight="php-block-tag" ends_context="1" />
 </context></element>
 </group>
 

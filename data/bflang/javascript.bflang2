@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		javascript.bflang2 $Revision$
  
-		Copyright (C) 2008,2011 Olivier Sessink
+		Copyright (C) 2008-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -67,7 +67,7 @@
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="cm.cpplinecomment"  commentid_block="cm.cblockcomment">
 		<element pattern="(" id="e.html.js.lparen" starts_block="1" highlight="js-brackets" />
 		<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lparen" />
-		<element pattern="{" id="e.html.js.lbrace" starts_block="1" highlight="js-brackets" />
+		<element pattern="{" id="e.html.js.lbrace" starts_block="1" highlight="js-brackets" block_name="Curly brackets block"/>
 		<element pattern="}" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbrace" />
 		<element pattern="[" id="e.html.js.lbracket" starts_block="1" highlight="js-brackets" />
 		<element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbracket" />
@@ -75,9 +75,9 @@
 		<group class="JQuery">
 			&JQuery;
 		</group>
-		<element id="e.bcomment" pattern="/*" starts_block="1" highlight="js-comment">
+		<element id="e.bcomment" pattern="/*" starts_block="1" highlight="js-comment" block_name="C style comment">
 			<context symbols="*/&#9;&#10;&#13; " highlight="js-comment">
-				<element pattern="*/" ends_block="1" blockstartelement="e.bcomment" highlight="js-comment" mayfold="1" ends_context="1" />
+				<element pattern="*/" ends_block="1" blockstartelement="e.bcomment" highlight="js-comment" ends_context="1" />
 			</context>
 		</element>
 		<element pattern="//" highlight="js-comment">

@@ -50,14 +50,14 @@
 	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[]()#,">
 		<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
-				<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
+				<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" ends_context="1" />
 			</context>
 		</element>		
-		<element id="e.css.grouping" pattern="/\* @group[^*]+\*/" starts_block="1" highlight="css-keyword" mayfold="1"  is_regex="1">
+		<element id="e.css.grouping" pattern="/\* @group[^*]+\*/" starts_block="1" highlight="css-keyword"  is_regex="1">
 			<context symbols="*/&#9;&#10;&#13;@{}./*&lt;&gt;:+~[],">
 				<element id="e.css.grouping.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
-						<element pattern="*/" ends_block="1" blockstartelement="e.css.grouping.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
+						<element pattern="*/" ends_block="1" blockstartelement="e.css.grouping.lcomment" highlight="css-comment" ends_context="1" />
 					</context>
 				</element>
 				&css-selectors;
@@ -84,14 +84,14 @@
 					</element>
 					<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.group.lbrace" ends_context="2" />
 				</group>
-				<element id="e.css.grouping.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="css-brackets">
+				<element id="e.css.grouping.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
 					<context symbols=" &#9;&#10;&#13;{}.:&quot;';*/" id="c.css.rules">
 						&css-rules;
 						<element idref="e.css.grouping.lcomment" />
 						<element id="e.css.grouping.rbrace1" pattern="}" ends_block="1" blockstartelement="e.css.grouping.lbrace" highlight="css-brackets" ends_context="1" />
 					</context>
 				</element>
-				<element pattern="/\* @end[^*]+\*/" ends_block="1" blockstartelement="e.css.grouping" highlight="css-keyword" mayfold="1" ends_context="1" is_regex="1" />
+				<element pattern="/\* @end[^*]+\*/" ends_block="1" blockstartelement="e.css.grouping" highlight="css-keyword" ends_context="1" is_regex="1" />
 			</context>
 		</element>
 		&css-selectors;
@@ -118,7 +118,7 @@
 			</element>
 			<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.lbrace" ends_context="2" />
 		</group>
-		<element id="e.css.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="css-brackets" >
+		<element id="e.css.lbrace" pattern="{" starts_block="1" highlight="css-brackets" >
 			<context idref="c.css.rules" />
 		</element>
 	</context>

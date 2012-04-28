@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		clojure.bflang2 $Revision$
  
-		Copyright (C) 2011 Olivier Sessink
+		Copyright (C) 2011-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -536,9 +536,9 @@
 	</context>
 </element>
 
-<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.lbracket" pattern="[" starts_block="1" highlight="brackets" />
 <element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
-<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="parens" />
+<element id="e.lparen" pattern="(" starts_block="1" highlight="parens" />
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="parens" />
 
 <element pattern="true"  highlight="value">

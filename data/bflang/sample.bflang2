@@ -52,9 +52,12 @@ users may assign a different textstyle if they want.-->
 if in the <definition> section of this file we have a <group class="allphpfunctions"> the user
 can enable/disable this complete section with this option  
  -->	
+	<option name="php block_foldable" default="1" description="Allow the PHP block to fold"/>
+<!-- In this example a block named 'php block' is made optionally foldable (or not). 
+The '_foldable' suffix is hardcoded in bluefish -->
 
 <!-- there are a couple of hardcoded option names for options that the user may set --> 
-	<option name="load_reference" default="1" />
+	<option name="load_reference" default="1"/>
 	<!-- whether or not to load the reference data for this language -->
 	<option name="load_completion" default="1" />
 	<!-- whether or not to load the auto completion data for this language -->
@@ -143,7 +146,7 @@ use <element idref="foo" />
 -->
 
 <!-- next is a block detection example -->
-<element id="bracket{" pattern="{" starts_block="1" highlight="brackets" />
+<element id="bracket{" pattern="{" starts_block="1" highlight="brackets" block_name="Bracket block" />
 <element pattern="}" ends_block="1" blockstartelement="bracket{" highlight="brackets" />
 <!--
 an element may start or end a block. a block consists of two patterns (start and end) where the contents between
@@ -154,6 +157,10 @@ to make a pattern a block start define starts_block="1" and use the 'id' attribu
 to specify a pattern that ends a block use ends_block="1" and use blockstartelement="FOO" where FOO is the id of 
 the start-of-block-element
 
+Because this block has a name ('Bracket block') it can be selected by the user in the 
+expand/collapse popup menu. You can also create an option 'Bracket block_foldable' so
+the user may decide if this block may fold or not. If you don't need either the 
+block_name can be left empty.
 -->
 
 <!-- next is an context example, a javascript comment -->
@@ -202,17 +209,19 @@ this element has ends_context=2 -->
 </element>
 
 <!-- next example shows autocompletion options -->
-<element pattern="while" highlight="keyword" autocomplete="1" autocomplete_append="() {" autocomplete_backup_cursor="3"/>
+<element pattern="while" highlight="keyword" >
+	<autocomplete append="() {" backup_cursor="3" />
+</element>
 <!--
-an pattern may also be autocompletable. to enable this use autocomplete="1"
+an pattern may also be autocompletable. to enable this add <autocomplete />
 often it is convenient if not only the pattern itself can be completed but some common
-characters are appended. use autocomplete_append="STRING" to define any characters that
+characters are appended. use append="STRING" to define any characters that
 will be autocompleted. The cursor position AFTER auto completion can be set back a couple
-of characters. This is defined by attribute autocomplete_backup_cursor
+of characters. This is defined by attribute backup_cursor
 
 a regular expession pattern may be autocompletable as well. but to autocomplete the pattern
 itself usually makes no sense because it matches various other patterns. use 
-autocomplete_string="STRING" to autocomplete STRING in this context -->
+string="STRING" to autocomplete STRING in this context -->
 
 
 <!-- next example shows a xml/sgml tag with attributes -->
@@ -248,8 +257,7 @@ a <tag> may also start a new context just as <element> does
 <tag name="img" attributes="style,class,id,src,width,height" 
 		autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2"/>
 <!--
-a <tag> automatically autocompletes. it also has a 'autocomplete_append' attribute, but
-also an 'attrib_autocomplete_append' atribute.
+a <tag> automatically autocompletes. it also has an 'attrib_autocomplete_append' atribute.
 -->
 <!-- next example shows auto closing options for tags -->
 <tag name="br" no_close="1" />
@@ -264,7 +272,8 @@ in XML or XHTML a tag always needs to be closed, either <img /> or <img></img>
 in SGML <img> is also allowed. set sgml_shorttag="1" to enable this  
 -->
 
-<group highlight="keyword" autocomplete="1">
+<group highlight="keyword" >
+	<autocomplete enable="1" />
 	<element pattern="for"/>
 	<element pattern="while"/>
 </group>	
@@ -282,8 +291,8 @@ supported atributes are:
 - is_regex
 
 -->
-<group  attribhighlight="attribute" highlight="tag" 
-		autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;"  >
+<group  attribhighlight="attribute" highlight="tag" attrib_autocomplete_append="=&quot;&quot;"  >
+	<autocomplete append="&gt;" />
 	<tag name="p" attributes="style,id,width"/>
 	<tag name="div" attributes="style,id" />
 </group>	
@@ -294,7 +303,6 @@ grouped inside <group>
 supported attributes are:
 - highlight
 - attribhighlight
-- autocomplete_append
 - attrib_autocomplete_append
 - class 
 -->
@@ -313,10 +321,10 @@ we can put this option into effect like this:
 option that disables one section but enables a different section -->
 <group notclass="mysetting">
 	<element pattern="foo" />
-<group>
+</group>
 <group class="mysetting">
 	<element pattern="bar" />
-<group>
+</group>
 
 <!-- -------- OPTIMISATIONS ---------
 context re-use (<context idref=""/>) is more important than element or tag re-use 
@@ -340,42 +348,6 @@ matches   1752 (123.19 Kbytes)  --- element/tag metadata
 
 <!-- --------------------- END OF DOCUMENTATION ------------------------------------------------ -->
 
-<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
-<element pattern="TRUE" autocomplete="1" highlight="value"/>
-<element pattern="FALSE" autocomplete="1" highlight="value"/>
-
-<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
-<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
-<element pattern="&#34;" highlight="string">
-	<context symbols="\&#34;" highlight="string">
-		<element pattern="\&#34;" highlight="string" />
-		<element pattern="&#34;" highlight="string" ends_context="1" />
-	</context>
-</element>
-<element pattern="'" highlight="string">
-	<context symbols="\'" highlight="string">
-		<element pattern="\'" highlight="string" />
-		<element pattern="'" highlight="string" ends_context="1" />
-	</context>
-</element>
-
-<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
-<element pattern="(//|#)" is_regex="1" highlight="php-comment">
-	<context symbols="?&gt;&#10;" highlight="php-comment">
-		<element pattern="&#10;" ends_context="1" />
-		<element pattern="?&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;?php" highlight="php-tag" mayfold="1" />
-	</context>
-</element>
-<element pattern="?&gt;" ends_block="1" blockstartelement="&lt;?php" highlight="php-tag" mayfold="1" ends_context="1" />
-
-<element pattern="&lt;!--" highlight="html-comment" starts_block="1">
-	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
-		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="html-comment" mayfold="1" ends_context="1" />
-	</context>
-</element>
-<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="value" />
 </context>
 </definition>
 </bflang>
