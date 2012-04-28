@@ -1413,11 +1413,25 @@ reapply_folded_tag_to_folded_blocks(BluefishTextView * btv, Tfoundblock * fblock
 	}
 }
 
+static gboolean
+parent_block_is_folded(Tfoundblock * fblock)
+{
+	Tfoundblock *tmpfblock = (Tfoundblock *)fblock->parentfblock;
+	while (tmpfblock) {
+		if (tmpfblock->folded)
+			return TRUE;
+		tmpfblock = (Tfoundblock *)tmpfblock->parentfblock;
+	}
+	return FALSE;
+}
+
 static void
 bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * fblock)
 {
 	fblock->folded = (!fblock->folded);
-	block_fold_apply_tags(btv, fblock, !fblock->folded);
+	if (fblock->folded || parent_block_is_folded(fblock)) {
+		block_fold_apply_tags(btv, fblock, !fblock->folded);
+	}
 }
 
 static void
