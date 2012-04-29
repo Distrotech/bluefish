@@ -194,7 +194,7 @@ the startpos=9 (the end of the replaced result), offset=-9 and the first next re
 		if (doc == ((Tsnr3result *)tmplist->data)->doc 
 						&& ((Tsnr3result *)tmplist->data)->eo >= startpos) {
 			DEBUG_MSG("evaluate so=%d, eo=%d\n",((Tsnr3result *)tmplist->data)->so,((Tsnr3result *)tmplist->data)->eo);
-			if (((Tsnr3result *)tmplist->data)->so >= comparepos) {
+			if (((Tsnr3result *)tmplist->data)->so > comparepos) {
 				((Tsnr3result *)tmplist->data)->so += offset;
 				((Tsnr3result *)tmplist->data)->eo += offset;
 				DEBUG_MSG("new so=%d, eo=%d\n",((Tsnr3result *)tmplist->data)->so,((Tsnr3result *)tmplist->data)->eo);
@@ -545,7 +545,7 @@ static void
 update_callback(gpointer data)
 {
 	Tsnr3run *s3run=data;
-	g_print("update_callback, remove and re-apply all highlights in doc %p\n",s3run->bfwin->current_document);
+	DEBUG_MSG("update_callback, remove and re-apply all highlights in doc %p\n",s3run->bfwin->current_document);
 	remove_all_highlights_in_doc(s3run->bfwin->current_document);
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
 }
