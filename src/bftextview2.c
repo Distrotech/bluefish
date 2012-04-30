@@ -24,6 +24,7 @@
 #include <string.h>				/* strlen() */
 
 #include "bftextview2.h"
+#include "bftextview2_private.h"
 
 #include "bluefish.h"
 #include "bf_lib.h"

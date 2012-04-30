@@ -45,6 +45,7 @@ bluefish_SOURCES = \
 	bluefish.h \
 	bftextview2.c \
 	bftextview2.h \
+	bftextview2_private.h \
 	bftextview2_langmgr.c \
 	bftextview2_langmgr.h \
 	bftextview2_autocomp.c \

@@ -29,7 +29,7 @@
 #include <enchant.h>
 #endif							/* HAVE_ENCHANT_ENCHANT_H */
 #include <string.h>				/*strlen */
-
+#include "bftextview2_private.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_langmgr.h"
 #include "bftextview2_spell.h"
