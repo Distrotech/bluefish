@@ -308,8 +308,8 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 		contextstackcount += tmpfound2->numcontextchange;
 
 		DBG_SCANCACHE
-			("in loop: remove Tfound %p with offset %d from the cache and free, contextstackcount=%d, blockstackcount=%d\n",
-			 tmpfound2, tmpfound2->charoffset_o, contextstackcount, blockstackcount);
+			("in loop: remove Tfound %p with offset %d from the cache and free, contextstackcount=%d, blockstackcount=%d, nextfound=%p\n",
+			 tmpfound2, tmpfound2->charoffset_o, contextstackcount, blockstackcount, *found);
 		invalidoffset = tmpfound2->charoffset_o;
 		g_sequence_remove(tmpsiter2);
 		found_free_lcb(tmpfound2, btv);
@@ -833,10 +833,11 @@ static guint
 remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tscanning * scanning)
 {
 	guint invalidoffset=0;
-	DBG_SCANNING("remove_invalid_cache, scanning->nextfound=%p, scanning->curfblock=%p, scanning->curfblock=%p\n", scanning->nextfound, scanning->curfblock, scanning->curfblock);
+	DBG_SCANNING("remove_invalid_cache, match_end_o=%d, scanning->nextfound=%p, scanning->curfblock=%p, scanning->curfblock=%p\n", match_end_o, scanning->nextfound, scanning->curfblock, scanning->curfblock);
 	do {
 		gint ret = remove_cache_entry(btv, &scanning->nextfound, &scanning->siter, scanning->curfblock, scanning->curfcontext);
-		/* reove cache entry may return 0 if nothing was removed */
+		/* remove cache entry may return 0 if nothing was removed */
+		DBG_SCANNING("remove_invalid_cache, scanning->nextfound=%p with offset %d\n", scanning->nextfound, scanning->nextfound ? scanning->nextfound->charoffset_o : -1);
 		if (ret > invalidoffset) 
 			invalidoffset = ret; 
 	} while (scanning->nextfound && (scanning->nextfound->charoffset_o < match_end_o || !nextcache_valid(scanning)));
