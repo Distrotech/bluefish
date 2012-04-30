@@ -261,13 +261,13 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 		return 0;
 	
 	*found = get_foundcache_next(btv, siter);
-	DBG_SCANCACHE("remove_cache_entry, remove %p at offset %d and any children, numblockchange=%d, numcontextchange=%d\n", tmpfound1,
+	DBG_SCANCACHE("remove_cache_entry, STARTED, remove %p at offset %d and any children, numblockchange=%d, numcontextchange=%d\n", tmpfound1,
 				  tmpfound1->charoffset_o, tmpfound1->numblockchange, tmpfound1->numcontextchange);
 		/* if this entry pops blocks or contexts, mark the ends of those as undefined */
 	if (tmpfound1->numblockchange < 0) {
 		Tfoundblock *tmpfblock = tmpfound1->fblock;
-		DBG_SCANCACHE("remove_cache_entry, mark end of %d fblock's as undefined, fblock=%p\n",
-					  tmpfound1->numblockchange, tmpfound1->fblock);
+		DBG_SCANCACHE("remove_cache_entry, found %p pops blocks, mark end of %d fblock's as undefined, fblock=%p\n",
+					  tmpfound1, tmpfound1->numblockchange, tmpfound1->fblock);
 		blockstackcount = tmpfound1->numblockchange;
 		while (tmpfblock && blockstackcount < 0) {
 			if (!curblockstack || is_fblock_on_stack(curblockstack, tmpfblock)) {
@@ -281,8 +281,8 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 	}
 	if (tmpfound1->numcontextchange < 0) {
 		Tfoundcontext *tmpfcontext = tmpfound1->fcontext;
-		DBG_SCANCACHE("remove_cache_entry, mark end of %d fcontext's as undefined\n",
-					  tmpfound1->numcontextchange);
+		DBG_SCANCACHE("remove_cache_entry, found %p pops contexts, mark end of %d fcontext's as undefined, fcontext=%p\n",
+					  tmpfound1, tmpfound1->numcontextchange, tmpfound1->fcontext);
 		contextstackcount = tmpfound1->numcontextchange;
 		while (tmpfcontext && contextstackcount < 0) {
 			if (!curcontextstack || is_fcontext_on_stack(curcontextstack, tmpfcontext)) {
@@ -298,7 +298,7 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 	contextstackcount = MAX(0, tmpfound1->numcontextchange);
 	/* remove the children */
 	DBG_SCANCACHE
-		("remove_cache_entry, remove all children of found %p (numblockchange=%d,numcontextchange=%d) with offset %d, next found in cache=%p\n",
+		("remove_cache_entry, remove in loop all children of found %p (numblockchange=%d,numcontextchange=%d) with offset %d, next found in cache=%p\n",
 		 tmpfound1, tmpfound1->numblockchange, tmpfound1->numcontextchange, tmpfound1->charoffset_o, *found);
 	while (*found && (blockstackcount > 0 || contextstackcount > 0)) {
 		Tfound *tmpfound2 = *found;
@@ -308,8 +308,8 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 		contextstackcount += tmpfound2->numcontextchange;
 
 		DBG_SCANCACHE
-			("in loop: remove Tfound %p with offset %d from the cache and free, contextstackcount=%d, blockstackcount=%d, nextfound=%p\n",
-			 tmpfound2, tmpfound2->charoffset_o, contextstackcount, blockstackcount, *found);
+			("in loop: remove Tfound %p with offset %d, fcontext=%p, numcontextchange=%d, fblock=%p, numblockchange=%d, from the cache and free, contextstackcount=%d, blockstackcount=%d, nextfound=%p\n",
+			 tmpfound2, tmpfound2->charoffset_o, tmpfound2->fcontext, tmpfound2->numcontextchange, tmpfound2->fblock, tmpfound2->numblockchange, contextstackcount, blockstackcount, *found);
 		invalidoffset = tmpfound2->charoffset_o;
 		g_sequence_remove(tmpsiter2);
 		found_free_lcb(tmpfound2, btv);
@@ -840,7 +840,7 @@ remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tscanning * scan
 		DBG_SCANNING("remove_invalid_cache, scanning->nextfound=%p with offset %d\n", scanning->nextfound, scanning->nextfound ? scanning->nextfound->charoffset_o : -1);
 		if (ret > invalidoffset) 
 			invalidoffset = ret; 
-	} while (scanning->nextfound && (scanning->nextfound->charoffset_o < match_end_o || !nextcache_valid(scanning)));
+	} while (scanning->nextfound && (scanning->nextfound->charoffset_o <= match_end_o || !nextcache_valid(scanning)));
 	DBG_SCANNING("remove_invalid_cache, return invalidoffset %d\n", invalidoffset);
 	return invalidoffset; 
 /*	guint invalidoffset;
