@@ -286,8 +286,6 @@ typedef struct {
 	GSequence *foundcaches;		/* a sorted structure of Tfound for
 								   each position where the stack changes so we can restart scanning
 								   on any location */
-	guint32 valid_cache_offset;	/* from 0 to this offset the cache is considered valid. after this 
-								   position the cache could be outdated */
 } Tscancache;
 /********************************/
 /* language manager */

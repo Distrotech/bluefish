@@ -1280,7 +1280,6 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	}
 	DBG_SCANNING("scanning from %d to %d\n", gtk_text_iter_get_offset(&scanning.start),
 				 gtk_text_iter_get_offset(&scanning.end));
-	btv->scancache.valid_cache_offset = gtk_text_iter_get_offset(&scanning.start);
 #ifdef HL_PROFILING
 	stage2 = g_timer_elapsed(scanning.timer, NULL);
 #endif
