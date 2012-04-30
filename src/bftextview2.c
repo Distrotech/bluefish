@@ -2095,6 +2095,7 @@ bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 			stc = gtk_widget_get_style_context(GTK_WIDGET(btv));
 			gtk_style_context_add_provider(stc, GTK_STYLE_PROVIDER(cssp), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 		}
+		g_object_unref(G_OBJECT(cssp));
 	}
 	g_string_free(str, TRUE);	
 #else

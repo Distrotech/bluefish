@@ -1699,6 +1699,7 @@ bflang_cleanup_scantable(Tbflang * bflang)
 	g_array_free(bflang->st->matches, TRUE);
 	g_array_free(bflang->st->contexts, TRUE);
 	g_array_free(bflang->st->comments, TRUE);
+	g_array_free(bflang->st->blocks, TRUE);
 	g_slice_free(Tscantable, bflang->st);
 	bflang->st = NULL;
 }
