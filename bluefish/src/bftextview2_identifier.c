@@ -19,6 +19,7 @@
 
 #include "bluefish.h"
 #include "bftextview2.h"
+#include "bftextview2_private.h"
 #include "bftextview2_identifier.h"
 
 /*#undef DBG_IDENTIFIER

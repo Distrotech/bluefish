@@ -388,7 +388,7 @@ backend_pcre_loop(Tsnr3run *s3run, gboolean indefinitely) {
 		so = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, bso);
 		eo = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, beo);
 		s3result = sn3run_add_result(s3run, so+s3run->curoffset+s3run->so, eo+s3run->curoffset+s3run->so, s3run->curdoc);
-		DBG_MSG("backend_pcre_loop, found result at bso %d, so %d, s3run->so=%d, s3run->curoffse=%d --> %s\n",bso,so,s3run->so,s3run->curoffset,s3result->so);
+		DEBUG_MSG("backend_pcre_loop, found result at bso %d, so %d, s3run->so=%d, s3run->curoffse=%d --> %s\n",bso,so,s3run->so,s3run->curoffset,s3result->so);
 		if (s3run->replaceall) {
 			DEBUG_MSG("backend_pcre_loop, found in buffer at %d:%d, replace at %d:%d (curoffset=%d, s3run->so=%d)\n", so, eo, s3result->so, s3result->eo,s3run->curoffset, s3run->so);
 			Toffsetupdate offsetupdate = s3result_replace(s3run, s3result, match_info);

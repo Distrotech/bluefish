@@ -31,6 +31,7 @@
 #endif
 /* for the design docs see bftextview2.h */
 #include "bluefish.h"
+#include "bftextview2_private.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_identifier.h"
 

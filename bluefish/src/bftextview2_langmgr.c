@@ -24,6 +24,7 @@
 #include <stdlib.h>				/* qsort */
 
 #include "bftextview2.h"
+#include "bftextview2_private.h"
 #include "bftextview2_langmgr.h"
 #include "bftextview2_patcompile.h"
 

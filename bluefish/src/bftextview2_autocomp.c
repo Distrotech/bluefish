@@ -20,6 +20,7 @@
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
 #include "bluefish.h"
+#include "bftextview2_private.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_identifier.h"
 #include "bftextview2_autocomp.h"

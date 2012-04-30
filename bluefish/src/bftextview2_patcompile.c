@@ -20,6 +20,7 @@
 /* for the design docs see bftextview2.h */
 #include <string.h>
 #include "bluefish.h"
+#include "bftextview2_private.h"
 #include "bftextview2_patcompile.h"
 #include "bftextview2_langmgr.h"
 #include "bf_lib.h"
