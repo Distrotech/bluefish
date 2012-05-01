@@ -706,8 +706,8 @@ gotoline_entry_insert_text(GtkEditable * editable, gchar * text, gint length, gi
 	}
 }
 
-static void
-gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
+void
+bfwin_gotoline_search_bar_close(Tbfwin *bfwin)
 {
 	gtk_widget_hide(bfwin->gotoline_frame);
 
@@ -724,9 +724,14 @@ gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
 
 	g_signal_handlers_unblock_matched(bfwin->gotoline_entry,
 									  G_SIGNAL_MATCH_FUNC, 0, 0, NULL, gotoline_entry_changed, NULL);
+}
+
+static void
+gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
+{
+	bfwin_gotoline_search_bar_close(bfwin);
 	if (bfwin->current_document)
 		gtk_widget_grab_focus(bfwin->current_document->view);
-	
 }
 
 static gboolean simplesearch_start(Tbfwin *bfwin, gboolean allow_single_char_search) {
