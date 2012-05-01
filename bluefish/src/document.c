@@ -2043,6 +2043,9 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 	if (doc->status == DOC_STATUS_ERROR) {
 		bfwin_docs_not_complete(doc->bfwin, FALSE);
 	}
+	
+	bfwin_gotoline_search_bar_close(doc->bfwin);
+	
 	for (tmpslist=bfwin->doc_destroy;tmpslist;tmpslist=g_slist_next(tmpslist)) {
 		Tcallback *cb = tmpslist->data;
 		((DocDestroyCallback)cb->func)(doc, cb->data);
