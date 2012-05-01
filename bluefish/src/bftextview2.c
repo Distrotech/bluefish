@@ -1408,6 +1408,7 @@ block_fold_tags(BluefishTextView * btv, Tfoundblock * fblock, Tfoldtags mode)
 		} else if (main_v->props.block_folding_mode == 1) {
 			gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it4);
 		}
+		g_print("done applying tags to fold block\n");
 	}	
 }
 
@@ -1495,6 +1496,16 @@ bftextview2_toggle_fold(BluefishTextView * btv, GtkTextIter * iter)
 			reapply_folded_tag_to_folded_blocks(btv, found->fblock, &siter);
 	}
 }
+
+/* if we keep the tooltips enabled we trigger a race condition or something like that in
+the text hiding and query tooltip code. So we stop the tooltips, and enable them again
+in a low priority callback */
+static gboolean
+enable_tooltip_idle_lcb(gpointer data) {
+	g_object_set(G_OBJECT(data), "has-tooltip", TRUE, NULL);
+	return FALSE;
+}
+
 /*
  * the 'name' pointer should be the identical pointer as the pointer found in st->blocks
  * it is not compared on it's contents but on the pointer address 
@@ -1504,6 +1515,7 @@ bftextview2_collapse_expand_toggle(BluefishTextView * btv, const gchar *name, gb
 {
 	GSequenceIter *siter = NULL;
 	Tfound *found;
+	g_object_set(btv, "has-tooltip", FALSE, NULL);
 	found = get_foundcache_first(btv, &siter);
 	while (found) {
 		if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->foldable && found->fblock->folded != collapse) {
@@ -1516,6 +1528,7 @@ bftextview2_collapse_expand_toggle(BluefishTextView * btv, const gchar *name, gb
 		}
 		found = get_foundcache_next(btv, &siter);
 	}
+	g_idle_add_full(G_PRIORITY_LOW,enable_tooltip_idle_lcb,btv,NULL);
 }
 
 static void
@@ -2329,7 +2342,7 @@ bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean ke
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
 
-	if (x < (master->margin_pixels_chars + master->margin_pixels_block + master->margin_pixels_symbol)) {
+	if (!keyboard_tip && x < (master->margin_pixels_chars + master->margin_pixels_block + master->margin_pixels_symbol)) {
 		gint bx,by, trailing;
 		GtkTextIter iter;
 		gchar *str;
@@ -2358,7 +2371,8 @@ bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean ke
 			gtk_text_buffer_get_iter_at_offset(buffer, &iter, offset);
 		} else {
 			gint bx, by, trailing;
-			/*g_print("get iter at mouse position %d %d\n",x,y); */
+			/*g_print("get iter at mouse position x=%d-margin=%d y=%d\n",x,x - (btv->margin_pixels_chars + btv->margin_pixels_block +
+													   btv->margin_pixels_symbol),y);*/ 
 			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT,
 												  x - (btv->margin_pixels_chars + btv->margin_pixels_block +
 													   btv->margin_pixels_symbol), y, &bx, &by);
@@ -2397,11 +2411,11 @@ bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean ke
 			   I guess this is a race condition, during collapse all a lot of text is made hidden
 			   and for the tooltip we request an iter somewhere in the text that is becoming hidden
 			 */
-			/*g_print("get iter at buffer position %d %d\n",bx,by); */
+			/*g_print("get iter at buffer position bx=%d by=%d\n",bx,by);*/ 
 			/* gtk 2.14 cannot handle a NULL instead of &trailing. so although the docs tell
 			   that if you don't need it you can pass NULL, we will not do so. */
 			gtk_text_view_get_iter_at_position(GTK_TEXT_VIEW(btv), &iter, &trailing, bx, by);
-			/*g_print("done\n"); */
+			/*g_print("done\n");*/ 
 		}
 		mstart = iter;
 		gtk_text_iter_set_line_offset(&mstart, 0);
