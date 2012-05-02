@@ -3,7 +3,7 @@
 	Bluefish HTML Editor
 	css-rules.bfinc $Revision$
 
-	Copyright (C) 2008-20011 Olivier Sessink
+	Copyright (C) 2008-20012 Olivier Sessink
 
 		This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -212,7 +212,7 @@
 <b>Values:</b> &lt;uri&gt; | none | inherit
 <b>Initial value:</b> none
 <b>Media groups:</b> visual</reference>
-<context symbols=" &#9;&#10;&#13;{}.;:()">
+<context symbols=" &#9;&#10;&#13;-{}.;:()">
 <element pattern="url"    highlight="css-value">
 	<autocomplete append="()" backup_cursor="1" />
 	<context id="c.css.uri" symbols="()" highlight="css-value">
@@ -293,7 +293,7 @@
 <b>Percentages:</b> allowed on 'background-position'
 <b>Media group:</b> visual</reference>
 <context idref="c.css.color" />
-<context symbols=" &#9;&#10;&#13;{}.;:()">
+<context symbols=" &#9;&#10;&#13;-{}.;:()">
 <group  highlight="css-value" >
 	<autocomplete append=";" />
 
@@ -759,7 +759,7 @@
 <b>Percentages:</b> refer to height of containing block
 <b>Media groups:</b> visual
 </reference>
-<context id="c.css.box_offsets" symbols=" &#9;&#10;&#13;{}.;:">
+<context id="c.css.box_offsets" symbols=" &#9;&#10;&#13;-{}.;:">
 <element pattern="auto"  highlight="css-value" >
 	<autocomplete append=";" />
 </element>
@@ -769,11 +769,11 @@
 <element pattern="0"  highlight="css-value" >
 	<autocomplete append=";" />
 </element>
-<element idref="e.css.length"/>
-<element idref="e.css.percent"/>
+<element id="e.css.length.neg" pattern="-?[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px|%)" is_regex="1" highlight="css-value"/>
 <element idref="e.css.end"/><element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
+
 </element>
 <element pattern="caption-side"  highlight="css-property" >
 	<autocomplete append=": " />
@@ -819,7 +819,7 @@
 	<autocomplete append=": " />
 <reference><b>Initial value:</b> auto 
 <b>Applies to:</b> absolutely positioned elements</reference>
-<context symbols=" &#9;&#10;&#13;{}.;:,()">
+<context symbols=" &#9;&#10;&#13;-{}.;:,()">
 <group  highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="inherit"/>
@@ -859,7 +859,7 @@
 <b>Applies to:</b> :before and :after pseudo-elements
 <b>Media groups:</b> all
 </reference>
-<context symbols=" &#9;&#10;&#13;{}.;()'&#34;">
+<context symbols=" &#9;&#10;&#13;-{}.;()'&#34;">
 <element pattern="'" highlight="css-string">
 <context symbols="\'" highlight="css-string">
 	<element pattern="\\." is_regex="1" highlight="css-string"/>
@@ -945,7 +945,7 @@
 <b>Initial value:</b> auto
 <b>Media groups:</b> visual, interactive
 </reference>
-<context symbols=" &#9;&#10;&#13;{}.;:()">
+<context symbols=" &#9;&#10;&#13;-{}.;:()">
 <group  highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="auto"/>
@@ -1052,7 +1052,7 @@
 <b>Applies to:</b> all, but see 9.7
 <b>Media groups:</b> visual
 </reference>
-<context id="c.css.float" symbols=" &#9;&#10;&#13;{}.:;">
+<context id="c.css.float" symbols=" &#9;&#10;&#13;-{}.:;">
 <group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="left"/>
@@ -1251,14 +1251,14 @@
 <b>Initial value:</b> normal
 <b>Media groups:</b> visual
 </reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
+<context symbols=" &#9;&#10;&#13;-{}.;:">
 <group  highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="normal"/>
 	<element pattern="inherit"/>
 	<element pattern="0"/>	
 </group>
-<element idref="e.css.length"/>
+<element pattern="-?[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px)" is_regex="1" highlight="css-value"/>
 <element idref="e.css.end"/><element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>		
@@ -1293,7 +1293,7 @@
 <b>Applies to:</b> elements with 'display: list-item'
 <b>Media groups:</b> visual
 </reference>
-<context symbols=" &#9;&#10;&#13;{}.;:()">
+<context symbols=" &#9;&#10;&#13;-{}.;:()">
 <group  highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="disc"/>
@@ -1332,7 +1332,7 @@
 <b>Media groups:</b> visual
 </reference>
 <reference></reference>
-<context symbols=" &#9;&#10;&#13;{}.;:()">
+<context symbols=" &#9;&#10;&#13;-{}.;:()">
 <group  highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="none"/>
@@ -1418,9 +1418,11 @@
 <element pattern="inherit" highlight="css-value" >
 	<autocomplete enable="1" />
 </element>
-<element idref="e.css.length"/>
-<element idref="e.css.percent"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+</context>
+<context symbols=" &#9;&#10;&#13;-{}.;:">
+<element idref="e.css.length.neg"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
@@ -1433,6 +1435,12 @@
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual</reference>
 <context idref="c.css.width"/>
+<context symbols=" &#9;&#10;&#13;-{}.;:">
+<element idref="e.css.length.neg"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="margin-left"  highlight="css-property" >
 	<autocomplete append=": " />
@@ -1443,6 +1451,12 @@
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual</reference>
 <context idref="c.css.width"/>
+<context symbols=" &#9;&#10;&#13;-{}.;:">
+<element idref="e.css.length.neg"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="margin-right"  highlight="css-property" >
 	<autocomplete append=": " />
@@ -1453,6 +1467,12 @@
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual</reference>
 <context idref="c.css.width"/>
+<context symbols=" &#9;&#10;&#13;-{}.;:">
+<element idref="e.css.length.neg"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="margin-top"  highlight="css-property" >
 	<autocomplete append=": " />
@@ -1463,6 +1483,12 @@
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual</reference>
 <context idref="c.css.width"/>
+<context symbols=" &#9;&#10;&#13;-{}.;:">
+<element idref="e.css.length.neg"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="max-height"  highlight="css-property" >
 	<autocomplete append=": " />
@@ -1912,7 +1938,7 @@ relative </reference>
 <b>Initial value:</b> depends on user agent
 <b>Media groups:</b> visual
 </reference>
-<context symbols=" &#9;&#10;&#13;{}.;:'&#34;">
+<context symbols=" &#9;&#10;&#13;-{}.;:'&#34;">
 <group  highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="none"/>
@@ -2089,7 +2115,7 @@ relative </reference>
 <b>Percentages:</b> refer to the 'line-height' of the element itself
 <b>Media groups:</b> visual
 </reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
+<context symbols=" &#9;&#10;&#13;-{}.;:">
 <group  highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="baseline"/>
@@ -2103,9 +2129,9 @@ relative </reference>
 	<element pattern="inherit"/>
 	<element pattern="0"/>
 </group>
-<element idref="e.css.length"/>
-<element idref="e.css.percent"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.length.neg"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
@@ -2167,6 +2193,13 @@ relative </reference>
 <b>Media groups:</b> visual
 </reference>
 <context idref="c.css.width"/>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.percent"/>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>	
 </element>	
 <element pattern="height"  highlight="css-property" >
 	<autocomplete append=": " />
@@ -2177,7 +2210,14 @@ relative </reference>
 <b>Percentages:</b> see prose
 <b>Media groups:</b> visual
 </reference>
-<context idref="c.css.width"/>	
+<context idref="c.css.width"/>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.percent"/>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
 </element>
 <element pattern="word-spacing"  highlight="css-property" >
 	<autocomplete append=": " />
@@ -2186,14 +2226,14 @@ relative </reference>
 <b>Initial value:</b> normal
 <b>Media groups:</b> visual
 </reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
+<context symbols=" &#9;&#10;&#13;-{}.;:">
 <group  highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="normal"/>
 	<element pattern="inherit"/>
 	<element pattern="0"/>	
 </group>
-<element idref="e.css.length"/>
+<element pattern="-?[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px)" is_regex="1" highlight="css-value"/>
 <element idref="e.css.end"/><element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>		
