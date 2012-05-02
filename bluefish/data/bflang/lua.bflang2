@@ -28,6 +28,7 @@
 	<option name="load_reference" default="1"/>
 	<option name="load_completion" default="1"/>
 	<option name="show_in_menu" default="1"/>
+	<option name="Parentheses block_foldable" default="0" description="Allow folding of Parentheses block"/>
 	<highlight name="keyword" style="keyword" />
 	<highlight name="brackets" style="brackets" />
 	<highlight name="type" style="type" />
@@ -3265,7 +3266,7 @@ a value larger than or equal to any other numerical value.
 
 <element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
-<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" block_name="Parentheses block" />
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
 
 <element id="e.bcomment" pattern="--[[" starts_block="1" highlight="comment">

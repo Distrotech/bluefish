@@ -40,6 +40,7 @@
 	<option name="load_wordpress_functions" default="1" description="All wordpress functions" />
 	<option name="php_short_open_tag" default="0" />
 	<option name="autocomplete_tags" default="1" />
+	<option name="Parentheses block_foldable" default="0" description="Allow folding of the Parentheses block" />
 	<option name="javascript_anchors_object" default="1" description="Anchors object" />
 	<option name="javascript_applets_object" default="1" description="Applet object" />
 	<option name="javascript_date_object" default="1" description="Date object" />
@@ -120,7 +121,7 @@
 <element pattern="}" ends_block="1" blockstartelement="e.php.short.lbrace" highlight="brackets" />
 <element id="e.php.short.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern="]" ends_block="1" blockstartelement="e.php.short.lbracket" highlight="brackets" />
-<element id="e.php.short.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.php.short.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" block_name="Parentheses block" />
 <element pattern=")" ends_block="1" blockstartelement="e.php.short.lparen" highlight="brackets" />
 <element id="e.php.short.lcomment" pattern="/*" starts_block="1" highlight="php-comment">
 	<context symbols="*/&#9;&#10;&#13;" highlight="php-comment">

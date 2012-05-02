@@ -23,6 +23,7 @@
 <header>
 	<mime type="text/x-dsrc" />
 	<option name="show_in_menu" default="1"/>
+	<option name="Parentheses block_foldable" default="0" description="Allow folding of the Parentheses block" />
 	<highlight name="keyword" style="keyword" />
 	<highlight name="brackets" style="brackets" />
 	<highlight name="type" style="type" />
@@ -161,7 +162,7 @@
 <element id="e.lbracket" pattern="[" starts_block="1" highlight="brackets" />
 <element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
 
-<element id="e.lparen" pattern="(" starts_block="1" highlight="brackets" />
+<element id="e.lparen" pattern="(" starts_block="1" highlight="brackets" block_name="Parentheses block" />
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
 
 <element id="e.lcomment" pattern="/*" starts_block="1" highlight="comment" block_name="C style comment">
