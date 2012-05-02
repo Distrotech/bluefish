@@ -37,6 +37,10 @@
 	<option name="load_php_functions" default="1" description="Load all php functions" />
 	<option name="show_in_menu" default="1" />
 	<option name="php_short_open_tag" default="1" description="Enable the PHP short open tag"/>
+	<option name="Parentheses block_foldable" default="0" description="Allow folding of Parentheses block"/>
+	<option name="C style comment_foldable" default="1" description="Allow folding of C style comments" />
+	<option name="PHP block_foldable" default="1" description="Allow folding of PHP blocks" />
+	<option name="html-block_foldable" default="0" />
 <!--	<option name="autocomplete_tags" default="1" />-->
 	<option name="autocomplete_with_arguments" default="1" />
 	<option name="autocomplete_with_parentheses" default="0" />
@@ -57,9 +61,6 @@
 	<option name="javascript_css_properties" default="1"  />
 	<option name="sql-in-php-string" default="1" description="Scan for sql in strings" />
 	<option name="autocomplete-html-entities" default="0" />
-	<option name="C style comment_foldable" default="1" description="Allow folding of C style comments" />
-	<option name="PHP block_foldable" default="1" description="Allow folding of PHP blocks" />
-	<option name="html-block_foldable" default="0" />
 	<highlight name="php-block-tag" style="special-value"  />
 	<highlight name="string" style="string"   />
 	<highlight name="brackets" style="brackets"  />
@@ -122,7 +123,7 @@
 <element pattern="}" ends_block="1" blockstartelement="e.php.short.lbrace" highlight="brackets" />
 <element id="e.php.short.lbracket" pattern="[" starts_block="1" highlight="brackets" />
 <element pattern="]" ends_block="1" blockstartelement="e.php.short.lbracket" highlight="brackets" />
-<element id="e.php.short.lparen" pattern="(" starts_block="1" highlight="brackets" />
+<element id="e.php.short.lparen" pattern="(" starts_block="1" highlight="brackets" block_name="Parentheses block" />
 <element pattern=")" ends_block="1" blockstartelement="e.php.short.lparen" highlight="brackets" />
 <element id="e.php.short.lcomment" pattern="/*" starts_block="1" block_name="C style comment" highlight="php-comment">
 	<context symbols="*/&#9;&#10;&#13;" highlight="php-comment">
@@ -201,7 +202,7 @@ was disabled, this whole section is not parsed by the language manager, so the c
 <element pattern="}" ends_block="1" blockstartelement="e.php.lbrace" highlight="brackets" />
 <element id="e.php.lbracket" pattern="[" starts_block="1" highlight="brackets" />
 <element pattern="]" ends_block="1" blockstartelement="e.php.lbracket" highlight="brackets" />
-<element id="e.php.lparen" pattern="(" starts_block="1" highlight="brackets" />
+<element id="e.php.lparen" pattern="(" starts_block="1" highlight="brackets" block_name="Parentheses block" />
 <element pattern=")" ends_block="1" blockstartelement="e.php.lparen" highlight="brackets" />
 <element id="e.php.lcomment" pattern="/*" starts_block="1" block_name="C style comment" highlight="php-comment">
 	<context symbols="*/&#9;&#10;&#13;" highlight="php-comment">

@@ -26,6 +26,7 @@
 	<option name="load_reference" default="1"/>
 	<option name="load_completion" default="1"/>
 	<option name="autocomplete_tags" default="1" />
+	<option name="Parentheses block_foldable" default="0" description="Allow folding of the Parentheses block" />
 	<highlight name="attribute" style="attribute"  />
 	<highlight name="brackets" style="brackets"  />
 	<highlight name="comment" style="comment"  />
@@ -188,7 +189,7 @@
 		<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
 		<element id="e.lbracket" pattern="[" starts_block="1" highlight="brackets" />
 		<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
-		<element id="e.lparen" pattern="(" starts_block="1" highlight="brackets" />
+		<element id="e.lparen" pattern="(" starts_block="1" highlight="brackets" block_name="Parentheses block" />
 		<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
 		<element  id="e.lcomment" pattern="/*" starts_block="1" highlight="comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="comment">

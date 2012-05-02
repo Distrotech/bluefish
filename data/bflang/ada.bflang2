@@ -24,6 +24,7 @@
 	<mime type="text/x-ada"/>
 	<mime type="text/x-adasrc"/>
 	<option name="show_in_menu" default="1"/>
+	<option name="Parentheses block_foldable" default="0" description="Allow folding of the Parentheses block" />
 	<highlight name="brackets" style="brackets"  />
 	<highlight name="comment" style="comment"  />
 	<highlight name="function" style="function"  />
@@ -125,7 +126,7 @@
 <element pattern="xor"/>
 </group>
 
-<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" block_name="Parentheses block" />
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
 
 <element pattern="--[^&#10;&#13;]*" is_regex="1" highlight="comment"/>

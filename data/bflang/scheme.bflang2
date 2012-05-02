@@ -25,6 +25,7 @@
 	<mime type="text/x-scheme"/>
 	<mime type="application/x-scheme"/>
 	<option name="show_in_menu" default="0"/>
+	<option name="Parentheses block_foldable" default="0" description="Allow folding of Parentheses block"/>
 	<highlight name="keyword" style="keyword"  />
 	<highlight name="brackets" style="brackets"  />
 	<highlight name="comment" style="comment"  />
@@ -316,7 +317,7 @@
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element> -->
-<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element id="e.lparen" pattern="(" starts_block="1" highlight="brackets" block_name="Parentheses block"/>
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
 
 <element pattern="[0-9]+\.[0-9]+" is_regex="1"  highlight="value">
