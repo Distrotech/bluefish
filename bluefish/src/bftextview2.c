@@ -873,6 +873,7 @@ paint_margin(BluefishTextView * btv, cairo_t *cr, GtkTextIter * startvisible,
 
 		if (G_UNLIKELY(gtk_text_iter_has_tag(&it, folded))) {
 			DBG_FOLD("line %d is hidden\n", i);
+			num_blocks = -1; /* -1 means invalid */
 		} else {
 			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(btv), &it, &w, &height);
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, 0, w, NULL, &w);
@@ -906,8 +907,10 @@ paint_margin(BluefishTextView * btv, cairo_t *cr, GtkTextIter * startvisible,
 			 */
 			if (master->show_blocks) {
 				GtkTextIter nextline;
+				Tfound *oldfound;
 				gint paint=(num_blocks > 0) ? 1 : 0; /* 0=nothing, 1=line, 2=expand, 3=collapse, 4=blockend */
 				guint nextline_o, curline_o;
+				/*g_print("line %d, num_blocks=%d, default paint=%d\n",i,num_blocks,paint);*/
 				curline_o = gtk_text_iter_get_offset(&it);
 				nextline = it;
 				if (!gtk_text_iter_ends_line(&nextline)) {
@@ -921,17 +924,17 @@ paint_margin(BluefishTextView * btv, cairo_t *cr, GtkTextIter * startvisible,
 						   match, so multiline patterns are drawn on the wrong line */
 						foundpos = found->fblock->start1_o;
 					}
-					DBG_FOLD("search block at line %d, curline_o=%d, nextline_o=%d, foundpos=%d, num_blocks=%d\n",i,curline_o,nextline_o, foundpos, num_blocks); 
+					/*g_print("search block for line %d, curline_o=%d, nextline_o=%d, foundpos=%d, num_blocks=%d\n",i,curline_o,nextline_o, foundpos, num_blocks);*/ 
 					if (foundpos > nextline_o) {
 						break;
 					}
+					
 					if (foundpos <= nextline_o && foundpos >= curline_o) {
+						/*g_print("line %d, looking at found at position %d which has numblockchange=%d\n",i,found->charoffset_o,found->numblockchange);*/
 						if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->foldable) {
-							if (found->fblock->folded)
-								paint=3;
-							else
-								paint=2;
+							paint = found->fblock->folded ? 3 : 2;
 							num_blocks = get_num_foldable_blocks(found);
+							/*g_print("paint_margin, pushed block, folded=%d, so paint=%d\n",found->fblock->folded,paint);*/
 							break;
 						} else if (IS_FOUNDMODE_BLOCKPOP(found) && found->fblock->foldable) {
 							guint new_num_blocks = get_num_foldable_blocks(found);
@@ -939,11 +942,18 @@ paint_margin(BluefishTextView * btv, cairo_t *cr, GtkTextIter * startvisible,
 								paint=4;
 							/*else
 								paint=1;*/
+							/*g_print("paint_margin, line %d, new_num_blocks=%d, num_blocks=%d so paint=%d\n",i,new_num_blocks,num_blocks, paint);*/
 							num_blocks = new_num_blocks;
 							/*break;*/
 						}
 					}
+					oldfound = found;
 					found = get_foundcache_next(master, &siter);
+					if (num_blocks == -1 && found->charoffset_o >= curline_o) {
+						num_blocks = get_num_foldable_blocks(oldfound);
+						/*g_print("re-set num_blocks to %d using found at %d, next found at %d\n", num_blocks, oldfound->charoffset_o, found->charoffset_o);*/
+						paint=(num_blocks > 0) ? 1 : 0;
+					} 
 				}
 				switch (paint) {
 				case 0:
@@ -1408,7 +1418,7 @@ block_fold_tags(BluefishTextView * btv, Tfoundblock * fblock, Tfoldtags mode)
 		} else if (main_v->props.block_folding_mode == 1) {
 			gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it4);
 		}
-		g_print("done applying tags to fold block\n");
+		/*g_print("done applying tags to fold block\n");*/
 	}	
 }
 
