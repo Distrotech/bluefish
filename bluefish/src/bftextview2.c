@@ -30,6 +30,7 @@
 #include "bf_lib.h"
 #include "bookmark.h"
 #include "document.h"
+#include "doc_text_tools.h"
 #include "bfwin.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_patcompile.h"
@@ -1368,6 +1369,17 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 			gtk_text_buffer_place_cursor(BLUEFISH_TEXT_VIEW(btv)->buffer, &tmpit);
 		}
 		return TRUE;
+	}
+	/* following code moves a selected block */
+	if (kevent->state & GDK_CONTROL_MASK) {
+		if (kevent->keyval == GDK_KEY_Up) {
+			doc_move_selection(btv->doc, TRUE);
+			return TRUE;
+		}
+		if (kevent->keyval == GDK_KEY_Down) {
+			doc_move_selection(btv->doc, FALSE);
+			return TRUE;
+		}
 	}
 	
 	retval = GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->key_press_event(widget, kevent);
