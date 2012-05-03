@@ -483,3 +483,47 @@ delete_line(Tdocument *doc)
 	gtk_text_buffer_delete(doc->buffer, &it1,&it2);
 	doc_unre_new_group(doc);
 }
+
+void
+doc_move_selection(Tdocument *doc, gboolean up)
+{
+	GtkTextIter so, eo;
+	gchar *text;
+	gint offset, size;
+	if (!gtk_text_buffer_get_selection_bounds(doc->buffer, &so, &eo)) {
+		return;
+	}
+	/* so and eo are guaranteed to be in ascending order */
+	doc_unre_new_group(doc);
+	doc_block_undo_reg(doc);
+	
+	offset = gtk_text_iter_get_offset(&so);
+	size = gtk_text_iter_get_offset(&eo)-offset;
+	text = gtk_text_buffer_get_text(doc->buffer,&so,&eo,TRUE);
+	/*g_print("doc_move_selection, got selection %d:%d\n",offset,offset+size);*/
+	gtk_text_buffer_delete(doc->buffer, &so, &eo);
+	doc_unre_add(doc, text, offset, offset+size, UndoDelete);
+
+	/* now we have to move the cursor up */
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &so, offset);
+	if (up) {
+		gtk_text_iter_backward_line(&so);
+	} else {
+		gtk_text_iter_forward_line(&so);
+	}
+	offset = gtk_text_iter_get_offset(&so);
+	gtk_text_buffer_insert(doc->buffer,&so,text,-1);
+	doc_unre_add(doc, text, offset, offset+size, UndoInsert);
+	g_free(text);
+
+	doc_unblock_undo_reg(doc);
+	doc_set_modified(doc, 1);
+	doc_unre_new_group(doc);
+	
+	/* and select the text again */
+	/*g_print("doc_move_selection, select %d:%d\n",offset,offset+size);*/
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &so, offset);
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &eo, offset+size);
+	gtk_text_buffer_select_range(doc->buffer,&so,&eo);
+}
+
