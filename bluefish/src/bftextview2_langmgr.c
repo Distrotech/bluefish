@@ -217,9 +217,11 @@ langmgr_reload_user_styles(void)
 	gint i=0;
 	GtkTextTag *tag;
 	const gchar *defaultarr[][7] = {
+		/* name, foreground-color, background-color, bold, italics, spell-check */
 		{"preprocessor", "#aaaa00", "", "0", "0", "0", NULL},
 		{"comment", "#555555", "", "0", "1", "1", NULL},
 		{"string", "#009900", "", "0", "0", "1", NULL},
+		{"string-no-spell-check", "#009900", "", "0", "0", "0", NULL},
 		{"special-string", "#005400", "", "0", "0", "1", NULL},
 		{"special-string2", "#00D000", "", "0", "0", "1", NULL},
 		{"special-string3", "#999900", "", "0", "0", "1", NULL},
@@ -241,7 +243,7 @@ langmgr_reload_user_styles(void)
 		{"special-attribute", "#FF0000", "", "", "", "0", NULL},
 		{"brackets", "#000000", "", "1", "0", "0", NULL},
 		{"warning", "#FF0000", "", "1", "0", "0", NULL},
-		{"special-warning", "", "#FF0000", "", "", "", NULL},
+		{"special-warning", "", "#FF0000", "", "", "0", NULL},
 		{NULL, NULL, NULL, NULL, NULL, NULL, NULL}
 	};
 	/* because the order of the styles is important (last added GtkTextTag is most important)
