@@ -1622,6 +1622,7 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
 
 	DEBUG_MSG("bluefish_text_view_button_press_event, widget=%p, btv=%p, master=%p\n", widget, btv, master);
+	btv->button_press_line = -1;
 	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT)) {
 		
 		if (event->button == 1) {
@@ -1661,16 +1662,7 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 				return TRUE;
 			}
 			if (event->x < master->margin_pixels_chars) {
-				if (!gtk_text_iter_ends_line(&it)) {
-					GtkTextIter it2;
-					/* select line */
-					it2 = it;
-					gtk_text_iter_forward_to_line_end(&it2);
-					DBG_MSG("select from %d to %d\n", gtk_text_iter_get_offset(&it),
-							gtk_text_iter_get_offset(&it2));
-					gtk_text_buffer_select_range(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), &it, &it2);
-				}
-				return TRUE;
+				btv->button_press_line = gtk_text_iter_get_line(&it);
 			}
 		} else if (event->button == 3 && btv->show_blocks && (event->x > master->margin_pixels_chars)) {
 			gtk_menu_popup(GTK_MENU(bftextview2_fold_menu(btv)), NULL, NULL, NULL, NULL, event->button,
@@ -1704,6 +1696,41 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 	}
 	DEBUG_MSG("bluefish_text_view_button_press_event, call parent button_press_event for widget %p\n", widget);
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->button_press_event(widget, event);
+}
+
+static gboolean
+bluefish_text_view_motion_notify_event(GtkWidget *widget,GdkEventMotion *event)
+{
+	if (((BluefishTextView *)widget)->button_press_line != -1 && event->x < ((BluefishTextView *)((BluefishTextView *)widget)->master)->margin_pixels_chars) {
+		GtkTextIter so, eo;
+		gint x,y;
+
+		gtk_text_buffer_get_iter_at_line(((BluefishTextView *)widget)->buffer,&so,((BluefishTextView *)widget)->button_press_line);
+		gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, 0, event->y, &x,&y);
+		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &eo, y, &x);
+		gtk_text_iter_forward_to_line_end(&eo);
+		gtk_text_buffer_select_range(gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget)), &so, &eo);
+		return TRUE;
+	}
+	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->motion_notify_event(widget, event);
+}
+
+static gboolean
+bluefish_text_view_button_release_event(GtkWidget *widget,GdkEventButton *event)
+{
+	if (((BluefishTextView *)widget)->button_press_line != -1 && event->x < ((BluefishTextView *)((BluefishTextView *)widget)->master)->margin_pixels_chars && event->button == 1) {
+		/*GtkTextIter so, eo;
+		gint x,y;
+
+		gtk_text_buffer_get_iter_at_line(((BluefishTextView *)widget)->buffer,&so,((BluefishTextView *)widget)->button_press_line);
+		gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, 0, event->y, &x,&y);
+		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &eo, y, &x);
+		gtk_text_iter_forward_to_line_end(&eo);
+		gtk_text_buffer_select_range(gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget)), &so, &eo);
+		return TRUE;*/
+		((BluefishTextView *)widget)->button_press_line = -1;
+	}
+	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->button_release_event(widget, event);
 }
 
 static gchar *
@@ -2574,6 +2601,8 @@ bluefish_text_view_class_init(BluefishTextViewClass * klass)
 	object_class->finalize = bluefish_text_view_finalize;
 
 	widget_class->button_press_event = bluefish_text_view_button_press_event;
+	widget_class->motion_notify_event = bluefish_text_view_motion_notify_event;
+	widget_class->button_release_event = bluefish_text_view_button_release_event;
 #if GTK_CHECK_VERSION(3, 0, 0)
 	widget_class->draw = bluefish_text_view_draw;
 #else
@@ -2607,6 +2636,7 @@ bluefish_text_view_init(BluefishTextView * textview)
 	textview->scancache.foundcaches = g_sequence_new(NULL);
 	bluefish_text_view_set_colors(textview, main_v->props.btv_color_str);
 	textview->showsymbols = FALSE;
+	textview->button_press_line = -1;
 	ttt = langmgr_get_tagtable();
 	textview->needscanning = gtk_text_tag_table_lookup(ttt, "_needscanning_");
 #ifdef HAVE_LIBENCHANT

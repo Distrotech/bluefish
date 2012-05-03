@@ -376,6 +376,7 @@ struct _BluefishTextView {
 	gboolean needs_autocomp;	/* a state of the widget, autocomplete is needed on user keyboard actions */
 	gboolean needs_blockmatch;	/* a state of the widget, if the cursor position was changed */
 	gboolean key_press_inserted_char;	/* FALSE if the key press was used by autocomplete popup, or simply not in our widget */
+	gdouble button_press_line; /* line location of the button press, used in the release */
 	/*gboolean key_press_was_autocomplete;  a state of the widget, if the last keypress was handled by the autocomplete popup window */
 	gboolean showing_blockmatch;	/* a state of the widget if we are currently showing a blockmatch */
 	gboolean insert_was_auto_indent;	/* a state of the widget if the last keypress (enter) caused 
