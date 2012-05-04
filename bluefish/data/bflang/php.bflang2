@@ -38,6 +38,11 @@
 	<option name="show_in_menu" default="1" />
 	<option name="php_short_open_tag" default="1" description="Enable the PHP short open tag"/>
 	<option name="Parentheses block_foldable" default="0" description="Allow folding of Parentheses block"/>
+	<option name="Square brackets block_foldable" default="0" description="Allow folding of Square brackets block"/>
+	<option name="Curly brackets block_foldable" default="1" description="Allow folding of Curly brackets block"/>
+	<option name="Javascript Parentheses block_foldable" default="0" description="Allow folding of Javascript Parentheses block"/>
+	<option name="Javascript Square brackets block_foldable" default="0" description="Allow folding of Javascript Square brackets block"/>
+	<option name="Javascript Curly brackets block_foldable" default="1" description="Allow folding of Javascript Curly brackets block"/>
 	<option name="C style comment_foldable" default="1" description="Allow folding of C style comments" />
 	<option name="PHP block_foldable" default="1" description="Allow folding of PHP blocks" />
 	<option name="html-block_foldable" default="0" />
@@ -119,9 +124,9 @@
 <element id="e.php.short.open" pattern="&lt;(\?|\?php)" is_regex="1" starts_block="1" block_name="PHP block" highlight="php-block-tag">
 <context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" commentid_block="cm.cblockcomment" commentid_line="cm.cpplinecomment" >
 &all-php;
-<element id="e.php.short.lbrace" pattern="{" starts_block="1" highlight="brackets" />
+<element id="e.php.short.lbrace" pattern="{" starts_block="1" highlight="brackets" block_name="Curly brackets block" />
 <element pattern="}" ends_block="1" blockstartelement="e.php.short.lbrace" highlight="brackets" />
-<element id="e.php.short.lbracket" pattern="[" starts_block="1" highlight="brackets" />
+<element id="e.php.short.lbracket" pattern="[" starts_block="1" highlight="brackets" block_name="Square brackets block" />
 <element pattern="]" ends_block="1" blockstartelement="e.php.short.lbracket" highlight="brackets" />
 <element id="e.php.short.lparen" pattern="(" starts_block="1" highlight="brackets" block_name="Parentheses block" />
 <element pattern=")" ends_block="1" blockstartelement="e.php.short.lparen" highlight="brackets" />
