@@ -113,6 +113,9 @@ async_thumbsave_lcb(TcheckNsave_status status, GError * gerror, gpointer callbac
 {
 	DEBUG_MSG("async_thumbsave_lcb, status=%d\n", status);
 	/* TODO: handle error */
+	if (gerror) {
+		g_print("failed to save thumbnail: %s\n",gerror->message);
+	}
 	return CHECKNSAVE_CONT;
 }
 
@@ -149,6 +152,7 @@ image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag * imdg)
 		w = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[0]));
 		h = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[1]));
 		tmp_im = gdk_pixbuf_scale_simple(imdg->pb, w, h, GDK_INTERP_BILINEAR);
+		
 		if (strcmp(main_v->props.image_thumbnailtype, "jpeg") == 0) {
 			gdk_pixbuf_save_to_buffer(tmp_im, &buffer, &buflen, main_v->props.image_thumbnailtype, &error,
 									  "quality", "50", NULL);
@@ -254,20 +258,33 @@ image_diag_finish(Timage_diag * imdg, GCallback ok_func)
 static void
 image_dialog_set_pixbuf(Timage_diag * imdg)
 {
-	gint pb_width, pd_height, toobig;
+	gfloat toobig, pb_width, pd_height;
 	GdkPixbuf *tmp_pb;
 	if (!imdg->pb) {
 		return;
 	}
-	toobig = 1;
-	pb_width = gdk_pixbuf_get_width(imdg->pb);
-	if ((pb_width / 250) > toobig) {
-		toobig = pb_width / 250;
+	
+	pb_width = (gfloat)gdk_pixbuf_get_width(imdg->pb);
+	pd_height = (gfloat)gdk_pixbuf_get_height(imdg->pb);
+	if (imdg->dg->bfwin) {
+		Thtmlbarsession *hbs;
+		hbs = g_hash_table_lookup(htmlbar_v.lookup, imdg->dg->bfwin->session);
+		toobig = pb_width / ((gfloat)hbs->thumbnailwidth);
+		DEBUG_MSG("initialize toobig as %f, using session thumbnailwidth %d and pixbuf width %f\n",toobig,hbs->thumbnailwidth,pb_width);
+	} else {
+		toobig = 1.0;
+		if ((pb_width / 250.0) > toobig) {
+			toobig = pb_width / 250.0;
+		}
+		
+		if ((pd_height / 300.0) > toobig) {
+			toobig = pd_height / 300.0;
+		}
 	}
-	pd_height = gdk_pixbuf_get_height(imdg->pb);
-	if ((pd_height / 300) > toobig) {
-		toobig = pd_height / 300;
-	}
+	/* because the spin buttons in the html dialogs are designed that they can have an empty string value ""
+	they will not accept a number as long as there is an empty string in them */
+	gtk_entry_set_text(GTK_ENTRY(imdg->dg->spin[0]), "1");
+	gtk_entry_set_text(GTK_ENTRY(imdg->dg->spin[1]), "1");
 
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[0]), (pb_width / toobig));
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[1]), (pd_height / toobig));
@@ -276,7 +293,7 @@ image_dialog_set_pixbuf(Timage_diag * imdg)
 	g_signal_handler_unblock(G_OBJECT(imdg->adjustment), imdg->adj_changed_id);
 
 	tmp_pb =
-		gdk_pixbuf_scale_simple(imdg->pb, (pb_width / toobig), (pd_height / toobig),
+		gdk_pixbuf_scale_simple(imdg->pb, (gint)(pb_width / toobig), (gint)(pd_height / toobig),
 								main_v->globses.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR :
 								GDK_INTERP_NEAREST);
 
@@ -418,7 +435,7 @@ image_adjust_changed(GtkAdjustment * adj, Timage_diag * imdg)
 
 	tn_width = gtk_adjustment_get_value(imdg->adjustment) * gdk_pixbuf_get_width(imdg->pb);
 	tn_height = gtk_adjustment_get_value(imdg->adjustment) * gdk_pixbuf_get_height(imdg->pb);
-
+	DEBUG_MSG("image_adjust_changed, width=%d, height=%d\n",tn_width,tn_height);
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[0]), tn_width);
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[1]), tn_height);
 
@@ -447,12 +464,16 @@ image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 	static gchar *tagitems[] =
 		{ "width", "height", "alt", "border", "src", "hspace", "vspace", "align", "name", "usemap", NULL };
 	gchar *tagvalues[11];
-	gchar *custom = NULL;
+	gchar *custom = NULL, *tmp;
 	Timage_diag *imdg;
 	GList *popuplist = NULL;
 	GtkWidget *dgtable, *scale;
 
 	imdg = g_new0(Timage_diag, 1);
+
+	tmp = main_v->props.image_thumbnailtype; /* it is often uppercase, we need it lowercase */
+	main_v->props.image_thumbnailtype = g_ascii_strdown(tmp, -1);
+	g_free(tmp);
 
 	imdg->dg = html_diag_new(bfwin, _("Insert thumbnail"));
 
@@ -1007,10 +1028,15 @@ multi_thumbnail_dialog(Tbfwin * bfwin)
 	Tmuthudia *mtd;
 	GtkWidget *vbox, *hbox, *but, *table, *label, *scrolwin, *textview;
 	gint tb;
+	gchar *tmp;
 
 	if (!bfwin->current_document) {
 		return;
 	}
+
+	tmp = main_v->props.image_thumbnailtype; /* it is often uppercase, we need it lowercase */
+	main_v->props.image_thumbnailtype = g_ascii_strdown(tmp, -1);
+	g_free(tmp);
 
 	mtd = g_new0(Tmuthudia, 1);
 	mtd->bfwin = bfwin;

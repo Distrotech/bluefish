@@ -1997,7 +1997,7 @@ preferences_dialog_new(void)
 	const gchar *notebooktabpositions[] = { N_("left"), N_("right"), N_("top"), N_("bottom"), NULL };
 	const gchar *panellocations[] = { N_("right"), N_("left"), NULL };
 	const gchar *registerrecentmodes[] = { N_("Never"), N_("All files"), N_("Only project files"), NULL };
-	const gchar *thumbnail_filetype[] = { "JPEG", "PNG", NULL };
+	const gchar *thumbnail_filetype[] = { "jpeg", "png", NULL }; /* values should be lowercase, othewise image.c will not get them */
 	const gchar *visible_ws_modes[] =
 		{ N_("All"), N_("All except spaces"), N_("All trailing"), N_("All except non-trailing spaces"),
 		NULL

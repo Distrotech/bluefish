@@ -238,12 +238,14 @@ htmlbar_register_session_config(GHashTable * configlist, Tsessionvars * session)
 	if (!hbs) {
 		hbs = g_new0(Thtmlbarsession, 1);
 		hbs->view_htmlbar = TRUE;
+		hbs->thumbnailwidth = 300;
 		g_hash_table_insert(htmlbar_v.lookup, session, hbs);
 		DEBUG_MSG("htmlbar_register_session_config, adding hbs %p to hashtable %p with key %p\n", hbs,
 				  htmlbar_v.lookup, session);
 	}
 	configlist = make_config_list_item(configlist, &hbs->view_htmlbar, 'i', "htmlbar_view:", 0);
 	configlist = make_config_list_item(configlist, &hbs->notebooktab, 'i', "htmlbar_notebooktab:", 0);
+	configlist = make_config_list_item(configlist, &hbs->thumbnailwidth, 'i', "htmlbar_thumbnailwidth:", 0);
 	return configlist;
 }
 
