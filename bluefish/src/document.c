@@ -1790,6 +1790,12 @@ void doc_get_cursor_location(Tdocument *doc, gint *x, gint *y) {
 */
 
 static void
+exit_fullscreen_lcb(GtkWidget *widget, Tbfwin *bfwin)
+{
+	bfwin_fullscreen_toggle(bfwin, FALSE);
+}
+
+static void
 rpopup_add_bookmark_lcb(GtkWidget * widget, Tdocument * doc)
 {
 	bmark_add_at_bevent(doc);
@@ -1836,7 +1842,12 @@ doc_view_populate_popup_lcb(GtkTextView * textview, GtkMenu * menu, Tdocument * 
 		g_signal_connect(menuitem, "activate", G_CALLBACK(rpopup_add_bookmark_lcb), doc);
 		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 	}
-
+	if (!gtk_widget_get_visible(GTK_WIDGET(BFWIN(doc->bfwin)->toolbarbox))) {
+		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
+		menuitem = gtk_menu_item_new_with_label(_("Exit fullscreen"));
+		g_signal_connect(menuitem, "activate", G_CALLBACK(exit_fullscreen_lcb), doc->bfwin);
+		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	}
 /*
 	menuitem = gtk_menu_item_new_with_label(_("Add permanent bookmark"));
 	g_signal_connect(menuitem, "activate", G_CALLBACK(rpopup_permanent_bookmark_lcb), doc->bfwin);
