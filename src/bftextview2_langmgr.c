@@ -1576,37 +1576,51 @@ static Tbflang *
 parse_bflang2_header(const gchar * filename)
 {
 	xmlTextReaderPtr reader;
-	Tbflang *bflang = NULL;
+	Tbflang *bflang;
+	gboolean failed=FALSE;
 	gchar *bflangversion = NULL;
+
 	reader = xmlNewTextReaderFilename(filename);
 	xmlTextReaderSetParserProp(reader, XML_PARSER_SUBST_ENTITIES, TRUE);
-	if (reader != NULL) {
-		bflang = g_slice_new0(Tbflang);
-		bflang->size_table = 2;	/* bare minimum sizes */
-		bflang->size_matches = 2;
-		bflang->size_contexts = 2;
-		bflang->filename = g_strdup(filename);
-		while (xmlTextReaderRead(reader) == 1) {
-			xmlChar *name = xmlTextReaderName(reader);
-			if (xmlStrEqual(name, (xmlChar *) "bflang")) {
-				Tattrib attribs[] = {{"name", &bflang->name, attribtype_string},
-						{"version", &bflangversion, attribtype_string},
-						{"table", &bflang->size_table, attribtype_int},
-						{"matches", &bflang->size_matches, attribtype_int},
-						{"contexts", &bflang->size_contexts, attribtype_int}};
-				parse_attributes(reader, attribs, 5);
-			} else if (xmlStrEqual(name, (xmlChar *) "header")) {
-				process_header(reader, bflang);
-				xmlFree(name);
-				break;
-			}
+	if (!reader) {
+		return NULL;
+	}
+	bflang = g_slice_new0(Tbflang);
+	bflang->size_table = 2;	/* bare minimum sizes */
+	bflang->size_matches = 2;
+	bflang->size_contexts = 2;
+	bflang->filename = g_strdup(filename);
+	while (xmlTextReaderRead(reader) == 1) {
+		xmlChar *name = xmlTextReaderName(reader);
+		if (xmlStrEqual(name, (xmlChar *) "bflang")) {
+			Tattrib attribs[] = {{"name", &bflang->name, attribtype_string},
+					{"version", &bflangversion, attribtype_string},
+					{"table", &bflang->size_table, attribtype_int},
+					{"matches", &bflang->size_matches, attribtype_int},
+					{"contexts", &bflang->size_contexts, attribtype_int}};
+			parse_attributes(reader, attribs, 5);
+		} else if (xmlStrEqual(name, (xmlChar *) "header")) {
+			process_header(reader, bflang);
 			xmlFree(name);
+			break;
 		}
-		xmlFreeTextReader(reader);
-		if (bflang->name == NULL) {
-			g_print("Language file %s has no name.. abort..\n", filename);
-			return NULL;
-		}
+		xmlFree(name);
+	}
+	xmlFreeTextReader(reader);
+	
+	if (bflang->name == NULL) {
+		g_print("Language file %s has no name.. abort..\n", filename);
+		failed=TRUE;
+	}
+	if (g_strcmp0(bflangversion, CURRENT_BFLANG2_VERSION)!=0) {
+		g_print("Language file %s has incompatible version %s (need version "CURRENT_BFLANG2_VERSION"), abort..\n", filename, bflangversion);
+		failed=TRUE;
+	} 
+	g_free(bflangversion);
+	if (failed) {
+		g_free(bflang->name);
+		g_slice_free(Tbflang, bflang);
+		return NULL;
 	}
 	return bflang;
 }

@@ -5,9 +5,10 @@
 <!-- 
 the root tag of the bflang2 file is <bflang name="NAME"> 
 it should have attribute 'name', which is a human readable name of the 
-language that is defined  
+language that is defined. The version number specifies the compatibility
+of the langueg file.  
 -->
-<bflang name="Sample">
+<bflang name="Sample" version="2.0">
 <!-- within the bflang tag is first a <header>, then <properties> and then a <definition> tag.
 only the header tag of each language file is parsed during bluefish startup.
 
