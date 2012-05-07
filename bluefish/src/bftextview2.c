@@ -597,15 +597,15 @@ bftextview2_set_margin_size(BluefishTextView * btv)
 {
 	gint lines, count, newsize;
 	DBG_MSG("bftextview2_set_margin_size, called for %p\n", btv);
-	if (BLUEFISH_TEXT_VIEW(btv->master)->show_line_numbers) {
+	if (BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_per_char == 0) {
 		PangoLayout *panlay;
+		panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "");
+		pango_layout_set_text(panlay, "4", -1);
+		pango_layout_get_pixel_size(panlay, &btv->margin_pixels_per_char, NULL);
+		g_object_unref(G_OBJECT(panlay));
+	}
+	if (BLUEFISH_TEXT_VIEW(btv->master)->show_line_numbers) {
 		lines = gtk_text_buffer_get_line_count(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
-		if (BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_per_char == 0) {
-			panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "");
-			pango_layout_set_text(panlay, "4", -1);
-			pango_layout_get_pixel_size(panlay, &btv->margin_pixels_per_char, NULL);
-			g_object_unref(G_OBJECT(panlay));
-		}
 		if (lines >= 100)
 			count = 1 + log10(lines);
 		else
