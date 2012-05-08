@@ -51,19 +51,12 @@ typedef struct {
 	const gchar *formatstring; /* the command from the configuration, so including placeholders such as %i, %f, |,  etc. */
 	gchar *commandstring; /* the command that will be started by g_spawn, the placeholders should have been replaced/removed */
 
-	gchar *securedir; /* if we need any local temporary files for input or output we'll use fifo's */
-	gchar *fifo_in; /* the path for the iput and output fifo */
-	gchar *fifo_out;
+	gchar *securedir; /* if we need any local temporary files for input or output */
 	gchar *tmp_in; /* the path for the input/output temporary filename */
 	gchar *tmp_out;
 	gchar *inplace; /* if we use in-place editing, so the input file will become the output file */
 	gboolean pipe_in; /* if we use pipes for input and output */
 	gboolean pipe_out;
-
-#ifdef WIN32
-	gpointer fifo_in_handle; /* the path for 'named pipes' on win32 */
-	gpointer fifo_out_handle;
-#endif
 
 	gboolean include_stderr; /* if stderr should be included in the output */
 	
@@ -90,24 +83,6 @@ static void externalp_unref(Texternalp *ep) {
 	if (ep->refcount <= 0) {
 		DEBUG_MSG("externalp_unref, cleanup!\n");
 		if (ep->commandstring) g_free(ep->commandstring);
-		if (ep->fifo_in) {
-			#ifdef WIN32
-				CloseHandle(ep->fifo_in_handle);
-				g_free(ep->fifo_in_handle);
-			#else
-				unlink(ep->fifo_in);
-			#endif
-			g_free(ep->fifo_in);
-		}
-		if (ep->fifo_out) {
-			#ifdef WIN32
-				CloseHandle(ep->fifo_out_handle);
-				g_free(ep->fifo_out_handle);
-			#else
-				unlink(ep->fifo_out);
-			#endif
-			g_free(ep->fifo_out);
-		}
 		if (ep->tmp_in) {
 			unlink(ep->tmp_in);
 			g_free(ep->tmp_in);
@@ -183,7 +158,7 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	GError *gerror=NULL;
 	DEBUG_MSG("child_watch_lcb, child exited with status=%d\n",status);
 	
-	if ((ep->pipe_in || ep->fifo_in) && !ep->buffer_out) {
+	if (ep->pipe_in && !ep->buffer_out) {
 		/* the child has exited before we actually started to write data to the child, just abort now */
 		g_source_remove(ep->start_command_idle_id);
 		externalp_unref(ep); /* unref twice, once for the start_command_idle, once for child_watch_lcb */
@@ -222,8 +197,6 @@ static gboolean
 start_command_idle(gpointer data)
 {
 	Texternalp *ep = data;
-	GError *gerror=NULL;
-
 	if (ep->pipe_in) {
 		DEBUG_MSG("start_command_idle, creating channel_in from pipe\n");
 #ifdef WIN32
@@ -231,20 +204,8 @@ start_command_idle(gpointer data)
 #else
 		ep->channel_in = g_io_channel_unix_new(ep->standard_input);
 #endif
-	} else if (ep->fifo_in) {
-		DEBUG_MSG("start_command_idle, connecting channel_in to fifo %s\n",ep->fifo_in);
-		/* problem: this can hang if there is no process actually reading from this fifo... so if the 
-		command died in some way (a nonexisting command), this call will hang bluefish */
-		ep->channel_in = g_io_channel_new_file(ep->fifo_in,"w",&gerror);
-		if (gerror) {
-			DEBUG_MSG("start_command_idle, error connecting to fifo %s: %s\n",ep->fifo_in,gerror->message);
-			g_warning("failed to create fifo %s %d: %s\n",ep->fifo_in, gerror->code, gerror->message);
-			g_error_free(gerror);
-			/* BUG TODO: free Texternalp */
-			return FALSE;
-		}
 	}
-	if (ep->pipe_in || ep->fifo_in) {
+	if (ep->pipe_in) {
 		ep->refcount++;
 		ep->buffer_out = ep->buffer_out_position = doc_get_chars(ep->bfwin->current_document,ep->begin,ep->end);
 		g_io_channel_set_flags(ep->channel_in,G_IO_FLAG_NONBLOCK,NULL);
@@ -259,24 +220,14 @@ start_command_idle(gpointer data)
 		ep->channel_out = g_io_channel_unix_new(ep->standard_output);
 #endif
 		DEBUG_MSG("start_command_idle, created channel_out from pipe\n");
-	} else if (ep->fifo_out) {
-		ep->channel_out = g_io_channel_new_file(ep->fifo_out,"r",&gerror);
-		DEBUG_MSG("start_command_idle, created channel_out from fifo %s\n",ep->fifo_out);
-		if (gerror) {
-			g_warning("failed to start reading from file %s %d: %s\n",ep->fifo_out, gerror->code, gerror->message);
-			g_error_free(gerror);
-			/* BUG TODO: free Texternalp */
-			return FALSE;
-		}
 	}
-	if (ep->channel_out_lcb && (ep->pipe_out || ep->fifo_out)) {
+	if (ep->channel_out_lcb && ep->pipe_out) {
 		ep->refcount++;
 		g_io_channel_set_flags(ep->channel_out,G_IO_FLAG_NONBLOCK,NULL);
 		DEBUG_MSG("start_command_idle, add watch for channel_out\n");
 		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,ep->channel_out_lcb,ep->channel_out_data);
 	}
 	externalp_unref(ep);
-	
 	
 	return FALSE; /* don't call me again */
 }
@@ -301,40 +252,8 @@ static void start_command_backend(Texternalp *ep) {
     g_shell_parse_argv(ep->commandstring, NULL, &argv, NULL);
 #endif
 	DEBUG_MSG("start_command_backend,commandstring=%s\n",ep->commandstring);
-#ifdef WIN32
 	ep->include_stderr = FALSE;
-	if (ep->fifo_in) {
-		ep->fifo_in = g_strdup("\\\\.\\pipe\\bluefish_in");
-		if ((ep->fifo_in_handle = CreateNamedPipe(ep->fifo_in, PIPE_ACCESS_INBOUND, PIPE_TYPE_BYTE | PIPE_NOWAIT, 
-			 PIPE_UNLIMITED_INSTANCES, 2048, 2048, 100, NULL)) == INVALID_HANDLE_VALUE) {
-			g_print("some error happened creating fifo %s??\n", ep->fifo_in);
-			return;
-		}
-	}
-	if (ep->fifo_out) {
-		ep->fifo_out = g_strdup("\\\\.\\pipe\\bluefish_out");
-		if ((ep->fifo_out_handle = CreateNamedPipe(ep->fifo_out, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE | PIPE_NOWAIT, 
-			 PIPE_UNLIMITED_INSTANCES, 2048, 2048, 100, NULL)) == INVALID_HANDLE_VALUE) {
-			g_print("some error happened creating fifo %s??\n", ep->fifo_out);
-			return;
-		}
-	}
-#else
-	if (ep->fifo_in) {
-		if (mkfifo(ep->fifo_in, 0600) != 0) {
-			DEBUG_MSG("some error happened creating fifo %s??\n",ep->fifo_in);
-			return;
-		}
-		DEBUG_MSG("start_command_backend, created fifo %s\n",ep->fifo_in);
-	}
-	if (ep->fifo_out) {
-		if (mkfifo(ep->fifo_out, 0600) != 0) {
-			DEBUG_MSG("some error happened creating fifo %s??\n",ep->fifo_out);
-			return;
-		}
-	}
-#endif
-	DEBUG_MSG("start_command_backend, pipe_in=%d, pipe_out=%d, fifo_in=%s, fifo_out=%s,include_stderr=%d\n",ep->pipe_in,ep->pipe_out,ep->fifo_in,ep->fifo_out,ep->include_stderr);
+	DEBUG_MSG("start_command_backend, pipe_in=%d, pipe_out=%d, include_stderr=%d\n",ep->pipe_in,ep->pipe_out,ep->include_stderr);
 	DEBUG_MSG("start_command_backend, about to spawn process /bin/sh -c %s\n",argv[2]);
 	g_spawn_async_with_pipes(NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH, (ep->include_stderr)?spawn_setup_lcb:NULL, ep, &ep->child_pid, 
 				(ep->pipe_in) ? &ep->standard_input : NULL,
@@ -405,8 +324,6 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		need_pipeout = FALSE,
 		need_tmpin = FALSE,
 		need_tmpout = FALSE,
-		need_fifoin = FALSE,
-		need_fifoout = FALSE,
 		need_inplace = FALSE,
 		need_preview_uri = FALSE,
 		need_filename=FALSE;
@@ -453,30 +370,25 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	need_tmpin = (strstr(formatstring, "%I") != NULL);
 	/* %f is for backwards compatibility with bluefish 1.0 */
 	need_tmpout = (strstr(formatstring, "%O") != NULL);
-	need_fifoin = (strstr(formatstring, "%i") != NULL);
-	need_fifoout = (strstr(formatstring, "%o") != NULL);
 	need_inplace = (strstr(formatstring, "%t") != NULL);
 	
-	if ((need_tmpout || need_fifoout || need_inplace || need_pipeout) && discard_output) {
+	if ((need_tmpout || need_inplace || need_pipeout) && discard_output) {
 		DEBUG_MSG("create_commandstring, external_commands should not have %%o\n");
-		/*  BUG: give a warning that external commands should not use %o */
 		g_free(formatstring);
 		g_free(localname);
-
 		return NULL;
 	}
-	if ((need_tmpin && (need_fifoin || need_inplace || need_pipein)) 
-			|| (need_fifoin && (need_inplace || need_pipein))
+	if ((need_tmpin && (need_inplace || need_pipein)) 
+			|| (need_inplace || need_pipein)
 			|| (need_inplace && need_pipein)) {
 		DEBUG_MSG("create_commandstring, cannot have multiple inputs\n");
 		/*  BUG: give a warning that you cannot have multiple inputs */
 		g_free(formatstring);
 		g_free(localname);
-
 		return NULL;
 	}
-	if ((need_tmpout && (need_fifoout || need_inplace || need_pipeout)) 
-			|| (need_fifoout && (need_inplace || need_pipeout))
+	if ((need_tmpout && (need_inplace || need_pipeout)) 
+			|| (need_inplace || need_pipeout)
 			|| (need_inplace && need_pipeout)) {
 		DEBUG_MSG("create_commandstring, cannot have multiple outputs\n");
 		/*  BUG: give a warning that you cannot have multiple outputs */
@@ -487,12 +399,6 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	}
 	if (need_pipein)  ep->pipe_in = TRUE;
 	if (need_pipeout) ep->pipe_out = TRUE;
-/*	if (!need_tmpin && !need_fifoin && !need_inplace && !need_filename && !need_preview_uri) {
-		ep->pipe_in = TRUE;
-	}
-	if (!discard_output && !need_tmpout && !need_fifoout && !need_inplace) {
-		ep->pipe_out = TRUE;
-	}*/
 	DEBUG_MSG("create_commandstring, formatstring '%s' seems OK\n",formatstring);
 
 	is_local_non_modified = (ep->bfwin->current_document->uri 
@@ -504,7 +410,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	if (need_filename || is_local_non_modified) {
 		curi = g_file_get_uri(ep->bfwin->current_document->uri);
 
-		if (need_local || (is_local_non_modified && (need_tmpin||need_fifoin))) {
+		if (need_local || (is_local_non_modified && need_tmpin)) {
 			#ifdef WIN32
 				localfilename = strrchr(localname, '\\')+1;
 			#else
@@ -518,8 +424,6 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	}
 	if (need_tmpin) items++;
 	if (need_tmpout) items++;
-	if (need_fifoin) items++;
-	if (need_fifoout) items++;
 	if (need_inplace) items++;
 
 	table = g_new(Tconvert_table, items+1);
@@ -552,17 +456,6 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 			table[cur].my_char = g_strdup(ep->tmp_in);
 		}
 		cur++;
-	} else if (need_fifoin) {
-		table[cur].my_int = 'i';
-		if (is_local_non_modified) {
-			table[cur].my_char = g_strdup(localname);;
-		} else {
-			ep->fifo_in = create_secure_dir_return_filename();
-			table[cur].my_char = g_strdup(ep->fifo_in);
-		}
-		
-		DEBUG_MSG("create_commandstring, %%i will be at %s\n",table[cur].my_char);
-		cur++;
 	} else if (need_inplace) {
 		table[cur].my_int = 't';
 		ep->inplace = create_secure_dir_return_filename();
@@ -574,12 +467,6 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		table[cur].my_int = 'O';
 		ep->tmp_out = create_secure_dir_return_filename();
 		table[cur].my_char = g_strdup(ep->tmp_out);
-		cur++;
-	} else if (need_fifoout) {
-		table[cur].my_int = 'o';
-		ep->fifo_out = create_secure_dir_return_filename();
-		table[cur].my_char = g_strdup(ep->fifo_out);
-		DEBUG_MSG("create_commandstring, %%o will be at %s\n",ep->fifo_out);
 		cur++;
 	}
 	if (need_local) {
