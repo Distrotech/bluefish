@@ -2343,8 +2343,6 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (available for local files)\n"
-"%i temporary fifo for input, equals %f if the document is not modified and "
-"local\n"
 "%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Other options</b>\n"
@@ -2360,11 +2358,9 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (requires local file, cannot operate on selection)\n"
-"%i temporary fifo for input\n"
 "%I temporary filename for input\n"
 "<b>Output options</b>\n"
 "end with a | to read the output from the standard output\n"
-"%o temporary fifo\n"
 "%O temporary filename\n"
 "%t temporary filename for both input and output (for in-place-editing "
 "filters, cannot operate on selection)\n"
@@ -2397,13 +2393,10 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (available for local files)\n"
-"%i temporary fifo for input, equals %f if the document is not modified and "
-"local\n"
 "%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Output options</b>\n"
 "end with a | to read the output from the standard output\n"
-"%o temporary fifo\n"
 "%O temporary filename\n"
 "%t temporary filename for both input and output (for in-place-editing "
 "filters)\n"
@@ -6477,143 +6470,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "%s for current filename (any command)\n"
-#~ "%i for input and %f for output filename (filters)"
-#~ msgstr ""
-#~ "%s = trenutno ime datoteke(bilo koja komanda)\n"
-#~ "%i za ulazno i %f za izlazno ime datoteke (filteri)"
-
-#~ msgid "Bookmark options"
-#~ msgstr "Opcije markera"
-
-#~ msgid "path from basedir"
-#~ msgstr "putanja do osnovnog direktorijuma"
-
-#~ msgid "Bookmarks filename display"
-#~ msgstr "Prikaz imena datoteke markera"
-
-#~ msgid "Allow multi instances of a file"
-#~ msgstr "Dozvoli više primeraka datoteke"
-
-#~ msgid "External browsers in submenu"
-#~ msgstr "Spoljni pretraživači u podmeniju"
-
-#~ msgid "External commands in submenu"
-#~ msgstr "Spoljne komande u meniju"
-
-#~ msgid "External outputbox in submenu"
-#~ msgstr "Spoljni izlazu podmeniju"
-
-#~ msgid "Browsers"
-#~ msgstr "Pretraživači"
-
-#~ msgid "Utilities and filters"
-#~ msgstr "Alatke i filteri"
-
-#, fuzzy
-#~ msgid "Ty_pe:"
-#~ msgstr "_Tip:"
-
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "_Href:"
-
-#, fuzzy
-#~ msgid "_Media:"
-#~ msgstr "Medija:"
-
-#, fuzzy
-#~ msgid "Titl_e:"
-#~ msgstr "_Naslov:"
-
-#, fuzzy
-#~ msgid "<b>Style Area</b>"
-#~ msgstr "<b>Opšti</b>"
-
-#, fuzzy
-#~ msgid "Cre_ate empty style area"
-#~ msgstr "Napravi prazan projekat"
-
-#, fuzzy
-#~ msgid "_Src:"
-#~ msgstr "_Izvorni kod:"
-
-#, fuzzy
-#~ msgid "Create _empty script area"
-#~ msgstr "Napravi prazan projekat"
-
-#~ msgid "Quick Start"
-#~ msgstr "Brzi početak"
-
-#, fuzzy
-#~ msgid "_DTD:"
-#~ msgstr "Koristi _DTD:"
-
-#~ msgid "_Title:"
-#~ msgstr "_Naslov:"
-
-#, fuzzy
-#~ msgid "_Head:"
-#~ msgstr "_Href:"
-
-#~ msgid "Netscape"
-#~ msgstr "Netscape"
-
-#~ msgid "Gnome default"
-#~ msgstr "Gnome po osnovu"
-
-#~ msgid "Tidy cleanup filter"
-#~ msgstr "Uredan filter za čišćenje"
-
-#~ msgid "Table Wizard"
-#~ msgstr "Čarobnjak tabela "
-
-#~ msgid "Number of _rows:"
-#~ msgstr "Broj _redova:"
-
-#~ msgid "Table rows on one _line:"
-#~ msgstr "Redovi tabele u jednom redu:"
-
-#~ msgid "_Indent table code:"
-#~ msgstr "_Uvuci kod tabele:"
-
-#~ msgid "Frame Wizard"
-#~ msgstr "Čarobnjak okvira"
-
-#~ msgid "Use _DTD:"
-#~ msgstr "Koristi _DTD:"
-
-#~ msgid "Orientation:"
-#~ msgstr "Orijentacija:"
-
-#~ msgid "_Horizontal"
-#~ msgstr "_Horizontalno"
-
-#~ msgid "_Vertical"
-#~ msgstr "_Vertikalno"
-
-#~ msgid "Number of _Frames:"
-#~ msgstr "Broj _okvira:"
-
-#~ msgid "Frame's"
-#~ msgstr "Okviri"
-
-#~ msgid "Name:"
-#~ msgstr "Ime:"
-
-#~ msgid "Source:"
-#~ msgstr "Kod:"
-
-#~ msgid "Size:"
-#~ msgstr "Veličina:"
-
-#~ msgid "This bookmark is set in a file that no longer exists."
-#~ msgstr "Marker je postavljen u datoteku koja više ne postoji."
-
-#~ msgid "Are you sure?"
-#~ msgstr "Jeste li sigurni?"
-
-#~ msgid "Could not read file:\n"
-#~ msgstr "Nemoguće je pročitati datoteku: \n"
+#~ #~ #~ msgstr "Nemoguće je pročitati datoteku: \n"
 
 #~ msgid "Saving file"
 #~ msgstr "Čuvam datoteku"
