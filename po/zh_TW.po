@@ -2337,8 +2337,6 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (available for local files)\n"
-"%i temporary fifo for input, equals %f if the document is not modified and "
-"local\n"
 "%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Other options</b>\n"
@@ -2354,11 +2352,9 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (requires local file, cannot operate on selection)\n"
-"%i temporary fifo for input\n"
 "%I temporary filename for input\n"
 "<b>Output options</b>\n"
 "end with a | to read the output from the standard output\n"
-"%o temporary fifo\n"
 "%O temporary filename\n"
 "%t temporary filename for both input and output (for in-place-editing "
 "filters, cannot operate on selection)\n"
@@ -2391,13 +2387,10 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (available for local files)\n"
-"%i temporary fifo for input, equals %f if the document is not modified and "
-"local\n"
 "%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Output options</b>\n"
 "end with a | to read the output from the standard output\n"
-"%o temporary fifo\n"
 "%O temporary filename\n"
 "%t temporary filename for both input and output (for in-place-editing "
 "filters)\n"
@@ -6539,143 +6532,7 @@ msgstr ""
 # c-format
 #~ msgid ""
 #~ "%s for current filename (any command)\n"
-#~ "%i for input and %f for output filename (filters)"
-#~ msgstr ""
-#~ "%s 目前檔名 (任何命令)\n"
-#~ "%i 輸入檔名, %f 輸出檔名 (過濾器)"
-
-#~ msgid "Bookmark options"
-#~ msgstr "書籤選項"
-
-#~ msgid "path from basedir"
-#~ msgstr "由基本目錄起的路徑"
-
-#~ msgid "Bookmarks filename display"
-#~ msgstr "顯示書籤檔名"
-
-#~ msgid "Allow multi instances of a file"
-#~ msgstr "允許檔案重覆開啟"
-
-#~ msgid "External browsers in submenu"
-#~ msgstr "在子選單中的外部瀏覽器"
-
-#~ msgid "External commands in submenu"
-#~ msgstr "在子選單中的外部命令"
-
-#~ msgid "External outputbox in submenu"
-#~ msgstr "在子選單中的外部輸出視窗"
-
-#~ msgid "Browsers"
-#~ msgstr "瀏覽器"
-
-#~ msgid "Utilities and filters"
-#~ msgstr "工具和過濾器"
-
-#, fuzzy
-#~ msgid "Ty_pe:"
-#~ msgstr "類型(_T):"
-
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "_Href:"
-
-#, fuzzy
-#~ msgid "_Media:"
-#~ msgstr "媒體:"
-
-#, fuzzy
-#~ msgid "Titl_e:"
-#~ msgstr "標題(_T):"
-
-#, fuzzy
-#~ msgid "<b>Style Area</b>"
-#~ msgstr "<b>一般的</b>"
-
-#, fuzzy
-#~ msgid "Cre_ate empty style area"
-#~ msgstr "建立空專案"
-
-#, fuzzy
-#~ msgid "_Src:"
-#~ msgstr "原始碼(_S):"
-
-#, fuzzy
-#~ msgid "Create _empty script area"
-#~ msgstr "建立空專案"
-
-#~ msgid "Quick Start"
-#~ msgstr "快速啟動"
-
-#, fuzzy
-#~ msgid "_DTD:"
-#~ msgstr "使用 _DTD:"
-
-#~ msgid "_Title:"
-#~ msgstr "標題(_T):"
-
-#, fuzzy
-#~ msgid "_Head:"
-#~ msgstr "_Href:"
-
-#~ msgid "Netscape"
-#~ msgstr "Netscape"
-
-#~ msgid "Gnome default"
-#~ msgstr "GNOME 預設的"
-
-#~ msgid "Tidy cleanup filter"
-#~ msgstr "Tidy cleanup filter"
-
-#~ msgid "Table Wizard"
-#~ msgstr "表格精靈"
-
-#~ msgid "Number of _rows:"
-#~ msgstr "列數(_R):"
-
-#~ msgid "Table rows on one _line:"
-#~ msgstr "表格列數(_L):"
-
-#~ msgid "_Indent table code:"
-#~ msgstr "縮排表格代碼(_I):"
-
-#~ msgid "Frame Wizard"
-#~ msgstr "框架精靈"
-
-#~ msgid "Use _DTD:"
-#~ msgstr "使用 _DTD:"
-
-#~ msgid "Orientation:"
-#~ msgstr "方向:"
-
-#~ msgid "_Horizontal"
-#~ msgstr "水平(_H)"
-
-#~ msgid "_Vertical"
-#~ msgstr "垂直(_V)"
-
-#~ msgid "Number of _Frames:"
-#~ msgstr "框架數(_F):"
-
-#~ msgid "Frame's"
-#~ msgstr "框架的"
-
-#~ msgid "Name:"
-#~ msgstr "名稱:"
-
-#~ msgid "Source:"
-#~ msgstr "原始碼:"
-
-#~ msgid "Size:"
-#~ msgstr "大小:"
-
-#~ msgid "This bookmark is set in a file that no longer exists."
-#~ msgstr "設立此書籤的檔案已不存在."
-
-#~ msgid "Are you sure?"
-#~ msgstr "您確定嗎?"
-
-#~ msgid "Could not read file:\n"
-#~ msgstr "無法讀取檔案:\n"
+#~ #~ #~ msgstr "無法讀取檔案:\n"
 
 #~ msgid "Saving file"
 #~ msgstr "正在儲存檔案"

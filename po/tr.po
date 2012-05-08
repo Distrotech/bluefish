@@ -2337,8 +2337,6 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (available for local files)\n"
-"%i temporary fifo for input, equals %f if the document is not modified and "
-"local\n"
 "%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Other options</b>\n"
@@ -2354,11 +2352,9 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (requires local file, cannot operate on selection)\n"
-"%i temporary fifo for input\n"
 "%I temporary filename for input\n"
 "<b>Output options</b>\n"
 "end with a | to read the output from the standard output\n"
-"%o temporary fifo\n"
 "%O temporary filename\n"
 "%t temporary filename for both input and output (for in-place-editing "
 "filters, cannot operate on selection)\n"
@@ -2391,13 +2387,10 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (available for local files)\n"
-"%i temporary fifo for input, equals %f if the document is not modified and "
-"local\n"
 "%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Output options</b>\n"
 "end with a | to read the output from the standard output\n"
-"%o temporary fifo\n"
 "%O temporary filename\n"
 "%t temporary filename for both input and output (for in-place-editing "
 "filters)\n"
@@ -6567,144 +6560,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "%s for current filename (any command)\n"
-#~ "%i for input and %f for output filename (filters)"
-#~ msgstr ""
-#~ "%s : mevcut dosya adı (tüm komutlarda)\n"
-#~ "%i : girdi dosyası %f : çıktı dosyası (filtreler)"
-
-#~ msgid "Bookmark options"
-#~ msgstr "Yerimi seçenekleri"
-
-#~ msgid "path from basedir"
-#~ msgstr "çalışma dizinine göre"
-
-#~ msgid "Bookmarks filename display"
-#~ msgstr "Yerimi tanımı"
-
-#~ msgid "Allow multi instances of a file"
-#~ msgstr "Dosyanın farklı hallerini açmaya izin ver"
-
-#~ msgid "External browsers in submenu"
-#~ msgstr "Harici tarayıcıları alt menüde topla"
-
-#~ msgid "External commands in submenu"
-#~ msgstr "Harici komutları alt menüde topla"
-
-#~ msgid "External outputbox in submenu"
-#~ msgstr "Harici giden kutusunu alt menüde topla"
-
-#~ msgid "Browsers"
-#~ msgstr "Tarayıcılar"
-
-#~ msgid "Utilities and filters"
-#~ msgstr "Araçlar ve filtreler"
-
-#~ msgid "<b>External Style Sheet</b>"
-#~ msgstr "<b>Harici Stil Sayfası</b>"
-
-#~ msgid "Ty_pe:"
-#~ msgstr "Ti_p:"
-
-#~ msgid "Hre_f:"
-#~ msgstr "Hre_f:"
-
-#~ msgid "_Media:"
-#~ msgstr "_Medya:"
-
-#, fuzzy
-#~ msgid "Titl_e:"
-#~ msgstr "_Başlık:"
-
-#~ msgid "<b>Style Area</b>"
-#~ msgstr "<b>Stil Alanı</b>"
-
-#, fuzzy
-#~ msgid "Cre_ate empty style area"
-#~ msgstr "_Boş stil alanı yarat"
-
-#~ msgid "_Src:"
-#~ msgstr "_Kaynak:"
-
-#~ msgid "<b>Script Area</b>"
-#~ msgstr "<b>Betik Alanı</b>"
-
-#~ msgid "Create _empty script area"
-#~ msgstr "Boş _betik alanı yarat"
-
-#~ msgid "Quick Start"
-#~ msgstr "Hızlı Başlangıç"
-
-#~ msgid "_DTD:"
-#~ msgstr "_DTD:"
-
-#~ msgid "_Title:"
-#~ msgstr "_Başlık:"
-
-#~ msgid "_Head:"
-#~ msgstr "_Head:"
-
-#~ msgid "Netscape"
-#~ msgstr "Netscape"
-
-#~ msgid "Gnome default"
-#~ msgstr "Gnome varsayılanı"
-
-#~ msgid "Tidy cleanup filter"
-#~ msgstr "Tidy temizleme filtresi"
-
-#~ msgid "Table Wizard"
-#~ msgstr "Tablo Sihirbazı"
-
-#~ msgid "Number of _rows:"
-#~ msgstr "Satı_r sayısı:"
-
-#~ msgid "Table rows on one _line:"
-#~ msgstr "Tek satırdaki tab_lo satırları:"
-
-#~ msgid "_Indent table code:"
-#~ msgstr "Tablo kodunu _girintile:"
-
-#~ msgid "Frame Wizard"
-#~ msgstr "Çerçeve Sihirbazı"
-
-#~ msgid "Use _DTD:"
-#~ msgstr "_DTD kullan:"
-
-#~ msgid "Orientation:"
-#~ msgstr "Hizalama:"
-
-#~ msgid "_Horizontal"
-#~ msgstr "_Yatay"
-
-#~ msgid "_Vertical"
-#~ msgstr "_Dikey"
-
-#~ msgid "Number of _Frames:"
-#~ msgstr "_Çerçeve sayısı:"
-
-#~ msgid "Frame's"
-#~ msgstr "Çerçeveler"
-
-#~ msgid "Name:"
-#~ msgstr "Ad:"
-
-#~ msgid "Source:"
-#~ msgstr "Kaynak:"
-
-#~ msgid "Size:"
-#~ msgstr "Boyut:"
-
-#~ msgid "Are you sure?"
-#~ msgstr "Emin misiniz?"
-
-#~ msgid "CLASS: "
-#~ msgstr "SINIF: "
-
-#~ msgid "PARENT CLASSES: "
-#~ msgstr "ANA SINIFLAR: "
-
-#~ msgid "----- FIELDS:\n"
-#~ msgstr "----- SAHALAR:\n"
+#~ #~ #~ msgstr "----- SAHALAR:\n"
 
 #~ msgid "----- METHODS:\n"
 #~ msgstr "----- METOTLAR:\n"

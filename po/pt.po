@@ -2636,8 +2636,6 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (available for local files)\n"
-"%i temporary fifo for input, equals %f if the document is not modified and "
-"local\n"
 "%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Other options</b>\n"
@@ -2653,11 +2651,9 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (requires local file, cannot operate on selection)\n"
-"%i temporary fifo for input\n"
 "%I temporary filename for input\n"
 "<b>Output options</b>\n"
 "end with a | to read the output from the standard output\n"
-"%o temporary fifo\n"
 "%O temporary filename\n"
 "%t temporary filename for both input and output (for in-place-editing "
 "filters, cannot operate on selection)\n"
@@ -2694,13 +2690,10 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (available for local files)\n"
-"%i temporary fifo for input, equals %f if the document is not modified and "
-"local\n"
 "%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Output options</b>\n"
 "end with a | to read the output from the standard output\n"
-"%o temporary fifo\n"
 "%O temporary filename\n"
 "%t temporary filename for both input and output (for in-place-editing "
 "filters)\n"
@@ -7621,179 +7614,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "%s for current filename (any command)\n"
-#~ "%i for input and %f for output filename (filters)"
-#~ msgstr ""
-#~ "%s para nomedoficheiro actual (qq comando)\n"
-#~ "%i para nome-de-fichero de entrada e %f para nome-de-ficheiro de saída "
-#~ "(para filtros)"
-
-#~ msgid "Bookmark options"
-#~ msgstr "Opções de marcador"
-
-# src/html_form.c:489
-#~ msgid "path from basedir"
-#~ msgstr "Camniho desde a Directoria Base"
-
-#~ msgid "Bookmarks filename display"
-#~ msgstr "Mostrar o Ficheiro de Marcadores"
-
-# src/configure.c:358
-#~ msgid "Allow multi instances of a file"
-#~ msgstr "Permitir múltiplas instâncias do mesmo ficheiro"
-
-# src/configure.c:459
-#~ msgid "External browsers in submenu"
-#~ msgstr "Navegadores externos no submenu"
-
-# src/menu.c:457
-#~ msgid "External commands in submenu"
-#~ msgstr "Comandos externos no submenu"
-
-#~ msgid "External outputbox in submenu"
-#~ msgstr "Caixa de saída externa no submenu"
-
-# src/configure.c:463
-#~ msgid "Browsers"
-#~ msgstr "Navegador"
-
-# src/interface.c:758
-#~ msgid "Utilities and filters"
-#~ msgstr "Utilitários e filtros"
-
-# src/wml.c:315
-#, fuzzy
-#~ msgid "Ty_pe:"
-#~ msgstr "_Tipo:"
-
-# src/html.c:1235 src/toolbars.c:361
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "_Href:"
-
-# src/html.c:1345
-#, fuzzy
-#~ msgid "_Media:"
-#~ msgstr "Media:"
-
-# src/html.c:705 src/wml.c:127 src/wml.c:364
-#, fuzzy
-#~ msgid "Titl_e:"
-#~ msgstr "_Título:"
-
-#, fuzzy
-#~ msgid "<b>Style Area</b>"
-#~ msgstr "<b>Geral</b>"
-
-#, fuzzy
-#~ msgid "Cre_ate empty style area"
-#~ msgstr "Criar projecto vazio"
-
-# src/html.c:1240
-#, fuzzy
-#~ msgid "_Src:"
-#~ msgstr "Código Fonte:"
-
-#, fuzzy
-#~ msgid "Create _empty script area"
-#~ msgstr "Criar projecto vazio"
-
-# src/toolbars.c:159
-#~ msgid "Quick Start"
-#~ msgstr "Início Rápido"
-
-#, fuzzy
-#~ msgid "_DTD:"
-#~ msgstr "Usar _DTD:"
-
-# src/html.c:705 src/wml.c:127 src/wml.c:364
-#~ msgid "_Title:"
-#~ msgstr "_Título:"
-
-# src/html.c:1235 src/toolbars.c:361
-#, fuzzy
-#~ msgid "_Head:"
-#~ msgstr "_Href:"
-
-# src/toolbars.c:512
-#~ msgid "Netscape"
-#~ msgstr "Netscape"
-
-# src/document.c:830
-#~ msgid "Gnome default"
-#~ msgstr "Por defeito Gnome"
-
-# src/interface.c:758
-#~ msgid "Tidy cleanup filter"
-#~ msgstr "Filtro de limpeza Tidy"
-
-# src/wizards.c:59
-#~ msgid "Table Wizard"
-#~ msgstr "Assistente de Tabela"
-
-# src/wizards.c:65
-#~ msgid "Number of _rows:"
-#~ msgstr "Número de Linhas:"
-
-# src/html2.c:532
-#~ msgid "Table rows on one _line:"
-#~ msgstr "Colunas de tabela numa linha:"
-
-#~ msgid "_Indent table code:"
-#~ msgstr "_Indentar código da tabela:"
-
-# src/wizards.c:132
-#~ msgid "Frame Wizard"
-#~ msgstr "Assistente de Frame"
-
-#~ msgid "Use _DTD:"
-#~ msgstr "Usar _DTD:"
-
-# src/html.c:1369
-#~ msgid "Orientation:"
-#~ msgstr "Orientação:"
-
-# src/wizards.c:147
-#~ msgid "_Horizontal"
-#~ msgstr "_Horizontal"
-
-# src/wizards.c:149
-#~ msgid "_Vertical"
-#~ msgstr "_Vertical"
-
-# src/wizards.c:138
-#~ msgid "Number of _Frames:"
-#~ msgstr "Número de Frames:"
-
-# src/html.c:1235 src/toolbars.c:361
-#~ msgid "Frame's"
-#~ msgstr "Da frame"
-
-# src/html.c:893 src/html.c:1244 src/html.c:1358 src/html_form.c:156
-# src/html_form.c:175 src/html_form.c:208 src/html_form.c:252
-# src/html_form.c:291 src/html_form.c:342 src/html_form.c:387
-# src/html_form.c:432 src/images.c:247 src/wml.c:167 src/wml.c:207
-# src/wml.c:323
-#~ msgid "Name:"
-#~ msgstr "Nome:"
-
-# src/html.c:1240
-#~ msgid "Source:"
-#~ msgstr "Código Fonte:"
-
-# src/html.c:1001 src/html.c:1076 src/html.c:1133 src/html_form.c:303
-# src/html_form.c:437
-#~ msgid "Size:"
-#~ msgstr "Tamanho:"
-
-#~ msgid "This bookmark is set in a file that no longer exists."
-#~ msgstr "Este marcador está definido para um ficehiro que já não existe."
-
-#~ msgid "Are you sure?"
-#~ msgstr "Tem a certeza?"
-
-# src/document.c:1004
-#~ msgid "Could not read file:\n"
-#~ msgstr "Não foi possível ler o ficheiro:\n"
+#~ #~ #~ msgstr "Não foi possível ler o ficheiro:\n"
 
 # src/document.c:1091
 #~ msgid "Saving file"

@@ -2344,8 +2344,6 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (available for local files)\n"
-"%i temporary fifo for input, equals %f if the document is not modified and "
-"local\n"
 "%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Other options</b>\n"
@@ -2361,11 +2359,9 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (requires local file, cannot operate on selection)\n"
-"%i temporary fifo for input\n"
 "%I temporary filename for input\n"
 "<b>Output options</b>\n"
 "end with a | to read the output from the standard output\n"
-"%o temporary fifo\n"
 "%O temporary filename\n"
 "%t temporary filename for both input and output (for in-place-editing "
 "filters, cannot operate on selection)\n"
@@ -2398,13 +2394,10 @@ msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (available for local files)\n"
-"%i temporary fifo for input, equals %f if the document is not modified and "
-"local\n"
 "%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Output options</b>\n"
 "end with a | to read the output from the standard output\n"
-"%o temporary fifo\n"
 "%O temporary filename\n"
 "%t temporary filename for both input and output (for in-place-editing "
 "filters)\n"
@@ -6489,143 +6482,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "%s for current filename (any command)\n"
-#~ "%i for input and %f for output filename (filters)"
-#~ msgstr ""
-#~ "%s för aktuellt filnamn (valfritt kommando)\n"
-#~ "%i för indata och %f för utdatafilnamn (filter)"
-
-#~ msgid "Bookmark options"
-#~ msgstr "Bokmärkealternativ"
-
-#~ msgid "path from basedir"
-#~ msgstr "sökväg från startkatalog"
-
-#~ msgid "Bookmarks filename display"
-#~ msgstr "Bokmärkens filnamnsvisning"
-
-#~ msgid "Allow multi instances of a file"
-#~ msgstr "Tillåt flera instanser av en fil"
-
-#~ msgid "External browsers in submenu"
-#~ msgstr "Externa webläsare i undermeny"
-
-#~ msgid "External commands in submenu"
-#~ msgstr "Externa kommandon i undermeny"
-
-#~ msgid "External outputbox in submenu"
-#~ msgstr "Externa utskriftsfönster i undermeny"
-
-#~ msgid "Browsers"
-#~ msgstr "Webläsare"
-
-#~ msgid "Utilities and filters"
-#~ msgstr "Verktyg och filter"
-
-#, fuzzy
-#~ msgid "Ty_pe:"
-#~ msgstr "_Typ:"
-
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "_Länk:"
-
-#, fuzzy
-#~ msgid "_Media:"
-#~ msgstr "Media:"
-
-#, fuzzy
-#~ msgid "Titl_e:"
-#~ msgstr "_Titel:"
-
-#, fuzzy
-#~ msgid "<b>Style Area</b>"
-#~ msgstr "<b>Vanlig</b>"
-
-#, fuzzy
-#~ msgid "Cre_ate empty style area"
-#~ msgstr "Skapa tomt projekt"
-
-#, fuzzy
-#~ msgid "_Src:"
-#~ msgstr "_Källkod:"
-
-#, fuzzy
-#~ msgid "Create _empty script area"
-#~ msgstr "Skapa tomt projekt"
-
-#~ msgid "Quick Start"
-#~ msgstr "Snabbstart"
-
-#, fuzzy
-#~ msgid "_DTD:"
-#~ msgstr "Använd _DTD:"
-
-#~ msgid "_Title:"
-#~ msgstr "_Titel:"
-
-#, fuzzy
-#~ msgid "_Head:"
-#~ msgstr "_Länk:"
-
-#~ msgid "Netscape"
-#~ msgstr "Netscape"
-
-#~ msgid "Gnome default"
-#~ msgstr "GNOME-standardalternativ"
-
-#~ msgid "Tidy cleanup filter"
-#~ msgstr "Upprensningsfiltret tidy"
-
-#~ msgid "Table Wizard"
-#~ msgstr "Tabellguide"
-
-#~ msgid "Number of _rows:"
-#~ msgstr "Antal _rader:"
-
-#~ msgid "Table rows on one _line:"
-#~ msgstr "Tabel_lrader på en rad:"
-
-#~ msgid "_Indent table code:"
-#~ msgstr "_Indentera tabellkod:"
-
-#~ msgid "Frame Wizard"
-#~ msgstr "Ramguide"
-
-#~ msgid "Use _DTD:"
-#~ msgstr "Använd _DTD:"
-
-#~ msgid "Orientation:"
-#~ msgstr "Orientering:"
-
-#~ msgid "_Horizontal"
-#~ msgstr "_Horisontell"
-
-#~ msgid "_Vertical"
-#~ msgstr "_Vertikal"
-
-#~ msgid "Number of _Frames:"
-#~ msgstr "Antal _ramar:"
-
-#~ msgid "Frame's"
-#~ msgstr "Ramar"
-
-#~ msgid "Name:"
-#~ msgstr "Namn:"
-
-#~ msgid "Source:"
-#~ msgstr "Källkod:"
-
-#~ msgid "Size:"
-#~ msgstr "Storlek:"
-
-#~ msgid "This bookmark is set in a file that no longer exists."
-#~ msgstr "Det här bokmärket är satt i en fil som inte längre finns."
-
-#~ msgid "Are you sure?"
-#~ msgstr "Är du säker?"
-
-#~ msgid "Could not read file:\n"
-#~ msgstr "Kunde inte läsa filen:\n"
+#~ #~ #~ msgstr "Kunde inte läsa filen:\n"
 
 #~ msgid "Saving file"
 #~ msgstr "Sparar filen"
