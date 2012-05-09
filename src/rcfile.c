@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rcfile.c - loading and parsing of the configfiles
  *
- * Copyright (C) 2000-2011 Olivier Sessink
+ * Copyright (C) 2000-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -580,13 +580,36 @@ migrate_config_files(GHashTable * main_configlist, GFile * newrc)
 	}
 }
 
+
+static gchar *
+convert_old_placeholders(gchar *orig, gchar old1, gchar new1, gchar old2, gchar new2)
+{
+	gint i;
+	gboolean prev_was_percent=FALSE;
+	if (!orig)
+		return NULL;
+
+	for (i=0;orig[i]!='\0';i++) {
+		if (prev_was_percent && orig[i] == old1) {
+			orig[i] = new1;
+		} else if (prev_was_percent && orig[i] == old2) {
+			orig[i] = new2;
+		}
+		prev_was_percent=FALSE;
+		if (orig[i]=='%') {
+			prev_was_percent=TRUE;
+		}
+	}
+	return orig;
+}
+
 /* on array length = newlen-1 we update to the new version
 
 if (overwrite) we free the list and replace it with the default values 
 
 if (!overwrite) we overwrite all bluefish_defined options, and we append any new options
 */
-static GList *update_externals(GList *current, GList *defaults, gboolean overwrite, gint newlen)
+static GList *update_externals(GList *current, GList *defaults, gboolean overwrite, gint newlen, gint commandindex)
 {
 	GList *tmplist;
 	GHashTable *ht=NULL;
@@ -614,6 +637,9 @@ static GList *update_externals(GList *current, GList *defaults, gboolean overwri
 				/*g_print("prepend %s in front of %s\n",USER_DEFINED_ENABLED,arr[0]);*/
 				cur->data = arr = prepend_array(USER_DEFINED_ENABLED,arr);
 				g_strfreev(oldarr);
+				/* arr[2] contains the commandstring. now replace %i and %o (previously fifo in and 
+				fifo out) to temporary file in %I and out %O */
+				arr[commandindex] = convert_old_placeholders(arr[commandindex], 'o', 'O', 'i', 'I');
 				len = newlen;
 			}
 			if (len == newlen && arr[0][0]!='0' && arr[0][0]!='1') {
@@ -690,7 +716,7 @@ GList * update_outputbox(GList *current, gboolean overwrite) {
 						array_from_arglist(_("php codesniffer"), ":([0-9:]+):(.*)", "-1",
 										 "1", "2", "phpcs --report=emacs '%f'|", NULL));
 #endif
-	retlist = update_externals(current, defaults, overwrite, 7);
+	retlist = update_externals(current, defaults, overwrite, 7, 6);
 	free_arraylist(defaults);
 	return retlist;
 }
@@ -720,9 +746,9 @@ GList *update_filters(GList *current, gboolean overwrite)
 					  array_from_arglist(_("Strip empty lines"), "|egrep -v '^[ \t]*$'|", NULL));
 	defaults =
 		g_list_append(defaults,
-					  array_from_arglist(_("Render HTML to text"), "lynx -force_html -dump %i |", NULL));
+					  array_from_arglist(_("Render HTML to text"), "lynx -force_html -dump %I |", NULL));
 
-	retlist = update_externals(current, defaults, overwrite, 3);
+	retlist = update_externals(current, defaults, overwrite, 3, 2);
 	free_arraylist(defaults);
 	return retlist;
 }
@@ -805,7 +831,7 @@ GList *update_commands(GList *current, gboolean overwrite)
 		g_list_prepend(defaults,
 					  array_from_arglist(_("chmod a+x"), "chmod a+x %f", "0", NULL));
 #endif
-	retlist = update_externals(current, defaults, overwrite, 4);
+	retlist = update_externals(current, defaults, overwrite, 4, 2);
 	free_arraylist(defaults);
 	return retlist;
 }
