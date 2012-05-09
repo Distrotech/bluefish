@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		shell.bflang2 $Revision$
  
-		Copyright (C) 2008-2010 Olivier Sessink
+		Copyright (C) 2008-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="Shell" version="2.0" table="291" contexts="4" matches="86" >
+<bflang name="Shell" version="2.0" table="468" contexts="5" matches="151">
 <header>
 	<mime type="application/x-shellscript"/>
 	<mime type="text/x-shellscript"/>
@@ -34,6 +34,7 @@
 	<highlight name="tag" style="tag"  />
 	<highlight name="value" style="value"  />
 	<highlight name="variable" style="variable"  />
+	<option name="Coreutils" default="1" description="GNU Coreutils functions" />
 </header>
 <properties>
 	<comment type="line" start="#" />
@@ -42,7 +43,13 @@
 <definition>
 <context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 <element pattern="[0-9.]+" is_regex="1" highlight="value"/>
-<element pattern="\$+[!@?*#\${a-zA-Z0-9_][}a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="variable"/>
+<element pattern="\$+[!@?*#\$a-zA-Z0-9_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="variable"/>
+<element pattern="\${[!@?*#\$a-zA-Z0-9_][a-zA-Z0-9_]*" is_regex="1" highlight="variable">
+<context symbols="&quot;}:-+=?">
+<element pattern=":?[-+=?]" is_regex="1" highlight="keyword"/>
+<element pattern="}" highlight="variable" ends_context="1"/>
+</context>
+</element>
 
 <group  highlight="function">
 	<autocomplete enable="1" />
@@ -115,6 +122,184 @@
 	<element pattern="until" />
    <element pattern="wait" />
    <element pattern="while" />
+   <element pattern="case" />
+   <element pattern="esac" />
+   <element pattern="coproc" />
+   <element pattern="time" />
+   <element pattern="true" />
+   <element pattern="false" />
+</group>
+
+<group  highlight="function" class="Coreutils">
+	<autocomplete enable="1" />
+	<element pattern="cat">
+		<reference>Core utils: Concatenate and write files</reference>
+	</element>
+	<element pattern="tac">
+		<reference>Core utils: Concatenate and write files in reverse</reference>
+	</element>
+	<element pattern="nl">
+		<reference>Core utils: Number lines and write files</reference>
+	</element>
+	<element pattern="od">
+		<reference>Core utils: Write files in octal or other formats</reference>
+	</element>
+	<element pattern="base64">
+		<reference>Core utils: Transform data into printable data</reference>
+	</element>
+	<element pattern="fmt">
+		<reference>Core utils: Reformat paragraph text</reference>
+	</element>
+	<element pattern="pr">
+		<reference>Core utils: Paginate or columnate files for printing</reference>
+	</element>
+	<element pattern="fold">
+		<reference>Core utils: Wrap input lines to fit in specified width</reference>
+	</element>
+	<element pattern="head">
+		<reference>Core utils: Output the first part of files</reference>
+	</element>
+	<element pattern="tail">
+		<reference>Core utils: Output the last part of files</reference>
+	</element>
+	<element pattern="split">
+		<reference>Core utils: Split a file into fixed-size pieces</reference>
+	</element>
+	<element pattern="csplit">
+		<reference>Core utils: Split a file into context-determined pieces</reference>
+	</element>
+	<element pattern="wc">
+		<reference>Core utils: Print newline, word, and byte counts</reference>
+	</element>
+	<element pattern="sum">
+		<reference>Core utils: Print checksum and block counts</reference>
+	</element>
+	<element pattern="cksum">
+		<reference>Core utils: Print CRC checksum and byte counts</reference>
+	</element>
+	<element pattern="md5sum">
+		<reference>Core utils: Print or check MD5 digests</reference>
+	</element>
+	<element pattern="sha1sum">
+		<reference> Core utils:  Print or check SHA-1 digests</reference>
+	</element>
+	<element pattern="sort">
+		<reference>Core utils: Sort text files</reference>
+	</element>
+	<element pattern="shuf">
+		<reference>Core utils: Shuffle text files</reference>
+	</element>
+	<element pattern="uniq">
+		<reference>Core utils: Uniquify files</reference>
+	</element>
+	<element pattern="comm">
+		<reference>Core utils: Compare two sorted files line by line</reference>
+	</element>
+	<element pattern="ptx">
+		<reference>Core utils: Produce a permuted index of file contents</reference>
+	</element>
+	<element pattern="tsort">
+		<reference>Core utils: Topological sort</reference>
+	</element>
+	<element pattern="cut">
+		<reference>Core utils: Print selected parts of lines</reference>
+	</element>
+	<element pattern="paste">
+		<reference>Core utils: Merge lines of files</reference>
+	</element>
+	<element pattern="join">
+		<reference>Core utils: Join lines on a common field</reference>
+	</element>
+	<element pattern="tr">
+		<reference>Core utils: Translate, squeeze, and/or delete characters</reference>
+	</element>
+	<element pattern="expand">
+		<reference>Core utils: Convert tabs to spaces</reference>
+	</element>
+	<element pattern="unexpand">
+		<reference> Core utils: Convert spaces to tabs</reference>
+	</element>
+	<element pattern="ls">
+		<reference>Core utils: List directory contents</reference>
+	</element>
+	<element pattern="dir">
+		<reference>Core utils: Briefly list directory contents</reference>
+	</element>
+	<element pattern="vdir">
+		<reference>Core utils: Verbosely list directory contents</reference>
+	</element>
+	<element pattern="dircolors">
+		<reference> Core utils: Color setup for</reference>
+	</element>
+	<element pattern="cp">
+		<reference>Core utils: Copy files and directories</reference>
+	</element>
+	<element pattern="dd">
+		<reference>Core utils: Convert and copy a file</reference>
+	</element>
+	<element pattern="install">
+		<reference> Core utils:  Copy files and set attributes</reference>
+	</element>
+	<element pattern="mv">
+		<reference>Core utils: Move (rename) files</reference>
+	</element>
+	<element pattern="rm">
+		<reference>Core utils: Remove files or directories</reference>
+	</element>
+	<element pattern="shred">
+		<reference>Core utils: Remove files more securely</reference>
+	</element>
+	<element pattern="link">
+		<reference>Core utils: Make a hard link via the link syscall</reference>
+	</element>
+	<element pattern="ln">
+		<reference>Core utils: Make links between files</reference>
+	</element>
+	<element pattern="mkdir">
+		<reference>Core utils: Make directories</reference>
+	</element>
+	<element pattern="mkfifo">
+		<reference>Core utils: Make FIFOs (named pipes)</reference>
+	</element>
+	<element pattern="mknod">
+		<reference>Core utils: Make block or character special files</reference>
+	</element>
+	<element pattern="readlink">
+		<reference> Core utils: Print value of a symlink or canonical file name</reference>
+	</element>
+	<element pattern="rmdir">
+		<reference>Core utils: Remove empty directories</reference>
+	</element>
+	<element pattern="unlink">
+		<reference>Core utils: Remove files via unlink syscall</reference>
+	</element>
+	<element pattern="chown">
+		<reference>Core utils: Change file owner and group</reference>
+	</element>
+	<element pattern="chgrp">
+		<reference>Core utils: Change group ownership</reference>
+	</element>
+	<element pattern="chmod">
+		<reference>Core utils: Change access permissions</reference>
+	</element>
+	<element pattern="touch">
+		<reference>Core utils: Change file timestamps</reference>
+	</element>
+	<element pattern="df">
+		<reference>Core utils: Report file system disk space usage</reference>
+	</element>
+	<element pattern="du">
+		<reference>Core utils: Estimate file space usage</reference>
+	</element>
+	<element pattern="stat">
+		<reference>Core utils: Report file or file system status</reference>
+	</element>
+	<element pattern="sync">
+		<reference>Core utils: Synchronize data on disk with memory</reference>
+	</element>
+	<element pattern="truncate">
+		<reference> Core utils: Shrink or extend the size of a file</reference>
+	</element>
 </group>
 
 <element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
@@ -138,6 +323,7 @@
 	<element pattern="&quot;" highlight="string" ends_context="1"/>
 </context>
 </element>
+
 </context>
 </definition>
 </bflang>
