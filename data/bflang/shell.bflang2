@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="Shell" version="2.0" table="468" contexts="5" matches="151">
+<bflang name="Shell" version="2.0" table="578" contexts="5" matches="187">
 <header>
 	<mime type="application/x-shellscript"/>
 	<mime type="text/x-shellscript"/>
@@ -300,6 +300,114 @@
 	<element pattern="truncate">
 		<reference> Core utils: Shrink or extend the size of a file</reference>
 	</element>
+	<element pattern="arch">
+		<reference>Core utils: Print machine hardware name</reference>
+	</element>
+	<element pattern="basename">
+		<reference>Core utils: Strip directory and suffix from a file name</reference>
+	</element>
+	<element pattern="chcon">
+		<reference>Core utils: Change SELinux context of file</reference>
+	</element>
+	<element pattern="chroot">
+		<reference>Core utils: Run a command with a different root directory</reference>
+	</element>
+	<element pattern="date">
+		<reference>Core utils: Print or set system date and time</reference>
+	</element>
+	<element pattern="dirname">
+		<reference>Core utils: Strip last file name component</reference>
+	</element>
+	<element pattern="env">
+		<reference>Core utils: Run a command in a modified environment</reference>
+	</element>
+	<element pattern="expr">
+		<reference>Core utils: Evaluate expressions.</reference>
+	</element>
+	<element pattern="factor">
+		<reference>Core utils: Show factors of numbers.</reference>
+	</element>
+	<element pattern="groups">
+		<reference>Core utils: Print group names a user is in</reference>
+	</element>
+	<element pattern="hostid">
+		<reference>Core utils: Print numeric host identifier</reference>
+	</element>
+	<element pattern="hostname">
+		<reference>Core utils: Print or set system name</reference>
+	</element>
+	<element pattern="id">
+		<reference>Core utils: Print user identity</reference>
+	</element>
+	<element pattern="logname">
+		<reference>Core utils: Print current login name</reference>
+	</element>
+	<element pattern="mktemp">
+		<reference>Core utils: Create temporary file or directory</reference>
+	</element>
+	<element pattern="nice">
+		<reference>Core utils: Run a command with modified niceness</reference>
+	</element>
+	<element pattern="nohup">
+		<reference>Core utils: Run a command immune to hangups</reference>
+	</element>
+	<element pattern="nproc">
+		<reference>Core utils: Print the number of processors</reference>
+	</element>
+	<element pattern="pathchk">
+		<reference>Core utils: Check file name validity and portability</reference>
+	</element>
+	<element pattern="printenv">
+		<reference>Core utils: Print all or some environment variables</reference>
+	</element>
+	<element pattern="runcon">
+		<reference>Core utils: Run a command in specified SELinux context</reference>
+	</element>
+	<element pattern="seq">
+		<reference>Core utils: Print sequences of numbers.</reference>
+	</element>
+	<element pattern="sha2">
+		<reference>Core utils: Print or check SHA-2 digests.</reference>
+	</element>
+	<element pattern="sleep">
+		<reference>Core utils: Delay for a specified time</reference>
+	</element>
+	<element pattern="stdbuf">
+		<reference>Core utils: Run a command with modified I/O buffering</reference>
+	</element>
+	<element pattern="stty">
+		<reference>Core utils: Print or change terminal characteristics</reference>
+	</element>
+	<element pattern="su">
+		<reference>Core utils: Run a command with substitute user and group ID</reference>
+	</element>
+	<element pattern="tee">
+		<reference>Core utils: Redirect output to multiple files or processes</reference>
+	</element>
+	<element pattern="timeout">
+		<reference>Core utils: Run a command with a time limit</reference>
+	</element>
+	<element pattern="tty">
+		<reference>Core utils: Print file name of terminal on standard input</reference>
+	</element>
+	<element pattern="uname">
+		<reference>Core utils: Print system information</reference>
+	</element>
+	<element pattern="uptime">
+		<reference>Core utils: Print system uptime and load</reference>
+	</element>
+	<element pattern="users">
+		<reference>Core utils: Print login names of users currently logged in</reference>
+	</element>
+	<element pattern="who">
+		<reference>Core utils: Print who is currently logged in</reference>
+	</element>
+	<element pattern="whoami">
+		<reference>Core utils: Print effective user ID</reference>
+	</element>
+	<element pattern="yes">
+		<reference>Core utils: Print a string until interrupted.</reference>
+	</element>
 </group>
 
 <element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
@@ -317,9 +425,9 @@
 </element>
 <element pattern="'[^']*'" is_regex="1" highlight="string"/>
 <element pattern="&quot;" highlight="string">
-<context symbols="\&quot;${}" highlight="string">
-	<element pattern="\\." is_regex="1" highlight="tag" />
-	<element pattern="\$+[!@?*#\${a-zA-Z0-9_][}a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="variable"/>
+<context symbols="\&quot;${} " highlight="string">
+	<element pattern="\\." is_regex="1" highlight="string" />
+	<element pattern="\$+[!@?*#${a-zA-Z0-9_][}a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="variable"/>
 	<element pattern="&quot;" highlight="string" ends_context="1"/>
 </context>
 </element>
