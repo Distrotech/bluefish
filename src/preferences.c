@@ -1003,7 +1003,14 @@ create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label),
 						 _
-						 ("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%f local filename (available for local files)\n%I temporary filename for input, equals %f if the document is not modified and local\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
+						 ("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n"
+						 "%f local filename (available for local files)\n"
+						 "%i temporary filename for input, equals %f if the document is not modified and local\n"
+						 "<b>Other options</b>\n"
+						 "%c local directory of file (available for local files)\n"
+						 "%n filename without path (available for all titled files)\n"
+						 "%u URL (available for all titled files)\n"
+						 "%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), label, TRUE, TRUE, 2);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
@@ -1133,7 +1140,12 @@ create_filters_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label),
 						 _
-						 ("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%f local filename (requires local file, cannot operate on selection)\n%I temporary filename for input\n<b>Output options</b>\nend with a | to read the output from the standard output\n%O temporary filename\n%t temporary filename for both input and output (for in-place-editing filters, cannot operate on selection)\n<b>Other options</b>\n%c local directory of file (requires local file)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
+						 ("<small><b>Input options</b>\n"
+						 "start with a | to send the input to the standard input\n"
+						 "%f local filename (requires local file, cannot operate on selection)\n"
+						 "%i temporary filename for input\n"
+						 "<b>Output options</b>\nend with a | to read the output from the standard output\n"
+						 "%o temporary filename\n%t temporary filename for both input and output (for in-place-editing filters, cannot operate on selection)\n<b>Other options</b>\n%c local directory of file (requires local file)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), label, TRUE, TRUE, 2);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
@@ -1302,7 +1314,9 @@ create_outputbox_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label),
 						 _
-						 ("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%f local filename (available for local files)\n%I temporary filename for input, equals %f if the document is not modified and local\n<b>Output options</b>\nend with a | to read the output from the standard output\n%O temporary filename\n%t temporary filename for both input and output (for in-place-editing filters)\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
+						 ("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%f local filename (available for local files)\n"
+						 "%i temporary filename for input, equals %f if the document is not modified and local\n<b>Output options</b>\n"
+						 "end with a | to read the output from the standard output\n%o temporary filename\n%t temporary filename for both input and output (for in-place-editing filters)\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), label, FALSE, FALSE, 2);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);

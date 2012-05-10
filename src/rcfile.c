@@ -637,9 +637,9 @@ static GList *update_externals(GList *current, GList *defaults, gboolean overwri
 				/*g_print("prepend %s in front of %s\n",USER_DEFINED_ENABLED,arr[0]);*/
 				cur->data = arr = prepend_array(USER_DEFINED_ENABLED,arr);
 				g_strfreev(oldarr);
-				/* arr[2] contains the commandstring. now replace %i and %o (previously fifo in and 
-				fifo out) to temporary file in %I and out %O */
-				arr[commandindex] = convert_old_placeholders(arr[commandindex], 'o', 'O', 'i', 'I');
+				/* arr[2] contains the commandstring. now replace %I and %O (previously fifo in and 
+				fifo out) to temporary file in %i and out %o */
+				arr[commandindex] = convert_old_placeholders(arr[commandindex], 'O', 'o', 'I', 'i');
 				len = newlen;
 			}
 			if (len == newlen && arr[0][0]!='0' && arr[0][0]!='1') {
@@ -689,7 +689,7 @@ GList * update_outputbox(GList *current, gboolean overwrite) {
 	defaults =
 		g_list_append(defaults,
 					  array_from_arglist(_("tidy HTML validator"), "line ([0-9]+) column [0-9]+ - (.*)",
-										 "-1", "1", "2", "tidy -qe '%I'|", NULL));
+										 "-1", "1", "2", "tidy -qe '%i'|", NULL));
 	defaults =
 		g_list_append(defaults,
 					  array_from_arglist(_("javac"), "([a-zA-Z0-9/_.-]+):([0-9]+):(.*)", "1", "2", "3",
@@ -746,7 +746,7 @@ GList *update_filters(GList *current, gboolean overwrite)
 					  array_from_arglist(_("Strip empty lines"), "|egrep -v '^[ \t]*$'|", NULL));
 	defaults =
 		g_list_append(defaults,
-					  array_from_arglist(_("Render HTML to text"), "lynx -force_html -dump %I |", NULL));
+					  array_from_arglist(_("Render HTML to text"), "lynx -force_html -dump %i |", NULL));
 
 	retlist = update_externals(current, defaults, overwrite, 3, 2);
 	free_arraylist(defaults);
