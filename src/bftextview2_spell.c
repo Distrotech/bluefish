@@ -75,11 +75,19 @@ bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTextBuffer * buffe
 	   (this fixes the situation where you add a space in the middle of "forgotthespace" and only 
 	   the space is scanned again) */
 	misspelled = gtk_text_tag_table_lookup(langmgr_get_tagtable(), "_spellerror_");
-	if (gtk_text_iter_has_tag(start, misspelled) && !gtk_text_iter_begins_tag(start, misspelled)) {
+	DBG_SPELL("find_region2spellcheck, start at %d has misspelled=%d, ends_mispelled=%d\n"
+				,gtk_text_iter_get_offset(start)
+				,gtk_text_iter_has_tag(start, misspelled)
+				,gtk_text_iter_ends_tag(start, misspelled));
+	if (gtk_text_iter_has_tag(start, misspelled) || gtk_text_iter_ends_tag(start, misspelled)) {
 		gtk_text_iter_backward_to_tag_toggle(start, misspelled);
+		DBG_SPELL("find_region2spellcheck, new start at %d\n"
+				,gtk_text_iter_get_offset(start));
 	}
-	if (gtk_text_iter_has_tag(end, misspelled) && !gtk_text_iter_ends_tag(start, misspelled)) {
+	if (gtk_text_iter_has_tag(end, misspelled) || gtk_text_iter_begins_tag(end, misspelled)) {
 		gtk_text_iter_forward_to_tag_toggle(end, misspelled);
+		DBG_SPELL("find_region2spellcheck, new end at %d\n"
+				,gtk_text_iter_get_offset(end));
 	}
 	return TRUE;
 }
@@ -352,7 +360,7 @@ text_iter_next_word_bounds(GtkTextIter * soword, GtkTextIter * eoword, gboolean 
 gboolean
 bftextview2_run_spellcheck(BluefishTextView * btv)
 {
-	GtkTextIter so, eo, iter;
+	GtkTextIter so, eo, iter, itcursor;
 	GtkTextBuffer *buffer;
 	GTimer *timer;
 	gint loop = 0;
@@ -369,17 +377,23 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 		return FALSE;
 	}
 
-	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+	buffer = btv->buffer;
 	if (!bftextview2_find_region2spellcheck(btv, buffer, &so, &eo)) {
 		DBG_SPELL("bftextview2_run_spellcheck, no region to spellcheck found... return FALSE\n");
 		DBG_DELAYSCANNING("bftextview2_run_spellcheck, nothing to spellcheck..\n");
 		return FALSE;
 	}
+	timer = g_timer_new();
+	iter = so;
+	gtk_text_buffer_get_iter_at_mark(btv->buffer, &itcursor, gtk_text_buffer_get_insert(btv->buffer));
+	/* if we start at the cursor, that might be an indication that the previous word was 
+	skipped because it ended at the cursor, so lets skip back one word */
+	
+	
+	
 	DBG_SPELL("bftextview2_run_spellcheck, in bfwin=%p, bfwin->ed=%p loop1 from %d to %d\n",
 			  DOCUMENT(btv->doc)->bfwin, BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, gtk_text_iter_get_offset(&so),
 			  gtk_text_iter_get_offset(&eo));
-	timer = g_timer_new();
-	iter = so;
 	do {
 		GtkTextIter eo2 = eo;
 		gboolean cont2 = TRUE;
@@ -424,7 +438,12 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 #ifdef SPELL_PROFILING
 				profile_words++;
 #endif
-				spellcheck_word(btv, buffer, &wordstart, &iter);
+/*				if (gtk_text_iter_equal(&itcursor, &iter)) {
+					g_print("skip spellcheck for %d:%d, cursor is at %d\n",gtk_text_iter_get_offset(&wordstart),
+						  gtk_text_iter_get_offset(&iter), gtk_text_iter_get_offset(&itcursor));
+				} else {*/
+					spellcheck_word(btv, buffer, &wordstart, &iter);
+/*				}*/
 			} else {
 				DBG_SPELL("bftextview2_run_spellcheck, no word end within region\n");
 				iter = eo2;
@@ -457,7 +476,6 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 	DBG_SPELL("bftextview2_run_spellcheck, remove needspellcheck from start %d to iter at %d\n",
 			  gtk_text_iter_get_offset(&so), gtk_text_iter_get_offset(&iter));
 	gtk_text_buffer_remove_tag(buffer, btv->needspellcheck, &so, &iter);
-
 	g_timer_destroy(timer);
 
 	return (!gtk_text_iter_is_end(&iter));
