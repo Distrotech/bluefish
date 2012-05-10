@@ -330,7 +330,7 @@ combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolea
 		returnwidget = gtk_combo_box_text_new_with_entry();
 	else
 		returnwidget = gtk_combo_box_text_new();
-	for (tmplist = g_list_first((GList *)which_list); tmplist; tmplist = g_list_next(tmplist)) {
+	for (tmplist = g_list_last((GList *)which_list); tmplist; tmplist = g_list_previous(tmplist)) {
 		if (tmplist->data) {
 			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(returnwidget), tmplist->data);
 			if (setstring && g_strcmp0(tmplist->data, setstring) == 0) {

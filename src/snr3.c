@@ -176,6 +176,18 @@ highlight_run_in_doc(Tsnr3run *s3run, Tdocument *doc)
 	DEBUG_MSG("highlight_run_in_doc, finished\n");
 }
 
+static GList *
+delete_result_from_list(Tsnr3run *s3run, GList *current)
+{
+	GList *todelete = current;
+	current = g_list_next(current);
+	if (todelete == s3run->current)
+		s3run->current = current;
+	g_slice_free(Tsnr3result, todelete->data);
+	g_queue_delete_link(&s3run->results, todelete);
+	return current;
+}
+
 typedef struct {
 	Tdocument *doc;
 	guint startingpoint;
@@ -191,10 +203,32 @@ the startpos=9 (the end of the replaced result), offset=-9 and the first next re
 	gint comparepos = startpos/*(offset > 0) ? startpos : startpos - offset*/; 
 	DEBUG_MSG("snr3run_update_offsets, startpos=%d, offset=%d, comparepos=%d\n",startpos,offset,comparepos);
 	while (tmplist) {
-		if (doc == ((Tsnr3result *)tmplist->data)->doc 
-						&& ((Tsnr3result *)tmplist->data)->eo >= startpos) {
-			DEBUG_MSG("evaluate so=%d, eo=%d\n",((Tsnr3result *)tmplist->data)->so,((Tsnr3result *)tmplist->data)->eo);
-			if (((Tsnr3result *)tmplist->data)->so > comparepos) {
+		if (doc == S3RESULT(tmplist->data)->doc 
+						&& S3RESULT(tmplist->data)->eo >= startpos) {
+			DEBUG_MSG("result impacted by change: evaluate so=%d, eo=%d\n",((Tsnr3result *)tmplist->data)->so,((Tsnr3result *)tmplist->data)->eo);
+			if (offset < 0) { /* text deleted */
+				if (S3RESULT(tmplist->data)->so > startpos - offset) {
+					/* this result is beyond the deleted area */
+					S3RESULT(tmplist->data)->so += offset;
+					S3RESULT(tmplist->data)->eo += offset;
+					DEBUG_MSG("result is beyond deleted area, new so=%d, eo=%d\n",S3RESULT(tmplist->data)->so, S3RESULT(tmplist->data)->eo);
+				} else if (S3RESULT(tmplist->data)->so >= startpos || S3RESULT(tmplist->data)->eo <= startpos - offset) {
+					DEBUG_MSG("result is in deleted area, delete  so=%d, eo=%d\n",S3RESULT(tmplist->data)->so, S3RESULT(tmplist->data)->eo);
+					tmplist = delete_result_from_list(s3run, tmplist);
+					continue;
+				} else {
+					DEBUG_MSG("no action needed for %d:%d\n",S3RESULT(tmplist->data)->so, S3RESULT(tmplist->data)->eo);
+				}
+			} else { /* text inserted */
+				if (S3RESULT(tmplist->data)->so > startpos) {
+					S3RESULT(tmplist->data)->so += offset;
+					S3RESULT(tmplist->data)->eo += offset;
+					DEBUG_MSG("result is beyond inserted area, new so=%d, eo=%d\n",S3RESULT(tmplist->data)->so, S3RESULT(tmplist->data)->eo);
+				} else {
+					DEBUG_MSG("no action needed for %d:%d\n",S3RESULT(tmplist->data)->so, S3RESULT(tmplist->data)->eo);
+				}
+			} 
+/*			if (((Tsnr3result *)tmplist->data)->so > comparepos) {
 				((Tsnr3result *)tmplist->data)->so += offset;
 				((Tsnr3result *)tmplist->data)->eo += offset;
 				DEBUG_MSG("new so=%d, eo=%d\n",((Tsnr3result *)tmplist->data)->so,((Tsnr3result *)tmplist->data)->eo);
@@ -208,7 +242,7 @@ the startpos=9 (the end of the replaced result), offset=-9 and the first next re
 				g_slice_free(Tsnr3result, tmplist2->data);
 				g_queue_delete_link(&s3run->results, tmplist2);
 				continue;
-			}
+			}*/
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -295,7 +329,7 @@ static void snr3result_free(gpointer s3result, gpointer s3run) {
 }
 
 
-static void
+static gboolean
 s3run_replace_current(Tsnr3run *s3run)
 {
 	Toffsetupdate offsetupdate;
@@ -307,7 +341,7 @@ s3run_replace_current(Tsnr3run *s3run)
 		next = s3run->current->next;
 	}
 	if (!current)
-		return;
+		return FALSE;
 	s3result = current->data;
 	doc_unre_new_group(s3result->doc);
 	offsetupdate = s3result_replace(s3run, s3result, NULL);
@@ -324,7 +358,7 @@ s3run_replace_current(Tsnr3run *s3run)
 	if (s3run->current) {
 		scroll_to_result(s3run->current->data, GTK_WINDOW(((TSNRWin *)s3run->dialog)->dialog));
 	}
-
+	return TRUE;
 }
 
 static Tsnr3result * sn3run_add_result(Tsnr3run *s3run, gulong so, gulong eo, gpointer doc) {
@@ -388,7 +422,7 @@ backend_pcre_loop(Tsnr3run *s3run, gboolean indefinitely) {
 		so = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, bso);
 		eo = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, beo);
 		s3result = sn3run_add_result(s3run, so+s3run->curoffset+s3run->so, eo+s3run->curoffset+s3run->so, s3run->curdoc);
-		DEBUG_MSG("backend_pcre_loop, found result at bso %d, so %d, s3run->so=%d, s3run->curoffse=%d --> %s\n",bso,so,s3run->so,s3run->curoffset,s3result->so);
+		DEBUG_MSG("backend_pcre_loop, found result at bso %d, so %d, s3run->so=%d, s3run->curoffse=%d\n",bso,so,s3run->so,s3run->curoffset);
 		if (s3run->replaceall) {
 			DEBUG_MSG("backend_pcre_loop, found in buffer at %d:%d, replace at %d:%d (curoffset=%d, s3run->so=%d)\n", so, eo, s3result->so, s3result->eo,s3run->curoffset, s3run->so);
 			Toffsetupdate offsetupdate = s3result_replace(s3run, s3result, match_info);
@@ -505,14 +539,7 @@ snr3_queue_run(gpointer data) {
 		while (tmplist) {
 			if (rii->doc == ((Tsnr3result *)tmplist->data)->doc 
 							&& ((Tsnr3result *)tmplist->data)->so >= rii->so) {
-				GList *tmplist2;
-				DEBUG_MSG("snr3_queue_run, so >= update so!! delete the result %d:%d!!\n",((Tsnr3result *)tmplist->data)->so, ((Tsnr3result *)tmplist->data)->eo);
-				tmplist2 = tmplist;
-				tmplist = g_list_next(tmplist);
-				if (tmplist2 == rii->s3run->current)
-					rii->s3run->current = g_list_previous(tmplist2);
-				g_slice_free(Tsnr3result, tmplist2->data);
-				g_queue_delete_link(&rii->s3run->results, tmplist2);
+				tmplist = delete_result_from_list(rii->s3run, tmplist);
 			} else {
 				newso = ((Tsnr3result *)tmplist->data)->eo;
 				tmplist = g_list_next(tmplist);
@@ -901,7 +928,7 @@ static gboolean
 changed_idle_cb(gpointer data)
 {
 	Truninidle *rii = data;
-	DEBUG_MSG("startupdate_idle_cb, run from %d to %d, update=%d\n",rii->so, rii->eo, rii->update);
+	DEBUG_MSG("changed_idle_cb, run from %d to %d, update=%d\n",rii->so, rii->eo, rii->update);
 	snr3_run_in_doc(rii->s3run, rii->doc, rii->so, rii->eo, rii->update);
 	/*g_slice_free(Truninidle, rii); handled bythe idle function destroy */
 	rii->s3run->changed_idle_id = 0;
@@ -911,13 +938,12 @@ changed_idle_cb(gpointer data)
 static void
 changed_destroy_cb(gpointer data)
 {
-	DEBUG_MSG("startupdate_destroy_cb\n");
+	DEBUG_MSG("changed_destroy_cb\n");
 	g_slice_free(Truninidle, data);
 }
 
 static void
 handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
-	Toffsetupdate offsetupdate = {doc,pos,len};
 	Truninidle *rii;
 	gint comparepos;
 	if (s3run->in_replace || s3run->scope == snr3scope_files) {
@@ -940,9 +966,17 @@ handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 		s3run->eo += len;
 	}
 	
-	DEBUG_MSG("handle_change_in_snr3doc, doc=%p, pos=%d, len=%d\n",doc,pos,len);
-	snr3run_update_offsets(s3run, offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
-	
+	DEBUG_MSG("handle_change_in_snr3doc, doc=%p, pos=%d, len=%d, remove all results beyond pos\n",doc,pos,len);
+	/* simply delete all of the remaining search results, because the changed_idle_cb will re-add them anyway */
+	GList *tmplist = g_list_first(s3run->results.head);
+	while (tmplist) {
+		if (S3RESULT(tmplist->data)->doc == doc && S3RESULT(tmplist->data)->eo > pos) {
+			tmplist = delete_result_from_list(s3run, tmplist);
+		} else {
+			tmplist = g_list_next(tmplist);
+		}
+	}
+
 	/* notice that this function is called BEFORE the actual change in the document
 	so we CANNOT call a function that will get a buffer from the textview widget or something like
 	that, we should register an idle callback to do something like that */
@@ -965,7 +999,7 @@ handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 		}
 		/* and we'll restart it again */
 	}
-	DEBUG_MSG("register changed_idle_cb\n");
+	DEBUG_MSG("handle_changed_in_snr3doc, register changed_idle_cb\n");
 	s3run->changed_idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+40,changed_idle_cb,rii,changed_destroy_cb);
 }
 
@@ -1315,10 +1349,14 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			}		
 		break;
 		case SNR_RESPONSE_REPLACE:
-			s3run_replace_current(snrwin->s3run);
-			doc_unre_new_group(snrwin->bfwin->current_document);
-			if ((guichange == 0) && s3run->current) {
-				scroll_to_result(s3run->current->data, GTK_WINDOW(((TSNRWin *)s3run->dialog)->dialog));
+			if (s3run_replace_current(snrwin->s3run)) {
+				doc_unre_new_group(snrwin->bfwin->current_document);
+				if ((guichange == 0) && s3run->current) {
+					scroll_to_result(s3run->current->data, GTK_WINDOW(((TSNRWin *)s3run->dialog)->dialog));
+				}
+			} else if (snrwin->s3run->results.length == 0) {
+				gtk_label_set_text(GTK_LABEL(snrwin->searchfeedback),_("No (more) results"));
+				gtk_widget_show(snrwin->searchfeedback);
 			}
 		break;
 		case SNR_RESPONSE_BOOKMARK_ALL:
@@ -1454,27 +1492,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	gtk_table_set_row_spacings(GTK_TABLE(table), 4);
 	currentrow=0;
 
-	
-/*	history = gtk_list_store_new(1, G_TYPE_STRING);
-	list = g_list_last(bfwin->session->searchlist);
-	while (list) {
-		DEBUG_MSG("snr_dialog_real: adding search history %s\n", (gchar *) list->data);
-		gtk_list_store_append(history, &iter);
-		gtk_list_store_set(history, &iter, 0, list->data, -1);
-		list = g_list_previous(list);
-	}
-	snrwin->search = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
-	if (findtext) {
-		entry = gtk_bin_get_child(GTK_BIN(snrwin->search));
-		gtk_entry_set_text(GTK_ENTRY(entry), findtext);
-	}
-	g_object_unref(history);
-*/
 	snrwin->search = combobox_with_popdown(findtext, bfwin->session->searchlist, TRUE);
-	/* this kills the primary selection, which is annoying if you want to 
-	   search/replace within the selection  */
-	/*if (bfwin->session->searchlist)
-	   gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->search), 0); */
 	
 	dialog_mnemonic_label_in_table(_("<b>_Search for</b>"), snrwin->search, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->search, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
@@ -1498,28 +1516,11 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	gtk_table_set_row_spacing(GTK_TABLE(table), currentrow, 0);
 	currentrow++;
 	
-/*	history = gtk_list_store_new(1, G_TYPE_STRING);
-	list = g_list_last(bfwin->session->replacelist);
-	while (list) {
-		DEBUG_MSG("snr_dialog_real: adding replace history %s\n", (gchar *) list->data);
-		gtk_list_store_append(history, &iter);
-		gtk_list_store_set(history, &iter, 0, list->data, -1);
-		list = g_list_previous(list);
-	}
-	snrwin->replace = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
-	g_object_unref(history);*/
 	snrwin->replace = combobox_with_popdown(NULL, bfwin->session->replacelist, TRUE);
 	dialog_mnemonic_label_in_table(_("<b>Replace _with</b>"), snrwin->replace, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->replace, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
 	currentrow++;
-
-/*	g_signal_connect(snrwin->replace, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
-	g_signal_connect(snrwin->replace, "realize", G_CALLBACK(realize_combo_set_tooltip),
-					 _("Replace matching text with"));
-	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
-					 G_CALLBACK(snr_combo_activate_lcb), snrwin);
-*/
 
 	dialog_mnemonic_label_in_table(_("<b>Options</b>"), NULL, table, 0, 1, currentrow, currentrow+1);
 	
@@ -1564,14 +1565,8 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	
 	currentrow++;
 	/* add a basedir and file pattern widget here */
-	/*lstore = gtk_list_store_new(1, G_TYPE_STRING);
-	for (tmplist = g_list_first(bfwin->session->filegloblist); tmplist; tmplist = g_list_next(tmplist)) {
-		gtk_list_store_append(GTK_LIST_STORE(lstore), &iter);
-		gtk_list_store_set(GTK_LIST_STORE(lstore), &iter, 0, tmplist->data, -1);
-	}
-	snrwin->filepattern = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(lstore), 0);
-	g_object_unref(lstore);*/
-	snrwin->filepattern = combobox_with_popdown(NULL, bfwin->session->filegloblist, TRUE);
+	
+	snrwin->filepattern = combobox_with_popdown(bfwin->session->filegloblist ? g_list_last(bfwin->session->filegloblist)->data : NULL, bfwin->session->filegloblist, TRUE);
 	snrwin->filepatternL = dialog_mnemonic_label_in_table(_("Filename pattern: "), snrwin->filepattern, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->filepattern, 1, 2, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 
