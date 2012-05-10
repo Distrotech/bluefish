@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="Bflang2" version="2.0" table="1236" contexts="28" matches="147">
+<bflang name="Bflang2" version="2.0" table="1632" contexts="40" matches="221">
 <header>
 	<mime type="application/x-bluefish-language2"/>
 	<option name="load_reference" default="1"/>
@@ -126,7 +126,7 @@ An element may also end one or more contexts, the value of the attribute <b>ends
 							</group>
 						</context>
 					</tag>
-					<tag name="autocomplete" id="t.autocomplete" highlight="tag" attributes="append,backup_cursor,class,notclass,enabled,string" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+					<tag name="autocomplete" id="t.autocomplete" highlight="tag" attributes="append,backup_cursor,class,notclass,enable,string" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 						<reference>autocomplete strings that are defined using an autocomplete tag inside a element tag override the autocomplete attribute on the element tag itself. The class and notclass attributes can be used to use different autocomplete settings dependiong on the users preferences</reference>
 					</tag>
 					<tag idref="t.context" />
