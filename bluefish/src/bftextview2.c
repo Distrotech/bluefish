@@ -1442,13 +1442,15 @@ block_fold_tags(BluefishTextView * btv, Tfoundblock * fblock, Tfoldtags mode)
 static void
 reapply_folded_tag_to_folded_blocks(BluefishTextView * btv, Tfoundblock * fblock, GSequenceIter **siter)
 {
-	Tfound *found = get_foundcache_next(btv, siter);
+	Tfound *found;
+	GSequenceIter *tsiter = *siter;
+	found = get_foundcache_next(btv, &tsiter);
 	DBG_FOLD("reapply_folded_tag from %d:%d, starting with found at %d\n",fblock->start1_o, fblock->start2_o, found ? found->charoffset_o : 0);
 	while (found && found->charoffset_o < fblock->start2_o) {
 		if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->folded) {
 			block_fold_tags(btv, found->fblock, foldtags_fold);
 		}
-		found = get_foundcache_next(btv, siter);
+		found = get_foundcache_next(btv, &tsiter);
 	}
 }
 
@@ -1467,7 +1469,7 @@ parent_block_is_folded(Tfoundblock * fblock)
 }
 
 static void
-bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * fblock)
+bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * fblock, GSequenceIter **siter)
 {
 	Tfoldtags mode;
 	fblock->folded = (!fblock->folded);
@@ -1478,6 +1480,9 @@ bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * fblock)
 	}
 	DBG_FOLD("bftextview2_block_toggle_fold, block %d:%d has now folded=%d\n",fblock->start1_o,fblock->end2_o,fblock->folded);
 	block_fold_tags(btv, fblock, mode);
+	if (mode != foldtags_fold) {
+		reapply_folded_tag_to_folded_blocks(btv, fblock, siter);		
+	}
 }
 
 static void
@@ -1518,9 +1523,7 @@ bftextview2_toggle_fold(BluefishTextView * btv, GtkTextIter * iter)
 	if (found && IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->start1_o >= offset
 		&& found->fblock->start1_o <= nextline_o && found->fblock->foldable) {
 		DBG_FOLD("toggle fold on found=%p\n", found);
-		bftextview2_block_toggle_fold(btv, found->fblock);
-		if (!found->fblock->folded)
-			reapply_folded_tag_to_folded_blocks(btv, found->fblock, &siter);
+		bftextview2_block_toggle_fold(btv, found->fblock, &siter);
 	}
 }
 
@@ -1548,9 +1551,9 @@ bftextview2_collapse_expand_toggle(BluefishTextView * btv, const gchar *name, gb
 		if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->foldable && found->fblock->folded != collapse) {
 			if (name) {
 				if (name == g_array_index(btv->bflang->st->blocks, Tpattern_block, g_array_index(btv->bflang->st->matches, Tpattern, found->fblock->patternum).block).name)
-					bftextview2_block_toggle_fold(btv, found->fblock);
+					bftextview2_block_toggle_fold(btv, found->fblock, &siter);
 			} else {
-				bftextview2_block_toggle_fold(btv, found->fblock);
+				bftextview2_block_toggle_fold(btv, found->fblock, &siter);
 			}
 		}
 		found = get_foundcache_next(btv, &siter);
