@@ -789,8 +789,11 @@ get_num_foldable_blocks(Tfound * found)
 {
 	gint count = 0;
 	Tfoundblock *tmpfblock = found->fblock;
-	if (found->numblockchange < 0) count = found->numblockchange; /* don't count popped blocks */
+	if (found->numblockchange < 0 && found->fblock->foldable) 
+				count = found->numblockchange; /* don't count popped blocks */
+	DBG_MARGIN("found->numblockchange=%d, initial count=%d\n",found->numblockchange,count);
 	while (tmpfblock) {
+		DBG_MARGIN("check block %p (%d:%d), foldable=%d, parent=%p\n",tmpfblock, tmpfblock->start1_o, tmpfblock->end2_o,tmpfblock->foldable,tmpfblock->parentfblock);
 		if (tmpfblock->foldable)
 			count++;
 		tmpfblock = (Tfoundblock *)tmpfblock->parentfblock;
@@ -842,6 +845,7 @@ paint_margin(BluefishTextView * btv, cairo_t *cr, GtkTextIter * startvisible,
 		found = get_foundcache_at_offset(master, gtk_text_iter_get_offset(startvisible), &siter);
 		if (found) {
 			num_blocks = get_num_foldable_blocks(found);
+			DBG_MARGIN("EXPOSE: got %d foldable blocks at found %p at offset %d\n",num_blocks,found,found->charoffset_o);
 		} else {
 			DBG_MARGIN("EXPOSE: no found for position %d, siter=%p\n",
 					   gtk_text_iter_get_offset(startvisible), siter);
@@ -950,11 +954,12 @@ paint_margin(BluefishTextView * btv, cairo_t *cr, GtkTextIter * startvisible,
 					}
 					oldfound = found;
 					found = get_foundcache_next(master, &siter);
-					if (num_blocks == -1 && found->charoffset_o >= curline_o) {
+					/* I'm not 100% sure about the !found ||  that I added to the next line.. */
+					if (num_blocks == -1 && (!found || found->charoffset_o >= curline_o)) {
 						num_blocks = get_num_foldable_blocks(oldfound);
 						/*g_print("re-set num_blocks to %d using found at %d, next found at %d\n", num_blocks, oldfound->charoffset_o, found->charoffset_o);*/
 						paint=(num_blocks > 0) ? 1 : 0;
-					} 
+					}
 				}
 				switch (paint) {
 				case 0:
