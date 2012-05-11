@@ -2563,8 +2563,8 @@ preferences_dialog_new(void)
 	 */
 	frame = gtk_frame_new(NULL);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
+	vbox1 = gtk_vbox_new(FALSE, 0);
+	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 2);
 	gtk_container_add(GTK_CONTAINER(frame), vbox1);
 
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
@@ -2579,8 +2579,8 @@ preferences_dialog_new(void)
 	 */
 	frame = gtk_frame_new(NULL);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
+	vbox1 = gtk_vbox_new(FALSE, 0);
+	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 2);
 	gtk_container_add(GTK_CONTAINER(frame), vbox1);
 
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
@@ -2595,8 +2595,8 @@ preferences_dialog_new(void)
 	 */
 	frame = gtk_frame_new(NULL);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
+	vbox1 = gtk_vbox_new(FALSE, 0);
+	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 2);
 	gtk_container_add(GTK_CONTAINER(frame), vbox1);
 
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);

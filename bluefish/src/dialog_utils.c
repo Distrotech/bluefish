@@ -520,9 +520,9 @@ dialog_vbox_new(GtkWidget * box)
 	GtkWidget *alignment, *vbox;
 
 	alignment = gtk_alignment_new(0, 0, 1, 1);
-	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 0, 12, 6);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 0, 8, 4);
 	gtk_box_pack_start(GTK_BOX(box), alignment, FALSE, FALSE, 0);
-	vbox = gtk_vbox_new(FALSE, 12);
+	vbox = gtk_vbox_new(FALSE, 8);
 	gtk_container_add(GTK_CONTAINER(alignment), vbox);
 
 	return vbox;
