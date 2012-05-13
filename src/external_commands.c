@@ -28,6 +28,7 @@
 #include "document.h"
 #include "gtk_easy.h"
 #include "outputbox.h"
+#include "external_commands.h"
 
 #ifndef WIN32
 #define USEBINSH
@@ -50,6 +51,7 @@ typedef struct {
 	gint end; /* -1 for end of the file */
 	const gchar *formatstring; /* the command from the configuration, so including placeholders such as %i, %f, |,  etc. */
 	gchar *commandstring; /* the command that will be started by g_spawn, the placeholders should have been replaced/removed */
+	CustomCommandCallback customcommand_cb;
 
 	gchar *securedir; /* if we need any local temporary files for input or output */
 	gchar *tmp_in; /* the path for the input/output temporary filename */
@@ -379,7 +381,6 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		return NULL;
 	}
 	if ((need_tmpin && (need_inplace || need_pipein)) 
-			|| (need_inplace || need_pipein)
 			|| (need_inplace && need_pipein)) {
 		DEBUG_MSG("create_commandstring, cannot have multiple inputs\n");
 		/*  BUG: give a warning that you cannot have multiple inputs */
@@ -388,9 +389,8 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		return NULL;
 	}
 	if ((need_tmpout && (need_inplace || need_pipeout)) 
-			|| (need_inplace || need_pipeout)
 			|| (need_inplace && need_pipeout)) {
-		DEBUG_MSG("create_commandstring, cannot have multiple outputs\n");
+		DEBUG_MSG("create_commandstring, cannot have multiple outputs, tmpout=%d, pipeout=%d, inplace=%d\n",need_tmpout,need_pipeout,need_inplace);
 		/*  BUG: give a warning that you cannot have multiple outputs */
 		g_free(formatstring);
 		g_free(localname);
@@ -548,9 +548,9 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 	return TRUE;
 }
 
-static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,gpointer data) {
+static gboolean filter_custom_io_watch_lcb(GIOChannel *channel,GIOCondition condition,gpointer data) {
 	Texternalp *ep = data;
-	DEBUG_MSG("filter_io_watch_lcb, started with condition=%d\n",condition);
+	DEBUG_MSG("filter_custom_io_watch_lcb, started with condition=%d\n",condition);
 	if (condition & G_IO_IN) {
 		gchar *str_return;
 		gsize length;
@@ -559,17 +559,19 @@ static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,g
 		
 		status = g_io_channel_read_to_end(channel,&str_return,&length,&gerror);
 		if (gerror) {
-			g_warning("error while trying to read data for outputbox, %d: %s\n",gerror->code,gerror->message);
+			g_warning("error while trying to read data for filter or custom command, %d: %s\n",gerror->code,gerror->message);
 			g_error_free(gerror);
 		}
 	
 		if (status == G_IO_STATUS_NORMAL && str_return) {
 			gint end=ep->end;
 			GError *error=NULL;
-			GtkTextIter iter;
-			GtkTextBuffer *buffer = ep->bfwin->current_document->buffer;
-			DEBUG_MSG("filter_io_watch_lcb, received '%s'\n",str_return);
-			if (ep->bfwin->current_document) {
+			if (ep->customcommand_cb) {
+				ep->customcommand_cb(str_return, ep->bfwin);
+			} else {
+				GtkTextIter iter;
+				GtkTextBuffer *buffer = ep->bfwin->current_document->buffer;
+				DEBUG_MSG("filter_custom_io_watch_lcb, received '%s'\n",str_return);
 				gint line=-1,offset=-1;
 				if (ep->end == -1) {
 					end = gtk_text_buffer_get_char_count(buffer);
@@ -590,7 +592,7 @@ static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,g
 			g_free(str_return);
 			return FALSE;
 		} else {
-			DEBUG_MSG("filter_io_watch_lcb, status=%d\n",status);
+			DEBUG_MSG("filter_custom_io_watch_lcb, status=%d\n",status);
 		}
 		if (str_return) g_free(str_return);
 	}
@@ -619,11 +621,12 @@ static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,g
 typedef enum {
 	mode_filter,
 	mode_outputbox,
-	mode_command
+	mode_command,
+	mode_custom
 } Tcommandmode;
 
 static void command_backend(Tbfwin *bfwin, gint begin, gint end, 
-								const gchar *formatstring, Tcommandmode commandmode) {
+								const gchar *formatstring, Tcommandmode commandmode, CustomCommandCallback customcommand_cb) {
 	Texternalp *ep;
 	
 	DEBUG_MSG("command_backend, started\n");
@@ -642,7 +645,7 @@ static void command_backend(Tbfwin *bfwin, gint begin, gint end,
 	}
 	if (commandmode == mode_filter)	{
 		ep->include_stderr = FALSE;
-		ep->channel_out_lcb = filter_io_watch_lcb;
+		ep->channel_out_lcb = filter_custom_io_watch_lcb;
 		ep->channel_out_data = ep;
 	} else if (commandmode == mode_outputbox)	{
 		ep->include_stderr = TRUE;
@@ -652,20 +655,31 @@ static void command_backend(Tbfwin *bfwin, gint begin, gint end,
 		ep->include_stderr = FALSE;
 		ep->channel_out_lcb = NULL;
 		ep->channel_out_data = NULL;
+	} else if (commandmode == mode_custom) {
+		ep->include_stderr = FALSE;
+		ep->customcommand_cb = customcommand_cb;
+		ep->channel_out_lcb = filter_custom_io_watch_lcb;
+		ep->channel_out_data = ep;
 	}
 
 	start_command(ep);
 }
 
 void outputbox_command(Tbfwin *bfwin, const gchar *formatstring) {
-	command_backend(bfwin, 0, -1,formatstring, mode_outputbox);
+	command_backend(bfwin, 0, -1,formatstring, mode_outputbox, NULL);
 }
 
 
 void filter_command(Tbfwin *bfwin, const gchar *formatstring, gint begin, gint end) {
-	command_backend(bfwin, begin, end,formatstring, mode_filter);
+	command_backend(bfwin, begin, end,formatstring, mode_filter, NULL);
 }
 
 void external_command(Tbfwin *bfwin, const gchar *formatstring) {
-	command_backend(bfwin, 0, -1,formatstring, mode_command);
+	command_backend(bfwin, 0, -1,formatstring, mode_command, NULL);
+}
+
+void
+custom_command(Tbfwin *bfwin, const gchar *formatstring, CustomCommandCallback func)
+{
+	command_backend(bfwin, 0, -1,formatstring, mode_custom, func);
 }
