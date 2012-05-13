@@ -34,6 +34,7 @@
 #include "pixmap.h"
 #include "doc_comments.h"
 #include "doc_text_tools.h"
+#include "doc_extern_tools.h"
 #include "encodings_dialog.h"
 #include "external_commands.h"
 #include "file_dialogs.h"
@@ -683,6 +684,12 @@ ui_word_count(GtkAction * action, gpointer user_data)
 		doc_word_count(bfwin);
 }
 
+static void
+ui_lorem_ipsum(GtkAction * action, gpointer user_data)
+{
+	lorem_ipsum_dialog(BFWIN(user_data));
+}
+
 /* view action callbacks */
 
 static void
@@ -818,6 +825,7 @@ static const GtkActionEntry global_actions[] = {
 	 {"DeleteLine", NULL, N_("Delete Line"), "<control>y", N_("Delete the current line"),
 	 G_CALLBACK(ui_delete_line)},
 	{"WordCount", NULL, N_("Word Cou_nt"), NULL, N_("Word count"), G_CALLBACK(ui_word_count)},
+	{"LoremIpsum", NULL, N_("Lorem Ipsum generator"), NULL, N_("Lorem Ipsum generator"), G_CALLBACK(ui_lorem_ipsum)},
 	{"IndentingToSpaces", NULL, N_("Indenting to S_paces"), NULL, N_("Indenting to spaces"),
 	 G_CALLBACK(ui_indenting_to_spaces)},
 	{"IndentingToTabs", NULL, N_("Indenting to T_abs"), NULL, N_("Indenting to tabs"),

@@ -25,4 +25,7 @@ void outputbox_command(Tbfwin *bfwin, const gchar *formatstring);
 void filter_command(Tbfwin *bfwin, const gchar *formatstring, gint begin, gint end);
 void external_command(Tbfwin *bfwin, const gchar *formatstring);
 
+typedef void (*CustomCommandCallback) (const gchar *output, gpointer bfwin);
+void custom_command(Tbfwin *bfwin, const gchar *formatstring, CustomCommandCallback func);
+
 #endif /* __EXTERNAL_COMMANDS_H_ */
