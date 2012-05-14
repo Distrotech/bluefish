@@ -50,7 +50,7 @@ lorem_ipsum_dialog(Tbfwin *bfwin)
 	dialog_mnemonic_label_in_table(_("Number of sentences"), spin2, table,0,1, 1,2);
 	poplist = list_from_arglist(FALSE, _("Insert plain text"), _("Insert in <li>"), _("Insert in <p>"), NULL);
 	combo = combobox_with_popdown(NULL, poplist, FALSE);
-	gtk_table_attach_defaults(table, combo, 0,2, 2,3);
+	gtk_table_attach_defaults(GTK_TABLE(table), combo, 0,2, 2,3);
 	g_list_free(poplist);
 	gtk_widget_show_all(dialog);
 	result = gtk_dialog_run(GTK_DIALOG (dialog));
