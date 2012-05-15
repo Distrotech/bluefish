@@ -1349,7 +1349,9 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			}		
 		break;
 		case SNR_RESPONSE_REPLACE:
-			if (s3run_replace_current(snrwin->s3run)) {
+			if (!s3run->current) {
+				snr3_run_go(s3run, TRUE);
+			} else if (s3run_replace_current(snrwin->s3run)) {
 				doc_unre_new_group(snrwin->bfwin->current_document);
 				if ((guichange == 0) && s3run->current) {
 					scroll_to_result(s3run->current->data, GTK_WINDOW(((TSNRWin *)s3run->dialog)->dialog));
