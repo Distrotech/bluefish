@@ -313,7 +313,7 @@ entity_dialog(Tbfwin * bfwin, Tentmode mode, Tentitysetting * eset)
 		ew->IE_apos_workaround =
 			gtk_check_button_new_with_mnemonic(_("Work around missing &apos; entity on IE"));
 		gtk_box_pack_start(GTK_BOX(vbox), ew->IE_apos_workaround, FALSE, FALSE, 0);
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->xml), eset->IE_apos_workaround);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->IE_apos_workaround), eset->IE_apos_workaround);
 	} else {
 		ew->IE_apos_workaround = NULL;
 	}
