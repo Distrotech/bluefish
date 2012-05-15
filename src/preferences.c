@@ -984,6 +984,25 @@ reset_extcommands_lcb(GtkWidget * wid, Tprefdialog * pd)
 	reload_extcommands(pd, pd->lists[extcommands]);
 }
 
+static gboolean
+extcommands_query_tooltip_lcb(GtkWidget  *widget, gint        x,  gint        y,  gboolean    keyboard_mode,  GtkTooltip *tooltip,  gpointer    user_data)
+{
+	gtk_tooltip_set_markup(tooltip, _
+						 (
+						 "<small><b>Input options</b>\n"
+						 "start with a | to send the input to the standard input\n"
+						 "%f local filename (available for local files)\n"
+						 "%i temporary filename for input, equals %f if the document is not modified and local\n"
+						 "<b>Other options</b>\n"
+						 "%a additional arguments that will be asked when this filter is activated\n"
+						 "%c local directory of file (available for local files)\n"
+						 "%n filename without path (available for all titled files)\n"
+						 "%u URL (available for all titled files)\n"
+						 "%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"
+						 ));
+	return TRUE;
+}
+
 static void
 create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 {
@@ -1000,7 +1019,9 @@ create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 					   2, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 2, G_CALLBACK(extcommands_3_edited_lcb), pd,
 					   _("Default browser"), 3, FALSE);
-	label = gtk_label_new(NULL);
+	g_signal_connect(G_OBJECT(pd->bd.lview), "query-tooltip", G_CALLBACK(extcommands_query_tooltip_lcb), pd);
+	g_object_set(G_OBJECT(pd->bd.lview), "has-tooltip", TRUE, NULL);
+	/*label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label),
 						 _
 						 ("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n"
@@ -1012,12 +1033,12 @@ create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 						 "%u URL (available for all titled files)\n"
 						 "%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), label, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1), label, TRUE, TRUE, 2);*/
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->bd.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 200);
+	gtk_widget_set_size_request(scrolwin, 200, 300);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	
 	reload_extcommands(pd, pd->lists[extcommands]);
@@ -1122,6 +1143,26 @@ reset_extfilters_lcb(GtkWidget * wid, Tprefdialog * pd)
 	reload_extfilters(pd, pd->lists[extfilters]);
 }
 
+static gboolean
+filters_query_tooltip_lcb(GtkWidget  *widget, gint        x,  gint        y,  gboolean    keyboard_mode,  GtkTooltip *tooltip,  gpointer    user_data)
+{
+	gtk_tooltip_set_markup(tooltip, _
+						 ("<small><b>Input options</b>\n"
+						 "start with a | to send the input to the standard input\n"
+						 "%f local filename (requires local file, cannot operate on selection)\n"
+						 "%i temporary filename for input\n"
+						 "<b>Output options</b>\nend with a | to read the output from the standard output\n"
+						 "%o temporary filename\n"
+						 "%t temporary filename for both input and output (for in-place-editing filters, cannot operate on selection)\n"
+						 "<b>Other options</b>\n"
+						 "%a additional arguments that will be asked when this filter is activated\n"
+						 "%c local directory of file (requires local file)\n"
+						 "%n filename without path (available for all titled files)\n"
+						 "%u URL (available for all titled files)\n"
+						 "%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
+	return TRUE;
+}
+
 static void
 create_filters_gui(Tprefdialog * pd, GtkWidget * vbox1)
 {
@@ -1136,8 +1177,9 @@ create_filters_gui(Tprefdialog * pd, GtkWidget * vbox1)
 					   _("Label"), 1, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->ed.lview), 1, G_CALLBACK(external_filter_2_edited_lcb), pd,
 					   _("Command"), 2, FALSE);
-
-	label = gtk_label_new(NULL);
+	g_signal_connect(G_OBJECT(pd->ed.lview), "query-tooltip", G_CALLBACK(filters_query_tooltip_lcb), pd);
+	g_object_set(G_OBJECT(pd->ed.lview), "has-tooltip", TRUE, NULL);
+/*	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label),
 						 _
 						 ("<small><b>Input options</b>\n"
@@ -1147,12 +1189,12 @@ create_filters_gui(Tprefdialog * pd, GtkWidget * vbox1)
 						 "<b>Output options</b>\nend with a | to read the output from the standard output\n"
 						 "%o temporary filename\n%t temporary filename for both input and output (for in-place-editing filters, cannot operate on selection)\n<b>Other options</b>\n%c local directory of file (requires local file)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), label, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1), label, TRUE, TRUE, 2);*/
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ed.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 200);
+	gtk_widget_set_size_request(scrolwin, 200, 300);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	reload_extfilters(pd, pd->lists[extfilters]);
 	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->ed.lview), TRUE);
@@ -1287,6 +1329,26 @@ reset_extoutputbox_lcb(GtkWidget * wid, Tprefdialog * pd)
 	reload_extoutputbox(pd, pd->lists[extoutputbox]);
 }
 
+static gboolean
+outputbox_query_tooltip_lcb(GtkWidget  *widget, gint        x,  gint        y,  gboolean    keyboard_mode,  GtkTooltip *tooltip,  gpointer    user_data)
+{
+	gtk_tooltip_set_markup(tooltip, _
+						 ("<small><b>Input options</b>\n"
+							"start with a | to send the input to the standard input\n"
+							"%f local filename (available for local files)\n"
+							"%i temporary filename for input, equals %f if the document is not modified and local\n"
+							"<b>Output options</b>\n"
+							"end with a | to read the output from the standard output\n"
+							"%o temporary filename\n"
+							"<b>Other options</b>\n"
+							"%a additional arguments that will be asked when this filter is activated\n"
+							"%c local directory of file (available for local files)\n"
+							"%n filename without path (available for all titled files)\n"
+							"%u URL (available for all titled files)\n"
+							"%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
+	return TRUE;
+}
+
 static void
 create_outputbox_gui(Tprefdialog * pd, GtkWidget * vbox1)
 {
@@ -1311,19 +1373,21 @@ create_outputbox_gui(Tprefdialog * pd, GtkWidget * vbox1)
 					   5, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_6_edited_lcb), pd, _("Command"),
 					   6, FALSE);
-	label = gtk_label_new(NULL);
+	g_signal_connect(G_OBJECT(pd->od.lview), "query-tooltip", G_CALLBACK(outputbox_query_tooltip_lcb), pd);
+	g_object_set(G_OBJECT(pd->od.lview), "has-tooltip", TRUE, NULL);
+/*	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label),
 						 _
 						 ("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%f local filename (available for local files)\n"
 						 "%i temporary filename for input, equals %f if the document is not modified and local\n<b>Output options</b>\n"
 						 "end with a | to read the output from the standard output\n%o temporary filename\n%t temporary filename for both input and output (for in-place-editing filters)\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), label, FALSE, FALSE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1), label, FALSE, FALSE, 2);*/
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->od.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 200);
+	gtk_widget_set_size_request(scrolwin, 200, 300);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	reload_extoutputbox(pd, pd->lists[extoutputbox]);
 	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->od.lview), TRUE);

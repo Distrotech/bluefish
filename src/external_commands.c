@@ -28,6 +28,7 @@
 #include "document.h"
 #include "gtk_easy.h"
 #include "outputbox.h"
+#include "dialog_utils.h"
 #include "external_commands.h"
 
 #ifndef WIN32
@@ -304,21 +305,20 @@ gboolean operatable_on_selection(const gchar *formatstring) {
 } 
 
 /* The format string should have new options:
-    * %flocal full path (function should abort for remote files)
+    * %f local full path (function should abort for remote files)
     * %c local directory of file (function should abort for remote files)
     * %n filename without path
     * %u URL
     * %p preview URL if basedir and preview dir are set in project settings, else identical to %u
-    * %i temporary fifo for input, if the document is not modified and local equal to %f
-    * %o temporary fifo for output of filters or outputbox
-    * %I temporary filename for input (fifo is faster), if the document is not modified and local equal to %f
-    * %O temporary filename for output of filters or outputbox (fifo is faster) (previously %f)
+    * %i temporary filename for input (fifo is faster), if the document is not modified and local equal to %f
+    * %o temporary filename for output of filters or outputbox (fifo is faster) (previously %f)
     * %t temporary filename for both input and output (for in-place-editing filters)
+    * %a user supplied arguments
 */
 static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gboolean discard_output) {
 	Tconvert_table *table;
 	gchar *localname=NULL, *localfilename=NULL, *retstring, *curi=NULL;
-	gchar *formatstring;
+	gchar *formatstring, *user_argument=NULL;
 	gint formatstringlen;
 	gboolean is_local_non_modified;
 	gboolean need_local = FALSE,
@@ -328,7 +328,8 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		need_tmpout = FALSE,
 		need_inplace = FALSE,
 		need_preview_uri = FALSE,
-		need_filename=FALSE;
+		need_filename=FALSE,
+		need_arguments=FALSE;
 	gint items = 2, cur=0;
 	
 	if (!ep->bfwin->current_document) {
@@ -347,7 +348,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		need_pipeout = TRUE;
 		formatstring[formatstringlen-1]=' ';
 	}
-	
+	need_arguments = (strstr(formatstring, "%a") != NULL);
 	need_filename = need_local = (strstr(formatstring, "%c") != NULL || strstr(formatstring, "%f") != NULL);
 	need_preview_uri = (strstr(formatstring, "%p") != NULL);
 	if (!need_filename) { /* local already implies we need a filename */
@@ -365,7 +366,6 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	if (need_local && !localname) {
 		g_free(formatstring);
 		g_free(localname);
-
 		return NULL;
 	}
 
@@ -397,6 +397,37 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 
 		return NULL;
 	}
+	
+	if (need_arguments) {
+		GtkWidget *dialog, *entry;
+		gchar *tmp;
+		gint result;
+		dialog = gtk_dialog_new_with_buttons(_("Supply extra arguments"),
+											  GTK_WINDOW(ep->bfwin->main_window),
+											  GTK_DIALOG_DESTROY_WITH_PARENT,
+											  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+											  GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, NULL);
+		tmp = g_strdup_printf(_("Supply arguments to define %%a in '%s'"), formatstring);
+		entry = dialog_entry_labeled(NULL, tmp, gtk_dialog_get_content_area(GTK_DIALOG(dialog)), 6);
+		g_free(tmp);
+		gtk_widget_show_all(dialog);
+		result = gtk_dialog_run(GTK_DIALOG (dialog));
+		switch (result) {
+		case GTK_RESPONSE_ACCEPT:
+			user_argument = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+			if (!user_argument || user_argument[0]=='\0') {
+				need_arguments = FALSE;
+			}
+		break;
+		default:
+			gtk_widget_destroy(dialog);
+			return NULL;
+		break;
+		}
+		gtk_widget_destroy(dialog);
+	}
+	
+	
 	if (need_pipein)  ep->pipe_in = TRUE;
 	if (need_pipeout) ep->pipe_out = TRUE;
 	DEBUG_MSG("create_commandstring, formatstring '%s' seems OK\n",formatstring);
@@ -425,6 +456,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	if (need_tmpin) items++;
 	if (need_tmpout) items++;
 	if (need_inplace) items++;
+	if (need_arguments) items++;
 
 	table = g_new(Tconvert_table, items+1);
 	if (need_filename) {
@@ -477,6 +509,11 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		table[cur].my_char = g_strndup(localname, strlen(localname) - strlen(localfilename));
 		cur++;
 	}
+	if (need_arguments) {
+		table[cur].my_int = 'a';
+		table[cur].my_char = g_strdup(user_argument);
+		cur++;
+	}
 	table[cur].my_int = '\0';
 	table[cur].my_char = NULL;
 	if (cur == 0) {
@@ -486,6 +523,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	}
 	free_convert_table(table);
 	g_free(formatstring);
+	g_free(user_argument);
 	DEBUG_MSG("create_commandstring, returning %s\n",retstring);
 	return retstring;
 }
