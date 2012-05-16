@@ -901,7 +901,7 @@ gchar *most_efficient_filename(gchar *filename) {
  *
  * Return value: a newly allocated gchar * with the relative link
  **/
-gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepath)
+gchar *create_relative_link_to(const gchar * current_filepath, const gchar * link_to_filepath)
 {
 	gchar *returnstring = NULL;
 	gchar *eff_current_filepath, *eff_link_to_filepath;

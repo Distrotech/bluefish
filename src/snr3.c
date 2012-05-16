@@ -1518,7 +1518,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	gtk_table_set_row_spacing(GTK_TABLE(table), currentrow, 0);
 	currentrow++;
 	
-	snrwin->replace = combobox_with_popdown(NULL, bfwin->session->replacelist, TRUE);
+	snrwin->replace = combobox_with_popdown("", bfwin->session->replacelist, TRUE);
 	dialog_mnemonic_label_in_table(_("<b>Replace _with</b>"), snrwin->replace, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->replace, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
@@ -1705,10 +1705,10 @@ snr3_advanced_dialog(Tbfwin * bfwin, const gchar *findtext)
 			snr3_advanced_dialog_backend(bfwin, findtext?findtext:tmp, bfwin->session->snr3_scope);
 			g_free(tmp);
 		} else {
-			snr3_advanced_dialog_backend(bfwin, findtext, snr3scope_selection);
+			snr3_advanced_dialog_backend(bfwin, findtext?findtext:"", snr3scope_selection);
 		}
 	} else {
-		snr3_advanced_dialog_backend(bfwin, findtext, bfwin->session->snr3_scope);
+		snr3_advanced_dialog_backend(bfwin, findtext?findtext:"", bfwin->session->snr3_scope);
 	}
 }
 

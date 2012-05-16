@@ -94,7 +94,7 @@ gchar *strip_any_whitespace(gchar *string);
 gchar *trunc_on_char(gchar * string, gchar which_char);
 /*gchar *strip_common_path(char *to_filename, char *from_filename);*/
 gchar *most_efficient_filename(gchar *filename);
-gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepath);
+gchar *create_relative_link_to(const gchar * current_filepath, const gchar * link_to_filepath);
 
 gchar *strip_trailing_slash(gchar *input);
 gchar *ending_slash(const gchar *dirname);

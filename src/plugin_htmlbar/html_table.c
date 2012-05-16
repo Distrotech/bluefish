@@ -92,7 +92,7 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	static gchar *tagitems[] =
 		{ "cellpadding", "cellspacing", "border", "align", "bgcolor", "width", "class", "style",
-"rules", "frame", "border", "id", NULL
+"rules", "frame", "id", NULL
 	};
 	gchar *tagvalues[13];
 	gchar *custom = NULL;
@@ -109,6 +109,7 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 				dg->spin[1], dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[4], 2, 3, 0, 1);
+	g_print("cell padding='%s'\n",tagvalues[0]);
 	parse_integer_for_dialog(tagvalues[0], dg->spin[1], NULL, dg->check[4]);
 
 	dg->spin[3] = spinbut_with_value(NULL, 0, 100, 1.0, 5.0);
@@ -119,7 +120,7 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[5], 2, 3, 1, 2);
 	parse_integer_for_dialog(tagvalues[1], dg->spin[3], NULL, dg->check[5]);
 
-	dg->entry[3] = dialog_entry_in_table(custom, dgtable, 4, 5, 1, 2);
+	dg->entry[3] = dialog_entry_in_table(tagvalues[10], dgtable, 4, 5, 1, 2);
 	dialog_mnemonic_label_in_table(_("_Id:"), dg->entry[3], dgtable, 3, 4, 1, 2);
 
 	dg->combo[4] = combobox_with_popdown_sized(tagvalues[6], bfwin->session->classlist, 1, 90);
@@ -154,7 +155,7 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">_Width:</span>"), dg->spin[2], dgtable, 5, 6, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 6, 7, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 7, 8, 0, 1);
-	parse_integer_for_dialog(tagvalues[6], dg->spin[2], NULL, dg->check[1]);
+	parse_integer_for_dialog(tagvalues[5], dg->spin[2], NULL, dg->check[1]);
 
 	dg->spin[4] = spinbut_with_value(NULL, 0, 100, 1.0, 5.0);
 	dg->check[2] = gtk_check_button_new_with_label("%");

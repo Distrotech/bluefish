@@ -288,6 +288,7 @@ parse_integer_for_dialog(gchar * valuestring, GtkWidget * spin, GtkWidget * entr
 		value = strtod(valuestring, NULL);
 	}
 	if (spin) {
+		gtk_entry_set_text(GTK_ENTRY (spin), "0");
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(spin), value);
 	}
 

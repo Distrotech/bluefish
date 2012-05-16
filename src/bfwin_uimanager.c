@@ -690,6 +690,18 @@ ui_lorem_ipsum(GtkAction * action, gpointer user_data)
 	lorem_ipsum_dialog(BFWIN(user_data));
 }
 
+static void
+ui_insert_relative_filename(GtkAction * action, gpointer user_data)
+{
+	doc_insert_filename(BFWIN(user_data)->current_document, TRUE);
+}
+
+static void
+ui_insert_absolute_filename(GtkAction * action, gpointer user_data)
+{
+	doc_insert_filename(BFWIN(user_data)->current_document, FALSE);
+}
+
 /* view action callbacks */
 
 static void
@@ -826,6 +838,8 @@ static const GtkActionEntry global_actions[] = {
 	 G_CALLBACK(ui_delete_line)},
 	{"WordCount", NULL, N_("Word Cou_nt"), NULL, N_("Word count"), G_CALLBACK(ui_word_count)},
 	{"LoremIpsum", NULL, N_("Lorem Ipsum generator"), NULL, N_("Lorem Ipsum generator"), G_CALLBACK(ui_lorem_ipsum)},
+	{"RelativeFilename", NULL, N_("Insert Relative Filename"), NULL, N_("Insert Relative Filename"), G_CALLBACK(ui_insert_relative_filename)},
+	{"AbsoluteFilename", NULL, N_("Insert Absolute Filename"), NULL, N_("Insert Absolute Filename"), G_CALLBACK(ui_insert_absolute_filename)},
 	{"IndentingToSpaces", NULL, N_("Indenting to S_paces"), NULL, N_("Indenting to spaces"),
 	 G_CALLBACK(ui_indenting_to_spaces)},
 	{"IndentingToTabs", NULL, N_("Indenting to T_abs"), NULL, N_("Indenting to tabs"),

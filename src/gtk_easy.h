@@ -78,6 +78,7 @@ GtkWidget *bf_label_with_markup(const gchar * labeltext);
 void bf_label_tad_with_markup(const gchar * labeltext, gfloat xalign, gfloat yalign,
 							  GtkWidget * table, guint left_attach, guint right_attach, guint top_attach,
 							  guint bottom_attach);
+gchar *run_file_select_dialog(GtkWindow *parent, const gchar *setfile, const gchar *relativeto, GtkFileChooserAction chooseraction);
 GtkWidget *file_but_new2(GtkWidget * which_entry, gint full_pathname, Tbfwin * bfwin,
 						 GtkFileChooserAction chooseraction);
 #define file_but_new(entry,path,bfwin) file_but_new2(entry,path,bfwin,GTK_FILE_CHOOSER_ACTION_OPEN)
