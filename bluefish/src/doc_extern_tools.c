@@ -35,9 +35,10 @@ lorem_ipsum_command_callback(const gchar *output, gpointer bfwin)
 void
 lorem_ipsum_dialog(Tbfwin *bfwin)
 {
-	gint result;
+	gint result, i;
 	GtkWidget *dialog, *spin1, *spin2, *combo, *table;
 	GList *poplist;
+	gchar *command;
 	dialog = gtk_dialog_new_with_buttons(_("Lorem Ipsum generator"),
 											  GTK_WINDOW(bfwin->main_window),
 											  GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -56,7 +57,14 @@ lorem_ipsum_dialog(Tbfwin *bfwin)
 	result = gtk_dialog_run(GTK_DIALOG (dialog));
 	switch (result) {
 	case GTK_RESPONSE_ACCEPT:
-		custom_command(bfwin, PKGDATADIR"/lorem-ipsum-generator -p 5|", lorem_ipsum_command_callback);
+		i = gtk_combo_box_get_active(GTK_COMBO_BOX(combo));
+		command = g_strdup_printf(PKGDATADIR"/lorem-ipsum-generator -l -p %d -s %d %s|", 
+								(gint)gtk_spin_button_get_value(GTK_SPIN_BUTTON(spin1)),
+								(gint)gtk_spin_button_get_value(GTK_SPIN_BUTTON(spin2)),
+								 i == 0 ? "" : (i==1 ? "-f html-li" : "-f html-p")
+								 );
+		custom_command(bfwin, command, lorem_ipsum_command_callback);
+		g_free(command);
 	break;
 	default:
 	break;

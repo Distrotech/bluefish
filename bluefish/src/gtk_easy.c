@@ -320,6 +320,7 @@ boxed_combobox_with_popdown(const gchar * setstring, const GList * which_list, g
 	return returnwidget;
 }
 
+/* if setstring is NULL the first item will be set as default, if setstring is "" an empty item will be set active */
 GtkWidget *
 combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolean editable)
 {
@@ -339,11 +340,16 @@ combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolea
 			index++;
 		}
 	}
-	if (activenum != -1) {
-		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget), activenum);
-	} else if (setstring) {
-		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(returnwidget), setstring);
-		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget), index);
+	/*g_print("setstring='%s', activenum=%d, index=%d\n",setstring,activenum,index);*/
+	if (setstring) {
+		if (activenum == -1) {
+			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(returnwidget), setstring);
+			gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget), index);
+		} else {
+			gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget), activenum);
+		}
+	} else {
+		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget), index-1);
 	}
 	if (editable) {
 		child = gtk_bin_get_child(GTK_BIN(returnwidget));
@@ -472,15 +478,19 @@ spinbut_output(GtkSpinButton *spin,gpointer data)
 	double testval;
 	/* if text contains a number, we return FALSE and thus use the adjustment to update the number,
 	if it contains text we return TRUE and thus do nothing */
+	if (((int)gtk_adjustment_get_value(gtk_spin_button_get_adjustment(spin))) != 0) {
+		return FALSE;
+	}
 	text = gtk_entry_get_text(GTK_ENTRY(spin));
 	testval = strtod(text, &endptr);
 	if (endptr == text) {
+		/*g_print("spinbut_output, no conversion to float possible for '%s', adjustment has value %d, return TRUE\n", text, (int)gtk_adjustment_get_value(gtk_spin_button_get_adjustment(spin)));*/
 		return TRUE;
 	}
+	/*g_print("spinbut_output, conversion to floatfor '%s' was %f, return FALSE\n", text, testval);*/
 	return FALSE;
 }
- 
- 
+
 GtkWidget *
 spinbut_with_value(gchar * value, gfloat lower, gfloat upper, gfloat step_increment, gfloat page_increment)
 {
@@ -990,6 +1000,37 @@ progress_popup(GtkWidget * win, gchar * title, guint maxvalue)
 /************************ file_but_* FUNCTIONS **************************/
 /************************************************************************/
 
+gchar *
+run_file_select_dialog(GtkWindow *parent, const gchar *setfile, const gchar *relativeto, GtkFileChooserAction chooseraction)
+{
+	GtkWidget *dialog;
+	gchar *tmpstring=NULL;
+	dialog =
+		file_chooser_dialog(NULL, _("Select File"), chooseraction, setfile, FALSE, FALSE, NULL,FALSE);
+	gtk_window_set_transient_for(GTK_WINDOW(dialog), parent);
+	if (chooseraction == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER) {
+		gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), setfile);
+	} else if (setfile) {
+		gtk_file_chooser_set_uri(GTK_FILE_CHOOSER(dialog), setfile);
+	}
+	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+		if (chooseraction == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER) {
+			tmpstring = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
+		} else {
+			tmpstring = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+		}
+	}
+	gtk_widget_destroy(dialog);
+
+	if (tmpstring && relativeto) {
+		gchar *tmp;
+		tmp = create_relative_link_to(relativeto, tmpstring);
+		g_free(tmpstring);
+		tmpstring = tmp;
+	}
+	return tmpstring;
+}
+
 typedef struct {
 	GtkWidget *entry;
 	Tbfwin *bfwin;
@@ -1000,7 +1041,7 @@ typedef struct {
 static void
 file_but_clicked_lcb(GtkWidget * widget, Tfilebut * fb)
 {
-	gchar *tmpstring = NULL, *tmp2string = NULL, *setfile = NULL;
+	gchar *tmpstring = NULL, *relativeto = NULL, *setfile = NULL;
 	DEBUG_MSG("file_but_clicked_lcb, started, which_entry=%p\n", fb->entry);
 	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(fb->entry)), 0, -1);
 	/* if setfile is empty we should probably use the current document basedir ? right? */
@@ -1021,12 +1062,24 @@ file_but_clicked_lcb(GtkWidget * widget, Tfilebut * fb)
 		g_object_unref(parent);
 		if (newsetfile) {
 			g_free(setfile);
-			setfile = g_file_get_uri(newsetfile);;
+			setfile = g_file_get_uri(newsetfile);
 			g_object_unref(newsetfile);
 		}
 	}
 
-	{
+	if (!fb->fullpath && fb->bfwin && fb->bfwin->current_document && fb->bfwin->current_document->uri) {
+		relativeto = g_file_get_uri(fb->bfwin->current_document->uri);
+	}
+
+	tmpstring = run_file_select_dialog(GTK_WINDOW(gtk_widget_get_toplevel(fb->entry))
+							, setfile
+							, relativeto, 
+							fb->chooseraction);
+	if (tmpstring) {
+		gtk_entry_set_text(GTK_ENTRY(fb->entry), tmpstring);
+	}
+	g_free(relativeto);
+	/*{
 		GtkWidget *dialog;
 		dialog =
 			file_chooser_dialog(NULL, _("Select File"), fb->chooseraction, setfile, FALSE, FALSE, NULL,
@@ -1052,12 +1105,12 @@ file_but_clicked_lcb(GtkWidget * widget, Tfilebut * fb)
 		if (!fb->fullpath && fb->bfwin && fb->bfwin->current_document) {
 			if (fb->bfwin->current_document->uri != NULL) {
 				gchar *doc_curi;
-				/* the function g_file_get_relative_path cannot create links that don't 
-				   have the same prefix (relative links with ../../) */
+				/ * the function g_file_get_relative_path cannot create links that don't 
+				   have the same prefix (relative links with ../../) * /
 				doc_curi = g_file_get_uri(fb->bfwin->current_document->uri);
 				tmp2string = create_relative_link_to(doc_curi, tmpstring);
 				g_free(doc_curi);
-				/* If tmp2string is NULL we need to return the full path */
+				/ * If tmp2string is NULL we need to return the full path * /
 				if (tmp2string == NULL)
 					tmp2string = g_strdup(tmpstring);
 			} else {
@@ -1067,11 +1120,9 @@ file_but_clicked_lcb(GtkWidget * widget, Tfilebut * fb)
 			tmpstring = tmp2string;
 		}
 		gtk_entry_set_text(GTK_ENTRY(fb->entry), tmpstring);
-/*	perhaps I break something by commenting-out this call, but otherwise the dialog is sometimes started
-	again after the signal is emmitted
-		gtk_signal_emit_by_name(GTK_OBJECT(which_entry), "activate");
-		g_free(tmp2string); */
-	}
+
+	}*/
+	
 }
 
 static void

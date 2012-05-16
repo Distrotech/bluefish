@@ -527,3 +527,17 @@ doc_move_selection(Tdocument *doc, gboolean up)
 	gtk_text_buffer_select_range(doc->buffer,&so,&eo);
 }
 
+void
+doc_insert_filename(Tdocument *doc, gboolean relative)
+{
+	gchar *tmp, *relativeto=NULL;
+	if (relative && doc->uri) {
+		relativeto = g_file_get_uri(doc->uri);
+	}
+	tmp = run_file_select_dialog(GTK_WINDOW(BFWIN(doc->bfwin)->main_window)
+							, NULL, relativeto,GTK_FILE_CHOOSER_ACTION_OPEN);
+	if (tmp)
+		doc_insert_two_strings(doc, tmp, NULL);	
+	g_free(relativeto);
+	g_free(tmp);
+}

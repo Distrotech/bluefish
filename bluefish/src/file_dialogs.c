@@ -179,7 +179,7 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	}
 	tfs->find_pattern = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(lstore), 0);
 	g_object_unref(lstore);*/
-	tfs->find_pattern = combobox_with_popdown(NULL, bfwin->session->filegloblist, TRUE);
+	tfs->find_pattern = combobox_with_popdown("", bfwin->session->filegloblist, TRUE);
 	dialog_mnemonic_label_in_table(_("_Pattern:"), tfs->find_pattern, table, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 1, 5, 1, 2);
 	g_signal_connect(G_OBJECT(tfs->find_pattern), "changed",
