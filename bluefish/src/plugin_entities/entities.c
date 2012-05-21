@@ -394,19 +394,21 @@ entity_init(void)
 }
 
 static const gchar *entities_plugin_ui =
-	"<ui>"
-	"  <menubar name='MainMenu'>"
-	"    <menu action='ToolsMenu'>"
-	"      <separator/>"
-	"      <menuitem action='CharactersToEntities'/>"
-	"      <menuitem action='EntitiesToCharacters'/>"
-	"      <menuitem action='URLDecode'/>"
-	"      <menuitem action='URLEncode'/>"
-	"      <menuitem action='ToLowercase'/>"
-	"      <menuitem action='ToUppercase'/>"
-	"    </menu>"
-	"  </menubar>"
-	"</ui>";
+"<ui>"
+	"<menubar name='MainMenu'>"
+		"<menu action='ToolsMenu'>"
+			"<menu action='ToolsConvert'>"
+				"<separator/>"
+				"<menuitem action='CharactersToEntities'/>"
+				"<menuitem action='EntitiesToCharacters'/>"
+				"<menuitem action='URLDecode'/>"
+				"<menuitem action='URLEncode'/>"
+				"<menuitem action='ToLowercase'/>"
+				"<menuitem action='ToUppercase'/>"
+			"</menu>"
+		"</menu>"
+	"</menubar>"
+"</ui>";
 
 static void
 entity_initgui(Tbfwin * bfwin)

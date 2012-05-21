@@ -1,217 +1,224 @@
 <!--
- ***************************************************************************
- *  Bluefish HTML Editor
- *  bluefish_menu_ui.xml
- *  This file is part of Bluefish
- * 
- *  Copyright (C) 2011 - James Hayward and Olivier Sessink
- *
- *  bluefish is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  bluefish is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with bluefish.  If not, see <http://www.gnu.org/licenses/>.
- *
- ***************************************************************************
+***************************************************************************
+*  Bluefish HTML Editor
+*  bluefish_menu_ui.xml
+*  This file is part of Bluefish
+*
+*  Copyright (C) 2011 - James Hayward and Olivier Sessink
+*
+*  bluefish is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation, either version 3 of the License, or
+*  (at your option) any later version.
+*
+*  bluefish is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*
+*  You should have received a copy of the GNU General Public License
+*  along with bluefish.  If not, see <http://www.gnu.org/licenses/>.
+*
+***************************************************************************
 -->
- 
+
 <ui>
-  <menubar name="MainMenu">
-    <menu action="FileMenu">
-      <menuitem action="FileNew"/>
-      <menu action="NewFromTemplate">
+<menubar name="MainMenu">
+	<menu action="FileMenu">
+		<menuitem action="FileNew"/>
+		<menu action="NewFromTemplate">
 		<placeholder name="TemplatePlaceholder"/>
-	  </menu>
-      <menuitem action="FileNewWindow"/>
-      <menuitem action="FileOpen"/>
-      <menu action="FileOpenRecent">
-      <placeholder name="FileOpenRecentPlaceholder"/>
-	  </menu>
-	  <menuitem action="FileOpenAdvanced"/>
-	  <placeholder name="OpenURLPlaceholder"/>
-	  <menuitem action="FileOpenSelection"/>
-	  <separator/>
-	  <menuitem action="FileInsert"/>
-	  <separator/>
-	  <menuitem action="FileSave"/>
-	  <menuitem action="FileSaveAs"/>
-	  <menuitem action="FileSaveAll"/>
-	  <menuitem action="FileRename"/>
-	  <menuitem action="FileRevert"/>
-	  <separator/>
-	  <menuitem action="FileClose"/>
-	  <menuitem action="FileCloseAll"/>
-	  <menuitem action="FileCloseWindow"/>
-	  <separator/>
-	  <menuitem action="FileUploadDownload"/>
-	  <separator/>
-     <menuitem action="FileQuit"/>
-    </menu>
-    <menu action="EditMenu">
-      <menuitem action="Undo"/>
-      <menuitem action="Redo"/>
-      <menuitem action="UndoAll"/>
-      <menuitem action="RedoAll"/>
-      <separator/>
-      <menuitem action="Cut"/>
-      <menuitem action="Copy"/>
-      <menuitem action="Paste"/>
-      <separator/>
-      <menuitem action="EditSelectAll"/>
-      <separator/>
-      <menuitem action="Find"/>
-      <menuitem action="FindAgain"/>
-      <menuitem action="FindSelection"/>
-      <menuitem action="Replace"/>
-      <!--<menuitem action="ReplaceAgain"/>-->
-      <separator/>
-      <menuitem action="EditIndent"/>
-      <menuitem action="EditUnindent"/>
-      <separator/>
-      <menuitem action="EditPreferences"/>
-    </menu>
+	</menu>
+		<menuitem action="FileNewWindow"/>
+		<menuitem action="FileOpen"/>
+		<menu action="FileOpenRecent">
+		<placeholder name="FileOpenRecentPlaceholder"/>
+	</menu>
+	<menuitem action="FileOpenAdvanced"/>
+	<placeholder name="OpenURLPlaceholder"/>
+	<menuitem action="FileOpenSelection"/>
+	<separator/>
+	<menuitem action="FileInsert"/>
+	<separator/>
+	<menuitem action="FileSave"/>
+	<menuitem action="FileSaveAs"/>
+	<menuitem action="FileSaveAll"/>
+	<menuitem action="FileRename"/>
+	<menuitem action="FileRevert"/>
+	<separator/>
+	<menuitem action="FileClose"/>
+	<menuitem action="FileCloseAll"/>
+	<menuitem action="FileCloseWindow"/>
+	<separator/>
+	<menuitem action="FileUploadDownload"/>
+	<separator/>
+	<menuitem action="FileQuit"/>
+	</menu>
+	<menu action="EditMenu">
+		<menuitem action="Undo"/>
+		<menuitem action="Redo"/>
+		<menuitem action="UndoAll"/>
+		<menuitem action="RedoAll"/>
+		<separator/>
+		<menuitem action="Cut"/>
+		<menuitem action="Copy"/>
+		<menuitem action="Paste"/>
+		<separator/>
+		<menuitem action="EditSelectAll"/>
+		<separator/>
+		<menuitem action="Find"/>
+		<menuitem action="FindAgain"/>
+		<menuitem action="FindSelection"/>
+		<menuitem action="Replace"/>
+		<!--<menuitem action="ReplaceAgain"/>-->
+		<separator/>
+		<menuitem action="EditPreferences"/>
+	</menu>
 	<menu action="ViewMenu">
-	  <menuitem action="ViewFullScreen"/>
-	  <separator/>
-	  <menuitem action="ViewMainToolbar"/>
-	  <menuitem action="ViewSidePane"/>
-	  <menuitem action="ViewOutputPane"/>
-	  <menuitem action="ViewStatusbar"/>
-    </menu>
-    <menu action="DocumentMenu">
-      <menuitem action="AutoCompletion"/>
-      <menuitem action="AutoIndent"/>
-      <menuitem action="HighlightBlockDelimiters"/>
-      <menuitem action="ShowBlocks"/>
-      <menuitem action="ShowLineNumbers"/>
-      <menuitem action="ShowRightMargin"/>
-      <menuitem action="ShowVisibleSpacing"/>
-      <menuitem action="ShowSplitView"/>
-      <menuitem action="WrapText"/>
-      <placeholder name="SpellCheckPlaceholder"/>
-      <separator/>
-      <menu action="DocumentFontSize">
+	<menuitem action="ViewFullScreen"/>
+	<separator/>
+	<menuitem action="ViewMainToolbar"/>
+	<menuitem action="ViewSidePane"/>
+	<menuitem action="ViewOutputPane"/>
+	<menuitem action="ViewStatusbar"/>
+	</menu>
+	<menu action="DocumentMenu">
+		<menuitem action="AutoCompletion"/>
+		<menuitem action="AutoIndent"/>
+		<menuitem action="HighlightBlockDelimiters"/>
+		<menuitem action="ShowBlocks"/>
+		<menuitem action="ShowLineNumbers"/>
+		<menuitem action="ShowRightMargin"/>
+		<menuitem action="ShowVisibleSpacing"/>
+		<menuitem action="ShowSplitView"/>
+		<menuitem action="WrapText"/>
+		<placeholder name="SpellCheckPlaceholder"/>
+		<separator/>
+		<menu action="DocumentFontSize">
 		<menuitem action="DocFontSizeIncrease"/>
 		<menuitem action="DocFontSizeDecrease"/>
 		<separator/>
 		<menuitem action="DocFontSizeReset"/>
-	  </menu>
-	  <menu action="DocumentTabSize">
+	</menu>
+	<menu action="DocumentTabSize">
 		<menuitem action="DocTabSizeIncrease"/>
 		<menuitem action="DocTabSizeDecrease"/>
 		<separator/>
 		<menuitem action="DocTabSizeReset"/>
-	  </menu>      
-      <separator/>
-      <menuitem action="HighlightSyntax"/>
-      <menuitem action="DocumentRescan"/>
-      <menu action="DocumentLangMode">
+	</menu>
+		<separator/>
+		<menuitem action="HighlightSyntax"/>
+		<menuitem action="DocumentRescan"/>
+		<menu action="DocumentLangMode">
 		<placeholder name="LangModePlaceholder"/>
-	  </menu>
-      <separator/>
-      <menu action="DocumentEncoding">
+	</menu>
+		<separator/>
+		<menu action="DocumentEncoding">
 		<placeholder name="EncodingPlaceholder"/>
 		<separator/>
 		<menuitem action="DocEncodingAddRemove"/>
-	  </menu>      
-      <separator/>
-      <menuitem action="DocAddBookmark"/>
-      <menuitem action="DocFloatingWindow"/>
-      <separator/>
-      <menuitem action="DocMoveLeft"/>
-      <menuitem action="DocMoveRight"/>
-    </menu>
-    <menu action="GoMenu">
-	  <menuitem action="DocPrevious"/>
-	  <menuitem action="DocNext"/>
-	  <menuitem action="DocFirst"/>
-	  <menuitem action="DocLast"/>
-	  <separator/>
-	  <menuitem action="BookmarkPrevious"/>
-	  <menuitem action="BookmarkNext"/>
-	  <menuitem action="BookmarkFirst"/>
-	  <menuitem action="BookmarkLast"/>
-	  <separator/>
-	  <menuitem action="GotoLine"/>
-	  <menuitem action="GotoLineSelection"/>
-	  <menuitem action="JumpToReference"/>
-    </menu>
+	</menu>
+		<separator/>
+		<menuitem action="DocAddBookmark"/>
+		<menuitem action="DocFloatingWindow"/>
+		<separator/>
+		<menuitem action="DocMoveLeft"/>
+		<menuitem action="DocMoveRight"/>
+	</menu>
+	<menu action="GoMenu">
+	<menuitem action="DocPrevious"/>
+	<menuitem action="DocNext"/>
+	<menuitem action="DocFirst"/>
+	<menuitem action="DocLast"/>
+	<separator/>
+	<menuitem action="BookmarkPrevious"/>
+	<menuitem action="BookmarkNext"/>
+	<menuitem action="BookmarkFirst"/>
+	<menuitem action="BookmarkLast"/>
+	<separator/>
+	<menuitem action="GotoLine"/>
+	<menuitem action="GotoLineSelection"/>
+	<menuitem action="JumpToReference"/>
+	</menu>
 	<menu action="ProjectMenu">
-	  <menuitem action="ProjectNew"/>
-	  <menuitem action="ProjectOpen"/>
-      <menu action="ProjectOpenRecent">
-	  </menu>
-	  <separator/>
-	  <menuitem action="ProjectSave"/>
-	  <menuitem action="ProjectSaveAs"/>
-	  <menuitem action="ProjectClose"/>
-	  <separator/>
-	  <menuitem action="ProjectEditOptions"/>
-    </menu>
+	<menuitem action="ProjectNew"/>
+	<menuitem action="ProjectOpen"/>
+		<menu action="ProjectOpenRecent">
+	</menu>
+	<separator/>
+	<menuitem action="ProjectSave"/>
+	<menuitem action="ProjectSaveAs"/>
+	<menuitem action="ProjectClose"/>
+	<separator/>
+	<menuitem action="ProjectEditOptions"/>
+	</menu>
 	<menu action="ToolsMenu">
-	  <placeholder name="DefaultBrowserPlaceholder"/>
-	  <separator/>
-      <menu action="ToolsCommands">
+	<placeholder name="DefaultBrowserPlaceholder"/>
+	<separator/>
+		<menu action="ToolsCommands">
 		<placeholder name="CommandsPlaceholder"/>
-	  </menu>
-      <menu action="ToolsFilters">
+	</menu>
+		<menu action="ToolsFilters">
 		<placeholder name="FiltersPlaceholder"/>
-	  </menu>
-      <menu action="ToolsOutputBox">
+	</menu>
+		<menu action="ToolsOutputBox">
 		<placeholder name="OutputBoxPlaceholder"/>
-	  </menu>	  
-	  <separator/>
-	  <menuitem action="SynchTextBlock"/>
-	  <menuitem action="ToggleComment"/>
-	  <menuitem action="SelectBlock"/>
-	  <menuitem action="WordCount"/>
-	  <separator/>
-	  <menuitem action="IndentingToSpaces"/>
-	  <menuitem action="IndentingToTabs"/>
-	  <menuitem action="JoinLines"/>
-	  <menuitem action="SplitLines"/>
-	  <menuitem action="DuplicateLine"/>
-	  <menuitem action="DeleteLine"/>
-	  <menuitem action="MergeLinesIntoColumns"/>
-	  <menuitem action="RewrapLines"/>
-	  <menuitem action="StripTrailingWhitespace"/>
-	  <menuitem action="LoremIpsum"/>
-	  <menuitem action="AbsoluteFilename"/>
-	  <menuitem action="RelativeFilename"/>
-    </menu>
-  </menubar>
-  <toolbar name="MainToolbar">
-     <toolitem action="FileNew"/>
-     <toolitem action="FileOpen"/>
-     <toolitem action="FileSave"/>
-     <toolitem action="FileSaveAs"/>
-     <toolitem action="FileClose"/>
-     <separator/>
-     <toolitem action="Cut"/>
-     <toolitem action="Copy"/>
-     <toolitem action="Paste"/>
-     <separator/>
-     <toolitem action="Find"/>
-     <toolitem action="Replace"/>
-     <separator/>
-     <toolitem action="Undo"/>
-     <toolitem action="Redo"/>
-     <separator/>
-     <toolitem action="EditUnindent"/>
-     <toolitem action="EditIndent"/>
-     <separator/>
-     <toolitem action="BrowserPreview"/>
-     <separator/>
-     <toolitem action="EditPreferences"/>
-     <separator/>
-     <toolitem action="ViewFullScreen"/>
-  </toolbar>
+	</menu>
+	<separator/>
+	<menu action="ToolsFormat">
+		<menuitem action="EditIndent"/>
+		<menuitem action="EditUnindent"/>
+		<separator/>
+		<menuitem action="IndentingToSpaces"/>
+		<menuitem action="IndentingToTabs"/>
+		<menuitem action="JoinLines"/>
+		<menuitem action="SplitLines"/>
+		<menuitem action="MergeLinesIntoColumns"/>
+		<menuitem action="RewrapLines"/>
+		<menuitem action="StripTrailingWhitespace"/>
+	</menu>
+	<menu action="ToolsInsert">
+		<menuitem action="LoremIpsum"/>
+		<menuitem action="AbsoluteFilename"/>
+		<menuitem action="RelativeFilename"/>
+	</menu>
+	<menu action="ToolsConvert">
+	</menu>
+	<separator/>
+	<menuitem action="SynchTextBlock"/>
+	<menuitem action="ToggleComment"/>
+	<menuitem action="SelectBlock"/>
+	<menuitem action="WordCount"/>
+	<separator/>
+	<menuitem action="DuplicateLine"/>
+	<menuitem action="DeleteLine"/>
+	</menu>
+</menubar>
+<toolbar name="MainToolbar">
+	<toolitem action="FileNew"/>
+	<toolitem action="FileOpen"/>
+	<toolitem action="FileSave"/>
+	<toolitem action="FileSaveAs"/>
+	<toolitem action="FileClose"/>
+	<separator/>
+	<toolitem action="Cut"/>
+	<toolitem action="Copy"/>
+	<toolitem action="Paste"/>
+	<separator/>
+	<toolitem action="Find"/>
+	<toolitem action="Replace"/>
+	<separator/>
+	<toolitem action="Undo"/>
+	<toolitem action="Redo"/>
+	<separator/>
+	<toolitem action="EditUnindent"/>
+	<toolitem action="EditIndent"/>
+	<separator/>
+	<toolitem action="BrowserPreview"/>
+	<separator/>
+	<toolitem action="EditPreferences"/>
+	<separator/>
+	<toolitem action="ViewFullScreen"/>
+</toolbar>
 
 </ui>

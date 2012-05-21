@@ -779,7 +779,10 @@ static const GtkActionEntry top_level_menus[] = {
 	{"ToolsMenu", NULL, N_("_Tools")},
 	{"ToolsCommands", NULL, N_("_Commands")},
 	{"ToolsFilters", NULL, N_("_Filters")},
-	{"ToolsOutputBox", NULL, N_("_Outputbox")}
+	{"ToolsOutputBox", NULL, N_("_Outputbox")},
+	{"ToolsFormat", NULL, N_("Fo_rmat")},
+	{"ToolsInsert", NULL, N_("_Insert")},
+	{"ToolsConvert", NULL, N_("Co_nvert")}
 };
 
 static const GtkActionEntry global_actions[] = {
@@ -1041,7 +1044,7 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 	manager = bfwin->uimanager;
 
 	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), gtk_ui_manager_get_accel_group(manager));
-
+	
 	action_group = gtk_action_group_new("topLevelMenus");
 	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
 	gtk_action_group_add_actions(action_group, top_level_menus, G_N_ELEMENTS(top_level_menus), bfwin);
@@ -1225,8 +1228,8 @@ bfwin_set_document_menu_items(Tdocument * doc)
 	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/Paste", !doc->readonly);
 	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/Replace", !doc->readonly);
 	/*bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/ReplaceAgain", !doc->readonly);*/
-	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/EditIndent", !doc->readonly);
-	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/EditUnindent", !doc->readonly);
+	bfwin_action_set_sensitive(manager, "/MainMenu/ToolsMenu/ToolsFormat/EditIndent", !doc->readonly);
+	bfwin_action_set_sensitive(manager, "/MainMenu/ToolsMenu/ToolsFormat/EditUnindent", !doc->readonly);
 }
 
 void
