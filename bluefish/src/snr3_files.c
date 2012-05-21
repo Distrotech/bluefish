@@ -62,7 +62,7 @@ static guint calculate_line_in_buffer(Tlineinbuffer *lib, gchar *buffer, gsize p
 }
 
 static gchar *line_from_buffer(gchar *buffer, guint offset) {
-	guint i,j;
+	gint i,j;
 	i=j=offset;
 	while (i >=0 && i > (offset-40)) {
 		if (buffer[i] == '\n' || buffer[i] == '\r') {
