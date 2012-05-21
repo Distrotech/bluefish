@@ -727,11 +727,18 @@ image_dialog_preview_loaded(BluefishImageDialog * dialog)
 
 		if (g_file_info_has_attribute(fileinfo, G_FILE_ATTRIBUTE_STANDARD_SIZE)) {
 			gchar *filesize;
+
+#if (GLIB_CHECK_VERSION(2,30,0))
+			guint64 size;
+
+			size = g_file_info_get_attribute_uint64(fileinfo, G_FILE_ATTRIBUTE_STANDARD_SIZE);
+			filesize = g_format_size(size);
+#else
 			goffset size;
 
 			size = g_file_info_get_size(fileinfo);
 			filesize = g_format_size_for_display(size);
-
+#endif
 			g_string_append_printf(previewInfo, _("\n%s"), filesize);
 
 			g_free(filesize);
