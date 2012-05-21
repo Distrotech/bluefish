@@ -428,7 +428,7 @@ bfwin_configure_event(GtkWidget * widget, GdkEvent * revent, Tbfwin * bfwin)
 				DEBUG_MSG("bfwin_configure_event, NOT-maximized, setting width=%d\n",
 						  main_v->globses.main_window_w);
 			}
-			if (main_v->props.hide_bars_on_fullscreen && event->changed_mask & GDK_WINDOW_STATE_FULLSCREEN) {
+			if (main_v->props.hide_bars_on_fullscreen && (event->changed_mask & GDK_WINDOW_STATE_FULLSCREEN)) {
 				gboolean fullscreen = (event->new_window_state & GDK_WINDOW_STATE_FULLSCREEN);
 				widget_set_visible(bfwin->toolbarbox, !fullscreen);
 				widget_set_visible(gtk_widget_get_parent(bfwin->statusbar), !fullscreen);
@@ -813,9 +813,11 @@ gotoline_frame_create(Tbfwin * bfwin)
 	g_signal_connect(bfwin->gotoline_entry, "changed", G_CALLBACK(gotoline_entry_changed), bfwin);
 	g_signal_connect(bfwin->gotoline_entry, "insert-text", G_CALLBACK(gotoline_entry_insert_text), NULL);
 	g_signal_connect(G_OBJECT(bfwin->gotoline_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
-	
+#if (GTK_CHECK_VERSION(3,0,0))
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_separator_new(GTK_ORIENTATION_VERTICAL), FALSE, FALSE, 6);
+#else
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_vseparator_new(), FALSE, FALSE, 6);
-
+#endif
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Find:")), FALSE, FALSE, 0);
 	bfwin->simplesearch_entry = gtk_entry_new();
 	gtk_box_pack_start(GTK_BOX(hbox), bfwin->simplesearch_entry, FALSE, FALSE, 0);
