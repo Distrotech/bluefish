@@ -200,8 +200,7 @@ snr3run_update_offsets(Tsnr3run *s3run, Tdocument *doc, guint startpos, gint off
 the startpos=9 (the end of the replaced result), offset=-9 and the first next result is at 14
 */
 	GList *tmplist = g_list_first(s3run->results.head);
-	gint comparepos = startpos/*(offset > 0) ? startpos : startpos - offset*/; 
-	DEBUG_MSG("snr3run_update_offsets, startpos=%d, offset=%d, comparepos=%d\n",startpos,offset,comparepos);
+	DEBUG_MSG("snr3run_update_offsets, startpos=%d, offset=%d\n",startpos,offset);
 	while (tmplist) {
 		if (doc == S3RESULT(tmplist->data)->doc 
 						&& S3RESULT(tmplist->data)->eo >= startpos) {
@@ -629,14 +628,14 @@ snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 		cursorpos = gtk_text_iter_get_offset(&iter);
 		DEBUG_MSG("cursorpos at %d\n",cursorpos);
 		for (tmplist=g_list_first(s3run->results.head);tmplist;tmplist=g_list_next(tmplist)) {
-			if (((Tsnr3result *)tmplist->data)->doc == s3run->bfwin->current_document) {
-				if ((((Tsnr3result *)tmplist->data)->so == cursorpos)) {
+			if (S3RESULT(tmplist->data)->doc == s3run->bfwin->current_document) {
+				if (S3RESULT(tmplist->data)->so == cursorpos) {
 					next = tmplist;
 					break;
-				} else if ((((Tsnr3result *)tmplist->data)->so < cursorpos)) {
+				} else if ((S3RESULT(tmplist->data)->so < cursorpos)) {
 					if (!forward)
 						next = tmplist;
-				} else if ((((Tsnr3result *)tmplist->data)->so > cursorpos)) {
+				} else if ((S3RESULT(tmplist->data)->so > cursorpos)) {
 					if (forward)
 						next = tmplist;
 					break;

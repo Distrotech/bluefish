@@ -22,4 +22,4 @@
 
 void lorem_ipsum_dialog(Tbfwin *bfwin);
 
-#endif __DOC_EXTERN_TOOLS_H_
+#endif /*__DOC_EXTERN_TOOLS_H_*/

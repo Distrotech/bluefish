@@ -2764,7 +2764,7 @@ doc_reload(Tdocument * doc, GFileInfo * newfinfo, gboolean warn_user)
 	gint cursorpos = -1;
 
 	DEBUG_MSG("starting reload for %p\n", doc);
-	if ((doc->uri == NULL) /* || (!file_exists_and_readable(doc->uri)) */ ) {
+	if (doc->uri == NULL) {
 		bfwin_statusbar_message(BFWIN(doc->bfwin), _("Unable to open file"), 2);
 		return;
 	}
