@@ -166,7 +166,7 @@ formdialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 		tmplist = duplicate_stringlist(bfwin->session->urllist, 1);
 		rel_link_list = g_list_concat(tmplist, rel_link_list);
 
-		dg->combo[4] = combobox_with_popdown(tagvalues[0], rel_link_list, 1);
+		dg->combo[4] = html_diag_combobox_with_popdown(tagvalues[0], rel_link_list, 1);
 
 		free_stringlist(rel_link_list);
 	}
@@ -179,7 +179,7 @@ formdialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	methodlist = g_list_append(methodlist, cap("GET"));
 	methodlist = g_list_append(methodlist, cap("POST"));
-	dg->combo[1] = combobox_with_popdown(tagvalues[1], methodlist, 1);
+	dg->combo[1] = html_diag_combobox_with_popdown(tagvalues[1], methodlist, 1);
 	g_list_free(methodlist);
 	dialog_mnemonic_label_in_table(_("Metho_d:"), dg->combo[1], dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 2, 1, 2);
@@ -188,7 +188,7 @@ formdialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	enctypelist = g_list_append(enctypelist, "application/x-www-form-urlencoded");
 	enctypelist = g_list_append(enctypelist, "multipart/form-data");
 	enctypelist = g_list_append(enctypelist, "text/plain");
-	dg->combo[2] = combobox_with_popdown(tagvalues[2], enctypelist, 1);
+	dg->combo[2] = html_diag_combobox_with_popdown(tagvalues[2], enctypelist, 1);
 	g_list_free(enctypelist);
 	dialog_mnemonic_label_in_table(_("_Enctype:"), dg->combo[2], dgtable, 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[2]), 4, 10, 1, 2);
@@ -196,7 +196,7 @@ formdialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	bfwin->session->targetlist = add_to_stringlist(bfwin->session->targetlist, "_top");
 	bfwin->session->targetlist = add_to_stringlist(bfwin->session->targetlist, "_blank");
 	bfwin->session->targetlist = add_to_stringlist(bfwin->session->targetlist, "_parent");
-	dg->combo[3] = combobox_with_popdown(tagvalues[3], bfwin->session->targetlist, 1);
+	dg->combo[3] = html_diag_combobox_with_popdown(tagvalues[3], bfwin->session->targetlist, 1);
 	dialog_mnemonic_label_in_table(_("_Target:"), dg->combo[3], dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 1, 10, 2, 3);
 
@@ -526,7 +526,7 @@ inputdialog_dialog(Tbfwin * bfwin, Ttagpopup * data, const gchar * type)
 			list_from_arglist(FALSE, "hidden", "text", "search", "tel", "url", "email", "password", "datetime", 
 				"date", "month", "week", "time", "datetime-local", "number", "range", "color", "checkbox", "radio", 
 				"file", "submit", "image", "reset", "button" , NULL);
-		dg->combo[0] = combobox_with_popdown(tagvalues[0] ? tagvalues[0] : type2, poplist, 0);
+		dg->combo[0] = html_diag_combobox_with_popdown(tagvalues[0] ? tagvalues[0] : type2, poplist, 0);
 		g_list_free(poplist);
 	}
 	dialog_mnemonic_label_in_table(_("_Type:"), dg->combo[0], dgtable, 0, 1, 0, 1);
@@ -636,7 +636,7 @@ buttondialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dialog_mnemonic_label_in_table(_("_Value:"), dg->entry[2], dgtable, 0, 1, 1, 2);
 
 	tmplist = list_from_arglist(FALSE, "", "submit", "reset", "button", NULL);
-	dg->combo[1] = combobox_with_popdown(tagvalues[2], tmplist, 0);
+	dg->combo[1] = html_diag_combobox_with_popdown(tagvalues[2], tmplist, 0);
 	g_list_free(tmplist);
 	dialog_mnemonic_label_in_table(_("_Type:"), dg->combo[1], dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 9, 2, 3);

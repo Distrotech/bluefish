@@ -156,6 +156,18 @@ html_diag_finish(Thtml_diag * dg, GCallback ok_func)
 /********** HTML -> DIALOG FUNCTIONS *************/
 /*************************************************/
 
+GtkWidget *
+html_diag_combobox_with_popdown(const gchar *setstring, GList *poplist, gboolean editable)
+{
+	return combobox_with_popdown(setstring?setstring:"", poplist, editable);
+}
+
+GtkWidget *
+html_diag_combobox_with_popdown_sized(const gchar *setstring, GList *poplist, gboolean editable, gint width)
+{
+	return combobox_with_popdown_sized(setstring?setstring:"", poplist, editable, width);
+}
+
 void
 parse_html_for_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[]
 							, gchar ** custom, Ttagpopup * data)
@@ -448,7 +460,7 @@ generic_class_id_style_section(Thtml_diag * dg, gint firstattrwidget, GtkWidget 
 	GtkWidget *but;
 
 	dg->attrwidget[firstattrwidget] =
-		combobox_with_popdown(tagvalues[firsttagvalue], dg->bfwin->session->classlist, 1);
+		html_diag_combobox_with_popdown(tagvalues[firsttagvalue], dg->bfwin->session->classlist, 1);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->attrwidget[firstattrwidget], dgtable, 0, 1,
 								   firstrowintable + 0, firstrowintable + 1);
 	gtk_table_attach(GTK_TABLE(dgtable), dg->attrwidget[firstattrwidget], 1, 3, firstrowintable + 0,

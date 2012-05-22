@@ -635,7 +635,7 @@ quickanchor_dialog(Tbfwin * bfwin, Ttagpopup * data)
 		tmplist = duplicate_stringlist(bfwin->session->urllist, 1);
 		rel_link_list = g_list_concat(tmplist, rel_link_list);
 
-		dg->combo[2] = combobox_with_popdown(avalues[0], rel_link_list, 1);
+		dg->combo[2] = html_diag_combobox_with_popdown(avalues[0], rel_link_list, 1);
 
 		free_stringlist(rel_link_list);
 	}
@@ -646,7 +646,7 @@ quickanchor_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	if (bfwin->session->targetlist == NULL) {
 		bfwin->session->targetlist = list_from_arglist(TRUE, "_top", "_blank", "_parent", "_selfs", NULL);
 	}
-	dg->combo[1] = combobox_with_popdown(avalues[1], bfwin->session->targetlist, 1);
+	dg->combo[1] = html_diag_combobox_with_popdown(avalues[1], bfwin->session->targetlist, 1);
 	dialog_mnemonic_label_in_table(_("_Target:"), dg->combo[1], dgtable, 0,1, 1,2);
 	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1,3, 1,2, GTK_EXPAND|GTK_FILL,GTK_SHRINK, 0,0);
 
@@ -874,12 +874,12 @@ block_tag_edit_dialog(Tbfwin * bfwin, gint type, Ttagpopup * data)
 	popuplist = g_list_append(NULL, "left");
 	popuplist = g_list_append(popuplist, "center");
 	popuplist = g_list_append(popuplist, "right");
-	dg->combo[1] = combobox_with_popdown(tagvalues[0], popuplist, 1);
+	dg->combo[1] = html_diag_combobox_with_popdown(tagvalues[0], popuplist, 1);
 	g_list_free(popuplist);
 	dialog_mnemonic_label_in_table(_("Ali_gn:"), dg->combo[1], dgtable, 0,1, 0,1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1,2, 0,1);
 
-	dg->combo[2] = combobox_with_popdown(tagvalues[1], bfwin->session->classlist, 1);
+	dg->combo[2] = html_diag_combobox_with_popdown(tagvalues[1], bfwin->session->classlist, 1);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->combo[2], dgtable, 0,1, 1,2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1,2, 1,2);
 
@@ -1034,7 +1034,7 @@ quickrule_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	popdownlist = g_list_insert(popdownlist, "center", 0);
 	popdownlist = g_list_insert(popdownlist, "left", 1);
 	popdownlist = g_list_insert(popdownlist, "right", 2);
-	dg->combo[1] = combobox_with_popdown(hrvalues[0], popdownlist, 1);
+	dg->combo[1] = html_diag_combobox_with_popdown(hrvalues[0], popdownlist, 1);
 	g_list_free(popdownlist);
 	dialog_mnemonic_label_in_table(_("_Align:"), dg->combo[1], dgtable, 0,1, 0,1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1,4, 0,1);
@@ -1147,7 +1147,7 @@ body_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	stylebut = style_but_new(dg->entry[3], dg->dialog);
 	gtk_table_attach(GTK_TABLE(dgtable[1]), stylebut, 2, 3, 0, 1, GTK_SHRINK, GTK_SHRINK, 0,0);
 
-	dg->combo[6] = combobox_with_popdown(bodyvalues[7], bfwin->session->classlist, 1);
+	dg->combo[6] = html_diag_combobox_with_popdown(bodyvalues[7], bfwin->session->classlist, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->combo[6], 1,2, 1,2);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->combo[6], dgtable[1], 0,1, 1,2);
 
@@ -1189,31 +1189,31 @@ body_dialog(Tbfwin * bfwin, Ttagpopup * data)
 		gtk_table_attach(GTK_TABLE(dgtable[0]), GTK_WIDGET(file_but), 2,3, 0,1, GTK_FILL, GTK_FILL, 0,0);
 		dialog_mnemonic_label_in_table(_("Background _Image:"), dg->entry[1], dgtable[0], 0, 1, 			 0,1);
 
-		dg->combo[1] = combobox_with_popdown(bodyvalues[1], bfwin->session->colorlist, 1);
+		dg->combo[1] = html_diag_combobox_with_popdown(bodyvalues[1], bfwin->session->colorlist, 1);
 		color_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[1])), dg->dialog);
 		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2,3, 1,2, GTK_FILL, GTK_FILL, 0,0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[1], 1,2, 1,2);
 		dialog_mnemonic_label_in_table(_("Back_ground Color:"), dg->combo[1], dgtable[0], 0, 1, 			 1,2);
 
-		dg->combo[2] = combobox_with_popdown(bodyvalues[2], bfwin->session->colorlist, 1);
+		dg->combo[2] = html_diag_combobox_with_popdown(bodyvalues[2], bfwin->session->colorlist, 1);
 		color_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[2])), dg->dialog);
 		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2,3, 2,3, GTK_FILL, GTK_FILL, 0,0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[2], 1,2, 2,3);
 		dialog_mnemonic_label_in_table(_("_Text Color:"), dg->combo[2], dgtable[0], 0,1, 2,3);
 
-		dg->combo[3] = combobox_with_popdown(bodyvalues[3], bfwin->session->colorlist, 1);
+		dg->combo[3] = html_diag_combobox_with_popdown(bodyvalues[3], bfwin->session->colorlist, 1);
 		color_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[3])), dg->dialog);
 		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2,3, 3,4, GTK_FILL, GTK_FILL, 0,0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[3], 1,2, 3,4);
 		dialog_mnemonic_label_in_table(_("_Link Color:"), dg->combo[3], dgtable[0], 0,1, 3,4);
 
-		dg->combo[4] = combobox_with_popdown(bodyvalues[4], bfwin->session->colorlist, 1);
+		dg->combo[4] = html_diag_combobox_with_popdown(bodyvalues[4], bfwin->session->colorlist, 1);
 		color_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[4])), dg->dialog);
 		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2,3, 4,5, GTK_FILL, GTK_FILL, 0,0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[4], 1,2, 4,5);
 		dialog_mnemonic_label_in_table(_("_Visited Link Color:"), dg->combo[4], dgtable[0], 0, 			 1, 4,5);
 
-		dg->combo[5] = combobox_with_popdown(bodyvalues[5], bfwin->session->colorlist, 1);
+		dg->combo[5] = html_diag_combobox_with_popdown(bodyvalues[5], bfwin->session->colorlist, 1);
 		color_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[5])), dg->dialog);
 		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2,3, 5,6, GTK_FILL, GTK_FILL, 0,0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[5], 1,2, 5,6);
@@ -1280,7 +1280,7 @@ meta_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	popuplist = list_from_arglist(FALSE, "abstract", "audience", "author", "copyright", "date", "description",
 						  "generator", "keywords", "page-topic", "page-type", "publisher", "revisit-after",
 						  "robots", NULL);
-	dg->combo[2] = combobox_with_popdown(tagvalues[1], popuplist, 1);
+	dg->combo[2] = html_diag_combobox_with_popdown(tagvalues[1], popuplist, 1);
 	dialog_mnemonic_label_in_table(_("_Name:"), dg->combo[2], dgtable, 0,1, 0,1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1,10, 0,1);
 	g_list_free(popuplist);
@@ -1289,7 +1289,7 @@ meta_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	popuplist = list_from_arglist(FALSE, "expires", "refresh", "content-encoding", "content-location",
 						  "content-language", "content-style-type", "content-script-type", "content-type",
 						  "ext-cache", "cache-control", "pragma", "set-cookie", "PICS-Label", NULL);
-	dg->combo[1] = combobox_with_popdown(tagvalues[0], popuplist, 1);
+	dg->combo[1] = html_diag_combobox_with_popdown(tagvalues[0], popuplist, 1);
 	dialog_mnemonic_label_in_table(_("_HTTP-EQUIV:"), dg->combo[1], dgtable, 0,1, 1,2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1,10, 1,2);
 	g_list_free(popuplist);
@@ -1401,7 +1401,7 @@ generalfontdialog_cb(gint type, Tbfwin * bfwin, Ttagpopup * data)
 	popdownlist = g_list_insert(popdownlist, "+", 0);
 	popdownlist = g_list_insert(popdownlist, "-", 1);
 	popdownlist = g_list_insert(popdownlist, "", 2);
-	dg->combo[1] = combobox_with_popdown("", popdownlist, 0);
+	dg->combo[1] = html_diag_combobox_with_popdown("", popdownlist, 0);
 	g_list_free(popdownlist);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Size")), 0,1, 0,1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1,2, 0,1);
@@ -1410,13 +1410,13 @@ generalfontdialog_cb(gint type, Tbfwin * bfwin, Ttagpopup * data)
 	parse_integer_for_dialog(tagvalues[0], dg->spin[1], GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[1]))),
 							 NULL);
 
-	dg->combo[2] = combobox_with_popdown(tagvalues[2], bfwin->session->colorlist, 1);
+	dg->combo[2] = html_diag_combobox_with_popdown(tagvalues[2], bfwin->session->colorlist, 1);
 	color_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[2])), dg->dialog);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Color")), 6,7, 0,1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 7,9, 0,1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but), 9,10, 0,1);
 
-	dg->combo[3] = combobox_with_popdown(tagvalues[1], bfwin->session->fontlist, 1);
+	dg->combo[3] = html_diag_combobox_with_popdown(tagvalues[1], bfwin->session->fontlist, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Face")), 0,1, 1,2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 1,10, 1,2);
 
@@ -1752,13 +1752,13 @@ frame_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
-	dg->combo[1] = combobox_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
+	dg->combo[1] = html_diag_combobox_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
 	file_but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[1]))), 0, bfwin);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 9,10, 0,1);
 	dialog_mnemonic_label_in_table(_("_Source:"), dg->combo[1], dgtable, 0,1, 0,1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1,9, 0,1);
 
-	dg->combo[2] = combobox_with_popdown_sized(tagvalues[1], bfwin->session->targetlist, 1, 90);
+	dg->combo[2] = html_diag_combobox_with_popdown_sized(tagvalues[1], bfwin->session->targetlist, 1, 90);
 	dialog_mnemonic_label_in_table(_("_Name:"), dg->combo[2], dgtable, 0,1, 1,2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[2], 1,5, 1,2);
 
@@ -1774,7 +1774,7 @@ frame_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	popuplist = g_list_insert(popuplist, "yes",1);
 	popuplist = g_list_insert(popuplist, "no",2);
 	popuplist = g_list_insert(popuplist, "",3);
-	dg->combo[3] = combobox_with_popdown("", popuplist, 0);
+	dg->combo[3] = html_diag_combobox_with_popdown("", popuplist, 0);
 	g_list_free(popuplist);
 	dialog_mnemonic_label_in_table(_("Scrollin_g:"), dg->combo[3], dgtable, 5,6, 1,2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 6,10, 1,2);
@@ -1855,7 +1855,7 @@ audio_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 	dgtable = html_diag_table_in_vbox(dg, 6, 11);
 
-	dg->combo[1] = combobox_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
+	dg->combo[1] = html_diag_combobox_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
 	but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[1]))), 0, bfwin);
 	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(but), 9,10, 0,1, GTK_SHRINK,GTK_SHRINK,0,0);
 	dialog_mnemonic_label_in_table(_("_Source:"), dg->combo[1], dgtable, 0,1, 0,1);
@@ -1878,7 +1878,7 @@ audio_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[4], 8,9, 1,2);	
 
 	listPreload = list_from_arglist(FALSE, "", "auto", "metadata", "none", NULL);
-	dg->combo[2] = combobox_with_popdown(tagvalues[1], listPreload, 1);
+	dg->combo[2] = html_diag_combobox_with_popdown(tagvalues[1], listPreload, 1);
 	dialog_mnemonic_label_in_table(_("_Preload:"), dg->combo[2], dgtable, 0,1, 2,3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[2]), 1,4, 2,3);
 	g_list_free(listPreload);
@@ -1886,7 +1886,7 @@ audio_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dg->entry[0] = dialog_entry_in_table(tagvalues[2], dgtable, 5,6, 2,3);
 	dialog_mnemonic_label_in_table(_("_Id:"), dg->entry[0], dgtable, 4,5, 2,3);
 
-	dg->combo[3] = combobox_with_popdown(tagvalues[3], bfwin->session->classlist, 1);
+	dg->combo[3] = html_diag_combobox_with_popdown(tagvalues[3], bfwin->session->classlist, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 8,9, 2,3);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->combo[3], dgtable, 7,8, 2,3);
 	
@@ -1945,7 +1945,7 @@ canvas_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dg->entry[0] = dialog_entry_in_table(tagvalues[2], dgtable, 1,2, 0,1);
 	dialog_mnemonic_label_in_table(_("_Id:"), dg->entry[0], dgtable, 0,1, 0,1);
 
-	dg->combo[0] = combobox_with_popdown(tagvalues[4], bfwin->session->classlist, 1);
+	dg->combo[0] = html_diag_combobox_with_popdown(tagvalues[4], bfwin->session->classlist, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[0], 1,2, 1,2);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->combo[0], dgtable, 0,1, 1,2);
 
@@ -2025,14 +2025,14 @@ video_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dgtable = html_diag_table_in_vbox(dg, 7,9);
 
 	/* Source */
-	dg->combo[1] = combobox_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
+	dg->combo[1] = html_diag_combobox_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
 	but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[1]))), 0, bfwin);
 	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(but), 8,9, 0,1, GTK_SHRINK,GTK_SHRINK,0,0);
 	dialog_mnemonic_label_in_table(_("_Source:"), dg->combo[1], dgtable, 0,1, 0,1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1,8, 0,1);
 
 	/* Poster */
-	dg->combo[2] = combobox_with_popdown(tagvalues[1], bfwin->session->urllist, 1);
+	dg->combo[2] = html_diag_combobox_with_popdown(tagvalues[1], bfwin->session->urllist, 1);
 	but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[2]))), 0, bfwin);
 	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(but), 8,9, 1,2, GTK_SHRINK,GTK_SHRINK,0,0);
 	dialog_mnemonic_label_in_table(_("_Poster:"), dg->combo[2], dgtable, 0,1, 1,2);
@@ -2072,13 +2072,13 @@ video_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dg->entry[0] = dialog_entry_in_table(tagvalues[4], dgtable, 1,4, 4,5);
 	dialog_mnemonic_label_in_table(_("_Id:"), dg->entry[0], dgtable, 0,1, 4,5);
 
-	dg->combo[3] = combobox_with_popdown(tagvalues[5], bfwin->session->classlist, 1);
+	dg->combo[3] = html_diag_combobox_with_popdown(tagvalues[5], bfwin->session->classlist, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 5,9, 4,5);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->combo[3], dgtable, 4,5, 4,5);
 
 	/* Preload */
 	tmplist = list_from_arglist(FALSE, "", "auto", "metadata", "none", NULL);
-	dg->combo[4] = combobox_with_popdown(tagvalues[6], tmplist, 1);
+	dg->combo[4] = html_diag_combobox_with_popdown(tagvalues[6], tmplist, 1);
 	dialog_mnemonic_label_in_table(_("_Preload:"), dg->combo[4], dgtable, 0,1, 3,4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[4]), 1,4, 3,4);
 	g_list_free(tmplist);
@@ -2208,7 +2208,7 @@ embed_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 	dgtable = html_diag_table_in_vbox(dg, 5,5);
 
-	dg->combo[0] = combobox_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
+	dg->combo[0] = html_diag_combobox_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
 	but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[0]))), 0, bfwin);
 	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(but), 5,6, 0,1, GTK_SHRINK,GTK_SHRINK,0,0);
 	dialog_mnemonic_label_in_table(_("_Source:"), dg->combo[0], dgtable, 0,1, 0,1);
@@ -2228,7 +2228,7 @@ embed_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dg->entry[1] = dialog_entry_in_table(tagvalues[4], dgtable, 1,2, 3,4);
 	dialog_mnemonic_label_in_table(_("_Id:"), dg->entry[1], dgtable, 0,1, 3,4);
 
-	dg->combo[1] = combobox_with_popdown(tagvalues[5], bfwin->session->classlist, 1);
+	dg->combo[1] = html_diag_combobox_with_popdown(tagvalues[5], bfwin->session->classlist, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 4,6, 3,4);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->combo[1], dgtable, 3,4, 3,4);
 
@@ -2295,22 +2295,22 @@ script_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	tmplist2 = g_list_append(tmplist2, "text/html");
 	tmplist3 = list_from_arglist(FALSE, "UTF-8", "ISO-8859-1", "ISO-8859-15", "ARMSCII-8", "BIG5", "BIG5-HKSCS", "CP866", "EUC-JP", "EUC-KR", "EUC-TW", "GB18030", "GB2312", "GBK", "GEORGIAN-ACADEMY", "HZ", "IBM850", "IBM852", "IBM855", "IBM857", "IBM862", "IBM864", "ISO-2022-JP", "ISO-2022-KR", "ISO-8859-10", "ISO-8859-13", "ISO-8859-14", "ISO-8859-16", "ISO-8859-2", "ISO-8859-3", "ISO-8859-4", "ISO-8859-5", "ISO-8859-6", "ISO-8859-7", "ISO-8859-8", "ISO-8859-8-I", "ISO-8859-9", "ISO-IR-111", "JOHAB", "KOI8R", "KOI8U", "SHIFT_JIS", "TCVN", "TIS-620", "UHC", "VISCII", "WINDOWS-1250", "WINDOWS-1251", "WINDOWS-1252", "WINDOWS-1253", "WINDOWS-1254", "WINDOWS-1255", "WINDOWS-1256", "WINDOWS-1257", "WINDOWS-1258",NULL);
 	
-	dg->combo[0] = combobox_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
+	dg->combo[0] = html_diag_combobox_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
 	but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[0]))), 0, bfwin);
 	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(but), 10,12, 0,1, GTK_SHRINK,GTK_SHRINK,0,0);
 	dialog_mnemonic_label_in_table(_("_Source:"), dg->combo[0], dgtable, 0,2, 0,1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[0])), 2,10, 0,1);
 
-	dg->combo[1] = combobox_with_popdown(tagvalues[1], tmplist, 1);
+	dg->combo[1] = html_diag_combobox_with_popdown(tagvalues[1], tmplist, 1);
 	dialog_mnemonic_label_in_table(_("_Language:"), dg->combo[1], dgtable, 0,2, 1,2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 2,6, 1,2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(gtk_label_new(_("(HTML4 only)"))), 7,8, 1,2);
 
-	dg->combo[2] = combobox_with_popdown(tagvalues[2], tmplist2,1);
+	dg->combo[2] = html_diag_combobox_with_popdown(tagvalues[2], tmplist2,1);
 	dialog_mnemonic_label_in_table(_("MIME _Type:"), dg->combo[2], dgtable, 0,2, 2,3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[2], 2,6, 2,3);
 	
-	dg->combo[3] = combobox_with_popdown(tagvalues[3], tmplist3,1);
+	dg->combo[3] = html_diag_combobox_with_popdown(tagvalues[3], tmplist3,1);
 	dialog_mnemonic_label_in_table(_("_Charset:"), dg->combo[3], dgtable, 0,2, 3,4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 2,6, 3,4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(gtk_label_new(_("(HTML5)"))), 7,8, 3,4);	
@@ -2510,7 +2510,7 @@ column-fill: auto (default balance)
 			dialog_mnemonic_label_in_table("column-_width:", dg->spin[1], dgtable, 0,1, 1,2),
 			_("Auto (default) or width"));
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1,2, 1,2);
-	dg->combo[0] = combobox_with_popdown_sized(tagvalues[2] ? tagvalues[2]: "%", tmplist, 0, 70);
+	dg->combo[0] = html_diag_combobox_with_popdown_sized(tagvalues[2] ? tagvalues[2]: "%", tmplist, 0, 70);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[0], 2,3, 1,2);
 	dg->check[3] = gtk_check_button_new_with_mnemonic("a_uto");
 	g_signal_connect(dg->check[3], "toggled", G_CALLBACK(columnwidth_auto_toggled_lcb), dg);	
@@ -2522,20 +2522,20 @@ column-fill: auto (default balance)
 			dialog_mnemonic_label_in_table("column-_gap:", dg->spin[2], dgtable, 0,1, 2,3),
 			_("Normal (default) or width of the gap between columns"));
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1,2, 2,3);
-	dg->combo[1] = combobox_with_popdown_sized(tagvalues[4] ? tagvalues[4]: "em", tmplist, 0, 70);
+	dg->combo[1] = html_diag_combobox_with_popdown_sized(tagvalues[4] ? tagvalues[4]: "em", tmplist, 0, 70);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 2,3, 2,3);
 	dg->check[4] = gtk_check_button_new_with_mnemonic("_normal");
 	g_signal_connect(dg->check[4], "clicked", G_CALLBACK(columngap_normal_clicked_lcb), dg);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dg->check[4]), TRUE);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[4], 3,4, 2,3);
 
-	dg->combo[2] = combobox_with_popdown_sized(tagvalues[5], bfwin->session->colorlist, 1, 110);
+	dg->combo[2] = html_diag_combobox_with_popdown_sized(tagvalues[5], bfwin->session->colorlist, 1, 110);
 	color_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[2])), dg->dialog);
 	dialog_mnemonic_label_in_table("column-rule-co_lor:", dg->combo[2], dgtable, 0,1, 3,4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1,2, 3,4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but), 2,3, 3,4);
 
-	dg->combo[3] = combobox_with_popdown_sized(tagvalues[6] ? tagvalues[6]: "solid", tmplist2, 0, 110);
+	dg->combo[3] = html_diag_combobox_with_popdown_sized(tagvalues[6] ? tagvalues[6]: "solid", tmplist2, 0, 110);
 	gtk_widget_set_tooltip_text(
 			dialog_mnemonic_label_in_table("column-rule-_style:", dg->combo[3], dgtable, 0,1, 4,5),
 			_("None (default) or style"));	
@@ -2547,10 +2547,10 @@ column-fill: auto (default balance)
 			_("Medium (default) or width"));
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[3], 1,2, 5,6);
 
-	dg->combo[4] = combobox_with_popdown_sized(tagvalues[8] ? tagvalues[8]: "em", tmplist, 0, 70);
+	dg->combo[4] = html_diag_combobox_with_popdown_sized(tagvalues[8] ? tagvalues[8]: "em", tmplist, 0, 70);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 2,3, 5,6);
 
-	dg->combo[5] = combobox_with_popdown_sized(tagvalues[9] ? tagvalues[9]: "medium", tmplist3, 0, 90);
+	dg->combo[5] = html_diag_combobox_with_popdown_sized(tagvalues[9] ? tagvalues[9]: "medium", tmplist3, 0, 90);
 	g_signal_connect(dg->combo[5], "changed", G_CALLBACK(columnrulewidth_changed_lcb), dg);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[5])), 3,4, 5,6);
 	gtk_widget_set_sensitive(dg->spin[3], FALSE);
@@ -2651,7 +2651,7 @@ linkdialog_dialog(Tbfwin * bfwin, Ttagpopup * data, Tlinkdialog_mode mode)
 		rel_link_list = list_relative_document_filenames(bfwin->current_document);
 		tmplist = duplicate_stringlist(bfwin->session->urllist, 1);
 		rel_link_list = g_list_concat(tmplist, rel_link_list);
-		dg->attrwidget[0] = combobox_with_popdown(tagvalues[0], rel_link_list, 1);
+		dg->attrwidget[0] = html_diag_combobox_with_popdown(tagvalues[0], rel_link_list, 1);
 		free_stringlist(rel_link_list);
 	}
 	dialog_mnemonic_label_in_table(_("_HREF:"), dg->attrwidget[0], dgtable, 0,1, 0,1);
@@ -2680,7 +2680,7 @@ linkdialog_dialog(Tbfwin * bfwin, Ttagpopup * data, Tlinkdialog_mode mode)
 			tmp = tagvalues[3];
 			break;
 		}
-		dg->attrwidget[3] = combobox_with_popdown(tmp, tmplist, 1);
+		dg->attrwidget[3] = html_diag_combobox_with_popdown(tmp, tmplist, 1);
 
 		g_list_free(tmplist);
 	}
@@ -2705,11 +2705,11 @@ linkdialog_dialog(Tbfwin * bfwin, Ttagpopup * data, Tlinkdialog_mode mode)
 			tmp = tagvalues[4];
 			break;
 		}
-		dg->attrwidget[4] = combobox_with_popdown(tmp, tmplist, 1);
+		dg->attrwidget[4] = html_diag_combobox_with_popdown(tmp, tmplist, 1);
 		dialog_mnemonic_label_in_table(_("_Forward Relation:"), dg->attrwidget[4], dgtable, 0,1, 4,5);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[4], 1,3, 4,5);
 
-		dg->attrwidget[5] = combobox_with_popdown(tagvalues[5], tmplist, 1);
+		dg->attrwidget[5] = html_diag_combobox_with_popdown(tagvalues[5], tmplist, 1);
 		dialog_mnemonic_label_in_table(_("_Reverse Relation:"), dg->attrwidget[5], dgtable, 0,1, 5,6);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[5], 1,3, 5,6);
 
@@ -2719,7 +2719,7 @@ linkdialog_dialog(Tbfwin * bfwin, Ttagpopup * data, Tlinkdialog_mode mode)
 	{
 		GList *tmplist = 	list_from_arglist(FALSE, "screen", "tty", "tv", "projection", "handheld", "print", "braille",
 							  "aural", "all", NULL);
-		dg->attrwidget[6] = combobox_with_popdown(tagvalues[6], tmplist, 1);
+		dg->attrwidget[6] = html_diag_combobox_with_popdown(tagvalues[6], tmplist, 1);
 		g_list_free(tmplist);
 	}
 	dialog_mnemonic_label_in_table(_("Media:"), dg->attrwidget[6], dgtable, 0,1, 6,7);
