@@ -538,7 +538,7 @@ quickstart_style_page_create(TQuickStart * qstart)
 	}
 	qstart->stylehref = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
 	g_object_unref(history);*/
-	qstart->stylehref = combobox_with_popdown("", qstart->bfwin->session->urllist, TRUE);
+	qstart->stylehref = html_diag_combobox_with_popdown("", qstart->bfwin->session->urllist, TRUE);
 	dialog_mnemonic_label_in_table(_("HRE_F:"), qstart->stylehref, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), qstart->stylehref, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0,
 					 0);
@@ -593,7 +593,7 @@ quickstart_script_page_create(TQuickStart * qstart)
 	}
 	qstart->scriptsrc = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
 	g_object_unref(history);*/
-	qstart->scriptsrc = combobox_with_popdown("",qstart->bfwin->session->urllist , TRUE);
+	qstart->scriptsrc = html_diag_combobox_with_popdown("",qstart->bfwin->session->urllist , TRUE);
 	label = gtk_label_new_with_mnemonic(_("_Src:"));
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), qstart->scriptsrc);

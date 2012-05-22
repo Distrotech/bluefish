@@ -91,6 +91,11 @@ void html_diag_cancel_clicked_cb(GtkWidget * widget, gpointer data);
 Thtml_diag *html_diag_new(Tbfwin * bfwin, gchar * title);
 GtkWidget *html_diag_table_in_vbox(Thtml_diag * dg, gint rows, gint cols);
 void html_diag_finish(Thtml_diag * dg, GCallback ok_func);
+
+GtkWidget *html_diag_combobox_with_popdown(const gchar *setstring, GList *poplist, gboolean editable);
+GtkWidget *html_diag_combobox_with_popdown_sized(const gchar *setstring, GList *poplist, gboolean editable, gint width);
+
+
 void parse_html_for_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[]
 								 , gchar ** custom, Ttagpopup * data);
 void fill_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[]

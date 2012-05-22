@@ -650,7 +650,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	
 	if (diag->styletype == multistyle) {
 		tmplist = glist_with_html_tags(0);
-		diag->selector = combobox_with_popdown("", tmplist,1);
+		diag->selector = html_diag_combobox_with_popdown("", tmplist,1);
 		dialog_mnemonic_label_in_table(_("_Selector(s):"), diag->selector, table, 0, 1, 0, 1);
 		gtk_table_attach_defaults(GTK_TABLE(table), diag->selector, 1 ,5 , 0, 1);
 		gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(diag->selector), 5);
@@ -670,13 +670,13 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 		count++;
 		tmp = cs3_arr[count];
 	}
-	diag->property = combobox_with_popdown("", tmplist,1);
+	diag->property = html_diag_combobox_with_popdown("", tmplist,1);
 	g_list_free(tmplist);
 	tmplist = NULL;
 	g_signal_connect(gtk_bin_get_child(GTK_BIN(diag->property)), "activate", G_CALLBACK(cs3d_prop_activate_lcb), diag);
 	g_signal_connect(gtk_bin_get_child(GTK_BIN(diag->property)), "changed", G_CALLBACK(cs3d_prop_activate_lcb), diag);
 
-	diag->value = combobox_with_popdown("", tmplist,1);
+	diag->value = html_diag_combobox_with_popdown("", tmplist,1);
 	dialog_mnemonic_label_in_table(_("_Property:"), diag->property, table, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), diag->property, 1, 5, 1, 2);
 	gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(diag->property), 4);

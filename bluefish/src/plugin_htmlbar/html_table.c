@@ -109,7 +109,7 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 				dg->spin[1], dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[4], 2, 3, 0, 1);
-	g_print("cell padding='%s'\n",tagvalues[0]);
+	/*g_print("cell padding='%s'\n",tagvalues[0]);*/
 	parse_integer_for_dialog(tagvalues[0], dg->spin[1], NULL, dg->check[4]);
 
 	dg->spin[3] = spinbut_with_value(NULL, 0, 100, 1.0, 5.0);
@@ -123,7 +123,7 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dg->entry[3] = dialog_entry_in_table(tagvalues[10], dgtable, 4, 5, 1, 2);
 	dialog_mnemonic_label_in_table(_("_Id:"), dg->entry[3], dgtable, 3, 4, 1, 2);
 
-	dg->combo[4] = combobox_with_popdown_sized(tagvalues[6], bfwin->session->classlist, 1, 90);
+	dg->combo[4] = html_diag_combobox_with_popdown_sized(tagvalues[6], bfwin->session->classlist, 1, 90);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->combo[4], dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 1, 2, 2, 3);
 
@@ -139,12 +139,12 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	alignlist = g_list_append(alignlist, "left");
 	alignlist = g_list_append(alignlist, "right");
 	alignlist = g_list_append(alignlist, "center");
-	dg->combo[1] = combobox_with_popdown_sized(tagvalues[3], alignlist, 0, 90);
+	dg->combo[1] = html_diag_combobox_with_popdown_sized(tagvalues[3], alignlist, 0, 90);
 	g_list_free(alignlist);
 	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">_Align:</span>"), dg->combo[1], dgtable, 3, 4, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 4, 5, 0, 1);
 
-	dg->combo[3] = combobox_with_popdown_sized(tagvalues[4], bfwin->session->colorlist, 1, 90);
+	dg->combo[3] = html_diag_combobox_with_popdown_sized(tagvalues[4], bfwin->session->colorlist, 1, 90);
 	var_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[3])), dg->dialog);
 	dialog_mnemonic_label_in_table(_("<span color=\"red\">_bgcolor:</span>"), dg->combo[3], dgtable, 2, 3, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 3, 4, 2, 3);
@@ -179,7 +179,7 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	popuplist = g_list_append(popuplist, "rhs");
 	popuplist = g_list_append(popuplist, "box");
 	popuplist = g_list_append(popuplist, "border");
-	dg->combo[5] = combobox_with_popdown_sized(tagvalues[9], popuplist, 0, 90);
+	dg->combo[5] = html_diag_combobox_with_popdown_sized(tagvalues[9], popuplist, 0, 90);
 	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">_Frame:</span>"), dg->combo[5], dgtable, 5, 6, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[5], 6, 8, 3, 4);
 	g_list_free(popuplist);
@@ -190,7 +190,7 @@ tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	popuplist = g_list_append(popuplist, "rows");
 	popuplist = g_list_append(popuplist, "cols");
 	popuplist = g_list_append(popuplist, "all");
-	dg->combo[6] = combobox_with_popdown_sized(tagvalues[8], popuplist, 0, 90);
+	dg->combo[6] = html_diag_combobox_with_popdown_sized(tagvalues[8], popuplist, 0, 90);
 	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">R_ules:</span>"), dg->combo[6], dgtable, 5, 6, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[6], 6, 8, 4, 5);
 	g_list_free(popuplist);
@@ -248,7 +248,7 @@ tablerowdialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	alignlist = g_list_insert(alignlist, "left", 0);
 	alignlist = g_list_insert(alignlist, "right", 1);
 	alignlist = g_list_insert(alignlist, "center", 2);
-	dg->combo[1] = combobox_with_popdown_sized(tagvalues[0], alignlist, 0, 90);
+	dg->combo[1] = html_diag_combobox_with_popdown_sized(tagvalues[0], alignlist, 0, 90);
 	g_list_free(alignlist);
 	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">_Align:</span>"), dg->combo[1], dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 2, 0, 1);
@@ -258,17 +258,17 @@ tablerowdialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	alignlist = g_list_insert(alignlist, "middle", 1);
 	alignlist = g_list_insert(alignlist, "bottom", 2);
 	alignlist = g_list_insert(alignlist, "baseline", 3);
-	dg->combo[2] = combobox_with_popdown_sized(tagvalues[1], alignlist, 0, 90);
+	dg->combo[2] = html_diag_combobox_with_popdown_sized(tagvalues[1], alignlist, 0, 90);
 	g_list_free(alignlist);
 
 	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">_Valign:</span>"), dg->combo[2], dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1, 2, 1, 2);
 
-	dg->combo[4] = combobox_with_popdown_sized(tagvalues[3], bfwin->session->classlist, 1, 90);
+	dg->combo[4] = html_diag_combobox_with_popdown_sized(tagvalues[3], bfwin->session->classlist, 1, 90);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->combo[4], dgtable, 2, 3, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 3, 5, 0, 1);
 
-	dg->combo[3] = combobox_with_popdown_sized(tagvalues[2], bfwin->session->colorlist, 1, 90);
+	dg->combo[3] = html_diag_combobox_with_popdown_sized(tagvalues[2], bfwin->session->colorlist, 1, 90);
 	color_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[3])), dg->dialog);
 	dialog_mnemonic_label_in_table(_("<span color=\"red\">_bgcolor:</span>"), dg->combo[3], dgtable, 2, 3, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 3, 4, 1, 2);
@@ -372,7 +372,7 @@ table_head_and_data_dialog_cb(gint type, Tbfwin * bfwin, Ttagpopup * data)
 	alignlist = g_list_insert(alignlist, "right", 1);
 	alignlist = g_list_insert(alignlist, "center", 2);
 	alignlist = g_list_insert(alignlist, "justify", 3);
-	dg->combo[1] = combobox_with_popdown_sized(tagvalues[1], alignlist, 0, 90);
+	dg->combo[1] = html_diag_combobox_with_popdown_sized(tagvalues[1], alignlist, 0, 90);
 	g_list_free(alignlist);
 	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">_Align:</span>"), dg->combo[1], dgtable, 2, 3, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 3, 4, 0, 1);
@@ -382,13 +382,13 @@ table_head_and_data_dialog_cb(gint type, Tbfwin * bfwin, Ttagpopup * data)
 	alignlist = g_list_insert(alignlist, "middle", 1);
 	alignlist = g_list_insert(alignlist, "bottom", 2);
 	alignlist = g_list_insert(alignlist, "baseline", 3);
-	dg->combo[2] = combobox_with_popdown_sized(tagvalues[4], alignlist, 0, 90);
+	dg->combo[2] = html_diag_combobox_with_popdown_sized(tagvalues[4], alignlist, 0, 90);
 	g_list_free(alignlist);
 
 	dialog_mnemonic_label_in_table(_("<span color=\"#006000\">_Valign:</span>"), dg->combo[2], dgtable, 2, 3, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 3, 4, 1, 2);
 
-	dg->combo[4] = combobox_with_popdown_sized(tagvalues[8], bfwin->session->classlist, 1, 90);
+	dg->combo[4] = html_diag_combobox_with_popdown_sized(tagvalues[8], bfwin->session->classlist, 1, 90);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->combo[4], dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[4])), 1, 2, 2, 3);
 
@@ -403,7 +403,7 @@ table_head_and_data_dialog_cb(gint type, Tbfwin * bfwin, Ttagpopup * data)
 		alignlist = g_list_insert(alignlist, "rowgroup", 2);
 		alignlist = g_list_insert(alignlist, "colgroup", 3);
 		alignlist = g_list_insert(alignlist, "auto", 4);		
-		dg->combo[5] = combobox_with_popdown_sized(tagvalues[11], alignlist, 0, 90);
+		dg->combo[5] = html_diag_combobox_with_popdown_sized(tagvalues[11], alignlist, 0, 90);
 		g_list_free(alignlist);
 		dialog_mnemonic_label_in_table(_("<span color=\"#A36A00\">_Scope:</span>"), dg->combo[5], dgtable, 4, 5, 3, 4);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[5])), 5, 6, 3, 4);
@@ -445,7 +445,7 @@ table_head_and_data_dialog_cb(gint type, Tbfwin * bfwin, Ttagpopup * data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[3], 5, 6, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[3], 6, 7, 1, 2);
 
-	dg->combo[3] = combobox_with_popdown_sized(tagvalues[6], bfwin->session->colorlist, 1, 90);
+	dg->combo[3] = html_diag_combobox_with_popdown_sized(tagvalues[6], bfwin->session->colorlist, 1, 90);
 	dialog_mnemonic_label_in_table(_("<span color=\"red\">_bgcolor:</span>"), dg->combo[3], dgtable, 4, 5, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 5, 6, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable),

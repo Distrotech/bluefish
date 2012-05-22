@@ -542,7 +542,7 @@ image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 	popuplist = g_list_append(popuplist, "top");
 	popuplist = g_list_append(popuplist, "left");
 	popuplist = g_list_append(popuplist, "right");
-	imdg->dg->combo[0] = combobox_with_popdown_sized(tagvalues[7], popuplist, 1, 90);
+	imdg->dg->combo[0] = html_diag_combobox_with_popdown_sized(tagvalues[7], popuplist, 1, 90);
 	g_list_free(popuplist);
 	dialog_mnemonic_label_in_table(_("_Align:"), imdg->dg->combo[0], dgtable, 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->combo[0], 4, 6, 1, 2);
