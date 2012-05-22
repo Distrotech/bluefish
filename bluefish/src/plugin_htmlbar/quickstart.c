@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * quickstart.c - quickstart dialog
  *
- * Copyright (C) 2005-2011 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2012 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@
 
 #include "htmlbar.h"
 #include "cap.h"
+#include "html_diag.h"
 #include "../config.h"
 #include "../bfwin.h"
 #include "../dialog_utils.h"
