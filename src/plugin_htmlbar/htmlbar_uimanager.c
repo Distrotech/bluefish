@@ -948,6 +948,14 @@ htmlbar_dialog_html5time(GtkAction * action, gpointer user_data)
 	html5time_dialog(BFWIN(user_data), NULL);
 }
 
+static void
+htmlbar_insert_color(GtkAction * action, gpointer user_data)
+{
+	gchar *color = return_color(NULL);
+	doc_insert_two_strings(BFWIN(user_data)->current_document,color, NULL);
+	g_free(color);
+}
+
 static const GtkActionEntry htmlbar_actions[] = {
 	{"TagsMenu", NULL, N_("T_ags")},
 	{"HeadingsMenu", NULL, N_("_Headings")},
@@ -1187,7 +1195,8 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"DialogsAudio", BF_STOCK_AUDIO, N_("Au_dio..."), NULL, N_("Audio..."), G_CALLBACK(htmlbar_dialog_audio)},
 	{"DialogsVideo", BF_STOCK_VIDEO, N_("_Video..."), NULL, N_("Video..."), G_CALLBACK(htmlbar_dialog_video)},
 	{"DialogsCanvas", BF_STOCK_CANVAS, N_("_Canvas..."), NULL, N_("Canvas..."), G_CALLBACK(htmlbar_dialog_canvas)},
-	{"DialogsHtml5Time", BF_STOCK_HTML5TIME, N_("_Time..."), NULL, N_("Time..."), G_CALLBACK(htmlbar_dialog_html5time)}
+	{"DialogsHtml5Time", BF_STOCK_HTML5TIME, N_("_Time..."), NULL, N_("Time..."), G_CALLBACK(htmlbar_dialog_html5time)},
+	{"InsertColor", GTK_STOCK_SELECT_COLOR, N_("Insert _Color"), NULL, N_("Insert Color"), G_CALLBACK(htmlbar_insert_color)},
 };
 
 void
