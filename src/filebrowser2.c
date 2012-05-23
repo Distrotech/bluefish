@@ -2701,7 +2701,8 @@ static gboolean
 fb2_tooltip_lcb(GtkWidget * widget, gint x, gint y, gboolean keyboard_tip, GtkTooltip * tooltipwidget,
 				gpointer user_data)
 {
-	GtkTreeView *tview = user_data;
+	GtkTreeView *tview = (GtkTreeView *)widget;
+	Tfilebrowser2 *fb2 = user_data;
 	GtkTreePath *path;
 	gboolean retval = FALSE;
 	if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(tview), x, y, &path, NULL, NULL, NULL)) {
@@ -2710,8 +2711,12 @@ fb2_tooltip_lcb(GtkWidget * widget, gint x, gint y, gboolean keyboard_tip, GtkTo
 			GFile *uri = NULL;
 			gtk_tree_model_get(gtk_tree_view_get_model(tview), &iter, URI_COLUMN, &uri, -1);
 			if (uri) {
-				char *text;
-				text = g_file_get_uri(uri);
+				gchar *text = g_file_get_uri(uri);
+				if (fb2->bfwin->session->webroot && fb2->bfwin->session->documentroot && g_str_has_prefix(text, fb2->bfwin->session->documentroot)) {
+					gchar *tmp = text;
+					text = g_strdup_printf(_("%s\nwhich is the equivalent of\n%s%s"), text, fb2->bfwin->session->webroot, text+strlen(fb2->bfwin->session->documentroot));
+					g_free(tmp);
+				}
 				gtk_tooltip_set_text(tooltipwidget, text);
 				g_free(text);
 				retval = TRUE;
@@ -2896,14 +2901,14 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		g_signal_connect(G_OBJECT(fb2->file_v), "drag_data_received",
 						 G_CALLBACK(fb2_file_v_drag_data_received), fb2);
 		g_object_set(fb2->file_v, "has-tooltip", TRUE, NULL);
-		g_signal_connect(fb2->file_v, "query-tooltip", G_CALLBACK(fb2_tooltip_lcb), fb2->file_v);
+		g_signal_connect(fb2->file_v, "query-tooltip", G_CALLBACK(fb2_tooltip_lcb), fb2);
 	}
 
 	g_signal_connect(G_OBJECT(fb2->dir_v), "row-activated", G_CALLBACK(dir_v_row_activated_lcb), fb2);
 	g_signal_connect(G_OBJECT(fb2->dir_v), "button_press_event", G_CALLBACK(dir_v_button_press_lcb), fb2);
 	fb2->expand_signal =
 		g_signal_connect(G_OBJECT(fb2->dir_v), "row-expanded", G_CALLBACK(dir_v_row_expanded_lcb), fb2->bfwin);
-	g_signal_connect(fb2->dir_v, "query-tooltip", G_CALLBACK(fb2_tooltip_lcb), fb2->dir_v);
+	g_signal_connect(fb2->dir_v, "query-tooltip", G_CALLBACK(fb2_tooltip_lcb), fb2);
 	g_object_set(fb2->dir_v, "has-tooltip", TRUE, NULL);
 	/*gtk_container_resize_children(GTK_CONTAINER(fb2->vbox)); */
 	gtk_widget_show_all(fb2->vbox);
