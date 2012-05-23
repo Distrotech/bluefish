@@ -750,7 +750,6 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 
 	/* the ok and cancel button are in a horizontal box below */
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);	
 
 	hbox = gtk_hbutton_box_new();
@@ -1142,7 +1141,6 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 	gtk_box_pack_start(GTK_BOX(vbox), csd->csel, TRUE, TRUE, 0);
 
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
 
 	hbox = gtk_hbutton_box_new();
