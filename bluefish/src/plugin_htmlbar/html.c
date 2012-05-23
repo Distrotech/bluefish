@@ -1670,7 +1670,7 @@ frameset_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	if (dg->range.end == -1) {
 		dg->check[1] = gtk_check_button_new();
-		dialog_mnemonic_label_in_table(_("_Add <frame> elements"), dg->check[1], dgtable, 3,4, 2,3);
+		dialog_mnemonic_label_in_table(_("_Add &lt;frame&gt; elements"), dg->check[1], dgtable, 3,4, 2,3);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 2,3, 2,3);
 	} else {
 		dg->check[1] = NULL;
