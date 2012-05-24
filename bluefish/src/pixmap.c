@@ -140,9 +140,13 @@ register_bf_stock_icons(void)
 	for (i = 0; i < G_N_ELEMENTS(stock_icons); i++) {
 		GdkPixbuf *pixbuf = gdk_pixbuf_new_from_inline(-1,stock_icons[i].data,FALSE,NULL);
 		icon_set = gtk_icon_set_new_from_pixbuf(pixbuf);
-		g_object_unref(pixbuf);
+
 		gtk_icon_factory_add(icon_factory, stock_icons[i].stock_id, icon_set);
 		gtk_icon_set_unref(icon_set);
+		
+		gtk_icon_theme_add_builtin_icon(stock_icons[i].stock_id,gdk_pixbuf_get_width(pixbuf), pixbuf);
+		
+		g_object_unref(pixbuf);
 	}
 	gtk_icon_factory_add_default(icon_factory);
 	g_object_unref(icon_factory);
