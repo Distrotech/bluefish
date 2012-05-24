@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filebrowser2.c - the filebrowser v2
  *
- * Copyright (C) 2002-2011 Olivier Sessink
+ * Copyright (C) 2002-2012 Olivier Sessink
  * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
@@ -64,6 +64,7 @@ alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're 
 #include "file_dialogs.h"
 #include "gtk_easy.h"
 #include "project.h"
+#include "pixmap.h"
 #include "stringlist.h"			/* add_to_history_stringlist() */
 
 typedef struct {
@@ -210,6 +211,17 @@ iter_value_destroy(gpointer data)
 }
 
 /**************/
+static void
+fb2config_set_documentroot(GFile *uri)
+{
+	GtkTreeIter *iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
+	if (!iter)
+		return;
+	DEBUG_MSG("fb2config_set_documentroot, set icon %s\n",BF_STOCK_BROWSER_PREVIEW);
+	gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
+							   iter, ICON_NAME_COLUMN, BF_STOCK_BROWSER_PREVIEW, -1);
+}
+
 typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *win;
@@ -232,6 +244,7 @@ drd_response_lcb(GtkDialog * dialog, gint response, Tdocrootdialog * drd)
 			if (drd->bfwin->session->documentroot)
 				g_free(drd->bfwin->session->documentroot);
 			drd->bfwin->session->documentroot = g_file_get_uri(docroot);
+			fb2config_set_documentroot(docroot);
 
 			if (drd->bfwin->session->webroot)
 				g_free(drd->bfwin->session->webroot);
@@ -2711,14 +2724,21 @@ fb2_tooltip_lcb(GtkWidget * widget, gint x, gint y, gboolean keyboard_tip, GtkTo
 			GFile *uri = NULL;
 			gtk_tree_model_get(gtk_tree_view_get_model(tview), &iter, URI_COLUMN, &uri, -1);
 			if (uri) {
-				gchar *text = g_file_get_uri(uri);
-				if (fb2->bfwin->session->webroot && fb2->bfwin->session->documentroot && g_str_has_prefix(text, fb2->bfwin->session->documentroot)) {
-					gchar *tmp = text;
-					text = g_strdup_printf(_("%s\nwhich is the equivalent of\n%s%s"), text, fb2->bfwin->session->webroot, text+strlen(fb2->bfwin->session->documentroot));
-					g_free(tmp);
+				gchar *curi = g_file_get_uri(uri);
+				gchar *localname=NULL;
+				gchar *text;
+				if (g_file_is_native(uri)) {
+					localname = g_file_get_path(uri);
 				}
-				gtk_tooltip_set_text(tooltipwidget, text);
+				if (fb2->bfwin->session->webroot && fb2->bfwin->session->documentroot && g_str_has_prefix(curi, fb2->bfwin->session->documentroot)) {
+					text = g_strdup_printf(_("<b>%s</b>\nwhich is the equivalent of\n<b>%s%s</b>"), localname?localname:curi, fb2->bfwin->session->webroot, curi+strlen(fb2->bfwin->session->documentroot));
+				} else {
+					text = g_strdup_printf("<b>%s</b>",localname?localname:curi);
+				}
+				gtk_tooltip_set_markup(tooltipwidget, text);
+				g_free(curi);
 				g_free(text);
+				g_free(localname);
 				retval = TRUE;
 			}
 		}
@@ -2915,7 +2935,6 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	DEBUG_MSG("fb2_set_viewmode_widgets, new GUI finished\n");
 }
 
-
 void
 fb2_update_settings_from_session(Tbfwin * bfwin)
 {
@@ -2956,6 +2975,12 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 			}
 		} else {
 			fb2_set_basedir(bfwin, NULL);
+		}
+		if (bfwin->session->webroot && bfwin->session->documentroot) {
+			GFile *uri = g_file_new_for_uri(bfwin->session->documentroot);
+			fb2_build_dir(uri);
+			fb2config_set_documentroot(uri);
+			g_object_unref(uri);
 		}
 		/* TODO: fb2_set_basedir already calls refilter in most cases (not if the 
 		   requested basedir was already the active basedir), so
