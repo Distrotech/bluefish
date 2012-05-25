@@ -106,6 +106,8 @@ bluefish_SOURCES = \
 	plugins.h \
 	preferences.c \
 	preferences.h \
+	print.c \
+	print.h \
 	project.c \
 	project.h \
 	rcfile.c \
