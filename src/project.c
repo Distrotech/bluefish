@@ -630,7 +630,11 @@ project_edit(Tbfwin * bfwin)
 	sessionprefs(_("<b>Project Defaults</b>"), &pred->sprefs, pred->project->session);
 	gtk_box_pack_start(GTK_BOX(vbox), pred->sprefs.frame, FALSE, FALSE, 6);
 
+#if GTK_CHECK_VERSION(3,0,0)
+	hbox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
+#else
 	hbox = gtk_hbutton_box_new();
+#endif
 	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
 	gtk_box_set_spacing(GTK_BOX(hbox), 6);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
@@ -694,7 +698,11 @@ project_create_gui(Tbfwin * bfwin)
 		boxed_radiobut_with_value(_("Create project with currently opened documents"), TRUE, NULL, vbox);
 	pc->rad[1] =
 		boxed_radiobut_with_value(_("Create empty project"), FALSE, GTK_RADIO_BUTTON(pc->rad[0]), vbox);
+#if GTK_CHECK_VERSION(3,0,0)
+	hbox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
+#else
 	hbox = gtk_hbutton_box_new();
+#endif
 	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
 	gtk_box_set_spacing(GTK_BOX(hbox), 6);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);

@@ -2730,7 +2730,12 @@ preferences_dialog_new(void)
 
 	{
 		GtkWidget *ahbox, *but;
+
+#if GTK_CHECK_VERSION(3,0,0)
+		ahbox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
+#else
 		ahbox = gtk_hbutton_box_new();
+#endif
 		gtk_button_box_set_layout(GTK_BUTTON_BOX(ahbox), GTK_BUTTONBOX_END);
 		gtk_box_set_spacing(GTK_BOX(ahbox), 6);
 

@@ -407,7 +407,11 @@ file_open_url_cb(GtkAction * action, Tbfwin * bfwin)
 /*  ou->entry = boxed_entry_with_text("", 255, vbox); */
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 5);
 
+#if GTK_CHECK_VERSION(3,0,0)
+	hbox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
+#else
 	hbox = gtk_hbutton_box_new();
+#endif
 	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
 	gtk_box_set_spacing(GTK_BOX(hbox), 6);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
