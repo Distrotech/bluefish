@@ -2417,7 +2417,11 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 	gtk_widget_show_all(hbox);
 
+#if GTK_CHECK_VERSION(3,0,0)
+	newdoc->vsplit = gtk_paned_new(GTK_ORIENTATION_VERTICAL);
+#else
 	newdoc->vsplit = gtk_vpaned_new();
+#endif
 	gtk_paned_add1(GTK_PANED(newdoc->vsplit), scroll);
 	gtk_widget_show(newdoc->vsplit);
 	DEBUG_MSG("doc_new_backend, vsplit at %p\n", newdoc->vsplit);

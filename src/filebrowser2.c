@@ -2867,7 +2867,11 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	if (fb2->filebrowser_viewmode != viewmode_dual) {
 		gtk_box_pack_start(GTK_BOX(fb2->vbox), fb2->dirscrolwin, TRUE, TRUE, 0);
 	} else {
+#if GTK_CHECK_VERSION(3,0,0)
+		fb2->vpaned = gtk_paned_new(GTK_ORIENTATION_VERTICAL);
+#else
 		fb2->vpaned = gtk_vpaned_new();
+#endif
 		gtk_paned_set_position(GTK_PANED(fb2->vpaned), main_v->globses.two_pane_filebrowser_height);
 		g_signal_connect(G_OBJECT(fb2->vpaned), "notify::position",
 						 G_CALLBACK(fb2_two_pane_notify_position_lcb), NULL);
