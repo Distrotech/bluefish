@@ -297,7 +297,11 @@ bfwin_side_panel_show_hide_toggle(Tbfwin * bfwin, gboolean first_time, gboolean 
 		}
 	}
 	if (show) {
+#if GTK_CHECK_VERSION(3,0,0)
+		bfwin->hpane = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
+#else
 		bfwin->hpane = gtk_hpaned_new();
+#endif
 		if (main_v->props.left_panel_left) {
 			DEBUG_MSG("set paned position to %d (left)\n", main_v->globses.left_panel_width);
 			gtk_paned_set_position(GTK_PANED(bfwin->hpane), main_v->globses.left_panel_width);
@@ -1197,7 +1201,11 @@ bfwin_create_main(Tbfwin * bfwin)
 	}
 
 	/* the area for the middlebox and the outputbox */
+#if GTK_CHECK_VERSION(3,0,0)
+	bfwin->vpane = gtk_paned_new(GTK_ORIENTATION_VERTICAL);
+#else
 	bfwin->vpane = gtk_vpaned_new();
+#endif
 	gtk_box_pack_start(GTK_BOX(vbox), bfwin->vpane, TRUE, TRUE, 0);
 	/* then the area for left panel and */
 	bfwin->middlebox = gtk_hbox_new(TRUE, 0);
