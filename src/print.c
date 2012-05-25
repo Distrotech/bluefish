@@ -32,17 +32,17 @@ draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,gpo
 	PangoFontDescription *desc;
 	Tdocument *doc = user_data;
 	gchar *text;
-
+	g_print("draw page %d\n",page_nr);
 	cr = gtk_print_context_get_cairo_context (context);
 	width = gtk_print_context_get_width (context);
 
-	cairo_rectangle(cr, 0, 0, width, 10 /* header height */);
-	cairo_set_source_rgb(cr, 0.8, 0.8, 0.8);
+	cairo_set_source_rgb(cr, 0, 0, 0);
+/*	cairo_rectangle(cr, 0, 0, width, 10);
 	cairo_fill (cr);
-
+*/
 	layout = gtk_print_context_create_pango_layout(context);
 
-	desc = pango_font_description_from_string("sans 14");
+	desc = pango_font_description_from_string("monospace 10");
 	pango_layout_set_font_description(layout, desc);
 	pango_font_description_free(desc);
 
@@ -50,12 +50,12 @@ draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,gpo
 	pango_layout_set_text(layout, text, -1);
 	g_free(text);
 	pango_layout_set_width(layout, width * PANGO_SCALE);
-	pango_layout_set_alignment(layout, PANGO_ALIGN_CENTER);
+	pango_layout_set_alignment(layout, PANGO_ALIGN_LEFT);
 
 	pango_layout_get_size(layout, NULL, &layout_height);
 	text_height = (gdouble)layout_height / PANGO_SCALE;
 
-	cairo_move_to(cr, width / 2,	(10 /*HEADER_HEIGHT*/ - text_height) / 2);
+	cairo_move_to(cr, 10 /* margin */,	10 /* top margin */ );
 	pango_cairo_show_layout(cr, layout);
 
 	g_object_unref(layout);
@@ -68,18 +68,23 @@ doc_print(Tdocument *doc)
 	
 	GtkPrintOperation *print;
 	GtkPrintOperationResult res;
+	GError *gerror=NULL;
 
 	print = gtk_print_operation_new();
 
 	/*if(settings != NULL)
 		gtk_print_operation_set_print_settings(print, settings);*/
-
+	gtk_print_operation_set_n_pages(print, 1);
 	/*g_signal_connect(print, "begin_print", G_CALLBACK(begin_print), NULL);*/
 	g_signal_connect(print, "draw_page", G_CALLBACK(draw_page), doc);
 
 	res = gtk_print_operation_run(print, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
-					GTK_WINDOW(BFWIN(doc->bfwin)->main_window), NULL);
-
+					GTK_WINDOW(BFWIN(doc->bfwin)->main_window), &gerror);
+	if (gerror) {
+		g_print("print error %s\n",gerror->message);
+		g_error_free(gerror);
+	}
+	g_print("doc_print, res=%d\n",res);
 	if(res == GTK_PRINT_OPERATION_RESULT_APPLY)
 		{
 /*			if(settings != NULL)
