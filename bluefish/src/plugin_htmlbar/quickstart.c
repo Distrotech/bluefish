@@ -475,7 +475,11 @@ quickstart_meta_page_create(TQuickStart * qstart)
 	gtk_tree_view_set_model(GTK_TREE_VIEW(qstart->metaView), GTK_TREE_MODEL(metaStore));
 	g_object_unref(metaStore);
 
+#if GTK_CHECK_VERSION(3,0,0)
+	bbox = gtk_button_box_new(GTK_ORIENTATION_VERTICAL);
+#else
 	bbox = gtk_vbutton_box_new();
+#endif
 	gtk_box_set_spacing(GTK_BOX(bbox), 6);
 	gtk_button_box_set_layout(GTK_BUTTON_BOX(bbox), GTK_BUTTONBOX_START);
 	button = gtk_button_new_from_stock(GTK_STOCK_ADD);

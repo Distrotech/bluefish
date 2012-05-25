@@ -138,7 +138,11 @@ html_diag_finish(Thtml_diag * dg, GCallback ok_func)
 
 	align = gtk_alignment_new(0.5, 1.0, 1.0, 0.0);
 	gtk_alignment_set_padding(GTK_ALIGNMENT(align), 12, 0, 0, 0);
+#if GTK_CHECK_VERSION(3,0,0)
+	hbox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
+#else
 	hbox = gtk_hbutton_box_new();
+#endif
 	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
 	gtk_box_set_spacing(GTK_BOX(hbox), 12);
 	gtk_container_add(GTK_CONTAINER(align), hbox);

@@ -237,7 +237,11 @@ image_diag_finish(Timage_diag * imdg, GCallback ok_func)
 {
 	GtkWidget *align, *hbox;
 
+#if GTK_CHECK_VERSION(3,0,0)
+	hbox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
+#else
 	hbox = gtk_hbutton_box_new();
+#endif
 	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
 	gtk_box_set_spacing(GTK_BOX(hbox), 6);
 
@@ -1091,8 +1095,11 @@ multi_thumbnail_dialog(Tbfwin * bfwin)
 									GTK_WRAP_CHAR);
 	mtd->tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
 	gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 0);
-
+#if GTK_CHECK_VERSION(3,0,0)
+	hbox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
+#else
 	hbox = gtk_hbutton_box_new();
+#endif
 	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
 	gtk_box_set_spacing(GTK_BOX(hbox), 1);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
