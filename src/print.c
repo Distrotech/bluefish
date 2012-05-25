@@ -18,9 +18,26 @@
 #include <gtk/gtk.h>
 
 #include "bluefish.h"
+#include "document.h"
 #include "print.h"
 
 #ifdef DEVELOPMENT
+
+static void
+apply_syntax(Tdocument *doc, PangoLayout *layout)
+{
+	PangoAttrList *alist;
+	PangoAttribute *attr;
+	alist = pango_attr_list_new();
+	
+	attr = pango_attr_foreground_new(65534, 0, 0);
+	attr->start_index = 20;
+	attr->end_index = 40;
+	pango_attr_list_insert(alist, attr);
+	
+	pango_layout_set_attributes(layout,alist);
+	pango_attr_list_unref(alist);
+}
 
 static void
 draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,gpointer user_data)
@@ -45,12 +62,15 @@ draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,gpo
 	desc = pango_font_description_from_string("monospace 10");
 	pango_layout_set_font_description(layout, desc);
 	pango_font_description_free(desc);
+	
+	pango_layout_set_width(layout, width * PANGO_SCALE);
+	pango_layout_set_alignment(layout, PANGO_ALIGN_LEFT);
 
 	text = doc_get_chars(doc, 0, -1);
 	pango_layout_set_text(layout, text, -1);
 	g_free(text);
-	pango_layout_set_width(layout, width * PANGO_SCALE);
-	pango_layout_set_alignment(layout, PANGO_ALIGN_LEFT);
+	
+	apply_syntax(doc, layout);
 
 	pango_layout_get_size(layout, NULL, &layout_height);
 	text_height = (gdouble)layout_height / PANGO_SCALE;
@@ -69,7 +89,6 @@ doc_print(Tdocument *doc)
 	GtkPrintOperation *print;
 	GtkPrintOperationResult res;
 	GError *gerror=NULL;
-
 	print = gtk_print_operation_new();
 
 	/*if(settings != NULL)
