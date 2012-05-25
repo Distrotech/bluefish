@@ -44,7 +44,9 @@
 #include "stringlist.h"
 #include "snr3.h"
 #include "undo_redo.h"
-
+#ifdef DEVELOPMENT
+#include "print.h"
+#endif
 
 #define MAIN_MENU_UI PKGDATADIR"/ui/bluefish_menu_ui.xml"
 #define MAIN_TOOLBAR_UI PKGDATADIR"/ui/bluefish_toolbar_ui.xml"
@@ -446,6 +448,15 @@ ui_insert_doc(GtkAction * action, gpointer user_data)
 }
 
 static void
+ui_print_doc(GtkAction * action, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+#ifdef DEVELOPMENT
+	doc_print(bfwin->current_document);
+#endif
+}
+
+static void
 ui_new_doc(GtkAction * action, gpointer user_data)
 {
 	file_new_doc(BFWIN(user_data));
@@ -796,6 +807,7 @@ static const GtkActionEntry global_actions[] = {
 	{"FileOpenSelection", NULL, N_("Open _from Selection"), NULL, N_("Open from Selection"),
 	 G_CALLBACK(ui_open_from_selection)},
 	{"FileInsert", NULL, N_("_Insert..."), NULL, N_("Insert file"), G_CALLBACK(ui_insert_doc)},
+	{"FilePrint", NULL, N_("_Print"), NULL, N_("Print"), G_CALLBACK(ui_print_doc)},
 	{"FileUploadDownload", NULL, N_("U_pload / Download..."), NULL, NULL,
 	 G_CALLBACK(ui_upload_download_dialog)},
 	{"FileQuit", GTK_STOCK_QUIT, N_("_Quit"), "<control>Q", N_("Quit Bluefish"), G_CALLBACK(ui_quit)},
