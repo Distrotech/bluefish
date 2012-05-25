@@ -21,4 +21,4 @@
 
 void doc_print(Tdocument *doc);
 
-#endif __PRINT_H_
+#endif /*__PRINT_H_*/
