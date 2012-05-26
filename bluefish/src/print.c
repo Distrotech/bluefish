@@ -80,6 +80,40 @@ draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,gpo
 
 	g_object_unref(layout);
 }
+static void
+begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tdocument *doc)
+{
+	cairo_t *cr;
+	PangoLayout *layout;
+	gdouble width, text_height, height;
+	gint layout_height;
+	PangoFontDescription *desc;
+	gchar *text;
+
+	/* calculate the number of pages needed */
+	/*cr = gtk_print_context_get_cairo_context(context);*/
+	width = gtk_print_context_get_width(context);
+	height = gtk_print_context_get_height(context);
+	
+	layout = gtk_print_context_create_pango_layout(context);
+
+	desc = pango_font_description_from_string("monospace 10");
+	pango_layout_set_font_description(layout, desc);
+	pango_font_description_free(desc);
+	
+	pango_layout_set_width(layout, width * PANGO_SCALE);
+	pango_layout_set_alignment(layout, PANGO_ALIGN_LEFT);
+
+	text = doc_get_chars(doc, 0, -1);
+	pango_layout_set_text(layout, text, -1);
+	g_free(text);
+	
+	pango_layout_get_size(layout, NULL, &layout_height);
+	text_height = (gdouble)layout_height / PANGO_SCALE;
+
+	g_print("text_height=%f, page height=%f, need %d pages\n",text_height,height,(int)(text_height/height+1));
+	gtk_print_operation_set_n_pages(print, (int)(text_height/height+1));
+}
 
 
 void
@@ -93,8 +127,8 @@ doc_print(Tdocument *doc)
 
 	/*if(settings != NULL)
 		gtk_print_operation_set_print_settings(print, settings);*/
-	gtk_print_operation_set_n_pages(print, 1);
-	/*g_signal_connect(print, "begin_print", G_CALLBACK(begin_print), NULL);*/
+	
+	g_signal_connect(print, "begin_print", G_CALLBACK(begin_print), doc);
 	g_signal_connect(print, "draw_page", G_CALLBACK(draw_page), doc);
 
 	res = gtk_print_operation_run(print, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
