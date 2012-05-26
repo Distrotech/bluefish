@@ -18,7 +18,11 @@
 		You should have received a copy of the GNU General Public License
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
+<!--
+missing:
+show_source
 
+-->
 <bfinc>
 <group class="load_php_functions"  highlight="php-function" >
 	<autocomplete append="();" backup_cursor="2"  class="autocomplete_with_parentheses" />
@@ -1388,14 +1392,14 @@ Convert Unix timestamp to Julian Day
 <element pattern="call_user_method_array" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($method_name, &amp;$obj, array $params);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>call_user_method_array($method_name, &amp;$obj, array $params);
+<reference>[deprecated] call_user_method_array($method_name, &amp;$obj, array $params);
 Call a user method given with an array of parameters [deprecated]
 <b> method_name string </b><b> obj object </b><b> params array </b><b>returns</b>  mixed 
 </reference></element>
 <element pattern="call_user_method" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($method_name, &amp;$obj, $parameter = null, $_ = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>call_user_method($method_name, &amp;$obj, $parameter = null, $_ = null);
+<reference>[deprecated] call_user_method($method_name, &amp;$obj, $parameter = null, $_ = null);
 Call a user method on an specific object [deprecated]
 <b> method_name string </b><b> obj object </b><b> parameter mixed[optional] </b><b> _ mixed[optional] </b><b>returns</b>  mixed 
 </reference></element>
@@ -1615,18 +1619,18 @@ Checks if the object or class has a property
 <element pattern="cpdf_stroke"/>
 <element pattern="cpdf_text"/>
 <element pattern="cpdf_translate"/>
-<element pattern="com_addref"/>
+<element pattern="com_addref"><reference>[deprecated]</reference></element>
 <element pattern="com_create_guid"/>
 <element pattern="com_event_sink"/>
 <element pattern="com_get_active_object"/>
-<element pattern="com_get"/>
-<element pattern="com_invoke"/>
-<element pattern="com_isenum"/>
+<element pattern="com_get"><reference>[deprecated]</reference></element>
+<element pattern="com_invoke"><reference>[deprecated]</reference></element>
+<element pattern="com_isenum"><reference>[deprecated]</reference></element>
 <element pattern="com_load_typelib"/>
-<element pattern="com_load"/>
+<element pattern="com_load"><reference>[deprecated]</reference></element>
 <element pattern="com_message_pump"/>
 <element pattern="com_print_typeinfo"/>
-<element pattern="com_release"/>
+<element pattern="com_release"><reference>[deprecated]</reference></element>
 <element pattern="com_set"/>
 <element pattern="variant_abs"/>
 <element pattern="variant_add"/>
@@ -11858,7 +11862,7 @@ Decrypt data
 <element pattern="m_sslcert_gen_hash"/>
 <element pattern="m_transactionssent"/>
 <element pattern="m_transinqueue"/>
-<element pattern="m_transkeyval"/>
+<element pattern="m_transkeyval"><reference>[deprecated]</reference></element>
 <element pattern="m_transnew"/>
 <element pattern="m_transsend"/>
 <element pattern="m_uwait"/>
@@ -11922,7 +11926,7 @@ false on errors.
 <element pattern="mime_content_type" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($filename);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mime_content_type($filename);
+<reference>[deprecated] mime_content_type($filename);
 Detect MIME Content-type for a file (deprecated)
 <b> filename string </b>Path to the tested file.
 <b>returns</b>  string the content type in MIME format, like 
@@ -12330,350 +12334,122 @@ second.
 <element pattern="mssql_bind" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($stmt, $param_name, &amp;$var, $type, $is_output = null, $is_null = null, $maxlen = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_bind($stmt, $param_name, &amp;$var, $type, $is_output = null, $is_null = null, $maxlen = null);
-Adds a parameter to a stored procedure or a remote stored procedure
-<b> stmt resource </b>Statement resource, obtained with mssql_init.
-<b> param_name string </b>The parameter name, as a string.
-You have to include the @ character, like in the
-T-SQL syntax. See the explanation included in
-mssql_execute. 
-<b> var mixed </b>The PHP variable you'll bind the MSSQL parameter to. You can pass it
-by value, or by reference, to retrieve OUTPUT and RETVAL values after
-the procedure execution. 
-<b> type int </b>One of: SQLTEXT, 
-SQLVARCHAR, SQLCHAR,
-SQLINT1, SQLINT2,
-SQLINT4, SQLBIT,
-SQLFLT4, SQLFLT8,
-SQLFLTN. 
-<b> is_output int[optional] </b>Whether the value is an OUTPUT parameter or not. If it's an OUTPUT
-parameter and you don't mention it, it will be treated as a normal
-input parameter and no error will be thrown. 
-<b> is_null int[optional] </b>Whether the parameter is &amp;null; or not. Passing the &amp;null; value as
-var will not do the job.
-<b> maxlen int[optional] </b>Used with char/varchar values. You have to indicate the length of the
-data so if the parameter is a varchar(50), the type must be 
-SQLVARCHAR and this value 50.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_close" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($link_identifier = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_close($link_identifier = null);
-Close MS SQL Server connection
-<b> link_identifier resource[optional] </b>A MS SQL link identifier, returned by 
-mssql_connect.
-This function will not close persistent links generated by
-mssql_pconnect.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_connect" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($servername = null, $username = null, $password = null, $new_link = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_connect($servername = null, $username = null, $password = null, $new_link = null);
-Open MS SQL server connection
-<b> servername string[optional] </b>The MS SQL server. It can also include a port number. e.g. 
-hostname,port.
-<b> username string[optional] </b>The username. 
-<b> password string[optional] </b>The password. 
-<b> new_link bool[optional] </b>If a second call is made to mssql_connect with the
-same arguments, no new link will be established, but instead, the link
-identifier of the already opened link will be returned. This parameter
-modifies this behavior and makes mssql_connect
-always open a new link, even if mssql_connect was
-called before with the same parameters.
-<b>returns</b>  resource a MS SQL link identifier on success, or false on error.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_data_seek" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result_identifier, $row_number);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_data_seek($result_identifier, $row_number);
-Moves internal row pointer
-<b> result_identifier resource </b>The result resource that is being evaluated. 
-<b> row_number int </b>The desired row number of the new result pointer. 
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_execute" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($stmt, $skip_results = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_execute($stmt, $skip_results = null);
-Executes a stored procedure on a MS SQL server database
-<b> stmt resource </b>Statement handle obtained with mssql_init. 
-<b> skip_results bool[optional] </b><b>returns</b>  mixed 
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_fetch_array" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result, $result_type = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_fetch_array($result, $result_type = null);
-Fetch a result row as an associative array, a numeric array, or both
-<b> result resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b> result_type int[optional] </b>The type of array that is to be fetched. It's a constant and can take
-the following values: MSSQL_ASSOC, 
-MSSQL_NUM, and the default value of 
-MSSQL_BOTH.
-<b>returns</b>  array an array that corresponds to the fetched row, or false if there
-are no more rows.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_fetch_assoc" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result_id);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_fetch_assoc($result_id);
-Returns an associative array of the current row in the result
-<b> result_id resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b>returns</b>  array an associative array that corresponds to the fetched row, or
-false if there are no more rows.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_fetch_batch" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_fetch_batch($result);
-Returns the next batch of records
-<b> result resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b>returns</b>  int the batch number as an integer.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_fetch_field" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result, $field_offset = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_fetch_field($result, $field_offset = null);
-Get field information
-<b> result resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b> field_offset int[optional] </b>The numerical field offset. If the field offset is not specified, the
-next field that was not yet retrieved by this function is retrieved. The
-field_offset starts at 0.
-<b>returns</b>  object an object containing field information.
-The properties of the object are:
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_fetch_object" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_fetch_object($result);
-Fetch row as object
-<b> result resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b>returns</b>  object an object with properties that correspond to the fetched row, or
-false if there are no more rows.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_fetch_row" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_fetch_row($result);
-Get row as enumerated array
-<b> result resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b>returns</b>  array an array that corresponds to the fetched row, or false if there
-are no more rows.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_field_length" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result, $offset = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_field_length($result, $offset = null);
-Get the length of a field
-<b> result resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b> offset int[optional] </b>The field offset, starts at 0. If omitted, the current field is used.
-<b>returns</b>  int The length of the specified field index on success, or false on failure.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_field_name" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result, $offset = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_field_name($result, $offset = null);
-Get the name of a field
-<b> result resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b> offset int[optional] </b>The field offset, starts at 0. If omitted, the current field is used.
-<b>returns</b>  string The name of the specified field index on success, or false on failure.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_field_seek" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result, $field_offset);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_field_seek($result, $field_offset);
-Seeks to the specified field offset
-<b> result resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b> field_offset int </b>The field offset, starts at 0.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_field_type" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result, $offset = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_field_type($result, $offset = null);
-Gets the type of a field
-<b> result resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b> offset int[optional] </b>The field offset, starts at 0. If omitted, the current field is used.
-<b>returns</b>  string The type of the specified field index on success, or false on failure.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_free_result" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_free_result($result);
-Free result memory
-<b> result resource </b>The result resource that is being freed. This result comes from a
-call to mssql_query.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_free_statement" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($stmt);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_free_statement($stmt);
-Free statement memory
-<b> stmt resource </b>Statement resource, obtained with mssql_init.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_get_last_message" >
 	<autocomplete append="();" />
-<reference>mssql_get_last_message();
-Returns the last message from the server
-<b>returns</b>  string 
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_guid_string" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($binary, $short_format = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_guid_string($binary, $short_format = null);
-Converts a 16 byte binary GUID to a string
-<b> binary string </b><b> short_format int[optional] </b><b>returns</b>  string 
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_init" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($sp_name, $link_identifier = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_init($sp_name, $link_identifier = null);
-Initializes a stored procedure or a remote stored procedure
-<b> sp_name string </b>Stored procedure name, like ownew.sp_name or
-otherdb.owner.sp_name. 
-<b> link_identifier resource[optional] </b>A MS SQL link identifier, returned by 
-mssql_connect.
-<b>returns</b>  resource a resource identifier "statement", used in subsequent calls to
-mssql_bind and mssql_execute,
-or false on errors.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_min_error_severity" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($severity);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_min_error_severity($severity);
-Sets the lower error severity
-<b> severity int </b><b>returns</b>  void 
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_min_message_severity" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($severity);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_min_message_severity($severity);
-Sets the lower message severity
-<b> severity int </b><b>returns</b>  void 
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_next_result" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result_id);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_next_result($result_id);
-Move the internal result pointer to the next result
-<b> result_id resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b>returns</b>  bool true if an additional result set was available or false
-otherwise.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_num_fields" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_num_fields($result);
-Gets the number of fields in result
-<b> result resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b>returns</b>  int the number of fields, as an integer.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_num_rows" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_num_rows($result);
-Gets the number of rows in result
-<b> result resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b>returns</b>  int the number of rows, as an integer.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_pconnect" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($servername = null, $username = null, $password = null, $new_link = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_pconnect($servername = null, $username = null, $password = null, $new_link = null);
-Open persistent MS SQL connection
-<b> servername string[optional] </b>The MS SQL server. It can also include a port number. e.g. 
-hostname:port.
-<b> username string[optional] </b>The username. 
-<b> password string[optional] </b>The password. 
-<b> new_link bool[optional] </b>If a second call is made to mssql_pconnect with
-the same arguments, no new link will be established, but instead, the
-link identifier of the already opened link will be returned. This
-parameter modifies this behavior and makes
-mssql_pconnect always open a new link, even if
-mssql_pconnect was called before with the same
-parameters.
-<b>returns</b>  resource a positive MS SQL persistent link identifier on success, or
-false on error.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_query" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($query, $link_identifier = null, $batch_size = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_query($query, $link_identifier = null, $batch_size = null);
-Send MS SQL query
-<b> query string </b>A SQL query.
-<b> link_identifier resource[optional] </b>A MS SQL link identifier, returned by 
-mssql_connect or 
-mssql_pconnect.
-If the link identifier isn't specified, the last opened link is
-assumed. If no link is open, the function tries to establish a link
-as if mssql_connect was called, and use it.
-<b> batch_size int[optional] </b>The number of records to batch in the buffer.
-<b>returns</b>  mixed a MS SQL result resource on success, true if no rows were
-returned, or false on error.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_result" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($result, $row, $field);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_result($result, $row, $field);
-Get result data
-<b> result resource </b>The result resource that is being evaluated. This result comes from a
-call to mssql_query.
-<b> row int </b>The row number.
-<b> field mixed </b>Can be the field's offset, the field's name or the field's table dot
-field's name (tablename.fieldname). If the column name has been
-aliased ('select foo as bar from...'), it uses the alias instead of
-the column name.
-Specifying a numeric offset for the field
-argument is much quicker than specifying a 
-fieldname or 
-tablename.fieldname argument.
-<b>returns</b>  string the contents of the specified cell.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_rows_affected" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($link_identifier);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_rows_affected($link_identifier);
-Returns the number of records affected by the query
-<b> link_identifier resource </b>A MS SQL link identifier, returned by 
-mssql_connect or 
-mssql_pconnect.
-<b>returns</b>  int 
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="mssql_select_db" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($database_name, $link_identifier = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>mssql_select_db($database_name, $link_identifier = null);
-Select MS SQL database
-<b> database_name string </b>The database name.
-To escape the name of a database that contains spaces, hyphens ("-"),
-or any other exceptional characters, the database name must be
-enclosed in brackets, as is shown in the example, below. This
-technique must also be applied when selecting a database name that is
-also a reserved word (such as primary).
-<b> link_identifier resource[optional] </b>A MS SQL link identifier, returned by 
-mssql_connect or 
-mssql_pconnect.
-If no link identifier is specified, the last opened link is assumed.
-If no link is open, the function will try to establish a link as if
-mssql_connect was called, and use it.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
+<reference>mssql extension is not available anymore on Windows with PHP 5.3 or later. Please use sybase extension instead. </reference></element>
 <element pattern="msession_connect"/>
 <element pattern="msession_count"/>
 <element pattern="msession_create"/>
@@ -15877,7 +15653,7 @@ Returns false on error.
 <element pattern="ocifetchinto" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="($statement, array &amp;$result, $mode = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
-<reference>ocifetchinto($statement, array &amp;$result, $mode = null);
+<reference>[deprecated] ocifetchinto($statement, array &amp;$result, $mode = null);
 Fetches the next row into an array (deprecated)
 <b> statement resource </b><b> result array </b><b> mode int[optional] </b><b>returns</b>  int 
 </reference></element>
@@ -17245,8 +17021,8 @@ Reset URL rewriter values
 <element pattern="px_retrieve_record"/>
 <element pattern="px_set_blob_file"/>
 <element pattern="px_set_parameter"/>
-<element pattern="px_set_tablename"/>
-<element pattern="px_set_targetencoding"/>
+<element pattern="px_set_tablename"><reference>[deprecated]</reference></element>
+<element pattern="px_set_targetencoding"><reference>[deprecated]</reference></element>
 <element pattern="px_set_value"/>
 <element pattern="px_timestamp2string"/>
 <element pattern="px_update_record"/>
@@ -17700,34 +17476,34 @@ preg_split.
 split along boundaries matched by pattern.
 </reference></element>
 <element pattern="PDF_activate_item"/>
-<element pattern="PDF_add_launchlink"/>
-<element pattern="PDF_add_locallink"/>
+<element pattern="PDF_add_launchlink"><reference>[deprecated]</reference></element>
+<element pattern="PDF_add_locallink"><reference>[deprecated]</reference></element>
 <element pattern="PDF_add_nameddest"/>
-<element pattern="PDF_add_note"/>
-<element pattern="PDF_add_pdflink"/>
+<element pattern="PDF_add_note"><reference>[deprecated]</reference></element>
+<element pattern="PDF_add_pdflink"><reference>[deprecated]</reference></element>
 <element pattern="PDF_add_table_cell"/>
 <element pattern="PDF_add_textflow"/>
 <element pattern="PDF_add_thumbnail"/>
-<element pattern="PDF_add_weblink"/>
+<element pattern="PDF_add_weblink"><reference>[deprecated]</reference></element>
 <element pattern="PDF_arc"/>
 <element pattern="PDF_arcn"/>
-<element pattern="PDF_attach_file"/>
+<element pattern="PDF_attach_file"><reference>[deprecated]</reference></element>
 <element pattern="PDF_begin_document"/>
 <element pattern="PDF_begin_font"/>
 <element pattern="PDF_begin_glyph"/>
 <element pattern="PDF_begin_item"/>
 <element pattern="PDF_begin_layer"/>
 <element pattern="PDF_begin_page_ext"/>
-<element pattern="PDF_begin_page"/>
+<element pattern="PDF_begin_page"><reference>[deprecated]</reference></element>
 <element pattern="PDF_begin_pattern"/>
 <element pattern="PDF_begin_template_ext"/>
-<element pattern="PDF_begin_template"/>
+<element pattern="PDF_begin_template"><reference>[deprecated]</reference></element>
 <element pattern="PDF_circle"/>
 <element pattern="PDF_clip"/>
 <element pattern="PDF_close_image"/>
 <element pattern="PDF_close_pdi_page"/>
-<element pattern="PDF_close_pdi"/>
-<element pattern="PDF_close"/>
+<element pattern="PDF_close_pdi"><reference>[deprecated]</reference></element>
+<element pattern="PDF_close"><reference>[deprecated]</reference></element>
 <element pattern="PDF_closepath_fill_stroke"/>
 <element pattern="PDF_closepath_stroke"/>
 <element pattern="PDF_closepath"/>
@@ -17764,7 +17540,7 @@ split along boundaries matched by pattern.
 <element pattern="PDF_fill_stroke"/>
 <element pattern="PDF_fill_textblock"/>
 <element pattern="PDF_fill"/>
-<element pattern="PDF_findfont"/>
+<element pattern="PDF_findfont"><reference>[deprecated]</reference></element>
 <element pattern="PDF_fit_image"/>
 <element pattern="PDF_fit_pdi_page"/>
 <element pattern="PDF_fit_table"/>
@@ -17774,11 +17550,11 @@ split along boundaries matched by pattern.
 <element pattern="PDF_get_buffer"/>
 <element pattern="PDF_get_errmsg"/>
 <element pattern="PDF_get_errnum"/>
-<element pattern="PDF_get_majorversion"/>
-<element pattern="PDF_get_minorversion"/>
+<element pattern="PDF_get_majorversion"><reference>[deprecated]</reference></element>
+<element pattern="PDF_get_minorversion"><reference>[deprecated]</reference></element>
 <element pattern="PDF_get_parameter"/>
-<element pattern="PDF_get_pdi_parameter"/>
-<element pattern="PDF_get_pdi_value"/>
+<element pattern="PDF_get_pdi_parameter"><reference>[deprecated]</reference></element>
+<element pattern="PDF_get_pdi_value"><reference>[deprecated]</reference></element>
 <element pattern="PDF_get_value"/>
 <element pattern="PDF_info-font"/>
 <element pattern="PDF_info_matchbox"/>
@@ -17794,18 +17570,18 @@ split along boundaries matched by pattern.
 <element pattern="PDF_makespotcolor"/>
 <element pattern="PDF_moveto"/>
 <element pattern="PDF_new"/>
-<element pattern="PDF_open_ccitt"/>
-<element pattern="PDF_open_file"/>
-<element pattern="PDF_open_image_file"/>
-<element pattern="PDF_open_image"/>
+<element pattern="PDF_open_ccitt"><reference>[deprecated]</reference></element>
+<element pattern="PDF_open_file"><reference>[deprecated]</reference></element>
+<element pattern="PDF_open_image_file"><reference>[deprecated]</reference></element>
+<element pattern="PDF_open_image"><reference>[deprecated]</reference></element>
 <element pattern="PDF_open_memory_image"/>
 <element pattern="PDF_open_pdi_page"/>
-<element pattern="PDF_open_pdi"/>
+<element pattern="PDF_open_pdi"><reference>[deprecated]</reference></element>
 <element pattern="PDF_pcos_get_number"/>
 <element pattern="PDF_pcos_get_stream"/>
 <element pattern="PDF_pcos_get_string"/>
-<element pattern="PDF_place_image"/>
-<element pattern="PDF_place_pdi_page"/>
+<element pattern="PDF_place_image"><reference>[deprecated]</reference></element>
+<element pattern="PDF_place_pdi_page"><reference>[deprecated]</reference></element>
 <element pattern="PDF_process_pdi"/>
 <element pattern="PDF_rect"/>
 <element pattern="PDF_restore"/>
@@ -17813,9 +17589,9 @@ split along boundaries matched by pattern.
 <element pattern="PDF_rotate"/>
 <element pattern="PDF_save"/>
 <element pattern="PDF_scale"/>
-<element pattern="PDF_set_border_color"/>
-<element pattern="PDF_set_border_dash"/>
-<element pattern="PDF_set_border_style"/>
+<element pattern="PDF_set_border_color"><reference>[deprecated]</reference></element>
+<element pattern="PDF_set_border_dash"><reference>[deprecated]</reference></element>
+<element pattern="PDF_set_border_style"><reference>[deprecated]</reference></element>
 <element pattern="PDF_set_gstate"/>
 <element pattern="PDF_set_info"/>
 <element pattern="PDF_set_layer_dependency"/>
@@ -17827,21 +17603,21 @@ split along boundaries matched by pattern.
 <element pattern="PDF_setdashpattern"/>
 <element pattern="PDF_setflat"/>
 <element pattern="PDF_setfont"/>
-<element pattern="PDF_setgray_fill"/>
-<element pattern="PDF_setgray_stroke"/>
-<element pattern="PDF_setgray"/>
+<element pattern="PDF_setgray_fill"><reference>[deprecated]</reference></element>
+<element pattern="PDF_setgray_stroke"><reference>[deprecated]</reference></element>
+<element pattern="PDF_setgray"><reference>[deprecated]</reference></element>
 <element pattern="PDF_setlinecap"/>
 <element pattern="PDF_setlinejoin"/>
 <element pattern="PDF_setlinewidth"/>
 <element pattern="PDF_setmatrix"/>
 <element pattern="PDF_setmiterlimit"/>
-<element pattern="PDF_setrgbcolor_fill"/>
-<element pattern="PDF_setrgbcolor_stroke"/>
-<element pattern="PDF_setrgbcolor"/>
+<element pattern="PDF_setrgbcolor_fill"><reference>[deprecated]</reference></element>
+<element pattern="PDF_setrgbcolor_stroke"><reference>[deprecated]</reference></element>
+<element pattern="PDF_setrgbcolor"><reference>[deprecated]</reference></element>
 <element pattern="PDF_shading_pattern"/>
 <element pattern="PDF_shading"/>
 <element pattern="PDF_shfill"/>
-<element pattern="PDF_show_boxed"/>
+<element pattern="PDF_show_boxed"><reference>[deprecated]</reference></element>
 <element pattern="PDF_show_xy"/>
 <element pattern="PDF_show"/>
 <element pattern="PDF_skew"/>
