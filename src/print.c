@@ -23,6 +23,15 @@
 
 #ifdef DEVELOPMENT
 
+typedef struct {
+	gchar *buffer;
+	Tdocument *doc;
+	gint so;
+	gint eo;
+} Tbluefishprint;
+
+GtkPrintSettings *printsettings=NULL;
+
 static void
 apply_syntax(Tdocument *doc, PangoLayout *layout)
 {
@@ -40,15 +49,13 @@ apply_syntax(Tdocument *doc, PangoLayout *layout)
 }
 
 static void
-draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,gpointer user_data)
+draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,Tbluefishprint *bfprint)
 {
 	cairo_t *cr;
 	PangoLayout *layout;
 	gdouble width, text_height;
 	gint layout_height;
 	PangoFontDescription *desc;
-	Tdocument *doc = user_data;
-	gchar *text;
 	g_print("draw page %d\n",page_nr);
 	cr = gtk_print_context_get_cairo_context (context);
 	width = gtk_print_context_get_width (context);
@@ -62,18 +69,16 @@ draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,gpo
 	desc = pango_font_description_from_string("monospace 10");
 	pango_layout_set_font_description(layout, desc);
 	pango_font_description_free(desc);
-	
+	pango_layout_set_wrap (layout, PANGO_WRAP_WORD);
 	pango_layout_set_width(layout, width * PANGO_SCALE);
 	pango_layout_set_alignment(layout, PANGO_ALIGN_LEFT);
 
-	text = doc_get_chars(doc, 0, -1);
-	pango_layout_set_text(layout, text, -1);
-	g_free(text);
+	pango_layout_set_text(layout, bfprint->buffer, -1);
 	
-	apply_syntax(doc, layout);
+	apply_syntax(bfprint->doc, layout);
 
-	pango_layout_get_size(layout, NULL, &layout_height);
-	text_height = (gdouble)layout_height / PANGO_SCALE;
+	/*pango_layout_get_size(layout, NULL, &layout_height);
+	text_height = (gdouble)layout_height / PANGO_SCALE;*/
 
 	cairo_move_to(cr, 10 /* margin */,	10 /* top margin */ );
 	pango_cairo_show_layout(cr, layout);
@@ -81,14 +86,13 @@ draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,gpo
 	g_object_unref(layout);
 }
 static void
-begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tdocument *doc)
+begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tbluefishprint *bfprint)
 {
 	cairo_t *cr;
 	PangoLayout *layout;
 	gdouble width, text_height, height;
 	gint layout_height;
 	PangoFontDescription *desc;
-	gchar *text;
 
 	/* calculate the number of pages needed */
 	/*cr = gtk_print_context_get_cairo_context(context);*/
@@ -100,13 +104,12 @@ begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tdocument *doc)
 	desc = pango_font_description_from_string("monospace 10");
 	pango_layout_set_font_description(layout, desc);
 	pango_font_description_free(desc);
-	
+	pango_layout_set_wrap (layout, PANGO_WRAP_WORD);
 	pango_layout_set_width(layout, width * PANGO_SCALE);
 	pango_layout_set_alignment(layout, PANGO_ALIGN_LEFT);
 
-	text = doc_get_chars(doc, 0, -1);
-	pango_layout_set_text(layout, text, -1);
-	g_free(text);
+	bfprint->buffer = doc_get_chars(bfprint->doc, bfprint->so, bfprint->eo);
+	pango_layout_set_text(layout, bfprint->buffer, -1);
 	
 	pango_layout_get_size(layout, NULL, &layout_height);
 	text_height = (gdouble)layout_height / PANGO_SCALE;
@@ -121,15 +124,27 @@ doc_print(Tdocument *doc)
 {
 	
 	GtkPrintOperation *print;
+	gchar *jobname;
 	GtkPrintOperationResult res;
 	GError *gerror=NULL;
+	Tbluefishprint bfprint;
 	print = gtk_print_operation_new();
 
-	/*if(settings != NULL)
-		gtk_print_operation_set_print_settings(print, settings);*/
+	if(printsettings != NULL)
+		gtk_print_operation_set_print_settings(print, printsettings);
 	
-	g_signal_connect(print, "begin_print", G_CALLBACK(begin_print), doc);
-	g_signal_connect(print, "draw_page", G_CALLBACK(draw_page), doc);
+	bfprint.doc = doc;
+	if (!doc_get_selection(doc, &bfprint.so, &bfprint.eo)) {
+		bfprint.so = 0;
+		bfprint.eo = -1;
+	}
+	
+	jobname = g_strconcat("Bluefish ", gtk_label_get_text(GTK_LABEL(doc->tab_label)), NULL);
+	gtk_print_operation_set_job_name(print, jobname);
+	g_free(jobname);
+	
+	g_signal_connect(print, "begin_print", G_CALLBACK(begin_print), &bfprint);
+	g_signal_connect(print, "draw_page", G_CALLBACK(draw_page), &bfprint);
 
 	res = gtk_print_operation_run(print, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
 					GTK_WINDOW(BFWIN(doc->bfwin)->main_window), &gerror);
@@ -138,13 +153,14 @@ doc_print(Tdocument *doc)
 		g_error_free(gerror);
 	}
 	g_print("doc_print, res=%d\n",res);
-	if(res == GTK_PRINT_OPERATION_RESULT_APPLY)
-		{
-/*			if(settings != NULL)
-				g_object_unref(settings);
-			settings = g_object_ref(gtk_print_operation_get_print_settings(print));*/
-		}
-	g_object_unref(print);
+	if(res == GTK_PRINT_OPERATION_RESULT_APPLY) {
+		if(printsettings != NULL)
+			g_object_unref(printsettings);
+			printsettings = g_object_ref(gtk_print_operation_get_print_settings(printsettings));
+	}
+	g_object_unref(printsettings);
+	
+	g_free(bfprint.buffer);
 }
 
 #endif /* DEVELOPMENT */
