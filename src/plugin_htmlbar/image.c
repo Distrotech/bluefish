@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * image.c - the thumbnail/multi-thumbnail dialogs
  *
- * Copyright (C) 2003-2011 Olivier Sessink
+ * Copyright (C) 2003-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -489,7 +489,11 @@ image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 	gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), imdg->frame, TRUE, TRUE, 0);
 
 	imdg->adjustment = GTK_ADJUSTMENT(gtk_adjustment_new(0.5, 0.0001, 1.1, 0.001, 0.1, 0.1));
+#if GTK_CHECK_VERSION(3,0,0)
+	scale = gtk_scale_new(GTK_ORIENTATION_HORIZONTAL, imdg->adjustment);
+#else
 	scale = gtk_hscale_new(imdg->adjustment);
+#endif
 	imdg->adj_changed_id =
 		g_signal_connect(G_OBJECT(imdg->adjustment), "value_changed", G_CALLBACK(image_adjust_changed), imdg);
 	gtk_scale_set_digits(GTK_SCALE(scale), 3);
