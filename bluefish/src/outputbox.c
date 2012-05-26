@@ -392,7 +392,11 @@ fill_output_box(gpointer data, gchar * string)
 	if (ob->bfwin->session->outputb_scroll_mode == 2) {
 		GtkAdjustment *vadj;
 		DEBUG_MSG("fill_output_box, scroll to end..\n");
+#if GTK_CHECK_VERSION(3,0,0)
+		vadj = gtk_scrollable_get_vadjustment(GTK_SCROLLABLE(ob->lview));
+#else
 		vadj = gtk_tree_view_get_vadjustment(GTK_TREE_VIEW(ob->lview));
+#endif
 		gtk_adjustment_set_value(vadj, gtk_adjustment_get_upper(vadj));
 
 	}
