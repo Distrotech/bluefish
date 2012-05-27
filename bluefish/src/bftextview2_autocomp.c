@@ -239,7 +239,11 @@ acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw)
 									 g_array_index(master->bflang->st->matches, Tpattern,
 												   pattern_id).reference);
 				gtk_widget_show(acw->reflabel);
+#if GTK_CHECK_VERSION(3,0,0)
+				gtk_widget_get_preferred_size(acw->reflabel, &requisition, NULL);
+#else
 				gtk_widget_size_request(acw->reflabel, &requisition);
+#endif
 				/*gtk_window_get_size(GTK_WINDOW(acw->win),&width,&height); */
 				acw->w = acw->listwidth + requisition.width + 2;
 				gtk_widget_set_size_request(acw->win, acw->w, -1);
