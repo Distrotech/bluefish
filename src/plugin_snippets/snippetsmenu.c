@@ -90,7 +90,11 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 	if (!gtk_tree_path_up(parent) || gtk_tree_path_get_depth(parent)==0) {
 		GtkRequisition req;
 		/* main menu entry ! */
+#if GTK_CHECK_VERSION(3,0,0)
+		gtk_widget_get_preferred_size((GtkWidget *) sm, &req, NULL);
+#else
 		gtk_widget_size_request((GtkWidget *)sm,&req);
+#endif
 		DEBUG_MSG("have %d pixels in use, %d available\n",req.width, sm->maxwidth);
 		if (req.width < (sm->maxwidth-100)) { /* reserve at least 100 pixels for any new entry */
 			if (!indices)
