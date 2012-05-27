@@ -69,7 +69,7 @@ draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,Tbl
 	desc = pango_font_description_from_string("monospace 10");
 	pango_layout_set_font_description(layout, desc);
 	pango_font_description_free(desc);
-	pango_layout_set_wrap (layout, PANGO_WRAP_WORD);
+	pango_layout_set_wrap(layout, PANGO_WRAP_WORD_CHAR);
 	pango_layout_set_width(layout, width * PANGO_SCALE);
 	pango_layout_set_alignment(layout, PANGO_ALIGN_LEFT);
 
@@ -90,29 +90,55 @@ begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tbluefishprint *bf
 {
 	cairo_t *cr;
 	PangoLayout *layout;
-	gdouble width, text_height, height;
+	PangoLayoutIter *pliter;
+	PangoRectangle prect;
+	gdouble width, text_height, height, offset=0.0;
 	gint layout_height;
 	PangoFontDescription *desc;
+	gint i=0, pagenr=0;
 
 	/* calculate the number of pages needed */
 	/*cr = gtk_print_context_get_cairo_context(context);*/
-	width = gtk_print_context_get_width(context);
-	height = gtk_print_context_get_height(context);
+	width = pango_units_from_double(gtk_print_context_get_width(context));
+	height = pango_units_from_double(gtk_print_context_get_height(context));
 	
 	layout = gtk_print_context_create_pango_layout(context);
 
 	desc = pango_font_description_from_string("monospace 10");
 	pango_layout_set_font_description(layout, desc);
 	pango_font_description_free(desc);
-	pango_layout_set_wrap (layout, PANGO_WRAP_WORD);
-	pango_layout_set_width(layout, width * PANGO_SCALE);
+	pango_layout_set_wrap(layout, PANGO_WRAP_WORD_CHAR);
+	pango_layout_set_width(layout, width);
 	pango_layout_set_alignment(layout, PANGO_ALIGN_LEFT);
 
 	bfprint->buffer = doc_get_chars(bfprint->doc, bfprint->so, bfprint->eo);
+	utf8_offset_cache_reset();
+	
 	pango_layout_set_text(layout, bfprint->buffer, -1);
+	g_print("page height in pango_units=%f, in pixels=%f\n",height,gtk_print_context_get_height(context));
+	pliter = pango_layout_get_iter(layout);
+	pango_layout_iter_get_line_extents(pliter, &prect, NULL);
+	/*g_print("line %d: prect.x=%d, prect.y=%d, prect.width=%d, prect.height=%d\n",i, prect.x,prect.y,prect.width,prect.height);*/
+	while (pango_layout_iter_next_line(pliter)) {
+		i++;
+		pango_layout_iter_get_line_extents(pliter, &prect, NULL);
+		/*g_print("line %d: prect.x=%d, prect.y=%d, prect.width=%d, prect.height=%d\n",i, prect.x,prect.y,prect.width,prect.height);*/
+		if (prect.y + prect.height - offset > height) {
+			GtkTextIter iter;
+			guint charo = utf8_byteoffset_to_charsoffset_cached(bfprint->buffer, pango_layout_iter_get_index(pliter));
+			g_print("page %d should end at pango line %i, byte=%d, chars=%d\n",pagenr,i,pango_layout_iter_get_index(pliter), charo);
+			gtk_text_buffer_get_iter_at_offset(bfprint->doc->buffer, &iter, charo);
+			g_print("which is at editor line %d\n",gtk_text_iter_get_line(&iter));
+			offset = prect.y + prect.height;
+			pagenr++;
+		}
+	}
+	
+	pango_layout_iter_free(pliter);
 	
 	pango_layout_get_size(layout, NULL, &layout_height);
-	text_height = (gdouble)layout_height / PANGO_SCALE;
+	text_height = (gdouble)layout_height;
+	g_print("layout_height=%d, text_height=%d, pango_scale=%d\n",layout_height,(int)text_height,PANGO_SCALE);
 
 	g_print("text_height=%f, page height=%f, need %d pages\n",text_height,height,(int)(text_height/height+1));
 	gtk_print_operation_set_n_pages(print, (int)(text_height/height+1));
@@ -156,7 +182,7 @@ doc_print(Tdocument *doc)
 	if(res == GTK_PRINT_OPERATION_RESULT_APPLY) {
 		if(printsettings != NULL)
 			g_object_unref(printsettings);
-			printsettings = g_object_ref(gtk_print_operation_get_print_settings(printsettings));
+			printsettings = g_object_ref(gtk_print_operation_get_print_settings(print));
 	}
 	g_object_unref(printsettings);
 	
