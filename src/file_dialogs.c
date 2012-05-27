@@ -369,7 +369,7 @@ open_url_ok_lcb(GtkWidget * widget, Tou * ou)
 void
 file_open_url_cb(GtkAction * action, Tbfwin * bfwin)
 {
-	GtkWidget *vbox, *hbox, *but;
+	GtkWidget *align, *vbox, *hbox, *but;
 	Tou *ou;
 	GList *urlhistory = NULL, *tmplist = NULL;
 	ou = g_new(Tou, 1);
@@ -393,7 +393,7 @@ file_open_url_cb(GtkAction * action, Tbfwin * bfwin)
 		gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 4);
 	}
 #endif
-	gtk_box_pack_start(GTK_BOX(vbox), bf_label_with_markup(_("<b>Open URL</b>")), FALSE, FALSE, 5);
+/*	gtk_box_pack_start(GTK_BOX(vbox), bf_label_with_markup(_("<b>Open URL</b>")), FALSE, FALSE, 5);*/
 	gtk_container_add(GTK_CONTAINER(ou->win), vbox);
 	tmplist = g_list_first(bfwin->session->recent_files);
 	while (tmplist) {
@@ -405,7 +405,10 @@ file_open_url_cb(GtkAction * action, Tbfwin * bfwin)
 	ou->entry = boxed_combobox_with_popdown("", urlhistory, TRUE, vbox);
 	free_stringlist(urlhistory);
 /*  ou->entry = boxed_entry_with_text("", 255, vbox); */
-	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 5);
+
+	align = gtk_alignment_new(0.0, 1.0, 1.0, 0.0);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(align), 12, 0 ,0, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), align, FALSE, FALSE, 0);
 
 #if GTK_CHECK_VERSION(3,0,0)
 	hbox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
@@ -414,7 +417,7 @@ file_open_url_cb(GtkAction * action, Tbfwin * bfwin)
 #endif
 	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
 	gtk_box_set_spacing(GTK_BOX(hbox), 6);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
+	gtk_container_add(GTK_CONTAINER(align), hbox);
 	but = bf_stock_cancel_button(G_CALLBACK(open_url_cancel_lcb), ou);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
 	but = bf_stock_ok_button(G_CALLBACK(open_url_ok_lcb), ou);
