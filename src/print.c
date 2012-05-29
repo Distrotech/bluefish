@@ -16,6 +16,7 @@
 *
 */
 #include <gtk/gtk.h>
+#include <math.h>				/* log10() */
 
 #include "bluefish.h"
 #include "document.h"
@@ -35,6 +36,9 @@ typedef struct {
 	gint so;
 	gint eo;
 	GSList *pages;
+	gint singlecharwidth;
+	gint numlinecount;
+	gint marginsize;
 } Tbluefishprint;
 
 GtkPrintSettings *printsettings=NULL;
@@ -96,7 +100,6 @@ add_tag(Tbluefishprint *bfprint, PangoAttrList *alist, GtkTextTag *tag, guint so
 	}
 }
 
-
 static void
 apply_syntax(Tbluefishprint *bfprint, PangoLayout *layout, Tpage *page_s, Tpage *page_e)
 {
@@ -127,9 +130,11 @@ apply_syntax(Tbluefishprint *bfprint, PangoLayout *layout, Tpage *page_s, Tpage 
 		while (!donewithtag && gtk_text_iter_forward_to_tag_toggle(&iter, tag)) {
 			guint char_eo, char_so;
 			char_so = gtk_text_iter_get_offset(&iter);
+			g_print("apply_syntax, found tag %p at offset %d\n",tag,char_so);
 			gtk_text_iter_forward_to_tag_toggle(&iter, tag);
 			char_eo = gtk_text_iter_get_offset(&iter);
-			if (char_eo > page_e->char_o) {
+			g_print("apply_syntax, found end of tag %p at offset %d, page_end at %d\n",tag,char_eo, page_e->char_o);
+			if (char_eo >= page_e->char_o) {
 				char_eo = page_e->char_o;
 				donewithtag=TRUE;
 			}
@@ -152,7 +157,6 @@ set_pango_defaults(Tbluefishprint *bfprint, GtkPrintContext *context,PangoLayout
 	gdouble width;
 	PangoFontDescription *desc;
 	PangoTabArray *tab_array;
-	gint tab_width=0;
 	
 	width = pango_units_from_double(gtk_print_context_get_width(context));
 	
@@ -160,17 +164,20 @@ set_pango_defaults(Tbluefishprint *bfprint, GtkPrintContext *context,PangoLayout
 	pango_layout_set_font_description(layout, desc);
 	pango_font_description_free(desc);
 	pango_layout_set_wrap(layout, PANGO_WRAP_WORD_CHAR);
-	pango_layout_set_width(layout, width);
 	pango_layout_set_alignment(layout, PANGO_ALIGN_LEFT);
 
-	/* calculate the size of a space */
-	pango_layout_set_text(layout, " ", -1);
-	pango_layout_get_size(layout, &tab_width, NULL);
+	if (bfprint->singlecharwidth == 0) {
+		/* calculate the size of a space */
+		pango_layout_set_text(layout, "W", -1);
+		pango_layout_get_size(layout, &bfprint->singlecharwidth, NULL);
+	}
+	bfprint->marginsize = (1 + log10(bfprint->numlinecount)) * bfprint->singlecharwidth;
+	pango_layout_set_width(layout, width - bfprint->marginsize);	
+
 	tab_array = pango_tab_array_new (1, FALSE);
-	pango_tab_array_set_tab(tab_array,0,PANGO_TAB_LEFT,tab_width* BFWIN(bfprint->doc->bfwin)->session->editor_tab_width);
+	pango_tab_array_set_tab(tab_array,0,PANGO_TAB_LEFT,bfprint->singlecharwidth* BFWIN(bfprint->doc->bfwin)->session->editor_tab_width);
 	pango_layout_set_tabs(layout, tab_array);
 	pango_tab_array_free(tab_array);
-	
 }
 
 static void
@@ -197,7 +204,7 @@ draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,Tbl
 	
 	apply_syntax(bfprint, layout, page_s, page_e);
 
-	cairo_move_to(cr, 0 /* margin */,	0 /* top margin */ );
+	cairo_move_to(cr, pango_units_to_double(bfprint->marginsize) /* margin */,	0 /* top margin */ );
 	pango_cairo_show_layout(cr, layout);
 
 	g_object_unref(layout);
@@ -215,6 +222,8 @@ begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tbluefishprint *bf
 
 	/* calculate the number of pages needed */
 	height = pango_units_from_double(gtk_print_context_get_height(context));
+	
+	bfprint->numlinecount = gtk_text_buffer_get_line_count(bfprint->doc->buffer);
 	
 	layout = gtk_print_context_create_pango_layout(context);
 	set_pango_defaults(bfprint,context,layout);
@@ -272,6 +281,7 @@ doc_print(Tdocument *doc)
 		gtk_print_operation_set_print_settings(print, printsettings);
 	
 	bfprint.pages = NULL;
+	bfprint.singlecharwidth=0;
 	bfprint.doc = doc;
 	if (!doc_get_selection(doc, &bfprint.so, &bfprint.eo)) {
 		bfprint.so = 0;
