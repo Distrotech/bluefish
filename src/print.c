@@ -224,7 +224,8 @@ draw_line_numbers(Tbluefishprint *bfprint, GtkPrintContext *context, PangoLayout
 			DEBUG_MSG("draw_line_numbers byte_o=%d, nextline_o=%d ????\n",byte_o,nextline_o);
 		}
 	} while (pango_layout_iter_next_line(pliter));
-	pango_layout_iter_free(pliter);	
+	pango_layout_iter_free(pliter);
+	g_object_unref(numberlayout);
 }
 
 static void
@@ -251,6 +252,7 @@ draw_header(Tbluefishprint *bfprint, GtkPrintContext *context, cairo_t *cr, guin
 	cairo_line_to(cr, width ,pango_units_to_double(bfprint->headersize*0.8));
 	cairo_set_line_width(cr, 1.0);
 	cairo_stroke(cr);
+	g_object_unref(headerlayout);
 }
 
 static void
