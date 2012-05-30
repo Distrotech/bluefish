@@ -16,6 +16,9 @@
 * along with this program.	If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/*#define DEBUG*/
+
 #include <gtk/gtk.h>
 #include <math.h>				/* log10() */
 
@@ -23,8 +26,6 @@
 #include "document.h"
 #include "bf_lib.h"
 #include "print.h"
-
-#ifdef DEVELOPMENT
 
 typedef struct {
 	guint byte_o;
@@ -37,6 +38,7 @@ typedef struct {
 	gint so;
 	gint eo;
 	GSList *pages;
+	guint maxpages;
 	gint singlecharwidth;
 	gint numlinecount;
 	gint marginsize;
@@ -103,7 +105,7 @@ apply_syntax(Tbluefishprint *bfprint, PangoLayout *layout, Tpage *page_s, Tpage 
 		GtkTextTag *tag = tmplist->data;
 		gboolean donewithtag = FALSE;
 		
-		g_print("apply_syntax, try tag %p, get iter at offset %d\n",tag, page_s->char_o);
+		/*DEBUG_MSG("apply_syntax, try tag %p, get iter at offset %d\n",tag, page_s->char_o);*/
 		gtk_text_buffer_get_iter_at_offset(bfprint->doc->buffer, &iter, page_s->char_o);
 		if (gtk_text_iter_begins_tag(&iter, tag) || gtk_text_iter_has_tag(&iter, tag)) {
 			guint char_eo, char_so;
@@ -119,10 +121,10 @@ apply_syntax(Tbluefishprint *bfprint, PangoLayout *layout, Tpage *page_s, Tpage 
 		while (!donewithtag && gtk_text_iter_forward_to_tag_toggle(&iter, tag)) {
 			guint char_eo, char_so;
 			char_so = gtk_text_iter_get_offset(&iter);
-			g_print("apply_syntax, found tag %p at offset %d\n",tag,char_so);
+			/*DEBUG_MSG("apply_syntax, found tag %p at offset %d\n",tag,char_so);*/
 			gtk_text_iter_forward_to_tag_toggle(&iter, tag);
 			char_eo = gtk_text_iter_get_offset(&iter);
-			g_print("apply_syntax, found end of tag %p at offset %d, page_end at %d\n",tag,char_eo, page_e->char_o);
+			/*DEBUG_MSG("apply_syntax, found end of tag %p at offset %d, page_end at %d\n",tag,char_eo, page_e->char_o);*/
 			if (char_eo >= page_e->char_o) {
 				char_eo = page_e->char_o;
 				donewithtag=TRUE;
@@ -136,7 +138,7 @@ apply_syntax(Tbluefishprint *bfprint, PangoLayout *layout, Tpage *page_s, Tpage 
 	pango_layout_set_attributes(layout,alist);
 	pango_attr_list_unref(alist);
 
-	g_print("apply_syntax, done\n");
+	DEBUG_MSG("apply_syntax, done\n");
 	
 }
 
@@ -146,10 +148,11 @@ set_pango_defaults(Tbluefishprint *bfprint, GtkPrintContext *context,PangoLayout
 	gdouble width;
 	PangoFontDescription *desc;
 	PangoTabArray *tab_array;
+	gint lineheight;
 	
 	width = pango_units_from_double(gtk_print_context_get_width(context));
 	
-	desc = pango_font_description_from_string("monospace 10");
+	desc = pango_font_description_from_string(main_v->props.editor_font_string);
 	pango_layout_set_font_description(layout, desc);
 	pango_font_description_free(desc);
 	pango_layout_set_wrap(layout, PANGO_WRAP_WORD_CHAR);
@@ -159,8 +162,12 @@ set_pango_defaults(Tbluefishprint *bfprint, GtkPrintContext *context,PangoLayout
 		/* calculate the size of a space */
 		pango_layout_set_text(layout, "W", -1);
 		pango_layout_get_size(layout, &bfprint->singlecharwidth, NULL);
+		lineheight = pango_layout_get_baseline(layout);
+		DEBUG_MSG("width=%d, height=%d\n",bfprint->singlecharwidth, lineheight);
+		bfprint->marginsize = (1.5 + log10(bfprint->numlinecount)) * bfprint->singlecharwidth;
+		bfprint->headersize = 1.5*lineheight;
 	}
-	bfprint->marginsize = (1 + log10(bfprint->numlinecount)) * bfprint->singlecharwidth;
+	
 	pango_layout_set_width(layout, width - bfprint->marginsize);	
 
 	tab_array = pango_tab_array_new (1, FALSE);
@@ -181,7 +188,7 @@ draw_line_numbers(Tbluefishprint *bfprint, GtkPrintContext *context, PangoLayout
 	PangoFontDescription *desc;
 	
 	numberlayout = gtk_print_context_create_pango_layout(context);
-	desc = pango_font_description_from_string("monospace 10");
+	desc = pango_font_description_from_string(main_v->props.editor_font_string);
 	pango_layout_set_font_description(numberlayout, desc);
 	pango_font_description_free(desc);
 	
@@ -189,14 +196,16 @@ draw_line_numbers(Tbluefishprint *bfprint, GtkPrintContext *context, PangoLayout
 	gtk_text_buffer_get_iter_at_offset(bfprint->doc->buffer, &iter, page_s->char_o);
 	do {
 		guint byte_o;
-		if (nextline_o == -1 && gtk_text_iter_starts_line(&iter)) {
-			nextline_o = utf8_charoffset_to_byteoffset_cached(bfprint->buffer, 
+		if (nextline_o == -1) {
+			if (gtk_text_iter_starts_line(&iter)) {
+				nextline_o = utf8_charoffset_to_byteoffset_cached(bfprint->buffer, 
 						gtk_text_iter_get_offset(&iter));
-			nextline = 1+gtk_text_iter_get_line(&iter);
+				nextline = 1+gtk_text_iter_get_line(&iter);
+			}
 			gtk_text_iter_forward_line(&iter);
+			DEBUG_MSG("starts line now is %d\n", gtk_text_iter_starts_line(&iter));
 		}
 		byte_o = pango_layout_iter_get_index(pliter);
-		g_print("draw_line_numbers byte_o=%d, nextline_o=%d\n",byte_o,nextline_o);
 		if (byte_o+page_s->byte_o == nextline_o) {
 			guint bline;
 			gchar *tmpstr;
@@ -204,17 +213,44 @@ draw_line_numbers(Tbluefishprint *bfprint, GtkPrintContext *context, PangoLayout
 			tmpstr = g_strdup_printf("%d",nextline);
 			pango_layout_set_text(numberlayout, tmpstr, -1);
 			g_free(tmpstr);
-			g_print("draw line number %d\n",nextline);
+			DEBUG_MSG("draw line number %d\n",nextline);
 			if (blineoffset == -1) {
 				blineoffset = pango_layout_get_baseline(numberlayout);
 			} 
-			cairo_move_to(cr, 0 ,pango_units_to_double(bline - blineoffset) );
+			cairo_move_to(cr, 0 ,pango_units_to_double(bline - blineoffset + bfprint->headersize) );
 			pango_cairo_show_layout(cr, numberlayout);
 			nextline_o = -1;
+		} else if(byte_o+page_s->byte_o > nextline_o) {
+			DEBUG_MSG("draw_line_numbers byte_o=%d, nextline_o=%d ????\n",byte_o,nextline_o);
 		}
 	} while (pango_layout_iter_next_line(pliter));
 	pango_layout_iter_free(pliter);	
+}
+
+static void
+draw_header(Tbluefishprint *bfprint, GtkPrintContext *context, cairo_t *cr, guint page_nr)
+{
+	PangoLayout *headerlayout;
+	PangoFontDescription *desc;
+	gchar *tmpstr;
+	gdouble width;
 	
+	headerlayout = gtk_print_context_create_pango_layout(context);
+	desc = pango_font_description_from_string(main_v->props.editor_font_string);
+	pango_layout_set_font_description(headerlayout, desc);
+	pango_font_description_free(desc);
+	
+	tmpstr = g_strdup_printf("Bluefish %s %d/%d", gtk_label_get_text(GTK_LABEL(bfprint->doc->tab_menu)), page_nr+1, bfprint->maxpages);
+	pango_layout_set_text(headerlayout, tmpstr, -1);
+	g_free(tmpstr);
+	cairo_move_to(cr, 0 ,0);
+	pango_cairo_show_layout(cr, headerlayout);
+	width = gtk_print_context_get_width(context);
+	cairo_move_to(cr, 0 ,pango_units_to_double(bfprint->headersize*0.8));
+	cairo_set_source_rgb (cr, 0, 0, 0);
+	cairo_line_to(cr, width ,pango_units_to_double(bfprint->headersize*0.8));
+	cairo_set_line_width(cr, 1.0);
+	cairo_stroke(cr);
 }
 
 static void
@@ -224,8 +260,11 @@ draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,Tbl
 	cairo_t *cr;
 	GSList *tmpslist;
 	Tpage *page_s, *page_e;
-	g_print("draw page %d\n",page_nr);
+	DEBUG_MSG("draw page %d\n",page_nr);
 	cr = gtk_print_context_get_cairo_context(context);
+
+	draw_header(bfprint, context, cr, page_nr);
+
 	layout = gtk_print_context_create_pango_layout(context);
 	set_pango_defaults(bfprint,context,layout);
 	
@@ -234,14 +273,14 @@ draw_page(GtkPrintOperation *operation,GtkPrintContext *context,gint page_nr,Tbl
 	tmpslist = g_slist_next(tmpslist);
 	g_assert(tmpslist);
 	page_e = (Tpage *)tmpslist->data;
-	g_print("page_s=%p, page_e=%p\n",page_s,page_e);
-	g_print("page_s->char_o=%d, page_e->char_o=%d\n",page_s->char_o,page_e->char_o);
+	DEBUG_MSG("page_s=%p, page_e=%p\n",page_s,page_e);
+	DEBUG_MSG("page_s->char_o=%d, page_e->char_o=%d\n",page_s->char_o,page_e->char_o);
 
 	pango_layout_set_text(layout, bfprint->buffer+page_s->byte_o, page_e->byte_o - page_s->byte_o);
 	apply_syntax(bfprint, layout, page_s, page_e);
 	
 	draw_line_numbers(bfprint, context, layout, cr, page_s);
-	
+	DEBUG_MSG("marginsize=%d, headersize=%d\n",bfprint->marginsize,bfprint->headersize);
 	cairo_move_to(cr, pango_units_to_double(bfprint->marginsize) ,	pango_units_to_double(bfprint->headersize) );
 	pango_cairo_show_layout(cr, layout);
 
@@ -283,9 +322,9 @@ begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tbluefishprint *bf
 			page->byte_o = pango_layout_iter_get_index(pliter);
 			page->char_o = utf8_byteoffset_to_charsoffset_cached(bfprint->buffer, page->byte_o);
 			curpage = *page;
-			g_print("page %d should end at pango line %i, byte=%d, chars=%d\n",pagenr,i,page->byte_o, page->char_o);
+			DEBUG_MSG("page %d should end at pango line %i, byte=%d, chars=%d\n",pagenr,i,page->byte_o, page->char_o);
 			gtk_text_buffer_get_iter_at_offset(bfprint->doc->buffer, &iter, page->char_o);
-			g_print("which is at editor line %d\n",gtk_text_iter_get_line(&iter));
+			DEBUG_MSG("which is at editor line %d\n",gtk_text_iter_get_line(&iter));
 			offset = prect.y + prect.height;
 			pagenr++;
 			bfprint->pages = g_slist_append(bfprint->pages, page);
@@ -296,7 +335,7 @@ begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tbluefishprint *bf
 	page->byte_o = strlen(bfprint->buffer);
 	page->char_o = utf8_byteoffset_to_charsoffset_cached(bfprint->buffer, page->byte_o);
 	bfprint->pages = g_slist_append(bfprint->pages, page);
-	
+	bfprint->maxpages = pagenr+1;
 	pango_layout_iter_free(pliter);
 	
 	gtk_print_operation_set_n_pages(print, pagenr+1);
@@ -337,10 +376,10 @@ doc_print(Tdocument *doc)
 	res = gtk_print_operation_run(print, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
 					GTK_WINDOW(BFWIN(doc->bfwin)->main_window), &gerror);
 	if (gerror) {
-		g_print("print error %s\n",gerror->message);
+		DEBUG_MSG("print error %s\n",gerror->message);
 		g_error_free(gerror);
 	}
-	g_print("doc_print, res=%d\n",res);
+	DEBUG_MSG("doc_print, res=%d\n",res);
 	if(res == GTK_PRINT_OPERATION_RESULT_APPLY) {
 		if(printsettings != NULL)
 			g_object_unref(printsettings);
@@ -353,5 +392,3 @@ doc_print(Tdocument *doc)
 		g_slice_free(Tpage, tmpslist->data);
 	}
 }
-
-#endif /* DEVELOPMENT */

@@ -488,7 +488,11 @@ doc_set_title(Tdocument * doc)
 	gchar *label_string, *tabmenu_string;
 	if (doc->uri) {
 		gchar *parsename, *basename;
-		tabmenu_string = g_file_get_uri(doc->uri);
+		if (g_file_is_native(doc->uri)) {
+			tabmenu_string = g_file_get_path(doc->uri);
+		} else {
+			tabmenu_string = g_file_get_uri(doc->uri);
+		}
 		parsename = g_file_get_parse_name(doc->uri);
 		basename = g_path_get_basename(parsename);
 		label_string = g_strdup(basename);
