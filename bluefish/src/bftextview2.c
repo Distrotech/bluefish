@@ -2139,15 +2139,15 @@ bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 	g_string_append_printf(str, "GtkTextView {-GtkWidget-cursor-aspect-ratio: %f;}", (gfloat)(main_v->props.cursor_size/100.0));
 	if (!main_v->props.use_system_colors) {
 		if (colors[BTV_COLOR_ED_BG] && colors[BTV_COLOR_ED_BG][0] != '\0'){
-			g_string_append_printf(str, "GtkTextView.view:focused {background-color: %s;}", colors[BTV_COLOR_ED_BG]);
+			g_string_append_printf(str, "GtkTextView.view {background-color: %s;}", colors[BTV_COLOR_ED_BG]);
 		}
-		if (colors[BTV_COLOR_ED_BG] && colors[BTV_COLOR_ED_BG][0] != '\0'){
+		if (colors[BTV_COLOR_SELECTION] && colors[BTV_COLOR_SELECTION][0] != '\0'){
 			g_string_append_printf(str, "GtkTextView.view:selected {background-color: %s;} GtkTextView.view:selected:focused {background-color: %s;}", colors[BTV_COLOR_SELECTION], colors[BTV_COLOR_SELECTION]);
 		}
 		if (colors[BTV_COLOR_ED_FG] && gdk_rgba_parse(&color,colors[BTV_COLOR_ED_FG])) {
-			gtk_widget_override_color(GTK_WIDGET(btv), GTK_STATE_FLAG_NORMAL, &color);
+			gtk_widget_override_color(GTK_WIDGET(btv), GTK_STATE_FLAG_NORMAL /*0x7F*/ , &color);
 			if (btv->slave)
-				gtk_widget_override_color(GTK_WIDGET(btv->slave), GTK_STATE_FLAG_NORMAL, &color);
+				gtk_widget_override_color(GTK_WIDGET(btv->slave), GTK_STATE_FLAG_NORMAL /*0x7f*/, &color);
 		}
 		if (colors[BTV_COLOR_CURSOR] && gdk_rgba_parse(&color,colors[BTV_COLOR_CURSOR])) {
 			gtk_widget_override_cursor(GTK_WIDGET(btv), &color, &color);
