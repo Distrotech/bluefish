@@ -44,9 +44,7 @@
 #include "stringlist.h"
 #include "snr3.h"
 #include "undo_redo.h"
-#ifdef DEVELOPMENT
 #include "print.h"
-#endif
 
 #define MAIN_MENU_UI PKGDATADIR"/ui/bluefish_menu_ui.xml"
 #define MAIN_TOOLBAR_UI PKGDATADIR"/ui/bluefish_toolbar_ui.xml"
@@ -451,9 +449,7 @@ static void
 ui_print_doc(GtkAction * action, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
-#ifdef DEVELOPMENT
 	doc_print(bfwin->current_document);
-#endif
 }
 
 static void
