@@ -357,12 +357,13 @@ doc_print(Tdocument *doc)
 	GSList *tmpslist;
 	print = gtk_print_operation_new();
 
-	if(printsettings != NULL)
+	if (printsettings != NULL)
 		gtk_print_operation_set_print_settings(print, printsettings);
 	
 	bfprint.pages = NULL;
 	bfprint.singlecharwidth=0;
 	bfprint.doc = doc;
+	bfprint.buffer=NULL;
 	if (!doc_get_selection(doc, &bfprint.so, &bfprint.eo)) {
 		bfprint.so = 0;
 		bfprint.eo = -1;
@@ -387,7 +388,8 @@ doc_print(Tdocument *doc)
 			g_object_unref(printsettings);
 			printsettings = g_object_ref(gtk_print_operation_get_print_settings(print));
 	}
-	g_object_unref(printsettings);
+	if (printsettings != NULL)
+		g_object_unref(printsettings);
 	
 	g_free(bfprint.buffer);
 	for (tmpslist=bfprint.pages;tmpslist;tmpslist=g_slist_next(tmpslist)) {
