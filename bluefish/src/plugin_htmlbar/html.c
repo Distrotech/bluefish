@@ -299,6 +299,7 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 		break;
 	case 70:
 		doc_insert_two_strings(bfwin->current_document, cap("<ARTICLE>"), cap("</ARTICLE>"));
+		break;
 	default:
 		break;
 	}
@@ -435,6 +436,7 @@ insert_time_dialog(Tbfwin * bfwin)
 			default:
 				g_message(_("You appear to have a non existant day!\n"));
 				temp = g_strdup(" ** Error ** see stdout");
+				break;
 			}					/* end of switch day of week */
 			break;
 		case 3:
