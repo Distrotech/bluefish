@@ -28,15 +28,17 @@
 #include "print.h"
 
 typedef struct {
-	guint byte_o;
-	guint char_o;
+	guint byte_o; /* byte offset in the bfprint->buffer */ 
+	guint char_o; /* character offset in bfprint->doc->buffer, these may differ if 
+						you are printing only a selection, or if there are multibyte 
+						characters in the document */
 } Tpage;
 
 typedef struct {
 	gchar *buffer;
 	Tdocument *doc;
-	gint so;
-	gint eo;
+	gint so; /* the character offset in doc->buffer that starts the region to print */
+	gint eo; /* the character offset in doc->buffer that ends the region to print */
 	GSList *pages;
 	guint maxpages;
 	gint singlecharwidth;
@@ -193,13 +195,15 @@ draw_line_numbers(Tbluefishprint *bfprint, GtkPrintContext *context, PangoLayout
 	pango_font_description_free(desc);
 	
 	pliter = pango_layout_get_iter(layout);
+	g_print("get iter at page-<char_o=%d\n",page_s->char_o);
 	gtk_text_buffer_get_iter_at_offset(bfprint->doc->buffer, &iter, page_s->char_o);
 	do {
 		guint byte_o;
 		if (nextline_o == -1) {
 			if (gtk_text_iter_starts_line(&iter)) {
+				g_print("get byte offset for iter at %d, and bfprint->so=%d\n",gtk_text_iter_get_offset(&iter),bfprint->so);
 				nextline_o = utf8_charoffset_to_byteoffset_cached(bfprint->buffer, 
-						gtk_text_iter_get_offset(&iter));
+						gtk_text_iter_get_offset(&iter)-bfprint->so);
 				nextline = 1+gtk_text_iter_get_line(&iter);
 			}
 			gtk_text_iter_forward_line(&iter);
@@ -310,7 +314,10 @@ begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tbluefishprint *bf
 	bfprint->buffer = doc_get_chars(bfprint->doc, bfprint->so, bfprint->eo);
 	utf8_offset_cache_reset();
 	
-	bfprint->pages = g_slist_append(bfprint->pages, g_slice_new0(Tpage));
+	page = g_slice_new(Tpage);
+	page->byte_o = 0;
+	page->char_o = bfprint->so;
+	bfprint->pages = g_slist_append(bfprint->pages, page);
 	
 	pango_layout_set_text(layout, bfprint->buffer, -1);
 	pliter = pango_layout_get_iter(layout);
@@ -322,7 +329,7 @@ begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tbluefishprint *bf
 			GtkTextIter iter;
 			page = g_slice_new(Tpage);
 			page->byte_o = pango_layout_iter_get_index(pliter);
-			page->char_o = utf8_byteoffset_to_charsoffset_cached(bfprint->buffer, page->byte_o);
+			page->char_o = bfprint->so + utf8_byteoffset_to_charsoffset_cached(bfprint->buffer, page->byte_o);
 			curpage = *page;
 			DEBUG_MSG("page %d should end at pango line %i, byte=%d, chars=%d\n",pagenr,i,page->byte_o, page->char_o);
 			gtk_text_buffer_get_iter_at_offset(bfprint->doc->buffer, &iter, page->char_o);
@@ -335,7 +342,7 @@ begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tbluefishprint *bf
 	/* add the end of the last page */
 	page = g_slice_new(Tpage);
 	page->byte_o = strlen(bfprint->buffer);
-	page->char_o = utf8_byteoffset_to_charsoffset_cached(bfprint->buffer, page->byte_o);
+	page->char_o = bfprint->so + utf8_byteoffset_to_charsoffset_cached(bfprint->buffer, page->byte_o);
 	bfprint->pages = g_slist_append(bfprint->pages, page);
 	bfprint->maxpages = pagenr+1;
 	pango_layout_iter_free(pliter);
@@ -364,7 +371,10 @@ doc_print(Tdocument *doc)
 	bfprint.singlecharwidth=0;
 	bfprint.doc = doc;
 	bfprint.buffer=NULL;
-	if (!doc_get_selection(doc, &bfprint.so, &bfprint.eo)) {
+	gtk_print_operation_set_support_selection(print, TRUE);
+	if (doc_get_selection(doc, &bfprint.so, &bfprint.eo)) {
+		gtk_print_operation_set_has_selection(print, TRUE);
+	} else {
 		bfprint.so = 0;
 		bfprint.eo = -1;
 	}
@@ -372,6 +382,8 @@ doc_print(Tdocument *doc)
 	jobname = g_strconcat("Bluefish ", gtk_label_get_text(GTK_LABEL(doc->tab_label)), NULL);
 	gtk_print_operation_set_job_name(print, jobname);
 	g_free(jobname);
+	
+	
 	
 	g_signal_connect(print, "begin_print", G_CALLBACK(begin_print), &bfprint);
 	g_signal_connect(print, "draw_page", G_CALLBACK(draw_page), &bfprint);
