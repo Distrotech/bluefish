@@ -195,13 +195,13 @@ draw_line_numbers(Tbluefishprint *bfprint, GtkPrintContext *context, PangoLayout
 	pango_font_description_free(desc);
 	
 	pliter = pango_layout_get_iter(layout);
-	g_print("get iter at page-<char_o=%d\n",page_s->char_o);
+	DEBUG_MSG("get iter at page-<char_o=%d\n",page_s->char_o);
 	gtk_text_buffer_get_iter_at_offset(bfprint->doc->buffer, &iter, page_s->char_o);
 	do {
 		guint byte_o;
 		if (nextline_o == -1) {
 			if (gtk_text_iter_starts_line(&iter)) {
-				g_print("get byte offset for iter at %d, and bfprint->so=%d\n",gtk_text_iter_get_offset(&iter),bfprint->so);
+				DEBUG_MSG("get byte offset for iter at %d, and bfprint->so=%d\n",gtk_text_iter_get_offset(&iter),bfprint->so);
 				nextline_o = utf8_charoffset_to_byteoffset_cached(bfprint->buffer, 
 						gtk_text_iter_get_offset(&iter)-bfprint->so);
 				nextline = 1+gtk_text_iter_get_line(&iter);
@@ -303,6 +303,11 @@ begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tbluefishprint *bf
 	Tpage *page;
 	gint i=0, pagenr=0;
 
+	if (bfprint->eo != -1 && !gtk_print_settings_get_print_pages(gtk_print_operation_get_print_settings(print))==GTK_PRINT_PAGES_SELECTION) {
+		bfprint->so=0;
+		bfprint->eo=-1;
+	}
+
 	/* calculate the number of pages needed */
 	height = pango_units_from_double(gtk_print_context_get_height(context));
 	bfprint->headersize = 0;
@@ -382,8 +387,6 @@ doc_print(Tdocument *doc)
 	jobname = g_strconcat("Bluefish ", gtk_label_get_text(GTK_LABEL(doc->tab_label)), NULL);
 	gtk_print_operation_set_job_name(print, jobname);
 	g_free(jobname);
-	
-	
 	
 	g_signal_connect(print, "begin_print", G_CALLBACK(begin_print), &bfprint);
 	g_signal_connect(print, "draw_page", G_CALLBACK(draw_page), &bfprint);
