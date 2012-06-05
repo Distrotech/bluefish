@@ -9,19 +9,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-02-06 10:54+0100\n"
+"POT-Creation-Date: 2012-06-05 08:36+0200\n"
 "PO-Revision-Date: 2012-02-19 07:34+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "X-Poedit-Basepath: /factory/ja-po/bluefish/bluefish\n"
 
 #: src/plugin_snippets/snippets_gui.c:416
 msgid "Click the right mouse button to add, edit or delete snippets."
-msgstr "マウスの右ボタンをクリックすると、スニペットを追加、編集、削除できます。"
+msgstr ""
+"マウスの右ボタンをクリックすると、スニペットを追加、編集、削除できます。"
 
 #: src/plugin_snippets/snippets_gui.c:417
 msgid "Use drag and drop to re-order snippets"
@@ -29,7 +30,9 @@ msgstr "ドラッグ&ドロップでスニペットを並べ替える"
 
 #: src/plugin_snippets/snippets_gui.c:418
 msgid "To exchange snippets with others use import or export"
-msgstr "スニペットを他のものと入れ替えるには、インポートまたはエクスポートを使用してください"
+msgstr ""
+"スニペットを他のものと入れ替えるには、インポートまたはエクスポートを使用して"
+"ください"
 
 #: src/plugin_snippets/snippets_gui.c:640
 msgid "snippets"
@@ -174,8 +177,16 @@ msgid "PERL"
 msgstr "PERL形式"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-msgid "Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
-msgstr "検索、置換するパターンを指定してください。%0, %1, ...%5 をプレースホルダーとして使用し、項目を有効化したときに値を尋ねるようにすることができます。これらのプレースホルダーに適当な名前を付けてください（右側）。（% そのものを書きたい場合には %% を使ってください）"
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right. (Please use %% if you need "
+"literal % in your string!)"
+msgstr ""
+"検索、置換するパターンを指定してください。%0, %1, ...%5 をプレースホルダーと"
+"して使用し、項目を有効化したときに値を尋ねるようにすることができます。これら"
+"のプレースホルダーに適当な名前を付けてください（右側）。（% そのものを書きた"
+"い場合には %% を使ってください）"
 
 #: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
@@ -206,16 +217,24 @@ msgid "_Use escape chars"
 msgstr "エスケープ文字を使用する(_U)"
 
 #: src/plugin_snippets/snippets_wizard.c:166
-msgid ""
-"Unescape backslash escaped characters such as \\n"
-", \\t etc."
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr ""
-"バックスラッシュでエスケープされた文字 \\n"
-", \\t などのエスケープを外す。"
+"バックスラッシュでエスケープされた文字 \\n, \\t などのエスケープを外す。"
 
 #: src/plugin_snippets/snippets_wizard.c:335
-msgid "The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
-msgstr "<i>の前</i> の場合、文字列はカーソル位置または、選択範囲の前に挿入されます。<i>の後</i>の場合、文字列はカーソル位置または、選択範囲の後ろに挿入されます。 %0, %1, ...%9 をプレースホルダーとして使用し、項目を有効化したときに値を尋ねるようにすることができます。これらのプレースホルダーに適当な名前を付けてください（右側）。（% そのものを書きたい場合には %% を使ってください）"
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right. (Please use %% if you need literal % in your "
+"string!)"
+msgstr ""
+"<i>の前</i> の場合、文字列はカーソル位置または、選択範囲の前に挿入されます。"
+"<i>の後</i>の場合、文字列はカーソル位置または、選択範囲の後ろに挿入されま"
+"す。 %0, %1, ...%9 をプレースホルダーとして使用し、項目を有効化したときに値を"
+"尋ねるようにすることができます。これらのプレースホルダーに適当な名前を付けて"
+"ください（右側）。（% そのものを書きたい場合には %% を使ってください）"
 
 #: src/plugin_snippets/snippets_wizard.c:344
 msgid "<i>Before</i> text"

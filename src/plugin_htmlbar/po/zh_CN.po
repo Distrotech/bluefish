@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-05-29 00:57+0800\n"
+"POT-Creation-Date: 2012-06-05 08:36+0200\n"
 "PO-Revision-Date: 2012-05-29 02:02+0800\n"
 "Last-Translator: ZhiFeng Ma <mzf9527@gmail.com>\n"
 "Language-Team: \n"
-"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 
 #: src/plugin_htmlbar/html2.c:634
 msgid "Cascading Style Sheet Builder"
@@ -316,7 +316,7 @@ msgstr "常规格式(_G)"
 msgid "_Paragraph"
 msgstr "段落(_P)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1011 src/plugin_htmlbar/html.c:841
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1011 src/plugin_htmlbar/html.c:843
 msgid "Paragraph"
 msgstr "段落"
 
@@ -926,11 +926,11 @@ msgstr "多相册(_M)..."
 msgid "Multi thumbnail..."
 msgstr "多相册..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1168 src/plugin_htmlbar/html.c:1753
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1168 src/plugin_htmlbar/html.c:1755
 msgid "Frame"
 msgstr "框架"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1169 src/plugin_htmlbar/html.c:1664
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1169 src/plugin_htmlbar/html.c:1666
 msgid "Frameset"
 msgstr "框架集"
 
@@ -1167,106 +1167,106 @@ msgstr "字体"
 msgid "Frames"
 msgstr "框架"
 
-#: src/plugin_htmlbar/html.c:402
+#: src/plugin_htmlbar/html.c:403
 msgid "Insert Time"
 msgstr "插入时间"
 
-#: src/plugin_htmlbar/html.c:410
+#: src/plugin_htmlbar/html.c:411
 #, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr "  时间(%i:%i:%i)(_T)"
 
-#: src/plugin_htmlbar/html.c:415
+#: src/plugin_htmlbar/html.c:416
 msgid "  Day of the _week (Sunday)"
 msgstr "  一周内的第几日(星期日)(_w)"
 
-#: src/plugin_htmlbar/html.c:418
+#: src/plugin_htmlbar/html.c:419
 msgid "  Day of the _week (Monday)"
 msgstr "  一周内的第几日(星期一)(_w)"
 
-#: src/plugin_htmlbar/html.c:421
+#: src/plugin_htmlbar/html.c:422
 msgid "  Day of the _week (Tuesday)"
 msgstr "  一周内的第几日(星期二)(_w)"
 
-#: src/plugin_htmlbar/html.c:424
+#: src/plugin_htmlbar/html.c:425
 msgid "  Day of the _week (Wednesday)"
 msgstr "  一周内的第几日(星期三)(_w)"
 
-#: src/plugin_htmlbar/html.c:427
+#: src/plugin_htmlbar/html.c:428
 msgid "  Day of the _week (Thursday)"
 msgstr "  一周内的第几日(星期四)(_w)"
 
-#: src/plugin_htmlbar/html.c:430
+#: src/plugin_htmlbar/html.c:431
 msgid "  Day of the _week (Friday)"
 msgstr "  一周内的第几日(星期五)(_w)"
 
-#: src/plugin_htmlbar/html.c:433
+#: src/plugin_htmlbar/html.c:434
 msgid "  Day of the _week (Saturday)"
 msgstr "  一周内的第几日(星期六)(_w)"
 
-#: src/plugin_htmlbar/html.c:436
+#: src/plugin_htmlbar/html.c:437
 msgid "You appear to have a non existant day!\n"
 msgstr "日期不存在！\n"
 
-#: src/plugin_htmlbar/html.c:444
+#: src/plugin_htmlbar/html.c:446
 #, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr "  日期(_D) (%i/%i/%i)"
 
-#: src/plugin_htmlbar/html.c:447
+#: src/plugin_htmlbar/html.c:449
 #, c-format
 msgid "  _Unix Time (%i)"
 msgstr "  _Unix 时间 (%i)"
 
-#: src/plugin_htmlbar/html.c:452
+#: src/plugin_htmlbar/html.c:454
 #, c-format
 msgid "  Unix Date _String (%s)"
 msgstr "  Unix 日期字符串(%s)(_S)"
 
-#: src/plugin_htmlbar/html.c:460
+#: src/plugin_htmlbar/html.c:462
 msgid "  ISO-8601 Ti_me "
 msgstr "  ISO-8601 时间(_m) "
 
-#: src/plugin_htmlbar/html.c:627
+#: src/plugin_htmlbar/html.c:629
 msgid "Quick Anchor"
 msgstr "快速锚点"
 
-#: src/plugin_htmlbar/html.c:633 src/plugin_htmlbar/html_form.c:520
+#: src/plugin_htmlbar/html.c:635 src/plugin_htmlbar/html_form.c:520
 msgid "Attributes"
 msgstr "属性"
 
-#: src/plugin_htmlbar/html.c:647 src/plugin_htmlbar/html.c:2660
+#: src/plugin_htmlbar/html.c:649 src/plugin_htmlbar/html.c:2662
 msgid "_HREF:"
 msgstr "被链接文档的位置(_H)："
 
-#: src/plugin_htmlbar/html.c:653 src/plugin_htmlbar/html_form.c:200
+#: src/plugin_htmlbar/html.c:655 src/plugin_htmlbar/html_form.c:200
 msgid "_Target:"
 msgstr "目标(_T)："
 
-#: src/plugin_htmlbar/html.c:657 src/plugin_htmlbar/html.c:896
-#: src/plugin_htmlbar/html.c:1287 src/plugin_htmlbar/html.c:1765
+#: src/plugin_htmlbar/html.c:659 src/plugin_htmlbar/html.c:898
+#: src/plugin_htmlbar/html.c:1289 src/plugin_htmlbar/html.c:1767
 #: src/plugin_htmlbar/html_form.c:251 src/plugin_htmlbar/html_form.c:315
 #: src/plugin_htmlbar/html_form.c:538 src/plugin_htmlbar/html_form.c:633
 #: src/plugin_htmlbar/image.c:532
 msgid "_Name:"
 msgstr "名称(_N)："
 
-#: src/plugin_htmlbar/html.c:660 src/plugin_htmlbar/quickstart.c:557
+#: src/plugin_htmlbar/html.c:662 src/plugin_htmlbar/quickstart.c:557
 msgid "Titl_e:"
 msgstr "标题(_e)："
 
-#: src/plugin_htmlbar/html.c:665 src/plugin_htmlbar/html.c:1161
-#: src/plugin_htmlbar/html.c:1304 src/plugin_htmlbar/html.c:2308
+#: src/plugin_htmlbar/html.c:667 src/plugin_htmlbar/html.c:1163
+#: src/plugin_htmlbar/html.c:1306 src/plugin_htmlbar/html.c:2310
 msgid "_Language:"
 msgstr "语言(_L)："
 
-#: src/plugin_htmlbar/html.c:668 src/plugin_htmlbar/html.c:902
-#: src/plugin_htmlbar/html.c:1068 src/plugin_htmlbar/html.c:1164
-#: src/plugin_htmlbar/html.c:1310 src/plugin_htmlbar/html.c:1694
-#: src/plugin_htmlbar/html.c:1803 src/plugin_htmlbar/html.c:1902
-#: src/plugin_htmlbar/html.c:1971 src/plugin_htmlbar/html.c:2095
-#: src/plugin_htmlbar/html.c:2160 src/plugin_htmlbar/html.c:2244
-#: src/plugin_htmlbar/html.c:2331 src/plugin_htmlbar/html_form.c:204
+#: src/plugin_htmlbar/html.c:670 src/plugin_htmlbar/html.c:904
+#: src/plugin_htmlbar/html.c:1070 src/plugin_htmlbar/html.c:1166
+#: src/plugin_htmlbar/html.c:1312 src/plugin_htmlbar/html.c:1696
+#: src/plugin_htmlbar/html.c:1805 src/plugin_htmlbar/html.c:1904
+#: src/plugin_htmlbar/html.c:1973 src/plugin_htmlbar/html.c:2097
+#: src/plugin_htmlbar/html.c:2162 src/plugin_htmlbar/html.c:2246
+#: src/plugin_htmlbar/html.c:2333 src/plugin_htmlbar/html_form.c:204
 #: src/plugin_htmlbar/html_form.c:267 src/plugin_htmlbar/html_form.c:328
 #: src/plugin_htmlbar/html_form.c:645 src/plugin_htmlbar/html_table.c:136
 #: src/plugin_htmlbar/html_table.c:283 src/plugin_htmlbar/html_table.c:419
@@ -1274,359 +1274,359 @@ msgstr "语言(_L)："
 msgid "Custo_m:"
 msgstr "自定义(_m)："
 
-#: src/plugin_htmlbar/html.c:670 src/plugin_htmlbar/html.c:1168
+#: src/plugin_htmlbar/html.c:672 src/plugin_htmlbar/html.c:1170
 #: src/plugin_htmlbar/html_form.c:569
 msgid "Events"
 msgstr "事件"
 
-#: src/plugin_htmlbar/html.c:673
+#: src/plugin_htmlbar/html.c:675
 msgid "OnClic_k:"
 msgstr "单击(_k)："
 
-#: src/plugin_htmlbar/html.c:676
+#: src/plugin_htmlbar/html.c:678
 msgid "OnD_blClick:"
 msgstr "双击(_b)："
 
-#: src/plugin_htmlbar/html.c:679
+#: src/plugin_htmlbar/html.c:681
 msgid "OnMouseO_ver:"
 msgstr "鼠标经过(_v)："
 
-#: src/plugin_htmlbar/html.c:682
+#: src/plugin_htmlbar/html.c:684
 msgid "OnMouse_Down:"
 msgstr "鼠标按键按下(_D)："
 
-#: src/plugin_htmlbar/html.c:685
+#: src/plugin_htmlbar/html.c:687
 msgid "OnMouse_Move:"
 msgstr "鼠标移动(_M)："
 
-#: src/plugin_htmlbar/html.c:688
+#: src/plugin_htmlbar/html.c:690
 msgid "OnMouseOu_t:"
 msgstr "鼠标移出(_t)："
 
-#: src/plugin_htmlbar/html.c:691
+#: src/plugin_htmlbar/html.c:693
 msgid "OnMouse_Up:"
 msgstr "鼠标按键弹起(_U)："
 
-#: src/plugin_htmlbar/html.c:694
+#: src/plugin_htmlbar/html.c:696
 msgid "OnKeyDo_wn:"
 msgstr "键盘按下(_w)："
 
-#: src/plugin_htmlbar/html.c:697
+#: src/plugin_htmlbar/html.c:699
 msgid "OnKey_Press:"
 msgstr "键盘击键(_P)："
 
-#: src/plugin_htmlbar/html.c:700
+#: src/plugin_htmlbar/html.c:702
 msgid "OnKe_yUp:"
 msgstr "键盘按键弹起(_y)："
 
-#: src/plugin_htmlbar/html.c:844
+#: src/plugin_htmlbar/html.c:846
 msgid "Div"
 msgstr "Div标签"
 
-#: src/plugin_htmlbar/html.c:847
+#: src/plugin_htmlbar/html.c:849
 msgid "Span"
 msgstr "Span标签"
 
-#: src/plugin_htmlbar/html.c:850
+#: src/plugin_htmlbar/html.c:852
 msgid "Heading 1"
 msgstr "标题 1"
 
-#: src/plugin_htmlbar/html.c:853
+#: src/plugin_htmlbar/html.c:855
 msgid "Heading 2"
 msgstr "标题 2"
 
-#: src/plugin_htmlbar/html.c:856
+#: src/plugin_htmlbar/html.c:858
 msgid "Heading 3"
 msgstr "标题 3"
 
-#: src/plugin_htmlbar/html.c:859
+#: src/plugin_htmlbar/html.c:861
 msgid "Heading 4"
 msgstr "标题 4"
 
-#: src/plugin_htmlbar/html.c:862
+#: src/plugin_htmlbar/html.c:864
 msgid "Heading 5"
 msgstr "标题 5"
 
-#: src/plugin_htmlbar/html.c:865
+#: src/plugin_htmlbar/html.c:867
 msgid "Heading 6"
 msgstr "标题 6"
 
-#: src/plugin_htmlbar/html.c:882
+#: src/plugin_htmlbar/html.c:884
 msgid "Ali_gn:"
 msgstr "对齐(_g)："
 
-#: src/plugin_htmlbar/html.c:886 src/plugin_htmlbar/html.c:1155
-#: src/plugin_htmlbar/html.c:1894 src/plugin_htmlbar/html.c:1953
-#: src/plugin_htmlbar/html.c:2080 src/plugin_htmlbar/html.c:2236
+#: src/plugin_htmlbar/html.c:888 src/plugin_htmlbar/html.c:1157
+#: src/plugin_htmlbar/html.c:1896 src/plugin_htmlbar/html.c:1955
+#: src/plugin_htmlbar/html.c:2082 src/plugin_htmlbar/html.c:2238
 #: src/plugin_htmlbar/html_diag.c:470 src/plugin_htmlbar/html_table.c:127
 #: src/plugin_htmlbar/html_table.c:268 src/plugin_htmlbar/html_table.c:392
 #: src/plugin_htmlbar/image_dialog.c:377
 msgid "Cl_ass:"
 msgstr "类："
 
-#: src/plugin_htmlbar/html.c:890 src/plugin_htmlbar/html.c:1148
+#: src/plugin_htmlbar/html.c:892 src/plugin_htmlbar/html.c:1150
 #: src/plugin_htmlbar/html_diag.c:484 src/plugin_htmlbar/html_table.c:131
 #: src/plugin_htmlbar/html_table.c:278 src/plugin_htmlbar/html_table.c:414
 msgid "St_yle:"
 msgstr "样式(_y)："
 
-#: src/plugin_htmlbar/html.c:899 src/plugin_htmlbar/html.c:1158
+#: src/plugin_htmlbar/html.c:901 src/plugin_htmlbar/html.c:1160
 #: src/plugin_htmlbar/html_diag.c:478
 msgid "_ID:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/html.c:1031
+#: src/plugin_htmlbar/html.c:1033
 msgid "Horizontal Rule"
 msgstr "水平线"
 
-#: src/plugin_htmlbar/html.c:1042 src/plugin_htmlbar/image.c:555
+#: src/plugin_htmlbar/html.c:1044 src/plugin_htmlbar/image.c:555
 #: src/plugin_htmlbar/image_dialog.c:420
 msgid "_Align:"
 msgstr "对齐(_A)："
 
-#: src/plugin_htmlbar/html.c:1049 src/plugin_htmlbar/html.c:1967
-#: src/plugin_htmlbar/html.c:2071 src/plugin_htmlbar/html.c:2228
+#: src/plugin_htmlbar/html.c:1051 src/plugin_htmlbar/html.c:1969
+#: src/plugin_htmlbar/html.c:2073 src/plugin_htmlbar/html.c:2230
 #: src/plugin_htmlbar/image_dialog.c:350
 msgid "_Height:"
 msgstr "高度(_H)："
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1055 src/plugin_htmlbar/html.c:1962
-#: src/plugin_htmlbar/html.c:2066 src/plugin_htmlbar/html.c:2224
+#: src/plugin_htmlbar/html.c:1057 src/plugin_htmlbar/html.c:1964
+#: src/plugin_htmlbar/html.c:2068 src/plugin_htmlbar/html.c:2226
 #: src/plugin_htmlbar/image.c:517 src/plugin_htmlbar/image_dialog.c:341
 msgid "_Width:"
 msgstr "宽度(_W)："
 
-#: src/plugin_htmlbar/html.c:1058
+#: src/plugin_htmlbar/html.c:1060
 msgid "Is _percent"
 msgstr "是否百分比(_p)"
 
-#: src/plugin_htmlbar/html.c:1063
+#: src/plugin_htmlbar/html.c:1065
 msgid "No _shading"
 msgstr "无阴影(_s)"
 
-#: src/plugin_htmlbar/html.c:1133
+#: src/plugin_htmlbar/html.c:1135
 msgid "Body"
 msgstr "主体"
 
-#: src/plugin_htmlbar/html.c:1141
+#: src/plugin_htmlbar/html.c:1143
 msgid "Options"
 msgstr "选项"
 
-#: src/plugin_htmlbar/html.c:1174
+#: src/plugin_htmlbar/html.c:1176
 msgid "On _Load:"
 msgstr "在装载时(_L)："
 
-#: src/plugin_htmlbar/html.c:1178
+#: src/plugin_htmlbar/html.c:1180
 msgid "On _Unload:"
 msgstr "在卸载时(_U)："
 
-#: src/plugin_htmlbar/html.c:1184
+#: src/plugin_htmlbar/html.c:1186
 msgid "Depreciated options"
 msgstr "弃用的选项"
 
-#: src/plugin_htmlbar/html.c:1193
+#: src/plugin_htmlbar/html.c:1195
 msgid "Background _Image:"
 msgstr "背景图像(_I)："
 
-#: src/plugin_htmlbar/html.c:1199
+#: src/plugin_htmlbar/html.c:1201
 msgid "Back_ground Color:"
 msgstr "背景颜色(_g)："
 
-#: src/plugin_htmlbar/html.c:1205
+#: src/plugin_htmlbar/html.c:1207
 msgid "_Text Color:"
 msgstr "文本颜色(_T)："
 
-#: src/plugin_htmlbar/html.c:1211
+#: src/plugin_htmlbar/html.c:1213
 msgid "_Link Color:"
 msgstr "链接颜色(_L)："
 
-#: src/plugin_htmlbar/html.c:1217
+#: src/plugin_htmlbar/html.c:1219
 msgid "_Visited Link Color:"
 msgstr "已访问的链接颜色(_V)："
 
-#: src/plugin_htmlbar/html.c:1223
+#: src/plugin_htmlbar/html.c:1225
 msgid "_Active Link Color:"
 msgstr "激活的链接颜色(_A)："
 
-#: src/plugin_htmlbar/html.c:1279
+#: src/plugin_htmlbar/html.c:1281
 msgid "Meta"
 msgstr "Meta"
 
-#: src/plugin_htmlbar/html.c:1296
+#: src/plugin_htmlbar/html.c:1298
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV："
 
-#: src/plugin_htmlbar/html.c:1301
+#: src/plugin_htmlbar/html.c:1303
 msgid "Con_tent:"
 msgstr "Con_tent："
 
-#: src/plugin_htmlbar/html.c:1307
+#: src/plugin_htmlbar/html.c:1309
 msgid "_Scheme:"
 msgstr "_Scheme："
 
-#: src/plugin_htmlbar/html.c:1391
+#: src/plugin_htmlbar/html.c:1393
 msgid "Font"
 msgstr "字体"
 
-#: src/plugin_htmlbar/html.c:1394
+#: src/plugin_htmlbar/html.c:1396
 msgid "Base Font"
 msgstr "基础字体"
 
-#: src/plugin_htmlbar/html.c:1409
+#: src/plugin_htmlbar/html.c:1411
 msgid "Size"
 msgstr "尺寸"
 
-#: src/plugin_htmlbar/html.c:1418
+#: src/plugin_htmlbar/html.c:1420
 msgid "Color"
 msgstr "颜色"
 
-#: src/plugin_htmlbar/html.c:1423
+#: src/plugin_htmlbar/html.c:1425
 msgid "Face"
 msgstr "字体"
 
-#: src/plugin_htmlbar/html.c:1427
+#: src/plugin_htmlbar/html.c:1429
 msgid "Custom"
 msgstr "自定义"
 
-#: src/plugin_htmlbar/html.c:1517
+#: src/plugin_htmlbar/html.c:1519
 msgid "E-mail"
 msgstr "电子邮件"
 
-#: src/plugin_htmlbar/html.c:1525
+#: src/plugin_htmlbar/html.c:1527
 msgid "_Mail to:"
 msgstr "收信人(_M):"
 
-#: src/plugin_htmlbar/html.c:1528
+#: src/plugin_htmlbar/html.c:1530
 msgid "_Copy to:"
 msgstr "抄送(_C)："
 
-#: src/plugin_htmlbar/html.c:1531
+#: src/plugin_htmlbar/html.c:1533
 msgid "Blin_d copy to:"
 msgstr "密送(_d)："
 
-#: src/plugin_htmlbar/html.c:1534
+#: src/plugin_htmlbar/html.c:1536
 msgid "with _Subject:"
 msgstr "标题(_S)"
 
-#: src/plugin_htmlbar/html.c:1537
+#: src/plugin_htmlbar/html.c:1539
 msgid "with _Body:"
 msgstr "主体(_B)："
 
-#: src/plugin_htmlbar/html.c:1583
+#: src/plugin_htmlbar/html.c:1585
 msgid "Quick List"
 msgstr "快速列表"
 
-#: src/plugin_htmlbar/html.c:1588 src/plugin_htmlbar/wizards.c:81
+#: src/plugin_htmlbar/html.c:1590 src/plugin_htmlbar/wizards.c:81
 msgid "Number of _rows:"
 msgstr "行数(_r)："
 
-#: src/plugin_htmlbar/html.c:1591
+#: src/plugin_htmlbar/html.c:1593
 msgid "Or_dered"
 msgstr "有序(_d)"
 
-#: src/plugin_htmlbar/html.c:1592
+#: src/plugin_htmlbar/html.c:1594
 msgid "_Unordered"
 msgstr "无序(_U)"
 
-#: src/plugin_htmlbar/html.c:1594 src/plugin_htmlbar/image_dialog.c:391
+#: src/plugin_htmlbar/html.c:1596 src/plugin_htmlbar/image_dialog.c:391
 msgid "Style:"
 msgstr "样式："
 
-#: src/plugin_htmlbar/html.c:1670 src/plugin_htmlbar/html_form.c:259
+#: src/plugin_htmlbar/html.c:1672 src/plugin_htmlbar/html_form.c:259
 msgid "Co_ls:"
 msgstr "列(_l)："
 
-#: src/plugin_htmlbar/html.c:1673 src/plugin_htmlbar/html_form.c:255
+#: src/plugin_htmlbar/html.c:1675 src/plugin_htmlbar/html_form.c:255
 msgid "_Rows:"
 msgstr "行(_R)："
 
-#: src/plugin_htmlbar/html.c:1677
+#: src/plugin_htmlbar/html.c:1679
 msgid "_Add &lt;frame&gt; elements"
 msgstr "添加 &lt;frame&gt; 元素(_A)"
 
-#: src/plugin_htmlbar/html.c:1761 src/plugin_htmlbar/html.c:1864
-#: src/plugin_htmlbar/html.c:2034 src/plugin_htmlbar/html.c:2217
-#: src/plugin_htmlbar/html.c:2304 src/plugin_htmlbar/image_dialog.c:302
+#: src/plugin_htmlbar/html.c:1763 src/plugin_htmlbar/html.c:1866
+#: src/plugin_htmlbar/html.c:2036 src/plugin_htmlbar/html.c:2219
+#: src/plugin_htmlbar/html.c:2306 src/plugin_htmlbar/image_dialog.c:302
 msgid "_Source:"
 msgstr "源文件(_S)："
 
-#: src/plugin_htmlbar/html.c:1769
+#: src/plugin_htmlbar/html.c:1771
 msgid "Margin _Width:"
 msgstr "边距宽度(_W)："
 
-#: src/plugin_htmlbar/html.c:1773
+#: src/plugin_htmlbar/html.c:1775
 msgid "Margin _Height:"
 msgstr "边距高度(_H)："
 
-#: src/plugin_htmlbar/html.c:1782
+#: src/plugin_htmlbar/html.c:1784
 msgid "Scrollin_g:"
 msgstr "滚动条(_g)："
 
-#: src/plugin_htmlbar/html.c:1786
+#: src/plugin_htmlbar/html.c:1788
 msgid "_Frameborder:"
 msgstr "框架边框(_F)："
 
-#: src/plugin_htmlbar/html.c:1791
+#: src/plugin_htmlbar/html.c:1793
 msgid "No _Resize:"
 msgstr "不改变尺寸(_R)："
 
 #. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:1857
+#: src/plugin_htmlbar/html.c:1859
 msgid "Audio"
 msgstr "Audio标签"
 
-#: src/plugin_htmlbar/html.c:1868 src/plugin_htmlbar/html.c:2046
+#: src/plugin_htmlbar/html.c:1870 src/plugin_htmlbar/html.c:2048
 msgid "_Autoplay:"
 msgstr "自动播放(_A):"
 
-#: src/plugin_htmlbar/html.c:1872 src/plugin_htmlbar/html.c:2051
+#: src/plugin_htmlbar/html.c:1874 src/plugin_htmlbar/html.c:2053
 msgid "C_ontrols:"
 msgstr "控制器(_o)："
 
-#: src/plugin_htmlbar/html.c:1876 src/plugin_htmlbar/html.c:2056
+#: src/plugin_htmlbar/html.c:1878 src/plugin_htmlbar/html.c:2058
 msgid "_Loop:"
 msgstr "循环播放(_L):"
 
-#: src/plugin_htmlbar/html.c:1880 src/plugin_htmlbar/html.c:2061
+#: src/plugin_htmlbar/html.c:1882 src/plugin_htmlbar/html.c:2063
 msgid "M_ute:"
 msgstr "静音(_u)："
 
-#: src/plugin_htmlbar/html.c:1885 src/plugin_htmlbar/html.c:2085
+#: src/plugin_htmlbar/html.c:1887 src/plugin_htmlbar/html.c:2087
 msgid "_Preload:"
 msgstr "预载入(_P)："
 
-#: src/plugin_htmlbar/html.c:1890 src/plugin_htmlbar/html.c:1949
-#: src/plugin_htmlbar/html.c:2076 src/plugin_htmlbar/html.c:2232
+#: src/plugin_htmlbar/html.c:1892 src/plugin_htmlbar/html.c:1951
+#: src/plugin_htmlbar/html.c:2078 src/plugin_htmlbar/html.c:2234
 #: src/plugin_htmlbar/html_table.c:124
 msgid "_Id:"
 msgstr "_Id:"
 
-#: src/plugin_htmlbar/html.c:1897 src/plugin_htmlbar/html.c:1956
-#: src/plugin_htmlbar/html.c:2090 src/plugin_htmlbar/html.c:2239
+#: src/plugin_htmlbar/html.c:1899 src/plugin_htmlbar/html.c:1958
+#: src/plugin_htmlbar/html.c:2092 src/plugin_htmlbar/html.c:2241
 msgid "_Style:"
 msgstr "样式(_S)："
 
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:1944
+#: src/plugin_htmlbar/html.c:1946
 msgid "Canvas"
 msgstr "Canvas标签"
 
-#: src/plugin_htmlbar/html.c:2026
+#: src/plugin_htmlbar/html.c:2028
 msgid "Video"
 msgstr "Video标签"
 
-#: src/plugin_htmlbar/html.c:2041
+#: src/plugin_htmlbar/html.c:2043
 msgid "_Poster:"
 msgstr "相框默认图片(_P):"
 
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:2140
+#: src/plugin_htmlbar/html.c:2142
 msgid "Time"
 msgstr "Time标签"
 
 #. Datetime help
-#: src/plugin_htmlbar/html.c:2145
+#: src/plugin_htmlbar/html.c:2147
 msgid ""
 "Datetime format (ex. YYYY-MM-DDThh:mm:ssTZD) :\n"
 "\n"
@@ -1651,43 +1651,43 @@ msgstr ""
 "ss - 秒钟 (例如 03)\n"
 "TZD - 时区标示符 (Z 代表格林尼治标准时间)\n"
 
-#: src/plugin_htmlbar/html.c:2155
+#: src/plugin_htmlbar/html.c:2157
 msgid "_Datetime:"
 msgstr "日期及时间(_D):"
 
-#: src/plugin_htmlbar/html.c:2210
+#: src/plugin_htmlbar/html.c:2212
 msgid "Embed"
 msgstr "嵌入"
 
-#: src/plugin_htmlbar/html.c:2221
+#: src/plugin_htmlbar/html.c:2223
 msgid "_MIME Type:"
 msgstr "MIME类型(_M)："
 
-#: src/plugin_htmlbar/html.c:2286
+#: src/plugin_htmlbar/html.c:2288
 msgid "Script"
 msgstr "脚本"
 
-#: src/plugin_htmlbar/html.c:2310
+#: src/plugin_htmlbar/html.c:2312
 msgid "(HTML4 only)"
 msgstr "(仅HTML4)"
 
-#: src/plugin_htmlbar/html.c:2313
+#: src/plugin_htmlbar/html.c:2315
 msgid "MIME _Type:"
 msgstr "MIME类型(_T)："
 
-#: src/plugin_htmlbar/html.c:2317
+#: src/plugin_htmlbar/html.c:2319
 msgid "_Charset:"
 msgstr "字符集(_C)："
 
-#: src/plugin_htmlbar/html.c:2319 src/plugin_htmlbar/html.c:2328
+#: src/plugin_htmlbar/html.c:2321 src/plugin_htmlbar/html.c:2330
 msgid "(HTML5)"
 msgstr "(HTML5)"
 
-#: src/plugin_htmlbar/html.c:2322
+#: src/plugin_htmlbar/html.c:2324
 msgid "_Async:"
 msgstr "同步(_A)："
 
-#: src/plugin_htmlbar/html.c:2326
+#: src/plugin_htmlbar/html.c:2328
 msgid "_Defer:"
 msgstr "延迟(_D)："
 
@@ -1696,100 +1696,100 @@ msgstr "延迟(_D)："
 #. column-span: all (default none)
 #. column-fill: auto (default balance)
 #.
-#: src/plugin_htmlbar/html.c:2498
+#: src/plugin_htmlbar/html.c:2500
 msgid "CSS3 multi-column layout"
 msgstr "CSS3多列布局"
 
-#: src/plugin_htmlbar/html.c:2505
+#: src/plugin_htmlbar/html.c:2507
 msgid "Auto (default) or number of columns"
 msgstr "Auto（默认值）或列数"
 
-#: src/plugin_htmlbar/html.c:2514
+#: src/plugin_htmlbar/html.c:2516
 msgid "Auto (default) or width"
 msgstr "Auto（默认值）或列宽"
 
-#: src/plugin_htmlbar/html.c:2526
+#: src/plugin_htmlbar/html.c:2528
 msgid "Normal (default) or width of the gap between columns"
 msgstr "Normal（默认值）或列间距"
 
-#: src/plugin_htmlbar/html.c:2544
+#: src/plugin_htmlbar/html.c:2546
 msgid "None (default) or style"
 msgstr "None（默认值）或列与列之间的样式"
 
-#: src/plugin_htmlbar/html.c:2550
+#: src/plugin_htmlbar/html.c:2552
 msgid "Medium (default) or width"
 msgstr "Medium（默认值）或列与列之间的宽度"
 
-#: src/plugin_htmlbar/html.c:2563
+#: src/plugin_htmlbar/html.c:2565
 msgid "Use vendor-prefixed CSS property:"
 msgstr "使用以浏览器供应商的名称为前缀的CSS属性："
 
-#: src/plugin_htmlbar/html.c:2571
+#: src/plugin_htmlbar/html.c:2573
 msgid "styles_heet"
 msgstr "样式表(_h)"
 
-#: src/plugin_htmlbar/html.c:2572
+#: src/plugin_htmlbar/html.c:2574
 msgid "Add selector(s) to create a new rule"
 msgstr "以添加选择器的方式建立新规则"
 
-#: src/plugin_htmlbar/html.c:2574
+#: src/plugin_htmlbar/html.c:2576
 msgid "style a_ttribute"
 msgstr "样式属性(_t)"
 
-#: src/plugin_htmlbar/html.c:2575
+#: src/plugin_htmlbar/html.c:2577
 msgid "Add a style attribute in tag"
 msgstr "以样式属性的方式添加到标签中"
 
-#: src/plugin_htmlbar/html.c:2577
+#: src/plugin_htmlbar/html.c:2579
 msgid "style _values"
 msgstr "样式值(_v)"
 
-#: src/plugin_htmlbar/html.c:2578
+#: src/plugin_htmlbar/html.c:2580
 msgid "Add values in a style attribute"
 msgstr "以样式属性值的方式添加"
 
-#: src/plugin_htmlbar/html.c:2588
+#: src/plugin_htmlbar/html.c:2590
 msgid "Selecto_rs:"
 msgstr "选择器(_r)："
 
-#: src/plugin_htmlbar/html.c:2589
+#: src/plugin_htmlbar/html.c:2591
 msgid "Leave empty to insert declarations into an existing rule."
 msgstr "留空会添加到一个已存在的规则中"
 
-#: src/plugin_htmlbar/html.c:2649
+#: src/plugin_htmlbar/html.c:2651
 msgid "Link"
 msgstr "链接"
 
-#: src/plugin_htmlbar/html.c:2666
+#: src/plugin_htmlbar/html.c:2668
 msgid "HREF_LANG:"
 msgstr "被链接文档中文本的语言:"
 
-#: src/plugin_htmlbar/html.c:2669
+#: src/plugin_htmlbar/html.c:2671
 msgid "T_itle:"
 msgstr "标题(_T)："
 
-#: src/plugin_htmlbar/html.c:2690 src/plugin_htmlbar/html_form.c:532
+#: src/plugin_htmlbar/html.c:2692 src/plugin_htmlbar/html_form.c:532
 #: src/plugin_htmlbar/html_form.c:641
 msgid "_Type:"
 msgstr "类型(_T)："
 
-#: src/plugin_htmlbar/html.c:2712
+#: src/plugin_htmlbar/html.c:2714
 msgid "_Forward Relation:"
 msgstr "当前文档与被链接文档之间的关系(_F)："
 
-#: src/plugin_htmlbar/html.c:2716
+#: src/plugin_htmlbar/html.c:2718
 msgid "_Reverse Relation:"
 msgstr "被链接文档与当前文档之间的关系(_R)："
 
-#: src/plugin_htmlbar/html.c:2728
+#: src/plugin_htmlbar/html.c:2730
 msgid "Media:"
 msgstr "被链接文档将显示在什么设备上："
 
-#: src/plugin_htmlbar/html.c:2732
+#: src/plugin_htmlbar/html.c:2734
 msgid "L_ang:"
 msgstr "元素中内容的语言代码："
 
-#: src/plugin_htmlbar/html.c:2735
+#: src/plugin_htmlbar/html.c:2737
 msgid "_Custom:"
 msgstr "自定义(_C)："
 

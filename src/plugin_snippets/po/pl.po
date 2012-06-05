@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-02-08 21:55+0100\n"
+"POT-Creation-Date: 2012-06-05 08:36+0200\n"
 "PO-Revision-Date: 2012-02-27 22:25+0100\n"
 "Last-Translator: Quick-Master SI <dawajpoczte@gmail.com>\n"
 "Language-Team: None\n"
@@ -17,7 +17,8 @@ msgstr ""
 
 #: src/plugin_snippets/snippets_gui.c:416
 msgid "Click the right mouse button to add, edit or delete snippets."
-msgstr "Kliknij prawym przyciskiem myszy aby dodać, zmienić lub usunąć skrawki."
+msgstr ""
+"Kliknij prawym przyciskiem myszy aby dodać, zmienić lub usunąć skrawki."
 
 #: src/plugin_snippets/snippets_gui.c:417
 msgid "Use drag and drop to re-order snippets"
@@ -170,8 +171,16 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-msgid "Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
-msgstr "Określ wzorzec wyszukiwania i zastępowania. Możesz użyć %0, %1, ...%5 wartości zastępczych aby odwołać się do tych wartości kiedy zostaną aktywowane. Te wartości zastępcze zostaną nadane na odpowiedniej nazwie po prawej stronie. (Użyj %% jeśli potrzebujesz dosłowny % w swoim wzorcu!)"
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right. (Please use %% if you need "
+"literal % in your string!)"
+msgstr ""
+"Określ wzorzec wyszukiwania i zastępowania. Możesz użyć %0, %1, ...%5 "
+"wartości zastępczych aby odwołać się do tych wartości kiedy zostaną "
+"aktywowane. Te wartości zastępcze zostaną nadane na odpowiedniej nazwie po "
+"prawej stronie. (Użyj %% jeśli potrzebujesz dosłowny % w swoim wzorcu!)"
 
 #: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
@@ -202,16 +211,24 @@ msgid "_Use escape chars"
 msgstr "Użyj specjalnych znaków wyjścia (tzw. escape char)"
 
 #: src/plugin_snippets/snippets_wizard.c:166
-msgid ""
-"Unescape backslash escaped characters such as \\n"
-", \\t etc."
-msgstr ""
-"Usuń znaki backslasha użytych znaków wyjścia np. \\n"
-", \\t itd."
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgstr "Usuń znaki backslasha użytych znaków wyjścia np. \\n, \\t itd."
 
 #: src/plugin_snippets/snippets_wizard.c:335
-msgid "The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
-msgstr "<i>Przed</i> tekstem zostanie wstawiony przed pozycją  kursora lub bieżącym zaznaczeniem, <i>Za</i> tekstem zostanie wstawione za pozycją kursora lub bieżącym zaznaczeniem. Możesz użyć %0, %1, ...%9 znaków zastępczych aby aby odwołać się do tych wartości kiedy zostaną aktywowane. Te wartości zastępcze zostaną nadane na odpowiedniej nazwie po prawej stronie. (Użyj %% jeśli potrzebujesz dosłowny % w swoim wzorcu!)"
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right. (Please use %% if you need literal % in your "
+"string!)"
+msgstr ""
+"<i>Przed</i> tekstem zostanie wstawiony przed pozycją  kursora lub bieżącym "
+"zaznaczeniem, <i>Za</i> tekstem zostanie wstawione za pozycją kursora lub "
+"bieżącym zaznaczeniem. Możesz użyć %0, %1, ...%9 znaków zastępczych aby aby "
+"odwołać się do tych wartości kiedy zostaną aktywowane. Te wartości zastępcze "
+"zostaną nadane na odpowiedniej nazwie po prawej stronie. (Użyj %% jeśli "
+"potrzebujesz dosłowny % w swoim wzorcu!)"
 
 #: src/plugin_snippets/snippets_wizard.c:344
 msgid "<i>Before</i> text"
@@ -263,6 +280,6 @@ msgstr "Szukaj i zamień wzorzec"
 
 #~ msgid "Entire word only"
 #~ msgstr "Tylko całe słowa"
+
 #~ msgid "POSIX"
 #~ msgstr "POSIX"
-

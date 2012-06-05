@@ -6,19 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-02-19 00:11+0100\n"
+"POT-Creation-Date: 2012-06-05 08:36+0200\n"
 "PO-Revision-Date: 2012-02-25 12:46+0100\n"
 "Last-Translator: Mònica Ramírez Arceda <monica@probeta.net>\n"
 "Language-Team: Catalan\n"
-"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/plugin_snippets/snippets_gui.c:416
 msgid "Click the right mouse button to add, edit or delete snippets."
-msgstr "Feu clic al botó dret del ratolí­ per obrir, editar o suprimir fragments."
+msgstr ""
+"Feu clic al botó dret del ratolí­ per obrir, editar o suprimir fragments."
 
 #: src/plugin_snippets/snippets_gui.c:417
 msgid "Use drag and drop to re-order snippets"
@@ -171,8 +172,16 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-msgid "Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
-msgstr "Especifiqueu un patró de cerca i reemplaçament. Quan activeu aquest element, podeu utilitzar els textos variables %0, %1... %5 per demanar valors. A la dreta, doneu a aquests textos variables un nom apropiat. (Si necessiteu utilitzar el caràcter % a la cadena, utilitzeu %%)"
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right. (Please use %% if you need "
+"literal % in your string!)"
+msgstr ""
+"Especifiqueu un patró de cerca i reemplaçament. Quan activeu aquest element, "
+"podeu utilitzar els textos variables %0, %1... %5 per demanar valors. A la "
+"dreta, doneu a aquests textos variables un nom apropiat. (Si necessiteu "
+"utilitzar el caràcter % a la cadena, utilitzeu %%)"
 
 #: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
@@ -203,16 +212,24 @@ msgid "_Use escape chars"
 msgstr "_Utilitza caràcters alterats"
 
 #: src/plugin_snippets/snippets_wizard.c:166
-msgid ""
-"Unescape backslash escaped characters such as \\n"
-", \\t etc."
-msgstr ""
-"No escapis caràcters alterats amb la barra inversa com \\n"
-", \\t..."
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgstr "No escapis caràcters alterats amb la barra inversa com \\n, \\t..."
 
 #: src/plugin_snippets/snippets_wizard.c:335
-msgid "The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
-msgstr "El text <i>anterior</i> s'inserirà abans de la posició del cursor o de la selecció actual, el text <i>posterior</i> s'inserirà després de la posició del cursor o de la selecció actual. Quan activeu aquest element, podeu utilitzar els textos variables %0, %1... %9 per demanar valors. Doneu a aquests textos variables un nom apropiat en els camps de text corresponents. (Si necessiteu utilitzar el caràcter % a la cadena, utilitzeu %%)"
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right. (Please use %% if you need literal % in your "
+"string!)"
+msgstr ""
+"El text <i>anterior</i> s'inserirà abans de la posició del cursor o de la "
+"selecció actual, el text <i>posterior</i> s'inserirà després de la posició "
+"del cursor o de la selecció actual. Quan activeu aquest element, podeu "
+"utilitzar els textos variables %0, %1... %9 per demanar valors. Doneu a "
+"aquests textos variables un nom apropiat en els camps de text corresponents. "
+"(Si necessiteu utilitzar el caràcter % a la cadena, utilitzeu %%)"
 
 #: src/plugin_snippets/snippets_wizard.c:344
 msgid "<i>Before</i> text"
@@ -261,4 +278,3 @@ msgstr "Insereix una cadena"
 #: src/plugin_snippets/snippets_wizard.c:645
 msgid "Search and replace pattern"
 msgstr "Cerca i reemplaça un patró"
-

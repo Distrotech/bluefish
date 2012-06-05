@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-02-06 00:33+0200\n"
+"POT-Creation-Date: 2012-06-05 08:35+0200\n"
 "PO-Revision-Date: 2012-05-30 12:00+0200\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
-"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
@@ -30,12 +30,12 @@ msgid "programming;code;html;php;python;"
 msgstr "programmering;kode;html;php;python;"
 
 #: ../desktop-data/bluefish.xml.in.h:1
-msgid "Bluefish project file"
-msgstr "Bluefish prosjektfil"
-
-#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish language definition file"
 msgstr "Språkdefinisjonsfil for Bluefish"
+
+#: ../desktop-data/bluefish.xml.in.h:2
+msgid "Bluefish project file"
+msgstr "Bluefish prosjektfil"
 
 #: ../src/bftextview2.c:1581
 msgid "Collapse all"
@@ -100,813 +100,813 @@ msgstr "Nytt Bluefish-vindu"
 msgid "Stand by..."
 msgstr "Vennligst vent..."
 
-#: ../src/bfwin_uimanager.c:726
+#: ../src/bfwin_uimanager.c:722
 msgid "Leave Fullscreen"
 msgstr "Gå ut av fullskjermvisningen"
 
-#: ../src/bfwin_uimanager.c:726
+#: ../src/bfwin_uimanager.c:722
 msgid "Fullscreen"
 msgstr "Fullskjermsvisning"
 
-#: ../src/bfwin_uimanager.c:777
+#: ../src/bfwin_uimanager.c:773
 msgid "_File"
 msgstr "_Fil"
 
-#: ../src/bfwin_uimanager.c:778
+#: ../src/bfwin_uimanager.c:774
 msgid "New From Template"
 msgstr "Lag ny fra mal"
 
-#: ../src/bfwin_uimanager.c:779 ../src/bfwin_uimanager.c:789
+#: ../src/bfwin_uimanager.c:775 ../src/bfwin_uimanager.c:785
 msgid "Open _Recent"
 msgstr "Nylig åpn_ede"
 
-#: ../src/bfwin_uimanager.c:780
+#: ../src/bfwin_uimanager.c:776
 msgid "_Edit"
 msgstr "_Rediger"
 
-#: ../src/bfwin_uimanager.c:781
+#: ../src/bfwin_uimanager.c:777
 msgid "_View"
 msgstr "_Vis"
 
-#: ../src/bfwin_uimanager.c:782
+#: ../src/bfwin_uimanager.c:778
 msgid "_Document"
 msgstr "_Dokument"
 
-#: ../src/bfwin_uimanager.c:783
+#: ../src/bfwin_uimanager.c:779
 msgid "_Tab Size"
 msgstr "_Tabulatorstørrelse"
 
-#: ../src/bfwin_uimanager.c:784
+#: ../src/bfwin_uimanager.c:780
 msgid "_Font Size"
 msgstr "_Skriftstørrelse"
 
-#: ../src/bfwin_uimanager.c:785
+#: ../src/bfwin_uimanager.c:781
 msgid "Language M_ode"
 msgstr "Språkm_odus"
 
-#: ../src/bfwin_uimanager.c:786
+#: ../src/bfwin_uimanager.c:782
 msgid "Character _Encoding"
 msgstr "T_egnsett"
 
-#: ../src/bfwin_uimanager.c:787
+#: ../src/bfwin_uimanager.c:783
 msgid "_Go"
 msgstr "_Gå til"
 
-#: ../src/bfwin_uimanager.c:788
+#: ../src/bfwin_uimanager.c:784
 msgid "_Project"
 msgstr "_Prosjekt"
 
-#: ../src/bfwin_uimanager.c:790
+#: ../src/bfwin_uimanager.c:786
 msgid "_Tools"
 msgstr "Verkt_øy"
 
-#: ../src/bfwin_uimanager.c:791
+#: ../src/bfwin_uimanager.c:787
 msgid "_Commands"
 msgstr "_Kommandoer"
 
-#: ../src/bfwin_uimanager.c:792
+#: ../src/bfwin_uimanager.c:788
 msgid "_Filters"
 msgstr "_Filter"
 
-#: ../src/bfwin_uimanager.c:793
+#: ../src/bfwin_uimanager.c:789
 msgid "_Outputbox"
 msgstr "_Utdatavindu"
 
-#: ../src/bfwin_uimanager.c:794
+#: ../src/bfwin_uimanager.c:790
 msgid "Fo_rmat"
 msgstr "Fo_rmat"
 
-#: ../src/bfwin_uimanager.c:795
+#: ../src/bfwin_uimanager.c:791
 msgid "_Insert"
 msgstr "Sett _inn..."
 
-#: ../src/bfwin_uimanager.c:796
+#: ../src/bfwin_uimanager.c:792
 msgid "Co_nvert"
 msgstr "_Konverter"
 
-#: ../src/bfwin_uimanager.c:800
+#: ../src/bfwin_uimanager.c:796
 msgid "_New"
 msgstr "_Ny"
 
-#: ../src/bfwin_uimanager.c:800 ../src/filebrowser2.c:1645
+#: ../src/bfwin_uimanager.c:796 ../src/filebrowser2.c:1645
 #: ../src/filebrowser2.c:1647 ../src/filebrowser2.c:2041
 msgid "New file"
 msgstr "Ny fil"
 
-#: ../src/bfwin_uimanager.c:801
+#: ../src/bfwin_uimanager.c:797
 msgid "New _Window"
 msgstr "Nytt _vindu"
 
-#: ../src/bfwin_uimanager.c:801
+#: ../src/bfwin_uimanager.c:797
 msgid "New window"
 msgstr "Nytt vindu"
 
-#: ../src/bfwin_uimanager.c:803
+#: ../src/bfwin_uimanager.c:799
 msgid "Close Win_dow"
 msgstr "Lukk vin_du"
 
-#: ../src/bfwin_uimanager.c:803
+#: ../src/bfwin_uimanager.c:799
 msgid "Close window"
 msgstr "Lukk vinduet"
 
-#: ../src/bfwin_uimanager.c:804
+#: ../src/bfwin_uimanager.c:800
 msgid "_Open..."
 msgstr "Å_pne..."
 
-#: ../src/bfwin_uimanager.c:804
+#: ../src/bfwin_uimanager.c:800
 msgid "Open file"
 msgstr "Åpne fil"
 
-#: ../src/bfwin_uimanager.c:805
+#: ../src/bfwin_uimanager.c:801
 msgid "Open Ad_vanced..."
 msgstr "Åpn_e (avansert)..."
 
-#: ../src/bfwin_uimanager.c:805 ../src/filebrowser2.c:2037
+#: ../src/bfwin_uimanager.c:801 ../src/filebrowser2.c:2037
 msgid "Open advanced"
 msgstr "Åpne avansert"
 
-#: ../src/bfwin_uimanager.c:807
+#: ../src/bfwin_uimanager.c:803
 msgid "Open _from Selection"
 msgstr "Åpne _fra markert tekst"
 
-#: ../src/bfwin_uimanager.c:807
+#: ../src/bfwin_uimanager.c:803
 msgid "Open from Selection"
 msgstr "Åpne fra markert tekst"
 
-#: ../src/bfwin_uimanager.c:809
+#: ../src/bfwin_uimanager.c:805
 msgid "_Insert..."
 msgstr "Sett _inn..."
 
-#: ../src/bfwin_uimanager.c:809
+#: ../src/bfwin_uimanager.c:805
 msgid "Insert file"
 msgstr "Sett inn fil"
 
-#: ../src/bfwin_uimanager.c:810
+#: ../src/bfwin_uimanager.c:806
 msgid "_Print"
 msgstr "_Skriv ut"
 
-#: ../src/bfwin_uimanager.c:810
+#: ../src/bfwin_uimanager.c:806
 msgid "Print"
 msgstr "Skriv ut"
 
-#: ../src/bfwin_uimanager.c:811
+#: ../src/bfwin_uimanager.c:807
 msgid "U_pload / Download..."
 msgstr "Last opp / ned..."
 
-#: ../src/bfwin_uimanager.c:813
+#: ../src/bfwin_uimanager.c:809
 msgid "_Quit"
 msgstr "Avsl_utt"
 
-#: ../src/bfwin_uimanager.c:813
+#: ../src/bfwin_uimanager.c:809
 msgid "Quit Bluefish"
 msgstr "Avslutt Bluefish"
 
-#: ../src/bfwin_uimanager.c:814
+#: ../src/bfwin_uimanager.c:810
 msgid "Preference_s..."
 msgstr "_Innstillinger..."
 
-#: ../src/bfwin_uimanager.c:814
+#: ../src/bfwin_uimanager.c:810
 msgid "Edit Preferences"
 msgstr "Endre innstillinger"
 
-#: ../src/bfwin_uimanager.c:816
+#: ../src/bfwin_uimanager.c:812
 msgid "Select _All"
 msgstr "_Velg alt"
 
-#: ../src/bfwin_uimanager.c:816
+#: ../src/bfwin_uimanager.c:812
 msgid "Select all"
 msgstr "Velg alle"
 
-#: ../src/bfwin_uimanager.c:817
+#: ../src/bfwin_uimanager.c:813
 msgid "Add Boo_kmark"
 msgstr "_Legg til bokmerke"
 
-#: ../src/bfwin_uimanager.c:817 ../src/document.c:1848
+#: ../src/bfwin_uimanager.c:813 ../src/document.c:1852
 msgid "Add bookmark"
 msgstr "Legg til bokmerke"
 
-#: ../src/bfwin_uimanager.c:819
+#: ../src/bfwin_uimanager.c:815
 msgid "_Add or Remove..."
 msgstr "Legg _til eller fjern..."
 
-#: ../src/bfwin_uimanager.c:819
+#: ../src/bfwin_uimanager.c:815
 msgid "Add or remove character encoding"
 msgstr "Legg til eller fjern tegnsett"
 
-#: ../src/bfwin_uimanager.c:821
+#: ../src/bfwin_uimanager.c:817
 msgid "Floati_ng Window"
 msgstr "_Flytende vindu"
 
-#: ../src/bfwin_uimanager.c:821
+#: ../src/bfwin_uimanager.c:817
 msgid "Open current document in floating window"
 msgstr "Åpne dokumentet i et flytende vindu"
 
-#: ../src/bfwin_uimanager.c:823 ../src/bfwin_uimanager.c:829
+#: ../src/bfwin_uimanager.c:819 ../src/bfwin_uimanager.c:825
 msgid "_Increase"
 msgstr "_Øk skriftstørrelsen"
 
-#: ../src/bfwin_uimanager.c:823
+#: ../src/bfwin_uimanager.c:819
 msgid "Increase document font size"
 msgstr "Øk skriftstørrelsen"
 
-#: ../src/bfwin_uimanager.c:825 ../src/bfwin_uimanager.c:831
+#: ../src/bfwin_uimanager.c:821 ../src/bfwin_uimanager.c:827
 msgid "_Decrease"
 msgstr "Re_duser"
 
-#: ../src/bfwin_uimanager.c:825
+#: ../src/bfwin_uimanager.c:821
 msgid "Decrease document font size"
 msgstr "Reduser skriftstørrelsen"
 
-#: ../src/bfwin_uimanager.c:827 ../src/bfwin_uimanager.c:833
+#: ../src/bfwin_uimanager.c:823 ../src/bfwin_uimanager.c:829
 msgid "_Reset"
 msgstr "_Nullstill"
 
-#: ../src/bfwin_uimanager.c:827
+#: ../src/bfwin_uimanager.c:823
 msgid "Reset document font size"
 msgstr "Nullstill skriftstørrelsen"
 
-#: ../src/bfwin_uimanager.c:829
+#: ../src/bfwin_uimanager.c:825
 msgid "Increase document tab size"
 msgstr "Øk tabulatorbredde"
 
-#: ../src/bfwin_uimanager.c:831
+#: ../src/bfwin_uimanager.c:827
 msgid "Decrease document tab size"
 msgstr "Reduser tabulatorstørrelse"
 
-#: ../src/bfwin_uimanager.c:833
+#: ../src/bfwin_uimanager.c:829
 msgid "Reset document tab size"
 msgstr "Nullstill tabulatorstørrelse"
 
-#: ../src/bfwin_uimanager.c:836
+#: ../src/bfwin_uimanager.c:832
 msgid "Rescan Synta_x & Spelling"
 msgstr "Les synta_ks og stavekontroll"
 
-#: ../src/bfwin_uimanager.c:836 ../src/bfwin_uimanager.c:839
+#: ../src/bfwin_uimanager.c:832 ../src/bfwin_uimanager.c:835
 msgid "Rescan document highlighting"
 msgstr "Oppdater syntaksmarkering"
 
-#: ../src/bfwin_uimanager.c:839
+#: ../src/bfwin_uimanager.c:835
 msgid "Rescan Synta_x"
 msgstr "K_ontroller syntaksen på nytt"
 
-#: ../src/bfwin_uimanager.c:842
+#: ../src/bfwin_uimanager.c:838
 msgid "_New Project..."
 msgstr "_Nytt prosjekt..."
 
-#: ../src/bfwin_uimanager.c:842 ../src/project.c:208
+#: ../src/bfwin_uimanager.c:838 ../src/project.c:208
 msgid "New project"
 msgstr "Nytt prosjekt"
 
-#: ../src/bfwin_uimanager.c:843
+#: ../src/bfwin_uimanager.c:839
 msgid "_Open Project..."
 msgstr "Åpne pr_osjekt..."
 
-#: ../src/bfwin_uimanager.c:843
+#: ../src/bfwin_uimanager.c:839
 msgid "Open project"
 msgstr "Åpne prosjekt"
 
-#: ../src/bfwin_uimanager.c:844
+#: ../src/bfwin_uimanager.c:840
 msgid "_Synchronize Text Block"
 msgstr "_Synkroniser tekstblokk"
 
-#: ../src/bfwin_uimanager.c:844 ../src/blocksync.c:296
+#: ../src/bfwin_uimanager.c:840 ../src/blocksync.c:296
 msgid "Synchronize text block"
 msgstr "Synkroniser tekstblokken"
 
-#: ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:842
 msgid "To_ggle Comment"
 msgstr "Merknader a_v/på"
 
-#: ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:842
 msgid "Toggle comment"
 msgstr "Merknader av/på"
 
-#: ../src/bfwin_uimanager.c:848
+#: ../src/bfwin_uimanager.c:844
 msgid "Select _Block"
 msgstr "Velg blokk"
 
-#: ../src/bfwin_uimanager.c:848
+#: ../src/bfwin_uimanager.c:844
 msgid "Select block, use multiple times to select parent blocks "
 msgstr "Velg blokk, brukes flere ganger for å velge overordnede blokker "
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:846
 msgid "Duplica_te Line"
 msgstr "Dupliser linjen"
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:846
 msgid "Duplicate the current line"
 msgstr "Fargelegg linjen der markøren er"
 
-#: ../src/bfwin_uimanager.c:852
+#: ../src/bfwin_uimanager.c:848
 msgid "Delete Line"
 msgstr "Slett Linje"
 
-#: ../src/bfwin_uimanager.c:852
+#: ../src/bfwin_uimanager.c:848
 msgid "Delete the current line"
 msgstr "Slett den aktive linjen"
 
-#: ../src/bfwin_uimanager.c:854
+#: ../src/bfwin_uimanager.c:850
 msgid "Word Cou_nt"
 msgstr "Ord_telling"
 
-#: ../src/bfwin_uimanager.c:854
+#: ../src/bfwin_uimanager.c:850
 msgid "Word count"
 msgstr "Ordtelling"
 
-#: ../src/bfwin_uimanager.c:855
+#: ../src/bfwin_uimanager.c:851
 msgid "Lorem Ipsum generator"
 msgstr "Lorem Ipsum generator"
 
-#: ../src/bfwin_uimanager.c:856
+#: ../src/bfwin_uimanager.c:852
 msgid "Insert Relative Filename"
 msgstr "Sett inn filnavn med relativ filsti"
 
-#: ../src/bfwin_uimanager.c:857
+#: ../src/bfwin_uimanager.c:853
 msgid "Insert Absolute Filename"
 msgstr "Sett inn fullt filnavn"
 
-#: ../src/bfwin_uimanager.c:858
+#: ../src/bfwin_uimanager.c:854
 msgid "Indenting to S_paces"
 msgstr "Innrykk til _mellomrom"
 
-#: ../src/bfwin_uimanager.c:858
+#: ../src/bfwin_uimanager.c:854
 msgid "Indenting to spaces"
 msgstr "Innrykk til mellomrom"
 
-#: ../src/bfwin_uimanager.c:860
+#: ../src/bfwin_uimanager.c:856
 msgid "Indenting to T_abs"
 msgstr "_Innrykk til tabulatorer"
 
-#: ../src/bfwin_uimanager.c:860
+#: ../src/bfwin_uimanager.c:856
 msgid "Indenting to tabs"
 msgstr "Innrykk til tabulatorer"
 
-#: ../src/bfwin_uimanager.c:862
+#: ../src/bfwin_uimanager.c:858
 msgid "_Join Lines Together"
 msgstr "Sl_å sammen linjer"
 
-#: ../src/bfwin_uimanager.c:862
+#: ../src/bfwin_uimanager.c:858
 msgid "Join lines together"
 msgstr "Slå sammen linjer"
 
-#: ../src/bfwin_uimanager.c:864
+#: ../src/bfwin_uimanager.c:860
 msgid "Split Lines on Right _Margin"
 msgstr "Del linjer på høyre _marg"
 
-#: ../src/bfwin_uimanager.c:864
+#: ../src/bfwin_uimanager.c:860
 msgid "Split lines on right margin"
 msgstr "Del linjer på høyre marg"
 
-#: ../src/bfwin_uimanager.c:866
+#: ../src/bfwin_uimanager.c:862
 msgid "Merge Lines Into Col_umns"
 msgstr "Slå sammen linjer til _kolonner"
 
-#: ../src/bfwin_uimanager.c:866
+#: ../src/bfwin_uimanager.c:862
 msgid "Merge lines into columns"
 msgstr "Slå sammen linjer til kolonner"
 
-#: ../src/bfwin_uimanager.c:868
+#: ../src/bfwin_uimanager.c:864
 msgid "Rewrap _Lines"
 msgstr "Brekk _linjer på ny"
 
-#: ../src/bfwin_uimanager.c:868
+#: ../src/bfwin_uimanager.c:864
 msgid "Rewrap lines"
 msgstr "Brekk linjer"
 
-#: ../src/bfwin_uimanager.c:869
+#: ../src/bfwin_uimanager.c:865
 msgid "Strip T_railing Whitespace"
 msgstr "Fje_rn blanke tegn på enden av hver linje"
 
-#: ../src/bfwin_uimanager.c:869
+#: ../src/bfwin_uimanager.c:865
 msgid "Strip trailing whitespace"
 msgstr "Fjern blanke tegn på enden av hver linje"
 
-#: ../src/bfwin_uimanager.c:871
+#: ../src/bfwin_uimanager.c:867
 msgid "Preview in browser"
 msgstr "Forhåndsvis i filbehandler"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:872
 msgid "_Full Screen"
 msgstr "_Fullskjerm"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:872
 msgid "Full screen"
 msgstr "Fullskjerm"
 
-#: ../src/bfwin_uimanager.c:878
+#: ../src/bfwin_uimanager.c:874
 msgid "_Main Toolbar"
 msgstr "Hoved_verktøylinje"
 
-#: ../src/bfwin_uimanager.c:878
+#: ../src/bfwin_uimanager.c:874
 msgid "Show main toolbar"
 msgstr "Vis hovedverktøylinje"
 
-#: ../src/bfwin_uimanager.c:880
+#: ../src/bfwin_uimanager.c:876
 msgid "_Side Pane"
 msgstr "_Sidepanel"
 
-#: ../src/bfwin_uimanager.c:880
+#: ../src/bfwin_uimanager.c:876
 msgid "Show side pane"
 msgstr "Vis sidepanelet"
 
-#: ../src/bfwin_uimanager.c:881
+#: ../src/bfwin_uimanager.c:877
 msgid "_Output Pane"
 msgstr "_Utdatafeltet"
 
-#: ../src/bfwin_uimanager.c:881
+#: ../src/bfwin_uimanager.c:877
 msgid "Show output pane"
 msgstr "Vis utdatafelt"
 
-#: ../src/bfwin_uimanager.c:883
+#: ../src/bfwin_uimanager.c:879
 msgid "Status_bar"
 msgstr "Vis statuslinj_e"
 
-#: ../src/bfwin_uimanager.c:883
+#: ../src/bfwin_uimanager.c:879
 msgid "Show statusbar"
 msgstr "Vis statuslinje"
 
-#: ../src/bfwin_uimanager.c:885
+#: ../src/bfwin_uimanager.c:881
 msgid "Auto _Completion Popup"
 msgstr "Vindu for for autoutfylling"
 
-#: ../src/bfwin_uimanager.c:885
+#: ../src/bfwin_uimanager.c:881
 msgid "Show auto completion popup"
 msgstr "Vis i autofullfør _pop-up-vindu"
 
-#: ../src/bfwin_uimanager.c:887
+#: ../src/bfwin_uimanager.c:883
 msgid "_Auto Indent"
 msgstr "_Automatisk tabulering"
 
-#: ../src/bfwin_uimanager.c:887
+#: ../src/bfwin_uimanager.c:883
 msgid "Auto indent"
 msgstr "Autoindentering"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:884
 msgid "Highlight Block _Delimiters"
 msgstr "Fremhev blokkskille"
 
-#: ../src/bfwin_uimanager.c:889
+#: ../src/bfwin_uimanager.c:885
 msgid "Highlight block delimiters"
 msgstr "Frem_hev blokkskille"
 
-#: ../src/bfwin_uimanager.c:890
+#: ../src/bfwin_uimanager.c:886
 msgid "_Highlight Syntax"
 msgstr "F_remhev syntaksen"
 
-#: ../src/bfwin_uimanager.c:890
+#: ../src/bfwin_uimanager.c:886
 msgid "Highlight syntax"
 msgstr "Marker syntaks som standard"
 
-#: ../src/bfwin_uimanager.c:892
+#: ../src/bfwin_uimanager.c:888
 msgid "Show _Blocks"
 msgstr "Vis _blokker"
 
-#: ../src/bfwin_uimanager.c:892
+#: ../src/bfwin_uimanager.c:888
 msgid "Show blocks"
 msgstr "Vis blokker"
 
-#: ../src/bfwin_uimanager.c:893
+#: ../src/bfwin_uimanager.c:889
 msgid "Show Line N_umbers"
 msgstr "Vis linje_nummer"
 
-#: ../src/bfwin_uimanager.c:893
+#: ../src/bfwin_uimanager.c:889
 msgid "Show line numbers"
 msgstr "Vis linjenummer"
 
-#: ../src/bfwin_uimanager.c:895
+#: ../src/bfwin_uimanager.c:891
 msgid "Show Right _Margin"
 msgstr "Vis høyremarg"
 
-#: ../src/bfwin_uimanager.c:895
+#: ../src/bfwin_uimanager.c:891
 msgid "Show right margin"
 msgstr "Vis høyremarg"
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:893
 msgid "Show Split _View"
 msgstr "Bruk delt _visning"
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:893
 msgid "Show split view"
 msgstr "Bruk delt visning"
 
-#: ../src/bfwin_uimanager.c:899
+#: ../src/bfwin_uimanager.c:895
 msgid "Show V_isible Spacing"
 msgstr "Vis synlige _mellomrom"
 
-#: ../src/bfwin_uimanager.c:899
+#: ../src/bfwin_uimanager.c:895
 msgid "Show visible spacing"
 msgstr "Vis synlige mellomrom"
 
-#: ../src/bfwin_uimanager.c:901
+#: ../src/bfwin_uimanager.c:897
 msgid "_Wrap Text"
 msgstr "_Brekk tekst"
 
-#: ../src/bfwin_uimanager.c:901
+#: ../src/bfwin_uimanager.c:897
 msgid "Wrap text"
 msgstr "Brekk tekst"
 
-#: ../src/bfwin_uimanager.c:905 ../src/document.c:2856
+#: ../src/bfwin_uimanager.c:901 ../src/document.c:2860
 msgid "_Close"
 msgstr "Lukk"
 
-#: ../src/bfwin_uimanager.c:905
+#: ../src/bfwin_uimanager.c:901
 msgid "Close current file"
 msgstr "Lukk fil"
 
-#: ../src/bfwin_uimanager.c:907
+#: ../src/bfwin_uimanager.c:903
 msgid "Close A_ll"
 msgstr "Lu_kk alle"
 
-#: ../src/bfwin_uimanager.c:907
+#: ../src/bfwin_uimanager.c:903
 msgid "Close all files"
 msgstr "Lukk alle filer"
 
-#: ../src/bfwin_uimanager.c:909 ../src/bfwin_uimanager.c:967
+#: ../src/bfwin_uimanager.c:905 ../src/bfwin_uimanager.c:963
 #: ../src/file_dialogs.c:1430
 msgid "_Save"
 msgstr "_Lagre"
 
-#: ../src/bfwin_uimanager.c:909
+#: ../src/bfwin_uimanager.c:905
 msgid "Save current file"
 msgstr "Lagre fil"
 
-#: ../src/bfwin_uimanager.c:911 ../src/bfwin_uimanager.c:968
+#: ../src/bfwin_uimanager.c:907 ../src/bfwin_uimanager.c:964
 msgid "Save _as..."
 msgstr "L_agre som..."
 
-#: ../src/bfwin_uimanager.c:911
+#: ../src/bfwin_uimanager.c:907
 msgid "Save file as"
 msgstr "Lagre fil som"
 
-#: ../src/bfwin_uimanager.c:913
+#: ../src/bfwin_uimanager.c:909
 msgid "Sav_e All"
 msgstr "Lagr_e alle"
 
-#: ../src/bfwin_uimanager.c:913
+#: ../src/bfwin_uimanager.c:909
 msgid "Save all files"
 msgstr "Lagre alle filer"
 
-#: ../src/bfwin_uimanager.c:914
+#: ../src/bfwin_uimanager.c:910
 msgid "Rever_t to Saved"
 msgstr "Gjenopp_rett fra disk"
 
-#: ../src/bfwin_uimanager.c:914
+#: ../src/bfwin_uimanager.c:910
 msgid "Reload current file"
 msgstr "Les inn fil på nytt"
 
-#: ../src/bfwin_uimanager.c:916
+#: ../src/bfwin_uimanager.c:912
 msgid "Rena_me..."
 msgstr "Gi nytt navn..."
 
-#: ../src/bfwin_uimanager.c:916
+#: ../src/bfwin_uimanager.c:912
 msgid "Rename file"
 msgstr "Gi filen nytt navn"
 
-#: ../src/bfwin_uimanager.c:917
+#: ../src/bfwin_uimanager.c:913
 msgid "_Indent"
 msgstr "_Innrykk"
 
-#: ../src/bfwin_uimanager.c:917
+#: ../src/bfwin_uimanager.c:913
 msgid "Indent"
 msgstr "Innrykk"
 
-#: ../src/bfwin_uimanager.c:918
+#: ../src/bfwin_uimanager.c:914
 msgid "Unin_dent"
 msgstr "Reduser innrykk"
 
-#: ../src/bfwin_uimanager.c:918
+#: ../src/bfwin_uimanager.c:914
 msgid "Unindent"
 msgstr "Reduser innrykk"
 
-#: ../src/bfwin_uimanager.c:920
+#: ../src/bfwin_uimanager.c:916
 msgid "F_irst Bookmark"
 msgstr "Første _bokmerke"
 
-#: ../src/bfwin_uimanager.c:920
+#: ../src/bfwin_uimanager.c:916
 msgid "Goto first bookmark"
 msgstr "Gå til første bokmerke"
 
-#: ../src/bfwin_uimanager.c:922
+#: ../src/bfwin_uimanager.c:918
 msgid "L_ast Bookmark"
 msgstr "_Siste bokmerke"
 
-#: ../src/bfwin_uimanager.c:922
+#: ../src/bfwin_uimanager.c:918
 msgid "Goto last bookmark"
 msgstr "Gå til siste bokmerke"
 
-#: ../src/bfwin_uimanager.c:924
+#: ../src/bfwin_uimanager.c:920
 msgid "N_ext Bookmark"
 msgstr "N_este bokmerke"
 
-#: ../src/bfwin_uimanager.c:924
+#: ../src/bfwin_uimanager.c:920
 msgid "Goto next bookmark"
 msgstr "Gå til neste bokmerke"
 
-#: ../src/bfwin_uimanager.c:926
+#: ../src/bfwin_uimanager.c:922
 msgid "P_revious Bookmark"
 msgstr "Fo_rrige Bokmerke"
 
-#: ../src/bfwin_uimanager.c:927 ../src/bfwin_uimanager.c:938
+#: ../src/bfwin_uimanager.c:923 ../src/bfwin_uimanager.c:934
 msgid "Goto previous document"
 msgstr "Gå til forrige dokument"
 
-#: ../src/bfwin_uimanager.c:928
+#: ../src/bfwin_uimanager.c:924
 msgid "Move Tab _Left"
 msgstr "Flytt tabulatoren til venstre"
 
-#: ../src/bfwin_uimanager.c:928
+#: ../src/bfwin_uimanager.c:924
 msgid "Move current tab left"
 msgstr "Flytt den aktive tabulatoren til venstre"
 
-#: ../src/bfwin_uimanager.c:930
+#: ../src/bfwin_uimanager.c:926
 msgid "Move Tab _Right"
 msgstr "Flytt tabulatoren til høyre"
 
-#: ../src/bfwin_uimanager.c:930
+#: ../src/bfwin_uimanager.c:926
 msgid "Move current tab right"
 msgstr "Flytt aktiv tabulator mot høyre"
 
-#: ../src/bfwin_uimanager.c:932
+#: ../src/bfwin_uimanager.c:928
 msgid "_First Document"
 msgstr "_Første dokument"
 
-#: ../src/bfwin_uimanager.c:932
+#: ../src/bfwin_uimanager.c:928
 msgid "Goto first document"
 msgstr "Gå til første dokument"
 
-#: ../src/bfwin_uimanager.c:934
+#: ../src/bfwin_uimanager.c:930
 msgid "_Last Document"
 msgstr "_Siste dokument"
 
-#: ../src/bfwin_uimanager.c:934
+#: ../src/bfwin_uimanager.c:930
 msgid "Goto last document"
 msgstr "Gå til siste dokument"
 
-#: ../src/bfwin_uimanager.c:936
+#: ../src/bfwin_uimanager.c:932
 msgid "_Next Document"
 msgstr "_Neste dokument"
 
-#: ../src/bfwin_uimanager.c:936
+#: ../src/bfwin_uimanager.c:932
 msgid "Goto next document"
 msgstr "Gå til neste dokument"
 
-#: ../src/bfwin_uimanager.c:938
+#: ../src/bfwin_uimanager.c:934
 msgid "_Previous Document"
 msgstr "_Forrige dokument"
 
-#: ../src/bfwin_uimanager.c:940
+#: ../src/bfwin_uimanager.c:936
 msgid "Goto _Line"
 msgstr "Gå til _linje..."
 
-#: ../src/bfwin_uimanager.c:940
+#: ../src/bfwin_uimanager.c:936
 msgid "Goto line"
 msgstr "Gå til linje"
 
-#: ../src/bfwin_uimanager.c:941
+#: ../src/bfwin_uimanager.c:937
 msgid "Goto Line Number from _Clipboard"
 msgstr "Gå til linjenummeret fra ut_klippstavlen"
 
-#: ../src/bfwin_uimanager.c:942
+#: ../src/bfwin_uimanager.c:938
 msgid "Goto line number in clipboard or selection"
 msgstr "Gå til linjenummeret i utklippstablen eller markert tekst..."
 
-#: ../src/bfwin_uimanager.c:943
+#: ../src/bfwin_uimanager.c:939
 msgid "_Jump to Reference"
 msgstr "_Gå til referansen"
 
-#: ../src/bfwin_uimanager.c:943
+#: ../src/bfwin_uimanager.c:939
 msgid "Jump to reference"
 msgstr "Gå til referansen"
 
-#: ../src/bfwin_uimanager.c:948
+#: ../src/bfwin_uimanager.c:944
 msgid "Cu_t"
 msgstr "Klipp _ut"
 
-#: ../src/bfwin_uimanager.c:948
+#: ../src/bfwin_uimanager.c:944
 msgid "Cut"
 msgstr "Klipp ut"
 
-#: ../src/bfwin_uimanager.c:949
+#: ../src/bfwin_uimanager.c:945
 msgid "_Copy"
 msgstr "_Kopier"
 
-#: ../src/bfwin_uimanager.c:949
+#: ../src/bfwin_uimanager.c:945
 msgid "Copy"
 msgstr "Kopier"
 
-#: ../src/bfwin_uimanager.c:950
+#: ../src/bfwin_uimanager.c:946
 msgid "_Paste"
 msgstr "Sett inn"
 
-#: ../src/bfwin_uimanager.c:950
+#: ../src/bfwin_uimanager.c:946
 msgid "Paste"
 msgstr "Lim inn"
 
-#: ../src/bfwin_uimanager.c:954
+#: ../src/bfwin_uimanager.c:950
 msgid "_Find"
 msgstr "_Finn"
 
-#: ../src/bfwin_uimanager.c:954
+#: ../src/bfwin_uimanager.c:950
 msgid "Show find bar"
 msgstr "Vis søkeverktøylinje"
 
-#: ../src/bfwin_uimanager.c:955
+#: ../src/bfwin_uimanager.c:951
 msgid "Find A_gain"
 msgstr "Søk i_gjen"
 
-#: ../src/bfwin_uimanager.c:955
+#: ../src/bfwin_uimanager.c:951
 msgid "Find again"
 msgstr "Søk igjen"
 
-#: ../src/bfwin_uimanager.c:956
+#: ../src/bfwin_uimanager.c:952
 msgid "Find from Clip_board"
 msgstr "Finn fra utklippstavlen"
 
-#: ../src/bfwin_uimanager.c:956
+#: ../src/bfwin_uimanager.c:952
 msgid "Find from clipboard or selection"
 msgstr "Finn teksten i markert tekst eller utklippstavlen"
 
-#: ../src/bfwin_uimanager.c:958
+#: ../src/bfwin_uimanager.c:954
 msgid "Advanced Find & Re_place..."
 msgstr "Avansert Søk og E_rstatt"
 
-#: ../src/bfwin_uimanager.c:958
+#: ../src/bfwin_uimanager.c:954
 msgid "Advanced Find and Replace"
 msgstr "Avansert Søk og Erstatt"
 
-#: ../src/bfwin_uimanager.c:965
+#: ../src/bfwin_uimanager.c:961
 msgid "Save & _close"
 msgstr "Lagre & l_ukk"
 
-#: ../src/bfwin_uimanager.c:965
+#: ../src/bfwin_uimanager.c:961
 msgid "Save & close project"
 msgstr "Lagre og lukk prosjektet"
 
-#: ../src/bfwin_uimanager.c:967
+#: ../src/bfwin_uimanager.c:963
 msgid "Save project"
 msgstr "Lagre prosjektet"
 
-#: ../src/bfwin_uimanager.c:968
+#: ../src/bfwin_uimanager.c:964
 msgid "Save project as"
 msgstr "Lagre prosjektet som"
 
-#: ../src/bfwin_uimanager.c:969
+#: ../src/bfwin_uimanager.c:965
 msgid "_Edit Project Options..."
 msgstr "R_ediger prosjektalternativer..."
 
-#: ../src/bfwin_uimanager.c:969
+#: ../src/bfwin_uimanager.c:965
 msgid "Edit project options"
 msgstr "Rediger prosjektopsjoner"
 
-#: ../src/bfwin_uimanager.c:974
+#: ../src/bfwin_uimanager.c:970
 msgid "_Undo"
 msgstr "_Angre"
 
-#: ../src/bfwin_uimanager.c:974
+#: ../src/bfwin_uimanager.c:970
 msgid "Undo"
 msgstr "Angre"
 
-#: ../src/bfwin_uimanager.c:975
+#: ../src/bfwin_uimanager.c:971
 msgid "U_ndo All"
 msgstr "A_ngre alle"
 
-#: ../src/bfwin_uimanager.c:975
+#: ../src/bfwin_uimanager.c:971
 msgid "Undo All"
 msgstr "Angre alle"
 
-#: ../src/bfwin_uimanager.c:976
+#: ../src/bfwin_uimanager.c:972
 msgid "_Redo"
 msgstr "Gjenta"
 
-#: ../src/bfwin_uimanager.c:976
+#: ../src/bfwin_uimanager.c:972
 msgid "Redo"
 msgstr "Gjenta"
 
-#: ../src/bfwin_uimanager.c:977
+#: ../src/bfwin_uimanager.c:973
 msgid "R_edo All"
 msgstr "Gj_enta alle"
 
-#: ../src/bfwin_uimanager.c:977
+#: ../src/bfwin_uimanager.c:973
 msgid "Redo All"
 msgstr "Gjenta alle"
 
-#: ../src/bfwin_uimanager.c:1118
+#: ../src/bfwin_uimanager.c:1114
 msgid "Open _URL..."
 msgstr "Åpne _URL..."
 
-#: ../src/bfwin_uimanager.c:1131
+#: ../src/bfwin_uimanager.c:1127
 msgid "_Spell Check"
 msgstr "_Stavekontroll"
 
-#: ../src/bfwin_uimanager.c:1512
+#: ../src/bfwin_uimanager.c:1508
 msgid "Text area to filter"
 msgstr "Velg tekstområde som skal filtreres"
 
-#: ../src/bfwin_uimanager.c:1513
+#: ../src/bfwin_uimanager.c:1509
 msgid "All text"
 msgstr "All tekst"
 
-#: ../src/bfwin_uimanager.c:1514
+#: ../src/bfwin_uimanager.c:1510
 msgid "Selected text only"
 msgstr "Kun markert tekst"
 
@@ -1068,7 +1068,7 @@ msgstr "_Rediger"
 msgid "_Delete"
 msgstr "_Slett"
 
-#: ../src/bookmark.c:878 ../src/document.c:1844
+#: ../src/bookmark.c:878 ../src/document.c:1848
 msgid "Delete bookmark"
 msgstr "Slett bokmerke"
 
@@ -1205,79 +1205,79 @@ msgstr ""
 "\n"
 "Sist endret: "
 
-#: ../src/document.c:498
+#: ../src/document.c:502
 #, c-format
 msgid "Untitled %d"
 msgstr "Uten navn %d"
 
-#: ../src/document.c:683
+#: ../src/document.c:687
 #, c-format
 msgid "Changed tab width to %d"
 msgstr "Endret tabstørrelse til %d"
 
-#: ../src/document.c:857
+#: ../src/document.c:861
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "Dokumentet %s er allerede åpnet i Bluefish."
 
-#: ../src/document.c:859
+#: ../src/document.c:863
 msgid "Move to this window"
 msgstr "Vis den åpnede filen."
 
-#: ../src/document.c:859
+#: ../src/document.c:863
 msgid "Open readonly"
 msgstr "Åpne skrivebeskyttet"
 
-#: ../src/document.c:860
+#: ../src/document.c:864
 msgid "Do not open"
 msgstr "Avbryt"
 
-#: ../src/document.c:1172
+#: ../src/document.c:1176
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " Linje %d, Kol %d "
 
-#: ../src/document.c:1175
+#: ../src/document.c:1179
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " Linje %d, Kol %d "
 
-#: ../src/document.c:1198
+#: ../src/document.c:1202
 msgid " OVR"
 msgstr " OVR"
 
-#: ../src/document.c:1198
+#: ../src/document.c:1202
 msgid " INS"
 msgstr " INS"
 
-#: ../src/document.c:1200
+#: ../src/document.c:1204
 msgid " RO"
 msgstr " RO"
 
-#: ../src/document.c:1219
+#: ../src/document.c:1223
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: ../src/document.c:1667
+#: ../src/document.c:1671
 msgid "Cannot display file, unknown characters found."
 msgstr "Filen kan ikke vises, ukjente tegn funnet"
 
-#: ../src/document.c:1854
+#: ../src/document.c:1858
 msgid "Exit fullscreen"
 msgstr "Avslutt fullskjermsvisning"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1998 ../src/file_dialogs.c:474 ../src/file_dialogs.c:512
+#: ../src/document.c:2002 ../src/file_dialogs.c:474 ../src/file_dialogs.c:512
 msgid "_Abort save"
 msgstr "_Avbryt lagring"
 
-#: ../src/document.c:1998
+#: ../src/document.c:2002
 msgid "_Continue save in UTF-8"
 msgstr "Fortsett lagring som UTF-8"
 
-#: ../src/document.c:2011
+#: ../src/document.c:2015
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1285,20 +1285,20 @@ msgid ""
 "\n"
 "Continue saving in UTF-8 encoding?"
 msgstr ""
-"Kunne ikke konvertere %s til tegnsett %s. Konverteringen feilet på tegnet "
-"'%s' på linje %d, kolonne %d\n"
+"Kunne ikke konvertere %s til tegnsett %s. Konverteringen feilet på tegnet '%"
+"s' på linje %d, kolonne %d\n"
 "\n"
 "Fortsett lagring med UTF-8 som tegnsett?"
 
-#: ../src/document.c:2016
+#: ../src/document.c:2020
 msgid "File encoding conversion failure"
 msgstr "Feil ved konvertering av tegnsett"
 
-#: ../src/document.c:2170
+#: ../src/document.c:2174
 msgid "Previously: "
 msgstr "Tidligere: "
 
-#: ../src/document.c:2643 ../src/file_dialogs.c:819
+#: ../src/document.c:2647 ../src/file_dialogs.c:819
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1307,11 +1307,11 @@ msgstr ""
 "Din glib-versjon (%d.%d.%d) har kjente problemer ved åpning av eksterne "
 "filer Du bør oppgradere til versjon 2.18.0 eller nyere."
 
-#: ../src/document.c:2772
+#: ../src/document.c:2776
 msgid "Unable to open file"
 msgstr "Kunne ikke åpne filen"
 
-#: ../src/document.c:2784
+#: ../src/document.c:2788
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1320,68 +1320,68 @@ msgstr ""
 "Dette tilbakestiller \"%s\" til den sist lagrade versjonen.Du vil miste alle "
 "endringer gjort etter forrige gang du lagret filen."
 
-#: ../src/document.c:2788
+#: ../src/document.c:2792
 msgid "Revert changes to last saved copy?"
 msgstr "Tilbakestill filen til siste lagrede versjon?"
 
-#: ../src/document.c:2856
+#: ../src/document.c:2860
 msgid "_Retry"
 msgstr "P_røv på nytt"
 
-#: ../src/document.c:2856
+#: ../src/document.c:2860
 msgid "Retry _all failed"
 msgstr "Prøv _alle feilede på nytt"
 
-#: ../src/document.c:2856
+#: ../src/document.c:2860
 msgid "Close all _failed"
 msgstr "Lukk alle feilede"
 
-#: ../src/document.c:2861
+#: ../src/document.c:2865
 msgid "File "
 msgstr "Fil "
 
-#: ../src/document.c:2861
+#: ../src/document.c:2865
 msgid " failed to load."
 msgstr " kunne ikke lastes."
 
-#: ../src/document.c:2865
+#: ../src/document.c:2869
 msgid "File failed to load\n"
 msgstr "Filen kunne ikke lastes inn\n"
 
-#: ../src/document.c:2982
+#: ../src/document.c:2986
 msgid "Select file to insert"
 msgstr "Velg en fil"
 
-#: ../src/document.c:2991
+#: ../src/document.c:2995
 msgid "No file to insert"
 msgstr "Du må velge en fil"
 
-#: ../src/document.c:3098
+#: ../src/document.c:3102
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d linje"
 msgstr[1] "%d linjer"
 
-#: ../src/document.c:3099
+#: ../src/document.c:3103
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d ord"
 msgstr[1] "%d ord"
 
-#: ../src/document.c:3100
+#: ../src/document.c:3104
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d tegn"
 msgstr[1] "%d tegn"
 
-#: ../src/document.c:3102
+#: ../src/document.c:3106
 msgid "Selection statistics: "
 msgstr "Statistikk: "
 
-#: ../src/document.c:3102
+#: ../src/document.c:3106
 msgid "Statistics: "
 msgstr "Statistikk: "
 
