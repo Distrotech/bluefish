@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:35+0200\n"
+"POT-Creation-Date: 2012-06-05 22:07+0200\n"
 "PO-Revision-Date: 2006-02-10 23:32+0530\n"
 "Last-Translator: Murugapandian barathee <barathee@gmail.com>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -490,7 +490,7 @@ msgstr "/ஆவணம்/சொற்களின் எண்ணிக்கை
 msgid "Word count"
 msgstr "/ஆவணம்/சொற்களின் எண்ணிக்கை"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
 msgstr ""
 
@@ -721,7 +721,7 @@ msgstr ""
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2860
+#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
 #, fuzzy
 msgid "_Close"
 msgstr "மூடு"
@@ -1489,90 +1489,90 @@ msgstr "கோப்பின் குறியீட்டுமுறை ம�
 msgid "Previously: "
 msgstr "கடந்தமுறை: "
 
-#: ../src/document.c:2647 ../src/file_dialogs.c:819
+#: ../src/document.c:2646 ../src/file_dialogs.c:819
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
 
-#: ../src/document.c:2776
+#: ../src/document.c:2775
 msgid "Unable to open file"
 msgstr "கோப்பினைத் திறக்க இயலவில்லை"
 
-#: ../src/document.c:2788
+#: ../src/document.c:2787
 #, fuzzy, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "இந்தக் கோப்பினை அழித்தால், இது நிரந்தரமாக அழிக்கப்பட்டுவிடும்."
 
-#: ../src/document.c:2792
+#: ../src/document.c:2791
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "\"%s\"ஐ மூடுவதற்கு முன் சேமிக்க வேண்டுமா?"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Choose per _File"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 #, fuzzy
 msgid "File "
 msgstr "கோப்பு #"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:2869
+#: ../src/document.c:2868
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:2986
+#: ../src/document.c:2985
 msgid "Select file to insert"
 msgstr "செருகுவதற்கான கோப்பினைத் தேர்ந்தெடு"
 
-#: ../src/document.c:2995
+#: ../src/document.c:2994
 msgid "No file to insert"
 msgstr "செருகுவதற்கு யாதொரு கோப்புமில்லை"
 
-#: ../src/document.c:3102
+#: ../src/document.c:3101
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/document.c:3103
+#: ../src/document.c:3102
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d - %dக்கு"
 msgstr[1] "%d - %dக்கு"
 
-#: ../src/document.c:3104
+#: ../src/document.c:3103
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "தொடக்கம்:"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 #, fuzzy
 msgid "Statistics: "
 msgstr "தொடக்கம்:"
@@ -1598,6 +1598,31 @@ msgstr ""
 #: ../src/doc_text_tools.c:418
 msgid "Fill empty entries:"
 msgstr ""
+
+#: ../src/doc_extern_tools.c:49
+#, fuzzy
+msgid "Number of paragraphs"
+msgstr "சட்டகங்களின் எண்ணிக்கை _F:"
+
+#: ../src/doc_extern_tools.c:51
+#, fuzzy
+msgid "Number of sentences"
+msgstr "நெடுவரிசைகளின் எண்ணிக்கை_m:"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert plain text"
+msgstr "சித்திரத்தைச் செருகு"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <li>"
+msgstr "தலைகீழ் வடிகட்டி"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <p>"
+msgstr "தலைகீழ் வடிகட்டி"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -4344,10 +4369,6 @@ msgstr ""
 #~ msgstr "தகவல் வகை"
 
 #, fuzzy
-#~ msgid "Insert syntax"
-#~ msgstr "சித்திரத்தைச் செருகு"
-
-#, fuzzy
 #~ msgid "Help"
 #~ msgstr "/_உதவி"
 
@@ -6643,9 +6664,6 @@ msgstr ""
 
 #~ msgid "_Vertical"
 #~ msgstr "குத்துவசம்_V"
-
-#~ msgid "Number of _Frames:"
-#~ msgstr "சட்டகங்களின் எண்ணிக்கை _F:"
 
 #~ msgid "Frame's"
 #~ msgstr "சட்டகங்களுடையது"

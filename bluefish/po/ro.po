@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:35+0200\n"
+"POT-Creation-Date: 2012-06-05 22:07+0200\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Alex Negulescu <alecs@altlinux.org>\n"
 "Language-Team: <ro@li.org>\n"
@@ -486,7 +486,7 @@ msgstr "Optiuni editor"
 msgid "Word count"
 msgstr "Optiuni editor"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
 msgstr ""
 
@@ -710,7 +710,7 @@ msgstr "Text"
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2860
+#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
 msgid "_Close"
 msgstr "In_chide"
 
@@ -1472,18 +1472,18 @@ msgstr "Setare encoding nou esuata"
 msgid "Previously: "
 msgstr "Inainte: "
 
-#: ../src/document.c:2647 ../src/file_dialogs.c:819
+#: ../src/document.c:2646 ../src/file_dialogs.c:819
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
 
-#: ../src/document.c:2776
+#: ../src/document.c:2775
 msgid "Unable to open file"
 msgstr "Fisierul nu poate fi deschis"
 
-#: ../src/document.c:2788
+#: ../src/document.c:2787
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1492,73 +1492,73 @@ msgstr ""
 "Daca restituiti \"%s\" la ultima versiune salvata, modificarile dvs vor fi "
 "pierdute definitiv."
 
-#: ../src/document.c:2792
+#: ../src/document.c:2791
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "Reveniti la ultima versiune salvata?"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "_Retry"
 msgstr "_Reincearca"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 #, fuzzy
 msgid "Retry _all failed"
 msgstr "Reince_arca toate esuate"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Inchide toate esuate"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid "File "
 msgstr "Fisier "
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid " failed to load."
 msgstr " nu a putut fi incarcat."
 
-#: ../src/document.c:2869
+#: ../src/document.c:2868
 msgid "File failed to load\n"
 msgstr "Fisierul nu a putut fi incarcat\n"
 
-#: ../src/document.c:2986
+#: ../src/document.c:2985
 msgid "Select file to insert"
 msgstr "Selectati fisierul spre inserare"
 
-#: ../src/document.c:2995
+#: ../src/document.c:2994
 #, fuzzy
 msgid "No file to insert"
 msgstr "Nu ati ales fisier spre inserare"
 
-#: ../src/document.c:3102
+#: ../src/document.c:3101
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d linie"
 msgstr[1] "%d linii"
 
-#: ../src/document.c:3103
+#: ../src/document.c:3102
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d cuvant"
 msgstr[1] "%d cuvinte"
 
-#: ../src/document.c:3104
+#: ../src/document.c:3103
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caracter"
 msgstr[1] "%d caractere"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "Statistici: "
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 msgid "Statistics: "
 msgstr "Statistici: "
 
@@ -1583,6 +1583,31 @@ msgstr ""
 #: ../src/doc_text_tools.c:418
 msgid "Fill empty entries:"
 msgstr ""
+
+#: ../src/doc_extern_tools.c:49
+#, fuzzy
+msgid "Number of paragraphs"
+msgstr "Numar frameuri"
+
+#: ../src/doc_extern_tools.c:51
+#, fuzzy
+msgid "Number of sentences"
+msgstr "Numar linii"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert plain text"
+msgstr "Introdu imagine"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <li>"
+msgstr "Introdu timp..."
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <p>"
+msgstr "Introdu timp..."
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -4091,10 +4116,6 @@ msgstr ""
 #~ msgstr "Valoare"
 
 #, fuzzy
-#~ msgid "Insert syntax"
-#~ msgstr "Introdu imagine"
-
-#, fuzzy
 #~ msgid "Properties"
 #~ msgstr "/_Proiect"
 
@@ -6154,10 +6175,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "_Vertical"
 #~ msgstr "Vertical"
-
-#, fuzzy
-#~ msgid "Number of _Frames:"
-#~ msgstr "Numar frameuri"
 
 #, fuzzy
 #~ msgid "Frame's"

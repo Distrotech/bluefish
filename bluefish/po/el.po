@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:35+0200\n"
+"POT-Creation-Date: 2012-06-05 22:07+0200\n"
 "PO-Revision-Date: 2004-12-09 12:11+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: no team\n"
@@ -486,7 +486,7 @@ msgstr "/Επεξεργασία/Αποκοπή"
 msgid "Word count"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
 msgstr ""
 
@@ -710,7 +710,7 @@ msgstr ""
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2860
+#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
 #, fuzzy
 msgid "_Close"
 msgstr "Κλείσιμο"
@@ -1460,91 +1460,91 @@ msgstr ""
 msgid "Previously: "
 msgstr ""
 
-#: ../src/document.c:2647 ../src/file_dialogs.c:819
+#: ../src/document.c:2646 ../src/file_dialogs.c:819
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
 
-#: ../src/document.c:2776
+#: ../src/document.c:2775
 msgid "Unable to open file"
 msgstr "Δεν είναι δυνατή η προσπέλαση του αρχείου"
 
-#: ../src/document.c:2788
+#: ../src/document.c:2787
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr ""
 
-#: ../src/document.c:2792
+#: ../src/document.c:2791
 msgid "Revert changes to last saved copy?"
 msgstr ""
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 #, fuzzy
 msgid "File "
 msgstr "/_Αρχεία"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:2869
+#: ../src/document.c:2868
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:2986
+#: ../src/document.c:2985
 #, fuzzy
 msgid "Select file to insert"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/document.c:2995
+#: ../src/document.c:2994
 #, fuzzy
 msgid "No file to insert"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/document.c:3102
+#: ../src/document.c:3101
 #, fuzzy, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "Πήγαινε στη γραμμή"
 msgstr[1] "Πήγαινε στη γραμμή"
 
-#: ../src/document.c:3103
+#: ../src/document.c:3102
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d από %d"
 msgstr[1] "%d από %d"
 
-#: ../src/document.c:3104
+#: ../src/document.c:3103
 #, fuzzy, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "Προεπιλεγμένο σετ χαρακτήρων"
 msgstr[1] "Προεπιλεγμένο σετ χαρακτήρων"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "Εύρεση"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 #, fuzzy
 msgid "Statistics: "
 msgstr "Εύρεση"
@@ -1570,6 +1570,31 @@ msgstr ""
 #: ../src/doc_text_tools.c:418
 msgid "Fill empty entries:"
 msgstr ""
+
+#: ../src/doc_extern_tools.c:49
+#, fuzzy
+msgid "Number of paragraphs"
+msgstr "Αριθμός των _Πλαισίων:"
+
+#: ../src/doc_extern_tools.c:51
+#, fuzzy
+msgid "Number of sentences"
+msgstr "Αριθμός των _στηλών:"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert plain text"
+msgstr "Εισαγωγή εικόνας"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <li>"
+msgstr "Εισαγωγή Ώρας"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <p>"
+msgstr "Εισαγωγή Ώρας"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -4062,10 +4087,6 @@ msgstr ""
 #~ msgstr "Τιμή"
 
 #, fuzzy
-#~ msgid "Insert syntax"
-#~ msgstr "Εισαγωγή εικόνας"
-
-#, fuzzy
 #~ msgid "Properties"
 #~ msgstr "Ιδιότητα"
 
@@ -6363,9 +6384,6 @@ msgstr ""
 
 #~ msgid "_Vertical"
 #~ msgstr "_Κάθετα"
-
-#~ msgid "Number of _Frames:"
-#~ msgstr "Αριθμός των _Πλαισίων:"
 
 #, fuzzy
 #~ msgid "Frame's"

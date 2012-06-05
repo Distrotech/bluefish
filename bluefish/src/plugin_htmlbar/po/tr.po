@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:36+0200\n"
+"POT-Creation-Date: 2012-06-05 21:47+0200\n"
 "PO-Revision-Date: 2005-04-11 22:07+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -91,7 +91,7 @@ msgstr "Etiketi değiştir"
 msgid "Htmlbar"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar.c:261
+#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
 msgstr ""
 
@@ -2425,6 +2425,64 @@ msgstr "Kaynak:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Boyut:"
+
+#: src/plugin_htmlbar/prefs.c:66
+#, fuzzy
+msgid "<b>HTML Toolbar</b>"
+msgstr "/Görünüm/_Ana Araç Çubuğunu Göster"
+
+#: src/plugin_htmlbar/prefs.c:69
+#, fuzzy
+msgid "Show toolbar in sidepanel"
+msgstr "Ana araç çubuğunu göster"
+
+#: src/plugin_htmlbar/prefs.c:70
+#, fuzzy
+msgid "Keep HTML dialogs always on top"
+msgstr "HTML araçlarını geçici yap"
+
+#: src/plugin_htmlbar/prefs.c:75
+#, fuzzy
+msgid "<b>HTML options</b>"
+msgstr "HTML seçenekleri"
+
+#: src/plugin_htmlbar/prefs.c:79
+#, fuzzy
+msgid "Use _XHTML style tags (<br />)"
+msgstr "XHTML stil etiketlerini kullan (<br />)"
+
+#: src/plugin_htmlbar/prefs.c:81
+#, fuzzy
+msgid "Use lo_wercase HTML tags"
+msgstr "HTML etiketlerini küçük harfe çevir"
+
+#: src/plugin_htmlbar/prefs.c:83
+#, fuzzy
+msgid "Use de_precated tags (e.g. <font> and <nobr>)"
+msgstr "Eskimiş etiketleri kullan (örn. '<font>' ve '<nobr>')"
+
+#: src/plugin_htmlbar/prefs.c:87
+msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:92
+msgid "<b>Auto Update Tag Options</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:96
+#, fuzzy
+msgid "Automatically update a_uthor meta tag"
+msgstr "Yazar meta etiketini otomatik olarak güncelle"
+
+#: src/plugin_htmlbar/prefs.c:99
+#, fuzzy
+msgid "Automatically update _date meta tag"
+msgstr "Yazar meta etiketini otomatik olarak güncelle"
+
+#: src/plugin_htmlbar/prefs.c:102
+#, fuzzy
+msgid "Automatically update _generator meta tag"
+msgstr "Yazar meta etiketini otomatik olarak güncelle"
 
 #, fuzzy
 #~ msgid "_Update"
@@ -5247,21 +5305,6 @@ msgstr "Boyut:"
 #~ msgid "Bookmarks filename display"
 #~ msgstr "Yerimi tanımı"
 
-#~ msgid "HTML options"
-#~ msgstr "HTML seçenekleri"
-
-#~ msgid "Lowercase HTML tags"
-#~ msgstr "HTML etiketlerini küçük harfe çevir"
-
-#~ msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-#~ msgstr "Eskimiş etiketleri kullan (örn. '<font>' ve '<nobr>')"
-
-#~ msgid "Use XHTML style tags (<br />)"
-#~ msgstr "XHTML stil etiketlerini kullan (<br />)"
-
-#~ msgid "Automatic update author meta"
-#~ msgstr "Yazar meta etiketini otomatik olarak güncelle"
-
 #~ msgid "Files"
 #~ msgstr "Dosyalar"
 
@@ -5339,10 +5382,6 @@ msgstr "Boyut:"
 
 #~ msgid "Initial window width"
 #~ msgstr "Pencere genişliği"
-
-#, fuzzy
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "HTML araçlarını geçici yap"
 
 #~ msgid "External browsers in submenu"
 #~ msgstr "Harici tarayıcıları alt menüde topla"
@@ -5650,9 +5689,6 @@ msgstr "Boyut:"
 
 #~ msgid "Could not view file in browser, the file does not yet have a name\n"
 #~ msgstr "Tarayıcıda gösterilemiyor, dosya henüz kaydedilmemiş.\n"
-
-#~ msgid "Show main toolbar by default"
-#~ msgstr "Ana araç çubuğunu göster"
 
 #~ msgid "Show sidebar by default"
 #~ msgstr "Kenar panelini göster"

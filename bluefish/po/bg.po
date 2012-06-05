@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:35+0200\n"
+"POT-Creation-Date: 2012-06-05 22:07+0200\n"
 "PO-Revision-Date: 2003-12-09 11:07+0200\n"
 "Last-Translator: Peio Popov <peio@peio.org>\n"
 "Language-Team: Not a member <bg@li.org>\n"
@@ -487,7 +487,7 @@ msgstr "/Документ/Брой думи"
 msgid "Word count"
 msgstr "/Документ/Брой думи"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
 msgstr ""
 
@@ -712,7 +712,7 @@ msgstr ""
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2860
+#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
 #, fuzzy
 msgid "_Close"
 msgstr "Затваряне"
@@ -1480,90 +1480,90 @@ msgstr "Неуспех при преобразуването на кодиров
 msgid "Previously: "
 msgstr "Предишно: "
 
-#: ../src/document.c:2647 ../src/file_dialogs.c:819
+#: ../src/document.c:2646 ../src/file_dialogs.c:819
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
 
-#: ../src/document.c:2776
+#: ../src/document.c:2775
 msgid "Unable to open file"
 msgstr "Не може да отвори"
 
-#: ../src/document.c:2788
+#: ../src/document.c:2787
 #, fuzzy, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "Файлът ще бъде изтрит завинаги."
 
-#: ../src/document.c:2792
+#: ../src/document.c:2791
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "Искате ли да запазите промените направени в този файл?"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Запазването на файла прекратено.\n"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 #, fuzzy
 msgid "File "
 msgstr "Файл #"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:2869
+#: ../src/document.c:2868
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:2986
+#: ../src/document.c:2985
 msgid "Select file to insert"
 msgstr "Изберете файл да включите"
 
-#: ../src/document.c:2995
+#: ../src/document.c:2994
 msgid "No file to insert"
 msgstr "Липсва файл за вмъкване"
 
-#: ../src/document.c:3102
+#: ../src/document.c:3101
 #, fuzzy, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "Отиди на ред..."
 msgstr[1] "Отиди на ред..."
 
-#: ../src/document.c:3103
+#: ../src/document.c:3102
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d от %d"
 msgstr[1] "%d от %d"
 
-#: ../src/document.c:3104
+#: ../src/document.c:3103
 #, fuzzy, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "Предпочитана кодова таблица"
 msgstr[1] "Предпочитана кодова таблица"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "Започва на:"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 #, fuzzy
 msgid "Statistics: "
 msgstr "Започва на:"
@@ -1589,6 +1589,31 @@ msgstr ""
 #: ../src/doc_text_tools.c:418
 msgid "Fill empty entries:"
 msgstr ""
+
+#: ../src/doc_extern_tools.c:49
+#, fuzzy
+msgid "Number of paragraphs"
+msgstr "Брой рамки:"
+
+#: ../src/doc_extern_tools.c:51
+#, fuzzy
+msgid "Number of sentences"
+msgstr "Брой колони:"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert plain text"
+msgstr "Вмъкване на изображение"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <li>"
+msgstr "Добави време"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <p>"
+msgstr "Добави време"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -4450,10 +4475,6 @@ msgstr ""
 #~ msgstr "Стойност"
 
 #, fuzzy
-#~ msgid "Insert syntax"
-#~ msgstr "Вмъкване на изображение"
-
-#, fuzzy
 #~ msgid "Help"
 #~ msgstr "/П_омощ"
 
@@ -6741,9 +6762,6 @@ msgstr ""
 
 #~ msgid "_Vertical"
 #~ msgstr "Вертикална"
-
-#~ msgid "Number of _Frames:"
-#~ msgstr "Брой рамки:"
 
 #~ msgid "Frame's"
 #~ msgstr "На рамката"
