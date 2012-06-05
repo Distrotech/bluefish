@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:36+0200\n"
+"POT-Creation-Date: 2012-06-05 21:47+0200\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Unknown <unk@unk.org>\n"
 "Language-Team: no team <LL@li.org>\n"
@@ -88,7 +88,7 @@ msgstr "Editeaza tintele"
 msgid "Htmlbar"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar.c:261
+#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
 msgstr ""
 
@@ -2495,6 +2495,58 @@ msgstr "Sursa"
 msgid "Size:"
 msgstr "Marime"
 
+#: src/plugin_htmlbar/prefs.c:66
+#, fuzzy
+msgid "<b>HTML Toolbar</b>"
+msgstr "Editeaza meniu"
+
+#: src/plugin_htmlbar/prefs.c:69
+#, fuzzy
+msgid "Show toolbar in sidepanel"
+msgstr "Numarul liniei:"
+
+#: src/plugin_htmlbar/prefs.c:70
+#, fuzzy
+msgid "Keep HTML dialogs always on top"
+msgstr "Dialog imagine"
+
+#: src/plugin_htmlbar/prefs.c:75
+#, fuzzy
+msgid "<b>HTML options</b>"
+msgstr "Principalele optiuni ale interfetei grafice"
+
+#: src/plugin_htmlbar/prefs.c:79
+msgid "Use _XHTML style tags (<br />)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:81
+msgid "Use lo_wercase HTML tags"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:83
+msgid "Use de_precated tags (e.g. <font> and <nobr>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:87
+msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:92
+msgid "<b>Auto Update Tag Options</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:96
+msgid "Automatically update a_uthor meta tag"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:99
+msgid "Automatically update _date meta tag"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:102
+msgid "Automatically update _generator meta tag"
+msgstr ""
+
 #, fuzzy
 #~ msgid "_Update"
 #~ msgstr " Actualizeaza "
@@ -4642,10 +4694,6 @@ msgstr "Marime"
 #~ msgstr "Numele fisierului este necunoscut"
 
 #, fuzzy
-#~ msgid "HTML options"
-#~ msgstr "Principalele optiuni ale interfetei grafice"
-
-#, fuzzy
 #~ msgid "Files"
 #~ msgstr "/_Fisier"
 
@@ -4688,10 +4736,6 @@ msgstr "Marime"
 #, fuzzy
 #~ msgid "Initial window width"
 #~ msgstr "Lungimea initiala"
-
-#, fuzzy
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "Dialog imagine"
 
 #, fuzzy
 #~ msgid "External browsers in submenu"
@@ -4947,10 +4991,6 @@ msgstr "Marime"
 #, fuzzy
 #~ msgid "Could not open file\n"
 #~ msgstr "Fisierul nu a putut fi deschis :\n"
-
-#, fuzzy
-#~ msgid "Show main toolbar by default"
-#~ msgstr "Numarul liniei:"
 
 #, fuzzy
 #~ msgid "Show sidebar by default"

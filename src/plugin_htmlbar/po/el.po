@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:36+0200\n"
+"POT-Creation-Date: 2012-06-05 21:47+0200\n"
 "PO-Revision-Date: 2004-12-09 12:11+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: no team\n"
@@ -80,7 +80,7 @@ msgstr "Επιξεργασία ετικέτας"
 msgid "Htmlbar"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar.c:261
+#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
 msgstr ""
 
@@ -2454,6 +2454,59 @@ msgstr "Πηγή:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Μέγεθος:"
+
+#: src/plugin_htmlbar/prefs.c:66
+#, fuzzy
+msgid "<b>HTML Toolbar</b>"
+msgstr "/Επιλογές/Προβολή κύριας γραμμής εργαλείων"
+
+#: src/plugin_htmlbar/prefs.c:69
+#, fuzzy
+msgid "Show toolbar in sidepanel"
+msgstr "Αριθμός γραμμής: "
+
+#: src/plugin_htmlbar/prefs.c:70
+#, fuzzy
+msgid "Keep HTML dialogs always on top"
+msgstr "Διάλογος εικόνων"
+
+#: src/plugin_htmlbar/prefs.c:75
+#, fuzzy
+msgid "<b>HTML options</b>"
+msgstr "Ρυθμίσεις HTML"
+
+#: src/plugin_htmlbar/prefs.c:79
+#, fuzzy
+msgid "Use _XHTML style tags (<br />)"
+msgstr "Χρήση XHTML σύνταξης (όπως <br />)"
+
+#: src/plugin_htmlbar/prefs.c:81
+msgid "Use lo_wercase HTML tags"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:83
+msgid "Use de_precated tags (e.g. <font> and <nobr>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:87
+msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:92
+msgid "<b>Auto Update Tag Options</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:96
+msgid "Automatically update a_uthor meta tag"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:99
+msgid "Automatically update _date meta tag"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:102
+msgid "Automatically update _generator meta tag"
+msgstr ""
 
 #, fuzzy
 #~ msgid "_Special"
@@ -4879,13 +4932,6 @@ msgstr "Μέγεθος:"
 #~ msgid "filename"
 #~ msgstr "όνομα αρχείου"
 
-#~ msgid "HTML options"
-#~ msgstr "Ρυθμίσεις HTML"
-
-#, fuzzy
-#~ msgid "Use XHTML style tags (<br />)"
-#~ msgstr "Χρήση XHTML σύνταξης (όπως <br />)"
-
 #~ msgid "Files"
 #~ msgstr "Αρχεία"
 
@@ -4942,10 +4988,6 @@ msgstr "Μέγεθος:"
 #, fuzzy
 #~ msgid "Initial window width"
 #~ msgstr "Αρχικό πλάτος"
-
-#, fuzzy
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "Διάλογος εικόνων"
 
 #, fuzzy
 #~ msgid "External browsers in submenu"
@@ -5268,10 +5310,6 @@ msgstr "Μέγεθος:"
 #, fuzzy
 #~ msgid "Could not open file\n"
 #~ msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
-
-#, fuzzy
-#~ msgid "Show main toolbar by default"
-#~ msgstr "Αριθμός γραμμής: "
 
 #, fuzzy
 #~ msgid "Show sidebar by default"

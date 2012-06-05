@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:36+0200\n"
+"POT-Creation-Date: 2012-06-05 21:47+0200\n"
 "PO-Revision-Date: 2005-01-19 11:34+0800\n"
 "Last-Translator: OLS3 <ols3@lxer.idv.tw>\n"
 "Language-Team: zh_TW <i18n-translation@b2d.org.tw>\n"
@@ -76,7 +76,7 @@ msgstr "編輯標記"
 msgid "Htmlbar"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar.c:261
+#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
 msgstr ""
 
@@ -2414,6 +2414,64 @@ msgstr "原始碼:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "大小:"
+
+#: src/plugin_htmlbar/prefs.c:66
+#, fuzzy
+msgid "<b>HTML Toolbar</b>"
+msgstr "/檢視(V)/檢視主工作列(_M)"
+
+#: src/plugin_htmlbar/prefs.c:69
+#, fuzzy
+msgid "Show toolbar in sidepanel"
+msgstr "預設顯示主要工作列"
+
+#: src/plugin_htmlbar/prefs.c:70
+#, fuzzy
+msgid "Keep HTML dialogs always on top"
+msgstr "產生臨時 HTML 對話盒"
+
+#: src/plugin_htmlbar/prefs.c:75
+#, fuzzy
+msgid "<b>HTML options</b>"
+msgstr "HTML 選項"
+
+#: src/plugin_htmlbar/prefs.c:79
+#, fuzzy
+msgid "Use _XHTML style tags (<br />)"
+msgstr "使用 XHTML 樣式標記 (<br />)"
+
+#: src/plugin_htmlbar/prefs.c:81
+#, fuzzy
+msgid "Use lo_wercase HTML tags"
+msgstr "HTML 標記小寫"
+
+#: src/plugin_htmlbar/prefs.c:83
+#, fuzzy
+msgid "Use de_precated tags (e.g. <font> and <nobr>)"
+msgstr "使用棄用的標記 (例如 <font> 和 <nobr>)"
+
+#: src/plugin_htmlbar/prefs.c:87
+msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:92
+msgid "<b>Auto Update Tag Options</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:96
+#, fuzzy
+msgid "Automatically update a_uthor meta tag"
+msgstr "自動更新作者 meta 標記"
+
+#: src/plugin_htmlbar/prefs.c:99
+#, fuzzy
+msgid "Automatically update _date meta tag"
+msgstr "自動更新作者 meta 標記"
+
+#: src/plugin_htmlbar/prefs.c:102
+#, fuzzy
+msgid "Automatically update _generator meta tag"
+msgstr "自動更新作者 meta 標記"
 
 #, fuzzy
 #~ msgid "_Update"
@@ -5199,21 +5257,6 @@ msgstr "大小:"
 #~ msgid "Bookmarks filename display"
 #~ msgstr "顯示書籤檔名"
 
-#~ msgid "HTML options"
-#~ msgstr "HTML 選項"
-
-#~ msgid "Lowercase HTML tags"
-#~ msgstr "HTML 標記小寫"
-
-#~ msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-#~ msgstr "使用棄用的標記 (例如 <font> 和 <nobr>)"
-
-#~ msgid "Use XHTML style tags (<br />)"
-#~ msgstr "使用 XHTML 樣式標記 (<br />)"
-
-#~ msgid "Automatic update author meta"
-#~ msgstr "自動更新作者 meta 標記"
-
 #~ msgid "Files"
 #~ msgstr "檔案"
 
@@ -5291,9 +5334,6 @@ msgstr "大小:"
 
 #~ msgid "Initial window width"
 #~ msgstr "初始化視窗寬度"
-
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "產生臨時 HTML 對話盒"
 
 #~ msgid "External browsers in submenu"
 #~ msgstr "在子選單中的外部瀏覽器"
@@ -5653,9 +5693,6 @@ msgstr "大小:"
 
 #~ msgid "These files were not opened:\n"
 #~ msgstr "這些檔案沒有被開啟:\n"
-
-#~ msgid "Show main toolbar by default"
-#~ msgstr "預設顯示主要工作列"
 
 #~ msgid "Show sidebar by default"
 #~ msgstr "預設顯示邊列"

@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-02 09:39+0200\n"
+"POT-Creation-Date: 2012-06-05 22:07+0200\n"
 "PO-Revision-Date: 2012-06-05 11:45+0200\n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
@@ -417,7 +417,7 @@ msgstr "Compter les _mots"
 msgid "Word count"
 msgstr "Compter les mots"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
 msgstr "Générateur Lorem Ipsum"
 
@@ -609,7 +609,7 @@ msgstr "_Justifier"
 msgid "Wrap text"
 msgstr "Justifier"
 
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2860
+#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
 msgid "_Close"
 msgstr "_Fermer"
 
@@ -1264,7 +1264,8 @@ msgstr "Inconnu"
 
 #: ../src/document.c:1671
 msgid "Cannot display file, unknown characters found."
-msgstr "Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
+msgstr ""
+"Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
 
 #: ../src/document.c:1858
 msgid "Exit fullscreen"
@@ -1302,7 +1303,7 @@ msgstr "Échec de la conversion d'encodage du fichier"
 msgid "Previously: "
 msgstr "Précédemment : "
 
-#: ../src/document.c:2647 ../src/file_dialogs.c:819
+#: ../src/document.c:2646 ../src/file_dialogs.c:819
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1311,11 +1312,11 @@ msgstr ""
 "Votre version de glib (%d.%d.%d) ne permet pas la connection à des fichiers "
 "distants. Veuillez  mettre à jour, version 2.18.0 ou plus récente."
 
-#: ../src/document.c:2776
+#: ../src/document.c:2775
 msgid "Unable to open file"
 msgstr "Impossible d'ouvrir le fichier"
 
-#: ../src/document.c:2788
+#: ../src/document.c:2787
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1324,68 +1325,68 @@ msgstr ""
 "Si vous ramenez \"%s\" à la dernière copie sauvegardée, vous perdrez "
 "définitivement les modifications en cours."
 
-#: ../src/document.c:2792
+#: ../src/document.c:2791
 msgid "Revert changes to last saved copy?"
 msgstr "Supprimer les modifications et revenir à la dernière sauvegarde ?"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "_Retry"
 msgstr "_Réessayer"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Retry _all failed"
 msgstr "Échec de _Tout réessayer"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Close all _failed"
 msgstr "Échec de Tout _fermer"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid "File "
 msgstr "Le fichier "
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid " failed to load."
 msgstr " n'a pas pu être chargé."
 
-#: ../src/document.c:2869
+#: ../src/document.c:2868
 msgid "File failed to load\n"
 msgstr "Le fichier n'a pas pu être chargé\n"
 
-#: ../src/document.c:2986
+#: ../src/document.c:2985
 msgid "Select file to insert"
 msgstr "Sélectionner le fichier à insérer"
 
-#: ../src/document.c:2995
+#: ../src/document.c:2994
 msgid "No file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:3102
+#: ../src/document.c:3101
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d ligne"
 msgstr[1] "%d lignes"
 
-#: ../src/document.c:3103
+#: ../src/document.c:3102
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d mot"
 msgstr[1] "%d mots"
 
-#: ../src/document.c:3104
+#: ../src/document.c:3103
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caractère"
 msgstr[1] "%d caractères"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 msgid "Selection statistics: "
 msgstr "Dans la sélection : "
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 msgid "Statistics: "
 msgstr "Dans le document : "
 
@@ -1408,6 +1409,30 @@ msgstr "Séparateur de colonnes :"
 #: ../src/doc_text_tools.c:418
 msgid "Fill empty entries:"
 msgstr "Remplir les entrées vides :"
+
+#: ../src/doc_extern_tools.c:49
+msgid "Number of paragraphs"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:51
+#, fuzzy
+msgid "Number of sentences"
+msgstr "Nombre de colonnes :"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert plain text"
+msgstr "Insérer un fichier"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <li>"
+msgstr "Insérer un fichier"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <p>"
+msgstr "Insérer un fichier"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -2238,7 +2263,6 @@ msgstr "Navigateur par défaut"
 msgid "Update defaults"
 msgstr "Paramètres par défaut"
 
-
 #: ../src/preferences.c:1060 ../src/preferences.c:1214
 #: ../src/preferences.c:1407
 msgid "Reset all"
@@ -2644,7 +2668,8 @@ msgstr "Vérifier périodiquement si le fichier est modifié sur le disque"
 
 #: ../src/preferences.c:2353
 msgid "File properties to check on dis_k for modifications:"
-msgstr "Propriétés du fichier à vérifier sur le disque pour les modifications :"
+msgstr ""
+"Propriétés du fichier à vérifier sur le disque pour les modifications :"
 
 #: ../src/preferences.c:2363
 msgid "Backup & Recovery"

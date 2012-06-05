@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:35+0200\n"
+"POT-Creation-Date: 2012-06-05 22:07+0200\n"
 "PO-Revision-Date: 2012-02-11 19:11+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: magyar <hu@li.org>\n"
@@ -417,7 +417,7 @@ msgstr "Sza_vak száma"
 msgid "Word count"
 msgstr "Szavak száma"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
 msgstr ""
 
@@ -611,7 +611,7 @@ msgstr "Szöveg tör_delése"
 msgid "Wrap text"
 msgstr "Szöveg tördelése"
 
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2860
+#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
 msgid "_Close"
 msgstr "Be_zárás"
 
@@ -1306,7 +1306,7 @@ msgstr "Hiba a fájl átkódolása közben"
 msgid "Previously: "
 msgstr "Előzőleg: "
 
-#: ../src/document.c:2647 ../src/file_dialogs.c:819
+#: ../src/document.c:2646 ../src/file_dialogs.c:819
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1315,11 +1315,11 @@ msgstr ""
 "A glib verziója (%d.%d.%d) megbízhatatlanul működik távoli fájlokkal. Kérem, "
 "frissítse a 2.18.0, vagy újabb verzióra!"
 
-#: ../src/document.c:2776
+#: ../src/document.c:2775
 msgid "Unable to open file"
 msgstr "Nem lehet megnyitni a fájlt"
 
-#: ../src/document.c:2788
+#: ../src/document.c:2787
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1328,68 +1328,68 @@ msgstr ""
 "Ha „%s” fájlt visszaállítja az utoljára elmentett állapotra, akkor az összes "
 "jelenlegi módosítás azonnal elvész."
 
-#: ../src/document.c:2792
+#: ../src/document.c:2791
 msgid "Revert changes to last saved copy?"
 msgstr "Visszaállítja az utoljára mentett változatra?"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "_Retry"
 msgstr "Új_rapróbál"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Retry _all failed"
 msgstr "_Az összes sikertelen újrapróbálása"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Close all _failed"
 msgstr "Az összes sikertelen be_zárása"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid "File "
 msgstr "Fájl "
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid " failed to load."
 msgstr " betöltése meghiúsult."
 
-#: ../src/document.c:2869
+#: ../src/document.c:2868
 msgid "File failed to load\n"
 msgstr "A fájl betöltése meghiúsult\n"
 
-#: ../src/document.c:2986
+#: ../src/document.c:2985
 msgid "Select file to insert"
 msgstr "Válassza ki a beillesztendő fájlt"
 
-#: ../src/document.c:2995
+#: ../src/document.c:2994
 msgid "No file to insert"
 msgstr "Nincs beilleszthető fájl"
 
-#: ../src/document.c:3102
+#: ../src/document.c:3101
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d sor"
 msgstr[1] "%d sor"
 
-#: ../src/document.c:3103
+#: ../src/document.c:3102
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d szó"
 msgstr[1] "%d szó"
 
-#: ../src/document.c:3104
+#: ../src/document.c:3103
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d karakter"
 msgstr[1] "%d karakter"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 msgid "Selection statistics: "
 msgstr "Kijelölés statisztikája: "
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 msgid "Statistics: "
 msgstr "Statisztika: "
 
@@ -1412,6 +1412,30 @@ msgstr "Mezőelválasztó:"
 #: ../src/doc_text_tools.c:418
 msgid "Fill empty entries:"
 msgstr "Üres bejegyzések kitöltése"
+
+#: ../src/doc_extern_tools.c:49
+msgid "Number of paragraphs"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:51
+#, fuzzy
+msgid "Number of sentences"
+msgstr "Oszlopok száma:"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert plain text"
+msgstr "Fájl beszúrása"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <li>"
+msgstr "Fájl beszúrása"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <p>"
+msgstr "Fájl beszúrása"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"

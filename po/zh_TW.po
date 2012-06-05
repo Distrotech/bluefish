@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:35+0200\n"
+"POT-Creation-Date: 2012-06-05 22:07+0200\n"
 "PO-Revision-Date: 2005-01-19 11:34+0800\n"
 "Last-Translator: OLS3 <ols3@lxer.idv.tw>\n"
 "Language-Team: zh_TW <i18n-translation@b2d.org.tw>\n"
@@ -481,7 +481,7 @@ msgstr "/文件(D)/字數統計(_C)"
 msgid "Word count"
 msgstr "/文件(D)/字數統計(_C)"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
 msgstr ""
 
@@ -712,7 +712,7 @@ msgstr ""
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2860
+#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
 #, fuzzy
 msgid "_Close"
 msgstr "關閉"
@@ -1477,90 +1477,90 @@ msgstr "檔案編碼轉換失敗"
 msgid "Previously: "
 msgstr "前一個: "
 
-#: ../src/document.c:2647 ../src/file_dialogs.c:819
+#: ../src/document.c:2646 ../src/file_dialogs.c:819
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
 
-#: ../src/document.c:2776
+#: ../src/document.c:2775
 msgid "Unable to open file"
 msgstr "無法開啟檔案"
 
-#: ../src/document.c:2788
+#: ../src/document.c:2787
 #, fuzzy, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "如果您刪除這個檔案, 它將會永久消失."
 
-#: ../src/document.c:2792
+#: ../src/document.c:2791
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "關閉前要儲存 \"%s\" 嗎?."
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 #, fuzzy
 msgid "Close all _failed"
 msgstr "檔案儲存中斷.\n"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 #, fuzzy
 msgid "File "
 msgstr "檔案 #"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:2869
+#: ../src/document.c:2868
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:2986
+#: ../src/document.c:2985
 msgid "Select file to insert"
 msgstr "選擇要插入的檔案"
 
-#: ../src/document.c:2995
+#: ../src/document.c:2994
 msgid "No file to insert"
 msgstr "沒有要插入的檔案"
 
-#: ../src/document.c:3102
+#: ../src/document.c:3101
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/document.c:3103
+#: ../src/document.c:3102
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d 的 %d"
 msgstr[1] "%d 的 %d"
 
-#: ../src/document.c:3104
+#: ../src/document.c:3103
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "開始於:"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 #, fuzzy
 msgid "Statistics: "
 msgstr "開始於:"
@@ -1586,6 +1586,31 @@ msgstr ""
 #: ../src/doc_text_tools.c:418
 msgid "Fill empty entries:"
 msgstr ""
+
+#: ../src/doc_extern_tools.c:49
+#, fuzzy
+msgid "Number of paragraphs"
+msgstr "變數個數(_V):"
+
+#: ../src/doc_extern_tools.c:51
+#, fuzzy
+msgid "Number of sentences"
+msgstr "欄數(_M):"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert plain text"
+msgstr "插入圖像"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <li>"
+msgstr "插入時間"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <p>"
+msgstr "插入時間"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -4361,10 +4386,6 @@ msgstr ""
 #~ msgstr "值"
 
 #, fuzzy
-#~ msgid "Insert syntax"
-#~ msgstr "插入圖像"
-
-#, fuzzy
 #~ msgid "Help"
 #~ msgstr "/求助(_H)"
 
@@ -4564,9 +4585,6 @@ msgstr ""
 
 #~ msgid "Menu path"
 #~ msgstr "選單路徑"
-
-#~ msgid "Number of _Variables:"
-#~ msgstr "變數個數(_V):"
 
 #~ msgid "Variables"
 #~ msgstr "變數"

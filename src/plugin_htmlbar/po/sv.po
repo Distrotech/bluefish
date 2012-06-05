@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:36+0200\n"
+"POT-Creation-Date: 2012-06-05 21:47+0200\n"
 "PO-Revision-Date: 2004-11-27 21:02+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -80,7 +80,7 @@ msgstr "Redigera tagg"
 msgid "Htmlbar"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar.c:261
+#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
 msgstr ""
 
@@ -2418,6 +2418,64 @@ msgstr "Källkod:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Storlek:"
+
+#: src/plugin_htmlbar/prefs.c:66
+#, fuzzy
+msgid "<b>HTML Toolbar</b>"
+msgstr "/Visa/Visa HTML-verktygsraden"
+
+#: src/plugin_htmlbar/prefs.c:69
+#, fuzzy
+msgid "Show toolbar in sidepanel"
+msgstr "Visa huvudverktygsrad som standard"
+
+#: src/plugin_htmlbar/prefs.c:70
+#, fuzzy
+msgid "Keep HTML dialogs always on top"
+msgstr "Gör HTML-dialoger kortvariga"
+
+#: src/plugin_htmlbar/prefs.c:75
+#, fuzzy
+msgid "<b>HTML options</b>"
+msgstr "HTML-alternativ"
+
+#: src/plugin_htmlbar/prefs.c:79
+#, fuzzy
+msgid "Use _XHTML style tags (<br />)"
+msgstr "Använd XHTML-syntax (såsom <br />)"
+
+#: src/plugin_htmlbar/prefs.c:81
+#, fuzzy
+msgid "Use lo_wercase HTML tags"
+msgstr "HTML-taggar som gemener"
+
+#: src/plugin_htmlbar/prefs.c:83
+#, fuzzy
+msgid "Use de_precated tags (e.g. <font> and <nobr>)"
+msgstr "Använd gamla taggar (exempelvis <font> och <nobr>)"
+
+#: src/plugin_htmlbar/prefs.c:87
+msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:92
+msgid "<b>Auto Update Tag Options</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:96
+#, fuzzy
+msgid "Automatically update a_uthor meta tag"
+msgstr "Uppdatera automatiskt META-taggen \"author\""
+
+#: src/plugin_htmlbar/prefs.c:99
+#, fuzzy
+msgid "Automatically update _date meta tag"
+msgstr "Uppdatera automatiskt META-taggen \"author\""
+
+#: src/plugin_htmlbar/prefs.c:102
+#, fuzzy
+msgid "Automatically update _generator meta tag"
+msgstr "Uppdatera automatiskt META-taggen \"author\""
 
 #, fuzzy
 #~ msgid "_Update"
@@ -5159,21 +5217,6 @@ msgstr "Storlek:"
 #~ msgid "Bookmarks filename display"
 #~ msgstr "Bokmärkens filnamnsvisning"
 
-#~ msgid "HTML options"
-#~ msgstr "HTML-alternativ"
-
-#~ msgid "Lowercase HTML tags"
-#~ msgstr "HTML-taggar som gemener"
-
-#~ msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-#~ msgstr "Använd gamla taggar (exempelvis <font> och <nobr>)"
-
-#~ msgid "Use XHTML style tags (<br />)"
-#~ msgstr "Använd XHTML-syntax (såsom <br />)"
-
-#~ msgid "Automatic update author meta"
-#~ msgstr "Uppdatera automatiskt META-taggen \"author\""
-
 #~ msgid "Files"
 #~ msgstr "Filer"
 
@@ -5251,9 +5294,6 @@ msgstr "Storlek:"
 
 #~ msgid "Initial window width"
 #~ msgstr "Initial fönsterbredd"
-
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "Gör HTML-dialoger kortvariga"
 
 #~ msgid "External browsers in submenu"
 #~ msgstr "Externa webläsare i undermeny"
@@ -5614,9 +5654,6 @@ msgstr "Storlek:"
 
 #~ msgid "These files were not opened:\n"
 #~ msgstr "De här filerna var inte öppnade\n"
-
-#~ msgid "Show main toolbar by default"
-#~ msgstr "Visa huvudverktygsrad som standard"
 
 #~ msgid "Show sidebar by default"
 #~ msgstr "Visa sidlist som standard"

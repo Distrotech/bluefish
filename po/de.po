@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:35+0200\n"
+"POT-Creation-Date: 2012-06-05 22:07+0200\n"
 "PO-Revision-Date: 2012-04-15 15:43+0200\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: None\n"
@@ -422,7 +422,7 @@ msgstr "_Wörter zählen"
 msgid "Word count"
 msgstr "Wörter zählen"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
 msgstr ""
 
@@ -618,7 +618,7 @@ msgstr "Te_xt umbrechen"
 msgid "Wrap text"
 msgstr "Text umbrechen"
 
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2860
+#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
 msgid "_Close"
 msgstr "S_chliessen"
 
@@ -1313,7 +1313,7 @@ msgstr "Zeichensatzkonvertierungsfehler"
 msgid "Previously: "
 msgstr "Vorher: "
 
-#: ../src/document.c:2647 ../src/file_dialogs.c:819
+#: ../src/document.c:2646 ../src/file_dialogs.c:819
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1323,11 +1323,11 @@ msgstr ""
 "entfernten Systemen. Bitte aktualisieren Sie Glib auf Version 2.18.0 oder "
 "neuer."
 
-#: ../src/document.c:2776
+#: ../src/document.c:2775
 msgid "Unable to open file"
 msgstr "Kann Datei nicht öffnen"
 
-#: ../src/document.c:2788
+#: ../src/document.c:2787
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1336,68 +1336,68 @@ msgstr ""
 "Wenn \"%s\" aus der zuletzt gespeicherten Version wiederhergestellt wird, "
 "gehen alle Änderungen verloren."
 
-#: ../src/document.c:2792
+#: ../src/document.c:2791
 msgid "Revert changes to last saved copy?"
 msgstr "Zuletzt gespeicherte Version wiederherstellen?"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "_Retry"
 msgstr "_Wiederholen"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Retry _all failed"
 msgstr "Alles neu versuchen fehlgeschlagen"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Close all _failed"
 msgstr "Alles schließen fehlgeschlagen"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid "File "
 msgstr "Datei "
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid " failed to load."
 msgstr "Fehler beim Laden"
 
-#: ../src/document.c:2869
+#: ../src/document.c:2868
 msgid "File failed to load\n"
 msgstr "Datei konnte nicht geladen werden\n"
 
-#: ../src/document.c:2986
+#: ../src/document.c:2985
 msgid "Select file to insert"
 msgstr "Datei zum Einfügen auswählen"
 
-#: ../src/document.c:2995
+#: ../src/document.c:2994
 msgid "No file to insert"
 msgstr "Keine Datei zum Einfügen"
 
-#: ../src/document.c:3102
+#: ../src/document.c:3101
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d Zeile"
 msgstr[1] "%d Zeilen"
 
-#: ../src/document.c:3103
+#: ../src/document.c:3102
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d Wort"
 msgstr[1] "%d Wörter"
 
-#: ../src/document.c:3104
+#: ../src/document.c:3103
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d Zeichen"
 msgstr[1] "%d Zeichen"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 msgid "Selection statistics: "
 msgstr "Auswahlstatistiken: "
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 msgid "Statistics: "
 msgstr "Statistiken: "
 
@@ -1420,6 +1420,30 @@ msgstr "Spaltentrenner:"
 #: ../src/doc_text_tools.c:418
 msgid "Fill empty entries:"
 msgstr "Leere Einträge ausfüllen:"
+
+#: ../src/doc_extern_tools.c:49
+msgid "Number of paragraphs"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:51
+#, fuzzy
+msgid "Number of sentences"
+msgstr "Anzahl der Spalten:"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert plain text"
+msgstr "Inhalt einer Datei einfügen"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <li>"
+msgstr "Inhalt einer Datei einfügen"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <p>"
+msgstr "Inhalt einer Datei einfügen"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"

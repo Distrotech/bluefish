@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: last_pt\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:36+0200\n"
+"POT-Creation-Date: 2012-06-05 21:47+0200\n"
 "PO-Revision-Date: 2004-12-04 21:45+0000\n"
 "Last-Translator: Lopo Pizarro <lopo-pizarro@netcabo.pt>\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
@@ -100,7 +100,7 @@ msgstr "Editar etiqueta"
 msgid "Htmlbar"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar.c:261
+#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
 msgstr ""
 
@@ -2856,6 +2856,69 @@ msgstr "Código Fonte:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Tamanho:"
+
+# src/menu.c:462
+#: src/plugin_htmlbar/prefs.c:66
+#, fuzzy
+msgid "<b>HTML Toolbar</b>"
+msgstr "/Ver/Ver Barra de Ferramentas Principal"
+
+# src/document.c:830
+#: src/plugin_htmlbar/prefs.c:69
+#, fuzzy
+msgid "Show toolbar in sidepanel"
+msgstr "Mostrar barra de ferramentas principal por defeito"
+
+# src/configure.c:456
+#: src/plugin_htmlbar/prefs.c:70
+#, fuzzy
+msgid "Keep HTML dialogs always on top"
+msgstr "Fazer diálogo de HTML transiente"
+
+# src/configure.c:365
+#: src/plugin_htmlbar/prefs.c:75
+#, fuzzy
+msgid "<b>HTML options</b>"
+msgstr "Opções HTML"
+
+# src/configure.c:389
+#: src/plugin_htmlbar/prefs.c:79
+#, fuzzy
+msgid "Use _XHTML style tags (<br />)"
+msgstr "Usar etiquetas no estilo XHTML (ex: <br />)"
+
+#: src/plugin_htmlbar/prefs.c:81
+#, fuzzy
+msgid "Use lo_wercase HTML tags"
+msgstr "Etiquetas HTML minúsculas"
+
+#: src/plugin_htmlbar/prefs.c:83
+#, fuzzy
+msgid "Use de_precated tags (e.g. <font> and <nobr>)"
+msgstr "Usar etiquetas desaconselhadas(ex: <font> e <nobr>)"
+
+#: src/plugin_htmlbar/prefs.c:87
+msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:92
+msgid "<b>Auto Update Tag Options</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:96
+#, fuzzy
+msgid "Automatically update a_uthor meta tag"
+msgstr "Actualização automática da etiqueta meta author"
+
+#: src/plugin_htmlbar/prefs.c:99
+#, fuzzy
+msgid "Automatically update _date meta tag"
+msgstr "Actualização automática da etiqueta meta author"
+
+#: src/plugin_htmlbar/prefs.c:102
+#, fuzzy
+msgid "Automatically update _generator meta tag"
+msgstr "Actualização automática da etiqueta meta author"
 
 # src/stringlist.c:260
 #, fuzzy
@@ -6189,23 +6252,6 @@ msgstr "Tamanho:"
 #~ msgid "Bookmarks filename display"
 #~ msgstr "Mostrar o Ficheiro de Marcadores"
 
-# src/configure.c:365
-#~ msgid "HTML options"
-#~ msgstr "Opções HTML"
-
-#~ msgid "Lowercase HTML tags"
-#~ msgstr "Etiquetas HTML minúsculas"
-
-#~ msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-#~ msgstr "Usar etiquetas desaconselhadas(ex: <font> e <nobr>)"
-
-# src/configure.c:389
-#~ msgid "Use XHTML style tags (<br />)"
-#~ msgstr "Usar etiquetas no estilo XHTML (ex: <br />)"
-
-#~ msgid "Automatic update author meta"
-#~ msgstr "Actualização automática da etiqueta meta author"
-
 # src/interface.c:929 src/interface.c:948
 #~ msgid "Files"
 #~ msgstr "Ficheiros"
@@ -6297,10 +6343,6 @@ msgstr "Tamanho:"
 # src/configure.c:416
 #~ msgid "Initial window width"
 #~ msgstr "Largura inicial da janela"
-
-# src/configure.c:456
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "Fazer diálogo de HTML transiente"
 
 # src/configure.c:459
 #~ msgid "External browsers in submenu"
@@ -6743,10 +6785,6 @@ msgstr "Tamanho:"
 
 #~ msgid "These files were not opened:\n"
 #~ msgstr "Estes ficheiros não foram abertos:\n"
-
-# src/document.c:830
-#~ msgid "Show main toolbar by default"
-#~ msgstr "Mostrar barra de ferramentas principal por defeito"
 
 # src/document.c:830
 #~ msgid "Show sidebar by default"

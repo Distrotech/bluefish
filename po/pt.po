@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:35+0200\n"
+"POT-Creation-Date: 2012-06-05 22:07+0200\n"
 "PO-Revision-Date: 2004-12-04 21:45+0000\n"
 "Last-Translator: Lopo Pizarro <lopo-pizarro@netcabo.pt>\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
@@ -556,7 +556,7 @@ msgstr "/Documento/_Contar palavras"
 msgid "Word count"
 msgstr "/Documento/_Contar palavras"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
 msgstr ""
 
@@ -818,7 +818,7 @@ msgid "Wrap text"
 msgstr ""
 
 # src/callbacks.c:320 src/document.c:1419 src/rpopup.c:302 src/toolbars.c:102
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2860
+#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
 #, fuzzy
 msgid "_Close"
 msgstr "Fechar"
@@ -1678,7 +1678,7 @@ msgstr "Falha na conversão da codificação do ficheiro"
 msgid "Previously: "
 msgstr "Previamente: "
 
-#: ../src/document.c:2647 ../src/file_dialogs.c:819
+#: ../src/document.c:2646 ../src/file_dialogs.c:819
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1686,75 +1686,75 @@ msgid ""
 msgstr ""
 
 # src/document.c:1374
-#: ../src/document.c:2776
+#: ../src/document.c:2775
 msgid "Unable to open file"
 msgstr "Não foi possível abrir o ficheiro"
 
-#: ../src/document.c:2788
+#: ../src/document.c:2787
 #, fuzzy, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "Se apagar este ficheiro, este será permanentemente eliminado."
 
-#: ../src/document.c:2792
+#: ../src/document.c:2791
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "Gravar alterações para \"%s\" antes de fechar?."
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Retry _all failed"
 msgstr ""
 
 # src/document.c:1103
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Gravação do ficheiro abortado.\n"
 
 # src/rpopup.c:288
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 #, fuzzy
 msgid "File "
 msgstr "Ficheiro #"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:2869
+#: ../src/document.c:2868
 msgid "File failed to load\n"
 msgstr ""
 
 # src/document.c:1347 src/document.c:1547
-#: ../src/document.c:2986
+#: ../src/document.c:2985
 msgid "Select file to insert"
 msgstr "Selecione ficheiro para inserir"
 
 # src/document.c:1347 src/document.c:1547
-#: ../src/document.c:2995
+#: ../src/document.c:2994
 msgid "No file to insert"
 msgstr "Nenhum ficheiro para inserir"
 
-#: ../src/document.c:3102
+#: ../src/document.c:3101
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/document.c:3103
+#: ../src/document.c:3102
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d de %d"
 msgstr[1] "%d de %d"
 
-#: ../src/document.c:3104
+#: ../src/document.c:3103
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
@@ -1762,13 +1762,13 @@ msgstr[0] ""
 msgstr[1] ""
 
 # src/snr2.c:654 src/toolbars.c:111
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "Começa em:"
 
 # src/snr2.c:654 src/toolbars.c:111
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 #, fuzzy
 msgid "Statistics: "
 msgstr "Começa em:"
@@ -1796,6 +1796,36 @@ msgstr ""
 #: ../src/doc_text_tools.c:418
 msgid "Fill empty entries:"
 msgstr ""
+
+# src/menu.c:1101
+#: ../src/doc_extern_tools.c:49
+#, fuzzy
+msgid "Number of paragraphs"
+msgstr "Número de _variáveis"
+
+# src/wizards.c:65
+#: ../src/doc_extern_tools.c:51
+#, fuzzy
+msgid "Number of sentences"
+msgstr "Número de colunas:"
+
+# src/images.c:182
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert plain text"
+msgstr "Inserir imagem"
+
+# src/toolbars.c:519
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <li>"
+msgstr "Inserir Hora"
+
+# src/toolbars.c:519
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <p>"
+msgstr "Inserir Hora"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -4946,11 +4976,6 @@ msgstr ""
 #~ msgid "Values"
 #~ msgstr "Valor"
 
-# src/images.c:182
-#, fuzzy
-#~ msgid "Insert syntax"
-#~ msgstr "Inserir imagem"
-
 #, fuzzy
 #~ msgid "Help"
 #~ msgstr "/_Ajuda"
@@ -5189,10 +5214,6 @@ msgstr ""
 # src/menu.c:1083
 #~ msgid "Menu path"
 #~ msgstr "Caminho do Menu"
-
-# src/menu.c:1101
-#~ msgid "Number of _Variables:"
-#~ msgstr "Número de _variáveis"
 
 # src/menu.c:1106
 #~ msgid "Variables"

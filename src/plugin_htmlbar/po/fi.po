@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:36+0200\n"
+"POT-Creation-Date: 2012-06-05 21:47+0200\n"
 "PO-Revision-Date: 2003-12-06 14:24+0100\n"
 "Last-Translator: Juho Roukala <j.mr@luukku.com>\n"
 "Language-Team: Not a memeber <LL@li.org>\n"
@@ -79,7 +79,7 @@ msgstr "Muokkaa tagia"
 msgid "Htmlbar"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar.c:261
+#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
 msgstr ""
 
@@ -2417,6 +2417,64 @@ msgstr "Lähde:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Koko:"
+
+#: src/plugin_htmlbar/prefs.c:66
+#, fuzzy
+msgid "<b>HTML Toolbar</b>"
+msgstr "/Näytä/Näytä _päätyökalurivi"
+
+#: src/plugin_htmlbar/prefs.c:69
+#, fuzzy
+msgid "Show toolbar in sidepanel"
+msgstr "Näytä päätyökalurivi oletuksena"
+
+#: src/plugin_htmlbar/prefs.c:70
+#, fuzzy
+msgid "Keep HTML dialogs always on top"
+msgstr "Tee HTML-dialogeista lyhytaikaisia"
+
+#: src/plugin_htmlbar/prefs.c:75
+#, fuzzy
+msgid "<b>HTML options</b>"
+msgstr "HTML-valinnat"
+
+#: src/plugin_htmlbar/prefs.c:79
+#, fuzzy
+msgid "Use _XHTML style tags (<br />)"
+msgstr "Käytä XHTML tyylisiä tageja (<br> />"
+
+#: src/plugin_htmlbar/prefs.c:81
+#, fuzzy
+msgid "Use lo_wercase HTML tags"
+msgstr "Pienikirjaimiset HTML-tagit"
+
+#: src/plugin_htmlbar/prefs.c:83
+#, fuzzy
+msgid "Use de_precated tags (e.g. <font> and <nobr>)"
+msgstr "Käytä ei-suositeltuja tageja (kuten <font> ja <nobr>)"
+
+#: src/plugin_htmlbar/prefs.c:87
+msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:92
+msgid "<b>Auto Update Tag Options</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:96
+#, fuzzy
+msgid "Automatically update a_uthor meta tag"
+msgstr "Automaattinen päivitä tekijä-meta"
+
+#: src/plugin_htmlbar/prefs.c:99
+#, fuzzy
+msgid "Automatically update _date meta tag"
+msgstr "Automaattinen päivitä tekijä-meta"
+
+#: src/plugin_htmlbar/prefs.c:102
+#, fuzzy
+msgid "Automatically update _generator meta tag"
+msgstr "Automaattinen päivitä tekijä-meta"
 
 #, fuzzy
 #~ msgid "_Update"
@@ -5211,21 +5269,6 @@ msgstr "Koko:"
 #~ msgid "Bookmarks filename display"
 #~ msgstr "Kirjanmerkkien tiedostonimen näyttö"
 
-#~ msgid "HTML options"
-#~ msgstr "HTML-valinnat"
-
-#~ msgid "Lowercase HTML tags"
-#~ msgstr "Pienikirjaimiset HTML-tagit"
-
-#~ msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-#~ msgstr "Käytä ei-suositeltuja tageja (kuten <font> ja <nobr>)"
-
-#~ msgid "Use XHTML style tags (<br />)"
-#~ msgstr "Käytä XHTML tyylisiä tageja (<br> />"
-
-#~ msgid "Automatic update author meta"
-#~ msgstr "Automaattinen päivitä tekijä-meta"
-
 #~ msgid "Files"
 #~ msgstr "Tiedostot"
 
@@ -5303,9 +5346,6 @@ msgstr "Koko:"
 
 #~ msgid "Initial window width"
 #~ msgstr "Sisäänrakennetun ikkunan leveys"
-
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "Tee HTML-dialogeista lyhytaikaisia"
 
 #~ msgid "External browsers in submenu"
 #~ msgstr "Ulkopuoliset selaimet alavalikossa"
@@ -5667,9 +5707,6 @@ msgstr "Koko:"
 
 #~ msgid "These files were not opened:\n"
 #~ msgstr "Seuraavia tiedostoja ei avattu:\n"
-
-#~ msgid "Show main toolbar by default"
-#~ msgstr "Näytä päätyökalurivi oletuksena"
 
 #~ msgid "Show sidebar by default"
 #~ msgstr "Näytä sivupaneeli oletuksena"

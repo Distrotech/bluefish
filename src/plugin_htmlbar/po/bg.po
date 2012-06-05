@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:36+0200\n"
+"POT-Creation-Date: 2012-06-05 21:47+0200\n"
 "PO-Revision-Date: 2003-12-09 11:07+0200\n"
 "Last-Translator: Peio Popov <peio@peio.org>\n"
 "Language-Team: Not a member <bg@li.org>\n"
@@ -80,7 +80,7 @@ msgstr "Редактиране на тага"
 msgid "Htmlbar"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar.c:261
+#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
 msgstr ""
 
@@ -2417,6 +2417,64 @@ msgstr "Източник:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Размер:"
+
+#: src/plugin_htmlbar/prefs.c:66
+#, fuzzy
+msgid "<b>HTML Toolbar</b>"
+msgstr "/Изглед/Виж HTML инструментите"
+
+#: src/plugin_htmlbar/prefs.c:69
+#, fuzzy
+msgid "Show toolbar in sidepanel"
+msgstr "Показване на главното меню с инструменти"
+
+#: src/plugin_htmlbar/prefs.c:70
+#, fuzzy
+msgid "Keep HTML dialogs always on top"
+msgstr "Make HTML dialogs transient"
+
+#: src/plugin_htmlbar/prefs.c:75
+#, fuzzy
+msgid "<b>HTML options</b>"
+msgstr "HTML настройки"
+
+#: src/plugin_htmlbar/prefs.c:79
+#, fuzzy
+msgid "Use _XHTML style tags (<br />)"
+msgstr "Използване на тагове в стил XHTML (<br />)"
+
+#: src/plugin_htmlbar/prefs.c:81
+#, fuzzy
+msgid "Use lo_wercase HTML tags"
+msgstr "Тагове само в долен регистър"
+
+#: src/plugin_htmlbar/prefs.c:83
+#, fuzzy
+msgid "Use de_precated tags (e.g. <font> and <nobr>)"
+msgstr "Използване на стари тагове (като <font> и <nobr>)"
+
+#: src/plugin_htmlbar/prefs.c:87
+msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:92
+msgid "<b>Auto Update Tag Options</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:96
+#, fuzzy
+msgid "Automatically update a_uthor meta tag"
+msgstr "Автоматично обновяване на мета-информацията за автора"
+
+#: src/plugin_htmlbar/prefs.c:99
+#, fuzzy
+msgid "Automatically update _date meta tag"
+msgstr "Автоматично обновяване на мета-информацията за автора"
+
+#: src/plugin_htmlbar/prefs.c:102
+#, fuzzy
+msgid "Automatically update _generator meta tag"
+msgstr "Автоматично обновяване на мета-информацията за автора"
 
 #, fuzzy
 #~ msgid "_Update"
@@ -5175,21 +5233,6 @@ msgstr "Размер:"
 #~ msgid "Bookmarks filename display"
 #~ msgstr "Bookmarks filename display"
 
-#~ msgid "HTML options"
-#~ msgstr "HTML настройки"
-
-#~ msgid "Lowercase HTML tags"
-#~ msgstr "Тагове само в долен регистър"
-
-#~ msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-#~ msgstr "Използване на стари тагове (като <font> и <nobr>)"
-
-#~ msgid "Use XHTML style tags (<br />)"
-#~ msgstr "Използване на тагове в стил XHTML (<br />)"
-
-#~ msgid "Automatic update author meta"
-#~ msgstr "Автоматично обновяване на мета-информацията за автора"
-
 #~ msgid "Files"
 #~ msgstr "Файлове"
 
@@ -5268,9 +5311,6 @@ msgstr "Размер:"
 
 #~ msgid "Initial window width"
 #~ msgstr "Начална ширина на прозореца"
-
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "Make HTML dialogs transient"
 
 #~ msgid "External browsers in submenu"
 #~ msgstr "Външни браузъри в подменю"
@@ -5630,9 +5670,6 @@ msgstr "Размер:"
 
 #~ msgid "These files were not opened:\n"
 #~ msgstr "Тези файлове не бяха отворени:\n"
-
-#~ msgid "Show main toolbar by default"
-#~ msgstr "Показване на главното меню с инструменти"
 
 #, fuzzy
 #~ msgid "Show sidebar by default"

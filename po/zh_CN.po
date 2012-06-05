@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:35+0200\n"
+"POT-Creation-Date: 2012-06-05 22:07+0200\n"
 "PO-Revision-Date: 2012-05-29 01:58+0800\n"
 "Last-Translator: ZhiFeng Ma <mzf9527@gmail.com>\n"
 "Language-Team: \n"
@@ -413,7 +413,7 @@ msgstr "字数统计(_n)"
 msgid "Word count"
 msgstr "字数统计"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
 msgstr "Lorem Ipsum 生成器"
 
@@ -605,7 +605,7 @@ msgstr "文本换行(_W)"
 msgid "Wrap text"
 msgstr "文本换行"
 
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2860
+#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
 msgid "_Close"
 msgstr "关闭(_C)"
 
@@ -1293,7 +1293,7 @@ msgstr "文件编码转换失败"
 msgid "Previously: "
 msgstr "前一个："
 
-#: ../src/document.c:2647 ../src/file_dialogs.c:819
+#: ../src/document.c:2646 ../src/file_dialogs.c:819
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1302,79 +1302,79 @@ msgstr ""
 "你的版本号为（%d.%d.%d）的 glib 库运行远程文件不可靠。请升级到 2.18.0 或更高"
 "的版本。"
 
-#: ../src/document.c:2776
+#: ../src/document.c:2775
 msgid "Unable to open file"
 msgstr "无法打开文件"
 
-#: ../src/document.c:2788
+#: ../src/document.c:2787
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "如果你恢复 \"%s\" 到上次备份的位置，当前的修改将永久丢失。"
 
-#: ../src/document.c:2792
+#: ../src/document.c:2791
 msgid "Revert changes to last saved copy?"
 msgstr "恢复到上次保存的备份吗？"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "_Retry"
 msgstr "重试(_R)"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Retry _all failed"
 msgstr "重试所有失败的文件(_a)"
 
-#: ../src/document.c:2860
+#: ../src/document.c:2859
 msgid "Close all _failed"
 msgstr "关闭所有失败的文件(_f)"
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid "File "
 msgstr "文件 "
 
-#: ../src/document.c:2865
+#: ../src/document.c:2864
 msgid " failed to load."
 msgstr " 读取失败。"
 
-#: ../src/document.c:2869
+#: ../src/document.c:2868
 msgid "File failed to load\n"
 msgstr "文件读取失败\n"
 
-#: ../src/document.c:2986
+#: ../src/document.c:2985
 msgid "Select file to insert"
 msgstr "选择要插入的文件"
 
-#: ../src/document.c:2995
+#: ../src/document.c:2994
 msgid "No file to insert"
 msgstr "没有要插入的文件"
 
-#: ../src/document.c:3102
+#: ../src/document.c:3101
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d 行"
 msgstr[1] "%d 行"
 
-#: ../src/document.c:3103
+#: ../src/document.c:3102
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d 个字"
 msgstr[1] "%d 个字"
 
-#: ../src/document.c:3104
+#: ../src/document.c:3103
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d 个字符"
 msgstr[1] "%d 个字符"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 msgid "Selection statistics: "
 msgstr "统计选择区域："
 
-#: ../src/document.c:3106
+#: ../src/document.c:3105
 msgid "Statistics: "
 msgstr "统计："
 
@@ -1397,6 +1397,30 @@ msgstr "列分割符："
 #: ../src/doc_text_tools.c:418
 msgid "Fill empty entries:"
 msgstr "填充空白条目："
+
+#: ../src/doc_extern_tools.c:49
+msgid "Number of paragraphs"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:51
+#, fuzzy
+msgid "Number of sentences"
+msgstr "列数："
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert plain text"
+msgstr "插入文件"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <li>"
+msgstr "插入文件"
+
+#: ../src/doc_extern_tools.c:52
+#, fuzzy
+msgid "Insert in <p>"
+msgstr "插入文件"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"

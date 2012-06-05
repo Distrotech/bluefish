@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:36+0200\n"
-"PO-Revision-Date: 2012-03-13 16:39+0100\n"
+"POT-Creation-Date: 2012-06-05 21:47+0200\n"
+"PO-Revision-Date: 2012-06-05 12:18+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,9 +24,8 @@ msgid "Cascading Style Sheet Builder"
 msgstr "Constructor de hojas de estilo en cascada"
 
 #: src/plugin_htmlbar/html2.c:654
-#, fuzzy
 msgid "_Selector(s):"
-msgstr "_Selector:"
+msgstr "_Selector(es):"
 
 #: src/plugin_htmlbar/html2.c:680
 msgid "_Property:"
@@ -38,9 +37,8 @@ msgid "_Value:"
 msgstr "_Valor:"
 
 #: src/plugin_htmlbar/html2.c:704
-#, fuzzy
 msgid "Selector(s)"
-msgstr "Selector"
+msgstr "Selector(es)"
 
 #: src/plugin_htmlbar/html2.c:708
 msgid "Property"
@@ -80,11 +78,11 @@ msgstr "Editar etiqueta"
 
 #: src/plugin_htmlbar/htmlbar.c:98
 msgid "Htmlbar"
-msgstr ""
+msgstr "Barra de HTML"
 
-#: src/plugin_htmlbar/htmlbar.c:261
+#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
-msgstr ""
+msgstr "Características de HTML"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:960
 msgid "T_ags"
@@ -144,7 +142,7 @@ msgstr "Insertar etiqueta H6"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:974
 msgid "_Entities"
-msgstr ""
+msgstr "_Entidades"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:975
 msgid "_Non-breaking space"
@@ -555,7 +553,7 @@ msgstr "Áre_a de texto"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1070
 msgid "_Keygen"
-msgstr ""
+msgstr "_Keygen"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1071
 msgid "O_utput"
@@ -567,7 +565,7 @@ msgstr "_Progreso"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1073
 msgid "_Meter"
-msgstr ""
+msgstr "_Meter"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1074
 msgid "_Misc"
@@ -807,14 +805,12 @@ msgid "Style"
 msgstr "Estilo"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "C_olumns..."
-msgstr "_Fuente…"
+msgstr "_Columnas…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "Columns..."
-msgstr "Lienzo…"
+msgstr "Columnas…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1138
 msgid "_Link to Stylesheet..."
@@ -874,11 +870,11 @@ msgstr "Botón de entrada…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1152
 msgid "Input T_ext..."
-msgstr ""
+msgstr "T_exto de entrada…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1152
 msgid "Input Text..."
-msgstr "Campo de texto…"
+msgstr "Texto de entrada…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1154
 msgid "Text_area..."
@@ -886,7 +882,7 @@ msgstr "Áre_a de texto…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1154
 msgid "Textarea..."
-msgstr "Área de Edición…"
+msgstr "Área de texto…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1156
 msgid "_Select..."
@@ -983,11 +979,11 @@ msgstr "Artículo"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1182
 msgid "As_ide"
-msgstr ""
+msgstr "As_ide"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1182
 msgid "Aside"
-msgstr ""
+msgstr "Aside"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1183
 msgid "Fig_caption"
@@ -1023,11 +1019,11 @@ msgstr "Cabecera"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1187
 msgid "H_group"
-msgstr ""
+msgstr "H_group"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1187
 msgid "Hgroup"
-msgstr ""
+msgstr "Hgroup"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1188
 msgid "_Mark"
@@ -1039,11 +1035,11 @@ msgstr "Marcar"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1189
 msgid "_Nav"
-msgstr ""
+msgstr "_Nav"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1189
 msgid "Nav"
-msgstr ""
+msgstr "Nav"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1190
 msgid "R_p"
@@ -1110,14 +1106,12 @@ msgid "Time..."
 msgstr "Hora…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert _Color"
-msgstr "Color del _texto:"
+msgstr "Insertar _color"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert Color"
-msgstr "Insertar"
+msgstr "Insertar color"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "_HTML Toolbar"
@@ -1138,54 +1132,44 @@ msgstr ""
 "barra rápida."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1454
-#, fuzzy
 msgid "Quickbar"
 msgstr "Barra rápida"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1457
-#, fuzzy
 msgid "Standard"
-msgstr " Estándar "
+msgstr "Estándar"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1460
-#, fuzzy
 msgid "HTML 5"
-msgstr " HTML 5 "
+msgstr "HTML 5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1463
-#, fuzzy
 msgid "Formatting"
-msgstr " Formato "
+msgstr "Formato"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1466
-#, fuzzy
 msgid "Tables"
-msgstr "Tabla"
+msgstr "Tablas"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1469
-#, fuzzy
 msgid "List"
-msgstr "_Lista"
+msgstr "Lista"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1472
-#, fuzzy
 msgid "CSS"
-msgstr "_CSS"
+msgstr "CSS"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1475
-#, fuzzy
 msgid "Forms"
-msgstr "Formulario"
+msgstr "Formularios"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1478
-#, fuzzy
 msgid "Fonts"
-msgstr "Tipografía"
+msgstr "Tipografías"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1481
-#, fuzzy
 msgid "Frames"
-msgstr "Marcos"
+msgstr "Cuadros"
 
 #: src/plugin_htmlbar/html.c:403
 msgid "Insert Time"
@@ -1562,9 +1546,8 @@ msgid "_Rows:"
 msgstr "_Filas:"
 
 #: src/plugin_htmlbar/html.c:1679
-#, fuzzy
 msgid "_Add &lt;frame&gt; elements"
-msgstr "_Agregar elementos <frame>"
+msgstr "_Añadir elementos <frame>"
 
 #: src/plugin_htmlbar/html.c:1763 src/plugin_htmlbar/html.c:1866
 #: src/plugin_htmlbar/html.c:2036 src/plugin_htmlbar/html.c:2219
@@ -1599,7 +1582,7 @@ msgstr "Sonido"
 
 #: src/plugin_htmlbar/html.c:1870 src/plugin_htmlbar/html.c:2048
 msgid "_Autoplay:"
-msgstr ""
+msgstr "_Autoplay:"
 
 #: src/plugin_htmlbar/html.c:1874 src/plugin_htmlbar/html.c:2053
 msgid "C_ontrols:"
@@ -1639,7 +1622,7 @@ msgstr "Vídeo"
 
 #: src/plugin_htmlbar/html.c:2043
 msgid "_Poster:"
-msgstr ""
+msgstr "_Poster:"
 
 #. Dialog construction
 #: src/plugin_htmlbar/html.c:2142
@@ -1707,11 +1690,11 @@ msgstr "(HTML5)"
 
 #: src/plugin_htmlbar/html.c:2324
 msgid "_Async:"
-msgstr ""
+msgstr "_Async:"
 
 #: src/plugin_htmlbar/html.c:2328
 msgid "_Defer:"
-msgstr ""
+msgstr "_Defer:"
 
 #.
 #. todo check buttons:
@@ -1720,66 +1703,63 @@ msgstr ""
 #.
 #: src/plugin_htmlbar/html.c:2500
 msgid "CSS3 multi-column layout"
-msgstr ""
+msgstr "Distribución CSS3 multicolumna"
 
 #: src/plugin_htmlbar/html.c:2507
 msgid "Auto (default) or number of columns"
-msgstr ""
+msgstr "Auto (predeterminada) o número de columnas"
 
 #: src/plugin_htmlbar/html.c:2516
 msgid "Auto (default) or width"
-msgstr ""
+msgstr "Auto (predeterminada) o anchura"
 
 #: src/plugin_htmlbar/html.c:2528
 msgid "Normal (default) or width of the gap between columns"
-msgstr ""
+msgstr "Normal (predeterminada) o anchura del espacio entre columnas"
 
 #: src/plugin_htmlbar/html.c:2546
 msgid "None (default) or style"
-msgstr ""
+msgstr "Ninguna (predeterminada) o estilo"
 
 #: src/plugin_htmlbar/html.c:2552
 msgid "Medium (default) or width"
-msgstr ""
+msgstr "Media (predeterminada) o anchura"
 
 #: src/plugin_htmlbar/html.c:2565
 msgid "Use vendor-prefixed CSS property:"
-msgstr ""
+msgstr "Usar la propiedad de CSS prefijada por el fabricante:"
 
 #: src/plugin_htmlbar/html.c:2573
-#, fuzzy
 msgid "styles_heet"
-msgstr "Crear hoja de estilo…"
+msgstr "_hoja de estilo"
 
 #: src/plugin_htmlbar/html.c:2574
 msgid "Add selector(s) to create a new rule"
-msgstr ""
+msgstr "Añadir selector(es) para crear una regla nueva"
 
 #: src/plugin_htmlbar/html.c:2576
-#, fuzzy
 msgid "style a_ttribute"
-msgstr "Atributos"
+msgstr "a_tributo de estilo"
 
 #: src/plugin_htmlbar/html.c:2577
 msgid "Add a style attribute in tag"
-msgstr ""
+msgstr "Añadir un atributo de estilo en una etiqueta"
 
 #: src/plugin_htmlbar/html.c:2579
 msgid "style _values"
-msgstr ""
+msgstr "_valores de estilo"
 
 #: src/plugin_htmlbar/html.c:2580
 msgid "Add values in a style attribute"
-msgstr ""
+msgstr "Añadir valores a un atributo de estilo"
 
 #: src/plugin_htmlbar/html.c:2590
-#, fuzzy
 msgid "Selecto_rs:"
-msgstr "_Selector:"
+msgstr "_Selectores:"
 
 #: src/plugin_htmlbar/html.c:2591
 msgid "Leave empty to insert declarations into an existing rule."
-msgstr ""
+msgstr "Dejar en blanco para insertar declaraciones en una regla existente."
 
 #: src/plugin_htmlbar/html.c:2651
 msgid "Link"
@@ -1904,61 +1884,61 @@ msgstr "Botón"
 
 #: src/plugin_htmlbar/html_table.c:108
 msgid "<span color=\"#006000\">Cell _Padding:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Cell _Padding:</span>"
 
 #: src/plugin_htmlbar/html_table.c:117
 msgid "<span color=\"#006000\">C_ell Spacing:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">C_ell Spacing:</span>"
 
 #: src/plugin_htmlbar/html_table.c:144 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:377
 msgid "<span color=\"#006000\">_Align:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Align:</span>"
 
 #: src/plugin_htmlbar/html_table.c:149 src/plugin_htmlbar/html_table.c:273
 #: src/plugin_htmlbar/html_table.c:449
 msgid "<span color=\"red\">_bgcolor:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_bgcolor:</span>"
 
 #: src/plugin_htmlbar/html_table.c:155
 msgid "<span color=\"#006000\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Width:</span>"
 
 #: src/plugin_htmlbar/html_table.c:162
 msgid "<span color=\"#006000\">Bo_rder:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Bo_rder:</span>"
 
 #: src/plugin_htmlbar/html_table.c:168
 msgid "<span color=\"#A36A00\">_Border:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Border:</span>"
 
 #: src/plugin_htmlbar/html_table.c:183
 msgid "<span color=\"#006000\">_Frame:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Frame:</span>"
 
 #: src/plugin_htmlbar/html_table.c:194
 msgid "<span color=\"#006000\">R_ules:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">R_ules:</span>"
 
 #: src/plugin_htmlbar/html_table.c:264 src/plugin_htmlbar/html_table.c:388
 msgid "<span color=\"#006000\">_Valign:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Valign:</span>"
 
 #: src/plugin_htmlbar/html_table.c:396
 msgid "<span color=\"#A36A00\">_Headers:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Headers:</span>"
 
 #: src/plugin_htmlbar/html_table.c:397
 msgid "Set of space-separated IDs of th elements."
-msgstr ""
+msgstr "Conjunto de ID separados por espacios de elementos TH."
 
 #: src/plugin_htmlbar/html_table.c:408
 msgid "<span color=\"#A36A00\">_Scope:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Scope:</span>"
 
 #: src/plugin_htmlbar/html_table.c:410
 msgid "the header cell applies to cells in the same:"
-msgstr ""
+msgstr "la celda de cabecera se aplica a todas las celdas por igual:"
 
 #: src/plugin_htmlbar/html_table.c:422
 msgid "Co_l Span:"
@@ -1970,15 +1950,15 @@ msgstr "Espaciado entre _filas:"
 
 #: src/plugin_htmlbar/html_table.c:431
 msgid "<span color=\"red\">No _Wrap:</span>"
-msgstr ""
+msgstr "<span color=\"red\">No _Wrap:</span>"
 
 #: src/plugin_htmlbar/html_table.c:437
 msgid "<span color=\"red\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_Width:</span>"
 
 #: src/plugin_htmlbar/html_table.c:444
 msgid "<span color=\"red\">_Height:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_Height:</span>"
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:334
@@ -2260,6 +2240,55 @@ msgstr "Fuente:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Tamaño:"
+
+#: src/plugin_htmlbar/prefs.c:66
+#, fuzzy
+msgid "<b>HTML Toolbar</b>"
+msgstr "Barra de Herramientas _HTML"
+
+#: src/plugin_htmlbar/prefs.c:69
+msgid "Show toolbar in sidepanel"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:70
+msgid "Keep HTML dialogs always on top"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:75
+msgid "<b>HTML options</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:79
+msgid "Use _XHTML style tags (<br />)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:81
+msgid "Use lo_wercase HTML tags"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:83
+msgid "Use de_precated tags (e.g. <font> and <nobr>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:87
+msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:92
+msgid "<b>Auto Update Tag Options</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:96
+msgid "Automatically update a_uthor meta tag"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:99
+msgid "Automatically update _date meta tag"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:102
+msgid "Automatically update _generator meta tag"
+msgstr ""
 
 #~ msgid "_Special"
 #~ msgstr "E_speciales"

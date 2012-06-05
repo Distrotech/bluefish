@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 08:36+0200\n"
-"PO-Revision-Date: 2012-02-09 10:07+0200\n"
+"POT-Creation-Date: 2012-06-05 21:47+0200\n"
+"PO-Revision-Date: 2012-06-05 19:12+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
@@ -23,9 +23,8 @@ msgid "Cascading Style Sheet Builder"
 msgstr "Побудова каскадних таблиць стилів (CSS)"
 
 #: src/plugin_htmlbar/html2.c:654
-#, fuzzy
 msgid "_Selector(s):"
-msgstr "_Селектор:"
+msgstr "_Селектори:"
 
 #: src/plugin_htmlbar/html2.c:680
 msgid "_Property:"
@@ -37,9 +36,8 @@ msgid "_Value:"
 msgstr "_Значення:"
 
 #: src/plugin_htmlbar/html2.c:704
-#, fuzzy
 msgid "Selector(s)"
-msgstr "Селектор"
+msgstr "Селектори"
 
 #: src/plugin_htmlbar/html2.c:708
 msgid "Property"
@@ -79,11 +77,11 @@ msgstr "Змінити теґ"
 
 #: src/plugin_htmlbar/htmlbar.c:98
 msgid "Htmlbar"
-msgstr ""
+msgstr "Панель HTML"
 
-#: src/plugin_htmlbar/htmlbar.c:261
+#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
-msgstr ""
+msgstr "Можливості HTML"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:960
 msgid "T_ags"
@@ -143,7 +141,7 @@ msgstr "Вставити теґ H6"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:974
 msgid "_Entities"
-msgstr ""
+msgstr "_Об’єкти"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:975
 msgid "_Non-breaking space"
@@ -806,14 +804,12 @@ msgid "Style"
 msgstr "Стиль"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "C_olumns..."
-msgstr "_Шрифт…"
+msgstr "С_товпчики…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "Columns..."
-msgstr "Canvas…"
+msgstr "Стовпчики…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1138
 msgid "_Link to Stylesheet..."
@@ -1109,14 +1105,12 @@ msgid "Time..."
 msgstr "Час…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert _Color"
-msgstr "Колір т_ексту:"
+msgstr "Вставити _колір"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert Color"
-msgstr "Вставити"
+msgstr "Вставити колір"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "_HTML Toolbar"
@@ -1137,54 +1131,44 @@ msgstr ""
 "додати її на панель швидкого доступу."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1454
-#, fuzzy
 msgid "Quickbar"
-msgstr " Швидкий доступ "
+msgstr "Швидкий доступ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1457
-#, fuzzy
 msgid "Standard"
-msgstr " Стандартні "
+msgstr "Стандартний"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1460
-#, fuzzy
 msgid "HTML 5"
-msgstr " HTML 5 "
+msgstr "HTML 5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1463
-#, fuzzy
 msgid "Formatting"
-msgstr " Форматування "
+msgstr "Форматування"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1466
-#, fuzzy
 msgid "Tables"
-msgstr "Таблиця"
+msgstr "Таблиці"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1469
-#, fuzzy
 msgid "List"
-msgstr "_Список"
+msgstr "Список"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1472
-#, fuzzy
 msgid "CSS"
-msgstr "Т_аблиці стилів"
+msgstr "CSS"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1475
-#, fuzzy
 msgid "Forms"
-msgstr "Форма"
+msgstr "Форми"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1478
-#, fuzzy
 msgid "Fonts"
-msgstr "Шрифт"
+msgstr "Шрифти"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1481
-#, fuzzy
 msgid "Frames"
-msgstr "фреймів"
+msgstr "Фрейми"
 
 #: src/plugin_htmlbar/html.c:403
 msgid "Insert Time"
@@ -1561,9 +1545,8 @@ msgid "_Rows:"
 msgstr "_Рядків:"
 
 #: src/plugin_htmlbar/html.c:1679
-#, fuzzy
 msgid "_Add &lt;frame&gt; elements"
-msgstr "_Додати елементи <frame>"
+msgstr "_Додати елементи &lt;frame&gt;"
 
 #: src/plugin_htmlbar/html.c:1763 src/plugin_htmlbar/html.c:1866
 #: src/plugin_htmlbar/html.c:2036 src/plugin_htmlbar/html.c:2219
@@ -1718,66 +1701,64 @@ msgstr "_Затримка:"
 #.
 #: src/plugin_htmlbar/html.c:2500
 msgid "CSS3 multi-column layout"
-msgstr ""
+msgstr "Стовпчикове компонування CSS3"
 
 #: src/plugin_htmlbar/html.c:2507
 msgid "Auto (default) or number of columns"
-msgstr ""
+msgstr "Авто (типово) або кількість стовпчиків"
 
 #: src/plugin_htmlbar/html.c:2516
 msgid "Auto (default) or width"
-msgstr ""
+msgstr "Авто (типово) або ширина"
 
 #: src/plugin_htmlbar/html.c:2528
 msgid "Normal (default) or width of the gap between columns"
-msgstr ""
+msgstr "Звичайний (типовий) або значення ширини просвіту між стовпчиками"
 
 #: src/plugin_htmlbar/html.c:2546
 msgid "None (default) or style"
-msgstr ""
+msgstr "Немає (типовий) або назва стилю"
 
 #: src/plugin_htmlbar/html.c:2552
 msgid "Medium (default) or width"
-msgstr ""
+msgstr "Середня (типова) або значення ширини"
 
 #: src/plugin_htmlbar/html.c:2565
 msgid "Use vendor-prefixed CSS property:"
-msgstr ""
+msgstr "Використовувати властивість CSS з визначенням розробника:"
 
 #: src/plugin_htmlbar/html.c:2573
-#, fuzzy
 msgid "styles_heet"
-msgstr "Створити таблицю стилів…"
+msgstr "_таблиця стилів"
 
 #: src/plugin_htmlbar/html.c:2574
 msgid "Add selector(s) to create a new rule"
-msgstr ""
+msgstr "Додайте селектори для створення правила"
 
 #: src/plugin_htmlbar/html.c:2576
-#, fuzzy
 msgid "style a_ttribute"
-msgstr "Атрибути"
+msgstr "_атрибут стилю"
 
 #: src/plugin_htmlbar/html.c:2577
 msgid "Add a style attribute in tag"
-msgstr ""
+msgstr "Додати атрибут стилю до теґу"
 
 #: src/plugin_htmlbar/html.c:2579
 msgid "style _values"
-msgstr ""
+msgstr "з_начення стилю"
 
 #: src/plugin_htmlbar/html.c:2580
 msgid "Add values in a style attribute"
-msgstr ""
+msgstr "Додати значення до атрибута стилю"
 
 #: src/plugin_htmlbar/html.c:2590
-#, fuzzy
 msgid "Selecto_rs:"
-msgstr "_Селектор:"
+msgstr "Се_лектори:"
 
 #: src/plugin_htmlbar/html.c:2591
 msgid "Leave empty to insert declarations into an existing rule."
 msgstr ""
+"Не заповнюйте, якщо програма має додати оголошення до вже створеного правила."
 
 #: src/plugin_htmlbar/html.c:2651
 msgid "Link"
@@ -1902,61 +1883,61 @@ msgstr "Кнопка"
 
 #: src/plugin_htmlbar/html_table.c:108
 msgid "<span color=\"#006000\">Cell _Padding:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Заповнення комірки:</span>"
 
 #: src/plugin_htmlbar/html_table.c:117
 msgid "<span color=\"#006000\">C_ell Spacing:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">П_росвіт між комірками:</span>"
 
 #: src/plugin_htmlbar/html_table.c:144 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:377
 msgid "<span color=\"#006000\">_Align:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Ви_рівнювання:</span>"
 
 #: src/plugin_htmlbar/html_table.c:149 src/plugin_htmlbar/html_table.c:273
 #: src/plugin_htmlbar/html_table.c:449
 msgid "<span color=\"red\">_bgcolor:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_bgcolor:</span>"
 
 #: src/plugin_htmlbar/html_table.c:155
 msgid "<span color=\"#006000\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Ширина:</span>"
 
 #: src/plugin_htmlbar/html_table.c:162
 msgid "<span color=\"#006000\">Bo_rder:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Р_амка:</span>"
 
 #: src/plugin_htmlbar/html_table.c:168
 msgid "<span color=\"#A36A00\">_Border:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Рамка:</span>"
 
 #: src/plugin_htmlbar/html_table.c:183
 msgid "<span color=\"#006000\">_Frame:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Фрейм:</span>"
 
 #: src/plugin_htmlbar/html_table.c:194
 msgid "<span color=\"#006000\">R_ules:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Лінійки:</span>"
 
 #: src/plugin_htmlbar/html_table.c:264 src/plugin_htmlbar/html_table.c:388
 msgid "<span color=\"#006000\">_Valign:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Valign:</span>"
 
 #: src/plugin_htmlbar/html_table.c:396
 msgid "<span color=\"#A36A00\">_Headers:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Заголовки:</span>"
 
 #: src/plugin_htmlbar/html_table.c:397
 msgid "Set of space-separated IDs of th elements."
-msgstr ""
+msgstr "Набір відокремлених пробілами ідентифікаторів елементів th."
 
 #: src/plugin_htmlbar/html_table.c:408
 msgid "<span color=\"#A36A00\">_Scope:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Область:</span>"
 
 #: src/plugin_htmlbar/html_table.c:410
 msgid "the header cell applies to cells in the same:"
-msgstr ""
+msgstr "заголовок комірки використовується для всіх комірок у:"
 
 #: src/plugin_htmlbar/html_table.c:422
 msgid "Co_l Span:"
@@ -1968,15 +1949,15 @@ msgstr "Інтервал між _рядками:"
 
 #: src/plugin_htmlbar/html_table.c:431
 msgid "<span color=\"red\">No _Wrap:</span>"
-msgstr ""
+msgstr "<span color=\"red\">Без _перенесення:</span>"
 
 #: src/plugin_htmlbar/html_table.c:437
 msgid "<span color=\"red\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_Ширина:</span>"
 
 #: src/plugin_htmlbar/html_table.c:444
 msgid "<span color=\"red\">_Height:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_Висота:</span>"
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:334
@@ -2258,6 +2239,55 @@ msgstr "Джерело:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Розмір:"
+
+#: src/plugin_htmlbar/prefs.c:66
+#, fuzzy
+msgid "<b>HTML Toolbar</b>"
+msgstr "Па_нель HTML"
+
+#: src/plugin_htmlbar/prefs.c:69
+msgid "Show toolbar in sidepanel"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:70
+msgid "Keep HTML dialogs always on top"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:75
+msgid "<b>HTML options</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:79
+msgid "Use _XHTML style tags (<br />)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:81
+msgid "Use lo_wercase HTML tags"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:83
+msgid "Use de_precated tags (e.g. <font> and <nobr>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:87
+msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:92
+msgid "<b>Auto Update Tag Options</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:96
+msgid "Automatically update a_uthor meta tag"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:99
+msgid "Automatically update _date meta tag"
+msgstr ""
+
+#: src/plugin_htmlbar/prefs.c:102
+msgid "Automatically update _generator meta tag"
+msgstr ""
 
 #~ msgid "_Special"
 #~ msgstr "_Спеціальні"

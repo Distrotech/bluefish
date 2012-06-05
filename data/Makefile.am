@@ -1,7 +1,7 @@
 
 SUBDIRS = bflang bflib templates
 
-EXTRA_DIST = $(bfdata_DATA)
+EXTRA_DIST = $(nobase_bfdata_DATA) $(bfdata_SCRIPTS)
 
 MAINTAINERCLEANFILES = Makefile.in
 
