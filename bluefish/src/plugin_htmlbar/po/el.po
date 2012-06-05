@@ -8,2178 +8,1816 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-01-11 10:26+0100\n"
+"POT-Creation-Date: 2012-06-05 08:36+0200\n"
 "PO-Revision-Date: 2004-12-09 12:11+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: no team\n"
-"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
+"Language: el\n"
 
-#: src/plugin_htmlbar/html2.c:550
+#: src/plugin_htmlbar/html2.c:634
 msgid "Cascading Style Sheet Builder"
 msgstr ""
 
-#: src/plugin_htmlbar/html2.c:570
-msgid "_Selector:"
+#: src/plugin_htmlbar/html2.c:654
+#, fuzzy
+msgid "_Selector(s):"
 msgstr "_Επιλογέας:"
 
-#: src/plugin_htmlbar/html2.c:589
+#: src/plugin_htmlbar/html2.c:680
 msgid "_Property:"
 msgstr "_ιδιότητα:"
 
-#: src/plugin_htmlbar/html2.c:591 src/plugin_htmlbar/html_form.c:375
+#: src/plugin_htmlbar/html2.c:684 src/plugin_htmlbar/html_form.c:375
 #: src/plugin_htmlbar/html_form.c:541 src/plugin_htmlbar/html_form.c:636
 msgid "_Value:"
 msgstr "_Τιμή:"
 
-#: src/plugin_htmlbar/html2.c:609
-msgid "Selector"
+#: src/plugin_htmlbar/html2.c:704
+#, fuzzy
+msgid "Selector(s)"
 msgstr "Επιλογέας"
 
-#: src/plugin_htmlbar/html2.c:613
+#: src/plugin_htmlbar/html2.c:708
 msgid "Property"
 msgstr "Ιδιότητα"
 
-#: src/plugin_htmlbar/html2.c:616
+#: src/plugin_htmlbar/html2.c:711
 msgid "Value"
 msgstr "Τιμή"
 
-#: src/plugin_htmlbar/html2.c:644
+#: src/plugin_htmlbar/html2.c:739
 msgid " _Add "
 msgstr " _Προσθήκη "
 
-#: src/plugin_htmlbar/html2.c:648
+#: src/plugin_htmlbar/html2.c:743
 msgid " _Update "
 msgstr " _Ανανέωση "
 
-#: src/plugin_htmlbar/html2.c:652
+#: src/plugin_htmlbar/html2.c:747
 msgid " _Delete "
 msgstr " _Διαγραφή "
 
-#: src/plugin_htmlbar/html2.c:912 src/plugin_htmlbar/html2.c:949
+#: src/plugin_htmlbar/html2.c:1009 src/plugin_htmlbar/html2.c:1046
 msgid "_Style..."
 msgstr "_Στυλ..."
 
-#: src/plugin_htmlbar/html2.c:1034
+#: src/plugin_htmlbar/html2.c:1131
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Επιλογή χρώματος"
 
-#: src/plugin_htmlbar/htmlbar.c:42
+#: src/plugin_htmlbar/htmlbar.c:44
 msgid "Edit color"
 msgstr "Επεξεργασία χρώματος"
 
-#: src/plugin_htmlbar/htmlbar.c:50
+#: src/plugin_htmlbar/htmlbar.c:52
 msgid "Edit tag"
 msgstr "Επιξεργασία ετικέτας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1356
+#: src/plugin_htmlbar/htmlbar.c:98
+msgid "Htmlbar"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar.c:261
+msgid "HTML Features"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:960
 #, fuzzy
 msgid "T_ags"
 msgstr "/_Ετικέτες"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1357
+#: src/plugin_htmlbar/htmlbar_uimanager.c:961
 #, fuzzy
 msgid "_Headings"
 msgstr "Κεφαλίδα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1358
+#: src/plugin_htmlbar/htmlbar_uimanager.c:962
 msgid "H_1"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1358
+#: src/plugin_htmlbar/htmlbar_uimanager.c:962
 #, fuzzy
 msgid "Insert H1 tag"
 msgstr "Εισαγωγή εικόνας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1360
+#: src/plugin_htmlbar/htmlbar_uimanager.c:964
 msgid "H_2"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1360
+#: src/plugin_htmlbar/htmlbar_uimanager.c:964
 #, fuzzy
 msgid "Insert H2 tag"
 msgstr "Εισαγωγή εικόνας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1362
+#: src/plugin_htmlbar/htmlbar_uimanager.c:966
 msgid "H_3"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1362
+#: src/plugin_htmlbar/htmlbar_uimanager.c:966
 #, fuzzy
 msgid "Insert H3 tag"
 msgstr "Εισαγωγή εικόνας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1364
+#: src/plugin_htmlbar/htmlbar_uimanager.c:968
 msgid "H_4"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1364
+#: src/plugin_htmlbar/htmlbar_uimanager.c:968
 #, fuzzy
 msgid "Insert H4 tag"
 msgstr "Εισαγωγή εικόνας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1366
+#: src/plugin_htmlbar/htmlbar_uimanager.c:970
 msgid "H_5"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1366
+#: src/plugin_htmlbar/htmlbar_uimanager.c:970
 #, fuzzy
 msgid "Insert H5 tag"
 msgstr "Εισαγωγή εικόνας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1368
+#: src/plugin_htmlbar/htmlbar_uimanager.c:972
 msgid "H_6"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1368
+#: src/plugin_htmlbar/htmlbar_uimanager.c:972
 #, fuzzy
 msgid "Insert H6 tag"
 msgstr "Εισαγωγή εικόνας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1370
-#, fuzzy
-msgid "_Special"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1371
-#, fuzzy
-msgid "_Accent"
-msgstr "Ενέργεια"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1372
-#, fuzzy
-msgid "_Uppercase"
-msgstr "Κεφαλαία"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1373
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1405
-msgid "_A-I"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1374
-msgid "A grave À"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1375
-msgid "A acute Á"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1376
-msgid "A circumflex Â"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1377
-msgid "A tilde Ã"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1378
-msgid "AE ligature Æ"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1379
-msgid "A diaeresis Ä"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1380
-msgid "A ring Å"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1381
-msgid "C cedilla Ç"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1382
-msgid "E grave È"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1383
-msgid "E acute É"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1384
-msgid "E circumflex Ê"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1385
-msgid "E diaeresis Ë"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1386
-msgid "I grave Ì"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1387
-msgid "I acute Í"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1388
-msgid "I circumflex Î"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1389
-msgid "I diaeresis Ï"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1390
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1422
-msgid "_J-Z"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1391
-msgid "N tilde Ñ"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1392
-msgid "O grave Ò"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1393
-msgid "O acute Ó"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1394
-msgid "O circumflex Ô"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1395
-msgid "OE ligature Œ"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1396
-msgid "O tilde Õ"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1397
-msgid "O diaeresis Ö"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1398
-msgid "O slash Ø"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1399
-msgid "U grave Ù"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1400
-msgid "U acute Ú"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1401
-msgid "U circumflex Û"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1402
-msgid "U diaeresis Ü"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1403
-msgid "Y acute Ý"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1404
-#, fuzzy
-msgid "_Lowercase"
-msgstr "Πεζά"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1406
-msgid "a grave à"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1407
-msgid "a acute á"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1408
-msgid "a circumflex â"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1409
-msgid "a tilde ã"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1410
-msgid "a ring å"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1411
-msgid "ae ligature æ"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1412
-msgid "a diaeresis ä"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1413
-msgid "c cedilla ç"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1414
-msgid "e grave è"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1415
-msgid "e acute é"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1416
-msgid "e circumflex ê"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1417
-msgid "e diaeresis ë"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1418
-msgid "i grave ì"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1419
-msgid "i acute í"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1420
-msgid "i circumflex î"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1421
-msgid "i diaeresis ï"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1423
-msgid "n tilde ñ"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1424
-msgid "o grave ò"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1425
-msgid "o acute ó"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1426
-msgid "oe ligature œ"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1427
-msgid "o circumflex ô"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1428
-msgid "o tilde õ"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1429
-msgid "o diaeresis ö"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1430
-msgid "o slash ø"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1431
-msgid "u grave ù"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1432
-msgid "u acute ú"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1433
-msgid "u circumflex û"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1434
-msgid "u diaeresis ü"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1435
-msgid "y acute ý"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1436
-msgid "y diaeresis ÿ"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1437
-msgid "_Acute ´"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1438
-msgid "_Cedilla ¸"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1439
-msgid "U_mlaut ¨"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1440
-msgid "_Currency"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1441
-msgid "_Cent sign ¢"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1442
-#, fuzzy
-msgid "_Pound sterling £"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Στερλίνα"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1443
-msgid "C_urrency sign ¤"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1444
-msgid "_Yen sign ¥"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1445
-msgid "_Euro €"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1446
-#, fuzzy
-msgid "_Math-Science"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1447
-msgid "Logical _not sign ¬"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1448
-#, fuzzy
-msgid "_Multiplication sign ×"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/πολλαπλασιασμού"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1449
-msgid "_Division sign ÷"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1451
-msgid "_Plus-minus sign ±"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1452
-msgid "_Less-than sign <"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1454
-msgid "_Greater-than sign >"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1456
-#, fuzzy
-msgid "Superscript _1 ¹"
-msgstr "Εκθέτης"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1457
-#, fuzzy
-msgid "Superscript _2 ²"
-msgstr "Εκθέτης"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1458
-#, fuzzy
-msgid "Superscript _3 ³"
-msgstr "Εκθέτης"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1459
-msgid "One _quarter ¼"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1460
-msgid "One _half ½"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1461
-msgid "_Three quarters ¾"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1463
-msgid "Deg_ree sign °"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1464
-msgid "_Non Latin"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1465
-#, fuzzy
-msgid "_ETH (Icelandic) Ð"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/ETH (Ισλανδικό)"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1466
-#, fuzzy
-msgid "_THORN (Icelandic) Þ"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/THORN (Ισλανδικό)"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1467
-#, fuzzy
-msgid "et_h (Icelandic) ð"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/eth (Ισλανδικό)"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1468
-msgid "th_orn þ"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1469
-msgid "Sharp _s ß"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1470
-msgid "_Micro sign µ"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1471
-msgid "_Other"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:974
+msgid "_Entities"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1472
+#: src/plugin_htmlbar/htmlbar_uimanager.c:975
 #, fuzzy
 msgid "_Non-breaking space"
 msgstr "Διάστημα χωρίς διακοπή"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1473
-#, fuzzy
-msgid "_Section sign §"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Section sign"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1474
-#, fuzzy
-msgid "_Copyright sign ©"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Copyright sign"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1475
-#, fuzzy
-msgid "_Left angle quotes «"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Left angle quotes"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1477
-#, fuzzy
-msgid "_Right angle quotes »"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Right angle quotes"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1479
-#, fuzzy
-msgid "Registered _trademark ®"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Registered trademark"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1480
-#, fuzzy
-msgid "Inverted _exclamation ¡"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Inverted exclamation"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1482
-#, fuzzy
-msgid "Inverted _question mark ¿"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Inverted question mark"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1484
-#, fuzzy
-msgid "_Feminine ordinal ª"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Feminine ordinal"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1485
-#, fuzzy
-msgid "_Masculine ordinal º"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Masculine ordinal"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1487
-#, fuzzy
-msgid "_Pilcrow (paragraph sign) ¶"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Pilcrow (paragraph sign)"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1489
+#: src/plugin_htmlbar/htmlbar_uimanager.c:976
 msgid "_Broken bar ¦"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1490
+#: src/plugin_htmlbar/htmlbar_uimanager.c:977
 msgid "Soft _hyphen -"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1491
-#, fuzzy
-msgid "Spa_cing macron ¯"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Spacing macron"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
-msgid "Middle _dot ·"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1494
+#: src/plugin_htmlbar/htmlbar_uimanager.c:978
 #, fuzzy
 msgid "_Format by Context"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
+#: src/plugin_htmlbar/htmlbar_uimanager.c:979
 #, fuzzy
 msgid "_Strong"
 msgstr "Έντονα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
+#: src/plugin_htmlbar/htmlbar_uimanager.c:979
 msgid "Strong"
 msgstr "Έντονα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
+#: src/plugin_htmlbar/htmlbar_uimanager.c:981
 #, fuzzy
 msgid "_Emphasis"
 msgstr "Έμφασις"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
+#: src/plugin_htmlbar/htmlbar_uimanager.c:981
 msgid "Emphasis"
 msgstr "Έμφασις"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1571
+#: src/plugin_htmlbar/htmlbar_uimanager.c:983
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1055
 #, fuzzy
 msgid "_Definition"
 msgstr "Ορισμός"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1571
+#: src/plugin_htmlbar/htmlbar_uimanager.c:983
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1055
 msgid "Definition"
 msgstr "Ορισμός"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
+#: src/plugin_htmlbar/htmlbar_uimanager.c:985
 #, fuzzy
 msgid "_Code"
 msgstr "Κώδικας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
+#: src/plugin_htmlbar/htmlbar_uimanager.c:985
 msgid "Code"
 msgstr "Κώδικας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1502
+#: src/plugin_htmlbar/htmlbar_uimanager.c:986
 #, fuzzy
 msgid "Sa_mple"
 msgstr "Δείγμα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1502
+#: src/plugin_htmlbar/htmlbar_uimanager.c:986
 msgid "Sample"
 msgstr "Δείγμα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
+#: src/plugin_htmlbar/htmlbar_uimanager.c:987
 #, fuzzy
 msgid "_Keyboard"
 msgstr "Πληκρολόγιο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
+#: src/plugin_htmlbar/htmlbar_uimanager.c:987
 msgid "Keyboard"
 msgstr "Πληκρολόγιο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
+#: src/plugin_htmlbar/htmlbar_uimanager.c:989
 #, fuzzy
 msgid "_Variable"
 msgstr "Μεταβλητή"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
+#: src/plugin_htmlbar/htmlbar_uimanager.c:989
 msgid "Variable"
 msgstr "Μεταβλητή"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
+#: src/plugin_htmlbar/htmlbar_uimanager.c:991
 #, fuzzy
 msgid "Ci_tation"
 msgstr "Περιεχόμενο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
+#: src/plugin_htmlbar/htmlbar_uimanager.c:991
 #, fuzzy
 msgid "Citation"
 msgstr "Περιεχόμενο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1509
+#: src/plugin_htmlbar/htmlbar_uimanager.c:993
 msgid "_Abbreviation"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1509
+#: src/plugin_htmlbar/htmlbar_uimanager.c:993
 msgid "Abbreviation"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1511
+#: src/plugin_htmlbar/htmlbar_uimanager.c:995
 #, fuzzy
 msgid "Ac_ronym"
 msgstr "Ενέργεια"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1511
+#: src/plugin_htmlbar/htmlbar_uimanager.c:995
 #, fuzzy
 msgid "Acronym"
 msgstr "Ενέργεια"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1513
+#: src/plugin_htmlbar/htmlbar_uimanager.c:997
 #, fuzzy
 msgid "_Insert"
 msgstr "Εισαγωγή"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1513
+#: src/plugin_htmlbar/htmlbar_uimanager.c:997
 msgid "Insert"
 msgstr "Εισαγωγή"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1514
+#: src/plugin_htmlbar/htmlbar_uimanager.c:998
 #, fuzzy
 msgid "De_lete"
 msgstr "Διαγραφή"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1514
+#: src/plugin_htmlbar/htmlbar_uimanager.c:998
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1515
+#: src/plugin_htmlbar/htmlbar_uimanager.c:999
 #, fuzzy
 msgid "Format by L_ayout"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1000
 #, fuzzy
 msgid "_Bold"
 msgstr "Έντονα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1000
 msgid "Bold"
 msgstr "Έντονα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1002
 #, fuzzy
 msgid "_Italic"
 msgstr "Πλάγια"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1002
 msgid "Italic"
 msgstr "Πλάγια"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1004
 msgid "_Underline"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1004
 msgid "Underline"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1522
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1006
 msgid "_Strikeout"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1522
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1006
 msgid "Strikeout"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1524
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1008
 msgid "Sm_all"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1524
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1008
 msgid "Small"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1525
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1009
 msgid "Bi_g"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1525
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1009
 msgid "Big"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1526
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1010
 #, fuzzy
 msgid "Format _General"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κέντρο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1527
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1011
 #, fuzzy
 msgid "_Paragraph"
 msgstr "Παράγραφος"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1527 src/plugin_htmlbar/html.c:878
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1011 src/plugin_htmlbar/html.c:843
 msgid "Paragraph"
 msgstr "Παράγραφος"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1529
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1013
 #, fuzzy
 msgid "_Break"
 msgstr "Αλλαγή γραμμής"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1529
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1013
 msgid "Break"
 msgstr "Αλλαγή γραμμής"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1531
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1015
 #, fuzzy
 msgid "Break clear _all"
 msgstr "Αλλαγή γραμμής και καθάριση"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1531
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1015
 msgid "Break and clear"
 msgstr "Αλλαγή γραμμής και καθάριση"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1533
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1017
 #, fuzzy
 msgid "_Non-Breaking Space"
 msgstr "Διάστημα χωρίς διακοπή"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1533
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1017
 msgid "Non-breaking space"
 msgstr "Διάστημα χωρίς διακοπή"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1535
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1019
 #, fuzzy
 msgid "Font Si_ze +1"
 msgstr "Μέγεθος γρ/σειράς +1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1535
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1019
 msgid "Font Size +1"
 msgstr "Μέγεθος γρ/σειράς +1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1537
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1021
 #, fuzzy
 msgid "Font _Size -1"
 msgstr "Μέγεθος γρ/σειράς -1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1537
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1021
 msgid "Font Size -1"
 msgstr "Μέγεθος γρ/σειράς -1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1539
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1023
 #, fuzzy
 msgid "Preformatted _Text"
 msgstr "Προφορμαρισμένο Κείμενο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1539
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1023
 msgid "Preformatted Text"
 msgstr "Προφορμαρισμένο Κείμενο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1541
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1025
 #, fuzzy
 msgid "Su_bscript"
 msgstr "Δείκτης"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1541
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1025
 msgid "Subscript"
 msgstr "Δείκτης"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1543
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1027
 #, fuzzy
 msgid "Su_perscript"
 msgstr "Εκθέτης"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1543
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1027
 msgid "Superscript"
 msgstr "Εκθέτης"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1545
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1029
 #, fuzzy
 msgid "_Center"
 msgstr "Κέντρο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1545
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1029
 msgid "Center"
 msgstr "Κέντρο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1547
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1031
 msgid "Align _right"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1547
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1031
 msgid "Right Justify"
 msgstr "Στοίχηση δεξιά"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1549
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1550
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1619
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1033
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1034
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1116
 #, fuzzy
 msgid "_Table"
 msgstr "Πίνακας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1550
-#: src/plugin_htmlbar/html_table.c:84
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1034
+#: src/plugin_htmlbar/html_table.c:101
 msgid "Table"
 msgstr "Πίνακας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1036
 #, fuzzy
 msgid "Table _Row"
 msgstr "Γραμμή Πίνακα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
-#: src/plugin_htmlbar/html_table.c:218
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1036
+#: src/plugin_htmlbar/html_table.c:242
 msgid "Table Row"
 msgstr "Γραμμή Πίνακα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1554
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1038
 #, fuzzy
 msgid "Table _Header"
 msgstr "Κεφαλίδα Πίνακα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1554
-#: src/plugin_htmlbar/html_table.c:343
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1038
+#: src/plugin_htmlbar/html_table.c:363
 msgid "Table Header"
 msgstr "Κεφαλίδα Πίνακα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1556
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1040
 #, fuzzy
 msgid "Table _Data"
 msgstr "Δεδομένα Πίνακα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1556
-#: src/plugin_htmlbar/html_table.c:341
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1040
+#: src/plugin_htmlbar/html_table.c:361
 msgid "Table Data"
 msgstr "Δεδομένα Πίνακα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1558
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1042
 #, fuzzy
 msgid "Table _Caption"
 msgstr "Πλαίσιο πίνακα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1558
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1042
 msgid "Table Caption"
 msgstr "Πλαίσιο πίνακα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1560
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1044
 #, fuzzy
 msgid "_List"
 msgstr " Λίστα "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1561
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1045
 #, fuzzy
 msgid "Unordered _List"
 msgstr "Μη αριθμημένη λίστα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1561
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1045
 msgid "Unordered List"
 msgstr "Μη αριθμημένη λίστα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1563
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1047
 #, fuzzy
 msgid "_Ordered List"
 msgstr "Αριθμημένη λίστα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1563
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1047
 msgid "Ordered List"
 msgstr "Αριθμημένη λίστα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1565
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1049
 #, fuzzy
 msgid "List Ite_m"
 msgstr "Αντικείμενο Λίστας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1565
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1049
 msgid "List Item"
 msgstr "Αντικείμενο Λίστας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1567
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1051
 #, fuzzy
 msgid "De_finition List"
 msgstr "Λίστα Ορισμών"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1567
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1051
 msgid "Definition List"
 msgstr "Λίστα Ορισμών"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1569
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1053
 #, fuzzy
 msgid "Definition _Term"
 msgstr "Όρος προς ερμηνεία"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1569
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1053
 msgid "Definition Term"
 msgstr "Όρος προς ερμηνεία"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1573
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1057
 msgid "Men_u"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1573
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1057
 #, fuzzy
 msgid "Menu"
 msgstr "Θέση μενού"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1574
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1648
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1058
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1059
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1147
 msgid "F_orm"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1575
-#, fuzzy
-msgid "_Form"
-msgstr "Φόρμα"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1575
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1059
 #: src/plugin_htmlbar/html_form.c:156
 msgid "Form"
 msgstr "Φόρμα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1576
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1060
 #, fuzzy
-msgid "_Button"
-msgstr "Κουμπί"
+msgid "_Fieldset"
+msgstr "/_Αρχείο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1577
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1061
+msgid "_Legend"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1062
+#, fuzzy
+msgid "L_abel"
+msgstr "Ταμπέλα"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1063
 #, fuzzy
 msgid "_Input"
 msgstr "Μη αριθμημένα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1578
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1064
+#, fuzzy
+msgid "_Button"
+msgstr "Κουμπί"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1065
+#, fuzzy
+msgid "_Select"
+msgstr "Επιλογή"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1066
+#, fuzzy
+msgid "_Datalist"
+msgstr "Πλάγια"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1067
+#, fuzzy
+msgid "Opt_group"
+msgstr "Ε_πιλογές"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1068
+#, fuzzy
+msgid "Optio_n"
+msgstr "Επιλογή"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1069
 #, fuzzy
 msgid "_Textarea"
 msgstr "Πεδίο κειμένου"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1579
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1070
+msgid "_Keygen"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1071
+#, fuzzy
+msgid "O_utput"
+msgstr "Μη αριθμημένα"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1072
+#, fuzzy
+msgid "_Progress"
+msgstr "Ιδιότητα"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1073
+#, fuzzy
+msgid "_Meter"
+msgstr "Κέντρο"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1074
 #, fuzzy
 msgid "_Misc"
 msgstr "/Ετικέτες/Λίστες"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1580
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1075
 #, fuzzy
 msgid "Insert Generator _META-Tag"
 msgstr "/Ετικέτες/Εισαγωγή META-ετικέτας"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1582
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1077
 #, fuzzy
 msgid "_Span"
 msgstr "Span"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1583
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1078
 msgid "_Div"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1584
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1079
 #, fuzzy
 msgid "_Link"
 msgstr "Σύνδεσμος"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1585
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1080
 #, fuzzy
 msgid "S_cript"
 msgstr "Δείκτης"
 
 # src/html.c:760		ΝΤΚ
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1586
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1081
 #, fuzzy
 msgid "_Anchor"
 msgstr "Γρήγορη διασύνδεση"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1587
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1082
 #, fuzzy
 msgid "_Image"
 msgstr "Εικόνες"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1588
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1083
 #, fuzzy
 msgid "_Comment"
 msgstr "Σχόλιο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1588
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1083
 #, fuzzy
 msgid "HTML Comment"
 msgstr "Σχόλιο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1590
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1085
 #, fuzzy
 msgid "Dial_ogs"
 msgstr "Διάλογος"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1591
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1086
 #, fuzzy
 msgid "_General"
 msgstr "Γενικά"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1592
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1087
 #, fuzzy
 msgid "_Quickstart..."
 msgstr "Γρήγορη αρχή..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1592
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1087
 #, fuzzy
 msgid "Quickstart..."
 msgstr "Γρήγορη αρχή..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1594
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1089
 #, fuzzy
 msgid "_Link Header..."
 msgstr "Κεφαλίδα Πίνακα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1594
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1089
 #, fuzzy
 msgid "Link Header..."
 msgstr "Κεφαλίδα Πίνακα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1596
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1091
 #, fuzzy
 msgid "_Body..."
 msgstr "Κορμός..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1596
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1091
 msgid "Body..."
 msgstr "Κορμός..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1598
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1093
+#, fuzzy
+msgid "_Script..."
+msgstr "Δείκτης"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1093
+#, fuzzy
+msgid "Script..."
+msgstr "Δείκτης"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1095
 msgid "_Anchor..."
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1598
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1095
 #, fuzzy
 msgid "Anchor / Hyperlink..."
 msgstr "Διασύνδεση..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1600
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1097
 #, fuzzy
 msgid "_E-mail..."
 msgstr "E-mail..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1600
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1097
 #, fuzzy
 msgid "E-mail..."
 msgstr "E-mail..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1602
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1099
 #, fuzzy
 msgid "_Rule..."
 msgstr "Διαχωρισμός..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1602
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1099
 #, fuzzy
 msgid "Horizontal Rule..."
 msgstr "Οριζόντια διαχώριση"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1604
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1101
 #, fuzzy
 msgid "_Font..."
 msgstr "Γραμματοσειρά..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1604
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1101
 msgid "Font..."
 msgstr "Γραμματοσειρά..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1606
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1103
 #, fuzzy
 msgid "Basef_ont..."
 msgstr "Βασικό μέγεθος γρ/σειράς..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1606
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1103
 #, fuzzy
 msgid "Base font..."
 msgstr "Βασική Γραμματοσειρά"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1608
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1105
 #, fuzzy
 msgid "Quick_list..."
 msgstr "Γρήγορη λίστα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1608
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1105
 msgid "Quick List..."
 msgstr "Γρήγορη λίστα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1610
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1107
 #, fuzzy
 msgid "_Meta..."
 msgstr "Meta"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1611
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1108
 #, fuzzy
 msgid "Embe_d..."
 msgstr "Ενσωμάτωση"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1612
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1109
 #, fuzzy
 msgid "Select _Color..."
 msgstr "Επιλογή..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1613
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1110
 #, fuzzy
 msgid "Insert _Time..."
 msgstr "Εισαγωγή εικόνας..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1614
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1111
 #, fuzzy
 msgid "Insert _Image..."
 msgstr "Εισαγωγή εικόνας..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1614
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1111
 msgid "Insert image..."
 msgstr "Εισαγωγή εικόνας..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1616
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1113
 #, fuzzy
 msgid "Insert T_humbnail..."
 msgstr "Εισαγωγή μικρογραφίας..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1617
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1114
 msgid "Insert thumbnail..."
 msgstr "Εισαγωγή μικρογραφίας..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1620
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1117
 #, fuzzy
 msgid "Table _Wizard..."
 msgstr "Οδηγός πίνακα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1620
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1117
 msgid "Table Wizard..."
 msgstr "Οδηγός πίνακα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1622
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1119
 #, fuzzy
 msgid "_Table..."
 msgstr "Πίνακας..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1622
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1119
 msgid "Table..."
 msgstr "Πίνακας..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1624
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1121
 #, fuzzy
 msgid "Table _Row..."
 msgstr "Γραμμή Πίνακα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1624
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1121
 msgid "Table Row..."
 msgstr "Γραμμή Πίνακα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1626
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1123
 #, fuzzy
 msgid "Table _Head..."
 msgstr "Κεφαλίδα Πίνακα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1626
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1123
 #, fuzzy
 msgid "Table Head..."
 msgstr "Κεφαλίδα Πίνακα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1628
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1125
 #, fuzzy
 msgid "Table _Data..."
 msgstr "Δεδομένα Πίνακα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1628
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1125
 msgid "Table Data..."
 msgstr "Δεδομένα Πίνακα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1630
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1127
 msgid "_CSS"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1631
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1128
 #, fuzzy
 msgid "_Create Style..."
 msgstr "Εισαγωγή στυλ στο φύλλο των στυλ..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1632
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1129
 #, fuzzy
 msgid "Create stylesheet..."
 msgstr "Εισαγωγή στυλ στο φύλλο των στυλ..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1634
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1131
 #, fuzzy
 msgid "S_pan..."
 msgstr "Διάστημα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1634
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1131
 msgid "Span..."
 msgstr "Διάστημα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1635
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1132
 #, fuzzy
 msgid "_Div..."
 msgstr "Div..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1635
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1132
 msgid "Div..."
 msgstr "Div..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1637
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1134
 #, fuzzy
 msgid "_Style"
 msgstr "Στυλ:"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1637
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1134
 #: src/plugin_htmlbar/html_form.c:565
 msgid "Style"
 msgstr "Στυλ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1639
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1136
+#, fuzzy
+msgid "C_olumns..."
+msgstr "Γραμματοσειρά..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1136
+#, fuzzy
+msgid "Columns..."
+msgstr "Αποθήκευση ως..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1138
 #, fuzzy
 msgid "_Link to Stylesheet..."
 msgstr "Διασύνδεση σε φύλλο στυλ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1640
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1139
 #, fuzzy
 msgid "Link to Stylesheet..."
 msgstr "Διασύνδεση σε φύλλο στυλ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1642
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1141
 #, fuzzy
 msgid "_Frame"
 msgstr "_Πλαίσιο:"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1643
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1142
 #, fuzzy
 msgid "Frame _Wizard..."
 msgstr "Οδηγός Πλαισίων..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1643
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1142
 msgid "Frame Wizard..."
 msgstr "Οδηγός Πλαισίων..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1144
 #, fuzzy
 msgid "Frame_set..."
 msgstr "Σετ πλαισίου..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1144
 msgid "Frameset..."
 msgstr "Σετ πλαισίου..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1647
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1146
 #, fuzzy
 msgid "_Frame..."
 msgstr "Πλαίσιο..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1647
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1146
 msgid "Frame..."
 msgstr "Πλαίσιο..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1649
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1148
 #, fuzzy
 msgid "F_orm..."
 msgstr "Φόρμα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1649
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1148
 msgid "Form..."
 msgstr "Φόρμα..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1650
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1149
 #, fuzzy
 msgid "_Input..."
 msgstr "Ραδιο-κουμπί..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1651
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1150
 #, fuzzy
 msgid "Input B_uttons..."
 msgstr "Ραδιο-κουμπί..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1651
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1150
 #, fuzzy
 msgid "Input Button..."
 msgstr "Ραδιο-κουμπί..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1653
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1152
 #, fuzzy
 msgid "Input T_ext..."
 msgstr "Ραδιο-κουμπί..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1653
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1152
 #, fuzzy
 msgid "Input Text..."
 msgstr "Ραδιο-κουμπί..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1655
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1154
 #, fuzzy
 msgid "Text_area..."
 msgstr "Πεδίο κειμένου..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1655
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1154
 msgid "Textarea..."
 msgstr "Πεδίο κειμένου..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1657
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1156
 #, fuzzy
 msgid "_Select..."
 msgstr "Επιλογή..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1657
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1156
 msgid "Select..."
 msgstr "Επιλογή..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1659
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1158
 #, fuzzy
 msgid "O_ption..."
 msgstr "Επιλογή..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1659
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1158
 msgid "Option..."
 msgstr "Επιλογή..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1661
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1160
 #, fuzzy
 msgid "Option _Group..."
 msgstr "/Ε_πιλογές..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1661
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1160
 #, fuzzy
 msgid "Option group..."
 msgstr "/Ε_πιλογές..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1663
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1162
 #, fuzzy
 msgid "_Button..."
 msgstr "Κουμπί..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1663
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1162
 msgid "Button..."
 msgstr "Κουμπί..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1665
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1164
 msgid "_Edit tag under cursor..."
 msgstr ""
 
 # src/configure.c:355		ΝΤΚ
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1667
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1166
 #, fuzzy
 msgid "_Multi Thumbnail..."
 msgstr "Τύπος προεπισκόπησης"
 
 # src/configure.c:355		ΝΤΚ
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1667
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1166
 #, fuzzy
 msgid "Multi thumbnail..."
 msgstr "Τύπος προεπισκόπησης"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1669 src/plugin_htmlbar/html.c:1822
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1168 src/plugin_htmlbar/html.c:1755
 msgid "Frame"
 msgstr "Πλαίσιο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1670 src/plugin_htmlbar/html.c:1726
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1169 src/plugin_htmlbar/html.c:1666
 msgid "Frameset"
 msgstr "Frameset"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1672
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1171
 msgid "Noframes"
 msgstr "Χωρίς πλαίσια"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1674
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1173
 msgid "Target"
 msgstr "Στόχος"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1676
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1175
 #, fuzzy
 msgid "Input Hidden..."
 msgstr "Κρύφο..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1677
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1176
 #, fuzzy
 msgid "Input Radio button..."
 msgstr "Ραδιο-κουμπί..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1678
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1177
 #, fuzzy
 msgid "Input Radio Button..."
 msgstr "Ραδιο-κουμπί..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1679
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1178
 #, fuzzy
 msgid "Input Check box..."
 msgstr "Κουμπί τσεκαρίσματος..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1680
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1179
 #, fuzzy
 msgid "Input Check Box..."
 msgstr "Κουμπί τσεκαρίσματος..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1681
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1695
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1180
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1194
 #, fuzzy
 msgid "HTML_5"
 msgstr "HTML"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1682
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1181
 #, fuzzy
 msgid "_Article"
 msgstr "_Κάθετα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1682
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1181
 #, fuzzy
 msgid "Article"
 msgstr "_Κάθετα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1683
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1182
 msgid "As_ide"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1683
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1182
 msgid "Aside"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1684
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1183
 #, fuzzy
 msgid "Fig_caption"
 msgstr "Περιεχόμενο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1684
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1183
 #, fuzzy
 msgid "Figcaption"
 msgstr "Περιεχόμενο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1184
 msgid "Fig_ure"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1184
 msgid "Figure"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1686
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1185
 msgid "_Footer"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1686
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1185
 msgid "Footer"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1186
 #, fuzzy
 msgid "_Header"
 msgstr "_Href:"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1186
 #, fuzzy
 msgid "Header"
 msgstr "Κεφαλίδα Πίνακα"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1688
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1187
 #, fuzzy
 msgid "H_group"
 msgstr "Νέο έργο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1688
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1187
 #, fuzzy
 msgid "Hgroup"
 msgstr "Νέο έργο"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1188
 msgid "_Mark"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1188
 msgid "Mark"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1690
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1189
 msgid "_Nav"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1690
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1189
 msgid "Nav"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1691
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1190
 msgid "R_p"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1691
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1190
 msgid "Ruby parenthesis"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1692
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1191
 msgid "R_t"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1692
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1191
 msgid "Ruby text"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1693
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1192
 msgid "_Ruby"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1693
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1192
 msgid "Ruby"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1694
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1193
 #, fuzzy
 msgid "_Section"
 msgstr "_Ενέργεια:"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1694
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1193
 #, fuzzy
 msgid "Section"
 msgstr "_Ενέργεια:"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1696
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1195
 msgid "Au_dio..."
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1696
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1195
 msgid "Audio..."
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1697
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1196
 msgid "_Video..."
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1697
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1196
 msgid "Video..."
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1698
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1197
 #, fuzzy
 msgid "_Canvas..."
 msgstr "Αποθήκευση ως..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1698
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1197
 #, fuzzy
 msgid "Canvas..."
 msgstr "Αποθήκευση ως..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1699
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1198
 #, fuzzy
 msgid "_Time..."
 msgstr "Πλαίσιο..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1699
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1198
 #, fuzzy
 msgid "Time..."
 msgstr "Πλαίσιο..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1709
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1199
+#, fuzzy
+msgid "Insert _Color"
+msgstr "Χρώμα _Κειμένου:"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1199
+#, fuzzy
+msgid "Insert Color"
+msgstr "Εισαγωγή"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 #, fuzzy
 msgid "_HTML Toolbar"
 msgstr "/Επιλογές/Προβολή κύριας γραμμής εργαλείων"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1839
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1339
 #, fuzzy
 msgid "Add to Quickbar"
 msgstr " Γρήγορη μπάρα "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1839
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1339
 #, fuzzy
 msgid "Remove from Quickbar"
 msgstr " Γρήγορη μπάρα "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1877
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1377
 msgid "Right click any html toolbar button to add it to the Quickbar."
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1939
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1454
 #, fuzzy
-msgid " Quickbar "
+msgid "Quickbar"
 msgstr " Γρήγορη μπάρα "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1944
-msgid " Standard "
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1457
+msgid "Standard"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1949
-msgid " Fonts "
-msgstr " Γρ/σειρές"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1954
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1460
 #, fuzzy
-msgid " Formatting "
-msgstr "Κείμενο διαμόρφωσης μετά"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1959
-msgid " Tables "
-msgstr " Πίνακες "
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1964
-msgid " Frames "
-msgstr " Πλαίσια "
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1969
-msgid " Forms "
-msgstr " Φόρμες "
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1974
-msgid " List "
-msgstr " Λίστα "
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1979
-msgid " CSS "
-msgstr " CSS "
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1984
-#, fuzzy
-msgid " HTML 5 "
+msgid "HTML 5"
 msgstr "HTML"
 
-#: src/plugin_htmlbar/html.c:428
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1463
+#, fuzzy
+msgid "Formatting"
+msgstr "Κείμενο διαμόρφωσης μετά"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1466
+#, fuzzy
+msgid "Tables"
+msgstr "Πίνακας"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1469
+#, fuzzy
+msgid "List"
+msgstr " Λίστα "
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1472
+#, fuzzy
+msgid "CSS"
+msgstr " CSS "
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1475
+#, fuzzy
+msgid "Forms"
+msgstr "Φόρμα"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1478
+#, fuzzy
+msgid "Fonts"
+msgstr "Γραμματοσειρά"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1481
+#, fuzzy
+msgid "Frames"
+msgstr "Πλαίσιο"
+
+#: src/plugin_htmlbar/html.c:403
 msgid "Insert Time"
 msgstr "Εισαγωγή Ώρας"
 
-#: src/plugin_htmlbar/html.c:437
+#: src/plugin_htmlbar/html.c:411
 #, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr " _Ώρα (%i:%i:%i)"
 
-#: src/plugin_htmlbar/html.c:443
+#: src/plugin_htmlbar/html.c:416
 msgid "  Day of the _week (Sunday)"
 msgstr " Ημέρα της εβ_δομάδας (Κυριακή)"
 
-#: src/plugin_htmlbar/html.c:446
+#: src/plugin_htmlbar/html.c:419
 msgid "  Day of the _week (Monday)"
 msgstr " Ημέρα της β_δομάδας (Δευτέρα)"
 
-#: src/plugin_htmlbar/html.c:449
+#: src/plugin_htmlbar/html.c:422
 msgid "  Day of the _week (Tuesday)"
 msgstr " Ημέρα της ε_βδομάδας (Τρίτη)"
 
-#: src/plugin_htmlbar/html.c:452
+#: src/plugin_htmlbar/html.c:425
 msgid "  Day of the _week (Wednesday)"
 msgstr " Ημέρα της ε_βδομάδας (Τετάρτη)"
 
-#: src/plugin_htmlbar/html.c:455
+#: src/plugin_htmlbar/html.c:428
 msgid "  Day of the _week (Thursday)"
 msgstr " Ημέρα της ε_βδομάδας (Πέμπτη)"
 
-#: src/plugin_htmlbar/html.c:458
+#: src/plugin_htmlbar/html.c:431
 msgid "  Day of the _week (Friday)"
 msgstr " Ημέρα της εβ_δομάδας (Παρασκευή)"
 
-#: src/plugin_htmlbar/html.c:461
+#: src/plugin_htmlbar/html.c:434
 msgid "  Day of the _week (Saturday)"
 msgstr " Ημέρα της ε_βδομάδας (Σάββατο)"
 
-#: src/plugin_htmlbar/html.c:464
+#: src/plugin_htmlbar/html.c:437
 msgid "You appear to have a non existant day!\n"
 msgstr "Φαίνεται πως έχετε μια μη υπαρκτή μέρα!\n"
 
-#: src/plugin_htmlbar/html.c:472
+#: src/plugin_htmlbar/html.c:446
 #, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr " _Ημερομηνία (%i/%i/%i)"
 
-#: src/plugin_htmlbar/html.c:475
+#: src/plugin_htmlbar/html.c:449
 #, c-format
 msgid "  _Unix Time (%i)"
 msgstr " Ώρα _Unix (%i)"
 
-#: src/plugin_htmlbar/html.c:480
+#: src/plugin_htmlbar/html.c:454
 #, fuzzy, c-format
 msgid "  Unix Date _String (%s)"
 msgstr " Ημερομηνία Unix (%s"
 
-#: src/plugin_htmlbar/html.c:488
+#: src/plugin_htmlbar/html.c:462
 msgid "  ISO-8601 Ti_me "
 msgstr ""
 
 # src/html.c:760		ΝΤΚ
-#: src/plugin_htmlbar/html.c:662
+#: src/plugin_htmlbar/html.c:629
 msgid "Quick Anchor"
 msgstr "Γρήγορη διασύνδεση"
 
-#: src/plugin_htmlbar/html.c:668 src/plugin_htmlbar/html_form.c:520
+#: src/plugin_htmlbar/html.c:635 src/plugin_htmlbar/html_form.c:520
 msgid "Attributes"
 msgstr "Γνωρίσματα"
 
-#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:2454
+#: src/plugin_htmlbar/html.c:649 src/plugin_htmlbar/html.c:2662
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:688 src/plugin_htmlbar/html_form.c:200
+#: src/plugin_htmlbar/html.c:655 src/plugin_htmlbar/html_form.c:200
 #, fuzzy
 msgid "_Target:"
 msgstr "Στόχος"
 
-#: src/plugin_htmlbar/html.c:692 src/plugin_htmlbar/html.c:933
-#: src/plugin_htmlbar/html.c:1346 src/plugin_htmlbar/html.c:1834
+#: src/plugin_htmlbar/html.c:659 src/plugin_htmlbar/html.c:898
+#: src/plugin_htmlbar/html.c:1289 src/plugin_htmlbar/html.c:1767
 #: src/plugin_htmlbar/html_form.c:251 src/plugin_htmlbar/html_form.c:315
 #: src/plugin_htmlbar/html_form.c:538 src/plugin_htmlbar/html_form.c:633
-#: src/plugin_htmlbar/image.c:503
+#: src/plugin_htmlbar/image.c:532
 msgid "_Name:"
 msgstr "_Όνομα:"
 
-#: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/quickstart.c:552
+#: src/plugin_htmlbar/html.c:662 src/plugin_htmlbar/quickstart.c:557
 #, fuzzy
 msgid "Titl_e:"
 msgstr "_Τίτλος:"
 
-#: src/plugin_htmlbar/html.c:700 src/plugin_htmlbar/html.c:1215
-#: src/plugin_htmlbar/html.c:1364 src/plugin_htmlbar/html.c:2366
+#: src/plugin_htmlbar/html.c:667 src/plugin_htmlbar/html.c:1163
+#: src/plugin_htmlbar/html.c:1306 src/plugin_htmlbar/html.c:2310
 msgid "_Language:"
 msgstr "_Γλώσσα:"
 
-#: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:939
-#: src/plugin_htmlbar/html.c:1109 src/plugin_htmlbar/html.c:1218
-#: src/plugin_htmlbar/html.c:1370 src/plugin_htmlbar/html.c:1757
-#: src/plugin_htmlbar/html.c:1871 src/plugin_htmlbar/html.c:1976
-#: src/plugin_htmlbar/html.c:2045 src/plugin_htmlbar/html.c:2176
-#: src/plugin_htmlbar/html.c:2251 src/plugin_htmlbar/html.c:2385
-#: src/plugin_htmlbar/html_form.c:204 src/plugin_htmlbar/html_form.c:267
-#: src/plugin_htmlbar/html_form.c:328 src/plugin_htmlbar/html_form.c:645
-#: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
-#: src/plugin_htmlbar/html_table.c:383 src/plugin_htmlbar/image.c:509
-#: src/plugin_htmlbar/image_dialog.c:394
+#: src/plugin_htmlbar/html.c:670 src/plugin_htmlbar/html.c:904
+#: src/plugin_htmlbar/html.c:1070 src/plugin_htmlbar/html.c:1166
+#: src/plugin_htmlbar/html.c:1312 src/plugin_htmlbar/html.c:1696
+#: src/plugin_htmlbar/html.c:1805 src/plugin_htmlbar/html.c:1904
+#: src/plugin_htmlbar/html.c:1973 src/plugin_htmlbar/html.c:2097
+#: src/plugin_htmlbar/html.c:2162 src/plugin_htmlbar/html.c:2246
+#: src/plugin_htmlbar/html.c:2333 src/plugin_htmlbar/html_form.c:204
+#: src/plugin_htmlbar/html_form.c:267 src/plugin_htmlbar/html_form.c:328
+#: src/plugin_htmlbar/html_form.c:645 src/plugin_htmlbar/html_table.c:136
+#: src/plugin_htmlbar/html_table.c:283 src/plugin_htmlbar/html_table.c:419
+#: src/plugin_htmlbar/image.c:538 src/plugin_htmlbar/image_dialog.c:397
 #, fuzzy
 msgid "Custo_m:"
 msgstr "Προσαρμωγή"
 
-#: src/plugin_htmlbar/html.c:705 src/plugin_htmlbar/html.c:1222
+#: src/plugin_htmlbar/html.c:672 src/plugin_htmlbar/html.c:1170
 #: src/plugin_htmlbar/html_form.c:569
 msgid "Events"
 msgstr "Γεγονότα"
 
-#: src/plugin_htmlbar/html.c:708
+#: src/plugin_htmlbar/html.c:675
 msgid "OnClic_k:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:711
+#: src/plugin_htmlbar/html.c:678
 msgid "OnD_blClick:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:714
+#: src/plugin_htmlbar/html.c:681
 msgid "OnMouseO_ver:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:717
+#: src/plugin_htmlbar/html.c:684
 msgid "OnMouse_Down:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:720
+#: src/plugin_htmlbar/html.c:687
 msgid "OnMouse_Move:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:723
+#: src/plugin_htmlbar/html.c:690
 msgid "OnMouseOu_t:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:726
+#: src/plugin_htmlbar/html.c:693
 msgid "OnMouse_Up:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:729
+#: src/plugin_htmlbar/html.c:696
 msgid "OnKeyDo_wn:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:732
+#: src/plugin_htmlbar/html.c:699
 msgid "OnKey_Press:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:735
+#: src/plugin_htmlbar/html.c:702
 msgid "OnKe_yUp:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:881
+#: src/plugin_htmlbar/html.c:846
 msgid "Div"
 msgstr "Div"
 
-#: src/plugin_htmlbar/html.c:884
+#: src/plugin_htmlbar/html.c:849
 msgid "Span"
 msgstr "Span"
 
-#: src/plugin_htmlbar/html.c:887
+#: src/plugin_htmlbar/html.c:852
 msgid "Heading 1"
 msgstr "Κεφαλίδα 1"
 
-#: src/plugin_htmlbar/html.c:890
+#: src/plugin_htmlbar/html.c:855
 msgid "Heading 2"
 msgstr "Κεφαλίδα 2"
 
-#: src/plugin_htmlbar/html.c:893
+#: src/plugin_htmlbar/html.c:858
 msgid "Heading 3"
 msgstr "Κεφαλίδα 3"
 
-#: src/plugin_htmlbar/html.c:896
+#: src/plugin_htmlbar/html.c:861
 msgid "Heading 4"
 msgstr "Κεφαλίδα 4"
 
-#: src/plugin_htmlbar/html.c:899
+#: src/plugin_htmlbar/html.c:864
 msgid "Heading 5"
 msgstr "Κεφαλίδα 5"
 
-#: src/plugin_htmlbar/html.c:902
+#: src/plugin_htmlbar/html.c:867
 msgid "Heading 6"
 msgstr "Κεφαλίδα 6"
 
-#: src/plugin_htmlbar/html.c:919 src/plugin_htmlbar/html_table.c:114
-#: src/plugin_htmlbar/html_table.c:228 src/plugin_htmlbar/html_table.c:356
+#: src/plugin_htmlbar/html.c:884
 msgid "Ali_gn:"
 msgstr "Στοί_χηση:"
 
-#: src/plugin_htmlbar/html.c:923 src/plugin_htmlbar/html.c:1209
-#: src/plugin_htmlbar/html_diag.c:451 src/plugin_htmlbar/html_table.c:98
-#: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
-#: src/plugin_htmlbar/image_dialog.c:374
+#: src/plugin_htmlbar/html.c:888 src/plugin_htmlbar/html.c:1157
+#: src/plugin_htmlbar/html.c:1896 src/plugin_htmlbar/html.c:1955
+#: src/plugin_htmlbar/html.c:2082 src/plugin_htmlbar/html.c:2238
+#: src/plugin_htmlbar/html_diag.c:470 src/plugin_htmlbar/html_table.c:127
+#: src/plugin_htmlbar/html_table.c:268 src/plugin_htmlbar/html_table.c:392
+#: src/plugin_htmlbar/image_dialog.c:377
 #, fuzzy
 msgid "Cl_ass:"
 msgstr "Κλάση"
 
-#: src/plugin_htmlbar/html.c:927 src/plugin_htmlbar/html.c:1202
-#: src/plugin_htmlbar/html_diag.c:465 src/plugin_htmlbar/html_table.c:102
-#: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:378
+#: src/plugin_htmlbar/html.c:892 src/plugin_htmlbar/html.c:1150
+#: src/plugin_htmlbar/html_diag.c:484 src/plugin_htmlbar/html_table.c:131
+#: src/plugin_htmlbar/html_table.c:278 src/plugin_htmlbar/html_table.c:414
 msgid "St_yle:"
 msgstr "Σ_τυλ:"
 
-#: src/plugin_htmlbar/html.c:936 src/plugin_htmlbar/html.c:1212
-#: src/plugin_htmlbar/html_diag.c:459
+#: src/plugin_htmlbar/html.c:901 src/plugin_htmlbar/html.c:1160
+#: src/plugin_htmlbar/html_diag.c:478
 msgid "_ID:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/html.c:1072
+#: src/plugin_htmlbar/html.c:1033
 msgid "Horizontal Rule"
 msgstr "Οριζόντια διαχώριση"
 
-#: src/plugin_htmlbar/html.c:1083 src/plugin_htmlbar/html.c:2300
-#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:417
+#: src/plugin_htmlbar/html.c:1044 src/plugin_htmlbar/image.c:555
+#: src/plugin_htmlbar/image_dialog.c:420
 msgid "_Align:"
 msgstr "Στοί_χηση:"
 
-#: src/plugin_htmlbar/html.c:1090 src/plugin_htmlbar/html.c:2041
-#: src/plugin_htmlbar/html.c:2161 src/plugin_htmlbar/html.c:2308
-#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:347
+#: src/plugin_htmlbar/html.c:1051 src/plugin_htmlbar/html.c:1969
+#: src/plugin_htmlbar/html.c:2073 src/plugin_htmlbar/html.c:2230
+#: src/plugin_htmlbar/image_dialog.c:350
 msgid "_Height:"
 msgstr "_Ύψος:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1096 src/plugin_htmlbar/html.c:2036
-#: src/plugin_htmlbar/html.c:2156 src/plugin_htmlbar/html.c:2304
-#: src/plugin_htmlbar/html_table.c:139 src/plugin_htmlbar/html_table.c:401
-#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:338
+#: src/plugin_htmlbar/html.c:1057 src/plugin_htmlbar/html.c:1964
+#: src/plugin_htmlbar/html.c:2068 src/plugin_htmlbar/html.c:2226
+#: src/plugin_htmlbar/image.c:517 src/plugin_htmlbar/image_dialog.c:341
 msgid "_Width:"
 msgstr "_Πλάτος:"
 
-#: src/plugin_htmlbar/html.c:1099
+#: src/plugin_htmlbar/html.c:1060
 msgid "Is _percent"
 msgstr "Είναι _ποσοστό"
 
-#: src/plugin_htmlbar/html.c:1104
+#: src/plugin_htmlbar/html.c:1065
 #, fuzzy
 msgid "No _shading"
 msgstr "Χωρίς σκιά"
 
-#: src/plugin_htmlbar/html.c:1187
+#: src/plugin_htmlbar/html.c:1135
 msgid "Body"
 msgstr "Σώμα"
 
-#: src/plugin_htmlbar/html.c:1195
+#: src/plugin_htmlbar/html.c:1143
 msgid "Options"
 msgstr "Επιλογές"
 
-#: src/plugin_htmlbar/html.c:1228
+#: src/plugin_htmlbar/html.c:1176
 msgid "On _Load:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1232
+#: src/plugin_htmlbar/html.c:1180
 msgid "On _Unload:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1238
+#: src/plugin_htmlbar/html.c:1186
 #, fuzzy
 msgid "Depreciated options"
 msgstr "Ορθογραφία"
 
-#: src/plugin_htmlbar/html.c:1247
+#: src/plugin_htmlbar/html.c:1195
 msgid "Background _Image:"
 msgstr "Ει_κόνα Παρασκηνίου:"
 
-#: src/plugin_htmlbar/html.c:1254
+#: src/plugin_htmlbar/html.c:1201
 msgid "Back_ground Color:"
 msgstr "Χρώμα _Παρασκηνίου:"
 
-#: src/plugin_htmlbar/html.c:1261
+#: src/plugin_htmlbar/html.c:1207
 msgid "_Text Color:"
 msgstr "Χρώμα _Κειμένου:"
 
-#: src/plugin_htmlbar/html.c:1267
+#: src/plugin_htmlbar/html.c:1213
 msgid "_Link Color:"
 msgstr "Χρώμα _Συνδέσμου:"
 
-#: src/plugin_htmlbar/html.c:1273
+#: src/plugin_htmlbar/html.c:1219
 #, fuzzy
 msgid "_Visited Link Color:"
 msgstr "Χρώμα ήδη επισκεπτώμενης διασύνδεσης"
 
-#: src/plugin_htmlbar/html.c:1280
+#: src/plugin_htmlbar/html.c:1225
 #, fuzzy
 msgid "_Active Link Color:"
 msgstr "Χρώμα ενεργής διεύθηνσης"
 
-#: src/plugin_htmlbar/html.c:1337
+#: src/plugin_htmlbar/html.c:1281
 msgid "Meta"
 msgstr "Meta"
 
-#: src/plugin_htmlbar/html.c:1356
+#: src/plugin_htmlbar/html.c:1298
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: src/plugin_htmlbar/html.c:1361
+#: src/plugin_htmlbar/html.c:1303
 msgid "Con_tent:"
 msgstr "Περιε_χόμενο:"
 
-#: src/plugin_htmlbar/html.c:1367
+#: src/plugin_htmlbar/html.c:1309
 #, fuzzy
 msgid "_Scheme:"
 msgstr "Θέμα"
 
-#: src/plugin_htmlbar/html.c:1451
+#: src/plugin_htmlbar/html.c:1393
 msgid "Font"
 msgstr "Γραμματοσειρά"
 
-#: src/plugin_htmlbar/html.c:1454
+#: src/plugin_htmlbar/html.c:1396
 msgid "Base Font"
 msgstr "Βασική Γραμματοσειρά"
 
-#: src/plugin_htmlbar/html.c:1469
+#: src/plugin_htmlbar/html.c:1411
 msgid "Size"
 msgstr "Μέγεθος"
 
-#: src/plugin_htmlbar/html.c:1478
+#: src/plugin_htmlbar/html.c:1420
 msgid "Color"
 msgstr "Χρώμα"
 
-#: src/plugin_htmlbar/html.c:1483
+#: src/plugin_htmlbar/html.c:1425
 msgid "Face"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1487
+#: src/plugin_htmlbar/html.c:1429
 msgid "Custom"
 msgstr "Προσαρμοσμένο"
 
-#: src/plugin_htmlbar/html.c:1577
+#: src/plugin_htmlbar/html.c:1519
 #, fuzzy
 msgid "E-mail"
 msgstr "Email"
 
-#: src/plugin_htmlbar/html.c:1585
+#: src/plugin_htmlbar/html.c:1527
 msgid "_Mail to:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1588
+#: src/plugin_htmlbar/html.c:1530
 #, fuzzy
 msgid "_Copy to:"
 msgstr "Αντιγραφή"
 
-#: src/plugin_htmlbar/html.c:1591
+#: src/plugin_htmlbar/html.c:1533
 msgid "Blin_d copy to:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1594
+#: src/plugin_htmlbar/html.c:1536
 msgid "with _Subject:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1597
+#: src/plugin_htmlbar/html.c:1539
 msgid "with _Body:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1643
+#: src/plugin_htmlbar/html.c:1585
 msgid "Quick List"
 msgstr "Γρήγορη λίστα"
 
-#: src/plugin_htmlbar/html.c:1648 src/plugin_htmlbar/wizards.c:81
+#: src/plugin_htmlbar/html.c:1590 src/plugin_htmlbar/wizards.c:81
 msgid "Number of _rows:"
 msgstr "Αριθμός των _γραμμών:"
 
-#: src/plugin_htmlbar/html.c:1651
+#: src/plugin_htmlbar/html.c:1593
 #, fuzzy
 msgid "Or_dered"
 msgstr "Αριθμημένα"
 
-#: src/plugin_htmlbar/html.c:1654
+#: src/plugin_htmlbar/html.c:1594
 #, fuzzy
 msgid "_Unordered"
 msgstr "Μη αριθμημένα"
 
-#: src/plugin_htmlbar/html.c:1656 src/plugin_htmlbar/image_dialog.c:388
+#: src/plugin_htmlbar/html.c:1596 src/plugin_htmlbar/image_dialog.c:391
 msgid "Style:"
 msgstr "Στυλ:"
 
-#: src/plugin_htmlbar/html.c:1732 src/plugin_htmlbar/html_form.c:259
+#: src/plugin_htmlbar/html.c:1672 src/plugin_htmlbar/html_form.c:259
 #, fuzzy
 msgid "Co_ls:"
 msgstr "Στήλες"
 
-#: src/plugin_htmlbar/html.c:1735 src/plugin_htmlbar/html_form.c:255
+#: src/plugin_htmlbar/html.c:1675 src/plugin_htmlbar/html_form.c:255
 msgid "_Rows:"
 msgstr "_Γραμμές:"
 
-#: src/plugin_htmlbar/html.c:1739
-msgid "_Add <frame> elements"
+#: src/plugin_htmlbar/html.c:1679
+msgid "_Add &lt;frame&gt; elements"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1933
-#: src/plugin_htmlbar/html.c:2109 src/plugin_htmlbar/html.c:2295
-#: src/plugin_htmlbar/html.c:2358 src/plugin_htmlbar/image_dialog.c:300
+#: src/plugin_htmlbar/html.c:1763 src/plugin_htmlbar/html.c:1866
+#: src/plugin_htmlbar/html.c:2036 src/plugin_htmlbar/html.c:2219
+#: src/plugin_htmlbar/html.c:2306 src/plugin_htmlbar/image_dialog.c:302
 msgid "_Source:"
 msgstr "_Πηγή:"
 
-#: src/plugin_htmlbar/html.c:1838
+#: src/plugin_htmlbar/html.c:1771
 #, fuzzy
 msgid "Margin _Width:"
 msgstr " Πλάτος περιθωρίου "
 
-#: src/plugin_htmlbar/html.c:1842
+#: src/plugin_htmlbar/html.c:1775
 #, fuzzy
 msgid "Margin _Height:"
 msgstr " Ύψος περιθωρίου "
 
 # src/html.c:1073	ΝΤΚ
-#: src/plugin_htmlbar/html.c:1850
+#: src/plugin_htmlbar/html.c:1784
 #, fuzzy
 msgid "Scrollin_g:"
 msgstr "Ανακύλιση "
 
-#: src/plugin_htmlbar/html.c:1854
+#: src/plugin_htmlbar/html.c:1788
 #, fuzzy
 msgid "_Frameborder:"
 msgstr "Frameset"
 
-#: src/plugin_htmlbar/html.c:1859
+#: src/plugin_htmlbar/html.c:1793
 #, fuzzy
 msgid "No _Resize:"
 msgstr "Χωρίς αλλαγή διαστάσεων"
 
 #. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:1925
+#: src/plugin_htmlbar/html.c:1859
 msgid "Audio"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1939 src/plugin_htmlbar/html.c:2122
+#: src/plugin_htmlbar/html.c:1870 src/plugin_htmlbar/html.c:2048
 msgid "_Autoplay:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1946 src/plugin_htmlbar/html.c:2129
-msgid "_Controls:"
-msgstr ""
+#: src/plugin_htmlbar/html.c:1874 src/plugin_htmlbar/html.c:2053
+#, fuzzy
+msgid "C_ontrols:"
+msgstr "Στήλες"
 
-#: src/plugin_htmlbar/html.c:1953 src/plugin_htmlbar/html.c:2136
+#: src/plugin_htmlbar/html.c:1878 src/plugin_htmlbar/html.c:2058
 msgid "_Loop:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1960 src/plugin_htmlbar/html.c:2143
+#: src/plugin_htmlbar/html.c:1882 src/plugin_htmlbar/html.c:2063
+#, fuzzy
+msgid "M_ute:"
+msgstr " _Ανανέωση "
+
+#: src/plugin_htmlbar/html.c:1887 src/plugin_htmlbar/html.c:2087
 #, fuzzy
 msgid "_Preload:"
 msgstr "_Επαναφόρτωση"
 
-#: src/plugin_htmlbar/html.c:1965 src/plugin_htmlbar/html.c:2024
-#: src/plugin_htmlbar/html.c:2165
+#: src/plugin_htmlbar/html.c:1892 src/plugin_htmlbar/html.c:1951
+#: src/plugin_htmlbar/html.c:2078 src/plugin_htmlbar/html.c:2234
+#: src/plugin_htmlbar/html_table.c:124
 msgid "_Id:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1968 src/plugin_htmlbar/html.c:2027
-#: src/plugin_htmlbar/html.c:2173
-#, fuzzy
-msgid "_Class:"
-msgstr "Κλάση"
-
-#: src/plugin_htmlbar/html.c:1971 src/plugin_htmlbar/html.c:2030
-#: src/plugin_htmlbar/html.c:2168
+#: src/plugin_htmlbar/html.c:1899 src/plugin_htmlbar/html.c:1958
+#: src/plugin_htmlbar/html.c:2092 src/plugin_htmlbar/html.c:2241
 #, fuzzy
 msgid "_Style:"
 msgstr "Στυλ:"
 
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:2019
+#: src/plugin_htmlbar/html.c:1946
 msgid "Canvas"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:2101
+#: src/plugin_htmlbar/html.c:2028
 msgid "Video"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:2116
+#: src/plugin_htmlbar/html.c:2043
 msgid "_Poster:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:2150
-msgid "_Audio:"
-msgstr ""
-
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:2226
+#: src/plugin_htmlbar/html.c:2142
 msgid "Time"
 msgstr ""
 
 #. Datetime help
-#: src/plugin_htmlbar/html.c:2231
+#: src/plugin_htmlbar/html.c:2147
 msgid ""
 "Datetime format (ex. YYYY-MM-DDThh:mm:ssTZD) :\n"
 "\n"
@@ -2194,66 +1832,157 @@ msgid ""
 "Time)\n"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:2241
+#: src/plugin_htmlbar/html.c:2157
 msgid "_Datetime:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:2246
-#, fuzzy
-msgid "_Pubdate:"
-msgstr " _Ανανέωση "
-
-#: src/plugin_htmlbar/html.c:2291
+#: src/plugin_htmlbar/html.c:2212
 msgid "Embed"
 msgstr "Ενσωμάτωση"
 
-#: src/plugin_htmlbar/html.c:2312 src/plugin_htmlbar/html_table.c:145
+#: src/plugin_htmlbar/html.c:2223
 #, fuzzy
-msgid "Bo_rder:"
-msgstr "Όριο"
+msgid "_MIME Type:"
+msgstr "_Τύπος:"
 
-#: src/plugin_htmlbar/html.c:2352
+#: src/plugin_htmlbar/html.c:2288
 #, fuzzy
 msgid "Script"
 msgstr "Δείκτης"
 
-#: src/plugin_htmlbar/html.c:2381 src/plugin_htmlbar/html.c:2485
-#: src/plugin_htmlbar/html_form.c:532 src/plugin_htmlbar/html_form.c:641
-msgid "_Type:"
+#: src/plugin_htmlbar/html.c:2312
+msgid "(HTML4 only)"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2315
+#, fuzzy
+msgid "MIME _Type:"
 msgstr "_Τύπος:"
 
-#: src/plugin_htmlbar/html.c:2443
+#: src/plugin_htmlbar/html.c:2319
+#, fuzzy
+msgid "_Charset:"
+msgstr "Στόχος"
+
+#: src/plugin_htmlbar/html.c:2321 src/plugin_htmlbar/html.c:2330
+#, fuzzy
+msgid "(HTML5)"
+msgstr "HTML"
+
+#: src/plugin_htmlbar/html.c:2324
+msgid "_Async:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2328
+#, fuzzy
+msgid "_Defer:"
+msgstr "_Href:"
+
+#.
+#. todo check buttons:
+#. column-span: all (default none)
+#. column-fill: auto (default balance)
+#.
+#: src/plugin_htmlbar/html.c:2500
+msgid "CSS3 multi-column layout"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2507
+msgid "Auto (default) or number of columns"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2516
+msgid "Auto (default) or width"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2528
+msgid "Normal (default) or width of the gap between columns"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2546
+msgid "None (default) or style"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2552
+msgid "Medium (default) or width"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2565
+msgid "Use vendor-prefixed CSS property:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2573
+#, fuzzy
+msgid "styles_heet"
+msgstr "Εισαγωγή στυλ στο φύλλο των στυλ..."
+
+#: src/plugin_htmlbar/html.c:2574
+msgid "Add selector(s) to create a new rule"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2576
+#, fuzzy
+msgid "style a_ttribute"
+msgstr "Γνωρίσματα"
+
+#: src/plugin_htmlbar/html.c:2577
+msgid "Add a style attribute in tag"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2579
+msgid "style _values"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2580
+msgid "Add values in a style attribute"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2590
+#, fuzzy
+msgid "Selecto_rs:"
+msgstr "_Επιλογέας:"
+
+#: src/plugin_htmlbar/html.c:2591
+msgid "Leave empty to insert declarations into an existing rule."
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:2651
 msgid "Link"
 msgstr "Σύνδεσμος"
 
-#: src/plugin_htmlbar/html.c:2460
+#: src/plugin_htmlbar/html.c:2668
 #, fuzzy
 msgid "HREF_LANG:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:2463
+#: src/plugin_htmlbar/html.c:2671
 #, fuzzy
 msgid "T_itle:"
 msgstr "_Τίτλος:"
 
-#: src/plugin_htmlbar/html.c:2508
+#: src/plugin_htmlbar/html.c:2692 src/plugin_htmlbar/html_form.c:532
+#: src/plugin_htmlbar/html_form.c:641
+msgid "_Type:"
+msgstr "_Τύπος:"
+
+#: src/plugin_htmlbar/html.c:2714
 msgid "_Forward Relation:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:2513
+#: src/plugin_htmlbar/html.c:2718
 msgid "_Reverse Relation:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:2527
+#: src/plugin_htmlbar/html.c:2730
 #, fuzzy
 msgid "Media:"
 msgstr "Meta"
 
-#: src/plugin_htmlbar/html.c:2531
+#: src/plugin_htmlbar/html.c:2734
 msgid "L_ang:"
 msgstr "Γ_λώσσα:"
 
-#: src/plugin_htmlbar/html.c:2534
+#: src/plugin_htmlbar/html.c:2737
 #, fuzzy
 msgid "_Custom:"
 msgstr "Προσαρμωγή"
@@ -2350,139 +2079,174 @@ msgstr "Γλώσσα"
 msgid "Button"
 msgstr "Κουμπί"
 
-#: src/plugin_htmlbar/html_table.c:90
-#, fuzzy
-msgid "Cell _Padding:"
-msgstr "Βάτα κελύφους"
+#: src/plugin_htmlbar/html_table.c:108
+msgid "<span color=\"#006000\">Cell _Padding:</span>"
+msgstr ""
 
-#: src/plugin_htmlbar/html_table.c:94
-#, fuzzy
-msgid "C_ell Spacing:"
-msgstr "Διάστημα κελύφους"
+#: src/plugin_htmlbar/html_table.c:117
+msgid "<span color=\"#006000\">C_ell Spacing:</span>"
+msgstr ""
 
-#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
-#: src/plugin_htmlbar/html_table.c:370
-#, fuzzy
-msgid "_Valign:"
-msgstr "Κάθετη στοίχηση"
+#: src/plugin_htmlbar/html_table.c:144 src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:377
+msgid "<span color=\"#006000\">_Align:</span>"
+msgstr ""
 
-#: src/plugin_htmlbar/html_table.c:133 src/plugin_htmlbar/html_table.c:251
-#: src/plugin_htmlbar/html_table.c:413
-msgid "Backgrou_nd Color:"
-msgstr "Χρώμα _Παρασκηνίου:"
+#: src/plugin_htmlbar/html_table.c:149 src/plugin_htmlbar/html_table.c:273
+#: src/plugin_htmlbar/html_table.c:449
+msgid "<span color=\"red\">_bgcolor:</span>"
+msgstr ""
 
-#: src/plugin_htmlbar/html_table.c:159
-msgid "_Frame:"
-msgstr "_Πλαίσιο:"
+#: src/plugin_htmlbar/html_table.c:155
+msgid "<span color=\"#006000\">_Width:</span>"
+msgstr ""
 
-#: src/plugin_htmlbar/html_table.c:170
-#, fuzzy
-msgid "R_ules:"
-msgstr "Διαχωρισμός..."
+#: src/plugin_htmlbar/html_table.c:162
+msgid "<span color=\"#006000\">Bo_rder:</span>"
+msgstr ""
 
-#: src/plugin_htmlbar/html_table.c:386
+#: src/plugin_htmlbar/html_table.c:168
+msgid "<span color=\"#A36A00\">_Border:</span>"
+msgstr ""
+
+#: src/plugin_htmlbar/html_table.c:183
+msgid "<span color=\"#006000\">_Frame:</span>"
+msgstr ""
+
+#: src/plugin_htmlbar/html_table.c:194
+msgid "<span color=\"#006000\">R_ules:</span>"
+msgstr ""
+
+#: src/plugin_htmlbar/html_table.c:264 src/plugin_htmlbar/html_table.c:388
+msgid "<span color=\"#006000\">_Valign:</span>"
+msgstr ""
+
+#: src/plugin_htmlbar/html_table.c:396
+msgid "<span color=\"#A36A00\">_Headers:</span>"
+msgstr ""
+
+#: src/plugin_htmlbar/html_table.c:397
+msgid "Set of space-separated IDs of th elements."
+msgstr ""
+
+#: src/plugin_htmlbar/html_table.c:408
+msgid "<span color=\"#A36A00\">_Scope:</span>"
+msgstr ""
+
+#: src/plugin_htmlbar/html_table.c:410
+msgid "the header cell applies to cells in the same:"
+msgstr ""
+
+#: src/plugin_htmlbar/html_table.c:422
 #, fuzzy
 msgid "Co_l Span:"
 msgstr "Άνοιγμα σε στήλες"
 
-#: src/plugin_htmlbar/html_table.c:390
+#: src/plugin_htmlbar/html_table.c:426
 #, fuzzy
 msgid "_Row Span:"
 msgstr "Άνοιγμα σε γραμμές"
 
-#: src/plugin_htmlbar/html_table.c:395
-#, fuzzy
-msgid "No Wra_p:"
-msgstr "Χωρίς περιτύλιξη"
+#: src/plugin_htmlbar/html_table.c:431
+msgid "<span color=\"red\">No _Wrap:</span>"
+msgstr ""
+
+#: src/plugin_htmlbar/html_table.c:437
+msgid "<span color=\"red\">_Width:</span>"
+msgstr ""
+
+#: src/plugin_htmlbar/html_table.c:444
+msgid "<span color=\"red\">_Height:</span>"
+msgstr ""
 
 #. TODO: use error info in gerror
-#: src/plugin_htmlbar/image.c:313
+#: src/plugin_htmlbar/image.c:334
 #, fuzzy
 msgid "Loading image failed..."
 msgstr "Αποθήκευση αρχείου"
 
-#: src/plugin_htmlbar/image.c:396
+#: src/plugin_htmlbar/image.c:417
 #, fuzzy, c-format
 msgid "Loading file %s..."
 msgstr "Αποθήκευση αρχείου"
 
-#: src/plugin_htmlbar/image.c:457
+#: src/plugin_htmlbar/image.c:482
 msgid "Insert thumbnail"
 msgstr "Εισαγωγή μικρογραφίας"
 
-#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:317
+#: src/plugin_htmlbar/image.c:486 src/plugin_htmlbar/image_dialog.c:320
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: src/plugin_htmlbar/image.c:480
+#: src/plugin_htmlbar/image.c:509
 msgid "_Image location:"
 msgstr "Τοποθεσία _εικόνας:"
 
-#: src/plugin_htmlbar/image.c:495
+#: src/plugin_htmlbar/image.c:524
 msgid "Hei_ght:"
 msgstr "Ύ_ψος:"
 
-#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:383
+#: src/plugin_htmlbar/image.c:529 src/plugin_htmlbar/image_dialog.c:386
 msgid "_Usemap:"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:506
+#: src/plugin_htmlbar/image.c:535
 msgid "Alternate _text:"
 msgstr "Εναλλακτικό _κείμενο:"
 
-#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:426
+#: src/plugin_htmlbar/image.c:541 src/plugin_htmlbar/image_dialog.c:429
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:430
+#: src/plugin_htmlbar/image.c:545 src/plugin_htmlbar/image_dialog.c:433
 #, fuzzy
 msgid "_Vspace:"
 msgstr "Vspace"
 
-#: src/plugin_htmlbar/image.c:530
+#: src/plugin_htmlbar/image.c:559
 #, fuzzy
 msgid "Borde_r:"
 msgstr "Όριο"
 
-#: src/plugin_htmlbar/image.c:945
+#: src/plugin_htmlbar/image.c:974
 msgid "Select files for thumbnail creation"
 msgstr ""
 
 # src/html.c:1073	ΝΤΚ
-#: src/plugin_htmlbar/image.c:987
+#: src/plugin_htmlbar/image.c:1016
 #, fuzzy
 msgid "Scaling (%)"
 msgstr "Ανακύλιση "
 
-#: src/plugin_htmlbar/image.c:991 src/plugin_htmlbar/image.c:999
+#: src/plugin_htmlbar/image.c:1020 src/plugin_htmlbar/image.c:1028
 msgid "Width"
 msgstr "Πλάτος"
 
-#: src/plugin_htmlbar/image.c:995 src/plugin_htmlbar/image.c:1036
+#: src/plugin_htmlbar/image.c:1024 src/plugin_htmlbar/image.c:1070
 msgid "Height"
 msgstr "Ύψος"
 
-#: src/plugin_htmlbar/image.c:1019
+#: src/plugin_htmlbar/image.c:1053
 msgid "Multi thumbnail"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:1025
+#: src/plugin_htmlbar/image.c:1059
 msgid "By scaling"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:1028
+#: src/plugin_htmlbar/image.c:1062
 msgid "By width, keep aspect ratio"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:1031
+#: src/plugin_htmlbar/image.c:1065
 msgid "By height, keep aspect ratio"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:1034
+#: src/plugin_htmlbar/image.c:1068
 msgid "By width and height, ignore aspect ratio"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:1060
+#: src/plugin_htmlbar/image.c:1094
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2490,50 +2254,50 @@ msgid ""
 "%b: original size (bytes)"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:354
+#: src/plugin_htmlbar/image_dialog.c:357
 #, fuzzy
 msgid "_Reset Dimensions"
 msgstr "Διαστάσεις"
 
-#: src/plugin_htmlbar/image_dialog.c:364
+#: src/plugin_htmlbar/image_dialog.c:367
 #, fuzzy
 msgid "Alternate te_xt:"
 msgstr "Εναλλακτικό _κείμενο:"
 
-#: src/plugin_htmlbar/image_dialog.c:369
+#: src/plugin_htmlbar/image_dialog.c:372
 #, fuzzy
 msgid "_Long description:"
 msgstr "_Περιγραφή:"
 
-#: src/plugin_htmlbar/image_dialog.c:378
+#: src/plugin_htmlbar/image_dialog.c:381
 #, fuzzy
 msgid "I_D:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:406
+#: src/plugin_htmlbar/image_dialog.c:409
 msgid "_Use Transitional options"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:422
+#: src/plugin_htmlbar/image_dialog.c:425
 #, fuzzy
 msgid "_Border:"
 msgstr "Όριο"
 
-#: src/plugin_htmlbar/image_dialog.c:732
+#: src/plugin_htmlbar/image_dialog.c:742
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:737
+#: src/plugin_htmlbar/image_dialog.c:747
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:835
+#: src/plugin_htmlbar/image_dialog.c:845
 msgid ""
 "\n"
 "\n"
@@ -2541,38 +2305,38 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:937
+#: src/plugin_htmlbar/image_dialog.c:947
 #, fuzzy
 msgid "Select Image"
 msgstr "Επιλογή Αρχείου"
 
-#: src/plugin_htmlbar/image_dialog.c:944
+#: src/plugin_htmlbar/image_dialog.c:954
 #, fuzzy
 msgid "All images"
 msgstr "Όλα τα αρχεία"
 
-#: src/plugin_htmlbar/image_dialog.c:1160
-#: src/plugin_htmlbar/image_dialog.c:1265
+#: src/plugin_htmlbar/image_dialog.c:1172
+#: src/plugin_htmlbar/image_dialog.c:1283
 #, fuzzy
 msgid "Insert Image"
 msgstr "Εισαγωγή εικόνας"
 
-#: src/plugin_htmlbar/quickstart.c:513
+#: src/plugin_htmlbar/quickstart.c:518
 #, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>Γενικά</b>"
 
-#: src/plugin_htmlbar/quickstart.c:524
+#: src/plugin_htmlbar/quickstart.c:529
 #, fuzzy
 msgid "Ty_pe:"
 msgstr "_Τύπος:"
 
-#: src/plugin_htmlbar/quickstart.c:542
+#: src/plugin_htmlbar/quickstart.c:547
 #, fuzzy
 msgid "HRE_F:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/quickstart.c:547
+#: src/plugin_htmlbar/quickstart.c:552
 #, fuzzy
 msgid "_Media:"
 msgstr "Meta"
@@ -2580,55 +2344,55 @@ msgstr "Meta"
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
 #.
-#: src/plugin_htmlbar/quickstart.c:559
+#: src/plugin_htmlbar/quickstart.c:564
 #, fuzzy
 msgid "<b>Style Area</b>"
 msgstr "<b>Γενικά</b>"
 
-#: src/plugin_htmlbar/quickstart.c:563
+#: src/plugin_htmlbar/quickstart.c:568
 msgid "Cre_ate empty style area"
 msgstr ""
 
-#: src/plugin_htmlbar/quickstart.c:582
+#: src/plugin_htmlbar/quickstart.c:587
 #, fuzzy
 msgid "<b>Attributes</b>"
 msgstr "Γνωρίσματα"
 
-#: src/plugin_htmlbar/quickstart.c:597
+#: src/plugin_htmlbar/quickstart.c:602
 #, fuzzy
 msgid "_Src:"
 msgstr "_Πηγή:"
 
 #. TODO: add an option to place content in the script area
-#: src/plugin_htmlbar/quickstart.c:604
+#: src/plugin_htmlbar/quickstart.c:609
 #, fuzzy
 msgid "<b>Script Area</b>"
 msgstr "<b>Γενικά</b>"
 
-#: src/plugin_htmlbar/quickstart.c:608
+#: src/plugin_htmlbar/quickstart.c:613
 msgid "Cre_ate empty script area"
 msgstr ""
 
-#: src/plugin_htmlbar/quickstart.c:635
+#: src/plugin_htmlbar/quickstart.c:640
 #, fuzzy
 msgid "Quick Start"
 msgstr "Γρήγορη αρχή..."
 
-#: src/plugin_htmlbar/quickstart.c:652
+#: src/plugin_htmlbar/quickstart.c:657
 #, fuzzy
 msgid "_DTD:"
 msgstr "Χρήση _DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:656 src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/quickstart.c:661 src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "_Τίτλος:"
 
-#: src/plugin_htmlbar/quickstart.c:679
+#: src/plugin_htmlbar/quickstart.c:684
 #, fuzzy
 msgid "_Head:"
 msgstr "_Href:"
 
-#: src/plugin_htmlbar/quickstart.c:696
+#: src/plugin_htmlbar/quickstart.c:701
 #, fuzzy
 msgid "Open in _new document."
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
@@ -2690,6 +2454,155 @@ msgstr "Πηγή:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Μέγεθος:"
+
+#, fuzzy
+#~ msgid "_Special"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες"
+
+#, fuzzy
+#~ msgid "_Accent"
+#~ msgstr "Ενέργεια"
+
+#, fuzzy
+#~ msgid "_Uppercase"
+#~ msgstr "Κεφαλαία"
+
+#, fuzzy
+#~ msgid "_Lowercase"
+#~ msgstr "Πεζά"
+
+#, fuzzy
+#~ msgid "_Pound sterling £"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Στερλίνα"
+
+#, fuzzy
+#~ msgid "_Math-Science"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά"
+
+#, fuzzy
+#~ msgid "_Multiplication sign ×"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/πολλαπλασιασμού"
+
+#, fuzzy
+#~ msgid "Superscript _1 ¹"
+#~ msgstr "Εκθέτης"
+
+#, fuzzy
+#~ msgid "Superscript _2 ²"
+#~ msgstr "Εκθέτης"
+
+#, fuzzy
+#~ msgid "Superscript _3 ³"
+#~ msgstr "Εκθέτης"
+
+#, fuzzy
+#~ msgid "_ETH (Icelandic) Ð"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/ETH (Ισλανδικό)"
+
+#, fuzzy
+#~ msgid "_THORN (Icelandic) Þ"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/THORN (Ισλανδικό)"
+
+#, fuzzy
+#~ msgid "et_h (Icelandic) ð"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/eth (Ισλανδικό)"
+
+#, fuzzy
+#~ msgid "_Section sign §"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Section sign"
+
+#, fuzzy
+#~ msgid "_Copyright sign ©"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Copyright sign"
+
+#, fuzzy
+#~ msgid "_Left angle quotes «"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Left angle quotes"
+
+#, fuzzy
+#~ msgid "_Right angle quotes »"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Right angle quotes"
+
+#, fuzzy
+#~ msgid "Registered _trademark ®"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Registered trademark"
+
+#, fuzzy
+#~ msgid "Inverted _exclamation ¡"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Inverted exclamation"
+
+#, fuzzy
+#~ msgid "Inverted _question mark ¿"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Inverted question mark"
+
+#, fuzzy
+#~ msgid "_Feminine ordinal ª"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Feminine ordinal"
+
+#, fuzzy
+#~ msgid "_Masculine ordinal º"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Masculine ordinal"
+
+#, fuzzy
+#~ msgid "_Pilcrow (paragraph sign) ¶"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Pilcrow (paragraph sign)"
+
+#, fuzzy
+#~ msgid "Spa_cing macron ¯"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Spacing macron"
+
+#, fuzzy
+#~ msgid "_Form"
+#~ msgstr "Φόρμα"
+
+#~ msgid " Fonts "
+#~ msgstr " Γρ/σειρές"
+
+#~ msgid " Tables "
+#~ msgstr " Πίνακες "
+
+#~ msgid " Frames "
+#~ msgstr " Πλαίσια "
+
+#~ msgid " Forms "
+#~ msgstr " Φόρμες "
+
+#~ msgid " List "
+#~ msgstr " Λίστα "
+
+#, fuzzy
+#~ msgid "_Class:"
+#~ msgstr "Κλάση"
+
+#, fuzzy
+#~ msgid "Bo_rder:"
+#~ msgstr "Όριο"
+
+#, fuzzy
+#~ msgid "Cell _Padding:"
+#~ msgstr "Βάτα κελύφους"
+
+#, fuzzy
+#~ msgid "C_ell Spacing:"
+#~ msgstr "Διάστημα κελύφους"
+
+#, fuzzy
+#~ msgid "_Valign:"
+#~ msgstr "Κάθετη στοίχηση"
+
+#~ msgid "Backgrou_nd Color:"
+#~ msgstr "Χρώμα _Παρασκηνίου:"
+
+#~ msgid "_Frame:"
+#~ msgstr "_Πλαίσιο:"
+
+#, fuzzy
+#~ msgid "R_ules:"
+#~ msgstr "Διαχωρισμός..."
+
+#, fuzzy
+#~ msgid "No Wra_p:"
+#~ msgstr "Χωρίς περιτύλιξη"
 
 #, fuzzy
 #~ msgid "Style..."
@@ -3620,9 +3533,6 @@ msgstr "Μέγεθος:"
 #~ msgid "_Email address:"
 #~ msgstr "_Email διεύθυνση:"
 
-#~ msgid "_Href:"
-#~ msgstr "_Href:"
-
 #, fuzzy
 #~ msgid "Hre_f:"
 #~ msgstr "_Href:"
@@ -4060,10 +3970,6 @@ msgstr "Μέγεθος:"
 #~ msgstr "Εισαγωγή Ώρας"
 
 #, fuzzy
-#~ msgid "Properties"
-#~ msgstr "Ιδιότητα"
-
-#, fuzzy
 #~ msgid "Add property"
 #~ msgstr "Ιδιότητα"
 
@@ -4294,9 +4200,6 @@ msgstr "Μέγεθος:"
 #, fuzzy
 #~ msgid "Syntax highlighting error for "
 #~ msgstr "/Επιλογές/Λίστες/Υπογράμμιση σύνταξης"
-
-#~ msgid "/_File"
-#~ msgstr "/_Αρχείο"
 
 #, fuzzy
 #~ msgid "/File/_New"
@@ -4833,9 +4736,6 @@ msgstr "Μέγεθος:"
 
 #~ msgid "Select font"
 #~ msgstr "Επιλογή γραμματοσειράς"
-
-#~ msgid "Label"
-#~ msgstr "Ταμπέλα"
 
 #~ msgid "Extensions"
 #~ msgstr "Επεκτάσεις"
