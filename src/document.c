@@ -2384,8 +2384,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	   newdoc->modified = 0;
 	   newdoc->fileinfo = NULL; */
 	newdoc->encoding =
-		g_strdup((bfwin->session->encoding) ? bfwin->session->encoding : main_v->
-				 props.newfile_default_encoding);
+		g_strdup(main_v->props.newfile_default_encoding);
 	DEBUG_MSG("doc_new_backend, encoding is %s\n", newdoc->encoding);
 
 	doc_set_title(newdoc);
