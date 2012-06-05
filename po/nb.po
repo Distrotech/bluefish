@@ -1,20 +1,20 @@
 # Norwegian language file for Bluefish.
 # Rewritten from da.po (da.po by Rasmus Toftdahl Olesen <halfdan@halfdan.dyndns.org>)
-# Copyright (C) 2000 Free Software Foundation, Inc.
-# Christian Tellefsen <chris@tellefsen.net>, 2003.
+# Copyright (C) 2000-2012 Free Software Foundation, Inc.
+# Christian Tellefsen <chris@tellefsen.net>, 2003-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 22:07+0200\n"
-"PO-Revision-Date: 2012-05-30 12:00+0200\n"
+"POT-Creation-Date: 2012-06-06 00:14+0200\n"
+"PO-Revision-Date: 2012-06-06 12:00+0200\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
-"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
@@ -30,12 +30,12 @@ msgid "programming;code;html;php;python;"
 msgstr "programmering;kode;html;php;python;"
 
 #: ../desktop-data/bluefish.xml.in.h:1
-msgid "Bluefish language definition file"
-msgstr "Språkdefinisjonsfil for Bluefish"
-
-#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish project file"
 msgstr "Bluefish prosjektfil"
+
+#: ../desktop-data/bluefish.xml.in.h:2
+msgid "Bluefish language definition file"
+msgstr "Språkdefinisjonsfil for Bluefish"
 
 #: ../src/bftextview2.c:1581
 msgid "Collapse all"
@@ -1285,8 +1285,8 @@ msgid ""
 "\n"
 "Continue saving in UTF-8 encoding?"
 msgstr ""
-"Kunne ikke konvertere %s til tegnsett %s. Konverteringen feilet på tegnet '%"
-"s' på linje %d, kolonne %d\n"
+"Kunne ikke konvertere %s til tegnsett %s. Konverteringen feilet på tegnet "
+"'%s' på linje %d, kolonne %d\n"
 "\n"
 "Fortsett lagring med UTF-8 som tegnsett?"
 
@@ -1407,27 +1407,23 @@ msgstr "Fyll tomme innslag:"
 
 #: ../src/doc_extern_tools.c:49
 msgid "Number of paragraphs"
-msgstr ""
+msgstr "Antall avsnitt"
 
 #: ../src/doc_extern_tools.c:51
-#, fuzzy
 msgid "Number of sentences"
-msgstr "Antall kolonner:"
+msgstr "Antall setninger"
 
 #: ../src/doc_extern_tools.c:52
-#, fuzzy
 msgid "Insert plain text"
-msgstr "Sett inn fil"
+msgstr "Sett inn tekst"
 
 #: ../src/doc_extern_tools.c:52
-#, fuzzy
 msgid "Insert in <li>"
-msgstr "Sett inn fil"
+msgstr "Sett inn i <li>"
 
 #: ../src/doc_extern_tools.c:52
-#, fuzzy
 msgid "Insert in <p>"
-msgstr "Sett inn fil"
+msgstr "Sett inn i <p>"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
