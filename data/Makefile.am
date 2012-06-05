@@ -6,7 +6,14 @@ EXTRA_DIST = $(bfdata_DATA)
 MAINTAINERCLEANFILES = Makefile.in
 
 bfdatadir = $(pkgdatadir)
-bfdata_DATA = \
+nobase_bfdata_DATA = \
 	default_accelmap \
 	encodings \
-	snippets
+	snippets \
+	lipsum/__init__.py \
+	lipsum/data/dictionary.txt \
+	lipsum/data/lipsum.xml
+
+bfdata_SCRIPTS = \
+	lorem-ipsum-generator
+	

@@ -1,0 +1,297 @@
+#!/usr/bin/env python
+
+import sys
+from os.path import abspath, exists
+from optparse import OptionParser
+
+from lipsum import MarkupGenerator, InvalidSampleError, InvalidDictionaryError
+
+class LipsumGUI:
+    def __init__(self, options = None, generator=MarkupGenerator()):
+        import pygtk
+        pygtk.require("2.0")
+        import gtk
+        import gtk.glade
+        import pkg_resources
+
+        self.__generator = generator
+
+        filename = pkg_resources.resource_filename('lipsum', 'data/lipsum.xml')
+
+        self.__builder = gtk.Builder()
+        self.__builder.add_from_file(filename)
+
+        self.__main = self.__builder.get_object("main")
+        self.__spinbutton_sentence_mean = self.__builder.get_object("spinbutton_sentence_mean")
+        self.__spinbutton_sentence_mean.connect('changed', self.__set_sentence_mean)
+        self.__spinbutton_sentence_sigma = self.__builder.get_object("spinbutton_sentence_sigma")
+        self.__spinbutton_sentence_sigma.connect('changed', self.__set_sentence_sigma)
+        self.__spinbutton_paragraph_mean = self.__builder.get_object("spinbutton_paragraph_mean")
+        self.__spinbutton_paragraph_mean.connect('changed', self.__set_paragraph_mean)
+        self.__spinbutton_paragraph_sigma = self.__builder.get_object("spinbutton_paragraph_sigma")
+        self.__spinbutton_paragraph_sigma.connect('changed', self.__set_paragraph_sigma)
+
+        self.__button_reset = self.__builder.get_object("button_reset")
+        self.__button_reset.connect("clicked", self.__reset_statistics)
+        self.__button_generate = self.__builder.get_object("button_generate")
+        self.__button_generate.connect("clicked", self.__generate_output)
+        self.__button_copy = self.__builder.get_object("button_copy")
+        self.__button_copy.connect("clicked", self.__copy_output)
+        self.__button_copy_exit = self.__builder.get_object("button_copy_exit")
+        self.__button_copy_exit.connect("clicked", self.__copy_exit_output)
+
+        self.__spinbutton_quantity = self.__builder.get_object("spinbutton_quantity")
+        self.__radiobutton_quantity_paragraphs = self.__builder.get_object("radiobutton_quantity_paragraphs")
+        self.__radiobutton_quantity_sentences = self.__builder.get_object("radiobutton_quantity_sentences")
+        self.__radiobutton_format_plain = self.__builder.get_object("radiobutton_format_plain")
+        self.__radiobutton_format_html_paragraphs = self.__builder.get_object("radiobutton_format_html_paragraphs")
+        self.__radiobutton_format_html_list = self.__builder.get_object("radiobutton_format_html_list")
+        self.__checkbutton_start_with_lorem = self.__builder.get_object("checkbutton_start_with_lorem")
+
+        self.__filechooserbutton_sample = self.__builder.get_object("filechooserbutton_sample")
+        self.__filechooserbutton_sample.connect('selection-changed', self.__set_sample_file)
+        self.__filechooserbutton_dictionary = self.__builder.get_object("filechooserbutton_dictionary")
+        self.__filechooserbutton_dictionary.connect('selection-changed', self.__set_dictionary_file)
+        
+        self.__textbuffer_output = gtk.TextBuffer()
+        self.__textview_output = self.__builder.get_object("textview_output")
+        self.__textview_output.set_buffer(self.__textbuffer_output)
+        self.__clipboard = gtk.Clipboard()
+        
+        self.__update_statistic_fields()
+        self.__set_defaults(options)
+        
+        self.__main.connect('destroy', gtk.main_quit)
+        self.__main.show()
+        gtk.main()
+
+    def __generate_output(self, w):
+        output = ''
+
+        quantity = self.__spinbutton_quantity.get_value()
+        start_with_lorem = self.__checkbutton_start_with_lorem.get_active()
+
+        if self.__radiobutton_quantity_paragraphs.get_active():
+            generate_plain = self.__generator.generate_paragraphs_plain
+            generate_html_p = self.__generator.generate_paragraphs_html_p
+            generate_html_li = self.__generator.generate_paragraphs_html_li
+        else:
+            generate_plain = self.__generator.generate_sentences_plain
+            generate_html_p = self.__generator.generate_sentences_html_p
+            generate_html_li = self.__generator.generate_sentences_html_li
+
+        if self.__radiobutton_format_html_paragraphs.get_active():
+            output = generate_html_p(quantity, start_with_lorem)
+        elif self.__radiobutton_format_html_list.get_active():
+            output = generate_html_li(quantity, start_with_lorem)
+        else:
+            output = generate_plain(quantity, start_with_lorem)
+
+        self.__textbuffer_output.set_text(output)
+
+    def __copy_output(self, w):
+        self.__clipboard.set_text(
+                self.__textbuffer_output.get_text(
+                    self.__textbuffer_output.get_start_iter(),
+                    self.__textbuffer_output.get_end_iter()
+                    )
+                )
+
+    def __copy_exit_output(self, w):
+        self.__copy_output(w)
+        self.__main.destroy()
+
+    def __set_sample_file(self, w):
+        filename = self.__filechooserbutton_sample.get_filename()
+        if filename:
+            try:
+                sample = load_contents(filename)
+            except IOError:
+                self.__ioerror(filename)
+
+            try:
+                self.__generator.sample = sample
+                self.__update_statistic_fields()
+            except InvalidSampleError:
+                pass
+
+    def __set_dictionary_file(self, w):
+        filename = self.__filechooserbutton_dictionary.get_filename()
+        if filename:
+            try:
+                dictionary = load_contents(filename).split()
+            except IOError:
+                self.__ioerror(filename)
+            try:
+                self.__generator.dictionary = dictionary
+            except InvalidDictionaryError:
+                pass
+
+    def __set_defaults(self, options):
+        if options:
+            if options.paragraphs:
+                self.__spinbutton_quantity.set_value(options.paragraphs)
+                self.__radiobutton_quantity_paragraphs.set_active(True)
+            elif options.sentences:
+                self.__spinbutton_quantity.set_value(options.sentences)
+                self.__radiobutton_quantity_sentences.set_active(True)
+            else:
+                self.__spinbutton_quantity.set_value(5)
+                self.__radiobutton_quantity_paragraphs.set_active(True)
+
+            if options.format == "html-p":
+                self.__radiobutton_format_html_paragraphs.set_active(True)
+            elif options.format == "html-li":
+                self.__radiobutton_format_html_list.set_active(True)
+            else:
+                self.__radiobutton_format_plain.set_active(True)
+
+            if options.lorem:
+                self.__checkbutton_start_with_lorem.set_active(True)
+            else:
+                self.__checkbutton_start_with_lorem.set_active(False)
+
+            if options.sample_path:
+                self.__filechooserbutton_sample.set_filename(options.sample_path)
+
+            if options.dictionary_path:
+                self.__filechooserbutton_dictionary.set_filename(options.dictionary_path)
+
+            if options.paragraphs or options.sentences:
+                self.__button_generate.clicked()
+
+	def __error(self, title, message):
+		error = gtk.MessageDialog(
+				type=gtk.MESSAGE_ERROR,
+				message_format = title,
+				buttons=gtk.BUTTONS_OK
+				)
+
+		def close_error(widget, data=None):
+			widget.destroy()
+		
+		error.format_secondary_markup(message)
+		error.connect('response', close_error)
+		error.show()
+
+	def __ioerror(self, filename):
+		self.__error('Missing data files', 'The following file could not be found: <b>%s</b>' % filename)
+
+    def __set_sentence_mean(self, w):
+        self.__generator.sentence_mean = self.__spinbutton_sentence_mean.get_value()
+
+    def __set_sentence_sigma(self, w):
+        self.__generator.sentence_sigma = self.__spinbutton_sentence_sigma.get_value()
+        pass
+
+    def __set_paragraph_mean(self, w):
+        self.__generator.paragraph_mean = self.__spinbutton_paragraph_mean.get_value()
+
+    def __set_paragraph_sigma(self, w):
+        self.__generator.paragraph_sigma = self.__spinbutton_paragraph_sigma.get_value()
+
+    def __reset_statistics(self, w):
+        self.__generator.reset_statistics()
+        self.__update_statistic_fields()
+
+    def __update_statistic_fields(self):
+        self.__spinbutton_sentence_mean.set_value(self.__generator.sentence_mean)
+        self.__spinbutton_sentence_sigma.set_value(self.__generator.sentence_sigma)
+        self.__spinbutton_paragraph_mean.set_value(self.__generator.paragraph_mean)
+        self.__spinbutton_paragraph_sigma.set_value(self.__generator.paragraph_sigma)
+
+def load_contents(file):
+    file = open(abspath(file), 'r')
+    contents = file.read()
+    file.close()
+    return contents
+
+def main():
+    (options, args) = parse_args()
+    generator = init_generator(options)
+
+    if (options.sentences or options.paragraphs) and not options.gui:
+        start_cli(options, generator)
+    else:
+        start_gui(options, generator)
+
+def parse_args():
+    parser = OptionParser()
+    parser.add_option("-p", "--paragraphs", dest="paragraphs", help="generate NUM paragraphs", metavar="NUM", type="int")
+    parser.add_option("-s", "--sentences", dest="sentences", help="generate NUM sentences", metavar="NUM", type="int")
+    parser.add_option("--sample", dest="sample_path", help="use FILE as the sample text", metavar="FILE")
+    parser.add_option("--dictionary", dest="dictionary_path", help="use FILE as the dictionary text", metavar="FILE")
+    parser.add_option("--sentence-mean", dest="sentence_mean", help="set the mean sentence length to NUM", metavar="NUM", type="float")
+    parser.add_option("--paragraph-mean", dest="paragraph_mean", help="set the mean paragraph length to NUM", metavar="NUM", type="float")
+    parser.add_option("--sentence-sigma", dest="sentence_sigma", help="set the standard deviation sentence length to NUM", metavar="NUM", type="float")
+    parser.add_option("--paragraph-sigma", dest="paragraph_sigma", help="set the standard deviation paragraph length to NUM", metavar="NUM", type="float")
+    parser.add_option("-l", "--lorem", dest="lorem", action="store_true", help="start with \"Lorem ipsum dolor...\"")
+    parser.add_option("-f", "--format", metavar="FORMAT", dest="format", action="store", help="produce format in plain, html-p, or html-li format", choices=("plain", "html-p", "html-li"))
+    parser.add_option("-g", "--gui", dest="gui", action="store_true", help="force GUI to start")
+
+    return parser.parse_args()
+
+def init_generator(options):
+    generator = MarkupGenerator()
+
+    # Set the sample and dictionary texts
+    if options.sample_path:
+        try:
+            generator.sample = load_contents(options.sample_path)
+        except IOError:
+            error('Unable to load sample file "%s".\n' % options.sample_path)
+        except InvalidSampleError:
+            error('Invalid sample file "%s".\n' % options.sample_path)
+
+    if options.dictionary_path:
+        try:
+            generator.dictionary = load_contents(options.dictionary_path).split()
+        except IOError:
+            error('Unable to load dictionary file "%s".\n' % options.dictionary_path)
+        except InvalidDictionaryError:
+            error('Invalid sample file "%s".\n' % options.dictionary_path)
+
+    # Set statistics
+    try:
+        if options.sentence_mean:
+            generator.sentence_mean = options.sentence_mean
+        if options.paragraph_mean:
+            generator.paragraph_mean = options.paragraph_mean
+        if options.sentence_sigma:
+            generator.sentence_sigma = options.sentence_sigma
+        if options.paragraph_sigma:
+            generator.paragraph_sigma = options.paragraph_sigma
+    except ValueError, e:
+        error("%s\n" % e)
+
+    return generator
+
+def error(message):
+    sys.stderr.write(message)
+    exit()
+
+def start_gui(options, generator):
+    window = LipsumGUI(options, generator)
+
+def start_cli(options, generator):
+    output = ""
+
+    if options.paragraphs:
+        if options.format == "html-p":
+            output = generator.generate_paragraphs_html_p(options.paragraphs, options.lorem)
+        elif options.format == "html-li":
+            output = generator.generate_paragraphs_html_li(options.paragraphs, options.lorem)
+        else:
+            output = generator.generate_paragraphs_plain(options.paragraphs, options.lorem)
+    elif options.sentences:
+        if options.format == "html-p":
+            output = generator.generate_sentences_html_p(options.sentences, options.lorem)
+        elif options.format == "html-li":
+            output = generator.generate_sentences_html_li(options.sentences, options.lorem)
+        else:
+            output = generator.generate_sentences_plain(options.sentences, options.lorem)
+
+    print output
+
+if __name__ == '__main__':
+    main()
