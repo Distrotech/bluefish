@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 21:47+0200\n"
+"POT-Creation-Date: 2012-06-06 00:16+0200\n"
 "PO-Revision-Date: 2012-05-30 12:00+0200\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Language: nb\n"
 
 #: src/plugin_htmlbar/html2.c:634
 msgid "Cascading Style Sheet Builder"
@@ -1103,14 +1103,12 @@ msgid "Time..."
 msgstr "Tid..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert _Color"
-msgstr "_Tekstfarge:"
+msgstr "Sett inn _farge"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert Color"
-msgstr "Sett inn"
+msgstr "Sett inn farge"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "_HTML Toolbar"
@@ -1543,9 +1541,8 @@ msgid "_Rows:"
 msgstr "_Rader:"
 
 #: src/plugin_htmlbar/html.c:1679
-#, fuzzy
 msgid "_Add &lt;frame&gt; elements"
-msgstr "Legg til <fr_ame> elementer"
+msgstr "Legg til &lt;fr_ame&gt;-elementer"
 
 #: src/plugin_htmlbar/html.c:1763 src/plugin_htmlbar/html.c:1866
 #: src/plugin_htmlbar/html.c:2036 src/plugin_htmlbar/html.c:2219
@@ -2240,17 +2237,16 @@ msgid "Size:"
 msgstr "Størrelse:"
 
 #: src/plugin_htmlbar/prefs.c:66
-#, fuzzy
 msgid "<b>HTML Toolbar</b>"
-msgstr "_HTML-verktøylinje"
+msgstr "<b>HTML-verktøylinje</b>"
 
 #: src/plugin_htmlbar/prefs.c:69
 msgid "Show toolbar in sidepanel"
-msgstr ""
+msgstr "Vis verktøylinje i sidepanel"
 
 #: src/plugin_htmlbar/prefs.c:70
 msgid "Keep HTML dialogs always on top"
-msgstr ""
+msgstr "Behold HTML-dialoger øverst"
 
 #: src/plugin_htmlbar/prefs.c:75
 msgid "<b>HTML options</b>"
