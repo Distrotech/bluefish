@@ -12,6 +12,7 @@ nobase_bfdata_DATA = \
 	snippets \
 	lipsum/__init__.py \
 	lipsum/data/dictionary.txt \
+	lipsum/data/sample.txt \
 	lipsum/data/lipsum.xml
 
 bfdata_SCRIPTS = \
