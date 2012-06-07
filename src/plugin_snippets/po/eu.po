@@ -3,20 +3,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
-# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2009.
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2009. 
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2012.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-06-05 21:22+0200\n"
-"PO-Revision-Date: 2009-09-21 17:46+0200\n"
-"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
+"PO-Revision-Date: 2012-06-06 18:41+0200\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: eu\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/plugin_snippets/snippets_gui.c:416
@@ -50,12 +52,10 @@ msgid "Set accelerator key"
 msgstr "Ezarri bizkortzailea"
 
 #: src/plugin_snippets/snippets_gui.c:815
-#, fuzzy
 msgid "Snippets menu"
 msgstr "Mozkinen menua"
 
 #: src/plugin_snippets/snippets_gui.c:816
-#, fuzzy
 msgid "_New Snippet"
 msgstr "Mozkin _berria"
 
@@ -65,97 +65,81 @@ msgid "New snippet"
 msgstr "Mozkin berria"
 
 #: src/plugin_snippets/snippets_gui.c:817
-#, fuzzy
 msgid "_Edit Snippet"
 msgstr "_Editatu mozkina"
 
 #: src/plugin_snippets/snippets_gui.c:817
 #: src/plugin_snippets/snippets_wizard.c:754
-#, fuzzy
 msgid "Edit snippet"
-msgstr "_Editatu mozkina"
+msgstr "Editatu mozkina"
 
 #: src/plugin_snippets/snippets_gui.c:818
-#, fuzzy
 msgid "_Delete Snippet"
 msgstr "E_zabatu mozkina"
 
 #: src/plugin_snippets/snippets_gui.c:818
-#, fuzzy
 msgid "Delete snippet"
-msgstr "E_zabatu mozkina"
+msgstr "Ezabatu mozkina"
 
 #: src/plugin_snippets/snippets_gui.c:819
-#, fuzzy
 msgid "Delete _Branch"
-msgstr "Ezabatu adarra"
+msgstr "Ezabatu _adarra"
 
 #: src/plugin_snippets/snippets_gui.c:819
 msgid "Delete branch"
 msgstr "Ezabatu adarra"
 
 #: src/plugin_snippets/snippets_gui.c:820
-#, fuzzy
 msgid "Set Snippet _Accelerator"
-msgstr "Ezarri mozkinaren bizkortzailea"
+msgstr "Ezarri mozkinaren _bizkortzailea"
 
 #: src/plugin_snippets/snippets_gui.c:820
-#, fuzzy
 msgid "Set snippet accelerator"
 msgstr "Ezarri mozkinaren bizkortzailea"
 
 #: src/plugin_snippets/snippets_gui.c:822
-#, fuzzy
 msgid "Ex_pand All"
-msgstr "Zabaldu denak"
+msgstr "_Zabaldu denak"
 
 #: src/plugin_snippets/snippets_gui.c:822
 msgid "Expand all"
 msgstr "Zabaldu denak"
 
 #: src/plugin_snippets/snippets_gui.c:823
-#, fuzzy
 msgid "_Collapse All"
-msgstr "Tolestu denak"
+msgstr "_Tolestu denak"
 
 #: src/plugin_snippets/snippets_gui.c:823
 msgid "Collapse all"
 msgstr "Tolestu denak"
 
 #: src/plugin_snippets/snippets_gui.c:824
-#, fuzzy
 msgid "E_xport"
-msgstr "Esportatu"
+msgstr "E_sportatu"
 
 #: src/plugin_snippets/snippets_gui.c:824
-#, fuzzy
 msgid "Export snippets"
-msgstr "mozkinak"
+msgstr "Esportatu mozkinak"
 
 #: src/plugin_snippets/snippets_gui.c:825
-#, fuzzy
 msgid "I_mport"
-msgstr "Inportatu"
+msgstr "I_nportatu"
 
 #: src/plugin_snippets/snippets_gui.c:825
-#, fuzzy
 msgid "Import snippets"
-msgstr "mozkinak"
+msgstr "Inportatu mozkinak"
 
 #: src/plugin_snippets/snippets_gui.c:829
-#, fuzzy
 msgid "_Show as menu"
-msgstr "Erakutsi menu gisa"
+msgstr "_Erakutsi menu gisa"
 
 #: src/plugin_snippets/snippets_gui.c:829
-#, fuzzy
 msgid "Show snippets menu"
-msgstr "Erakutsi menu gisa"
+msgstr "Erakutsi mozkinen menua"
 
 #: src/plugin_snippets/snippets_gui.c:831
-#, fuzzy
 msgid "S_nippets Menu"
-msgstr "Mozkinen menua"
+msgstr "M_ozkinen menua"
 
 #: src/plugin_snippets/snippets_leaf_insert.c:64
 msgid "[cursor position or selection]"
@@ -194,7 +178,6 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-#, fuzzy
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
@@ -203,7 +186,8 @@ msgid ""
 msgstr ""
 "Zehaztu bilatzeko eta ordezteko eredu bat. %0, %1, ...%5 leku-markak erabil "
 "ditzakezu balioak eskatzeko elementu hau aktibatzen duzunerako. Eman leku-"
-"marka hauei izen egokiak eskuinean."
+"marka hauei izen egokiak eskuinean. Erabili %% zure esaldi edo kateetan "
+"% literala behar duzunean."
 
 #: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
@@ -240,7 +224,6 @@ msgstr ""
 "e.a. gisa."
 
 #: src/plugin_snippets/snippets_wizard.c:335
-#, fuzzy
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -253,7 +236,8 @@ msgstr ""
 "txertatuko du testua. <i>Ondoren</i> kurtsorearen posizio edo uneko "
 "hautapenaren ondoren txertatuko du testua. %0, %1, ...%9 leku-markak erabil "
 "ditzakezu balioak eskatzeko elementu hau aktibatzen duzunerako. Eman leku-"
-"marka hauei izen egokiak eskuinean."
+"marka hauei izen egokiak eskuinean. Erabili %% zure esaldi edo kateetan "
+"% literala behar duzunean."
 
 #: src/plugin_snippets/snippets_wizard.c:344
 msgid "<i>Before</i> text"
