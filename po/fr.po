@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-06-07 07:29+0200\n"
-"PO-Revision-Date: 2012-06-07 07:37+0200\n"
+"PO-Revision-Date: 2012-06-07 12:32+0200\n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -207,7 +207,7 @@ msgstr "Nouvelle fenêtre"
 
 #: ../src/bfwin_uimanager.c:799
 msgid "Close Win_dow"
-msgstr "Fermer la Fenêtre"
+msgstr "_Fermer la Fenêtre"
 
 #: ../src/bfwin_uimanager.c:799
 msgid "Close window"
@@ -611,7 +611,7 @@ msgstr "Justifier"
 
 #: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
 msgid "_Close"
-msgstr "_Fermer"
+msgstr "Fermer le doc_ument "
 
 #: ../src/bfwin_uimanager.c:901
 msgid "Close current file"
@@ -2095,7 +2095,7 @@ msgstr "Activer le pliage par blocs"
 
 #: ../src/preferences.c:527
 msgid "Display block stack in statusbar"
-msgstr "Affichage de la pile de bloc dans la barre d'état"
+msgstr "Afficher la pile de blocs dans la barre d'état"
 
 #: ../src/preferences.c:529
 msgid "Highlight block _delimiters"
@@ -2158,7 +2158,7 @@ msgid ""
 msgstr ""
 "<small>Les styles de texte sont appliqués les uns après les autres. Quand "
 "plusieurs styles de texte s'appliquent au même texte, le premier est affecté "
-"de la plus haute priorité. Utilisez le copier-déposer pour réordonner les "
+"de la plus haute priorité. Utilisez le copier-coller pour réordonner les "
 "styles de texte.</small>"
 
 #: ../src/preferences.c:815 ../src/preferences.c:1016
@@ -2328,12 +2328,12 @@ msgstr ""
 "%i nom du fichier temporaire en entrée, égal à %f si le fichier est local et "
 "n'a pas été modifié\n"
 "<b>Options de sortie</b>\n"
-"%a arguments supplémentaires spécifiques au script\n"
 "terminer avec | pour lire la sortie à partir de la sortie standard\n"
 "%o nom de fichier temporaire\n"
 "%t nom de fichier temporaire pour l'entrée et la sortie (pour la "
 "modification sur place des filtres)\n"
 "<b>Autres options</b>\n"
+"%a arguments supplémentaires spécifiques au script\n"
 "%c répertoire local du fichier (disponible pour les fichiers locaux)\n"
 "%n nom du fichier sans son chemin (disponible pour tous les fichiers portant "
 "un nom)\n"
@@ -2463,7 +2463,7 @@ msgstr "Tous les espaces en fin de ligne"
 
 #: ../src/preferences.c:2080
 msgid "All except non-trailing spaces"
-msgstr "tabulations, espaces insécables et espaces en fin de ligne"
+msgstr "Tabulations, insécables et espaces en fin de ligne"
 
 #: ../src/preferences.c:2093
 msgid "Edit preferences"
@@ -2566,7 +2566,7 @@ msgstr "Fonte de l'éditeur :"
 
 #: ../src/preferences.c:2235
 msgid "Cursor / font size ratio (%):"
-msgstr "Curseur / ratio taille de la police (%) :"
+msgstr "Ratio curseur/taille de la police (%) :"
 
 #: ../src/preferences.c:2237 ../src/preferences.c:2578
 msgid "<b>Colors</b>"
@@ -2574,7 +2574,7 @@ msgstr "<b>Couleurs</b>"
 
 #: ../src/preferences.c:2241
 msgid "Use system wide color settings"
-msgstr "Utiliser les paramètres système de couleurs étendues"
+msgstr "Utiliser les paramètres système de couleurs"
 
 #: ../src/preferences.c:2252
 msgid "Cursor color"
@@ -2590,7 +2590,7 @@ msgstr "Couleur d'arrière-plan de la sélection"
 
 #: ../src/preferences.c:2257
 msgid "_Selection background color:"
-msgstr "Couleur d'arrière-plan de la sélection"
+msgstr "Arrière-plan de la sélection"
 
 #: ../src/preferences.c:2262
 msgid "Highlight cursor position"
@@ -2642,9 +2642,7 @@ msgstr "Jeu de caractères par défaut pour les nouveaux fichiers :"
 
 #: ../src/preferences.c:2329
 msgid "Auto set <meta> _HTML tag on encoding change"
-msgstr ""
-"Mettre à jour les balises <meta> correspondantes lors de la modification de "
-"l'encodage"
+msgstr "Mettre à jour les balises <meta> lors de la modification de l'encodage"
 
 #: ../src/preferences.c:2333 ../src/preferences.c:2444
 msgid "<b>Misc</b>"
@@ -2665,7 +2663,7 @@ msgstr "Vérifier périodiquement si le fichier est modifié sur le disque"
 #: ../src/preferences.c:2353
 msgid "File properties to check on dis_k for modifications:"
 msgstr ""
-"Propriétés du fichier à vérifier sur le disque pour les modifications :"
+"Propriétés du fichier à vérifier sur le disque :"
 
 #: ../src/preferences.c:2363
 msgid "Backup & Recovery"
