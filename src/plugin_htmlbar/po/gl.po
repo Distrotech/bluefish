@@ -1,20 +1,20 @@
 # Galician translations for bluefish-unstable package.
-# Copyright (C) 2009 The Bluefish Development Team.
+# Copyright (C) 2009-2012 The Bluefish Development Team.
 # This file is distributed under the same license as the bluefish-unstable package.
-# Automatically generated, 2009.
+# Xose M. <correo.xmgz@gmail.com>, 2009-2012
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.2.2\n"
+"Project-Id-Version: Bluefish 2.2.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 21:47+0200\n"
-"PO-Revision-Date: 2011-09-24 17:49+0100\n"
+"POT-Creation-Date: 2012-06-06 07:37+0200\n"
+"PO-Revision-Date: 2012-06-08 14:15+0200\n"
 "Last-Translator: Xose M. Lamas <correo.xmgz@gmail.com>\n"
 "Language-Team: none\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/plugin_htmlbar/html2.c:634
@@ -1117,11 +1117,11 @@ msgstr "Ferramentas HTML"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1339
 msgid "Add to Quickbar"
-msgstr "Engadir a Inicio Rápido"
+msgstr "Engadir a Inicio Rï¿½pido"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1339
 msgid "Remove from Quickbar"
-msgstr "Quitar de Inicio Rápido"
+msgstr "Quitar de Inicio Rï¿½pido"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1377
 msgid "Right click any html toolbar button to add it to the Quickbar."
@@ -1129,7 +1129,6 @@ msgstr ""
 "Click dereito en calquer botÃ³n da barra html para engadilo a Inicio RÃ¡pido"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1454
-
 msgid "Quickbar"
 msgstr "Inicio RÃ¡pido"
 
@@ -1163,7 +1162,7 @@ msgstr "Formularios"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1478
 msgid "Fonts"
-msgstr "Tipografías"
+msgstr "Tipografï¿½as"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1481
 msgid "Frames"
@@ -1701,27 +1700,27 @@ msgstr "_Defer:"
 #.
 #: src/plugin_htmlbar/html.c:2500
 msgid "CSS3 multi-column layout"
-msgstr "Disposición multi-columna CSS3"
+msgstr "Disposiciï¿½n multi-columna CSS3"
 
 #: src/plugin_htmlbar/html.c:2507
 msgid "Auto (default) or number of columns"
-msgstr "Auto (por omisión) ou número de columnas"
+msgstr "Auto (por omisiï¿½n) ou nï¿½mero de columnas"
 
 #: src/plugin_htmlbar/html.c:2516
 msgid "Auto (default) or width"
-msgstr "Auto (por omisión) ou ancho"
+msgstr "Auto (por omisiï¿½n) ou ancho"
 
 #: src/plugin_htmlbar/html.c:2528
 msgid "Normal (default) or width of the gap between columns"
-msgstr "Normal (por omisión) ou ancho do espazo entre columnas"
+msgstr "Normal (por omisiï¿½n) ou ancho do espazo entre columnas"
 
 #: src/plugin_htmlbar/html.c:2546
 msgid "None (default) or style"
-msgstr "Nada (por omisión) ou estilo"
+msgstr "Nada (por omisiï¿½n) ou estilo"
 
 #: src/plugin_htmlbar/html.c:2552
 msgid "Medium (default) or width"
-msgstr "Medio (por omisión) ou ancho"
+msgstr "Medio (por omisiï¿½n) ou ancho"
 
 #: src/plugin_htmlbar/html.c:2565
 msgid "Use vendor-prefixed CSS property:"
@@ -1936,7 +1935,7 @@ msgstr "<span color=\"#A36A00\">_Scope:</span>"
 
 #: src/plugin_htmlbar/html_table.c:410
 msgid "the header cell applies to cells in the same:"
-msgstr "a celda do cabezallo aplícase a celdas no mesmo:"
+msgstr "a celda do cabezallo aplï¿½case a celdas no mesmo:"
 
 #: src/plugin_htmlbar/html_table.c:422
 msgid "Co_l Span:"
@@ -2249,11 +2248,11 @@ msgstr "Amosar barra de ferramentas no panel lateral"
 
 #: src/plugin_htmlbar/prefs.c:70
 msgid "Keep HTML dialogs always on top"
-msgstr "Manter sempre enriba os diálogos HTML"
+msgstr "Manter sempre enriba os diï¿½logos HTML"
 
 #: src/plugin_htmlbar/prefs.c:75
 msgid "<b>HTML options</b>"
-msgstr "<b>Opcións HTML</b>"
+msgstr "<b>Opciï¿½ns HTML</b>"
 
 #: src/plugin_htmlbar/prefs.c:79
 msgid "Use _XHTML style tags (<br />)"
@@ -2261,7 +2260,7 @@ msgstr "Usar etiquetas de estilo XHTML como (<br />)"
 
 #: src/plugin_htmlbar/prefs.c:81
 msgid "Use lo_wercase HTML tags"
-msgstr "Utilizar etiquetas HTML en min_úscula"
+msgstr "Utilizar etiquetas HTML en min_ï¿½scula"
 
 #: src/plugin_htmlbar/prefs.c:83
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
@@ -2269,23 +2268,24 @@ msgstr "Usar etiquetas obsoletas (ex. <font> e <nobr>)"
 
 #: src/plugin_htmlbar/prefs.c:87
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
-msgstr "Dar _formato de acordo a guías de accesibilidade (ex. <strong> por <b>)"
+msgstr ""
+"Dar _formato de acordo a guï¿½as de accesibilidade (ex. <strong> por <b>)"
 
 #: src/plugin_htmlbar/prefs.c:92
 msgid "<b>Auto Update Tag Options</b>"
-msgstr "<b>Auto actualizar opcións de etiquetas</b>"
+msgstr "<b>Auto actualizar opciï¿½ns de etiquetas</b>"
 
 #: src/plugin_htmlbar/prefs.c:96
 msgid "Automatically update a_uthor meta tag"
-msgstr "Actualizar automáticamente a etiqueta meta a_uthor"
+msgstr "Actualizar automï¿½ticamente a etiqueta meta a_uthor"
 
 #: src/plugin_htmlbar/prefs.c:99
 msgid "Automatically update _date meta tag"
-msgstr "Actualizar automáticamente a etiqueta meta _date"
+msgstr "Actualizar automï¿½ticamente a etiqueta meta _date"
 
 #: src/plugin_htmlbar/prefs.c:102
 msgid "Automatically update _generator meta tag"
-msgstr "Actualizar automáticamente a etiqueta meta _generator"
+msgstr "Actualizar automï¿½ticamente a etiqueta meta _generator"
 
 #~ msgid "_Special"
 #~ msgstr "_Especial"
