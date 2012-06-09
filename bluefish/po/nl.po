@@ -31,7 +31,7 @@ msgstr "Web Ontwikkeling Editor"
 
 #: ../desktop-data/bluefish.desktop.in.h:3
 msgid "programming;code;html;php;python;"
-msgstr ""
+msgstr "programming;code;html;php;python;"
 
 #: ../desktop-data/bluefish.xml.in.h:1
 msgid "Bluefish language definition file"
@@ -50,14 +50,14 @@ msgid "Expand all"
 msgstr "Alles uitklappen"
 
 #: ../src/bftextview2.c:1591
-#, fuzzy, c-format
+# c-format
 msgid "Collapse %s"
-msgstr "Alles inklappen"
+msgstr "%s Inklappen"
 
 #: ../src/bftextview2.c:1598
-#, fuzzy, c-format
+#c-format
 msgid "Expand %s"
-msgstr "Alles uitklappen"
+msgstr "%s Uitklappen"
 
 #: ../src/bftextview2_spell.c:690
 msgid "Spell check language"
@@ -177,19 +177,16 @@ msgid "_Outputbox"
 msgstr "_Uitvoervlak"
 
 #: ../src/bfwin_uimanager.c:790
-#, fuzzy
 msgid "Fo_rmat"
-msgstr "Normaal"
+msgstr "Opmaak"
 
 #: ../src/bfwin_uimanager.c:791
-#, fuzzy
 msgid "_Insert"
-msgstr "_Invoegen..."
+msgstr "_Invoegen"
 
 #: ../src/bfwin_uimanager.c:792
-#, fuzzy
 msgid "Co_nvert"
-msgstr "Verbinden"
+msgstr "Omzetten"
 
 #: ../src/bfwin_uimanager.c:796
 msgid "_New"
@@ -249,14 +246,12 @@ msgid "Insert file"
 msgstr "Bestand invoegen"
 
 #: ../src/bfwin_uimanager.c:806
-#, fuzzy
 msgid "_Print"
-msgstr "Ouder"
+msgstr "_Print"
 
 #: ../src/bfwin_uimanager.c:806
-#, fuzzy
 msgid "Print"
-msgstr "Ouder"
+msgstr "Print"
 
 #: ../src/bfwin_uimanager.c:807
 msgid "U_pload / Download..."
@@ -424,17 +419,15 @@ msgstr "Aantal woorden"
 
 #: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
-msgstr ""
+msgstr "Lorem Ipsum generator"
 
 #: ../src/bfwin_uimanager.c:852
-#, fuzzy
 msgid "Insert Relative Filename"
-msgstr "Bestandsnaam wissen"
+msgstr "Relatieve bestandsnaam invoegen"
 
 #: ../src/bfwin_uimanager.c:853
-#, fuzzy
 msgid "Insert Absolute Filename"
-msgstr "Bestandsnaam wissen"
+msgstr "Absolute bestandsnaam invoegen"
 
 #: ../src/bfwin_uimanager.c:854
 msgid "Indenting to S_paces"
@@ -1274,9 +1267,8 @@ msgid "Cannot display file, unknown characters found."
 msgstr "Kan bestand niet laten zien; Onbekende karakters gevonden."
 
 #: ../src/document.c:1858
-#, fuzzy
 msgid "Exit fullscreen"
-msgstr "Volledige schermvulling"
+msgstr "Sluit volledige schermvulling"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
@@ -1420,27 +1412,23 @@ msgstr "Vul lege plaatsen:"
 
 #: ../src/doc_extern_tools.c:49
 msgid "Number of paragraphs"
-msgstr ""
+msgstr "Aantal paragrafen"
 
 #: ../src/doc_extern_tools.c:51
-#, fuzzy
 msgid "Number of sentences"
-msgstr "Aantal kolommen:"
+msgstr "Aantal zinnen"
 
 #: ../src/doc_extern_tools.c:52
-#, fuzzy
 msgid "Insert plain text"
-msgstr "Bestand invoegen"
+msgstr "Invoegen zonder opmaak"
 
 #: ../src/doc_extern_tools.c:52
-#, fuzzy
 msgid "Insert in <li>"
-msgstr "Bestand invoegen"
+msgstr "Invoegen in <li>"
 
 #: ../src/doc_extern_tools.c:52
-#, fuzzy
 msgid "Insert in <p>"
-msgstr "Bestand invoegen"
+msgstr "Invoegen in <p>"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1464,12 +1452,12 @@ msgstr "Verwijder of voeg coderingen toe"
 
 #: ../src/external_commands.c:405
 msgid "Supply extra arguments"
-msgstr ""
+msgstr "Voeg extra opties toe"
 
 #: ../src/external_commands.c:410
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
-msgstr ""
+msgstr "Geef de opties die ingevuld worden in %%a in '%s'"
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -1661,7 +1649,9 @@ msgid ""
 "<b>%s</b>\n"
 "which is the equivalent of\n"
 "<b>%s%s</b>"
-msgstr ""
+msgstr "<b>%s</b>\n"
+"wat het equivalent is van\n"
+"<b>%s%s</b>"
 
 #: ../src/file.c:830
 #, c-format
@@ -2208,19 +2198,17 @@ msgstr "Spelling controleren"
 #: ../src/preferences.c:889 ../src/preferences.c:1054
 #: ../src/preferences.c:1208 ../src/preferences.c:1401
 #: ../src/preferences.c:1496
-#, fuzzy
 msgid "Add entry"
-msgstr "Voeg patroon toe"
+msgstr "Regel toevoegen"
 
 #: ../src/preferences.c:891 ../src/preferences.c:1056
 #: ../src/preferences.c:1210 ../src/preferences.c:1403
 #: ../src/preferences.c:1498
-#, fuzzy
 msgid "Delete entry"
-msgstr "Fileter verwĳderen"
+msgstr "Regel verwĳderen"
 
 #: ../src/preferences.c:992
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2236,14 +2224,15 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 "<small><b>Invoer optie's</b>\n"
-"specificeer geen optie's om invoer uit te lezen van standaard uitvoer\n"
+"start met | om standard input (stdin) te gebruiked\n"
 "%f lokale bestandsnaam (beschikbaar voor lokale bestanden)\n"
 "%i tĳdelĳke bestandsnaam voor invoer, is gelĳk aan %f als het document niet "
 "is gewĳzigd en lokaal is\n"
 "<b>Andere optie's</b>\n"
+"%a extra opties die gevraagd worden als dit filter geactiveerd wordt\n"
 "%c lokale directory van bestand (beschikbaar voor lokale bestanden)\n"
 "%n bestandsnaam zonder pad (beschikbaar voor alle documenten met naam)\n"
-"%p preview URL Als basismap en preview map zĳn ingesteld in de project "
+"%p preview URL Als documentroot en preview map zĳn ingesteld in de project "
 "instellingen, anders identiek aan %u\n"
 "</small>"
 
@@ -2259,16 +2248,14 @@ msgstr "Standaard browser"
 #: ../src/preferences.c:1058 ../src/preferences.c:1212
 #: ../src/preferences.c:1405
 msgid "Update defaults"
-msgstr ""
+msgstr "Standaardwaarden bijwerken"
 
 #: ../src/preferences.c:1060 ../src/preferences.c:1214
 #: ../src/preferences.c:1407
-#, fuzzy
 msgid "Reset all"
-msgstr "_Alles Selecteren"
+msgstr "Alles herstellen"
 
 #: ../src/preferences.c:1150
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2288,24 +2275,23 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 "<small><b>Invoer optie's</b>\n"
-"specificeer geen optie's om invoer te lezen van de standaard uitvoer\n"
-"%f lokale bestandsnaam (een lokaal bestand is nodig, kan niet werken op een "
-"selectie)\n"
+"start met | om standard input (stdin) te gebruiked\n"
+"%f lokale bestandsnaam (vereist een lokaal bestand, werkt niet met selecties)\n"
 "%i tijdelijke bestandsnaam voor invoer\n"
 "<b>Uitvoer optie's</b>\n"
-"specificeer geen optie's om t uitvoer te lezen van de standaard utivoer\n"
+"eindig met | om de standard output (stdout) te gebruiken\n"
 "%o tijdelijke bestandsnaam\n"
-"%t tijdelijek bestandsnaam voor zowel invoer als uitvoer (voor in-de-plaats-"
-"bewerken filters op selectie)\n"
+"%t tijdelijke bestandsnaam voor zowel invoer als uitvoer (voor in-de-plaats-"
+"bewerken filters) werkt niet met selecties\n"
 "<b>Andere optie's</b>\n"
+"%a extra opties die gevraagd worden als dit filter geactiveerd wordt\n"
 "%c lokale directory van bestand (lokaal bestand nodig)\n"
 "%n bestandsnaam zonder pad (beschikbaar voor alle getitelde bestanden)\n"
 "%u URL (beschikbaar voor alle getitelde bestanden)\n"
-"%p preview URL als basismap en previewmap ingesteld zijn, anders identiek "
+"%p preview URL als documentroot en previewmap ingesteld zijn, anders identiek "
 "aan %u</small>"
 
 #: ../src/preferences.c:1336
-#, fuzzy, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2323,20 +2309,19 @@ msgid ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 msgstr ""
-"<small><b>Invoer optie's</b>\n"
-"Specificeer geen optie's om de invoer te lezen van de standaard uitvoer\n"
-"%f lokale bestandsnaam (beschikbaar voor lokale bestanden)\n"
-"%i tijdelijke bestandsnaam voor invoer, is gelijk aan %f als het document "
-"niet is gewijzigd en lokaal is\n"
+"start met | om standard input (stdin) te gebruiked\n"
+"%f lokale bestandsnaam (vereist een lokaal bestand, werkt niet met selecties)\n"
+"%i tijdelijke bestandsnaam voor invoer\n"
+"<b>Uitvoer optie's</b>\n"
+"eindig met | om de standard output (stdout) te gebruiken\n"
 "%o tijdelijke bestandsnaam\n"
-"%t tijdelijke bestandsnaam voor zowel invoer als uitvoer (voor in-de-plaats-"
-"bewerkings filters)\n"
 "<b>Andere optie's</b>\n"
-"%c lokale map van bestand (beschikbaar voor lokale bestanden)\n"
+"%a extra opties die gevraagd worden als dit filter geactiveerd wordt\n"
+"%c lokale directory van bestand (lokaal bestand nodig)\n"
 "%n bestandsnaam zonder pad (beschikbaar voor alle getitelde bestanden)\n"
 "%u URL (beschikbaar voor alle getitelde bestanden)\n"
-"%p preview URL als basismap en previewmap zijn ingesteld in project "
-"instellingen, anders identiek aan %u</small>"
+"%p preview URL als documentroot en previewmap ingesteld zijn, anders identiek "
+"aan %u</small>"
 
 #: ../src/preferences.c:1366
 msgid "Pattern"
@@ -2360,7 +2345,7 @@ msgstr "Bestand "
 
 #: ../src/preferences.c:1637
 msgid "A restart is needed to see the effect of these options"
-msgstr ""
+msgstr "Deze opties hebben pas effect na een herstart"
 
 #. 1=text
 #: ../src/preferences.c:1649
@@ -2481,9 +2466,8 @@ msgid "Editor settings"
 msgstr "Editor optie's"
 
 #: ../src/preferences.c:2134
-#, fuzzy
 msgid "<b>Editor settings</b>"
-msgstr "Editor optie's"
+msgstr "<b>Editor instellingen</b>"
 
 #: ../src/preferences.c:2142
 msgid "Smart Home/_End cursor positioning"
@@ -2494,7 +2478,6 @@ msgid "_Tab key indents selection"
 msgstr "Selectie inpringen met _tab toets"
 
 #: ../src/preferences.c:2150
-#, fuzzy
 msgid "Automatically insert closing brackets"
 msgstr "Automatisch haken sluiten"
 
@@ -2519,9 +2502,8 @@ msgid "Clear _history on save"
 msgstr "Ongedaan maken historie wissen bĳ opslaan"
 
 #: ../src/preferences.c:2178
-#, fuzzy
 msgid "Auto-completion & Reference"
-msgstr "_Spring naar Referentie"
+msgstr "Auto-completeren & Referentie"
 
 #: ../src/preferences.c:2184
 msgid "<b>Auto-completion</b>"
@@ -2540,27 +2522,24 @@ msgid "<b>Reference Information</b>"
 msgstr "<b>Referentie informatie</b>"
 
 #: ../src/preferences.c:2202
-#, fuzzy
 msgid "_Load reference data from language files"
 msgstr "Referentie informatie in geheugen laden"
 
 #: ../src/preferences.c:2205
-#, fuzzy
 msgid "Show references in auto-completion _pop-up window"
 msgstr "Referentie informatie bij automatische _completering weergeven"
 
 #: ../src/preferences.c:2208
 msgid "Show references if mouse is over text editor"
-msgstr ""
+msgstr "Geef referenties weer als de muis over de tekst gaat"
 
 #: ../src/preferences.c:2217 ../src/preferences.c:2552
 msgid "Font & Colors"
 msgstr "Lettertype & Kleuren"
 
 #: ../src/preferences.c:2223
-#, fuzzy
 msgid "<b>Font &amp; Cursor</b>"
-msgstr "<b>Lettertype</b>"
+msgstr "<b>Lettertype &amp; Cursor</b>"
 
 #: ../src/preferences.c:2227
 msgid "_Editor font:"
@@ -2568,7 +2547,7 @@ msgstr "Lettertype"
 
 #: ../src/preferences.c:2235
 msgid "Cursor / font size ratio (%):"
-msgstr ""
+msgstr "Cursor / lettergrootte ratio (%)"
 
 #: ../src/preferences.c:2237 ../src/preferences.c:2578
 msgid "<b>Colors</b>"
@@ -2587,29 +2566,24 @@ msgid "C_ursor color:"
 msgstr "C_ursor kleur"
 
 #: ../src/preferences.c:2256
-#, fuzzy
 msgid "Selection background color"
-msgstr "Achtergrond kleur"
+msgstr "Selectie achtergrond kleur"
 
 #: ../src/preferences.c:2257
-#, fuzzy
 msgid "_Selection background color:"
-msgstr "_Achtergrond kleur"
+msgstr "Selectie achtergrond kleur:"
 
 #: ../src/preferences.c:2262
-#, fuzzy
 msgid "Highlight cursor position"
-msgstr "_Actieve regel oplichten"
+msgstr "Cursor positie oplichten"
 
 #: ../src/preferences.c:2264
-#, fuzzy
 msgid "Cursor highlight color"
-msgstr "Cursor kleur"
+msgstr "Cursor oplicht kleur"
 
 #: ../src/preferences.c:2265
-#, fuzzy
 msgid "_Cursor highlight color:"
-msgstr "C_ursor kleur"
+msgstr "_Cursor oplicht kleur:"
 
 #: ../src/preferences.c:2270
 msgid "Current line color"
@@ -2673,7 +2647,7 @@ msgstr "Bestandseigenschappen op _schĳf ter controle van wĳzigingen"
 
 #: ../src/preferences.c:2363
 msgid "Backup & Recovery"
-msgstr ""
+msgstr "Reserves & Herstellen"
 
 #: ../src/preferences.c:2366
 msgid "<b>Backup</b>"
@@ -2716,28 +2690,24 @@ msgid "User interface"
 msgstr "Gebruikers interface"
 
 #: ../src/preferences.c:2427
-#, fuzzy
 msgid "<b>Layout</b>"
-msgstr "<b>Lettertype</b>"
+msgstr "<b>Layout</b>"
 
 #: ../src/preferences.c:2433
-#, fuzzy
 msgid "Document _tab position:"
-msgstr "Document tab lettertype:"
+msgstr "Document _tab positie:"
 
 #: ../src/preferences.c:2437
-#, fuzzy
 msgid "_Sidebar position:"
-msgstr "_Tab positie:"
+msgstr "Zijbalk positie:"
 
 #: ../src/preferences.c:2442
-#, fuzzy
 msgid "Sidebar tab _position:"
-msgstr "_Tab positie:"
+msgstr "Zijbalk tab positie:"
 
 #: ../src/preferences.c:2446
 msgid "Hide toolbars on full-screen"
-msgstr ""
+msgstr "Verberg werkbalk bij volledige scermvulling"
 
 #: ../src/preferences.c:2455
 msgid "_Language:"
@@ -2756,14 +2726,12 @@ msgid "_Register recent files with your desktop:"
 msgstr "_Registreer recente bestanden bij uw bureaublad:"
 
 #: ../src/preferences.c:2480
-#, fuzzy
 msgid "Shortcut keys"
-msgstr "Sneltoets _combinatie:"
+msgstr "Sneltoets combinaties"
 
 #: ../src/preferences.c:2485
-#, fuzzy
 msgid "<b>Shortcut keys</b>"
-msgstr "<b>Document tabs</b>"
+msgstr "<b>Sneltoets combinaties</b>"
 
 #: ../src/preferences.c:2488
 msgid "_Switch between tabs with <Alt>+0..9"
@@ -2990,7 +2958,7 @@ msgstr "perl syntax check"
 
 #: ../src/rcfile.c:716
 msgid "php codesniffer"
-msgstr ""
+msgstr "php codesniffer"
 
 #: ../src/rcfile.c:729
 msgid "Sort"
@@ -3013,9 +2981,8 @@ msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
 #: ../src/rcfile.c:743
-#, fuzzy
 msgid "Tidy HTML (perltidy)"
-msgstr "Tidy HTML"
+msgstr "Tidy HTML (perltidy)"
 
 #: ../src/rcfile.c:746
 msgid "Strip empty lines"
@@ -3070,9 +3037,8 @@ msgid "chmod a+x"
 msgstr "chmod a+x"
 
 #: ../src/rcfile.c:817
-#, fuzzy
 msgid "Chromium"
-msgstr "Chrome"
+msgstr "Chromium"
 
 #: ../src/rcfile.c:820
 msgid "Konqueror"
@@ -3186,7 +3152,7 @@ msgstr[1] "<i>%d resultaten in het huidige actieve document</i>"
 
 #: ../src/snr3.c:1359
 msgid "No (more) results"
-msgstr ""
+msgstr "Geen (extra) resultaten"
 
 #: ../src/snr3.c:1457
 msgid "Active document"
