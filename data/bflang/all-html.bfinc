@@ -40,11 +40,11 @@
 <tag name="frameset" case_insens="1" sgml_shorttag="1" attributes="&univ;,cols,onload,onunload,rows">
 	<reference>Defines a frameset</reference>
 </tag>
-<tag name="base" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="href,target" attribhighlight="html-attribute" >
+<tag name="base" highlight="html-tag" case_insens="1" sgml_shorttag="1" no_close="1" attributes="href,target" attribhighlight="html-attribute" >
 	<autocomplete append="&gt; &lt;/base&gt;" />
 	<reference>Defines a default address or a default target for all links on a page</reference>
 </tag>
-<tag name="meta" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;,content,http-equiv,name,scheme" attribhighlight="html-attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+<tag name="meta" highlight="html-tag" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&i18n;,content,http-equiv,name,scheme" attribhighlight="html-attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<autocomplete append=" &gt;" />
 	<reference>Defines metadata about an HTML document</reference>
 </tag>
@@ -127,7 +127,7 @@
 	</context>
 </tag>
 
-<tag name="link" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;&evnt;,charset,href,hreflang,media,rel,rev,target,type" attribhighlight="html-attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
+<tag name="link" highlight="html-tag" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;&evnt;,charset,href,hreflang,media,rel,rev,target,type" attribhighlight="html-attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
 	<autocomplete append="&gt;" />
 	<reference>Defines the relationship between a document and an external resource </reference>
 </tag>
@@ -154,7 +154,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<tag name="object" case_insens="1" sgml_shorttag="1" attributes="align,archive,border,classid,codebase,codetype,data,declare,height,hspace,name,standby,tabindex,type,usemap,vspace,width,&univ;,&i18n;,&evnt;">
 		<reference>Defines an embedded object</reference>
 	</tag>
-	<tag name="param" case_insens="1" sgml_shorttag="1" attributes="id,name,type,value,valuetype" >
+	<tag name="param" case_insens="1" sgml_shorttag="1" no_close="1" attributes="id,name,type,value,valuetype" >
 		<autocomplete append=" name=&#34;&#34; &gt;" />
 	</tag>
 </group>
@@ -169,7 +169,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<tag name="address" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines an address</reference>
 	</tag>
-	<tag name="area" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,alt,accesskey,coords,href,nohref,onblur,onfocus,shape,tabindex,target">
+	<tag name="area" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,alt,accesskey,coords,href,nohref,onblur,onfocus,shape,tabindex,target">
 		<reference>Defines a click-able area inside an image-map</reference>
 	</tag>
 	<tag name="b" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
@@ -197,7 +197,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<tag name="code" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines computer code text</reference>
 	</tag>
-	<tag name="col" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align,char,charoff,span,valign,width">
+	<tag name="col" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,align,char,charoff,span,valign,width">
 		<reference>Defines attribute values for one or more columns in a table</reference>
 	</tag>
 	<tag name="colgroup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align,char,charoff,span,valign,width">
