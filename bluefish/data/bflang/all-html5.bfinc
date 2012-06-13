@@ -45,7 +45,7 @@
 <b>Parents:</b>flow 
 <b>Children:</b>flow*
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="area" highlight="html-tag" attribhighlight="html-attribute" attributes="alt,coords,shape,href,target,ping,rel,media,hreflang,type,&globals;" sgml_shorttag="1">
+<tag name="area" highlight="html-tag" attribhighlight="html-attribute" attributes="alt,coords,shape,href,target,ping,rel,media,hreflang,type,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Hyperlink or dead area on an image map
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing*
@@ -75,7 +75,7 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="base" highlight="html-tag" attribhighlight="html-attribute" attributes="href,target,&globals;" sgml_shorttag="1">
+<tag name="base" highlight="html-tag" attribhighlight="html-attribute" attributes="href,target,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Base URL and default targetbrowsing context forhyperlinks andforms
 <b>Categories:</b> metadata
 <b>Parents:</b> head
@@ -105,7 +105,7 @@
 <b>Parents:</b>html 
 <b>Children:</b>flow 
 <b>Interface:</b> HTMLBodyElement</reference></tag>
-<tag name="br" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;" sgml_shorttag="1">
+<tag name="br" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;" sgml_shorttag="1" no_close="1">
 <reference>Line break, e.g. in poem or postal address
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
@@ -141,7 +141,7 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="col" highlight="html-tag" attribhighlight="html-attribute" attributes="span,&globals;" sgml_shorttag="1">
+<tag name="col" highlight="html-tag" attribhighlight="html-attribute" attributes="span,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Table column
 <b>Categories:</b> none
 <b>Parents:</b> colgroup
@@ -153,7 +153,7 @@
 <b>Parents:</b> table
 <b>Children:</b> col
 <b>Interface:</b> HTMLTableColElement</reference></tag>
-<tag name="command" highlight="html-tag" attribhighlight="html-attribute" attributes="type,label,icon,disabled,checked,radiogroup,&globals;" sgml_shorttag="1">
+<tag name="command" highlight="html-tag" attribhighlight="html-attribute" attributes="type,label,icon,disabled,checked,radiogroup,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Menu command
 <b>Categories:</b> metadata, flow, phrasing
 <b>Parents:</b> head, phrasing
@@ -213,7 +213,7 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="embed" highlight="html-tag" attribhighlight="html-attribute" attributes="src,type,width,height,&globals;" sgml_shorttag="1">
+<tag name="embed" highlight="html-tag" attribhighlight="html-attribute" attributes="src,type,width,height,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Plugin. <i>Attributes: any.</i>
 <b>Categories:</b> flow, phrasing, embedded, interactive
 <b>Parents:</b> phrasing
@@ -303,7 +303,7 @@
 <b>Parents:</b>flow 
 <b>Children:</b>One or more h1, h2, h3, h4, h5, and/or h6 
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="hr" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;" sgml_shorttag="1">
+<tag name="hr" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;" sgml_shorttag="1" no_close="1">
 <reference>Thematic break
 <b>Categories:</b> flow
 <b>Parents:</b> flow
@@ -327,13 +327,14 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> text*
 <b>Interface:</b> HTMLIFrameElement</reference></tag>
-<tag name="img" highlight="html-tag" attribhighlight="html-attribute" attributes="alt,src,crossorigin,usemap,ismap,width,height,&globals;" sgml_shorttag="1">
+<tag name="img" highlight="html-tag" attribhighlight="html-attribute" attributes="alt,src,crossorigin,usemap,ismap,width,height,&globals;" sgml_shorttag="1" no_close="1">
+<autocomplete append=" src=&#34;&#34; alt=&#34;&#34;&gt;" backup_cursor="9" />
 <reference>Image 
 <b>Categories:</b>flow; phrasing; embedded; interactive* 
 <b>Parents:</b>phrasing 
 <b>Children:</b>empty 
 <b>Interface:</b> HTMLImageElement</reference></tag>
-<tag name="input" highlight="html-tag" attribhighlight="html-attribute" attributes="accept,alt,autocomplete,autofocus,checked,dirname,disabled,form,formaction,formenctype,formmethod,formnovalidate,formtarget,height,list,max,maxlength,min,multiple,name,pattern,placeholder,readonly,required,size,src,step,type,value,width,&globals;" sgml_shorttag="1">
+<tag name="input" highlight="html-tag" attribhighlight="html-attribute" attributes="accept,alt,autocomplete,autofocus,checked,dirname,disabled,form,formaction,formenctype,formmethod,formnovalidate,formtarget,height,list,max,maxlength,min,multiple,name,pattern,placeholder,readonly,required,size,src,step,type,value,width,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Form control
 <b>Categories:</b> flow, phrasing, interactive*, listed, labelable, submittable, resettable, form-associated
 <b>Parents:</b> phrasing
@@ -375,7 +376,7 @@
 <b>Parents:</b> ol;ul;menu
 <b>Children:</b> flow
 <b>Interface:</b> HTMLLIElement</reference></tag>
-<tag name="link" highlight="html-tag" attribhighlight="html-attribute" attributes="href,rel,media,hreflang,type,sizes,&globals;" sgml_shorttag="1">
+<tag name="link" highlight="html-tag" attribhighlight="html-attribute" attributes="href,rel,media,hreflang,type,sizes,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Link metadata
 <b>Categories:</b> metadata, flow*, phrasing*
 <b>Parents:</b> head, noscript*, phrasing*
@@ -399,7 +400,7 @@
 <b>Parents:</b> flow
 <b>Children:</b> li*, flow
 <b>Interface:</b> HTMLMenuElement</reference></tag>
-<tag name="meta" highlight="html-tag" attribhighlight="html-attribute" attributes="name,http-equiv,content,charset,&globals;" sgml_shorttag="1">
+<tag name="meta" highlight="html-tag" attribhighlight="html-attribute" attributes="name,http-equiv,content,charset,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Text metadata
 <b>Categories:</b> metadata, flow*, phrasing*
 <b>Parents:</b> head, noscript*, phrasing*
@@ -459,7 +460,7 @@
 <b>Parents:</b>flow 
 <b>Children:</b>phrasing 
 <b>Interface:</b> HTMLParagraphElement</reference></tag>
-<tag name="param" highlight="html-tag" attribhighlight="html-attribute" attributes="name,value,&globals;" sgml_shorttag="1">
+<tag name="param" highlight="html-tag" attribhighlight="html-attribute" attributes="name,value,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Parameter forobject
 <b>Categories:</b> none
 <b>Parents:</b> object
@@ -561,7 +562,7 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="source" highlight="html-tag" attribhighlight="html-attribute" attributes="src,type,media,&globals;" sgml_shorttag="1">
+<tag name="source" highlight="html-tag" attribhighlight="html-attribute" attributes="src,type,media,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Media source forvideo oraudio
 <b>Categories:</b> none
 <b>Parents:</b> video, audio
