@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-06-05 22:07+0200\n"
-"PO-Revision-Date: 2012-04-15 15:43+0200\n"
+"PO-Revision-Date: 2012-06-13 18:20+0200\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -48,14 +48,14 @@ msgid "Expand all"
 msgstr "Alle ausklappen"
 
 #: ../src/bftextview2.c:1591
-#, fuzzy, c-format
+#, c-format
 msgid "Collapse %s"
-msgstr "Alle einklappen"
+msgstr "%s einklappen"
 
 #: ../src/bftextview2.c:1598
-#, fuzzy, c-format
+#, c-format
 msgid "Expand %s"
-msgstr "Alle ausklappen"
+msgstr "%s ausklappen"
 
 #: ../src/bftextview2_spell.c:690
 msgid "Spell check language"
@@ -175,19 +175,16 @@ msgid "_Outputbox"
 msgstr "_Ausgabefenster"
 
 #: ../src/bfwin_uimanager.c:790
-#, fuzzy
 msgid "Fo_rmat"
-msgstr "Normal"
+msgstr "Fo_rmat"
 
 #: ../src/bfwin_uimanager.c:791
-#, fuzzy
 msgid "_Insert"
-msgstr "Datei_inhalt Einfügen..."
+msgstr "E_infügen"
 
 #: ../src/bfwin_uimanager.c:792
-#, fuzzy
 msgid "Co_nvert"
-msgstr "Verbi_nden"
+msgstr "Ko_nvertieren"
 
 #: ../src/bfwin_uimanager.c:796
 msgid "_New"
@@ -248,12 +245,11 @@ msgstr "Inhalt einer Datei einfügen"
 
 #: ../src/bfwin_uimanager.c:806
 msgid "_Print"
-msgstr ""
+msgstr "_Drucken"
 
 #: ../src/bfwin_uimanager.c:806
-#, fuzzy
 msgid "Print"
-msgstr "rechts"
+msgstr "Drucken"
 
 #: ../src/bfwin_uimanager.c:807
 msgid "U_pload / Download..."
@@ -424,17 +420,15 @@ msgstr "Wörter zählen"
 
 #: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
-msgstr ""
+msgstr "Lorem Ipsum Generator"
 
 #: ../src/bfwin_uimanager.c:852
-#, fuzzy
 msgid "Insert Relative Filename"
-msgstr "Dateiname z_urücksetzen"
+msgstr "Relativen Dateipfad einfügen"
 
 #: ../src/bfwin_uimanager.c:853
-#, fuzzy
 msgid "Insert Absolute Filename"
-msgstr "Dateiname z_urücksetzen"
+msgstr "Absoluten Dateipfad einfügen"
 
 #: ../src/bfwin_uimanager.c:854
 msgid "Indenting to S_paces"
@@ -1277,9 +1271,8 @@ msgid "Cannot display file, unknown characters found."
 msgstr "Kann Datei nicht anzeigen, ungültige Zeichen gefunden"
 
 #: ../src/document.c:1858
-#, fuzzy
 msgid "Exit fullscreen"
-msgstr "Vollbildmodus"
+msgstr "Vollbildmodus beenden"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
@@ -1411,7 +1404,7 @@ msgstr "Anzahl der Spalten:"
 
 #: ../src/doc_text_tools.c:407
 msgid "Spread lines horizontally"
-msgstr ""
+msgstr "Zeilen horizontal verteilen"
 
 #: ../src/doc_text_tools.c:414
 msgid "Column separator:"
@@ -1423,27 +1416,23 @@ msgstr "Leere Einträge ausfüllen:"
 
 #: ../src/doc_extern_tools.c:49
 msgid "Number of paragraphs"
-msgstr ""
+msgstr "Anzahl der Absätze"
 
 #: ../src/doc_extern_tools.c:51
-#, fuzzy
 msgid "Number of sentences"
-msgstr "Anzahl der Spalten:"
+msgstr "Anzahl der Sätze"
 
 #: ../src/doc_extern_tools.c:52
-#, fuzzy
 msgid "Insert plain text"
-msgstr "Inhalt einer Datei einfügen"
+msgstr "Einfachen Text einfügen"
 
 #: ../src/doc_extern_tools.c:52
-#, fuzzy
 msgid "Insert in <li>"
-msgstr "Inhalt einer Datei einfügen"
+msgstr "In <li> einfügen"
 
 #: ../src/doc_extern_tools.c:52
-#, fuzzy
 msgid "Insert in <p>"
-msgstr "Inhalt einer Datei einfügen"
+msgstr "In <p> einfügen"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1467,12 +1456,12 @@ msgstr "Dokumentkodierungen entfernen oder hinzufügen"
 
 #: ../src/external_commands.c:405
 msgid "Supply extra arguments"
-msgstr ""
+msgstr "Weitere Argumente bereitstellen"
 
 #: ../src/external_commands.c:410
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
-msgstr ""
+msgstr "Argumente bereitstellen um %%a in '%s' zu definieren"
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -1666,6 +1655,9 @@ msgid ""
 "which is the equivalent of\n"
 "<b>%s%s</b>"
 msgstr ""
+"<b>%s</b>\n"
+"welches das Äquivalent ist zu\n"
+"<b>%s%s</b>"
 
 #: ../src/file.c:830
 #, c-format
@@ -1885,7 +1877,7 @@ msgstr[1] "<span color=\"red\">%d Fehler</span>"
 
 #: ../src/file_dialogs.c:1270
 msgid "incomplete finished"
-msgstr ""
+msgstr "Unvollständige beendet"
 
 #: ../src/file_dialogs.c:1272
 msgid "completed"
@@ -2227,7 +2219,7 @@ msgid "Delete entry"
 msgstr "Eintrag löschen"
 
 #: ../src/preferences.c:992
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2248,11 +2240,12 @@ msgstr ""
 "%i Temporärer Dateiname für die Eingabe, für lokale und unmodifizierte "
 "Dateien gleich %f\n"
 "<b>Andere Optionen</b>\n"
+"%a zusätzliche Argumente, die bei Aktivierung des Filters erfragt werden\n"
 "%c Lokales Verzeichnis der Datei (für lokale Dateien)\n"
 "%n Dateiname ohne Pfad (für alle benannten Dateien)\n"
 "%u URL (für alle benannten Dateien)\n"
 "%p Vorschau-URL falls Basisverzeichnis und Vorschauverzeichnis in den "
-"Projekteinstellungengesetzt sind, ansonsten gleich %u</small>"
+"Projekteinstellungen definiert sind, ansonsten wie %u</small>"
 
 #: ../src/preferences.c:1018 ../src/preferences.c:1179
 #: ../src/preferences.c:1374
@@ -2266,16 +2259,14 @@ msgstr "Standardbrowser"
 #: ../src/preferences.c:1058 ../src/preferences.c:1212
 #: ../src/preferences.c:1405
 msgid "Update defaults"
-msgstr ""
+msgstr "Standards aktualisieren"
 
 #: ../src/preferences.c:1060 ../src/preferences.c:1214
 #: ../src/preferences.c:1407
-#, fuzzy
 msgid "Reset all"
-msgstr "Alles auswählen"
+msgstr "Alles zurücksetzen"
 
 #: ../src/preferences.c:1150
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2299,19 +2290,20 @@ msgstr ""
 "%f lokaler Dateiname (nur für lokale Dateien, nicht auf Auswahl anwendbar)\n"
 "%i Temporärer Dateiname für die Eingabe\n"
 "<b>Ausgabe-Optionen</b>\n"
-"ein | am Ende sendet die Ausgabe zur Standardausgabe (stdout)\n"
+"ein | am Ende liest die Ausgabe von der Standardausgabe (stdout)\n"
 "%o temporärer Dateiname\n"
 "%t temporärer Dateiname für Ein- und Ausgabe (für In-Place-Editing Filter, "
 "nicht auf Auswahl anwendbar)\n"
 "<b>Andere Optionen</b>\n"
+"%a zusätzliche Argumente, die bei Aktivierung des Filters erfragt werden\n"
 "%c Lokales Verzeichnis der Datei (für lokale Dateien)\n"
 "%n Dateiname ohne Pfad (für alle benannten Dateien)\n"
 "%u URL (für alle benannten Dateien)\n"
 "%p Vorschau-URL falls Basisverzeichnis und Vorschauverzeichnis in den "
-"Projekteinstellungengesetzt sind, ansonsten gleich %u</small>"
+"Projekteinstellungen definiert sind, ansonsten wie %u</small>"
 
 #: ../src/preferences.c:1336
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2339,11 +2331,12 @@ msgstr ""
 "%o temporärer Dateiname\n"
 "%t temporärer Dateiname für Ein- und Ausgabe (In-Place-Editing Filter)\n"
 "<b>Andere Optionen</b>\n"
+"%a zusätzliche Argumente, die bei Aktivierung des Filters erfragt werden\n"
 "%c Lokales Verzeichnis der Datei (für lokale Dateien)\n"
 "%n Dateiname ohne Pfad (für alle benannten Dateien)\n"
 "%u URL (für alle benannten Dateien)\n"
 "%p Vorschau-URL falls Basisverzeichnis und Vorschauverzeichnis in den "
-"Projekteinstellungengesetzt sind, ansonsten gleich %u</small>"
+"Projekteinstellungen gesetzt sind, ansonsten wie %u</small>"
 
 #: ../src/preferences.c:1366
 msgid "Pattern"
@@ -2491,9 +2484,8 @@ msgid "Editor settings"
 msgstr "Editoreinstellungen"
 
 #: ../src/preferences.c:2134
-#, fuzzy
 msgid "<b>Editor settings</b>"
-msgstr "Editoreinstellungen"
+msgstr "<b>Editoreinstellungen</b>"
 
 #: ../src/preferences.c:2142
 msgid "Smart Home/_End cursor positioning"
@@ -2504,9 +2496,8 @@ msgid "_Tab key indents selection"
 msgstr "Einrücken von Auswahl mit _Tab-Taste"
 
 #: ../src/preferences.c:2150
-#, fuzzy
 msgid "Automatically insert closing brackets"
-msgstr "Klammern automatisch schließen"
+msgstr "Schließende Klammern automatisch einfügen"
 
 #: ../src/preferences.c:2157
 msgid "Right _margin/split line end position:"
@@ -2529,9 +2520,8 @@ msgid "Clear _history on save"
 msgstr "Dokumentgeschic_hte beim Speichern löschen"
 
 #: ../src/preferences.c:2178
-#, fuzzy
 msgid "Auto-completion & Reference"
-msgstr "Zu Bezugs_punkt springen"
+msgstr "Auto-Vervollständigen & Referenzen"
 
 #
 #: ../src/preferences.c:2184
@@ -2551,27 +2541,24 @@ msgid "<b>Reference Information</b>"
 msgstr "<b>Sprachreferenz</b>"
 
 #: ../src/preferences.c:2202
-#, fuzzy
 msgid "_Load reference data from language files"
-msgstr "Referenz aus Sprachdatei _laden"
+msgstr "Referenzdaten aus Sprachdatei _laden"
 
 #: ../src/preferences.c:2205
-#, fuzzy
 msgid "Show references in auto-completion _pop-up window"
-msgstr "Auto-Vervollständigen in _Popup-Fenster anzeigen"
+msgstr "Referenz in Auto-Vervollständigen _Popup-Fenster anzeigen"
 
 #: ../src/preferences.c:2208
 msgid "Show references if mouse is over text editor"
-msgstr ""
+msgstr "Referenz zeigen, wenn der Mauszeiger über den Text wandert"
 
 #: ../src/preferences.c:2217 ../src/preferences.c:2552
 msgid "Font & Colors"
 msgstr "Schriftart & Farben"
 
 #: ../src/preferences.c:2223
-#, fuzzy
 msgid "<b>Font &amp; Cursor</b>"
-msgstr "<b>Schriftart</b>"
+msgstr "<b>Schriftart &amt; Cursor</b>"
 
 #: ../src/preferences.c:2227
 msgid "_Editor font:"
@@ -2579,7 +2566,7 @@ msgstr "_Editor-Schriftart:"
 
 #: ../src/preferences.c:2235
 msgid "Cursor / font size ratio (%):"
-msgstr ""
+msgstr "Verhältnis Cursor / Schriftgröße (%):"
 
 #: ../src/preferences.c:2237 ../src/preferences.c:2578
 msgid "<b>Colors</b>"
@@ -2607,19 +2594,16 @@ msgstr "Au_swahl Hi_ntergrundfarbe"
 
 #
 #: ../src/preferences.c:2262
-#, fuzzy
 msgid "Highlight cursor position"
-msgstr "Aktuelle Zeile _hervorheben"
+msgstr "Cursor-Position hervorheben"
 
 #: ../src/preferences.c:2264
-#, fuzzy
 msgid "Cursor highlight color"
-msgstr "Cursorfarbe"
+msgstr "Farbe zum Hervorheben des Cursors"
 
 #: ../src/preferences.c:2265
-#, fuzzy
 msgid "_Cursor highlight color:"
-msgstr "C_ursorfarbe:"
+msgstr "Farbe zum Hervorheben des _Cursors:"
 
 #: ../src/preferences.c:2270
 msgid "Current line color"
@@ -2689,7 +2673,7 @@ msgstr ""
 
 #: ../src/preferences.c:2363
 msgid "Backup & Recovery"
-msgstr ""
+msgstr "Sichern und Wiederherstellen"
 
 #: ../src/preferences.c:2366
 msgid "<b>Backup</b>"
@@ -2735,28 +2719,24 @@ msgid "User interface"
 msgstr "Benutzerinterface"
 
 #: ../src/preferences.c:2427
-#, fuzzy
 msgid "<b>Layout</b>"
-msgstr "<b>Schriftart</b>"
+msgstr "<b>Gestaltung</b>"
 
 #: ../src/preferences.c:2433
-#, fuzzy
 msgid "Document _tab position:"
-msgstr "Schriftart für _Dokument-Tabreiter"
+msgstr "Position der Dokument-Tabs"
 
 #: ../src/preferences.c:2437
-#, fuzzy
 msgid "_Sidebar position:"
-msgstr "Position _Tabreiter"
+msgstr "Position der _Seitenleiste"
 
 #: ../src/preferences.c:2442
-#, fuzzy
 msgid "Sidebar tab _position:"
-msgstr "_Position Tabreiter:"
+msgstr "_Position der Tabs der Seitenleiste:"
 
 #: ../src/preferences.c:2446
 msgid "Hide toolbars on full-screen"
-msgstr ""
+msgstr "Werkzeugleisten im Vollbildmodus verstecken"
 
 #: ../src/preferences.c:2455
 msgid "_Language:"
@@ -2776,14 +2756,12 @@ msgid "_Register recent files with your desktop:"
 msgstr "Zuletzt geöffnete Dateien mit Desktop _registrieren:"
 
 #: ../src/preferences.c:2480
-#, fuzzy
 msgid "Shortcut keys"
-msgstr "Tasten_kürzel festlegen:"
+msgstr "Tasten_kürzel"
 
 #: ../src/preferences.c:2485
-#, fuzzy
 msgid "<b>Shortcut keys</b>"
-msgstr "<b>Dokument-Tabreiter</b>"
+msgstr "<b>Tastenkürzel</b>"
 
 #: ../src/preferences.c:2488
 msgid "_Switch between tabs with <Alt>+0..9"
@@ -3203,7 +3181,7 @@ msgstr[1] "<i>%d Treffer im aktiven Dokument</i>"
 
 #: ../src/snr3.c:1359
 msgid "No (more) results"
-msgstr ""
+msgstr "Keine (weiteren) Treffer"
 
 #
 #: ../src/snr3.c:1457
