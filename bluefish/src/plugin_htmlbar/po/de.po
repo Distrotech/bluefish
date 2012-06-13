@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-06-05 21:47+0200\n"
-"PO-Revision-Date: 2012-04-15 16:06+0200\n"
+"PO-Revision-Date: 2012-06-13 18:02+0200\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -80,7 +80,7 @@ msgstr "HTML Werkzeugleiste"
 
 #: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
-msgstr ""
+msgstr "HTML-Eigenschaften"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:960
 msgid "T_ags"
@@ -1104,14 +1104,12 @@ msgid "Time..."
 msgstr "Zeit..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert _Color"
-msgstr "_Textfarbe:"
+msgstr "Far_be einfügen:"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert Color"
-msgstr "Einfügen"
+msgstr "Farbe einfügen"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "_HTML Toolbar"
@@ -1546,9 +1544,8 @@ msgid "_Rows:"
 msgstr "_Zeilen:"
 
 #: src/plugin_htmlbar/html.c:1679
-#, fuzzy
 msgid "_Add &lt;frame&gt; elements"
-msgstr "_Füge <frame>-Elemente hinzu"
+msgstr "_Füge &lt;frame&gt;-Elemente hinzu"
 
 #: src/plugin_htmlbar/html.c:1763 src/plugin_htmlbar/html.c:1866
 #: src/plugin_htmlbar/html.c:2036 src/plugin_htmlbar/html.c:2219
@@ -2245,416 +2242,50 @@ msgid "Size:"
 msgstr "Grösse:"
 
 #: src/plugin_htmlbar/prefs.c:66
-#, fuzzy
 msgid "<b>HTML Toolbar</b>"
-msgstr "_HTML Werkzeugleiste"
+msgstr "<b>HTML Werkzeugleiste</b>"
 
 #: src/plugin_htmlbar/prefs.c:69
 msgid "Show toolbar in sidepanel"
-msgstr ""
+msgstr "Werkzeugleiste in Seitenleiste anzeigen"
 
 #: src/plugin_htmlbar/prefs.c:70
 msgid "Keep HTML dialogs always on top"
-msgstr ""
+msgstr "HTML-Dialoge immer zuoberst zeigen"
 
 #: src/plugin_htmlbar/prefs.c:75
 msgid "<b>HTML options</b>"
-msgstr ""
+msgstr "<b>HTML Optionen</b>"
 
 #: src/plugin_htmlbar/prefs.c:79
 msgid "Use _XHTML style tags (<br />)"
-msgstr ""
+msgstr "_XHTML Notation nutzen (<br />)"
 
 #: src/plugin_htmlbar/prefs.c:81
 msgid "Use lo_wercase HTML tags"
-msgstr ""
+msgstr "Kleinschreibung für HTML Tags"
 
 #: src/plugin_htmlbar/prefs.c:83
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
-msgstr ""
+msgstr "Veraltete Tags erlauben (z.B. <font> oder <nobr>)"
 
 #: src/plugin_htmlbar/prefs.c:87
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
-msgstr ""
+msgstr "_Format entsprechend WCAG-Zugänglichkeits-Richtlinien (z.B. <strong> statt <b>)"
 
 #: src/plugin_htmlbar/prefs.c:92
 msgid "<b>Auto Update Tag Options</b>"
-msgstr ""
+msgstr "<b>Optionen zur automatischen Tag-Aktualisierung</b>"
 
 #: src/plugin_htmlbar/prefs.c:96
 msgid "Automatically update a_uthor meta tag"
-msgstr ""
+msgstr "\"author\" Meta-Angabe automatisch aktualisieren"
 
 #: src/plugin_htmlbar/prefs.c:99
 msgid "Automatically update _date meta tag"
-msgstr ""
+msgstr "\"date\" Meta-Angabe automatisch aktualisieren"
 
 #: src/plugin_htmlbar/prefs.c:102
 msgid "Automatically update _generator meta tag"
-msgstr ""
+msgstr "\"generator\" Meta-Angabe automatisch aktualisieren"
 
-#~ msgid "_Special"
-#~ msgstr "_Spezial"
-
-#~ msgid "_Accent"
-#~ msgstr "_Akzent"
-
-#~ msgid "_Uppercase"
-#~ msgstr "_Großbuchstaben"
-
-#~ msgid "_A-I"
-#~ msgstr "A-I"
-
-#~ msgid "A grave À"
-#~ msgstr "À"
-
-#~ msgid "A acute Á"
-#~ msgstr "Á"
-
-#~ msgid "A circumflex Â"
-#~ msgstr "Â"
-
-#~ msgid "A tilde Ã"
-#~ msgstr "Ã"
-
-#~ msgid "AE ligature Æ"
-#~ msgstr "Æ"
-
-#~ msgid "A diaeresis Ä"
-#~ msgstr "Ä"
-
-#~ msgid "A ring Å"
-#~ msgstr "Å"
-
-#~ msgid "C cedilla Ç"
-#~ msgstr "Ç"
-
-#~ msgid "E grave È"
-#~ msgstr "È"
-
-#~ msgid "E acute É"
-#~ msgstr "É"
-
-#~ msgid "E circumflex Ê"
-#~ msgstr "É"
-
-#~ msgid "E diaeresis Ë"
-#~ msgstr "Ë"
-
-#~ msgid "I grave Ì"
-#~ msgstr "Ì"
-
-#~ msgid "I acute Í"
-#~ msgstr "Í"
-
-#~ msgid "I circumflex Î"
-#~ msgstr "Î"
-
-#~ msgid "I diaeresis Ï"
-#~ msgstr "Ï"
-
-#~ msgid "_J-Z"
-#~ msgstr "J-Z"
-
-#~ msgid "N tilde Ñ"
-#~ msgstr "Ñ"
-
-#~ msgid "O grave Ò"
-#~ msgstr "Ò"
-
-#~ msgid "O acute Ó"
-#~ msgstr "Ó"
-
-#~ msgid "O circumflex Ô"
-#~ msgstr "Ô"
-
-#~ msgid "OE ligature Œ"
-#~ msgstr "Œ."
-
-#~ msgid "O tilde Õ"
-#~ msgstr "Õ"
-
-#~ msgid "O diaeresis Ö"
-#~ msgstr "Ö"
-
-#~ msgid "O slash Ø"
-#~ msgstr "Ø"
-
-#~ msgid "U grave Ù"
-#~ msgstr "Ù"
-
-#~ msgid "U acute Ú"
-#~ msgstr "Ú"
-
-#~ msgid "U circumflex Û"
-#~ msgstr "Û"
-
-#~ msgid "U diaeresis Ü"
-#~ msgstr "Ü"
-
-#~ msgid "Y acute Ý"
-#~ msgstr "Ý"
-
-#~ msgid "_Lowercase"
-#~ msgstr "Kleinbuchstaben"
-
-#~ msgid "a grave à"
-#~ msgstr "à"
-
-#~ msgid "a acute á"
-#~ msgstr "á"
-
-#~ msgid "a circumflex â"
-#~ msgstr "â"
-
-#~ msgid "a tilde ã"
-#~ msgstr "ã"
-
-#~ msgid "a ring å"
-#~ msgstr "å"
-
-#~ msgid "ae ligature æ"
-#~ msgstr "æ"
-
-#~ msgid "a diaeresis ä"
-#~ msgstr "ä"
-
-#~ msgid "c cedilla ç"
-#~ msgstr "ç"
-
-#~ msgid "e grave è"
-#~ msgstr "è"
-
-#~ msgid "e acute é"
-#~ msgstr "é"
-
-#~ msgid "e circumflex ê"
-#~ msgstr "ê"
-
-#~ msgid "e diaeresis ë"
-#~ msgstr "ë"
-
-#~ msgid "i grave ì"
-#~ msgstr "ì"
-
-#~ msgid "i acute í"
-#~ msgstr "í"
-
-#~ msgid "i circumflex î"
-#~ msgstr "î"
-
-#~ msgid "i diaeresis ï"
-#~ msgstr "ï"
-
-#~ msgid "n tilde ñ"
-#~ msgstr "ñ"
-
-#~ msgid "o grave ò"
-#~ msgstr "ò"
-
-#~ msgid "o acute ó"
-#~ msgstr "ó"
-
-#~ msgid "oe ligature œ"
-#~ msgstr "œ"
-
-#~ msgid "o circumflex ô"
-#~ msgstr "ô"
-
-#~ msgid "o tilde õ"
-#~ msgstr "õ"
-
-#~ msgid "o diaeresis ö"
-#~ msgstr "ö"
-
-#~ msgid "o slash ø"
-#~ msgstr "ø"
-
-#~ msgid "u grave ù"
-#~ msgstr "ù"
-
-#~ msgid "u acute ú"
-#~ msgstr "ú"
-
-#~ msgid "u circumflex û"
-#~ msgstr "û"
-
-#~ msgid "u diaeresis ü"
-#~ msgstr "ü"
-
-#~ msgid "y acute ý"
-#~ msgstr "ý"
-
-#~ msgid "y diaeresis ÿ"
-#~ msgstr "ÿ"
-
-#~ msgid "_Acute ´"
-#~ msgstr "´"
-
-#~ msgid "_Cedilla ¸"
-#~ msgstr "¸"
-
-#~ msgid "U_mlaut ¨"
-#~ msgstr "¨"
-
-#~ msgid "_Currency"
-#~ msgstr "Währung"
-
-#~ msgid "_Cent sign ¢"
-#~ msgstr "Cent ¢"
-
-#~ msgid "_Pound sterling £"
-#~ msgstr "Pfund £"
-
-#~ msgid "C_urrency sign ¤"
-#~ msgstr "Währung ¤"
-
-#~ msgid "_Yen sign ¥"
-#~ msgstr "Yen ¥"
-
-#~ msgid "_Euro €"
-#~ msgstr "Euro €"
-
-#~ msgid "_Math-Science"
-#~ msgstr "_Mathematik + Wissenschaft"
-
-#~ msgid "Logical _not sign ¬"
-#~ msgstr "¬"
-
-#~ msgid "_Multiplication sign ×"
-#~ msgstr "×"
-
-#~ msgid "_Division sign ÷"
-#~ msgstr "÷"
-
-#~ msgid "_Plus-minus sign ±"
-#~ msgstr "±"
-
-#~ msgid "_Less-than sign <"
-#~ msgstr "<"
-
-#~ msgid "_Greater-than sign >"
-#~ msgstr ">"
-
-#~ msgid "Superscript _1 ¹"
-#~ msgstr "¹"
-
-#~ msgid "Superscript _2 ²"
-#~ msgstr "²"
-
-#~ msgid "Superscript _3 ³"
-#~ msgstr "³"
-
-#~ msgid "One _quarter ¼"
-#~ msgstr "¼"
-
-#~ msgid "One _half ½"
-#~ msgstr "½"
-
-#~ msgid "_Three quarters ¾"
-#~ msgstr "¾"
-
-#~ msgid "Deg_ree sign °"
-#~ msgstr "°"
-
-#~ msgid "_Non Latin"
-#~ msgstr "Nicht Latin"
-
-#~ msgid "_ETH (Icelandic) Ð"
-#~ msgstr "Ð"
-
-#~ msgid "_THORN (Icelandic) Þ"
-#~ msgstr "Þ"
-
-#~ msgid "et_h (Icelandic) ð"
-#~ msgstr "ð"
-
-#~ msgid "th_orn þ"
-#~ msgstr "þ"
-
-#~ msgid "Sharp _s ß"
-#~ msgstr "ß"
-
-#~ msgid "_Micro sign µ"
-#~ msgstr "µ"
-
-#~ msgid "_Other"
-#~ msgstr "Andere"
-
-#~ msgid "_Section sign §"
-#~ msgstr "§"
-
-#~ msgid "_Copyright sign ©"
-#~ msgstr "©"
-
-#~ msgid "_Left angle quotes «"
-#~ msgstr "«"
-
-#~ msgid "_Right angle quotes »"
-#~ msgstr "»"
-
-#~ msgid "Registered _trademark ®"
-#~ msgstr "®"
-
-#~ msgid "Inverted _exclamation ¡"
-#~ msgstr "¡"
-
-#~ msgid "Inverted _question mark ¿"
-#~ msgstr "¿"
-
-#~ msgid "_Feminine ordinal ª"
-#~ msgstr "ª"
-
-#~ msgid "_Masculine ordinal º"
-#~ msgstr "º"
-
-#~ msgid "_Pilcrow (paragraph sign) ¶"
-#~ msgstr "¶"
-
-#~ msgid "Spa_cing macron ¯"
-#~ msgstr "¯"
-
-#~ msgid "Middle _dot ·"
-#~ msgstr "·"
-
-#~ msgid " Fonts "
-#~ msgstr " Schriftarten "
-
-#~ msgid " Tables "
-#~ msgstr " Tabellen "
-
-#~ msgid " Frames "
-#~ msgstr " Rahmen "
-
-#~ msgid " Forms "
-#~ msgstr " Formulare "
-
-#~ msgid " List "
-#~ msgstr " Liste "
-
-#~ msgid " CSS "
-#~ msgstr " CSS "
-
-#~ msgid "Cell _Padding:"
-#~ msgstr "Innerer _Zellabstand:"
-
-#~ msgid "C_ell Spacing:"
-#~ msgstr "Ze_llabstand:"
-
-#~ msgid "_Valign:"
-#~ msgstr "_Vertikal:"
-
-#~ msgid "Backgrou_nd Color:"
-#~ msgstr "Hintergru_ndfarbe:"
-
-#~ msgid "Bo_rder:"
-#~ msgstr "_Rand:"
-
-#~ msgid "_Frame:"
-#~ msgstr "_Frame:"
-
-#~ msgid "R_ules:"
-#~ msgstr "L_inien:"
-
-#~ msgid "No Wra_p:"
-#~ msgstr "Ohne Um_bruch:"
