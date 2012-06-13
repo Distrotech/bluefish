@@ -61,7 +61,6 @@ typedef struct {
 	Tsnr3type type;
 	Tsnr3replace replacetype;
 	Tsnr3scope scope;
-	GList *doclist; /* the files to do the replace in */
 	GFile *basedir; /* when replace in files */
 	gchar *filepattern;
 	gint recursion_level;

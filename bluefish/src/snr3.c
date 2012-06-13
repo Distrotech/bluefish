@@ -954,6 +954,17 @@ handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 		/* see if the user was actually searching in this doc */
 		if (tmplist && ((Tsnr3result *)tmplist->data)->doc != doc)
 			return;
+	} else {
+		GList *tmplist;
+		/* if the scope is alldocs, and the doc is still on the todo list, we do not have 
+		to update any results */
+		for (tmplist=s3run->idlequeue.q.head;tmplist;tmplist=g_list_next(tmplist)) {
+			Truninidle *rii=tmplist->data;
+			if (rii->doc == doc) {
+				return;
+			}
+		}
+
 	}
 	
 	comparepos = (len > 0) ? pos : pos - len;
