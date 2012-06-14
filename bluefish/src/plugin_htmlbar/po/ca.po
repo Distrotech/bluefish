@@ -1,13 +1,13 @@
 # Catalan translations for bluefish package.
 # Copyright (C) 2012 Mònica Ramírez Arceda <monica@probeta.net>
-# This file is distributed under the same license as the bluefish package. 
+# This file is distributed under the same license as the bluefish package.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-06-05 21:47+0200\n"
-"PO-Revision-Date: 2012-02-27 12:33+0100\n"
+"PO-Revision-Date: 2012-06-14 15:34+0100\n"
 "Last-Translator: Mònica Ramírez Arceda <monica@probeta.net>\n"
 "Language-Team: Catalan\n"
 "MIME-Version: 1.0\n"
@@ -21,23 +21,23 @@ msgid "Cascading Style Sheet Builder"
 msgstr "Constructor de fulls d'estil"
 
 #: src/plugin_htmlbar/html2.c:654
-#, fuzzy
 msgid "_Selector(s):"
-msgstr "_Selector:"
+msgstr "_Selector(s):"
 
 #: src/plugin_htmlbar/html2.c:680
 msgid "_Property:"
 msgstr "_Propietat:"
 
-#: src/plugin_htmlbar/html2.c:684 src/plugin_htmlbar/html_form.c:375
-#: src/plugin_htmlbar/html_form.c:541 src/plugin_htmlbar/html_form.c:636
+#: src/plugin_htmlbar/html2.c:684
+#: src/plugin_htmlbar/html_form.c:375
+#: src/plugin_htmlbar/html_form.c:541
+#: src/plugin_htmlbar/html_form.c:636
 msgid "_Value:"
 msgstr "_Valor:"
 
 #: src/plugin_htmlbar/html2.c:704
-#, fuzzy
 msgid "Selector(s)"
-msgstr "Selector"
+msgstr "_Selector(s):"
 
 #: src/plugin_htmlbar/html2.c:708
 msgid "Property"
@@ -59,7 +59,8 @@ msgstr "Act_ualitza"
 msgid " _Delete "
 msgstr "Suprimeix"
 
-#: src/plugin_htmlbar/html2.c:1009 src/plugin_htmlbar/html2.c:1046
+#: src/plugin_htmlbar/html2.c:1009
+#: src/plugin_htmlbar/html2.c:1046
 msgid "_Style..."
 msgstr "E_stil..."
 
@@ -77,11 +78,12 @@ msgstr "Edita l'etiqueta"
 
 #: src/plugin_htmlbar/htmlbar.c:98
 msgid "Htmlbar"
-msgstr ""
+msgstr "Barra Html"
 
-#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
+#: src/plugin_htmlbar/htmlbar.c:261
+#: src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
-msgstr ""
+msgstr "Funcions HTML"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:960
 msgid "T_ags"
@@ -141,7 +143,7 @@ msgstr "Insereix l'etiqueta H6"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:974
 msgid "_Entities"
-msgstr ""
+msgstr "_Entitats"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:975
 msgid "_Non-breaking space"
@@ -317,7 +319,8 @@ msgstr "Format _general"
 msgid "_Paragraph"
 msgstr "_Paràgraf"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1011 src/plugin_htmlbar/html.c:843
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1011
+#: src/plugin_htmlbar/html.c:843
 msgid "Paragraph"
 msgstr "Paràgraf"
 
@@ -428,7 +431,7 @@ msgstr "_Capçalera de la taula"
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1038
 #: src/plugin_htmlbar/html_table.c:363
 msgid "Table Header"
-msgstr "_Capçalera de la taula"
+msgstr "Capçalera de la taula"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1040
 msgid "Table _Data"
@@ -804,14 +807,12 @@ msgid "Style"
 msgstr "Estil"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "C_olumns..."
-msgstr "Tipus _de lletra..."
+msgstr "Colu_mnes..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "Columns..."
-msgstr "Llenç..."
+msgstr "Columnes..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1138
 msgid "_Link to Stylesheet..."
@@ -929,11 +930,13 @@ msgstr "_Miniatura múltiple..."
 msgid "Multi thumbnail..."
 msgstr "Miniatura múltiple..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1168 src/plugin_htmlbar/html.c:1755
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1168
+#: src/plugin_htmlbar/html.c:1755
 msgid "Frame"
 msgstr "Marc"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1169 src/plugin_htmlbar/html.c:1666
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1169
+#: src/plugin_htmlbar/html.c:1666
 msgid "Frameset"
 msgstr "Conjunt de marcs"
 
@@ -1107,14 +1110,12 @@ msgid "Time..."
 msgstr "Temps..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert _Color"
-msgstr "Color del _text:"
+msgstr "Insereix un _color"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert Color"
-msgstr "Inserció"
+msgstr "Insereix un color"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "_HTML Toolbar"
@@ -1130,59 +1131,47 @@ msgstr "Suprimeix de la barra ràpida"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1377
 msgid "Right click any html toolbar button to add it to the Quickbar."
-msgstr ""
-"Feu clic amb el botó dret a qualsevol botó del barra d'eines d'HTML per "
-"afegir-lo a la barra d'execució ràpida."
+msgstr "Feu clic amb el botó dret a qualsevol botó de la barra d'eines d'HTML per afegir-lo a la barra d'execució ràpida."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1454
-#, fuzzy
 msgid "Quickbar"
 msgstr "Barra d'execució ràpida"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1457
-#, fuzzy
 msgid "Standard"
 msgstr "Estàndard"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1460
-#, fuzzy
 msgid "HTML 5"
-msgstr " HTML 5 "
+msgstr "HTML 5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1463
-#, fuzzy
 msgid "Formatting"
-msgstr "Format"
+msgstr "Formatació"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1466
-#, fuzzy
 msgid "Tables"
-msgstr "Taula"
+msgstr "Taules"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1469
-#, fuzzy
 msgid "List"
-msgstr "_Llista"
+msgstr "Llista"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1472
-#, fuzzy
 msgid "CSS"
-msgstr "_CSS"
+msgstr "CSS"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1475
-#, fuzzy
 msgid "Forms"
-msgstr "Formulari"
+msgstr "Formularis"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1478
-#, fuzzy
 msgid "Fonts"
 msgstr "Tipus de lletra"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1481
-#, fuzzy
 msgid "Frames"
-msgstr "Marc"
+msgstr "Marcs"
 
 #: src/plugin_htmlbar/html.c:403
 msgid "Insert Time"
@@ -1248,50 +1237,72 @@ msgstr "  Te_mps ISO-8601 "
 msgid "Quick Anchor"
 msgstr "Enllaç ràpid"
 
-#: src/plugin_htmlbar/html.c:635 src/plugin_htmlbar/html_form.c:520
+#: src/plugin_htmlbar/html.c:635
+#: src/plugin_htmlbar/html_form.c:520
 msgid "Attributes"
 msgstr "Atributs"
 
-#: src/plugin_htmlbar/html.c:649 src/plugin_htmlbar/html.c:2662
+#: src/plugin_htmlbar/html.c:649
+#: src/plugin_htmlbar/html.c:2662
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:655 src/plugin_htmlbar/html_form.c:200
+#: src/plugin_htmlbar/html.c:655
+#: src/plugin_htmlbar/html_form.c:200
 msgid "_Target:"
 msgstr "_Objectiu:"
 
-#: src/plugin_htmlbar/html.c:659 src/plugin_htmlbar/html.c:898
-#: src/plugin_htmlbar/html.c:1289 src/plugin_htmlbar/html.c:1767
-#: src/plugin_htmlbar/html_form.c:251 src/plugin_htmlbar/html_form.c:315
-#: src/plugin_htmlbar/html_form.c:538 src/plugin_htmlbar/html_form.c:633
+#: src/plugin_htmlbar/html.c:659
+#: src/plugin_htmlbar/html.c:898
+#: src/plugin_htmlbar/html.c:1289
+#: src/plugin_htmlbar/html.c:1767
+#: src/plugin_htmlbar/html_form.c:251
+#: src/plugin_htmlbar/html_form.c:315
+#: src/plugin_htmlbar/html_form.c:538
+#: src/plugin_htmlbar/html_form.c:633
 #: src/plugin_htmlbar/image.c:532
 msgid "_Name:"
 msgstr "_Nom:"
 
-#: src/plugin_htmlbar/html.c:662 src/plugin_htmlbar/quickstart.c:557
+#: src/plugin_htmlbar/html.c:662
+#: src/plugin_htmlbar/quickstart.c:557
 msgid "Titl_e:"
 msgstr "Titl_e:"
 
-#: src/plugin_htmlbar/html.c:667 src/plugin_htmlbar/html.c:1163
-#: src/plugin_htmlbar/html.c:1306 src/plugin_htmlbar/html.c:2310
+#: src/plugin_htmlbar/html.c:667
+#: src/plugin_htmlbar/html.c:1163
+#: src/plugin_htmlbar/html.c:1306
+#: src/plugin_htmlbar/html.c:2310
 msgid "_Language:"
 msgstr "_Llengua:"
 
-#: src/plugin_htmlbar/html.c:670 src/plugin_htmlbar/html.c:904
-#: src/plugin_htmlbar/html.c:1070 src/plugin_htmlbar/html.c:1166
-#: src/plugin_htmlbar/html.c:1312 src/plugin_htmlbar/html.c:1696
-#: src/plugin_htmlbar/html.c:1805 src/plugin_htmlbar/html.c:1904
-#: src/plugin_htmlbar/html.c:1973 src/plugin_htmlbar/html.c:2097
-#: src/plugin_htmlbar/html.c:2162 src/plugin_htmlbar/html.c:2246
-#: src/plugin_htmlbar/html.c:2333 src/plugin_htmlbar/html_form.c:204
-#: src/plugin_htmlbar/html_form.c:267 src/plugin_htmlbar/html_form.c:328
-#: src/plugin_htmlbar/html_form.c:645 src/plugin_htmlbar/html_table.c:136
-#: src/plugin_htmlbar/html_table.c:283 src/plugin_htmlbar/html_table.c:419
-#: src/plugin_htmlbar/image.c:538 src/plugin_htmlbar/image_dialog.c:397
+#: src/plugin_htmlbar/html.c:670
+#: src/plugin_htmlbar/html.c:904
+#: src/plugin_htmlbar/html.c:1070
+#: src/plugin_htmlbar/html.c:1166
+#: src/plugin_htmlbar/html.c:1312
+#: src/plugin_htmlbar/html.c:1696
+#: src/plugin_htmlbar/html.c:1805
+#: src/plugin_htmlbar/html.c:1904
+#: src/plugin_htmlbar/html.c:1973
+#: src/plugin_htmlbar/html.c:2097
+#: src/plugin_htmlbar/html.c:2162
+#: src/plugin_htmlbar/html.c:2246
+#: src/plugin_htmlbar/html.c:2333
+#: src/plugin_htmlbar/html_form.c:204
+#: src/plugin_htmlbar/html_form.c:267
+#: src/plugin_htmlbar/html_form.c:328
+#: src/plugin_htmlbar/html_form.c:645
+#: src/plugin_htmlbar/html_table.c:136
+#: src/plugin_htmlbar/html_table.c:283
+#: src/plugin_htmlbar/html_table.c:419
+#: src/plugin_htmlbar/image.c:538
+#: src/plugin_htmlbar/image_dialog.c:397
 msgid "Custo_m:"
 msgstr "Perso_nalitzat:"
 
-#: src/plugin_htmlbar/html.c:672 src/plugin_htmlbar/html.c:1170
+#: src/plugin_htmlbar/html.c:672
+#: src/plugin_htmlbar/html.c:1170
 #: src/plugin_htmlbar/html_form.c:569
 msgid "Events"
 msgstr "Esdeveniments"
@@ -1372,22 +1383,31 @@ msgstr "Encapçalament 6"
 msgid "Ali_gn:"
 msgstr "Ali_neació:"
 
-#: src/plugin_htmlbar/html.c:888 src/plugin_htmlbar/html.c:1157
-#: src/plugin_htmlbar/html.c:1896 src/plugin_htmlbar/html.c:1955
-#: src/plugin_htmlbar/html.c:2082 src/plugin_htmlbar/html.c:2238
-#: src/plugin_htmlbar/html_diag.c:470 src/plugin_htmlbar/html_table.c:127
-#: src/plugin_htmlbar/html_table.c:268 src/plugin_htmlbar/html_table.c:392
+#: src/plugin_htmlbar/html.c:888
+#: src/plugin_htmlbar/html.c:1157
+#: src/plugin_htmlbar/html.c:1896
+#: src/plugin_htmlbar/html.c:1955
+#: src/plugin_htmlbar/html.c:2082
+#: src/plugin_htmlbar/html.c:2238
+#: src/plugin_htmlbar/html_diag.c:470
+#: src/plugin_htmlbar/html_table.c:127
+#: src/plugin_htmlbar/html_table.c:268
+#: src/plugin_htmlbar/html_table.c:392
 #: src/plugin_htmlbar/image_dialog.c:377
 msgid "Cl_ass:"
 msgstr "Cl_asse:"
 
-#: src/plugin_htmlbar/html.c:892 src/plugin_htmlbar/html.c:1150
-#: src/plugin_htmlbar/html_diag.c:484 src/plugin_htmlbar/html_table.c:131
-#: src/plugin_htmlbar/html_table.c:278 src/plugin_htmlbar/html_table.c:414
+#: src/plugin_htmlbar/html.c:892
+#: src/plugin_htmlbar/html.c:1150
+#: src/plugin_htmlbar/html_diag.c:484
+#: src/plugin_htmlbar/html_table.c:131
+#: src/plugin_htmlbar/html_table.c:278
+#: src/plugin_htmlbar/html_table.c:414
 msgid "St_yle:"
 msgstr "Est_il:"
 
-#: src/plugin_htmlbar/html.c:901 src/plugin_htmlbar/html.c:1160
+#: src/plugin_htmlbar/html.c:901
+#: src/plugin_htmlbar/html.c:1160
 #: src/plugin_htmlbar/html_diag.c:478
 msgid "_ID:"
 msgstr "_ID:"
@@ -1396,21 +1416,27 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "Regle horitzontal"
 
-#: src/plugin_htmlbar/html.c:1044 src/plugin_htmlbar/image.c:555
+#: src/plugin_htmlbar/html.c:1044
+#: src/plugin_htmlbar/image.c:555
 #: src/plugin_htmlbar/image_dialog.c:420
 msgid "_Align:"
 msgstr "_Alineació:"
 
-#: src/plugin_htmlbar/html.c:1051 src/plugin_htmlbar/html.c:1969
-#: src/plugin_htmlbar/html.c:2073 src/plugin_htmlbar/html.c:2230
+#: src/plugin_htmlbar/html.c:1051
+#: src/plugin_htmlbar/html.c:1969
+#: src/plugin_htmlbar/html.c:2073
+#: src/plugin_htmlbar/html.c:2230
 #: src/plugin_htmlbar/image_dialog.c:350
 msgid "_Height:"
 msgstr "_Alçada:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1057 src/plugin_htmlbar/html.c:1964
-#: src/plugin_htmlbar/html.c:2068 src/plugin_htmlbar/html.c:2226
-#: src/plugin_htmlbar/image.c:517 src/plugin_htmlbar/image_dialog.c:341
+#: src/plugin_htmlbar/html.c:1057
+#: src/plugin_htmlbar/html.c:1964
+#: src/plugin_htmlbar/html.c:2068
+#: src/plugin_htmlbar/html.c:2226
+#: src/plugin_htmlbar/image.c:517
+#: src/plugin_htmlbar/image_dialog.c:341
 msgid "_Width:"
 msgstr "_Amplada:"
 
@@ -1534,7 +1560,8 @@ msgstr "amb c_os:"
 msgid "Quick List"
 msgstr "Llista ràpida"
 
-#: src/plugin_htmlbar/html.c:1590 src/plugin_htmlbar/wizards.c:81
+#: src/plugin_htmlbar/html.c:1590
+#: src/plugin_htmlbar/wizards.c:81
 msgid "Number of _rows:"
 msgstr "Nombre d'í_tems:"
 
@@ -1546,26 +1573,31 @@ msgstr "Or_denat"
 msgid "_Unordered"
 msgstr "S_ense ordre"
 
-#: src/plugin_htmlbar/html.c:1596 src/plugin_htmlbar/image_dialog.c:391
+#: src/plugin_htmlbar/html.c:1596
+#: src/plugin_htmlbar/image_dialog.c:391
 msgid "Style:"
 msgstr "Estil:"
 
-#: src/plugin_htmlbar/html.c:1672 src/plugin_htmlbar/html_form.c:259
+#: src/plugin_htmlbar/html.c:1672
+#: src/plugin_htmlbar/html_form.c:259
 msgid "Co_ls:"
 msgstr "Columnes:"
 
-#: src/plugin_htmlbar/html.c:1675 src/plugin_htmlbar/html_form.c:255
+#: src/plugin_htmlbar/html.c:1675
+#: src/plugin_htmlbar/html_form.c:255
 msgid "_Rows:"
 msgstr "_Files:"
 
 #: src/plugin_htmlbar/html.c:1679
-#, fuzzy
 msgid "_Add &lt;frame&gt; elements"
-msgstr "_Afegeix elements <frame>"
+msgstr "_Afegeix elements &lt;frame&gt;"
 
-#: src/plugin_htmlbar/html.c:1763 src/plugin_htmlbar/html.c:1866
-#: src/plugin_htmlbar/html.c:2036 src/plugin_htmlbar/html.c:2219
-#: src/plugin_htmlbar/html.c:2306 src/plugin_htmlbar/image_dialog.c:302
+#: src/plugin_htmlbar/html.c:1763
+#: src/plugin_htmlbar/html.c:1866
+#: src/plugin_htmlbar/html.c:2036
+#: src/plugin_htmlbar/html.c:2219
+#: src/plugin_htmlbar/html.c:2306
+#: src/plugin_htmlbar/image_dialog.c:302
 msgid "_Source:"
 msgstr "_Font:"
 
@@ -1594,34 +1626,43 @@ msgstr "No _redimensionable:"
 msgid "Audio"
 msgstr "Audio"
 
-#: src/plugin_htmlbar/html.c:1870 src/plugin_htmlbar/html.c:2048
+#: src/plugin_htmlbar/html.c:1870
+#: src/plugin_htmlbar/html.c:2048
 msgid "_Autoplay:"
 msgstr "Reproducció _automàtica:"
 
-#: src/plugin_htmlbar/html.c:1874 src/plugin_htmlbar/html.c:2053
+#: src/plugin_htmlbar/html.c:1874
+#: src/plugin_htmlbar/html.c:2053
 msgid "C_ontrols:"
 msgstr "C_ontrols:"
 
-#: src/plugin_htmlbar/html.c:1878 src/plugin_htmlbar/html.c:2058
+#: src/plugin_htmlbar/html.c:1878
+#: src/plugin_htmlbar/html.c:2058
 msgid "_Loop:"
 msgstr "_Bucle:"
 
-#: src/plugin_htmlbar/html.c:1882 src/plugin_htmlbar/html.c:2063
+#: src/plugin_htmlbar/html.c:1882
+#: src/plugin_htmlbar/html.c:2063
 msgid "M_ute:"
 msgstr "_Inhabilita els sons:"
 
-#: src/plugin_htmlbar/html.c:1887 src/plugin_htmlbar/html.c:2087
+#: src/plugin_htmlbar/html.c:1887
+#: src/plugin_htmlbar/html.c:2087
 msgid "_Preload:"
 msgstr "_Precàrrega:"
 
-#: src/plugin_htmlbar/html.c:1892 src/plugin_htmlbar/html.c:1951
-#: src/plugin_htmlbar/html.c:2078 src/plugin_htmlbar/html.c:2234
+#: src/plugin_htmlbar/html.c:1892
+#: src/plugin_htmlbar/html.c:1951
+#: src/plugin_htmlbar/html.c:2078
+#: src/plugin_htmlbar/html.c:2234
 #: src/plugin_htmlbar/html_table.c:124
 msgid "_Id:"
 msgstr "_Id:"
 
-#: src/plugin_htmlbar/html.c:1899 src/plugin_htmlbar/html.c:1958
-#: src/plugin_htmlbar/html.c:2092 src/plugin_htmlbar/html.c:2241
+#: src/plugin_htmlbar/html.c:1899
+#: src/plugin_htmlbar/html.c:1958
+#: src/plugin_htmlbar/html.c:2092
+#: src/plugin_htmlbar/html.c:2241
 msgid "_Style:"
 msgstr "E_stil:"
 
@@ -1655,8 +1696,7 @@ msgid ""
 "hh - hour (e.g. 22 for 10.00pm)\n"
 "mm - minutes (e.g. 55)\n"
 "ss - seconds (e.g. 03)\n"
-"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean "
-"Time)\n"
+"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean Time)\n"
 msgstr ""
 "Format de la data i de l'hora (p. ex. AAAA-MM-DDThh:mm:ssTZD) :\n"
 "\n"
@@ -1667,8 +1707,7 @@ msgstr ""
 "hh - hora (p. ex. 22 per a les 10.00pm)\n"
 "mm - minuts (p. ex. 55)\n"
 "ss - segons (p.ex. 03)\n"
-"TZD - Time Zone Designator (Z vol dir Zulu, també conegut com a Greenwich "
-"Mean Time)\n"
+"TZD - Time Zone Designator (Z vol dir Zulu, també conegut com a Greenwich Mean Time)\n"
 
 #: src/plugin_htmlbar/html.c:2157
 msgid "_Datetime:"
@@ -1698,7 +1737,8 @@ msgstr "_Tipus MIME:"
 msgid "_Charset:"
 msgstr "Joc de _caràcters:"
 
-#: src/plugin_htmlbar/html.c:2321 src/plugin_htmlbar/html.c:2330
+#: src/plugin_htmlbar/html.c:2321
+#: src/plugin_htmlbar/html.c:2330
 msgid "(HTML5)"
 msgstr "(HTML5)"
 
@@ -1717,66 +1757,63 @@ msgstr "_Diferit:"
 #.
 #: src/plugin_htmlbar/html.c:2500
 msgid "CSS3 multi-column layout"
-msgstr ""
+msgstr "Format multi-columna CSS3"
 
 #: src/plugin_htmlbar/html.c:2507
 msgid "Auto (default) or number of columns"
-msgstr ""
+msgstr "Automàtic (per defecte) o nombre de columnes"
 
 #: src/plugin_htmlbar/html.c:2516
 msgid "Auto (default) or width"
-msgstr ""
+msgstr "Automàtic (per defecte) o amplada"
 
 #: src/plugin_htmlbar/html.c:2528
 msgid "Normal (default) or width of the gap between columns"
-msgstr ""
+msgstr "Normal (per defecte) o amplada de l'espai entre columnes"
 
 #: src/plugin_htmlbar/html.c:2546
 msgid "None (default) or style"
-msgstr ""
+msgstr "Res (per defecte) o estil"
 
 #: src/plugin_htmlbar/html.c:2552
 msgid "Medium (default) or width"
-msgstr ""
+msgstr "Medium (per defecte) o amplada"
 
 #: src/plugin_htmlbar/html.c:2565
 msgid "Use vendor-prefixed CSS property:"
-msgstr ""
+msgstr "Utilitza la propietat CSS preestablerta pel proveïdor:"
 
 #: src/plugin_htmlbar/html.c:2573
-#, fuzzy
 msgid "styles_heet"
-msgstr "Crea un full d'estils..."
+msgstr "fu_ll d'estil"
 
 #: src/plugin_htmlbar/html.c:2574
 msgid "Add selector(s) to create a new rule"
-msgstr ""
+msgstr "Afegeix selector(s) per crear una nova regla"
 
 #: src/plugin_htmlbar/html.c:2576
-#, fuzzy
 msgid "style a_ttribute"
-msgstr "Atributs"
+msgstr "a_tribut d'estil"
 
 #: src/plugin_htmlbar/html.c:2577
 msgid "Add a style attribute in tag"
-msgstr ""
+msgstr "Afegeix un atribut d'estil a l'etiqueta"
 
 #: src/plugin_htmlbar/html.c:2579
 msgid "style _values"
-msgstr ""
+msgstr "_valors de l'estil"
 
 #: src/plugin_htmlbar/html.c:2580
 msgid "Add values in a style attribute"
-msgstr ""
+msgstr "Afegeix valors a un atribut d'estil"
 
 #: src/plugin_htmlbar/html.c:2590
-#, fuzzy
 msgid "Selecto_rs:"
-msgstr "_Selector:"
+msgstr "Selecto_rs:"
 
 #: src/plugin_htmlbar/html.c:2591
 msgid "Leave empty to insert declarations into an existing rule."
-msgstr ""
+msgstr "Deixa-ho buit per inserir declaracions en una regla existent."
 
 #: src/plugin_htmlbar/html.c:2651
 msgid "Link"
@@ -1790,7 +1827,8 @@ msgstr "HREF_LANG:"
 msgid "T_itle:"
 msgstr "T_ítol:"
 
-#: src/plugin_htmlbar/html.c:2692 src/plugin_htmlbar/html_form.c:532
+#: src/plugin_htmlbar/html.c:2692
+#: src/plugin_htmlbar/html_form.c:532
 #: src/plugin_htmlbar/html_form.c:641
 msgid "_Type:"
 msgstr "_Tipus:"
@@ -1835,7 +1873,8 @@ msgstr "Àrea de text"
 msgid "Select"
 msgstr "Select"
 
-#: src/plugin_htmlbar/html_form.c:319 src/plugin_htmlbar/html_form.c:549
+#: src/plugin_htmlbar/html_form.c:319
+#: src/plugin_htmlbar/html_form.c:549
 msgid "Si_ze:"
 msgstr "_Mida:"
 
@@ -1847,7 +1886,8 @@ msgstr "_Seleccions múltiples:"
 msgid "Option"
 msgstr "Opció"
 
-#: src/plugin_htmlbar/html_form.c:378 src/plugin_htmlbar/html_form.c:424
+#: src/plugin_htmlbar/html_form.c:378
+#: src/plugin_htmlbar/html_form.c:424
 msgid "_Label:"
 msgstr "_Etiqueta:"
 
@@ -1901,61 +1941,64 @@ msgstr "Botó"
 
 #: src/plugin_htmlbar/html_table.c:108
 msgid "<span color=\"#006000\">Cell _Padding:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Separació dins les cel·les:</span>"
 
 #: src/plugin_htmlbar/html_table.c:117
 msgid "<span color=\"#006000\">C_ell Spacing:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Espai entre les cel·les:</span>"
 
-#: src/plugin_htmlbar/html_table.c:144 src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:144
+#: src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:377
 msgid "<span color=\"#006000\">_Align:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Alineació:</span>"
 
-#: src/plugin_htmlbar/html_table.c:149 src/plugin_htmlbar/html_table.c:273
+#: src/plugin_htmlbar/html_table.c:149
+#: src/plugin_htmlbar/html_table.c:273
 #: src/plugin_htmlbar/html_table.c:449
 msgid "<span color=\"red\">_bgcolor:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_Color de fons:</span>"
 
 #: src/plugin_htmlbar/html_table.c:155
 msgid "<span color=\"#006000\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Amplada:</span>"
 
 #: src/plugin_htmlbar/html_table.c:162
 msgid "<span color=\"#006000\">Bo_rder:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Vo_ra:</span>"
 
 #: src/plugin_htmlbar/html_table.c:168
 msgid "<span color=\"#A36A00\">_Border:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Vora:</span>"
 
 #: src/plugin_htmlbar/html_table.c:183
 msgid "<span color=\"#006000\">_Frame:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Marc:</span>"
 
 #: src/plugin_htmlbar/html_table.c:194
 msgid "<span color=\"#006000\">R_ules:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Re_gles:</span>"
 
-#: src/plugin_htmlbar/html_table.c:264 src/plugin_htmlbar/html_table.c:388
+#: src/plugin_htmlbar/html_table.c:264
+#: src/plugin_htmlbar/html_table.c:388
 msgid "<span color=\"#006000\">_Valign:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Alineació _vertical:</span>"
 
 #: src/plugin_htmlbar/html_table.c:396
 msgid "<span color=\"#A36A00\">_Headers:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Capçaleres:</span>"
 
 #: src/plugin_htmlbar/html_table.c:397
 msgid "Set of space-separated IDs of th elements."
-msgstr ""
+msgstr "Conjunt dels IDs dels elements separats per espais."
 
 #: src/plugin_htmlbar/html_table.c:408
 msgid "<span color=\"#A36A00\">_Scope:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">À_mbit:</span>"
 
 #: src/plugin_htmlbar/html_table.c:410
 msgid "the header cell applies to cells in the same:"
-msgstr ""
+msgstr "la cel·la de capçalera s'aplica a les cel·les en el mateix:"
 
 #: src/plugin_htmlbar/html_table.c:422
 msgid "Co_l Span:"
@@ -1967,15 +2010,15 @@ msgstr "Expansió de la _fila:"
 
 #: src/plugin_htmlbar/html_table.c:431
 msgid "<span color=\"red\">No _Wrap:</span>"
-msgstr ""
+msgstr "<span color=\"red\">Sense A_justament:</span>"
 
 #: src/plugin_htmlbar/html_table.c:437
 msgid "<span color=\"red\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_Amplada:</span>"
 
 #: src/plugin_htmlbar/html_table.c:444
 msgid "<span color=\"red\">_Height:</span>"
-msgstr ""
+msgstr "<span color=\"red\">A_lçada:</span>"
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:334
@@ -1991,7 +2034,8 @@ msgstr "S'està carregant el fitxer %s…"
 msgid "Insert thumbnail"
 msgstr "Insereix la miniatura"
 
-#: src/plugin_htmlbar/image.c:486 src/plugin_htmlbar/image_dialog.c:320
+#: src/plugin_htmlbar/image.c:486
+#: src/plugin_htmlbar/image_dialog.c:320
 msgid "Preview"
 msgstr "Previsualitza"
 
@@ -2003,7 +2047,8 @@ msgstr "Ubicació de la _imatge:"
 msgid "Hei_ght:"
 msgstr "A_lçada:"
 
-#: src/plugin_htmlbar/image.c:529 src/plugin_htmlbar/image_dialog.c:386
+#: src/plugin_htmlbar/image.c:529
+#: src/plugin_htmlbar/image_dialog.c:386
 msgid "_Usemap:"
 msgstr "_Utilitza el mapa sensible de client:"
 
@@ -2011,11 +2056,13 @@ msgstr "_Utilitza el mapa sensible de client:"
 msgid "Alternate _text:"
 msgstr "_Text alternatiu:"
 
-#: src/plugin_htmlbar/image.c:541 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/image.c:541
+#: src/plugin_htmlbar/image_dialog.c:429
 msgid "_Hspace:"
 msgstr "Alineació _horitzontal:"
 
-#: src/plugin_htmlbar/image.c:545 src/plugin_htmlbar/image_dialog.c:433
+#: src/plugin_htmlbar/image.c:545
+#: src/plugin_htmlbar/image_dialog.c:433
 msgid "_Vspace:"
 msgstr "Espaiat _vertical:"
 
@@ -2031,11 +2078,13 @@ msgstr "Selecciona els fitxers per a la creació de miniatures"
 msgid "Scaling (%)"
 msgstr "Escala (%)"
 
-#: src/plugin_htmlbar/image.c:1020 src/plugin_htmlbar/image.c:1028
+#: src/plugin_htmlbar/image.c:1020
+#: src/plugin_htmlbar/image.c:1028
 msgid "Width"
 msgstr "Amplada"
 
-#: src/plugin_htmlbar/image.c:1024 src/plugin_htmlbar/image.c:1070
+#: src/plugin_htmlbar/image.c:1024
+#: src/plugin_htmlbar/image.c:1070
 msgid "Height"
 msgstr "Alçada"
 
@@ -2190,7 +2239,8 @@ msgstr "Inici ràpid"
 msgid "_DTD:"
 msgstr "_DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:661 src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/quickstart.c:661
+#: src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "_Títol:"
 
@@ -2259,53 +2309,52 @@ msgid "Size:"
 msgstr "Mida:"
 
 #: src/plugin_htmlbar/prefs.c:66
-#, fuzzy
 msgid "<b>HTML Toolbar</b>"
-msgstr "Barra d'eines de l'_HTML"
+msgstr "<b>Barra d'eines de l'HTML</b>"
 
 #: src/plugin_htmlbar/prefs.c:69
 msgid "Show toolbar in sidepanel"
-msgstr ""
+msgstr "Mostra la barra d'eines en el quadre lateral"
 
 #: src/plugin_htmlbar/prefs.c:70
 msgid "Keep HTML dialogs always on top"
-msgstr ""
+msgstr "Conserva els diàlegs d'HTML sempre a dalt"
 
 #: src/plugin_htmlbar/prefs.c:75
 msgid "<b>HTML options</b>"
-msgstr ""
+msgstr "<b>Opcions HTML</b>"
 
 #: src/plugin_htmlbar/prefs.c:79
 msgid "Use _XHTML style tags (<br />)"
-msgstr ""
+msgstr "Utilitza etiquetes amb l'estil _XHTML (<br />)"
 
 #: src/plugin_htmlbar/prefs.c:81
 msgid "Use lo_wercase HTML tags"
-msgstr ""
+msgstr "Utilitza les etiquetes HTML en _minúscula"
 
 #: src/plugin_htmlbar/prefs.c:83
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
-msgstr ""
+msgstr "Utilitza etiquetes desfasades (p. ex. <font> i <nobr>)"
 
 #: src/plugin_htmlbar/prefs.c:87
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
-msgstr ""
+msgstr "_Formata segons les guies d'accessibilitat (p. ex. <strong> enlloc de <b>)"
 
 #: src/plugin_htmlbar/prefs.c:92
 msgid "<b>Auto Update Tag Options</b>"
-msgstr ""
+msgstr "<b>Actualitza automàticament les opcions de les etiquetes</b>"
 
 #: src/plugin_htmlbar/prefs.c:96
 msgid "Automatically update a_uthor meta tag"
-msgstr ""
+msgstr "Actualitza la metaetiqueta de l'a_utor automàticament"
 
 #: src/plugin_htmlbar/prefs.c:99
 msgid "Automatically update _date meta tag"
-msgstr ""
+msgstr "Actualitza la metaetiqueta de la _data automàticament"
 
 #: src/plugin_htmlbar/prefs.c:102
 msgid "Automatically update _generator meta tag"
-msgstr ""
+msgstr "Actualitza la metaetiqueta de l'_editor utilitzat automàticament"
 
 #~ msgid "_Special"
 #~ msgstr "E_special"
