@@ -820,7 +820,7 @@ static const GtkActionEntry global_actions[] = {
 	 G_CALLBACK(ui_font_size_increase)},
 	{"DocFontSizeDecrease", NULL, N_("_Decrease"), "<control>minus", N_("Decrease document font size"),
 	 G_CALLBACK(ui_font_size_decrease)},
-	{"DocFontSizeReset", NULL, N_("_Reset"), NULL, N_("Reset document font size"),
+	{"DocFontSizeReset", NULL, N_("_Reset"), "<Control>KP_0", N_("Reset document font size"),
 	 G_CALLBACK(ui_font_size_reset)},
 	{"DocTabSizeIncrease", NULL, N_("_Increase"), NULL, N_("Increase document tab size"),
 	 G_CALLBACK(ui_tab_size_increase)},
