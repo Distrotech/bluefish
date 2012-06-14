@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-06-05 21:22+0200\n"
-"PO-Revision-Date: 2011-12-10 08:51+0100\n"
+"PO-Revision-Date: 2012-06-06 12:34+0100\n"
 "Last-Translator: Roberto Bellingeri <bellingeri@netguru.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -29,9 +29,7 @@ msgstr "Trascina per ri-ordinare i ritagli"
 
 #: src/plugin_snippets/snippets_gui.c:418
 msgid "To exchange snippets with others use import or export"
-msgstr ""
-"Per scambiare i ritagli con altri usa le funzioni di importazione ed "
-"esportazione"
+msgstr "Per scambiare i ritagli con altri usa le funzioni di importazione ed esportazione"
 
 #: src/plugin_snippets/snippets_gui.c:640
 msgid "snippets"
@@ -176,16 +174,8 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-msgid ""
-"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
-"placeholders to ask for values when you activate this item. Give these "
-"placeholders an appropriate name on the right. (Please use %% if you need "
-"literal % in your string!)"
-msgstr ""
-"Specificate il modello di ricerca e sostituzione. Potete utilizzare i "
-"segnaposto %0, %1, ...%5 per richiedere valori quando questo viene attivato. "
-"Date a questi segnaposto un nome appropriato sulla destra. (Utilizzate %% se "
-"necessitate del carattere %)"
+msgid "Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
+msgstr "Specificate il modello di ricerca e sostituzione. Potete utilizzare i segnaposto %0, %1, ...%5 per richiedere valori quando questo viene attivato. Date a questi segnaposto un nome appropriato sulla destra. (Utilizzate %% se necessitate del carattere %)"
 
 #: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
@@ -216,24 +206,16 @@ msgid "_Use escape chars"
 msgstr "_Usa carattere escape"
 
 #: src/plugin_snippets/snippets_wizard.c:166
-msgid "Unescape backslash escaped characters such as \\n, \\t etc."
-msgstr "Elimina le barre rovesciate dei caratteri di escape come \\n, \\t ecc."
+msgid ""
+"Unescape backslash escaped characters such as \\n"
+", \\t etc."
+msgstr ""
+"Elimina le barre rovesciate dei caratteri di escape come \\n"
+", \\t ecc."
 
 #: src/plugin_snippets/snippets_wizard.c:335
-msgid ""
-"The <i>before</i> text will be inserted before the cursor position or the "
-"current selection, the <i>after</i> text will be inserted after the cursor "
-"position or the current selection. You may use %0, %1, ...%9 placeholders to "
-"ask for values when you activate this item. Give these placeholders an "
-"appropriate name on the right. (Please use %% if you need literal % in your "
-"string!)"
-msgstr ""
-"Il testo <i>precedente</i> verrà inserito prima della posizione del cursore "
-"o della selezione, il testo <i>successivo</i> verrà inserito dopo la "
-"posizione dl cursore o della selezione. Potete utilizzare i segnaposto %0, %"
-"1, ...%9 per richiedere valori quando questo viene attivato. Date a questi "
-"segnaposto un nome appropriato sulla destra. (Utilizzate %% se necessitate "
-"del carattere %)"
+msgid "The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
+msgstr "Il testo <i>precedente</i> verrà inserito prima della posizione del cursore o della selezione, il testo <i>successivo</i> verrà inserito dopo la posizione dl cursore o della selezione. Potete utilizzare i segnaposto %0, %1, ...%9 per richiedere valori quando questo viene attivato. Date a questi segnaposto un nome appropriato sulla destra. (Utilizzate %% se necessitate del carattere %)"
 
 #: src/plugin_snippets/snippets_wizard.c:344
 msgid "<i>Before</i> text"

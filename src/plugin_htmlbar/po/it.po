@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-06-05 21:47+0200\n"
-"PO-Revision-Date: 2012-02-16 08:02+0100\n"
+"PO-Revision-Date: 2012-06-14 18:29+0100\n"
 "Last-Translator: Roberto Bellingeri <bellingeri@netguru.it>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,23 +24,23 @@ msgid "Cascading Style Sheet Builder"
 msgstr "Crea fogli di stile"
 
 #: src/plugin_htmlbar/html2.c:654
-#, fuzzy
 msgid "_Selector(s):"
-msgstr "_Selettore:"
+msgstr "_Selettore(i):"
 
 #: src/plugin_htmlbar/html2.c:680
 msgid "_Property:"
 msgstr "_Proprietà:"
 
-#: src/plugin_htmlbar/html2.c:684 src/plugin_htmlbar/html_form.c:375
-#: src/plugin_htmlbar/html_form.c:541 src/plugin_htmlbar/html_form.c:636
+#: src/plugin_htmlbar/html2.c:684
+#: src/plugin_htmlbar/html_form.c:375
+#: src/plugin_htmlbar/html_form.c:541
+#: src/plugin_htmlbar/html_form.c:636
 msgid "_Value:"
 msgstr "_Valore:"
 
 #: src/plugin_htmlbar/html2.c:704
-#, fuzzy
 msgid "Selector(s)"
-msgstr "Selettore"
+msgstr "Selettore(i)"
 
 #: src/plugin_htmlbar/html2.c:708
 msgid "Property"
@@ -62,7 +62,8 @@ msgstr " _Aggiorna "
 msgid " _Delete "
 msgstr " _Cancella "
 
-#: src/plugin_htmlbar/html2.c:1009 src/plugin_htmlbar/html2.c:1046
+#: src/plugin_htmlbar/html2.c:1009
+#: src/plugin_htmlbar/html2.c:1046
 msgid "_Style..."
 msgstr "_Stile..."
 
@@ -80,11 +81,12 @@ msgstr "Modifica il tag"
 
 #: src/plugin_htmlbar/htmlbar.c:98
 msgid "Htmlbar"
-msgstr ""
+msgstr "Barra HTML"
 
-#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
+#: src/plugin_htmlbar/htmlbar.c:261
+#: src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
-msgstr ""
+msgstr "Caratteristiche HTML"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:960
 msgid "T_ags"
@@ -144,7 +146,7 @@ msgstr "Inserisci tag H6"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:974
 msgid "_Entities"
-msgstr ""
+msgstr "_Entità"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:975
 msgid "_Non-breaking space"
@@ -320,7 +322,8 @@ msgstr "Formattazione _Generale"
 msgid "_Paragraph"
 msgstr "_Paragrafo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1011 src/plugin_htmlbar/html.c:843
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1011
+#: src/plugin_htmlbar/html.c:843
 msgid "Paragraph"
 msgstr "Paragrafo"
 
@@ -575,7 +578,7 @@ msgstr "_Altro"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1075
 msgid "Insert Generator _META-Tag"
-msgstr "Inserisci generatore di _META-Tag "
+msgstr "Inserisci il _META-Tag generatore"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1077
 msgid "_Span"
@@ -747,11 +750,11 @@ msgstr "Tabella..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1121
 msgid "Table _Row..."
-msgstr "_Riga tabella..."
+msgstr "_Riga Tabella..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1121
 msgid "Table Row..."
-msgstr "Riga tabella..."
+msgstr "Riga Tabella..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1123
 msgid "Table _Head..."
@@ -767,7 +770,7 @@ msgstr "_Dati Tabella..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1125
 msgid "Table Data..."
-msgstr "Dati tabella..."
+msgstr "Dati Tabella..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1127
 msgid "_CSS"
@@ -807,14 +810,12 @@ msgid "Style"
 msgstr "Stile"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "C_olumns..."
-msgstr "_Carattere..."
+msgstr "C_olonne..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "Columns..."
-msgstr "Canvas..."
+msgstr "Colonne..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1138
 msgid "_Link to Stylesheet..."
@@ -932,11 +933,13 @@ msgstr "_Miniature Multiple..."
 msgid "Multi thumbnail..."
 msgstr "Miniature multiple..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1168 src/plugin_htmlbar/html.c:1755
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1168
+#: src/plugin_htmlbar/html.c:1755
 msgid "Frame"
 msgstr "Frame"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1169 src/plugin_htmlbar/html.c:1666
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1169
+#: src/plugin_htmlbar/html.c:1666
 msgid "Frameset"
 msgstr "Frameset"
 
@@ -1110,14 +1113,12 @@ msgid "Time..."
 msgstr "Ora..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert _Color"
-msgstr "Colore del _testo:"
+msgstr "Inserisci _Colore"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert Color"
-msgstr "Inserimento"
+msgstr "Inserisci Colore"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "_HTML Toolbar"
@@ -1133,58 +1134,47 @@ msgstr "Rimuovi dalla Quickbar"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1377
 msgid "Right click any html toolbar button to add it to the Quickbar."
-msgstr ""
-"Click con il tasto destro su qualsiasi bottone per aggiungerlo alla Quickbar."
+msgstr "Click con il tasto destro su qualsiasi bottone per aggiungerlo alla Quickbar."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1454
-#, fuzzy
 msgid "Quickbar"
-msgstr " Quickbar "
+msgstr "Quickbar "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1457
-#, fuzzy
 msgid "Standard"
-msgstr " Standard "
+msgstr "Standard "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1460
-#, fuzzy
 msgid "HTML 5"
-msgstr " HTML 5 "
+msgstr "HTML 5 "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1463
-#, fuzzy
 msgid "Formatting"
 msgstr "Formattazione"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1466
-#, fuzzy
 msgid "Tables"
-msgstr "Tabella"
+msgstr "Tabelle"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1469
-#, fuzzy
 msgid "List"
-msgstr "_Elenco"
+msgstr "Elenco"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1472
-#, fuzzy
 msgid "CSS"
-msgstr "_CSS"
+msgstr "CSS"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1475
-#, fuzzy
 msgid "Forms"
-msgstr "Form"
+msgstr "Moduli"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1478
-#, fuzzy
 msgid "Fonts"
-msgstr "Carattere"
+msgstr "Caratteri"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1481
-#, fuzzy
 msgid "Frames"
-msgstr "Del frame"
+msgstr "Frame"
 
 #: src/plugin_htmlbar/html.c:403
 msgid "Insert Time"
@@ -1250,50 +1240,72 @@ msgstr "  _Ora ISO-8601 "
 msgid "Quick Anchor"
 msgstr "Ancora Rapida"
 
-#: src/plugin_htmlbar/html.c:635 src/plugin_htmlbar/html_form.c:520
+#: src/plugin_htmlbar/html.c:635
+#: src/plugin_htmlbar/html_form.c:520
 msgid "Attributes"
 msgstr "Attributi"
 
-#: src/plugin_htmlbar/html.c:649 src/plugin_htmlbar/html.c:2662
+#: src/plugin_htmlbar/html.c:649
+#: src/plugin_htmlbar/html.c:2662
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:655 src/plugin_htmlbar/html_form.c:200
+#: src/plugin_htmlbar/html.c:655
+#: src/plugin_htmlbar/html_form.c:200
 msgid "_Target:"
 msgstr "_Obiettivo:"
 
-#: src/plugin_htmlbar/html.c:659 src/plugin_htmlbar/html.c:898
-#: src/plugin_htmlbar/html.c:1289 src/plugin_htmlbar/html.c:1767
-#: src/plugin_htmlbar/html_form.c:251 src/plugin_htmlbar/html_form.c:315
-#: src/plugin_htmlbar/html_form.c:538 src/plugin_htmlbar/html_form.c:633
+#: src/plugin_htmlbar/html.c:659
+#: src/plugin_htmlbar/html.c:898
+#: src/plugin_htmlbar/html.c:1289
+#: src/plugin_htmlbar/html.c:1767
+#: src/plugin_htmlbar/html_form.c:251
+#: src/plugin_htmlbar/html_form.c:315
+#: src/plugin_htmlbar/html_form.c:538
+#: src/plugin_htmlbar/html_form.c:633
 #: src/plugin_htmlbar/image.c:532
 msgid "_Name:"
 msgstr "_Nome:"
 
-#: src/plugin_htmlbar/html.c:662 src/plugin_htmlbar/quickstart.c:557
+#: src/plugin_htmlbar/html.c:662
+#: src/plugin_htmlbar/quickstart.c:557
 msgid "Titl_e:"
 msgstr "Tit_olo:"
 
-#: src/plugin_htmlbar/html.c:667 src/plugin_htmlbar/html.c:1163
-#: src/plugin_htmlbar/html.c:1306 src/plugin_htmlbar/html.c:2310
+#: src/plugin_htmlbar/html.c:667
+#: src/plugin_htmlbar/html.c:1163
+#: src/plugin_htmlbar/html.c:1306
+#: src/plugin_htmlbar/html.c:2310
 msgid "_Language:"
 msgstr "_Lingua:"
 
-#: src/plugin_htmlbar/html.c:670 src/plugin_htmlbar/html.c:904
-#: src/plugin_htmlbar/html.c:1070 src/plugin_htmlbar/html.c:1166
-#: src/plugin_htmlbar/html.c:1312 src/plugin_htmlbar/html.c:1696
-#: src/plugin_htmlbar/html.c:1805 src/plugin_htmlbar/html.c:1904
-#: src/plugin_htmlbar/html.c:1973 src/plugin_htmlbar/html.c:2097
-#: src/plugin_htmlbar/html.c:2162 src/plugin_htmlbar/html.c:2246
-#: src/plugin_htmlbar/html.c:2333 src/plugin_htmlbar/html_form.c:204
-#: src/plugin_htmlbar/html_form.c:267 src/plugin_htmlbar/html_form.c:328
-#: src/plugin_htmlbar/html_form.c:645 src/plugin_htmlbar/html_table.c:136
-#: src/plugin_htmlbar/html_table.c:283 src/plugin_htmlbar/html_table.c:419
-#: src/plugin_htmlbar/image.c:538 src/plugin_htmlbar/image_dialog.c:397
+#: src/plugin_htmlbar/html.c:670
+#: src/plugin_htmlbar/html.c:904
+#: src/plugin_htmlbar/html.c:1070
+#: src/plugin_htmlbar/html.c:1166
+#: src/plugin_htmlbar/html.c:1312
+#: src/plugin_htmlbar/html.c:1696
+#: src/plugin_htmlbar/html.c:1805
+#: src/plugin_htmlbar/html.c:1904
+#: src/plugin_htmlbar/html.c:1973
+#: src/plugin_htmlbar/html.c:2097
+#: src/plugin_htmlbar/html.c:2162
+#: src/plugin_htmlbar/html.c:2246
+#: src/plugin_htmlbar/html.c:2333
+#: src/plugin_htmlbar/html_form.c:204
+#: src/plugin_htmlbar/html_form.c:267
+#: src/plugin_htmlbar/html_form.c:328
+#: src/plugin_htmlbar/html_form.c:645
+#: src/plugin_htmlbar/html_table.c:136
+#: src/plugin_htmlbar/html_table.c:283
+#: src/plugin_htmlbar/html_table.c:419
+#: src/plugin_htmlbar/image.c:538
+#: src/plugin_htmlbar/image_dialog.c:397
 msgid "Custo_m:"
 msgstr "Perso_nalizzato:"
 
-#: src/plugin_htmlbar/html.c:672 src/plugin_htmlbar/html.c:1170
+#: src/plugin_htmlbar/html.c:672
+#: src/plugin_htmlbar/html.c:1170
 #: src/plugin_htmlbar/html_form.c:569
 msgid "Events"
 msgstr "Eventi"
@@ -1374,22 +1386,31 @@ msgstr "Titolo 6"
 msgid "Ali_gn:"
 msgstr "_Allinea:"
 
-#: src/plugin_htmlbar/html.c:888 src/plugin_htmlbar/html.c:1157
-#: src/plugin_htmlbar/html.c:1896 src/plugin_htmlbar/html.c:1955
-#: src/plugin_htmlbar/html.c:2082 src/plugin_htmlbar/html.c:2238
-#: src/plugin_htmlbar/html_diag.c:470 src/plugin_htmlbar/html_table.c:127
-#: src/plugin_htmlbar/html_table.c:268 src/plugin_htmlbar/html_table.c:392
+#: src/plugin_htmlbar/html.c:888
+#: src/plugin_htmlbar/html.c:1157
+#: src/plugin_htmlbar/html.c:1896
+#: src/plugin_htmlbar/html.c:1955
+#: src/plugin_htmlbar/html.c:2082
+#: src/plugin_htmlbar/html.c:2238
+#: src/plugin_htmlbar/html_diag.c:470
+#: src/plugin_htmlbar/html_table.c:127
+#: src/plugin_htmlbar/html_table.c:268
+#: src/plugin_htmlbar/html_table.c:392
 #: src/plugin_htmlbar/image_dialog.c:377
 msgid "Cl_ass:"
 msgstr "Cl_asse:"
 
-#: src/plugin_htmlbar/html.c:892 src/plugin_htmlbar/html.c:1150
-#: src/plugin_htmlbar/html_diag.c:484 src/plugin_htmlbar/html_table.c:131
-#: src/plugin_htmlbar/html_table.c:278 src/plugin_htmlbar/html_table.c:414
+#: src/plugin_htmlbar/html.c:892
+#: src/plugin_htmlbar/html.c:1150
+#: src/plugin_htmlbar/html_diag.c:484
+#: src/plugin_htmlbar/html_table.c:131
+#: src/plugin_htmlbar/html_table.c:278
+#: src/plugin_htmlbar/html_table.c:414
 msgid "St_yle:"
 msgstr "Sti_le:"
 
-#: src/plugin_htmlbar/html.c:901 src/plugin_htmlbar/html.c:1160
+#: src/plugin_htmlbar/html.c:901
+#: src/plugin_htmlbar/html.c:1160
 #: src/plugin_htmlbar/html_diag.c:478
 msgid "_ID:"
 msgstr "_ID:"
@@ -1398,21 +1419,27 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "Linea orizzontale"
 
-#: src/plugin_htmlbar/html.c:1044 src/plugin_htmlbar/image.c:555
+#: src/plugin_htmlbar/html.c:1044
+#: src/plugin_htmlbar/image.c:555
 #: src/plugin_htmlbar/image_dialog.c:420
 msgid "_Align:"
 msgstr "_Allineamento:"
 
-#: src/plugin_htmlbar/html.c:1051 src/plugin_htmlbar/html.c:1969
-#: src/plugin_htmlbar/html.c:2073 src/plugin_htmlbar/html.c:2230
+#: src/plugin_htmlbar/html.c:1051
+#: src/plugin_htmlbar/html.c:1969
+#: src/plugin_htmlbar/html.c:2073
+#: src/plugin_htmlbar/html.c:2230
 #: src/plugin_htmlbar/image_dialog.c:350
 msgid "_Height:"
 msgstr "Altez_za:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1057 src/plugin_htmlbar/html.c:1964
-#: src/plugin_htmlbar/html.c:2068 src/plugin_htmlbar/html.c:2226
-#: src/plugin_htmlbar/image.c:517 src/plugin_htmlbar/image_dialog.c:341
+#: src/plugin_htmlbar/html.c:1057
+#: src/plugin_htmlbar/html.c:1964
+#: src/plugin_htmlbar/html.c:2068
+#: src/plugin_htmlbar/html.c:2226
+#: src/plugin_htmlbar/image.c:517
+#: src/plugin_htmlbar/image_dialog.c:341
 msgid "_Width:"
 msgstr "La_rghezza:"
 
@@ -1536,7 +1563,8 @@ msgstr "con _Testo:"
 msgid "Quick List"
 msgstr "Lista rapida"
 
-#: src/plugin_htmlbar/html.c:1590 src/plugin_htmlbar/wizards.c:81
+#: src/plugin_htmlbar/html.c:1590
+#: src/plugin_htmlbar/wizards.c:81
 msgid "Number of _rows:"
 msgstr "Numero di _linee:"
 
@@ -1548,26 +1576,31 @@ msgstr "Or_dinata"
 msgid "_Unordered"
 msgstr "_Non ordinata"
 
-#: src/plugin_htmlbar/html.c:1596 src/plugin_htmlbar/image_dialog.c:391
+#: src/plugin_htmlbar/html.c:1596
+#: src/plugin_htmlbar/image_dialog.c:391
 msgid "Style:"
 msgstr "Stile:"
 
-#: src/plugin_htmlbar/html.c:1672 src/plugin_htmlbar/html_form.c:259
+#: src/plugin_htmlbar/html.c:1672
+#: src/plugin_htmlbar/html_form.c:259
 msgid "Co_ls:"
 msgstr "Co_lonne:"
 
-#: src/plugin_htmlbar/html.c:1675 src/plugin_htmlbar/html_form.c:255
+#: src/plugin_htmlbar/html.c:1675
+#: src/plugin_htmlbar/html_form.c:255
 msgid "_Rows:"
 msgstr "_Righe:"
 
 #: src/plugin_htmlbar/html.c:1679
-#, fuzzy
 msgid "_Add &lt;frame&gt; elements"
-msgstr "_Aggiungi elementi <frame>"
+msgstr "_Aggiungi elementi &lt;frame&gt;"
 
-#: src/plugin_htmlbar/html.c:1763 src/plugin_htmlbar/html.c:1866
-#: src/plugin_htmlbar/html.c:2036 src/plugin_htmlbar/html.c:2219
-#: src/plugin_htmlbar/html.c:2306 src/plugin_htmlbar/image_dialog.c:302
+#: src/plugin_htmlbar/html.c:1763
+#: src/plugin_htmlbar/html.c:1866
+#: src/plugin_htmlbar/html.c:2036
+#: src/plugin_htmlbar/html.c:2219
+#: src/plugin_htmlbar/html.c:2306
+#: src/plugin_htmlbar/image_dialog.c:302
 msgid "_Source:"
 msgstr "_Sorgente:"
 
@@ -1596,34 +1629,43 @@ msgstr "Non _ridimensionare:"
 msgid "Audio"
 msgstr "Audio"
 
-#: src/plugin_htmlbar/html.c:1870 src/plugin_htmlbar/html.c:2048
+#: src/plugin_htmlbar/html.c:1870
+#: src/plugin_htmlbar/html.c:2048
 msgid "_Autoplay:"
 msgstr "_Autoplay:"
 
-#: src/plugin_htmlbar/html.c:1874 src/plugin_htmlbar/html.c:2053
+#: src/plugin_htmlbar/html.c:1874
+#: src/plugin_htmlbar/html.c:2053
 msgid "C_ontrols:"
 msgstr "_Controlli:"
 
-#: src/plugin_htmlbar/html.c:1878 src/plugin_htmlbar/html.c:2058
+#: src/plugin_htmlbar/html.c:1878
+#: src/plugin_htmlbar/html.c:2058
 msgid "_Loop:"
 msgstr "_Loop:"
 
-#: src/plugin_htmlbar/html.c:1882 src/plugin_htmlbar/html.c:2063
+#: src/plugin_htmlbar/html.c:1882
+#: src/plugin_htmlbar/html.c:2063
 msgid "M_ute:"
 msgstr "M_uto:"
 
-#: src/plugin_htmlbar/html.c:1887 src/plugin_htmlbar/html.c:2087
+#: src/plugin_htmlbar/html.c:1887
+#: src/plugin_htmlbar/html.c:2087
 msgid "_Preload:"
 msgstr "_Preload:"
 
-#: src/plugin_htmlbar/html.c:1892 src/plugin_htmlbar/html.c:1951
-#: src/plugin_htmlbar/html.c:2078 src/plugin_htmlbar/html.c:2234
+#: src/plugin_htmlbar/html.c:1892
+#: src/plugin_htmlbar/html.c:1951
+#: src/plugin_htmlbar/html.c:2078
+#: src/plugin_htmlbar/html.c:2234
 #: src/plugin_htmlbar/html_table.c:124
 msgid "_Id:"
 msgstr "_Id:"
 
-#: src/plugin_htmlbar/html.c:1899 src/plugin_htmlbar/html.c:1958
-#: src/plugin_htmlbar/html.c:2092 src/plugin_htmlbar/html.c:2241
+#: src/plugin_htmlbar/html.c:1899
+#: src/plugin_htmlbar/html.c:1958
+#: src/plugin_htmlbar/html.c:2092
+#: src/plugin_htmlbar/html.c:2241
 msgid "_Style:"
 msgstr "_Stile:"
 
@@ -1657,8 +1699,7 @@ msgid ""
 "hh - hour (e.g. 22 for 10.00pm)\n"
 "mm - minutes (e.g. 55)\n"
 "ss - seconds (e.g. 03)\n"
-"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean "
-"Time)\n"
+"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean Time)\n"
 msgstr ""
 "Formato datetime (es. YYYY-MM-DDThh:mm:ssTZD):\n"
 "\n"
@@ -1669,8 +1710,7 @@ msgstr ""
 "hh - ore (es. 22 per le 22:00)\n"
 "mm - minuti (es. 55)\n"
 "ss - secondi (es. 03)\n"
-"TZD - Fuso orario di designazione (Z denota Zulu, noto anche come Greenwich "
-"Mean Time)\n"
+"TZD - Fuso orario di designazione (Z denota Zulu, noto anche come Greenwich Mean Time)\n"
 
 #: src/plugin_htmlbar/html.c:2157
 msgid "_Datetime:"
@@ -1700,7 +1740,8 @@ msgstr "MIME _Type:"
 msgid "_Charset:"
 msgstr "_Charset:"
 
-#: src/plugin_htmlbar/html.c:2321 src/plugin_htmlbar/html.c:2330
+#: src/plugin_htmlbar/html.c:2321
+#: src/plugin_htmlbar/html.c:2330
 msgid "(HTML5)"
 msgstr "(HTML5)"
 
@@ -1719,66 +1760,63 @@ msgstr "_Differito:"
 #.
 #: src/plugin_htmlbar/html.c:2500
 msgid "CSS3 multi-column layout"
-msgstr ""
+msgstr "Layout multi-colonna CSS3"
 
 #: src/plugin_htmlbar/html.c:2507
 msgid "Auto (default) or number of columns"
-msgstr ""
+msgstr "Auto (predefinito) o il numero di colonne"
 
 #: src/plugin_htmlbar/html.c:2516
 msgid "Auto (default) or width"
-msgstr ""
+msgstr "Auto (predefinito) o larghezza"
 
 #: src/plugin_htmlbar/html.c:2528
 msgid "Normal (default) or width of the gap between columns"
-msgstr ""
+msgstr "Normale (predefinito) o la larghezza delo spazio tra le colonne"
 
 #: src/plugin_htmlbar/html.c:2546
 msgid "None (default) or style"
-msgstr ""
+msgstr "Nessuno (predefinito) o lo stile"
 
 #: src/plugin_htmlbar/html.c:2552
 msgid "Medium (default) or width"
-msgstr ""
+msgstr "Medio (predefinito) o larghezza"
 
 #: src/plugin_htmlbar/html.c:2565
 msgid "Use vendor-prefixed CSS property:"
-msgstr ""
+msgstr "Utilizza proprietà CSS specifiche per browser:"
 
 #: src/plugin_htmlbar/html.c:2573
-#, fuzzy
 msgid "styles_heet"
-msgstr "Crea foglio di stile..."
+msgstr "fo_glio di stile..."
 
 #: src/plugin_htmlbar/html.c:2574
 msgid "Add selector(s) to create a new rule"
-msgstr ""
+msgstr "Aggiungi il selettore(i) per creare una nuova regola"
 
 #: src/plugin_htmlbar/html.c:2576
-#, fuzzy
 msgid "style a_ttribute"
-msgstr "Attributi"
+msgstr "attributo di stile"
 
 #: src/plugin_htmlbar/html.c:2577
 msgid "Add a style attribute in tag"
-msgstr ""
+msgstr "Aggiungi un attributo di stile nel tag"
 
 #: src/plugin_htmlbar/html.c:2579
 msgid "style _values"
-msgstr ""
+msgstr "_valori di stile"
 
 #: src/plugin_htmlbar/html.c:2580
 msgid "Add values in a style attribute"
-msgstr ""
+msgstr "Aggiungi i valori in un attributo di stile"
 
 #: src/plugin_htmlbar/html.c:2590
-#, fuzzy
 msgid "Selecto_rs:"
-msgstr "_Selettore:"
+msgstr "Seletto_re:"
 
 #: src/plugin_htmlbar/html.c:2591
 msgid "Leave empty to insert declarations into an existing rule."
-msgstr ""
+msgstr "Lascia vuoto per inserire dichiarazioni in una regola esistente."
 
 #: src/plugin_htmlbar/html.c:2651
 msgid "Link"
@@ -1792,7 +1830,8 @@ msgstr "HREF_LANG:"
 msgid "T_itle:"
 msgstr "T_itolo:"
 
-#: src/plugin_htmlbar/html.c:2692 src/plugin_htmlbar/html_form.c:532
+#: src/plugin_htmlbar/html.c:2692
+#: src/plugin_htmlbar/html_form.c:532
 #: src/plugin_htmlbar/html_form.c:641
 msgid "_Type:"
 msgstr "_Tipo:"
@@ -1837,7 +1876,8 @@ msgstr "Area di testo"
 msgid "Select"
 msgstr "Selezionare"
 
-#: src/plugin_htmlbar/html_form.c:319 src/plugin_htmlbar/html_form.c:549
+#: src/plugin_htmlbar/html_form.c:319
+#: src/plugin_htmlbar/html_form.c:549
 msgid "Si_ze:"
 msgstr "Dimen_sione:"
 
@@ -1849,7 +1889,8 @@ msgstr "_Selezioni multiple:"
 msgid "Option"
 msgstr "Opzione"
 
-#: src/plugin_htmlbar/html_form.c:378 src/plugin_htmlbar/html_form.c:424
+#: src/plugin_htmlbar/html_form.c:378
+#: src/plugin_htmlbar/html_form.c:424
 msgid "_Label:"
 msgstr "Etichet_ta:"
 
@@ -1903,61 +1944,64 @@ msgstr "Pulsante"
 
 #: src/plugin_htmlbar/html_table.c:108
 msgid "<span color=\"#006000\">Cell _Padding:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Spaziatura _dentro le celle:</span>"
 
 #: src/plugin_htmlbar/html_table.c:117
 msgid "<span color=\"#006000\">C_ell Spacing:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Spaziatura tra una c_ella e l'altra:</span>"
 
-#: src/plugin_htmlbar/html_table.c:144 src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:144
+#: src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:377
 msgid "<span color=\"#006000\">_Align:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Allineamento:</span>"
 
-#: src/plugin_htmlbar/html_table.c:149 src/plugin_htmlbar/html_table.c:273
+#: src/plugin_htmlbar/html_table.c:149
+#: src/plugin_htmlbar/html_table.c:273
 #: src/plugin_htmlbar/html_table.c:449
 msgid "<span color=\"red\">_bgcolor:</span>"
-msgstr ""
+msgstr "<span color=\"red\">Co_lore di sfondo:</span>"
 
 #: src/plugin_htmlbar/html_table.c:155
 msgid "<span color=\"#006000\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">La_rghezza:</span>"
 
 #: src/plugin_htmlbar/html_table.c:162
 msgid "<span color=\"#006000\">Bo_rder:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Bo_rdo:</span>"
 
 #: src/plugin_htmlbar/html_table.c:168
 msgid "<span color=\"#A36A00\">_Border:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Bordo:</span>"
 
 #: src/plugin_htmlbar/html_table.c:183
 msgid "<span color=\"#006000\">_Frame:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Frame:</span>"
 
 #: src/plugin_htmlbar/html_table.c:194
 msgid "<span color=\"#006000\">R_ules:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">R_egole:</span>"
 
-#: src/plugin_htmlbar/html_table.c:264 src/plugin_htmlbar/html_table.c:388
+#: src/plugin_htmlbar/html_table.c:264
+#: src/plugin_htmlbar/html_table.c:388
 msgid "<span color=\"#006000\">_Valign:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Alineamento verticale:</span>"
 
 #: src/plugin_htmlbar/html_table.c:396
 msgid "<span color=\"#A36A00\">_Headers:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Intestazioni:</span>"
 
 #: src/plugin_htmlbar/html_table.c:397
 msgid "Set of space-separated IDs of th elements."
-msgstr ""
+msgstr "Serie di ID separati da spazi di elementi th."
 
 #: src/plugin_htmlbar/html_table.c:408
 msgid "<span color=\"#A36A00\">_Scope:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">E_stensione:</span>"
 
 #: src/plugin_htmlbar/html_table.c:410
 msgid "the header cell applies to cells in the same:"
-msgstr ""
+msgstr "la cella di intestazione viene applicata alle celle nella stessa:"
 
 #: src/plugin_htmlbar/html_table.c:422
 msgid "Co_l Span:"
@@ -1969,15 +2013,15 @@ msgstr "Numero di righe occupate da una cella:"
 
 #: src/plugin_htmlbar/html_table.c:431
 msgid "<span color=\"red\">No _Wrap:</span>"
-msgstr ""
+msgstr "<span color=\"red\">No a capo automatico:</span>"
 
 #: src/plugin_htmlbar/html_table.c:437
 msgid "<span color=\"red\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"red\">La_rghezza:</span>"
 
 #: src/plugin_htmlbar/html_table.c:444
 msgid "<span color=\"red\">_Height:</span>"
-msgstr ""
+msgstr "<span color=\"red\">Altez_za:</span>"
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:334
@@ -1993,7 +2037,8 @@ msgstr "Caricamento file %s..."
 msgid "Insert thumbnail"
 msgstr "Inserire una miniatura"
 
-#: src/plugin_htmlbar/image.c:486 src/plugin_htmlbar/image_dialog.c:320
+#: src/plugin_htmlbar/image.c:486
+#: src/plugin_htmlbar/image_dialog.c:320
 msgid "Preview"
 msgstr "Anteprima"
 
@@ -2005,7 +2050,8 @@ msgstr "Pos_izione dell'immagine:"
 msgid "Hei_ght:"
 msgstr "Altez_za:"
 
-#: src/plugin_htmlbar/image.c:529 src/plugin_htmlbar/image_dialog.c:386
+#: src/plugin_htmlbar/image.c:529
+#: src/plugin_htmlbar/image_dialog.c:386
 msgid "_Usemap:"
 msgstr "Utilizza mappa sensibile client-side:"
 
@@ -2013,11 +2059,13 @@ msgstr "Utilizza mappa sensibile client-side:"
 msgid "Alternate _text:"
 msgstr "_Testo alternativo:"
 
-#: src/plugin_htmlbar/image.c:541 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/image.c:541
+#: src/plugin_htmlbar/image_dialog.c:429
 msgid "_Hspace:"
 msgstr "_Spazio orizzontale:"
 
-#: src/plugin_htmlbar/image.c:545 src/plugin_htmlbar/image_dialog.c:433
+#: src/plugin_htmlbar/image.c:545
+#: src/plugin_htmlbar/image_dialog.c:433
 msgid "_Vspace:"
 msgstr "Spazio _verticale:"
 
@@ -2033,11 +2081,13 @@ msgstr "Selezionare i file per la creazione della miniatura"
 msgid "Scaling (%)"
 msgstr "Ingrandimento (%)"
 
-#: src/plugin_htmlbar/image.c:1020 src/plugin_htmlbar/image.c:1028
+#: src/plugin_htmlbar/image.c:1020
+#: src/plugin_htmlbar/image.c:1028
 msgid "Width"
 msgstr "Larghezza"
 
-#: src/plugin_htmlbar/image.c:1024 src/plugin_htmlbar/image.c:1070
+#: src/plugin_htmlbar/image.c:1024
+#: src/plugin_htmlbar/image.c:1070
 msgid "Height"
 msgstr "Altezza"
 
@@ -2091,7 +2141,7 @@ msgstr "_ID:"
 
 #: src/plugin_htmlbar/image_dialog.c:409
 msgid "_Use Transitional options"
-msgstr "_Usa opzioni \"Transitional\""
+msgstr "_Utilizza opzioni \"Transitional\""
 
 #: src/plugin_htmlbar/image_dialog.c:425
 msgid "_Border:"
@@ -2192,7 +2242,8 @@ msgstr "Avvio rapido"
 msgid "_DTD:"
 msgstr "_DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:661 src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/quickstart.c:661
+#: src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "_Titolo:"
 
@@ -2226,7 +2277,7 @@ msgstr "Autocomposizione frame"
 
 #: src/plugin_htmlbar/wizards.c:204
 msgid "Use _DTD:"
-msgstr "Usa _DTD:"
+msgstr "Utilizza _DTD:"
 
 #: src/plugin_htmlbar/wizards.c:207
 msgid "Orientation:"
@@ -2261,53 +2312,52 @@ msgid "Size:"
 msgstr "Dimensione:"
 
 #: src/plugin_htmlbar/prefs.c:66
-#, fuzzy
 msgid "<b>HTML Toolbar</b>"
-msgstr "Barra _HTML"
+msgstr "<b>Barra HTML</b>"
 
 #: src/plugin_htmlbar/prefs.c:69
 msgid "Show toolbar in sidepanel"
-msgstr ""
+msgstr "Mostra la barra degli strumenti in un pannello laterale"
 
 #: src/plugin_htmlbar/prefs.c:70
 msgid "Keep HTML dialogs always on top"
-msgstr ""
+msgstr "Tieni le finestre di dialogo HTML sempre in primo piano"
 
 #: src/plugin_htmlbar/prefs.c:75
 msgid "<b>HTML options</b>"
-msgstr ""
+msgstr "<b>Opzioni HTML</b>"
 
 #: src/plugin_htmlbar/prefs.c:79
 msgid "Use _XHTML style tags (<br />)"
-msgstr ""
+msgstr "Utilizza i tag in stile _XHTML (<br />)"
 
 #: src/plugin_htmlbar/prefs.c:81
 msgid "Use lo_wercase HTML tags"
-msgstr ""
+msgstr "Utilizza tag HTML minuscoli"
 
 #: src/plugin_htmlbar/prefs.c:83
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
-msgstr ""
+msgstr "Utilizza i tag deprecati (ad esempio <font> e <nobr>)"
 
 #: src/plugin_htmlbar/prefs.c:87
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
-msgstr ""
+msgstr "_Formato in accordo con le linee guida di accessibilità (per esempio <strong> per <b>)"
 
 #: src/plugin_htmlbar/prefs.c:92
 msgid "<b>Auto Update Tag Options</b>"
-msgstr ""
+msgstr "<b>Opzioni di aggiornamento automatico Tag</b>"
 
 #: src/plugin_htmlbar/prefs.c:96
 msgid "Automatically update a_uthor meta tag"
-msgstr ""
+msgstr "Aggiorna automaticamente il meta-tag autore"
 
 #: src/plugin_htmlbar/prefs.c:99
 msgid "Automatically update _date meta tag"
-msgstr ""
+msgstr "Aggiorna automaticamente il meta-tag data"
 
 #: src/plugin_htmlbar/prefs.c:102
 msgid "Automatically update _generator meta tag"
-msgstr ""
+msgstr "Aggiorna automaticamente il meta-tag generatore"
 
 #~ msgid "_Special"
 #~ msgstr "_Speciali"
