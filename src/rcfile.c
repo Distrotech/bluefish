@@ -906,22 +906,29 @@ void
 rcfile_check_directory(void)
 {
 	GFile *file, *rcpath;
+	GFileInfo *finfo;
 	GError *gerror = NULL;
 
 	file = g_file_new_for_path(g_get_home_dir());
 	rcpath = g_file_get_child(file, ".bluefish");
 
 	DEBUG_PATH("test if rcfile directory %s exists\n", rcpath);
-	if (g_file_query_file_type(rcpath, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_UNKNOWN) {
+	finfo = g_file_query_info(rcpath, G_FILE_ATTRIBUTE_STANDARD_TYPE, G_FILE_QUERY_INFO_NONE, NULL, &gerror);
+	if (gerror && gerror->code == G_IO_ERROR_NOT_FOUND) {
+		g_clear_error(&gerror);
+
 		g_file_make_directory(rcpath, NULL, &gerror);
 		if (gerror) {
-			/* Do something with error */
+			g_warning("Error creating directory: .bluefish\n");
+			g_warning("%s", gerror->message);
 			g_error_free(gerror);
 		}
 	}
 
 	g_object_unref(rcpath);
 	g_object_unref(file);
+	if (finfo)
+		g_object_unref(finfo);
 }
 
 static gchar *
