@@ -65,7 +65,7 @@ typedef struct {
 	gchar *filepattern;
 	gint recursion_level;
 	gboolean is_case_sens;
-	gboolean overlapping;
+/*	gboolean overlapping;*/
 	gboolean escape_chars;
 	gboolean dotmatchall;
 	gboolean select_matches;
@@ -75,7 +75,7 @@ typedef struct {
 	/* the resultss of a search run */
 	gboolean in_replace; /* TRUE if the code is in a replace, so the doc_insert and doc_delete signals do not need to do anything */
 	GQueue results; /* all results */
-	GList *current; /* current result */
+	GList *current; /* current result, used in replace, or when pressing next or previous */
 	guint resultnumdoc; /* the number of unique documents in the resultset */
 	guint searchednumdoc; /* the number of documents searched */
 
@@ -85,7 +85,8 @@ typedef struct {
 	Tdocument *curdoc; /* the current document */
 	gchar *curbuf; /* the current buffer */
 	gint curoffset; /* when running replace all, the difference between the offset in curbuf and the offset in the text widget */
-	guint curposition; /* the position in curbuf to continue the next search run */
+	guint curposition; /* the position in curbuf to continue the next search run, used if the first 
+							search run took longer than our maximum-allowed-gui-block-time */
 	guint so; /* area to search in */
 	guint eo; /* see so */
 	void (*callback) (gpointer data);	/* to be called when the search has finished */

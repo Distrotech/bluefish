@@ -948,6 +948,11 @@ handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 	if (s3run->in_replace || s3run->scope == snr3scope_files) {
 		return;
 	}
+	
+	if (s3run->eo > 0 && s3run->eo < pos) {
+		/* change is beyond the search region, nothing to update */
+		return;
+	}
 	if (s3run->scope != snr3scope_alldocs) { /* allfiles does already return in the 
 			previous check, so if it is not alldocs it must be in a single document */
 		GList *tmplist = g_list_first(s3run->results.head);
@@ -964,7 +969,6 @@ handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 				return;
 			}
 		}
-
 	}
 	
 	comparepos = (len > 0) ? pos : pos - len;
@@ -995,12 +999,17 @@ handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 	rii->s3run = s3run;
 	rii->update = TRUE;
 	rii->so = pos;
+	rii->eo = -1;
 	if (s3run->curposition < pos) {
 		rii->so = s3run->curposition;
 	}
+	if (rii->so < s3run->so) {
+		rii->so = s3run->so;
+	}
+	if (s3run->eo != -1) {
+		rii->eo = s3run->eo;
+	}
 	rii->doc = doc;
-	rii->eo = -1;
-	/* TODO: BUG: what if the region is not all of the document, but just a part of it (a selection ?? */
 	if (s3run->curdoc == doc) {
 		snr3_cancel_run(s3run);
 		if (s3run->callback != update_callback) {
