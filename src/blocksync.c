@@ -274,7 +274,6 @@ static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *
 		DEBUG_MSG("searchpat=%s\n",searchpat);
 		g_free(tmp1);
 		g_free(tmp2);
-		/* BUG: what if the start or endmarkers contain special pcre patterns ? */
 		snr3_run_extern_replace(bsdialog->bfwin->current_document, searchpat, snr3scope_alldocs,snr3type_pcre,TRUE, bsdialog->allblock,FALSE);
 		g_free(searchpat);
 		

@@ -1416,10 +1416,10 @@ build_lang_thread(gpointer data)
 			if (xmlTextReaderIsEmptyElement(reader)) {
 				DBG_PARSING("empty <definition />\n");
 				/* empty <definition />, probably text/plain */
-				
-				/* TODO: MEMLEAK: BUG: cleanup the DFA table for each context !!!!!!!!!!!!! */
 				g_array_free(bfparser->st->matches, TRUE);
 				g_array_free(bfparser->st->contexts, TRUE);
+				g_array_free(bfparser->st->comments, TRUE);
+				g_array_free(bfparser->st->blocks, TRUE);
 				g_slice_free(Tscantable, bfparser->st);
 				bfparser->st = NULL;
 				xmlFree(name);

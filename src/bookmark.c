@@ -1396,7 +1396,6 @@ bookmark_data_new(void)
 											NULL);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(bmd->bookmarkstore),
 										 GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, GTK_SORT_ASCENDING);
-	/* BUG: shouldn't we free the data in the hash table when we close a project? */
 	bmd->bmarkfiles = g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, bmark_hash_key_free, bmark_hash_value_free);
 	DEBUG_MSG("bookmark_data_new, created bookmarkstore at %p\n", bmd->bookmarkstore);
 	return bmd;
