@@ -1316,6 +1316,9 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
 	Tsnr3run *s3run = snrwin->s3run;
 	gint guichange;
+	if (!snrwin || !s3run)
+		return;
+	
 	if (response == GTK_RESPONSE_CLOSE || response == GTK_RESPONSE_DELETE_EVENT) {
 		/* freeing is done in the destroy callback */
 		DEBUG_MSG("snr3_advanced_response, destroy widget\n");
