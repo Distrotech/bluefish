@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-06-05 21:47+0200\n"
-"PO-Revision-Date: 2011-04-28 10:04+0200\n"
+"PO-Revision-Date: 2012-06-18 12:34+0400\n"
 "Last-Translator: Fr. Br. George <george@altlinux.org>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -25,9 +25,8 @@ msgid "Cascading Style Sheet Builder"
 msgstr "Конструктор Cascading Style Sheet"
 
 #: src/plugin_htmlbar/html2.c:654
-#, fuzzy
 msgid "_Selector(s):"
-msgstr "Панель в_ыбора:"
+msgstr "_Область (-ти) действия:"
 
 #: src/plugin_htmlbar/html2.c:680
 msgid "_Property:"
@@ -39,9 +38,8 @@ msgid "_Value:"
 msgstr "_Значение:"
 
 #: src/plugin_htmlbar/html2.c:704
-#, fuzzy
 msgid "Selector(s)"
-msgstr "Панель выбора"
+msgstr "Область (-ти) действия стиля"
 
 #: src/plugin_htmlbar/html2.c:708
 msgid "Property"
@@ -81,15 +79,15 @@ msgstr "Редактировать метку"
 
 #: src/plugin_htmlbar/htmlbar.c:98
 msgid "Htmlbar"
-msgstr ""
+msgstr "Панель HTML"
 
 #: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
-msgstr ""
+msgstr "Свойства HTML"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:960
 msgid "T_ags"
-msgstr "_Тэги"
+msgstr "_Теги"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:961
 msgid "_Headings"
@@ -145,7 +143,7 @@ msgstr "Вставить тег H6"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:974
 msgid "_Entities"
-msgstr ""
+msgstr "_Сущности"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:975
 msgid "_Non-breaking space"
@@ -808,14 +806,12 @@ msgid "Style"
 msgstr "Стиль"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "C_olumns..."
-msgstr "Графическая область..."
+msgstr "_Столбцы..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "Columns..."
-msgstr "Графическая область..."
+msgstr "Столбцы..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1138
 msgid "_Link to Stylesheet..."
@@ -1111,14 +1107,12 @@ msgid "Time..."
 msgstr "Время..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert _Color"
-msgstr "Цвет _текста:"
+msgstr "Вставить _цвет"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert Color"
-msgstr "Вставить"
+msgstr "Вставить цвет"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "_HTML Toolbar"
@@ -1138,54 +1132,44 @@ msgstr ""
 "Щелчок правой клавишей мыши на кнопке добавляет ей в панель быстрого доступа"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1454
-#, fuzzy
 msgid "Quickbar"
-msgstr " Панель быстрого доступа "
+msgstr "Панель быстрого доступа"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1457
-#, fuzzy
 msgid "Standard"
-msgstr " Стандартная панель "
+msgstr "Стандартная панель"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1460
-#, fuzzy
 msgid "HTML 5"
-msgstr " HTML 5 "
+msgstr "HTML 5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1463
-#, fuzzy
 msgid "Formatting"
-msgstr " Форматирование "
+msgstr "Форматирование"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1466
-#, fuzzy
 msgid "Tables"
-msgstr "Таблица"
+msgstr "Таблицы"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1469
-#, fuzzy
 msgid "List"
-msgstr "_Список"
+msgstr "Список"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1472
-#, fuzzy
 msgid "CSS"
-msgstr "_CSS"
+msgstr "CSS"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1475
-#, fuzzy
 msgid "Forms"
-msgstr "Форма"
+msgstr "Формы"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1478
-#, fuzzy
 msgid "Fonts"
-msgstr "Шрифт"
+msgstr "Шрифты"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1481
-#, fuzzy
 msgid "Frames"
-msgstr "Фрейм:"
+msgstr "Фреймы"
 
 #: src/plugin_htmlbar/html.c:403
 msgid "Insert Time"
@@ -1562,9 +1546,8 @@ msgid "_Rows:"
 msgstr "Ст_рок"
 
 #: src/plugin_htmlbar/html.c:1679
-#, fuzzy
 msgid "_Add &lt;frame&gt; elements"
-msgstr "_Добавить элементы <frame>"
+msgstr "_Добавить элементы &lt;frame&gt;"
 
 #: src/plugin_htmlbar/html.c:1763 src/plugin_htmlbar/html.c:1866
 #: src/plugin_htmlbar/html.c:2036 src/plugin_htmlbar/html.c:2219
@@ -1720,66 +1703,63 @@ msgstr "_Задержка:"
 #.
 #: src/plugin_htmlbar/html.c:2500
 msgid "CSS3 multi-column layout"
-msgstr ""
+msgstr "Размещение CSS3 в несколько столбцов"
 
 #: src/plugin_htmlbar/html.c:2507
 msgid "Auto (default) or number of columns"
-msgstr ""
+msgstr "Количество столбцов (по умолчанию или заданное)"
 
 #: src/plugin_htmlbar/html.c:2516
 msgid "Auto (default) or width"
-msgstr ""
+msgstr "Ширина (по умолчанию или заданная)"
 
 #: src/plugin_htmlbar/html.c:2528
 msgid "Normal (default) or width of the gap between columns"
-msgstr ""
+msgstr "Стандартный или заданный пробел между столбцами"
 
 #: src/plugin_htmlbar/html.c:2546
 msgid "None (default) or style"
-msgstr ""
+msgstr "Стиль (по умолчанию пустой или заданный)"
 
 #: src/plugin_htmlbar/html.c:2552
 msgid "Medium (default) or width"
-msgstr ""
+msgstr "Средняя (по умолчанию) или заданная ширина"
 
 #: src/plugin_htmlbar/html.c:2565
 msgid "Use vendor-prefixed CSS property:"
-msgstr ""
+msgstr "Свойства CSS, ориентированные на вендора:"
 
 #: src/plugin_htmlbar/html.c:2573
-#, fuzzy
 msgid "styles_heet"
-msgstr "Создать таблицу стилей..."
+msgstr "таблица _стилей"
 
 #: src/plugin_htmlbar/html.c:2574
 msgid "Add selector(s) to create a new rule"
-msgstr ""
+msgstr "Для создания нового правила добавьте область (-ти) действия"
 
 #: src/plugin_htmlbar/html.c:2576
-#, fuzzy
 msgid "style a_ttribute"
-msgstr "Атрибуты"
+msgstr "атрибут стиля"
 
 #: src/plugin_htmlbar/html.c:2577
 msgid "Add a style attribute in tag"
-msgstr ""
+msgstr "Добавить в тег атрибут стиля"
 
 #: src/plugin_htmlbar/html.c:2579
 msgid "style _values"
-msgstr ""
+msgstr "значения _стилей"
 
 #: src/plugin_htmlbar/html.c:2580
 msgid "Add values in a style attribute"
-msgstr ""
+msgstr "Добавьте значения в атрибуты стилей"
 
 #: src/plugin_htmlbar/html.c:2590
-#, fuzzy
 msgid "Selecto_rs:"
-msgstr "Панель в_ыбора:"
+msgstr "Области _действия:"
 
 #: src/plugin_htmlbar/html.c:2591
 msgid "Leave empty to insert declarations into an existing rule."
-msgstr ""
+msgstr "Для добавления определений в существующее правило оставьте поле пустым"
 
 #: src/plugin_htmlbar/html.c:2651
 msgid "Link"
@@ -1904,61 +1884,61 @@ msgstr "Кнопка"
 
 #: src/plugin_htmlbar/html_table.c:108
 msgid "<span color=\"#006000\">Cell _Padding:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Внутренний отступ:</span>"
 
 #: src/plugin_htmlbar/html_table.c:117
 msgid "<span color=\"#006000\">C_ell Spacing:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Внешний _отступ:</span>"
 
 #: src/plugin_htmlbar/html_table.c:144 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:377
 msgid "<span color=\"#006000\">_Align:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Вы_равнивание:</span>"
 
 #: src/plugin_htmlbar/html_table.c:149 src/plugin_htmlbar/html_table.c:273
 #: src/plugin_htmlbar/html_table.c:449
 msgid "<span color=\"red\">_bgcolor:</span>"
-msgstr ""
+msgstr "<span color=\"red\">Цвет _фона:</span>"
 
 #: src/plugin_htmlbar/html_table.c:155
 msgid "<span color=\"#006000\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Ширина:</span>"
 
 #: src/plugin_htmlbar/html_table.c:162
 msgid "<span color=\"#006000\">Bo_rder:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Г_раница:</span>"
 
 #: src/plugin_htmlbar/html_table.c:168
 msgid "<span color=\"#A36A00\">_Border:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Граница:</span>"
 
 #: src/plugin_htmlbar/html_table.c:183
 msgid "<span color=\"#006000\">_Frame:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Рамка:</span>"
 
 #: src/plugin_htmlbar/html_table.c:194
 msgid "<span color=\"#006000\">R_ules:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Правила:</span>"
 
 #: src/plugin_htmlbar/html_table.c:264 src/plugin_htmlbar/html_table.c:388
 msgid "<span color=\"#006000\">_Valign:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Вертикальное выравнивание:</span>"
 
 #: src/plugin_htmlbar/html_table.c:396
 msgid "<span color=\"#A36A00\">_Headers:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Заголовки:</span>"
 
 #: src/plugin_htmlbar/html_table.c:397
 msgid "Set of space-separated IDs of th elements."
-msgstr ""
+msgstr "Набор идентификаторов элементов, разделённых пробелами"
 
 #: src/plugin_htmlbar/html_table.c:408
 msgid "<span color=\"#A36A00\">_Scope:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Область видимости:</span>"
 
 #: src/plugin_htmlbar/html_table.c:410
 msgid "the header cell applies to cells in the same:"
-msgstr ""
+msgstr "ячейка заголовка относится к ячейкам в:"
 
 #: src/plugin_htmlbar/html_table.c:422
 msgid "Co_l Span:"
@@ -1970,15 +1950,15 @@ msgstr "Расстояние между ст_роками:"
 
 #: src/plugin_htmlbar/html_table.c:431
 msgid "<span color=\"red\">No _Wrap:</span>"
-msgstr ""
+msgstr "<span color=\"red\">Без _переноса</span>"
 
 #: src/plugin_htmlbar/html_table.c:437
 msgid "<span color=\"red\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_Ширина:</span>"
 
 #: src/plugin_htmlbar/html_table.c:444
 msgid "<span color=\"red\">_Height:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_Высота:</span>"
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:334
@@ -2262,62 +2242,52 @@ msgid "Size:"
 msgstr "Размер:"
 
 #: src/plugin_htmlbar/prefs.c:66
-#, fuzzy
 msgid "<b>HTML Toolbar</b>"
-msgstr "Панель _HTML"
+msgstr "<b>Панель HTML</b>"
 
 #: src/plugin_htmlbar/prefs.c:69
-#, fuzzy
 msgid "Show toolbar in sidepanel"
-msgstr "Показывать основную панель инструментов по умолчанию"
+msgstr "Показывать в боковой панели"
 
 #: src/plugin_htmlbar/prefs.c:70
-#, fuzzy
 msgid "Keep HTML dialogs always on top"
 msgstr "Сделать диалоги HTML постоянными"
 
 #: src/plugin_htmlbar/prefs.c:75
-#, fuzzy
 msgid "<b>HTML options</b>"
-msgstr "Параметры HTML"
+msgstr "<b>Параметры HTML</b>"
 
 #: src/plugin_htmlbar/prefs.c:79
-#, fuzzy
 msgid "Use _XHTML style tags (<br />)"
-msgstr "Использовать тэги как в XHTML (<br />)"
+msgstr "Использовать теги как в _XHTML (<br />)"
 
 #: src/plugin_htmlbar/prefs.c:81
-#, fuzzy
 msgid "Use lo_wercase HTML tags"
-msgstr "Тэги HTML строчными буквами"
+msgstr "Теги HTML _строчными буквами"
 
 #: src/plugin_htmlbar/prefs.c:83
-#, fuzzy
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
-msgstr "Использовать устаревшии тэги (например, <font> и <nobr>)"
+msgstr "Использовать устаревшие теги (например, <font> и <nobr>)"
 
 #: src/plugin_htmlbar/prefs.c:87
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
-msgstr ""
+msgstr "_Форматировать в соответствии с рекомендациями по оформлению доступного кода (например, <strong> вместо <b>)"
 
 #: src/plugin_htmlbar/prefs.c:92
 msgid "<b>Auto Update Tag Options</b>"
-msgstr ""
+msgstr "<b>Автоматически обновлять теги</b>"
 
 #: src/plugin_htmlbar/prefs.c:96
-#, fuzzy
 msgid "Automatically update a_uthor meta tag"
-msgstr "Автоматически обновлять метатэг автора"
+msgstr "Автоматически обновлять метатег _автора"
 
 #: src/plugin_htmlbar/prefs.c:99
-#, fuzzy
 msgid "Automatically update _date meta tag"
-msgstr "Автоматически обновлять метатэг автора"
+msgstr "Автоматически обновлять метатег _даты"
 
 #: src/plugin_htmlbar/prefs.c:102
-#, fuzzy
 msgid "Automatically update _generator meta tag"
-msgstr "Автоматически обновлять метатэг автора"
+msgstr "Автоматически обновлять метатег _generator"
 
 #, fuzzy
 #~ msgid "_Length"
@@ -2759,310 +2729,310 @@ msgstr "Автоматически обновлять метатэг автор�
 #~ msgstr "Новый проект"
 
 #~ msgid "/Tags/_Headings"
-#~ msgstr "/Тэги/Заголовки _H"
+#~ msgstr "/Теги/Заголовки _H"
 
 #~ msgid "/Tags/Headings/H_1"
-#~ msgstr "/Тэги/Заголовки/H_1"
+#~ msgstr "/Теги/Заголовки/H_1"
 
 #~ msgid "/Tags/Headings/H_2"
-#~ msgstr "/Тэги/Заголовки/H_2"
+#~ msgstr "/Теги/Заголовки/H_2"
 
 #~ msgid "/Tags/Headings/H_3"
-#~ msgstr "/Тэги/Заголовки/H_3"
+#~ msgstr "/Теги/Заголовки/H_3"
 
 #~ msgid "/Tags/Headings/H_4"
-#~ msgstr "/Тэги/Заголовки/H_4"
+#~ msgstr "/Теги/Заголовки/H_4"
 
 #~ msgid "/Tags/Headings/H_5"
-#~ msgstr "/Тэги/Заголовки/H_5"
+#~ msgstr "/Теги/Заголовки/H_5"
 
 #~ msgid "/Tags/Headings/H_6"
-#~ msgstr "/Тэги/Заголовки/H_6"
+#~ msgstr "/Теги/Заголовки/H_6"
 
 #~ msgid "/Tags/Special/_Accent"
-#~ msgstr "/Тэги/Особые/_Accent"
+#~ msgstr "/Теги/Особые/_Accent"
 
 #~ msgid "/Tags/Special/Accent/_Uppercase"
-#~ msgstr "/Тэги/Особые/Accent/Прописные _U"
+#~ msgstr "/Теги/Особые/Accent/Прописные _U"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/_A-I"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/_A-I"
+#~ msgstr "/Теги/Особые/Accent/Прописные/_A-I"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/A штрих влево À"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/A штрих влево À"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/A штрих вправо Á"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/A штрих вправо Á"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/A с крышкой Â"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/A с крышкой Â"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/A с тильдой Ã"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/A с тильдой Ã"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/Лигатура AE Æ"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/Лигатура AE Æ"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/A с двумя точками Ä"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/A с двумя точками Ä"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/A с кольцом Å"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/A с кольцом Å"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/C cedilla Ç"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/C cedilla Ç"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/E штрих влево È"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/E штрих влево È"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/E штрих вправо É"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/E штрих вправо É"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/E с крышкой Ê"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/E с крышкой Ê"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/E с двумя точками Ë"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/E с двумя точками Ë"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/I штрих влево Ì"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/I штрих влево Ì"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/I штрих вправо Í"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/I штрих вправо Í"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/I с крышкой Î"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/I с крышкой Î"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/I с двумя точками Ï"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/I с двумя точками Ï"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/_J-Z"
+#~ msgstr "/Теги/Особые/Accent/Прописные/_J-Z"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/N с тильдой Ñ"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/N с тильдой Ñ"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O штрих влево Ò"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/O штрих влево Ò"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O штрих вправо Ó"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/O штрих вправо Ó"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O с крышкой Ô"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/O с крышкой Ô"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/Лигатура OE Œ"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/Лигатура OE Œ"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O с тильдой Õ"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/O с тильдой Õ"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O с двумя точками Ö"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/O с двумя точками Ö"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O перечеркнутое Ø"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/O перечеркнутое Ø"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/U штрих влево Ù"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/U штрих влево Ù"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/U штрих вправо Ú"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/U штрих вправо Ú"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/U с крышкой Û"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/U с крышкой Û"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/U с двумя точками Ü"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/U с двумя точками Ü"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/Y штрих вправо Ý"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/Y штрих вправо Ý"
 
 #~ msgid "/Tags/Special/Accent/_Lowercase"
-#~ msgstr "/Тэги/Особые/Accent/Строчные _L"
+#~ msgstr "/Теги/Особые/Accent/Строчные _L"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/_A-I"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/_A-I"
+#~ msgstr "/Теги/Особые/Accent/Строчные/_A-I"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/a штрих влево à"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/a штрих влево à"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/a штрих вправо á"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/a штрих вправо á"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/a с крышкой â"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/a с крышкой â"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/a с тильдой ã"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/a с тильдой ã"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/a с кольцом å"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/a с кольцом å"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/Лигатура ae æ"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/Лигатура ae æ"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/a с двумя точками ä"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/a с двумя точками ä"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/c cedilla ç"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/c cedilla ç"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/e штрих влево è"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/e штрих влево è"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/e штрих вправо é"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/e штрих вправо é"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/e с крышкой ê"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/e с крышкой ê"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/e с двумя точками ë"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/e с двумя точками ë"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/i штрих влево ì"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/i штрих влево ì"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/i штрих вправо í"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/i штрих вправо í"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/i с крышкой î"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/i с крышкой î"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/i с двумя точками ï"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/i с двумя точками ï"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/_J-Z"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/_J-Z"
+#~ msgstr "/Теги/Особые/Accent/Строчные/_J-Z"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/n с тильдой ñ"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/n с тильдой ñ"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o штрих влево ò"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/o штрих влево ò"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o штрих вправо ó"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/o штрих вправо ó"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/Лигатура oe œ"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/Лигатура oe œ"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o с крышкой ô"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/o с крышкой ô"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o с тильдой õ"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/o с тильдой õ"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o с двумя точками ö"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/o с двумя точками ö"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o перечеркнутое ø"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/o перечеркнутое ø"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/u штрих влево ù"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/u штрих влево ù"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/u штрих вправо ú"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/u штрих вправо ú"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/u с крышкой û"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/u с крышкой û"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/u с двумя точками ü"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/u с двумя точками ü"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/y штрих вправо ý"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/y штрих вправо ý"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/y с двумя точками ÿ"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/y с двумя точками ÿ"
 
 #~ msgid "/Tags/Special/Accent/U_mlaut ¨"
-#~ msgstr "/Тэги/Особые/Accent/U_mlaut ¨"
+#~ msgstr "/Теги/Особые/Accent/U_mlaut ¨"
 
 #~ msgid "/Tags/Special/Accent/_Acute ´"
-#~ msgstr "/Тэги/Особые/Accent/Штрих впр_аво ´"
+#~ msgstr "/Теги/Особые/Accent/Штрих впр_аво ´"
 
 #~ msgid "/Tags/Special/Accent/_Cedilla ¸"
-#~ msgstr "/Тэги/Особые/Accent/Засечка _снизу ¸"
+#~ msgstr "/Теги/Особые/Accent/Засечка _снизу ¸"
 
 #~ msgid "/Tags/Special/_Currency"
-#~ msgstr "/Тэги/Особые/Денежные единицы _C"
+#~ msgstr "/Теги/Особые/Денежные единицы _C"
 
 #~ msgid "/Tags/Special/Currency/_Cent sign ¢"
-#~ msgstr "/Тэги/Особые/Денежные единицы/Цент _C ¢"
+#~ msgstr "/Теги/Особые/Денежные единицы/Цент _C ¢"
 
 #~ msgid "/Tags/Special/Currency/C_urrency sign ¤"
-#~ msgstr "/Тэги/Особые/Денежные единицы/Знак валюты _u ¤"
+#~ msgstr "/Теги/Особые/Денежные единицы/Знак валюты _u ¤"
 
 #~ msgid "/Tags/Special/Currency/_Yen sign ¥"
-#~ msgstr "/Тэги/Особые/Денежные единицы/Иена _Y ¥"
+#~ msgstr "/Теги/Особые/Денежные единицы/Иена _Y ¥"
 
 #~ msgid "/Tags/Special/Currency/_Euro €"
-#~ msgstr "/Тэги/Особые/Денежные единицы/_Евро € _E"
+#~ msgstr "/Теги/Особые/Денежные единицы/_Евро € _E"
 
 #~ msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
-#~ msgstr "/Тэги/Особые/Математика и наука/Знак 'логическое НЕТ'_n ¬"
+#~ msgstr "/Теги/Особые/Математика и наука/Знак 'логическое НЕТ'_n ¬"
 
 #~ msgid "/Tags/Special/Math-Science/_Division sign ÷"
-#~ msgstr "/Тэги/Особые/Математика и наука/Знак деления _D ÷"
+#~ msgstr "/Теги/Особые/Математика и наука/Знак деления _D ÷"
 
 #~ msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
-#~ msgstr "/Тэги/Особые/Математика и наука/Знак 'плюс-минус' ±"
+#~ msgstr "/Теги/Особые/Математика и наука/Знак 'плюс-минус' ±"
 
 #~ msgid "/Tags/Special/Math-Science/_Less-than sign <"
-#~ msgstr "/Тэги/Особые/Математика и наука/Знак 'меньше' <"
+#~ msgstr "/Теги/Особые/Математика и наука/Знак 'меньше' <"
 
 #~ msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-#~ msgstr "/Тэги/Особые/Математика и наука/Знак 'больше' >"
+#~ msgstr "/Теги/Особые/Математика и наука/Знак 'больше' >"
 
 #~ msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
-#~ msgstr "/Тэги/Особые/Математика и наука/Верхний индекс _1 ¹"
+#~ msgstr "/Теги/Особые/Математика и наука/Верхний индекс _1 ¹"
 
 #~ msgid "/Tags/Special/Math-Science/Superscript _2 ²"
-#~ msgstr "/Тэги/Особые/Математика и наука/Верхний индекс _2 ²"
+#~ msgstr "/Теги/Особые/Математика и наука/Верхний индекс _2 ²"
 
 #~ msgid "/Tags/Special/Math-Science/Superscript _3 ³"
-#~ msgstr "/Тэги/Особые/Математика и наука/Верхний индекс _3 ³"
+#~ msgstr "/Теги/Особые/Математика и наука/Верхний индекс _3 ³"
 
 #~ msgid "/Tags/Special/Math-Science/One _quarter ¼"
-#~ msgstr "/Тэги/Особые/Математика и наука/Четверть _q ¼"
+#~ msgstr "/Теги/Особые/Математика и наука/Четверть _q ¼"
 
 #~ msgid "/Tags/Special/Math-Science/One _half ½"
-#~ msgstr "/Тэги/Особые/Математика и наука/Одна вторая _h ½"
+#~ msgstr "/Теги/Особые/Математика и наука/Одна вторая _h ½"
 
 #~ msgid "/Tags/Special/Math-Science/_Three quarters ¾"
-#~ msgstr "/Тэги/Особые/Математика и наука/Три четверти _T ¾"
+#~ msgstr "/Теги/Особые/Математика и наука/Три четверти _T ¾"
 
 #~ msgid "/Tags/Special/Math-Science/Deg_ree sign °"
-#~ msgstr "/Тэги/Особые/Математика и наука/Знак 'градус' _r °"
+#~ msgstr "/Теги/Особые/Математика и наука/Знак 'градус' _r °"
 
 #~ msgid "/Tags/Special/_Non Latin"
-#~ msgstr "/Тэги/Особые/Нелатинские символы _N"
+#~ msgstr "/Теги/Особые/Нелатинские символы _N"
 
 #~ msgid "/Tags/Special/Non Latin/th_orn ÿ"
-#~ msgstr "/Тэги/Особые/Нелатинские символы/th_orn ÿ"
+#~ msgstr "/Теги/Особые/Нелатинские символы/th_orn ÿ"
 
 #~ msgid "/Tags/Special/Non Latin/Sharp _s ß"
-#~ msgstr "/Тэги/Особые/Нелатинские символы/Sharp _s ß"
+#~ msgstr "/Теги/Особые/Нелатинские символы/Sharp _s ß"
 
 #~ msgid "/Tags/Special/Non Latin/_Micro sign µ"
-#~ msgstr "/Тэги/Особые/Нелатинские символы/Знак '_микро' µ"
+#~ msgstr "/Теги/Особые/Нелатинские символы/Знак '_микро' µ"
 
 #~ msgid "/Tags/Special/_Other"
-#~ msgstr "/Тэги/Особые/Прочие _O"
+#~ msgstr "/Теги/Особые/Прочие _O"
 
 #~ msgid "/Tags/Special/Other/_Non-breaking space"
-#~ msgstr "/Тэги/Особые/Прочие/Неразделяемый пробел"
+#~ msgstr "/Теги/Особые/Прочие/Неразделяемый пробел"
 
 #~ msgid "/Tags/Special/Other/_Broken bar ¦"
-#~ msgstr "/Тэги/Особые/Прочие/Черта с разрывом ¦"
+#~ msgstr "/Теги/Особые/Прочие/Черта с разрывом ¦"
 
 #~ msgid "/Tags/Special/Other/Soft _hyphen -"
-#~ msgstr "/Тэги/Особые/Прочие/Мягкий перенос -"
+#~ msgstr "/Теги/Особые/Прочие/Мягкий перенос -"
 
 #~ msgid "/Tags/Special/Other/Middle _dot ·"
-#~ msgstr "/Тэги/Особые/Прочие/Точка посередине ·"
+#~ msgstr "/Теги/Особые/Прочие/Точка посередине ·"
 
 #~ msgid "/Tags/Format by layout/_Bold"
 #~ msgstr "/Теги/Форматирование/Жирный шрифт _B"
@@ -3194,22 +3164,22 @@ msgstr "Автоматически обновлять метатэг автор�
 #~ msgstr "/Теги/Список/_Меню"
 
 #~ msgid "/Tags/Form/_Form"
-#~ msgstr "/Тэги/Форма/Форма _o"
+#~ msgstr "/Теги/Форма/Форма _o"
 
 #~ msgid "/Tags/Form/_Button"
-#~ msgstr "/Тэги/Форма/_Кнопка"
+#~ msgstr "/Теги/Форма/_Кнопка"
 
 #~ msgid "/Tags/Form/_Input"
-#~ msgstr "/Тэги/Форма/_Элемент ввода"
+#~ msgstr "/Теги/Форма/_Элемент ввода"
 
 #~ msgid "/Tags/Form/_Textarea"
-#~ msgstr "/Тэги/Форма/Область _ввода"
+#~ msgstr "/Теги/Форма/Область _ввода"
 
 #~ msgid "/Tags/_Misc"
 #~ msgstr "/Теги/Ра_зное"
 
 #~ msgid "/Tags/Misc/_Span"
-#~ msgstr "/Тэги/Разное/_Span"
+#~ msgstr "/Теги/Разное/_Span"
 
 #~ msgid "/Tags/Misc/_Div"
 #~ msgstr "/Теги/Разное/_Div"
@@ -3263,7 +3233,7 @@ msgstr "Автоматически обновлять метатэг автор�
 #~ msgstr "/Диалоги/Общие/Заготовка списка... _l"
 
 #~ msgid "/Dialogs/General/_Meta..."
-#~ msgstr "/Диалоги/Общие/Мета тэг... _M"
+#~ msgstr "/Диалоги/Общие/Мета тег... _M"
 
 #~ msgid "/Dialogs/General/Embe_d..."
 #~ msgstr "/Диалоги/Общие/Внедрить... _d"
@@ -3407,43 +3377,43 @@ msgstr "Автоматически обновлять метатэг автор�
 #~ msgstr "Переводчики"
 
 #~ msgid "/Tags/Tearoff1"
-#~ msgstr "/Тэги/Tearoff1"
+#~ msgstr "/Теги/Tearoff1"
 
 #~ msgid "/Tags/Headings/Tearoff1"
-#~ msgstr "/Тэги/Заголовки/Tearoff1"
+#~ msgstr "/Теги/Заголовки/Tearoff1"
 
 #~ msgid "/Tags/Special/tearoff1"
-#~ msgstr "/Тэги/Особые/tearoff1"
+#~ msgstr "/Теги/Особые/tearoff1"
 
 #~ msgid "/Tags/Special/Accent/tearoff1"
-#~ msgstr "/Тэги/Особые/Accent/tearoff1"
+#~ msgstr "/Теги/Особые/Accent/tearoff1"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/A-I/tearoff1"
+#~ msgstr "/Теги/Особые/Accent/Прописные/A-I/tearoff1"
 
 #~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-#~ msgstr "/Тэги/Особые/Accent/Прописные/J-Z/tearoff1"
+#~ msgstr "/Теги/Особые/Accent/Прописные/J-Z/tearoff1"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/A-I/tearoff1"
+#~ msgstr "/Теги/Особые/Accent/Строчные/A-I/tearoff1"
 
 #~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-#~ msgstr "/Тэги/Особые/Accent/Строчные/J-Z/tearoff1"
+#~ msgstr "/Теги/Особые/Accent/Строчные/J-Z/tearoff1"
 
 #~ msgid "/Tags/Special/Accent/separator"
-#~ msgstr "/Тэги/Особые/Accent/Разделитель"
+#~ msgstr "/Теги/Особые/Accent/Разделитель"
 
 #~ msgid "/Tags/Special/Currency/tearoff1"
-#~ msgstr "/Тэги/Особые/Денежные единицы/tearoff1"
+#~ msgstr "/Теги/Особые/Денежные единицы/tearoff1"
 
 #~ msgid "/Tags/Special/Math-Science/tearoff1"
-#~ msgstr "/Тэги/Особые/Математика и наука/tearoff1"
+#~ msgstr "/Теги/Особые/Математика и наука/tearoff1"
 
 #~ msgid "/Tags/Special/Non Latin/tearoff1"
-#~ msgstr "/Тэги/Особые/Нелатинские символы/tearoff1"
+#~ msgstr "/Теги/Особые/Нелатинские символы/tearoff1"
 
 #~ msgid "/Tags/Special/Other/tearoff1"
-#~ msgstr "/Тэги/Особые/Прочие/tearoff1"
+#~ msgstr "/Теги/Особые/Прочие/tearoff1"
 
 #~ msgid "/Tags/Format by layout/tearoff1"
 #~ msgstr "/Теги/Форматирование/tearoff1"
@@ -3464,7 +3434,7 @@ msgstr "Автоматически обновлять метатэг автор�
 #~ msgstr "/Теги/Список/tearoff1"
 
 #~ msgid "/Tags/Form/tearoff1"
-#~ msgstr "/Тэги/Форма/tearoff1"
+#~ msgstr "/Теги/Форма/tearoff1"
 
 #~ msgid "/Tags/Misc/tearoff1"
 #~ msgstr "/Теги/Разное/tearoff1"
@@ -4877,7 +4847,7 @@ msgstr "Автоматически обновлять метатэг автор�
 #~ msgstr "/Документ/sep1"
 
 #~ msgid "/Document/Auto Close H_TML tags"
-#~ msgstr "/Документ/Автоматически закрывать тэги H_TML"
+#~ msgstr "/Документ/Автоматически закрывать теги H_TML"
 
 #~ msgid "/Document/_Wrap"
 #~ msgstr "/Документ/Пере_нос строк"
@@ -5166,7 +5136,7 @@ msgstr "Автоматически обновлять метатэг автор�
 #~ msgstr "regex содержимого"
 
 #~ msgid "Auto close tags mode"
-#~ msgstr "Режим автоматического закрытия тэгов"
+#~ msgstr "Режим автоматического закрытия тегов"
 
 #~ msgid "Inverse filter"
 #~ msgstr "Инверсная фильтрация"
@@ -5335,7 +5305,7 @@ msgstr "Автоматически обновлять метатэг автор�
 #~ msgstr "Таблица символов по умолчанию"
 
 #~ msgid "Auto set <meta> encoding tag on change"
-#~ msgstr "Автоматически ставить тэг <meta> при изменении"
+#~ msgstr "Автоматически ставить тег <meta> при изменении"
 
 #~ msgid "Backup"
 #~ msgstr "Резервное копирование"
@@ -5749,7 +5719,7 @@ msgstr "Автоматически обновлять метатэг автор�
 #~ msgstr "Тип документа _D"
 
 #~ msgid "Header tags:"
-#~ msgstr "Тэги заголовков:"
+#~ msgstr "Теги заголовков:"
 
 #~ msgid "Loading file(s)..."
 #~ msgstr "Загрузка файл(а,ов)..."
