@@ -1316,8 +1316,6 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
 	Tsnr3run *s3run = snrwin->s3run;
 	gint guichange;
-	if (!snrwin || !s3run)
-		return;
 	
 	if (response == GTK_RESPONSE_CLOSE || response == GTK_RESPONSE_DELETE_EVENT) {
 		/* freeing is done in the destroy callback */
@@ -1337,7 +1335,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 	}
 
 	if (!snrwin->s3run) {
-		snrwin->s3run = snr3run_new(snrwin->bfwin, snrwin);
+		s3run = snrwin->s3run = snr3run_new(snrwin->bfwin, snrwin);
 	}
 	
 	guichange = snr3run_init_from_gui(snrwin, snrwin->s3run);
