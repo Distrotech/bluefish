@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-06-05 22:07+0200\n"
-"PO-Revision-Date: 2012-02-15 19:41+0100\n"
+"PO-Revision-Date: 2012-06-18 22:49+0200\n"
 "Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
-"Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
+"Language-Team: Norsk (nynorsk) <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Language: nn\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\\\\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
 msgid "Bluefish Editor"
@@ -26,7 +26,7 @@ msgstr "Skriveprogram for nettsideutvikling"
 
 #: ../desktop-data/bluefish.desktop.in.h:3
 msgid "programming;code;html;php;python;"
-msgstr ""
+msgstr "programming;code;html;php;python;"
 
 #: ../desktop-data/bluefish.xml.in.h:1
 msgid "Bluefish language definition file"
@@ -45,14 +45,14 @@ msgid "Expand all"
 msgstr "Utvid alle"
 
 #: ../src/bftextview2.c:1591
-#, fuzzy, c-format
+#, c-format
 msgid "Collapse %s"
-msgstr "Fald saman alle"
+msgstr "Fald saman %s"
 
 #: ../src/bftextview2.c:1598
-#, fuzzy, c-format
+#, c-format
 msgid "Expand %s"
-msgstr "Utvid alle"
+msgstr "Utvid %s"
 
 #: ../src/bftextview2_spell.c:690
 msgid "Spell check language"
@@ -172,19 +172,16 @@ msgid "_Outputbox"
 msgstr "_Utdatavindauge"
 
 #: ../src/bfwin_uimanager.c:790
-#, fuzzy
 msgid "Fo_rmat"
-msgstr "Normal"
+msgstr "Fo_rmat"
 
 #: ../src/bfwin_uimanager.c:791
-#, fuzzy
 msgid "_Insert"
-msgstr "Set _inn …"
+msgstr "Set _inn"
 
 #: ../src/bfwin_uimanager.c:792
-#, fuzzy
 msgid "Co_nvert"
-msgstr "_Kopla til"
+msgstr "Gjer _om"
 
 #: ../src/bfwin_uimanager.c:796
 msgid "_New"
@@ -241,17 +238,15 @@ msgstr "Set _inn …"
 
 #: ../src/bfwin_uimanager.c:805
 msgid "Insert file"
-msgstr "Sett inn fil"
+msgstr "Set inn fil"
 
 #: ../src/bfwin_uimanager.c:806
-#, fuzzy
 msgid "_Print"
-msgstr "Overordna"
+msgstr "Skriv _ut"
 
 #: ../src/bfwin_uimanager.c:806
-#, fuzzy
 msgid "Print"
-msgstr "Overordna"
+msgstr "Skriv ut"
 
 #: ../src/bfwin_uimanager.c:807
 msgid "U_pload / Download..."
@@ -419,17 +414,15 @@ msgstr "Ordteljing"
 
 #: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
 msgid "Lorem Ipsum generator"
-msgstr ""
+msgstr "Lorem Ipsum-lagar"
 
 #: ../src/bfwin_uimanager.c:852
-#, fuzzy
 msgid "Insert Relative Filename"
-msgstr "_Fjern filnamnet"
+msgstr "Set inn relativt filnamn"
 
 #: ../src/bfwin_uimanager.c:853
-#, fuzzy
 msgid "Insert Absolute Filename"
-msgstr "_Fjern filnamnet"
+msgstr "Set inn absolutt filnamn"
 
 #: ../src/bfwin_uimanager.c:854
 msgid "Indenting to S_paces"
@@ -1269,9 +1262,8 @@ msgid "Cannot display file, unknown characters found."
 msgstr "Klarer ikkje å visa fila: fann ukjende teikn."
 
 #: ../src/document.c:1858
-#, fuzzy
 msgid "Exit fullscreen"
-msgstr "Fullskjermsvising"
+msgstr "Gå ut av fullskjermsvisinga"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
@@ -1414,27 +1406,23 @@ msgstr "Fyll ut tomme oppføringar:"
 
 #: ../src/doc_extern_tools.c:49
 msgid "Number of paragraphs"
-msgstr ""
+msgstr "Tal avsnitt"
 
 #: ../src/doc_extern_tools.c:51
-#, fuzzy
 msgid "Number of sentences"
-msgstr "Tal kolonnar:"
+msgstr "Tal setningar"
 
 #: ../src/doc_extern_tools.c:52
-#, fuzzy
 msgid "Insert plain text"
-msgstr "Sett inn fil"
+msgstr "Set inn rein tekst"
 
 #: ../src/doc_extern_tools.c:52
-#, fuzzy
 msgid "Insert in <li>"
-msgstr "Sett inn fil"
+msgstr "Sett inn i <li>"
 
 #: ../src/doc_extern_tools.c:52
-#, fuzzy
 msgid "Insert in <p>"
-msgstr "Sett inn fil"
+msgstr "Set inn i <p>"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1458,12 +1446,12 @@ msgstr "Legg til eller fjern dokumentkodingar"
 
 #: ../src/external_commands.c:405
 msgid "Supply extra arguments"
-msgstr ""
+msgstr "Legg til tilleggsargument"
 
 #: ../src/external_commands.c:410
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
-msgstr ""
+msgstr "Legg til argument for å definera %%a i '%s'"
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -1656,6 +1644,9 @@ msgid ""
 "which is the equivalent of\n"
 "<b>%s%s</b>"
 msgstr ""
+"<b>%s</b>\n"
+"som er det same som\n"
+"<b>%s%s</b>"
 
 #: ../src/file.c:830
 #, c-format
@@ -2202,19 +2193,17 @@ msgstr "Stave_kontroll"
 #: ../src/preferences.c:889 ../src/preferences.c:1054
 #: ../src/preferences.c:1208 ../src/preferences.c:1401
 #: ../src/preferences.c:1496
-#, fuzzy
 msgid "Add entry"
-msgstr "Legg til mønster"
+msgstr "Legg til oppføring"
 
 #: ../src/preferences.c:891 ../src/preferences.c:1056
 #: ../src/preferences.c:1210 ../src/preferences.c:1403
 #: ../src/preferences.c:1498
-#, fuzzy
 msgid "Delete entry"
-msgstr "Sletta filteret"
+msgstr "Slett oppføringa"
 
 #: ../src/preferences.c:992
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2231,10 +2220,11 @@ msgid ""
 msgstr ""
 "<small><b>Inndataval</b>\n"
 "start med ein | for å senda inndata til standard inndata\n"
-"%s lokalt filnamn (berre for lokale filer)\n"
+"%f lokalt filnamn (berre for lokale filer)\n"
 "%i mellombels filnamn for inndata, er lik %f om dokumentet er uendra og "
 "lokalt\n"
 "<b>Andre val</b>\n"
+"%a tilleggsargument som vil verta spurte etter når filteret er i bruk\n"
 "%c lokal katalog (berre for lokale filer)\n"
 "%n filnamn utan katalogstig (tilgjengeleg for alle namngjevne filer)\n"
 "%u adresse (tilgjengeleg for alle namngjevne filer)\n"
@@ -2250,19 +2240,18 @@ msgstr "Kommando"
 msgid "Default browser"
 msgstr "Standardnettlesar"
 
+# verb eller substantiv?
 #: ../src/preferences.c:1058 ../src/preferences.c:1212
 #: ../src/preferences.c:1405
 msgid "Update defaults"
-msgstr ""
+msgstr "Oppdater standardvala"
 
 #: ../src/preferences.c:1060 ../src/preferences.c:1214
 #: ../src/preferences.c:1407
-#, fuzzy
 msgid "Reset all"
-msgstr "Vel alle"
+msgstr "Nullstill alle"
 
 #: ../src/preferences.c:1150
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2289,8 +2278,9 @@ msgstr ""
 "avslutt med ein | for å lesa utdata frå standard utdata\n"
 "%o mellombels filnamn\n"
 "%t mellombels filnamn for både inn- og utdata (for lokalendrings-filter, "
-"verkar ikkje med utval.)\n"
+"gjeld ikkje utval)\n"
 "<b>Andre val</b>\n"
+"%a tilleggsargument som vil verta spurte etter når filteret er i bruk\n"
 "%c lokal filkatalog (krev lokale filer)\n"
 "%n filnamn utan katalogstig (tilgjengeleg for alle namngjevne filer)\n"
 "%u adresse (tilgjengeleg for alle namngjevne filer)\n"
@@ -2298,7 +2288,7 @@ msgstr ""
 "prosjektinnstillingene, elles identisk med %u</small>"
 
 #: ../src/preferences.c:1336
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2324,8 +2314,8 @@ msgstr ""
 "<b>Utdataval</b>\n"
 "avslutt med ein | for å lesa utdata fra standard utdata\n"
 "%o mellombels filnamn\n"
-"%t mellombels filnamn for både inn- og utdata (for lokalendrings-filter)\n"
-"<b>Andre val</b>\n"
+"<b>Andre val</b\n"
+"%a tilleggsargument som vil verta spurte etter når filteret er i bruk\n"
 "%c lokal filkatalog (tilgjengeleg for lokale filer)\n"
 "%n filnamn utan katalogtre (tilgjengeleg for alle namngjevne filer)\n"
 "%u adresse (tilgjengeleg for alle namngjeve filer)\n"
@@ -2354,7 +2344,7 @@ msgstr "Fil"
 
 #: ../src/preferences.c:1637
 msgid "A restart is needed to see the effect of these options"
-msgstr ""
+msgstr "Desse vala vert tekne i bruk etter neste omstart"
 
 #. 1=text
 #: ../src/preferences.c:1649
@@ -2475,9 +2465,8 @@ msgid "Editor settings"
 msgstr "Skriveprogramsinnstillingane"
 
 #: ../src/preferences.c:2134
-#, fuzzy
 msgid "<b>Editor settings</b>"
-msgstr "Skriveprogramsinnstillingane"
+msgstr "<b>Skriveprogramsinnstillingane</b>"
 
 #: ../src/preferences.c:2142
 msgid "Smart Home/_End cursor positioning"
@@ -2488,9 +2477,8 @@ msgid "_Tab key indents selection"
 msgstr "_Tabulatortasten rykkjer inn utvalet"
 
 #: ../src/preferences.c:2150
-#, fuzzy
 msgid "Automatically insert closing brackets"
-msgstr "Auto sluttparentes"
+msgstr "Set automatisk inn sluttparentesar"
 
 #: ../src/preferences.c:2157
 msgid "Right _margin/split line end position:"
@@ -2513,9 +2501,8 @@ msgid "Clear _history on save"
 msgstr "T_øm historikken etter lagring"
 
 #: ../src/preferences.c:2178
-#, fuzzy
 msgid "Auto-completion & Reference"
-msgstr "Gå til refer_ansen"
+msgstr "Autofullføring & referanse"
 
 #: ../src/preferences.c:2184
 msgid "<b>Auto-completion</b>"
@@ -2534,27 +2521,24 @@ msgid "<b>Reference Information</b>"
 msgstr "<b>Referanseopplysningar</b>"
 
 #: ../src/preferences.c:2202
-#, fuzzy
 msgid "_Load reference data from language files"
-msgstr "Last frå spr_åkfil"
+msgstr "Hent referansedata frå spr_åkfiler"
 
 #: ../src/preferences.c:2205
-#, fuzzy
 msgid "Show references in auto-completion _pop-up window"
-msgstr "Vis i sprett_oppvindauget til auto-fullføringsfunksjonen"
+msgstr "Vis referansar i sprett_oppvindauget til auto-fullføringsfunksjonen"
 
 #: ../src/preferences.c:2208
 msgid "Show references if mouse is over text editor"
-msgstr ""
+msgstr "Syn referansane om musa er over skriveprogrammet"
 
 #: ../src/preferences.c:2217 ../src/preferences.c:2552
 msgid "Font & Colors"
 msgstr "Skrifttypar og fargar"
 
 #: ../src/preferences.c:2223
-#, fuzzy
 msgid "<b>Font &amp; Cursor</b>"
-msgstr "<b>Skrifttype</b>"
+msgstr "<b>Skrifttype &amp; peikar</b>"
 
 #: ../src/preferences.c:2227
 msgid "_Editor font:"
@@ -2562,7 +2546,7 @@ msgstr "_Programskrifttype:"
 
 #: ../src/preferences.c:2235
 msgid "Cursor / font size ratio (%):"
-msgstr ""
+msgstr "Peikar-/skriftstorleiksforhold (%):"
 
 #: ../src/preferences.c:2237 ../src/preferences.c:2578
 msgid "<b>Colors</b>"
@@ -2581,29 +2565,24 @@ msgid "C_ursor color:"
 msgstr "Peikar_farge:"
 
 #: ../src/preferences.c:2256
-#, fuzzy
 msgid "Selection background color"
-msgstr "Bakgrunnsfarge"
+msgstr "Bakgrunnsfarge for utval"
 
 #: ../src/preferences.c:2257
-#, fuzzy
 msgid "_Selection background color:"
-msgstr "_Bakgrunnsfarge:"
+msgstr "Bakgrunnsfarge _utval:"
 
 #: ../src/preferences.c:2262
-#, fuzzy
 msgid "Highlight cursor position"
-msgstr "Framhev den gjeldande _linja"
+msgstr "Framhev peikarplasseringa"
 
 #: ../src/preferences.c:2264
-#, fuzzy
 msgid "Cursor highlight color"
-msgstr "Peikarfarge"
+msgstr "Framhevingsfargen til peikaren"
 
 #: ../src/preferences.c:2265
-#, fuzzy
 msgid "_Cursor highlight color:"
-msgstr "Peikar_farge:"
+msgstr "Framhevings_farge peikar:"
 
 #: ../src/preferences.c:2270
 msgid "Current line color"
@@ -2667,7 +2646,7 @@ msgstr "Endringskontroll av desse fil_eigenskapane på lagringseininga:"
 
 #: ../src/preferences.c:2363
 msgid "Backup & Recovery"
-msgstr ""
+msgstr "Tryggleikskopiering & attendeføring"
 
 #: ../src/preferences.c:2366
 msgid "<b>Backup</b>"
@@ -2710,28 +2689,24 @@ msgid "User interface"
 msgstr "Brukargrensesnitt"
 
 #: ../src/preferences.c:2427
-#, fuzzy
 msgid "<b>Layout</b>"
-msgstr "<b>Skrifttype</b>"
+msgstr "<b>Utforming</b>"
 
 #: ../src/preferences.c:2433
-#, fuzzy
 msgid "Document _tab position:"
-msgstr "_Dokumenttabskrifttype:"
+msgstr "_Dokumentfane-plassering:"
 
 #: ../src/preferences.c:2437
-#, fuzzy
 msgid "_Sidebar position:"
-msgstr "_Tabulatorplassering:"
+msgstr "_Sidestolpeplassering:"
 
 #: ../src/preferences.c:2442
-#, fuzzy
 msgid "Sidebar tab _position:"
-msgstr "Tabulatorp_lassering:"
+msgstr "Fanep_lassering sidestolpe:"
 
 #: ../src/preferences.c:2446
 msgid "Hide toolbars on full-screen"
-msgstr ""
+msgstr "Gøym verktøylinjene ved fullskjermsvising"
 
 #: ../src/preferences.c:2455
 msgid "_Language:"
@@ -2750,14 +2725,12 @@ msgid "_Register recent files with your desktop:"
 msgstr "_Registrer nylege filer på skrivebordet:"
 
 #: ../src/preferences.c:2480
-#, fuzzy
 msgid "Shortcut keys"
-msgstr "Snarvegstast_binding:"
+msgstr "Snarvegstastastar"
 
 #: ../src/preferences.c:2485
-#, fuzzy
 msgid "<b>Shortcut keys</b>"
-msgstr "<b>Dokumenttabulatorar</b>"
+msgstr "<b>Snarvegstastastar</b>"
 
 #: ../src/preferences.c:2488
 msgid "_Switch between tabs with <Alt>+0..9"
@@ -2983,7 +2956,7 @@ msgstr "perl syntakskontroll"
 
 #: ../src/rcfile.c:716
 msgid "php codesniffer"
-msgstr ""
+msgstr "php codesniffer"
 
 #: ../src/rcfile.c:729
 msgid "Sort"
@@ -3006,9 +2979,8 @@ msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
 #: ../src/rcfile.c:743
-#, fuzzy
 msgid "Tidy HTML (perltidy)"
-msgstr "Tidy HTML"
+msgstr "Tidy HTML (perltidy)"
 
 #: ../src/rcfile.c:746
 msgid "Strip empty lines"
@@ -3063,9 +3035,8 @@ msgid "chmod a+x"
 msgstr "chmod a+x"
 
 #: ../src/rcfile.c:817
-#, fuzzy
 msgid "Chromium"
-msgstr "Chrome"
+msgstr "Chromium"
 
 #: ../src/rcfile.c:820
 msgid "Konqueror"
@@ -3178,7 +3149,7 @@ msgstr[1] "<i>Fann %d resultat i det aktive dokumentet</i>"
 
 #: ../src/snr3.c:1359
 msgid "No (more) results"
-msgstr ""
+msgstr "Ingen (fleire) treff"
 
 #: ../src/snr3.c:1457
 msgid "Active document"
