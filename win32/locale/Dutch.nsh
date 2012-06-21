@@ -19,9 +19,9 @@
 !define LICENSEPAGE_FOOTER "${PRODUCT} wordt uitgebracht onder de GNU General Public License. De licentie is beschikbaar ter info. $_CLICK"
 
 ; General Download Messages
-; !define DOWN_LOCAL "Local copy of %s found..."
-; !define DOWN_CHKSUM "Checksum verified..."
-; !define DOWN_CHKSUM_ERROR "Checksum mismatch..."
+!define DOWN_LOCAL "Lokale kopie van %s gevonden..."
+!define DOWN_CHKSUM "Integriteitstest goed..."
+!define DOWN_CHKSUM_ERROR "Integriteitstest gefaald..."
 
 ; Aspell Strings
 !define DICT_INSTALLED "Laatste versie van dit woordenboek is geinstalleerd, nergeer download voor:"
@@ -33,9 +33,9 @@
 !define GTK_DOWNLOAD "Download GTK+ bibliotheek..."
 !define GTK_FAILED "GTK+ bibliotheek download mislukt:"
 !define GTK_INSTALL "Installeer GTK+ bibliotheek..."
-; !define GTK_UNINSTALL "Uninstalling GTK+..."
+!define GTK_UNINSTALL "GTK+ Deinstalleren..."
 !define GTK_PATH "Installeer GTK+ bibliotheek in het systeempad."
-; !define GTK_REQUIRED "Please install GTK+ ${GTK_MIN_VERSION} or higher and make sure it is in your PATH before running Bluefish."
+!define GTK_REQUIRED "Installeer GTK+ ${GTK_MIN_VERSION} of hoger en maak deze beschikbaar in PATH voor het starten van Bluefish."
 
 ; Plugin Names
 !define PLUG_CHARMAP "Karacter map"
@@ -43,7 +43,7 @@
 !define PLUG_HTMLBAR "HTML Balk"
 !define PLUG_INFBROWSER "Info Browser"
 !define PLUG_SNIPPETS "Snippers"
-; !define PLUG_ZENCODING "Zencoding"
+!define PLUG_ZENCODING "Zencoding"
 
 ; File Associations Page
 !define FA_TITLE "Bestands koppeling"
@@ -54,19 +54,19 @@
 ; Misc
 !define FINISHPAGE_LINK "Bezoek de Bluefish website"
 !define UNINSTALL_SHORTCUT "Verwijder ${PRODUCT}"
-; !define FILETYPE_REGISTER "Registering File Type:"
-; !define UNSTABLE_UPGRADE "An unstable release of ${PRODUCT} is installed.$\nShould previous versions be removed before we continue (Recommended)?"
+!define FILETYPE_REGISTER "Registreer Bestandstype:"
+!define UNSTABLE_UPGRADE "Een unstable versie van ${PRODUCT} is geinstalleerd.$\nOude versies eerst verwijderen (aangeraden)?"
 
 ; InetC Plugin Translations
 ;  /TRANSLATE downloading connecting second minute hour plural progress remaining
-; !define INETC_DOWN "Downloading %s"
-; !define INETC_CONN "Connecting ..."
-; !define INETC_TSEC "second"
-; !define INETC_TMIN "minute"
-; !define INETC_THOUR "hour"
-; !define INETC_TPLUR "s"
-; !define INETC_PROGRESS "%dkB (%d%%) of %dkB @ %d.%01dkB/s"
-; !define INETC_REMAIN " (%d %s%s remaining)"
+!define INETC_DOWN "Downloading %s"
+!define INETC_CONN "Connecting ..."
+!define INETC_TSEC "seconde"
+!define INETC_TMIN "minuut"
+!define INETC_THOUR "uur"
+!define INETC_TPLUR "s"
+!define INETC_PROGRESS "%dkB (%d%%) of %dkB @ %d.%01dkB/s"
+!define INETC_REMAIN " (%d %s%s te doen)"
 
 ; Content Types
 !define CT_ADA	"Ada broncode"
@@ -80,17 +80,17 @@
 !define CT_HPP	"C++ Header"
 !define CT_CSS "Cascading Stylesheet"
 !define CT_D	"D Broncode"
-; !define CT_DIFF "Diff/Patch File"
+!define CT_DIFF "Diff/Patch Bestand"
 !define CT_PO	"Gettext Translation"
 !define CT_JAVA	"Java Broncode"	
 !define CT_JS	"JavaScript Script"
 !define CT_JSP	"JavaServer Pages Script"
-; !define CT_MW	"MediaWiki File"
+!define CT_MW	"MediaWiki Bestand"
 !define CT_NSI	"NSIS Script"
 !define CT_NSH	"NSIS Header"
 !define CT_PL	"Perl Script"
 !define CT_PHP	"PHP Script"
-; !define CT_INC	"PHP Include Script"
+!define CT_INC	"PHP Include Script"
 !define CT_TXT	"Plain Text"
 !define CT_PY	"Python Script"
 !define CT_RB	"Ruby Script"
