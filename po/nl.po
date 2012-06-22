@@ -10,14 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 22:07+0200\n"
+"POT-Creation-Date: 2012-06-22 18:21+0200\n"
 "PO-Revision-Date: 2012-02-08 23:13+0100\n"
 "Last-Translator: Olivier <olivier@bluefish.openoffice.nl>\n"
 "Language-Team: nl <>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Virtaal 0.7.0\n"
 
@@ -34,12 +34,12 @@ msgid "programming;code;html;php;python;"
 msgstr "programming;code;html;php;python;"
 
 #: ../desktop-data/bluefish.xml.in.h:1
-msgid "Bluefish language definition file"
-msgstr "Bluefish taal definitie bestand"
-
-#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish project file"
 msgstr "Bluefish project bestand"
+
+#: ../desktop-data/bluefish.xml.in.h:2
+msgid "Bluefish language definition file"
+msgstr "Bluefish taal definitie bestand"
 
 #: ../src/bftextview2.c:1581
 msgid "Collapse all"
@@ -49,13 +49,15 @@ msgstr "Alles inklappen"
 msgid "Expand all"
 msgstr "Alles uitklappen"
 
-#: ../src/bftextview2.c:1591
 # c-format
+#: ../src/bftextview2.c:1591
+#, c-format
 msgid "Collapse %s"
 msgstr "%s Inklappen"
 
+# c-format
 #: ../src/bftextview2.c:1598
-#c-format
+#, c-format
 msgid "Expand %s"
 msgstr "%s Uitklappen"
 
@@ -373,7 +375,7 @@ msgstr "Open project"
 msgid "_Synchronize Text Block"
 msgstr "Synchroniseer tekst blok"
 
-#: ../src/bfwin_uimanager.c:840 ../src/blocksync.c:296
+#: ../src/bfwin_uimanager.c:840 ../src/blocksync.c:295
 msgid "Synchronize text block"
 msgstr "Synchroniseer tekst blok"
 
@@ -1138,19 +1140,19 @@ msgstr "Volgende bladwĳzer"
 msgid "Last bookmark"
 msgstr "Laatste bladwĳzer"
 
-#: ../src/bookmark.c:1961 ../src/bookmark.c:2108
+#: ../src/bookmark.c:1960 ../src/bookmark.c:2107
 msgid "Error adding bookmark"
 msgstr "Fout bĳ toevoegen bladwĳzer"
 
-#: ../src/bookmark.c:1961 ../src/bookmark.c:2108
+#: ../src/bookmark.c:1960 ../src/bookmark.c:2107
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Kan geen bladwĳzers toevoegen aan niet opgeslagen bestanden."
 
-#: ../src/bookmark.c:2042
+#: ../src/bookmark.c:2041
 msgid "Can't add bookmark"
 msgstr "Kan bladwĳzer niet toevoegen"
 
-#: ../src/bookmark.c:2042
+#: ../src/bookmark.c:2041
 msgid "You already have a bookmark here!"
 msgstr "U heeft daar al een bladwĳzer!"
 
@@ -1649,7 +1651,8 @@ msgid ""
 "<b>%s</b>\n"
 "which is the equivalent of\n"
 "<b>%s%s</b>"
-msgstr "<b>%s</b>\n"
+msgstr ""
+"<b>%s</b>\n"
 "wat het equivalent is van\n"
 "<b>%s%s</b>"
 
@@ -2075,7 +2078,7 @@ msgstr "Geen"
 msgid "_Template:"
 msgstr "_Sjablonen"
 
-#: ../src/preferences.c:519 ../src/snr3.c:1526
+#: ../src/preferences.c:519 ../src/snr3.c:1547
 msgid "<b>Options</b>"
 msgstr "<b>Optie's</b>"
 
@@ -2228,13 +2231,13 @@ msgstr ""
 "%f lokale bestandsnaam (beschikbaar voor lokale bestanden)\n"
 "%i tĳdelĳke bestandsnaam voor invoer, is gelĳk aan %f als het document niet "
 "is gewĳzigd en lokaal is\n"
-"<b>Andere optie's</b>\n"
+"<b>Overige optie's</b>\n"
 "%a extra opties die gevraagd worden als dit filter geactiveerd wordt\n"
 "%c lokale directory van bestand (beschikbaar voor lokale bestanden)\n"
 "%n bestandsnaam zonder pad (beschikbaar voor alle documenten met naam)\n"
+"%u URL (beschikbaar voor alle opgeslagen documenten)\n"
 "%p preview URL Als documentroot en preview map zĳn ingesteld in de project "
-"instellingen, anders identiek aan %u\n"
-"</small>"
+"instellingen, anders identiek aan %u</small>"
 
 #: ../src/preferences.c:1018 ../src/preferences.c:1179
 #: ../src/preferences.c:1374
@@ -2276,20 +2279,21 @@ msgid ""
 msgstr ""
 "<small><b>Invoer optie's</b>\n"
 "start met | om standard input (stdin) te gebruiked\n"
-"%f lokale bestandsnaam (vereist een lokaal bestand, werkt niet met selecties)\n"
+"%f lokale bestandsnaam (vereist een lokaal bestand, werkt niet met "
+"selecties)\n"
 "%i tijdelijke bestandsnaam voor invoer\n"
 "<b>Uitvoer optie's</b>\n"
 "eindig met | om de standard output (stdout) te gebruiken\n"
 "%o tijdelijke bestandsnaam\n"
 "%t tijdelijke bestandsnaam voor zowel invoer als uitvoer (voor in-de-plaats-"
 "bewerken filters) werkt niet met selecties\n"
-"<b>Andere optie's</b>\n"
+"<b>Overige optie's</b>\n"
 "%a extra opties die gevraagd worden als dit filter geactiveerd wordt\n"
 "%c lokale directory van bestand (lokaal bestand nodig)\n"
 "%n bestandsnaam zonder pad (beschikbaar voor alle getitelde bestanden)\n"
 "%u URL (beschikbaar voor alle getitelde bestanden)\n"
-"%p preview URL als documentroot en previewmap ingesteld zijn, anders identiek "
-"aan %u</small>"
+"%p preview URL als documentroot en previewmap ingesteld zijn, anders "
+"identiek aan %u</small>"
 
 #: ../src/preferences.c:1336
 msgid ""
@@ -2309,19 +2313,21 @@ msgid ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 msgstr ""
+"<small><b>Invoer optie's</b>\n"
 "start met | om standard input (stdin) te gebruiked\n"
-"%f lokale bestandsnaam (vereist een lokaal bestand, werkt niet met selecties)\n"
-"%i tijdelijke bestandsnaam voor invoer\n"
+"%f lokale bestandsnaam (vereist een lokaal bestand, werkt niet met "
+"selecties)\n"
+"%i tijdelijke bestandsnaam voor invoer, gelijk aan %f voor documenten zonder wijzigingen\n"
 "<b>Uitvoer optie's</b>\n"
 "eindig met | om de standard output (stdout) te gebruiken\n"
 "%o tijdelijke bestandsnaam\n"
-"<b>Andere optie's</b>\n"
+"<b>Overige optie's</b>\n"
 "%a extra opties die gevraagd worden als dit filter geactiveerd wordt\n"
 "%c lokale directory van bestand (lokaal bestand nodig)\n"
 "%n bestandsnaam zonder pad (beschikbaar voor alle getitelde bestanden)\n"
 "%u URL (beschikbaar voor alle getitelde bestanden)\n"
-"%p preview URL als documentroot en previewmap ingesteld zijn, anders identiek "
-"aan %u</small>"
+"%p preview URL als documentroot en previewmap ingesteld zijn, anders "
+"identiek aan %u</small>"
 
 #: ../src/preferences.c:1366
 msgid "Pattern"
@@ -2819,7 +2825,7 @@ msgstr "Document tab _gewijzigd-status kleur"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2609 ../src/rcfile.c:1193
+#: ../src/preferences.c:2609 ../src/rcfile.c:1200
 msgid "Images"
 msgstr "Afbeeldingen"
 
@@ -3076,19 +3082,19 @@ msgstr "HTML 5"
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:1118
+#: ../src/rcfile.c:1125
 msgid "Untitled Project"
 msgstr "Naamloos Project"
 
-#: ../src/rcfile.c:1185
+#: ../src/rcfile.c:1192
 msgid "C programming"
 msgstr "C programmeren"
 
-#: ../src/rcfile.c:1189
+#: ../src/rcfile.c:1196
 msgid "Web files"
 msgstr "Web bestanden"
 
-#: ../src/rcfile.c:1196
+#: ../src/rcfile.c:1203
 msgid "Hide objectfiles"
 msgstr "Object bestanden verbergen"
 
@@ -3129,124 +3135,124 @@ msgid_plural "<i>Found %d entries</i>"
 msgstr[0] "<b>%d resultaat gevonden</b>"
 msgstr[1] "<b>%d resultaten gevonden</b>"
 
-#: ../src/snr3.c:1131
+#: ../src/snr3.c:1151
 #, c-format
 msgid "<i>Found %d result in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr[0] "<i>%d resultaat in %d van de %d documenten</i>"
 msgstr[1] "<i>%d resultaten in %d van de %d documenten</i>"
 
-#: ../src/snr3.c:1135
+#: ../src/snr3.c:1155
 #, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
 msgstr[0] "<i>%d resultaat van karakter %d tot %d</i>"
 msgstr[1] "<i>%d resultaten van karakter %d tot %d</i>"
 
-#: ../src/snr3.c:1138
+#: ../src/snr3.c:1158
 #, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
 msgstr[0] "<i>%d resultaat in het huidige actieve document</i>"
 msgstr[1] "<i>%d resultaten in het huidige actieve document</i>"
 
-#: ../src/snr3.c:1359
+#: ../src/snr3.c:1380
 msgid "No (more) results"
 msgstr "Geen (extra) resultaten"
 
-#: ../src/snr3.c:1457
+#: ../src/snr3.c:1478
 msgid "Active document"
 msgstr "Aktieve document"
 
-#: ../src/snr3.c:1458
+#: ../src/snr3.c:1479
 msgid "Forward from cursor position"
 msgstr "Voorwaarts vanaf cursor positie"
 
-#: ../src/snr3.c:1459
+#: ../src/snr3.c:1480
 msgid "Current selection"
 msgstr "Huidige selectie"
 
-#: ../src/snr3.c:1460
+#: ../src/snr3.c:1481
 msgid "All open documents"
 msgstr "Alle geopende documenten"
 
-#: ../src/snr3.c:1461
+#: ../src/snr3.c:1482
 msgid "Files on disk"
 msgstr "Bestanden op disk"
 
-#: ../src/snr3.c:1465 ../src/snr3.c:1470
+#: ../src/snr3.c:1486 ../src/snr3.c:1491
 msgid "Normal"
 msgstr "Normaal"
 
-#: ../src/snr3.c:1466
+#: ../src/snr3.c:1487
 msgid "Regular expression (pcre)"
 msgstr "Reguliere expressie (pcre)"
 
-#: ../src/snr3.c:1471
+#: ../src/snr3.c:1492
 msgid "Uppercase"
 msgstr "Hoofdletters"
 
-#: ../src/snr3.c:1472
+#: ../src/snr3.c:1493
 msgid "Lowercase"
 msgstr "Kleine letters"
 
-#: ../src/snr3.c:1479
+#: ../src/snr3.c:1500
 msgid "Find and Replace"
 msgstr "Zoek en Vervang"
 
-#: ../src/snr3.c:1498
+#: ../src/snr3.c:1519
 msgid "<b>_Search for</b>"
 msgstr "<b>_Zoek naar</b>"
 
-#: ../src/snr3.c:1521
+#: ../src/snr3.c:1542
 msgid "<b>Replace _with</b>"
 msgstr "<b>Vervang _door</b>"
 
-#: ../src/snr3.c:1536
+#: ../src/snr3.c:1557
 msgid "Match Patter_n: "
 msgstr "Zoekpatroon"
 
-#: ../src/snr3.c:1548
+#: ../src/snr3.c:1569
 msgid "Replace T_ype: "
 msgstr "Vervang Type"
 
-#: ../src/snr3.c:1561
+#: ../src/snr3.c:1582
 msgid "Sco_pe: "
 msgstr "Bereik: "
 
-#: ../src/snr3.c:1571
+#: ../src/snr3.c:1592
 msgid "Filename pattern: "
 msgstr "Bestandsnaam patroon: "
 
-#: ../src/snr3.c:1577
+#: ../src/snr3.c:1598
 msgid "Recursion level: "
 msgstr "Recursie niveau:"
 
-#: ../src/snr3.c:1583
+#: ../src/snr3.c:1604
 msgid "Basedir: "
 msgstr "Basismap: "
 
-#: ../src/snr3.c:1602
+#: ../src/snr3.c:1623
 msgid "Case sensitive _matching"
 msgstr "Hoofdletter gevoelig zoeken"
 
-#: ../src/snr3.c:1604
+#: ../src/snr3.c:1625
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Alleen resultaat als kast (hoofdletter/kleine letter) identiek is."
 
-#: ../src/snr3.c:1608
+#: ../src/snr3.c:1629
 msgid "Pattern contains escape-se_quences"
 msgstr "Patroon bevat escape combinaties"
 
-#: ../src/snr3.c:1611
+#: ../src/snr3.c:1632
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr "Patroon bevat backslash escape karakters zoals \\n, \\t etc."
 
-#: ../src/snr3.c:1615
+#: ../src/snr3.c:1636
 msgid "Dot character in regex pattern matches newlines"
 msgstr "Punt karakter in reguliere expressie pakt regeleinden"
 
-#: ../src/snr3.c:1618
+#: ../src/snr3.c:1639
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
@@ -3254,19 +3260,19 @@ msgstr ""
 "Het . karakter zal alles pakken inclusies regeleinden, gebruik dit voor meer-"
 "regelige zoekopdrachten"
 
-#: ../src/snr3.c:1640
+#: ../src/snr3.c:1661
 msgid "Replace _All"
 msgstr "Alles vervangen"
 
-#: ../src/snr3.c:1642
+#: ../src/snr3.c:1663
 msgid "_Replace"
 msgstr "Vervangen"
 
-#: ../src/snr3.c:1646
+#: ../src/snr3.c:1667
 msgid "_Find All"
 msgstr "_Zoek Alle"
 
-#: ../src/snr3.c:1648
+#: ../src/snr3.c:1669
 msgid "B_ookmark All"
 msgstr "Als bladwĳzers"
 
