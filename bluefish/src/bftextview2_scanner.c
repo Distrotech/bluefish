@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+/*#define DEVELOPMENT*/
 /*#define HL_PROFILING*/
 /*#define DUMP_SCANCACHE*/
 
@@ -56,6 +56,10 @@ G_SLICE=always-malloc G_DEBUG=gc-friendly,resident-modules valgrind --tool=memch
 #define MAX_CONTINUOUS_SCANNING_INTERVAL 1.0	/* float in seconds */
 #else
 #define MAX_CONTINUOUS_SCANNING_INTERVAL 0.1	/* float in seconds */
+#endif
+
+#ifdef DEVELOPMENT
+static void scancache_check_integrity(BluefishTextView * btv);
 #endif
 
 typedef struct {
@@ -1455,7 +1459,9 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #ifdef DUMP_SCANCACHE
 	dump_scancache(btv);
 #endif
-
+#ifdef DEVELOPMENT
+	scancache_check_integrity(btv);
+#endif
 	DBG_MSG("cleaned scanning run, finished this run\n");
 	return !gtk_text_iter_is_end(&iter);
 }
@@ -1643,7 +1649,7 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 
 #ifdef DEVELOPMENT
 
-gboolean
+static void
 scancache_check_integrity(BluefishTextView * btv) {
 	GQueue contexts;
 	GQueue blocks;
@@ -1651,7 +1657,6 @@ scancache_check_integrity(BluefishTextView * btv) {
 	
 	g_queue_init(&contexts);
 	g_queue_init(&blocks);
-
 	siter = g_sequence_get_begin_iter(btv->scancache.foundcaches);
 	while (siter && !g_sequence_iter_is_end(siter)) {
 		Tfound *found = g_sequence_get(siter);
@@ -1699,7 +1704,7 @@ scancache_check_integrity(BluefishTextView * btv) {
 		}
 		siter = g_sequence_iter_next(siter);
 	}
-	return FALSE;
+	g_print("scancache integrity check done.\n");
 }
 #endif /* DEVELOPMENT */
 
