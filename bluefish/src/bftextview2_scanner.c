@@ -1641,6 +1641,68 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 	return FALSE;
 }
 
+#ifdef DEVELOPMENT
+
+gboolean
+scancache_check_integrity(BluefishTextView * btv) {
+	GQueue contexts;
+	GQueue blocks;
+	GSequenceIter *siter;
+	
+	g_queue_init(&contexts);
+	g_queue_init(&blocks);
+
+	siter = g_sequence_get_begin_iter(btv->scancache.foundcaches);
+	while (siter && !g_sequence_iter_is_end(siter)) {
+		Tfound *found = g_sequence_get(siter);
+		if (!found)
+			break;
+		
+		if (found->numcontextchange > 0) {
+			/* push context */
+			if (found->fcontext->parentfcontext != g_queue_peek_head(&contexts)) {
+				g_warning("pushing context at %d:%d, parent contexts at %d:%d do not match!\n"
+									,found->fcontext->start_o, found->fcontext->end_o
+									,((Tfoundcontext *)found->fcontext->parentfcontext)->start_o
+									,((Tfoundcontext *)found->fcontext->parentfcontext)->end_o);
+			}
+			g_queue_push_head(&contexts, found->fcontext);
+		} else {
+			gint i;
+			/* check the current context */
+			if (found->fcontext != g_queue_peek_head(&contexts)) {
+				g_warning("contexts don't match\n");
+			}
+			i = found->numcontextchange;
+			while (i < 0) {
+				g_queue_pop_head(&contexts);
+				i++;
+			}
+		}
+		
+		if (found->numblockchange > 0) {
+			if (found->fblock->parentfblock != g_queue_peek_head(&blocks)) {
+				g_warning("pushing block, parent blocks do not match!\n");
+			}
+			g_queue_push_head(&blocks, found->fblock);
+		} else {
+			gint i;
+			/* check the current context */
+			if (found->fblock != g_queue_peek_head(&blocks)) {
+				g_warning("blocks don't match\n");
+			}
+			i = found->numblockchange;
+			while (i < 0) {
+				g_queue_pop_head(&blocks);
+				i++;
+			}
+		}
+		siter = g_sequence_iter_next(siter);
+	}
+	return FALSE;
+}
+#endif /* DEVELOPMENT */
+
 void
 cleanup_scanner(BluefishTextView * btv)
 {
