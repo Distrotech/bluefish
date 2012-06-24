@@ -2,6 +2,26 @@ The file changelog can be obtained from subversion using the `svn2cl' utility.
 The release changelogs are also available from our homepage: 
 http://bluefish.openoffice.nl
 
+* 2.2.3 *
+
+Bluefish 2.2.3 has mostly many minor bugfixes and many minor enhancements. There
+are only few major changes: a corrupted state in the syntax scanner that could
+lead to a segfault was fixed, code folding had major fixes and improvements,
+search had major fixes, and a lorem ipsum generator was added. The GUI was
+restructured in some areas, and some shortcut key combinations were added. Some
+visibility features were added such as a bigger cursor and cursor highlighting,
+and some options were improved such as zoom and the custom colors. External
+commands had some changes such as better cursor positioning after a filter has
+been used, user supplied arguments for external commands, and an option to
+restore the default settings. On the multiplatform front: the broken shortcut
+key S was fixed on OSX, and file recovery was fixed on Windows. On the web front
+some dialogs were added for HTML5, the thumbnail generator was fixed, and insert
+color, path and relative path have been added. Many language files were
+improved, and more user configurable options have been added to most language
+files. You can now select a block of text by dragging the mouse in the margin,
+and move the selected block with <ctrl><up> and <ctrl><down>.   
+
+
 * 2.2.2 *
 
 Bluefish 2.2.2 is largely a bug fix release with some very minor new features. A
