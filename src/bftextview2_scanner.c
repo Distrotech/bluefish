@@ -59,7 +59,7 @@ G_SLICE=always-malloc G_DEBUG=gc-friendly,resident-modules valgrind --tool=memch
 #endif
 
 #ifdef DEVELOPMENT
-static void scancache_check_integrity(BluefishTextView * btv);
+static void scancache_check_integrity(BluefishTextView * btv, GTimer *timer);
 #endif
 
 typedef struct {
@@ -1185,7 +1185,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	/*GArray *matchstack; */
 	Tscanning scanning;
 	guint pos = 0, newpos, reconstruction_o;
-	gboolean end_of_region = FALSE, last_character_run = FALSE, continue_loop = TRUE;
+	gboolean end_of_region = FALSE, last_character_run = FALSE, continue_loop = TRUE, finished;
 	gint loop = 0;
 #ifdef IDENTSTORING
 	GtkTextIter itcursor;
@@ -1412,6 +1412,9 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	if (gtk_text_iter_compare(&iter, &scanning.end) < 0) {
 		gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &iter, &scanning.end);
 	}
+	
+	finished = gtk_text_iter_is_end(&iter);
+	
 #ifdef HL_PROFILING
 	stage4 = g_timer_elapsed(scanning.timer, NULL);
 	hl_profiling.total_runs++;
@@ -1450,6 +1453,12 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	/* tune the loops_per_timer, try to have 10 timer checks per loop, so we have around 10% deviation from the set interval */
 	if (!end_of_region)
 		loops_per_timer = MAX(loop / 10, 200);
+
+#ifdef DEVELOPMENT
+	if (finished)
+		scancache_check_integrity(btv, scanning.timer);
+#endif
+
 	g_timer_destroy(scanning.timer);
 
 #ifdef VALGRIND_PROFILING
@@ -1459,11 +1468,8 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #ifdef DUMP_SCANCACHE
 	dump_scancache(btv);
 #endif
-#ifdef DEVELOPMENT
-	scancache_check_integrity(btv);
-#endif
 	DBG_MSG("cleaned scanning run, finished this run\n");
-	return !gtk_text_iter_is_end(&iter);
+	return !finished;
 }
 
 GQueue *
@@ -1650,11 +1656,14 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 #ifdef DEVELOPMENT
 
 static void
-scancache_check_integrity(BluefishTextView * btv) {
+scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 	GQueue contexts;
 	GQueue blocks;
 	GSequenceIter *siter;
+	gfloat start;
+	guint32 prevfound_o=0;
 	
+	start = g_timer_elapsed(timer, NULL);
 	g_queue_init(&contexts);
 	g_queue_init(&blocks);
 	siter = g_sequence_get_begin_iter(btv->scancache.foundcaches);
@@ -1663,6 +1672,9 @@ scancache_check_integrity(BluefishTextView * btv) {
 		if (!found)
 			break;
 		
+		if (found->charoffset_o <= prevfound_o)
+			g_warning("previous found had offset %d, the next found has offset %d, not ordered correctly?!?!!\n",found->charoffset_o, prevfound_o);
+		prevfound_o = found->charoffset_o;
 		if (found->numcontextchange > 0) {
 			/* push context */
 			if (found->fcontext->parentfcontext != g_queue_peek_head(&contexts)) {
@@ -1704,7 +1716,9 @@ scancache_check_integrity(BluefishTextView * btv) {
 		}
 		siter = g_sequence_iter_next(siter);
 	}
-	g_print("scancache integrity check done.\n");
+	g_queue_clear(&contexts);
+	g_queue_clear(&blocks);
+	g_print("scancache integrity check done in %3f ms.\n", 1000.0 * (g_timer_elapsed(timer, NULL) - start));
 }
 #endif /* DEVELOPMENT */
 
