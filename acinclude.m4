@@ -75,6 +75,32 @@ AC_SUBST([MAN])
 AM_CONDITIONAL([HAVE_MAN], [test "x$MAN" != "x"])
 ]) # BF_PROG_MAN
 
+
+dnl @synopsis BF_PROG_DFVAL
+dnl
+dnl @summary Determine if we can use the 'desktop-file-validate' program.
+dnl
+dnl This is a simple macro to define the location of 'desktop-file-validate'
+dnl (which can be overridden by the user) and special options to use.
+dnl
+dnl @category InstalledPackages
+dnl @author Daniel Leidert <daniel.leidert@wgdd.de>
+dnl @version $Date$
+dnl @license AllPermissive
+AC_DEFUN([BF_PROG_DFVAL],[
+AC_ARG_VAR(
+        [DESKTOP_FILE_VALIDATE],
+        [The 'desktop-file-validate' binary with path. Use it to define or override the location of 'man'.]
+)
+AC_PATH_PROG([DESKTOP_FILE_VALIDATE], [desktop-file-validate])
+if test -z "$DESKTOP_FILE_VALIDATE" ; then
+        AC_MSG_WARN(['desktop-file-validate' was not found. We cannot check the manpages for errors. See README.]) ;
+fi
+AC_SUBST([DESKTOP_FILE_VALIDATE])
+AM_CONDITIONAL([HAVE_DESKTOP_FILE_VALIDATE], [test "x$DESKTOP_FILE_VALIDATE" != "x"])
+]) # BF_PROG_DFVAL
+
+
 dnl @synopsis BF_PROG_XMLLINT
 dnl
 dnl @summary Determine if we can use the 'xmllint' program.
