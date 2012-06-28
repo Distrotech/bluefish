@@ -675,7 +675,6 @@ GList * update_outputbox(GList *current, gboolean overwrite) {
 						  array_from_arglist(_("php"),
 											 "(.*) in (.*:\\\\[a-zA-Z0-9\\\\_.-]+) on line ([0-9]+)", "2",
 											 "3", "1", "php '%f'|", NULL));
-	}
 #else
 	defaults =
 		g_list_append(defaults,
