@@ -337,7 +337,7 @@ AC_ARG_WITH(
 )
 
 AC_MSG_CHECKING([for system XML catalog])
-if ! test -f "$xmlcatalog" ; then
+if ! test -f "`eval echo $xmlcatalog`" ; then
 	AC_MSG_RESULT([not found])
 	AC_MSG_NOTICE([The given systems XML catalog $xmlcatalog seems to be unavailable.])
 	AC_MSG_NOTICE([We will not try to update it after installation.])
