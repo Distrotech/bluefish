@@ -3,7 +3,7 @@ dnl configure.ac
 dnl $Id$
 dnl
 dnl Copyright (C) 2002-2011 Olivier Sessink
-dnl Copyright (C) 2006-2011 Daniel Leidert
+dnl Copyright (C) 2006-2012 Daniel Leidert
 dnl
 dnl This file is free software. The copyright owner gives unlimited
 dnl permission to copy, distribute and modify it.
@@ -11,7 +11,7 @@ dnl ************************
 
 AC_PREREQ([2.59])
 
-AC_INIT([bluefish],[2.2.3],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
+AC_INIT([bluefish],[2.2.4],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 
 dnl Have to save them here!
 if test "${ac_configure_args+set}" != "set" ; then
