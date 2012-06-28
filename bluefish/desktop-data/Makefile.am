@@ -54,3 +54,12 @@ if HAVE_UPDATE_MIME_DATABASE
 endif
 endif
 
+
+check-local: bluefish.desktop
+	@echo  -e "\033[1mCorrect any errors before making a distribution.\033[0m"
+if HAVE_DESKTOP_FILE_VALIDATE
+	LANG=C $(DESKTOP_FILE_VALIDATE) $<
+else
+	@echo -e "\033[1mCannot check the .desktop file because 'desktop-file-validate' is missing.\033[0m"
+endif
+

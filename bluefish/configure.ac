@@ -665,6 +665,7 @@ dnl *******************************
 BF_PROG_MAN
 BF_PROG_JING
 BF_PROG_XMLLINT
+BF_PROG_DFVAL
 
 
 dnl *******************************
