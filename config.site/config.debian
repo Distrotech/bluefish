@@ -14,5 +14,7 @@ enable_xml_catalog_update=no
 enable_update_databases=yes
 enable_maintainer_mode=yes
 enable_python=yes
-LDFLAGS="-Wl,--as-needed -Wl,-O1"
-CFLAGS="-g -Wall -O2"
+
+LDFLAGS="`dpkg-buildflags --get LDFLAGS` -Wl,--as-needed -Wl,-O1"
+CFLAGS="`dpkg-buildflags --get CFLAGS`"
+CPPFLAGS="`dpkg-buildflags --get CPPFLAGS`"
