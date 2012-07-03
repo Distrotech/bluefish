@@ -30,6 +30,7 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <glib/gstdio.h>	/* g_mkdir */
 #include <ctype.h>     /* toupper */
 #include <errno.h>     /* errno */
 #include <stdio.h>     /* fopen(), tempnam() */
@@ -1202,17 +1203,10 @@ static gchar *return_securedir(void) {
 	 * or a symlink, so we DO NOT overwrite any file the link is pointing to
 	 */
 	main_v->securedir = unique_path(g_get_tmp_dir(), "bluefish", NULL);
-#ifndef WIN32
-	while (mkdir(main_v->securedir, 0700) != 0) {
+	while (g_mkdir(main_v->securedir, 0700) != 0) {
 		g_free(main_v->securedir);
 		main_v->securedir = unique_path(g_get_tmp_dir(), "bluefish", NULL);
 	}
-#else
-	while (mkdir(main_v->securedir) != 0) {
-		g_free(main_v->securedir);
-		main_v->securedir = unique_path(g_get_tmp_dir(), "bluefish", NULL);
-	}
-#endif
 	return main_v->securedir;
 }
 
