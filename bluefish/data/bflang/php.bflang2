@@ -68,6 +68,7 @@
 	<option name="autocomplete-html-entities" default="0" />
 	<highlight name="php-block-tag" style="special-value"  />
 	<highlight name="string" style="string"   />
+	<highlight name="php-heredoc-string" style="string"   />
 	<highlight name="brackets" style="brackets"  />
 	<highlight name="php-keyword" style="keyword"  />
 	<highlight name="php-value" style="value" />
@@ -138,7 +139,7 @@
 </element>
 <element id="e.php.short.multiline_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" highlight="brackets" >
 	<autocomplete enable="1" />
-	<context symbols="EOF" highlight="php-comment">
+	<context symbols="EF" highlight="php-heredoc-string">
 <element pattern="EOF" ends_block="1" ends_context="1" blockstartelement="e.php.short.multiline_string" highlight="brackets" />
 	</context>
 </element>
