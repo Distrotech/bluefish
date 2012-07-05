@@ -20,7 +20,7 @@
 -->
 
 <bfinc>
-<element id="e.html.lcomment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
+<element id="e.html.lcomment" pattern="&lt;!--" highlight="html-comment" starts_block="1" block_name="HTML comment">
 	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
 		<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.lcomment" highlight="html-comment" mayfold="1" ends_context="1" />
 	</context>
@@ -189,7 +189,7 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing*
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="div" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="div" block_name="DIV block" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Generic flow container 
 <b>Categories:</b>flow 
 <b>Parents:</b>flow 
@@ -309,7 +309,7 @@
 <b>Parents:</b> flow
 <b>Children:</b> empty
 <b>Interface:</b> HTMLHRElement</reference></tag>
-<tag name="html" highlight="html-tag" attribhighlight="html-attribute" attributes="manifest,&globals;">
+<tag name="html" block_name="html-block" highlight="html-tag" attribhighlight="html-attribute" attributes="manifest,&globals;">
 <reference>Root element
 <b>Categories:</b> none
 <b>Parents:</b> none*
@@ -454,7 +454,7 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLOutputElement</reference></tag>
-<tag name="p" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="p" highlight="html-tag" block_name="Paragraph block" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Paragraph 
 <b>Categories:</b>flow 
 <b>Parents:</b>flow 
@@ -518,11 +518,11 @@
 <tag name="script" id="t.html.script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="src,async,defer,type,charset,&globals;" attribhighlight="html-attribute" >
 	<autocomplete append=" type=&quot;text/javascript&quot; &gt;&#10;&#10;&lt;/script&gt;" backup_cursor="10" />
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="cm.cpplinecomment"  commentid_block="none">
-		<element pattern="(" id="e.html.js.lparen" starts_block="1" highlight="js-brackets" />
+		<element pattern="(" id="e.html.js.lparen" starts_block="1" highlight="js-brackets" block_name="Javascript Parentheses block" />
 		<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lparen" />
-		<element pattern="{" id="e.html.js.lbrace" starts_block="1" highlight="js-brackets" />
+		<element pattern="{" id="e.html.js.lbrace" starts_block="1" highlight="js-brackets" block_name="Javascript Curly brackets block" />
 		<element pattern="}" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbrace" />
-		<element pattern="[" id="e.html.js.lbracket" starts_block="1" highlight="js-brackets" />
+		<element pattern="[" id="e.html.js.lbracket" starts_block="1" highlight="js-brackets" block_name="Javascript Square brackets block" />
 		<element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbracket" />
 		&all-javascript;
 		<element pattern="//" highlight="js-comment">
@@ -531,7 +531,7 @@
 				<element pattern="&lt;/script&gt;" highlight="html-tag" ends_context="3" case_insens="1" ends_block="1" blockstartelement="t.html.script"/>
 			</context>
 		</element>
-		<element id="e.html.js.blockcomment" pattern="/*" starts_block="1" highlight="js-comment">
+		<element id="e.html.js.blockcomment" pattern="/*" starts_block="1" highlight="js-comment" block_name="Javascript block comment">
 			<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
 				<element pattern="*/" ends_block="1" blockstartelement="e.html.js.blockcomment" highlight="js-comment" mayfold="1" ends_context="1" />
 				<element pattern="&lt;/script&gt;" highlight="html-tag" case_insens="1" ends_context="3" ends_block="1" blockstartelement="t.html.script"/>
