@@ -54,6 +54,10 @@
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
 	<option name="javascript_css_properties" default="1" description="CSS properties" />
+	<option name="html-block_foldable" default="0" description="Allow to fold the the root html tag" />
+	<option name="Javascript Parentheses block_foldable" default="0" description="Allow folding of Javascript Parentheses block"/>
+	<option name="Javascript Square brackets block_foldable" default="0" description="Allow folding of Javascript Square brackets block"/>
+	<option name="Javascript Curly brackets block_foldable" default="1" description="Allow folding of Javascript Curly brackets block"/>
 	<highlight name="html-tag" style="tag" />
 	<highlight name="svg-tag" style="tag" />
 	<highlight name="html-reference-external-tag" style="special-tag" />
