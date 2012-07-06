@@ -553,6 +553,10 @@ AuthUserFile %0
 <param num="0" name="Comment Text"/>
 </leaf>
 <branch title="DOCTYPEs">
+<leaf title="HTML 5" type="insert">
+<before>&lt;!DOCTYPE html&gt;</before>
+<after></after>
+</leaf>
 <leaf title="HTML 4.01 Frameset" type="insert">
 <before>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd"&gt;</before>
 <after></after>
