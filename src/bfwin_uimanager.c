@@ -803,7 +803,7 @@ static const GtkActionEntry global_actions[] = {
 	{"FileOpenSelection", NULL, N_("Open _from Selection"), NULL, N_("Open from Selection"),
 	 G_CALLBACK(ui_open_from_selection)},
 	{"FileInsert", NULL, N_("_Insert..."), NULL, N_("Insert file"), G_CALLBACK(ui_insert_doc)},
-	{"FilePrint", NULL, N_("_Print"), NULL, N_("Print"), G_CALLBACK(ui_print_doc)},
+	{"FilePrint", NULL, N_("_Print..."), NULL, N_("Print"), G_CALLBACK(ui_print_doc)},
 	{"FileUploadDownload", NULL, N_("U_pload / Download..."), NULL, NULL,
 	 G_CALLBACK(ui_upload_download_dialog)},
 	{"FileQuit", GTK_STOCK_QUIT, N_("_Quit"), "<control>Q", N_("Quit Bluefish"), G_CALLBACK(ui_quit)},
