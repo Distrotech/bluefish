@@ -77,6 +77,7 @@ static struct {
 	gchar const *name;
 	gchar const *dtd;
 } const dtds[] = {
+	{"HTML 5","<!DOCTYPE html>"}, 
 	{"HTML 4.01 Strict",
 	 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">"},
 	{"HTML 4.01 Transitional",
