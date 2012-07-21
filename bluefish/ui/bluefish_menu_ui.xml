@@ -4,7 +4,7 @@
 *  bluefish_menu_ui.xml
 *  This file is part of Bluefish
 *
-*  Copyright (C) 2011 - James Hayward and Olivier Sessink
+*  Copyright (C) 2011-2012 - James Hayward and Olivier Sessink
 *
 *  bluefish is free software: you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@
 	<menuitem action="FileCloseAll"/>
 	<menuitem action="FileCloseWindow"/>
 	<separator/>
-	<menuitem action="FileUploadDownload"/>
+	<placeholder name="UploadDownloadPlaceholder"/>
 	<separator/>
 	<menuitem action="FileQuit"/>
 	</menu>

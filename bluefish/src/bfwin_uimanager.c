@@ -804,8 +804,6 @@ static const GtkActionEntry global_actions[] = {
 	 G_CALLBACK(ui_open_from_selection)},
 	{"FileInsert", NULL, N_("_Insert..."), NULL, N_("Insert file"), G_CALLBACK(ui_insert_doc)},
 	{"FilePrint", NULL, N_("_Print..."), NULL, N_("Print"), G_CALLBACK(ui_print_doc)},
-	{"FileUploadDownload", NULL, N_("U_pload / Download..."), NULL, NULL,
-	 G_CALLBACK(ui_upload_download_dialog)},
 	{"FileQuit", GTK_STOCK_QUIT, N_("_Quit"), "<control>Q", N_("Quit Bluefish"), G_CALLBACK(ui_quit)},
 	{"EditPreferences", GTK_STOCK_PREFERENCES, N_("Preference_s..."), NULL, N_("Edit Preferences"),
 	 G_CALLBACK(ui_preferences)},
@@ -1109,6 +1107,7 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 		g_warning("building main menu failed: %s", error->message);
 		g_error_free(error);
 	}
+
 #ifndef WIN32
 #ifndef MAC_INTEGRATION
 	GtkAction *action = gtk_action_new("FileOpenURL", _("Open _URL..."), NULL, NULL);
@@ -1119,6 +1118,16 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 	gtk_ui_manager_add_ui(manager, merge_id,
 						  "/MainMenu/FileMenu/OpenURLPlaceholder", "FileOpenURL",
 						  "FileOpenURL", GTK_UI_MANAGER_MENUITEM, TRUE);
+	g_object_unref(action);
+
+	action = gtk_action_new("FileUploadDownload", N_("U_pload / Download..."), NULL, NULL);
+	gtk_action_group_add_action(bfwin->globalGroup, action);
+	g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(ui_upload_download_dialog), bfwin);
+
+	merge_id = gtk_ui_manager_new_merge_id(manager);
+	gtk_ui_manager_add_ui(manager, merge_id,
+						  "/MainMenu/FileMenu/UploadDownloadPlaceholder", "FileUploadDownload",
+						  "FileUploadDownload", GTK_UI_MANAGER_MENUITEM, TRUE);
 	g_object_unref(action);
 #endif							/* MAC_INTEGRATION */
 #endif							/* WIN32 */
