@@ -138,21 +138,21 @@
 	</context>
 </element>
 
-<element id="e.php.heredoc_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" highlight="brackets" >
+<element id="e.php.short.heredoc_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" highlight="brackets" >
 <reference><b>heredoc string</b>
 <span color="red">Warning</span>: only <b>&lt;&lt;&lt;EOF</b> (without space) is correctly highligted.</reference>
 	<autocomplete enable="1" />
 	<context symbols="&#13;&#10;EF$ " highlight="php-heredoc-string">
 		<element pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" />	
-		<element pattern="(&#10;|&#13;|&#13;&#10;)EOF"  is_regex="1" ends_block="1" ends_context="1" blockstartelement="e.php.heredoc_string" highlight="brackets" />
+		<element pattern="(&#10;|&#13;|&#13;&#10;)EOF"  is_regex="1" ends_block="1" ends_context="1" blockstartelement="e.php.short.heredoc_string" highlight="brackets" />
 	</context>
 </element>
-<element id="e.php.nowdoc_string" pattern="&lt;&lt;&lt;'EOF'" starts_block="1" highlight="brackets" >
+<element id="e.php.short.nowdoc_string" pattern="&lt;&lt;&lt;'EOF'" starts_block="1" highlight="brackets" >
 <reference><b>nowdoc string</b>
 <span color="red">Warning</span>: only <b>&lt;&lt;&lt;'EOF'</b> (without space) is correctly highligted</reference>
 	<autocomplete enable="1" />
 	<context symbols="&#13;&#10;EF" highlight="php-heredoc-string">
-		<element pattern="(&#10;|&#13;|&#13;&#10;)EOF"  is_regex="1" ends_block="1" ends_context="1" blockstartelement="e.php.nowdoc_string" highlight="brackets" />
+		<element pattern="(&#10;|&#13;|&#13;&#10;)EOF"  is_regex="1" ends_block="1" ends_context="1" blockstartelement="e.php.short.nowdoc_string" highlight="brackets" />
 	</context>
 </element>
 <element id="e.php.short.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" identifier_mode="2" identifier_autocomp="1" />
@@ -226,6 +226,24 @@ was disabled, this whole section is not parsed by the language manager, so the c
 <element id="e.php.lcomment" pattern="/*" starts_block="1" block_name="C style comment" highlight="php-comment">
 	<context symbols="*/&#9;&#10;&#13;" highlight="php-comment">
 		<element pattern="*/" ends_block="1" blockstartelement="e.php.lcomment" highlight="php-comment" ends_context="1" />
+	</context>
+</element>
+
+<element id="e.php.heredoc_string" pattern="&lt;&lt;&lt;EOF" starts_block="1" highlight="brackets" >
+<reference><b>heredoc string</b>
+<span color="red">Warning</span>: only <b>&lt;&lt;&lt;EOF</b> (without space) is correctly highligted.</reference>
+	<autocomplete enable="1" />
+	<context symbols="&#13;&#10;EF$ " highlight="php-heredoc-string">
+		<element pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" />	
+		<element pattern="(&#10;|&#13;|&#13;&#10;)EOF"  is_regex="1" ends_block="1" ends_context="1" blockstartelement="e.php.heredoc_string" highlight="brackets" />
+	</context>
+</element>
+<element id="e.php.nowdoc_string" pattern="&lt;&lt;&lt;'EOF'" starts_block="1" highlight="brackets" >
+<reference><b>nowdoc string</b>
+<span color="red">Warning</span>: only <b>&lt;&lt;&lt;'EOF'</b> (without space) is correctly highligted</reference>
+	<autocomplete enable="1" />
+	<context symbols="&#13;&#10;EF" highlight="php-heredoc-string">
+		<element pattern="(&#10;|&#13;|&#13;&#10;)EOF"  is_regex="1" ends_block="1" ends_context="1" blockstartelement="e.php.nowdoc_string" highlight="brackets" />
 	</context>
 </element>
 
