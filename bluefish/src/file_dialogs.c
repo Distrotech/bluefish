@@ -1397,7 +1397,7 @@ modified_on_disk_warning_string(const gchar * filename, GFileInfo * oldfinfo, GF
 {
 	gchar *tmpstr, *oldtimestr, *newtimestr;
 	time_t newtime, oldtime;
-	gsize oldsize, newsize;
+	goffset oldsize, newsize;
 
 	newtime = (time_t) g_file_info_get_attribute_uint64(newfinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
 	oldtime = (time_t) g_file_info_get_attribute_uint64(oldfinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
@@ -1409,8 +1409,8 @@ modified_on_disk_warning_string(const gchar * filename, GFileInfo * oldfinfo, GF
 	tmpstr = g_strdup_printf(_("Filename:%s changed on disk.\n\n"
 							   "Original modification time was %s\n"
 							   "New modification time is %s\n"
-							   "Original size was %"G_GSIZE_FORMAT"\n"
-							   "New size is %"G_GSIZE_FORMAT), filename, oldtimestr, newtimestr, (long unsigned int)oldsize, (long unsigned int)newsize);
+							   "Original size was %"G_GOFFSET_FORMAT" bytes\n"
+							   "New size is %"G_GOFFSET_FORMAT" bytes"), filename, oldtimestr, newtimestr, (long unsigned int)oldsize, (long unsigned int)newsize);
 	g_free(newtimestr);
 	g_free(oldtimestr);
 	return tmpstr;
