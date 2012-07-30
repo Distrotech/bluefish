@@ -563,6 +563,8 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 			file_doc_fill_fileinfo(doc, doc->uri);
 			if (main_v->props.clear_undo_on_save) {
 				doc_unre_clear_all(doc);
+			} else {
+				doc_unre_clear_not_modified(doc);
 			}
 			doc_set_modified(doc, 0);
 			/* in fact the filebrowser should also be refreshed if the document was closed, but
