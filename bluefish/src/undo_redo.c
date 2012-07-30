@@ -125,7 +125,7 @@ doc_unre_destroy_last_group(Tdocument * doc)
 }
 
 static gint
-unregroup_activate(unregroup_t * curgroup, Tdocument * doc, gint is_redo)
+unregroup_activate(unregroup_t * curgroup, Tdocument * doc, gint is_redo, gboolean newmodified)
 {
 	GList *tmplist;
 	gint lastpos = -1;
@@ -157,12 +157,8 @@ unregroup_activate(unregroup_t * curgroup, Tdocument * doc, gint is_redo)
 			tmplist = g_list_next(tmplist);
 		}
 	}
-	if (is_redo) {
-		doc_set_modified(doc, 1);
-	} else {
-		DEBUG_MSG("unregroup_activate, calling set modified with %d\n", curgroup->changed);
-		doc_set_modified(doc, curgroup->changed);
-	}
+	DEBUG_MSG("newmodified=%d, is_redo=%d, curgroup->changed=%d\n",newmodified,is_redo,curgroup->changed);
+	doc_set_modified(doc, newmodified);
 	return lastpos;
 }
 
@@ -234,7 +230,7 @@ doc_undo(Tdocument * doc)
 		   the undo/redo widgets, the lenght of the redolist should be > 0 _before_
 		   activate is called */
 		DEBUG_MSG("doc_undo, calling unregroup_activate\n");
-		return unregroup_activate(curgroup, doc, 0);
+		return unregroup_activate(curgroup, doc, 0, curgroup->changed);
 	}
 	return -1;
 }
@@ -247,7 +243,6 @@ doc_redo(Tdocument * doc)
 
 		curgroup = doc->unre.redofirst->data;
 		doc->unre.redofirst = g_list_remove(doc->unre.redofirst, curgroup);
-		/* what happens when this was the last one of the list? does it return NULL ? */
 		DEBUG_MSG("doc_redo, doc->unre.redofirst=%p\n", doc->unre.redofirst);
 
 		doc_unre_new_group(doc);
@@ -257,7 +252,7 @@ doc_redo(Tdocument * doc)
 		}
 		doc->unre.num_groups++;
 		DEBUG_MSG("doc_redo, added a group, num_groups =%d\n", doc->unre.num_groups);
-		return unregroup_activate(curgroup, doc, 1);
+		return unregroup_activate(curgroup, doc, 1,  doc->unre.redofirst ? ((unregroup_t *)doc->unre.redofirst->data)->changed : 1);
 	}
 	return -1;
 }
@@ -465,6 +460,24 @@ doc_unre_clear_all(Tdocument * doc)
 {
 	doc_unre_destroy(doc);
 	doc_unre_init(doc);
+}
+
+/**
+ * doc_unre_clear_not_modified
+ *
+ * called after a document save, this will loop all undo actions and mark the state always as modified
+ **/
+void
+doc_unre_clear_not_modified(Tdocument * doc)
+{
+	GList *tmplist;
+	doc_unre_new_group(doc);
+	for (tmplist=g_list_first(doc->unre.first);tmplist;tmplist=g_list_next(tmplist)) {
+		if (((unregroup_t *)tmplist->data)->changed == 0) {
+			((unregroup_t *)tmplist->data)->changed = 1;
+		}
+	}
+	doc->unre.current->changed = 0;
 }
 
 /**

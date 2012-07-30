@@ -28,6 +28,7 @@ void doc_unre_new_group(Tdocument * doc);
 void doc_unre_init(Tdocument * doc);
 void doc_unre_destroy(Tdocument * doc);
 void doc_unre_clear_all(Tdocument * doc);
+void doc_unre_clear_not_modified(Tdocument * doc);
 gint doc_undo_op_compare(Tdocument * doc, undo_op_t testfor, gint position);
 gboolean doc_unre_test_last_entry(Tdocument * doc, undo_op_t testfor, guint32 start, guint32 end);
 void redo(Tbfwin * bfwin);
