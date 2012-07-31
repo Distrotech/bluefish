@@ -2276,9 +2276,13 @@ static gboolean
 doc_scroll_event_lcb(GtkWidget * widget, GdkEventScroll * event, gpointer user_data)
 {
 	if (event->state & GDK_CONTROL_MASK) {
-		Tdocument *doc = user_data;
-		doc_font_size(doc, (event->direction == GDK_SCROLL_UP) ? 1 : -1);
-		return TRUE;
+		if (event->direction == GDK_SCROLL_UP) {
+			doc_font_size(DOCUMENT(user_data), 1);
+			return TRUE;
+		} else if (event->direction == GDK_SCROLL_DOWN) {
+			doc_font_size(DOCUMENT(user_data), -1);
+			return TRUE;
+		}
 	}
 	return FALSE;
 }
