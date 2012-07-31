@@ -708,7 +708,7 @@ doc_font_size(Tdocument * doc, gint direction)
 		pc = gtk_widget_get_pango_context(doc->view);
 		font_desc = pango_font_description_copy(pango_context_get_font_description(pc));
 		size = pango_font_description_get_size(font_desc);
-		size = (direction > 0) ? size * 1.2 : size / 1.2;
+		size = (direction > 0) ? size * 12 / 10 : size * 10 / 12;
 		if (pango_font_description_get_size_is_absolute(font_desc)) {
 			pango_font_description_set_absolute_size(font_desc, size);
 		} else {
