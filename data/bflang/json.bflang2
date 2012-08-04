@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!--
+	Bluefish HTML Editor
+	json.bflang2 $Revision: 1 $
+
+	Copyright (C) 2012 Olivier Sessink
+
+		This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.	If not, see <http://www.gnu.org/licenses/>.
+-->
+<bflang name="JSON" version="2.0">
+<header>
+	<mime type="application/json" />
+	<mime type="text/plain?json" />
+	
+	<option name="load_reference" default="1" />
+	<option name="show_in_menu" default="1" />
+	
+	<highlight name="json-brackets" style="brackets" />
+	<highlight name="json-escapechar" style="preprocessor" />
+	<highlight name="json-string" style="string" />
+	<highlight name="json-value" style="value" />
+</header>
+
+<properties>
+	<smartindent characters="{[" />
+	<smartoutdent characters="]}" />
+	<default_spellcheck enabled="0" />
+</properties>
+
+<definition>
+	<context id="c.json.main" symbols=" &#9;&#10;&#13;{}:,&quot;">
+		<element id="e.json.object" pattern="{" starts_block="1" highlight="json-brackets">
+			<context symbols=" &#9;&#10;&#13;{}[]:,&quot;">
+				<element pattern="&quot;" highlight="json-string">
+					<context symbols="\&quot;" highlight="json-string">
+						<element id="e.json.string.escapechar" pattern="\\([\]|/|b|f|n|r|t|u[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]|&quot;)" is_regex="1" highlight="json-escapechar" />
+						<element pattern="&quot;" ends_context="1" highlight="json-string" />
+					</context>
+				</element>
+				<element pattern=":">
+					<context id="c.json.value" symbols=" &#9;&#10;&#13;{}[]:,&quot;">
+						<element id="e.json.string" pattern="&quot;" highlight="json-string">
+							<context symbols="\&quot;" highlight="json-string">
+								<element idref="e.json.string.escapechar" />
+								<element pattern="&quot;" ends_context="1" highlight="json-string" />
+							</context>
+						</element>
+						<element id="e.json.number" pattern="-?(0|[1-9][0-9]*)(|\.[0-9]+)(|[eE][+-]?[0-9]+)" is_regex="1" highlight="json-value" />
+						<element idref="e.json.object" />
+						<element id="e.json.true" pattern="true" highlight="json-value" />
+						<element id="e.json.false" pattern="false" highlight="json-value" />
+						<element id="e.json.null" pattern="null" highlight="json-value" />
+						<element id="e.json.array" pattern="[" starts_block="1" highlight="json-brackets">
+							<context symbols=" &#9;&#10;&#13;{}[]:,&quot;">
+								<element idref="e.json.string" />
+								<element idref="e.json.number" />
+								<element idref="e.json.object" />
+								<element idref="e.json.true" />
+								<element idref="e.json.false" />
+								<element idref="e.json.null" />
+								<element idref="e.json.array" />
+								<element pattern="]" ends_block="1" blockstartelement="e.json.array" ends_context="1" highlight="json-brackets" />
+							</context>
+						</element>
+						<element pattern="," ends_context="1" />
+						<element pattern="}" ends_block="1" blockstartelement="e.json.object" ends_context="2" highlight="json-brackets" />
+					</context>
+				</element>
+				<element pattern="}" ends_block="1" blockstartelement="e.json.object" ends_context="1" highlight="json-brackets" />
+			</context>
+		</element>
+		<element idref="e.json.array" />
+	</context>
+</definition>
+</bflang>
