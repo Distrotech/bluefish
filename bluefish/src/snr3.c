@@ -800,7 +800,7 @@ static gboolean compile_regex(Tsnr3run *s3run) {
 		options |= G_REGEX_CASELESS;
 	if (s3run->dotmatchall)
 		options |= G_REGEX_DOTALL;
-	
+	DEBUG_MSG("compile_regex, compiling %s\n", s3run->query);
 	s3run->regex = g_regex_new(s3run->query, options, G_REGEX_MATCH_NEWLINE_ANY, &gerror);
 	if (gerror) {
 		if (s3run->dialog) {
@@ -846,6 +846,7 @@ static gint update_snr3run(Tsnr3run *s3run) {
 	
 	if (s3run->type == snr3type_pcre) {
 		if (!compile_regex(s3run)) {
+			DEBUG_MSG("update_snr3run, failed to compile query %s\n",s3run->query);
 			g_free(s3run->query);
 			s3run->query = NULL; /* mark query as unusable */
 			return -1;
@@ -1754,25 +1755,29 @@ extern_doc_backend(Tsnr3run * s3run, Tdocument *doc, guint so, guint eo)
 void
 snr3_run_extern_replace(Tdocument * doc, const gchar * search_pattern, Tsnr3scope scope,
 							 Tsnr3type type, gboolean is_case_sens, const gchar * replace_pattern,
-							 gboolean unescape) 
+							 gboolean unescape, gboolean dotmatchall) 
 {
 	gint so,eo;
 	GList *tmplist;
 	Tsnr3run * s3run = snr3run_new(doc->bfwin, NULL);
 	snr3run_multiset(s3run, search_pattern, NULL, type,snr3replace_string,scope);
+	s3run->dotmatchall = dotmatchall;
 	s3run->replace = g_strdup(replace_pattern);
 	update_snr3run(s3run);
 	s3run->replaceall = TRUE;
 	
 	switch(s3run->scope) {
 		case snr3scope_doc:
+			DEBUG_MSG("snr3_run_extern_replace, run in doc\n");
 			extern_doc_backend(s3run, doc, 0, -1);
 		break;
 		case snr3scope_cursor:
+			DEBUG_MSG("snr3_run_extern_replace, run beyond cursor\n");
 			so = doc_get_cursor_position(doc);
 			extern_doc_backend(s3run, doc, so, -1);
 		break;
 		case snr3scope_selection:
+			DEBUG_MSG("snr3_run_extern_replace, run in selection\n");
 			if (doc_get_selection(doc, &so, &eo)) {
 				extern_doc_backend(s3run, doc, so, eo);
 			} else {
@@ -1780,7 +1785,9 @@ snr3_run_extern_replace(Tdocument * doc, const gchar * search_pattern, Tsnr3scop
 			}
 		break;
 		case snr3scope_alldocs:
+			DEBUG_MSG("snr3_run_extern_replace, run in all documents\n");
 			for (tmplist=g_list_first(s3run->bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
+				DEBUG_MSG("snr3_run_extern_replace, all documents, doc=%p\n",tmplist->data);
 				extern_doc_backend(s3run, tmplist->data, 0, -1);
 			}
 		break;

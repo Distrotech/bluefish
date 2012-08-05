@@ -179,6 +179,6 @@ void snr3_advanced_dialog(Tbfwin * bfwin, const gchar *searchstring);
 
 void snr3_run_extern_replace(Tdocument * doc, const gchar * search_pattern, Tsnr3scope scope,
 							 Tsnr3type type, gboolean is_case_sens, const gchar * replace_pattern,
-							 gboolean unescape);
+							 gboolean unescape, gboolean dotmatchall);
 
 #endif /* #define __SNR3_H_ */

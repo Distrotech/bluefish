@@ -274,7 +274,7 @@ static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *
 		DEBUG_MSG("searchpat=%s\n",searchpat);
 		g_free(tmp1);
 		g_free(tmp2);
-		snr3_run_extern_replace(bsdialog->bfwin->current_document, searchpat, snr3scope_alldocs,snr3type_pcre,TRUE, bsdialog->allblock,FALSE);
+		snr3_run_extern_replace(bsdialog->bfwin->current_document, searchpat, snr3scope_alldocs,snr3type_pcre,TRUE, bsdialog->allblock,FALSE, TRUE);
 		g_free(searchpat);
 		
 		/* cleanup */
