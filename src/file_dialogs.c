@@ -711,7 +711,7 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 			author_tmp = g_strconcat("<meta name=\"author\" content=\"", realname, "\" ", NULL);
 			snr3_run_extern_replace(doc,
 									"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
-									snr3scope_doc, snr3type_pcre, FALSE, author_tmp, FALSE);
+									snr3scope_doc, snr3type_pcre, FALSE, author_tmp, FALSE, FALSE);
 			g_free(author_tmp);
 		}
 	}
@@ -745,7 +745,7 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 		date_tmp = g_strconcat("<meta name=\"date\" content=\"", isotime, "\" ", NULL);
 		snr3_run_extern_replace(doc,
 								"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"date\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
-								snr3scope_doc, snr3type_pcre, FALSE, date_tmp, FALSE);
+								snr3scope_doc, snr3type_pcre, FALSE, date_tmp, FALSE, FALSE);
 		g_free(date_tmp);
 	}
 
@@ -754,7 +754,7 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 		snr3_run_extern_replace(doc,
 								"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
 								snr3scope_doc, snr3type_pcre, FALSE,
-								"<meta name=\"generator\" content=\"Bluefish " VERSION "\" ", FALSE);
+								"<meta name=\"generator\" content=\"Bluefish " VERSION "\" ", FALSE, FALSE);
 	}
 
 	if (doc->uri)

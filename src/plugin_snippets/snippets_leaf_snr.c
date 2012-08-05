@@ -74,10 +74,11 @@ static void snippets_snr_run_from_strings(Tdocument *doc, const xmlChar *searchp
 	 * is_case_sens: #gint
 	 * replace_pattern: #gchar* to replace pattern.
 	 * unescape: #gint
+	 * dotmatchall: gboolean
 	 * */
 	DEBUG_MSG("snippets_snr_run_from_strings, useescapechars=%s, unescape=%d\n",useescapechars,unescape);
 	snr3_run_extern_replace(doc, (gchar *)searchpat, 
-						scope,type, casesensnum, (gchar *)replacepat,unescape);
+						scope,type, casesensnum, (gchar *)replacepat,unescape, FALSE);
 }
 
 typedef struct {
