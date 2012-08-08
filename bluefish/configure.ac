@@ -401,7 +401,7 @@ fi
 dnl Now if we did not find GTK3 or if GTK2 shall be used, check for it first
 dnl and fall back to GTK3 without any required minimum version.
 if test "x$with_gtk2" = "xyes" -o "x$with_gtk3" = "xno"; then
-	BF_dependencies="gtk+-2.0 >= 2.12 gdk-2.0"
+	BF_dependencies="gtk+-2.0 >= 2.20 gdk-2.0"
 	PKG_CHECK_EXISTS(
 		[$BF_dependencies],
 		[with_gtk3="no"],
@@ -415,12 +415,12 @@ fi
 
 BF_dependencies="\
 $BF_dependencies \
-glib-2.0 >= 2.16 \
-gmodule-2.0 >= 2.16 \
+glib-2.0 >= 2.24 \
+gmodule-2.0 >= 2.24 \
 gobject-2.0 \
 pango \
 gdk-pixbuf-2.0 \
-$GIO_PC >= 2.16 \
+$GIO_PC >= 2.24 \
 gthread-2.0 \
 libxml-2.0"
 
