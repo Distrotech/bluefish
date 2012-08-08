@@ -1,8 +1,8 @@
 /* Bluefish HTML Editor
  * snippets_gui.c - plugin for snippets sidebar
  *
- * Copyright (C) 2006-2011 Olivier Sessink
- * Copyright (C) 2011 James Hayward
+ * Copyright (C) 2006-2012 Olivier Sessink
+ * Copyright (C) 2011-2012 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -594,10 +594,8 @@ snippets_sidepanel_initgui(Tbfwin * bfwin)
 	vbox = gtk_vbox_new(FALSE, 1);
 
 	entry = gtk_entry_new();
-#if GTK_CHECK_VERSION(2,16,0)
 	gtk_entry_set_icon_from_stock(GTK_ENTRY(entry), GTK_ENTRY_ICON_PRIMARY, GTK_STOCK_FIND);
 	gtk_entry_set_icon_activatable(GTK_ENTRY(entry), GTK_ENTRY_ICON_PRIMARY, TRUE);
-#endif
 	/*g_signal_connect(G_OBJECT(entry), "changed", G_CALLBACK(bmark_search_changed), bfwin); */
 	gtk_box_pack_start(GTK_BOX(vbox), entry, FALSE, TRUE, 0);
 
