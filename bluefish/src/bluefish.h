@@ -585,6 +585,12 @@ extern EXPORT Tmain *main_v;
 /* public functions from bluefish.c */
 void bluefish_exit_request(void);
 
+/* Avoid lots of warnings from API depreciated in GTK 3.0. -Wdeprecated-declarations */
+#if GTK_CHECK_VERSION(3,0,0)
+#define gtk_hbox_new(arg, arg2) gtk_box_new(GTK_ORIENTATION_HORIZONTAL, arg2)
+#define gtk_vbox_new(arg, arg2) gtk_box_new(GTK_ORIENTATION_VERTICAL, arg2)
+#endif
+
 /* backwards compatibility */
 #if !GTK_CHECK_VERSION(2,24,0)
 #define GDK_KEY_Enter GDK_Enter
