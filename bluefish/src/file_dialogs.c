@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file_dialogs.c - file dialogs
  *
- * Copyright (C) 2005-2011 Olivier Sessink
+ * Copyright (C) 2005-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -265,7 +265,7 @@ file_open_ok_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
 				DEBUG_MSG("file_open_ok_lcb, session encoding is set to %s\n", bfwin->session->encoding);
 			}
 		}
-#if GTK_CHECK_VERSION(2,14,0)
+
 		tmpslist = slist = gtk_file_chooser_get_files(GTK_FILE_CHOOSER(dialog));
 		while (tmpslist) {
 			doc_new_from_uri(bfwin, (GFile *) tmpslist->data, NULL, (slist->next != NULL), FALSE, -1, -1);
@@ -273,18 +273,6 @@ file_open_ok_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
 			tmpslist = tmpslist->next;
 		}
 		g_slist_free(slist);
-#else
-		tmpslist = slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
-		while (tmpslist) {
-			GFile *file;
-			file = g_file_new_for_uri((gchar *) tmpslist->data);
-			doc_new_from_uri(bfwin, file, NULL, (slist->next != NULL), FALSE, -1, -1);
-			g_object_unref(file);
-			g_free((gchar *) tmpslist->data);
-			tmpslist = tmpslist->next;
-		}
-		g_slist_free(slist);
-#endif
 	}
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 }
