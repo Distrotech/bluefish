@@ -90,8 +90,6 @@ bluefish_SOURCES = \
 	filefilter.h \
 	gtk_easy.c \
 	gtk_easy.h \
-	gtkmountoperation.c \
-	gtkmountoperation.h \
 	ipc_bf2bf.c \
 	ipc_bf2bf.h \
 	languages.c \

@@ -38,9 +38,6 @@
 #include "stringlist.h"
 #include "async_queue.h"
 
-#if !GTK_CHECK_VERSION(2,14,0)
-#include "gtkmountoperation.h"
-#endif
 #undef OAD_MEMCOUNT
 #ifdef OAD_MEMCOUNT
 typedef struct {

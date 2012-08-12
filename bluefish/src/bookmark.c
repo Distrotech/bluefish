@@ -974,23 +974,11 @@ popup_search_menu(Tbfwin * bfwin, GdkEventButton * bevent)
 		g_warning("showing bookmark search popup menu failed");
 }
 
-#if GTK_CHECK_VERSION(2,16,0)
 static void
 bmark_search_icon_press(GtkEntry * entry, GtkEntryIconPosition icon_pos, GdkEvent * event, gpointer user_data)
 {
 	popup_search_menu(user_data, (GdkEventButton *) event);
 }
-#else
-static gboolean
-bmark_search_button_press(GtkWidget * widget, GdkEventButton * event, gpointer user_data)
-{
-	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
-		popup_search_menu(user_data, event);
-		return TRUE;
-	}
-	return FALSE;
-}
-#endif
 
 static void
 bmark_row_activated(GtkTreeView * tree, GtkTreePath * path, GtkTreeViewColumn * column, Tbfwin * bfwin)
@@ -1225,13 +1213,9 @@ bmark_gui(Tbfwin * bfwin)
 	 */
 	vbox = gtk_vbox_new(FALSE, 1);
 	entry = gtk_entry_new();
-#if GTK_CHECK_VERSION(2,16,0)
 	gtk_entry_set_icon_from_stock(GTK_ENTRY(entry), GTK_ENTRY_ICON_PRIMARY, GTK_STOCK_FIND);
 	gtk_entry_set_icon_activatable(GTK_ENTRY(entry), GTK_ENTRY_ICON_PRIMARY, TRUE);
 	g_signal_connect(G_OBJECT(entry), "icon-press", G_CALLBACK(bmark_search_icon_press), bfwin);
-#else
-	g_signal_connect(G_OBJECT(entry), "button-press-event", G_CALLBACK(bmark_search_button_press), bfwin);
-#endif
 	g_signal_connect(G_OBJECT(entry), "changed", G_CALLBACK(bmark_search_changed), bfwin);
 #if GTK_CHECK_VERSION(3,2,0)
 	gtk_entry_set_width_chars(GTK_ENTRY(entry), 1);

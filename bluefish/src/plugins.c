@@ -205,7 +205,6 @@ void bluefish_load_plugins(void) {
 	g_free(path);
 #endif /* RELPLUGINPATH */
 #elif defined WIN32 
-	if (GTK_CHECK_VERSION(2, 16, 0)) {
 		gchar *topdir;
 
 		topdir = g_win32_get_package_installation_directory_of_module(NULL);
@@ -214,7 +213,6 @@ void bluefish_load_plugins(void) {
 		
 		g_free(topdir);
 		g_free(path);
-	}
 #else /* WIN32 */
 	bluefish_scan_dir_load_plugins(&oldlist,PKGLIBDIR);
 #endif /* NSIS || OSXAPP */
