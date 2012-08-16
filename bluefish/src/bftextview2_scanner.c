@@ -1253,8 +1253,9 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #endif
 	iter = mstart = scanning.start;
 	if (gtk_text_iter_is_start(&scanning.start)) {
+		DBG_SCANNING("start scanning at start iter\n");
 		scanning.siter = g_sequence_get_begin_iter(btv->scancache.foundcaches);
-		scanning.nextfound = NULL;
+		scanning.nextfound = get_foundcache_first(btv, &scanning.siter);
 		scanning.curfcontext = NULL;
 		scanning.curfblock = NULL;
 		reconstruction_o = 0;
@@ -1262,7 +1263,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 		/* reconstruct the context stack and the block stack */
 		reconstruction_o = reconstruct_scanning(btv, &iter, &scanning);
 		pos = 0;
-		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d\n", scanning.context, pos);
+		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d, nextfound=%p\n", scanning.context, pos, scanning.nextfound);
 		/* now move the start position either to the start of the line, or to the position 
 		   where the stack was reconstructed, the largest offset */
 		gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, reconstruction_o);
@@ -1672,16 +1673,24 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 		if (!found)
 			break;
 		
-		if (found->charoffset_o <= prevfound_o)
+		if (found->charoffset_o < prevfound_o) {
 			g_warning("previous found had offset %d, the next found has offset %d, not ordered correctly?!?!!\n",found->charoffset_o, prevfound_o);
+		} else if (found->charoffset_o == prevfound_o) {
+			g_warning("previous found and the next found have offset %d, duplicate!!\n",found->charoffset_o);
+		}
 		prevfound_o = found->charoffset_o;
 		if (found->numcontextchange > 0) {
 			/* push context */
 			if (found->fcontext->parentfcontext != g_queue_peek_head(&contexts)) {
-				g_warning("pushing context at %d:%d, parent contexts at %d:%d do not match!\n"
+				if (found->fcontext->parentfcontext == NULL) {
+					g_warning("pushing context at %d:%d on top of non-NULL stack, but parent contexts is NULL!?\n"
+									,found->fcontext->start_o, found->fcontext->end_o);
+				} else {
+					g_warning("pushing context at %d:%d, parent contexts at %d:%d do not match!\n"
 									,found->fcontext->start_o, found->fcontext->end_o
 									,((Tfoundcontext *)found->fcontext->parentfcontext)->start_o
 									,((Tfoundcontext *)found->fcontext->parentfcontext)->end_o);
+				}
 			}
 			g_queue_push_head(&contexts, found->fcontext);
 		} else {
