@@ -25,10 +25,16 @@
 		<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.lcomment" highlight="html-comment" mayfold="1" ends_context="1" />
 		<group class="is_ASP-VBS">
 			<element pattern="#include" highlight="asp-keyword" case_insens="1" />
-		</group>		
+		</group>
 	</context>
 </element>
 
+<element id="e.html.doctype" pattern="&lt;!DOCTYPE" highlight="html-tag">
+	<context symbols="&#34;&gt;&lt;" highlight="html-tag">
+		<element pattern="&#34;[^&#34;]*&#34;" highlight="attribute-string" is_regex="1" />
+		<element pattern="&gt;" ends_context="1"  highlight="html-tag" />
+	</context>
+</element>
 <tag name="html" block_name="html-block" case_insens="1" sgml_shorttag="1" attributes="version,&i18n;" highlight="html-tag" >
 	<autocomplete append="&gt;&#10;&#10;&lt;/html&gt;" backup_cursor="8" />
 	<reference>Defines an HTML document</reference>
