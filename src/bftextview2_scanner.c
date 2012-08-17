@@ -258,7 +258,7 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 {
 	Tfound *tmpfound1 = *found;
 	GSequenceIter *tmpsiter1 = *siter;
-	guint invalidoffset = 0;
+	guint invalidoffset;
 	gint blockstackcount = 0, contextstackcount = 0;
 	
 	if (!tmpfound1)
@@ -267,7 +267,8 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 	*found = get_foundcache_next(btv, siter);
 	DBG_SCANCACHE("remove_cache_entry, STARTED, remove %p at offset %d and any children, numblockchange=%d, numcontextchange=%d\n", tmpfound1,
 				  tmpfound1->charoffset_o, tmpfound1->numblockchange, tmpfound1->numcontextchange);
-		/* if this entry pops blocks or contexts, mark the ends of those as undefined */
+	invalidoffset = tmpfound1->charoffset_o;
+	/* if this entry pops blocks or contexts, mark the ends of those as undefined */
 	if (tmpfound1->numblockchange < 0) {
 		Tfoundblock *tmpfblock = tmpfound1->fblock;
 		DBG_SCANCACHE("remove_cache_entry, found %p pops blocks, mark end of %d fblock's as undefined, fblock=%p\n",
