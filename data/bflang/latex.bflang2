@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		latex.bflang2 $Revision: 6069 $
+ 
+		Copyright (C) 2012 Olivier Sessink
+
+	    This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+-->
+
+<bflang name="Latex" version="2.0" matches="89" contexts="4" table="33">
+<header>
+	<mime type="text/x-tex" />
+	<mime type="text/plain?.tex" />
+	<mime type="text/plain?.ltx" />
+	<mime type="text/plain?.sty" />
+	<mime type="text/plain?.cls" />
+	<mime type="text/plain?.dtx" />
+	<mime type="text/plain?.ins" />
+	<mime type="text/plain?.bbl" />
+	<option name="show_in_menu" default="0"/>
+	<highlight name="keyword" style="keyword" />
+	<highlight name="special_characters" style="special-keyword" />
+	<highlight name="brackets" style="brackets" />
+	<highlight name="type" style="type" />
+	<highlight name="comment" style="comment" />
+	<highlight name="string" style="string" />
+	<highlight name="value" style="value" />
+	<highlight name="preprocessor" style="preprocessor" />
+</header>
+<definition>
+<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+
+<group highlight="keyword" >
+	<autocomplete enable="1" />
+	<element pattern="\documentclass"/>
+	<element pattern="\usepackage"/>
+	<element pattern="\title"/>
+	<element pattern="\author"/>
+	<element pattern="\section"/>
+	<element pattern="\setlength"/>
+	<element pattern="\pagestyle" />
+	<element pattern="\begin" />
+	<element pattern="\end" />
+	<element pattern="\label" />
+	<element pattern="\newcommand" />
+	<element pattern="\lb" />
+	<element pattern="\rb" />
+	<element pattern="\textbf" />
+	<element pattern="" />
+	<element pattern="" />
+	<element pattern="" />
+	<element pattern="" />
+	<element pattern="" />
+</group>
+
+<group highlight="special_characters">
+	<element pattern="\Alpha" />
+	<element pattern="\Beta" />
+	<element pattern="\Chi" />
+	<element pattern="\Delta" />
+	<element pattern="\Epsilon" />
+	<element pattern="\Eta" />
+	<element pattern="\Gamma" />
+	<element pattern="\Iota" />
+	<element pattern="\Kappa" />
+	<element pattern="\Lambda" />
+	<element pattern="\Leftarrow" />
+	<element pattern="\Leftrightarrow" />
+	<element pattern="\Mu" />
+	<element pattern="\Nu" />
+	<element pattern="\Omega" />
+	<element pattern="\Phi" />
+	<element pattern="\Pi" />
+	<element pattern="\Psi" />
+	<element pattern="\Rho" />
+	<element pattern="\Rightarrow" />
+	<element pattern="\Sigma" />
+	<element pattern="\Tau" />
+	<element pattern="\Zeta" />
+	<element pattern="\alpha" />
+	<element pattern="\appendix" />
+	<element pattern="\begin" />
+	<element pattern="\beta" />
+	<element pattern="\bigcap" />
+	<element pattern="\bigcup" />
+	<element pattern="\cap" />
+	<element pattern="\cdot" />
+	<element pattern="\chapter" />
+	<element pattern="\chi" />
+	<element pattern="\cup" />
+	<element pattern="\delta" />
+	<element pattern="\documentclass" />
+	<element pattern="\end" />
+	<element pattern="\enumi" />
+	<element pattern="\enumii" />
+	<element pattern="\enumiii" />
+	<element pattern="\enumiv" />
+	<element pattern="\epsilon" />
+	<element pattern="\equation" />
+	<element pattern="\eta" />
+	<element pattern="\exists" />
+	<element pattern="\figure" />
+	<element pattern="\footnote" />
+	<element pattern="\footnotemark" />
+	<element pattern="\footnotetext" />
+	<element pattern="\forall" />
+	<element pattern="\gamma" />
+	<element pattern="\geq" />
+	<element pattern="\in" />
+	<element pattern="\int" />
+	<element pattern="\iota" />
+	<element pattern="\kappa" />
+	<element pattern="\label" />
+	<element pattern="\lambda" />
+	<element pattern="\ldots" />
+	<element pattern="\leftarrow" />
+	<element pattern="\leq" />
+	<element pattern="\mpfootnote" />
+	<element pattern="\mu" />
+	<element pattern="\neq" />
+	<element pattern="\newcommand" />
+	<element pattern="\newenvironment" />
+	<element pattern="\newfont" />
+	<element pattern="\newtheorem" />
+	<element pattern="\not" />
+	<element pattern="\notin" />
+	<element pattern="\nu" />
+	<element pattern="\omega" />
+	<element pattern="\onecolumn" />
+	<element pattern="\page" />
+	<element pattern="\pageref" />
+	<element pattern="\paragraph" />
+	<element pattern="\part" />
+	<element pattern="\phi" />
+	<element pattern="\pi" />
+	<element pattern="\prod" />
+	<element pattern="\psi" />
+	<element pattern="\qquad" />
+	<element pattern="\quad" />
+	<element pattern="\ref" />
+	<element pattern="\rho" />
+	<element pattern="\rightarrow" />
+	<element pattern="\section" />
+	<element pattern="\setminus" />
+	<element pattern="\sigma" />
+	<element pattern="\subparagraph" />
+	<element pattern="\subsection" />
+	<element pattern="\subset" />
+	<element pattern="\subseteq" />
+	<element pattern="\subsetneq" />
+	<element pattern="\subsubsection" />
+	<element pattern="\subsubsubsection" />
+	<element pattern="\sum" />
+	<element pattern="\supset" />
+	<element pattern="\supseteq" />
+	<element pattern="\supsetneq" />
+	<element pattern="\table" />
+	<element pattern="\tau" />
+	<element pattern="\times" />
+	<element pattern="\twocolumn" />
+	<element pattern="\varepsilon" />
+	<element pattern="\varphi" />
+	<element pattern="\zeta" />
+</group>
+
+
+<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
+
+<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
+
+<element id="e.lparen" pattern="(" starts_block="1" highlight="brackets" block_name="Parentheses block" />
+<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+
+</context>
+</definition>
+</bflang>
