@@ -3043,6 +3043,28 @@ doc_paste(Tbfwin * bfwin)
 	DEBUG_MSG("edit_paste_cb, finished\n");
 }
 
+static void
+rich_text_received(GtkClipboard *clipboard,GdkAtom format,const guint8 *text,gsize length,gpointer data)
+{
+	g_print("rich_text_received, started, got %"G_GSIZE_FORMAT" bytes of data\n", length);
+	if (text) {
+		g_print("got data %s\n",text);
+	}
+}
+
+void
+doc_paste_special(Tbfwin *bfwin)
+{
+	GtkClipboard *cb;
+	Tdocument *doc = bfwin->current_document;
+	GtkTextBuffer *newbuf;
+	g_print("doc_paste_special, started\n");
+	cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+	newbuf = gtk_text_buffer_new(NULL);
+	gtk_clipboard_request_rich_text(cb,newbuf,rich_text_received,doc);
+	g_print("doc_paste_special, requested rich text, waiting...\n");
+}
+
 void
 doc_select_all(Tbfwin * bfwin)
 {

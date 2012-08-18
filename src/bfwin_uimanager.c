@@ -311,6 +311,14 @@ ui_paste(GtkAction * action, gpointer user_data)
 }
 
 static void
+ui_paste_special(GtkAction * action, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+	if (bfwin->current_document)
+		doc_paste_special(bfwin);
+}
+
+static void
 ui_find(GtkAction * action, gpointer user_data)
 {
 	bfwin_simplesearch_show(BFWIN(user_data));
@@ -940,7 +948,8 @@ static const GtkActionEntry document_actions[] = {
 static const GtkActionEntry edit_actions[] = {
 	{"Cut", GTK_STOCK_CUT, N_("Cu_t"), "<control>X", N_("Cut"), G_CALLBACK(ui_cut)},
 	{"Copy", GTK_STOCK_COPY, N_("_Copy"), "<control>C", N_("Copy"), G_CALLBACK(ui_copy)},
-	{"Paste", GTK_STOCK_PASTE, N_("_Paste"), "<control>V", N_("Paste"), G_CALLBACK(ui_paste)}
+	{"Paste", GTK_STOCK_PASTE, N_("_Paste"), "<control>V", N_("Paste"), G_CALLBACK(ui_paste)},
+	{"PasteSpecial", GTK_STOCK_PASTE, N_("Paste _Special"), "<control><shift>v", N_("Paste Special"), G_CALLBACK(ui_paste_special)},
 };
 
 static const GtkActionEntry find_replace_actions[] = {
