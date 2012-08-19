@@ -3105,25 +3105,25 @@ doc_paste_special(Tbfwin *bfwin)
 	GSList *group=NULL;
 	GtkWidget *win, *content_area, *rbuts[3];
 	win = gtk_dialog_new_with_buttons(_("Paste special")
-				, bfwin->main_window, GTK_DIALOG_DESTROY_WITH_PARENT
+				, GTK_WINDOW(bfwin->main_window), GTK_DIALOG_DESTROY_WITH_PARENT|GTK_DIALOG_MODAL
 				, GTK_STOCK_OK, GTK_RESPONSE_ACCEPT
 				,GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,NULL);
 	content_area = gtk_dialog_get_content_area (GTK_DIALOG(win));
 	
 	rbuts[0] = gtk_radio_button_new_with_mnemonic(group, _("Paste as _HTML"));
 	gtk_box_pack_start(GTK_BOX(content_area), rbuts[0], TRUE, TRUE, 4);
-	group = gtk_radio_button_get_group(rbuts[0]);
+	group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbuts[0]));
 	rbuts[1] = gtk_radio_button_new_with_mnemonic(group, _("Paste as _JPG"));
 	gtk_box_pack_start(GTK_BOX(content_area), rbuts[1], TRUE, TRUE, 4);
 	rbuts[2] = gtk_radio_button_new_with_mnemonic(group, _("Paste as _PNG"));
 	gtk_box_pack_start(GTK_BOX(content_area), rbuts[2], TRUE, TRUE, 4);
 	gtk_widget_show_all(win);
-	result = gtk_dialog_run(win);
+	result = gtk_dialog_run(GTK_DIALOG(win));
 	if (result == GTK_RESPONSE_ACCEPT) {
-		if (gtk_toggle_button_get_active(rbuts[0])) {
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbuts[0]))) {
 			paste_special_html(bfwin);
 		} else {
-			paste_special_image(bfwin, gtk_toggle_button_get_active(rbuts[1]));
+			paste_special_image(bfwin, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbuts[1])));
 		}
 	}
 	gtk_widget_destroy(win);
