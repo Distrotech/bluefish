@@ -3048,10 +3048,31 @@ rich_text_received(GtkClipboard *clipboard,GdkAtom format,const guint8 *text,gsi
 {
 	g_print("rich_text_received, started, got %"G_GSIZE_FORMAT" bytes of data\n", length);
 	if (text) {
-		g_print("got data %s\n",text);
+		/* strip headers and footer from the html*/
+		GRegex *reg;
+		GError *gerror=NULL;
+		GMatchInfo *match_info;
+		reg = g_regex_new("<body[^>]*>(.*)</body>",G_REGEX_CASELESS|G_REGEX_MULTILINE|G_REGEX_DOTALL,0,&gerror);
+		if (!reg) {
+			g_warning("paste special, rich_text_received, internal regex error\n");
+		}
+		if (g_regex_match(reg,text,0,&match_info)) {
+			gchar *str;
+			str = g_match_info_fetch(match_info,1);
+			doc_insert_two_strings(DOCUMENT(data), str, NULL);
+			g_free(str);
+		}
+		g_match_info_free(match_info);
+		g_regex_unref(reg);
 	}
 }
-
+static gboolean html_deserialize(GtkTextBuffer *register_buffer,GtkTextBuffer *content_buffer,
+						GtkTextIter *iter,const guint8 *data,gsize length,gboolean create_tags,gpointer user_data,GError **error) 
+{
+	g_print("html_deserialize, started\n");
+	g_print("data=%s\n", data);
+	return TRUE;
+}
 void
 doc_paste_special(Tbfwin *bfwin)
 {
@@ -3061,6 +3082,10 @@ doc_paste_special(Tbfwin *bfwin)
 	g_print("doc_paste_special, started\n");
 	cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 	newbuf = gtk_text_buffer_new(NULL);
+	gtk_text_buffer_register_deserialize_tagset(newbuf, NULL);
+	/* now we should register a deserialize function for e.g. libreoffice rich text */
+	gtk_text_buffer_register_deserialize_format(newbuf,"text/html",html_deserialize,doc,NULL);
+	
 	gtk_clipboard_request_rich_text(cb,newbuf,rich_text_received,doc);
 	g_print("doc_paste_special, requested rich text, waiting...\n");
 }
