@@ -3073,13 +3073,21 @@ static gboolean html_deserialize(GtkTextBuffer *register_buffer,GtkTextBuffer *c
 	g_print("data=%s\n", data);
 	return TRUE;
 }
-void
-doc_paste_special(Tbfwin *bfwin)
+
+static void
+paste_special_image(Tbfwin *bfwin, gboolean jpeg) 
+{
+	g_print("not implemented yet\n");
+	
+}
+
+static void
+paste_special_html(Tbfwin *bfwin)
 {
 	GtkClipboard *cb;
 	Tdocument *doc = bfwin->current_document;
 	GtkTextBuffer *newbuf;
-	g_print("doc_paste_special, started\n");
+	g_print("paste_special_html, started\n");
 	cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 	newbuf = gtk_text_buffer_new(NULL);
 	gtk_text_buffer_register_deserialize_tagset(newbuf, NULL);
@@ -3087,7 +3095,38 @@ doc_paste_special(Tbfwin *bfwin)
 	gtk_text_buffer_register_deserialize_format(newbuf,"text/html",html_deserialize,doc,NULL);
 	
 	gtk_clipboard_request_rich_text(cb,newbuf,rich_text_received,doc);
-	g_print("doc_paste_special, requested rich text, waiting...\n");
+	g_print("paste_special_html, requested rich text, waiting...\n");
+}
+
+void
+doc_paste_special(Tbfwin *bfwin)
+{
+	gint result;
+	GSList *group=NULL;
+	GtkWidget *win, *content_area, *rbuts[3];
+	win = gtk_dialog_new_with_buttons(_("Paste special")
+				, bfwin->main_window, GTK_DIALOG_DESTROY_WITH_PARENT
+				, GTK_STOCK_OK, GTK_RESPONSE_ACCEPT
+				,GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,NULL);
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG(win));
+	
+	rbuts[0] = gtk_radio_button_new_with_mnemonic(group, _("Paste as _HTML"));
+	gtk_box_pack_start(GTK_BOX(content_area), rbuts[0], TRUE, TRUE, 4);
+	group = gtk_radio_button_get_group(rbuts[0]);
+	rbuts[1] = gtk_radio_button_new_with_mnemonic(group, _("Paste as _JPG"));
+	gtk_box_pack_start(GTK_BOX(content_area), rbuts[1], TRUE, TRUE, 4);
+	rbuts[2] = gtk_radio_button_new_with_mnemonic(group, _("Paste as _PNG"));
+	gtk_box_pack_start(GTK_BOX(content_area), rbuts[2], TRUE, TRUE, 4);
+	gtk_widget_show_all(win);
+	result = gtk_dialog_run(win);
+	if (result == GTK_RESPONSE_ACCEPT) {
+		if (gtk_toggle_button_get_active(rbuts[0])) {
+			paste_special_html(bfwin);
+		} else {
+			paste_special_image(bfwin, gtk_toggle_button_get_active(rbuts[1]));
+		}
+	}
+	gtk_widget_destroy(win);
 }
 
 void
