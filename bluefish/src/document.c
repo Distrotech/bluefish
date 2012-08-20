@@ -3043,6 +3043,45 @@ doc_paste(Tbfwin * bfwin)
 	DEBUG_MSG("edit_paste_cb, finished\n");
 }
 
+/*************************** paste special code ***************************/
+
+static TcheckNsave_return
+paste_image_save_lcb(TcheckNsave_status status, GError * gerror, gpointer callback_data)
+{
+	/* TODO: handle error */
+	if (gerror) {
+		g_print("paste_image_save_lcb, failed to save thumbnail: %s\n",gerror->message);
+	}
+	return CHECKNSAVE_CONT;
+}
+
+static void
+image_received(GtkClipboard *clipboard,GdkPixbuf *pixbuf,gpointer data)
+{
+	g_print("image_received, started, got %p\n", pixbuf);
+	if (pixbuf) {
+		/* ask for the filename */
+		gchar * filename;
+		GFile *uri;
+		gchar *buffer;
+		gsize buflen;
+		GError *gerror=NULL;
+		Trefcpointer *refbuf;
+		
+		filename = ask_new_filename(BFWIN(data), NULL, NULL, TRUE);
+		uri = g_file_new_for_uri(filename);
+		
+		gdk_pixbuf_save_to_buffer(pixbuf, &buffer, &buflen, "jpeg", &gerror,"quality", "95", NULL);
+		
+		
+		refbuf = refcpointer_new(buffer);
+		/* save the file and insert the image tag */
+		file_checkNsave_uri_async(uri, NULL, refbuf, buflen, FALSE, FALSE,(CheckNsaveAsyncCallback) paste_image_save_lcb, NULL);
+		refcpointer_unref(refbuf);
+		g_object_unref(uri);
+		g_free(filename);
+	}
+}
 static void
 rich_text_received(GtkClipboard *clipboard,GdkAtom format,const guint8 *text,gsize length,gpointer data)
 {
@@ -3059,7 +3098,7 @@ rich_text_received(GtkClipboard *clipboard,GdkAtom format,const guint8 *text,gsi
 		if (g_regex_match(reg,text,0,&match_info)) {
 			gchar *str;
 			str = g_match_info_fetch(match_info,1);
-			doc_insert_two_strings(DOCUMENT(data), str, NULL);
+			doc_insert_two_strings(DOCUMENT(BFWIN(data)->current_document), str, NULL);
 			g_free(str);
 		}
 		g_match_info_free(match_info);
@@ -3073,28 +3112,49 @@ static gboolean html_deserialize(GtkTextBuffer *register_buffer,GtkTextBuffer *c
 	g_print("data=%s\n", data);
 	return TRUE;
 }
+static gboolean jpg_deserialize(GtkTextBuffer *register_buffer,GtkTextBuffer *content_buffer,
+						GtkTextIter *iter,const guint8 *data,gsize length,gboolean create_tags,gpointer user_data,GError **error) 
+{
+	g_print("jpg_deserialize, started\n");
+	return TRUE;
+}
+static gboolean png_deserialize(GtkTextBuffer *register_buffer,GtkTextBuffer *content_buffer,
+						GtkTextIter *iter,const guint8 *data,gsize length,gboolean create_tags,gpointer user_data,GError **error) 
+{
+	g_print("png_deserialize, started\n");
+	return TRUE;
+}
 
 static void
 paste_special_image(Tbfwin *bfwin, gboolean jpeg) 
 {
-	g_print("not implemented yet\n");
+	GtkClipboard *cb;
+	Tdocument *doc = bfwin->current_document;
+	GtkTextBuffer *newbuf;
+	g_print("paste_special_image, started\n");
+	cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+	newbuf = gtk_text_buffer_new(NULL);
+	/* now we should register a deserialize function for e.g. images */
+	gtk_text_buffer_register_deserialize_format(newbuf,"image/jpg",jpg_deserialize,doc,NULL);
+	gtk_text_buffer_register_deserialize_format(newbuf,"image/png",png_deserialize,doc,NULL);
 	
+	gtk_clipboard_request_image(cb,image_received,bfwin);
+	g_print("paste_special_image, requested image, waiting...\n");
 }
 
 static void
 paste_special_html(Tbfwin *bfwin)
 {
 	GtkClipboard *cb;
-	Tdocument *doc = bfwin->current_document;
 	GtkTextBuffer *newbuf;
 	g_print("paste_special_html, started\n");
 	cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 	newbuf = gtk_text_buffer_new(NULL);
 	gtk_text_buffer_register_deserialize_tagset(newbuf, NULL);
 	/* now we should register a deserialize function for e.g. libreoffice rich text */
-	gtk_text_buffer_register_deserialize_format(newbuf,"text/html",html_deserialize,doc,NULL);
+	gtk_text_buffer_register_deserialize_format(newbuf,"text/html",html_deserialize,bfwin,NULL);
 	
-	gtk_clipboard_request_rich_text(cb,newbuf,rich_text_received,doc);
+	gtk_clipboard_request_rich_text(cb,newbuf,rich_text_received,bfwin);
 	g_print("paste_special_html, requested rich text, waiting...\n");
 }
 
@@ -3120,6 +3180,7 @@ doc_paste_special(Tbfwin *bfwin)
 	gtk_widget_show_all(win);
 	result = gtk_dialog_run(GTK_DIALOG(win));
 	if (result == GTK_RESPONSE_ACCEPT) {
+		g_print("0=active=%d\n",gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbuts[0])));
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbuts[0]))) {
 			paste_special_html(bfwin);
 		} else {
@@ -3128,6 +3189,7 @@ doc_paste_special(Tbfwin *bfwin)
 	}
 	gtk_widget_destroy(win);
 }
+/*************************** end of paste special code ***************************/
 
 void
 doc_select_all(Tbfwin * bfwin)
