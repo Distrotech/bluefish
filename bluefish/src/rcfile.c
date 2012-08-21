@@ -883,6 +883,12 @@ rcfile_parse_main(void)
 		main_v->props.templates =
 			g_list_append(main_v->props.templates,
 						  array_from_arglist(_("PHP"), PKGDATADIR "/templates/PHP", NULL));
+		main_v->props.templates =
+			g_list_append(main_v->props.templates,
+						  array_from_arglist(_("LaTex Book"), PKGDATADIR "/templates/Latex_Book", NULL));
+		main_v->props.templates =
+			g_list_append(main_v->props.templates,
+						  array_from_arglist(_("LaTex Presentation"), PKGDATADIR "/templates/Latex_Presentation", NULL));
 		/* TODO: list the templates in the directory */
 	}
 }
