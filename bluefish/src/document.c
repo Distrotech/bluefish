@@ -3114,22 +3114,22 @@ paste_special_image(Tbfwin *bfwin, gboolean jpeg)
 static void
 html_received(GtkClipboard *clipboard,GtkSelectionData *seldat,gpointer data)
 {
-	if (!seldat->data) {
-		g_print("html_received, no data received\n");
+	if (!gtk_selection_data_get_data(seldat)) {
+		g_print("html_received, no text received\n");
 		return;
 	}
 	/* strip headers and footer from the html*/
 	GRegex *reg;
 	GError *gerror=NULL;
 	GMatchInfo *match_info;
-	g_print("got %d bytes of data\n",seldat->length);
-	g_print("got data '%s'\n", seldat->data);
+	g_print("got %d bytes of data\n",gtk_selection_data_get_length(seldat));
+	g_print("got data '%s'\n", gtk_selection_data_get_data(seldat));
 	
 	reg = g_regex_new("<body[^>]*>(.*)</body>",G_REGEX_CASELESS|G_REGEX_MULTILINE|G_REGEX_DOTALL,0,&gerror);
 	if (!reg) {
 		g_warning("paste special, rich_text_received, internal regex error\n");
 	}
-	if (g_regex_match(reg,(gchar *)seldat->data,0,&match_info)) {
+	if (g_regex_match(reg,(gchar *)gtk_selection_data_get_data(seldat),0,&match_info)) {
 		gchar *str;
 		str = g_match_info_fetch(match_info,1);
 		doc_insert_two_strings(DOCUMENT(BFWIN(data)->current_document), str, NULL);
@@ -3155,30 +3155,29 @@ void
 doc_paste_special(Tbfwin *bfwin)
 {
 	gint result;
-	GSList *group;
-	GtkWidget *win, *content_area, *rbuts[3];
+	GtkWidget *win, *content_area, *rbut0, *rbut1, *rbut2;
 	win = gtk_dialog_new_with_buttons(_("Paste special")
 				, GTK_WINDOW(bfwin->main_window), GTK_DIALOG_DESTROY_WITH_PARENT|GTK_DIALOG_MODAL
 				, GTK_STOCK_OK, GTK_RESPONSE_ACCEPT
 				,GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,NULL);
 	content_area = gtk_dialog_get_content_area(GTK_DIALOG(win));
 	
-	rbuts[0] = gtk_radio_button_new_with_mnemonic(NULL, _("Paste as _HTML"));
-	gtk_box_pack_start(GTK_BOX(content_area), rbuts[0], TRUE, TRUE, 4);
-	group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbuts[0]));
-	rbuts[1] = gtk_radio_button_new_with_mnemonic(group, _("Paste as HTML with _JPG"));
-	gtk_box_pack_start(GTK_BOX(content_area), rbuts[1], TRUE, TRUE, 4);
-	rbuts[2] = gtk_radio_button_new_with_mnemonic(group, _("Paste as HTML _PNG"));
-	gtk_box_pack_start(GTK_BOX(content_area), rbuts[2], TRUE, TRUE, 4);
+	rbut0 = gtk_radio_button_new_with_mnemonic(NULL, _("Paste as _HTML"));
+	gtk_box_pack_start(GTK_BOX(content_area), rbut0, TRUE, TRUE, 4);
+	rbut1 = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbut0)), _("Paste as HTML with _JPG"));
+	gtk_box_pack_start(GTK_BOX(content_area), rbut1, TRUE, TRUE, 4);
+	rbut2 = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbut0)), _("Paste as HTML _PNG"));
+	gtk_box_pack_start(GTK_BOX(content_area), rbut2, TRUE, TRUE, 4);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(rbut0), TRUE);
 	gtk_widget_show_all(win);
 	result = gtk_dialog_run(GTK_DIALOG(win));
 	g_print("gtk_dialog_run, got result %d\n", result);
 	if (result == GTK_RESPONSE_ACCEPT) {
-		g_print("0=active=%d\n",gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbuts[0])));
-		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbuts[0]))) {
+		g_print("0=active=%d\n",gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbut0)));
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbut0))) {
 			paste_special_html(bfwin);
 		} else {
-			paste_special_image(bfwin, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbuts[1])));
+			paste_special_image(bfwin, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbut1)));
 		}
 	}
 	g_print("destroy dialog %p\n", win);
