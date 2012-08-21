@@ -3076,6 +3076,10 @@ image_received(GtkClipboard *clipboard,GdkPixbuf *pixbuf,gpointer data)
 	height = gdk_pixbuf_get_height(pixbuf);
 	
 	filename = ask_new_filename(BFWIN(data), NULL, _("Save pasted image as"), FALSE);
+	
+	if (!filename)
+		return;
+	
 	uri = g_file_new_for_uri(filename);
 	gdk_pixbuf_save_to_buffer(pixbuf, &buffer, &buflen, "jpeg", &gerror,"quality", "95", NULL);
 	refbuf = refcpointer_new(buffer);
@@ -3156,27 +3160,53 @@ doc_paste_special(Tbfwin *bfwin)
 {
 	gint result;
 	GtkWidget *win, *content_area, *rbut0, *rbut1, *rbut2;
+	gboolean have_html=FALSE, have_image=FALSE;
+	GdkAtom *targets;
+	gint numtargets;
+	GtkClipboard *cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+
+	if (!gtk_clipboard_wait_for_targets(cb, &targets, &numtargets)) {
+		g_print("no clipbord data available\n");
+		return;
+	}
+
+	while (numtargets > 0 && (have_html==FALSE || have_image==FALSE)) {
+		gchar *name;
+		numtargets--;
+		name = gdk_atom_name(targets[numtargets]);
+		g_print("%d: got target %s\n", numtargets, name);
+		if (strcmp(name, "text/html")==0) {
+			have_html=TRUE;
+		} else if (strncmp(name, "image/", 6)==0) {
+			have_image=TRUE;
+		}
+	}
+
 	win = gtk_dialog_new_with_buttons(_("Paste special")
 				, GTK_WINDOW(bfwin->main_window), GTK_DIALOG_DESTROY_WITH_PARENT|GTK_DIALOG_MODAL
 				, GTK_STOCK_OK, GTK_RESPONSE_ACCEPT
 				,GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,NULL);
 	content_area = gtk_dialog_get_content_area(GTK_DIALOG(win));
+
+	if (have_html) {
+		rbut0 = gtk_radio_button_new_with_mnemonic(NULL, _("Paste as _HTML"));
+		gtk_box_pack_start(GTK_BOX(content_area), rbut0, TRUE, TRUE, 4);
+	}
+	if (have_image) {
+		rbut1 = gtk_radio_button_new_with_mnemonic(have_html ? gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbut0)) : NULL, _("Paste as HTML with _JPG"));
+		gtk_box_pack_start(GTK_BOX(content_area), rbut1, TRUE, TRUE, 4);
+		rbut2 = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbut1)), _("Paste as HTML _PNG"));
+		gtk_box_pack_start(GTK_BOX(content_area), rbut2, TRUE, TRUE, 4);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(rbut1), TRUE);
+	}
 	
-	rbut0 = gtk_radio_button_new_with_mnemonic(NULL, _("Paste as _HTML"));
-	gtk_box_pack_start(GTK_BOX(content_area), rbut0, TRUE, TRUE, 4);
-	rbut1 = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbut0)), _("Paste as HTML with _JPG"));
-	gtk_box_pack_start(GTK_BOX(content_area), rbut1, TRUE, TRUE, 4);
-	rbut2 = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbut0)), _("Paste as HTML _PNG"));
-	gtk_box_pack_start(GTK_BOX(content_area), rbut2, TRUE, TRUE, 4);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(rbut0), TRUE);
 	gtk_widget_show_all(win);
 	result = gtk_dialog_run(GTK_DIALOG(win));
 	g_print("gtk_dialog_run, got result %d\n", result);
 	if (result == GTK_RESPONSE_ACCEPT) {
-		g_print("0=active=%d\n",gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbut0)));
-		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbut0))) {
+		if (have_html && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbut0))) {
 			paste_special_html(bfwin);
-		} else {
+		} else if (have_image) {
 			paste_special_image(bfwin, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbut1)));
 		}
 	}
