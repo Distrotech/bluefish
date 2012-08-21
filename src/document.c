@@ -3059,103 +3059,91 @@ static void
 image_received(GtkClipboard *clipboard,GdkPixbuf *pixbuf,gpointer data)
 {
 	g_print("image_received, started, got %p\n", pixbuf);
-	if (pixbuf) {
-		/* ask for the filename */
-		gchar * filename;
-		GFile *uri;
-		gchar *buffer;
-		gsize buflen;
-		GError *gerror=NULL;
-		Trefcpointer *refbuf;
-		
-		filename = ask_new_filename(BFWIN(data), NULL, NULL, TRUE);
-		uri = g_file_new_for_uri(filename);
-		
-		gdk_pixbuf_save_to_buffer(pixbuf, &buffer, &buflen, "jpeg", &gerror,"quality", "95", NULL);
-		
-		
-		refbuf = refcpointer_new(buffer);
-		/* save the file and insert the image tag */
-		file_checkNsave_uri_async(uri, NULL, refbuf, buflen, FALSE, FALSE,(CheckNsaveAsyncCallback) paste_image_save_lcb, NULL);
-		refcpointer_unref(refbuf);
-		g_object_unref(uri);
-		g_free(filename);
+	if (!pixbuf) {
+		g_print("no pixbuf received\n");
+		return;
 	}
-}
-static void
-rich_text_received(GtkClipboard *clipboard,GdkAtom format,const guint8 *text,gsize length,gpointer data)
-{
-	g_print("rich_text_received, started, got %"G_GSIZE_FORMAT" bytes of data\n", length);
-	if (text) {
-		/* strip headers and footer from the html*/
-		GRegex *reg;
-		GError *gerror=NULL;
-		GMatchInfo *match_info;
-		reg = g_regex_new("<body[^>]*>(.*)</body>",G_REGEX_CASELESS|G_REGEX_MULTILINE|G_REGEX_DOTALL,0,&gerror);
-		if (!reg) {
-			g_warning("paste special, rich_text_received, internal regex error\n");
-		}
-		if (g_regex_match(reg,text,0,&match_info)) {
-			gchar *str;
-			str = g_match_info_fetch(match_info,1);
-			doc_insert_two_strings(DOCUMENT(BFWIN(data)->current_document), str, NULL);
-			g_free(str);
-		}
-		g_match_info_free(match_info);
-		g_regex_unref(reg);
+	/* ask for the filename */
+	gchar * filename, *insertname=NULL, *str;
+	GFile *uri;
+	gchar *buffer;
+	gsize buflen;
+	GError *gerror=NULL;
+	Trefcpointer *refbuf;
+	
+	filename = ask_new_filename(BFWIN(data), NULL, _("Save pasted image as"), FALSE);
+	uri = g_file_new_for_uri(filename);
+	gdk_pixbuf_save_to_buffer(pixbuf, &buffer, &buflen, "jpeg", &gerror,"quality", "95", NULL);
+	refbuf = refcpointer_new(buffer);
+	/* save the file and insert the image tag */
+	file_checkNsave_uri_async(uri, NULL, refbuf, buflen, FALSE, FALSE,(CheckNsaveAsyncCallback) paste_image_save_lcb, NULL);
+	refcpointer_unref(refbuf);
+
+	if (BFWIN(data)->current_document->uri) {
+		gchar *curi = g_file_get_uri(BFWIN(data)->current_document->uri);
+		insertname = create_relative_link_to(curi, filename);
+		g_free(curi);
 	}
+	str = g_strconcat("<img src=\"", insertname? insertname : filename, "\" alt=\"\" />", NULL);
+	
+	doc_insert_two_strings(DOCUMENT(BFWIN(data)->current_document), str, NULL);
+
+	g_object_unref(uri);
+	g_free(filename);
+	g_free(insertname);
+	g_free(str);
 }
-static gboolean html_deserialize(GtkTextBuffer *register_buffer,GtkTextBuffer *content_buffer,
-						GtkTextIter *iter,const guint8 *data,gsize length,gboolean create_tags,gpointer user_data,GError **error) 
-{
-	g_print("html_deserialize, started\n");
-	g_print("data=%s\n", data);
-	return TRUE;
-}
-static gboolean jpg_deserialize(GtkTextBuffer *register_buffer,GtkTextBuffer *content_buffer,
-						GtkTextIter *iter,const guint8 *data,gsize length,gboolean create_tags,gpointer user_data,GError **error) 
-{
-	g_print("jpg_deserialize, started\n");
-	return TRUE;
-}
-static gboolean png_deserialize(GtkTextBuffer *register_buffer,GtkTextBuffer *content_buffer,
-						GtkTextIter *iter,const guint8 *data,gsize length,gboolean create_tags,gpointer user_data,GError **error) 
-{
-	g_print("png_deserialize, started\n");
-	return TRUE;
-}
+
 
 static void
 paste_special_image(Tbfwin *bfwin, gboolean jpeg) 
 {
 	GtkClipboard *cb;
-	Tdocument *doc = bfwin->current_document;
-	GtkTextBuffer *newbuf;
 	g_print("paste_special_image, started\n");
 	cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-	newbuf = gtk_text_buffer_new(NULL);
-	/* now we should register a deserialize function for e.g. images */
-	gtk_text_buffer_register_deserialize_format(newbuf,"image/jpg",jpg_deserialize,doc,NULL);
-	gtk_text_buffer_register_deserialize_format(newbuf,"image/png",png_deserialize,doc,NULL);
-	
+
 	gtk_clipboard_request_image(cb,image_received,bfwin);
 	g_print("paste_special_image, requested image, waiting...\n");
+}
+
+static void
+html_received(GtkClipboard *clipboard,GtkSelectionData *seldat,gpointer data)
+{
+	if (!seldat->data) {
+		g_print("html_received, no data received\n");
+		return;
+	}
+	/* strip headers and footer from the html*/
+	GRegex *reg;
+	GError *gerror=NULL;
+	GMatchInfo *match_info;
+	g_print("got %d bytes of data\n",seldat->length);
+	g_print("got data '%s'\n", seldat->data);
+	
+	reg = g_regex_new("<body[^>]*>(.*)</body>",G_REGEX_CASELESS|G_REGEX_MULTILINE|G_REGEX_DOTALL,0,&gerror);
+	if (!reg) {
+		g_warning("paste special, rich_text_received, internal regex error\n");
+	}
+	if (g_regex_match(reg,seldat->data,0,&match_info)) {
+		gchar *str;
+		str = g_match_info_fetch(match_info,1);
+		doc_insert_two_strings(DOCUMENT(BFWIN(data)->current_document), str, NULL);
+		g_free(str);
+	}
+	g_match_info_free(match_info);
+	g_regex_unref(reg);
 }
 
 static void
 paste_special_html(Tbfwin *bfwin)
 {
 	GtkClipboard *cb;
-	GtkTextBuffer *newbuf;
+	GdkAtom target;
 	g_print("paste_special_html, started\n");
+	target = gdk_atom_intern_static_string("text/html");
 	cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-	newbuf = gtk_text_buffer_new(NULL);
-	gtk_text_buffer_register_deserialize_tagset(newbuf, NULL);
-	/* now we should register a deserialize function for e.g. libreoffice rich text */
-	gtk_text_buffer_register_deserialize_format(newbuf,"text/html",html_deserialize,bfwin,NULL);
-	
-	gtk_clipboard_request_rich_text(cb,newbuf,rich_text_received,bfwin);
-	g_print("paste_special_html, requested rich text, waiting...\n");
+	gtk_clipboard_request_contents(cb,target,html_received,bfwin);
+	g_print("paste_special_html, requested html, waiting...\n");
 }
 
 void
@@ -3173,9 +3161,9 @@ doc_paste_special(Tbfwin *bfwin)
 	rbuts[0] = gtk_radio_button_new_with_mnemonic(group, _("Paste as _HTML"));
 	gtk_box_pack_start(GTK_BOX(content_area), rbuts[0], TRUE, TRUE, 4);
 	group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbuts[0]));
-	rbuts[1] = gtk_radio_button_new_with_mnemonic(group, _("Paste as _JPG"));
+	rbuts[1] = gtk_radio_button_new_with_mnemonic(group, _("Paste as HTML with _JPG"));
 	gtk_box_pack_start(GTK_BOX(content_area), rbuts[1], TRUE, TRUE, 4);
-	rbuts[2] = gtk_radio_button_new_with_mnemonic(group, _("Paste as _PNG"));
+	rbuts[2] = gtk_radio_button_new_with_mnemonic(group, _("Paste as HTML _PNG"));
 	gtk_box_pack_start(GTK_BOX(content_area), rbuts[2], TRUE, TRUE, 4);
 	gtk_widget_show_all(win);
 	result = gtk_dialog_run(GTK_DIALOG(win));
