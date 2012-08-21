@@ -3065,11 +3065,15 @@ image_received(GtkClipboard *clipboard,GdkPixbuf *pixbuf,gpointer data)
 	}
 	/* ask for the filename */
 	gchar * filename, *insertname=NULL, *str;
+	gint width, height;
 	GFile *uri;
 	gchar *buffer;
 	gsize buflen;
 	GError *gerror=NULL;
 	Trefcpointer *refbuf;
+	
+	width = gdk_pixbuf_get_width(pixbuf);
+	height = gdk_pixbuf_get_height(pixbuf);
 	
 	filename = ask_new_filename(BFWIN(data), NULL, _("Save pasted image as"), FALSE);
 	uri = g_file_new_for_uri(filename);
@@ -3077,17 +3081,18 @@ image_received(GtkClipboard *clipboard,GdkPixbuf *pixbuf,gpointer data)
 	refbuf = refcpointer_new(buffer);
 	/* save the file and insert the image tag */
 	file_checkNsave_uri_async(uri, NULL, refbuf, buflen, FALSE, FALSE,(CheckNsaveAsyncCallback) paste_image_save_lcb, NULL);
-	refcpointer_unref(refbuf);
+	
 
 	if (BFWIN(data)->current_document->uri) {
 		gchar *curi = g_file_get_uri(BFWIN(data)->current_document->uri);
 		insertname = create_relative_link_to(curi, filename);
 		g_free(curi);
 	}
-	str = g_strconcat("<img src=\"", insertname? insertname : filename, "\" alt=\"\" />", NULL);
+	str = g_strdup_printf("<img src=\"%s\" alt=\"\" width=\"%d\" height=\"%d\"/>", insertname? insertname : filename, width, height);
 	
 	doc_insert_two_strings(DOCUMENT(BFWIN(data)->current_document), str, NULL);
 
+	refcpointer_unref(refbuf);
 	g_object_unref(uri);
 	g_free(filename);
 	g_free(insertname);
@@ -3124,7 +3129,7 @@ html_received(GtkClipboard *clipboard,GtkSelectionData *seldat,gpointer data)
 	if (!reg) {
 		g_warning("paste special, rich_text_received, internal regex error\n");
 	}
-	if (g_regex_match(reg,seldat->data,0,&match_info)) {
+	if (g_regex_match(reg,(gchar *)seldat->data,0,&match_info)) {
 		gchar *str;
 		str = g_match_info_fetch(match_info,1);
 		doc_insert_two_strings(DOCUMENT(BFWIN(data)->current_document), str, NULL);
@@ -3150,15 +3155,15 @@ void
 doc_paste_special(Tbfwin *bfwin)
 {
 	gint result;
-	GSList *group=NULL;
+	GSList *group;
 	GtkWidget *win, *content_area, *rbuts[3];
 	win = gtk_dialog_new_with_buttons(_("Paste special")
 				, GTK_WINDOW(bfwin->main_window), GTK_DIALOG_DESTROY_WITH_PARENT|GTK_DIALOG_MODAL
 				, GTK_STOCK_OK, GTK_RESPONSE_ACCEPT
 				,GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,NULL);
-	content_area = gtk_dialog_get_content_area (GTK_DIALOG(win));
+	content_area = gtk_dialog_get_content_area(GTK_DIALOG(win));
 	
-	rbuts[0] = gtk_radio_button_new_with_mnemonic(group, _("Paste as _HTML"));
+	rbuts[0] = gtk_radio_button_new_with_mnemonic(NULL, _("Paste as _HTML"));
 	gtk_box_pack_start(GTK_BOX(content_area), rbuts[0], TRUE, TRUE, 4);
 	group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbuts[0]));
 	rbuts[1] = gtk_radio_button_new_with_mnemonic(group, _("Paste as HTML with _JPG"));
@@ -3167,6 +3172,7 @@ doc_paste_special(Tbfwin *bfwin)
 	gtk_box_pack_start(GTK_BOX(content_area), rbuts[2], TRUE, TRUE, 4);
 	gtk_widget_show_all(win);
 	result = gtk_dialog_run(GTK_DIALOG(win));
+	g_print("gtk_dialog_run, got result %d\n", result);
 	if (result == GTK_RESPONSE_ACCEPT) {
 		g_print("0=active=%d\n",gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbuts[0])));
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbuts[0]))) {
@@ -3175,7 +3181,9 @@ doc_paste_special(Tbfwin *bfwin)
 			paste_special_image(bfwin, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbuts[1])));
 		}
 	}
+	g_print("destroy dialog %p\n", win);
 	gtk_widget_destroy(win);
+	g_print("destroy dialog %p, done\n", win);
 }
 /*************************** end of paste special code ***************************/
 
