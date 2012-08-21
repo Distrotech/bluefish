@@ -207,6 +207,7 @@ side_panel_build(Tbfwin * bfwin)
 	GtkWidget *fb2g;
 
 	bfwin->leftpanel_notebook = gtk_notebook_new();
+	g_object_set(G_OBJECT(bfwin->leftpanel_notebook), "tab-curvature", 0, NULL);
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook), main_v->props.leftpanel_tabposition);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(bfwin->leftpanel_notebook), TRUE);
 #if !GTK_CHECK_VERSION(3, 0, 0)
