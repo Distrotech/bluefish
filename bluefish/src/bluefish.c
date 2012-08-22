@@ -179,6 +179,7 @@ static gboolean startup_in_idle(gpointer data) {
 			filters_rebuild();
 			main_v->bmarkdata = bookmark_data_new();
 			register_bf_stock_icons();
+			load_templates();
 			/* create the first window */
 			startup->firstbfwin = g_new0(Tbfwin, 1);
 			startup->firstbfwin->session = main_v->session;

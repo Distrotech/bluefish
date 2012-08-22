@@ -121,7 +121,9 @@ enum {
 	extcommands,
 	extfilters,
 	extoutputbox,
+#ifdef OLDTEMPLATES
 	templates,
+#endif
 	pluginconfig,
 	textstyles,
 	highlight_styles,
@@ -464,7 +466,7 @@ sessionprefs_apply(Tsessionprefs * sprefs, Tsessionvars * sessionvars)
 	string_apply(&template_name, sprefs->prefs[template]);
 	g_free(sessionvars->template);
 	sessionvars->template = NULL;
-	for (tmplist = g_list_first(main_v->props.templates); tmplist; tmplist = g_list_next(tmplist)) {
+	for (tmplist = g_list_first(main_v->templates); tmplist; tmplist = g_list_next(tmplist)) {
 		gchar **arr = tmplist->data;
 		if (g_strcmp0(arr[0], template_name) == 0) {
 			sessionvars->template = g_strdup(arr[1]);
@@ -501,7 +503,7 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 	g_list_free(poplist);
 
 	poplist = NULL;
-	for (tmplist = g_list_first(main_v->props.templates); tmplist; tmplist = g_list_next(tmplist)) {
+	for (tmplist = g_list_first(main_v->templates); tmplist; tmplist = g_list_next(tmplist)) {
 		gchar **arr = tmplist->data;
 		poplist = g_list_prepend(poplist, arr[0]);
 		if (g_strcmp0(arr[1], sessionvars->template) == 0) {
@@ -1408,6 +1410,7 @@ create_outputbox_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
 
+#ifdef OLDTEMPLATES
 /********* template manager GUI */
 static void
 set_template_strarr_in_list(GtkTreeIter * iter, gchar ** strarr, Tprefdialog * pd)
@@ -1498,6 +1501,7 @@ create_template_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	but = dialog_button_new_with_image(_("Delete entry"), GTK_STOCK_DELETE, G_CALLBACK(delete_template_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
+#endif /*OLDTEMPLATES*/
 
 /********* bflangdialog */
 static gchar *
@@ -1718,8 +1722,10 @@ preferences_destroy_lcb(GtkWidget * widget, Tprefdialog * pd)
 	pd->lists[extcommands] = NULL;
 	pd->lists[extfilters] = NULL;
 	pd->lists[extoutputbox] = NULL;
+#ifdef OLDTEMPLATES
 	free_arraylist(pd->lists[templates]);
 	pd->lists[templates] = NULL;
+#endif
 	free_arraylist(pd->lists[pluginconfig]);
 	pd->lists[pluginconfig] = NULL;
 	/*  g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list)); */
@@ -1855,10 +1861,10 @@ preferences_apply(Tprefdialog * pd)
 	main_v->props.external_filter = duplicate_arraylist(pd->lists[extfilters]);
 	free_arraylist(main_v->props.external_outputbox);
 	main_v->props.external_outputbox = duplicate_arraylist(pd->lists[extoutputbox]);
-
+#ifdef OLDTEMPLATES
 	free_arraylist(main_v->props.templates);
 	main_v->props.templates = duplicate_arraylist(pd->lists[templates]);
-
+#endif
 	DEBUG_MSG("preferences_apply: free old textstyles, and building new list\n");
 	free_arraylist(main_v->props.textstyles);
 	main_v->props.textstyles = duplicate_arraylist(pd->lists[textstyles]);
@@ -1885,7 +1891,9 @@ preferences_apply(Tprefdialog * pd)
 			bfwin_commands_menu_create(bfwin);
 			bfwin_filters_menu_create(bfwin);
 			bfwin_outputbox_menu_create(bfwin);
+#ifdef OLDTEMPLATES
 			bfwin_templates_menu_create(bfwin);
+#endif
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling gui_apply_settings\n");
 			bfwin_apply_settings(bfwin);
 			bfwin_side_panel_rebuild(bfwin);
@@ -2395,6 +2403,7 @@ preferences_dialog_new(void)
 	prefs_togglebutton_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[autosave]), hbox);
 	g_signal_connect(G_OBJECT(pd->prefs[autosave]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_lcb),
 					 hbox);
+#ifdef OLDTEMPLATES
 	/*
 	 *  Templates
 	 */
@@ -2410,7 +2419,7 @@ preferences_dialog_new(void)
 
 	vbox2 = dialog_vbox_labeled(_("<b>Templates</b>"), vbox1);
 	create_template_gui(pd, vbox2);
-
+#endif
 	/*
 	 *  User Interface
 	 */

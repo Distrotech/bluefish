@@ -1755,7 +1755,7 @@ bfwin_templates_menu_create(Tbfwin * bfwin)
 	}
 	bfwin->templates_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
 
-	for (list = g_list_last(main_v->props.templates); list; list = list->prev) {
+	for (list = g_list_last(main_v->templates); list; list = list->prev) {
 		gchar **arr = (gchar **) list->data;
 		if (arr && arr[0] && arr[1]) {
 			gchar *action_name = g_strconcat("template ", arr[0], NULL);
