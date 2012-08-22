@@ -43,4 +43,5 @@ gboolean rcfile_save_project(Tproject *project, GFile *file);
 gboolean rcfile_save_encodings(void);
 gboolean rcfile_save_global_session(void);
 gboolean rcfile_parse_global_session(void);
+void load_templates(void);
 #endif /* __RCFILE_H_ */

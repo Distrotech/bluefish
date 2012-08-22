@@ -336,7 +336,6 @@ typedef struct {
 	gchar *autosave_file_prefix;
 	gchar *autosave_file_suffix;
 	gchar *language;
-	GList *templates; /* array of name:URI */
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
@@ -558,6 +557,7 @@ typedef struct {
 	Tsessionvars *session;		/* holds all session variables for non-project windows */
 	gpointer fb2config;			/* filebrowser2config */
 	GList *filefilters;			/* initialized by fb2config functions */
+	GList *templates; 			/* loaded in rcfile.c */
 	Tdocument *bevent_doc;
 	gint bevent_charoffset; 	/* for example used in the spellcheck code to find on which 
 											word the user clicked */

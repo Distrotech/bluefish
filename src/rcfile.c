@@ -509,7 +509,7 @@ props_init_main(GHashTable * config_rc)
 	init_prop_string(&config_rc, &main_v->props.autosave_file_prefix, "autosave_file_prefix:", "");
 	init_prop_string(&config_rc, &main_v->props.autosave_file_suffix, "autosave_file_suffix:", "#");
 	init_prop_string(&config_rc, &main_v->props.language, "language:", "");
-	init_prop_arraylist(&config_rc, &main_v->props.templates, "templates:", 2, TRUE);
+	/*init_prop_arraylist(&config_rc, &main_v->props.templates, "templates:", 2, TRUE);*/
 	return config_rc;
 }
 
@@ -866,7 +866,7 @@ rcfile_parse_main(void)
 		main_v->props.external_filter = update_filters(main_v->props.external_filter, FALSE);
 		main_v->props.external_outputbox = update_outputbox(main_v->props.external_outputbox, FALSE);
 	}
-
+#ifdef OLDTEMPLATES
 	if (main_v->props.templates == NULL) {
 		main_v->props.templates =
 			g_list_append(main_v->props.templates,
@@ -891,6 +891,7 @@ rcfile_parse_main(void)
 						  array_from_arglist(_("LaTex Presentation"), PKGDATADIR "/templates/Latex_Presentation", NULL));
 		/* TODO: list the templates in the directory */
 	}
+#endif
 }
 
 gint
@@ -1220,4 +1221,56 @@ rcfile_parse_global_session(void)
 	}
 
 	return retval;
+}
+static gint
+sort_templates(gconstpointer a,gconstpointer b)
+{
+	return g_strcmp0(((gchar **)a)[0], ((gchar **)b)[0]);
+}
+
+
+static GList *
+load_templates_from_dir(GFile *uri)
+{
+	GFileEnumerator *en;
+	GFile *child;
+	GError *gerror=NULL;
+	GFileInfo *finfo;
+	GList *retlist=NULL;
+	
+
+	en = g_file_enumerate_children(uri,G_FILE_ATTRIBUTE_STANDARD_NAME,G_FILE_QUERY_INFO_NONE, NULL, &gerror);
+	if (gerror) {
+		g_print("failed to list templates: %s\n",gerror->message);
+		g_error_free(gerror);
+		return NULL;
+	}
+	
+	finfo = g_file_enumerator_next_file(en,NULL,&gerror);
+	while(finfo) {
+		child = g_file_get_child(uri, g_file_info_get_name(finfo));
+		retlist = g_list_prepend(retlist, array_from_arglist(g_file_info_get_name(finfo),g_file_get_path(child), NULL));
+		g_object_unref(child);
+		g_object_unref(finfo);
+		finfo = g_file_enumerator_next_file(en,NULL,&gerror);
+	}
+	if (gerror) {
+		g_print("failed to list templates: %s\n",gerror->message);
+		g_error_free(gerror);
+	}
+	g_object_unref(en);
+	return g_list_sort(retlist, sort_templates);
+}
+
+void
+load_templates(void)
+{
+	GList *t1, *t2;
+	GFile *uri = user_bfdir("templates/");
+	t1 = load_templates_from_dir(uri);
+	g_object_unref(uri);
+	uri = g_file_new_for_path(PKGDATADIR"/templates/");
+	t2 = load_templates_from_dir(uri);
+	g_object_unref(uri);
+	main_v->templates = g_list_concat(t1, t2);
 }
