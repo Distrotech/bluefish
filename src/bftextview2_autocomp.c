@@ -391,6 +391,18 @@ acwin_calculate_window_size(Tacwin * acw, GList * items, GList * items2, const g
 	}
 }
 
+static int
+ac_sort_func(const gchar *a, const gchar *b)
+{
+	if (a && b && a[0] == '<' && b[0] == '<' && a[1] != b[1]) {
+		/* make sure that </ is sorted below <[a-z] */
+		if (a[1] == '/') return 1;
+		if (b[1] == '/') return -1;
+		return a[1]-b[1];
+	}
+	return g_strcmp0(a,b);
+}
+
 /* not only fills the tree, but calculates and sets the required width as well */
 static void
 acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar * closetag, gboolean reverse)
@@ -406,9 +418,17 @@ acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar * closetag, g
 		list = g_list_concat(g_list_copy(items2), list);
 	/*g_print("got %d list\n",g_list_length(list)); */
 
-	list = g_list_sort(list, (GCompareFunc) g_strcmp0);
-	if (closetag)
-		list = g_list_prepend(list, closetag);
+	list = g_list_sort(list, (GCompareFunc) ac_sort_func);
+	if (closetag) {
+		GList *tlist2;
+		tlist2 = find_in_stringlist(list, closetag);
+		if (tlist2) {
+			list = g_list_remove_link(list, tlist2);
+			list = g_list_concat(tlist2, list);
+		} else {
+			list = g_list_prepend(list, closetag);
+		}
+	}
 	if (reverse) {
 		list = g_list_reverse(list);
 		DBG_AUTOCOMP("reverse list!\n");
