@@ -1230,7 +1230,7 @@ sort_templates(gconstpointer a,gconstpointer b)
 
 
 static GList *
-load_templates_from_dir(GFile *uri)
+load_templates_from_dir(GFile *uri, gboolean create_ifnexist)
 {
 	GFileEnumerator *en;
 	GFile *child;
@@ -1241,15 +1241,27 @@ load_templates_from_dir(GFile *uri)
 
 	en = g_file_enumerate_children(uri,G_FILE_ATTRIBUTE_STANDARD_NAME,G_FILE_QUERY_INFO_NONE, NULL, &gerror);
 	if (gerror) {
-		g_print("failed to list templates: %s\n",gerror->message);
+		if (gerror->code == G_IO_ERROR_NOT_FOUND && create_ifnexist) {
+			g_file_make_directory(uri,NULL,NULL);
+		} else {
+			g_print("failed to load templates: %s\n",gerror->message);
+		}
 		g_error_free(gerror);
 		return NULL;
 	}
 	
 	finfo = g_file_enumerator_next_file(en,NULL,&gerror);
 	while(finfo) {
+		gchar *tmp, **arr;
 		child = g_file_get_child(uri, g_file_info_get_name(finfo));
-		retlist = g_list_prepend(retlist, array_from_arglist(g_file_info_get_name(finfo),g_file_get_path(child), NULL));
+    	arr = g_malloc(sizeof(char *)* 3);
+    	arr[0] = g_strdup(g_file_info_get_name(finfo));
+		arr[1] = g_file_get_path(child);
+		arr[2] = NULL;
+		while ((tmp = strchr(arr[0], '_')) != NULL) {
+    		*tmp = ' ';
+    	}
+		retlist = g_list_prepend(retlist, arr);
 		g_object_unref(child);
 		g_object_unref(finfo);
 		finfo = g_file_enumerator_next_file(en,NULL,&gerror);
@@ -1267,10 +1279,10 @@ load_templates(void)
 {
 	GList *t1, *t2;
 	GFile *uri = user_bfdir("templates/");
-	t1 = load_templates_from_dir(uri);
+	t1 = load_templates_from_dir(uri, TRUE);
 	g_object_unref(uri);
 	uri = g_file_new_for_path(PKGDATADIR"/templates/");
-	t2 = load_templates_from_dir(uri);
+	t2 = load_templates_from_dir(uri, FALSE);
 	g_object_unref(uri);
 	main_v->templates = g_list_concat(t1, t2);
 }
