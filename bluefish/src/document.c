@@ -1627,6 +1627,58 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 	return NULL;
 }
 
+#define MAX_TOO_LONG_LINE 500
+#define MIN_TOO_LONG_LINE 400
+
+static gchar *
+check_very_long_line(Tdocument *doc, gchar *buffer)
+{
+	gsize i=0, buflen;
+	guint curline=0,maxline=0, numtoolong=0;
+	
+	for (i=0;buffer[i]!='\0';i++) {
+		if (buffer[i] == '\n' || buffer[i] == '\r') {
+			if (curline > maxline)
+				maxline = curline;
+			if (curline > MIN_TOO_LONG_LINE)
+				numtoolong++;
+			curline=0;
+		}
+		curline++;
+	}
+	if (curline > maxline)
+		maxline = curline;
+	if (curline > MIN_TOO_LONG_LINE)
+		numtoolong++;
+	buflen = i;
+	DEBUG_MSG("check_very_long_line, maxline=%d, buflen=%ld\n",maxline,(long int)buflen);
+	if (maxline > MAX_TOO_LONG_LINE) {
+		gint response;
+		const gchar *buttons[] = { _("_No"), _("_Split"), NULL };
+		response = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, 
+						GTK_MESSAGE_WARNING, buttons,
+						_("File contains very long lines. Split these lines?"), _("The lines in this file are longer than Bluefish can handle."));
+		if (response == 1) {
+			buffer = g_realloc(buffer, buflen + numtoolong + (maxline / MIN_TOO_LONG_LINE) + 1);
+			curline=0;
+			for (i=0;buffer[i]!='\0';i++) {
+				if (curline > MIN_TOO_LONG_LINE && (buffer[i] == ' ' || buffer[i] == '\t')) {
+					buffer[i] = '\n';
+					curline = 0;
+				} else if (curline > MAX_TOO_LONG_LINE) {
+					memmove(buffer+i+1, buffer+i, buflen-i);
+					buffer[i] = '\n';
+					curline = 0;
+				} else if (buffer[i] == '\n' || buffer[i] == '\r') {
+					curline = 0;
+				}
+				curline++;
+			}
+		}
+	}
+	return buffer;
+}
+
 /**
  * doc_buffer_to_textbox:
  * @doc: #Tdocument*
@@ -1676,7 +1728,11 @@ doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean en
 		g_free(doc->encoding);
 	doc->encoding = encoding;
 	add_encoding_to_list(encoding);
+	
+	newbuf = check_very_long_line(doc, newbuf);
+	
 	gtk_text_buffer_insert_at_cursor(doc->buffer, newbuf, -1);
+	
 	g_free(newbuf);
 	if (!enable_undo) {
 		doc_unblock_undo_reg(doc);
