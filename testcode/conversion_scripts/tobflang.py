@@ -49,7 +49,7 @@ class ToBflang():
 				self.fd.write('<context idref="context-'+str(num)+'" />\n')
 			else:
 				self.writtencontexts.append(tmp)
-				self.fd.write('<context id="context-'+str(len(self.writtencontexts)-1)+'" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-">\n')
+				self.fd.write('<context id="context-'+str(len(self.writtencontexts)-1)+'" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-"><element idref="e.xml.lcomment"/>\n')
 				for c in self.elementchildren[element]:
 					self.dump(c, level+1)
 				self.indent(level)
@@ -64,6 +64,8 @@ class ToBflang():
 		self.writtencontexts = []
 		self.writtenelements = []
 		self.fd.write('<?xml version="1.0"?>\n<bflang name="tmp" version="2.0">\n<header><mime type="text/xml+custom"/><highlight name="tag" style="tag"  /></header>\n')
-		self.fd.write('<definition>\n<context symbols=" &gt;&lt;">\n')
+		self.fd.write('<properties><comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" /></properties>')
+		self.fd.write('<definition>\n<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-">\n')
+		self.fd.write('<element id="e.xml.lcomment" pattern="&lt;!--" highlight="comment" starts_block="1"><context symbols="-&gt; &#9;&#10;&#13;" highlight="comment"><element pattern="--&gt;" ends_block="1" blockstartelement="e.xml.lcomment" highlight="comment" mayfold="1" ends_context="1" /></context></element>\n')
 		self.dump(self.root, 1)
 		self.fd.write('</context>\n</definition></bflang>\n')
