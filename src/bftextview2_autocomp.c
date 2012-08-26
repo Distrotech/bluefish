@@ -24,6 +24,7 @@
 #include "bftextview2_scanner.h"
 #include "bftextview2_identifier.h"
 #include "bftextview2_autocomp.h"
+#include "stringlist.h"
 
 /*#undef DBG_AUTOCOMP
 #define DBG_AUTOCOMP g_print*/
