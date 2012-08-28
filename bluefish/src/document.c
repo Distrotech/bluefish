@@ -1507,7 +1507,6 @@ encoding_by_regex(const gchar * buffer, const gchar * pattern, guint subpat)
 	return retstring;
 }
 
-
 /**
  * buffer_find_encoding:
  * @buffer: gchar* with \- terminated string
@@ -1519,7 +1518,7 @@ gchar *
 buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gchar * sessionencoding)
 {
 	gchar *newbuf = NULL;
-	gsize wsize;
+	gsize wsize, rsize;
 	GError *error = NULL;
 	gchar *tmpencoding = NULL;
 	GList *tmplist;
@@ -1549,53 +1548,60 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 
 	if (tmpencoding) {
 		DEBUG_MSG("doc_buffer_to_textbox, try encoding %s from <meta>\n", tmpencoding);
-		newbuf = g_convert(buffer, -1, "UTF-8", tmpencoding, NULL, &wsize, &error);
+		newbuf = g_convert(buffer, buflen, "UTF-8", tmpencoding, NULL, &wsize, &error);
 		if (!newbuf || error) {
 			DEBUG_MSG("doc_buffer_to_textbox, cound not convert %s to UTF-8: \n", tmpencoding);
 			g_free(tmpencoding);
 			tmpencoding = NULL;
-		} else {
+		} else if (g_utf8_validate(newbuf, wsize, NULL)) {
 			*encoding = tmpencoding;
 			return newbuf;
 		}
+		g_free(newbuf);
 	}
+
+	/* because UTF-8 validation is very critical (very little texts in other encodings actually validate as UTF-8)
+	we do this early in the detection */
+	DEBUG_MSG("doc_buffer_to_textbox, file NOT is converted yet, trying UTF-8 encoding\n");
+	if (g_utf8_validate(buffer, buflen, NULL)) {
+		*encoding = g_strdup("UTF-8");
+		return g_strdup(buffer);
+	}
+
 	if (sessionencoding) {
 		DEBUG_MSG
 			("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying session default encoding %s\n",
 			 sessionencoding);
-		newbuf = g_convert(buffer, -1, "UTF-8", sessionencoding, NULL, &wsize, NULL);
-		if (newbuf) {
+		newbuf = g_convert(buffer, buflen, "UTF-8", sessionencoding, NULL, &wsize, NULL);
+		if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
 			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s, newbuf=%p, wsize=%"G_GSIZE_FORMAT", strlen(newbuf)=%zd\n", sessionencoding, newbuf, wsize, strlen(newbuf));
 			*encoding = g_strdup(sessionencoding);
 			return newbuf;
 		}
+		g_free(newbuf);
 	}
 	DEBUG_MSG
 		("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying newfile default encoding %s\n",
 		 main_v->props.newfile_default_encoding);
-	newbuf = g_convert(buffer, -1, "UTF-8", main_v->props.newfile_default_encoding, NULL, &wsize, NULL);
-	if (newbuf) {
+	newbuf = g_convert(buffer, buflen, "UTF-8", main_v->props.newfile_default_encoding, NULL, &wsize, NULL);
+	if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
 		DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n",
 				  main_v->props.newfile_default_encoding);
 		*encoding = g_strdup(main_v->props.newfile_default_encoding);
 		return newbuf;
 	}
+	g_free(newbuf);
 
 	DEBUG_MSG("doc_buffer_to_textbox, file is not in UTF-8, trying encoding from locale\n");
-	newbuf = g_locale_to_utf8(buffer, -1, NULL, &wsize, NULL);
-	if (newbuf) {
+	newbuf = g_locale_to_utf8(buffer, buflen, NULL, &wsize, NULL);
+	if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
 		const gchar *tmpencoding = NULL;
 		g_get_charset(&tmpencoding);
 		DEBUG_MSG("doc_buffer_to_textbox, file is in locale encoding: %s\n", tmpencoding);
 		*encoding = g_strdup(tmpencoding);
 		return newbuf;
 	}
-
-	DEBUG_MSG("doc_buffer_to_textbox, file NOT is converted yet, trying UTF-8 encoding\n");
-	if (g_utf8_validate(buffer, -1, NULL)) {
-		*encoding = g_strdup("UTF-8");
-		return g_strdup(buffer);
-	}
+	g_free(newbuf);
 
 	DEBUG_MSG("doc_buffer_to_textbox, tried the most obvious encodings, nothing found.. go trough list\n");
 	tmplist = g_list_first(main_v->globses.encodings);
@@ -1603,27 +1609,38 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 		gchar **enc = tmplist->data;
 		if (enc[2] && enc[2][0] == '1') {
 			DEBUG_MSG("doc_buffer_to_textbox, trying user set encoding %s\n", enc[1]);
-			newbuf = g_convert(buffer, -1, "UTF-8", enc[1], NULL, &wsize, NULL);
-			if (newbuf) {
+			newbuf = g_convert(buffer, buflen, "UTF-8", enc[1], &rsize, &wsize, &error);
+			if (error) {
+				DEBUG_MSG("trying %s, error: %s\n",enc[1], error->message);
+				g_error_free(error);
+				error = NULL;
+			}
+			if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
 				*encoding = g_strdup(enc[1]);
 				return newbuf;
 			}
+			g_free(newbuf);
 		}
 		tmplist = g_list_next(tmplist);
 	}
+	tmplist = g_list_first(main_v->globses.encodings);
 	while (tmplist) {
 		gchar **enc = tmplist->data;
 		if (enc[2] || enc[2][0] != '1') {
-			DEBUG_MSG("doc_buffer_to_textbox, trying other encoding %s\n", enc[1]);
-			newbuf = g_convert(buffer, -1, "UTF-8", enc[1], NULL, &wsize, NULL);
-			if (newbuf) {
+			newbuf = g_convert(buffer, buflen, "UTF-8", enc[1], &rsize, &wsize, &error);
+			if (error) {
+				DEBUG_MSG("trying %s, error: %s\n",enc[1], error->message);
+				g_error_free(error);
+				error = NULL;
+			}
+			if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
 				*encoding = g_strdup(enc[1]);
 				return newbuf;
 			}
+			g_free(newbuf);
 		}
 		tmplist = g_list_next(tmplist);
 	}
-
 	return NULL;
 }
 
