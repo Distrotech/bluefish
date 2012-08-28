@@ -337,6 +337,7 @@ typedef struct {
 	gchar *autosave_file_prefix;
 	gchar *autosave_file_suffix;
 	gchar *language;
+	gint rcfile_from_old_version;
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
@@ -359,7 +360,7 @@ typedef struct {
 	GList *filefilters;			/* filefilter.c file filtering */
 	GList *reference_files;		/* all reference files */
 	GList *recent_projects;
-	GList *encodings;			/* all encodings you can choose from */
+	GList *encodings;			/* all encodings you can choose from, array with 0=human name, 1=name, 2="0" or "1" if it should be user visible or not */
 #ifdef WITH_MSG_QUEUE
 	gint msg_queue_poll_time;	/* milliseconds, automatically tuned to your system */
 #endif
