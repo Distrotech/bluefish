@@ -863,7 +863,8 @@ rcfile_parse_main(void)
 		main_v->props.encoding_search_Nbytes = 2048;
 
 	/* do some default configuration for the lists */
-	if (!main_v->props.config_version || strlen(main_v->props.config_version)<5 ||main_v->props.config_version[0] < '2' || main_v->props.config_version[2] < '2' || main_v->props.config_version[4] < '3') {
+	if (!main_v->props.config_version || strlen(main_v->props.config_version)<5 ||main_v->props.config_version[0] < '2' || main_v->props.config_version[2] < '2' || main_v->props.config_version[4] < '4') {
+		main_v->props.rcfile_from_old_version = 1;
 		main_v->props.external_command = update_commands(main_v->props.external_command, FALSE);
 		main_v->props.external_filter = update_filters(main_v->props.external_filter, FALSE);
 		main_v->props.external_outputbox = update_outputbox(main_v->props.external_outputbox, FALSE);
@@ -1180,6 +1181,31 @@ rcfile_save_global_session(void)
 	return retval;
 }
 
+static void
+add_new_encodings(GList *defaults, GList *current)
+{
+	GHashTable *ht;
+	GList *tmplist, *last;
+	ht = g_hash_table_new(g_str_hash, g_str_equal);
+	
+	for (tmplist=g_list_first(current);tmplist;tmplist=tmplist->next) {
+		gchar **arr = tmplist->data;
+		g_hash_table_insert(ht, arr[1], GINT_TO_POINTER(1));
+		last = tmplist;
+	}
+	for (tmplist=g_list_first(defaults);tmplist;tmplist=tmplist->next) {
+		gchar **arr = tmplist->data;
+		if (g_hash_table_lookup(ht, arr[1])) {
+			g_strfreev(arr);
+		} else {
+			DEBUG_MSG("append encoding %s\n",arr[1]);
+			last = g_list_append(last, arr);
+			last = g_list_last(last);
+		}
+	}
+	g_hash_table_destroy(ht);
+}
+
 /* should be called AFTER the normal properties are loaded, becauses return_session_configlist() uses
  settings from main_v->props */
 gboolean
@@ -1213,12 +1239,18 @@ rcfile_parse_global_session(void)
 							   "", NULL);
 		main_v->globses.filefilters = g_list_prepend(main_v->globses.filefilters, arr);
 	}
-	if (main_v->globses.encodings == NULL) {
+	if (main_v->globses.encodings == NULL || main_v->props.rcfile_from_old_version == 1) {
 		GFile *defaultfile =
 			return_first_existing_filename(PKGDATADIR "/encodings", "data/encodings", "../data/encodings",
 										   NULL);
 		if (defaultfile) {
-			main_v->globses.encodings = get_list(defaultfile, NULL, TRUE);
+			GList *default_encodings = get_list(defaultfile, NULL, TRUE);
+			if (main_v->globses.encodings == NULL) {
+				main_v->globses.encodings = default_encodings;
+			} else {			
+				add_new_encodings(default_encodings, main_v->globses.encodings);
+				g_list_free(default_encodings);
+			}
 			g_object_unref(defaultfile);
 		}
 	}
