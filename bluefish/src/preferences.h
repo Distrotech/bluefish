@@ -35,6 +35,7 @@ enum {
 	default_mime_type,
 	template,
 	display_right_margin,
+	show_visible_spacing,
 #ifdef HAVE_LIBENCHANT
 	session_spell_check,
 #endif

@@ -408,7 +408,8 @@ typedef struct {
 	gint outputb_show_all_output;
 	gint convertcolumn_horizontally;
 	gint display_right_margin;
-	/* 39 * sizeof(gint) */
+	gint show_visible_spacing;
+	/* 40 * sizeof(gint) */
 	/* IF YOU EDIT THIS STRUCTURE PLEASE EDIT THE CODE IN PROJECT.C THAT COPIES
 	   A Tsessionvar INTO A NEW Tsessionvar AND ADJUST THE SIZES!!!!!!!!!!!!!!!!!!!!!! */
 #ifdef HAVE_LIBENCHANT

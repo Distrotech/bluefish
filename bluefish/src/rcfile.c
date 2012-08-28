@@ -1035,6 +1035,7 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_integer(&configlist, &session->snr3_recursion_level, "snr_recursion_level:", 5, FALSE);
 
 	init_prop_integer(&configlist, &session->display_right_margin, "display_right_margin:", 0, FALSE);
+	init_prop_integer(&configlist, &session->show_visible_spacing, "show_visible_spacing:", 0, FALSE);
 #ifdef HAVE_LIBENCHANT
 	init_prop_integer(&configlist, &session->spell_check_default, "spell_check_default:", 1, FALSE);
 	init_prop_integer(&configlist, &session->spell_insert_entities, "spell_insert_entities:", 0, FALSE);

@@ -2409,6 +2409,8 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 								BFWIN(bfwin)->session->show_mbhl, FALSE);
 	bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(newdoc->view),
 											 bfwin->session->display_right_margin);
+	bluefish_text_view_set_show_visible_spacing(BLUEFISH_TEXT_VIEW(newdoc->view),
+												bfwin->session->show_visible_spacing);
 #ifdef HAVE_LIBENCHANT
 	BLUEFISH_TEXT_VIEW(newdoc->view)->spell_check = BFWIN(bfwin)->session->spell_check_default;
 #endif
