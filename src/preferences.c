@@ -463,6 +463,7 @@ sessionprefs_apply(Tsessionprefs * sprefs, Tsessionvars * sessionvars)
 	string_apply(&sessionvars->default_mime_type, sprefs->prefs[default_mime_type]);
 	integer_apply(&sessionvars->wrap_text_default, sprefs->prefs[session_wrap_text], TRUE);
 	integer_apply(&sessionvars->display_right_margin, sprefs->prefs[display_right_margin], TRUE);
+	integer_apply(&sessionvars->show_visible_spacing, sprefs->prefs[show_visible_spacing], TRUE);
 
 	string_apply(&template_name, sprefs->prefs[template]);
 	g_free(sessionvars->template);
@@ -542,9 +543,11 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 		dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table, 1,2,1,2);
 	sprefs->prefs[session_wrap_text] =
 		dialog_check_button_in_table(_("Wra_p lines"), sessionvars->wrap_text_default, table, 1,2,2,3);
-
 	sprefs->prefs[enable_syntax_scan] =
 		dialog_check_button_in_table(_("Enable syntax scanning"), sessionvars->enable_syntax_scan, table, 1,2,3,4);
+	sprefs->prefs[show_visible_spacing] =
+		dialog_check_button_in_table(_("Show _visible spacing"), sessionvars->show_visible_spacing, table, 1,2,4,5);
+
 
 #ifdef HAVE_LIBENCHANT
 	sprefs->prefs[session_spell_check] = dialog_check_button_in_table(_("_Enable spell check"),
