@@ -2404,7 +2404,7 @@ preferences_dialog_new(void)
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
 	label = dialog_label_new(_("_Frequency to store changes (seconds):"), 0, 0.5, hbox, 0);
-	pd->prefs[autosave_time] = dialog_spin_button_new(10, 600, main_v->props.autosave_time);
+	pd->prefs[autosave_time] = dialog_spin_button_new(1, 600, main_v->props.autosave_time);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[autosave_time]);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[autosave_time], FALSE, FALSE, 0);
 	prefs_togglebutton_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[autosave]), hbox);
