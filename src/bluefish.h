@@ -28,7 +28,7 @@
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
 
-#define MEMORY_LEAK_DEBUG
+/*#define MEMORY_LEAK_DEBUG*/
 /*#define DEBUG_PATHS*/
 
 #define ENABLEPLUGINS
@@ -300,6 +300,7 @@ typedef struct {
 	gint auto_update_meta_author;	/* auto update author meta tag on save */
 	gint auto_update_meta_date;	/* auto update date meta tag on save */
 	gint auto_update_meta_generator;	/* auto update generator meta tag on save */
+	gint strip_trailing_spaces_on_save;
 	gint encoding_search_Nbytes;	/* number of bytes to look for the encoding meta tag */
 	gint max_window_title; /* max. number of chars in the window title */
 	gint document_tabposition;

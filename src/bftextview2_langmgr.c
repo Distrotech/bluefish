@@ -1720,7 +1720,7 @@ bflang_cleanup_scantable(Tbflang * bflang)
 	bflang->st = NULL;
 }
 
-#ifdef MEMORY_LEAK_DEBUG
+
 static void
 bflang_cleanup(Tbflang * bflang)
 {
@@ -1736,7 +1736,7 @@ bflang_cleanup(Tbflang * bflang)
 	free_stringlist(bflang->mimetypes);
 	g_slice_free(Tbflang, bflang);
 }
-
+#ifdef MEMORY_LEAK_DEBUG
 void
 langmgr_cleanup(void)
 {
