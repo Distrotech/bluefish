@@ -455,6 +455,8 @@ props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.auto_update_meta_date, "auto_update_meta_date:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.auto_update_meta_generator, "auto_update_meta_generator:", 1,
 					  TRUE);
+	init_prop_integer(&config_rc, &main_v->props.strip_trailing_spaces_on_save, "strip_trailing_spaces_on_save:", 0,
+					  TRUE);
 	init_prop_integer(&config_rc, &main_v->props.encoding_search_Nbytes, "encoding_search_Nbytes:", 500,
 					  TRUE);
 	init_prop_integer(&config_rc, &main_v->props.max_window_title, "max_window_title:", 0,TRUE);

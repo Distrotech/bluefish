@@ -744,6 +744,9 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 								snr3scope_doc, snr3type_pcre, FALSE,
 								"<meta name=\"generator\" content=\"Bluefish " VERSION "\" ", FALSE, FALSE);
 	}
+	if (main_v->props.strip_trailing_spaces_on_save) {
+		strip_trailing_spaces(doc);
+	}
 
 	if (doc->uri)
 		curi = g_file_get_uri(doc->uri);

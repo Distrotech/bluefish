@@ -80,6 +80,7 @@ enum {
 	clear_undo_on_save,		/* clear all undo information on file save */
 	newfile_default_encoding,	/* if you open a new file, what encoding will it use */
 	auto_set_encoding_meta,		/* auto set metatag for the encoding */
+	strip_trailing_spaces_on_save,
 	max_window_title,
 	document_tabposition,
 	leftpanel_tabposition,
@@ -1772,6 +1773,7 @@ preferences_apply(Tprefdialog * pd)
 	sessionprefs_apply(&pd->sprefs, main_v->session);
 
 	string_apply(&main_v->props.newfile_default_encoding, pd->prefs[newfile_default_encoding]);
+	integer_apply(&main_v->props.strip_trailing_spaces_on_save, pd->prefs[strip_trailing_spaces_on_save], TRUE);
 	integer_apply(&main_v->props.auto_set_encoding_meta, pd->prefs[auto_set_encoding_meta], TRUE);
 	integer_apply(&main_v->props.backup_file, pd->prefs[backup_file], TRUE);
 	/*  string_apply(&main_v->props.backup_suffix, pd->prefs[backup_suffix]);
@@ -2339,6 +2341,11 @@ preferences_dialog_new(void)
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[auto_set_encoding_meta], FALSE, FALSE, 0);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Misc</b>"), vbox1);
+
+	pd->prefs[strip_trailing_spaces_on_save] =
+		dialog_check_button_new(_("Strip trailing spaces on save"),
+								main_v->props.strip_trailing_spaces_on_save);
+	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[strip_trailing_spaces_on_save], FALSE, FALSE, 0);
 
 #ifndef WIN32
 	pd->prefs[open_in_running_bluefish] =
