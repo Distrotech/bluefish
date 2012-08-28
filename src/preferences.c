@@ -552,7 +552,7 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 #ifdef HAVE_LIBENCHANT
 	sprefs->prefs[session_spell_check] = dialog_check_button_in_table(_("_Enable spell check"),
 																	  sessionvars->spell_check_default, table,
-																	  1,2,4,5);
+																	  1,2,5,6);
 #endif
 
 	vbox2 = dialog_vbox_labeled(_("<b>Tab Stops</b>"), sprefs->vbox);
