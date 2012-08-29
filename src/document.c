@@ -2133,8 +2133,15 @@ void
 doc_destroy(Tdocument * doc, gboolean delay_activation)
 {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
+	Tdocument *switch_to_doc;
 	GSList *tmpslist;
+	GList *tmplist;
 	DEBUG_MSG("doc_destroy(%p,%d);\n", doc, delay_activation);
+	
+	tmplist = g_list_next(doc->recentpos);
+	if (tmplist)
+		switch_to_doc = tmplist->data;
+	
 	if (doc->status == DOC_STATUS_ERROR) {
 		bfwin_docs_not_complete(doc->bfwin, FALSE);
 	}
@@ -2170,13 +2177,12 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 
 	/* now we remove the document from the document list */
 	bfwin->documentlist = g_list_remove(bfwin->documentlist, doc);
+	bfwin->recentdoclist = g_list_delete_link(bfwin->recentdoclist, doc->recentpos);
+	doc->recentpos = NULL;
 	DEBUG_MSG("removed %p from documentlist, list %p length=%d\n", doc, bfwin->documentlist,
 			  g_list_length(bfwin->documentlist));
 	if (bfwin->current_document == doc) {
 		bfwin->current_document = NULL;
-	}
-	if (bfwin->prev_document == doc) {
-		bfwin->prev_document = NULL;
 	}
 	/* then we remove the page from the notebook */
 	DEBUG_MSG("about to remove widget from notebook (doc=%p, current_document=%p)\n", doc,
@@ -2192,10 +2198,7 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 #endif
 	if (!delay_activation) {
 		gint newpage = -1;
-		if (bfwin->prev_document) {
-			newpage = gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook), doc->vsplit);
-			gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), newpage);
-		}
+		bfwin_switch_to_document_by_pointer(bfwin, switch_to_doc);
 		bfwin_notebook_changed(BFWIN(doc->bfwin), newpage);
 	}
 	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed(), vsplit=%p\n", doc, doc->vsplit);
@@ -2402,6 +2405,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	GtkWidget *scroll;
 	Tdocument *newdoc;
 	GtkWidget *hbox, *button;
+	GList *tmplist;
 
 	/* test if the current document is empty and nameless, if so we return that */
 	if (!force_new && bfwin->current_document && g_list_length(bfwin->documentlist) == 1
@@ -2485,6 +2489,12 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	g_signal_connect(G_OBJECT(newdoc->view), "focus-out-event",
 					 G_CALLBACK(doc_focus_out_lcb), newdoc);
 	bfwin->documentlist = g_list_append(bfwin->documentlist, newdoc);
+	tmplist = g_list_last(bfwin->recentdoclist);
+	tmplist = g_list_append(tmplist, newdoc);
+	newdoc->recentpos = g_list_last(tmplist);
+	if (!bfwin->recentdoclist)
+		bfwin->recentdoclist = tmplist;
+	g_print("doc_new_backend, doc=%p, recentpos=%p, recentdoclist=%p\n",newdoc, newdoc->recentpos, bfwin->recentdoclist);
 
 	gtk_widget_show(newdoc->tab_label);
 	gtk_widget_show(scroll);
@@ -2994,6 +3004,14 @@ doc_activate(Tdocument * doc)
 		gtk_widget_show(doc->view);	/* This might be the first time this document is activated. */
 	}
 	BFWIN(doc->bfwin)->last_activated_doc = doc;
+	if (BFWIN(doc->bfwin)->recentdoclist != doc->recentpos) {
+		/* put this document on top of the recentlist */
+		g_print("put this document %p with recentpos %p on top of the recentlist %p\n", doc,doc->recentpos,BFWIN(doc->bfwin)->recentdoclist);
+		GList * tmp = g_list_remove_link(BFWIN(doc->bfwin)->recentdoclist, doc->recentpos);
+		BFWIN(doc->bfwin)->recentdoclist = g_list_concat(doc->recentpos, BFWIN(doc->bfwin)->recentdoclist);
+		g_print("recentlist now starts at %p\n", BFWIN(doc->bfwin)->recentdoclist);
+	}
+	
 	doc_start_modified_check(doc);
 
 	DEBUG_MSG("doc_activate, calling gui_set_document_widgets()\n");
