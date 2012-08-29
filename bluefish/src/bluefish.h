@@ -251,6 +251,7 @@ typedef struct {
 	gboolean highlightstate;	/* does this document use highlighting ? */
 	gpointer floatingview;		/* a 2nd textview widget that has its own window */
 	gpointer bfwin;
+	GList *recentpos; 	/* this points to the list element in the recent used tabs (bfwin->recentdoclist) that points to this Tdocument */
 	GtkTreeIter *bmark_parent;	/* if NULL this document doesn't have bookmarks, if
 								   it does have bookmarks they are children of this GtkTreeIter */
 } Tdocument;
@@ -460,10 +461,10 @@ typedef struct {
 typedef struct {
 	Tsessionvars *session;		/* points to the global session, or to the project session */
 	Tdocument *current_document;	/* one object out of the documentlist, the current visible document */
-	Tdocument *prev_document;
 	gboolean focus_next_new_doc;	/* for documents loading in the background, switch to the first that is finished loading */
 	gint num_docs_not_completed;	/* number of documents that are loading or closing */
-	GList *documentlist;		/* document.c and others: all Tdocument objects */
+	GList *documentlist;		/* document.c and others: all Tdocument objects in the order of the tabs */
+	GList *recentdoclist; /* all Tdocument objects with the most recently used on top, every Tdocument has a pointer to it's own list element called doc->recentpos */
 	Tdocument *last_activated_doc;
 	Tproject *project;			/* might be NULL for a default project */
 	GtkWidget *main_window;

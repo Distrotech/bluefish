@@ -534,6 +534,12 @@ ui_bookmark_previous(GtkAction * action, gpointer user_data)
 }
 
 static void
+ui_doc_recent(GtkAction * action, gpointer user_data)
+{
+	bfwin_notebook_switch(BFWIN(user_data), 7);
+}
+
+static void
 ui_doc_first(GtkAction * action, gpointer user_data)
 {
 	bfwin_notebook_switch(BFWIN(user_data), 3);
@@ -930,6 +936,8 @@ static const GtkActionEntry document_actions[] = {
 	 G_CALLBACK(ui_move_tab_left)},
 	{"DocMoveRight", NULL, N_("Move Tab _Right"), NULL, N_("Move current tab right"),
 	 G_CALLBACK(ui_move_tab_right)},
+	{"DocRecent", NULL, N_("_Recent Document"), "<control>Tab", N_("Goto most recent document"),
+	 G_CALLBACK(ui_doc_recent)},
 	{"DocFirst", GTK_STOCK_GOTO_FIRST, N_("_First Document"), "<shift><control>Page_Up", N_("Goto first document"),
 	 G_CALLBACK(ui_doc_first)},
 	{"DocLast", GTK_STOCK_GOTO_LAST, N_("_Last Document"), "<shift><control>Page_Down", N_("Goto last document"),

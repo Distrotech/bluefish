@@ -121,6 +121,9 @@ bfwin_notebook_switch(Tbfwin * bfwin, guint action)
 	case 6:
 		notebook_move(bfwin, FALSE);
 		break;
+	case 7:
+		g_print("bfwin_notebook_switch, should not be called for 'recent'\n");
+		break;
 	}
 }
 
@@ -1046,6 +1049,7 @@ bfwin_notebook_changed(Tbfwin * bfwin, gint newpage)
 {
 	gint cur = newpage;
 	gint doclistlen;
+	Tdocument *prev_document;
 	DEBUG_MSG
 		("bfwin_notebook_changed, doclistlen=%d, newpage=%d, notebook_curpage=%d, last_notebook_page=%d, curdoc=%p\n",
 		 g_list_length(bfwin->documentlist)
@@ -1095,9 +1099,9 @@ bfwin_notebook_changed(Tbfwin * bfwin, gint newpage)
 		/*g_print("notebook_changed, set enable_scanner to FALSE for doc %p\n",bfwin->current_document); */
 		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = FALSE;
 	}
-	bfwin->prev_document = bfwin->current_document;
+	prev_document = bfwin->current_document;
 	bfwin->current_document = g_list_nth_data(bfwin->documentlist, cur);
-	bfwin_current_document_changed_notify(bfwin, bfwin->prev_document, bfwin->current_document);
+	bfwin_current_document_changed_notify(bfwin, prev_document, bfwin->current_document);
 	if (bfwin->current_document == NULL) {
 		DEBUG_MSG("bfwin_notebook_changed, WEIRD 2, doclist[%d] == NULL, RETURNING\n", cur);
 		return;
@@ -1149,6 +1153,81 @@ notebook_switch_page(GtkWidget * notebook, gpointer * page, gint page_num, Tbfwi
 	bfwin_notebook_changed(bfwin, page_num);
 }
 
+static void
+notebook_connect_signals(Tbfwin *bfwin)
+{
+	/* We have to know when the notebook changes */
+	if (bfwin->notebook_switch_signal == 0) {
+	bfwin->notebook_switch_signal =
+		g_signal_connect_after(G_OBJECT(bfwin->notebook), "switch-page", G_CALLBACK(notebook_switch_page),
+							   bfwin);
+	}
+}
+
+static void
+notebook_disconnect_signals(Tbfwin *bfwin)
+{
+	if (bfwin->notebook_switch_signal > 0) {
+		g_signal_handler_disconnect(bfwin->notebook, bfwin->notebook_switch_signal);
+		bfwin->notebook_switch_signal = 0;
+	}
+}
+
+static gboolean
+bfwin_key_press_event(GtkWidget *widget,GdkEventKey  *kevent,gpointer   user_data)
+{
+	/*g_print("bfwin_key_press_event, key=%d, state=%d\n",kevent->keyval,kevent->state);*/
+	if (kevent->keyval == GDK_KEY_Tab && kevent->state & GDK_CONTROL_MASK) {
+		gint i;
+		Tdocument *doc;
+		GList *tmplist;
+		g_print("control tab pressed\n");
+		/* switch to the next recent document, without activating it */
+		i = gtk_notebook_get_current_page(GTK_NOTEBOOK(BFWIN(user_data)->notebook));
+		/* we cannot use the bfwin->current_document because if we tab multiple documents 
+		with control-tab the current notebook page and the current document might be out
+		of sync */
+		doc = g_list_nth_data(BFWIN(user_data)->documentlist, i);
+		if (!doc)
+			return FALSE;
+		tmplist = g_list_next(doc->recentpos);
+		if (!tmplist)
+			return FALSE;
+		i = g_list_index(BFWIN(user_data)->documentlist, tmplist->data);
+		if (i==-1)
+			return FALSE;
+		g_print("set notebook page %d\n", i);
+		notebook_disconnect_signals(BFWIN(user_data));
+		gtk_notebook_set_current_page(GTK_NOTEBOOK(BFWIN(user_data)->notebook), i);
+		return TRUE;
+	}
+	if (kevent->keyval == GDK_KEY_Control_L || kevent->keyval == GDK_KEY_Control_R) {
+		g_print("control pressed\n");
+	}
+	return FALSE;
+}
+
+static gboolean
+bfwin_key_release_event(GtkWidget *widget, GdkEventKey  *kevent, gpointer   user_data)
+{
+	/*g_print("bfwin_key_release_event, key=%d, state=%d\n",kevent->keyval,kevent->state);*/
+	if (kevent->keyval == GDK_KEY_Tab && kevent->state & GDK_CONTROL_MASK) {
+		g_print("control tab released\n");
+	}
+	if (kevent->keyval == GDK_KEY_Control_L || kevent->keyval == GDK_KEY_Control_R) {
+		/* if we did switch to a recent document without activating it, we should activate it now */
+		g_print("control released\n");
+		if (BFWIN(user_data)->notebook_switch_signal == 0) {
+			gint i;
+			notebook_connect_signals(BFWIN(user_data));
+			i = gtk_notebook_get_current_page(GTK_NOTEBOOK(BFWIN(user_data)->notebook));
+			g_print("connect signals, and call bfwin_notebook_changed(%p, %d)\n",user_data,i);
+			bfwin_notebook_changed(BFWIN(user_data), i);
+		}
+	}
+	return FALSE;
+}
+
 void
 bfwin_create_main(Tbfwin * bfwin)
 {
@@ -1179,6 +1258,8 @@ bfwin_create_main(Tbfwin * bfwin)
 					 G_CALLBACK(bfwin_configure_event), bfwin);
 	g_signal_connect(G_OBJECT(bfwin->main_window), "window-state-event",
 					 G_CALLBACK(bfwin_configure_event), bfwin);
+	g_signal_connect(G_OBJECT(bfwin->main_window), "key-press-event", G_CALLBACK(bfwin_key_press_event), bfwin);
+	g_signal_connect(G_OBJECT(bfwin->main_window), "key-release-event", G_CALLBACK(bfwin_key_release_event), bfwin);
 
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(bfwin->main_window), vbox);
@@ -1275,11 +1356,7 @@ bfwin_create_main(Tbfwin * bfwin)
 		else
 			gtk_widget_show(hbox);
 	}
-
-	/* We have to know when the notebook changes */
-	bfwin->notebook_switch_signal =
-		g_signal_connect_after(G_OBJECT(bfwin->notebook), "switch-page", G_CALLBACK(notebook_switch_page),
-							   bfwin);
+	notebook_connect_signals(bfwin);
 	g_signal_connect(G_OBJECT(bfwin->notebook), "page-reordered", G_CALLBACK(notebook_reordered), bfwin);
 
 	if (main_v->props.switch_tabs_by_altx) {
