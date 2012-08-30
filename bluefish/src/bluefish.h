@@ -490,6 +490,9 @@ typedef struct {
 	GtkWidget *gotoline_entry;
 	GtkWidget *simplesearch_entry;
 	GtkWidget *simplesearch_regex;
+	GtkWidget *simplesearch_casesens;
+	GtkWidget *simplesearch_dotmatchall;
+	GtkWidget *simplesearch_unescape;
 	gpointer simplesearch_snr3run;
 	GtkWidget *notebook;
 	GtkWidget *notebook_fake;

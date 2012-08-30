@@ -1116,11 +1116,15 @@ activate_simple_search(void *data) {
 	snr3_run_go(s3run, TRUE);
 }
 
-gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
+gpointer simple_search_run(Tbfwin *bfwin, const gchar *string, Tsnr3type type
+		, gboolean casesens, gboolean dotmatchall, gboolean unescape) {
 	Tsnr3run *s3run;
 	
 	s3run = snr3run_new(bfwin, NULL);
-	snr3run_multiset(s3run, string, NULL, snr3type_string,snr3replace_string,snr3scope_doc);
+	snr3run_multiset(s3run, string, NULL, type,snr3replace_string,snr3scope_doc);
+	s3run->dotmatchall = dotmatchall;
+	s3run->is_case_sens = casesens;
+	s3run->escape_chars = unescape;
 	DEBUG_MSG("simple_search_run, snr3run at %p, query at %p\n",s3run, s3run->query);
 	update_snr3run(s3run);
 	snr3_run(s3run, NULL, bfwin->current_document, activate_simple_search);
