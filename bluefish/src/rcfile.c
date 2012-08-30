@@ -1235,8 +1235,8 @@ rcfile_parse_global_session(void)
 		arr = array_from_arglist(_("Images"), "1", "image/png:image/jpeg:image/gif:image/tiff", "", NULL);
 		main_v->globses.filefilters = g_list_prepend(main_v->globses.filefilters, arr);
 		arr =
-			array_from_arglist(_("Hide objectfiles"), "0", "application/octet-stream:application/x-object",
-							   "", NULL);
+			array_from_arglist(_("Hide objectfiles"), "0", "",
+							   "*.o", NULL);
 		main_v->globses.filefilters = g_list_prepend(main_v->globses.filefilters, arr);
 	}
 	if (main_v->globses.encodings == NULL || main_v->props.rcfile_from_old_version == 1) {
