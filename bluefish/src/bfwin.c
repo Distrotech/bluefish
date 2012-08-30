@@ -804,6 +804,8 @@ static void
 gotoline_frame_create(Tbfwin * bfwin)
 {
 	GtkWidget *button, *hbox;
+	GtkMenu *menu;
+	GtkMenuItem *menui;
 
 	bfwin->gotoline_frame = gtk_frame_new(NULL);
 	gtk_frame_set_shadow_type(GTK_FRAME(bfwin->gotoline_frame), GTK_SHADOW_NONE);
@@ -829,14 +831,24 @@ gotoline_frame_create(Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Find:")), FALSE, FALSE, 0);
 	bfwin->simplesearch_entry = gtk_entry_new();
 	gtk_box_pack_start(GTK_BOX(hbox), bfwin->simplesearch_entry, FALSE, FALSE, 0);
-	button = dialog_button_new_with_image(NULL,GTK_STOCK_GO_BACK, G_CALLBACK(simplesearch_back_clicked), bfwin, TRUE, FALSE);
+	button = gtk_tool_button_new_from_stock(GTK_STOCK_GO_BACK);
+	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(simplesearch_back_clicked), bfwin);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
-	button = dialog_button_new_with_image(NULL,GTK_STOCK_GO_FORWARD, G_CALLBACK(simplesearch_forward_clicked), bfwin, TRUE, FALSE);
+	button = gtk_menu_tool_button_new_from_stock(GTK_STOCK_GO_FORWARD);
+	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(simplesearch_forward_clicked), bfwin);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
+	menu = gtk_menu_new();
+	bfwin->simplesearch_regex = gtk_check_menu_item_new_with_label(_("Regular expression (pcre)"));
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(bfwin->simplesearch_regex));
+	/*menui = gtk_check_menu_item_new_with_label(_("Pattern contains escape-se_quences"));
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(menui));*/
+	gtk_menu_tool_button_set_menu(GTK_MENU_TOOL_BUTTON(button), GTK_WIDGET(menu));
+	gtk_widget_show_all(GTK_WIDGET(menu));
 	g_signal_connect(G_OBJECT(bfwin->simplesearch_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
 	g_signal_connect(bfwin->simplesearch_entry, "changed", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
 	g_signal_connect(bfwin->simplesearch_entry, "activate", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
-	button = dialog_button_new_with_image(_("Advanced"), NULL, G_CALLBACK(simplesearch_advanced_clicked),bfwin, FALSE, TRUE);
+	button = gtk_tool_button_new(NULL,_("Advanced"));
+	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(simplesearch_advanced_clicked),bfwin);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 	
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->gotoline_frame, FALSE, FALSE, 2);
