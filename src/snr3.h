@@ -173,7 +173,8 @@ void snr3_run_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, gboolean
 void snr3_run_go(Tsnr3run *s3run, gboolean forward);
 void snr3run_free(Tsnr3run *s3run);
 void snr3run_unrun(Tsnr3run *s3run);
-gpointer simple_search_run(Tbfwin *bfwin, const gchar *string);
+gpointer simple_search_run(Tbfwin *bfwin, const gchar *string, Tsnr3type type
+		, gboolean casesens, gboolean dotmatchall, gboolean unescape);
 void simple_search_next(Tbfwin *bfwin);
 void snr3_advanced_dialog(Tbfwin * bfwin, const gchar *searchstring);
 

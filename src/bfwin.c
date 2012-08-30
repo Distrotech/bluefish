@@ -755,17 +755,27 @@ static gboolean simplesearch_start(Tbfwin *bfwin, gboolean allow_single_char_sea
 		bfwin->simplesearch_snr3run=NULL;
 	}
 	if (tmpstr && tmpstr[0]!='\0' && (allow_single_char_search || tmpstr[1] != '\0')) {
+		gboolean regex = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_regex));
 		DEBUG_MSG("start simple search run\n");
-		bfwin->simplesearch_snr3run = simple_search_run(bfwin, tmpstr);
+		bfwin->simplesearch_snr3run = simple_search_run(bfwin, tmpstr
+				, regex ? snr3type_pcre :snr3type_string
+				, gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_casesens))
+				, gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_dotmatchall))
+				, gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_unescape)));
 		retval = TRUE;
 	}
 	return retval;	
 }
 
 static void
-simplesearch_entry_changed_or_activate(GtkEditable * editable, Tbfwin * bfwin)
+simplesearch_entry_changed_or_activate(gpointer widget, Tbfwin * bfwin)
 {
 	simplesearch_start(bfwin, FALSE);
+	if (widget == bfwin->simplesearch_regex) {
+		gboolean regex = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_regex));
+		gtk_widget_set_sensitive(bfwin->simplesearch_dotmatchall, regex);
+		gtk_widget_set_sensitive(bfwin->simplesearch_unescape, !regex);
+	}
 }
 
 static void
@@ -840,13 +850,21 @@ gotoline_frame_create(Tbfwin * bfwin)
 	menu = gtk_menu_new();
 	bfwin->simplesearch_regex = gtk_check_menu_item_new_with_label(_("Regular expression (pcre)"));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(bfwin->simplesearch_regex));
-	/*menui = gtk_check_menu_item_new_with_label(_("Pattern contains escape-se_quences"));
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(menui));*/
+	bfwin->simplesearch_casesens = gtk_check_menu_item_new_with_label(_("Case sensitive"));
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(bfwin->simplesearch_casesens));
+	bfwin->simplesearch_dotmatchall = gtk_check_menu_item_new_with_label(_("Dot character matches newlines"));
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(bfwin->simplesearch_dotmatchall));
+	bfwin->simplesearch_unescape = gtk_check_menu_item_new_with_label(_("Pattern contains backslash escaped sequences"));
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(bfwin->simplesearch_unescape));
 	gtk_menu_tool_button_set_menu(GTK_MENU_TOOL_BUTTON(button), GTK_WIDGET(menu));
 	gtk_widget_show_all(GTK_WIDGET(menu));
 	g_signal_connect(G_OBJECT(bfwin->simplesearch_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
 	g_signal_connect(bfwin->simplesearch_entry, "changed", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
 	g_signal_connect(bfwin->simplesearch_entry, "activate", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
+	g_signal_connect(bfwin->simplesearch_regex, "toggled", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
+	g_signal_connect(bfwin->simplesearch_casesens, "toggled", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
+	g_signal_connect(bfwin->simplesearch_dotmatchall, "toggled", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
+	g_signal_connect(bfwin->simplesearch_unescape, "toggled", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
 	button = gtk_tool_button_new(NULL,_("Advanced"));
 	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(simplesearch_advanced_clicked),bfwin);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
