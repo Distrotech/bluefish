@@ -65,6 +65,7 @@ free_session(Tsessionvars * session)
 	free_arraylist(session->bmarks);
 	free_stringlist(session->recent_files);
 	free_stringlist(session->recent_dirs);
+	g_free(session->ssearch_text);
 	g_free(session->opendir);
 	g_free(session->savedir);
 	g_free(session->encoding);
@@ -105,7 +106,7 @@ project_setup_initial_session(Tsessionvars * session, gboolean before_parse)
 
 	/* THE NUBER OF BYTES THAT IS COPIED HERE MUST BE EQUAL TO THE NUMBER OF INTEGERS
 	   IN THE STRUCT IN bluefish.h ELSE ALL WILL FAIL */
-	memcpy(session, main_v->session, 40 * sizeof(gint));
+	memcpy(session, main_v->session, 44 * sizeof(gint));
 }
 
 Tbfwin *

@@ -413,7 +413,7 @@ typedef struct {
 	gint convertcolumn_horizontally;
 	gint display_right_margin;
 	gint show_visible_spacing;
-	/* 40 * sizeof(gint) */
+	/* 44 * sizeof(gint) */
 	/* IF YOU EDIT THIS STRUCTURE PLEASE EDIT THE CODE IN PROJECT.C THAT COPIES
 	   A Tsessionvar INTO A NEW Tsessionvar AND ADJUST THE SIZES!!!!!!!!!!!!!!!!!!!!!! */
 #ifdef HAVE_LIBENCHANT
@@ -423,6 +423,7 @@ typedef struct {
 #endif
 	/* if you add strings or lists to the session, please make sure they are free'ed 
 	in free_session() in project.c */
+	gchar *ssearch_text;
 	gchar *default_mime_type;
 	gchar *template;
 	gchar *convertcolumn_separator;

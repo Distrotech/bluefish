@@ -759,7 +759,9 @@ static gboolean simplesearch_start(Tbfwin *bfwin, gboolean allow_single_char_sea
 		bfwin->session->ssearch_casesens = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_casesens));
 		bfwin->session->ssearch_dotmatchall = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_dotmatchall));
 		bfwin->session->ssearch_unescape = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_unescape));
-		DEBUG_MSG("start simple search run\n");
+		g_free(bfwin->session->ssearch_text);
+		bfwin->session->ssearch_text = g_strdup(tmpstr);
+		DEBUG_MSG("start simple search run with %s\n",tmpstr);
 		bfwin->simplesearch_snr3run = simple_search_run(bfwin, tmpstr
 				, bfwin->session->ssearch_regex ? snr3type_pcre :snr3type_string
 				, bfwin->session->ssearch_casesens
@@ -817,8 +819,7 @@ static void
 gotoline_frame_create(Tbfwin * bfwin)
 {
 	GtkWidget *button, *hbox;
-	GtkMenu *menu;
-	GtkMenuItem *menui;
+	GtkWidget *menu;
 
 	bfwin->gotoline_frame = gtk_frame_new(NULL);
 	gtk_frame_set_shadow_type(GTK_FRAME(bfwin->gotoline_frame), GTK_SHADOW_NONE);
@@ -843,11 +844,14 @@ gotoline_frame_create(Tbfwin * bfwin)
 #endif
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Find:")), FALSE, FALSE, 0);
 	bfwin->simplesearch_entry = gtk_entry_new();
+	if (bfwin->session->ssearch_text) {
+		gtk_entry_set_text(GTK_ENTRY(bfwin->simplesearch_entry), bfwin->session->ssearch_text);
+	}
 	gtk_box_pack_start(GTK_BOX(hbox), bfwin->simplesearch_entry, FALSE, FALSE, 0);
-	button = gtk_tool_button_new_from_stock(GTK_STOCK_GO_BACK);
+	button = (GtkWidget *)gtk_tool_button_new_from_stock(GTK_STOCK_GO_BACK);
 	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(simplesearch_back_clicked), bfwin);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
-	button = gtk_menu_tool_button_new_from_stock(GTK_STOCK_GO_FORWARD);
+	button = (GtkWidget *)gtk_menu_tool_button_new_from_stock(GTK_STOCK_GO_FORWARD);
 	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(simplesearch_forward_clicked), bfwin);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 	menu = gtk_menu_new();
@@ -872,7 +876,7 @@ gotoline_frame_create(Tbfwin * bfwin)
 	g_signal_connect(bfwin->simplesearch_casesens, "toggled", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
 	g_signal_connect(bfwin->simplesearch_dotmatchall, "toggled", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
 	g_signal_connect(bfwin->simplesearch_unescape, "toggled", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
-	button = gtk_tool_button_new(NULL,_("Advanced"));
+	button = (GtkWidget *)gtk_tool_button_new(NULL,_("Advanced"));
 	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(simplesearch_advanced_clicked),bfwin);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 	
@@ -1220,7 +1224,7 @@ bfwin_key_press_event(GtkWidget *widget,GdkEventKey  *kevent,gpointer   user_dat
 		gint i;
 		Tdocument *doc;
 		GList *tmplist;
-		g_print("control tab pressed\n");
+		DEBUG_MSG("bfwin_key_press_event, control tab pressed\n");
 		/* switch to the next recent document, without activating it */
 		i = gtk_notebook_get_current_page(GTK_NOTEBOOK(BFWIN(user_data)->notebook));
 		/* we cannot use the bfwin->current_document because if we tab multiple documents 
@@ -1235,14 +1239,14 @@ bfwin_key_press_event(GtkWidget *widget,GdkEventKey  *kevent,gpointer   user_dat
 		i = g_list_index(BFWIN(user_data)->documentlist, tmplist->data);
 		if (i==-1)
 			return FALSE;
-		g_print("set notebook page %d\n", i);
+		DEBUG_MSG("bfwin_key_press_event, set notebook page %d\n", i);
 		notebook_disconnect_signals(BFWIN(user_data));
 		gtk_notebook_set_current_page(GTK_NOTEBOOK(BFWIN(user_data)->notebook), i);
 		return TRUE;
 	}
-	if (kevent->keyval == GDK_KEY_Control_L || kevent->keyval == GDK_KEY_Control_R) {
+	/*if (kevent->keyval == GDK_KEY_Control_L || kevent->keyval == GDK_KEY_Control_R) {
 		g_print("control pressed\n");
-	}
+	}*/
 	return FALSE;
 }
 
@@ -1250,17 +1254,17 @@ static gboolean
 bfwin_key_release_event(GtkWidget *widget, GdkEventKey  *kevent, gpointer   user_data)
 {
 	/*g_print("bfwin_key_release_event, key=%d, state=%d\n",kevent->keyval,kevent->state);*/
-	if (kevent->keyval == GDK_KEY_Tab && kevent->state & GDK_CONTROL_MASK) {
+	/*if (kevent->keyval == GDK_KEY_Tab && kevent->state & GDK_CONTROL_MASK) {
 		g_print("control tab released\n");
-	}
+	}*/
 	if (kevent->keyval == GDK_KEY_Control_L || kevent->keyval == GDK_KEY_Control_R) {
 		/* if we did switch to a recent document without activating it, we should activate it now */
-		g_print("control released\n");
+		DEBUG_MSG("bfwin_key_release_event, control released\n");
 		if (BFWIN(user_data)->notebook_switch_signal == 0) {
 			gint i;
 			notebook_connect_signals(BFWIN(user_data));
 			i = gtk_notebook_get_current_page(GTK_NOTEBOOK(BFWIN(user_data)->notebook));
-			g_print("connect signals, and call bfwin_notebook_changed(%p, %d)\n",user_data,i);
+			DEBUG_MSG("bfwin_key_release_event, connect signals, and call bfwin_notebook_changed(%p, %d)\n",user_data,i);
 			bfwin_notebook_changed(BFWIN(user_data), i);
 		}
 	}
