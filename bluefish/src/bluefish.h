@@ -349,9 +349,6 @@ typedef struct {
 	gint main_window_w;			/* main window width */
 	gint two_pane_filebrowser_height;	/* position of the pane separater on the two paned file browser */
 	gint left_panel_width;		/* width of filelist */
-	/*gint lasttime_filetypes; / * see above */
-	/*gint lasttime_encodings; / * see above */
-	gint snr_select_match;		/* if the search and replace should select anything found or just mark it */
 	gint bookmarks_default_store;	/* 0= temporary by default, 1= permanent by default */
 	gint image_thumbnail_refresh_quality;	/* 1=GDK_INTERP_BILINEAR, 0=GDK_INTERP_NEAREST */
 	gint image_thumbnailsizing_type;	/* scaling ratio=0, fixed width=1, height=2, width+height (discard aspect ratio)=3 */
@@ -388,6 +385,11 @@ typedef struct {
 	gint snr3_escape_chars;
 	gint snr3_dotmatchall;
 	gint snr3_recursion_level;
+	/* simplesearch options */
+	gint ssearch_regex;
+	gint ssearch_dotmatchall;
+	gint ssearch_unescape;
+	gint ssearch_casesens;
 
 	gint sync_delete_deprecated;
 	gint sync_include_hidden;
