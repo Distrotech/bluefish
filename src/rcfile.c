@@ -982,7 +982,6 @@ return_globalsession_configlist(gboolean init_values)
 	init_prop_integer(&config_rc, &main_v->globses.left_panel_width, "left_panel_width:", 150, init_values);
 	/*init_prop_integer   (&config_rc, &main_v->globses.lasttime_filetypes, "lasttime_filetypes:", 0, init_values);
 	   init_prop_integer   (&config_rc, &main_v->globses.lasttime_encodings, "lasttime_encodings:", 0, init_values); */
-	init_prop_integer(&config_rc, &main_v->globses.snr_select_match, "snr_select_match:", 1, init_values);
 	init_prop_integer(&config_rc, &main_v->globses.bookmarks_default_store, "bookmarks_default_store:", 1,
 					  init_values);
 	init_prop_integer(&config_rc, &main_v->globses.image_thumbnail_refresh_quality,
@@ -1034,6 +1033,11 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_integer(&configlist, &session->snr3_escape_chars, "snr_escape_chars:", 1, FALSE);
 	init_prop_integer(&configlist, &session->snr3_dotmatchall, "snr_dotmatchall:", 1, FALSE);
 	init_prop_integer(&configlist, &session->snr3_recursion_level, "snr_recursion_level:", 5, FALSE);
+	
+	init_prop_integer(&configlist, &session->ssearch_regex, "ssearch_regex:", 0, FALSE);
+	init_prop_integer(&configlist, &session->ssearch_dotmatchall, "ssearch_dotmatchall:", 0, FALSE);
+	init_prop_integer(&configlist, &session->ssearch_unescape, "ssearch_unescape:", 0, FALSE);
+	init_prop_integer(&configlist, &session->ssearch_casesens, "ssearch_casesens:", 0, FALSE);
 
 	init_prop_integer(&configlist, &session->display_right_margin, "display_right_margin:", 0, FALSE);
 	init_prop_integer(&configlist, &session->show_visible_spacing, "show_visible_spacing:", 0, FALSE);
