@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 21:47+0200\n"
-"PO-Revision-Date: 2012-02-12 20:59+0100\n"
+"POT-Creation-Date: 2012-08-31 22:18+0200\n"
+"PO-Revision-Date: 2012-09-04 08:18+0200\n"
 "Last-Translator: flemming christensen <fc@stromata.dk>\n"
 "Language-Team: Dansk <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -23,9 +23,8 @@ msgid "Cascading Style Sheet Builder"
 msgstr "CSS-bygger"
 
 #: src/plugin_htmlbar/html2.c:654
-#, fuzzy
 msgid "_Selector(s):"
-msgstr "_Vælger:"
+msgstr "_Vælgere:"
 
 #: src/plugin_htmlbar/html2.c:680
 msgid "_Property:"
@@ -37,9 +36,8 @@ msgid "_Value:"
 msgstr "_Værdi:"
 
 #: src/plugin_htmlbar/html2.c:704
-#, fuzzy
 msgid "Selector(s)"
-msgstr "Vælger"
+msgstr "Vælgere"
 
 #: src/plugin_htmlbar/html2.c:708
 msgid "Property"
@@ -79,11 +77,11 @@ msgstr "Redigér tag"
 
 #: src/plugin_htmlbar/htmlbar.c:98
 msgid "Htmlbar"
-msgstr ""
+msgstr "Html-værktøjslinje"
 
 #: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
-msgstr ""
+msgstr "HTML-faciliteter"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:960
 msgid "T_ags"
@@ -143,7 +141,7 @@ msgstr "Indsæt H6-tag"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:974
 msgid "_Entities"
-msgstr ""
+msgstr "_Entiteter"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:975
 msgid "_Non-breaking space"
@@ -642,7 +640,7 @@ msgstr "Body..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1093
 msgid "_Script..."
-msgstr "_Skript"
+msgstr "_Skript..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1093
 msgid "Script..."
@@ -806,14 +804,12 @@ msgid "Style"
 msgstr "Stil"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "C_olumns..."
-msgstr "_Skrifttype..."
+msgstr "K_olonner..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "Columns..."
-msgstr "Lærred..."
+msgstr "Kolonner..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1138
 msgid "_Link to Stylesheet..."
@@ -1109,14 +1105,12 @@ msgid "Time..."
 msgstr "Tid..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert _Color"
-msgstr "_Tekstfarve:"
+msgstr "Indsæ_t farve"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert Color"
-msgstr "Indsæt"
+msgstr "Indsæt farve"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "_HTML Toolbar"
@@ -1136,55 +1130,45 @@ msgstr ""
 "Højreklik på en vilkårlig knap på html-værktøjslinjen for at føje den til "
 "hurtigstart."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1454
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1451
 msgid "Quickbar"
 msgstr "Hurtigstart"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1457
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1454
 msgid "Standard"
-msgstr " Standard "
+msgstr "Standard"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1457
+msgid "HTML 5"
+msgstr "HTML 5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1460
-#, fuzzy
-msgid "HTML 5"
-msgstr " HTML 5 "
+msgid "Formatting"
+msgstr "Formatering"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1463
-#, fuzzy
-msgid "Formatting"
-msgstr " Formatering "
+msgid "Tables"
+msgstr "Tabeller"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1466
-#, fuzzy
-msgid "Tables"
-msgstr "Tabel"
+msgid "List"
+msgstr "Liste"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1469
-#, fuzzy
-msgid "List"
-msgstr "_Liste"
+msgid "CSS"
+msgstr "CSS"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1472
-#, fuzzy
-msgid "CSS"
-msgstr "_CSS"
+msgid "Forms"
+msgstr "Formularer"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1475
-#, fuzzy
-msgid "Forms"
-msgstr "Formular"
+msgid "Fonts"
+msgstr "Skrifttyper"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1478
-#, fuzzy
-msgid "Fonts"
-msgstr "Skrifttype"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1481
-#, fuzzy
 msgid "Frames"
-msgstr "Rammens"
+msgstr "Rammer"
 
 #: src/plugin_htmlbar/html.c:403
 msgid "Insert Time"
@@ -1270,7 +1254,7 @@ msgstr "_Target:"
 msgid "_Name:"
 msgstr "_Navn:"
 
-#: src/plugin_htmlbar/html.c:662 src/plugin_htmlbar/quickstart.c:557
+#: src/plugin_htmlbar/html.c:662 src/plugin_htmlbar/quickstart.c:558
 msgid "Titl_e:"
 msgstr "Tit_el:"
 
@@ -1561,9 +1545,8 @@ msgid "_Rows:"
 msgstr "_Rækker:"
 
 #: src/plugin_htmlbar/html.c:1679
-#, fuzzy
 msgid "_Add &lt;frame&gt; elements"
-msgstr "_Tilføj <frame>-elementer"
+msgstr "_Tilføj &lt;ramme&gt;-elementer"
 
 #: src/plugin_htmlbar/html.c:1763 src/plugin_htmlbar/html.c:1866
 #: src/plugin_htmlbar/html.c:2036 src/plugin_htmlbar/html.c:2219
@@ -1694,7 +1677,7 @@ msgstr "(Kun HTML4)"
 
 #: src/plugin_htmlbar/html.c:2315
 msgid "MIME _Type:"
-msgstr "MIME-type:"
+msgstr "MIME_type:"
 
 #: src/plugin_htmlbar/html.c:2319
 msgid "_Charset:"
@@ -1719,66 +1702,63 @@ msgstr "_Undgå:"
 #.
 #: src/plugin_htmlbar/html.c:2500
 msgid "CSS3 multi-column layout"
-msgstr ""
+msgstr "CSS3-flerkolonne-layout"
 
 #: src/plugin_htmlbar/html.c:2507
 msgid "Auto (default) or number of columns"
-msgstr ""
+msgstr "Auto (standard) eller antal kolonner"
 
 #: src/plugin_htmlbar/html.c:2516
 msgid "Auto (default) or width"
-msgstr ""
+msgstr "Auto (standard) eller bredde"
 
 #: src/plugin_htmlbar/html.c:2528
 msgid "Normal (default) or width of the gap between columns"
-msgstr ""
+msgstr "Auto (standard) eller bredde på afstand mellem kolonner"
 
 #: src/plugin_htmlbar/html.c:2546
 msgid "None (default) or style"
-msgstr ""
+msgstr "Ingen (standard) eller stil"
 
 #: src/plugin_htmlbar/html.c:2552
 msgid "Medium (default) or width"
-msgstr ""
+msgstr "Medium (standard) eller bredde"
 
 #: src/plugin_htmlbar/html.c:2565
 msgid "Use vendor-prefixed CSS property:"
-msgstr ""
+msgstr "Brug CSS-egenskab med producentpræfiks:"
 
 #: src/plugin_htmlbar/html.c:2573
-#, fuzzy
 msgid "styles_heet"
-msgstr "Opret stilark..."
+msgstr "stila_rk"
 
 #: src/plugin_htmlbar/html.c:2574
 msgid "Add selector(s) to create a new rule"
-msgstr ""
+msgstr "Tilføj vælger(e) for at oprette ny regel"
 
 #: src/plugin_htmlbar/html.c:2576
-#, fuzzy
 msgid "style a_ttribute"
-msgstr "Egenskaber"
+msgstr "stile_genskab"
 
 #: src/plugin_htmlbar/html.c:2577
 msgid "Add a style attribute in tag"
-msgstr ""
+msgstr "Tilføj stilegenskab i mærke"
 
 #: src/plugin_htmlbar/html.c:2579
 msgid "style _values"
-msgstr ""
+msgstr "stil_værdier"
 
 #: src/plugin_htmlbar/html.c:2580
 msgid "Add values in a style attribute"
-msgstr ""
+msgstr "Tilføj værdier i en stilegenskab"
 
 #: src/plugin_htmlbar/html.c:2590
-#, fuzzy
 msgid "Selecto_rs:"
-msgstr "_Vælger:"
+msgstr "Vælge_re:"
 
 #: src/plugin_htmlbar/html.c:2591
 msgid "Leave empty to insert declarations into an existing rule."
-msgstr ""
+msgstr "Lad være tom for at indsætte erklæringer i en eksisterende regel."
 
 #: src/plugin_htmlbar/html.c:2651
 msgid "Link"
@@ -1903,61 +1883,61 @@ msgstr "Knap"
 
 #: src/plugin_htmlbar/html_table.c:108
 msgid "<span color=\"#006000\">Cell _Padding:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Celle_fyld:</span>"
 
 #: src/plugin_htmlbar/html_table.c:117
 msgid "<span color=\"#006000\">C_ell Spacing:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">C_ellafstand:</span>"
 
 #: src/plugin_htmlbar/html_table.c:144 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:377
 msgid "<span color=\"#006000\">_Align:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">J_ustér:</span>"
 
 #: src/plugin_htmlbar/html_table.c:149 src/plugin_htmlbar/html_table.c:273
 #: src/plugin_htmlbar/html_table.c:449
 msgid "<span color=\"red\">_bgcolor:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_baggrundsfarve:</span>"
 
 #: src/plugin_htmlbar/html_table.c:155
 msgid "<span color=\"#006000\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Bredde:</span>"
 
 #: src/plugin_htmlbar/html_table.c:162
 msgid "<span color=\"#006000\">Bo_rder:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">K_ant:</span>"
 
 #: src/plugin_htmlbar/html_table.c:168
 msgid "<span color=\"#A36A00\">_Border:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Kant:</span>"
 
 #: src/plugin_htmlbar/html_table.c:183
 msgid "<span color=\"#006000\">_Frame:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Ramme:</span>"
 
 #: src/plugin_htmlbar/html_table.c:194
 msgid "<span color=\"#006000\">R_ules:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Linea_ler:</span>"
 
 #: src/plugin_htmlbar/html_table.c:264 src/plugin_htmlbar/html_table.c:388
 msgid "<span color=\"#006000\">_Valign:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">_Venstrejustering:</span>"
 
 #: src/plugin_htmlbar/html_table.c:396
 msgid "<span color=\"#A36A00\">_Headers:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Overskrifter:</span>"
 
 #: src/plugin_htmlbar/html_table.c:397
 msgid "Set of space-separated IDs of th elements."
-msgstr ""
+msgstr "Sæt af mellemrums-adskilte ID'er for th-elementer."
 
 #: src/plugin_htmlbar/html_table.c:408
 msgid "<span color=\"#A36A00\">_Scope:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Omfang:</span>"
 
 #: src/plugin_htmlbar/html_table.c:410
 msgid "the header cell applies to cells in the same:"
-msgstr ""
+msgstr "overskriftescellen bruges på celler i samme:"
 
 #: src/plugin_htmlbar/html_table.c:422
 msgid "Co_l Span:"
@@ -1969,15 +1949,15 @@ msgstr "_Rækkespænd:"
 
 #: src/plugin_htmlbar/html_table.c:431
 msgid "<span color=\"red\">No _Wrap:</span>"
-msgstr ""
+msgstr "<span color=\"red\">Ingen ombry_dning:</span>"
 
 #: src/plugin_htmlbar/html_table.c:437
 msgid "<span color=\"red\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_Bredde:</span>"
 
 #: src/plugin_htmlbar/html_table.c:444
 msgid "<span color=\"red\">_Height:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_Højde:</span>"
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:334
@@ -2140,67 +2120,67 @@ msgstr "Alle billeder"
 msgid "Insert Image"
 msgstr "Indsæt billede"
 
-#: src/plugin_htmlbar/quickstart.c:518
+#: src/plugin_htmlbar/quickstart.c:519
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>E_ksternt stilark</b>"
 
-#: src/plugin_htmlbar/quickstart.c:529
+#: src/plugin_htmlbar/quickstart.c:530
 msgid "Ty_pe:"
 msgstr "Ty_pe:"
 
-#: src/plugin_htmlbar/quickstart.c:547
+#: src/plugin_htmlbar/quickstart.c:548
 msgid "HRE_F:"
 msgstr "HRE_F:"
 
-#: src/plugin_htmlbar/quickstart.c:552
+#: src/plugin_htmlbar/quickstart.c:553
 msgid "_Media:"
 msgstr "_Medie:"
 
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
 #.
-#: src/plugin_htmlbar/quickstart.c:564
+#: src/plugin_htmlbar/quickstart.c:565
 msgid "<b>Style Area</b>"
 msgstr "<b>Stilområde</b>"
 
-#: src/plugin_htmlbar/quickstart.c:568
+#: src/plugin_htmlbar/quickstart.c:569
 msgid "Cre_ate empty style area"
 msgstr "Opret tomt _stilområde"
 
-#: src/plugin_htmlbar/quickstart.c:587
+#: src/plugin_htmlbar/quickstart.c:588
 msgid "<b>Attributes</b>"
 msgstr "<b>Attributter</b>"
 
-#: src/plugin_htmlbar/quickstart.c:602
+#: src/plugin_htmlbar/quickstart.c:603
 msgid "_Src:"
 msgstr "_Kilde:"
 
 #. TODO: add an option to place content in the script area
-#: src/plugin_htmlbar/quickstart.c:609
+#: src/plugin_htmlbar/quickstart.c:610
 msgid "<b>Script Area</b>"
 msgstr "<b>Skriptområde</b>"
 
-#: src/plugin_htmlbar/quickstart.c:613
+#: src/plugin_htmlbar/quickstart.c:614
 msgid "Cre_ate empty script area"
 msgstr "Opret tomt s_kriptområde"
 
-#: src/plugin_htmlbar/quickstart.c:640
+#: src/plugin_htmlbar/quickstart.c:641
 msgid "Quick Start"
 msgstr "Hurtigstart"
 
-#: src/plugin_htmlbar/quickstart.c:657
+#: src/plugin_htmlbar/quickstart.c:658
 msgid "_DTD:"
 msgstr "_DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:661 src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/quickstart.c:662 src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "_Titel:"
 
-#: src/plugin_htmlbar/quickstart.c:684
+#: src/plugin_htmlbar/quickstart.c:685
 msgid "_Head:"
 msgstr "_Hoved:"
 
-#: src/plugin_htmlbar/quickstart.c:701
+#: src/plugin_htmlbar/quickstart.c:702
 msgid "Open in _new document."
 msgstr "Åbn i _nyt dokument."
 
@@ -2261,53 +2241,53 @@ msgid "Size:"
 msgstr "Størrelse:"
 
 #: src/plugin_htmlbar/prefs.c:66
-#, fuzzy
 msgid "<b>HTML Toolbar</b>"
-msgstr "_HTML-værktøjslinje"
+msgstr "<b>HTML-værktøjslinje</b>"
 
 #: src/plugin_htmlbar/prefs.c:69
 msgid "Show toolbar in sidepanel"
-msgstr ""
+msgstr "Vis værktøjslinje i sidepanel"
 
 #: src/plugin_htmlbar/prefs.c:70
 msgid "Keep HTML dialogs always on top"
-msgstr ""
+msgstr "Hold altid HTML-dialoger øverst"
 
 #: src/plugin_htmlbar/prefs.c:75
 msgid "<b>HTML options</b>"
-msgstr ""
+msgstr "<b>Valgmuligheder for HTML</b>"
 
 #: src/plugin_htmlbar/prefs.c:79
 msgid "Use _XHTML style tags (<br />)"
-msgstr ""
+msgstr "Brug _XHTML-stilmærker (<br />)"
 
 #: src/plugin_htmlbar/prefs.c:81
 msgid "Use lo_wercase HTML tags"
-msgstr ""
+msgstr "Brug sm_å bogstaver i HTML-mærker"
 
 #: src/plugin_htmlbar/prefs.c:83
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
-msgstr ""
+msgstr "Brug for_ældede mærker (f.eks. <font> og <nobr>)"
 
 #: src/plugin_htmlbar/prefs.c:87
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
 msgstr ""
+"_Formatér ifølge retningslinjer for tilgængelighed (f.eks. <strong> for <b>)"
 
 #: src/plugin_htmlbar/prefs.c:92
 msgid "<b>Auto Update Tag Options</b>"
-msgstr ""
+msgstr "<b>Opdatér mærke-valgmuligheder automatisk</b>"
 
 #: src/plugin_htmlbar/prefs.c:96
 msgid "Automatically update a_uthor meta tag"
-msgstr ""
+msgstr "Opdatér forfatter-metamærke a_utomatisk"
 
 #: src/plugin_htmlbar/prefs.c:99
 msgid "Automatically update _date meta tag"
-msgstr ""
+msgstr "Opdatér _dato-metamærke automatisk"
 
 #: src/plugin_htmlbar/prefs.c:102
 msgid "Automatically update _generator meta tag"
-msgstr ""
+msgstr "Opdatér _generator-metamærke automatisk"
 
 #~ msgid "_Special"
 #~ msgstr "_Specielle"
