@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-08-31 22:17+0200\n"
+"POT-Creation-Date: 2012-09-05 02:47+0200\n"
 "PO-Revision-Date: 2012-09-01 08:57+0200\n"
 "Last-Translator: flemming christensen <fc@stromata.dk>\n"
 "Language-Team: Dansk <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
@@ -80,40 +80,40 @@ msgstr "Filbrowser"
 msgid "Bookmarks"
 msgstr "Bogmærker"
 
-#: ../src/bfwin.c:830
+#: ../src/bfwin.c:834
 msgid "Goto Line:"
 msgstr "Gå til linje:"
 
-#: ../src/bfwin.c:841
+#: ../src/bfwin.c:845
 msgid "Find:"
 msgstr "Søg:"
 
-#: ../src/bfwin.c:851 ../src/snr3.c:1492
+#: ../src/bfwin.c:858 ../src/snr3.c:1492
 msgid "Regular expression (pcre)"
 msgstr "Regulært udtryk (pcre)"
 
-#: ../src/bfwin.c:853
+#: ../src/bfwin.c:861
 msgid "Case sensitive"
 msgstr "Forskel på store og små bogstaver"
 
-#: ../src/bfwin.c:855
+#: ../src/bfwin.c:864
 msgid "Dot character matches newlines"
 msgstr "Punktum matcher ny linje"
 
-#: ../src/bfwin.c:857
+#: ../src/bfwin.c:867
 msgid "Pattern contains backslash escaped sequences"
 msgstr "Mønstret indeholder undvigesekvenser med omvendt skråstreg"
 
-#: ../src/bfwin.c:868
+#: ../src/bfwin.c:879
 msgid "Advanced"
 msgstr "Avanceret"
 
-#: ../src/bfwin.c:1272
+#: ../src/bfwin.c:1285
 msgid "New Bluefish Window"
 msgstr "Nyt Bluefish-vindue"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1329
+#: ../src/bfwin.c:1342
 msgid "Stand by..."
 msgstr "Vent venligst..."
 
@@ -366,7 +366,7 @@ msgstr "_Kontrollér syntaks"
 msgid "_New Project..."
 msgstr "_Nyt projekt..."
 
-#: ../src/bfwin_uimanager.c:849 ../src/project.c:208
+#: ../src/bfwin_uimanager.c:849 ../src/project.c:209
 msgid "New project"
 msgstr "Nyt projekt"
 
@@ -1738,7 +1738,7 @@ msgid "_Skip"
 msgstr "_Spring over"
 
 #: ../src/file.c:1514 ../src/file_dialogs.c:637 ../src/file_dialogs.c:658
-#: ../src/project.c:308
+#: ../src/project.c:309
 msgid "_Overwrite"
 msgstr "_Overskriv"
 
@@ -1858,7 +1858,7 @@ msgid "Save %s as"
 msgstr "Gem %s som"
 
 #: ../src/file_dialogs.c:637 ../src/file_dialogs.c:658
-#: ../src/file_dialogs.c:956 ../src/project.c:308
+#: ../src/file_dialogs.c:956 ../src/project.c:309
 msgid "_Cancel"
 msgstr "A_nnullér"
 
@@ -1871,12 +1871,12 @@ msgstr "Filen %s findes og er åben. Overskriv?"
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Den valgte fil er ved at blive redigeret i Bluefish."
 
-#: ../src/file_dialogs.c:659 ../src/project.c:310
+#: ../src/file_dialogs.c:659 ../src/project.c:311
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "En fil ved navn \"%s\" findes allerede."
 
-#: ../src/file_dialogs.c:662 ../src/project.c:314
+#: ../src/file_dialogs.c:662 ../src/project.c:315
 msgid "Do you want to replace the existing file?"
 msgstr "Vil du erstatte den eksisterende fil?"
 
@@ -2862,7 +2862,7 @@ msgstr "Farve for ændret doku_ment i dokumentfanen:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2628 ../src/rcfile.c:1235
+#: ../src/preferences.c:2628 ../src/rcfile.c:1240
 msgid "Images"
 msgstr "Billeder"
 
@@ -2914,30 +2914,30 @@ msgstr "<b>Udvidelsesmoduler</b>"
 msgid "Language support"
 msgstr "Sprogunderstøttelse"
 
-#: ../src/project.c:280
+#: ../src/project.c:281
 msgid "Enter Bluefish project filename"
 msgstr "Indtast filnavn for Bluefish-projekt"
 
-#: ../src/project.c:425
+#: ../src/project.c:426
 msgid "Select Bluefish project filename"
 msgstr "Vælg filnavn for Bluefish-projekt"
 
-#: ../src/project.c:580
+#: ../src/project.c:581
 msgid "Create New Project"
 msgstr "Opret nyt projekt"
 
-#: ../src/project.c:583
+#: ../src/project.c:584
 msgid "Edit Project"
 msgstr "Redigér projekt"
 
-#: ../src/project.c:609
+#: ../src/project.c:610
 #, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
 msgstr[0] "Dette projekt indeholder %d fil"
 msgstr[1] "Dette projekt indeholder %d filer"
 
-#: ../src/project.c:622
+#: ../src/project.c:623
 msgid "Project _Name:"
 msgstr "Projekt_navn:"
 
@@ -2946,23 +2946,23 @@ msgstr "Projekt_navn:"
 #. but = file_but_new(pred->entries[template], 1, NULL);
 #. gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
-#: ../src/project.c:630
+#: ../src/project.c:631
 msgid "<b>Project Defaults</b>"
 msgstr "<b>Projektets standardværdier</b>"
 
-#: ../src/project.c:644
+#: ../src/project.c:645
 msgid "Create _Project"
 msgstr "Opret _projekt"
 
-#: ../src/project.c:693
+#: ../src/project.c:694
 msgid "Create project"
 msgstr "Opret projekt"
 
-#: ../src/project.c:698
+#: ../src/project.c:699
 msgid "Create project with currently opened documents"
 msgstr "Opret projekt med de åbne dokumenter"
 
-#: ../src/project.c:700
+#: ../src/project.c:701
 msgid "Create empty project"
 msgstr "Opret tomt projekt"
 
@@ -3126,19 +3126,19 @@ msgstr "LaTex bog"
 msgid "LaTex Presentation"
 msgstr "LaTex præsentation"
 
-#: ../src/rcfile.c:1135
+#: ../src/rcfile.c:1140
 msgid "Untitled Project"
 msgstr "Unavngivet projekt"
 
-#: ../src/rcfile.c:1227
+#: ../src/rcfile.c:1232
 msgid "C programming"
 msgstr "C-programmering"
 
-#: ../src/rcfile.c:1231
+#: ../src/rcfile.c:1236
 msgid "Web files"
 msgstr "Webfiler"
 
-#: ../src/rcfile.c:1238
+#: ../src/rcfile.c:1243
 msgid "Hide objectfiles"
 msgstr "Skjul objektfiler"
 
@@ -3340,7 +3340,7 @@ msgstr "Denne ændring vedrører flere dokumenter."
 #~ msgid "Connect as u_ser:"
 #~ msgstr "Forbind som br_uger:"
 
-#~ msgid "_Username:"_Avanceret søg og erstat
+#~ msgid "_Username:"
 #~ msgstr "Br_ugernavn:"
 
 #~ msgid "_Domain:"
@@ -3355,7 +3355,7 @@ msgstr "Denne ændring vedrører flere dokumenter."
 #~ msgid "Remember password until you _logout"
 #~ msgstr "Husk adgangskoden til du _logger ud"
 
-#~ msgid "Remember _forever"_Avanceret søg og erstat
+#~ msgid "Remember _forever"
 #~ msgstr "Husk _altid"
 
 #~ msgid "<b>Open URL</b>"
