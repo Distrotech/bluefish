@@ -178,7 +178,7 @@ about_dialog_create(GtkAction * action, gpointer user_data)
 		"Jim Hayward <jimhayward@linuxexperience.net>",
 		"Daniel Leidert <daniel.leidert@wgdd.de>",
 		"Shawn Novak <kernel86@gmail.com>",
-		"Yanike Mann <yanikem@gmail.com>"
+		"Yanike Mann <yanikem@gmail.com>",
 		_("\nDevelopers of previous releases:"),
 		"Alastair Porter <alastair@porter.net.nz>",
 		"Antti-Juhani Kaijanaho",
