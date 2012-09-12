@@ -101,7 +101,7 @@ unregroup_destroy(unregroup_t * to_remove)
 		unreentry_destroy((unreentry_t *) tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
-	g_list_free(tmplist);
+	g_list_free(to_remove->entries);
 	g_slice_free(unregroup_t, to_remove);
 #ifdef UNRE_REFCOUNT
 	group_ref--;
