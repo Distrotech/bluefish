@@ -67,7 +67,7 @@ enum {
 	hide_bars_on_fullscreen,
 	cursor_size,
 	highlight_cursor,
-	save_accelmap, 
+	save_accelmap,
 	max_recent_files,			/* length of Open Recent list */
 	max_dir_history,			/* length of directory history */
 	backup_file,				/* wheather to use a backup file */
@@ -318,7 +318,7 @@ bittoggle(gchar *orig, gint bit, gboolean value, gint defaultvalue)
 	} else {
 		i &= ~ (1 << bit);
 	}
-	g_print("bittoggle, toggled bit %d, orig=%s, result=%d\n",bit,orig,i);
+	DEBUG_MSG("bittoggle, toggled bit %d, orig=%s, result=%d\n",bit,orig,i);
 	return g_strdup_printf("%d", i);
 }
 
@@ -327,7 +327,7 @@ set_arr_user_defined(gchar **arr)
 {
 	gchar *tmp = arr[0];
 	arr[0] = bittoggle(tmp, 1, TRUE, 3/* user defined enabled */);
-	g_print("set_arr_user_defined, original was %s, new is %s\n",tmp,arr[0]);
+	DEBUG_MSG("set_arr_user_defined, original was %s, new is %s\n",tmp,arr[0]);
 	g_free(tmp);
 }
 
@@ -365,7 +365,7 @@ pref_apply_change(GtkListStore * lstore, gint pointerindex, Tprefapplytype type,
 			}
 			strarr[index] = g_strdup_printf("%d", i);*/
 			strarr[index] = bittoggle(oldval, 0, (newval[0] == '1'), 2);
-			g_print("new value for index %d is %s\n",index,strarr[index]);
+			DEBUG_MSG("new value for index %d is %s\n",index,strarr[index]);
 		} else {
 			strarr[index] = g_strdup(newval);
 		}
@@ -375,7 +375,7 @@ pref_apply_change(GtkListStore * lstore, gint pointerindex, Tprefapplytype type,
 			/*g_print("pref_apply_change, type=%d, call set_arr_user_defined()\n", type);*/
 			set_arr_user_defined(strarr);
 		}
-		
+
 	} else {
 		DEBUG_MSG("ERROR: path %s was not converted to tpath(%p) or iter (lstore=%p)\n", path, tpath, lstore);
 	}
@@ -535,7 +535,7 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 		dialog_check_button_in_table(_("_Highlight current line"), sessionvars->view_cline, table, 0,1,4,5);
 	sprefs->prefs[view_line_numbers] =
 		dialog_check_button_in_table(_("Show line _numbers"), sessionvars->view_line_numbers, table, 0, 1, 5,6);
-		
+
 	/* right column */
 	sprefs->prefs[display_right_margin] =
 		dialog_check_button_in_table(_("Show _right margin indicator"), sessionvars->display_right_margin,table, 1,2,0,1);
@@ -905,8 +905,8 @@ set_extcommands_strarr_in_list(GtkTreeIter * iter, gchar ** strarr, Tprefdialog 
 {
 	gint arrcount = g_strv_length(strarr);
 	if (arrcount == 4) {
-		gtk_list_store_set(GTK_LIST_STORE(pd->bd.lstore), iter, 
-				0, (strarr[0][0]=='1' || strarr[0][0]=='3'), 
+		gtk_list_store_set(GTK_LIST_STORE(pd->bd.lstore), iter,
+				0, (strarr[0][0]=='1' || strarr[0][0]=='3'),
 				1, strarr[1],
 				2, strarr[2],
 				3, strarr[3][0] == '1',
@@ -962,7 +962,7 @@ add_new_extcommands_lcb(GtkWidget * wid, Tprefdialog * pd)
 {
 	gchar **strarr;
 	GtkTreeIter iter;
-	
+
 	strarr = pref_create_empty_strarr(4);
 	gtk_list_store_append(GTK_LIST_STORE(pd->bd.lstore), &iter);
 	set_extcommands_strarr_in_list(&iter, strarr, pd);
@@ -1012,7 +1012,7 @@ extcommands_query_tooltip_lcb(GtkWidget  *widget, gint        x,  gint        y,
 static void
 create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 {
-	GtkWidget *hbox, *but, *scrolwin, *label;
+	GtkWidget *hbox, *but, *scrolwin;
 	pd->lists[extcommands] = duplicate_arraylist(main_v->props.external_command);
 	pd->bd.lstore = gtk_list_store_new(5, G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER);
 	pd->bd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bd.lstore));
@@ -1046,9 +1046,9 @@ create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->bd.lview);
 	gtk_widget_set_size_request(scrolwin, 200, 300);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
-	
+
 	reload_extcommands(pd, pd->lists[extcommands]);
-	
+
 	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->bd.lview), TRUE);
 	pd->bd.thelist = &pd->lists[extcommands];
 	pd->bd.insertloc = -1;
@@ -1074,8 +1074,8 @@ set_external_filters_strarr_in_list(GtkTreeIter * iter, gchar ** strarr, Tprefdi
 {
 	gint arrcount = g_strv_length(strarr);
 	if (arrcount == 3) {
-		gtk_list_store_set(GTK_LIST_STORE(pd->ed.lstore), iter, 
-				0, (strarr[0][0]=='1' || strarr[0][0]=='3'), 
+		gtk_list_store_set(GTK_LIST_STORE(pd->ed.lstore), iter,
+				0, (strarr[0][0]=='1' || strarr[0][0]=='3'),
 				1, strarr[1], 2, strarr[2], 3, strarr, -1);
 	} else {
 		DEBUG_MSG("ERROR: set_external_command_strarr_in_list, arraycount != 2 !!!!!!\n");
@@ -1172,7 +1172,7 @@ filters_query_tooltip_lcb(GtkWidget  *widget, gint        x,  gint        y,  gb
 static void
 create_filters_gui(Tprefdialog * pd, GtkWidget * vbox1)
 {
-	GtkWidget *hbox, *but, *scrolwin, *label;
+	GtkWidget *hbox, *but, *scrolwin;
 	pd->lists[extfilters] = duplicate_arraylist(main_v->props.external_filter);
 	pd->ed.lstore = gtk_list_store_new(4, G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
 	pd->ed.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->ed.lstore));
@@ -1229,9 +1229,9 @@ set_outputbox_strarr_in_list(GtkTreeIter * iter, gchar ** strarr, Tprefdialog * 
 	gint arrcount;
 	arrcount = g_strv_length(strarr);
 	if (arrcount == 7) {
-		gtk_list_store_set(GTK_LIST_STORE(pd->od.lstore), iter, 
-				0, (strarr[0][0]=='1' || strarr[0][0]=='3'), 
-				1, strarr[1], 2, strarr[2], 3, strarr[3], 4, strarr[4], 
+		gtk_list_store_set(GTK_LIST_STORE(pd->od.lstore), iter,
+				0, (strarr[0][0]=='1' || strarr[0][0]=='3'),
+				1, strarr[1], 2, strarr[2], 3, strarr[3], 4, strarr[4],
 				5, strarr[5], 6, strarr[6], 7, strarr, -1);
 	}
 }
@@ -1358,7 +1358,7 @@ outputbox_query_tooltip_lcb(GtkWidget  *widget, gint        x,  gint        y,  
 static void
 create_outputbox_gui(Tprefdialog * pd, GtkWidget * vbox1)
 {
-	GtkWidget *hbox, *but, *scrolwin, *label;
+	GtkWidget *hbox, *but, *scrolwin;
 	pd->lists[extoutputbox] = duplicate_arraylist(main_v->props.external_outputbox);
 	pd->od.lstore =
 		gtk_list_store_new(8, G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
@@ -1609,7 +1609,7 @@ fill_bflang_gui(Tprefdialog * pd)
 			gchar *tmp;
 			tmp = langmgr_get_option_description(strarr[1]);
 			gtk_list_store_append(GTK_LIST_STORE(pd->bld.lstore), &iter);
-			gtk_list_store_set(GTK_LIST_STORE(pd->bld.lstore), &iter, 0, strarr[0], 1, 
+			gtk_list_store_set(GTK_LIST_STORE(pd->bld.lstore), &iter, 0, strarr[0], 1,
 								tmp ? tmp : strarr[1], 2,
 							   strarr[2][0] == '1', 3, strarr, -1);
 		}
@@ -1641,7 +1641,7 @@ create_bflang_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	pd->lists[highlight_styles] = duplicate_arraylist(main_v->props.highlight_styles);
 
 	pd->bld.title = dialog_label_new(NULL, 0, 0, vbox1, 0);
-	
+
 	label = gtk_label_new(_("A restart is needed to see the effect of these options"));
 	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 	gtk_box_pack_start(GTK_BOX(vbox1), label, FALSE, FALSE, 5);
@@ -1739,10 +1739,10 @@ preferences_destroy_lcb(GtkWidget * widget, Tprefdialog * pd)
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ed.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
 	lingua_cleanup();
-	
+
 	DEBUG_MSG("preferences_destroy_lcb, about to destroy all widgets in the model\n");
-	g_slist_foreach(pd->widgetfreelist,destroy_widgets_in_freelist_lcb,pd);	
-	
+	g_slist_foreach(pd->widgetfreelist,destroy_widgets_in_freelist_lcb,pd);
+
 	DEBUG_MSG("preferences_destroy_lcb, about to destroy the window\n");
 	window_destroy(pd->win);
 	main_v->prefdialog = NULL;
@@ -2241,7 +2241,7 @@ preferences_dialog_new(void)
 	pd->prefs[editor_font_string] = gtk_font_button_new_with_font(main_v->props.editor_font_string);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[editor_font_string]);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[editor_font_string], FALSE, FALSE, 0);
-	
+
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
 	pd->prefs[cursor_size] = dialog_spin_button_labeled(1, 999, main_v->props.cursor_size,
@@ -2252,7 +2252,7 @@ preferences_dialog_new(void)
 
 	pd->prefs[use_system_colors] =
 		dialog_check_button_in_table(_("Use system wide color settings"), main_v->props.use_system_colors, table, 0,2, 0,1);
-	
+
 	pd->prefs[editor_fg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_ED_FG],
 														_("Foreground color"), table, 1, 2, 1,2);
 	dialog_mnemonic_label_in_table(_("_Foreground color:"), pd->prefs[editor_fg], table, 0, 1, 1,2);
@@ -2706,7 +2706,7 @@ preferences_dialog_new(void)
 	create_plugin_gui(pd, vbox2);
 
 	/* plugin children */
-	
+
 	for (tmpslist=main_v->pref_initgui;tmpslist;tmpslist=g_slist_next(tmpslist))
 	{
 		PrefInitguiCallback func = tmpslist->data;
