@@ -719,7 +719,7 @@ GList * update_outputbox(GList *current, gboolean overwrite) {
 	defaults =
 		g_list_append(defaults,
 						array_from_arglist(_("pylint"), "(C|R|E|F|W):[ ]*([0-9]+),[0-9]+:(.*)", "-1",
-										 "2", "3", "pylint '%f'|", NULL));
+										 "2", "0", "pylint '%f'|", NULL));
 #endif
 	retlist = update_externals(current, defaults, overwrite, 7, 6);
 	free_arraylist(defaults);
