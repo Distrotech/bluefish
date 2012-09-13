@@ -574,7 +574,7 @@ migrate_config_files(GHashTable * main_configlist, GFile * newrc)
 	oldsession = user_bfdir(OLDSESSION);
 	newsession = user_bfdir(CURSESSION);
 	merge_config_files(oldrc, oldsession, newrc, newsession);
-	/* add some entries to main_configlist. because main_configlist is used for 
+	/* add some entries to main_configlist. because main_configlist is used for
 	   saving as well this means we'll save these entries too */
 	if (parse_config_file(main_configlist, newrc)) {
 		/* are there any entries that we want to convert ?? */
@@ -607,7 +607,7 @@ convert_old_placeholders(gchar *orig, gchar old1, gchar new1, gchar old2, gchar 
 
 /* on array length = newlen-1 we update to the new version
 
-if (overwrite) we free the list and replace it with the default values 
+if (overwrite) we free the list and replace it with the default values
 
 if (!overwrite) we overwrite all bluefish_defined options, and we append any new options
 */
@@ -615,10 +615,10 @@ static GList *update_externals(GList *current, GList *defaults, gboolean overwri
 {
 	GList *tmplist;
 	GHashTable *ht=NULL;
-	
+
 	if (current == NULL)
 		overwrite = TRUE;
-	
+
 	if (overwrite) {
 		free_arraylist(current);
 		current = NULL;
@@ -630,16 +630,16 @@ static GList *update_externals(GList *current, GList *defaults, gboolean overwri
 			gint len;
 			GList *cur;
 			len = g_strv_length(arr);
-	
+
 			cur = tmplist;
 			tmplist = g_list_next(tmplist);
-			
+
 			if (len == (newlen-1)) { /* convert the old (2.2.2 or older) format into the new format */
 				gchar **oldarr = arr;
 				/*g_print("prepend %s in front of %s\n",USER_DEFINED_ENABLED,arr[0]);*/
 				cur->data = arr = prepend_array(USER_DEFINED_ENABLED,arr);
 				g_strfreev(oldarr);
-				/* arr[2] contains the commandstring. now replace %I and %O (previously fifo in and 
+				/* arr[2] contains the commandstring. now replace %I and %O (previously fifo in and
 				fifo out) to temporary file in %i and out %o */
 				arr[commandindex] = convert_old_placeholders(arr[commandindex], 'O', 'o', 'I', 'i');
 				len = newlen;
@@ -748,7 +748,9 @@ GList *update_filters(GList *current, gboolean overwrite)
 	defaults =
 		g_list_append(defaults,
 					  array_from_arglist(_("Render HTML to text"), "lynx -force_html -dump %i |", NULL));
-
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("php_beautifier"), "|php_beautifier -t|", NULL));
 	retlist = update_externals(current, defaults, overwrite, 3, 2);
 	free_arraylist(defaults);
 	return retlist;
@@ -757,7 +759,7 @@ GList *update_filters(GList *current, gboolean overwrite)
 GList *update_commands(GList *current, gboolean overwrite)
 {
 	GList *defaults=NULL, *retlist;
-#ifdef WIN32	
+#ifdef WIN32
 	defaults =
 		g_list_prepend(defaults,
 					  array_from_arglist(_("Windows XP Firefox"),
@@ -854,7 +856,7 @@ rcfile_parse_main(void)
 	file = user_bfdir(CURCONFIG);
 	if (!parse_config_file(main_configlist, file)) {
 		g_warning("no configfile %s, try to convert config files from older versions\n", CURCONFIG);
-		/* probably there is no configfile. try to migrate the configfile from a previous 
+		/* probably there is no configfile. try to migrate the configfile from a previous
 		   version */
 		migrate_config_files(main_configlist, file);
 	}
@@ -902,10 +904,10 @@ rcfile_save_main(void)
 {
 	gint ret;
 	GFile *filename = user_bfdir(CURCONFIG);
-	
+
 	g_free(main_v->props.config_version);
 	main_v->props.config_version = g_strdup(VERSION);
-	
+
 	ret = save_config_file(main_configlist, filename);
 	g_object_unref(filename);
 	return ret;
@@ -1025,7 +1027,7 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_integer(&configlist, &session->view_blockstack, "view_blockstack:", 1, FALSE);
 	init_prop_integer(&configlist, &session->autocomplete, "autocomplete:", 1, FALSE);
 	init_prop_integer(&configlist, &session->show_mbhl, "show_mbhl:", 1, FALSE);
-	
+
 	init_prop_integer(&configlist, &session->snr3_type, "snr_type:", 1, FALSE);
 	init_prop_integer(&configlist, &session->snr3_replacetype, "snr_replacetype:", 1, FALSE);
 	init_prop_integer(&configlist, &session->snr3_scope, "snr_scope:", 1, FALSE);
@@ -1033,7 +1035,7 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_integer(&configlist, &session->snr3_escape_chars, "snr_escape_chars:", 1, FALSE);
 	init_prop_integer(&configlist, &session->snr3_dotmatchall, "snr_dotmatchall:", 1, FALSE);
 	init_prop_integer(&configlist, &session->snr3_recursion_level, "snr_recursion_level:", 5, FALSE);
-	
+
 	init_prop_integer(&configlist, &session->ssearch_regex, "ssearch_regex:", 0, FALSE);
 	init_prop_integer(&configlist, &session->ssearch_dotmatchall, "ssearch_dotmatchall:", 0, FALSE);
 	init_prop_integer(&configlist, &session->ssearch_unescape, "ssearch_unescape:", 0, FALSE);
@@ -1105,9 +1107,9 @@ setup_session_after_parse(Tsessionvars * session)
 
 	if (session->default_mime_type == NULL)
 		session->default_mime_type = g_strdup("text/plain");
-	
+
 	if (session->filegloblist == NULL) {
-		session->filegloblist = list_from_arglist(TRUE, "*", 
+		session->filegloblist = list_from_arglist(TRUE, "*",
 				"*.c",
 				"*.cgi",
 				"*.cpp",
@@ -1125,7 +1127,7 @@ setup_session_after_parse(Tsessionvars * session)
 				"*.xml" , NULL);
 	}
 /* TODO: set spell check language to a sensible default
-	 
+
 #ifdef HAVE_LIBENCHANT
 	if (session->spell_lang==NULL)
 		session->spell_lang=
@@ -1192,7 +1194,7 @@ add_new_encodings(GList *defaults, GList *current)
 	GHashTable *ht;
 	GList *tmplist, *last;
 	ht = g_hash_table_new(g_str_hash, g_str_equal);
-	
+
 	for (tmplist=g_list_first(current);tmplist;tmplist=tmplist->next) {
 		gchar **arr = tmplist->data;
 		g_hash_table_insert(ht, arr[1], GINT_TO_POINTER(1));
@@ -1252,7 +1254,7 @@ rcfile_parse_global_session(void)
 			GList *default_encodings = get_list(defaultfile, NULL, TRUE);
 			if (main_v->globses.encodings == NULL) {
 				main_v->globses.encodings = default_encodings;
-			} else {			
+			} else {
 				add_new_encodings(default_encodings, main_v->globses.encodings);
 				g_list_free(default_encodings);
 			}
@@ -1277,7 +1279,7 @@ load_templates_from_dir(GFile *uri, gboolean create_ifnexist)
 	GError *gerror=NULL;
 	GFileInfo *finfo;
 	GList *retlist=NULL;
-	
+
 
 	en = g_file_enumerate_children(uri,G_FILE_ATTRIBUTE_STANDARD_NAME,G_FILE_QUERY_INFO_NONE, NULL, &gerror);
 	if (gerror) {
@@ -1289,7 +1291,7 @@ load_templates_from_dir(GFile *uri, gboolean create_ifnexist)
 		g_error_free(gerror);
 		return NULL;
 	}
-	
+
 	finfo = g_file_enumerator_next_file(en,NULL,&gerror);
 	while(finfo) {
 		gchar *tmp, **arr;
