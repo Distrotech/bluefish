@@ -1644,8 +1644,8 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 	return NULL;
 }
 
-#define MAX_TOO_LONG_LINE 500
-#define MIN_TOO_LONG_LINE 400
+#define MAX_TOO_LONG_LINE 900
+#define MIN_TOO_LONG_LINE 800
 
 static gchar *
 check_very_long_line(Tdocument *doc, gchar *buffer)
@@ -1674,17 +1674,30 @@ check_very_long_line(Tdocument *doc, gchar *buffer)
 		const gchar *buttons[] = { _("_No"), _("_Split"), NULL };
 		response = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, 
 						GTK_MESSAGE_WARNING, buttons,
-						_("File contains very long lines. Split these lines?"), _("The lines in this file are longer than Bluefish can handle."));
+						_("File contains very long lines. Split these lines?"), _("The lines in this file are longer than Bluefish can handle with reasonable performance. This split function, however, is unaware of any language syntax, and may replace spaces or tabs with newlines in any location, or insert newlines if no spaces or tabs are found."));
 		if (response == 1) {
+			gint inserted=0;
 			buffer = g_realloc(buffer, buflen + numtoolong + (maxline / MIN_TOO_LONG_LINE) + 1);
 			curline=0;
 			for (i=0;buffer[i]!='\0';i++) {
 				if (curline > MIN_TOO_LONG_LINE && (buffer[i] == ' ' || buffer[i] == '\t')) {
+					DEBUG_MSG("check_very_long_line, replace space or tab at position %d with newline\n",i);
 					buffer[i] = '\n';
 					curline = 0;
-				} else if (curline > MAX_TOO_LONG_LINE) {
-					memmove(buffer+i+1, buffer+i, buflen-i);
+				} else if (curline > MAX_TOO_LONG_LINE && (
+								buffer[i] == ';' || 
+								buffer[i] == ',' || 
+								buffer[i] == '=' || 
+								buffer[i] == '}' || 
+								buffer[i] == '>' || 
+								buffer[i] == ')' || 
+								buffer[i] == '+' || 
+								buffer[i] == '-' 
+								)) {
+					DEBUG_MSG("check_very_long_line, insert newline at %d, move buffer %p to %p, %d bytes\n",i, buffer+i+1,buffer+i, buflen-i+inserted);
+					memmove(buffer+i+1, buffer+i, buflen-i+inserted);
 					buffer[i] = '\n';
+					inserted++;
 					curline = 0;
 				} else if (buffer[i] == '\n' || buffer[i] == '\r') {
 					curline = 0;
@@ -2494,7 +2507,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	newdoc->recentpos = g_list_last(tmplist);
 	if (!bfwin->recentdoclist)
 		bfwin->recentdoclist = tmplist;
-	g_print("doc_new_backend, doc=%p, recentpos=%p, recentdoclist=%p\n",newdoc, newdoc->recentpos, bfwin->recentdoclist);
+	/*g_print("doc_new_backend, doc=%p, recentpos=%p, recentdoclist=%p\n",newdoc, newdoc->recentpos, bfwin->recentdoclist);*/
 
 	gtk_widget_show(newdoc->tab_label);
 	gtk_widget_show(scroll);
