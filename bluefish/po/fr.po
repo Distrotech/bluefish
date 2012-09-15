@@ -8,10 +8,10 @@
 # Frédéric Falsetti <falsetti@clansco.org>,2009-2012.
 #
 msgid ""
-msgstr
+msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-09-14 08:40+0200\n"
+"POT-Creation-Date: 2012-09-15 12:46+0200\n"
 "PO-Revision-Date: 2012-09-15 12:32+0200\n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
@@ -297,7 +297,7 @@ msgstr "Tout sélectionner"
 msgid "Add Boo_kmark"
 msgstr "Ajouter un _signet"
 
-#: ../src/bfwin_uimanager.c:824 ../src/document.c:1925
+#: ../src/bfwin_uimanager.c:824 ../src/document.c:1938
 msgid "Add bookmark"
 msgstr "Ajouter un signet"
 
@@ -621,7 +621,7 @@ msgstr "_Justifier"
 msgid "Wrap text"
 msgstr "Justifier"
 
-#: ../src/bfwin_uimanager.c:912 ../src/document.c:2948
+#: ../src/bfwin_uimanager.c:912 ../src/document.c:2961
 msgid "_Close"
 msgstr "Fermer le doc_ument "
 
@@ -1104,7 +1104,7 @@ msgstr "É_diter…"
 msgid "_Delete"
 msgstr "_Supprimer "
 
-#: ../src/bookmark.c:878 ../src/document.c:1921
+#: ../src/bookmark.c:878 ../src/document.c:1934
 msgid "Delete bookmark"
 msgstr "Supprimer le signet"
 
@@ -1307,29 +1307,38 @@ msgid "File contains very long lines. Split these lines?"
 msgstr "Le fichier contient des lignes très longues. Scinder ces lignes?"
 
 #: ../src/document.c:1677
-msgid "The lines in this file are longer than Bluefish can handle."
-msgstr "Les lignes de ce fichier sont trop longues pour être gérées par Bluefish."
+msgid ""
+"The lines in this file are longer than Bluefish can handle with reasonable "
+"performance. This split function, however, is unaware of any language "
+"syntax, and may replace spaces or tabs with newlines in any location, or "
+"insert newlines if no spaces or tabs are found."
+msgstr "Les lignes de ce fichier sont trop longues pour être gérées par "
+"Bluefish avec des performances raisonnables. Cette fonction scinder, "
+"cependant, méconnaît la syntaxe du langage et peut remplacer des "
+"espaces ou des tabulations par des sauts de ligne à n'importe quel endroit,"
+"ou créer des retour à la ligne si aucun espace ou tabulation n'est trouvé."
 
-#: ../src/document.c:1740
+#: ../src/document.c:1753
 msgid "Cannot display file, unknown characters found."
-msgstr "Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
+msgstr ""
+"Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
 
-#: ../src/document.c:1931
+#: ../src/document.c:1944
 msgid "Exit fullscreen"
 msgstr "Quitter le plein écran"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2075 ../src/file_dialogs.c:462 ../src/file_dialogs.c:500
+#: ../src/document.c:2088 ../src/file_dialogs.c:462 ../src/file_dialogs.c:500
 msgid "_Abort save"
 msgstr "_Abandonner l'enregistrement"
 
-#: ../src/document.c:2075
+#: ../src/document.c:2088
 msgid "_Continue save in UTF-8"
 msgstr "_Continuer l'enregistrement en UTF-8"
 
-#: ../src/document.c:2088
+#: ../src/document.c:2101
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1342,15 +1351,15 @@ msgstr ""
 "\n"
 "Continuer l'enregistrement en UTF-8 ?"
 
-#: ../src/document.c:2093
+#: ../src/document.c:2106
 msgid "File encoding conversion failure"
 msgstr "Échec de la conversion d'encodage du fichier"
 
-#: ../src/document.c:2250
+#: ../src/document.c:2263
 msgid "Previously: "
 msgstr "Précédemment : "
 
-#: ../src/document.c:2735 ../src/file_dialogs.c:812
+#: ../src/document.c:2748 ../src/file_dialogs.c:812
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1359,11 +1368,11 @@ msgstr ""
 "Votre version de glib (%d.%d.%d) ne permet pas la connection à des fichiers "
 "distants. Veuillez  mettre à jour, version 2.18.0 ou plus récente."
 
-#: ../src/document.c:2864
+#: ../src/document.c:2877
 msgid "Unable to open file"
 msgstr "Impossible d'ouvrir le fichier"
 
-#: ../src/document.c:2876
+#: ../src/document.c:2889
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1372,88 +1381,88 @@ msgstr ""
 "Si vous ramenez \"%s\" à la dernière copie sauvegardée, vous perdrez "
 "définitivement les modifications en cours."
 
-#: ../src/document.c:2880
+#: ../src/document.c:2893
 msgid "Revert changes to last saved copy?"
 msgstr "Supprimer les modifications et revenir à la dernière sauvegarde ?"
 
-#: ../src/document.c:2948
+#: ../src/document.c:2961
 msgid "_Retry"
 msgstr "_Réessayer"
 
-#: ../src/document.c:2948
+#: ../src/document.c:2961
 msgid "Retry _all failed"
 msgstr "Échec de _Tout réessayer"
 
-#: ../src/document.c:2948
+#: ../src/document.c:2961
 msgid "Close all _failed"
 msgstr "Échec de Tout _fermer"
 
-#: ../src/document.c:2953
+#: ../src/document.c:2966
 msgid "File "
 msgstr "Le fichier "
 
-#: ../src/document.c:2953
+#: ../src/document.c:2966
 msgid " failed to load."
 msgstr " n'a pas pu être chargé."
 
-#: ../src/document.c:2957
+#: ../src/document.c:2970
 msgid "File failed to load\n"
 msgstr "Le fichier n'a pas pu être chargé\n"
 
-#: ../src/document.c:3082
+#: ../src/document.c:3095
 msgid "Select file to insert"
 msgstr "Sélectionner le fichier à insérer"
 
-#: ../src/document.c:3091
+#: ../src/document.c:3104
 msgid "No file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:3171
+#: ../src/document.c:3184
 msgid "Save pasted image as"
 msgstr "Enregistrer l'image collée comme"
 
-#: ../src/document.c:3278
+#: ../src/document.c:3291
 msgid "Paste special"
 msgstr "Coller spécial"
 
-#: ../src/document.c:3285
+#: ../src/document.c:3298
 msgid "Paste as _HTML"
 msgstr "Coller comme _HTML"
 
-#: ../src/document.c:3289
+#: ../src/document.c:3302
 msgid "Paste as HTML with _JPG"
 msgstr "Coller comme HTML avec _JPG"
 
-#: ../src/document.c:3291
+#: ../src/document.c:3304
 msgid "Paste as HTML _PNG"
 msgstr "Coller comme HTML _PNG"
 
-#: ../src/document.c:3371
+#: ../src/document.c:3384
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d ligne"
 msgstr[1] "%d lignes"
 
-#: ../src/document.c:3372
+#: ../src/document.c:3385
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d mot"
 msgstr[1] "%d mots"
 
-#: ../src/document.c:3373
+#: ../src/document.c:3386
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caractère"
 msgstr[1] "%d caractères"
 
-#: ../src/document.c:3375
+#: ../src/document.c:3388
 msgid "Selection statistics: "
 msgstr "Dans la sélection : "
 
-#: ../src/document.c:3375
+#: ../src/document.c:3388
 msgid "Statistics: "
 msgstr "Dans le document : "
 
@@ -3358,6 +3367,10 @@ msgstr "Annuler ce changement dans tous les documents ?"
 #: ../src/undo_redo.c:560 ../src/undo_redo.c:702
 msgid "This change concerns multiple documents."
 msgstr "Ce changement affecte de multiple documents."
+
+#~ msgid "The lines in this file are longer than Bluefish can handle."
+#~ msgstr ""
+#~ "Les lignes de ce fichier sont trop longues pour être gérées par Bluefish."
 
 #~ msgid "Co_nnect"
 #~ msgstr "Connection"
