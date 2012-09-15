@@ -8,11 +8,11 @@
 # Frédéric Falsetti <falsetti@clansco.org>,2009-2012.
 #
 msgid ""
-msgstr ""
+msgstr
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-09-04 01:05+0200\n"
-"PO-Revision-Date: 2012-06-07 12:32+0200\n"
+"POT-Creation-Date: 2012-09-14 08:40+0200\n"
+"PO-Revision-Date: 2012-09-15 12:32+0200\n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -743,14 +743,12 @@ msgid "Move current tab right"
 msgstr "Glisser l'onglet à droite"
 
 #: ../src/bfwin_uimanager.c:939
-#, fuzzy
 msgid "_Recent Document"
-msgstr "Document _suivant"
+msgstr "Document ré_cent"
 
 #: ../src/bfwin_uimanager.c:939
-#, fuzzy
 msgid "Goto most recent document"
-msgstr "Aller au dernier document"
+msgstr "Aller au document le plus récent"
 
 #: ../src/bfwin_uimanager.c:941
 msgid "_First Document"
@@ -830,11 +828,11 @@ msgstr "Coller"
 
 #: ../src/bfwin_uimanager.c:960
 msgid "Paste _Special"
-msgstr ""
+msgstr "Coller spéc_ial"
 
 #: ../src/bfwin_uimanager.c:960
 msgid "Paste Special"
-msgstr ""
+msgstr "Coller spécial"
 
 #: ../src/bfwin_uimanager.c:964
 msgid "_Find"
@@ -1297,26 +1295,24 @@ msgid "Unknown"
 msgstr "Inconnu"
 
 #: ../src/document.c:1674
-#, fuzzy
 msgid "_No"
-msgstr "A_ller à"
+msgstr "_Non"
 
 #: ../src/document.c:1674
 msgid "_Split"
-msgstr ""
+msgstr "_Scinder"
 
 #: ../src/document.c:1677
 msgid "File contains very long lines. Split these lines?"
-msgstr ""
+msgstr "Le fichier contient des lignes très longues. Scinder ces lignes?"
 
 #: ../src/document.c:1677
 msgid "The lines in this file are longer than Bluefish can handle."
-msgstr ""
+msgstr "Les lignes de ce fichier sont trop longues pour être gérées par Bluefish."
 
 #: ../src/document.c:1740
 msgid "Cannot display file, unknown characters found."
-msgstr ""
-"Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
+msgstr "Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
 
 #: ../src/document.c:1931
 msgid "Exit fullscreen"
@@ -1413,25 +1409,24 @@ msgid "No file to insert"
 msgstr "Aucun fichier à insérer"
 
 #: ../src/document.c:3171
-#, fuzzy
 msgid "Save pasted image as"
-msgstr "Enregistrer le fichier sous"
+msgstr "Enregistrer l'image collée comme"
 
 #: ../src/document.c:3278
 msgid "Paste special"
-msgstr ""
+msgstr "Coller spécial"
 
 #: ../src/document.c:3285
 msgid "Paste as _HTML"
-msgstr ""
+msgstr "Coller comme _HTML"
 
 #: ../src/document.c:3289
 msgid "Paste as HTML with _JPG"
-msgstr ""
+msgstr "Coller comme HTML avec _JPG"
 
 #: ../src/document.c:3291
 msgid "Paste as HTML _PNG"
-msgstr ""
+msgstr "Coller comme HTML _PNG"
 
 #: ../src/document.c:3371
 #, c-format
@@ -1984,7 +1979,7 @@ msgstr "Inclure les fichiers cachés"
 # c-format
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1405
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -1997,8 +1992,8 @@ msgstr ""
 "\n"
 "Heure de l'ancienne modification : %s\n"
 "Heure de la nouvelle modification : %s\n"
-"Taille originale : %lu\n"
-"Nouvelle taille : %lu"
+"Taille originale : %s\n"
+"Nouvelle taille : %s"
 
 #: ../src/file_dialogs.c:1428
 msgid "_Unset file name"
@@ -2162,9 +2157,8 @@ msgid "Enable syntax scanning"
 msgstr "autoriser la coloration syntaxique"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Show _visible spacing"
-msgstr "Marquer les espaces"
+msgstr "Montrer les espaces visibles"
 
 #: ../src/preferences.c:553
 msgid "_Enable spell check"
@@ -2690,9 +2684,8 @@ msgid "<b>Misc</b>"
 msgstr "<b>Divers</b>"
 
 #: ../src/preferences.c:2349
-#, fuzzy
 msgid "Strip trailing spaces on save"
-msgstr "Supprimer les espaces en fin de ligne"
+msgstr "Supprimer les espaces en fin de ligne à l'enregistrement"
 
 #: ../src/preferences.c:2355
 msgid "Open co_mmandline files in running bluefish process"
@@ -2884,7 +2877,7 @@ msgstr "Documents, onglet modifié :"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2628 ../src/rcfile.c:1240
+#: ../src/preferences.c:2628 ../src/rcfile.c:1246
 msgid "Images"
 msgstr "Images"
 
@@ -3024,143 +3017,151 @@ msgstr "Vérifier la syntaxe Perl"
 msgid "php codesniffer"
 msgstr "php codesniffer"
 
-#: ../src/rcfile.c:730
+#: ../src/rcfile.c:721
+msgid "pylint"
+msgstr "pylint"
+
+#: ../src/rcfile.c:734
 msgid "Sort"
 msgstr "Trier"
 
-#: ../src/rcfile.c:733
+#: ../src/rcfile.c:737
 msgid "Sort / Uniq"
 msgstr "Trier / Uniq"
 
-#: ../src/rcfile.c:736
+#: ../src/rcfile.c:740
 msgid "Reverse lines"
 msgstr "Inverser les lignes"
 
-#: ../src/rcfile.c:739
+#: ../src/rcfile.c:743
 msgid "Dos2unix"
 msgstr "Dos2unix"
 
-#: ../src/rcfile.c:741
+#: ../src/rcfile.c:745
 msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
-#: ../src/rcfile.c:744
+#: ../src/rcfile.c:748
 msgid "Tidy HTML (perltidy)"
 msgstr "Tidy HTML (perltidy)"
 
-#: ../src/rcfile.c:747
+#: ../src/rcfile.c:751
 msgid "Strip empty lines"
 msgstr "Ôter les lignes vides"
 
-#: ../src/rcfile.c:750
+#: ../src/rcfile.c:754
 msgid "Render HTML to text"
 msgstr "Rendu HTML en texte"
 
-#: ../src/rcfile.c:763
+#: ../src/rcfile.c:757
+msgid "php_beautifier"
+msgstr "php_beautifier"
+
+#: ../src/rcfile.c:769
 msgid "Windows XP Firefox"
 msgstr "Windows XP Firefox"
 
-#: ../src/rcfile.c:768
+#: ../src/rcfile.c:774
 msgid "Windows XP Internet Explorer"
 msgstr "Windows XP IInternet Explorer"
 
-#: ../src/rcfile.c:773
+#: ../src/rcfile.c:779
 msgid "Windows XP Opera"
 msgstr "Windows XP Opera"
 
-#: ../src/rcfile.c:777
+#: ../src/rcfile.c:783
 msgid "Windows XP Safari"
 msgstr "Windows XP Safari"
 
-#: ../src/rcfile.c:781
+#: ../src/rcfile.c:787
 msgid "Windows 7 Firefox 32-bit"
 msgstr "Windows 7 Firefox 32-bit"
 
-#: ../src/rcfile.c:786
+#: ../src/rcfile.c:792
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr "Windows 7 Internet Explorer 32-bitr"
 
-#: ../src/rcfile.c:791
+#: ../src/rcfile.c:797
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr "Windows 7 Internet Explorer 64-bit"
 
-#: ../src/rcfile.c:797
+#: ../src/rcfile.c:803
 msgid "Safari"
 msgstr "Safari"
 
-#: ../src/rcfile.c:800 ../src/rcfile.c:810
+#: ../src/rcfile.c:806 ../src/rcfile.c:816
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:803 ../src/rcfile.c:814
+#: ../src/rcfile.c:809 ../src/rcfile.c:820
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:806 ../src/rcfile.c:833
+#: ../src/rcfile.c:812 ../src/rcfile.c:839
 msgid "chmod a+x"
 msgstr "chmod a+x"
 
-#: ../src/rcfile.c:818
+#: ../src/rcfile.c:824
 msgid "Chromium"
 msgstr "Chromium"
 
-#: ../src/rcfile.c:821
+#: ../src/rcfile.c:827
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:824
+#: ../src/rcfile.c:830
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:827
+#: ../src/rcfile.c:833
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:830
+#: ../src/rcfile.c:836
 msgid "Links2 (graphics)"
 msgstr "Links2 (graphics)"
 
-#: ../src/rcfile.c:876
+#: ../src/rcfile.c:882
 msgid "C Header"
 msgstr "En-tête C"
 
-#: ../src/rcfile.c:879
+#: ../src/rcfile.c:885
 msgid "C Header GPL"
 msgstr "En-tête C GPL"
 
-#: ../src/rcfile.c:882
+#: ../src/rcfile.c:888
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:885
+#: ../src/rcfile.c:891
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: ../src/rcfile.c:888
+#: ../src/rcfile.c:894
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:891
+#: ../src/rcfile.c:897
 msgid "LaTex Book"
-msgstr ""
+msgstr "LaTex Book"
 
-#: ../src/rcfile.c:894
+#: ../src/rcfile.c:900
 msgid "LaTex Presentation"
-msgstr ""
+msgstr "LaTex Présentation"
 
-#: ../src/rcfile.c:1140
+#: ../src/rcfile.c:1146
 msgid "Untitled Project"
 msgstr "Projet sans titre"
 
-#: ../src/rcfile.c:1232
+#: ../src/rcfile.c:1238
 msgid "C programming"
 msgstr "Programmation C"
 
-#: ../src/rcfile.c:1236
+#: ../src/rcfile.c:1242
 msgid "Web files"
 msgstr "fichiers de type web"
 
-#: ../src/rcfile.c:1243
+#: ../src/rcfile.c:1249
 msgid "Hide objectfiles"
 msgstr "Cacher les fichiers objets"
 
