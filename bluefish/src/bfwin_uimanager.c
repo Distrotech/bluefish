@@ -1136,7 +1136,7 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 						  "FileOpenURL", GTK_UI_MANAGER_MENUITEM, TRUE);
 	g_object_unref(action);
 
-	action = gtk_action_new("FileUploadDownload", N_("U_pload / Download..."), NULL, NULL);
+	action = gtk_action_new("FileUploadDownload", _("U_pload / Download..."), NULL, NULL);
 	gtk_action_group_add_action(bfwin->globalGroup, action);
 	g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(ui_upload_download_dialog), bfwin);
 
