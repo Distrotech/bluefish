@@ -21,5 +21,6 @@
 #define __DOC_EXTERN_TOOLS_H_
 
 void lorem_ipsum_dialog(Tbfwin *bfwin);
+void jsbeautify_dialog(Tbfwin *bfwin);
 
 #endif /*__DOC_EXTERN_TOOLS_H_*/
