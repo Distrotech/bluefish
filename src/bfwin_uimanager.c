@@ -712,6 +712,13 @@ ui_lorem_ipsum(GtkAction * action, gpointer user_data)
 }
 
 static void
+ui_jsbeautify(GtkAction * action, gpointer user_data)
+{
+	jsbeautify_dialog(BFWIN(user_data));
+}
+
+
+static void
 ui_insert_relative_filename(GtkAction * action, gpointer user_data)
 {
 	doc_insert_filename(BFWIN(user_data)->current_document, TRUE);
@@ -875,6 +882,7 @@ static const GtkActionEntry global_actions[] = {
 	{"RewrapLines", NULL, N_("Rewrap _Lines"), NULL, N_("Rewrap lines"), G_CALLBACK(ui_rewrap_lines)},
 	{"StripTrailingWhitespace", NULL, N_("Strip T_railing Whitespace"), NULL, N_("Strip trailing whitespace"),
 	 G_CALLBACK(ui_strip_trailing_whitespace)},
+	{"JsBeautify", NULL, N_("Javascript beautifier"), NULL, N_("Javascript beautifier"), G_CALLBACK(ui_jsbeautify)},
 	 {"BrowserPreview", BF_STOCK_BROWSER_PREVIEW, N_("Preview in browser"), NULL, N_("Preview in browser"),
 	 G_CALLBACK(ui_browser_preview)}
 };

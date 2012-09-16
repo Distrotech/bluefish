@@ -71,3 +71,54 @@ lorem_ipsum_dialog(Tbfwin *bfwin)
 	}
 	gtk_widget_destroy(dialog);
 }
+
+
+void
+jsbeautify_dialog(Tbfwin *bfwin)
+{
+	GtkWidget *dialog, *table, *inselection, *usetabs;
+	gint result,begin,end;
+	gchar *command;
+	dialog = gtk_dialog_new_with_buttons(_("Javascript Beautify"),
+											  GTK_WINDOW(bfwin->main_window),
+											  GTK_DIALOG_DESTROY_WITH_PARENT,
+											  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+											  GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, NULL);
+	table = dialog_table_in_vbox_defaults(3, 2, 6, gtk_dialog_get_content_area(GTK_DIALOG(dialog)));
+	if (doc_get_selection(DOCUMENT(bfwin->current_document), &begin, &end)) {
+		inselection = dialog_check_button_in_table(_("Beautify only in selection"), TRUE, table,
+										0, 2, 0,1);
+	} else {
+		begin = 0;
+		end = -1;
+	}
+	usetabs = dialog_check_button_in_table(_("Use tabs to indent, not spaces"), TRUE, table,
+										0, 2, 1,2);
+	
+	/* in selection or all text
+-s, --indent-size=NUMBER indentation size. (default 4).
+-c, --indent-char=CHAR character to indent with. (default space).
+-t, --indent-with-tabs Indent with tabs, overrides -s and -c
+-d, --disable-preserve-newlines do not preserve existing line breaks.
+-j, --jslint-happy more jslint-compatible output
+-b, --brace-style=collapse brace style (collapse, expand, end-expand)
+-k, --keep-array-indentation keep array indentation.
+-o, --outfile=FILE specify a file to output to (default stdout)
+-f, --keep-function-indentation Do not re-indent function bodies defined in var lines.
+-x, --unescape-strings Decode printable chars encoded in \\xNN notation. */
+	
+	result = gtk_dialog_run(GTK_DIALOG (dialog));
+	switch (result) {
+	case GTK_RESPONSE_ACCEPT:
+		command = g_strdup_printf("|"PKGDATADIR"/jsbeatify %s -|",
+			gtk_toggle_button_get_active(usetabs) ? "-t" : ""
+		);
+		filter_command(bfwin, command, begin, end);
+		g_free(command);
+	break;
+	default:
+	break;
+	}
+	gtk_widget_destroy(dialog);
+
+}
