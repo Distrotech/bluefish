@@ -13,8 +13,10 @@ nobase_bfdata_DATA = \
 	lipsum/__init__.py \
 	lipsum/data/dictionary.txt \
 	lipsum/data/sample.txt \
-	lipsum/data/lipsum.xml
+	lipsum/data/lipsum.xml \
+	jsbeautifier/__init__.py
 
 bfdata_SCRIPTS = \
-	lorem-ipsum-generator
+	lorem-ipsum-generator \
+	jsbeautify
 	
