@@ -110,7 +110,7 @@ jsbeautify_dialog(Tbfwin *bfwin)
 	result = gtk_dialog_run(GTK_DIALOG (dialog));
 	switch (result) {
 	case GTK_RESPONSE_ACCEPT:
-		command = g_strdup_printf("|"PKGDATADIR"/jsbeatify %s -|",
+		command = g_strdup_printf("|"PKGDATADIR"/jsbeautify %s -|",
 			gtk_toggle_button_get_active(usetabs) ? "-t" : ""
 		);
 		filter_command(bfwin, command, begin, end);
