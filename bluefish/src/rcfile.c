@@ -742,7 +742,9 @@ GList *update_filters(GList *current, gboolean overwrite)
 		g_list_append(defaults,
 					  array_from_arglist(_("Dos2unix"), "|dos2unix|", NULL));
 	defaults =
-		g_list_append(defaults, array_from_arglist(_("Tidy HTML"), "|tidy|", NULL));
+		g_list_append(defaults, array_from_arglist(_("Tidy HTML"), "|tidy -utf8|", NULL));
+	defaults =
+		g_list_append(defaults, array_from_arglist(_("Tidy convert to XHTML"), "|tidy -utf8 -i -w 80 -c -q -asxhtml|", NULL));
 	defaults =
 		g_list_append(defaults,
 					  array_from_arglist(_("Tidy HTML (perltidy)"), "|perltidy -b|", NULL));
@@ -754,7 +756,16 @@ GList *update_filters(GList *current, gboolean overwrite)
 					  array_from_arglist(_("Render HTML to text"), "lynx -force_html -dump %i |", NULL));
 	defaults =
 		g_list_append(defaults,
-					  array_from_arglist(_("php_beautifier"), "|php_beautifier -t|", NULL));
+					  array_from_arglist(_("PHP Beautifier"), "|php_beautifier -t|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Javascript Minify with jsmin"), "|"PKGDATADIR"/jsmin.py|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("CSS Minify with cssmin"), "|"PKGDATADIR"/cssmin.py|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("CSS tidy"), "|csstidy --preserve_css=true -|", NULL));
 	retlist = update_externals(current, defaults, overwrite, 3, 2);
 	free_arraylist(defaults);
 	return retlist;
