@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-09-18 09:22+0200\n"
-"PO-Revision-Date: 2012-09-18 09:32+0200\n"
+"POT-Creation-Date: 2012-09-18 18:15+0200\n"
+"PO-Revision-Date: 2012-09-18 18:12+0200\n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -1523,6 +1523,22 @@ msgstr "N'embellir que la sélection"
 msgid "Use tabs to indent, not spaces"
 msgstr "Indentation par tabulations"
 
+#: ../src/doc_extern_tools.c:97
+msgid "Indent size"
+msgstr "Augmenter la taille"
+
+#: ../src/doc_extern_tools.c:100
+msgid "Do not preserve existing line breaks"
+msgstr "Ne pas conserver les sauts de ligne existants"
+
+#: ../src/doc_extern_tools.c:101
+msgid "More jslint-compatible output"
+msgstr "Plus de sorties jslint-compatible"
+
+#: ../src/doc_extern_tools.c:102
+msgid "Decode printable chars encoded in \\\\xNN notation"
+msgstr "Décoder les caractères affichables encodés en notation  \\\\xNN"
+
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
 msgstr "Encodages disponibles : "
@@ -1543,11 +1559,24 @@ msgstr "Encodages dans le menu :"
 msgid "Add or remove document encodings"
 msgstr "Ajouter ou supprimer des encodages"
 
-#: ../src/external_commands.c:405
+#: ../src/external_commands.c:166
+#, c-format
+msgid "The command %s exited with error code %d. %s"
+msgstr "La commande %s s'est terminé avec le code d'erreur %d. %s"
+
+#: ../src/external_commands.c:166
+msgid "Probably this application is not installed on your system."
+msgstr "Cette application n'est probablement pas installée sur votre système."
+
+#: ../src/external_commands.c:168
+msgid "Command returned error code"
+msgstr "La commande a retourné un code d'erreur"
+
+#: ../src/external_commands.c:414
 msgid "Supply extra arguments"
 msgstr "Ajout facultatif d'arguments"
 
-#: ../src/external_commands.c:410
+#: ../src/external_commands.c:419
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr "Arguments supplémentaires pour définir  %%a dans '%s'"
@@ -2903,7 +2932,7 @@ msgstr "Documents, onglet modifié :"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2628 ../src/rcfile.c:1246
+#: ../src/preferences.c:2628 ../src/rcfile.c:1257
 msgid "Images"
 msgstr "Images"
 
@@ -3067,127 +3096,143 @@ msgstr "Dos2unix"
 msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
-#: ../src/rcfile.c:748
+#: ../src/rcfile.c:747
+msgid "Tidy convert to XHTML"
+msgstr "Tidy conversion vers XHTML"
+
+#: ../src/rcfile.c:750
 msgid "Tidy HTML (perltidy)"
 msgstr "Tidy HTML (perltidy)"
 
-#: ../src/rcfile.c:751
+#: ../src/rcfile.c:753
 msgid "Strip empty lines"
 msgstr "Ôter les lignes vides"
 
-#: ../src/rcfile.c:754
+#: ../src/rcfile.c:756
 msgid "Render HTML to text"
 msgstr "Rendu HTML en texte"
 
-#: ../src/rcfile.c:757
-msgid "php_beautifier"
-msgstr "php_beautifier"
+#: ../src/rcfile.c:759
+msgid "PHP Beautifier"
+msgstr "PHP Beautifier"
 
-#: ../src/rcfile.c:769
+#: ../src/rcfile.c:762
+msgid "Javascript Minify with jsmin"
+msgstr "Compacter javascript avec jsmin"
+
+#: ../src/rcfile.c:765
+msgid "CSS Minify with cssmin"
+msgstr "Compacter CSS avec cssmin"
+
+#: ../src/rcfile.c:768
+msgid "CSS tidy"
+msgstr "CSS tidy"
+
+#: ../src/rcfile.c:780
 msgid "Windows XP Firefox"
 msgstr "Windows XP Firefox"
 
-#: ../src/rcfile.c:774
+#: ../src/rcfile.c:785
 msgid "Windows XP Internet Explorer"
 msgstr "Windows XP IInternet Explorer"
 
-#: ../src/rcfile.c:779
+#: ../src/rcfile.c:790
 msgid "Windows XP Opera"
 msgstr "Windows XP Opera"
 
-#: ../src/rcfile.c:783
+#: ../src/rcfile.c:794
 msgid "Windows XP Safari"
 msgstr "Windows XP Safari"
 
-#: ../src/rcfile.c:787
+#: ../src/rcfile.c:798
 msgid "Windows 7 Firefox 32-bit"
 msgstr "Windows 7 Firefox 32-bit"
 
-#: ../src/rcfile.c:792
+#: ../src/rcfile.c:803
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr "Windows 7 Internet Explorer 32-bitr"
 
-#: ../src/rcfile.c:797
+#: ../src/rcfile.c:808
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr "Windows 7 Internet Explorer 64-bit"
 
-#: ../src/rcfile.c:803
+#: ../src/rcfile.c:814
 msgid "Safari"
 msgstr "Safari"
 
-#: ../src/rcfile.c:806 ../src/rcfile.c:816
+#: ../src/rcfile.c:817 ../src/rcfile.c:827
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:809 ../src/rcfile.c:820
+#: ../src/rcfile.c:820 ../src/rcfile.c:831
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:812 ../src/rcfile.c:839
+#: ../src/rcfile.c:823 ../src/rcfile.c:850
 msgid "chmod a+x"
 msgstr "chmod a+x"
 
-#: ../src/rcfile.c:824
+#: ../src/rcfile.c:835
 msgid "Chromium"
 msgstr "Chromium"
 
-#: ../src/rcfile.c:827
+#: ../src/rcfile.c:838
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:830
+#: ../src/rcfile.c:841
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:833
+#: ../src/rcfile.c:844
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:836
+#: ../src/rcfile.c:847
 msgid "Links2 (graphics)"
 msgstr "Links2 (graphics)"
 
-#: ../src/rcfile.c:882
+#: ../src/rcfile.c:893
 msgid "C Header"
 msgstr "En-tête C"
 
-#: ../src/rcfile.c:885
+#: ../src/rcfile.c:896
 msgid "C Header GPL"
 msgstr "En-tête C GPL"
 
-#: ../src/rcfile.c:888
+#: ../src/rcfile.c:899
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:891
+#: ../src/rcfile.c:902
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: ../src/rcfile.c:894
+#: ../src/rcfile.c:905
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:897
+#: ../src/rcfile.c:908
 msgid "LaTex Book"
 msgstr "LaTex Book"
 
-#: ../src/rcfile.c:900
+#: ../src/rcfile.c:911
 msgid "LaTex Presentation"
 msgstr "LaTex Présentation"
 
-#: ../src/rcfile.c:1146
+#: ../src/rcfile.c:1157
 msgid "Untitled Project"
 msgstr "Projet sans titre"
 
-#: ../src/rcfile.c:1238
+#: ../src/rcfile.c:1249
 msgid "C programming"
 msgstr "Programmation C"
 
-#: ../src/rcfile.c:1242
+#: ../src/rcfile.c:1253
 msgid "Web files"
 msgstr "fichiers de type web"
 
-#: ../src/rcfile.c:1249
+#: ../src/rcfile.c:1260
 msgid "Hide objectfiles"
 msgstr "Cacher les fichiers objets"
 
