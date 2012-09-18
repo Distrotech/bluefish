@@ -159,9 +159,18 @@ static void spawn_setup_lcb(gpointer data) {
 static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	Texternalp *ep = data;
 	GError *gerror=NULL;
+	gchar *tmp;
 	DEBUG_MSG("child_watch_lcb, child exited with status=%d\n",status);
 	
+	if (status != 0) {
+		tmp = g_strdup_printf(_("The command %s exited with error code %d. %s"), ep->commandstring, status, (status==32512)?_("Probably this application is not installed on your system."):"");
+		message_dialog_new(BFWIN(ep->bfwin)->main_window, GTK_MESSAGE_ERROR
+					, GTK_BUTTONS_CLOSE, _("Command returned error code"), tmp);
+		g_free(tmp);
+	}
+	
 	if (ep->pipe_in && !ep->buffer_out) {
+		DEBUG_MSG("child_watch_lcb, the child has exited before we actually started\n");
 		/* the child has exited before we actually started to write data to the child, just abort now */
 		g_source_remove(ep->start_command_idle_id);
 		externalp_unref(ep); /* unref twice, once for the start_command_idle, once for child_watch_lcb */
