@@ -76,7 +76,7 @@ lorem_ipsum_dialog(Tbfwin *bfwin)
 void
 jsbeautify_dialog(Tbfwin *bfwin)
 {
-	GtkWidget *dialog, *table, *inselection, *usetabs;
+	GtkWidget *dialog, *table, *inselection, *usetabs, *tabsize, *nopreservenewline, *jslinthappy, *unescape_encoded_chars;
 	gint result,begin,end;
 	gchar *command;
 	dialog = gtk_dialog_new_with_buttons(_("Javascript Beautify"),
@@ -94,7 +94,12 @@ jsbeautify_dialog(Tbfwin *bfwin)
 	}
 	usetabs = dialog_check_button_in_table(_("Use tabs to indent, not spaces"), TRUE, table,
 										0, 2, 1,2);
+	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Indent size")),0,1,2,3);
+	tabsize = dialog_spin_button_in_table(1, 99, 3, table,1, 2, 2,3);
 	
+	nopreservenewline = dialog_check_button_in_table(_("Do not preserve existing line breaks"), FALSE, table,0, 2, 3,4);
+	jslinthappy = dialog_check_button_in_table(_("More jslint-compatible output"), FALSE, table,0, 2, 4,5);
+	unescape_encoded_chars = dialog_check_button_in_table(_("Decode printable chars encoded in \\\\xNN notation"), FALSE, table,0, 2, 5,6);
 	/* in selection or all text
 -s, --indent-size=NUMBER indentation size. (default 4).
 -c, --indent-char=CHAR character to indent with. (default space).
@@ -106,12 +111,16 @@ jsbeautify_dialog(Tbfwin *bfwin)
 -o, --outfile=FILE specify a file to output to (default stdout)
 -f, --keep-function-indentation Do not re-indent function bodies defined in var lines.
 -x, --unescape-strings Decode printable chars encoded in \\xNN notation. */
-	
+	gtk_widget_show_all(dialog);
 	result = gtk_dialog_run(GTK_DIALOG (dialog));
 	switch (result) {
 	case GTK_RESPONSE_ACCEPT:
-		command = g_strdup_printf("|"PKGDATADIR"/jsbeautify %s -|",
-			gtk_toggle_button_get_active(usetabs) ? "-t" : ""
+		command = g_strdup_printf("|"PKGDATADIR"/jsbeautify %s -s %d %s %s %s -|",
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(usetabs)) ? "-t" : "",
+			gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(tabsize)),
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nopreservenewline)) ? "-d" : "",
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(jslinthappy)) ? "-j" : "",
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(unescape_encoded_chars)) ? "-x" : ""
 		);
 		filter_command(bfwin, command, begin, end);
 		g_free(command);
