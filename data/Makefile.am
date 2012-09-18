@@ -24,5 +24,6 @@ nobase_bfdata_DATA = \
 
 bfdata_SCRIPTS = \
 	lorem-ipsum-generator \
-	jsbeautify
-	
+	jsbeautify \
+	jsmin.py \
+	cssmin.py
