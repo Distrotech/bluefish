@@ -511,6 +511,9 @@ props_init_main(GHashTable * config_rc)
 	init_prop_string(&config_rc, &main_v->props.autosave_file_prefix, "autosave_file_prefix:", "");
 	init_prop_string(&config_rc, &main_v->props.autosave_file_suffix, "autosave_file_suffix:", "#");
 	init_prop_string(&config_rc, &main_v->props.language, "language:", "");
+	
+	init_prop_integer(&config_rc, &main_v->props.adv_textview_right_margin, "adv_textview_right_margin:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.adv_textview_left_margin, "adv_textview_left_margin:", 1, TRUE);
 	/*init_prop_arraylist(&config_rc, &main_v->props.templates, "templates:", 2, TRUE);*/
 	return config_rc;
 }

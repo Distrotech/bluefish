@@ -2435,8 +2435,8 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	newdoc->status = DOC_STATUS_COMPLETE;	/* if we don't set this default we will get problems for new empty files */
 	newdoc->buffer = gtk_text_buffer_new(langmgr_get_tagtable());
 	newdoc->view = bftextview2_new_with_buffer(newdoc->buffer);
-	gtk_text_view_set_left_margin(GTK_TEXT_VIEW(newdoc->view), 1);
-	gtk_text_view_set_right_margin(GTK_TEXT_VIEW(newdoc->view), 1);
+	gtk_text_view_set_left_margin(GTK_TEXT_VIEW(newdoc->view), main_v->props.adv_textview_left_margin);
+	gtk_text_view_set_right_margin(GTK_TEXT_VIEW(newdoc->view), main_v->props.adv_textview_right_margin);
 	bluefish_text_view_multiset(BLUEFISH_TEXT_VIEW(newdoc->view), newdoc,
 								BFWIN(bfwin)->session->view_line_numbers, BFWIN(bfwin)->session->view_blocks,
 								BFWIN(bfwin)->session->autoindent, BFWIN(bfwin)->session->autocomplete,
