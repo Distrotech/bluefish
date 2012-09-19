@@ -339,6 +339,8 @@ typedef struct {
 	gchar *autosave_file_suffix;
 	gchar *language;
 	gint rcfile_from_old_version;
+	gint adv_textview_right_margin; /* advanced option for the textview margin */
+	gint adv_textview_left_margin; /* advanced option for the textview margin */
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
