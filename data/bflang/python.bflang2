@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		python.bflang2 $Revision$
- 
+
 		Copyright (C) 2008-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,11 +16,11 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <bflang name="Python" version="2.0" table="15399" contexts="7" matches="2025">
-<header> 
+<header>
 	<mime type="application/x-python"/>
 	<mime type="text/x-python" />
 	<option name="show_in_menu" default="1"/>
@@ -33,7 +33,7 @@
 	<highlight name="function" style="special-function"  />
 	<highlight name="built-in-function" style="function"  />
 	<highlight name="comment" style="comment"  />
-	<highlight name="imports" style="preprocessor"   />	
+	<highlight name="imports" style="preprocessor"   />
 </header>
 <properties>
 	<comment type="line" start="#" />
@@ -2080,7 +2080,7 @@
 <element pattern="False" />
 <element pattern="None" />
 </group>
-<element pattern="0x[0-9]+" is_regex="1" highlight="value" />
+<element pattern="0x[0-9a-fA-F]+" is_regex="1" highlight="value" />
 <element pattern="[0-9]+\.[0-9]+" is_regex="1" highlight="value" />
 <element pattern="[0-9]+" is_regex="1" highlight="value" />
 
