@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		r.bflang2 $Revision: 6069 $
- 
+
 		Copyright (C) 2010 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <bflang name="R" version="2.0" matches="89" contexts="4" table="33">
@@ -87,8 +87,9 @@
 <element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
 
 <group highlight="value">
-	<element pattern="[0-9.]+" is_regex="1"/>
-	<!--<element pattern="0x[0-9]+" is_regex="1"/>-->
+	<element pattern="[0-9]+\.[0-9]+" is_regex="1" highlight="value" />
+	<element pattern="[0-9]+" is_regex="1" highlight="value" />
+	<element pattern="0x[0-9a-fA-F]+" is_regex="1"/>
 </group>
 
 </context>

@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		perl.bflang2 $Revision$
- 
+
 		Copyright (C) 2008 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <bflang name="Perl" version="2.0" table="1591" contexts="5" matches="234">
@@ -312,7 +312,7 @@
 	<element pattern="&amp;[a-z_][a-z0-9_]*;" is_regex="1" />
 </group>
 <group highlight="value">
-	<element pattern="0x[0-9]+" is_regex="1"  />
+	<element pattern="0x[0-9a-fA-F]+" is_regex="1"  />
 	<element pattern="[0-9]+\.[0-9]+" is_regex="1"  />
 	<element pattern="[0-9]+" is_regex="1"  />
 </group>
