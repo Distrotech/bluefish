@@ -63,7 +63,7 @@ lorem_ipsum_dialog(Tbfwin *bfwin)
 								(gint)gtk_spin_button_get_value(GTK_SPIN_BUTTON(spin2)),
 								 i == 2 ? "" : (i==1 ? "-f html-li" : "-f html-p")
 								 );
-		custom_command(bfwin, command, lorem_ipsum_command_callback);
+		custom_command(bfwin, command, lorem_ipsum_command_callback, NULL);
 		g_free(command);
 	break;
 	default:
