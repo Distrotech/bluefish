@@ -53,6 +53,7 @@ typedef struct {
 	const gchar *formatstring; /* the command from the configuration, so including placeholders such as %i, %f, |,  etc. */
 	gchar *commandstring; /* the command that will be started by g_spawn, the placeholders should have been replaced/removed */
 	CustomCommandCallback customcommand_cb;
+	gpointer data;
 
 	gchar *securedir; /* if we need any local temporary files for input or output */
 	gchar *tmp_in; /* the path for the input/output temporary filename */
@@ -614,7 +615,7 @@ static gboolean filter_custom_io_watch_lcb(GIOChannel *channel,GIOCondition cond
 			gint end=ep->end;
 			GError *error=NULL;
 			if (ep->customcommand_cb) {
-				ep->customcommand_cb(str_return, ep->bfwin);
+				ep->customcommand_cb(str_return, ep->bfwin, ep->data);
 			} else {
 				GtkTextIter iter;
 				GtkTextBuffer *buffer = ep->bfwin->current_document->buffer;
@@ -672,13 +673,16 @@ typedef enum {
 	mode_custom
 } Tcommandmode;
 
-static void command_backend(Tbfwin *bfwin, gint begin, gint end, 
-								const gchar *formatstring, Tcommandmode commandmode, CustomCommandCallback customcommand_cb) {
+static void
+command_backend(Tbfwin *bfwin, gint begin, gint end, 
+								const gchar *formatstring, Tcommandmode commandmode, 
+								CustomCommandCallback customcommand_cb, gpointer data) {
 	Texternalp *ep;
 	
 	DEBUG_MSG("command_backend, started\n");
 	ep = g_new0(Texternalp,1);
 	ep->bfwin = bfwin;
+	ep->data = data;
 	ep->doc = bfwin->current_document;
 	ep->begin = begin;
 	ep->end = end;
@@ -713,20 +717,20 @@ static void command_backend(Tbfwin *bfwin, gint begin, gint end,
 }
 
 void outputbox_command(Tbfwin *bfwin, const gchar *formatstring) {
-	command_backend(bfwin, 0, -1,formatstring, mode_outputbox, NULL);
+	command_backend(bfwin, 0, -1,formatstring, mode_outputbox, NULL, NULL);
 }
 
 
 void filter_command(Tbfwin *bfwin, const gchar *formatstring, gint begin, gint end) {
-	command_backend(bfwin, begin, end,formatstring, mode_filter, NULL);
+	command_backend(bfwin, begin, end,formatstring, mode_filter, NULL, NULL);
 }
 
 void external_command(Tbfwin *bfwin, const gchar *formatstring) {
-	command_backend(bfwin, 0, -1,formatstring, mode_command, NULL);
+	command_backend(bfwin, 0, -1,formatstring, mode_command, NULL, NULL);
 }
 
 void
-custom_command(Tbfwin *bfwin, const gchar *formatstring, CustomCommandCallback func)
+custom_command(Tbfwin *bfwin, const gchar *formatstring, CustomCommandCallback func, gpointer data)
 {
-	command_backend(bfwin, 0, -1,formatstring, mode_custom, func);
+	command_backend(bfwin, 0, -1,formatstring, mode_custom, func, data);
 }
