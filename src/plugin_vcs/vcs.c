@@ -9,6 +9,13 @@
 
 Tvcs vcs_v;
 
+void
+vcs_autoconfigure(Tvcssession *vs, GFile *cururi)
+{
+	svn_autoconfigure(vs, cururi);
+
+}
+
 Tvcssession *
 vcsession_get(Tsessionvars * session)
 {
@@ -23,6 +30,9 @@ vcsession_get(Tsessionvars * session)
 void
 vcs_status(Tbfwin *bfwin, Tvcssession *vs, gpointer data)
 {
+	if (vs->basedir == NULL || vs->basedir[0] == '\0') {
+		vcs_autoconfigure(vs, bfwin->current_document->uri);
+	}
 	/*if (g_strcmp0(vs->type, "svn")==0) {*/
 		svn_status(bfwin, vs->basedir, data);
 	/*}*/
@@ -39,10 +49,10 @@ vcs_commit(GtkAction *action, gpointer user_data)
 {
 	Tbfwin *bfwin = user_data;
 	Tvcssession *vs;
-	
+
 	vs = vcsession_get(bfwin->session);
 	vcs_commit_dialog(bfwin, vs);
-	
+
 	g_print("vcs_commit\n");
 }
 
