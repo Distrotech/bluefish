@@ -4,6 +4,50 @@
 #include "vcs_gui.h"
 #include "external_commands.h"
 
+static GFile *
+parent_with_dotsvn(GFile *cururi)
+{
+	GFile *parent, *dotsvn, *tmp, *returi=NULL;
+	gboolean exists;
+	tmp = cururi;
+	g_object_ref(tmp);
+	while (tmp) {
+		parent = g_file_get_parent(tmp);
+		g_object_unref(tmp);
+		if (!parent)
+			return returi;
+		dotsvn = g_file_get_child(parent, ".svn");
+		g_print("try %s\n",g_file_get_path(dotsvn));
+		exists = g_file_query_exists(dotsvn, NULL);
+		g_object_unref(dotsvn);
+		if (!exists) {
+			return returi;
+		} else {
+			returi = parent;
+			g_object_ref(returi);
+		}
+		tmp = parent;
+	}
+	return returi;
+}
+
+gboolean
+svn_autoconfigure(Tvcssession *vs, GFile *cururi)
+{
+	GFile *baseuri;
+	if (!g_file_is_native(cururi)) {
+		return FALSE;
+	}
+	baseuri = parent_with_dotsvn(cururi);
+	if (baseuri) {
+		vs->basedir = g_file_get_path(baseuri);
+		g_object_unref(baseuri);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+
 static Tvcsstatus
 vcsstatus_from_svnstatus(gchar svnstatus)
 {
@@ -23,16 +67,16 @@ svn_status_lcb(const gchar *output, gpointer bfwin, gpointer data)
 	gchar *filename;
 	GList *list=NULL;
 	Tvcsfilestatus *fs;
-	
+
 	if (!output || output[0] == '\0')
 		return;
-	
+
 	g_print("svn_status_lcb, output='%s'\n",output);
-	
+
 	status = strtok((gchar *)output, " \n\t");
 	while (status && (
-			status[0] == 'U' || 
-			status[0] == 'G' || 
+			status[0] == 'U' ||
+			status[0] == 'G' ||
 			status[0] == 'C' ||
 			status[0] == 'M' ||
 			status[0] == '?'
