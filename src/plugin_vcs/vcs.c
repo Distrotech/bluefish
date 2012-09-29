@@ -62,6 +62,11 @@ vcs_commit(GtkAction *action, gpointer user_data)
 	g_print("vcs_commit\n");
 }
 
+static void
+vcs_session_free(gpointer data)
+{
+	g_slice_free(Tvcssession, data);
+}
 
 static void
 vcs_init(void)
@@ -73,7 +78,7 @@ vcs_init(void)
 #endif							/* ENABLE_NLS */
 	vcs_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */ ,
 											  NULL /* == g_direct_equal() */ ,
-											  NULL, g_free);
+											  NULL, vcs_session_free);
 }
 
 static const gchar *vcs_plugin_ui =
