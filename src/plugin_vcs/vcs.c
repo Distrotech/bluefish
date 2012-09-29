@@ -10,6 +10,12 @@
 Tvcs vcs_v;
 
 void
+vcs_commit_real(Tbfwin *bfwin, Tvcssession *vs, GList *files, const gchar *message)
+{
+	svn_commit_real(bfwin, vs, files, message);
+}
+
+void
 vcs_autoconfigure(Tvcssession *vs, GFile *cururi)
 {
 	svn_autoconfigure(vs, cururi);

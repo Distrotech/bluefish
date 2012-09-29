@@ -4,6 +4,25 @@
 #include "vcs_gui.h"
 #include "external_commands.h"
 
+void
+svn_commit_real(Tbfwin *bfwin, Tvcssession *vs, GList *files, const gchar *message)
+{
+	GString *str;
+	GList *tmplist;
+
+	str = g_string_new("cd ");
+	g_string_append_printf(str, "%s && svn commit -m '", vs->basedir);
+	g_string_append(str, message);
+	g_string_append(str, "' ");
+	for(tmplist=files;tmplist;tmplist=tmplist->next) {
+		g_string_append(str, tmplist->data);
+		g_string_append(str, " ");
+	}
+	g_print("command='%s'\n",str->str);
+	custom_command(bfwin, str->str, NULL, NULL);
+	g_string_free(str, TRUE);
+}
+
 static GFile *
 parent_with_dotsvn(GFile *cururi)
 {
