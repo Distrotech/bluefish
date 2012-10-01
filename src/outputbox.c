@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * outputbox.c - the output box
  *
- * Copyright (C) 2002-2011 Olivier Sessink
+ * Copyright (C) 2002-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -304,22 +304,27 @@ outputbox_add_line(Tbfwin *bfwin, const gchar *uri, gint line, const gchar *mess
 	GtkTreeIter iter;
 	Toutputbox *ob;
 	gchar *tmp;
-	if (bfwin->outputbox) {
-		ob = OUTPUTBOX(bfwin->outputbox);
-	} else {
-		ob = init_output_box(bfwin);
+	DEBUG_MSG("outputbox_add_line append %s : %d : %s\n",uri,line,message);
+	if (uri || line > 0 || (message && strlen(message))) {
+		if (bfwin->outputbox) {
+			ob = OUTPUTBOX(bfwin->outputbox);
+		} else {
+			ob = init_output_box(bfwin);
+		}
+		g_print("add_line to outputbox, message='%s'\n",message);
+		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
+		if (uri)
+			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 0, uri, -1);
+		
+		if (line > 0) {
+			tmp = g_strdup_printf("%d",line);
+			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 1, tmp, -1);
+			g_free(tmp);
+		}
+		
+		if (message)
+			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 2, message, -1);
 	}
-	gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
-	DEBUG_MSG("outputbox append %s : %d : %s\n",uri,line,message);
-	if (uri)
-		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 0, uri, -1);
-	
-	tmp = g_strdup_printf("%d",line);
-	gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 1, tmp, -1);
-	g_free(tmp);
-	
-	if (message)
-		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 2, message, -1);
 }
 
 void

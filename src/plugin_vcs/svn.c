@@ -4,6 +4,45 @@
 #include "vcs_gui.h"
 #include "external_commands.h"
 
+static void
+svn_commit_real_lcb(const gchar *output, gpointer bfwin, gpointer data)
+{
+	Tvcssession *vs=data;
+	GRegex *greg;
+	GMatchInfo *match_info;
+	gchar *tmp, *linestart;
+
+	if (!output || output[0] == '\0')
+		return;
+	g_print("svn_commit_real_lcb, output='%s'\n", output);
+	greg = g_regex_new("(Adding|Sending)[ ]+(.+)", G_REGEX_CASELESS, 0, NULL);
+	linestart = tmp = output;
+	while (*tmp != '\0') {
+		if (*tmp == '\n' || *tmp == '\r') {
+			if (tmp == linestart+1) {
+				linestart++;
+			} else {
+				gchar *curi=NULL;
+				*tmp = '\0';
+				/* now we have a line, extract the curi */
+				g_print("linestart=%s\n",linestart);
+				if (g_regex_match(greg, linestart, 0, &match_info)) {
+					gchar *file = g_match_info_fetch(match_info, 2);
+					curi = g_strconcat(vs->basedir, "/", file, NULL);
+					g_print("file=%s, curi=%s\n",file,curi);
+					g_free(file);
+				}
+				outputbox_add_line(BFWIN(bfwin), curi, -1, linestart);
+				g_free(curi);
+				g_match_info_free(match_info);
+				linestart = tmp+1;
+			}
+		}
+		tmp++;
+	}
+	g_regex_unref(greg);
+}
+
 void
 svn_commit_real(Tbfwin *bfwin, Tvcssession *vs, GList *files, const gchar *message)
 {
@@ -18,8 +57,9 @@ svn_commit_real(Tbfwin *bfwin, Tvcssession *vs, GList *files, const gchar *messa
 		g_string_append(str, tmplist->data);
 		g_string_append(str, " ");
 	}
+	g_string_append(str, "|");
 	g_print("command='%s'\n",str->str);
-	custom_command(bfwin, str->str, NULL, NULL);
+	custom_command(bfwin, str->str, svn_commit_real_lcb, vs);
 	g_string_free(str, TRUE);
 }
 
@@ -117,5 +157,60 @@ svn_status(Tbfwin *bfwin, const gchar *basedir, gpointer data)
 	gchar *command = g_strdup_printf("cd %s && svn st|",basedir);
 	g_print("start %s\n",command);
 	custom_command(bfwin, command, svn_status_lcb, data);
+	g_free(command);
+}
+
+static void
+svn_update_lcb(const gchar *output, gpointer bfwin, gpointer data)
+{
+	Tvcssession *vs=data;
+	GRegex *greg;
+	GMatchInfo *match_info;
+	gchar *tmp, *linestart;
+
+	if (!output || output[0] == '\0')
+		return;
+	g_print("svn_update_lcb, output='%s'\n",output);
+	greg = g_regex_new("(A|U)[ ]+(.+)", G_REGEX_CASELESS, 0, NULL);
+	linestart = tmp = output;
+	while (*tmp != '\0') {
+		if (*tmp == '\n' || *tmp == '\r') {
+			if (tmp == linestart+1) {
+				g_print("advance linestart one byte\n");
+				linestart++;
+			} else {
+				gchar *curi=NULL;
+				*tmp = '\0';
+				/* now we have a line, extract the curi */
+				g_print("linestart=%s\n",linestart);
+				if (g_regex_match(greg, linestart, 0, &match_info)) {
+					gchar *file = g_match_info_fetch(match_info, 2);
+					curi = g_strconcat(vs->basedir, "/", file, NULL);
+					g_print("file=%s, curi=%s\n",file,curi);
+					g_free(file);
+				}
+				g_print("send to outputbox, curi=%s, linestart=%s\n",curi,linestart);
+				outputbox_add_line(BFWIN(bfwin), curi, -1, linestart);
+				g_free(curi);
+				g_match_info_free(match_info);
+				linestart = tmp+1;
+			}
+		}
+		tmp++;
+	}
+	g_regex_unref(greg);
+}
+
+void
+svn_update(Tbfwin *bfwin, const gchar *basedir, gpointer data)
+{
+	gchar *command;
+	g_print("svn_update, basedir=%s\n",basedir);
+	if (!basedir)
+		return;
+	
+	command = g_strdup_printf("cd %s && svn up|", basedir);
+	g_print("svn_update, command=%s\n",command);
+	custom_command(bfwin, command, svn_update_lcb, data);
 	g_free(command);
 }
