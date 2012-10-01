@@ -47,7 +47,14 @@ vcs_status(Tbfwin *bfwin, Tvcssession *vs, gpointer data)
 static void
 vcs_update(GtkAction *action, gpointer user_data)
 {
-	g_print("vcs_update\n");
+	Tbfwin *bfwin = user_data;
+	Tvcssession *vs;
+	vs = vcsession_get(bfwin->session);
+	if (vs->basedir == NULL || vs->basedir[0] == '\0') {
+		vcs_autoconfigure(vs, bfwin->current_document->uri);
+	}
+	bfwin->session->outputb_show_all_output = TRUE;
+	svn_update(bfwin, vs->basedir, vs);
 }
 
 static void
@@ -58,7 +65,7 @@ vcs_commit(GtkAction *action, gpointer user_data)
 
 	vs = vcsession_get(bfwin->session);
 	vcs_commit_dialog(bfwin, vs);
-
+	bfwin->session->outputb_show_all_output = TRUE;
 	g_print("vcs_commit\n");
 }
 

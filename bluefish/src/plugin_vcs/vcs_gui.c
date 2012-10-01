@@ -57,7 +57,8 @@ vcs_commit_dialog_lcb(GtkDialog *dialog,gint response,gpointer user_data)
 		gtk_text_buffer_get_bounds(buffer,&si,&ei);
 		message = gtk_text_buffer_get_text(buffer, &si, &ei, TRUE);
 		vcs_commit_real(vg->bfwin, vg->vs, list, message);
-		g_list_free_full(list, g_free);
+		g_list_foreach(list, g_free, NULL);
+		g_list_free(list);
 		g_free(message);
 	}
 	gtk_widget_destroy(GTK_WIDGET(dialog));
