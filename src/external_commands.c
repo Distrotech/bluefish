@@ -596,9 +596,9 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 	return TRUE;
 }
 
-static gboolean filter_custom_io_watch_lcb(GIOChannel *channel,GIOCondition condition,gpointer data) {
+static gboolean full_data_io_watch_lcb(GIOChannel *channel,GIOCondition condition,gpointer data) {
 	Texternalp *ep = data;
-	DEBUG_MSG("filter_custom_io_watch_lcb, started with condition=%d\n",condition);
+	DEBUG_MSG("full_data_io_watch_lcb, started with condition=%d\n",condition);
 	if (condition & G_IO_IN) {
 		gchar *str_return;
 		gsize length;
@@ -612,35 +612,14 @@ static gboolean filter_custom_io_watch_lcb(GIOChannel *channel,GIOCondition cond
 		}
 	
 		if (status == G_IO_STATUS_NORMAL && str_return) {
-			gint end=ep->end;
 			GError *error=NULL;
-			if (ep->customcommand_cb) {
-				ep->customcommand_cb(str_return, ep->bfwin, ep->data);
-			} else {
-				GtkTextIter iter;
-				GtkTextBuffer *buffer = ep->bfwin->current_document->buffer;
-				DEBUG_MSG("filter_custom_io_watch_lcb, received '%s'\n",str_return);
-				gint line=-1,offset=-1;
-				if (ep->end == -1) {
-					end = gtk_text_buffer_get_char_count(buffer);
-				}
-				if (!gtk_text_buffer_get_has_selection(buffer)) {
-					gtk_text_buffer_get_iter_at_mark(buffer, &iter,gtk_text_buffer_get_insert(buffer));
-					line = gtk_text_iter_get_line(&iter);
-					offset = gtk_text_iter_get_line_offset(&iter);
-				}
-				doc_replace_text(ep->bfwin->current_document, str_return, ep->begin, end);
-				if (line != -1) {
-					gtk_text_buffer_get_iter_at_line_offset(buffer, &iter, line, offset);
-					gtk_text_buffer_place_cursor(buffer, &iter);
-				}
-			}
+			ep->customcommand_cb(str_return, ep->bfwin, ep->data);
 			g_io_channel_shutdown(channel,TRUE,&error);
 			externalp_unref(ep);
 			g_free(str_return);
 			return FALSE;
 		} else {
-			DEBUG_MSG("filter_custom_io_watch_lcb, status=%d\n",status);
+			DEBUG_MSG("full_data_io_watch_lcb, status=%d\n",status);
 		}
 		if (str_return) g_free(str_return);
 	}
@@ -666,71 +645,75 @@ static gboolean filter_custom_io_watch_lcb(GIOChannel *channel,GIOCondition cond
 	return TRUE;
 }
 
-typedef enum {
-	mode_filter,
-	mode_outputbox,
-	mode_command,
-	mode_custom
-} Tcommandmode;
-
 static void
 command_backend(Tbfwin *bfwin, gint begin, gint end, 
-								const gchar *formatstring, Tcommandmode commandmode, 
+								const gchar *formatstring,
+								GIOFunc channel_out_cb,
+								gboolean incl_stderr,
 								CustomCommandCallback customcommand_cb, gpointer data) {
 	Texternalp *ep;
 	
 	DEBUG_MSG("command_backend, started\n");
 	ep = g_new0(Texternalp,1);
 	ep->bfwin = bfwin;
-	ep->data = data;
+	ep->data = data ? data : ep;
 	ep->doc = bfwin->current_document;
 	ep->begin = begin;
 	ep->end = end;
 	ep->formatstring = formatstring;
-	ep->commandstring = create_commandstring(ep, formatstring, (commandmode==mode_command));
+	ep->commandstring = create_commandstring(ep, formatstring, (channel_out_cb == NULL));
 	if (!ep->commandstring) {
+		gchar *tmp = g_markup_printf_escaped(_("Failed to create a command for %s."), formatstring);
+		message_dialog_new(BFWIN(ep->bfwin)->main_window, GTK_MESSAGE_ERROR
+					, GTK_BUTTONS_CLOSE, _("Failed to create a command"), tmp);
+		g_free(tmp);
 		DEBUG_MSG("command_backend, failed to create commandstring\n");
 		g_free(ep);
-		/* BUG: is the user notified of the error ?*/
 		return;
 	}
-	if (commandmode == mode_filter)	{
-		ep->include_stderr = FALSE;
-		ep->channel_out_lcb = filter_custom_io_watch_lcb;
-		ep->channel_out_data = ep;
-	} else if (commandmode == mode_outputbox)	{
-		ep->include_stderr = TRUE;
-		ep->channel_out_lcb = outputbox_io_watch_lcb;
-		ep->channel_out_data = ep;
-	} else if (commandmode == mode_command) {
-		ep->include_stderr = FALSE;
-		ep->channel_out_lcb = NULL;
-		ep->channel_out_data = NULL;
-	} else if (commandmode == mode_custom) {
-		ep->include_stderr = FALSE;
-		ep->customcommand_cb = customcommand_cb;
-		ep->channel_out_lcb = filter_custom_io_watch_lcb;
-		ep->channel_out_data = ep;
-	}
-
+	ep->channel_out_data = ep;
+	ep->include_stderr = incl_stderr;
+	ep->channel_out_lcb = channel_out_cb;
 	start_command(ep);
 }
 
 void outputbox_command(Tbfwin *bfwin, const gchar *formatstring) {
-	command_backend(bfwin, 0, -1,formatstring, mode_outputbox, NULL, NULL);
+	command_backend(bfwin, 0, -1,formatstring, outputbox_io_watch_lcb, TRUE, NULL, NULL);
 }
 
+static void
+filter_custom_lcb(const gchar *str_return, gpointer bfwin, gpointer data)
+{
+	Texternalp *ep = data;
+	GtkTextIter iter;
+	GtkTextBuffer *buffer = BFWIN(bfwin)->current_document->buffer;
+	DEBUG_MSG("full_data_io_watch_lcb, received '%s'\n",str_return);
+	gint line=-1,offset=-1, end=ep->end;
+	if (ep->end == -1) {
+		end = gtk_text_buffer_get_char_count(buffer);
+	}
+	if (!gtk_text_buffer_get_has_selection(buffer)) {
+		gtk_text_buffer_get_iter_at_mark(buffer, &iter,gtk_text_buffer_get_insert(buffer));
+		line = gtk_text_iter_get_line(&iter);
+		offset = gtk_text_iter_get_line_offset(&iter);
+	}
+	doc_replace_text(BFWIN(bfwin)->current_document, str_return, ep->begin, end);
+	if (line != -1) {
+		gtk_text_buffer_get_iter_at_line_offset(buffer, &iter, line, offset);
+		gtk_text_buffer_place_cursor(buffer, &iter);
+	}
+}
 
 void filter_command(Tbfwin *bfwin, const gchar *formatstring, gint begin, gint end) {
-	command_backend(bfwin, begin, end,formatstring, mode_filter, NULL, NULL);
+	command_backend(bfwin, begin, end,formatstring, full_data_io_watch_lcb, FALSE, filter_custom_lcb, NULL);
 }
 
 void external_command(Tbfwin *bfwin, const gchar *formatstring) {
-	command_backend(bfwin, 0, -1,formatstring, mode_command, NULL, NULL);
+	command_backend(bfwin, 0, -1,formatstring, NULL, FALSE, NULL, NULL);
 }
 
 void
 custom_command(Tbfwin *bfwin, const gchar *formatstring, CustomCommandCallback func, gpointer data)
 {
-	command_backend(bfwin, 0, -1,formatstring, mode_custom, func, data);
+	command_backend(bfwin, 0, -1,formatstring, full_data_io_watch_lcb, TRUE, func, data);
 }
