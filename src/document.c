@@ -2371,7 +2371,7 @@ doc_scroll_event_lcb(GtkWidget * widget, GdkEventScroll * event, gpointer user_d
 		} else if (event->direction == GDK_SCROLL_DOWN) {
 			font_zoom = -1;
 		} else if (event->direction == GDK_SCROLL_SMOOTH) {
-			// Fixes bug #675959 for mice that outputs
+			// Fixes bug #1020925 for mice that outputs
 			// smooth scroll events for standard scrolling..
 			//
 			// delta_y values for scroll wheels:
