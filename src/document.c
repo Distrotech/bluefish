@@ -2364,16 +2364,30 @@ doc_close_but_clicked_lcb(GtkWidget * wid, gpointer data)
 static gboolean
 doc_scroll_event_lcb(GtkWidget * widget, GdkEventScroll * event, gpointer user_data)
 {
+	gint font_zoom = 0;
 	if (event->state & GDK_CONTROL_MASK) {
 		if (event->direction == GDK_SCROLL_UP) {
-			doc_font_size(DOCUMENT(user_data), 1);
-			return TRUE;
+			font_zoom = 1;
 		} else if (event->direction == GDK_SCROLL_DOWN) {
-			doc_font_size(DOCUMENT(user_data), -1);
-			return TRUE;
+			font_zoom = -1;
+		} else if (event->direction == GDK_SCROLL_SMOOTH) {
+			// Fixes bug #675959 for mice that outputs
+			// smooth scroll events for standard scrolling..
+			//
+			// delta_y values for scroll wheels:
+			// -1 = up
+			//  1 = down
+			if (event->delta_y < 0) {
+				font_zoom = 1;
+			} else if (event->delta_y > 0) {
+				font_zoom = -1;
+			}
 		}
 	}
-	return FALSE;
+	if (font_zoom) {
+		doc_font_size(DOCUMENT(user_data), font_zoom);
+	}
+	return (font_zoom != 0);
 }
 
 static gboolean
