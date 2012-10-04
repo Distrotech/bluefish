@@ -2,7 +2,8 @@
 
 #include "vcs.h"
 #include "vcs_gui.h"
-#include "external_commands.h"
+#include "../external_commands.h"
+#include "../outputbox.h"
 
 static void
 svn_commit_real_lcb(const gchar *output, gpointer bfwin, gpointer data)
