@@ -2370,19 +2370,21 @@ doc_scroll_event_lcb(GtkWidget * widget, GdkEventScroll * event, gpointer user_d
 			font_zoom = 1;
 		} else if (event->direction == GDK_SCROLL_DOWN) {
 			font_zoom = -1;
-		} else if (event->direction == GDK_SCROLL_SMOOTH) {
-			// Fixes bug #1020925 for mice that outputs
-			// smooth scroll events for standard scrolling..
-			//
-			// delta_y values for scroll wheels:
-			// -1 = up
-			//  1 = down
+		}
+#if GTK_CHECK_VERSION(3,4,0)
+		 else if (event->direction == GDK_SCROLL_SMOOTH) {
+			/* Fixes bug #1020925 for mice that outputs
+			smooth scroll events for standard scrolling..
+		 	delta_y values for scroll wheels:
+			-1 = up
+			 1 = down*/
 			if (event->delta_y < 0) {
 				font_zoom = 1;
 			} else if (event->delta_y > 0) {
 				font_zoom = -1;
 			}
 		}
+#endif /* GTK_CHECK_VERSION(3,4,0) */
 	}
 	if (font_zoom) {
 		doc_font_size(DOCUMENT(user_data), font_zoom);
