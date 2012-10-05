@@ -267,7 +267,11 @@ static void start_command_backend(Texternalp *ep) {
 	DEBUG_MSG("start_command_backend,commandstring=%s\n",ep->commandstring);
 	ep->include_stderr = FALSE;
 	DEBUG_MSG("start_command_backend, pipe_in=%d, pipe_out=%d, include_stderr=%d\n",ep->pipe_in,ep->pipe_out,ep->include_stderr);
+#ifdef USEBINSH
 	DEBUG_MSG("start_command_backend, about to spawn process /bin/sh -c %s\n",argv[2]);
+#else
+	DEBUG_MSG("start_command_backend, about to spawn process %s\n",ep->commandstring);
+#endif
 	g_spawn_async_with_pipes(NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH, (ep->include_stderr)?spawn_setup_lcb:NULL, ep, &ep->child_pid,
 				(ep->pipe_in) ? &ep->standard_input : NULL,
 				(ep->pipe_out) ? &ep->standard_output : NULL,

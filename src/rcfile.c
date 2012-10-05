@@ -760,12 +760,21 @@ GList *update_filters(GList *current, gboolean overwrite)
 	defaults =
 		g_list_append(defaults,
 					  array_from_arglist(_("PHP Beautifier"), "|php_beautifier -t|", NULL));
+#ifdef WIN32
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("Javascript Minify with jsmin"), "|python "PKGDATADIR"/jsmin.py|", NULL));
+	defaults =
+		g_list_append(defaults,
+					  array_from_arglist(_("CSS Minify with cssmin"), "|python "PKGDATADIR"/cssmin.py|", NULL));
+#else
 	defaults =
 		g_list_append(defaults,
 					  array_from_arglist(_("Javascript Minify with jsmin"), "|"PKGDATADIR"/jsmin.py|", NULL));
 	defaults =
 		g_list_append(defaults,
 					  array_from_arglist(_("CSS Minify with cssmin"), "|"PKGDATADIR"/cssmin.py|", NULL));
+#endif
 	defaults =
 		g_list_append(defaults,
 					  array_from_arglist(_("CSS tidy"), "|csstidy --preserve_css=true -|", NULL));
