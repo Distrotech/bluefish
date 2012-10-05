@@ -63,18 +63,18 @@ typedef struct {
 	gboolean pipe_out;
 
 	gboolean include_stderr; /* if stderr should be included in the output */
-	
+
 	gint standard_input; /* the pipes that will be filled by g_spawn_async_with_pipes */
-	gint standard_output; 
-	
+	gint standard_output;
+
 	GIOChannel* channel_in; /* the GIO channels for input into the filter */
 	gchar *buffer_out; /* the buffer that is the input for the filter */
 	gchar *buffer_out_position; /* a pointer inside the above buffer that points to the data that has not yet been written to the filter */
-	
+
 	GIOChannel* channel_out; /* the GIO channel for output from the filter */
 	GIOFunc channel_out_lcb; /* the callback that will be registered for output data  */
 	gpointer channel_out_data; /* the corresponding callback data */
-	
+
 	GPid child_pid; /* PID of the filter */
 	guint start_command_idle_id;
 } Texternalp;
@@ -99,7 +99,7 @@ static void externalp_unref(Texternalp *ep) {
 			unlink(ep->inplace);
 			g_free(ep->inplace);
 		}
-		
+
 		if (ep->buffer_out) g_free(ep->buffer_out);
 		if (ep->securedir) {
 			rmdir(ep->securedir);
@@ -162,14 +162,14 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	GError *gerror=NULL;
 	gchar *tmp;
 	DEBUG_MSG("child_watch_lcb, child exited with status=%d\n",status);
-	
+
 	if (status != 0) {
 		tmp = g_markup_printf_escaped(_("The command %s exited with error code %d. %s"), ep->commandstring, status, (status==32512)?_("Probably this application is not installed on your system."):"");
 		message_dialog_new(BFWIN(ep->bfwin)->main_window, GTK_MESSAGE_ERROR
 					, GTK_BUTTONS_CLOSE, _("Command returned error code"), tmp);
 		g_free(tmp);
 	}
-	
+
 	if (ep->pipe_in && !ep->buffer_out) {
 		DEBUG_MSG("child_watch_lcb, the child has exited before we actually started\n");
 		/* the child has exited before we actually started to write data to the child, just abort now */
@@ -178,10 +178,10 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 		externalp_unref(ep);
 		return;
 	}
-	
+
 	/* if there was a temporary output file, we should now open it and start to read it */
 	if (ep->tmp_out) {
-		
+
 		ep->channel_out = g_io_channel_new_file(ep->tmp_out,"r",&gerror);
 		DEBUG_MSG("child_watch_lcb, created channel_out from file %s\n",ep->tmp_out);
 		if (gerror) {
@@ -241,12 +241,12 @@ start_command_idle(gpointer data)
 		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,ep->channel_out_lcb,ep->channel_out_data);
 	}
 	externalp_unref(ep);
-	
+
 	return FALSE; /* don't call me again */
 }
 
 static void start_command_backend(Texternalp *ep) {
-#ifdef USEBINSH	
+#ifdef USEBINSH
 	gchar *argv[4];
 #else
 	gchar **argv;
@@ -268,7 +268,7 @@ static void start_command_backend(Texternalp *ep) {
 	ep->include_stderr = FALSE;
 	DEBUG_MSG("start_command_backend, pipe_in=%d, pipe_out=%d, include_stderr=%d\n",ep->pipe_in,ep->pipe_out,ep->include_stderr);
 	DEBUG_MSG("start_command_backend, about to spawn process /bin/sh -c %s\n",argv[2]);
-	g_spawn_async_with_pipes(NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH, (ep->include_stderr)?spawn_setup_lcb:NULL, ep, &ep->child_pid, 
+	g_spawn_async_with_pipes(NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH, (ep->include_stderr)?spawn_setup_lcb:NULL, ep, &ep->child_pid,
 				(ep->pipe_in) ? &ep->standard_input : NULL,
 				(ep->pipe_out) ? &ep->standard_output : NULL,
 				NULL, &error);
@@ -287,7 +287,7 @@ static void start_command_backend(Texternalp *ep) {
 static void start_command(Texternalp *ep) {
 	if (!ep->bfwin->current_document)
 		return;
-	
+
 	if (ep->tmp_in) {
 		GError *gerror=NULL;
 		/* first create tmp_in, then start the real command in the callback */
@@ -295,7 +295,7 @@ static void start_command(Texternalp *ep) {
 		if (gerror) {
 			g_warning("failed to create input file for external program, %d: %s\n",gerror->code,gerror->message);
 			g_error_free(gerror);
-			return;	
+			return;
 		}
 		ep->buffer_out = ep->buffer_out_position = doc_get_chars(ep->bfwin->current_document,ep->begin,ep->end);
 		g_io_channel_set_flags(ep->channel_in,G_IO_FLAG_NONBLOCK,NULL);
@@ -308,11 +308,11 @@ static void start_command(Texternalp *ep) {
 
 gboolean operatable_on_selection(const gchar *formatstring) {
 
-	return (strstr(formatstring, "%f") == NULL && strstr(formatstring, "%c") == NULL 
+	return (strstr(formatstring, "%f") == NULL && strstr(formatstring, "%c") == NULL
 		&& strstr(formatstring, "%n") == NULL && strstr(formatstring, "%u") == NULL
 		&& strstr(formatstring, "%p") == NULL);
 
-} 
+}
 
 /* The format string should have new options:
     * %f local full path (function should abort for remote files)
@@ -341,7 +341,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		need_filename=FALSE,
 		need_arguments=FALSE;
 	gint items = 2, cur=0;
-	
+
 	if (!ep->bfwin->current_document) {
 		return NULL;
 	}
@@ -353,7 +353,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		need_pipein = TRUE;
 		formatstring[0] = ' ';
 	}
-	
+
 	if (!discard_output && (formatstring[formatstringlen-1]=='|')) {
 		need_pipeout = TRUE;
 		formatstring[formatstringlen-1]=' ';
@@ -372,7 +372,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	}
 	if (ep->bfwin->current_document->uri)
 		localname = g_file_get_path(ep->bfwin->current_document->uri);
-	
+
 	if (need_local && !localname) {
 		g_free(formatstring);
 		g_free(localname);
@@ -383,14 +383,14 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	/* %f is for backwards compatibility with bluefish 1.0 */
 	need_tmpout = (strstr(formatstring, "%O") != NULL);
 	need_inplace = (strstr(formatstring, "%t") != NULL);
-	
+
 	if ((need_tmpout || need_inplace || need_pipeout) && discard_output) {
 		DEBUG_MSG("create_commandstring, external_commands should not have %%o\n");
 		g_free(formatstring);
 		g_free(localname);
 		return NULL;
 	}
-	if ((need_tmpin && (need_inplace || need_pipein)) 
+	if ((need_tmpin && (need_inplace || need_pipein))
 			|| (need_inplace && need_pipein)) {
 		DEBUG_MSG("create_commandstring, cannot have multiple inputs\n");
 		/*  BUG: give a warning that you cannot have multiple inputs */
@@ -398,7 +398,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		g_free(localname);
 		return NULL;
 	}
-	if ((need_tmpout && (need_inplace || need_pipeout)) 
+	if ((need_tmpout && (need_inplace || need_pipeout))
 			|| (need_inplace && need_pipeout)) {
 		DEBUG_MSG("create_commandstring, cannot have multiple outputs, tmpout=%d, pipeout=%d, inplace=%d\n",need_tmpout,need_pipeout,need_inplace);
 		/*  BUG: give a warning that you cannot have multiple outputs */
@@ -407,7 +407,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 
 		return NULL;
 	}
-	
+
 	if (need_arguments) {
 		GtkWidget *dialog, *entry;
 		gchar *tmp;
@@ -436,13 +436,13 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		}
 		gtk_widget_destroy(dialog);
 	}
-	
-	
+
+
 	if (need_pipein)  ep->pipe_in = TRUE;
 	if (need_pipeout) ep->pipe_out = TRUE;
 	DEBUG_MSG("create_commandstring, formatstring '%s' seems OK\n",formatstring);
 
-	is_local_non_modified = (ep->bfwin->current_document->uri 
+	is_local_non_modified = (ep->bfwin->current_document->uri
 		&& !ep->bfwin->current_document->modified
 		&& localname != NULL);
 
@@ -478,9 +478,9 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		cur++;
 		if (need_preview_uri) {
 			table[cur].my_int = 'p';
-			if (ep->bfwin->session->documentroot && ep->bfwin->session->webroot 
+			if (ep->bfwin->session->documentroot && ep->bfwin->session->webroot
 					&& strlen(ep->bfwin->session->documentroot)>5
-					&& strlen(ep->bfwin->session->webroot)>5 
+					&& strlen(ep->bfwin->session->webroot)>5
 					&& strncmp(curi, ep->bfwin->session->documentroot, strlen(ep->bfwin->session->documentroot))==0) {
 						table[cur].my_char = g_strconcat(ep->bfwin->session->webroot, &curi[strlen(ep->bfwin->session->documentroot)], NULL);
 			} else {
@@ -545,9 +545,9 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 		DEBUG_MSG("outputbox_io_watch_lcb, outputbox == NULL, close the channel\n");
 		g_io_channel_shutdown(channel,TRUE,NULL);
 		externalp_unref(ep);
-		return FALSE;		
+		return FALSE;
 	}
-	
+
 	if (condition & G_IO_IN) {
 		gchar *buf=NULL;
 		gsize buflen=0,termpos=0;
@@ -604,16 +604,18 @@ static gboolean full_data_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 		gsize length;
 		GIOStatus status;
 		GError *gerror=NULL;
-		
+
 		status = g_io_channel_read_to_end(channel,&str_return,&length,&gerror);
 		if (gerror) {
 			g_warning("error while trying to read data for filter or custom command, %d: %s\n",gerror->code,gerror->message);
 			g_error_free(gerror);
 		}
-	
+
 		if (status == G_IO_STATUS_NORMAL && str_return) {
 			GError *error=NULL;
-			ep->customcommand_cb(str_return, ep->bfwin, ep->data);
+			DEBUG_MSG("ep->customcommand_cb=%p\n",ep->customcommand_cb);
+			if (ep->customcommand_cb)
+				ep->customcommand_cb(str_return, ep->bfwin, ep->data);
 			g_io_channel_shutdown(channel,TRUE,&error);
 			externalp_unref(ep);
 			g_free(str_return);
@@ -646,16 +648,17 @@ static gboolean full_data_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 }
 
 static void
-command_backend(Tbfwin *bfwin, gint begin, gint end, 
+command_backend(Tbfwin *bfwin, gint begin, gint end,
 								const gchar *formatstring,
 								GIOFunc channel_out_cb,
 								gboolean incl_stderr,
 								CustomCommandCallback customcommand_cb, gpointer data) {
 	Texternalp *ep;
-	
+
 	DEBUG_MSG("command_backend, started\n");
 	ep = g_new0(Texternalp,1);
 	ep->bfwin = bfwin;
+	ep->customcommand_cb = customcommand_cb;
 	ep->data = data ? data : ep;
 	ep->doc = bfwin->current_document;
 	ep->begin = begin;
@@ -687,7 +690,7 @@ filter_custom_lcb(const gchar *str_return, gpointer bfwin, gpointer data)
 	Texternalp *ep = data;
 	GtkTextIter iter;
 	GtkTextBuffer *buffer = BFWIN(bfwin)->current_document->buffer;
-	DEBUG_MSG("full_data_io_watch_lcb, received '%s'\n",str_return);
+	DEBUG_MSG("filter_custom_lcb, received '%s'\n",str_return);
 	gint line=-1,offset=-1, end=ep->end;
 	if (ep->end == -1) {
 		end = gtk_text_buffer_get_char_count(buffer);
