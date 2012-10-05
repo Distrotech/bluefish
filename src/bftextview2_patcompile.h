@@ -64,7 +64,7 @@ add_pattern_to_scanning_table(Tscantable * st, gchar * pattern,
 							  gboolean ends_block, guint blockstartpattern, 
 							  gboolean tagclose_from_blockstack, gboolean stretch_blockstart,
 							  guint8 identmode, gboolean identjump, gboolean identautocomp);*/
-void print_DFA(Tscantable * st, char start, char end);
+void print_DFA(Tscantable * st, gint16 context, char start, char end);
 Tscantable *scantable_new(guint size_table, guint size_matches, guint size_contexts);
 Tscantable *bftextview2_scantable_new(GtkTextBuffer * buffer);
 

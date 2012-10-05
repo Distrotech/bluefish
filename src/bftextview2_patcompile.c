@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*#define ENABLE_PRINT_DFA*/
+
 /* for the design docs see bftextview2.h */
 #include <string.h>
 #include "bluefish.h"
@@ -197,14 +199,24 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 	gint newstate = -1;			/* if all characters can follow existing states we don't need any newstate
 								   and thus newstate==-1 but if one or more characters in one or more states need a new state
 								   it will be >0 */
-	DBG_PATCOMPILE("create_state_tables started for %d states, pointtoself=%d\n",
+	DBG_PATCOMPILE("create_state_tables started with get_length(positions)=%d states, pointtoself=%d\n",
 				   g_queue_get_length(positions), pointtoself);
 	while (g_queue_get_length(positions)) {
 		pos = GPOINTER_TO_INT(g_queue_pop_head(positions));
-		DBG_PATCOMPILE("working on position %d, identstate=%d\n", pos, identstate);
+		/*DBG_PATCOMPILE("working on position %d, identstate=%d\n", pos, identstate);*/
 		for (c = 0; c < NUMSCANCHARS; c++) {
 			if (characters[c] == 1) {
-				/*DBG_PATCOMPILE("running for position %d char %c\n",pos,c); */
+				DBG_PATCOMPILE("running for position %d char %c\n",pos,c);
+				/* there is a bug in the pattern compiler that may compile a buggy language file without a warning:
+				if a new keyword is added, and all characters already exist there are no new states created: this function
+				will simply follow the existing states. BUT IT DOES NOT CHECK IF THERE ARE MULTIPLE WAYS TO GET TO THESE
+				EXISTING STATES. So if those states are created by a regex pattern that allows jumping to these states via
+				various other characters, you will have an overlapping pattern WITHOUT WARNING.
+				
+				You can avoid this bug by having regex patterns alwats in the end of a context.  
+				 */
+				
+				
 				if (get_tablerow(st, context, pos).row[c] != 0
 					&& get_tablerow(st, context, pos).row[c] != identstate) {
 					if (get_tablerow(st, context, pos).row[c] == pos) {
@@ -237,6 +249,7 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 							push_on_stack(positions, (gint) get_tablerow(st, context, pos).row[c]);
 						} else {
 							if (get_tablerow(st, context, pos).row[c] > pos) {
+								DBG_PATCOMPILE("points to state %d, pushing %d on newpositions\n", (gint) get_tablerow(st, context, pos).row[c], (gint) get_tablerow(st, context, pos).row[c]);
 								push_on_stack(newpositions,
 											  (gint) get_tablerow(st, context, pos).row[c]);
 							} else {	/* this is probably a morestate that has been passed-on several states */
@@ -304,7 +317,7 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 			}
 		}
 	}
-	DBG_PATCOMPILE("create_state_tables, done, %d new positions\n", g_queue_get_length(newpositions));
+	DBG_PATCOMPILE("create_state_tables, done, get_lenght(newpositions)=%d\n", g_queue_get_length(newpositions));
 }
 
 static void
@@ -905,7 +918,9 @@ add_pattern_to_scanning_table(Tscantable * st, gchar * pattern,
 	} else {
 		compile_keyword_to_DFA(st, pattern, matchnum, context, case_insens);
 	}
-	/*print_DFA(st, 'a', 'z'); */
+	/*if (g_strcmp0(pattern, "rem ")==0 || g_strcmp0(pattern, "\\.?[a-zA-Z][a-zA-Z_0-9]*[\\$%]?")==0) {
+		print_DFA_subset(st, context, "rem var");
+	}*/
 	return matchnum;
 } 
 
@@ -964,9 +979,9 @@ add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * la
 	return matchnum;
 }*/
 
-#if 0
+#ifdef ENABLE_PRINT_DFA
 void
-print_DFA_subset(Tscantable * st, char *chars)
+print_DFA_subset(Tscantable * st, gint16 context, char *chars)
 {
 	gint i, j, len;
 	len = strlen(chars);
@@ -975,31 +990,27 @@ print_DFA_subset(Tscantable * st, char *chars)
 		g_print("  %c  ", chars[j]);
 	}
 	g_print(": match\n");
-	for (i = 0; i < st->table->len; i++) {
+	for (i = 0; i < g_array_index(st->contexts, Tcontext, context).table->len; i++) {
 		g_print("%4d: ", i);
 		for (j = 0; j <= len; j++) {
-			g_print("%4d ", g_array_index(st->table, Ttablerow, i).row[(gshort) chars[j]]);
+			g_print("%4d ", g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).row[(gshort) chars[j]]);
 		}
-		g_print(": %4d", g_array_index(st->table, Ttablerow, i).match);
-		if (g_array_index(st->table, Ttablerow, i).match > 0) {
+		g_print(": %4d", g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match);
+		if (g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match > 0) {
 			g_print(" %s",
 					g_array_index(st->matches, Tpattern,
-								  g_array_index(st->table, Ttablerow, i).match).pattern);
-			if (g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).nextcontext
+								  g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match).pattern);
+			if (g_array_index(st->matches, Tpattern, g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match).nextcontext
 				> 0) {
-				g_print(" 	--> goto context %d at %d",
+				g_print(" 	--> goto context %d",
 						g_array_index(st->matches, Tpattern,
-									  g_array_index(st->table, Ttablerow, i).match).nextcontext,
-						g_array_index(st->contexts, Tcontext,
-									  g_array_index(st->matches, Tpattern,
-													g_array_index(st->table, Ttablerow,
-																  i).match).nextcontext).startstate);
+									  g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match).nextcontext);
 			} else
 				if (g_array_index
-					(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).nextcontext < 0) {
+					(st->matches, Tpattern, g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match).nextcontext < 0) {
 				g_print(" 	--> pop context: %d",
 						g_array_index(st->matches, Tpattern,
-									  g_array_index(st->table, Ttablerow, i).match).nextcontext);
+									  g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match).nextcontext);
 			}
 		}
 		g_print("\n");
@@ -1008,24 +1019,25 @@ print_DFA_subset(Tscantable * st, char *chars)
 }
 
 void
-print_DFA(Tscantable * st, char start, char end)
+print_DFA(Tscantable * st, gint16 context, char start, char end)
 {
 	gint i, j;
 	g_print("    ");
 	for (j = start; j <= end; j++) {
-		g_print(" %c ", j);
+		g_print("  %c ", j);
 	}
 	g_print(": match\n");
-	for (i = 0; i < st->table->len; i++) {
-		g_print("%2d: ", i);
+	for (i = 0; i < g_array_index(st->contexts, Tcontext, context).table->len; i++) {
+		g_print("%3d: ", i);
 		for (j = start; j <= end; j++) {
-			g_print("%2d ", g_array_index(st->table, Ttablerow, i).row[j]);
+			g_print("%3d ", g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).row[j]);
 		}
-		g_print(": %2d\n", g_array_index(st->table, Ttablerow, i).match);
+		g_print(": %3d (%s)\n", g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match, 
+					g_array_index(st->matches, Tpattern,g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match).pattern);
 	}
 
 }
-#endif /* 0 */
+#endif /* ENABLE_PRINT_DFA */
 
 Tscantable *
 scantable_new(guint size_table, guint size_matches, guint size_contexts)

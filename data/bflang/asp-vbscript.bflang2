@@ -111,7 +111,7 @@
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;%@=/">
 
-&all-html;
+<!--&all-html;-->
 
 <element id="e.asp.block.start" pattern="(&lt;%|&lt;%@|&lt;%=)" is_regex="1" starts_block="1" highlight="asp-block-tag" mayfold="1">
 	<context symbols=" ():\&#34;\',&gt;&lt;*+=-/_&#9;&#10;&#13;.%" commentid_block="none" commentid_line="cm.vbcomment">
@@ -130,7 +130,7 @@
 		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="e.asp.block.start" mayfold="1"/>
 	</context>
 </element>
-<element pattern="rem " highlight="vbs-comment" case_insens="1">
+<element pattern="rem" highlight="vbs-comment" case_insens="1">
 	<context symbols="%&#10;&#13;" highlight="vbs-comment">
 		<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="vbs-comment" ends_context="1" />
 		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="e.asp.block.start" mayfold="1"/>

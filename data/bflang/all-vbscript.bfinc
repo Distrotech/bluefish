@@ -142,8 +142,8 @@
 <element pattern="[-\.]?[0-9]+" is_regex="1" highlight="vbs-value" case_insens="1"/>
 
 
-
-<element pattern="\.?[a-zA-Z][a-zA-Z_0-9]*[\$%]?" is_regex="1" highlight="vbs-variable"/>
+<!--this pattern overlaps with many keywords
+<element pattern="\.?[a-zA-Z][a-zA-Z_0-9]*[\$%]?" is_regex="1" highlight="vbs-variable"/>-->
 
 <!--<element pattern="&#34;" highlight="vbs-string">
 	<context symbols="&#34;" highlight="vbs-string">
