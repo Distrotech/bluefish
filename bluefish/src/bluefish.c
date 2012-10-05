@@ -259,7 +259,53 @@ int main(int argc, char *argv[])
 	static gchar **files = NULL;
 	Tstartup *startup;
 #ifdef WIN32
- 	gchar *path;
+	gchar *path;
+
+	const char *szStartPath = getenv("PATH");
+	char *szPythonPath, *szNewPath;
+
+    HKEY hPython;
+    DWORD dwSize;
+    DWORD dwError;
+    
+    DEBUG_MSG("main, about to add Python to PATH");
+    // Open HKLM registry key, if that fails try to open HKCU registry key
+    if((dwError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Python\\PythonCore\\2.7\\InstallPath", 0, KEY_QUERY_VALUE, &hPython)) != ERROR_SUCCESS)
+		dwError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Python\\PythonCore\\2.7\\InstallPath", 0, KEY_QUERY_VALUE, &hPython);
+
+	// If either key opened a standard Python install is available, either globally or for the current user
+    if (dwError == ERROR_SUCCESS) {
+    	// Get size of value
+		dwError = RegQueryValueEx(hPython, NULL, NULL, NULL, NULL, &dwSize);
+		if (dwError == ERROR_SUCCESS) {
+			// Allocate memory to store value
+			szPythonPath = (char *)malloc(dwSize * sizeof(char));
+			// Read value from registry
+			dwError = RegQueryValueEx(hPython, NULL, NULL, NULL, (LPBYTE)szPythonPath, &dwSize);
+			if (dwError == ERROR_SUCCESS) {
+				DEBUG_MSG("main, Python path read: %s", szPythonPath);
+				// Allocate memory to hold new PATH (old + new + (PATH= + ; + NULL))
+				szNewPath = (char *)malloc((strlen(szStartPath) + strlen(szPythonPath) + 7) * sizeof(char));
+				// Compose and store the new PATH
+				wsprintf(szNewPath, "PATH=%s;%s", szStartPath, szPythonPath);
+				// Set the new PATH
+				if (!putenv(szNewPath))
+					DEBUG_MSG("main, successfully set new PATH: %s", szNewPath);
+				else
+					DEBUG_MSG("main, error setting new PATH");
+				// Free memory used to hold the new path
+				free(szNewPath);
+			} // Read
+			else DEBUG_MSG("main, error reading path (%lu)", dwError);
+			// Free memory used to hold the path
+			free(szPythonPath);
+			// Close the registry key handle
+			RegCloseKey(hPython);
+		} // Size
+		else DEBUG_MSG("main, error getting size of path (%lu)", dwError);
+	} // Open
+	else DEBUG_MSG("main, error opening registry key (%lu)", dwError);
+
 #endif
 	GError *error = NULL;
 	GOptionContext *context;

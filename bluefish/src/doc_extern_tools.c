@@ -58,11 +58,19 @@ lorem_ipsum_dialog(Tbfwin *bfwin)
 	switch (result) {
 	case GTK_RESPONSE_ACCEPT:
 		i = gtk_combo_box_get_active(GTK_COMBO_BOX(combo));
+#ifdef WIN32
+		command = g_strdup_printf("python "PKGDATADIR"/lorem-ipsum-generator -l -p %d -s %d %s|", 
+								(gint)gtk_spin_button_get_value(GTK_SPIN_BUTTON(spin1)),
+								(gint)gtk_spin_button_get_value(GTK_SPIN_BUTTON(spin2)),
+								 i == 2 ? "" : (i==1 ? "-f html-li" : "-f html-p")
+								 );
+#else
 		command = g_strdup_printf(PKGDATADIR"/lorem-ipsum-generator -l -p %d -s %d %s|", 
 								(gint)gtk_spin_button_get_value(GTK_SPIN_BUTTON(spin1)),
 								(gint)gtk_spin_button_get_value(GTK_SPIN_BUTTON(spin2)),
 								 i == 2 ? "" : (i==1 ? "-f html-li" : "-f html-p")
 								 );
+#endif
 		custom_command(bfwin, command, lorem_ipsum_command_callback, NULL);
 		g_free(command);
 	break;
@@ -115,6 +123,15 @@ jsbeautify_dialog(Tbfwin *bfwin)
 	result = gtk_dialog_run(GTK_DIALOG (dialog));
 	switch (result) {
 	case GTK_RESPONSE_ACCEPT:
+#ifdef WIN32
+		command = g_strdup_printf("|python "PKGDATADIR"/jsbeautify %s -s %d %s %s %s -|",
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(usetabs)) ? "-t" : "",
+			gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(tabsize)),
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nopreservenewline)) ? "-d" : "",
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(jslinthappy)) ? "-j" : "",
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(unescape_encoded_chars)) ? "-x" : ""
+		);
+#else
 		command = g_strdup_printf("|"PKGDATADIR"/jsbeautify %s -s %d %s %s %s -|",
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(usetabs)) ? "-t" : "",
 			gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(tabsize)),
@@ -122,6 +139,7 @@ jsbeautify_dialog(Tbfwin *bfwin)
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(jslinthappy)) ? "-j" : "",
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(unescape_encoded_chars)) ? "-x" : ""
 		);
+#endif
 		filter_command(bfwin, command, begin, end);
 		g_free(command);
 	break;
