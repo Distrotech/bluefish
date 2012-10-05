@@ -264,7 +264,7 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	File /r "build\share\enchant\*"
 
 	SetOutPath "$INSTDIR\share\locale"
-	File /r /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
+	File /r /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_vcs.mo" /x "*_zencoding.mo" "build\share\locale\*"
 
 	SetOutPath "$INSTDIR"
 	WriteUninstaller "$INSTDIR\${UNINSTALL_EXE}"
@@ -378,13 +378,13 @@ SectionGroup "$(SECT_PLUGINS)" SecPlugins
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\charmap.dll"
 		SetOutPath "$INSTDIR\share\locale"
-		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
+		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_vcs.mo" /x "*_zencoding.mo" "build\share\locale\*"
 	SectionEnd
 	Section "$(PLUG_ENTITIES)" SecPlEntities
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\entities.dll"
 		SetOutPath "$INSTDIR\share\locale"
-		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
+		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_vcs.mo" /x "*_zencoding.mo" "build\share\locale\*"
 	SectionEnd
 	Section "$(PLUG_HTMLBAR)" SecPlHTMLbar
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
@@ -392,19 +392,25 @@ SectionGroup "$(SECT_PLUGINS)" SecPlugins
 		SetOutPath "$INSTDIR\share\${PACKAGE}\plugins\htmlbar"
 		File /r "build\share\${PACKAGE}\plugins\htmlbar\*"
 		SetOutPath "$INSTDIR\share\locale"
-		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
+		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_vcs.mo" /x "*_zencoding.mo" "build\share\locale\*"
 	SectionEnd
 	Section "$(PLUG_INFBROWSER)" SecPlInfBrowser
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\infbrowser.dll"
 		SetOutPath "$INSTDIR\share\locale"
-		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
+		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_snippets.mo" /x "*_vcs.mo" /x "*_zencoding.mo" "build\share\locale\*"
 	SectionEnd
 	Section "$(PLUG_SNIPPETS)" SecPlSnippets
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\snippets.dll"
 		SetOutPath "$INSTDIR\share\locale"
-		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_zencoding.mo" "build\share\locale\*"
+		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_vcs.mo" /x "*_zencoding.mo" "build\share\locale\*"
+	SectionEnd
+	Section "$(PLUG_VCS)" SecPlVcs
+		SetOutPath "$INSTDIR\lib\${PACKAGE}"
+		File "build\lib\${PACKAGE}\vcs.dll"
+		SetOutPath "$INSTDIR\share\locale"
+		File /nonfatal /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
 	SectionEnd
 ;	Section "$(PLUG_ZENDCODING)" SecPlZendcoding
 ;		SetOutPath "$INSTDIR\lib\${PACKAGE}"
@@ -412,7 +418,7 @@ SectionGroup "$(SECT_PLUGINS)" SecPlugins
 ;		SetOutPath "$INSTDIR\share\${PACKAGE}\plugins\zendcoding"
 ;		File /r "build\share\${PACKAGE}\plugins\zendcoding\*"
 ;		SetOutPath "$INSTDIR\share\locale"
-;		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
+;		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_vcs.mo" "build\share\locale\*"
 ;	SectionEnd
 	SetOverwrite off
 SectionGroupEnd

@@ -255,6 +255,7 @@
 	!insertmacro Localize "PLUG_HTMLBAR" "${LANG}"
 	!insertmacro Localize "PLUG_INFBROWSER" "${LANG}"
 	!insertmacro Localize "PLUG_SNIPPETS" "${LANG}"
+	!insertmacro Localize "PLUG_VCS" "${LANG}"
 	!insertmacro Localize "PLUG_ZENCODING" "${LANG}"
 
 	!insertmacro Localize "SECT_SHORTCUT" "${LANG}"
