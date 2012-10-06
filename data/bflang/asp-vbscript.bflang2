@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		asp-vbs.bflang2 $Revision: 6403 $
- 
+
 		Copyright (C) 2008-20011 Olivier Sessink, Alex Bodnaru
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <!DOCTYPE bflang [
 	<!ENTITY i18n "dir,lang">
@@ -76,7 +76,7 @@
 	<highlight name="html-table-tag" style="special-tag2" />
 	<highlight name="html-form-tag" style="special-tag3" />
 	<highlight name="html-deprecated-tag" style="warning" />
-	
+
 	<highlight name="js-brackets" style="brackets"  />
 	<highlight name="js-comment" style="comment"  />
 	<highlight name="js-function" style="function"  />
@@ -111,7 +111,7 @@
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;%@=/">
 
-<!--&all-html;-->
+&all-html;
 
 <element id="e.asp.block.start" pattern="(&lt;%|&lt;%@|&lt;%=)" is_regex="1" starts_block="1" highlight="asp-block-tag" mayfold="1">
 	<context symbols=" ():\&#34;\',&gt;&lt;*+=-/_&#9;&#10;&#13;.%" commentid_block="none" commentid_line="cm.vbcomment">
