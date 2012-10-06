@@ -23,4 +23,8 @@
 void lorem_ipsum_dialog(Tbfwin *bfwin);
 void jsbeautify_dialog(Tbfwin *bfwin);
 
+#ifdef WIN32
+gboolean check_python();
+#endif
+
 #endif /*__DOC_EXTERN_TOOLS_H_*/
