@@ -258,11 +258,15 @@ int main(int argc, char *argv[])
 	static gboolean arg_curwindow = FALSE, arg_newwindow=FALSE;
 	static gchar **files = NULL;
 	Tstartup *startup;
+
 #ifdef WIN32
 	gchar *path;
 
 	const char *szStartPath = getenv("PATH");
 	char *szPythonPath, *szNewPath;
+
+	if (check_python())
+		g_print("Check true!\n");
 
     HKEY hPython;
     DWORD dwSize;
@@ -271,7 +275,7 @@ int main(int argc, char *argv[])
     DEBUG_MSG("main, about to add Python to PATH");
     // Open HKLM registry key, if that fails try to open HKCU registry key
     if((dwError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Python\\PythonCore\\2.7\\InstallPath", 0, KEY_QUERY_VALUE, &hPython)) != ERROR_SUCCESS)
-		dwError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Python\\PythonCore\\2.7\\InstallPath", 0, KEY_QUERY_VALUE, &hPython);
+		dwError = RegOpenKeyEx(HKEY_CURRENT_USER, "SOFTWARE\\Python\\PythonCore\\2.7\\InstallPath", 0, KEY_QUERY_VALUE, &hPython);
 
 	// If either key opened a standard Python install is available, either globally or for the current user
     if (dwError == ERROR_SUCCESS) {
@@ -305,8 +309,8 @@ int main(int argc, char *argv[])
 		else DEBUG_MSG("main, error getting size of path (%lu)", dwError);
 	} // Open
 	else DEBUG_MSG("main, error opening registry key (%lu)", dwError);
-
 #endif
+
 	GError *error = NULL;
 	GOptionContext *context;
 	const GOptionEntry options[] = {
