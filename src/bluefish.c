@@ -265,9 +265,6 @@ int main(int argc, char *argv[])
 	const char *szStartPath = getenv("PATH");
 	char *szPythonPath, *szNewPath;
 
-	if (check_python())
-		g_print("Check true!\n");
-
     HKEY hPython;
     DWORD dwSize;
     DWORD dwError;
