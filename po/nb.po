@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-09-04 01:05+0200\n"
-"PO-Revision-Date: 2012-06-06 12:00+0200\n"
+"PO-Revision-Date: 2012-10-11 12:00+0200\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "Language: nb\n"
@@ -258,7 +258,6 @@ msgid "Insert file"
 msgstr "Sett inn fil"
 
 #: ../src/bfwin_uimanager.c:819
-#, fuzzy
 msgid "_Print..."
 msgstr "_Skriv ut"
 
@@ -740,14 +739,12 @@ msgid "Move current tab right"
 msgstr "Flytt aktiv tabulator mot høyre"
 
 #: ../src/bfwin_uimanager.c:939
-#, fuzzy
 msgid "_Recent Document"
-msgstr "_Neste dokument"
+msgstr "Nylig _redigerte dokumenter"
 
 #: ../src/bfwin_uimanager.c:939
-#, fuzzy
 msgid "Goto most recent document"
-msgstr "Gå til siste dokument"
+msgstr "Gå til sist redigerte dokument"
 
 #: ../src/bfwin_uimanager.c:941
 msgid "_First Document"
@@ -827,11 +824,11 @@ msgstr "Lim inn"
 
 #: ../src/bfwin_uimanager.c:960
 msgid "Paste _Special"
-msgstr ""
+msgstr "Lim inn _spesial"
 
 #: ../src/bfwin_uimanager.c:960
 msgid "Paste Special"
-msgstr ""
+msgstr "Lim in spesial"
 
 #: ../src/bfwin_uimanager.c:964
 msgid "_Find"
@@ -1294,21 +1291,20 @@ msgid "Unknown"
 msgstr "Ukjent"
 
 #: ../src/document.c:1674
-#, fuzzy
 msgid "_No"
-msgstr "_Gå til"
+msgstr "_Nei"
 
 #: ../src/document.c:1674
 msgid "_Split"
-msgstr ""
+msgstr "_Del"
 
 #: ../src/document.c:1677
 msgid "File contains very long lines. Split these lines?"
-msgstr ""
+msgstr "Filen inneholder veldig lange linjer. Del opp linjene?"
 
 #: ../src/document.c:1677
 msgid "The lines in this file are longer than Bluefish can handle."
-msgstr ""
+msgstr "Linjene i denne fila er lengre enn Bluefish kan håndtere."
 
 #: ../src/document.c:1740
 msgid "Cannot display file, unknown characters found."
@@ -1409,25 +1405,24 @@ msgid "No file to insert"
 msgstr "Du må velge en fil"
 
 #: ../src/document.c:3171
-#, fuzzy
 msgid "Save pasted image as"
-msgstr "Lagre fil som"
+msgstr "Lagre bilde som"
 
 #: ../src/document.c:3278
 msgid "Paste special"
-msgstr ""
+msgstr "Lim inn spesial"
 
 #: ../src/document.c:3285
 msgid "Paste as _HTML"
-msgstr ""
+msgstr "Lim inn som _HTML"
 
 #: ../src/document.c:3289
 msgid "Paste as HTML with _JPG"
-msgstr ""
+msgstr "Lim inn som HTML med _JPG"
 
 #: ../src/document.c:3291
 msgid "Paste as HTML _PNG"
-msgstr ""
+msgstr "Lim inn som HTML _PNG"
 
 #: ../src/document.c:3371
 #, c-format
@@ -1975,7 +1970,7 @@ msgstr "Vis skjulte filer"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1405
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -1986,10 +1981,10 @@ msgid ""
 msgstr ""
 "Filen %s har blitt endret.\n"
 "\n"
-"Filen var opprinnelig sist modifisert %s\n"
+"Filen ble sist modifisert %s\n"
 "Filen ble oppdatert %s\n"
-"Original størrelse var %lu\n"
-"Ny størrelse er %lu"
+"Original størrelse var %s byte\n"
+"Ny størrelse er %s byte"
 
 #: ../src/file_dialogs.c:1428
 msgid "_Unset file name"
@@ -2153,9 +2148,8 @@ msgid "Enable syntax scanning"
 msgstr "Skru på syntaksskanning"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Show _visible spacing"
-msgstr "Vis synlige mellomrom"
+msgstr "_Vis synlige mellomrom"
 
 #: ../src/preferences.c:553
 msgid "_Enable spell check"
@@ -2672,9 +2666,8 @@ msgid "<b>Misc</b>"
 msgstr "<b>Diverse</b>"
 
 #: ../src/preferences.c:2349
-#, fuzzy
 msgid "Strip trailing spaces on save"
-msgstr "Fjern blanke tegn på enden av hver linje"
+msgstr "Fjern blanke tegn på enden av hver linje ved lagring"
 
 #: ../src/preferences.c:2355
 msgid "Open co_mmandline files in running bluefish process"
@@ -3124,11 +3117,11 @@ msgstr "PHP"
 
 #: ../src/rcfile.c:891
 msgid "LaTex Book"
-msgstr ""
+msgstr "LaTeX bok"
 
 #: ../src/rcfile.c:894
 msgid "LaTex Presentation"
-msgstr ""
+msgstr "LaTeX Presentasjon"
 
 #: ../src/rcfile.c:1140
 msgid "Untitled Project"
