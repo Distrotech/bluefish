@@ -27,496 +27,496 @@
 </element>
 
 
-<tag name="a" highlight="html-tag" attribhighlight="html-attribute" attributes="href,target,ping,rel,media,hreflang,type,&globals;">
+<tag name="a" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="href,target,ping,rel,media,hreflang,type,&globals;">
 <reference>Hyperlink
 <b>Categories:</b> flow, phrasing*, interactive
 <b>Parents:</b> phrasing
 <b>Children:</b> transparent*
 <b>Interface:</b> HTMLAnchorElement</reference></tag>
-<tag name="abbr" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="abbr" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Abbreviation
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="address" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;"> 
+<tag name="address" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;"> 
 <reference>Contact information for a page or article element 
 <b>Categories:</b>flow 
 <b>Parents:</b>flow 
 <b>Children:</b>flow*
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="area" highlight="html-tag" attribhighlight="html-attribute" attributes="alt,coords,shape,href,target,ping,rel,media,hreflang,type,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="area" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="alt,coords,shape,href,target,ping,rel,media,hreflang,type,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Hyperlink or dead area on an image map
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing*
 <b>Children:</b> empty
 <b>Interface:</b> HTMLAreaElement</reference></tag>
-<tag name="article" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;"> 
+<tag name="article" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;"> 
 <reference>Self-contained syndicatable or reusable composition 
 <b>Categories:</b>flow; sectioning 
 <b>Parents:</b>flow 
 <b>Children:</b>flow 
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="aside" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="aside" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Sidebar for tangentially related content 
 <b>Categories:</b>flow; sectioning 
 <b>Parents:</b>flow 
 <b>Children:</b>flow
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="audio" highlight="html-tag" attribhighlight="html-attribute" attributes="src,crossorigin,preload,autoplay,mediagroup,loop,controls,muted,&globals;">
+<tag name="audio" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="src,crossorigin,preload,autoplay,mediagroup,loop,controls,muted,&globals;">
 <reference>Audio player 
 <b>Categories:</b>flow; phrasing; embedded; interactive 
 <b>Parents:</b>phrasing 
 <b>Children:</b>source*; transparent*
 <b>Interface:</b> HTMLAudioElement</reference></tag>
-<tag name="b" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="b" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Keywords
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="base" highlight="html-tag" attribhighlight="html-attribute" attributes="href,target,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="base" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="href,target,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Base URL and default targetbrowsing context forhyperlinks andforms
 <b>Categories:</b> metadata
 <b>Parents:</b> head
 <b>Children:</b> empty
 <b>Interface:</b> HTMLBaseElement</reference></tag>
-<tag name="bdi" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="bdi" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Text directionality isolation
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="bdo" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="bdo" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Text directionality formatting
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="blockquote" highlight="html-tag" attribhighlight="html-attribute" attributes="cite,&globals;">
+<tag name="blockquote" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="cite,&globals;">
 <reference>A section quoted from another source 
 <b>Categories:</b>flow; sectioning root 
 <b>Parents:</b>flow 
 <b>Children:</b>flow 
 <b>Interface:</b> HTMLQuoteElement</reference></tag>
-<tag name="body" highlight="html-tag" attribhighlight="html-attribute" attributes="onafterprint,onbeforeprint,onbeforeunload,onhashchange,onmessage,onoffline,ononline,onpagehide,onpageshow,onpopstate,onresize,onstorage,onunload,&globals;">
+<tag name="body" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="onafterprint,onbeforeprint,onbeforeunload,onhashchange,onmessage,onoffline,ononline,onpagehide,onpageshow,onpopstate,onresize,onstorage,onunload,&globals;">
 <reference>Document body 
 <b>Categories:</b>sectioning root 
 <b>Parents:</b>html 
 <b>Children:</b>flow 
 <b>Interface:</b> HTMLBodyElement</reference></tag>
-<tag name="br" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;" sgml_shorttag="1" no_close="1">
+<tag name="br" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;" sgml_shorttag="1" no_close="1">
 <reference>Line break, e.g. in poem or postal address
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> empty
 <b>Interface:</b> HTMLBRElement</reference></tag>
-<tag name="button" highlight="html-tag" attribhighlight="html-attribute" attributes="autofocus,disabled,form,formaction,formenctype,formmethod,formnovalidate,formtarget,name,type,value,&globals;">
+<tag name="button" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="autofocus,disabled,form,formaction,formenctype,formmethod,formnovalidate,formtarget,name,type,value,&globals;">
 <reference>Button control
 <b>Categories:</b> flow, phrasing, interactive, listed, labelable, submittable, form-associated
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing*
 <b>Interface:</b> HTMLButtonElement</reference></tag>
-<tag name="canvas" highlight="html-tag" attribhighlight="html-attribute" attributes="width,height,&globals;">
+<tag name="canvas" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="width,height,&globals;">
 <reference>Scriptable bitmap canvas
 <b>Categories:</b> flow, phrasing, embedded
 <b>Parents:</b> phrasing
 <b>Children:</b> transparent
 <b>Interface:</b> HTMLCanvasElement</reference></tag>
-<tag name="caption" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="caption" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Table caption
 <b>Categories:</b> none
 <b>Parents:</b> table
 <b>Children:</b> flow*
 <b>Interface:</b> HTMLTableCaptionElement</reference></tag>
-<tag name="cite" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="cite" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Title of a work
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="code" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="code" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Computer code
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="col" highlight="html-tag" attribhighlight="html-attribute" attributes="span,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="col" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="span,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Table column
 <b>Categories:</b> none
 <b>Parents:</b> colgroup
 <b>Children:</b> empty
 <b>Interface:</b> HTMLTableColElement</reference></tag>
-<tag name="colgroup" highlight="html-tag" attribhighlight="html-attribute" attributes="span,&globals;">
+<tag name="colgroup" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="span,&globals;">
 <reference>Group of columns in a table
 <b>Categories:</b> none
 <b>Parents:</b> table
 <b>Children:</b> col
 <b>Interface:</b> HTMLTableColElement</reference></tag>
-<tag name="command" highlight="html-tag" attribhighlight="html-attribute" attributes="type,label,icon,disabled,checked,radiogroup,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="command" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="type,label,icon,disabled,checked,radiogroup,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Menu command
 <b>Categories:</b> metadata, flow, phrasing
 <b>Parents:</b> head, phrasing
 <b>Children:</b> empty
 <b>Interface:</b> HTMLCommandElement</reference></tag>
-<tag name="datalist" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="datalist" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Container for options forcombo box control
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing, option
 <b>Interface:</b> HTMLDataListElement</reference></tag>
-<tag name="dd" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="dd" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Content for correspondingdt element(s)
 <b>Categories:</b> none
 <b>Parents:</b> dl
 <b>Children:</b> flow
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="del" highlight="html-tag" attribhighlight="html-attribute" attributes="cite,datetime,&globals;">
+<tag name="del" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="cite,datetime,&globals;">
 <reference>A removal from the document
 <b>Categories:</b> flow, phrasing*
 <b>Parents:</b> phrasing
 <b>Children:</b> transparent
 <b>Interface:</b> HTMLModElement</reference></tag>
-<tag name="details" highlight="html-tag" attribhighlight="html-attribute" attributes="open,&globals;">
+<tag name="details" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="open,&globals;">
 <reference>Disclosure control for hiding details
 <b>Categories:</b> flow, sectioning root, interactive
 <b>Parents:</b> flow
 <b>Children:</b> summary*, flow
 <b>Interface:</b> HTMLDetailsElement</reference></tag>
-<tag name="dfn" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="dfn" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Defining instance
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing*
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="div" block_name="DIV block" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="div" block_name="DIV block" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Generic flow container 
 <b>Categories:</b>flow 
 <b>Parents:</b>flow 
 <b>Children:</b>flow 
 <b>Interface:</b> HTMLDivElement</reference></tag>
-<tag name="dl" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="dl" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Association list consisting of zero or more name-value groups
 <b>Categories:</b> flow
 <b>Parents:</b> flow
 <b>Children:</b> dt*, dd*
 <b>Interface:</b> HTMLDListElement</reference></tag>
-<tag name="dt" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="dt" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Legend for corresponding dd element(s) 
 <b>Categories:</b>none 
 <b>Parents:</b>dl 
 <b>Children:</b>flow* 
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="em" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="em" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Stress emphasis
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="embed" highlight="html-tag" attribhighlight="html-attribute" attributes="src,type,width,height,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="embed" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="src,type,width,height,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Plugin. <i>Attributes: any.</i>
 <b>Categories:</b> flow, phrasing, embedded, interactive
 <b>Parents:</b> phrasing
 <b>Children:</b> empty
 <b>Interface:</b> HTMLEmbedElement</reference></tag>
-<tag name="fieldset" highlight="html-tag" attribhighlight="html-attribute" attributes="disabled,form,name,&globals;">
+<tag name="fieldset" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="disabled,form,name,&globals;">
 <reference>Group of form controls
 <b>Categories:</b> flow, sectioning root, listed, form-associated
 <b>Parents:</b> flow
 <b>Children:</b> legend*, flow
 <b>Interface:</b> HTMLFieldSetElement</reference></tag>
-<tag name="figcaption" highlight="html-not-supported-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="figcaption" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Caption forfigure
 <b>Categories:</b> none
 <b>Parents:</b> figure
 <b>Children:</b> flow
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="figure" highlight="html-not-supported-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="figure" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Figure with optional caption
 <b>Categories:</b> flow, sectioning root
 <b>Parents:</b> flow
 <b>Children:</b> figcaption*, flow
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="footer" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="footer" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Footer for a page or section 
 <b>Categories:</b>flow 
 <b>Parents:</b>flow 
 <b>Children:</b>flow* 
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="form" highlight="html-tag" attribhighlight="html-attribute" attributes="accept-charset,action,autocomplete,enctype,method,name,novalidate,target,&globals;">
+<tag name="form" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="accept-charset,action,autocomplete,enctype,method,name,novalidate,target,&globals;">
 <reference>User-submittable form
 <b>Categories:</b> flow
 <b>Parents:</b> flow
 <b>Children:</b> flow*
 <b>Interface:</b> HTMLFormElement</reference></tag>
-<tag name="h1" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="h1" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Section heading 
 <b>Categories:</b>flow; heading 
 <b>Parents:</b>hgroup; flow 
 <b>Children:</b>phrasing 
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
-<tag name="h2" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="h2" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Section heading
 <b>Categories:</b> flow, heading
 <b>Parents:</b> hgroup, flow
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
-<tag name="h3" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="h3" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Section heading
 <b>Categories:</b> flow, heading
 <b>Parents:</b> hgroup, flow
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
-<tag name="h4" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="h4" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Section heading
 <b>Categories:</b> flow, heading
 <b>Parents:</b> hgroup, flow
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
-<tag name="h5" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="h5" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Section heading
 <b>Categories:</b> flow, heading
 <b>Parents:</b> hgroup, flow
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
-<tag name="h6" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="h6" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Section heading
 <b>Categories:</b> flow, heading
 <b>Parents:</b> hgroup, flow
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
-<tag name="head" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="head" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Container for document metadata
 <b>Categories:</b> none
 <b>Parents:</b> html
 <b>Children:</b> metadata content*
 <b>Interface:</b> HTMLHeadElement</reference></tag>
-<tag name="header" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="header" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Introductory or navigational aids for a page or section 
 <b>Categories:</b>flow 
 <b>Parents:</b>flow 
 <b>Children:</b>flow* 
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="hgroup" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="hgroup" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>heading group 
 <b>Categories:</b>flow; heading 
 <b>Parents:</b>flow 
 <b>Children:</b>One or more h1, h2, h3, h4, h5, and/or h6 
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="hr" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;" sgml_shorttag="1" no_close="1">
+<tag name="hr" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;" sgml_shorttag="1" no_close="1">
 <reference>Thematic break
 <b>Categories:</b> flow
 <b>Parents:</b> flow
 <b>Children:</b> empty
 <b>Interface:</b> HTMLHRElement</reference></tag>
-<tag name="html" block_name="html-block" highlight="html-tag" attribhighlight="html-attribute" attributes="manifest,&globals;">
+<tag name="html" block_name="html-block" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="manifest,&globals;">
 <reference>Root element
 <b>Categories:</b> none
 <b>Parents:</b> none*
 <b>Children:</b> head*, body*
 <b>Interface:</b> HTMLHtmlElement</reference></tag>
-<tag name="i" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="i" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Alternate voice
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="iframe" highlight="html-tag" attribhighlight="html-attribute" attributes="src,srcdoc,name,sandbox,seamless,width,height,&globals;">
+<tag name="iframe" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="src,srcdoc,name,sandbox,seamless,width,height,&globals;">
 <reference>Nested browsing context
 <b>Categories:</b> flow, phrasing, embedded, interactive
 <b>Parents:</b> phrasing
 <b>Children:</b> text*
 <b>Interface:</b> HTMLIFrameElement</reference></tag>
-<tag name="img" highlight="html-tag" attribhighlight="html-attribute" attributes="alt,src,crossorigin,usemap,ismap,width,height,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="img" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="alt,src,crossorigin,usemap,ismap,width,height,&globals;" sgml_shorttag="1" no_close="1">
 <autocomplete append=" src=&#34;&#34; alt=&#34;&#34;&gt;" backup_cursor="9" />
 <reference>Image 
 <b>Categories:</b>flow; phrasing; embedded; interactive* 
 <b>Parents:</b>phrasing 
 <b>Children:</b>empty 
 <b>Interface:</b> HTMLImageElement</reference></tag>
-<tag name="input" highlight="html-tag" attribhighlight="html-attribute" attributes="accept,alt,autocomplete,autofocus,checked,dirname,disabled,form,formaction,formenctype,formmethod,formnovalidate,formtarget,height,list,max,maxlength,min,multiple,name,pattern,placeholder,readonly,required,size,src,step,type,value,width,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="input" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="accept,alt,autocomplete,autofocus,checked,dirname,disabled,form,formaction,formenctype,formmethod,formnovalidate,formtarget,height,list,max,maxlength,min,multiple,name,pattern,placeholder,readonly,required,size,src,step,type,value,width,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Form control
 <b>Categories:</b> flow, phrasing, interactive*, listed, labelable, submittable, resettable, form-associated
 <b>Parents:</b> phrasing
 <b>Children:</b> empty
 <b>Interface:</b> HTMLInputElement</reference></tag>
-<tag name="ins" highlight="html-tag" attribhighlight="html-attribute" attributes="cite,datetime,&globals;">
+<tag name="ins" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="cite,datetime,&globals;">
 <reference>An addition to the document
 <b>Categories:</b> flow, phrasing*
 <b>Parents:</b> phrasing
 <b>Children:</b> transparent
 <b>Interface:</b> HTMLModElement</reference></tag>
-<tag name="kbd" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="kbd" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>User input
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="keygen" highlight="html-tag" attribhighlight="html-attribute" attributes="autofocus,challenge,disabled,form,keytype,name,&globals;" sgml_shorttag="1">
+<tag name="keygen" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="autofocus,challenge,disabled,form,keytype,name,&globals;" sgml_shorttag="1">
 <reference>Cryptographic key-pair generator form control
 <b>Categories:</b> flow, phrasing, interactive, listed, labelable, submittable, resettable, form-associated
 <b>Parents:</b> phrasing
 <b>Children:</b> empty
 <b>Interface:</b> HTMLKeygenElement</reference></tag>
-<tag name="label" highlight="html-tag" attribhighlight="html-attribute" attributes="form,for,&globals;">
+<tag name="label" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="form,for,&globals;">
 <reference>Caption for a form control
 <b>Categories:</b> flow, phrasing, interactive, form-associated
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing*
 <b>Interface:</b> HTMLLabelElement</reference></tag>
-<tag name="legend" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="legend" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Caption forfieldset
 <b>Categories:</b> none
 <b>Parents:</b> fieldset
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLLegendElement</reference></tag>
-<tag name="li" highlight="html-tag" attribhighlight="html-attribute" attributes="value,&globals;">
+<tag name="li" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="value,&globals;">
 <reference>List item
 <b>Categories:</b> none
 <b>Parents:</b> ol;ul;menu
 <b>Children:</b> flow
 <b>Interface:</b> HTMLLIElement</reference></tag>
-<tag name="link" highlight="html-tag" attribhighlight="html-attribute" attributes="href,rel,media,hreflang,type,sizes,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="link" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="href,rel,media,hreflang,type,sizes,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Link metadata
 <b>Categories:</b> metadata, flow*, phrasing*
 <b>Parents:</b> head, noscript*, phrasing*
 <b>Children:</b> empty
 <b>Interface:</b> HTMLLinkElement</reference></tag>
-<tag name="map" highlight="html-tag" attribhighlight="html-attribute" attributes="name,&globals;">
+<tag name="map" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="name,&globals;">
 <reference>Image map
 <b>Categories:</b> flow, phrasing*
 <b>Parents:</b> phrasing
 <b>Children:</b> transparent, area*
 <b>Interface:</b> HTMLMapElement</reference></tag>
-<tag name="mark" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="mark" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Highlight
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="menu" highlight="html-tag" attribhighlight="html-attribute" attributes="type,label,&globals;">
+<tag name="menu" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="type,label,&globals;">
 <reference>Menu of commands
 <b>Categories:</b> flow, interactive*
 <b>Parents:</b> flow
 <b>Children:</b> li*, flow
 <b>Interface:</b> HTMLMenuElement</reference></tag>
-<tag name="meta" highlight="html-tag" attribhighlight="html-attribute" attributes="name,http-equiv,content,charset,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="meta" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="name,http-equiv,content,charset,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Text metadata
 <b>Categories:</b> metadata, flow*, phrasing*
 <b>Parents:</b> head, noscript*, phrasing*
 <b>Children:</b> empty
 <b>Interface:</b> HTMLMetaElement</reference></tag>
-<tag name="meter" highlight="html-tag" attribhighlight="html-attribute" attributes="value,min,max,low,high,optimum,form,&globals;">
+<tag name="meter" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="value,min,max,low,high,optimum,form,&globals;">
 <reference>Gauge 
 <b>Categories:</b>flow; phrasing; labelable 
 <b>Parents:</b>phrasing 
 <b>Children:</b>phrasing* 
 <b>Interface:</b> HTMLMeterElement</reference></tag>
-<tag name="nav" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="nav" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Section with navigational links 
 <b>Categories:</b>flow; sectioning 
 <b>Parents:</b>flow 
 <b>Children:</b>flow 
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="noscript" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="noscript" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Fallback content for script
 <b>Categories:</b> metadata, flow, phrasing
 <b>Parents:</b> head*, phrasing*
 <b>Children:</b> varies*
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="object" highlight="html-tag" attribhighlight="html-attribute" attributes="data,type,typemustmatch,name,usemap,form,width,height,&globals;">
+<tag name="object" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="data,type,typemustmatch,name,usemap,form,width,height,&globals;">
 <reference>Image, nested browsing context, or plugin 
 <b>Categories:</b>flow; phrasing; embedded; interactive*; listed; submittable; form-associated 
 <b>Parents:</b>phrasing 
 <b>Children:</b>param*; transparent 
 <b>Interface:</b> HTMLObjectElement</reference></tag>
-<tag name="ol" highlight="html-tag" attribhighlight="html-attribute" attributes="reversed,start,&globals;">
+<tag name="ol" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="reversed,start,&globals;">
 <reference>Ordered list
 <b>Categories:</b> flow
 <b>Parents:</b> flow
 <b>Children:</b> li
 <b>Interface:</b> HTMLOListElement</reference></tag>
-<tag name="optgroup" highlight="html-tag" attribhighlight="html-attribute" attributes="disabled,label,&globals;">
+<tag name="optgroup" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="disabled,label,&globals;">
 <reference>Group of options in a list box
 <b>Categories:</b> none
 <b>Parents:</b> select
 <b>Children:</b> option
 <b>Interface:</b> HTMLOptGroupElement</reference></tag>
-<tag name="option" highlight="html-tag" attribhighlight="html-attribute" attributes="disabled,label,selected,value,&globals;">
+<tag name="option" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="disabled,label,selected,value,&globals;">
 <reference>Option in a list box or combo box control
 <b>Categories:</b> none
 <b>Parents:</b> select, datalist, optgroup
 <b>Children:</b> text
 <b>Interface:</b> HTMLOptionElement</reference></tag>
-<tag name="output" highlight="html-tag" attribhighlight="html-attribute" attributes="for,form,name,&globals;">
+<tag name="output" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="for,form,name,&globals;">
 <reference>Calculated output value
 <b>Categories:</b> flow, phrasing, listed, labelable, resettable, form-associated
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLOutputElement</reference></tag>
-<tag name="p" highlight="html-tag" block_name="Paragraph block" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="p" highlight="html-tag" block_name="Paragraph block" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Paragraph 
 <b>Categories:</b>flow 
 <b>Parents:</b>flow 
 <b>Children:</b>phrasing 
 <b>Interface:</b> HTMLParagraphElement</reference></tag>
-<tag name="param" highlight="html-tag" attribhighlight="html-attribute" attributes="name,value,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="param" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="name,value,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Parameter forobject
 <b>Categories:</b> none
 <b>Parents:</b> object
 <b>Children:</b> empty
 <b>Interface:</b> HTMLParamElement</reference></tag>
-<tag name="pre" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="pre" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Block of preformatted text 
 <b>Categories:</b>flow 
 <b>Parents:</b>flow 
 <b>Children:</b>phrasing
 <b>Interface:</b> HTMLPreElement</reference></tag>
-<tag name="progress" highlight="html-tag" attribhighlight="html-attribute" attributes="value,max,form,&globals;">
+<tag name="progress" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="value,max,form,&globals;">
 <reference>Progress bar 
 <b>Categories:</b>flow; phrasing; labelable 
 <b>Parents:</b>phrasing 
 <b>Children:</b>phrasing* 
 <b>Interface:</b> HTMLProgressElement</reference></tag>
-<tag name="q" highlight="html-tag" attribhighlight="html-attribute" attributes="cite,&globals;">
+<tag name="q" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="cite,&globals;">
 <reference>Quotation
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLQuoteElement</reference></tag>
-<tag name="rp" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="rp" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Parenthesis for ruby annotation text
 <b>Categories:</b> none
 <b>Parents:</b> ruby
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="rt" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="rt" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Ruby annotation text
 <b>Categories:</b> none
 <b>Parents:</b> ruby
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="ruby" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="ruby" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Ruby annotation(s) 
 <b>Categories:</b>flow; phrasing 
 <b>Parents:</b>phrasing 
 <b>Children:</b>phrasing; rt; rp* 
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="s" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="s" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Inaccurate text
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="samp" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="samp" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Computer output
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 
-<tag name="script" id="t.html.script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="src,async,defer,type,charset,&globals;" attribhighlight="html-attribute" >
-	<autocomplete append=" type=&quot;text/javascript&quot; &gt;&#10;&#10;&lt;/script&gt;" backup_cursor="10" />
+<tag name="script" id="t.html.script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="src,async,defer,type,charset,&globals;" attribhighlight="html-attribute"  attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" >
+	<autocomplete append=" type=&quot;text/javascript&quot;&gt;&#10;&#10;&lt;/script&gt;" backup_cursor="10" />
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="cm.cpplinecomment"  commentid_block="none">
 		<element pattern="(" id="e.html.js.lparen" starts_block="1" highlight="js-brackets" block_name="Javascript Parentheses block" />
 		<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lparen" />
@@ -544,44 +544,44 @@
 <b>Parents:</b> head, phrasing
 <b>Children:</b> script, data, or script documentation*
 <b>Interface:</b> HTMLScriptElement</reference></tag>
-<tag name="section" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="section" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Generic document or application section 
 <b>Categories:</b>flow; sectioning 
 <b>Parents:</b>flow 
 <b>Children:</b>flow 
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="select" highlight="html-tag" attribhighlight="html-attribute" attributes="autofocus,disabled,form,multiple,name,required,size,&globals;">
+<tag name="select" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="autofocus,disabled,form,multiple,name,required,size,&globals;">
 <reference>List box control
 <b>Categories:</b> flow, phrasing, interactive, listed, labelable, submittable, resettable, form-associated
 <b>Parents:</b> phrasing
 <b>Children:</b> option,optgroup
 <b>Interface:</b> HTMLSelectElement</reference></tag>
-<tag name="small" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="small" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Side comment
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="source" highlight="html-tag" attribhighlight="html-attribute" attributes="src,type,media,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="source" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="src,type,media,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Media source forvideo oraudio
 <b>Categories:</b> none
 <b>Parents:</b> video, audio
 <b>Children:</b> empty
 <b>Interface:</b> HTMLSourceElement</reference></tag>
-<tag name="span" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="span" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Generic phrasing container
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLSpanElement</reference></tag>
-<tag name="strong" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="strong" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Importance
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 
-<tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="media,type,scoped,&globals;" attribhighlight="html-attribute"   attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+<tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="media,type,scoped,&globals;" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1">
 	<autocomplete append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" backup_cursor="9" />
 	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:" commentid_block="cm.cblockcomment" commentid_line="none">
 		<element idref="e.html.lcomment"/>
@@ -633,120 +633,120 @@
 <b>Children:</b> varies*
 <b>Interface:</b> HTMLStyleElement</reference>
 </tag>
-<tag name="sub" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="sub" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Subscript
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="summary" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="summary" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Caption fordetails
 <b>Categories:</b> none
 <b>Parents:</b> details
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="sup" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="sup" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Superscript
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<!-- <tag id="t.svg" name="svg" highlight="html-tag" attribhighlight="html-attribute"  attributes="baseProfile,class,contentScriptType,contentStyleType,externalResourcesRequired,height,&svguniv;,&svgevent;,onabort,onerror,onresize,onscroll,onunload,onzoom,preserveAspectRatio,requiredExtensions,requiredFeatures,style,systemLanguage,version,viewBox,width,x,y,zoomAndPan,baseline-shift,clip,color-interpolation,color-profile,cursor,display,enable-background,filter,font-family,opacity,overflow,xmlns">
+<!-- <tag id="t.svg" name="svg" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1"  attributes="baseProfile,class,contentScriptType,contentStyleType,externalResourcesRequired,height,&svguniv;,&svgevent;,onabort,onerror,onresize,onscroll,onunload,onzoom,preserveAspectRatio,requiredExtensions,requiredFeatures,style,systemLanguage,version,viewBox,width,x,y,zoomAndPan,baseline-shift,clip,color-interpolation,color-profile,cursor,display,enable-background,filter,font-family,opacity,overflow,xmlns">
 <context id="c.svg" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment" commentid_line="none">
 &svg;
 </context>
 </tag> -->
-<tag name="table" highlight="html-tag" attribhighlight="html-attribute" attributes="border,&globals;">
+<tag name="table" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="border,&globals;">
 <reference>Table 
 <b>Categories:</b>flow 
 <b>Parents:</b>flow 
 <b>Children:</b>caption*; colgroup*; thead*; tbody*; tfoot*; tr* 
 <b>Interface:</b> HTMLTableElement</reference></tag>
-<tag name="tbody" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="tbody" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Group of rows in a table
 <b>Categories:</b> none
 <b>Parents:</b> table
 <b>Children:</b> tr
 <b>Interface:</b> HTMLTableSectionElement</reference></tag>
-<tag name="td" highlight="html-tag" attribhighlight="html-attribute" attributes="colspan,rowspan,headers,&globals;">
+<tag name="td" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="colspan,rowspan,headers,&globals;">
 <reference>Table cell
 <b>Categories:</b> sectioning root
 <b>Parents:</b> tr
 <b>Children:</b> flow
 <b>Interface:</b> HTMLTableDataCellElement</reference></tag>
-<tag name="textarea" highlight="html-tag" attribhighlight="html-attribute" attributes="autofocus,cols,dirname,disabled,form,maxlength,name,placeholder,readonly,required,rows,wrap,&globals;">
+<tag name="textarea" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="autofocus,cols,dirname,disabled,form,maxlength,name,placeholder,readonly,required,rows,wrap,&globals;">
 <reference>Multiline text field 
 <b>Categories:</b>flow; phrasing; interactive; listed; labelable; submittable; resettable; form-associated 
 <b>Parents:</b>phrasing 
 <b>Children:</b>text 
 <b>Interface:</b> HTMLTextAreaElement</reference></tag>
-<tag name="tfoot" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="tfoot" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Group of footer rows in a table
 <b>Categories:</b> none
 <b>Parents:</b> table
 <b>Children:</b> tr
 <b>Interface:</b> HTMLTableSectionElement</reference></tag>
-<tag name="th" highlight="html-tag" attribhighlight="html-attribute" attributes="colspan,rowspan,headers,scope,&globals;">
+<tag name="th" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="colspan,rowspan,headers,scope,&globals;">
 <reference>Table header cell 
 <b>Categories:</b>none 
 <b>Parents:</b>tr 
 <b>Children:</b>flow* 
 <b>Interface:</b> HTMLTableHeaderCellElement</reference></tag>
-<tag name="thead" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="thead" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Group of heading rows in a table
 <b>Categories:</b> none
 <b>Parents:</b> table
 <b>Children:</b> tr
 <b>Interface:</b> HTMLTableSectionElement</reference></tag>
-<tag name="time" highlight="html-tag" attribhighlight="html-attribute" attributes="datetime,&globals;">
+<tag name="time" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="datetime,&globals;">
 <reference>Machine-readable equivalent of date- or time-related data 
 <b>Categories:</b>flow; phrasing 
 <b>Parents:</b>phrasing 
 <b>Children:</b>phrasing 
 <b>Interface:</b> HTMLTimeElement</reference></tag>
-<tag name="title" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="title" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Document title
 <b>Categories:</b> metadata
 <b>Parents:</b> head
 <b>Children:</b> text
 <b>Interface:</b> HTMLTitleElement</reference></tag>
-<tag name="tr" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="tr" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Table row
 <b>Categories:</b> none
 <b>Parents:</b> table, thead, tbody, tfoot
 <b>Children:</b> th*, td
 <b>Interface:</b> HTMLTableRowElement</reference></tag>
-<tag name="track" highlight="html-tag" attribhighlight="html-attribute" attributes="default,kind,label,src,srclang,&globals;" sgml_shorttag="1">
+<tag name="track" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="default,kind,label,src,srclang,&globals;" sgml_shorttag="1">
 <reference>Timed text track
 <b>Categories:</b> none
 <b>Parents:</b> audio, video
 <b>Children:</b> empty
 <b>Interface:</b> HTMLTrackElement</reference></tag>
-<tag name="u" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="u" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Keywords 
 <b>Categories:</b>flow; phrasing 
 <b>Parents:</b>phrasing 
 <b>Children:</b>phrasing 
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="ul" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="ul" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>List
 <b>Categories:</b> flow
 <b>Parents:</b> flow
 <b>Children:</b> li
 <b>Interface:</b> HTMLUListElement</reference></tag>
-<tag name="var" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="var" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Variable
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="video" highlight="html-tag" attribhighlight="html-attribute" attributes="src,crossorigin,poster,preload,autoplay,mediagroup,loop,muted,controls,width,height,&globals;">
+<tag name="video" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="src,crossorigin,poster,preload,autoplay,mediagroup,loop,muted,controls,width,height,&globals;">
 <reference>Video player 
 <b>Categories:</b>flow; phrasing; embedded; interactive 
 <b>Parents:</b>phrasing 
 <b>Children:</b>source*; transparent* 
 <b>Interface:</b> HTMLVideoElement</reference></tag>
-<tag name="wbr" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;" sgml_shorttag="1">
+<tag name="wbr" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;" sgml_shorttag="1">
 <reference>Line breaking opportunity
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing
