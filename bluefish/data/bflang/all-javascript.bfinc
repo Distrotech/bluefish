@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		all-javascript.bfinc $Revision$
  
-		Copyright (C) 2008-2011 Olivier Sessink
+		Copyright (C) 2008-2012 Olivier Sessink
 
 		This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -24,22 +24,35 @@
 <group highlight="js-keyword" >
 	<autocomplete enable="1" />
 	<element pattern="break" />
-	<element pattern="case" />
+	<element pattern="case">
+		<autocomplete append=" :" backup_cursor="1" />
+	</element>
 	<element pattern="catch" />
 	<element pattern="continue" />
 	<element pattern="default" />
 	<element pattern="delete" />
-	<element pattern="do" />
+	<element pattern="do">
+		<autocomplete append="() {&#10;&#9;&#10;} while();" backup_cursor="2" />
+	</element>
 	<element pattern="else" />
 	<element pattern="finally" />
-	<element pattern="for" />
-	<element pattern="function" />
-	<element pattern="if" />
+	<element pattern="for">
+		<autocomplete append=" (var i = 0; i &lt; 10; i++) {&#10;&#9;&#10;}" backup_cursor="2" />
+		<autocomplete append=" (var i in ) {&#10;&#9;&#10;}" backup_cursor="7" />
+	</element>
+	<element pattern="function">
+		<autocomplete append=" () {&#10;&#9;&#10;}" backup_cursor="8" />
+	</element>
+	<element pattern="if">
+		<autocomplete append=" () {&#10;&#9;&#10;}" backup_cursor="7" />
+	</element>
 	<element pattern="in" />
 	<element pattern="instanceof" />
 	<element pattern="new" />
 	<element pattern="return" />
-	<element pattern="switch" />
+	<element pattern="switch">
+		<autocomplete append="() {&#10;&#9;case :&#10;&#9;&#9;break;&#10;&#9;default:&#10;}" backup_cursor="32" />
+	</element>
 	<element pattern="this" />
 	<element pattern="throw" />
 	<element pattern="try" />
