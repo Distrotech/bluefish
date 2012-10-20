@@ -27,38 +27,53 @@
 	<element pattern="case">
 		<autocomplete append=" :" backup_cursor="1" />
 	</element>
-	<element pattern="catch" />
+	<element pattern="catch" >
+		<autocomplete append=" () {&#10;&#9;&#10;}" backup_cursor="8" class="autocomplete_with_newlines"/>
+		<autocomplete append=" () {" backup_cursor="4" notclass="autocomplete_with_newlines"/>
+	</element>
 	<element pattern="continue" />
 	<element pattern="default" />
 	<element pattern="delete" />
 	<element pattern="do">
-		<autocomplete append="() {&#10;&#9;&#10;} while();" backup_cursor="2" />
+		<autocomplete append=" {&#10;&#9;&#10;}" backup_cursor="2" class="autocomplete_with_newlines"/>
+		<autocomplete append=" {" notclass="autocomplete_with_newlines"/>
 	</element>
-	<element pattern="else" />
+	<element pattern="else" >
+		<autocomplete append=" {&#10;&#9;&#10;}" backup_cursor="2" class="autocomplete_with_newlines"/>
+		<autocomplete append=" {" notclass="autocomplete_with_newlines"/>
+	</element>
 	<element pattern="finally" />
 	<element pattern="for">
-		<autocomplete append=" (var i = 0; i &lt; 10; i++) {&#10;&#9;&#10;}" backup_cursor="2" />
-		<autocomplete append=" (var i in ) {&#10;&#9;&#10;}" backup_cursor="7" />
+		<autocomplete append=" () {&#10;&#9;&#10;}" backup_cursor="7" class="autocomplete_with_newlines"/>
+		<autocomplete append=" () {" backup_cursor="3" notclass="autocomplete_with_newlines"/>
 	</element>
 	<element pattern="function">
-		<autocomplete append=" () {&#10;&#9;&#10;}" backup_cursor="8" />
+		<autocomplete append=" () {&#10;&#9;&#10;}" backup_cursor="8" class="autocomplete_with_newlines"/>
+		<autocomplete append=" () {" backup_cursor="4" notclass="autocomplete_with_newlines"/>
 	</element>
 	<element pattern="if">
-		<autocomplete append=" () {&#10;&#9;&#10;}" backup_cursor="7" />
+		<autocomplete append=" () {&#10;&#9;&#10;}" backup_cursor="7" class="autocomplete_with_newlines"/>
+		<autocomplete append=" () {" backup_cursor="3" notclass="autocomplete_with_newlines"/>
 	</element>
 	<element pattern="in" />
 	<element pattern="instanceof" />
 	<element pattern="new" />
 	<element pattern="return" />
 	<element pattern="switch">
-		<autocomplete append="() {&#10;&#9;case :&#10;&#9;&#9;break;&#10;&#9;default:&#10;}" backup_cursor="32" />
+		<autocomplete append="() {&#10;&#9;&#10;}" backup_cursor="7" class="autocomplete_with_newlines"/>
+		<autocomplete append="() {" backup_cursor="3" notclass="autocomplete_with_newlines"/>
 	</element>
 	<element pattern="this" />
 	<element pattern="throw" />
-	<element pattern="try" />
+	<element pattern="try" >
+		<autocomplete append=" {&#10;&#9;&#10;}" backup_cursor="2" class="autocomplete_with_newlines"/>
+		<autocomplete append=" {" notclass="autocomplete_with_newlines"/>
+	</element>
 	<element pattern="var" />
 	<element pattern="void" />
-	<element pattern="while" />
+	<element pattern="while" >
+		<autocomplete append=" ()" backup_cursor="1"/>
+	</element>
 	<element pattern="with" />
 </group>
 <!-- ECMA-262 reserved words -->
