@@ -71,7 +71,7 @@ lorem_ipsum_dialog(Tbfwin *bfwin)
 								 i == 2 ? "" : (i==1 ? "-f html-li" : "-f html-p")
 								 );
 #endif
-		custom_command(bfwin, command, lorem_ipsum_command_callback, NULL);
+		custom_command(bfwin, command, (CustomCommandCallback) lorem_ipsum_command_callback, NULL);
 		g_free(command);
 	break;
 	default:
