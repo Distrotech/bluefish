@@ -57,7 +57,7 @@ vcs_commit_dialog_lcb(GtkDialog *dialog,gint response,gpointer user_data)
 		gtk_text_buffer_get_bounds(buffer,&si,&ei);
 		message = gtk_text_buffer_get_text(buffer, &si, &ei, TRUE);
 		vcs_commit_real(vg->bfwin, vg->vs, list, message);
-		g_list_foreach(list, g_free, NULL);
+		g_list_foreach(list, (GFunc) g_free, NULL);
 		g_list_free(list);
 		g_free(message);
 	}
@@ -97,7 +97,7 @@ vcs_commit_dialog(Tbfwin *bfwin, Tvcssession *vs)
 
 	vg->filestore = gtk_list_store_new(2, G_TYPE_BOOLEAN, G_TYPE_STRING);
 
-	vg->fileview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(vg->filestore));
+	vg->fileview = GTK_TREE_VIEW(gtk_tree_view_new_with_model(GTK_TREE_MODEL(vg->filestore)));
 	renderer = gtk_cell_renderer_toggle_new();
 	column = gtk_tree_view_column_new_with_attributes(_("Include"), renderer, "active", 0, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(vg->fileview), column);
@@ -114,7 +114,7 @@ vcs_commit_dialog(Tbfwin *bfwin, Tvcssession *vs)
 	gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 4);
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_vseparator_new(), FALSE, FALSE, 4);
 
-	vg->tview = gtk_text_view_new();
+	vg->tview = GTK_TEXT_VIEW(gtk_text_view_new());
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), GTK_WIDGET(vg->tview));

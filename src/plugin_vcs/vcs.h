@@ -52,5 +52,6 @@ typedef struct {
 
 typedef void (*VcsStatusCallback) (gpointer vcsdialog, GList *statuslist);
 void vcs_status(Tbfwin *bfwin, Tvcssession *vs, gpointer data);
+void vcs_commit_real(Tbfwin *bfwin, Tvcssession *vs, GList *files, const gchar *message);
 
 #endif /* __VCS_H_  */
