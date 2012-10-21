@@ -30,6 +30,7 @@
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
+#include "doc_text_tools.h"
 #include "file_autosave.h"
 #include "file.h"
 #include "filebrowser2.h"
