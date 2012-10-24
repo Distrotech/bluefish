@@ -615,6 +615,31 @@ quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	html_diag_destroy_cb(NULL, dg);
 }
 
+static gboolean
+string_looks_like_url(gchar *string)
+{
+	gint len;
+	if (string == NULL)
+		return FALSE;
+	if (strchr(string, '\n')!=NULL)
+		return FALSE;
+	if (strchr(string, '\t')!=NULL)
+		return FALSE;
+	if (strchr(string, '\r')!=NULL)
+		return FALSE;
+	if (strncmp(string,"http://", 7)==0 ||  
+	 			strncmp(string,"https://", 8)==0 ||
+	 			strncmp(string,"ftp://", 6)==0) {
+	 	return TRUE;
+	}
+	/* look for an extension and no spaces */
+	if (g_regex_match_simple("^[a-z0-9]+\\.[a-z]{3,5}$",string,G_REGEX_CASELESS|G_REGEX_ANCHORED,0)) {
+		/*g_print("%s matches regex\n",string);*/
+		return TRUE;
+	}
+	return FALSE;
+}
+
 void
 quickanchor_dialog(Tbfwin * bfwin, Ttagpopup * data)
 {
@@ -622,7 +647,11 @@ quickanchor_dialog(Tbfwin * bfwin, Ttagpopup * data)
 "onmousemove", "onmouseout", "onmouseup", "onkeydown", "onkeypress", "class", "id", "style", "lang", "title", NULL };
 	gchar *custom = NULL;
 	gchar *avalues[19];
+	gchar *url=NULL;
 	Thtml_diag *dg;
+	gint so, eo;
+	GList *rel_link_list = NULL, *tmplist;
+
 
 	GtkWidget *noteb, *dgtable, *file_but;
 	DEBUG_MSG("quickanchor_dialog, bfwin=%p, data=%p\n", bfwin, data);
@@ -633,17 +662,24 @@ quickanchor_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	gtk_box_pack_start(GTK_BOX(dg->vbox), noteb, FALSE, FALSE, 0);
 
 	dgtable = generic_table_inside_notebookframe(noteb, _("Attributes"), 9,3);
-
-	{
-		GList *rel_link_list = NULL, *tmplist;
-		rel_link_list = list_relative_document_filenames(bfwin->current_document);
-		tmplist = duplicate_stringlist(bfwin->session->urllist, 1);
-		rel_link_list = g_list_concat(tmplist, rel_link_list);
-
-		dg->combo[2] = html_diag_combobox_with_popdown(avalues[0], rel_link_list, 1);
-
-		free_stringlist(rel_link_list);
+	if (avalues[0] != NULL && avalues[0][0] != '\0') {
+		url = g_strdup(avalues[0]);
+	} else if (doc_get_selection(bfwin->current_document, &so, &eo)){
+		gchar *tmp = doc_get_chars(bfwin->current_document, so, eo);
+		/* if the current selected text is an URL, use it */
+		if (string_looks_like_url(tmp)) {
+			url = tmp;
+		} else {
+			g_free(tmp);
+		}
 	}
+	rel_link_list = list_relative_document_filenames(bfwin->current_document);
+	tmplist = duplicate_stringlist(bfwin->session->urllist, 1);
+	rel_link_list = g_list_concat(tmplist, rel_link_list);
+	dg->combo[2] = html_diag_combobox_with_popdown(url, rel_link_list, 1);
+
+	free_stringlist(rel_link_list);
+	g_free(url);
 	file_but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[2]))), 0, bfwin);
 	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 2,3, 0,1, GTK_SHRINK, GTK_SHRINK, 0,0);
 	dialog_mnemonic_label_in_table(_("_HREF:"), dg->combo[2], dgtable, 0,1, 0,1);
