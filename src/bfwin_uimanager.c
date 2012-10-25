@@ -1187,15 +1187,25 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewStatusbar", bfwin->session->view_statusbar);
 
 	/* now the toolbars */
-
+#if GTK_CHECK_VERSION(3,4,0)
+	bfwin->main_toolbar_hb = gtk_grid_new();
+	gtk_orientable_set_orientation(GTK_ORIENTABLE(bfwin->main_toolbar_hb), GTK_ORIENTATION_HORIZONTAL);
+	bfwin->html_toolbar_hb = gtk_grid_new();
+	gtk_orientable_set_orientation(GTK_ORIENTABLE(bfwin->html_toolbar_hb), GTK_ORIENTATION_HORIZONTAL);
+#else
 	bfwin->main_toolbar_hb = gtk_handle_box_new();
-	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->main_toolbar_hb, FALSE, FALSE, 0);
 	bfwin->html_toolbar_hb = gtk_handle_box_new();
+#endif
+	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->main_toolbar_hb, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->html_toolbar_hb, FALSE, FALSE, 0);
 
 	toolbar = gtk_ui_manager_get_widget(manager, "/MainToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_toolbar_set_icon_size(GTK_TOOLBAR(toolbar), GTK_ICON_SIZE_LARGE_TOOLBAR);
+#if GTK_CHECK_VERSION(3,4,0)
+	/* This shouldn't be necessary, but work around a sizing issue when using GtkGrid */
+	gtk_toolbar_set_show_arrow(GTK_TOOLBAR(toolbar), FALSE);
+#endif
 	gtk_container_add(GTK_CONTAINER(bfwin->main_toolbar_hb), toolbar);
 
 	gtk_widget_show(toolbar);
