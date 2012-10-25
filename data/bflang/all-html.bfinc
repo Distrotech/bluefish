@@ -144,6 +144,7 @@
 </tag>
 
 <group highlight="html-reference-external-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+	<autocomplete append="&gt;" />
 	<tag name="a" case_insens="1" sgml_shorttag="1" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" >
 		<autocomplete append=" href=&#34;&#34; &gt;" />
 		<reference>The a tag defines an anchor, but it is usually referred to as a link or a hyperlink. An anchor can be used in two ways:
@@ -166,6 +167,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 </group>
 
 <group highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+	<autocomplete append="&gt;" />
 	<tag name="abbr" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines an abbreviation</reference>
 	</tag>
@@ -312,6 +314,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 </group>
 
 <group highlight="html-deprecated-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+	<autocomplete append="&gt;" />
 	<tag name="applet" case_insens="1" sgml_shorttag="1" attributes="&univ;,align,alt,archive,code,codebase,height,hspace,name,object,vspace,width">
 		<reference>Defines an embedded Java applet (<b>deprecated</b>)</reference>
 	</tag>
@@ -342,6 +345,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 </group>
 
 <group highlight="html-deprecated-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+	<autocomplete append="&gt;" />
 	<tag name="frame" case_insens="1" sgml_shorttag="1" attributes="&univ;,frameborder,longdesc,marginwidth,marginheight,name,noresize,scrolling,src">
 		<reference>Defines a particular window (frame) within a frameset</reference>
 	</tag>
@@ -354,6 +358,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 </group>
 
 <group highlight="html-form-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+	<autocomplete append="&gt;" />
 	<tag name="fieldset" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines a border around elements in a form</reference>
 	</tag>
@@ -416,6 +421,7 @@ Initial text here.
 </group>
 
 <group highlight="html-table-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+	<autocomplete append="&gt;" />
 	<tag name="table" case_insens="1" sgml_shorttag="1" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" >
 		<autocomplete append=" summary=&quot;&quot; &gt;&#10;&#10;&lt;/table&gt;" backup_cursor="9" />
 		<reference>Defines a table</reference>
