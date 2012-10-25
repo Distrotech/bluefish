@@ -738,6 +738,7 @@ quickanchor_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dialog_mnemonic_label_in_table(_("OnKe_yUp:"), dg->entry[14], dgtable, 0,1, 9,10);
 
 	html_diag_finish(dg, G_CALLBACK(quickanchorok_lcb));
+	gtk_widget_grab_focus(dg->combo[2]);
 	if (custom)
 		g_free(custom);
 }
