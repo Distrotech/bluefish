@@ -201,6 +201,7 @@
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 		<tag idref="t.xhtml.script" />
 		<group highlight="reference-external-tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+			<autocomplete enable="1" />
 			<tag name="a" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" >
 				<autocomplete append=" href=&#34;&#34; &gt;" />
 			</tag>
@@ -214,6 +215,7 @@
 			</tag>
 		</group>
 		<group highlight="tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+			<autocomplete enable="1" />
 			<tag name="abbr" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="acronym" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="address" attributes="&univ;,&i18n;,&evnt;"/>
@@ -265,9 +267,10 @@
 			<tag name="var" attributes="&univ;,&i18n;,&evnt;"/>
 		</group>
 		<group highlight="form-tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+			<autocomplete enable="1" />
 			<tag name="fieldset" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="form" attributes="&univ;,&i18n;,&evnt;,accept,accept-charset,action,enctype,method,onsubmit,onreset"/>
-			<tag name="input" attributes="&univ;,&i18n;,&evnt;,type,name,value,checked,disabled,readonly,size,maxlength,src,alt,usemap,onselect,onchange,accept,accesskey,tabindex,onfocus,onblur"/>
+			<tag name="input" attributes="&univ;,&i18n;,&evnt;,type,name,value,checked,disabled,readonly,size,maxlength,src,alt,usemap,onselect,onchange,accept,accesskey,tabindex,onfocus,onblur" no_close="1"/>
 			<tag name="label" attributes="&univ;,&i18n;,&evnt;,accesskey,for,onfocus,onblur"/>
 			<tag name="legend" attributes="&univ;,&i18n;,&evnt;,accesskey"/>
 			<tag name="optgroup" attributes="&univ;,&i18n;,&evnt;,disabled,label"/>
@@ -276,6 +279,7 @@
 			<tag name="textarea" attributes="&univ;,&i18n;,&evnt;,name,rows,cols,disabled,readonly,onselect,onchange"/>
 		</group>
 		<group highlight="table-tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+			<autocomplete enable="1" />
 			<tag name="table" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" >
 				<autocomplete append=" summary=&quot;&quot; &gt;" />
 			</tag>
