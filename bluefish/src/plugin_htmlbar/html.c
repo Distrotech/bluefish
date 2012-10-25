@@ -633,7 +633,7 @@ string_looks_like_url(gchar *string)
 	 	return TRUE;
 	}
 	/* look for an extension and no spaces */
-	if (g_regex_match_simple("^[a-z0-9]+\\.[a-z]{3,5}$",string,G_REGEX_CASELESS|G_REGEX_ANCHORED,0)) {
+	if (g_regex_match_simple("^[\\./a-z0-9]+\\.[a-z]{3,5}$",string,G_REGEX_CASELESS|G_REGEX_ANCHORED,0)) {
 		/*g_print("%s matches regex\n",string);*/
 		return TRUE;
 	}
