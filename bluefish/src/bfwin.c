@@ -1220,7 +1220,7 @@ static gboolean
 bfwin_key_press_event(GtkWidget *widget,GdkEventKey  *kevent,gpointer   user_data)
 {
 	/*g_print("bfwin_key_press_event, key=%d, state=%d\n",kevent->keyval,kevent->state);*/
-	if (kevent->keyval == GDK_KEY_Tab && kevent->state & GDK_CONTROL_MASK) {
+	if (kevent->keyval == GDK_KEY_Tab && (kevent->state & GDK_CONTROL_MASK)) {
 		gint i;
 		Tdocument *doc;
 		GList *tmplist;
@@ -1314,7 +1314,9 @@ bfwin_create_main(Tbfwin * bfwin)
 
 	/* first a menubar */
 	bfwin->uimanager = gtk_ui_manager_new();
+#if !GTK_CHECK_VERSION(3,4,0)
 	gtk_ui_manager_set_add_tearoffs(bfwin->uimanager, TRUE);
+#endif
 	bfwin_main_ui_init(bfwin, bfwin->toolbarbox);
 
 	/* then the toolbars */
