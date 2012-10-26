@@ -116,9 +116,19 @@ widget_get_string_size(GtkWidget * widget, gchar * string)
 	gint retval = -1;
 	layout = gtk_widget_create_pango_layout(widget, string);
 	if (layout != NULL) {
+/*		PangoFontDescription *pfd = pango_layout_get_font_description(layout);
+		if (pfd) {
+			gchar *tmp = pango_font_description_to_string(pfd);
+			g_print("widget_get_string_size, widget=%p, use font %s\n",widget, tmp);
+			g_free(tmp);
+		} else {
+			g_print("widget_get_string_size, widget=%p has a NULL font description\n",widget);
+		}*/
 		pango_layout_get_pixel_size(layout, &retval, NULL);
 		g_object_unref(G_OBJECT(layout));
-	}
+	}/* else {
+		g_print("widget_get_string_size, failed to get a pango layout for widget %p\n",widget);
+	}*/
 	return retval;
 }
 
@@ -697,7 +707,12 @@ apply_font_style(GtkWidget * this_widget, gchar * fontstring)
 	if (fontstring && fontstring[0] != '\0') {
 		PangoFontDescription *font_desc;
 		font_desc = pango_font_description_from_string(fontstring);
+		DEBUG_MSG("apply_font_style, set font %s (desc=%p) to widget %p\n",fontstring,font_desc,this_widget);
+#if GTK_CHECK_VERSION(3,0,0)
+		gtk_widget_override_font(this_widget, font_desc);
+#else
 		gtk_widget_modify_font(this_widget, font_desc);
+#endif
 		pango_font_description_free(font_desc);
 	}
 	return this_widget;

@@ -588,19 +588,14 @@ static gint
 textview_calculate_real_tab_width(GtkWidget * textview, gint tab_size)
 {
 	gchar *tab_string;
-	gint counter = 0;
 	gint tab_width = 0;
 
 	if (tab_size <= 0)
 		return 0;
 
-	tab_string = g_malloc(tab_size + 1);
-	while (counter < tab_size) {
-		tab_string[counter] = ' ';
-		counter++;
-	}
-	tab_string[tab_size] = '\0';
+	tab_string = g_strnfill(tab_size, ' ');
 	tab_width = widget_get_string_size(textview, tab_string);
+	DEBUG_MSG("textview_calculate_real_tab_width, got %d for '%s' on widget %p\n",tab_width,tab_string,textview);
 	g_free(tab_string);
 /*	if (tab_width < 0) tab_width = 0;*/
 	return tab_width;
@@ -644,7 +639,7 @@ doc_get_tabsize(Tdocument * doc)
 		singlesize = textview_calculate_real_tab_width(doc->view, 1);
 		pango_tab_array_get_tab(tab_array, 0, &align, &setsize);
 		pango_tab_array_free(tab_array);
-
+		DEBUG_MSG("doc_get_tabsize, return %d/%d=%d\n",setsize,singlesize,setsize/singlesize);
 		return setsize / singlesize;
 	}
 	return 8;
@@ -2428,6 +2423,14 @@ doc_focus_out_lcb(GtkWidget *widget,GdkEvent  *event, Tdocument *doc)
 	return FALSE;
 }  
 
+static void
+doc_view_style_updated_lcb(GtkWidget *widget, gpointer user_data)
+{
+	Tdocument *doc =user_data;
+	DEBUG_MSG("doc_view_style_updated_lcb\n");
+	doc_set_tabsize(doc, BFWIN(doc->bfwin)->session->editor_tab_width);
+}
+
 Tdocument *
 doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean init_fileinfo)
 {
@@ -2551,7 +2554,8 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(bfwin->notebook), newdoc->vsplit, TRUE);
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize(newdoc, BFWIN(bfwin)->session->editor_tab_width);
-
+	g_signal_connect(G_OBJECT(newdoc->view), "style-updated",
+					 G_CALLBACK(doc_view_style_updated_lcb), newdoc);
 	return newdoc;
 }
 
@@ -3035,10 +3039,10 @@ doc_activate(Tdocument * doc)
 	BFWIN(doc->bfwin)->last_activated_doc = doc;
 	if (BFWIN(doc->bfwin)->recentdoclist != doc->recentpos) {
 		/* put this document on top of the recentlist */
-		g_print("put this document %p with recentpos %p on top of the recentlist %p\n", doc,doc->recentpos,BFWIN(doc->bfwin)->recentdoclist);
+		DEBUG_MSG("put this document %p with recentpos %p on top of the recentlist %p\n", doc,doc->recentpos,BFWIN(doc->bfwin)->recentdoclist);
 		GList * tmp = g_list_remove_link(BFWIN(doc->bfwin)->recentdoclist, doc->recentpos);
 		BFWIN(doc->bfwin)->recentdoclist = g_list_concat(doc->recentpos, BFWIN(doc->bfwin)->recentdoclist);
-		g_print("recentlist now starts at %p\n", BFWIN(doc->bfwin)->recentdoclist);
+		DEBUG_MSG("recentlist now starts at %p\n", BFWIN(doc->bfwin)->recentdoclist);
 	}
 	
 	doc_start_modified_check(doc);
@@ -3180,7 +3184,7 @@ paste_image_save_lcb(TcheckNsave_status status, GError * gerror, gpointer callba
 static void
 image_received(GtkClipboard *clipboard,GdkPixbuf *pixbuf,gpointer data)
 {
-	g_print("image_received, started, got %p\n", pixbuf);
+	DEBUG_MSG("image_received, started, got %p\n", pixbuf);
 	if (!pixbuf) {
 		g_print("no pixbuf received\n");
 		return;
@@ -3230,11 +3234,11 @@ static void
 paste_special_image(Tbfwin *bfwin, gboolean jpeg) 
 {
 	GtkClipboard *cb;
-	g_print("paste_special_image, started\n");
+	DEBUG_MSG("paste_special_image, started\n");
 	cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 
 	gtk_clipboard_request_image(cb,image_received,bfwin);
-	g_print("paste_special_image, requested image, waiting...\n");
+	DEBUG_MSG("paste_special_image, requested image, waiting...\n");
 }
 
 static void
@@ -3248,8 +3252,8 @@ html_received(GtkClipboard *clipboard,GtkSelectionData *seldat,gpointer data)
 	GRegex *reg;
 	GError *gerror=NULL;
 	GMatchInfo *match_info;
-	g_print("got %d bytes of data\n",gtk_selection_data_get_length(seldat));
-	g_print("got data '%s'\n", gtk_selection_data_get_data(seldat));
+	DEBUG_MSG("got %d bytes of data\n",gtk_selection_data_get_length(seldat));
+	DEBUG_MSG("got data '%s'\n", gtk_selection_data_get_data(seldat));
 	
 	reg = g_regex_new("<body[^>]*>(.*)</body>",G_REGEX_CASELESS|G_REGEX_MULTILINE|G_REGEX_DOTALL,0,&gerror);
 	if (!reg) {
@@ -3270,11 +3274,11 @@ paste_special_html(Tbfwin *bfwin)
 {
 	GtkClipboard *cb;
 	GdkAtom target;
-	g_print("paste_special_html, started\n");
+	DEBUG_MSG("paste_special_html, started\n");
 	target = gdk_atom_intern_static_string("text/html");
 	cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 	gtk_clipboard_request_contents(cb,target,html_received,bfwin);
-	g_print("paste_special_html, requested html, waiting...\n");
+	DEBUG_MSG("paste_special_html, requested html, waiting...\n");
 }
 
 void
@@ -3288,7 +3292,7 @@ doc_paste_special(Tbfwin *bfwin)
 	GtkClipboard *cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 
 	if (!gtk_clipboard_wait_for_targets(cb, &targets, &numtargets)) {
-		g_print("no clipbord data available\n");
+		DEBUG_MSG("no clipbord data available\n");
 		return;
 	}
 
@@ -3296,7 +3300,7 @@ doc_paste_special(Tbfwin *bfwin)
 		gchar *name;
 		numtargets--;
 		name = gdk_atom_name(targets[numtargets]);
-		g_print("%d: got target %s\n", numtargets, name);
+		DEBUG_MSG("%d: got target %s\n", numtargets, name);
 		if (strcmp(name, "text/html")==0) {
 			have_html=TRUE;
 		} else if (strncmp(name, "image/", 6)==0) {
@@ -3324,7 +3328,7 @@ doc_paste_special(Tbfwin *bfwin)
 	
 	gtk_widget_show_all(win);
 	result = gtk_dialog_run(GTK_DIALOG(win));
-	g_print("gtk_dialog_run, got result %d\n", result);
+	DEBUG_MSG("gtk_dialog_run, got result %d\n", result);
 	if (result == GTK_RESPONSE_ACCEPT) {
 		if (have_html && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbut0))) {
 			paste_special_html(bfwin);
@@ -3332,9 +3336,9 @@ doc_paste_special(Tbfwin *bfwin)
 			paste_special_image(bfwin, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rbut1)));
 		}
 	}
-	g_print("destroy dialog %p\n", win);
+	DEBUG_MSG("destroy dialog %p\n", win);
 	gtk_widget_destroy(win);
-	g_print("destroy dialog %p, done\n", win);
+	DEBUG_MSG("destroy dialog %p, done\n", win);
 }
 /*************************** end of paste special code ***************************/
 
