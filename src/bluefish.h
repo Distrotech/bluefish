@@ -357,6 +357,7 @@ typedef struct {
 	gint image_thumbnailsizing_val1;	/* the width, height or ratio, depending on the value above */
 	gint image_thumbnailsizing_val2;	/* height if the type=3 */
 	gchar *image_thumnailformatstring;	/* like <a href="%r"><img src="%t"></a> or more advanced */
+	gint filter_on_selection_mode; /* 0=ask, 1=selection, 2=text */
 	GList *filefilters;			/* filefilter.c file filtering */
 	GList *reference_files;		/* all reference files */
 	GList *recent_projects;

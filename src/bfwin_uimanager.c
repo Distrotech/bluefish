@@ -1498,6 +1498,7 @@ bfwin_encodings_menu_create(Tbfwin * bfwin)
 
 typedef struct {
 	Tbfwin *bfwin;
+	GtkWidget *neveraskagain;
 	Tselectionsave *selsave;
 	const gchar *command;
 } Tfilterdialog;
@@ -1508,6 +1509,9 @@ filter_dialog_response(GtkWidget * widget, gint response_id, gpointer user_data)
 	Tfilterdialog *fd = user_data;
 	gint begin = 0, end = -1;
 
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(fd->neveraskagain))) {
+		main_v->globses.filter_on_selection_mode = (response_id == 1) ? 1 : 2;
+	}
 	gtk_widget_destroy(widget);
 	doc_restore_selection(fd->selsave, TRUE);	/* the restore will also free the Tselectionsave */
 	if (response_id == 1 && fd->bfwin->current_document)
@@ -1527,25 +1531,33 @@ filters_menu_activate(GtkAction * action, gpointer user_data)
 	/* if we have a selection, and the filter can be used on a selection,
 	   we should ask if it should be the complete file or the selection */
 
-	if (operatable_on_selection(command)
-		&& (bfwin->current_document && doc_has_selection(bfwin->current_document))) {
-		GtkWidget *dialog, *button;
-		Tfilterdialog *fd;
-
-		fd = g_slice_new(Tfilterdialog);
-		fd->bfwin = bfwin;
-		fd->command = command;
-
-		fd->selsave = doc_save_selection(bfwin->current_document);
-		/* TODO: this dialog is not very convenient, hitting enter should choose 'selection' */
-		dialog =
-			gtk_message_dialog_new(GTK_WINDOW(bfwin->main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
-								   GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, _("Text area to filter"));
-		gtk_dialog_add_button(GTK_DIALOG(dialog), _("All text"), 0);
-		button = gtk_dialog_add_button(GTK_DIALOG(dialog), _("Selected text only"), 1);
-		gtk_widget_grab_default(button);
-		g_signal_connect(dialog, "response", G_CALLBACK(filter_dialog_response), fd);
-		gtk_widget_show_all(dialog);
+	if (main_v->globses.filter_on_selection_mode != 2 && operatable_on_selection(command) && bfwin->current_document && doc_has_selection(bfwin->current_document)) {
+		if (main_v->globses.filter_on_selection_mode == 1) {
+			g_print("don't ask, just work on selection\n");
+			doc_get_selection(bfwin->current_document, &begin, &end);
+			filter_command(bfwin, command, begin, end);
+		} else {
+			GtkWidget *dialog, *button, *hbox;
+			Tfilterdialog *fd;
+	
+			fd = g_slice_new(Tfilterdialog);
+			fd->bfwin = bfwin;
+			fd->command = command;
+	
+			fd->selsave = doc_save_selection(bfwin->current_document);
+			/* TODO: this dialog is not very convenient, hitting enter should choose 'selection' */
+			dialog =
+				gtk_message_dialog_new(GTK_WINDOW(bfwin->main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
+									   GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, _("Text area to filter"));
+			gtk_dialog_add_button(GTK_DIALOG(dialog), _("All text"), 0);
+			button = gtk_dialog_add_button(GTK_DIALOG(dialog), _("Selected text only"), 1);
+			gtk_widget_grab_default(button);
+			fd->neveraskagain = gtk_check_button_new_with_label(_("Never ask again"));
+			hbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+			gtk_box_pack_end(GTK_BOX(hbox), fd->neveraskagain, FALSE, FALSE, 4);
+			g_signal_connect(dialog, "response", G_CALLBACK(filter_dialog_response), fd);
+			gtk_widget_show_all(dialog);
+		}
 	} else {
 		DEBUG_MSG("filters_menu_activate, calling filter_command for %s\n", command);
 		filter_command(bfwin, command, begin, end);
