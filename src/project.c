@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * project.c - project functionality
  *
- * Copyright (C) 2003-2011 Olivier Sessink
+ * Copyright (C) 2003-2012 Olivier Sessink
  * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
@@ -279,7 +279,7 @@ project_save(Tbfwin * bfwin, gboolean save_as)
 		GFile *newuri = NULL;
 		dialog =
 			file_chooser_dialog(bfwin, _("Enter Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_SAVE,
-								NULL, TRUE, FALSE, "bfproject", FALSE);
+								bfwin->project->name, TRUE, FALSE, "bfproject", FALSE);
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			gchar *filename;
 			newuri = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(dialog));
