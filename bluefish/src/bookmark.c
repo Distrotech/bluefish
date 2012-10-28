@@ -43,7 +43,7 @@ typedef struct {
 	gint itercount;
 } Tbmarkref;
 
-Tbmarkref bmarkref = {0};
+Tbmarkref bmarkref = { 0 };
 
 #endif
 
@@ -142,7 +142,7 @@ bmark_free(gpointer ptr)
 		DEBUG_MSG("bmark_free, NOT GOOD, strarr should be NULL here...\n");
 	}
 #endif
-	DEBUG_MSG("bmark_free, unref filepath %p\n",m->filepath);
+	DEBUG_MSG("bmark_free, unref filepath %p\n", m->filepath);
 	g_object_unref(m->filepath);
 	g_free(m->text);
 	g_free(m->name);
@@ -245,23 +245,27 @@ bmark_update_offset_from_textmark(Tbmark * b)
  * returns NULL if we have to append this as first child to the parent
  *
  */
-static Tbmark * 
+static Tbmark *
 bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * parent)
 {
 	gboolean cont;
 	GtkTreeIter iter;
-	Tbmark *b1=NULL, *b2;
-	cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter, parent);
+	Tbmark *b1 = NULL, *b2;
+	cont =
+		gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter,
+									 parent);
 	while (cont) {
-		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter, PTR_COLUMN, &b2,-1);
+		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter, PTR_COLUMN, &b2,
+						   -1);
 		bmark_update_offset_from_textmark(b2);
 		if (b2->offset > offset)
-			return b1; 
+			return b1;
 		b1 = b2;
 		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter);
 	}
 	return b1;
 }
+
 /*
 static Tbmark *
 bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * parent)
@@ -535,7 +539,11 @@ get_current_bmark(Tbfwin * bfwin)
 void
 bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 {
+#if GTK_CHECK_VERSION(3,0,0)
+	GtkWidget *align, *vbox, *dlg, *name, *desc, *button, *grid, *istemp;
+#else
 	GtkWidget *dlg, *name, *desc, *button, *table, *istemp;
+#endif
 	gint result;
 	Tbmark *m = get_current_bmark(bfwin);
 	if (!m)
@@ -548,6 +556,39 @@ bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 	gtk_widget_set_can_default(button, TRUE);
 	gtk_dialog_add_action_widget(GTK_DIALOG(dlg), button, GTK_RESPONSE_OK);
 
+#if GTK_CHECK_VERSION(3,0,0)
+	align = gtk_alignment_new(0, 0, 1, 1);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(align), 12, 12, 6, 6);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dlg))), align, FALSE, FALSE, 0);
+
+	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
+	gtk_container_add(GTK_CONTAINER(align), vbox);
+
+	grid = gtk_grid_new();
+	gtk_grid_set_column_spacing(GTK_GRID(grid), 12);
+	gtk_grid_set_row_spacing(GTK_GRID(grid), 6);
+	gtk_box_pack_start(GTK_BOX(vbox), grid, FALSE, FALSE, 0);
+
+	name = gtk_entry_new();
+	if (m->name)
+		gtk_entry_set_text(GTK_ENTRY(name), m->name);
+	gtk_widget_set_hexpand(name, TRUE);
+	gtk_entry_set_activates_default(GTK_ENTRY(name), TRUE);
+	gtk_container_add(GTK_CONTAINER(grid), name);
+	gtk_grid_attach_next_to(GTK_GRID(grid), dialog_mnemonic_label_new(_("_Name:"), name), name, GTK_POS_LEFT,
+							1, 1);
+
+	desc = gtk_entry_new();
+	if (m->description)
+		gtk_entry_set_text(GTK_ENTRY(desc), m->description);
+	gtk_entry_set_activates_default(GTK_ENTRY(desc), TRUE);
+	gtk_grid_attach_next_to(GTK_GRID(grid), desc, name, GTK_POS_BOTTOM, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(grid), dialog_mnemonic_label_new(_("_Description:"), desc), desc,
+							GTK_POS_LEFT, 1, 1);
+
+	istemp = checkbut_with_value(_("_Temporary"), m->is_temp);
+	gtk_box_pack_end(GTK_BOX(vbox), istemp, FALSE, FALSE, 0);
+#else
 	table = gtk_table_new(2, 3, FALSE);
 	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 6);
@@ -563,6 +604,7 @@ bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 
 	istemp = checkbut_with_value(_("Temporary"), m->is_temp);
 	gtk_table_attach_defaults(GTK_TABLE(table), istemp, 0, 2, 2, 3);
+#endif
 
 	gtk_window_set_default(GTK_WINDOW(dlg), button);
 
@@ -667,7 +709,7 @@ bmark_check_remove(Tbfwin * bfwin, Tbmark * b)
 					b->doc->bmark_parent = NULL;
 			}
 			bluefish_text_view_set_show_symbols_redraw(BLUEFISH_TEXT_VIEW(b->doc->view), FALSE);
-			
+
 			return FALSE;
 		}
 	}
@@ -847,14 +889,14 @@ static const gchar *bookmark_menu_ui =
 	"    <menuitem action='DefaultPermanent'/>"
 	"    <separator/>"
 	"    <menu action='ShowFileMenu'>"
-	"    <menuitem action='BookmarkFileByName'/>"
-	"    <menuitem action='BookmarkFileByPath'/>"
-	"    <menuitem action='BookmarkFileByURI'/>"
+	"    	<menuitem action='BookmarkFileByName'/>"
+	"    	<menuitem action='BookmarkFileByPath'/>"
+	"    	<menuitem action='BookmarkFileByURI'/>"
 	"    </menu>"
 	"    <menu action='ShowBookmarkMenu'>"
-	"    <menuitem action='BookmarkContent'/>"
-	"    <menuitem action='BookmarkName'/>"
-	"    <menuitem action='BookmarkNameContent'/>"
+	"    	<menuitem action='BookmarkContent'/>"
+	"    	<menuitem action='BookmarkName'/>"
+	"    	<menuitem action='BookmarkNameContent'/>"
 	"    </menu>"
 	"  </popup>"
 	"</ui>";
@@ -878,7 +920,8 @@ static const GtkActionEntry bookmark_actions[] = {
 	{"DeleteBookmark", NULL, N_("_Delete"), NULL, N_("Delete bookmark"), G_CALLBACK(popup_menu_delete)},
 	{"DeleteAllBookmark", NULL, N_("Delete All"), NULL, N_("Delete all bookmarks"),
 	 G_CALLBACK(popup_menu_delete_all)},
-	{"DeleteAllBookmarkInDoc", NULL, N_("Delete All in Document"), NULL, N_("Delete all bookmarks in document"),
+	{"DeleteAllBookmarkInDoc", NULL, N_("Delete All in Document"), NULL,
+	 N_("Delete all bookmarks in document"),
 	 G_CALLBACK(popup_menu_delete_all_doc)}
 };
 
@@ -956,8 +999,14 @@ popup_menu(Tbfwin * bfwin, GdkEventButton * event, gboolean show_bmark_specific,
 	bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/DeleteAllBookmarkInDoc", show_file_specific);
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/BookmarkMenu/DefaultPermanent",
 										 main_v->globses.bookmarks_default_store);
-	gtk_radio_action_set_current_value((GtkRadioAction *)gtk_ui_manager_get_action(bfwin->uimanager, "/BookmarkMenu/ShowFileMenu/BookmarkFileByName"),bfwin->session->bookmarks_filename_mode);
-	gtk_radio_action_set_current_value((GtkRadioAction *)gtk_ui_manager_get_action(bfwin->uimanager, "/BookmarkMenu/ShowBookmarkMenu/BookmarkName"),bfwin->session->bookmarks_show_mode);
+	gtk_radio_action_set_current_value((GtkRadioAction *)
+									   gtk_ui_manager_get_action(bfwin->uimanager,
+																 "/BookmarkMenu/ShowFileMenu/BookmarkFileByName"),
+									   bfwin->session->bookmarks_filename_mode);
+	gtk_radio_action_set_current_value((GtkRadioAction *)
+									   gtk_ui_manager_get_action(bfwin->uimanager,
+																 "/BookmarkMenu/ShowBookmarkMenu/BookmarkName"),
+									   bfwin->session->bookmarks_show_mode);
 	gtk_widget_show(menu);
 	gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 }
@@ -1141,15 +1190,16 @@ bookmark_navigate(Tbfwin * bfwin, guint action)
 }
 
 static gboolean
-all_children_hidden(GtkTreeModel * model, GtkTreeIter * iter, gpointer data, GtkTreeModelFilterVisibleFunc func)
+all_children_hidden(GtkTreeModel * model, GtkTreeIter * iter, gpointer data,
+					GtkTreeModelFilterVisibleFunc func)
 {
 	GtkTreeIter citer;
-	gboolean cont=TRUE;
-	if (!gtk_tree_model_iter_children(model,&citer,iter)) {
-		return TRUE; /* there are no children */
+	gboolean cont = TRUE;
+	if (!gtk_tree_model_iter_children(model, &citer, iter)) {
+		return TRUE;			/* there are no children */
 	}
-	while(cont) {
-		if (func(model, &citer, data)==TRUE)
+	while (cont) {
+		if (func(model, &citer, data) == TRUE)
 			return FALSE;
 		cont = gtk_tree_model_iter_next(model, &citer);
 	}
@@ -1164,7 +1214,7 @@ bmark_search_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data
 
 	if (bfwin->bmark_search_prefix == NULL || bfwin->bmark_search_prefix[0] == '\0')
 		return TRUE;
-	
+
 	if (gtk_tree_model_iter_has_child(model, iter)) {
 		if (all_children_hidden(model, iter, data, bmark_search_filter_func)) {
 			return FALSE;
@@ -1295,7 +1345,7 @@ bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m)
 /*		parent = g_new0(GtkTreeIter, 1);*/
 #ifdef BMARKREF
 		bmarkref.itercount++;
-		g_print("bmark_get_iter_at_tree_position, itercount=%d\n",bmarkref.itercount);
+		g_print("bmark_get_iter_at_tree_position, itercount=%d\n", bmarkref.itercount);
 #endif
 		/* we should sort the document names in the treestore */
 		title = bmark_filename(bfwin, m->filepath);
@@ -1348,10 +1398,10 @@ bmark_sort_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter * b, gpointer
 static void
 bmark_hash_value_free(gpointer data)
 {
-	DEBUG_MSG("bmark_hash_value_free, free iter %p\n",data);
+	DEBUG_MSG("bmark_hash_value_free, free iter %p\n", data);
 #ifdef BMARKREF
 	bmarkref.itercount--;
-	g_print("bmark_hash_value_free, itercount=%d\n",bmarkref.itercount);
+	g_print("bmark_hash_value_free, itercount=%d\n", bmarkref.itercount);
 #endif
 	g_slice_free(GtkTreeIter, data);
 /*	g_free(data);*/
@@ -1362,7 +1412,7 @@ bmark_hash_key_free(gpointer data)
 {
 	if (!data)
 		return;
-	DEBUG_MSG("bmark_hash_key_free, unref %p\n",data);
+	DEBUG_MSG("bmark_hash_key_free, unref %p\n", data);
 	g_object_unref(data);
 }
 
@@ -1380,7 +1430,9 @@ bookmark_data_new(void)
 											NULL);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(bmd->bookmarkstore),
 										 GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, GTK_SORT_ASCENDING);
-	bmd->bmarkfiles = g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, bmark_hash_key_free, bmark_hash_value_free);
+	bmd->bmarkfiles =
+		g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, bmark_hash_key_free,
+							  bmark_hash_value_free);
 	DEBUG_MSG("bookmark_data_new, created bookmarkstore at %p\n", bmd->bookmarkstore);
 	return bmd;
 }
@@ -1455,7 +1507,8 @@ bmark_reload(Tbfwin * bfwin)
 			}
 			/* because the bookmark list is usually sorted, we try to cache the uri's and consume less memory */
 			if (cacheduri && (cacheduri == b->filepath || g_file_equal(cacheduri, b->filepath))) {
-				DEBUG_MSG("bmark_reload, uri %p and %p are identical, unref %p and use %p\n", cacheduri, b->filepath, b->filepath, cacheduri);
+				DEBUG_MSG("bmark_reload, uri %p and %p are identical, unref %p and use %p\n", cacheduri,
+						  b->filepath, b->filepath, cacheduri);
 				g_object_unref(b->filepath);
 				b->filepath = g_object_ref(cacheduri);;
 			} else {
@@ -1530,10 +1583,10 @@ bmark_clean_for_doc(Tdocument * doc)
 
 	if (!doc->uri)
 		return;
-	
+
 	if (BFWIN(doc->bfwin)->bmarkdata == NULL)
 		return;
-	
+
 	DEBUG_MSG("bmark_clean_for_doc, doc=%p, bfwin=%p, bmarkdata=%p, getting children for parent_iter=%p\n",
 			  doc, doc->bfwin, BFWIN(doc->bfwin)->bmarkdata, doc->bmark_parent);
 	/* a segfault is reported here, coming from a document save and close */
@@ -1568,10 +1621,11 @@ bmark_clean_for_doc(Tdocument * doc)
 			  doc);
 	gtk_tree_store_set(GTK_TREE_STORE(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore),
 					   doc->bmark_parent, PTR_COLUMN, NULL, -1);
-	gtk_tree_model_filter_convert_child_iter_to_iter(BFWIN(doc->bfwin)->bmarkfilter,&tmpiter,doc->bmark_parent);
+	gtk_tree_model_filter_convert_child_iter_to_iter(BFWIN(doc->bfwin)->bmarkfilter, &tmpiter,
+													 doc->bmark_parent);
 	doc->bmark_parent = NULL;
-	path = gtk_tree_model_get_path(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bmarkfilter),&tmpiter);
-	gtk_tree_view_collapse_row(BFWIN(doc->bfwin)->bmark,path);
+	path = gtk_tree_model_get_path(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bmarkfilter), &tmpiter);
+	gtk_tree_view_collapse_row(BFWIN(doc->bfwin)->bmark, path);
 	gtk_tree_path_free(path);
 }
 
@@ -1602,7 +1656,8 @@ bookmark_reposition(Tbmark * mark, gint offset)
 			return TRUE;
 		}
 		if (bandwidth > doclen) {
-			DEBUG_MSG("bookmark_reposition, no result for %s, original offset %d\n",mark->text, mark->offset);
+			DEBUG_MSG("bookmark_reposition, no result for %s, original offset %d\n", mark->text,
+					  mark->offset);
 			return FALSE;
 		}
 		bandwidth *= 2;
@@ -1662,7 +1717,7 @@ bmark_set_for_doc(Tdocument * doc, gboolean check_positions)
 	doc->bmark_parent = g_hash_table_lookup(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles, doc->uri);
 	if (!doc->bmark_parent)
 		return;
-		
+
 	/*g_print("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",gtk_label_get_text(GTK_LABEL(doc->tab_menu)),mark->offset); */
 	gtk_tree_store_set(GTK_TREE_STORE(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore),
 					   doc->bmark_parent, PTR_COLUMN, doc, -1);
@@ -1671,7 +1726,7 @@ bmark_set_for_doc(Tdocument * doc, gboolean check_positions)
 		gtk_tree_model_iter_children(GTK_TREE_MODEL
 									 (BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child,
 									 doc->bmark_parent);
-	while (cont2) {			/* loop the bookmarks for this document  */
+	while (cont2) {				/* loop the bookmarks for this document  */
 		Tbmark *mark = NULL;
 		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child,
 						   PTR_COLUMN, &mark, -1);
@@ -1693,11 +1748,12 @@ bmark_set_for_doc(Tdocument * doc, gboolean check_positions)
 			gtk_tree_model_iter_next(GTK_TREE_MODEL
 									 (BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child);
 	}
-	
+
 	/* expand it */
-	gtk_tree_model_filter_convert_child_iter_to_iter(BFWIN(doc->bfwin)->bmarkfilter,&child,doc->bmark_parent);
-	path = gtk_tree_model_get_path(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bmarkfilter),&child);
-	gtk_tree_view_expand_row(BFWIN(doc->bfwin)->bmark,path,TRUE);
+	gtk_tree_model_filter_convert_child_iter_to_iter(BFWIN(doc->bfwin)->bmarkfilter, &child,
+													 doc->bmark_parent);
+	path = gtk_tree_model_get_path(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bmarkfilter), &child);
+	gtk_tree_view_expand_row(BFWIN(doc->bfwin)->bmark, path, TRUE);
 	gtk_tree_path_free(path);
 	bluefish_text_view_set_show_symbols_redraw(BLUEFISH_TEXT_VIEW(doc->view), TRUE);
 }
@@ -1865,7 +1921,7 @@ can we make this function faster? when adding bookmarks from a search this funct
 a lot of time, perhaps that can be improved
 */
 static Tbmark *
-bmark_get_bmark_at_iter(Tdocument * doc, GtkTextIter *iter, gint offset)
+bmark_get_bmark_at_iter(Tdocument * doc, GtkTextIter * iter, gint offset)
 {
 	GtkTextIter sit, eit;
 	GtkTreeIter tmpiter;
@@ -1880,7 +1936,7 @@ bmark_get_bmark_at_iter(Tdocument * doc, GtkTextIter *iter, gint offset)
 		GtkTextIter testit;
 		Tbmark *m, *m2;
 		/* the next function is probably the slowest since it jumps through the listmodel 
-		to find the right bookmark */
+		   to find the right bookmark */
 		m = bmark_find_bookmark_before_offset(BFWIN(doc->bfwin), offset, doc->bmark_parent);
 		if (m == NULL) {
 			DEBUG_MSG("bmark_get_bmark_at_iter, m=NULL, get first child\n");
@@ -1920,7 +1976,7 @@ bmark_get_bmark_at_iter(Tdocument * doc, GtkTextIter *iter, gint offset)
 }
 
 static Tbmark *
-bmark_get_bmark_at_line(Tdocument * doc, gint line) 
+bmark_get_bmark_at_line(Tdocument * doc, gint line)
 {
 	GtkTextIter iter;
 	gtk_text_buffer_get_iter_at_line(doc->buffer, &iter, line);
@@ -2038,13 +2094,13 @@ bmark_have_bookmark_at_stored_bevent(Tdocument * doc)
 }
 
 gchar *
-bmark_get_tooltip_for_line(Tdocument *doc, gint line)
+bmark_get_tooltip_for_line(Tdocument * doc, gint line)
 {
 	Tbmark *bmark;
 	bmark = bmark_get_bmark_at_line(doc, line);
 	if (!bmark || !bmark->text)
 		return NULL;
-	if (bmark->text && bmark->name) 
+	if (bmark->text && bmark->name)
 		return g_markup_printf_escaped("%s %s", bmark->name, bmark->text);
 	if (bmark->name)
 		return g_markup_escape_text(bmark->name, -1);
@@ -2115,7 +2171,7 @@ bmark_cleanup(Tbfwin * bfwin)
 	bfwin->bmarkfilter = NULL;
 	g_free(bfwin->bmark_search_prefix);
 	bfwin->bmark_search_prefix = NULL;
-#ifdef BMARKREF 
-	g_print("bmark_cleanup, itercount=%d\n",bmarkref.itercount);
+#ifdef BMARKREF
+	g_print("bmark_cleanup, itercount=%d\n", bmarkref.itercount);
 #endif
 }
