@@ -2,8 +2,8 @@
  * bookmark.c - bookmarks
  *
  * Copyright (C) 2003 Oskar Swida
- * modifications (C) 2004-2011 Olivier Sessink
- * modifications (C) 2011 James Hayward
+ * modifications (C) 2004-2012 Olivier Sessink
+ * modifications (C) 2011-2012 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -540,7 +540,7 @@ void
 bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 {
 #if GTK_CHECK_VERSION(3,0,0)
-	GtkWidget *align, *vbox, *dlg, *name, *desc, *button, *grid, *istemp;
+	GtkWidget *align, *child, *dlg, *name, *desc, *button, *grid, *istemp;
 #else
 	GtkWidget *dlg, *name, *desc, *button, *table, *istemp;
 #endif
@@ -561,13 +561,10 @@ bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 	gtk_alignment_set_padding(GTK_ALIGNMENT(align), 12, 12, 6, 6);
 	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dlg))), align, FALSE, FALSE, 0);
 
-	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
-	gtk_container_add(GTK_CONTAINER(align), vbox);
-
 	grid = gtk_grid_new();
 	gtk_grid_set_column_spacing(GTK_GRID(grid), 12);
 	gtk_grid_set_row_spacing(GTK_GRID(grid), 6);
-	gtk_box_pack_start(GTK_BOX(vbox), grid, FALSE, FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(align), grid);
 
 	name = gtk_entry_new();
 	if (m->name)
@@ -575,8 +572,8 @@ bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 	gtk_widget_set_hexpand(name, TRUE);
 	gtk_entry_set_activates_default(GTK_ENTRY(name), TRUE);
 	gtk_container_add(GTK_CONTAINER(grid), name);
-	gtk_grid_attach_next_to(GTK_GRID(grid), dialog_mnemonic_label_new(_("_Name:"), name), name, GTK_POS_LEFT,
-							1, 1);
+	gtk_grid_insert_column(GTK_GRID(grid), 0);
+	gtk_grid_attach(GTK_GRID(grid), dialog_mnemonic_label_new(_("_Name:"), name), 0, 0, 1, 1);
 
 	desc = gtk_entry_new();
 	if (m->description)
@@ -587,7 +584,8 @@ bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 							GTK_POS_LEFT, 1, 1);
 
 	istemp = checkbut_with_value(_("_Temporary"), m->is_temp);
-	gtk_box_pack_end(GTK_BOX(vbox), istemp, FALSE, FALSE, 0);
+	child = gtk_grid_get_child_at(GTK_GRID(grid), 0, 1);
+	gtk_grid_attach_next_to(GTK_GRID(grid), istemp, child, GTK_POS_BOTTOM, 2, 1);
 #else
 	table = gtk_table_new(2, 3, FALSE);
 	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
