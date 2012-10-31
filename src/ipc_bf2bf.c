@@ -73,7 +73,11 @@ static Tipc_bf2bf ibf = { 0, NULL, -1, 0, NULL };
 static void
 handle_message(const gchar * message, gsize len)
 {
-	Tbfwin *bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
+	Tbfwin *bfwin;
+	if (!main_v->bfwinlist)
+		return;
+	
+	bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
 	if (strcmp(message, "openwin") == 0) {
 		/* call open new window */
 		DEBUG_MSG("open new window\n");
