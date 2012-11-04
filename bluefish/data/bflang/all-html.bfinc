@@ -330,6 +330,9 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<tag name="font" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,color,face,size">
 		<reference>Defines font face, color and size for text (<b>deprecated</b>)</reference>
 	</tag>
+	<tag name="isindex" case_insens="1" sgml_shorttag="1" attributes="class,dir,id,lang,prompt,style,title">
+		<reference>Defines an input control</reference>
+	</tag>
 	<tag name="menu" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,compact">
 		<reference>Defines a list of menu choices (<b>deprecated</b>)</reference>
 	</tag>
@@ -358,7 +361,6 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 </group>
 
 <group highlight="html-form-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
-	<autocomplete append="&gt;" />
 	<tag name="fieldset" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines a border around elements in a form</reference>
 	</tag>
@@ -372,7 +374,8 @@ Last name: &lt;input type=&quot;text&quot; name=&quot;lname&quot; /&gt;&lt;br /&
 &lt;/form&gt;		
 		</reference>
 	</tag>
-	<tag name="input" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,accept,accesskey,align,alt,checked,disabled,ismap,maxlength,name,onblur,onchange,onfocus,onselect,readonly,size,src,tabindex,type,usemap,value">
+	<tag name="input" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,accept,accesskey,align,alt,checked,disabled,ismap,maxlength,name,onblur,onchange,onfocus,onselect,readonly,size,src,tabindex,type,usemap,value" >
+		<autocomplete append="&gt;" backup_cursor="1" />
 		<reference>Defines an input control for a form. The input field has many forms depending on the type attribute.
 &lt;input type=&quot;button&quot; name=&quot;foo&quot; value=&quot;title&quot; /&gt;
 &lt;input type=&quot;checkbox&quot; name=&quot;foo&quot; value=&quot;title&quot; checked=&quot;checked&quot; /&gt;
@@ -384,10 +387,7 @@ Last name: &lt;input type=&quot;text&quot; name=&quot;lname&quot; /&gt;&lt;br /&
 &lt;input type=&quot;reset&quot; name=&quot;foo&quot; value=&quot;title&quot; /&gt;
 &lt;input type=&quot;submit&quot; name=&quot;foo&quot; value=&quot;title&quot; /&gt;
 &lt;input type=&quot;text&quot; name=&quot;foo&quot; value=&quot;title&quot; maxlenght=&quot;50&quot; /&gt;
-</reference>
-	</tag>
-	<tag name="isindex" case_insens="1" sgml_shorttag="1" attributes="class,dir,id,lang,prompt,style,title">
-		<reference>Defines an input control</reference>
+		</reference>
 	</tag>
 	<tag name="label" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,for,onblur,onfocus">
 		<reference>Defines a label for an input element</reference>
