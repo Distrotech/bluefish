@@ -210,7 +210,6 @@ side_panel_build(Tbfwin * bfwin)
 	GtkWidget *fb2g;
 
 	bfwin->leftpanel_notebook = gtk_notebook_new();
-	g_object_set(G_OBJECT(bfwin->leftpanel_notebook), "tab-curvature", 0, NULL);
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook), main_v->props.leftpanel_tabposition);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(bfwin->leftpanel_notebook), TRUE);
 #if !GTK_CHECK_VERSION(3, 0, 0)
@@ -1351,8 +1350,6 @@ bfwin_create_main(Tbfwin * bfwin)
 #if !GTK_CHECK_VERSION(3, 0, 0)
 	gtk_notebook_set_tab_border(GTK_NOTEBOOK(bfwin->notebook), 0);
 #endif
-	/*g_object_set(G_OBJECT(bfwin->notebook), "tab-fill", 0, NULL);
-	g_object_set(G_OBJECT(bfwin->notebook), "tab-curvature", 0, NULL);*/
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->notebook));
 
 	/* Add notebook and its fake friend to their common hbox. */
