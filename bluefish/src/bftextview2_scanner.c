@@ -203,6 +203,9 @@ get_foundcache_at_offset(BluefishTextView * btv, guint offset, GSequenceIter ** 
 	GSequenceIter *siter;
 	Tfound fakefound;
 	Tfound *found = NULL;
+	
+	g_assert(btv == btv->master);
+	
 	fakefound.charoffset_o = offset;
 	siter = g_sequence_search(btv->scancache.foundcaches, &fakefound, foundcache_compare_charoffset_o, NULL);
 	if (G_LIKELY(!g_sequence_iter_is_begin(siter))) {
@@ -350,6 +353,9 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 	Tfound *found;
 	GSequenceIter *siter;
 	gint comparepos;
+	
+	g_assert(btv == btv->master);
+	
 	if (offset == 0)
 		return;
 	comparepos = (offset < 0) ? startpos - offset : startpos;
