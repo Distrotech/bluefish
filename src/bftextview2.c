@@ -1945,7 +1945,7 @@ auto_increase_indenting(BluefishTextView * btv)
 	if (string) {
 		/*g_print("bluefish_text_view_key_release_event, lastchar=%c, smartindentchars=%s\n",lastchar, btv->bflang->smartindentchars); */
 		if (lastchar != '\0' && main_v->props.smartindent
-			&& BLUEFISH_TEXT_VIEW(btv->master)->bflang && btv->bflang->smartindentchars
+			&& BLUEFISH_TEXT_VIEW(btv->master)->bflang && BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartindentchars
 			&& strchr(BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartindentchars, lastchar) != NULL) {
 			gchar *tmp, *tmp2;
 			if (BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_indent_wspaces)
