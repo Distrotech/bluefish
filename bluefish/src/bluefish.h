@@ -108,8 +108,6 @@ extern void g_none(gchar * first, ...);
 #endif							/* WIN32 */
 
 #include <sys/types.h>
-#include <regex.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <gio/gio.h>
