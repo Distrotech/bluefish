@@ -73,7 +73,7 @@ bf_get_identifier_at_iter(BluefishTextView * btv, GtkTextIter * iter, gint * con
 {
 	GQueue *contextstack;
 	GtkTextIter so, eo;
-
+	g_assert(btv == btv->master);
 	so = eo = *iter;
 	if (!btv->bflang || !btv->bflang->st) {
 		while (gtk_text_iter_backward_char(&so) && !g_unichar_isspace(gtk_text_iter_get_char(&so))) {
@@ -622,6 +622,9 @@ static void
 bftextview2_set_margin_size(BluefishTextView * btv)
 {
 	gint lines, count, newsize;
+	
+	g_assert(btv == btv->master);
+	
 	DBG_MSG("bftextview2_set_margin_size, called for %p\n", btv);
 	if (BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_per_char == 0) {
 		PangoLayout *panlay;
