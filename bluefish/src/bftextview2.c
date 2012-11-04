@@ -536,6 +536,7 @@ static gboolean
 mark_set_idle_lcb(gpointer widget)
 {
 	BluefishTextView *btv = widget;
+	BluefishTextView *master = btv->master;
 	GtkTextIter it1, it2, location;
 	Tfoundblock *fblock;
 	gchar *tmpstr = NULL;
@@ -544,13 +545,13 @@ mark_set_idle_lcb(gpointer widget)
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &location, gtk_text_buffer_get_insert(btv->buffer));
 	if (btv->showing_blockmatch || main_v->props.highlight_cursor) {
 		gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
-		gtk_text_buffer_remove_tag(btv->buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
+		gtk_text_buffer_remove_tag(btv->buffer, master->blockmatch, &it1, &it2);
 		btv->showing_blockmatch = FALSE;
 	}
 
 	offset = gtk_text_iter_get_offset(&location);
 	/*fblock = bftextview2_get_block_at_offset(btv, &found, gtk_text_iter_get_offset(&location)); */
-	fblock = bftextview2_get_active_block_at_offset(btv, FALSE, offset);
+	fblock = bftextview2_get_active_block_at_offset(master, FALSE, offset);
 	DBG_BLOCKMATCH("mark_set_idle_lcb, got fblock %p\n", fblock);
 	DBG_SIGNALS("mark_set_idle_lcb, 'insert' set at %d\n", gtk_text_iter_get_offset(&location));
 	if (fblock)
@@ -567,14 +568,14 @@ mark_set_idle_lcb(gpointer widget)
 				DBG_MSG("mark_set_idle_lcb, found a block to highlight the start (%d:%d) and end (%d:%d)\n",
 						gtk_text_iter_get_offset(&it1), gtk_text_iter_get_offset(&it2),
 						gtk_text_iter_get_offset(&it3), gtk_text_iter_get_offset(&it4));
-				gtk_text_buffer_apply_tag(btv->buffer, btv->blockmatch, &it1, &it2);
-				gtk_text_buffer_apply_tag(btv->buffer, btv->blockmatch, &it3, &it4);
+				gtk_text_buffer_apply_tag(btv->buffer, master->blockmatch, &it1, &it2);
+				gtk_text_buffer_apply_tag(btv->buffer, master->blockmatch, &it3, &it4);
 				btv->showing_blockmatch = TRUE;
 			} else {
 				DBG_MSG("mark_set_idle_lcb, block has no end - no matching\n");
 			}
 		}
-		if (BFWIN(DOCUMENT(btv->doc)->bfwin)->session->view_blockstack)
+		if (BFWIN(DOCUMENT(master->doc)->bfwin)->session->view_blockstack)
 			tmpstr = blockstack_string(btv, fblock);
 	}							/*else if (found && found->fblock && BFWIN(DOCUMENT(btv->doc)->bfwin)->session->view_blockstack) {
 								   fblock = found->fblock;
@@ -584,7 +585,7 @@ mark_set_idle_lcb(gpointer widget)
 								   tmpstr = blockstack_string(btv, fblock);
 								   } */
 	if (tmpstr) {
-		bfwin_statusbar_message(DOCUMENT(btv->doc)->bfwin, tmpstr, 2);
+		bfwin_statusbar_message(DOCUMENT(master->doc)->bfwin, tmpstr, 2);
 		g_free(tmpstr);
 	}
 	btv->mark_set_idle = 0;
@@ -606,10 +607,12 @@ bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location, GtkText
 		if (btv->autocomp)
 			autocomp_stop(btv);
 
-		if (btv->show_mbhl)
+		if (BLUEFISH_TEXT_VIEW(btv->master)->show_mbhl) {
 			btv->needs_blockmatch = TRUE;
+			DBG_BLOCKMATCH("set needs_blockmatch to TRUE for widget %p (master=%p)\n",btv,btv->master);
+		}
 
-		if (btv->bflang && btv->bflang->st) {
+		if (BLUEFISH_TEXT_VIEW(btv->master)->bflang && BLUEFISH_TEXT_VIEW(btv->master)->bflang->st) {
 			if (btv->user_idle) {
 				g_source_remove(btv->user_idle);
 				btv->user_idle = 0;
@@ -1784,7 +1787,7 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
 
-	DEBUG_MSG("bluefish_text_view_button_press_event, widget=%p, btv=%p, master=%p\n", widget, btv, master);
+	DBG_SIGNALS("bluefish_text_view_button_press_event, widget=%p, btv=%p, master=%p\n", widget, btv, master);
 	btv->button_press_line = -1;
 	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT)) {
 
@@ -1834,11 +1837,11 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 		}
 	}
 	if (event->button == 1) {
-		if (btv->show_mbhl) {
+		if (master->show_mbhl) {
 			btv->needs_blockmatch = TRUE;
 			if (!btv->mark_set_idle)
 				btv->mark_set_idle =
-					g_idle_add_full(G_PRIORITY_HIGH_IDLE, mark_set_idle_lcb, btv->master, NULL);
+					g_idle_add_full(G_PRIORITY_HIGH_IDLE, mark_set_idle_lcb, btv, NULL);
 		}
 	} else if (event->button == 3) {
 		GtkTextIter iter;
@@ -2057,10 +2060,11 @@ bluefish_text_view_key_release_event(GtkWidget * widget, GdkEventKey * kevent)
 	gboolean prev_insert_was_auto_indent = btv->insert_was_auto_indent;
 	btv->insert_was_auto_indent = FALSE;
 
-	DBG_SIGNALS("bluefish_text_view_key_release_event for %p, keyval=%d\n", widget, kevent->keyval);
-
-	if (btv->show_mbhl && !btv->mark_set_idle && btv->needs_blockmatch)
-		btv->mark_set_idle = g_idle_add_full(G_PRIORITY_HIGH_IDLE, mark_set_idle_lcb, btv->master, NULL);
+	DBG_SIGNALS("bluefish_text_view_key_release_event for widget %p, keyval=%d, needs_blockmatch=%d\n", widget, kevent->keyval, btv->needs_blockmatch);
+	DBG_BLOCKMATCH("bluefish_text_view_key_release_event, master->show_bhl=%d, mark_set_idle=%d, \n",BLUEFISH_TEXT_VIEW(btv->master)->show_mbhl, btv->mark_set_idle);
+	if (BLUEFISH_TEXT_VIEW(btv->master)->show_mbhl && !btv->mark_set_idle && btv->needs_blockmatch) {
+		btv->mark_set_idle = g_idle_add_full(G_PRIORITY_HIGH_IDLE, mark_set_idle_lcb, btv, NULL);
+	}
 
 	/* sometimes we receive a release event for a key that was not pressed in the textview widget!
 	   for example if you use the keyboard to navigate the menu, and press enter to activate an item, a 
