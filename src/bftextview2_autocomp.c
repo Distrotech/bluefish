@@ -232,6 +232,7 @@ acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw)
 				GPOINTER_TO_INT(g_hash_table_lookup
 								(g_array_index
 								 (master->bflang->st->contexts, Tcontext, acw->contextnum).patternhash, key));
+			g_free(key);
 			if (pattern_id && g_array_index(master->bflang->st->matches, Tpattern, pattern_id).reference) {
 				GtkRequisition requisition;
 				DBG_AUTOCOMP("show %s\n",
