@@ -57,6 +57,7 @@ struct _BluefishImageDialogPrivate {
 	GtkWidget *heightPercent;
 	GtkWidget *hspace;
 	GtkWidget *id;
+	GtkWidget *keepAspect;
 	GtkWidget *longDesc;
 	GtkWidget *preview;
 	GtkWidget *previewInfo;
@@ -85,6 +86,7 @@ enum {
 	PROP_HEIGHT,
 	PROP_HEIGHT_IS_PERCENT,
 	PROP_ALT,
+	PROP_KEEP_ASPECT,
 	PROP_LONGDESC,
 	PROP_CLASS,
 	PROP_ID,
@@ -193,6 +195,10 @@ bluefish_image_dialog_set_property(GObject * object, guint prop_id, const GValue
 		if (g_value_get_string(value) != NULL)
 			gtk_entry_set_text(GTK_ENTRY(dialog->priv->alt), g_value_get_string(value));
 		break;
+	case PROP_KEEP_ASPECT:
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dialog->priv->keepAspect),
+				g_value_get_boolean(value));
+		break;
 	case PROP_LONGDESC:
 		if (g_value_get_string(value) != NULL)
 			gtk_entry_set_text(GTK_ENTRY(dialog->priv->longDesc), g_value_get_string(value));
@@ -250,6 +256,24 @@ bluefish_image_dialog_set_property(GObject * object, guint prop_id, const GValue
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
 		break;
+	}
+}
+
+static void
+spin_buttons_value_changed(GtkSpinButton *spinbutton,BluefishImageDialog * dialog)
+{
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->priv->keepAspect)) && dialog->priv->origHeight > 0 && dialog->priv->origWidth > 0) {
+		gfloat targetval;
+		GtkWidget *target;
+		if (spinbutton == dialog->priv->height) {
+			target = dialog->priv->width;
+			targetval = 1.0 * gtk_spin_button_get_value(GTK_SPIN_BUTTON(spinbutton)) / dialog->priv->origHeight * dialog->priv->origWidth;
+		} else {
+			target = dialog->priv->height;
+			targetval = 1.0 * gtk_spin_button_get_value(GTK_SPIN_BUTTON(spinbutton)) / dialog->priv->origWidth * dialog->priv->origHeight;
+		}
+		DEBUG_MSG("spin_buttons_value_changed, set %p to value %f\n",target,targetval);
+		gtk_spin_button_set_value(GTK_SPIN_BUTTON(target), targetval);
 	}
 }
 
@@ -339,6 +363,8 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 	dialog->priv->width = gtk_spin_button_new_with_range(0, 3000, 1);
 	gtk_table_attach(GTK_TABLE(table), dialog->priv->width, 1, 2, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
 	dialog_mnemonic_label_in_table(_("_Width:"), dialog->priv->width, table, 0, 1, 0, 1);
+	g_signal_connect(dialog->priv->width, "value-changed",
+					 G_CALLBACK(spin_buttons_value_changed), dialog);
 
 	dialog->priv->widthPercent = gtk_check_button_new_with_label("%");
 	gtk_table_attach(GTK_TABLE(table), dialog->priv->widthPercent, 2, 3, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
@@ -348,15 +374,20 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 	dialog->priv->height = gtk_spin_button_new_with_range(0, 3000, 1);
 	gtk_table_attach(GTK_TABLE(table), dialog->priv->height, 1, 2, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 0);
 	dialog_mnemonic_label_in_table(_("_Height:"), dialog->priv->height, table, 0, 1, 1, 2);
+	g_signal_connect(dialog->priv->height, "value-changed",
+					 G_CALLBACK(spin_buttons_value_changed), dialog);
 
 	dialog->priv->heightPercent = gtk_check_button_new_with_label("%");
 	gtk_table_attach(GTK_TABLE(table), dialog->priv->heightPercent, 2, 3, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 0);
 	g_signal_connect(dialog->priv->heightPercent, "toggled",
 					 G_CALLBACK(image_dialog_height_percent_toggled), dialog);
 
+	dialog->priv->keepAspect = gtk_check_button_new_with_label("Keep aspect ratio");
+	gtk_table_attach(GTK_TABLE(table), dialog->priv->keepAspect, 3, 4, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
+
 	dialog->priv->resetSizeButton = dialog_button_new_with_image_in_table(_("_Reset Dimensions"),
 									  GTK_STOCK_REFRESH,G_CALLBACK(image_dialog_reset_dimensions),dialog,FALSE, TRUE,
-									  table, 3, 4, 0, 1);
+									  table, 3, 4, 1, 2);
 	gtk_widget_set_sensitive(dialog->priv->resetSizeButton, FALSE);
 
 	table = dialog_table_in_vbox(7, 3, 6, vbox, TRUE, TRUE, 0);
@@ -503,6 +534,12 @@ bluefish_image_dialog_class_init(BluefishImageDialogClass * klass)
 														"alt",
 														"Alternate text",
 														NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+	g_object_class_install_property(object_class,
+									PROP_KEEP_ASPECT,
+									g_param_spec_boolean("keep-aspect",
+														 "keep aspect ratio",
+														 "Keepaspect ratio",
+														 TRUE, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property(object_class,
 									PROP_LONGDESC,
@@ -1002,7 +1039,7 @@ filebutton_clicked(GtkButton * button, BluefishImageDialog * imageDialog)
 
 	gtk_widget_destroy(dialog);
 }
-#endif 
+#endif
 static void
 image_dialog_percent_toggled(GtkToggleButton * togglebutton, GtkSpinButton * spinbutton, gdouble origsize)
 {
@@ -1170,7 +1207,8 @@ bluefish_image_dialog_new(Tbfwin * bfwin)
 						  "has-separator", FALSE,
 #endif
 						  "title", _("Insert Image"),
-						  "transient-for", bfwin->main_window, 
+						  "keep-aspect", TRUE,
+						  "transient-for", bfwin->main_window,
 						  "tag-start", -1, "tag-end", -1, NULL);
 	DEBUG_MSG("bluefish_image_dialog_new, tag-start set to -1 in g_object_new\n");
 	g_return_if_fail(dialog != NULL);
@@ -1269,7 +1307,6 @@ bluefish_image_dialog_new_with_data(Tbfwin * bfwin, Ttagpopup * data)
 
 	if (tagvalues[12])
 		vspace = g_strtod(tagvalues[12], NULL);
-
 
 	if (tagvalues[9] || tagvalues[10] || tagvalues[11] || tagvalues[12])
 		usetransitional = TRUE;
