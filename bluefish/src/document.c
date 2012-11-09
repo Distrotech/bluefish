@@ -115,19 +115,6 @@ session_set_opendir(Tbfwin * bfwin, gchar * curi)
 	}
 }
 
-void
-session_set_savedir(Tbfwin * bfwin, gchar * curi)
-{
-	if (curi) {
-		gchar *pos = strrchr(curi, '/');
-		if (pos != NULL) {
-			if (bfwin->session->savedir)
-				g_free(bfwin->session->savedir);
-			bfwin->session->savedir = g_strndup(curi, pos - curi);
-		}
-	}
-}
-
 /**
  * return_allwindows_documentlist:
  *
@@ -3201,7 +3188,7 @@ image_received(GtkClipboard *clipboard,GdkPixbuf *pixbuf,gpointer data)
 	width = gdk_pixbuf_get_width(pixbuf);
 	height = gdk_pixbuf_get_height(pixbuf);
 	
-	filename = ask_new_filename(BFWIN(data), NULL, _("Save pasted image as"), FALSE);
+	filename = ask_new_filename(BFWIN(data), NULL, _("Save pasted image as"));
 	
 	if (!filename)
 		return;

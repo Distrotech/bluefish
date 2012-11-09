@@ -417,7 +417,16 @@ ui_file_rename(GtkAction * action, gpointer user_data)
 	Tbfwin *bfwin = BFWIN(user_data);
 
 	if (bfwin->current_document)
-		doc_save_backend(bfwin->current_document, TRUE, TRUE, FALSE, FALSE);
+		doc_save_backend(bfwin->current_document, docsave_move, FALSE, FALSE);
+}
+
+static void
+ui_file_save_copy(GtkAction * action, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+
+	if (bfwin->current_document)
+		doc_save_backend(bfwin->current_document, docsave_copy, FALSE, FALSE);
 }
 
 static void
@@ -426,7 +435,7 @@ ui_file_save(GtkAction * action, gpointer user_data)
 	Tbfwin *bfwin = BFWIN(user_data);
 
 	if (bfwin->current_document)
-		doc_save_backend(bfwin->current_document, FALSE, FALSE, FALSE, FALSE);
+		doc_save_backend(bfwin->current_document, docsave_normal, FALSE, FALSE);
 }
 
 static void
@@ -441,7 +450,7 @@ ui_file_save_as(GtkAction * action, gpointer user_data)
 	Tbfwin *bfwin = BFWIN(user_data);
 
 	if (bfwin->current_document)
-		doc_save_backend(bfwin->current_document, TRUE, FALSE, FALSE, FALSE);
+		doc_save_backend(bfwin->current_document, docsave_saveas, FALSE, FALSE);
 }
 
 static void
@@ -928,6 +937,7 @@ static const GtkActionEntry document_actions[] = {
 	{"FileSaveAll", NULL, N_("Sav_e All"), "<alt><shift>s", N_("Save all files"), G_CALLBACK(ui_file_save_all)},
 	{"FileRevert", GTK_STOCK_REVERT_TO_SAVED, N_("Rever_t to Saved"), NULL, N_("Reload current file"),
 	 G_CALLBACK(ui_file_reload)},
+	{"FileSaveCopy", NULL, N_("Save a copy..."), NULL, N_("Save a copy"), G_CALLBACK(ui_file_save_copy)},
 	{"FileRename", NULL, N_("Rena_me..."), "F2", N_("Rename file"), G_CALLBACK(ui_file_rename)},
 	{"EditIndent", GTK_STOCK_INDENT, N_("_Indent"), "<control>period", N_("Indent"), G_CALLBACK(ui_indent)},
 	{"EditUnindent", GTK_STOCK_UNINDENT, N_("Unin_dent"), "<control>comma", N_("Unindent"),

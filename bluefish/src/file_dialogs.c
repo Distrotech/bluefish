@@ -422,6 +422,7 @@ typedef struct {
 	Tdocument *doc;
 	GFile *unlink_uri;
 	GFile *fbrefresh_uri;
+	Tdocsave_mode savemode;
 } Tdocsavebackend;
 
 static void
@@ -545,17 +546,19 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 		} else {
 			/* YES! we're done! update the fileinfo ! */
 			gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
-			DEBUG_MSG("doc_checkNsave_lcb, re-set async doc->fileinfo (current=%p)\n", doc->fileinfo);
-			if (doc->fileinfo)
-				g_object_unref(doc->fileinfo);
-			doc->fileinfo = NULL;
-			file_doc_fill_fileinfo(doc, doc->uri);
-			if (main_v->props.clear_undo_on_save) {
-				doc_unre_clear_all(doc);
-			} else {
-				doc_unre_clear_not_modified(doc);
+			if (dsb->savemode != docsave_copy) {
+				DEBUG_MSG("doc_checkNsave_lcb, re-set async doc->fileinfo (current=%p)\n", doc->fileinfo);
+				if (doc->fileinfo)
+					g_object_unref(doc->fileinfo);
+				doc->fileinfo = NULL;
+				file_doc_fill_fileinfo(doc, doc->uri);
+				if (main_v->props.clear_undo_on_save) {
+					doc_unre_clear_all(doc);
+				} else {
+					doc_unre_clear_not_modified(doc);
+				}
+				doc_set_modified(doc, 0);
 			}
-			doc_set_modified(doc, 0);
 			/* in fact the filebrowser should also be refreshed if the document was closed, but
 			   when a document is closed, the filebrowser is anyway refreshed (hmm perhaps only if 
 			   'follow document focus' is set). */
@@ -599,21 +602,18 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
  * Return value: gchar* with newly allocated string, or NULL on failure or abort
  **/
 gchar *
-ask_new_filename(Tbfwin * bfwin, const gchar * old_curi, const gchar * gui_name, gboolean is_move)
+ask_new_filename(Tbfwin * bfwin, const gchar * old_curi, const gchar *dialogtext)
 {
 	Tdocument *exdoc;
 	GList *alldocs;
 	gchar *new_curi = NULL;
 	GFile *uri;
-	gchar *dialogtext;
 	GtkWidget *dialog;
 
-	dialogtext = g_strdup_printf((is_move) ? _("Move/rename %s to") : _("Save %s as"), gui_name);
+	
 	dialog =
 		file_chooser_dialog(bfwin, dialogtext, GTK_FILE_CHOOSER_ACTION_SAVE, old_curi, FALSE, FALSE, NULL,
 							FALSE);
-	g_free(dialogtext);
-
 	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 		new_curi = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 	}
@@ -671,17 +671,29 @@ ask_new_filename(Tbfwin * bfwin, const gchar * old_curi, const gchar * gui_name,
 	return new_curi;
 }
 
+static void
+session_set_savedir(Tbfwin * bfwin, GFile *uri)
+{
+	if (uri) {
+		GFile *parent = g_file_get_parent(uri);
+		if (bfwin->session->savedir)
+			g_free(bfwin->session->savedir);
+		bfwin->session->savedir = g_file_get_uri(parent);
+	}
+}
+
 void
-doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean close_doc,
+doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 				 gboolean close_window)
 {
 	gchar *tmp;
 	Trefcpointer *buffer;
-	gchar *curi = NULL;
 	Tdocsavebackend *dsb;
+	GFile *dest_uri=NULL;
+	GFileInfo *dest_finfo=NULL;
 	DEBUG_MSG
-		("doc_save_backend, started for doc %p, save_as=%d, do_move=%d, close_doc=%d, close_window=%d\n", doc,
-		 do_save_as, do_move, close_doc, close_window);
+		("doc_save_backend, started for doc %p, mode=%d, close_doc=%d, close_window=%d\n", doc,
+		 savemode, close_doc, close_window);
 
 	if (doc->readonly) {
 		g_print("Cannot save readonly document !?!?");
@@ -690,7 +702,7 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 
 	dsb = g_new0(Tdocsavebackend, 1);
 	dsb->doc = doc;
-
+	dsb->savemode = savemode;
 	/* should be moved to a plugin interface, because this is HTML specific */
 	/* update author meta tag */
 	if (main_v->props.auto_update_meta_author) {
@@ -749,9 +761,6 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 		strip_trailing_spaces(doc);
 	}
 
-	if (doc->uri)
-		curi = g_file_get_uri(doc->uri);
-
 	if (doc->save) {
 		gchar *errmessage;
 		/* this message is not in very nice english I'm afraid */
@@ -761,48 +770,63 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 		message_dialog_new(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
 						   _("Save in progress!"), errmessage);
 		g_free(errmessage);
+		g_free(dsb);
+		DEBUG_MSG("doc_save_backend, already save in progress, return\n");
 		return;
 	}
-	if (doc->uri == NULL) {
-		do_save_as = 1;
-	}
-	if (do_move) {
-		do_save_as = 1;
-	}
-	if (do_save_as) {
-		gchar *newfilename;
+
+	if (doc->uri == NULL || savemode != docsave_normal) {
+		gchar *newfilename, *curi, *dialogtext;
+		const gchar *gui_name = gtk_label_get_text(GTK_LABEL(doc->tab_label));
+		DEBUG_MSG("doc_save_as, no uri, or saveas/copy/move\n");
+		curi = doc->uri ? g_file_get_uri(doc->uri) : NULL;
+		if (savemode == docsave_normal) {
+			dialogtext = g_strdup(_("Save"));
+		} else if (savemode == docsave_saveas){
+			dialogtext = g_strdup_printf(_("Save %s as"), gui_name);
+		} else if (savemode == docsave_move){
+			dialogtext = g_strdup_printf(_("Move/rename %s to"), gui_name);
+		} else {
+			dialogtext = g_strdup_printf(_("Save copy of %s"), gui_name);
+		}
 		newfilename =
-			ask_new_filename(BFWIN(doc->bfwin), curi, gtk_label_get_text(GTK_LABEL(doc->tab_label)), do_move);
+			ask_new_filename(BFWIN(doc->bfwin), curi, dialogtext);
+		g_free(dialogtext);
+		g_free(curi);
 		if (!newfilename) {
-			if (curi)
-				g_free(curi);
+			DEBUG_MSG("doc_save_backend, no newfilename, return\n");
 			g_free(dsb);
 			return;
 		}
-		if (doc->uri) {
-			if (do_move) {
-				dsb->unlink_uri = doc->uri;	/* unlink this uri later */
-				g_object_ref(dsb->unlink_uri);
-			}
-			g_object_unref(doc->uri);
+		dest_uri = g_file_new_for_uri(newfilename);
+		DEBUG_MSG("doc_save_backend, newfilename=%s, dest_uri=%p\n",newfilename, dest_uri);
+		if (savemode == docsave_saveas || savemode == docsave_move) {
+			if (doc->uri)
+				g_object_unref(doc->uri);
+			doc->uri = dest_uri;
+			g_object_ref(doc->uri);
+			dest_finfo = doc->fileinfo;
 		}
-
-		doc->uri = g_file_new_for_uri(newfilename);
-		if (do_move)
-			bmark_doc_renamed(BFWIN(doc->bfwin), doc);
-
-		if (curi)
-			g_free(curi);
-		curi = newfilename;
-		DEBUG_MSG("doc_save_backend, new uri=%s\n", curi);
+	} else {
+		DEBUG_MSG("doc_save_backend, have uri and normal save\n");
+		dest_uri = doc->uri;
+		dest_finfo = doc->fileinfo;
+		g_object_ref(dest_uri);
+	}
+	DEBUG_MSG("doc_save_backend, dest_uri=%p\n",dest_uri);
+	if (savemode == docsave_move && doc->uri) {
+		dsb->unlink_uri = doc->uri;	/* unlink this uri later */
+		g_object_ref(dsb->unlink_uri);
+		bmark_doc_renamed(BFWIN(doc->bfwin), doc);
 		dsb->fbrefresh_uri = doc->uri;	/* refresh this uri later */
 		g_object_ref(dsb->fbrefresh_uri);
 	}
-	session_set_savedir(doc->bfwin, curi);
+	
+	session_set_savedir(doc->bfwin, dest_uri);
 
 	tmp = doc_get_buffer_in_encoding(doc);
 	if (!tmp) {
-		g_free(curi);
+		g_free(dsb);
 		return;
 	}
 #if !GLIB_CHECK_VERSION(2, 18, 0)
@@ -820,20 +844,18 @@ glib_major_version, glib_minor_version, glib_micro_version);
 	doc->close_doc = close_doc;
 	doc->close_window = close_window;
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), FALSE);
-	DEBUG_MSG("doc_save_backend, calling file_checkNsave_uri_async for %zd bytes\n", strlen(buffer->data));
+	DEBUG_MSG("doc_save_backend, calling file_checkNsave_uri_async with uri %p for %zd bytes\n", dest_uri, strlen(buffer->data));
 	doc->save =
-		file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as,
+		file_checkNsave_uri_async(dest_uri, dest_finfo, buffer, strlen(buffer->data), savemode == docsave_normal,
 								  main_v->props.backup_file, doc_checkNsave_lcb, dsb);
 
-	if (do_save_as) {
+	if (savemode == docsave_saveas || savemode == docsave_move) {
 		doc->readonly = FALSE;
 		doc_reset_filetype(doc, doc->uri, buffer->data, strlen(buffer->data));
 		doc_set_title(doc);
 		doc_force_activate(doc);
 	}
 	refcpointer_unref(buffer);
-
-	g_free(curi);
 }
 
 /**
@@ -849,7 +871,7 @@ void
 file_save_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	if (bfwin->current_document)
-		doc_save_backend(bfwin->current_document, FALSE, FALSE, FALSE, FALSE);
+		doc_save_backend(bfwin->current_document, docsave_normal, FALSE, FALSE);
 }
 
 /**
@@ -865,7 +887,7 @@ void
 file_save_as_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	if (bfwin->current_document)
-		doc_save_backend(bfwin->current_document, TRUE, FALSE, FALSE, FALSE);
+		doc_save_backend(bfwin->current_document, docsave_saveas, FALSE, FALSE);
 }
 
 /**
@@ -881,7 +903,7 @@ void
 file_move_to_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	if (bfwin->current_document)
-		doc_save_backend(bfwin->current_document, TRUE, TRUE, FALSE, FALSE);
+		doc_save_backend(bfwin->current_document, docsave_move, FALSE, FALSE);
 }
 
 void
@@ -894,7 +916,7 @@ file_save_all(Tbfwin * bfwin)
 	while (tmplist) {
 		tmpdoc = (Tdocument *) tmplist->data;
 		if (tmpdoc->modified) {
-			doc_save_backend(tmpdoc, FALSE, FALSE, FALSE, FALSE);
+			doc_save_backend(tmpdoc, docsave_normal, FALSE, FALSE);
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -919,7 +941,7 @@ file_save_all_cb(GtkWidget * widget, Tbfwin * bfwin)
 	while (tmplist) {
 		tmpdoc = (Tdocument *) tmplist->data;
 		if (tmpdoc->modified) {
-			doc_save_backend(tmpdoc, FALSE, FALSE, FALSE, FALSE);
+			doc_save_backend(tmpdoc, docsave_normal, FALSE, FALSE);
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -931,7 +953,7 @@ doc_save_all_close(Tbfwin * bfwin)
 	GList *tmplist = g_list_first(bfwin->documentlist);
 	while (tmplist) {
 		Tdocument *tmpdoc = (Tdocument *) tmplist->data;
-		doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, TRUE);
+		doc_save_backend(tmpdoc, docsave_normal, TRUE, TRUE);
 		tmplist = g_list_next(tmplist);
 	}
 }
@@ -987,7 +1009,7 @@ choose_per_file(Tbfwin * bfwin, gboolean close_window)
 				break;
 			case 2:			/* save */
 				DEBUG_MSG("choose_per_file, call doc_save\n");
-				doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
+				doc_save_backend(tmpdoc, docsave_normal, TRUE, close_window);
 				break;
 			}
 		} else {
@@ -1042,7 +1064,7 @@ doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean clos
 			return FALSE;
 			break;
 		case 2:
-			doc_save_backend(doc, FALSE, FALSE, TRUE, close_window);
+			doc_save_backend(doc, docsave_normal, TRUE, close_window);
 			break;
 		}
 	} else {
@@ -1099,7 +1121,7 @@ doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window, Tclose_mode cl
 			tmpdoc->modified = FALSE;
 			doc_close_single_backend(tmpdoc, TRUE, close_window);
 		} else if (close_mode == close_mode_save_all) {
-			doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
+			doc_save_backend(tmpdoc, docsave_normal, TRUE, close_window);
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -1434,7 +1456,7 @@ doc_activate_modified_lcb(Tcheckmodified_status status, GError * gerror, GFileIn
 											  buttons, _("File disappeared from disk\n"), tmpstr);
 			g_free(tmpstr);
 			if (retval == 1) {	/* save */
-				doc_save_backend(doc, FALSE, FALSE, FALSE, FALSE);
+				doc_save_backend(doc, docsave_normal, FALSE, FALSE);
 			} else {			/* unset */
 				document_unset_filename(doc);
 			}

@@ -1533,11 +1533,12 @@ fb2_uri_from_dir_selection(Tfilebrowser2 * fb2)
 static void
 rename_not_open_file(Tbfwin * bfwin, GFile * olduri)
 {
-	gchar *newfilename = NULL, *oldfilename;
-
+	gchar *newfilename = NULL, *oldfilename, *dialogtext;
 	/* Promt user, "File/Move To"-style. */
 	oldfilename = g_file_get_uri(olduri);
-	newfilename = ask_new_filename(bfwin, oldfilename, oldfilename, TRUE);
+	dialogtext = g_strdup_printf(_("Move/rename %s to"), oldfilename);
+	newfilename = ask_new_filename(bfwin, oldfilename, dialogtext);
+	g_free(dialogtext);
 	if (newfilename) {
 		GFile *newuri = NULL;
 		gboolean res;
@@ -1891,7 +1892,7 @@ popup_menu_rename(GtkAction * action, gpointer user_data)
 			DEBUG_MSG("fb2rpopup_rename, file is open. Calling doc_save() with 'do_move'.\n");
 			/* If an error occurs, doc_save takes care of notifying the user.
 			 * Currently, nothing is done here. */
-			doc_save_backend(tmpdoc, TRUE, TRUE, FALSE, FALSE);
+			doc_save_backend(tmpdoc, docsave_move, FALSE, FALSE);
 		} else {				/* olduri is not open */
 			rename_not_open_file(fb2->bfwin, olduri);
 		}
