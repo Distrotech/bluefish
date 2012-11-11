@@ -17,6 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* Windows Language Identifier Constants and Strings
+ * http://msdn.microsoft.com/en-us/library/windows/desktop/dd318693.aspx */
+
 #include "bluefish.h"
 #include "languages.h"
 
