@@ -23,7 +23,6 @@
 #include <gdk/gdkkeysyms.h>		/* for the keyboard event codes */
 
 #include <string.h>				/* strchr() */
-#include <regex.h>				/* regcomp() */
 #include <stdlib.h>				/* system() */
 
 /*#define DEBUG*/
