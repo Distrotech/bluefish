@@ -628,9 +628,9 @@ bfwin_simplesearch_show(Tbfwin *bfwin)
 	if (gtk_text_buffer_get_selection_bounds(bfwin->current_document->buffer, &itstart, &itend)) {
 		if (gtk_text_iter_get_line(&itstart)==gtk_text_iter_get_line(&itend)) {
 			gchar *tmpstr = gtk_text_buffer_get_text(bfwin->current_document->buffer,&itstart,&itend,TRUE);
-			gtk_entry_set_text(gtk_bin_get_child(GTK_ENTRY(bfwin->simplesearch_combo)),tmpstr);
+			gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))),tmpstr);
 			g_free(tmpstr);
-			gtk_editable_select_region(gtk_bin_get_child(GTK_EDITABLE(bfwin->simplesearch_combo)),0,-1);
+			gtk_editable_select_region(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))),0,-1);
 			/* TODO: mark the current selection as the 'current' search result */
 		}
 	}
@@ -648,8 +648,8 @@ bfwin_simplesearch_from_clipboard(Tbfwin *bfwin)
 	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
 	string = gtk_clipboard_wait_for_text(cb);
 	if (string) {
-		gtk_entry_set_text(gtk_bin_get_child(GTK_ENTRY(bfwin->simplesearch_combo)),string);
-		gtk_editable_select_region(gtk_bin_get_child(GTK_EDITABLE(bfwin->simplesearch_combo)),0,-1);
+		gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))),string);
+		gtk_editable_select_region(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))),0,-1);
 		/* TODO: mark the current selection as the 'current' search result */
 		g_free(string);
 	}
@@ -747,7 +747,7 @@ static gboolean simplesearch_start(Tbfwin *bfwin, gboolean allow_single_char_sea
 
 	if (!bfwin->current_document)
 		return FALSE;
-	tmpstr = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(bfwin->simplesearch_combo)));
+	tmpstr = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))));
 	if (bfwin->simplesearch_snr3run) {
 		DEBUG_MSG("free simple search run %p\n", bfwin->simplesearch_snr3run);
 		snr3run_free(bfwin->simplesearch_snr3run);
@@ -800,7 +800,7 @@ simplesearch_back_clicked(GtkButton * button, Tbfwin * bfwin)
 static void
 simplesearch_advanced_clicked(GtkButton * button, Tbfwin * bfwin)
 {
-	const gchar *tmpstr = gtk_entry_get_text(gtk_bin_get_child(GTK_ENTRY(bfwin->simplesearch_combo)));
+	const gchar *tmpstr = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))));
 	snr3_advanced_dialog(bfwin, tmpstr?tmpstr:"");
 	gotoline_close_button_clicked(NULL, bfwin);
 }
@@ -866,9 +866,9 @@ gotoline_frame_create(Tbfwin * bfwin)
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(bfwin->simplesearch_unescape));
 	gtk_menu_tool_button_set_menu(GTK_MENU_TOOL_BUTTON(button), GTK_WIDGET(menu));
 	gtk_widget_show_all(GTK_WIDGET(menu));
-	g_signal_connect(gtk_bin_get_child(bfwin->simplesearch_combo), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
-	g_signal_connect(gtk_bin_get_child(bfwin->simplesearch_combo), "changed", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
-	g_signal_connect(gtk_bin_get_child(bfwin->simplesearch_combo), "activate", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
+	g_signal_connect(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo)), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
+	g_signal_connect(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo)), "changed", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
+	g_signal_connect(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo)), "activate", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
 	g_signal_connect(bfwin->simplesearch_regex, "toggled", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
 	g_signal_connect(bfwin->simplesearch_casesens, "toggled", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
 	g_signal_connect(bfwin->simplesearch_dotmatchall, "toggled", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
