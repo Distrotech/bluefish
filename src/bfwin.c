@@ -747,7 +747,7 @@ static gboolean simplesearch_start(Tbfwin *bfwin, gboolean allow_single_char_sea
 
 	if (!bfwin->current_document)
 		return FALSE;
-	tmpstr = gtk_entry_get_text(gtk_bin_get_child(GTK_ENTRY(bfwin->simplesearch_combo)));
+	tmpstr = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(bfwin->simplesearch_combo)));
 	if (bfwin->simplesearch_snr3run) {
 		DEBUG_MSG("free simple search run %p\n", bfwin->simplesearch_snr3run);
 		snr3run_free(bfwin->simplesearch_snr3run);

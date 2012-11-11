@@ -1116,12 +1116,38 @@ activate_simple_search(void *data) {
 	snr3_run_go(s3run, TRUE);
 }
 
+static void
+simple_search_add_to_history(Tbfwin *bfwin, const gchar *string)
+{
+	if (!string || string[0] == '\0')
+		return;
+	if (bfwin->session->searchlist) {
+		gint nlen, hlen;
+		/* look if the top most entry in the history is the prefix to this string */
+		DEBUG_MSG("top entry on searchlist is %s\n", (gchar *)bfwin->session->searchlist->data);
+		hlen = strlen((gchar *)bfwin->session->searchlist->data);
+		nlen = strlen(string);
+		if (strncmp((gchar *)bfwin->session->searchlist->data, string, MIN(hlen, nlen))==0) {
+			if (nlen > hlen) {
+				/* replace that entry */
+				g_free(bfwin->session->searchlist->data);
+				DEBUG_MSG("set %s as new searchlist string\n", string);
+				bfwin->session->searchlist->data = g_strdup(string);
+			}
+			return;
+		}
+	}
+	DEBUG_MSG("prepend %s to searchlist\n", string);
+	bfwin->session->searchlist = add_to_history_stringlist(bfwin->session->searchlist, string, TRUE, TRUE);
+}
+
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string, Tsnr3type type
 		, gboolean casesens, gboolean dotmatchall, gboolean unescape) {
 	Tsnr3run *s3run;
 	
 	s3run = snr3run_new(bfwin, NULL);
 	snr3run_multiset(s3run, string, NULL, type,snr3replace_string,snr3scope_doc);
+	simple_search_add_to_history(bfwin, string);
 	s3run->dotmatchall = dotmatchall;
 	s3run->is_case_sens = casesens;
 	s3run->escape_chars = unescape;
@@ -1348,11 +1374,11 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 	if (guichange == -1)
 		return;
 
-	snrwin->bfwin->session->searchlist = add_to_history_stringlist(snrwin->bfwin->session->searchlist, s3run->query, FALSE,TRUE);
+	snrwin->bfwin->session->searchlist = add_to_history_stringlist(snrwin->bfwin->session->searchlist, s3run->query, TRUE,TRUE);
 	if (s3run->replace && s3run->replace[0] != '\0')
-		snrwin->bfwin->session->replacelist = add_to_history_stringlist(snrwin->bfwin->session->replacelist, s3run->replace,FALSE, TRUE);
+		snrwin->bfwin->session->replacelist = add_to_history_stringlist(snrwin->bfwin->session->replacelist, s3run->replace,TRUE, TRUE);
 	if (s3run->scope == snr3scope_files && s3run->filepattern && s3run->filepattern[0] != '\0')
-		snrwin->bfwin->session->filegloblist = add_to_history_stringlist(snrwin->bfwin->session->filegloblist, s3run->filepattern,FALSE, TRUE);
+		snrwin->bfwin->session->filegloblist = add_to_history_stringlist(snrwin->bfwin->session->filegloblist, s3run->filepattern,TRUE, TRUE);
 	
 	switch(response) {
 		case SNR_RESPONSE_FIND:
