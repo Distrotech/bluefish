@@ -492,7 +492,7 @@ typedef struct {
 	guint statusbar_pop_id;
 	guint notebook_switch_signal;
 	GtkWidget *gotoline_entry;
-	GtkWidget *simplesearch_entry;
+	GtkWidget *simplesearch_combo;
 	GtkWidget *simplesearch_regex;
 	GtkWidget *simplesearch_casesens;
 	GtkWidget *simplesearch_dotmatchall;
