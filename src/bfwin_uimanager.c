@@ -937,7 +937,7 @@ static const GtkActionEntry document_actions[] = {
 	{"FileSaveAll", NULL, N_("Sav_e All"), "<alt><shift>s", N_("Save all files"), G_CALLBACK(ui_file_save_all)},
 	{"FileRevert", GTK_STOCK_REVERT_TO_SAVED, N_("Rever_t to Saved"), NULL, N_("Reload current file"),
 	 G_CALLBACK(ui_file_reload)},
-	{"FileSaveCopy", NULL, N_("Save a copy..."), NULL, N_("Save a copy"), G_CALLBACK(ui_file_save_copy)},
+	{"FileSaveCopy", NULL, N_("Save a cop_y..."), "<shift><control>y", N_("Save a copy"), G_CALLBACK(ui_file_save_copy)},
 	{"FileRename", NULL, N_("Rena_me..."), "F2", N_("Rename file"), G_CALLBACK(ui_file_rename)},
 	{"EditIndent", GTK_STOCK_INDENT, N_("_Indent"), "<control>period", N_("Indent"), G_CALLBACK(ui_indent)},
 	{"EditUnindent", GTK_STOCK_UNINDENT, N_("Unin_dent"), "<control>comma", N_("Unindent"),
@@ -1154,7 +1154,7 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 						  "FileOpenURL", GTK_UI_MANAGER_MENUITEM, TRUE);
 	g_object_unref(action);
 
-	action = gtk_action_new("FileUploadDownload", _("U_pload / Download..."), NULL, NULL);
+	action = gtk_action_new("FileUploadDownload", _("Upload _/ Download..."), NULL, NULL);
 	gtk_action_group_add_action(bfwin->globalGroup, action);
 	g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(ui_upload_download_dialog), bfwin);
 
