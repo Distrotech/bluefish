@@ -39,7 +39,7 @@
 #ifdef HAVE_LIBENCHANT
 #include "bftextview2_spell.h"
 #endif
-/*#undef DEBUG_MSG 
+/*#undef DEBUG_MSG
 #define DEBUG_MSG g_print*/
 /*#undef DBG_SCANCACHE
 #define DBG_SCANCACHE g_print
@@ -255,7 +255,7 @@ bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
 			gtk_text_iter_forward_to_line_end(&endvisible);
 			DBG_DELAYSCANNING("user is not idle, call scan only for visible area\n");
 			/* hmm spell checking should always be delayed, right? we should
-			   rewrite this bit such that we always schedule spell checking in 
+			   rewrite this bit such that we always schedule spell checking in
 			   the timeout function */
 			if (!bftextview2_run_scanner(btv, &endvisible)
 #ifdef HAVE_LIBENCHANT
@@ -391,7 +391,7 @@ bftextview2_get_block_at_offset(BluefishTextView * btv, Tfound **found, guint of
 	*found = rfound;
 	while (rfound) {
 		DBG_BLOCKMATCH("bftextview2_get_block_at_offset, found %p at offset %d with blockchange %d contextchange %d\n", rfound, rfound->charoffset_o, rfound->numblockchange, rfound->numcontextchange);
-		if (IS_FOUNDMODE_BLOCKPUSH((rfound)) 
+		if (IS_FOUNDMODE_BLOCKPUSH((rfound))
 				&& ((rfound)->fblock->start1_o == offset || (rfound)->fblock->end1_o == offset)) {
 			*found = rfound;
 			return (rfound)->fblock;
@@ -592,7 +592,7 @@ mark_set_idle_lcb(gpointer widget)
 	return FALSE;
 }
 
-/* this function slows down scrolling when you hold the cursor pressed, because 
+/* this function slows down scrolling when you hold the cursor pressed, because
 it is called for every cursor position change. This function is therefore
 an ideal candidate for speed optimization */
 static void
@@ -625,9 +625,9 @@ static void
 bftextview2_set_margin_size(BluefishTextView * btv)
 {
 	gint lines, count, newsize;
-	
+
 	g_assert(btv == btv->master);
-	
+
 	DBG_MSG("bftextview2_set_margin_size, called for %p\n", btv);
 	if (BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_per_char == 0) {
 		PangoLayout *panlay;
@@ -1001,7 +1001,7 @@ paint_margin(BluefishTextView * btv, cairo_t * cr, GtkTextIter * startvisible, G
 				while (found) {
 					guint foundpos = found->charoffset_o;
 					if (IS_FOUNDMODE_BLOCKPUSH(found)) {
-						/* on a pushedblock we should look where the block match start, charoffset_o is the end of the 
+						/* on a pushedblock we should look where the block match start, charoffset_o is the end of the
 						   match, so multiline patterns are drawn on the wrong line */
 						foundpos = found->fblock->start1_o;
 					}
@@ -1073,7 +1073,7 @@ main_v->props.visible_ws_mode:
 0 = All
 1 = All except spaces
 2 = All trailing
-3 = All except non-trailing spaces 
+3 = All except non-trailing spaces
 */
 static inline void
 paint_spaces(BluefishTextView * btv, cairo_t * cr, GtkTextIter * startvisible, GtkTextIter * endvisible)
@@ -1325,10 +1325,10 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 
 	/* mark the surroundings of the text that will be deleted */
 
-	/* the 'word start' algorithm of pango becomes very slow in a situation where 
-	   the file is filled with funny unicode characters such as 'box' symbol characters. 
+	/* the 'word start' algorithm of pango becomes very slow in a situation where
+	   the file is filled with funny unicode characters such as 'box' symbol characters.
 	   This happens in search and replace with many replaces (this function is called for
-	   each replace).  
+	   each replace).
 	   I have to see why this is. We could also mark from the beginning of the line, but that
 	   would be excessive on very long lines...... what is best?? */
 	loop = 0;
@@ -1483,8 +1483,8 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		GtkTextIter iter;
 		gchar *string;
 		gint numchars;
-		/* replace the tab with spaces if the user wants that. 
-		   However, some users want the tab key to arrive at the next tab stop. so if the tab width is 
+		/* replace the tab with spaces if the user wants that.
+		   However, some users want the tab key to arrive at the next tab stop. so if the tab width is
 		   4 and there are two characters already, bluefish should insert only 2 characters */
 		string =
 			bf_str_repeat(" ",
@@ -1686,7 +1686,7 @@ enable_tooltip_idle_lcb(gpointer data)
 
 /*
  * the 'name' pointer should be the identical pointer as the pointer found in st->blocks
- * it is not compared on it's contents but on the pointer address 
+ * it is not compared on it's contents but on the pointer address
  */
 static void
 bftextview2_collapse_expand_toggle(BluefishTextView * btv, const gchar * name, gboolean collapse)
@@ -1868,21 +1868,24 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->button_press_event(widget, event);
 }
 
+static void
+select_from_line_to_eventy(BluefishTextView *btv, gint line, guint eventy)
+{
+	GtkTextIter so, eo;
+	gint x,y;
+	gtk_text_buffer_get_iter_at_line(btv->buffer, &so,line);
+	gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, 0, eventy, &x,&y);
+	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(btv), &eo, y, &x);
+	gtk_text_iter_forward_to_line_end(&eo);
+	gtk_text_buffer_select_range(btv->buffer, &so, &eo);
+}
+
 static gboolean
 bluefish_text_view_motion_notify_event(GtkWidget * widget, GdkEventMotion * event)
 {
 	if (((BluefishTextView *) widget)->button_press_line != -1
-		&& event->x < ((BluefishTextView *) ((BluefishTextView *) widget)->master)->margin_pixels_chars) {
-		GtkTextIter so, eo;
-		gint x, y;
-
-		gtk_text_buffer_get_iter_at_line(((BluefishTextView *) widget)->buffer, &so,
-										 ((BluefishTextView *) widget)->button_press_line);
-		gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, 0, event->y, &x,
-											  &y);
-		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &eo, y, &x);
-		gtk_text_iter_forward_to_line_end(&eo);
-		gtk_text_buffer_select_range(gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget)), &so, &eo);
+				&& event->x < ((BluefishTextView *) ((BluefishTextView *) widget)->master)->margin_pixels_chars) {
+		select_from_line_to_eventy((BluefishTextView *)widget, ((BluefishTextView *)widget)->button_press_line, event->y);
 		return TRUE;
 	}
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->motion_notify_event(widget, event);
@@ -1892,17 +1895,11 @@ static gboolean
 bluefish_text_view_button_release_event(GtkWidget * widget, GdkEventButton * event)
 {
 	if (((BluefishTextView *) widget)->button_press_line != -1
-		&& event->x < ((BluefishTextView *) ((BluefishTextView *) widget)->master)->margin_pixels_chars
-		&& event->button == 1) {
-		/*GtkTextIter so, eo;
-		   gint x,y;
-
-		   gtk_text_buffer_get_iter_at_line(((BluefishTextView *)widget)->buffer,&so,((BluefishTextView *)widget)->button_press_line);
-		   gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, 0, event->y, &x,&y);
-		   gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &eo, y, &x);
-		   gtk_text_iter_forward_to_line_end(&eo);
-		   gtk_text_buffer_select_range(gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget)), &so, &eo);
-		   return TRUE; */
+			&& event->x < ((BluefishTextView *) ((BluefishTextView *) widget)->master)->margin_pixels_chars
+			&& event->button == 1) {
+		if (!gtk_text_buffer_get_has_selection(((BluefishTextView *) widget)->buffer)) {
+			select_from_line_to_eventy((BluefishTextView *)widget, ((BluefishTextView *)widget)->button_press_line, event->y);
+		}
 		((BluefishTextView *) widget)->button_press_line = -1;
 	}
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->button_release_event(widget, event);
@@ -1969,7 +1966,7 @@ auto_increase_indenting(BluefishTextView * btv)
 		if (string && string[0] != '\0') {
 			gboolean in_paste = DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->in_paste_operation;
 			/*g_print("bluefish_text_view_key_release_event, autoindent, insert indenting\n"); */
-			/* a dirty trick: if in_paste_operation is set, there will be no call 
+			/* a dirty trick: if in_paste_operation is set, there will be no call
 			   for doc_unre_new_group when indenting is inserted */
 			if (!in_paste)
 				DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->in_paste_operation = TRUE;
@@ -2067,7 +2064,7 @@ bluefish_text_view_key_release_event(GtkWidget * widget, GdkEventKey * kevent)
 	}
 
 	/* sometimes we receive a release event for a key that was not pressed in the textview widget!
-	   for example if you use the keyboard to navigate the menu, and press enter to activate an item, a 
+	   for example if you use the keyboard to navigate the menu, and press enter to activate an item, a
 	   key release event is received in the textview widget.... so we have to check that ! */
 	if (!btv->key_press_inserted_char)
 		return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->key_release_event(widget, kevent);
@@ -2123,7 +2120,7 @@ bluefish_text_view_rescan(BluefishTextView * btv)
 	}
 }
 
-	/* returns TRUE if 
+	/* returns TRUE if
 	   there is a selection and a comment start and end is inside the selection
 	   OR no selection and cursor is inside a comment */
 gboolean
@@ -2648,26 +2645,26 @@ bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean ke
 			   #0  0xb80bf430 in __kernel_vsyscall ()
 			   #1  0xb761f6d0 in raise () from /lib/tls/i686/cmov/libc.so.6
 			   #2  0xb7621098 in abort () from /lib/tls/i686/cmov/libc.so.6
-			   #3  0xb77b3eac in IA__g_logv (log_domain=0xb7fcba77 "Gtk", 
-			   log_level=G_LOG_LEVEL_ERROR, 
-			   format=0xb8076f74 "Byte index %d is off the end of the line", 
+			   #3  0xb77b3eac in IA__g_logv (log_domain=0xb7fcba77 "Gtk",
+			   log_level=G_LOG_LEVEL_ERROR,
+			   format=0xb8076f74 "Byte index %d is off the end of the line",
 			   args1=0xbfcdc06c "\206\002")
 			   at /build/buildd/glib2.0-2.20.1/glib/gmessages.c:506
-			   #4  0xb77b3ee6 in IA__g_log (log_domain=0xb7fcba77 "Gtk", 
-			   log_level=G_LOG_LEVEL_ERROR, 
+			   #4  0xb77b3ee6 in IA__g_log (log_domain=0xb7fcba77 "Gtk",
+			   log_level=G_LOG_LEVEL_ERROR,
 			   format=0xb8076f74 "Byte index %d is off the end of the line")
 			   at /build/buildd/glib2.0-2.20.1/glib/gmessages.c:526
-			   #5  0xb7ed4ee7 in iter_set_from_byte_offset (iter=0xbfcdc0c4, line=0x9b1cbb8, 
+			   #5  0xb7ed4ee7 in iter_set_from_byte_offset (iter=0xbfcdc0c4, line=0x9b1cbb8,
 			   byte_offset=646) at /build/buildd/gtk+2.0-2.16.1/gtk/gtktextiter.c:110
-			   #6  0xb7ed967f in IA__gtk_text_iter_set_visible_line_index (iter=0xbfcdc1e4, 
+			   #6  0xb7ed967f in IA__gtk_text_iter_set_visible_line_index (iter=0xbfcdc1e4,
 			   byte_on_line=4) at /build/buildd/gtk+2.0-2.16.1/gtk/gtktextiter.c:3906
-			   #7  0xb7edc8c0 in line_display_index_to_iter (layout=0x9711728, 
+			   #7  0xb7edc8c0 in line_display_index_to_iter (layout=0x9711728,
 			   display=0x9c30618, iter=0xbfcdc1e4, index=69, trailing=0)
 			   at /build/buildd/gtk+2.0-2.16.1/gtk/gtktextlayout.c:2549
-			   #8  0xb7ee099c in IA__gtk_text_layout_get_iter_at_position (layout=0x9711728, 
+			   #8  0xb7ee099c in IA__gtk_text_layout_get_iter_at_position (layout=0x9711728,
 			   target_iter=0xbfcdc1e4, trailing=0xbfcdc21c, x=-5, y=<value optimized out>)
 			   at /build/buildd/gtk+2.0-2.16.1/gtk/gtktextlayout.c:2670
-			   #9  0x080646cd in bluefish_text_view_query_tooltip (widget=0x9783050, x=47, 
+			   #9  0x080646cd in bluefish_text_view_query_tooltip (widget=0x9783050, x=47,
 			   y=88, keyboard_tip=0, tooltip=0x97d0a38) at bftextview2.c:1187
 
 			   I guess this is a race condition, during collapse all a lot of text is made hidden
