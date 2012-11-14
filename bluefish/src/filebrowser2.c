@@ -31,14 +31,14 @@ extern void g_none(char *first, ...);
 #define DEBUG_TREEMODELREFS DBG_NONE
 
 /* ******* FILEBROWSER DESIGN ********
-there is only one treestore left for all bluefish windows. This treestore has all files 
+there is only one treestore left for all bluefish windows. This treestore has all files
 and all directories used in all bluefish windows. This treestore has a column for the pixmap
-and the name (both shown to the user), but also the GFile for the full path (excluding the 
-trailing slash for directories, see #1), and the type. This treestore is in main_v->fb2config. Each file 
+and the name (both shown to the user), but also the GFile for the full path (excluding the
+trailing slash for directories, see #1), and the type. This treestore is in main_v->fb2config. Each file
 or directory added to the treestore is also added to a hashtable in main_v->fb2config
 
-the GUI uses two filtermodels on top of the treestore, and then two sortmodels, so they can 
-show a specific part of the treestore (for example with a basedir other then the root, or with 
+the GUI uses two filtermodels on top of the treestore, and then two sortmodels, so they can
+show a specific part of the treestore (for example with a basedir other then the root, or with
 some filter applied).
 
 #1) the hash for file:///home/ is different from file:///home so we should choose which hash is
@@ -438,7 +438,7 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 		mime_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 		if (mime_type == NULL && g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY) {
 			/* GVFS SMB module on Ubuntu 8.10 returns NULL as FAST_CONTENT_TYPE, but it does set
-			   the type (regular file or directory). In the case of a directory we manually set the 
+			   the type (regular file or directory). In the case of a directory we manually set the
 			   mime type  */
 			mime_type = "inode/directory";
 		}
@@ -454,10 +454,10 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 		DEBUG_MSG("fb2_add_filesystem_entry, store child_uri %p, finfo %p\n",child_uri, finfo);
 		gtk_tree_store_insert_with_values(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
 										  newiter, parent, 0,
-										  ICON_NAME_COLUMN, icon_name, 
+										  ICON_NAME_COLUMN, icon_name,
 										  FILENAME_COLUMN, display_name,
-										  URI_COLUMN, child_uri, 
-										  REFRESH_COLUMN, 0, 
+										  URI_COLUMN, child_uri,
+										  REFRESH_COLUMN, 0,
 										  TYPE_COLUMN, mime_type,
 										  FILEINFO_COLUMN, finfo, -1);
 		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
@@ -553,7 +553,7 @@ fb2_treestore_delete_children_refresh1(GtkTreeStore * tstore, GtkTreeIter * iter
 /**
  * fb2_treestore_mark_children_refresh1:
  *
- * sets value 1 in REFRESH_COLUMN for all children of 'iter' 
+ * sets value 1 in REFRESH_COLUMN for all children of 'iter'
  */
 static void
 fb2_treestore_mark_children_refresh1(GtkTreeStore * tstore, GtkTreeIter * iter)
@@ -717,11 +717,11 @@ fb2_uri_from_iter(GtkTreeIter * iter)
  * fb2_refresh_dir:
  *
  * the 'dir' iter that is passed to this function will be used in the asynchronous
- * update, so it needs to be a persistent iter. The iters that are in the hashtable 
- * are persistent. Most others are not. So better pass NULL then pass a temporary 
+ * update, so it needs to be a persistent iter. The iters that are in the hashtable
+ * are persistent. Most others are not. So better pass NULL then pass a temporary
  * iter
  *
- * this function does call fb2_fill_dir_async() which changes the treestore and 
+ * this function does call fb2_fill_dir_async() which changes the treestore and
  * thus might invalidates iters
  *
  */
@@ -730,7 +730,7 @@ fb2_refresh_dir(GFile * uri, GtkTreeIter * dir)
 {
 	/* first we mark all children as 'refresh=1' in the REFRESH_COLUMN, then
 	   we read the directory, and all existing items are set to refresh=0, after we
-	   have finished reading the directory, all items that still have refresh=1 can be 
+	   have finished reading the directory, all items that still have refresh=1 can be
 	   deleted */
 	if (uri != NULL && dir == NULL) {
 		dir = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
@@ -907,9 +907,9 @@ need_to_scroll_to_dir(Tfilebrowser2 * fb2, GFile *diruri)
 
 	if (!gtk_tree_model_get_iter(fb2->dir_tsort,&it1,start_path)) {
 		GFile *uri=NULL;
-		
+
 		gtk_tree_model_get(fb2->dir_tsort, &it1, URI_COLUMN, &uri, -1);
-		
+
 		if (uri) {
 			/* now see if diruri is the parent of uri */
 			retval = !gfile_uri_is_parent(diruri,uri,TRUE);
@@ -920,7 +920,7 @@ need_to_scroll_to_dir(Tfilebrowser2 * fb2, GFile *diruri)
 	return retval;
 }
 
-static GtkTreePath *dir_sort_path_from_treestore_path(Tfilebrowser2 * fb2, GtkTreePath *treestorepath) 
+static GtkTreePath *dir_sort_path_from_treestore_path(Tfilebrowser2 * fb2, GtkTreePath *treestorepath)
 {
 	GtkTreePath *filter_path =
 					gtk_tree_model_filter_convert_child_path_to_path(GTK_TREE_MODEL_FILTER
@@ -937,7 +937,7 @@ static GtkTreePath *dir_sort_path_from_treestore_path(Tfilebrowser2 * fb2, GtkTr
 /**
  * fb2_focus_dir:
  *
- * builds the directory tree, refreshed the directory, and (if not noselect) expands and selects the 
+ * builds the directory tree, refreshed the directory, and (if not noselect) expands and selects the
  * result. during the expand it will block the expand signal handler, so the expand callback
  * will not be called
  *
@@ -971,7 +971,7 @@ fb2_focus_dir(Tfilebrowser2 * fb2, GFile * uri, gboolean noselect)
 	if (dir) {
 		GtkTreePath *fs_path;
 		DEBUG_DIRITER(dir);
-		
+
 		/* set this directory as the top tree for the file widget */
 		fs_path =
 			gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), dir);
@@ -997,8 +997,8 @@ fb2_focus_dir(Tfilebrowser2 * fb2, GFile * uri, gboolean noselect)
 					DEBUG_MSG("fb2_focus_dir, no sort_path\n");
 				}
 			} else {
-				/* 'uri' is not persistent, 'dir' is peristent, so only pass 'dir' 
-				   the "expand" signal (dual or tree view) will also refresh this directory, so 
+				/* 'uri' is not persistent, 'dir' is peristent, so only pass 'dir'
+				   the "expand" signal (dual or tree view) will also refresh this directory, so
 				   we call this only on 'noselect' or in the flat view
 				 */
 				DEBUG_MSG("fb2_focus_dir, noselect, so directly call refresh\n");
@@ -1185,7 +1185,7 @@ filebrowser_sort_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter * b, gp
 	gtk_tree_model_get((GtkTreeModel *) model, b, FILENAME_COLUMN, &nameb, TYPE_COLUMN, &mimeb, -1);
 	isdira = (mimea && MIME_ISDIR(mimea));
 	isdirb = (mimeb && MIME_ISDIR(mimeb));
-	DEBUG_MSG("namea=%s, nameb=%s, isdira=%d, mimea=%s, isdirb=%d, mimeb=%s\n",namea,nameb,isdira,mimea,isdirb,mimeb); 
+	DEBUG_MSG("namea=%s, nameb=%s, isdira=%d, mimea=%s, isdirb=%d, mimeb=%s\n",namea,nameb,isdira,mimea,isdirb,mimeb);
 	if (isdira == isdirb) {		/* both files, or both directories */
 		if (namea == nameb) {
 			retval = 0;			/* both NULL */
@@ -1757,13 +1757,13 @@ popup_menu_delete(GtkAction * action, gpointer user_data)
 static void
 popup_menu_filter_activate(GtkAction * action, gpointer user_data)
 {
-	
+
 	Tbfwin *bfwin=user_data;
 	Tfilebrowser2 *fb2;
-	
+
 	if (!bfwin || !bfwin->fb2)
 		return;
-	
+
 	fb2 = FILEBROWSER2(bfwin->fb2);
 	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
 		/* loop trough the filters for a filter with this name */
@@ -1820,8 +1820,10 @@ popup_menu_open(GtkAction * action, gpointer user_data)
 	gchar *mime = NULL;
 
 	uri = fb2_uri_from_file_selection(fb2, &mime);
-	if (uri)
+	if (uri) {
+		DEBUG_MSG("calling file_handle for popup menu\n");
 		file_handle(uri, fb2->bfwin, mime, FALSE);
+	}
 }
 
 static void
@@ -1968,10 +1970,10 @@ popup_menu_view_mode_changed(GtkRadioAction * action, GtkRadioAction * current, 
 	Tbfwin *bfwin = user_data;
 	Tfilebrowser2 *fb2;
 	gint view_mode;
-	
+
 	if (!bfwin || !bfwin->fb2)
 		return;
-	
+
 	fb2 = FILEBROWSER2(bfwin->fb2);
 	view_mode = gtk_radio_action_get_current_value(action);
 
@@ -2110,9 +2112,9 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 	if (!menu) {
 		g_warning("showing file browser popup menu failed");
 		return;
-	}	
+	}
 	fb2->last_popup_on_dir = is_directory;
-	 
+
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FB2FollowActiveDoc",
 										 fb2->bfwin->session->filebrowser_focus_follow);
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FB2ShowBackupFiles",
@@ -2210,7 +2212,7 @@ dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser2
 			DEBUG_MSG("context menu: nothing selected\n");
 			popup_menu_create(fb2, FALSE, FALSE, event);
 		}
-	} else if (!(fb2->filebrowser_viewmode == viewmode_dual) && event->button == 1
+	}/* else if (!(fb2->filebrowser_viewmode == viewmode_dual) && event->button == 1
 			   && event->type == GDK_2BUTTON_PRESS) {
 		GtkTreePath *path;
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->dir_v), event->x, event->y, &path, NULL, NULL, NULL);
@@ -2224,11 +2226,12 @@ dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser2
 				DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", basename);
 				g_free(basename);
 #endif
+				g_print("calling file_handle for doubleclick on dir_v\n");
 				file_handle(uri, fb2->bfwin, mime, FALSE);
 			}
 			g_free(mime);
 		}
-	}
+	}*/
 	return FALSE;				/* pass the event on */
 }
 
@@ -2248,7 +2251,7 @@ file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser
 			DEBUG_MSG("no path for position\n");
 			popup_menu_create(fb2, FALSE, FALSE, event);
 		}
-	} else if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
+	} /*else if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
 		GtkTreePath *sort_path=NULL;
 		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &sort_path,
 									  NULL, NULL, NULL) && sort_path) {
@@ -2256,8 +2259,8 @@ file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser
 			gchar *mime = NULL;
 			uri = fb2_uri_from_file_sort_path(fb2, sort_path, &mime);
 			if (uri) {
+				g_print("call file_handle for doubleclick on file_v\n");
 				file_handle(uri, fb2->bfwin, mime, FALSE);
-				/*handle_activate_on_file(fb2, uri,mime); */
 			}
 #ifdef DEBUG
 			else {
@@ -2266,7 +2269,7 @@ file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser
 #endif
 			gtk_tree_path_free(sort_path);
 		}
-	}
+	}*/
 	return FALSE;				/* pass the event on */
 }
 
@@ -2336,7 +2339,7 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 			havesetiter = TRUE;
 		}
 		name = g_file_is_native(tmp) ? g_file_get_path(tmp) : g_file_get_uri(tmp);
-		
+
 		if (tmp2 == NULL) {
 			gchar *icon_name;
 			GError *error = NULL;
@@ -2435,6 +2438,7 @@ dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 	gchar *mime = NULL;
 	GFile *uri = fb2_uri_from_dir_sort_path(fb2, path, &mime);	/* this is a pointer to the uri stored in the treemodel */
 	if (!mime || !MIME_ISDIR(mime)) {
+		DEBUG_MSG("calling file_handle for row_activated\n");
 		file_handle(uri, fb2->bfwin, mime, FALSE);
 	} else { /* a directory */
 		if (fb2->filebrowser_viewmode == viewmode_flat) {
@@ -2458,6 +2462,7 @@ file_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 	gchar *mime = NULL;
 	GFile *uri = fb2_uri_from_file_sort_path(fb2, path, &mime); /* this is a pointer to the uri stored in the treemodel */
 	DEBUG_MSG("handle file with mime %s\n",mime);
+	DEBUG_MSG("calling file_handle for file_v row activated");
 	file_handle(uri, fb2->bfwin, mime, FALSE);
 	g_free(mime);
 }
@@ -2554,7 +2559,7 @@ dirmenu_changed_lcb(GtkComboBox * widget, gpointer data)
 	Tbfwin *bfwin = data;
 	Tfilebrowser2 *fb2;
 	GtkTreeIter iter;
-	
+
 	if (!bfwin || !bfwin->fb2)
 		return;
 	fb2 = bfwin->fb2;
@@ -2645,11 +2650,11 @@ fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * context, gint 
 	gint length;
 	GFile *destdir = NULL;
 	GtkTreePath *path;
-	/* if we don't do this, we get this text: Gtk-WARNING **: You must override the default 
-	   'drag_data_received' handler on GtkTreeView when using models that don't support the 
-	   GtkTreeDragDest interface and enabling drag-and-drop. The simplest way to do this is to 
-	   connect to 'drag_data_received' and call g_signal_stop_emission_by_name() in your signal 
-	   handler to prevent the default handler from running. Look at the source code for the 
+	/* if we don't do this, we get this text: Gtk-WARNING **: You must override the default
+	   'drag_data_received' handler on GtkTreeView when using models that don't support the
+	   GtkTreeDragDest interface and enabling drag-and-drop. The simplest way to do this is to
+	   connect to 'drag_data_received' and call g_signal_stop_emission_by_name() in your signal
+	   handler to prevent the default handler from running. Look at the source code for the
 	   default handler in gtktreeview.c to get an idea what your handler should do.  */
 	g_signal_stop_emission_by_name(widget, "drag_data_received");
 
@@ -2987,7 +2992,7 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 			fb2config_set_documentroot(uri);
 			g_object_unref(uri);
 		}
-		/* TODO: fb2_set_basedir already calls refilter in most cases (not if the 
+		/* TODO: fb2_set_basedir already calls refilter in most cases (not if the
 		   requested basedir was already the active basedir), so
 		   we can optimise this and call refilter only when really needed. */
 		if (need_refilter) {
@@ -3080,7 +3085,7 @@ fb2_cleanup(Tbfwin * bfwin)
 			DEBUG_MSG("fb2_cleanup, we still have a vbox, destroy vbox\n");
 			gtk_widget_destroy(fb2->vbox);
 		}
-		
+
 		DEBUG_MSG("fb2_cleanup, remove ui_manager actions\n");
 		if (bfwin->fb2_filters_group) {
 			gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->fb2_filters_merge_id);

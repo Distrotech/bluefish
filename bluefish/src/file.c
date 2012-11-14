@@ -85,7 +85,7 @@ file_static_queues_init(void)
 
 static GList *fileinfo_wait_for_mount = NULL;
 static GList *openfile_wait_for_mount = NULL;
-static GMountOperation *gmo = NULL;	/* we do only 1 mount operation at a 
+static GMountOperation *gmo = NULL;	/* we do only 1 mount operation at a
 									   time to avoid multiple mount calls for the same volume, resulting in multiple authentication
 									   popups for the user. In 99.9% of the cases when the user is loading multiple files that need
 									   mounting they will be from the same server anyway  */
@@ -382,7 +382,7 @@ checkNsave_replace_async_lcb(GObject * source_object, GAsyncResult * res, gpoint
 #if !GLIB_CHECK_VERSION(2, 18, 0)
 		else if (error->code == G_IO_ERROR_EXISTS
 				 && (g_file_has_uri_scheme(cns->uri, "sftp") || g_file_has_uri_scheme(cns->uri, "smb"))) {
-			/* there is  a bug in the GIO sftp and smb module in glib version 2.18 that returns 'file exists error' 
+			/* there is  a bug in the GIO sftp and smb module in glib version 2.18 that returns 'file exists error'
 			   if you request an async content_replace */
 			GError *error2 = NULL;
 			g_file_replace_contents(cns->uri, cns->buffer->data, cns->buffer_size, cns->etag,
@@ -487,10 +487,10 @@ file_checkNsave_uri_async(GFile * uri, GFileInfo * info, Trefcpointer * buffer, 
 GFile *backup_uri_from_orig_uri(GFile * origuri) {
 	gchar *tmp, *tmp2;
 	GFile *ret;
-	
+
 	tmp = g_file_get_parse_name(origuri);
 	tmp2 = g_strconcat(tmp,"~",NULL);
-	
+
 	ret = g_file_parse_name(tmp2);
 	g_free(tmp);
 	g_free(tmp2);
@@ -622,7 +622,7 @@ fileintodoc_cleanup(Tfileintodoc * fid)
 }
 
 static gboolean
-fileintodoc_finished_idle_lcb(gpointer data) 
+fileintodoc_finished_idle_lcb(gpointer data)
 {
 	Tfileintodoc *fid = data;
 	DEBUG_MSG("fileintodoc_finished_idle_lcb, loading the data for doc %p\n",fid->doc);
@@ -662,7 +662,7 @@ fileintodoc_finished_idle_lcb(gpointer data)
 	refcpointer_unref(fid->buffer);
 	fileintodoc_cleanup(data);
 	return FALSE;
-} 
+}
 
 static void
 fileintodoc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, goffset buflen, gpointer data)
@@ -670,7 +670,7 @@ fileintodoc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer,
 	Tfileintodoc *fid = data;
 	switch (status) {
 	case OPENFILE_FINISHED:
-		/* a GtkTextView with lots of data displays incredibly slow. So during 
+		/* a GtkTextView with lots of data displays incredibly slow. So during
 		startup of bluefish we want the GUI to show first, and *then* it should load
 		the data into the documents. That's why we insert this extra idle call with low
 		priority, to give the UI priority over the data loading */
@@ -772,7 +772,7 @@ file2doc_goto_idle_cb(Tfile2doc * f2d)
 	}
 	f2d->doc->goto_line = -1;
 	f2d->doc->goto_offset = -1;
-	f2d->doc->load = NULL;	
+	f2d->doc->load = NULL;
 	file2doc_cleanup(f2d);
 	return FALSE;
 }
@@ -788,7 +788,7 @@ file2doc_finished_idle_lcb(gpointer data)
 	DEBUG_MSG("file2doc_finished_idle_lcb started for doc %p\n",f2d->doc);
 	if (f2d->recovery_status == 1) {
 		GtkTextIter itstart, itend;
-	
+
 		f2d->recovery_status = 2;
 		doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
 		gtk_text_buffer_get_bounds(f2d->doc->buffer, &itstart, &itend);
@@ -935,9 +935,9 @@ fill_fileinfo_lcb(GObject * source_object, GAsyncResult * res, gpointer user_dat
 		}
 		fi->doc->fileinfo = info; /* no need to ref it, the call to g_file_query_info_finish returns a reference */
 #ifdef DEBUG
-		/* weird.. since I (Olivier) have a SSD in my laptop I sometimes receive wrong values 
+		/* weird.. since I (Olivier) have a SSD in my laptop I sometimes receive wrong values
 		   for the file size here. And then I get a 'file changed on disk' error.
-		   But the file did not change at all, just the first time the recorded size 
+		   But the file did not change at all, just the first time the recorded size
 		   was wrong. Right now I get 16384 bytes (2^14) for a 7918 byte file. */
 		if (g_file_info_has_attribute(info, G_FILE_ATTRIBUTE_STANDARD_SIZE)) {
 			gchar *curi = g_file_get_uri(fi->uri);
@@ -1079,7 +1079,7 @@ typedef struct {
 	gchar *extension_filter;
 	GPatternSpec *patspec;
 	GFile *topbasedir;			/* the top directory where advanced open started */
-	
+
 	void (*finished_cb) (gpointer data);
 	void (*filematch_cb) (const gchar *name, GFile *uri, gpointer data);
 	gpointer data;
@@ -1148,7 +1148,7 @@ enumerator_next_files_lcb(GObject * source_object, GAsyncResult * res, gpointer 
 	Tfindfiles_dir *ffd = user_data;
 	GList *alldoclist;
 
-	if (ffd->ff->cancel) {	
+	if (ffd->ff->cancel) {
 		findfiles_load_directory_cleanup(ffd);
 		return;
 	}
@@ -1315,7 +1315,7 @@ typedef struct {
 	Tbfwin *bfwin;
 	gchar *content_filter;
 	gboolean use_regex;
-	GRegex *content_reg;	
+	GRegex *content_reg;
 } Topenadvanced;
 
 typedef struct {
@@ -1324,7 +1324,7 @@ typedef struct {
 	GFileInfo *finfo;
 } Topenadvanced_uri;
 
-static void 
+static void
 open_advanced_cleanup(Topenadvanced *oa) {
 	DEBUG_MSG("open_advanced_cleanup, oa=%p\n",oa);
 	if (oa->content_filter)
@@ -1354,7 +1354,7 @@ open_adv_open_uri_cleanup(Topenadvanced_uri * oau)
 	g_print("allocuri=%d\n", omemcount.allocuri);
 #endif							/* OAD_MEMCOUNT */
 	g_slice_free(Topenadvanced_uri, oau);
-	
+
 }
 
 static gboolean
@@ -1716,7 +1716,7 @@ static void
 progress_update(Tsync *sync, GFile *uri)
 {
 /*	if (g_timer_elapsed(sync->timer,NULL) > 0.05) */
-/*	if (sync->num_found % 10==0 || (sync->num_found - sync->num_finished) % 10 == 0) 
+/*	if (sync->num_found % 10==0 || (sync->num_found - sync->num_finished) % 10 == 0)
 	{*/
 	sync->progress_callback(uri, sync->num_found, sync->num_finished, sync->num_failed, sync->callback_data);
 /*		g_print("timer elapsed %f\n",g_timer_elapsed(sync->timer,NULL));
@@ -2090,7 +2090,7 @@ file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean external_inp
 				g_object_unref(docparent);
 			}
 			if (!curi) {
-				curi = g_file_get_uri(uri);
+				curi = g_file_get_basename(uri);
 			}
 			if (curi) {
 				tmp = g_strdup_printf("<img src=\"%s\" alt=\"\" />", curi);
