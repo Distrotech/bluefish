@@ -855,6 +855,7 @@ glib_major_version, glib_minor_version, glib_micro_version);
 		doc_set_title(doc);
 		doc_force_activate(doc);
 	}
+	g_object_unref(dest_uri);
 	refcpointer_unref(buffer);
 }
 
