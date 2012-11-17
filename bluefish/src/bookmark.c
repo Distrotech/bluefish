@@ -706,7 +706,9 @@ bmark_check_remove(Tbfwin * bfwin, Tbmark * b)
 				if (b->doc)
 					b->doc->bmark_parent = NULL;
 			}
-			bluefish_text_view_set_show_symbols_redraw(BLUEFISH_TEXT_VIEW(b->doc->view), FALSE);
+
+			if (b->doc && b->doc->view)
+				bluefish_text_view_set_show_symbols_redraw(BLUEFISH_TEXT_VIEW(b->doc->view), FALSE);
 
 			return FALSE;
 		}
