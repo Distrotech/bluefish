@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-09-14 08:40+0200\n"
-"PO-Revision-Date: 2012-09-14 00:39+0800\n"
-"Last-Translator: ZhiFeng Ma <mzf9527@gmail.com>\n"
+"POT-Creation-Date: 2012-11-19 09:05+0100\n"
+"PO-Revision-Date: 2012-11-18 00:26+0600\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -30,27 +30,27 @@ msgid "programming;code;html;php;python;"
 msgstr "programming;code;html;php;python;"
 
 #: ../desktop-data/bluefish.xml.in.h:1
-msgid "Bluefish language definition file"
-msgstr "Bluefish 语言定义文件"
-
-#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish project file"
 msgstr "Bluefish 项目文件"
 
-#: ../src/bftextview2.c:1581
+#: ../desktop-data/bluefish.xml.in.h:2
+msgid "Bluefish language definition file"
+msgstr "Bluefish 语言定义文件"
+
+#: ../src/bftextview2.c:1732
 msgid "Collapse all"
 msgstr "全部收起"
 
-#: ../src/bftextview2.c:1584
+#: ../src/bftextview2.c:1735
 msgid "Expand all"
 msgstr "全部展开"
 
-#: ../src/bftextview2.c:1591
+#: ../src/bftextview2.c:1744
 #, c-format
 msgid "Collapse %s"
 msgstr "收起 %s"
 
-#: ../src/bftextview2.c:1598
+#: ../src/bftextview2.c:1754
 #, c-format
 msgid "Expand %s"
 msgstr "展开 %s"
@@ -71,877 +71,893 @@ msgstr "忽略拼写检查"
 msgid "Insert special characters as entities"
 msgstr "插入特殊字符"
 
-#: ../src/bfwin.c:228
+#: ../src/bfwin.c:227
 msgid "Filebrowser"
 msgstr "文件浏览器"
 
-#: ../src/bfwin.c:230
+#: ../src/bfwin.c:229
 msgid "Bookmarks"
 msgstr "书签"
 
-#: ../src/bfwin.c:834
+#: ../src/bfwin.c:833
 msgid "Goto Line:"
 msgstr "转到指定行:"
 
-#: ../src/bfwin.c:845
+#: ../src/bfwin.c:844
 msgid "Find:"
 msgstr "查找："
 
-#: ../src/bfwin.c:858 ../src/snr3.c:1492
+#: ../src/bfwin.c:855 ../src/snr3.c:1518
 msgid "Regular expression (pcre)"
 msgstr "正则表达式（pcre）"
 
-#: ../src/bfwin.c:861
+#: ../src/bfwin.c:858
 msgid "Case sensitive"
 msgstr "大小写敏感匹配(_m)"
 
-#: ../src/bfwin.c:864
+#: ../src/bfwin.c:861
 msgid "Dot character matches newlines"
 msgstr "在正则表达式中的豆点字符为匹配新行"
 
-#: ../src/bfwin.c:867
+#: ../src/bfwin.c:864
 msgid "Pattern contains backslash escaped sequences"
 msgstr "包含了转义序列的模式"
 
-#: ../src/bfwin.c:879
+#: ../src/bfwin.c:876
 msgid "Advanced"
 msgstr "高级"
 
-#: ../src/bfwin.c:1285
+#: ../src/bfwin.c:1282
 msgid "New Bluefish Window"
 msgstr "新建 Bluefish 窗口"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1342
+#: ../src/bfwin.c:1341
 msgid "Stand by..."
 msgstr "请等待..."
 
-#: ../src/bfwin_uimanager.c:735
+#: ../src/bfwin_uimanager.c:751
 msgid "Leave Fullscreen"
 msgstr "离开全屏方式"
 
-#: ../src/bfwin_uimanager.c:735
+#: ../src/bfwin_uimanager.c:751
 msgid "Fullscreen"
 msgstr "全屏方式"
 
-#: ../src/bfwin_uimanager.c:786
+#: ../src/bfwin_uimanager.c:802
 msgid "_File"
 msgstr "文件(_F)"
 
-#: ../src/bfwin_uimanager.c:787
+#: ../src/bfwin_uimanager.c:803
 msgid "New From Template"
 msgstr "从模板新建"
 
-#: ../src/bfwin_uimanager.c:788 ../src/bfwin_uimanager.c:798
+#: ../src/bfwin_uimanager.c:804 ../src/bfwin_uimanager.c:814
 msgid "Open _Recent"
 msgstr "最近使用的文件(_R)"
 
-#: ../src/bfwin_uimanager.c:789
+#: ../src/bfwin_uimanager.c:805
 msgid "_Edit"
 msgstr "编辑(_E)"
 
-#: ../src/bfwin_uimanager.c:790
+#: ../src/bfwin_uimanager.c:806
 msgid "_View"
 msgstr "查看(_V)"
 
-#: ../src/bfwin_uimanager.c:791
+#: ../src/bfwin_uimanager.c:807
 msgid "_Document"
 msgstr "文档(_D)"
 
-#: ../src/bfwin_uimanager.c:792
+#: ../src/bfwin_uimanager.c:808
 msgid "_Tab Size"
 msgstr "跳格键尺寸(_T)"
 
-#: ../src/bfwin_uimanager.c:793
+#: ../src/bfwin_uimanager.c:809
 msgid "_Font Size"
 msgstr "字体尺寸(_F)"
 
-#: ../src/bfwin_uimanager.c:794
+#: ../src/bfwin_uimanager.c:810
 msgid "Language M_ode"
 msgstr "语言模式(_o)"
 
-#: ../src/bfwin_uimanager.c:795
+#: ../src/bfwin_uimanager.c:811
 msgid "Character _Encoding"
 msgstr "字符编码(_E)"
 
-#: ../src/bfwin_uimanager.c:796
+#: ../src/bfwin_uimanager.c:812
 msgid "_Go"
 msgstr "转到(_G)"
 
-#: ../src/bfwin_uimanager.c:797
+#: ../src/bfwin_uimanager.c:813
 msgid "_Project"
 msgstr "项目(_P)"
 
-#: ../src/bfwin_uimanager.c:799
+#: ../src/bfwin_uimanager.c:815
 msgid "_Tools"
 msgstr "工具(_T)"
 
-#: ../src/bfwin_uimanager.c:800
+#: ../src/bfwin_uimanager.c:816
 msgid "_Commands"
 msgstr "命令(_C)"
 
-#: ../src/bfwin_uimanager.c:801
+#: ../src/bfwin_uimanager.c:817
 msgid "_Filters"
 msgstr "过滤器(_F)"
 
-#: ../src/bfwin_uimanager.c:802
+#: ../src/bfwin_uimanager.c:818
 msgid "_Outputbox"
 msgstr "输出窗口(_O)"
 
-#: ../src/bfwin_uimanager.c:803
+#: ../src/bfwin_uimanager.c:819
 msgid "Fo_rmat"
 msgstr "格式(_r)"
 
-#: ../src/bfwin_uimanager.c:804
+#: ../src/bfwin_uimanager.c:820
 msgid "_Insert"
 msgstr "插入(_I)"
 
-#: ../src/bfwin_uimanager.c:805
+#: ../src/bfwin_uimanager.c:821
 msgid "Co_nvert"
 msgstr "转换(_n)"
 
-#: ../src/bfwin_uimanager.c:809
+#: ../src/bfwin_uimanager.c:825
 msgid "_New"
 msgstr "新建(_N)"
 
-#: ../src/bfwin_uimanager.c:809 ../src/filebrowser2.c:1645
-#: ../src/filebrowser2.c:1647 ../src/filebrowser2.c:2041
+#: ../src/bfwin_uimanager.c:825 ../src/filebrowser2.c:1646
+#: ../src/filebrowser2.c:1648 ../src/filebrowser2.c:2044
 msgid "New file"
 msgstr "新建文件"
 
-#: ../src/bfwin_uimanager.c:810
+#: ../src/bfwin_uimanager.c:826
 msgid "New _Window"
 msgstr "新建窗口(_W)"
 
-#: ../src/bfwin_uimanager.c:810
+#: ../src/bfwin_uimanager.c:826
 msgid "New window"
 msgstr "新建窗口"
 
-#: ../src/bfwin_uimanager.c:812
+#: ../src/bfwin_uimanager.c:828
 msgid "Close Win_dow"
 msgstr "关闭窗口(_d)"
 
-#: ../src/bfwin_uimanager.c:812
+#: ../src/bfwin_uimanager.c:828
 msgid "Close window"
 msgstr "关闭窗口"
 
-#: ../src/bfwin_uimanager.c:813
+#: ../src/bfwin_uimanager.c:829
 msgid "_Open..."
 msgstr "打开(_O)..."
 
-#: ../src/bfwin_uimanager.c:813
+#: ../src/bfwin_uimanager.c:829
 msgid "Open file"
 msgstr "打开文件"
 
-#: ../src/bfwin_uimanager.c:814
+#: ../src/bfwin_uimanager.c:830
 msgid "Open Ad_vanced..."
 msgstr "高级打开(_v)..."
 
-#: ../src/bfwin_uimanager.c:814 ../src/filebrowser2.c:2037
+#: ../src/bfwin_uimanager.c:830 ../src/filebrowser2.c:2040
 msgid "Open advanced"
 msgstr "高级打开"
 
-#: ../src/bfwin_uimanager.c:816
+#: ../src/bfwin_uimanager.c:832
 msgid "Open _from Selection"
 msgstr "从选择区域中打开文件(_f)"
 
-#: ../src/bfwin_uimanager.c:816
+#: ../src/bfwin_uimanager.c:832
 msgid "Open from Selection"
 msgstr "从选择区域中打开文件"
 
-#: ../src/bfwin_uimanager.c:818
+#: ../src/bfwin_uimanager.c:834
 msgid "_Insert..."
 msgstr "插入(_I)..."
 
-#: ../src/bfwin_uimanager.c:818
+#: ../src/bfwin_uimanager.c:834
 msgid "Insert file"
 msgstr "插入文件"
 
-#: ../src/bfwin_uimanager.c:819
+#: ../src/bfwin_uimanager.c:835
 msgid "_Print..."
 msgstr "打印(_P)..."
 
-#: ../src/bfwin_uimanager.c:819
+#: ../src/bfwin_uimanager.c:835
 msgid "Print"
 msgstr "打印"
 
-#: ../src/bfwin_uimanager.c:820
+#: ../src/bfwin_uimanager.c:836
 msgid "_Quit"
 msgstr "退出(_Q)"
 
-#: ../src/bfwin_uimanager.c:820
+#: ../src/bfwin_uimanager.c:836
 msgid "Quit Bluefish"
 msgstr "退出 Bluefish"
 
-#: ../src/bfwin_uimanager.c:821
+#: ../src/bfwin_uimanager.c:837
 msgid "Preference_s..."
 msgstr "首选项(_s)..."
 
-#: ../src/bfwin_uimanager.c:821
+#: ../src/bfwin_uimanager.c:837
 msgid "Edit Preferences"
 msgstr "编辑首选项"
 
-#: ../src/bfwin_uimanager.c:823
+#: ../src/bfwin_uimanager.c:839
 msgid "Select _All"
 msgstr "全选(_A)"
 
-#: ../src/bfwin_uimanager.c:823
+#: ../src/bfwin_uimanager.c:839
 msgid "Select all"
 msgstr "全选"
 
-#: ../src/bfwin_uimanager.c:824
+#: ../src/bfwin_uimanager.c:840
 msgid "Add Boo_kmark"
 msgstr "添加书签(_k)"
 
-#: ../src/bfwin_uimanager.c:824 ../src/document.c:1925
+#: ../src/bfwin_uimanager.c:840 ../src/document.c:1919
 msgid "Add bookmark"
 msgstr "添加书签"
 
-#: ../src/bfwin_uimanager.c:826
+#: ../src/bfwin_uimanager.c:842
 msgid "_Add or Remove..."
 msgstr "添加或删除(_A)..."
 
-#: ../src/bfwin_uimanager.c:826
+#: ../src/bfwin_uimanager.c:842
 msgid "Add or remove character encoding"
 msgstr "添加或删除字符编码"
 
-#: ../src/bfwin_uimanager.c:828
+#: ../src/bfwin_uimanager.c:844
 msgid "Floati_ng Window"
 msgstr "浮动窗口(_n)"
 
-#: ../src/bfwin_uimanager.c:828
+#: ../src/bfwin_uimanager.c:844
 msgid "Open current document in floating window"
 msgstr "在浮动窗口中打开当前文档"
 
-#: ../src/bfwin_uimanager.c:830 ../src/bfwin_uimanager.c:836
+#: ../src/bfwin_uimanager.c:846 ../src/bfwin_uimanager.c:852
 msgid "_Increase"
 msgstr "增大(_I)"
 
-#: ../src/bfwin_uimanager.c:830
+#: ../src/bfwin_uimanager.c:846
 msgid "Increase document font size"
 msgstr "增大文档字体尺寸"
 
-#: ../src/bfwin_uimanager.c:832 ../src/bfwin_uimanager.c:838
+#: ../src/bfwin_uimanager.c:848 ../src/bfwin_uimanager.c:854
 msgid "_Decrease"
 msgstr "减小(_D)"
 
-#: ../src/bfwin_uimanager.c:832
+#: ../src/bfwin_uimanager.c:848
 msgid "Decrease document font size"
 msgstr "减小文档字体尺寸"
 
-#: ../src/bfwin_uimanager.c:834 ../src/bfwin_uimanager.c:840
+#: ../src/bfwin_uimanager.c:850 ../src/bfwin_uimanager.c:856
 msgid "_Reset"
 msgstr "恢复(_R)"
 
-#: ../src/bfwin_uimanager.c:834
+#: ../src/bfwin_uimanager.c:850
 msgid "Reset document font size"
 msgstr "恢复文档字体尺寸"
 
-#: ../src/bfwin_uimanager.c:836
+#: ../src/bfwin_uimanager.c:852
 msgid "Increase document tab size"
 msgstr "增大文档标签尺寸"
 
-#: ../src/bfwin_uimanager.c:838
+#: ../src/bfwin_uimanager.c:854
 msgid "Decrease document tab size"
 msgstr "减小文档标签尺寸"
 
-#: ../src/bfwin_uimanager.c:840
+#: ../src/bfwin_uimanager.c:856
 msgid "Reset document tab size"
 msgstr "恢复文档标签尺寸"
 
-#: ../src/bfwin_uimanager.c:843
+#: ../src/bfwin_uimanager.c:859
 msgid "Rescan Synta_x & Spelling"
 msgstr "重新扫描语法和拼写错误(_x)"
 
-#: ../src/bfwin_uimanager.c:843 ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:859 ../src/bfwin_uimanager.c:862
 msgid "Rescan document highlighting"
 msgstr "重新扫描语法高亮"
 
-#: ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:862
 msgid "Rescan Synta_x"
 msgstr "重新扫描语法错误(_x)"
 
-#: ../src/bfwin_uimanager.c:849
+#: ../src/bfwin_uimanager.c:865
 msgid "_New Project..."
 msgstr "新建项目(_N)..."
 
-#: ../src/bfwin_uimanager.c:849 ../src/project.c:209
+#: ../src/bfwin_uimanager.c:865 ../src/project.c:209
 msgid "New project"
 msgstr "新建项目"
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:866
 msgid "_Open Project..."
 msgstr "打开项目(_O)..."
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:866
 msgid "Open project"
 msgstr "打开项目"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:867
 msgid "_Synchronize Text Block"
 msgstr "同步文本块(_S)"
 
-#: ../src/bfwin_uimanager.c:851 ../src/blocksync.c:295
+#: ../src/bfwin_uimanager.c:867 ../src/blocksync.c:295
 msgid "Synchronize text block"
 msgstr "同步文本块"
 
-#: ../src/bfwin_uimanager.c:853
+#: ../src/bfwin_uimanager.c:869
 msgid "To_ggle Comment"
 msgstr "切换注释(_g)"
 
-#: ../src/bfwin_uimanager.c:853
+#: ../src/bfwin_uimanager.c:869
 msgid "Toggle comment"
 msgstr "切换注释"
 
-#: ../src/bfwin_uimanager.c:855
+#: ../src/bfwin_uimanager.c:871
 msgid "Select _Block"
 msgstr "选择块(_B)"
 
-#: ../src/bfwin_uimanager.c:855
+#: ../src/bfwin_uimanager.c:871
 msgid "Select block, use multiple times to select parent blocks "
 msgstr "选择块，用于选择其上一级的块，可多次使用"
 
-#: ../src/bfwin_uimanager.c:857
+#: ../src/bfwin_uimanager.c:873
 msgid "Duplica_te Line"
 msgstr "复制行(_t)"
 
-#: ../src/bfwin_uimanager.c:857
+#: ../src/bfwin_uimanager.c:873
 msgid "Duplicate the current line"
 msgstr "复制当前行"
 
-#: ../src/bfwin_uimanager.c:859
+#: ../src/bfwin_uimanager.c:875
 msgid "Delete Line"
 msgstr "删除行"
 
-#: ../src/bfwin_uimanager.c:859
+#: ../src/bfwin_uimanager.c:875
 msgid "Delete the current line"
 msgstr "删除当前行"
 
-#: ../src/bfwin_uimanager.c:861
+#: ../src/bfwin_uimanager.c:877
 msgid "Word Cou_nt"
 msgstr "字数统计(_n)"
 
-#: ../src/bfwin_uimanager.c:861
+#: ../src/bfwin_uimanager.c:877
 msgid "Word count"
 msgstr "字数统计"
 
-#: ../src/bfwin_uimanager.c:862 ../src/doc_extern_tools.c:42
+#: ../src/bfwin_uimanager.c:878 ../src/doc_extern_tools.c:47
 msgid "Lorem Ipsum generator"
 msgstr "Lorem Ipsum 生成器"
 
-#: ../src/bfwin_uimanager.c:863
+#: ../src/bfwin_uimanager.c:879
 msgid "Insert Relative Filename"
 msgstr "插入相对路径文件名"
 
-#: ../src/bfwin_uimanager.c:864
+#: ../src/bfwin_uimanager.c:880
 msgid "Insert Absolute Filename"
 msgstr "插入绝对路径文件名"
 
-#: ../src/bfwin_uimanager.c:865
+#: ../src/bfwin_uimanager.c:881
 msgid "Indenting to S_paces"
 msgstr "缩进到空格(_p)"
 
-#: ../src/bfwin_uimanager.c:865
+#: ../src/bfwin_uimanager.c:881
 msgid "Indenting to spaces"
 msgstr "缩进到空格"
 
-#: ../src/bfwin_uimanager.c:867
+#: ../src/bfwin_uimanager.c:883
 msgid "Indenting to T_abs"
 msgstr "缩进到跳格符(_a)"
 
-#: ../src/bfwin_uimanager.c:867
+#: ../src/bfwin_uimanager.c:883
 msgid "Indenting to tabs"
 msgstr "缩进到跳格符"
 
-#: ../src/bfwin_uimanager.c:869
+#: ../src/bfwin_uimanager.c:885
 msgid "_Join Lines Together"
 msgstr "行连接(_J)"
 
-#: ../src/bfwin_uimanager.c:869
+#: ../src/bfwin_uimanager.c:885
 msgid "Join lines together"
 msgstr "行连接"
 
-#: ../src/bfwin_uimanager.c:871
+#: ../src/bfwin_uimanager.c:887
 msgid "Split Lines on Right _Margin"
 msgstr "在右边距处分行(_M)"
 
-#: ../src/bfwin_uimanager.c:871
+#: ../src/bfwin_uimanager.c:887
 msgid "Split lines on right margin"
 msgstr "在右边距处分行"
 
-#: ../src/bfwin_uimanager.c:873
+#: ../src/bfwin_uimanager.c:889
 msgid "Merge Lines Into Col_umns"
 msgstr "将行合并成列(_u)"
 
-#: ../src/bfwin_uimanager.c:873
+#: ../src/bfwin_uimanager.c:889
 msgid "Merge lines into columns"
 msgstr "合并行为列"
 
-#: ../src/bfwin_uimanager.c:875
+#: ../src/bfwin_uimanager.c:891
 msgid "Rewrap _Lines"
 msgstr "重新换行"
 
-#: ../src/bfwin_uimanager.c:875
+#: ../src/bfwin_uimanager.c:891
 msgid "Rewrap lines"
 msgstr "重新换行"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:892
 msgid "Strip T_railing Whitespace"
 msgstr "去除结尾空白(_r)"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:892
 msgid "Strip trailing whitespace"
 msgstr "去除结尾空白"
 
-#: ../src/bfwin_uimanager.c:878
+#: ../src/bfwin_uimanager.c:894
+msgid "Javascript beautifier"
+msgstr "javascript代码美化器"
+
+#: ../src/bfwin_uimanager.c:895
 msgid "Preview in browser"
 msgstr "在浏览器里预览"
 
-#: ../src/bfwin_uimanager.c:883
+#: ../src/bfwin_uimanager.c:900
 msgid "_Full Screen"
 msgstr "全屏方式(_F)"
 
-#: ../src/bfwin_uimanager.c:883
+#: ../src/bfwin_uimanager.c:900
 msgid "Full screen"
 msgstr "全屏方式"
 
-#: ../src/bfwin_uimanager.c:885
+#: ../src/bfwin_uimanager.c:902
 msgid "_Main Toolbar"
 msgstr "主工具栏(_M)"
 
-#: ../src/bfwin_uimanager.c:885
+#: ../src/bfwin_uimanager.c:902
 msgid "Show main toolbar"
 msgstr "显示主工具栏"
 
-#: ../src/bfwin_uimanager.c:887
+#: ../src/bfwin_uimanager.c:904
 msgid "_Side Pane"
 msgstr "侧边栏(_S)"
 
-#: ../src/bfwin_uimanager.c:887
+#: ../src/bfwin_uimanager.c:904
 msgid "Show side pane"
 msgstr "显示侧边栏"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:905
 msgid "_Output Pane"
 msgstr "输出栏(_O)"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:905
 msgid "Show output pane"
 msgstr "显示输出栏"
 
-#: ../src/bfwin_uimanager.c:890
+#: ../src/bfwin_uimanager.c:907
 msgid "Status_bar"
 msgstr "状态栏(_b)"
 
-#: ../src/bfwin_uimanager.c:890
+#: ../src/bfwin_uimanager.c:907
 msgid "Show statusbar"
 msgstr "显示状态栏"
 
-#: ../src/bfwin_uimanager.c:892
+#: ../src/bfwin_uimanager.c:909
 msgid "Auto _Completion Popup"
 msgstr "自动完成弹出菜单(_C)"
 
-#: ../src/bfwin_uimanager.c:892
+#: ../src/bfwin_uimanager.c:909
 msgid "Show auto completion popup"
 msgstr "显示自动完成弹出菜单"
 
-#: ../src/bfwin_uimanager.c:894
+#: ../src/bfwin_uimanager.c:911
 msgid "_Auto Indent"
 msgstr "自动缩进(_A)"
 
-#: ../src/bfwin_uimanager.c:894
+#: ../src/bfwin_uimanager.c:911
 msgid "Auto indent"
 msgstr "自动缩进"
 
-#: ../src/bfwin_uimanager.c:895
+#: ../src/bfwin_uimanager.c:912
 msgid "Highlight Block _Delimiters"
 msgstr "高亮文本块定界符(_D)"
 
-#: ../src/bfwin_uimanager.c:896
+#: ../src/bfwin_uimanager.c:913
 msgid "Highlight block delimiters"
 msgstr "高亮文本块定界符"
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:914
 msgid "_Highlight Syntax"
 msgstr "语法高亮(_H)"
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:914
 msgid "Highlight syntax"
 msgstr "语法高亮"
 
-#: ../src/bfwin_uimanager.c:899
+#: ../src/bfwin_uimanager.c:916
 msgid "Show _Blocks"
 msgstr "显示文本块(_B)"
 
-#: ../src/bfwin_uimanager.c:899
+#: ../src/bfwin_uimanager.c:916
 msgid "Show blocks"
 msgstr "显示文本块"
 
-#: ../src/bfwin_uimanager.c:900
+#: ../src/bfwin_uimanager.c:917
 msgid "Show Line N_umbers"
 msgstr "显示行号(_u)"
 
-#: ../src/bfwin_uimanager.c:900
+#: ../src/bfwin_uimanager.c:917
 msgid "Show line numbers"
 msgstr "显示行号"
 
-#: ../src/bfwin_uimanager.c:902
+#: ../src/bfwin_uimanager.c:919
 msgid "Show Right _Margin"
 msgstr "显示右边界(_M)"
 
-#: ../src/bfwin_uimanager.c:902
+#: ../src/bfwin_uimanager.c:919
 msgid "Show right margin"
 msgstr "显示右边界"
 
-#: ../src/bfwin_uimanager.c:904
+#: ../src/bfwin_uimanager.c:921
 msgid "Show Split _View"
 msgstr "显示分割视图(_V)"
 
-#: ../src/bfwin_uimanager.c:904
+#: ../src/bfwin_uimanager.c:921
 msgid "Show split view"
 msgstr "显示分割视图"
 
-#: ../src/bfwin_uimanager.c:906
+#: ../src/bfwin_uimanager.c:923
 msgid "Show V_isible Spacing"
 msgstr "显示可见空白(_i)"
 
-#: ../src/bfwin_uimanager.c:906
+#: ../src/bfwin_uimanager.c:923
 msgid "Show visible spacing"
 msgstr "显示可见空白"
 
-#: ../src/bfwin_uimanager.c:908
+#: ../src/bfwin_uimanager.c:925
 msgid "_Wrap Text"
 msgstr "文本换行(_W)"
 
-#: ../src/bfwin_uimanager.c:908
+#: ../src/bfwin_uimanager.c:925
 msgid "Wrap text"
 msgstr "文本换行"
 
-#: ../src/bfwin_uimanager.c:912 ../src/document.c:2948
+#: ../src/bfwin_uimanager.c:929 ../src/document.c:2967
 msgid "_Close"
 msgstr "关闭(_C)"
 
-#: ../src/bfwin_uimanager.c:912
+#: ../src/bfwin_uimanager.c:929
 msgid "Close current file"
 msgstr "关闭当前文件"
 
-#: ../src/bfwin_uimanager.c:914
+#: ../src/bfwin_uimanager.c:931
 msgid "Close A_ll"
 msgstr "全部关闭(_l)"
 
-#: ../src/bfwin_uimanager.c:914
+#: ../src/bfwin_uimanager.c:931
 msgid "Close all files"
 msgstr "关闭所有文件"
 
-#: ../src/bfwin_uimanager.c:916 ../src/bfwin_uimanager.c:977
-#: ../src/file_dialogs.c:1428
+#: ../src/bfwin_uimanager.c:933 ../src/bfwin_uimanager.c:995
+#: ../src/file_dialogs.c:1452
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: ../src/bfwin_uimanager.c:916
+#: ../src/bfwin_uimanager.c:933
 msgid "Save current file"
 msgstr "保存当前文件"
 
-#: ../src/bfwin_uimanager.c:918 ../src/bfwin_uimanager.c:978
+#: ../src/bfwin_uimanager.c:935 ../src/bfwin_uimanager.c:996
 msgid "Save _as..."
 msgstr "另存为(_a)..."
 
 # c-format
-#: ../src/bfwin_uimanager.c:918
+#: ../src/bfwin_uimanager.c:935
 msgid "Save file as"
 msgstr "另存为..."
 
-#: ../src/bfwin_uimanager.c:920
+#: ../src/bfwin_uimanager.c:937
 msgid "Sav_e All"
 msgstr "全部保存(_e)"
 
-#: ../src/bfwin_uimanager.c:920
+#: ../src/bfwin_uimanager.c:937
 msgid "Save all files"
 msgstr "保存所有文件"
 
-#: ../src/bfwin_uimanager.c:921
+#: ../src/bfwin_uimanager.c:938
 msgid "Rever_t to Saved"
 msgstr "恢复到已保存的文件(_t)"
 
-#: ../src/bfwin_uimanager.c:921
+#: ../src/bfwin_uimanager.c:938
 msgid "Reload current file"
 msgstr "重新载入当前文件"
 
-#: ../src/bfwin_uimanager.c:923
+#: ../src/bfwin_uimanager.c:940
+msgid "Save a cop_y..."
+msgstr "保存一份拷贝(_y)..."
+
+#: ../src/bfwin_uimanager.c:940
+msgid "Save a copy"
+msgstr "保存一份拷贝"
+
+#: ../src/bfwin_uimanager.c:941
 msgid "Rena_me..."
 msgstr "重命名文件(_m)..."
 
-#: ../src/bfwin_uimanager.c:923
+#: ../src/bfwin_uimanager.c:941
 msgid "Rename file"
 msgstr "重命名文件"
 
-#: ../src/bfwin_uimanager.c:924
+#: ../src/bfwin_uimanager.c:942
 msgid "_Indent"
 msgstr "右缩进(_I)"
 
-#: ../src/bfwin_uimanager.c:924
+#: ../src/bfwin_uimanager.c:942
 msgid "Indent"
 msgstr "右缩进"
 
-#: ../src/bfwin_uimanager.c:925
+#: ../src/bfwin_uimanager.c:943
 msgid "Unin_dent"
 msgstr "左缩进(_d)"
 
-#: ../src/bfwin_uimanager.c:925
+#: ../src/bfwin_uimanager.c:943
 msgid "Unindent"
 msgstr "左缩进"
 
-#: ../src/bfwin_uimanager.c:927
+#: ../src/bfwin_uimanager.c:945
 msgid "F_irst Bookmark"
 msgstr "第一个书签(_i)"
 
-#: ../src/bfwin_uimanager.c:927
+#: ../src/bfwin_uimanager.c:945
 msgid "Goto first bookmark"
 msgstr "到第一个书签"
 
-#: ../src/bfwin_uimanager.c:929
+#: ../src/bfwin_uimanager.c:947
 msgid "L_ast Bookmark"
 msgstr "最后一个书签(_a)"
 
-#: ../src/bfwin_uimanager.c:929
+#: ../src/bfwin_uimanager.c:947
 msgid "Goto last bookmark"
 msgstr "到最后一个书签"
 
-#: ../src/bfwin_uimanager.c:931
+#: ../src/bfwin_uimanager.c:949
 msgid "N_ext Bookmark"
 msgstr "下一个书签(_e)"
 
-#: ../src/bfwin_uimanager.c:931
+#: ../src/bfwin_uimanager.c:949
 msgid "Goto next bookmark"
 msgstr "到下一个书签"
 
-#: ../src/bfwin_uimanager.c:933
+#: ../src/bfwin_uimanager.c:951
 msgid "P_revious Bookmark"
 msgstr "前一个书签(_r)"
 
-#: ../src/bfwin_uimanager.c:934 ../src/bfwin_uimanager.c:947
+#: ../src/bfwin_uimanager.c:952 ../src/bfwin_uimanager.c:965
 msgid "Goto previous document"
 msgstr "到前一个文档"
 
-#: ../src/bfwin_uimanager.c:935
+#: ../src/bfwin_uimanager.c:953
 msgid "Move Tab _Left"
 msgstr "跳格键左移(_L)"
 
-#: ../src/bfwin_uimanager.c:935
+#: ../src/bfwin_uimanager.c:953
 msgid "Move current tab left"
 msgstr "当前跳格键左移"
 
-#: ../src/bfwin_uimanager.c:937
+#: ../src/bfwin_uimanager.c:955
 msgid "Move Tab _Right"
 msgstr "跳格键右移(_R)"
 
-#: ../src/bfwin_uimanager.c:937
+#: ../src/bfwin_uimanager.c:955
 msgid "Move current tab right"
 msgstr "当前跳格键右移"
 
-#: ../src/bfwin_uimanager.c:939
+#: ../src/bfwin_uimanager.c:957
 msgid "_Recent Document"
 msgstr "近期的文档(_R)"
 
-#: ../src/bfwin_uimanager.c:939
+#: ../src/bfwin_uimanager.c:957
 msgid "Goto most recent document"
 msgstr "到最近的文档"
 
-#: ../src/bfwin_uimanager.c:941
+#: ../src/bfwin_uimanager.c:959
 msgid "_First Document"
 msgstr "第一个文档(_F)"
 
-#: ../src/bfwin_uimanager.c:941
+#: ../src/bfwin_uimanager.c:959
 msgid "Goto first document"
 msgstr "到第一个文档"
 
-#: ../src/bfwin_uimanager.c:943
+#: ../src/bfwin_uimanager.c:961
 msgid "_Last Document"
 msgstr "最后一个文档(_L)"
 
-#: ../src/bfwin_uimanager.c:943
+#: ../src/bfwin_uimanager.c:961
 msgid "Goto last document"
 msgstr "到最后一个文档"
 
-#: ../src/bfwin_uimanager.c:945
+#: ../src/bfwin_uimanager.c:963
 msgid "_Next Document"
 msgstr "下一个文档(_N)"
 
-#: ../src/bfwin_uimanager.c:945
+#: ../src/bfwin_uimanager.c:963
 msgid "Goto next document"
 msgstr "到下一个文档"
 
-#: ../src/bfwin_uimanager.c:947
+#: ../src/bfwin_uimanager.c:965
 msgid "_Previous Document"
 msgstr "前一个文档(_P)"
 
-#: ../src/bfwin_uimanager.c:949
+#: ../src/bfwin_uimanager.c:967
 msgid "Goto _Line"
 msgstr "转到指定行(_L)"
 
-#: ../src/bfwin_uimanager.c:949
+#: ../src/bfwin_uimanager.c:967
 msgid "Goto line"
 msgstr "转到指定行"
 
-#: ../src/bfwin_uimanager.c:950
+#: ../src/bfwin_uimanager.c:968
 msgid "Goto Line Number from _Clipboard"
 msgstr "转到剪切板中的指定行(_C)"
 
-#: ../src/bfwin_uimanager.c:951
+#: ../src/bfwin_uimanager.c:969
 msgid "Goto line number in clipboard or selection"
 msgstr "转到剪切板或选择区域中的指定行"
 
-#: ../src/bfwin_uimanager.c:952
+#: ../src/bfwin_uimanager.c:970
 msgid "_Jump to Reference"
 msgstr "转到参考文档(_J)"
 
-#: ../src/bfwin_uimanager.c:952
+#: ../src/bfwin_uimanager.c:970
 msgid "Jump to reference"
 msgstr "转到参考文档"
 
-#: ../src/bfwin_uimanager.c:957
+#: ../src/bfwin_uimanager.c:975
 msgid "Cu_t"
 msgstr "剪切(_t)"
 
-#: ../src/bfwin_uimanager.c:957
+#: ../src/bfwin_uimanager.c:975
 msgid "Cut"
 msgstr "剪切"
 
-#: ../src/bfwin_uimanager.c:958
+#: ../src/bfwin_uimanager.c:976
 msgid "_Copy"
 msgstr "复制(_C)"
 
-#: ../src/bfwin_uimanager.c:958
+#: ../src/bfwin_uimanager.c:976
 msgid "Copy"
 msgstr "复制"
 
-#: ../src/bfwin_uimanager.c:959
+#: ../src/bfwin_uimanager.c:977
 msgid "_Paste"
 msgstr "粘贴(_P)"
 
-#: ../src/bfwin_uimanager.c:959
+#: ../src/bfwin_uimanager.c:977
 msgid "Paste"
 msgstr "粘贴"
 
-#: ../src/bfwin_uimanager.c:960
+#: ../src/bfwin_uimanager.c:978
 msgid "Paste _Special"
 msgstr "特殊粘贴(_S)"
 
-#: ../src/bfwin_uimanager.c:960
+#: ../src/bfwin_uimanager.c:978
 msgid "Paste Special"
 msgstr "特殊粘贴"
 
-#: ../src/bfwin_uimanager.c:964
+#: ../src/bfwin_uimanager.c:982
 msgid "_Find"
 msgstr "查找(_F)"
 
-#: ../src/bfwin_uimanager.c:964
+#: ../src/bfwin_uimanager.c:982
 msgid "Show find bar"
 msgstr "显示查找栏"
 
-#: ../src/bfwin_uimanager.c:965
+#: ../src/bfwin_uimanager.c:983
 msgid "Find A_gain"
 msgstr "查找下一个(_g)"
 
-#: ../src/bfwin_uimanager.c:965
+#: ../src/bfwin_uimanager.c:983
 msgid "Find again"
 msgstr "查找下一个"
 
-#: ../src/bfwin_uimanager.c:966
+#: ../src/bfwin_uimanager.c:984
 msgid "Find from Clip_board"
 msgstr "在剪切板中查找(_b)"
 
-#: ../src/bfwin_uimanager.c:966
+#: ../src/bfwin_uimanager.c:984
 msgid "Find from clipboard or selection"
 msgstr "在剪切板或选择区域中查找"
 
-#: ../src/bfwin_uimanager.c:968
+#: ../src/bfwin_uimanager.c:986
 msgid "Advanced Find & Re_place..."
 msgstr "高级查找与替换(_p)..."
 
-#: ../src/bfwin_uimanager.c:968
+#: ../src/bfwin_uimanager.c:986
 msgid "Advanced Find and Replace"
 msgstr "高级查找与替换"
 
-#: ../src/bfwin_uimanager.c:975
+#: ../src/bfwin_uimanager.c:993
 msgid "Save & _close"
 msgstr "保存并关闭(_c)"
 
-#: ../src/bfwin_uimanager.c:975
+#: ../src/bfwin_uimanager.c:993
 msgid "Save & close project"
 msgstr "保存并关闭项目"
 
-#: ../src/bfwin_uimanager.c:977
+#: ../src/bfwin_uimanager.c:995
 msgid "Save project"
 msgstr "保存项目"
 
-#: ../src/bfwin_uimanager.c:978
+#: ../src/bfwin_uimanager.c:996
 msgid "Save project as"
 msgstr "项目另存为"
 
-#: ../src/bfwin_uimanager.c:979
+#: ../src/bfwin_uimanager.c:997
 msgid "_Edit Project Options..."
 msgstr "编辑项目选项(_E)..."
 
-#: ../src/bfwin_uimanager.c:979
+#: ../src/bfwin_uimanager.c:997
 msgid "Edit project options"
 msgstr "编辑项目选项"
 
-#: ../src/bfwin_uimanager.c:984
+#: ../src/bfwin_uimanager.c:1002
 msgid "_Undo"
 msgstr "撤消(_U)"
 
-#: ../src/bfwin_uimanager.c:984
+#: ../src/bfwin_uimanager.c:1002
 msgid "Undo"
 msgstr "撤消"
 
-#: ../src/bfwin_uimanager.c:985
+#: ../src/bfwin_uimanager.c:1003
 msgid "U_ndo All"
 msgstr "撤消所有(_n)"
 
-#: ../src/bfwin_uimanager.c:985
+#: ../src/bfwin_uimanager.c:1003
 msgid "Undo All"
 msgstr "撤消所有"
 
-#: ../src/bfwin_uimanager.c:986
+#: ../src/bfwin_uimanager.c:1004
 msgid "_Redo"
 msgstr "重做(_R)"
 
-#: ../src/bfwin_uimanager.c:986
+#: ../src/bfwin_uimanager.c:1004
 msgid "Redo"
 msgstr "重做"
 
-#: ../src/bfwin_uimanager.c:987
+#: ../src/bfwin_uimanager.c:1005
 msgid "R_edo All"
 msgstr "重做所有(_e)"
 
-#: ../src/bfwin_uimanager.c:987
+#: ../src/bfwin_uimanager.c:1005
 msgid "Redo All"
 msgstr "重做所有"
 
-#: ../src/bfwin_uimanager.c:1129
+#: ../src/bfwin_uimanager.c:1147
 msgid "Open _URL..."
 msgstr "打开 URL(_U)..."
 
-#: ../src/bfwin_uimanager.c:1139
-msgid "U_pload / Download..."
-msgstr "上传 / 下载(_p)..."
+#: ../src/bfwin_uimanager.c:1157
+msgid "Upload _/ Download..."
+msgstr "上传 / 下载(_/)..."
 
-#: ../src/bfwin_uimanager.c:1152
+#: ../src/bfwin_uimanager.c:1170
 msgid "_Spell Check"
 msgstr "拼写检查(_S)"
 
-#: ../src/bfwin_uimanager.c:1525
+#: ../src/bfwin_uimanager.c:1561
 msgid "Text area to filter"
 msgstr "将被过滤的文本区域"
 
-#: ../src/bfwin_uimanager.c:1526
+#: ../src/bfwin_uimanager.c:1562
 msgid "All text"
 msgstr "所有文本"
 
-#: ../src/bfwin_uimanager.c:1527
+#: ../src/bfwin_uimanager.c:1563
 msgid "Selected text only"
 msgstr "仅选择的文本"
+
+#: ../src/bfwin_uimanager.c:1565
+msgid "Never ask again"
+msgstr "不再询问"
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -1009,23 +1025,23 @@ msgstr ""
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr "访问我们的网站 http://bluefish.openoffice.nl"
 
-#: ../src/bluefish.c:268
+#: ../src/bluefish.c:315
 msgid "Open in existing window."
 msgstr "在已存在的窗口中打开文档。"
 
-#: ../src/bluefish.c:270
+#: ../src/bluefish.c:317
 msgid "Open in new window."
 msgstr "在新窗口中打开。"
 
-#: ../src/bluefish.c:272
+#: ../src/bluefish.c:319
 msgid "Print version information."
 msgstr "打印版本信息。"
 
-#: ../src/bluefish.c:294
+#: ../src/bluefish.c:341
 msgid " [FILE(S)]"
 msgstr " [文件（集）]"
 
-#: ../src/bluefish.c:305
+#: ../src/bluefish.c:352
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
@@ -1034,155 +1050,159 @@ msgstr ""
 "解析命令行选项错误。 %s\n"
 "请运行: %s -?\n"
 
-#: ../src/bookmark.c:558
+#: ../src/bookmark.c:576 ../src/bookmark.c:597
 msgid "_Name:"
 msgstr "名称(_N)："
 
-#: ../src/bookmark.c:562
+#: ../src/bookmark.c:583 ../src/bookmark.c:601
 msgid "_Description:"
 msgstr "描述(_D)："
 
-#: ../src/bookmark.c:564
+#: ../src/bookmark.c:586
+msgid "_Temporary"
+msgstr "临时(_T)"
+
+#: ../src/bookmark.c:603
 msgid "Temporary"
 msgstr "临时"
 
-#: ../src/bookmark.c:725
+#: ../src/bookmark.c:767
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "您真的想删除 %s 吗？"
 
-#: ../src/bookmark.c:728
+#: ../src/bookmark.c:770
 msgid "Delete permanent bookmark."
 msgstr "删除永久性书签。"
 
-#: ../src/bookmark.c:754
+#: ../src/bookmark.c:796
 msgid "Delete all bookmarks."
 msgstr "删除所有书签。"
 
-#: ../src/bookmark.c:792
+#: ../src/bookmark.c:834
 #, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "您真的想删除 %s 的所有书签吗？"
 
-#: ../src/bookmark.c:794
+#: ../src/bookmark.c:836
 msgid "Delete bookmarks?"
 msgstr "删除书签？"
 
-#: ../src/bookmark.c:815 ../src/bookmark.c:876
+#: ../src/bookmark.c:857 ../src/bookmark.c:918
 msgid "Edit bookmark"
 msgstr "编辑书签"
 
-#: ../src/bookmark.c:872
+#: ../src/bookmark.c:914
 msgid "Bookmark menu"
 msgstr "书签菜单"
 
-#: ../src/bookmark.c:873
+#: ../src/bookmark.c:915
 msgid "Show Bookmark"
 msgstr "显示书签"
 
-#: ../src/bookmark.c:874
+#: ../src/bookmark.c:916
 msgid "Show File"
 msgstr "显示文件"
 
-#: ../src/bookmark.c:875
+#: ../src/bookmark.c:917
 msgid "Bookmark search menu"
 msgstr "书签搜索菜单"
 
-#: ../src/bookmark.c:876
+#: ../src/bookmark.c:918
 msgid "_Edit..."
 msgstr "编辑(_E)..."
 
-#: ../src/bookmark.c:878 ../src/filebrowser2.c:2040
+#: ../src/bookmark.c:920 ../src/filebrowser2.c:2043
 msgid "_Delete"
 msgstr "删除(_D)"
 
-#: ../src/bookmark.c:878 ../src/document.c:1921
+#: ../src/bookmark.c:920 ../src/document.c:1915
 msgid "Delete bookmark"
 msgstr "删除书签"
 
-#: ../src/bookmark.c:879
+#: ../src/bookmark.c:921
 msgid "Delete All"
 msgstr "全部删除"
 
-#: ../src/bookmark.c:879
+#: ../src/bookmark.c:921
 msgid "Delete all bookmarks"
 msgstr "删除全部书签"
 
-#: ../src/bookmark.c:881
+#: ../src/bookmark.c:923
 msgid "Delete All in Document"
 msgstr "删除文档中全部内容"
 
-#: ../src/bookmark.c:881
+#: ../src/bookmark.c:924
 msgid "Delete all bookmarks in document"
 msgstr "删除文档中全部书签"
 
-#: ../src/bookmark.c:886
+#: ../src/bookmark.c:929
 msgid "Permanent by default"
 msgstr "默认为永久"
 
-#: ../src/bookmark.c:891
+#: ../src/bookmark.c:934
 msgid "By Name"
 msgstr "名称"
 
-#: ../src/bookmark.c:892
+#: ../src/bookmark.c:935
 msgid "By Full Path"
 msgstr "完全路径"
 
-#: ../src/bookmark.c:893
+#: ../src/bookmark.c:936
 msgid "By Full URI"
 msgstr "完全 URI"
 
-#: ../src/bookmark.c:897 ../src/bookmark.c:903
+#: ../src/bookmark.c:940 ../src/bookmark.c:946
 msgid "Content"
 msgstr "内容"
 
-#: ../src/bookmark.c:898 ../src/bookmark.c:904 ../src/preferences.c:602
+#: ../src/bookmark.c:941 ../src/bookmark.c:947 ../src/preferences.c:602
 #: ../src/preferences.c:1368 ../src/preferences.c:1370
 #: ../src/preferences.c:1472
 msgid "Name"
 msgstr "名称"
 
-#: ../src/bookmark.c:899 ../src/bookmark.c:905
+#: ../src/bookmark.c:942 ../src/bookmark.c:948
 msgid "Name & Content"
 msgstr "名称和内容"
 
-#: ../src/bookmark.c:1230
+#: ../src/bookmark.c:1280
 msgid "First bookmark"
 msgstr "第一个书签"
 
-#: ../src/bookmark.c:1234
+#: ../src/bookmark.c:1284
 msgid "Previous bookmark"
 msgstr "前一个书签"
 
-#: ../src/bookmark.c:1238
+#: ../src/bookmark.c:1288
 msgid "Next bookmark"
 msgstr "下一个书签。"
 
-#: ../src/bookmark.c:1242
+#: ../src/bookmark.c:1292
 msgid "Last bookmark"
 msgstr "最后一个书签"
 
-#: ../src/bookmark.c:1944 ../src/bookmark.c:2091
+#: ../src/bookmark.c:2000 ../src/bookmark.c:2147
 msgid "Error adding bookmark"
 msgstr "添加书签错误"
 
-#: ../src/bookmark.c:1944 ../src/bookmark.c:2091
+#: ../src/bookmark.c:2000 ../src/bookmark.c:2147
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "无法在未保存的文件中添加书签。"
 
-#: ../src/bookmark.c:2025
+#: ../src/bookmark.c:2081
 msgid "Can't add bookmark"
 msgstr "无法添加书签"
 
-#: ../src/bookmark.c:2025
+#: ../src/bookmark.c:2081
 msgid "You already have a bookmark here!"
 msgstr "当前位置已有书签"
 
-#: ../src/document.c:411
+#: ../src/document.c:397
 msgid "Name: "
 msgstr "名称："
 
-#: ../src/document.c:414
+#: ../src/document.c:400
 msgid ""
 "\n"
 "Language mode: "
@@ -1190,7 +1210,7 @@ msgstr ""
 "\n"
 "语言模式："
 
-#: ../src/document.c:418
+#: ../src/document.c:404
 msgid ""
 "\n"
 "Encoding: "
@@ -1198,7 +1218,7 @@ msgstr ""
 "\n"
 "编码："
 
-#: ../src/document.c:430
+#: ../src/document.c:416
 msgid ""
 "\n"
 "Mime type: "
@@ -1206,7 +1226,7 @@ msgstr ""
 "\n"
 "Mime 类型："
 
-#: ../src/document.c:438
+#: ../src/document.c:424
 #, c-format
 msgid ""
 "\n"
@@ -1217,7 +1237,7 @@ msgstr ""
 "权限：%s\n"
 "用户标识：%u 组标识：%u"
 
-#: ../src/document.c:455
+#: ../src/document.c:441
 msgid ""
 "\n"
 "Size (on disk): "
@@ -1225,7 +1245,7 @@ msgstr ""
 "\n"
 "大小(磁盘上)："
 
-#: ../src/document.c:464
+#: ../src/document.c:450
 msgid ""
 "\n"
 "Last modified: "
@@ -1233,95 +1253,102 @@ msgstr ""
 "\n"
 "上次修改时间："
 
-#: ../src/document.c:502
+#: ../src/document.c:488
 #, c-format
 msgid "Untitled %d"
 msgstr "无标题 %d"
 
-#: ../src/document.c:687
+#: ../src/document.c:668
 #, c-format
 msgid "Changed tab width to %d"
 msgstr "将跳格键宽度改为 %d"
 
-#: ../src/document.c:861
+#: ../src/document.c:842
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "文档 %s 已经在另一个 Bluefish 窗口中打开了"
 
-#: ../src/document.c:863
+#: ../src/document.c:844
 msgid "Move to this window"
 msgstr "移到这个窗口"
 
-#: ../src/document.c:863
+#: ../src/document.c:844
 msgid "Open readonly"
 msgstr "只读打开"
 
-#: ../src/document.c:864
+#: ../src/document.c:845
 msgid "Do not open"
 msgstr "不要打开"
 
-#: ../src/document.c:1176
+#: ../src/document.c:1157
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " 行：%d，列：%d，字符：%d"
 
-#: ../src/document.c:1179
+#: ../src/document.c:1160
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " 行：%d，列：%d"
 
-#: ../src/document.c:1202
+#: ../src/document.c:1183
 msgid " OVR"
 msgstr " 覆写"
 
-#: ../src/document.c:1202
+#: ../src/document.c:1183
 msgid " INS"
 msgstr " 插入"
 
-#: ../src/document.c:1204
+#: ../src/document.c:1185
 msgid " RO"
 msgstr " 只读"
 
-#: ../src/document.c:1223
+#: ../src/document.c:1204
 msgid "Unknown"
 msgstr "未知文件类型"
 
-#: ../src/document.c:1674
+#: ../src/document.c:1655
 msgid "_No"
 msgstr "第(_N)"
 
-#: ../src/document.c:1674
+#: ../src/document.c:1655
 msgid "_Split"
 msgstr "分割(_S)"
 
-#: ../src/document.c:1677
+#: ../src/document.c:1658
 msgid "File contains very long lines. Split these lines?"
 msgstr "文件包含了一些很长的行，分割它们吗？"
 
-#: ../src/document.c:1677
-msgid "The lines in this file are longer than Bluefish can handle."
-msgstr "此文件中一些冗长的行超出了BlueFish处理能力。"
+#: ../src/document.c:1658
+msgid ""
+"The lines in this file are longer than Bluefish can handle with reasonable "
+"performance. This split function, however, is unaware of any language "
+"syntax, and may replace spaces or tabs with newlines in any location, or "
+"insert newlines if no spaces or tabs are found."
+msgstr ""
+"此文件中的行数太长以致Bluefish不能以合理的性能进行处理。此分割函数不会关注语"
+"言语法，它会在任何位置将空白或跳格用新行代替，或者在没有寻找到空白或跳格时插"
+"入新行。"
 
-#: ../src/document.c:1740
+#: ../src/document.c:1734
 msgid "Cannot display file, unknown characters found."
 msgstr "无法显示文件，字符集未知。"
 
-#: ../src/document.c:1931
+#: ../src/document.c:1925
 msgid "Exit fullscreen"
 msgstr "退出全屏方式"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2075 ../src/file_dialogs.c:462 ../src/file_dialogs.c:500
+#: ../src/document.c:2069 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "中断保存(_A)"
 
-#: ../src/document.c:2075
+#: ../src/document.c:2069
 msgid "_Continue save in UTF-8"
 msgstr "继续以 UTF-8 保存(_C)"
 
-#: ../src/document.c:2088
+#: ../src/document.c:2082
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1333,15 +1360,15 @@ msgstr ""
 "\n"
 "继续以 UTF-8 编码保存吗？"
 
-#: ../src/document.c:2093
+#: ../src/document.c:2087
 msgid "File encoding conversion failure"
 msgstr "文件编码转换失败"
 
-#: ../src/document.c:2250
+#: ../src/document.c:2244
 msgid "Previously: "
 msgstr "前一个："
 
-#: ../src/document.c:2735 ../src/file_dialogs.c:812
+#: ../src/document.c:2754 ../src/file_dialogs.c:837
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1350,100 +1377,100 @@ msgstr ""
 "你的版本号为（%d.%d.%d）的 glib 库运行远程文件不可靠。请升级到 2.18.0 或更高"
 "的版本。"
 
-#: ../src/document.c:2864
+#: ../src/document.c:2883
 msgid "Unable to open file"
 msgstr "无法打开文件"
 
-#: ../src/document.c:2876
+#: ../src/document.c:2895
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "如果你恢复 \"%s\" 到上次备份的位置，当前的修改将永久丢失。"
 
-#: ../src/document.c:2880
+#: ../src/document.c:2899
 msgid "Revert changes to last saved copy?"
 msgstr "恢复到上次保存的备份吗？"
 
-#: ../src/document.c:2948
+#: ../src/document.c:2967
 msgid "_Retry"
 msgstr "重试(_R)"
 
-#: ../src/document.c:2948
+#: ../src/document.c:2967
 msgid "Retry _all failed"
 msgstr "重试所有失败的文件(_a)"
 
-#: ../src/document.c:2948
+#: ../src/document.c:2967
 msgid "Close all _failed"
 msgstr "关闭所有失败的文件(_f)"
 
-#: ../src/document.c:2953
+#: ../src/document.c:2972
 msgid "File "
 msgstr "文件 "
 
-#: ../src/document.c:2953
+#: ../src/document.c:2972
 msgid " failed to load."
 msgstr " 读取失败。"
 
-#: ../src/document.c:2957
+#: ../src/document.c:2976
 msgid "File failed to load\n"
 msgstr "文件读取失败\n"
 
-#: ../src/document.c:3082
+#: ../src/document.c:3101
 msgid "Select file to insert"
 msgstr "选择要插入的文件"
 
-#: ../src/document.c:3091
+#: ../src/document.c:3110
 msgid "No file to insert"
 msgstr "没有要插入的文件"
 
 # c-format
-#: ../src/document.c:3171
+#: ../src/document.c:3190
 msgid "Save pasted image as"
 msgstr "粘贴的图像另存为"
 
-#: ../src/document.c:3278
+#: ../src/document.c:3297
 msgid "Paste special"
 msgstr "特殊粘贴"
 
-#: ../src/document.c:3285
+#: ../src/document.c:3304
 msgid "Paste as _HTML"
 msgstr "作为HTML粘贴(_H)"
 
-#: ../src/document.c:3289
+#: ../src/document.c:3308
 msgid "Paste as HTML with _JPG"
 msgstr "粘贴HTML为JPG(_J)"
 
-#: ../src/document.c:3291
+#: ../src/document.c:3310
 msgid "Paste as HTML _PNG"
 msgstr "粘贴HTML为PNG(_P)"
 
-#: ../src/document.c:3371
+#: ../src/document.c:3390
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d 行"
 msgstr[1] "%d 行"
 
-#: ../src/document.c:3372
+#: ../src/document.c:3391
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d 个字"
 msgstr[1] "%d 个字"
 
-#: ../src/document.c:3373
+#: ../src/document.c:3392
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d 个字符"
 msgstr[1] "%d 个字符"
 
-#: ../src/document.c:3375
+#: ../src/document.c:3394
 msgid "Selection statistics: "
 msgstr "统计选择区域："
 
-#: ../src/document.c:3375
+#: ../src/document.c:3394
 msgid "Statistics: "
 msgstr "统计："
 
@@ -1467,25 +1494,65 @@ msgstr "列分割符："
 msgid "Fill empty entries:"
 msgstr "填充空白条目："
 
-#: ../src/doc_extern_tools.c:49
-msgid "Number of paragraphs"
-msgstr "段落数"
+#: ../src/doc_extern_tools.c:63
+msgid "Number of _paragraphs:"
+msgstr "段落数(_p)："
 
-#: ../src/doc_extern_tools.c:51
-msgid "Number of sentences"
-msgstr "语句数"
+#: ../src/doc_extern_tools.c:68
+msgid "Number of _sentences:"
+msgstr "语句数(_s)："
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert plain text"
 msgstr "插入无格式文本"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert in <li>"
 msgstr "插入<li>中"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert in <p>"
 msgstr "插入<p>中"
+
+#: ../src/doc_extern_tools.c:81
+msgid "Number of paragraphs"
+msgstr "段落数"
+
+#: ../src/doc_extern_tools.c:84
+msgid "Number of sentences"
+msgstr "语句数"
+
+#: ../src/doc_extern_tools.c:134
+msgid "Javascript Beautify"
+msgstr "Javascript美化"
+
+#: ../src/doc_extern_tools.c:148
+msgid "_Indent size:"
+msgstr "缩进尺寸(_I)："
+
+#: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
+msgid "Use _tabs to indent, not spaces"
+msgstr "使用跳格缩进而不是空格(_t)"
+
+#: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
+msgid "Do not _preserve existing line breaks"
+msgstr "不保留现有的换行符(_p)"
+
+#: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
+msgid "More _jslint-compatible output"
+msgstr "更多兼容jslint的输出(_j)"
+
+#: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
+msgid "_Decode printable chars encoded in \\\\xNN notation"
+msgstr "解码\\\\xNN 注释中可打印字符(_D)"
+
+#: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
+msgid "Beautify only in _selection"
+msgstr "仅在选择区域内美化代码(_s)"
+
+#: ../src/doc_extern_tools.c:179
+msgid "_Indent size"
+msgstr "缩进尺寸(_I)"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1507,14 +1574,36 @@ msgstr "菜单中所列的编码(_m)"
 msgid "Add or remove document encodings"
 msgstr "添加或删除文档编码"
 
-#: ../src/external_commands.c:405
+#: ../src/external_commands.c:167
+#, c-format
+msgid "The command %s exited with error code %d. %s"
+msgstr "命令 %s 退出时的错误代码 %d. %s"
+
+#: ../src/external_commands.c:167
+msgid "Probably this application is not installed on your system."
+msgstr "可能你的系统中并未安装该应用程序。"
+
+#: ../src/external_commands.c:169
+msgid "Command returned error code"
+msgstr "命令返回错误代码"
+
+#: ../src/external_commands.c:419
 msgid "Supply extra arguments"
 msgstr "提供额外的参数"
 
-#: ../src/external_commands.c:410
+#: ../src/external_commands.c:424
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr "提供参数用来定义 %%a  在  '%s' 当中"
+
+#: ../src/external_commands.c:673
+#, c-format
+msgid "Failed to create a command for %s."
+msgstr "建立命令 %s 时出错。"
+
+#: ../src/external_commands.c:675
+msgid "Failed to create a command"
+msgstr "建立命令时出错"
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -1537,11 +1626,17 @@ msgstr "文档根目录"
 msgid "Webroot"
 msgstr "网站根目录"
 
-#: ../src/filebrowser2.c:1549
+# c-format
+#: ../src/filebrowser2.c:1539 ../src/file_dialogs.c:788
+#, c-format
+msgid "Move/rename %s to"
+msgstr "移动/重命名 %s 为"
+
+#: ../src/filebrowser2.c:1550
 msgid "Could not rename\n"
 msgstr "无法重命名\n"
 
-#: ../src/filebrowser2.c:1622 ../src/filebrowser2.c:2042
+#: ../src/filebrowser2.c:1623 ../src/filebrowser2.c:2045
 msgid "New directory"
 msgstr "新建目录"
 
@@ -1553,7 +1648,7 @@ msgstr "新建目录"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1739
+#: ../src/filebrowser2.c:1740
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -1562,144 +1657,144 @@ msgstr ""
 "你确定要删除 \n"
 "\"%s\"?"
 
-#: ../src/filebrowser2.c:1740
+#: ../src/filebrowser2.c:1741
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "如果你要删除 %s,它将永远丢失。"
 
-#: ../src/filebrowser2.c:2035
+#: ../src/filebrowser2.c:2038
 msgid "File Browser menu"
 msgstr "文件浏览菜单"
 
-#: ../src/filebrowser2.c:2036
+#: ../src/filebrowser2.c:2039
 msgid "_Open"
 msgstr "打开(_O)"
 
-#: ../src/filebrowser2.c:2036
+#: ../src/filebrowser2.c:2039
 msgid "Open"
 msgstr "打开(_O)"
 
-#: ../src/filebrowser2.c:2037
+#: ../src/filebrowser2.c:2040
 msgid "Open _Advanced..."
 msgstr "高级打开(_A)..."
 
-#: ../src/filebrowser2.c:2039
+#: ../src/filebrowser2.c:2042
 msgid "Rena_me"
 msgstr "重命名(_m)"
 
-#: ../src/filebrowser2.c:2039
+#: ../src/filebrowser2.c:2042
 msgid "Rename"
 msgstr "重命名"
 
-#: ../src/filebrowser2.c:2040
+#: ../src/filebrowser2.c:2043
 msgid "Delete"
 msgstr "删除"
 
-#: ../src/filebrowser2.c:2041
+#: ../src/filebrowser2.c:2044
 msgid "New _File"
 msgstr "新建文件(_F)"
 
-#: ../src/filebrowser2.c:2042
+#: ../src/filebrowser2.c:2045
 msgid "_New Directory"
 msgstr "新建目录(_N)"
 
-#: ../src/filebrowser2.c:2044
+#: ../src/filebrowser2.c:2047
 msgid "_Refresh"
 msgstr "刷新(_R)"
 
-#: ../src/filebrowser2.c:2044
+#: ../src/filebrowser2.c:2047
 msgid "Refresh"
 msgstr "刷新"
 
-#: ../src/filebrowser2.c:2045
+#: ../src/filebrowser2.c:2048
 msgid "_Set as base dir"
 msgstr "设为基础目录(_S)"
 
-#: ../src/filebrowser2.c:2045
+#: ../src/filebrowser2.c:2048
 msgid "Set as base directory"
 msgstr "设为基础目录"
 
-#: ../src/filebrowser2.c:2047
+#: ../src/filebrowser2.c:2050
 msgid "Set as document root"
 msgstr "设为文档根目录"
 
-#: ../src/filebrowser2.c:2049
+#: ../src/filebrowser2.c:2052
 msgid "Show Full _Tree"
 msgstr "显示完整目录树(_T)"
 
-#: ../src/filebrowser2.c:2049
+#: ../src/filebrowser2.c:2052
 msgid "Show full tree"
 msgstr "显示完整目录树"
 
-#: ../src/filebrowser2.c:2051
+#: ../src/filebrowser2.c:2054
 msgid "View Mode"
 msgstr "查看方式"
 
-#: ../src/filebrowser2.c:2052
+#: ../src/filebrowser2.c:2055
 msgid "Filter"
 msgstr "过滤器"
 
-#: ../src/filebrowser2.c:2053
+#: ../src/filebrowser2.c:2056
 msgid "New Filter"
 msgstr "新建过滤器"
 
-#: ../src/filebrowser2.c:2053 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:2056 ../src/filefilter.c:534
 msgid "New filter"
 msgstr "新建过滤器"
 
-#: ../src/filebrowser2.c:2054
+#: ../src/filebrowser2.c:2057
 msgid "Edit Filter"
 msgstr "编辑过滤器"
 
-#: ../src/filebrowser2.c:2054 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:2057 ../src/filefilter.c:540
 msgid "Edit filter"
 msgstr "编辑过滤器"
 
-#: ../src/filebrowser2.c:2055
+#: ../src/filebrowser2.c:2058
 msgid "Delete Filter"
 msgstr "删除过滤器"
 
-#: ../src/filebrowser2.c:2055
+#: ../src/filebrowser2.c:2058
 msgid "Delete filter"
 msgstr "删除过滤器"
 
-#: ../src/filebrowser2.c:2059
+#: ../src/filebrowser2.c:2062
 msgid "Follow Active Document"
 msgstr "跟随当前文档"
 
-#: ../src/filebrowser2.c:2059
+#: ../src/filebrowser2.c:2062
 msgid "Follow active document"
 msgstr "跟随当前文档"
 
-#: ../src/filebrowser2.c:2061
+#: ../src/filebrowser2.c:2064
 msgid "Show Backup Files"
 msgstr "显示备份文件"
 
-#: ../src/filebrowser2.c:2061 ../src/gtk_easy.c:1288
+#: ../src/filebrowser2.c:2064 ../src/gtk_easy.c:1307
 msgid "Show backup files"
 msgstr "显示备份文件"
 
-#: ../src/filebrowser2.c:2063
+#: ../src/filebrowser2.c:2066
 msgid "Show Hidden Files"
 msgstr "显示隐藏文件"
 
-#: ../src/filebrowser2.c:2063
+#: ../src/filebrowser2.c:2066
 msgid "Show hidden files"
 msgstr "显示隐藏文件"
 
-#: ../src/filebrowser2.c:2068
+#: ../src/filebrowser2.c:2071
 msgid "Dual"
 msgstr "双窗口"
 
-#: ../src/filebrowser2.c:2069
+#: ../src/filebrowser2.c:2072
 msgid "Flat"
 msgstr "平面"
 
-#: ../src/filebrowser2.c:2070
+#: ../src/filebrowser2.c:2073
 msgid "Tree"
 msgstr "树状"
 
-#: ../src/filebrowser2.c:2734
+#: ../src/filebrowser2.c:2740
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1730,7 +1825,7 @@ msgstr "高级打开已结束"
 msgid "_Skip"
 msgstr "跳过(_S)"
 
-#: ../src/file.c:1514 ../src/file_dialogs.c:637 ../src/file_dialogs.c:658
+#: ../src/file.c:1514 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
 #: ../src/project.c:309
 msgid "_Overwrite"
 msgstr "覆盖(_O)"
@@ -1748,63 +1843,63 @@ msgstr "覆盖文件？"
 msgid "Autosave in progress..."
 msgstr "自动保存中..."
 
-#: ../src/file_dialogs.c:108
+#: ../src/file_dialogs.c:109
 msgid "Started open advanced..."
 msgstr "高级打开已启动..."
 
-#: ../src/file_dialogs.c:119
+#: ../src/file_dialogs.c:120
 msgid "Select basedir"
 msgstr "选择基础目录"
 
-#: ../src/file_dialogs.c:141
+#: ../src/file_dialogs.c:142
 msgid "Advanced open file selector"
 msgstr "高级打开文件选择器"
 
-#: ../src/file_dialogs.c:158
+#: ../src/file_dialogs.c:159
 msgid "<b>Files</b>"
 msgstr "<b>文件</b>"
 
-#: ../src/file_dialogs.c:167
+#: ../src/file_dialogs.c:168
 msgid "Base _Dir:"
 msgstr "基础目录(_D)："
 
-#: ../src/file_dialogs.c:183
+#: ../src/file_dialogs.c:184
 msgid "_Pattern:"
 msgstr "模式(_P)："
 
-#: ../src/file_dialogs.c:191
+#: ../src/file_dialogs.c:192
 msgid "Pattern matches _full path:"
 msgstr "匹配全路径模式(_f)："
 
-#: ../src/file_dialogs.c:195
+#: ../src/file_dialogs.c:196
 msgid "_Recursive:"
 msgstr "递归(_R)："
 
-#: ../src/file_dialogs.c:199
+#: ../src/file_dialogs.c:200
 msgid "Ma_x recursion:"
 msgstr "最大递归(_x)数："
 
-#: ../src/file_dialogs.c:208
+#: ../src/file_dialogs.c:209
 msgid "<b>Contains</b>"
 msgstr "<b>包含</b>"
 
-#: ../src/file_dialogs.c:213
+#: ../src/file_dialogs.c:214
 msgid "Pa_ttern:"
 msgstr "模式(_t)："
 
-#: ../src/file_dialogs.c:217
+#: ../src/file_dialogs.c:218
 msgid "Is rege_x:"
 msgstr "正则表达式(_x)："
 
-#: ../src/file_dialogs.c:286 ../src/file_dialogs.c:306
+#: ../src/file_dialogs.c:287 ../src/file_dialogs.c:307
 msgid "Select files"
 msgstr "选择文件"
 
-#: ../src/file_dialogs.c:366
+#: ../src/file_dialogs.c:367
 msgid "Open URL"
 msgstr "打开 URL"
 
-#: ../src/file_dialogs.c:376 ../src/file_dialogs.c:1334
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1358
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -1814,65 +1909,53 @@ msgstr ""
 "你的版本号为（%d.%d.%d）的glib库运行远程文件（smb，ftp，sftp，webdav等等）时"
 "不可靠。如需远程文件支持，请升级 glib 到 2.18.0 或更高的版本。"
 
-#: ../src/file_dialogs.c:462 ../src/file_dialogs.c:500
+#: ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Continue save"
 msgstr "继续保存(_C)"
 
-#: ../src/file_dialogs.c:466
+#: ../src/file_dialogs.c:468
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr "%s 的备份文件无法创建。如果继续，此文件将被覆盖。"
 
-#: ../src/file_dialogs.c:470
+#: ../src/file_dialogs.c:472
 msgid "File backup failure"
 msgstr "文件备份失败"
 
-#: ../src/file_dialogs.c:486
+#: ../src/file_dialogs.c:488
 msgid "Could not save file "
 msgstr "无法保存文件 "
 
-#: ../src/file_dialogs.c:521 ../src/file_dialogs.c:1469
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1493
 msgid "File changed on disk\n"
 msgstr "磁盘上的文件已改变\n"
 
-# c-format
-#: ../src/file_dialogs.c:610
-#, c-format
-msgid "Move/rename %s to"
-msgstr "移动/重命名 %s 为"
-
-# c-format
-#: ../src/file_dialogs.c:610
-#, c-format
-msgid "Save %s as"
-msgstr "另存 %s 为"
-
-#: ../src/file_dialogs.c:637 ../src/file_dialogs.c:658
-#: ../src/file_dialogs.c:956 ../src/project.c:309
+#: ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/file_dialogs.c:980 ../src/project.c:309
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: ../src/file_dialogs.c:638
+#: ../src/file_dialogs.c:639
 #, c-format
 msgid "File %s exists and is open, overwrite?"
 msgstr "文件 %s 存在且已打开，覆盖吗？"
 
-#: ../src/file_dialogs.c:641
+#: ../src/file_dialogs.c:642
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "您选择的文件正在 Bluefish 中编辑。"
 
-#: ../src/file_dialogs.c:659 ../src/project.c:311
+#: ../src/file_dialogs.c:660 ../src/project.c:311
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "名为 \"%s\" 的文件已存在。"
 
-#: ../src/file_dialogs.c:662 ../src/project.c:315
+#: ../src/file_dialogs.c:663 ../src/project.c:315
 msgid "Do you want to replace the existing file?"
 msgstr "您要替换已经存在的文件吗？"
 
-#: ../src/file_dialogs.c:758
+#: ../src/file_dialogs.c:768
 msgid ""
 "File:\n"
 "\""
@@ -1880,88 +1963,103 @@ msgstr ""
 "文件:\n"
 "\""
 
-#: ../src/file_dialogs.c:759
+#: ../src/file_dialogs.c:769
 msgid "\" save is in progress"
 msgstr "\" 保存中"
 
-#: ../src/file_dialogs.c:761
+#: ../src/file_dialogs.c:771
 msgid "Save in progress!"
 msgstr "保存中！"
 
-#: ../src/file_dialogs.c:942
+#: ../src/file_dialogs.c:784
+msgid "Save"
+msgstr "保存"
+
+# c-format
+#: ../src/file_dialogs.c:786
+#, c-format
+msgid "Save %s as"
+msgstr "另存 %s 为"
+
+#: ../src/file_dialogs.c:790
+#, c-format
+msgid "Save copy of %s"
+msgstr "保存 %s 的拷贝"
+
+#: ../src/file_dialogs.c:966
 msgid "Close _Without Saving"
 msgstr "关闭且不保存(_W)"
 
-#: ../src/file_dialogs.c:945
+#: ../src/file_dialogs.c:969
 #, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr "关闭前要保存 \"%s\" 吗?"
 
-#: ../src/file_dialogs.c:948 ../src/file_dialogs.c:960
+#: ../src/file_dialogs.c:972 ../src/file_dialogs.c:984
 msgid "If you don't save your changes they will be lost."
 msgstr "如果不保存则所有的改动将丢失。"
 
-#: ../src/file_dialogs.c:956
+#: ../src/file_dialogs.c:980
 msgid "Choose per _File"
 msgstr "选择每个文件(_F)"
 
-#: ../src/file_dialogs.c:956
+#: ../src/file_dialogs.c:980
 msgid "Close _All"
 msgstr "全部关闭(_A)"
 
-#: ../src/file_dialogs.c:956
+#: ../src/file_dialogs.c:980
 msgid "_Save All"
 msgstr "全部保存(_S)"
 
-#: ../src/file_dialogs.c:959
+#: ../src/file_dialogs.c:983
 msgid "One or more open files have been changed."
 msgstr "一个或多个打开的文件已被更改。"
 
-#: ../src/file_dialogs.c:1254
+#: ../src/file_dialogs.c:1278
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">%d 个失败</span>"
 msgstr[1] "<span color=\"red\">%d 个失败</span>"
 
-#: ../src/file_dialogs.c:1263
+#: ../src/file_dialogs.c:1287
 msgid "incomplete finished"
 msgstr "未完成"
 
-#: ../src/file_dialogs.c:1265
+#: ../src/file_dialogs.c:1289
 msgid "completed"
 msgstr "已完成"
 
-#: ../src/file_dialogs.c:1320
+#: ../src/file_dialogs.c:1344
 msgid "Upload / Download"
 msgstr "上传 / 下载"
 
-#: ../src/file_dialogs.c:1323
+#: ../src/file_dialogs.c:1347
 msgid "Upload"
 msgstr "上传"
 
-#: ../src/file_dialogs.c:1323
+#: ../src/file_dialogs.c:1347
 msgid "Download"
 msgstr "下载"
 
-#: ../src/file_dialogs.c:1346
+#: ../src/file_dialogs.c:1370
 msgid "Local directory"
 msgstr "本地目录"
 
-#: ../src/file_dialogs.c:1352
+#: ../src/file_dialogs.c:1376
 msgid "Remote directory"
 msgstr "远程目录"
 
-#: ../src/file_dialogs.c:1357
+#: ../src/file_dialogs.c:1381
 msgid "Delete deprecated files"
 msgstr "删除失效的文件"
 
-#: ../src/file_dialogs.c:1361
+#: ../src/file_dialogs.c:1385
 msgid "Include hidden files"
 msgstr "包含隐藏文件"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1405
+#: ../src/file_dialogs.c:1429
 #, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -1978,34 +2076,34 @@ msgstr ""
 "原文件大小为 %lu 字节\n"
 "新文件大小为 %lu 字节"
 
-#: ../src/file_dialogs.c:1428
+#: ../src/file_dialogs.c:1452
 msgid "_Unset file name"
 msgstr "复位文件名"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1430
+#: ../src/file_dialogs.c:1454
 #, c-format
 msgid "File name: %s"
 msgstr "文件名：%s"
 
-#: ../src/file_dialogs.c:1433
+#: ../src/file_dialogs.c:1457
 msgid "File disappeared from disk\n"
 msgstr "文件已从磁盘上消失\n"
 
-#: ../src/file_dialogs.c:1452
+#: ../src/file_dialogs.c:1476
 msgid "_Ignore"
 msgstr "忽略(_I)"
 
-#: ../src/file_dialogs.c:1452
+#: ../src/file_dialogs.c:1476
 msgid "_Reload"
 msgstr "重新载入(_R)"
 
-#: ../src/file_dialogs.c:1452
+#: ../src/file_dialogs.c:1476
 msgid "Check and reload all documents"
 msgstr "检查并重新载入所有文档"
 
 #. build a list of filters
-#: ../src/filefilter.c:241 ../src/gtk_easy.c:1299 ../src/preferences.c:2090
+#: ../src/filefilter.c:241 ../src/gtk_easy.c:1318 ../src/preferences.c:2090
 msgid "All files"
 msgstr "所有文件"
 
@@ -2025,28 +2123,28 @@ msgstr "Mime 类型"
 msgid "Icon"
 msgstr "图标"
 
-#: ../src/gtk_easy.c:928
+#: ../src/gtk_easy.c:943
 #, c-format
 msgid "%d of %d"
 msgstr "%d 的 %d"
 
-#: ../src/gtk_easy.c:1009
+#: ../src/gtk_easy.c:1024
 msgid "Select File"
 msgstr "选择文件"
 
-#: ../src/gtk_easy.c:1349
+#: ../src/gtk_easy.c:1368
 msgid "Character _Encoding:"
 msgstr "字符编码(_E)："
 
-#: ../src/gtk_easy.c:1369
+#: ../src/gtk_easy.c:1388
 msgid "Automatic detection"
 msgstr "自动侦测"
 
-#: ../src/gtk_easy.c:1454
+#: ../src/gtk_easy.c:1473
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>按键选择</b>"
 
-#: ../src/gtk_easy.c:1462
+#: ../src/gtk_easy.c:1481
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2058,7 +2156,7 @@ msgstr ""
 "请按下Ctrl, Shift, Alt与其他任意键。\n"
 "<i>按 ESC 取消, 按 Delete 删除快捷键。</i>"
 
-#: ../src/gtk_easy.c:1487
+#: ../src/gtk_easy.c:1506
 msgid "Press shortcut key combination"
 msgstr "按下快捷键组合"
 
@@ -2074,7 +2172,7 @@ msgstr "行"
 msgid "Output"
 msgstr "输出"
 
-#: ../src/outputbox.c:473
+#: ../src/outputbox.c:478
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "编译输出窗口模式失败 %s: %s"
@@ -2095,7 +2193,7 @@ msgstr "无"
 msgid "_Template:"
 msgstr "模板(_T)："
 
-#: ../src/preferences.c:523 ../src/snr3.c:1552
+#: ../src/preferences.c:523 ../src/snr3.c:1578
 msgid "<b>Options</b>"
 msgstr "<b>选项</b>"
 
@@ -2847,7 +2945,7 @@ msgstr "文档被修改时的标签色(_m)："
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2628 ../src/rcfile.c:1246
+#: ../src/preferences.c:2628 ../src/rcfile.c:1271
 msgid "Images"
 msgstr "图像"
 
@@ -2951,187 +3049,203 @@ msgstr "使用当前打开的文档创建项目"
 msgid "Create empty project"
 msgstr "创建空项目"
 
-#: ../src/rcfile.c:677 ../src/rcfile.c:705
+#: ../src/rcfile.c:680 ../src/rcfile.c:708
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:683
+#: ../src/rcfile.c:686
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:687
+#: ../src/rcfile.c:690
 msgid "weblint HTML checker"
 msgstr "weblint HTML checker"
 
-#: ../src/rcfile.c:692
+#: ../src/rcfile.c:695
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:696
+#: ../src/rcfile.c:699
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:700
+#: ../src/rcfile.c:703
 msgid "xmllint XML checker"
 msgstr "xmllint XML checker"
 
-#: ../src/rcfile.c:709
+#: ../src/rcfile.c:712
 msgid "php syntax check"
 msgstr "php 语法检查"
 
-#: ../src/rcfile.c:713
+#: ../src/rcfile.c:716
 msgid "perl syntax check"
 msgstr "perl 语法检查"
 
-#: ../src/rcfile.c:717
+#: ../src/rcfile.c:720
 msgid "php codesniffer"
 msgstr "php 代码嗅探器"
 
-#: ../src/rcfile.c:721
+#: ../src/rcfile.c:724
 msgid "pylint"
 msgstr "pylint代码风格检查器"
 
-#: ../src/rcfile.c:734
+#: ../src/rcfile.c:737
 msgid "Sort"
 msgstr "排序"
 
-#: ../src/rcfile.c:737
+#: ../src/rcfile.c:740
 msgid "Sort / Uniq"
 msgstr "Sort / Uniq"
 
-#: ../src/rcfile.c:740
+#: ../src/rcfile.c:743
 msgid "Reverse lines"
 msgstr "反转行"
 
-#: ../src/rcfile.c:743
+#: ../src/rcfile.c:746
 msgid "Dos2unix"
 msgstr "Dos2Unix"
 
-#: ../src/rcfile.c:745
+#: ../src/rcfile.c:748
 msgid "Tidy HTML"
 msgstr "整理 HTML"
 
-#: ../src/rcfile.c:748
+#: ../src/rcfile.c:750
+msgid "Tidy convert to XHTML"
+msgstr "整理转换为XHTML"
+
+#: ../src/rcfile.c:753
 msgid "Tidy HTML (perltidy)"
 msgstr "整理 HTML (perltidy方式)"
 
-#: ../src/rcfile.c:751
+#: ../src/rcfile.c:756
 msgid "Strip empty lines"
 msgstr "除去空行"
 
-#: ../src/rcfile.c:754
+#: ../src/rcfile.c:759
 msgid "Render HTML to text"
 msgstr "将 HTML 渲染成文本"
 
-#: ../src/rcfile.c:757
-msgid "php_beautifier"
-msgstr "php beautifier(_b)代码美化器"
+#: ../src/rcfile.c:762
+msgid "PHP Beautifier"
+msgstr "php 代码美化器"
 
-#: ../src/rcfile.c:769
+#: ../src/rcfile.c:766 ../src/rcfile.c:773
+msgid "Javascript Minify with jsmin"
+msgstr "使用jsmin压缩javascript"
+
+#: ../src/rcfile.c:769 ../src/rcfile.c:776
+msgid "CSS Minify with cssmin"
+msgstr "使用cssmin压缩CSS"
+
+#: ../src/rcfile.c:780
+msgid "CSS tidy"
+msgstr "修剪CSS"
+
+#: ../src/rcfile.c:792
 msgid "Windows XP Firefox"
 msgstr "Windows XP Firefox"
 
-#: ../src/rcfile.c:774
+#: ../src/rcfile.c:797
 msgid "Windows XP Internet Explorer"
 msgstr "Windows XP Internet Explorer"
 
-#: ../src/rcfile.c:779
+#: ../src/rcfile.c:802
 msgid "Windows XP Opera"
 msgstr "Windows XP Opera"
 
-#: ../src/rcfile.c:783
+#: ../src/rcfile.c:806
 msgid "Windows XP Safari"
 msgstr "Windows XP Safari"
 
-#: ../src/rcfile.c:787
+#: ../src/rcfile.c:810
 msgid "Windows 7 Firefox 32-bit"
 msgstr "Windows 7 Firefox 32-bit"
 
-#: ../src/rcfile.c:792
+#: ../src/rcfile.c:815
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr "Windows 7 Internet Explorer 32-bit"
 
-#: ../src/rcfile.c:797
+#: ../src/rcfile.c:820
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr "Windows 7 Internet Explorer 64-bit"
 
-#: ../src/rcfile.c:803
+#: ../src/rcfile.c:826
 msgid "Safari"
 msgstr "Safari"
 
-#: ../src/rcfile.c:806 ../src/rcfile.c:816
+#: ../src/rcfile.c:829 ../src/rcfile.c:839
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:809 ../src/rcfile.c:820
+#: ../src/rcfile.c:832 ../src/rcfile.c:843
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:812 ../src/rcfile.c:839
+#: ../src/rcfile.c:835 ../src/rcfile.c:862
 msgid "chmod a+x"
 msgstr "chmod a+x"
 
-#: ../src/rcfile.c:824
+#: ../src/rcfile.c:847
 msgid "Chromium"
 msgstr "Chromium"
 
-#: ../src/rcfile.c:827
+#: ../src/rcfile.c:850
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:830
+#: ../src/rcfile.c:853
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:833
+#: ../src/rcfile.c:856
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:836
+#: ../src/rcfile.c:859
 msgid "Links2 (graphics)"
 msgstr "Links2 (图形方式)"
 
-#: ../src/rcfile.c:882
+#: ../src/rcfile.c:905
 msgid "C Header"
 msgstr "C 语言头文件"
 
-#: ../src/rcfile.c:885
+#: ../src/rcfile.c:908
 msgid "C Header GPL"
 msgstr "符合 GPL 协议的 C 语言头文件"
 
-#: ../src/rcfile.c:888
+#: ../src/rcfile.c:911
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:891
+#: ../src/rcfile.c:914
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: ../src/rcfile.c:894
+#: ../src/rcfile.c:917
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:897
+#: ../src/rcfile.c:920
 msgid "LaTex Book"
 msgstr "LaTex Book"
 
-#: ../src/rcfile.c:900
+#: ../src/rcfile.c:923
 msgid "LaTex Presentation"
 msgstr "LaTex Presentation"
 
-#: ../src/rcfile.c:1146
+#: ../src/rcfile.c:1171
 msgid "Untitled Project"
 msgstr "未命名的项目"
 
-#: ../src/rcfile.c:1238
+#: ../src/rcfile.c:1263
 msgid "C programming"
 msgstr "C 语言编程"
 
-#: ../src/rcfile.c:1242
+#: ../src/rcfile.c:1267
 msgid "Web files"
 msgstr "Web 文件（集）"
 
-#: ../src/rcfile.c:1249
+#: ../src/rcfile.c:1274
 msgid "Hide objectfiles"
 msgstr "隐藏目标文件"
 
@@ -3168,138 +3282,138 @@ msgid_plural "<i>Found %d entries</i>"
 msgstr[0] "<i>找到 %d 个条目</i>"
 msgstr[1] "<i>找到 %d 个条目</i>"
 
-#: ../src/snr3.c:1156
+#: ../src/snr3.c:1182
 #, c-format
 msgid "<i>Found %d result in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr[0] "<i>已找到 %d 个结果在 %d 个文档中，在 %d 个文档中搜索</i>"
 msgstr[1] "<i>已找到 %d 个结果在 %d 个文档中，在 %d 个文档中搜索</i>"
 
-#: ../src/snr3.c:1160
+#: ../src/snr3.c:1186
 #, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
 msgstr[0] "<i>已找到 %d 个结果，从字符 %d 到 %d</i>"
 msgstr[1] "<i>已找到 %d 个结果，从字符 %d 到 %d</i>"
 
-#: ../src/snr3.c:1163
+#: ../src/snr3.c:1189
 #, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
 msgstr[0] "<i>在激活的文档中找到 %d 个结果</i>"
 msgstr[1] "<i>在激活的文档中找到 %d 个结果</i>"
 
-#: ../src/snr3.c:1385
+#: ../src/snr3.c:1411
 msgid "No (more) results"
 msgstr "无结果"
 
-#: ../src/snr3.c:1483
+#: ../src/snr3.c:1509
 msgid "Active document"
 msgstr "当前激活的文档"
 
-#: ../src/snr3.c:1484
+#: ../src/snr3.c:1510
 msgid "Forward from cursor position"
 msgstr "从光标处向前"
 
-#: ../src/snr3.c:1485
+#: ../src/snr3.c:1511
 msgid "Current selection"
 msgstr "当前选择区域"
 
-#: ../src/snr3.c:1486
+#: ../src/snr3.c:1512
 msgid "All open documents"
 msgstr "所有已打开的文档"
 
-#: ../src/snr3.c:1487
+#: ../src/snr3.c:1513
 msgid "Files on disk"
 msgstr "磁盘上的文件"
 
-#: ../src/snr3.c:1491 ../src/snr3.c:1496
+#: ../src/snr3.c:1517 ../src/snr3.c:1522
 msgid "Normal"
 msgstr "普通"
 
-#: ../src/snr3.c:1497
+#: ../src/snr3.c:1523
 msgid "Uppercase"
 msgstr "大写"
 
-#: ../src/snr3.c:1498
+#: ../src/snr3.c:1524
 msgid "Lowercase"
 msgstr "小写"
 
-#: ../src/snr3.c:1505
+#: ../src/snr3.c:1531
 msgid "Find and Replace"
 msgstr "查找与替换"
 
-#: ../src/snr3.c:1524
+#: ../src/snr3.c:1550
 msgid "<b>_Search for</b>"
 msgstr "<b>搜索项（_S）</b>"
 
-#: ../src/snr3.c:1547
+#: ../src/snr3.c:1573
 msgid "<b>Replace _with</b>"
 msgstr "<b>替换为(_w)</b>"
 
-#: ../src/snr3.c:1562
+#: ../src/snr3.c:1588
 msgid "Match Patter_n: "
 msgstr "匹配模式(_n)："
 
-#: ../src/snr3.c:1574
+#: ../src/snr3.c:1600
 msgid "Replace T_ype: "
 msgstr "替换类型(_y)："
 
-#: ../src/snr3.c:1587
+#: ../src/snr3.c:1613
 msgid "Sco_pe: "
 msgstr "范围(_p)："
 
-#: ../src/snr3.c:1597
+#: ../src/snr3.c:1623
 msgid "Filename pattern: "
 msgstr "文件名模式："
 
-#: ../src/snr3.c:1603
+#: ../src/snr3.c:1629
 msgid "Recursion level: "
 msgstr "递归级别："
 
-#: ../src/snr3.c:1609
+#: ../src/snr3.c:1635
 msgid "Basedir: "
 msgstr "基础目录："
 
-#: ../src/snr3.c:1628
+#: ../src/snr3.c:1654
 msgid "Case sensitive _matching"
 msgstr "大小写敏感匹配(_m)"
 
-#: ../src/snr3.c:1630
+#: ../src/snr3.c:1656
 msgid "Only match if case (upper/lower) is identical."
 msgstr "仅匹配大小写一致的情况。"
 
-#: ../src/snr3.c:1634
+#: ../src/snr3.c:1660
 msgid "Pattern contains escape-se_quences"
 msgstr "包含了转义序列的模式"
 
-#: ../src/snr3.c:1637
+#: ../src/snr3.c:1663
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr "包含了反斜线转义字符的模式，如：\\n、\\t等等。"
 
-#: ../src/snr3.c:1641
+#: ../src/snr3.c:1667
 msgid "Dot character in regex pattern matches newlines"
 msgstr "在正则表达式中的豆点字符为匹配新行"
 
-#: ../src/snr3.c:1644
+#: ../src/snr3.c:1670
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr "字符 . 将匹配包括新行在内的任意项，用于多行匹配。"
 
-#: ../src/snr3.c:1666
+#: ../src/snr3.c:1692
 msgid "Replace _All"
 msgstr "全部替换(_A)"
 
-#: ../src/snr3.c:1668
+#: ../src/snr3.c:1694
 msgid "_Replace"
 msgstr "替换(_R)"
 
-#: ../src/snr3.c:1672
+#: ../src/snr3.c:1698
 msgid "_Find All"
 msgstr "查找全部(_F)"
 
-#: ../src/snr3.c:1674
+#: ../src/snr3.c:1700
 msgid "B_ookmark All"
 msgstr "全部设为书签(_o)"
 
@@ -3318,6 +3432,9 @@ msgstr "在所有的文档中取消当前操作吗？"
 #: ../src/undo_redo.c:560 ../src/undo_redo.c:702
 msgid "This change concerns multiple documents."
 msgstr "此次修改关系到多个文档。"
+
+#~ msgid "The lines in this file are longer than Bluefish can handle."
+#~ msgstr "此文件中一些冗长的行超出了BlueFish处理能力。"
 
 #~ msgid "Co_nnect"
 #~ msgstr "连接(_n)"
