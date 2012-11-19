@@ -449,7 +449,7 @@ doc_checkNsave_lcb(TcheckNsave_status status, GError * gerror, gpointer data)
 	Tdocsavebackend *dsb = data;
 	Tdocument *doc = dsb->doc;
 	gchar *errmessage;
-	DEBUG_MSG("doc_checkNsave_lcb, doc=%p, status=%d\n", doc, status);
+	DEBUG_MSG("doc_checkNsave_lcb, doc=%p, status=%d, doc->uri=%p\n", doc, status, doc->uri);
 	switch (status) {
 	case CHECKANDSAVE_ERROR_NOBACKUP:
 		if (main_v->props.backup_abort_action == 0) {
@@ -547,7 +547,7 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 			/* YES! we're done! update the fileinfo ! */
 			gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
 			if (dsb->savemode != docsave_copy) {
-				DEBUG_MSG("doc_checkNsave_lcb, re-set async doc->fileinfo (current=%p)\n", doc->fileinfo);
+				DEBUG_MSG("doc_checkNsave_lcb, re-set async doc->fileinfo (current=%p) for uri %p\n", doc->fileinfo, doc->uri);
 				if (doc->fileinfo)
 					g_object_unref(doc->fileinfo);
 				doc->fileinfo = NULL;
@@ -691,6 +691,7 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 	Tdocsavebackend *dsb;
 	GFile *dest_uri=NULL;
 	GFileInfo *dest_finfo=NULL;
+	gboolean firstsave;
 	DEBUG_MSG
 		("doc_save_backend, started for doc %p, mode=%d, close_doc=%d, close_window=%d\n", doc,
 		 savemode, close_doc, close_window);
@@ -774,8 +775,8 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 		DEBUG_MSG("doc_save_backend, already save in progress, return\n");
 		return;
 	}
-
-	if (doc->uri == NULL || savemode != docsave_normal) {
+	firstsave = (doc->uri == NULL && savemode == docsave_normal);
+	if (firstsave || savemode != docsave_normal) {
 		gchar *newfilename, *curi, *dialogtext;
 		const gchar *gui_name = gtk_label_get_text(GTK_LABEL(doc->tab_label));
 		DEBUG_MSG("doc_save_as, no uri, or saveas/copy/move\n");
@@ -800,7 +801,7 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 		}
 		dest_uri = g_file_new_for_uri(newfilename);
 		DEBUG_MSG("doc_save_backend, newfilename=%s, dest_uri=%p\n",newfilename, dest_uri);
-		if (savemode == docsave_saveas || savemode == docsave_move) {
+		if (doc->uri == NULL || savemode == docsave_saveas || savemode == docsave_move) {
 			if (doc->uri)
 				g_object_unref(doc->uri);
 			doc->uri = dest_uri;
@@ -814,12 +815,18 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 		g_object_ref(dest_uri);
 	}
 	DEBUG_MSG("doc_save_backend, dest_uri=%p\n",dest_uri);
-	if (savemode == docsave_move && doc->uri) {
-		dsb->unlink_uri = doc->uri;	/* unlink this uri later */
-		g_object_ref(dsb->unlink_uri);
-		bmark_doc_renamed(BFWIN(doc->bfwin), doc);
-		dsb->fbrefresh_uri = doc->uri;	/* refresh this uri later */
-		g_object_ref(dsb->fbrefresh_uri);
+	if (doc->uri) {
+		if (savemode == docsave_move) {
+			dsb->unlink_uri = doc->uri;	/* unlink and refresh this uri later */
+			g_object_ref(dsb->unlink_uri);	
+		}
+		if (savemode == docsave_move || savemode==docsave_saveas) {
+			bmark_doc_renamed(BFWIN(doc->bfwin), doc);
+		}
+	}
+	if ((firstsave || savemode != docsave_normal)&& dest_uri) {
+		dsb->fbrefresh_uri = dest_uri;	/* refresh this uri later */
+		g_object_ref(dest_uri);
 	}
 	
 	session_set_savedir(doc->bfwin, dest_uri);
@@ -849,7 +856,7 @@ glib_major_version, glib_minor_version, glib_micro_version);
 		file_checkNsave_uri_async(dest_uri, dest_finfo, buffer, strlen(buffer->data), savemode == docsave_normal,
 								  main_v->props.backup_file, doc_checkNsave_lcb, dsb);
 
-	if (savemode == docsave_saveas || savemode == docsave_move) {
+	if (firstsave || savemode == docsave_saveas || savemode == docsave_move) {
 		doc->readonly = FALSE;
 		doc_reset_filetype(doc, doc->uri, buffer->data, strlen(buffer->data));
 		doc_set_title(doc);
