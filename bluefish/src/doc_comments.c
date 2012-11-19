@@ -25,8 +25,9 @@
 #include "undo_redo.h"
 
 
-static void add_line_comment(Tdocument *doc, const gchar *commentstring, gint start, gint end) {
-	gint i=0,coffset,commentstring_len;
+static gint
+add_line_comment(Tdocument *doc, const gchar *commentstring, gint start, gint end) {
+	gint i=0,coffset=0,commentstring_len;
 	gchar *buf;
 
 	if (start!=0)	
@@ -38,19 +39,19 @@ static void add_line_comment(Tdocument *doc, const gchar *commentstring, gint st
 	buf = doc_get_chars(doc,start,end);
 	utf8_offset_cache_reset();
 	
-	coffset=start;
 	doc_unre_new_group(doc);
 	while (buf[i] != '\0') {
 		if (i==0 || (buf[i]=='\n' && buf[i+1]!='\0')) {
 			gint cstart;
 			cstart = utf8_byteoffset_to_charsoffset_cached(buf, i+1);
-			doc_replace_text_backend(doc, commentstring, coffset+cstart, coffset+cstart);
+			doc_replace_text_backend(doc, commentstring, coffset+start+cstart, coffset+start+cstart);
 			coffset += commentstring_len;
 		}
 		i++;
 	}
 	g_free(buf);
 	doc_unre_new_group(doc);
+	return coffset;
 }
 
 static void remove_line_comment(Tdocument *doc, const gchar *buf, const gchar *commentstring, gint start, gint end) {
@@ -205,8 +206,8 @@ void toggle_comment(Tdocument *doc) {
 		offsete = gtk_text_iter_get_offset(&ite);
 		DEBUG_MSG("got comment with type %d, so=%s\n",comment->type, comment->so);
 	 	if (comment->type == comment_type_line) {
-	 		add_line_comment(doc, comment->so, offsets,offsete);
-	 		extraoffset = strlen(comment->so);
+	 		extraoffset = add_line_comment(doc, comment->so, offsets,offsete);
+	 		/*extraoffset = strlen(comment->so);*/
 	 	} else {
 			add_block_comment(doc, comment->so, comment->eo, gtk_text_iter_get_offset(&its), gtk_text_iter_get_offset(&ite));
 			extraoffset = strlen(comment->so) + strlen(comment->eo);
@@ -215,6 +216,7 @@ void toggle_comment(Tdocument *doc) {
 			/* the buffer has changes, so we have to re-set the iters from the offsets */
 			gtk_text_buffer_get_iter_at_offset(doc->buffer, &its, offsets);
 			gtk_text_buffer_get_iter_at_offset(doc->buffer, &ite, offsete+extraoffset);
+			DEBUG_MSG("toggle_comment, reset selection to %d:%d\n", gtk_text_iter_get_offset(&its), gtk_text_iter_get_offset(&ite));
 			gtk_text_buffer_select_range(doc->buffer,&its,&ite);
 		}
 	}
