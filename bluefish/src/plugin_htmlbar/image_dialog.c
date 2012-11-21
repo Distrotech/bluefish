@@ -265,7 +265,7 @@ spin_buttons_value_changed(GtkSpinButton *spinbutton,BluefishImageDialog * dialo
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->priv->keepAspect)) && dialog->priv->origHeight > 0 && dialog->priv->origWidth > 0) {
 		gfloat targetval;
 		GtkWidget *target;
-		if (spinbutton == dialog->priv->height) {
+		if ((GtkWidget *) spinbutton == dialog->priv->height) {
 			target = dialog->priv->width;
 			targetval = 1.0 * gtk_spin_button_get_value(GTK_SPIN_BUTTON(spinbutton)) / dialog->priv->origHeight * dialog->priv->origWidth;
 		} else {
