@@ -263,10 +263,13 @@ a <tag> automatically autocompletes. it also has an 'attrib_autocomplete_append'
 <!-- next example shows auto closing options for tags -->
 <tag name="br" no_close="1" />
 <!--
-a <tag> will automaticaly autoclose (if not disabled for the complete language file).
-some tags don't need a closing tag. use no_close="1"
+a <tag> will automaticaly suggest </tag> for autocompletion (if not disabled for the complete language file).
+some tags don't need a closing tag because they close themselves <tag />. use no_close="1"
+typical tags in html are for example br img hr input
 -->
-<!-- next example shows how to set SGML short tags -->
+<!-- next example shows how to enable SGML short tags. This suggests to the autocompletion that this tag 
+is not closed and also does not end on '/>' (thus no proper xml syntax).
+instead of suggesting <br /> it will suggest <br> -->
 <tag name="img" sgml_shorttag="1" />
 <!--
 in XML or XHTML a tag always needs to be closed, either <img /> or <img></img>
