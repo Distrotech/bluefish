@@ -113,6 +113,7 @@ static void init_default_session(Tsessionvars *session) {
 #endif
 	session->snr_position_x = session->snr_position_y = -1;
 	session->editor_tab_width = 3;
+	session->snr3_recursion_level = 5;
 }
 
 #ifndef WIN32
