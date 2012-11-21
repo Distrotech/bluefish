@@ -651,6 +651,7 @@ void bluefish_exit_request(void);
 #define gtk_combo_box_text_new gtk_combo_box_new_text
 #define gtk_combo_box_text_append_text gtk_combo_box_append_text
 #define gtk_combo_box_text_prepend_text gtk_combo_box_prepend_text
+#define gtk_combo_box_text_remove gtk_combo_box_remove_text
 #endif /* GTK_CHECK_VERSION(2,24,0) */
 
 #endif							/* __BLUEFISH_H_ */

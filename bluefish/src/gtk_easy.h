@@ -41,6 +41,8 @@ GtkWidget *combobox_with_popdown_sized(const gchar * setstring, const GList * wh
 									   gint width);
 GtkWidget *boxed_combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolean editable,
 									   GtkWidget * box);
+void combobox_empty(GtkWidget *combobox);
+void combobox_fill(GtkWidget *combobox, const gchar * setstring, const GList * which_list);
 GtkWidget *combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolean editable);
 
 GtkWidget *checkbut_with_value(gchar * labeltext, gint which_config_int);

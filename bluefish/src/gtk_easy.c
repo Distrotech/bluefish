@@ -329,41 +329,62 @@ boxed_combobox_with_popdown(const gchar * setstring, const GList * which_list, g
 	gtk_box_pack_start(GTK_BOX(box), returnwidget, TRUE, TRUE, 3);
 	return returnwidget;
 }
+void
+combobox_empty(GtkWidget *combobox)
+{
+#if GTK_CHECK_VERSION(3,0,0)
+	gtk_combo_box_text_remove_all(GTK_COMBO_BOX_TEXT(combobox));
+#else
+	gint num;
+	GtkTreeModel *model = gtk_combo_box_get_model(GTK_COMBO_BOX(combobox));
+	if (!model)
+		return;
+	num = gtk_tree_model_iter_n_children(model, NULL);
+	while (num > 0) {
+		gtk_combo_box_text_remove(GTK_COMBO_BOX_TEXT(combobox), 0);
+		num--;
+	}
+#endif
+}
+
+void
+combobox_fill(GtkWidget *combobox, const gchar * setstring, const GList * which_list)
+{
+	GList *tmplist;
+	gint activenum = -1, i = 0;
+	for (tmplist = g_list_last((GList *)which_list); tmplist; tmplist = g_list_previous(tmplist)) {
+		if (tmplist->data) {
+			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combobox), tmplist->data);
+			if (setstring && g_strcmp0(tmplist->data, setstring) == 0) {
+				activenum = i;
+			}
+			i++;
+		}
+	}
+	if (setstring) {
+		if (activenum == -1) {
+			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combobox), setstring);
+			gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), i);
+		} else {
+			gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), activenum);
+		}
+	} else {
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), i-1);
+	}
+}
 
 /* if setstring is NULL the first item will be set as default, if setstring is "" an empty item will be set active */
 GtkWidget *
 combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolean editable)
 {
-	GtkWidget *child, *returnwidget;
-	GList *tmplist;
-	gint activenum = -1, index = 0;
+	GtkWidget *returnwidget;
 	if (editable)
 		returnwidget = gtk_combo_box_text_new_with_entry();
 	else
 		returnwidget = gtk_combo_box_text_new();
-	for (tmplist = g_list_last((GList *)which_list); tmplist; tmplist = g_list_previous(tmplist)) {
-		if (tmplist->data) {
-			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(returnwidget), tmplist->data);
-			if (setstring && g_strcmp0(tmplist->data, setstring) == 0) {
-				activenum = index;
-			}
-			index++;
-		}
-	}
-	/*g_print("setstring='%s', activenum=%d, index=%d\n",setstring,activenum,index);*/
-	if (setstring) {
-		if (activenum == -1) {
-			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(returnwidget), setstring);
-			gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget), index);
-		} else {
-			gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget), activenum);
-		}
-	} else {
-		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget), index-1);
-	}
+	combobox_fill(returnwidget, setstring, which_list);
 	if (editable) {
-		child = gtk_bin_get_child(GTK_BIN(returnwidget));
-		gtk_entry_set_activates_default(GTK_ENTRY(child), TRUE);
+		gtk_entry_set_activates_default(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(returnwidget))), TRUE);
 	}
 	return returnwidget;
 }
@@ -1580,3 +1601,4 @@ color_but_new2(GtkWidget * entry)
 	color_entry_changed_lcb(entry, cbut);
 	return cbut;
 }
+
