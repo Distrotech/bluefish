@@ -1417,11 +1417,9 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		GtkTextMark *imark;
 		gboolean ret;
 		GtkTextIter iter, currentpos, linestart;
-		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 
-
-		imark = gtk_text_buffer_get_insert(buffer);
-		gtk_text_buffer_get_iter_at_mark(buffer, &currentpos, imark);
+		imark = gtk_text_buffer_get_insert(BLUEFISH_TEXT_VIEW(btv)->buffer);
+		gtk_text_buffer_get_iter_at_mark(BLUEFISH_TEXT_VIEW(btv)->buffer, &currentpos, imark);
 		iter = currentpos;
 
 		if ((kevent->keyval == GDK_KEY_Home) || (kevent->keyval == GDK_KEY_KP_Home)) {
@@ -1433,10 +1431,10 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 			if (gtk_text_iter_compare(&currentpos, &iter) == 0)
 				iter = linestart;
 			if (kevent->state & GDK_SHIFT_MASK)
-				gtk_text_buffer_move_mark(buffer, imark, &iter);
+				gtk_text_buffer_move_mark(BLUEFISH_TEXT_VIEW(btv)->buffer, imark, &iter);
 			else
-				gtk_text_buffer_place_cursor(buffer, &iter);
-			gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(btv), gtk_text_buffer_get_insert(buffer));
+				gtk_text_buffer_place_cursor(BLUEFISH_TEXT_VIEW(btv)->buffer, &iter);
+			gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(btv), gtk_text_buffer_get_insert(BLUEFISH_TEXT_VIEW(btv)->buffer));
 			return TRUE;
 		}
 	}
@@ -1447,8 +1445,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		&& (!(kevent->state & GDK_CONTROL_MASK))) {	/* shift-tab is also known as GDK_ISO_Left_Tab */
 		GtkTextIter so, eo;
 		gboolean have_selection;
-		GtkTextBuffer *buffer = BLUEFISH_TEXT_VIEW(btv)->buffer;
-		have_selection = gtk_text_buffer_get_selection_bounds(buffer, &so, &eo);
+		have_selection = gtk_text_buffer_get_selection_bounds(BLUEFISH_TEXT_VIEW(btv)->buffer, &so, &eo);
 		if (have_selection) {
 			GtkTextIter eol1, eol2, sol1, sol2;
 			if (kevent->state & GDK_SHIFT_MASK) {
@@ -1937,19 +1934,25 @@ get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * last
 }
 
 static inline void
-auto_increase_indenting(BluefishTextView * btv)
+auto_add_indenting(BluefishTextView * btv, GtkTextIter *iter)
 {
 	gchar *string;
 	gchar lastchar = '\0';
-	GtkTextIter itend;
-	gtk_text_buffer_get_iter_at_mark(btv->buffer, &itend, gtk_text_buffer_get_insert(btv->buffer));
-	string = get_prevline_indenting(btv->buffer, &itend, &lastchar);
-	/*g_print("bluefish_text_view_key_release_event, previoud indenting '%s'\n",string); */
-	if (string) {
-		/*g_print("bluefish_text_view_key_release_event, lastchar=%c, smartindentchars=%s\n",lastchar, btv->bflang->smartindentchars); */
-		if (lastchar != '\0' && main_v->props.smartindent
-			&& BLUEFISH_TEXT_VIEW(btv->master)->bflang && BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartindentchars
-			&& strchr(BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartindentchars, lastchar) != NULL) {
+	gboolean next_is_outdent=FALSE, prev_is_outdent=FALSE, prev_is_indent=FALSE;
+	
+	string = get_prevline_indenting(btv->buffer, iter, &lastchar);
+	if (!string)
+		return;
+
+	if (main_v->props.smartindent) {
+		if (BLUEFISH_TEXT_VIEW(btv->master)->bflang && lastchar != '\0') {
+			next_is_outdent = (strchr(btv->bflang->smartoutdentchars, (char)gtk_text_iter_get_char(iter)) != NULL);
+			prev_is_outdent = (strchr(btv->bflang->smartoutdentchars, lastchar) != NULL);
+			prev_is_indent = (strchr(BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartindentchars, lastchar) != NULL);
+		}
+		/*g_print("auto_add_indenting, previous indenting '%s'\n",string); 
+		g_print("auto_add_indenting, lastchar=%c, smartindentchars=%s\n",lastchar, btv->bflang->smartindentchars);*/ 
+		if (!next_is_outdent && prev_is_indent) {
 			gchar *tmp, *tmp2;
 			if (BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_indent_wspaces)
 				tmp2 =
@@ -1962,31 +1965,43 @@ auto_increase_indenting(BluefishTextView * btv)
 			g_free(string);
 			g_free(tmp2);
 			string = tmp;
+		} else if (prev_is_outdent) {
+			gint len;
+			/* reduce the indenting in 'string' by one level */
+			len = strlen(string);
+			if (string[len-1]=='\t') {
+				string[len-1]='\0';
+			} else if (string[len-1]==' ') {
+				gint i=len-1;
+				while (string[i]==' ' && i>len-1- BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width && i>=0) {
+					i--;
+				}
+				string[i]='\0';
+			}
 		}
-		if (string && string[0] != '\0') {
-			gboolean in_paste = DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->in_paste_operation;
-			/*g_print("bluefish_text_view_key_release_event, autoindent, insert indenting\n"); */
-			/* a dirty trick: if in_paste_operation is set, there will be no call
-			   for doc_unre_new_group when indenting is inserted */
-			if (!in_paste)
-				DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->in_paste_operation = TRUE;
-			gtk_text_buffer_insert(btv->buffer, &itend, string, -1);
-			if (!in_paste)
-				DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->in_paste_operation = FALSE;
-			btv->insert_was_auto_indent = TRUE;
-		}
-		g_free(string);
 	}
+	if (string && string[0] != '\0') {
+		gboolean in_paste = DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->in_paste_operation;
+		/*g_print("bluefish_text_view_key_release_event, autoindent, insert indenting\n"); */
+		/* a dirty trick: if in_paste_operation is set, there will be no call
+		   for doc_unre_new_group when indenting is inserted */
+		if (!in_paste)
+			DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->in_paste_operation = TRUE;
+		gtk_text_buffer_insert(btv->buffer, iter, string, -1);
+		if (!in_paste)
+			DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->in_paste_operation = FALSE;
+		btv->insert_was_auto_indent = TRUE;
+	}
+	g_free(string);
 }
 
 static inline void
-auto_decrease_indenting(BluefishTextView * btv)
+auto_decrease_indenting(BluefishTextView * btv, GtkTextIter *iter)
 {
 	GtkTextIter itend, itstart;
 	gunichar uc;
-
 	/* reduce the indenting one level back */
-	gtk_text_buffer_get_iter_at_mark(btv->buffer, &itend, gtk_text_buffer_get_insert(btv->buffer));
+	itend = *iter;
 	gtk_text_iter_backward_char(&itend);
 	itstart = itend;
 	gtk_text_iter_backward_char(&itstart);
@@ -2079,16 +2094,19 @@ bluefish_text_view_key_release_event(GtkWidget * widget, GdkEventKey * kevent)
 		&& !((kevent->state & GDK_SHIFT_MASK) || (kevent->state & GDK_CONTROL_MASK)
 			 || (kevent->state & GDK_MOD1_MASK))) {
 		/* 2 = indent based on the number of blocks on the stack */
+		g_print("indent blockstackbased\n");
 		auto_indent_blockstackbased(btv);
 	} else {
+		GtkTextIter iter;
+		gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, gtk_text_buffer_get_insert(btv->buffer));
 		if ((kevent->keyval == GDK_KEY_Return || kevent->keyval == GDK_KEY_KP_Enter)
 			&& !((kevent->state & GDK_SHIFT_MASK) || (kevent->state & GDK_CONTROL_MASK)
 				 || (kevent->state & GDK_MOD1_MASK))) {
-			auto_increase_indenting(btv);
+			auto_add_indenting(btv, &iter);
 		} else if (main_v->props.smartindent == 1 && prev_insert_was_auto_indent
 				   && btv->bflang && btv->bflang->smartoutdentchars
 				   && strchr(btv->bflang->smartoutdentchars, kevent->keyval) != NULL) {
-			auto_decrease_indenting(btv);
+			auto_decrease_indenting(btv, &iter);
 		}
 	}
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->key_release_event(widget, kevent);
