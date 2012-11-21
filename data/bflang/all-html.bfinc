@@ -167,7 +167,8 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 </group>
 
 <group highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
-	<autocomplete append="&gt;" />
+	<!--<autocomplete append="&gt;" />-->
+	<autocomplete enable="1" />
 	<tag name="abbr" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines an abbreviation</reference>
 	</tag>

@@ -634,16 +634,26 @@ free_autocomplete(GSList *list)
 }
 
 static void
-add_autocomplete(Tbflangparsing * bfparser, guint16 matchnum, GSList *list)
+add_autocomplete(Tbflangparsing * bfparser, guint16 matchnum, GSList *list, const gchar *tag)
 {
 	GSList *tmpslist;
 	for (tmpslist = list;tmpslist;tmpslist = g_slist_next(tmpslist)) {
 		Tautocomplete *ac = tmpslist->data;
 		if (ac->mode != ac_mode_none) {
+			gchar *string = ac->string;
+			gboolean freestring=FALSE;
+			gint backup_cursor = ac->backup_cursor;
+			if (ac->string == NULL && tag && ac->mode == ac_mode_string) {
+				string = g_strconcat("></", tag, ">", NULL);
+				backup_cursor = strlen(string)-1;
+				freestring=TRUE;
+			}
 			match_add_autocomp_item(bfparser->st, matchnum, 
-										(ac->mode == ac_mode_string) ? ac->string : NULL,
-										(ac->mode == ac_mode_append) ? ac->string : NULL,
-										ac->backup_cursor);
+										(ac->mode == ac_mode_string) ? string : NULL,
+										(ac->mode == ac_mode_append) ? string : NULL,
+										backup_cursor);
+			if (freestring)
+				g_free(string);
 		}
 	}
 }
@@ -851,7 +861,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 					xmlFree(name);
 				}
 			}
-			add_autocomplete(bfparser, matchnum, autocomplete?autocomplete:ih_autocomplete);
+			add_autocomplete(bfparser, matchnum, autocomplete?autocomplete:ih_autocomplete, NULL);
 			if (reference != NULL) {
 				bfparser->reference_size += strlen(reference);
 				match_set_reference(bfparser->st, matchnum, reference);
@@ -1046,9 +1056,12 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 								highlight ? highlight : ih_highlight,
 								-1, FALSE, bfparser->stretch_tag_block,0, FALSE, FALSE);
 				pattern_set_blockmatch(bfparser->st, starttagmatch, FALSE, FALSE, matchnum /* blockstartpattern for stretch_block */, NULL, NULL, TRUE);
-				
-				if (bfparser->autoclose_tags && !no_close)
+				if (bfparser->autoclose_tags && !no_close) {
+					gchar *tmp2;
+					tmp2 = g_strconcat("></", tag, ">", NULL);
 					match_add_autocomp_item(bfparser->st, starttagmatch, NULL, tmp, tmp ? strlen(tmp) : 0);
+					match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag)+3);
+				}
 				if (tmp)
 					g_free(tmp);
 				match_autocomplete_reference(bfparser->st, starttagmatch, contexttag);
@@ -1098,13 +1111,12 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					xmlFree(name);
 				}
 			}
-
 			if (!no_close && autocomplete == NULL && ih_autocomplete == NULL) {
 				gchar *tmp2 = g_strconcat("></", tag, ">", NULL);
 				match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag) + 3);
 				g_free(tmp2);
 			} else {
-				add_autocomplete(bfparser, matchnum, autocomplete?autocomplete:ih_autocomplete);
+				add_autocomplete(bfparser, matchnum, autocomplete?autocomplete:ih_autocomplete, tag);
 				/*match_add_autocomp_item(bfparser->st, matchnum, NULL,
 										autocomplete_append ? autocomplete_append : ih_autocomplete_append,
 										autocomplete_backup_cursor ? autocomplete_backup_cursor :
