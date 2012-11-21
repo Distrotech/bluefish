@@ -766,6 +766,9 @@ static gboolean simplesearch_start(Tbfwin *bfwin, gboolean allow_single_char_sea
 				, bfwin->session->ssearch_casesens
 				, bfwin->session->ssearch_dotmatchall
 				, bfwin->session->ssearch_unescape);
+		/* update the combo with the new history */
+		combobox_empty(bfwin->simplesearch_combo);
+		combobox_fill(bfwin->simplesearch_combo, NULL, bfwin->session->searchlist);
 		retval = TRUE;
 	}
 	return retval;	
