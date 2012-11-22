@@ -1939,19 +1939,23 @@ auto_add_indenting(BluefishTextView * btv, GtkTextIter *iter)
 	gchar *string;
 	gchar lastchar = '\0';
 	gboolean next_is_outdent=FALSE, prev_is_outdent=FALSE, prev_is_indent=FALSE;
-	
+
 	string = get_prevline_indenting(btv->buffer, iter, &lastchar);
 	if (!string)
 		return;
 
 	if (main_v->props.smartindent) {
 		if (BLUEFISH_TEXT_VIEW(btv->master)->bflang && lastchar != '\0') {
-			next_is_outdent = (strchr(btv->bflang->smartoutdentchars, (char)gtk_text_iter_get_char(iter)) != NULL);
-			prev_is_outdent = (strchr(btv->bflang->smartoutdentchars, lastchar) != NULL);
-			prev_is_indent = (strchr(BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartindentchars, lastchar) != NULL);
+			if (BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartoutdentchars) {
+				next_is_outdent = (strchr(BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartoutdentchars, (char)gtk_text_iter_get_char(iter)) != NULL);
+				prev_is_outdent = (strchr(BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartoutdentchars, lastchar) != NULL);
+			}
+			if (BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartindentchars) {
+				prev_is_indent = (strchr(BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartindentchars, lastchar) != NULL);
+			}
 		}
-		/*g_print("auto_add_indenting, previous indenting '%s'\n",string); 
-		g_print("auto_add_indenting, lastchar=%c, smartindentchars=%s\n",lastchar, btv->bflang->smartindentchars);*/ 
+		/*g_print("auto_add_indenting, previous indenting '%s'\n",string);
+		g_print("auto_add_indenting, lastchar=%c, smartindentchars=%s\n",lastchar, btv->bflang->smartindentchars);*/
 		if (!next_is_outdent && prev_is_indent) {
 			gchar *tmp, *tmp2;
 			if (BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_indent_wspaces)
@@ -2158,7 +2162,7 @@ bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its, GtkText
 				return TRUE;
 			}
 			/* in line comments, a comment may start after the newline, but the selection may not include the newline */
-			if (gtk_text_iter_ends_line(&tmpite) && gtk_text_iter_forward_line(&tmpite) && gtk_text_iter_ends_tag(&tmpite, comment_tag)) { 
+			if (gtk_text_iter_ends_line(&tmpite) && gtk_text_iter_forward_line(&tmpite) && gtk_text_iter_ends_tag(&tmpite, comment_tag)) {
 				DEBUG_MSG("bluefish_text_view_in_comment, selection %d:%d (including newline) toggles comment, return TRUE\n", gtk_text_iter_get_offset(&tmpits), gtk_text_iter_get_offset(&tmpite));
 				return TRUE;
 			}
