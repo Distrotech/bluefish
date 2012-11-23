@@ -491,6 +491,7 @@ typedef struct {
 	guint notebook_changed_doc_activate_id;
 	guint statusbar_pop_id;
 	guint notebook_switch_signal;
+	guint update_searchhistory_idle_id;
 	GtkWidget *gotoline_entry;
 	GtkWidget *simplesearch_combo;
 	GtkWidget *simplesearch_regex;
