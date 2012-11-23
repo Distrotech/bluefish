@@ -2,7 +2,7 @@
  * Bluefish HTML Editor
  * bfwin.c
  *
- * Copyright (C) 2002-2011 Olivier Sessink
+ * Copyright (C) 2002-2012 Olivier Sessink
  * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
@@ -382,6 +382,11 @@ bfwin_apply_session(Tbfwin * bfwin)
 
 	fb2_update_settings_from_session(bfwin);
 	bfwin_recent_menu_create(bfwin, TRUE);
+	
+	if (bfwin->simplesearch_combo) {
+		combobox_empty(bfwin->simplesearch_combo);
+		combobox_fill(bfwin->simplesearch_combo, NULL, bfwin->session->searchlist);
+	}
 	/* force this session in the plugins */
 	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
 }
@@ -467,6 +472,9 @@ bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 	}
 
 	g_signal_handler_disconnect(bfwin->notebook, bfwin->notebook_switch_signal);
+	if (bfwin->update_searchhistory_idle_id != 0) {
+		g_source_remove(bfwin->update_searchhistory_idle_id);
+	}
 	
 	gtk_widget_destroy(bfwin->main_window);
 	DEBUG_MSG("bfwin_destroy_and_cleanup, main_window destroyed for bfwin %p\n", bfwin);
@@ -741,7 +749,20 @@ gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
 		gtk_widget_grab_focus(bfwin->current_document->view);
 }
 
-static gboolean simplesearch_start(Tbfwin *bfwin, gboolean allow_single_char_search) {
+static gboolean
+simpleasearch_update_search_history(gpointer data)
+{
+	DEBUG_MSG("simpleasearch_update_search_history, called!\n");
+	if (BFWIN(data)->simplesearch_combo) {
+		combobox_empty(BFWIN(data)->simplesearch_combo);
+		combobox_fill(BFWIN(data)->simplesearch_combo, NULL, BFWIN(data)->session->searchlist);
+		BFWIN(data)->update_searchhistory_idle_id = 0;
+	}
+	return FALSE;
+}
+
+static gboolean
+simplesearch_start(Tbfwin *bfwin, gboolean allow_single_char_search) {
 	const gchar *tmpstr;
 	gboolean retval=FALSE;
 
@@ -754,6 +775,7 @@ static gboolean simplesearch_start(Tbfwin *bfwin, gboolean allow_single_char_sea
 		bfwin->simplesearch_snr3run=NULL;
 	}
 	if (tmpstr && tmpstr[0]!='\0' && (allow_single_char_search || tmpstr[1] != '\0')) {
+		gpointer before;
 		bfwin->session->ssearch_regex = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_regex));
 		bfwin->session->ssearch_casesens = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_casesens));
 		bfwin->session->ssearch_dotmatchall = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_dotmatchall));
@@ -761,28 +783,22 @@ static gboolean simplesearch_start(Tbfwin *bfwin, gboolean allow_single_char_sea
 		g_free(bfwin->session->ssearch_text);
 		bfwin->session->ssearch_text = g_strdup(tmpstr);
 		DEBUG_MSG("start simple search run with %s\n",tmpstr);
+		before = bfwin->session->searchlist;
 		bfwin->simplesearch_snr3run = simple_search_run(bfwin, tmpstr
 				, bfwin->session->ssearch_regex ? snr3type_pcre :snr3type_string
 				, bfwin->session->ssearch_casesens
 				, bfwin->session->ssearch_dotmatchall
 				, bfwin->session->ssearch_unescape);
-		/* update the combo with the new history */
-		combobox_empty(bfwin->simplesearch_combo);
-		combobox_fill(bfwin->simplesearch_combo, NULL, bfwin->session->searchlist);
+		if (before != bfwin->session->searchlist) {
+			/* update the combo with the new history */
+			if (bfwin->update_searchhistory_idle_id) {
+				g_source_remove(bfwin->update_searchhistory_idle_id);
+			}
+			bfwin->update_searchhistory_idle_id = g_timeout_add_seconds(4, simpleasearch_update_search_history,bfwin);
+		}
 		retval = TRUE;
 	}
 	return retval;	
-}
-
-static void
-simplesearch_combo_changed_or_activate(gpointer widget, Tbfwin * bfwin)
-{
-	simplesearch_start(bfwin, FALSE);
-	if (widget == bfwin->simplesearch_regex) {
-		gboolean regex = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_regex));
-		gtk_widget_set_sensitive(bfwin->simplesearch_dotmatchall, regex);
-		gtk_widget_set_sensitive(bfwin->simplesearch_unescape, !regex);
-	}
 }
 
 static void
@@ -800,6 +816,30 @@ simplesearch_back_clicked(GtkButton * button, Tbfwin * bfwin)
 		return;
 	snr3_run_go(bfwin->simplesearch_snr3run, FALSE);
 }
+
+static void
+simplesearch_combo_entry_changed(gpointer widget, Tbfwin * bfwin)
+{
+	simplesearch_start(bfwin, FALSE);
+}
+
+static void
+simplesearch_combo_entry_activated(gpointer widget, Tbfwin * bfwin)
+{
+	simplesearch_forward_clicked(NULL, bfwin);
+}
+
+static void
+simplesearch_option_toggled(gpointer widget, Tbfwin * bfwin)
+{
+	simplesearch_start(bfwin, FALSE);
+	if (widget == bfwin->simplesearch_regex) {
+		gboolean regex = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_regex));
+		gtk_widget_set_sensitive(bfwin->simplesearch_dotmatchall, regex);
+		gtk_widget_set_sensitive(bfwin->simplesearch_unescape, !regex);
+	}
+}
+
 static void
 simplesearch_advanced_clicked(GtkButton * button, Tbfwin * bfwin)
 {
@@ -870,12 +910,12 @@ gotoline_frame_create(Tbfwin * bfwin)
 	gtk_menu_tool_button_set_menu(GTK_MENU_TOOL_BUTTON(button), GTK_WIDGET(menu));
 	gtk_widget_show_all(GTK_WIDGET(menu));
 	g_signal_connect(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo)), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
-	g_signal_connect(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo)), "changed", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
-	g_signal_connect(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo)), "activate", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
-	g_signal_connect(bfwin->simplesearch_regex, "toggled", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
-	g_signal_connect(bfwin->simplesearch_casesens, "toggled", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
-	g_signal_connect(bfwin->simplesearch_dotmatchall, "toggled", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
-	g_signal_connect(bfwin->simplesearch_unescape, "toggled", G_CALLBACK(simplesearch_combo_changed_or_activate), bfwin);
+	g_signal_connect(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo)), "changed", G_CALLBACK(simplesearch_combo_entry_changed), bfwin);
+	g_signal_connect(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo)), "activate", G_CALLBACK(simplesearch_combo_entry_activated), bfwin);
+	g_signal_connect(bfwin->simplesearch_regex, "toggled", G_CALLBACK(simplesearch_option_toggled), bfwin);
+	g_signal_connect(bfwin->simplesearch_casesens, "toggled", G_CALLBACK(simplesearch_option_toggled), bfwin);
+	g_signal_connect(bfwin->simplesearch_dotmatchall, "toggled", G_CALLBACK(simplesearch_option_toggled), bfwin);
+	g_signal_connect(bfwin->simplesearch_unescape, "toggled", G_CALLBACK(simplesearch_option_toggled), bfwin);
 	button = (GtkWidget *)gtk_tool_button_new(NULL,_("Advanced"));
 	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(simplesearch_advanced_clicked),bfwin);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
@@ -883,7 +923,7 @@ gotoline_frame_create(Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->gotoline_frame, FALSE, FALSE, 2);
 	gtk_widget_show_all(hbox);
 	
-	simplesearch_combo_changed_or_activate(bfwin->simplesearch_regex, bfwin);
+	simplesearch_combo_entry_activated(bfwin->simplesearch_regex, bfwin);
 }
 
 static void

@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gtk_easy.c
  *
- * Copyright (C) 1999-2011 Olivier Sessink
+ * Copyright (C) 1999-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -354,6 +354,7 @@ combobox_fill(GtkWidget *combobox, const gchar * setstring, const GList * which_
 	gint activenum = -1, i = 0;
 	for (tmplist = g_list_last((GList *)which_list); tmplist; tmplist = g_list_previous(tmplist)) {
 		if (tmplist->data) {
+			/*g_print("append %s\n",(gchar *)tmplist->data);*/
 			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combobox), tmplist->data);
 			if (setstring && g_strcmp0(tmplist->data, setstring) == 0) {
 				activenum = i;
