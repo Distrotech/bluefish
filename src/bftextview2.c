@@ -1510,7 +1510,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 			gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, imark);
 			uc = gtk_text_iter_get_char(&iter);
 			/*g_print("smart bracket closing, uc='%c'\n",(gchar)uc);*/
-			if (uc != ' ' && uc != '\0' && uc != '\n') {
+			if (uc != ' ' && uc != '\0' && uc != '\n' && uc != '\t') {
 				noclose=TRUE;
 			}
 		}
