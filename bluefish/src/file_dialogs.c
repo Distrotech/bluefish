@@ -82,7 +82,7 @@ files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 	content_filter = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(tfs->grep_pattern));
 	if (content_filter && content_filter[0]!='\0')
 		tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist, content_filter, FALSE, TRUE);
-	if (extension_filter && extension_filter[0] != '\0') 
+	if (extension_filter && extension_filter[0] != '\0')
 		tfs->bfwin->session->filegloblist = add_to_history_stringlist(tfs->bfwin->session->filegloblist, extension_filter,FALSE, TRUE);
 
 	retval =
@@ -168,7 +168,7 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	dialog_mnemonic_label_in_table(_("Base _Dir:"), tfs->basedir, table, 0, 1, 0, 1);
 
 	button =
-		dialog_button_new_with_image_in_table(NULL, GTK_STOCK_OPEN, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs, 
+		dialog_button_new_with_image_in_table(NULL, GTK_STOCK_OPEN, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs,
 						TRUE, FALSE,
 						table, 5, 6, 0,1);
 
@@ -560,7 +560,7 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 				doc_set_modified(doc, 0);
 			}
 			/* in fact the filebrowser should also be refreshed if the document was closed, but
-			   when a document is closed, the filebrowser is anyway refreshed (hmm perhaps only if 
+			   when a document is closed, the filebrowser is anyway refreshed (hmm perhaps only if
 			   'follow document focus' is set). */
 			if (dsb->unlink_uri && dsb->fbrefresh_uri) {
 				GFile *parent1, *parent2;
@@ -610,7 +610,7 @@ ask_new_filename(Tbfwin * bfwin, const gchar * old_curi, const gchar *dialogtext
 	GFile *uri;
 	GtkWidget *dialog;
 
-	
+
 	dialog =
 		file_chooser_dialog(bfwin, dialogtext, GTK_FILE_CHOOSER_ACTION_SAVE, old_curi, FALSE, FALSE, NULL,
 							FALSE);
@@ -779,7 +779,7 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 	if (firstsave || savemode != docsave_normal) {
 		gchar *newfilename, *curi, *dialogtext;
 		const gchar *gui_name = gtk_label_get_text(GTK_LABEL(doc->tab_label));
-		DEBUG_MSG("doc_save_as, no uri, or saveas/copy/move\n");
+		DEBUG_MSG("doc_save_backend, no uri (doc->uri=%p), or saveas/copy/move (savemode=%d)\n", doc->uri, savemode);
 		curi = doc->uri ? g_file_get_uri(doc->uri) : NULL;
 		if (savemode == docsave_normal) {
 			dialogtext = g_strdup(_("Save"));
@@ -800,14 +800,20 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 			return;
 		}
 		dest_uri = g_file_new_for_uri(newfilename);
-		DEBUG_MSG("doc_save_backend, newfilename=%s, dest_uri=%p\n",newfilename, dest_uri);
 		if (doc->uri == NULL || savemode == docsave_saveas || savemode == docsave_move) {
-			if (doc->uri)
+			if (doc->uri) {
+				if (savemode == docsave_move) {
+					dsb->unlink_uri = doc->uri;	/* unlink and refresh this uri later */
+					g_object_ref(dsb->unlink_uri);
+				}
 				g_object_unref(doc->uri);
+			}
 			doc->uri = dest_uri;
 			g_object_ref(doc->uri);
 			dest_finfo = doc->fileinfo;
 		}
+		DEBUG_MSG("doc_save_backend, newfilename=%s, dest_uri=%p, doc->uri=%p\n",newfilename, dest_uri, doc->uri);
+		g_free(newfilename);
 	} else {
 		DEBUG_MSG("doc_save_backend, have uri and normal save\n");
 		dest_uri = doc->uri;
@@ -815,20 +821,14 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 		g_object_ref(dest_uri);
 	}
 	DEBUG_MSG("doc_save_backend, dest_uri=%p\n",dest_uri);
-	if (doc->uri) {
-		if (savemode == docsave_move) {
-			dsb->unlink_uri = doc->uri;	/* unlink and refresh this uri later */
-			g_object_ref(dsb->unlink_uri);	
-		}
-		if (savemode == docsave_move || savemode==docsave_saveas) {
-			bmark_doc_renamed(BFWIN(doc->bfwin), doc);
-		}
+	if (doc->uri && (savemode == docsave_move || savemode==docsave_saveas)) {
+		bmark_doc_renamed(BFWIN(doc->bfwin), doc);
 	}
 	if ((firstsave || savemode != docsave_normal)&& dest_uri) {
 		dsb->fbrefresh_uri = dest_uri;	/* refresh this uri later */
 		g_object_ref(dest_uri);
 	}
-	
+
 	session_set_savedir(doc->bfwin, dest_uri);
 
 	tmp = doc_get_buffer_in_encoding(doc);
@@ -992,7 +992,7 @@ multiple_files_modified_dialog(Tbfwin * bfwin)
 	return (Tclose_mode) retval;
 }
 
-/* return TRUE if all are either closed or saved 
+/* return TRUE if all are either closed or saved
 return FALSE on cancel*/
 gboolean
 choose_per_file(Tbfwin * bfwin, gboolean close_window)
@@ -1039,7 +1039,7 @@ doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean clos
 		remove_autosave(doc);
 	if (doc->load != NULL || doc->info != NULL) {
 		/* we should cancel the action now..., and then let the callbacks close it...
-		   the order is important, because the info callback will not close the document, 
+		   the order is important, because the info callback will not close the document,
 		   only the load callback will call doc_close_single_backend */
 		doc->close_doc = TRUE;
 		doc->close_window = close_window;
@@ -1047,7 +1047,7 @@ doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean clos
 			file_asyncfileinfo_cancel(doc->info);
 		if (doc->load)
 			file2doc_cancel(doc->load);
-		/* we will not cancel save operations, because it might corrupt the file, let 
+		/* we will not cancel save operations, because it might corrupt the file, let
 		   them just timeout */
 		DEBUG_MSG("doc_close_single_backend, cancelled load/info and set close_doc to TRUE, returning now\n");
 		return FALSE;
@@ -1117,7 +1117,7 @@ doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window, Tclose_mode cl
 		}
 	}*/
 
-	/* we duplicate the documentlist so we can safely walk trough the list, in 
+	/* we duplicate the documentlist so we can safely walk trough the list, in
 	   our duplicate list there is no chance that the list is changed during the time
 	   we walk the list */
 	duplist = g_list_copy(bfwin->documentlist);
@@ -1164,7 +1164,7 @@ file_close_all(Tbfwin * bfwin)
 /**
  * file_close_all_cb:
  * @widget: unused #GtkWidget
- * @bfwin: #Tbfwin* 
+ * @bfwin: #Tbfwin*
  *
  * Close all open files. Prompt user when neccessary.
  *
@@ -1385,14 +1385,14 @@ sync_dialog(Tbfwin * bfwin)
 	gtk_table_attach(GTK_TABLE(table), file_but_new2(sd->entry_remote, 1, bfwin, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER),
 									2, 3, 1, 2, GTK_FILL, GTK_FILL, 3, 3);
 
-	sd->delete_deprecated = dialog_check_button_in_table(_("Delete deprecated files"), 
+	sd->delete_deprecated = dialog_check_button_in_table(_("Delete deprecated files"),
 						bfwin->session->sync_delete_deprecated, table,
 						0, 3, 2, 3);
-	
-	sd->include_hidden = dialog_check_button_in_table(_("Include hidden files"), 
+
+	sd->include_hidden = dialog_check_button_in_table(_("Include hidden files"),
 						bfwin->session->sync_include_hidden, table,
 						0, 3, 3, 4);
-	
+
 	sd->messagelabel = gtk_label_new(NULL);
 	gtk_box_pack_start(GTK_BOX(carea), sd->messagelabel, FALSE, FALSE, 4);
 
