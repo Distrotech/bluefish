@@ -1758,7 +1758,7 @@ preferences_apply(Tprefdialog * pd)
 	integer_apply(&main_v->props.cursor_size, pd->prefs[cursor_size], FALSE);
 	integer_apply(&main_v->props.highlight_cursor, pd->prefs[highlight_cursor], TRUE);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
-	integer_apply(&main_v->props.editor_auto_close_brackets, pd->prefs[editor_auto_close_brackets], TRUE);
+	main_v->props.editor_auto_close_brackets = gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[editor_auto_close_brackets]));
 	integer_apply(&main_v->props.editor_tab_indent_sel, pd->prefs[editor_tab_indent_sel], TRUE);
 	integer_apply(&main_v->props.smartindent, pd->prefs[smartindent], TRUE);
 	integer_apply(&main_v->props.use_system_colors, pd->prefs[use_system_colors], TRUE);
@@ -2093,6 +2093,7 @@ preferences_dialog_new(void)
 		{ N_("All"), N_("All except spaces"), N_("All trailing"), N_("All except non-trailing spaces"),
 		NULL
 	};
+	const gchar *autobracketclosemodes[] = {N_("Never"), N_("Always"), N_("Smart"), NULL};
 
 	if (main_v->prefdialog) {
 		pd = (Tprefdialog *) main_v->prefdialog;
@@ -2159,9 +2160,11 @@ preferences_dialog_new(void)
 		dialog_check_button_in_table(_("_Tab key indents selection"), main_v->props.editor_tab_indent_sel,
 									 table, 0, 1, 2, 3);
 
-	pd->prefs[editor_auto_close_brackets] =
-		dialog_check_button_in_table(_("Automatically insert closing brackets"),
-									 main_v->props.editor_auto_close_brackets, table, 0, 1, 3, 4);
+	pd->prefs[editor_auto_close_brackets] = dialog_combo_box_text_in_table(autobracketclosemodes,
+																	main_v->props.editor_auto_close_brackets, table,
+																	1, 2, 3, 4);
+	dialog_mnemonic_label_in_table(_("Automatically insert closing brackets"), pd->prefs[editor_auto_close_brackets], table, 0, 1, 3,
+								   4);
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
