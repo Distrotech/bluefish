@@ -1501,21 +1501,36 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 	if (main_v->props.editor_auto_close_brackets &&
 		(kevent->keyval == '[' || kevent->keyval == '{' || kevent->keyval == '(')
 		&& !(kevent->state & GDK_CONTROL_MASK)) {
-		const gchar *insert;
-		GtkTextIter tmpit;
-		if (kevent->keyval == '{')
-			insert = "{}";
-		else if (kevent->keyval == '[')
-			insert = "[]";
-		else
-			insert = "()";
-		gtk_text_buffer_insert_at_cursor(BLUEFISH_TEXT_VIEW(btv)->buffer, insert, 2);
-		gtk_text_buffer_get_iter_at_mark(BLUEFISH_TEXT_VIEW(btv)->buffer, &tmpit,
-										 gtk_text_buffer_get_insert(BLUEFISH_TEXT_VIEW(btv)->buffer));
-		if (gtk_text_iter_backward_char(&tmpit)) {
-			gtk_text_buffer_place_cursor(BLUEFISH_TEXT_VIEW(btv)->buffer, &tmpit);
+		gboolean noclose=FALSE;
+		GtkTextMark *imark = gtk_text_buffer_get_insert(BLUEFISH_TEXT_VIEW(btv)->buffer);
+		if (main_v->props.editor_auto_close_brackets==2 /* smart */) {
+			GtkTextIter iter;
+			gunichar uc;
+			/* check the character that follows the cursor */
+			gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, imark);
+			uc = gtk_text_iter_get_char(&iter);
+			/*g_print("smart bracket closing, uc='%c'\n",(gchar)uc);*/
+			if (uc != ' ' && uc != '\0' && uc != '\n') {
+				noclose=TRUE;
+			}
 		}
-		return TRUE;
+		if (!noclose) {
+			const gchar *insert;
+			GtkTextIter tmpit;
+			if (kevent->keyval == '{')
+				insert = "{}";
+			else if (kevent->keyval == '[')
+				insert = "[]";
+			else
+				insert = "()";
+			gtk_text_buffer_insert_at_cursor(BLUEFISH_TEXT_VIEW(btv)->buffer, insert, 2);
+			gtk_text_buffer_get_iter_at_mark(BLUEFISH_TEXT_VIEW(btv)->buffer, &tmpit,
+											 imark);
+			if (gtk_text_iter_backward_char(&tmpit)) {
+				gtk_text_buffer_place_cursor(BLUEFISH_TEXT_VIEW(btv)->buffer, &tmpit);
+			}
+			return TRUE;
+		}
 	}
 	/* following code moves a selected block */
 	if (kevent->state & GDK_CONTROL_MASK) {
