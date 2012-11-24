@@ -358,6 +358,7 @@ checkNsave_replace_async_lcb(GObject * source_object, GAsyncResult * res, gpoint
 	GError *error = NULL;
 
 	g_file_replace_contents_finish(cns->uri, res, &etag, &error);
+	DEBUG_MSG("checkNsave_replace_async_lcb, finished savig to uri %p, error=%p\n",cns->uri, error);
 	if (error) {
 		DEBUG_MSG("checkNsave_replace_async_lcb,error %d: %s\n", error->code, error->message);
 		if (error->code == G_IO_ERROR_CANCELLED) {
@@ -417,7 +418,7 @@ checkNsave_replace_async_lcb(GObject * source_object, GAsyncResult * res, gpoint
 			}
 		}
 #endif
-		DEBUG_MSG("checkNsave_replace_async_lcb, finished ");
+		DEBUG_MSG("checkNsave_replace_async_lcb, before callback, finished with ");
 		DEBUG_URI(cns->uri, TRUE);
 		cns->callback_func(CHECKANDSAVE_FINISHED, NULL, cns->callback_data);
 	}
