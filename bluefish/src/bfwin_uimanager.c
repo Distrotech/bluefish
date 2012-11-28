@@ -874,7 +874,7 @@ static const GtkActionEntry global_actions[] = {
 	 G_CALLBACK(ui_duplicate_line)},
 	 {"DeleteLine", NULL, N_("Delete Line"), "<control>y", N_("Delete the current line"),
 	 G_CALLBACK(ui_delete_line)},
-	{"WordCount", NULL, N_("Word Cou_nt"), NULL, N_("Word count"), G_CALLBACK(ui_word_count)},
+	{"WordCount", NULL, N_("_Word Count"), NULL, N_("Word count"), G_CALLBACK(ui_word_count)},
 	{"LoremIpsum", NULL, N_("Lorem Ipsum generator"), NULL, N_("Lorem Ipsum generator"), G_CALLBACK(ui_lorem_ipsum)},
 	{"RelativeFilename", NULL, N_("Insert Relative Filename"), NULL, N_("Insert Relative Filename"), G_CALLBACK(ui_insert_relative_filename)},
 	{"AbsoluteFilename", NULL, N_("Insert Absolute Filename"), NULL, N_("Insert Absolute Filename"), G_CALLBACK(ui_insert_absolute_filename)},
@@ -964,7 +964,7 @@ static const GtkActionEntry document_actions[] = {
 	 G_CALLBACK(ui_doc_next)},
 	{"DocPrevious", GTK_STOCK_GO_BACK, N_("_Previous Document"), "<control>Page_Up", N_("Goto previous document"),
 	 G_CALLBACK(ui_doc_previous)},
-	{"GotoLine", NULL, N_("Goto _Line"), "<control>L", N_("Goto line"), G_CALLBACK(ui_goto_line)},
+	{"GotoLine", NULL, N_("_Goto Line"), "<control>L", N_("Goto line"), G_CALLBACK(ui_goto_line)},
 	{"GotoLineSelection", NULL, N_("Goto Line Number from _Clipboard"), "<shift><control>L",
 	 N_("Goto line number in clipboard or selection"), G_CALLBACK(ui_goto_line_selection)},
 	{"JumpToReference", NULL, N_("_Jump to Reference"), "<control>J", N_("Jump to reference"),
@@ -975,7 +975,7 @@ static const GtkActionEntry edit_actions[] = {
 	{"Cut", GTK_STOCK_CUT, N_("Cu_t"), "<control>X", N_("Cut"), G_CALLBACK(ui_cut)},
 	{"Copy", GTK_STOCK_COPY, N_("_Copy"), "<control>C", N_("Copy"), G_CALLBACK(ui_copy)},
 	{"Paste", GTK_STOCK_PASTE, N_("_Paste"), "<control>V", N_("Paste"), G_CALLBACK(ui_paste)},
-	{"PasteSpecial", GTK_STOCK_PASTE, N_("Paste _Special"), "<control><shift>v", N_("Paste Special"), G_CALLBACK(ui_paste_special)},
+	{"PasteSpecial", GTK_STOCK_PASTE, N_("Paste Specia_l"), "<control><shift>v", N_("Paste Special"), G_CALLBACK(ui_paste_special)},
 };
 
 static const GtkActionEntry find_replace_actions[] = {
@@ -983,7 +983,7 @@ static const GtkActionEntry find_replace_actions[] = {
 	{"FindAgain", NULL, N_("Find A_gain"), "<control>G", N_("Find again"), G_CALLBACK(ui_find_again)},
 	{"FindSelection", NULL, N_("Find from Clip_board"), "<shift><control>F", N_("Find from clipboard or selection"),
 	 G_CALLBACK(ui_find_from_clipboard)},
-	{"Replace", GTK_STOCK_FIND_AND_REPLACE, N_("Advanced Find & Re_place..."), "<control>H", N_("Advanced Find and Replace"),
+	{"Replace", GTK_STOCK_FIND_AND_REPLACE, N_("Ad_vanced Find & Replace..."), "<control>H", N_("Advanced Find and Replace"),
 	 G_CALLBACK(ui_replace)}/*,
 	{"ReplaceAgain", NULL, N_("Replace Agai_n"), "<shift><control>H", N_("Replace again"),
 	 G_CALLBACK(ui_replace_again)}*/
