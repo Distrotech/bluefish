@@ -627,7 +627,7 @@ string_looks_like_url(gchar *string)
 		return FALSE;
 	if (strchr(string, '\r')!=NULL)
 		return FALSE;
-	if (strncmp(string,"http://", 7)==0 ||  
+	if (strncmp(string,"http://", 7)==0 ||
 	 			strncmp(string,"https://", 8)==0 ||
 	 			strncmp(string,"ftp://", 6)==0) {
 	 	return TRUE;
@@ -685,7 +685,7 @@ quickanchor_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dialog_mnemonic_label_in_table(_("_HREF:"), dg->combo[2], dgtable, 0,1, 0,1);
 	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1,2, 0,1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0,0);
 	if (bfwin->session->targetlist == NULL) {
-		bfwin->session->targetlist = list_from_arglist(TRUE, "_top", "_blank", "_parent", "_selfs", NULL);
+		bfwin->session->targetlist = list_from_arglist(TRUE, "_top", "_blank", "_parent", "_self", NULL);
 	}
 	dg->combo[1] = html_diag_combobox_with_popdown(avalues[1], bfwin->session->targetlist, 1);
 	dialog_mnemonic_label_in_table(_("_Target:"), dg->combo[1], dgtable, 0,1, 1,2);
@@ -1749,10 +1749,10 @@ framedialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("SRC"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[0])), cap("FRAMEBORDER"), thestring, NULL);
-	tmp = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[3]));	
+	tmp = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[3]));
 	if(strlen(tmp)) {
 		thestring = g_strconcat(thestring, cap(" SCROLLING=\""), tmp, "\"",NULL);
-	} 
+	}
 	g_free(tmp);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("MARGINWIDTH"), thestring, NULL);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[2])), cap("MARGINHEIGHT"), thestring, NULL);
@@ -1860,7 +1860,7 @@ audiodialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	finalstring = insert_attr_if_checkbox(dg->check[3], main_v->props.xhtml == 1 ? cap("LOOP=\"loop\"") : cap("LOOP"), finalstring);
 	finalstring = insert_attr_if_checkbox(dg->check[4], main_v->props.xhtml == 1 ? cap("MUTE=\"mute\"") : cap("MUTE"), finalstring);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[0])), cap("ID"), finalstring, NULL);
-	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("CLASS"), finalstring, NULL);	
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("CLASS"), finalstring, NULL);
 	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("PRELOAD"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[2])), cap("STYLE"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[3])), NULL, finalstring, NULL);
@@ -1887,7 +1887,7 @@ audio_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	Thtml_diag *dg;
 	static gchar *tagitems[] = { "src", "preload", "id", "class", "style", NULL };
 	gchar *tagvalues[6];
-	gchar *custom=NULL;		
+	gchar *custom=NULL;
 
 	/* Values attributes lists */
 	GList *listPreload;
@@ -1905,11 +1905,11 @@ audio_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	dg->check[1] = gtk_check_button_new();
 	dialog_mnemonic_label_in_table(_("_Autoplay:"), dg->check[1], dgtable, 0,1, 1,2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1,2, 1,2);	
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1,2, 1,2);
 
 	dg->check[2] = gtk_check_button_new();
 	dialog_mnemonic_label_in_table(_("C_ontrols:"), dg->check[2], dgtable, 2,3, 1,2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 3,4, 1,2);	
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 3,4, 1,2);
 
 	dg->check[3] = gtk_check_button_new();
 	dialog_mnemonic_label_in_table(_("_Loop:"), dg->check[3], dgtable, 4,5, 1,2);
@@ -1917,7 +1917,7 @@ audio_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	dg->check[4] = gtk_check_button_new();
 	dialog_mnemonic_label_in_table(_("M_ute:"), dg->check[4], dgtable, 7,8, 1,2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[4], 8,9, 1,2);	
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[4], 8,9, 1,2);
 
 	listPreload = list_from_arglist(FALSE, "", "auto", "metadata", "none", NULL);
 	dg->combo[2] = html_diag_combobox_with_popdown(tagvalues[1], listPreload, 1);
@@ -1931,7 +1931,7 @@ audio_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dg->combo[3] = html_diag_combobox_with_popdown(tagvalues[3], bfwin->session->classlist, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 8,9, 2,3);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->combo[3], dgtable, 7,8, 2,3);
-	
+
 	dg->entry[2] = dialog_entry_in_table(tagvalues[4], dgtable, 1,8 , 3,4);
 	dialog_mnemonic_label_in_table(_("_Style:"), dg->entry[2], dgtable, 0,1, 3,4);
 	but = style_but_new(dg->entry[2], dg->dialog);
@@ -1954,7 +1954,7 @@ canvasdialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->spin[0])), cap("HEIGHT"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[0])), cap("ID"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[1])), cap("STYLE"), finalstring, NULL);
-	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[0]), cap("CLASS"), finalstring, NULL);	
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[0]), cap("CLASS"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[2])), NULL, finalstring, NULL);
 	thestring = finalstring;
 	finalstring = g_strconcat(thestring, NULL);
@@ -1978,7 +1978,7 @@ canvas_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	static gchar *tagitems[] = { "height", "width", "id", "style", "class", NULL };
 	gchar *tagvalues[6];
 	gchar *custom=NULL;
-		
+
 	/* Dialog construction */
 	dg = html_diag_new(bfwin, _("Canvas"));
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
@@ -2024,7 +2024,7 @@ videodialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	finalstring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("AUTOPLAY=\"autoplay\"") : cap("AUTOPLAY"), finalstring);
 	finalstring = insert_attr_if_checkbox(dg->check[2], main_v->props.xhtml == 1 ? cap("CONTROLS=\"controls\"") : cap("CONTROLS"), finalstring);
 	finalstring = insert_attr_if_checkbox(dg->check[3], main_v->props.xhtml == 1 ? cap("LOOP=\"loop\"") : cap("LOOP"), finalstring);
-	finalstring = insert_attr_if_checkbox(dg->check[4], main_v->props.xhtml == 1 ? cap("MUTE=\"mute\"") : cap("MUTE"), finalstring);	
+	finalstring = insert_attr_if_checkbox(dg->check[4], main_v->props.xhtml == 1 ? cap("MUTE=\"mute\"") : cap("MUTE"), finalstring);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("WIDTH"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->spin[2])), cap("HEIGHT"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[0])), cap("ID"), finalstring, NULL);
@@ -2058,7 +2058,7 @@ video_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	static gchar *tagitems[] = { "src", "poster", "width", "height", "id", "class", "preload", "style", NULL };
 	gchar *tagvalues[9];
 	gchar *custom=NULL;
-		
+
 	/* Values attributes lists */
 	GList *tmplist;
 
@@ -2083,12 +2083,12 @@ video_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	/* autoplay */
 	dg->check[1] = gtk_check_button_new();
 	dialog_mnemonic_label_in_table(_("_Autoplay:"), dg->check[1], dgtable, 0,1, 2,3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1,2, 2,3);	
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1,2, 2,3);
 
 	/* controls */
 	dg->check[2] = gtk_check_button_new();
 	dialog_mnemonic_label_in_table(_("C_ontrols:"), dg->check[2], dgtable, 2,3, 2,3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 3,4, 2,3);	
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 3,4, 2,3);
 
 	/* loop */
 	dg->check[3] = gtk_check_button_new();
@@ -2098,7 +2098,7 @@ video_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	/* mute */
 	dg->check[4] = gtk_check_button_new();
 	dialog_mnemonic_label_in_table(_("M_ute:"), dg->check[4], dgtable, 7,8, 2,3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[4], 8,9, 2,3);	
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[4], 8,9, 2,3);
 
 	/* Width */
 	dg->spin[1] = spinbut_with_value(tagvalues[2]?tagvalues[2]:"200", 0, 10000, 1.0, 5.0);
@@ -2215,7 +2215,7 @@ embedok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("WIDTH"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->spin[2])), cap("HEIGHT"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[1])), cap("ID"), finalstring, NULL);
-	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("CLASS"), finalstring, NULL);	
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("CLASS"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[2])), cap("STYLE"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[3])), NULL, finalstring, NULL);
 	thestring = finalstring;
@@ -2336,7 +2336,7 @@ script_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	tmplist2 = g_list_append(tmplist2, "text/plain");
 	tmplist2 = g_list_append(tmplist2, "text/html");
 	tmplist3 = list_from_arglist(FALSE, "UTF-8", "ISO-8859-1", "ISO-8859-15", "ARMSCII-8", "BIG5", "BIG5-HKSCS", "CP866", "EUC-JP", "EUC-KR", "EUC-TW", "GB18030", "GB2312", "GBK", "GEORGIAN-ACADEMY", "HZ", "IBM850", "IBM852", "IBM855", "IBM857", "IBM862", "IBM864", "ISO-2022-JP", "ISO-2022-KR", "ISO-8859-10", "ISO-8859-13", "ISO-8859-14", "ISO-8859-16", "ISO-8859-2", "ISO-8859-3", "ISO-8859-4", "ISO-8859-5", "ISO-8859-6", "ISO-8859-7", "ISO-8859-8", "ISO-8859-8-I", "ISO-8859-9", "ISO-IR-111", "JOHAB", "KOI8R", "KOI8U", "SHIFT_JIS", "TCVN", "TIS-620", "UHC", "VISCII", "WINDOWS-1250", "WINDOWS-1251", "WINDOWS-1252", "WINDOWS-1253", "WINDOWS-1254", "WINDOWS-1255", "WINDOWS-1256", "WINDOWS-1257", "WINDOWS-1258",NULL);
-	
+
 	dg->combo[0] = html_diag_combobox_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
 	but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[0]))), 0, bfwin);
 	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(but), 10,12, 0,1, GTK_SHRINK,GTK_SHRINK,0,0);
@@ -2351,11 +2351,11 @@ script_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	dg->combo[2] = html_diag_combobox_with_popdown(tagvalues[2], tmplist2,1);
 	dialog_mnemonic_label_in_table(_("MIME _Type:"), dg->combo[2], dgtable, 0,2, 2,3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[2], 2,6, 2,3);
-	
+
 	dg->combo[3] = html_diag_combobox_with_popdown(tagvalues[3], tmplist3,1);
 	dialog_mnemonic_label_in_table(_("_Charset:"), dg->combo[3], dgtable, 0,2, 3,4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 2,6, 3,4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(gtk_label_new(_("(HTML5)"))), 7,8, 3,4);	
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(gtk_label_new(_("(HTML5)"))), 7,8, 3,4);
 
 	dg->check[0] = gtk_check_button_new();
 	dialog_mnemonic_label_in_table(_("_Async:"), dg->check[0], dgtable, 0,1, 4,5);
@@ -2414,11 +2414,11 @@ columnrulewidth_changed_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
 	if (strlen(gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[5])))) {
 		gtk_widget_set_sensitive(dg->spin[3], FALSE);
-		gtk_widget_set_sensitive(dg->combo[4], FALSE);	
+		gtk_widget_set_sensitive(dg->combo[4], FALSE);
 	} else {
 		gtk_widget_set_sensitive(dg->spin[3], TRUE);
 		gtk_widget_set_sensitive(dg->combo[4], TRUE);
-	}	
+	}
 }
 
 static void
@@ -2428,7 +2428,7 @@ columnselector_toggled_lcb(GtkWidget * widget, Thtml_diag * dg)
 		gtk_widget_set_sensitive(dg->entry[0], TRUE);
 	} else {
 		gtk_widget_set_sensitive(dg->entry[0], FALSE);
-	}	
+	}
 }
 
 static void
@@ -2438,35 +2438,35 @@ columnsok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	gboolean moz, webkit;
 	moz = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3]));
 	webkit = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[4]));
-	
+
 	thestring = g_strdup("");
 	endstring = g_strdup("; ");
 	finalstring = g_strdup("");
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->radio[0]))) {
 		if(gtk_entry_get_text_length(GTK_ENTRY(dg->entry[0]))==0) {
 			finalstring = g_strdup("\n");
-			endstring = g_strdup(";\n");	
+			endstring = g_strdup(";\n");
 		} else {
 			thestring = g_strconcat(thestring, gtk_entry_get_text(GTK_ENTRY(dg->entry[0])), " {\n",  NULL);
 			finalstring = g_strdup("\n}\n");
 			endstring = g_strdup(";\n");
 		}
-	} 
+	}
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->radio[1]))) {
 		thestring = g_strdup(" style=\"");
 		finalstring = g_strdup("\"");
 	}
-	
+
 	tmpstring = g_strdup("columns: ");
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2]))) {
-	   tmpstring =  g_strconcat(tmpstring, "auto", NULL); 
+	   tmpstring =  g_strconcat(tmpstring, "auto", NULL);
 	} else {
 		tmpstring = g_strconcat(tmpstring, gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[0]))), NULL);
 	}
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3]))) {
-	   tmpstring =  g_strconcat(tmpstring, " auto", endstring, NULL); 
+	   tmpstring =  g_strconcat(tmpstring, " auto", endstring, NULL);
 	} else {
-		tmpstring = g_strconcat(tmpstring, " ", gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[1]))), 
+		tmpstring = g_strconcat(tmpstring, " ", gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[1]))),
 		gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[0])), endstring, NULL);
 	}
 	thestring = g_strconcat(thestring, tmpstring, NULL);
@@ -2476,9 +2476,9 @@ columnsok_lcb(GtkWidget * widget, Thtml_diag * dg)
 
 	tmpstring =  g_strdup("column-gap: ");
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[4]))) {
-	   tmpstring =  g_strconcat (tmpstring, "normal", endstring, NULL); 
+	   tmpstring =  g_strconcat (tmpstring, "normal", endstring, NULL);
 	} else {
-		tmpstring = g_strconcat(tmpstring, gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[2]))), 
+		tmpstring = g_strconcat(tmpstring, gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[2]))),
 		gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[1])), endstring, NULL);
 	}
 	thestring = g_strconcat(thestring, tmpstring, NULL);
@@ -2490,9 +2490,9 @@ columnsok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	tmpstring = g_strconcat(tmpstring, gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[2])), " ", NULL);
 	tmpstring = g_strconcat(tmpstring, gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[3])), " ", NULL);
 	if (strlen(gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[5])))) {
-		tmpstring = g_strconcat(tmpstring, gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[5])), endstring, NULL); 
+		tmpstring = g_strconcat(tmpstring, gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[5])), endstring, NULL);
 	} else {
-		tmpstring = g_strconcat(tmpstring, gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[3]))), 
+		tmpstring = g_strconcat(tmpstring, gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[3]))),
 		gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[4])), endstring, NULL);
 	}
 	thestring = g_strconcat(thestring, tmpstring, NULL);
@@ -2515,24 +2515,24 @@ void
 columns_dialog(Tbfwin * bfwin, Ttagpopup * data)
 {
 	GtkWidget *color_but;
-	GList *tmplist = 	list_from_arglist(FALSE,"em", "px", "ex", "ch", "rem", "px", "pc", "pt", 
+	GList *tmplist = 	list_from_arglist(FALSE,"em", "px", "ex", "ch", "rem", "px", "pc", "pt",
 				"mm", "cm", "in", "%", NULL),
-		*tmplist2 = list_from_arglist(FALSE, "", "none", "hidden", "dotted", "dashed", "solid", 
-				"double", "groove", "ridge", "inset", "outset", NULL), 
+		*tmplist2 = list_from_arglist(FALSE, "", "none", "hidden", "dotted", "dashed", "solid",
+				"double", "groove", "ridge", "inset", "outset", NULL),
 		*tmplist3 = list_from_arglist(FALSE, "", "thin", "medium", "thick", NULL) ;
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
-	static gchar *tagitems[] = { "column-count", "column-width", "column-width-unit", "column-gap", 
-				"column-gap-unit", "column-rule-color", "column-rule-style", "column-rule-width", 
+	static gchar *tagitems[] = { "column-count", "column-width", "column-width-unit", "column-gap",
+				"column-gap-unit", "column-rule-color", "column-rule-style", "column-rule-width",
 				"column-rule-width-unit", "column-rule-width-var", "selectors", NULL };
 	gchar *tagvalues[12];
 	gchar *custom = NULL;
 
 /*
-todo check buttons: 
-column-span: all (default none) 
-column-fill: auto (default balance)	 
-*/	
+todo check buttons:
+column-span: all (default none)
+column-fill: auto (default balance)
+*/
 
 	dg = html_diag_new(bfwin, _("CSS3 multi-column layout"));
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
@@ -2555,7 +2555,7 @@ column-fill: auto (default balance)
 	dg->combo[0] = html_diag_combobox_with_popdown_sized(tagvalues[2] ? tagvalues[2]: "%", tmplist, 0, 70);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[0], 2,3, 1,2);
 	dg->check[3] = gtk_check_button_new_with_mnemonic("a_uto");
-	g_signal_connect(dg->check[3], "toggled", G_CALLBACK(columnwidth_auto_toggled_lcb), dg);	
+	g_signal_connect(dg->check[3], "toggled", G_CALLBACK(columnwidth_auto_toggled_lcb), dg);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dg->check[3]), TRUE);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[3], 3,4, 1,2);
 
@@ -2580,7 +2580,7 @@ column-fill: auto (default balance)
 	dg->combo[3] = html_diag_combobox_with_popdown_sized(tagvalues[6] ? tagvalues[6]: "solid", tmplist2, 0, 110);
 	gtk_widget_set_tooltip_text(
 			dialog_mnemonic_label_in_table("column-rule-_style:", dg->combo[3], dgtable, 0,1, 4,5),
-			_("None (default) or style"));	
+			_("None (default) or style"));
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 1,2, 4,5);
 
 	dg->spin[3] = spinbut_with_value(tagvalues[7] ? tagvalues[7]: "0.5", 0, 10000, 0.1, 1.0);
@@ -2596,12 +2596,12 @@ column-fill: auto (default balance)
 	g_signal_connect(dg->combo[5], "changed", G_CALLBACK(columnrulewidth_changed_lcb), dg);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[5])), 3,4, 5,6);
 	gtk_widget_set_sensitive(dg->spin[3], FALSE);
-	gtk_widget_set_sensitive(dg->combo[4], FALSE);	
+	gtk_widget_set_sensitive(dg->combo[4], FALSE);
 
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(gtk_label_new(
 			_("Use vendor-prefixed CSS property:"))), 0,2, 6,7);
-	dg->check[3] = gtk_check_button_new_with_mnemonic("G_ecko");	
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[3], 2,3, 6,7);	
+	dg->check[3] = gtk_check_button_new_with_mnemonic("G_ecko");
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[3], 2,3, 6,7);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dg->check[3]), TRUE);
 	dg->check[4] = gtk_check_button_new_with_mnemonic("Web_kit");
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[4], 3,4, 6,7);
@@ -2611,22 +2611,22 @@ column-fill: auto (default balance)
 	gtk_widget_set_tooltip_text(dg->radio[0],_("Add selector(s) to create a new rule"));
 	dg->radio[1] = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group
 			(GTK_RADIO_BUTTON(dg->radio[0])), _("style a_ttribute"));
-	gtk_widget_set_tooltip_text(dg->radio[1],_("Add a style attribute in tag"));		
+	gtk_widget_set_tooltip_text(dg->radio[1],_("Add a style attribute in tag"));
 	dg->radio[2] = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group
 			(GTK_RADIO_BUTTON(dg->radio[0])), _("style _values"));
-	gtk_widget_set_tooltip_text(dg->radio[2],_("Add values in a style attribute"));		
+	gtk_widget_set_tooltip_text(dg->radio[2],_("Add values in a style attribute"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dg->radio[0]), TRUE);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[0], 0,1, 7,8);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[1], 1,2, 7,8);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[2], 2,4, 7,8);
-	g_signal_connect(GTK_TOGGLE_BUTTON(dg->radio[0]), "toggled", 
+	g_signal_connect(GTK_TOGGLE_BUTTON(dg->radio[0]), "toggled",
 				G_CALLBACK(columnselector_toggled_lcb), dg);
 
 	dg->entry[0] = dialog_entry_in_table(tagvalues[10], dgtable, 1,4, 8,9);
 	gtk_widget_set_tooltip_text(
 			dialog_mnemonic_label_in_table(_("Selecto_rs:"), dg->entry[0], dgtable, 0,1, 8,9),
 			_("Leave empty to insert declarations into an existing rule."));
-		
+
 	g_list_free(tmplist);
 	g_list_free(tmplist2);
 	g_list_free(tmplist3);
