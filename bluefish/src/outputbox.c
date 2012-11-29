@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -315,13 +315,13 @@ outputbox_add_line(Tbfwin *bfwin, const gchar *uri, gint line, const gchar *mess
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
 		if (uri)
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 0, uri, -1);
-		
+
 		if (line > 0) {
 			tmp = g_strdup_printf("%d",line);
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 1, tmp, -1);
 			g_free(tmp);
 		}
-		
+
 		if (message)
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 2, message, -1);
 	}
