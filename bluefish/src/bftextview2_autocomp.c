@@ -367,6 +367,8 @@ acwin_calculate_window_size(Tacwin * acw, GList * items, GList * items2, const g
 			if (!tmplist)
 				break;
 		}
+		g_assert(tmplist != NULL);
+		g_assert(tmplist->data != NULL);
 		tmp = g_markup_escape_text(tmplist->data, -1);
 		len = strlen(tmp);
 		if (len > longestlen) {
