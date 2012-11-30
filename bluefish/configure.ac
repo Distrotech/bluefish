@@ -20,7 +20,7 @@ else
 	AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $ac_configure_args"], [The configure options used to compile bluefish.])
 fi
 
-dnl The `-Wno-portability' value will suppress the GNU make warnings. Add it if necessary.
+dnl The "-Wno-portability" value will suppress the GNU make warnings. Add it if necessary.
 AM_INIT_AUTOMAKE([1.8 -Wall])
 AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
@@ -147,7 +147,7 @@ AC_ARG_ENABLE(
 	),
 	[
 	 if test "x$enableval" != "xno"; then
-		 AC_DEFINE([DEBUG], [1], [Define to 1 if you want to have debug output.])
+		 AC_DEFINE([DEBUG], [1], [Define to 1 if you want to have a massive amount of debug output.])
 	 fi
 	]
 )
@@ -165,18 +165,33 @@ AC_ARG_ENABLE(
 	]
 )
 
+dnl # make DEVELOPEMENT enabled when compiling from svn, and disabled when compiling from an exported source tree.
+AC_MSG_CHECKING([for svn tree or exported source tree])
+BF_want_development="no"
+BF_svnversion=`LANG=C svnversion -n . || echo exported`
+if test "x$BF_svnversion" != "xexported" ; then
+	AC_MSG_RESULT([svn])
+	BF_want_development="yes"
+else
+	AC_MSG_RESULT([exported])
+fi
 AC_ARG_ENABLE(
 	[development],
 	AC_HELP_STRING(
 		[--enable-development],
-		[enable development checks (slows down the program) @<:@default=no@:>@]
+		[enable development checks, recommended when building from svn @<:@default=no@:>@]
 	),
 	[
-	 if test "x$enableval" != "xno"; then
-		 AC_DEFINE([DEVELOPMENT], [1], [Define to 1 if you want to have development checks.])
-	 fi
+		if test "x$enableval" != "xno"; then
+			BF_want_development="yes"
+		else
+			BF_want_development="no"
+		fi
 	]
 )
+if test "x$BF_want_development" != "no" ; then
+	AC_DEFINE([DEVELOPMENT], [1], [Define to 1 if you want to have development checks. Recommended when compiling from svn.])
+fi
 
 AC_ARG_ENABLE(
 	[gprof-profiling],

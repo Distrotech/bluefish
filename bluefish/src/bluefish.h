@@ -34,6 +34,11 @@
 #define ENABLEPLUGINS
 
 #include "config.h"
+
+#ifndef DEVELOPMENT
+#define G_DISABLE_ASSERT
+#endif
+
 #define BLUEFISH_SPLASH_FILENAME PKGDATADIR"/bluefish_splash.png"
 
 #ifdef WIN32
