@@ -1026,7 +1026,8 @@ lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
 	Tbflang *bflang = g_object_get_data(G_OBJECT(action), "bflang");
-	g_print("lang_mode_menu_activate, action=%p, active=%d, bflang=%p, name=%s\n",action, gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)), bflang, bflang->name);
+	if (!bflang)
+		return;
 	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)) && bfwin->current_document) {
 		doc_set_mimetype(bfwin->current_document, bflang->mimetypes->data, NULL);
 	}
@@ -1060,9 +1061,7 @@ lang_mode_menu_create(Tbfwin * bfwin)
 			gtk_radio_action_set_group(action, group);
 			group = gtk_radio_action_get_group(action);
 			g_object_set_data(G_OBJECT(action), "bflang", (gpointer) bflang);
-	
 			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(lang_mode_menu_activate), bfwin);
-	
 			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->lang_mode_merge_id,
 								  "/MainMenu/DocumentMenu/DocumentLangMode/LangModePlaceholder", bflang->name,
 								  bflang->name, GTK_UI_MANAGER_MENUITEM, FALSE);
@@ -1384,9 +1383,10 @@ bfwin_encoding_set_wo_activate(Tbfwin * bfwin, const gchar * encoding)
 	}
 	
 	if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
-		gtk_action_block_activate(action);
+		gpointer adata = g_object_get_data(G_OBJECT(action), "adata");
+		g_object_set_data(G_OBJECT(action), "adata", NULL);
 		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
-		gtk_action_unblock_activate(action);
+		g_object_set_data(G_OBJECT(action), "adata", adata);
 	}
 }
 
@@ -1395,7 +1395,7 @@ bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
 {
 	if (bflang) {
 		GtkAction *action = gtk_action_group_get_action(bfwin->lang_mode_group, bflang->name);
-		g_print("got action %p for bflang=%s\n",action,bflang->name);
+		DEBUG_MSG("bfwin_lang_mode_set_wo_activate, got action %p for bflang=%s\n",action,bflang->name);
 		if (!action) {
 			/* because we hide certain languages from the menu it is perfectly fine if we cannot find an
 			action for a certain language file. */
@@ -1403,11 +1403,11 @@ bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
 		}
 
 		if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
-			gtk_action_block_activate(action);
-			g_print("enable (blocked) action %p for bflang=%s\n",action,bflang->name);
+			/*gtk_action_block_activate(action); this only blocks a direct call to gtk_action_activate, not a set_active() */
+			g_object_set_data(G_OBJECT(action), "bflang", (gpointer) NULL);
 			gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
-			g_print("unblock action %p\n",action);
-			gtk_action_unblock_activate(action);
+			g_object_set_data(G_OBJECT(action), "bflang", (gpointer) bflang);
+			/*gtk_action_unblock_activate(action);*/
 		}
 	}
 }
@@ -1456,27 +1456,33 @@ bfwin_commands_menu_create(Tbfwin * bfwin)
 static void
 encodings_menu_activate(GtkAction * action, gpointer user_data)
 {
-	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
-		Tbfwin *bfwin = BFWIN(user_data);
-		gchar **arr = g_object_get_data(G_OBJECT(action), "adata");
-		DEBUG_MSG("encodings_menu_activate, encoding=%s\n", arr[1]);
-		if (arr[1] && bfwin->current_document) {
-			if ((!bfwin->current_document->encoding
-				 || strcmp(arr[1], bfwin->current_document->encoding) != 0)) {
-				if (bfwin->current_document->encoding)
-					g_free(bfwin->current_document->encoding);
-				bfwin->current_document->encoding = g_strdup(arr[1]);
-				doc_set_tooltip(bfwin->current_document);
-				if (main_v->props.auto_set_encoding_meta) {
-					update_encoding_meta_in_file(bfwin->current_document, bfwin->current_document->encoding);
-				}
-				DEBUG_MSG("encodings_menu_activate, set to %s\n", arr[1]);
+	Tbfwin *bfwin = BFWIN(user_data);
+	gchar **arr;
+	if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
+		return;
+	}
+	arr = g_object_get_data(G_OBJECT(action), "adata");
+	if (!arr)
+		return;
+
+	DEBUG_MSG("encodings_menu_activate, encoding=%s\n", arr[1]);
+	if (arr[1] && bfwin->current_document) {
+		if ((!bfwin->current_document->encoding
+			 || strcmp(arr[1], bfwin->current_document->encoding) != 0)) {
+			if (bfwin->current_document->encoding)
+				g_free(bfwin->current_document->encoding);
+			bfwin->current_document->encoding = g_strdup(arr[1]);
+			doc_set_tooltip(bfwin->current_document);
+			doc_set_statusbar_lang_encoding(bfwin->current_document);
+			if (main_v->props.auto_set_encoding_meta) {
+				update_encoding_meta_in_file(bfwin->current_document, bfwin->current_document->encoding);
 			}
-			if (bfwin->session->encoding)
-				g_free(bfwin->session->encoding);
-			bfwin->session->encoding = g_strdup(arr[1]);
-			DEBUG_MSG("encodings menu activate, session encoding now is %s\n", bfwin->session->encoding);
+			DEBUG_MSG("encodings_menu_activate, set to %s\n", arr[1]);
 		}
+		if (bfwin->session->encoding)
+			g_free(bfwin->session->encoding);
+		bfwin->session->encoding = g_strdup(arr[1]);
+		DEBUG_MSG("encodings menu activate, session encoding now is %s\n", bfwin->session->encoding);
 	}
 }
 
@@ -1547,7 +1553,7 @@ filters_menu_activate(GtkAction * action, gpointer user_data)
 
 	if (main_v->globses.filter_on_selection_mode != 2 && operatable_on_selection(command) && bfwin->current_document && doc_has_selection(bfwin->current_document)) {
 		if (main_v->globses.filter_on_selection_mode == 1) {
-			g_print("don't ask, just work on selection\n");
+			DEBUG_MSG("filters_menu_activate, don't ask, just work on selection\n");
 			doc_get_selection(bfwin->current_document, &begin, &end);
 			filter_command(bfwin, command, begin, end);
 		} else {

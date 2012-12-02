@@ -25,7 +25,7 @@
 #include <string.h>				/* strchr() */
 #include <stdlib.h>				/* system() */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include "bluefish.h"
 
@@ -68,8 +68,6 @@ typedef struct {
 	GtkWidget *window;
 } Tfloatingview;
 #define FLOATINGVIEW(var) ((Tfloatingview *)(var))
-
-static void doc_set_statusbar_lang_encoding(Tdocument * doc);
 
 Tselectionsave *
 doc_save_selection(Tdocument * doc)
@@ -1194,7 +1192,7 @@ doc_set_statusbar_insovr(Tdocument * doc)
  *
  * Return value: void
  **/
-static void
+void
 doc_set_statusbar_lang_encoding(Tdocument * doc)
 {
 	gchar *msg = NULL;
@@ -2579,14 +2577,14 @@ doc_auto_detect_lang_lcb(gpointer data)
 #endif
 	gint buflen;
 	gboolean uncertain = FALSE;
-	g_print("doc_auto_detect_lang_lcb, started, doc=%p\n", doc);
+	DEBUG_MSG("doc_auto_detect_lang_lcb, started, doc=%p\n", doc);
 	buf = doc_get_chars(doc, 0, -1);
 	buflen = strlen(buf);
 	conttype = g_content_type_guess(NULL, (guchar *) buf, buflen, &uncertain);
 #ifdef WIN32
 	mimetype = g_content_type_get_mime_type(conttype);
 #endif
-	g_print("doc_auto_detect_lang_lcb, buflen=%d\n",buflen); 
+	DEBUG_MSG("doc_auto_detect_lang_lcb, buflen=%d\n",buflen); 
 	g_free(buf);
 	if (!uncertain && conttype && (strcmp(conttype, "text/plain") != 0 || buflen > 50)) {
 		DEBUG_MSG("doc_auto_detect_lang_lcb, found %s for certain\n", conttype);
@@ -2624,11 +2622,10 @@ doc_new(Tbfwin * bfwin, gboolean delay_activate)
 {
 	Tdocument *doc = doc_new_backend(bfwin, TRUE, FALSE, TRUE);
 	doc_set_status(doc, DOC_STATUS_COMPLETE);
-	g_print("doc_new, status=%d\n", doc->status);
+	DEBUG_MSG("doc_new, doc=%p, status=%d\n", doc, doc->status);
 
 	doc->newdoc_autodetect_lang_id =
 		g_timeout_add_seconds_full(G_PRIORITY_DEFAULT_IDLE, 10, doc_auto_detect_lang_lcb, doc, NULL);
-	g_print("doc_new, newdoc_autodetect_lang_id=%d, doc=%p\n",doc->newdoc_autodetect_lang_id, doc);
 	if (!delay_activate)
 		gtk_widget_show(doc->view);	/* Delay _show() if neccessary */
 	return doc;
