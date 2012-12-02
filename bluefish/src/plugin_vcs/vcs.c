@@ -107,7 +107,7 @@ vcs_initgui(Tbfwin * bfwin)
 	GError *error = NULL;
 
 	static const GtkActionEntry vcs_actions[] = {
-		{"ToolsVCS", NULL, N_("Version Control"), NULL,NULL, NULL},
+		{"ToolsVCS", NULL, N_("Version Contro_l"), NULL,NULL, NULL},
 		{"VCSUpdate", NULL, N_("Update"), NULL, NULL, G_CALLBACK(vcs_update)},
 		{"VCSCommit", NULL, N_("Commit"), NULL, NULL, G_CALLBACK(vcs_commit)}
 	};
