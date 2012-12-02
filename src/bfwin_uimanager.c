@@ -816,9 +816,9 @@ static const GtkActionEntry top_level_menus[] = {
 	{"ToolsCommands", NULL, N_("_Commands")},
 	{"ToolsFilters", NULL, N_("_Filters")},
 	{"ToolsOutputBox", NULL, N_("_Outputbox")},
-	{"ToolsFormat", NULL, N_("Fo_rmat")},
+	{"ToolsFormat", NULL, N_("For_mat")},
 	{"ToolsInsert", NULL, N_("_Insert")},
-	{"ToolsConvert", NULL, N_("Co_nvert")}
+	{"ToolsConvert", NULL, N_("Con_vert")}
 };
 
 static const GtkActionEntry global_actions[] = {
@@ -866,13 +866,13 @@ static const GtkActionEntry global_actions[] = {
 	{"ProjectOpen", NULL, N_("_Open Project..."), NULL, N_("Open project"), G_CALLBACK(ui_project_open)},
 	{"SynchTextBlock", NULL, N_("_Synchronize Text Block"), NULL, N_("Synchronize text block"),
 	 G_CALLBACK(ui_synch_text_block)},
-	{"ToggleComment", NULL, N_("To_ggle Comment"), "<shift><control>C", N_("Toggle comment"),
+	{"ToggleComment", NULL, N_("_Toggle Comment"), "<shift><control>C", N_("Toggle comment"),
 	 G_CALLBACK(ui_toggle_comment)},
 	 {"SelectBlock", NULL, N_("Select _Block"), "<shift><control>b", N_("Select block, use multiple times to select parent blocks "),
 	 G_CALLBACK(ui_select_block)},
-	 {"DuplicateLine", NULL, N_("Duplica_te Line"), "<control>d", N_("Duplicate the current line"),
+	 {"DuplicateLine", NULL, N_("D_uplicate Line"), "<control>d", N_("Duplicate the current line"),
 	 G_CALLBACK(ui_duplicate_line)},
-	 {"DeleteLine", NULL, N_("Delete Line"), "<control>y", N_("Delete the current line"),
+	 {"DeleteLine", NULL, N_("_Delete Line"), "<control>y", N_("Delete the current line"),
 	 G_CALLBACK(ui_delete_line)},
 	{"WordCount", NULL, N_("_Word Count"), NULL, N_("Word count"), G_CALLBACK(ui_word_count)},
 	{"LoremIpsum", NULL, N_("Lorem Ipsum generator"), NULL, N_("Lorem Ipsum generator"), G_CALLBACK(ui_lorem_ipsum)},
