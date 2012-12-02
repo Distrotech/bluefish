@@ -622,6 +622,7 @@ bftextview2_preferences_menu_lcb(GtkWidget * widget, gpointer data)
 			g_free(bfwin->session->spell_lang);
 		bfwin->session->spell_lang =
 			g_strdup(gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
+		g_print("bftextview2_preferences_menu_lcb, set spell check language '%s'\n",bfwin->session->spell_lang);
 		if (load_dictionary(bfwin)) {
 			mark_all_docs_needspelling(bfwin);
 		}
