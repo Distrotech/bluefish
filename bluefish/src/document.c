@@ -25,7 +25,7 @@
 #include <string.h>				/* strchr() */
 #include <stdlib.h>				/* system() */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include "bluefish.h"
 
@@ -505,6 +505,7 @@ doc_set_mimetype(Tdocument * doc, const gchar * mimetype, const gchar * filename
 {
 	DEBUG_MSG("doc_set_mimetype(%p, %s)\n", doc, mimetype);
 	if (doc->newdoc_autodetect_lang_id) {
+		/*g_print("disable newdoc_autodetect_lang_id for doc %p\n", doc);*/
 		g_source_remove(doc->newdoc_autodetect_lang_id);
 		doc->newdoc_autodetect_lang_id = 0;
 	}
@@ -558,7 +559,7 @@ doc_reset_filetype(Tdocument * doc, GFile * newuri, gconstpointer buf, gssize bu
 			conttype = g_strdup(newtype);
 		}
 	}
-
+	DEBUG_MSG("doc_reset_filetype, call doc_set_mimetype for doc=%p\n",doc);
 	doc_set_mimetype(doc, conttype, filename);
 	g_free(filename);
 	g_free(conttype);
@@ -2578,14 +2579,14 @@ doc_auto_detect_lang_lcb(gpointer data)
 #endif
 	gint buflen;
 	gboolean uncertain = FALSE;
-
+	g_print("doc_auto_detect_lang_lcb, started, doc=%p\n", doc);
 	buf = doc_get_chars(doc, 0, -1);
 	buflen = strlen(buf);
 	conttype = g_content_type_guess(NULL, (guchar *) buf, buflen, &uncertain);
 #ifdef WIN32
 	mimetype = g_content_type_get_mime_type(conttype);
 #endif
-	/*g_print("doc_auto_detect_lang_lcb, buflen=%d\n",buflen); */
+	g_print("doc_auto_detect_lang_lcb, buflen=%d\n",buflen); 
 	g_free(buf);
 	if (!uncertain && conttype && (strcmp(conttype, "text/plain") != 0 || buflen > 50)) {
 		DEBUG_MSG("doc_auto_detect_lang_lcb, found %s for certain\n", conttype);
@@ -2623,11 +2624,11 @@ doc_new(Tbfwin * bfwin, gboolean delay_activate)
 {
 	Tdocument *doc = doc_new_backend(bfwin, TRUE, FALSE, TRUE);
 	doc_set_status(doc, DOC_STATUS_COMPLETE);
-	DEBUG_MSG("doc_new, status=%d\n", doc->status);
+	g_print("doc_new, status=%d\n", doc->status);
 
 	doc->newdoc_autodetect_lang_id =
 		g_timeout_add_seconds_full(G_PRIORITY_DEFAULT_IDLE, 10, doc_auto_detect_lang_lcb, doc, NULL);
-
+	g_print("doc_new, newdoc_autodetect_lang_id=%d, doc=%p\n",doc->newdoc_autodetect_lang_id, doc);
 	if (!delay_activate)
 		gtk_widget_show(doc->view);	/* Delay _show() if neccessary */
 	return doc;
@@ -3033,7 +3034,7 @@ doc_activate(Tdocument * doc)
 	
 	doc_start_modified_check(doc);
 
-	DEBUG_MSG("doc_activate, calling gui_set_document_widgets()\n");
+	DEBUG_MSG("doc_activate, calling bfwin_set_document_menu_items()\n");
 	bfwin_set_document_menu_items(doc);
 	bfwin_set_title(BFWIN(doc->bfwin), doc, 0);
 	doc_set_statusbar_lncol(doc);

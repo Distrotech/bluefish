@@ -1026,9 +1026,10 @@ lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
 	Tbflang *bflang = g_object_get_data(G_OBJECT(action), "bflang");
-
-	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)) && bfwin->current_document)
+	g_print("lang_mode_menu_activate, action=%p, active=%d, bflang=%p, name=%s\n",action, gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)), bflang, bflang->name);
+	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)) && bfwin->current_document) {
 		doc_set_mimetype(bfwin->current_document, bflang->mimetypes->data, NULL);
+	}
 }
 
 void
@@ -1394,6 +1395,7 @@ bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
 {
 	if (bflang) {
 		GtkAction *action = gtk_action_group_get_action(bfwin->lang_mode_group, bflang->name);
+		g_print("got action %p for bflang=%s\n",action,bflang->name);
 		if (!action) {
 			/* because we hide certain languages from the menu it is perfectly fine if we cannot find an
 			action for a certain language file. */
@@ -1402,7 +1404,9 @@ bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
 
 		if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
 			gtk_action_block_activate(action);
+			g_print("enable (blocked) action %p for bflang=%s\n",action,bflang->name);
 			gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
+			g_print("unblock action %p\n",action);
 			gtk_action_unblock_activate(action);
 		}
 	}
