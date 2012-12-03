@@ -26,8 +26,8 @@
 #include "bftextview2_autocomp.h"
 #include "stringlist.h"
 
-/*#undef DBG_AUTOCOMP
-#define DBG_AUTOCOMP g_print*/
+#undef DBG_AUTOCOMP
+#define DBG_AUTOCOMP g_print
 
 typedef struct {
 	BluefishTextView *btv;
@@ -353,7 +353,7 @@ acwin_calculate_window_size(Tacwin * acw, GList * items, GList * items2, const g
 	gchar *longest = NULL, *tmp;
 	guint longestlen = 1;
 	*numitems = 0;
-	DBG_AUTOCOMP("acwin_calculate_window_size, items=%p, items2=%p\n", items, items2);
+	DBG_AUTOCOMP("acwin_calculate_window_size, items=%p, items2=%p, closetag=%s\n", items, items2, closetag);
 	if (closetag) {
 		longest = g_markup_escape_text(closetag, -1);
 		longestlen = strlen(longest);
@@ -369,6 +369,9 @@ acwin_calculate_window_size(Tacwin * acw, GList * items, GList * items2, const g
 		}
 		g_assert(tmplist != NULL);
 		g_assert(tmplist->data != NULL);
+		DBG_AUTOCOMP("acwin_calculate_window_size, tmplist=%p", tmplist);
+		DBG_AUTOCOMP(", tmplist->data=%p",tmplist->data);
+		DBG_AUTOCOMP("=%s\n", tmplist->data);
 		tmp = g_markup_escape_text(tmplist->data, -1);
 		len = strlen(tmp);
 		if (len > longestlen) {
