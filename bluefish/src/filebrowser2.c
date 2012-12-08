@@ -1635,6 +1635,8 @@ fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * noselectionbaseuri
 						done);
 				g_error_free(error);
 				g_free(tmp);
+			} else {
+				rename_not_open_file(fb2->bfwin, newuri);
 			}
 		} else {
 			gint counter = 0;
