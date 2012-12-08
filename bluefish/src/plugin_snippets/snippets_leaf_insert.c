@@ -187,6 +187,20 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	g_free(sid);
 }
 
+static gchar *
+convert_noargs(const gchar *string)
+{
+	Tconvert_table *ctable;
+	gchar *newstring;
+	ctable = g_new(Tconvert_table,2);
+	ctable[0].my_int = '%';
+	ctable[0].my_char = g_strdup("%");
+	ctable[1].my_char = NULL;
+	newstring = replace_string_printflike((gchar *)string, ctable);
+	free_convert_table(ctable);
+	return newstring;
+}
+
 void snippets_activate_leaf_insert(Tsnippetswin *snw, xmlNodePtr parent) {
 
 	gint num_vars = snippets_insert_num_params(parent);
@@ -205,7 +219,12 @@ void snippets_activate_leaf_insert(Tsnippetswin *snw, xmlNodePtr parent) {
 		}
 		
 		if (before || after) {
-			doc_insert_two_strings(snw->bfwin->current_document, (const gchar *)before, (const gchar *)after);
+			gchar *newbefore=NULL, *newafter=NULL;
+			if (after)
+				newafter = convert_noargs(after);
+			if (before)
+				newbefore = convert_noargs(before);
+			doc_insert_two_strings(snw->bfwin->current_document, newbefore, newafter);
 			if (before) xmlFree(before);
 			if (after) xmlFree(after);
 		}
