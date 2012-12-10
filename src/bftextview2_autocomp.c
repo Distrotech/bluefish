@@ -517,7 +517,7 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 			fblock =
 				found->numblockchange < 0 ? pop_blocks(found->numblockchange, found->fblock) : found->fblock;
 			DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n",
-						 fblock->patternum, g_array_index(btv->bflang->st->matches, Tpattern,
+						 fblock->patternum, g_array_index(master->bflang->st->matches, Tpattern,
 														  fblock->patternum).tagclose_from_blockstack);
 /*		if (g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).tagclose_from_blockstack) {
 				gchar *start; 
