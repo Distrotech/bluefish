@@ -371,7 +371,7 @@ acwin_calculate_window_size(Tacwin * acw, GList * items, GList * items2, const g
 		g_assert(tmplist->data != NULL);
 		DBG_AUTOCOMP("acwin_calculate_window_size, tmplist=%p", tmplist);
 		DBG_AUTOCOMP(", tmplist->data=%p",tmplist->data);
-		DBG_AUTOCOMP("=%s\n", tmplist->data);
+		DBG_AUTOCOMP("=%s\n", (gchar *)tmplist->data);
 		tmp = g_markup_escape_text(tmplist->data, -1);
 		len = strlen(tmp);
 		if (len > longestlen) {
@@ -516,9 +516,11 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 		if (found) {
 			fblock =
 				found->numblockchange < 0 ? pop_blocks(found->numblockchange, found->fblock) : found->fblock;
-			DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n",
+			if (fblock) {
+				DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n",
 						 fblock->patternum, g_array_index(master->bflang->st->matches, Tpattern,
 														  fblock->patternum).tagclose_from_blockstack);
+			}
 /*		if (g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).tagclose_from_blockstack) {
 				gchar *start; 
 				gtk_text_buffer_get_iter_at_mark(buffer, &it1, fblock->start1);
