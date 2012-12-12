@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file.c - file operations based on GIO
  *
- * Copyright (C) 2002-2011 Olivier Sessink
+ * Copyright (C) 2002-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -503,6 +503,7 @@ GFile *backup_uri_from_orig_uri(GFile * origuri) {
 static void
 openfile_cleanup(Topenfile * of)
 {
+	DEBUG_MSG("openfile_cleanup, for of=%p\n",of);
 	g_object_unref(of->uri);
 	g_object_unref(of->cancel);
 	g_slice_free(Topenfile, of);
@@ -535,8 +536,9 @@ openfile_async_mount_lcb(GObject * source_object, GAsyncResult * res, gpointer u
 		/* open again */
 		g_file_load_contents_async(of->uri, of->cancel, openfile_async_lcb, of);
 	} else {
-		DEBUG_MSG("failed to mount with error %d %s!!\n", error->code, error->message);
+		DEBUG_MSG("failed to mount with error %d %s!!, call OPENFILE_ERROR for of=%p\n", error->code, error->message, of);
 		of->callback_func(OPENFILE_ERROR, error, NULL, 0, of->callback_data);
+		openfile_cleanup(of);
 	}
 	gmo = NULL;
 	resume_after_wait_for_mount();
@@ -894,6 +896,9 @@ file2doc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, go
 static void
 fill_fileinfo_cleanup(Tfileinfo * fi)
 {
+	DEBUG_MSG("fill_fileinfo_cleanup for fi=%p\n", fi);
+	if (fi->doc && fi->doc->info)
+		fi->doc->info = NULL;
 	g_object_unref(fi->uri);
 	g_object_unref(fi->cancel);
 	g_slice_free(Tfileinfo, fi);
@@ -913,6 +918,7 @@ fill_fileinfo_async_mount_lcb(GObject * source_object, GAsyncResult * res, gpoin
 	if (g_file_mount_enclosing_volume_finish(fi->uri, res, &error)) {
 		fill_fileinfo_run(fi);
 	} else {
+		DEBUG_MSG("fill_fileinfo_async_mount_lcb, mount error for fi=%p\n", fi);
 		g_warning("failed to mount with error %d %s!!\n", error->code, error->message);
 		queue_worker_ready(&fiqueue);
 		fill_fileinfo_cleanup(fi);
