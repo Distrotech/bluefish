@@ -8,10 +8,10 @@ SUBDIRS = pixmaps\
 	plugin_infbrowser\
 	plugin_snippets\
 	plugin_charmap\
-	plugin_vcs \
 	plugin_zencoding
 
 #	plugin_xmltools
+# 	plugin_vcs \
 
 EXTRA_DIST = bluefish_rc.rc.in.in resource.h
 

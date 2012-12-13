@@ -711,7 +711,6 @@ AC_CONFIG_FILES([
 	src/plugin_snippets/po/Makefile.in
 	src/plugin_zencoding/Makefile
 	src/plugin_zencoding/po/Makefile.in
-	src/plugin_vcs/Makefile
 	src/bluefish_rc.rc.in
 	ui/Makefile
 	macosx/Makefile
@@ -720,6 +719,7 @@ AC_CONFIG_FILES([
 ])
 AC_OUTPUT
 
+# 	src/plugin_vcs/Makefile
 # 	src/plugin_xmltools/po/Makefile.in
 # 	src/plugin_xmltools/Makefile
 
