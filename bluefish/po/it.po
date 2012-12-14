@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-09-04 01:05+0200\n"
+"POT-Creation-Date: 2012-12-14 09:05+0100\n"
 "PO-Revision-Date: 2012-06-14 18:19+0100\n"
 "Last-Translator: Roberto Bellingeri <bellingeri@netguru.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -32,921 +32,947 @@ msgid "programming;code;html;php;python;"
 msgstr "programmazione;codice;html;php;python;"
 
 #: ../desktop-data/bluefish.xml.in.h:1
-msgid "Bluefish language definition file"
-msgstr "File di definizione linguaggio di Bluefish"
-
-#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish project file"
 msgstr "File di progetto di Bluefish"
 
-#: ../src/bftextview2.c:1581
+#: ../desktop-data/bluefish.xml.in.h:2
+msgid "Bluefish language definition file"
+msgstr "File di definizione linguaggio di Bluefish"
+
+#: ../src/bftextview2.c:1744
 msgid "Collapse all"
 msgstr "Riduci tutti"
 
-#: ../src/bftextview2.c:1584
+#: ../src/bftextview2.c:1747
 msgid "Expand all"
 msgstr "Espandi tutti"
 
-#: ../src/bftextview2.c:1591
+#: ../src/bftextview2.c:1756
 #, c-format
 msgid "Collapse %s"
 msgstr "Riduci %s"
 
-#: ../src/bftextview2.c:1598
+#: ../src/bftextview2.c:1766
 #, c-format
 msgid "Expand %s"
 msgstr "Espandi %s"
 
-#: ../src/bftextview2_spell.c:690
+#: ../src/bftextview2_spell.c:691
 msgid "Spell check language"
 msgstr "Lingua del controllo ortografico"
 
-#: ../src/bftextview2_spell.c:723
+#: ../src/bftextview2_spell.c:724
 msgid "Add to dictionary"
 msgstr "Aggiungi al dizionario"
 
-#: ../src/bftextview2_spell.c:726
+#: ../src/bftextview2_spell.c:727
 msgid "Ignore spelling"
 msgstr "Ignora l'ortografia"
 
-#: ../src/bftextview2_spell.c:741
+#: ../src/bftextview2_spell.c:742
 msgid "Insert special characters as entities"
 msgstr "Inserisci caratteri speciali come entità"
 
-#: ../src/bfwin.c:228
+#: ../src/bfwin.c:227
 msgid "Filebrowser"
 msgstr "Browser dei file"
 
-#: ../src/bfwin.c:230
+#: ../src/bfwin.c:229
 msgid "Bookmarks"
 msgstr "Segnalibri"
 
-#: ../src/bfwin.c:834
+#: ../src/bfwin.c:876
 msgid "Goto Line:"
 msgstr "Vai alla riga:"
 
-#: ../src/bfwin.c:845
+#: ../src/bfwin.c:887
 msgid "Find:"
 msgstr "Trova:"
 
-#: ../src/bfwin.c:858 ../src/snr3.c:1492
+#: ../src/bfwin.c:898 ../src/snr3.c:1518
 msgid "Regular expression (pcre)"
 msgstr "Espressione regolare (pcrl)"
 
-#: ../src/bfwin.c:861
+#: ../src/bfwin.c:901
 msgid "Case sensitive"
 msgstr "_Distingui maiuscole e minuscole"
 
-#: ../src/bfwin.c:864
+#: ../src/bfwin.c:904
 msgid "Dot character matches newlines"
 msgstr "Il carattere punto in un'espressione regolare corisponde a nuova linea"
 
-#: ../src/bfwin.c:867
+#: ../src/bfwin.c:907
 msgid "Pattern contains backslash escaped sequences"
 msgstr "Il modello contiene sequenze di _escape"
 
-#: ../src/bfwin.c:879
+#: ../src/bfwin.c:919
 msgid "Advanced"
 msgstr "Avanzato"
 
-#: ../src/bfwin.c:1285
+#: ../src/bfwin.c:1325
 msgid "New Bluefish Window"
 msgstr "Nuova finestra di Bluefish"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1342
+#: ../src/bfwin.c:1384
 msgid "Stand by..."
 msgstr "Attendere..."
 
-#: ../src/bfwin_uimanager.c:735
+#: ../src/bfwin_uimanager.c:751
 msgid "Leave Fullscreen"
 msgstr "Lascia schermo intero"
 
-#: ../src/bfwin_uimanager.c:735
+#: ../src/bfwin_uimanager.c:751
 msgid "Fullscreen"
 msgstr "Schermo intero"
 
-#: ../src/bfwin_uimanager.c:786
+#: ../src/bfwin_uimanager.c:802
 msgid "_File"
 msgstr "_File"
 
-#: ../src/bfwin_uimanager.c:787
+#: ../src/bfwin_uimanager.c:803
 msgid "New From Template"
 msgstr "Nuovo da Modello"
 
-#: ../src/bfwin_uimanager.c:788 ../src/bfwin_uimanager.c:798
+#: ../src/bfwin_uimanager.c:804 ../src/bfwin_uimanager.c:814
 msgid "Open _Recent"
 msgstr "Apri _recente"
 
-#: ../src/bfwin_uimanager.c:789
+#: ../src/bfwin_uimanager.c:805
 msgid "_Edit"
 msgstr "_Modifica"
 
-#: ../src/bfwin_uimanager.c:790
+#: ../src/bfwin_uimanager.c:806
 msgid "_View"
 msgstr "_Visualizza"
 
-#: ../src/bfwin_uimanager.c:791
+#: ../src/bfwin_uimanager.c:807
 msgid "_Document"
 msgstr "_Documento"
 
-#: ../src/bfwin_uimanager.c:792
+#: ../src/bfwin_uimanager.c:808
 msgid "_Tab Size"
 msgstr "Dimensione _tabulatore"
 
-#: ../src/bfwin_uimanager.c:793
+#: ../src/bfwin_uimanager.c:809
 msgid "_Font Size"
 msgstr "Dimensione ca_rattere"
 
-#: ../src/bfwin_uimanager.c:794
+#: ../src/bfwin_uimanager.c:810
 msgid "Language M_ode"
 msgstr "Modalità _Linguaggio"
 
-#: ../src/bfwin_uimanager.c:795
+#: ../src/bfwin_uimanager.c:811
 msgid "Character _Encoding"
 msgstr "Codi_fica caratteri"
 
-#: ../src/bfwin_uimanager.c:796
+#: ../src/bfwin_uimanager.c:812
 msgid "_Go"
 msgstr "V_ai"
 
-#: ../src/bfwin_uimanager.c:797
+#: ../src/bfwin_uimanager.c:813
 msgid "_Project"
 msgstr "_Progetto"
 
-#: ../src/bfwin_uimanager.c:799
+#: ../src/bfwin_uimanager.c:815
 msgid "_Tools"
 msgstr "_Strumenti"
 
-#: ../src/bfwin_uimanager.c:800
+#: ../src/bfwin_uimanager.c:816
 msgid "_Commands"
 msgstr "C_omandi"
 
-#: ../src/bfwin_uimanager.c:801
+#: ../src/bfwin_uimanager.c:817
 msgid "_Filters"
 msgstr "_Filtri"
 
-#: ../src/bfwin_uimanager.c:802
+#: ../src/bfwin_uimanager.c:818
 msgid "_Outputbox"
 msgstr "Riquadro out_put"
 
-#: ../src/bfwin_uimanager.c:803
-msgid "Fo_rmat"
-msgstr "Fo_rmato"
+#: ../src/bfwin_uimanager.c:819
+msgid "For_mat"
+msgstr ""
 
-#: ../src/bfwin_uimanager.c:804
+#: ../src/bfwin_uimanager.c:820
 msgid "_Insert"
 msgstr "_Inserisci"
 
-#: ../src/bfwin_uimanager.c:805
-msgid "Co_nvert"
+#: ../src/bfwin_uimanager.c:821
+#, fuzzy
+msgid "Con_vert"
 msgstr "Co_nverti"
 
-#: ../src/bfwin_uimanager.c:809
+#: ../src/bfwin_uimanager.c:825
 msgid "_New"
 msgstr "_Nuovo"
 
-#: ../src/bfwin_uimanager.c:809 ../src/filebrowser2.c:1645
-#: ../src/filebrowser2.c:1647 ../src/filebrowser2.c:2041
+#: ../src/bfwin_uimanager.c:825 ../src/filebrowser2.c:1648
+#: ../src/filebrowser2.c:1650 ../src/filebrowser2.c:2046
 msgid "New file"
 msgstr "Nuovo file"
 
-#: ../src/bfwin_uimanager.c:810
+#: ../src/bfwin_uimanager.c:826
 msgid "New _Window"
 msgstr "Nuova _Finestra"
 
-#: ../src/bfwin_uimanager.c:810
+#: ../src/bfwin_uimanager.c:826
 msgid "New window"
 msgstr "Nuova finestra"
 
-#: ../src/bfwin_uimanager.c:812
+#: ../src/bfwin_uimanager.c:828
 msgid "Close Win_dow"
 msgstr "C_hiudi Finestra"
 
-#: ../src/bfwin_uimanager.c:812
+#: ../src/bfwin_uimanager.c:828
 msgid "Close window"
 msgstr "Chiudi finestra"
 
-#: ../src/bfwin_uimanager.c:813
+#: ../src/bfwin_uimanager.c:829
 msgid "_Open..."
 msgstr "_Apri..."
 
-#: ../src/bfwin_uimanager.c:813
+#: ../src/bfwin_uimanager.c:829
 msgid "Open file"
 msgstr "Apri file"
 
-#: ../src/bfwin_uimanager.c:814
+#: ../src/bfwin_uimanager.c:830
 msgid "Open Ad_vanced..."
 msgstr "Apri Avan_zato..."
 
-#: ../src/bfwin_uimanager.c:814 ../src/filebrowser2.c:2037
+#: ../src/bfwin_uimanager.c:830 ../src/filebrowser2.c:2042
 msgid "Open advanced"
 msgstr "Apri avanzato"
 
-#: ../src/bfwin_uimanager.c:816
+#: ../src/bfwin_uimanager.c:832
 msgid "Open _from Selection"
 msgstr "Apri _dalla Selezione"
 
-#: ../src/bfwin_uimanager.c:816
+#: ../src/bfwin_uimanager.c:832
 msgid "Open from Selection"
 msgstr "Apri dalla Selezione"
 
-#: ../src/bfwin_uimanager.c:818
+#: ../src/bfwin_uimanager.c:834
 msgid "_Insert..."
 msgstr "_Inserisci..."
 
-#: ../src/bfwin_uimanager.c:818
+#: ../src/bfwin_uimanager.c:834
 msgid "Insert file"
 msgstr "Inserisci file"
 
-#: ../src/bfwin_uimanager.c:819
+#: ../src/bfwin_uimanager.c:835
 #, fuzzy
 msgid "_Print..."
 msgstr "Spam_pa"
 
-#: ../src/bfwin_uimanager.c:819
+#: ../src/bfwin_uimanager.c:835
 msgid "Print"
 msgstr "Stampa"
 
-#: ../src/bfwin_uimanager.c:820
+#: ../src/bfwin_uimanager.c:836
 msgid "_Quit"
 msgstr "_Esci"
 
-#: ../src/bfwin_uimanager.c:820
+#: ../src/bfwin_uimanager.c:836
 msgid "Quit Bluefish"
 msgstr "Chiudi Bluefish"
 
-#: ../src/bfwin_uimanager.c:821
+#: ../src/bfwin_uimanager.c:837
 msgid "Preference_s..."
 msgstr "Preferen_ze..."
 
-#: ../src/bfwin_uimanager.c:821
+#: ../src/bfwin_uimanager.c:837
 msgid "Edit Preferences"
 msgstr "Modifica Preferenze"
 
-#: ../src/bfwin_uimanager.c:823
+#: ../src/bfwin_uimanager.c:839
 msgid "Select _All"
 msgstr "Selezio_na tutto"
 
-#: ../src/bfwin_uimanager.c:823
+#: ../src/bfwin_uimanager.c:839
 msgid "Select all"
 msgstr "Seleziona tutto"
 
-#: ../src/bfwin_uimanager.c:824
+#: ../src/bfwin_uimanager.c:840
 msgid "Add Boo_kmark"
 msgstr "A_ggiungi Segnalibro"
 
-#: ../src/bfwin_uimanager.c:824 ../src/document.c:1925
+#: ../src/bfwin_uimanager.c:840 ../src/document.c:1918
 msgid "Add bookmark"
 msgstr "Aggiungi il segnalibro"
 
-#: ../src/bfwin_uimanager.c:826
+#: ../src/bfwin_uimanager.c:842
 msgid "_Add or Remove..."
 msgstr "_Aggiungi o Rimuovi..."
 
-#: ../src/bfwin_uimanager.c:826
+#: ../src/bfwin_uimanager.c:842
 msgid "Add or remove character encoding"
 msgstr "Aggiungi o rimuovi codifiche caratteri"
 
-#: ../src/bfwin_uimanager.c:828
+#: ../src/bfwin_uimanager.c:844
 msgid "Floati_ng Window"
 msgstr "Fi_nestra Flottante"
 
-#: ../src/bfwin_uimanager.c:828
+#: ../src/bfwin_uimanager.c:844
 msgid "Open current document in floating window"
 msgstr "Apri il documento corrente in finestra mobile"
 
-#: ../src/bfwin_uimanager.c:830 ../src/bfwin_uimanager.c:836
+#: ../src/bfwin_uimanager.c:846 ../src/bfwin_uimanager.c:852
 msgid "_Increase"
 msgstr "_Aumenta"
 
-#: ../src/bfwin_uimanager.c:830
+#: ../src/bfwin_uimanager.c:846
 msgid "Increase document font size"
 msgstr "Aumenta la dimensione del carattere del documento"
 
-#: ../src/bfwin_uimanager.c:832 ../src/bfwin_uimanager.c:838
+#: ../src/bfwin_uimanager.c:848 ../src/bfwin_uimanager.c:854
 msgid "_Decrease"
 msgstr "_Diminuisci"
 
-#: ../src/bfwin_uimanager.c:832
+#: ../src/bfwin_uimanager.c:848
 msgid "Decrease document font size"
 msgstr "Diminuisci la dimensione del carattere del documento"
 
-#: ../src/bfwin_uimanager.c:834 ../src/bfwin_uimanager.c:840
+#: ../src/bfwin_uimanager.c:850 ../src/bfwin_uimanager.c:856
 msgid "_Reset"
 msgstr "_Reset"
 
-#: ../src/bfwin_uimanager.c:834
+#: ../src/bfwin_uimanager.c:850
 msgid "Reset document font size"
 msgstr "Ripristina la dimensione del carattere del documento"
 
-#: ../src/bfwin_uimanager.c:836
+#: ../src/bfwin_uimanager.c:852
 msgid "Increase document tab size"
 msgstr "Aumenta la dimensione dei tab del documento"
 
-#: ../src/bfwin_uimanager.c:838
+#: ../src/bfwin_uimanager.c:854
 msgid "Decrease document tab size"
 msgstr "Diminuisci la dimensione dei tab del documento"
 
-#: ../src/bfwin_uimanager.c:840
+#: ../src/bfwin_uimanager.c:856
 msgid "Reset document tab size"
 msgstr "Ripristina la dimensione dei tab del documento"
 
-#: ../src/bfwin_uimanager.c:843
+#: ../src/bfwin_uimanager.c:859
 msgid "Rescan Synta_x & Spelling"
 msgstr "_Analizza nuovamente Sintassi e Ortografia"
 
-#: ../src/bfwin_uimanager.c:843 ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:859 ../src/bfwin_uimanager.c:862
 msgid "Rescan document highlighting"
 msgstr "Aggiorna l'evidenziazione"
 
-#: ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:862
 msgid "Rescan Synta_x"
 msgstr "Analizza _nuovamente la Sintassi"
 
-#: ../src/bfwin_uimanager.c:849
+#: ../src/bfwin_uimanager.c:865
 msgid "_New Project..."
 msgstr "_Nuovo Progetto"
 
-#: ../src/bfwin_uimanager.c:849 ../src/project.c:209
+#: ../src/bfwin_uimanager.c:865 ../src/project.c:209
 msgid "New project"
 msgstr "Nuovo progetto"
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:866
 msgid "_Open Project..."
 msgstr "_Apri Progetto..."
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:866
 msgid "Open project"
 msgstr "Apri progetto"
 
-#: ../src/bfwin_uimanager.c:851
+#: ../src/bfwin_uimanager.c:867
 msgid "_Synchronize Text Block"
 msgstr "_Sincronizza Blocco di Testo"
 
-#: ../src/bfwin_uimanager.c:851 ../src/blocksync.c:295
+#: ../src/bfwin_uimanager.c:867 ../src/blocksync.c:295
 msgid "Synchronize text block"
 msgstr "Sincronizza blocco di testo"
 
-#: ../src/bfwin_uimanager.c:853
-msgid "To_ggle Comment"
+#: ../src/bfwin_uimanager.c:869
+#, fuzzy
+msgid "_Toggle Comment"
 msgstr "_Alterna Commenti"
 
-#: ../src/bfwin_uimanager.c:853
+#: ../src/bfwin_uimanager.c:869
 msgid "Toggle comment"
 msgstr "Alterna Commenti"
 
-#: ../src/bfwin_uimanager.c:855
+#: ../src/bfwin_uimanager.c:871
 msgid "Select _Block"
 msgstr "Seleziona _Blocco"
 
-#: ../src/bfwin_uimanager.c:855
+#: ../src/bfwin_uimanager.c:871
 msgid "Select block, use multiple times to select parent blocks "
 msgstr ""
 "Seleziona blocco, utilizzare più volte per selezionare blocchi superiori"
 
-#: ../src/bfwin_uimanager.c:857
-msgid "Duplica_te Line"
+#: ../src/bfwin_uimanager.c:873
+#, fuzzy
+msgid "D_uplicate Line"
 msgstr "Duplica la L_inea"
 
-#: ../src/bfwin_uimanager.c:857
+#: ../src/bfwin_uimanager.c:873
 msgid "Duplicate the current line"
 msgstr "Duplica la linea corrente"
 
-#: ../src/bfwin_uimanager.c:859
-msgid "Delete Line"
+#: ../src/bfwin_uimanager.c:875
+#, fuzzy
+msgid "_Delete Line"
 msgstr "Cancella la Linea"
 
-#: ../src/bfwin_uimanager.c:859
+#: ../src/bfwin_uimanager.c:875
 msgid "Delete the current line"
 msgstr "Cancella la linea corrente"
 
-#: ../src/bfwin_uimanager.c:861
-msgid "Word Cou_nt"
+#: ../src/bfwin_uimanager.c:877
+#, fuzzy
+msgid "_Word Count"
 msgstr "Conte_ggio Parole"
 
-#: ../src/bfwin_uimanager.c:861
+#: ../src/bfwin_uimanager.c:877
 msgid "Word count"
 msgstr "Conteggio parole"
 
-#: ../src/bfwin_uimanager.c:862 ../src/doc_extern_tools.c:42
+#: ../src/bfwin_uimanager.c:878 ../src/doc_extern_tools.c:47
 msgid "Lorem Ipsum generator"
 msgstr "Generatore di \"Lorem Ipsum\""
 
-#: ../src/bfwin_uimanager.c:863
+#: ../src/bfwin_uimanager.c:879
 msgid "Insert Relative Filename"
 msgstr "Inserisci nome di file relativo"
 
-#: ../src/bfwin_uimanager.c:864
+#: ../src/bfwin_uimanager.c:880
 msgid "Insert Absolute Filename"
 msgstr "Inserisci nome di file assoluto"
 
-#: ../src/bfwin_uimanager.c:865
+#: ../src/bfwin_uimanager.c:881
 msgid "Indenting to S_paces"
 msgstr "Indentazione a S_pazi"
 
-#: ../src/bfwin_uimanager.c:865
+#: ../src/bfwin_uimanager.c:881
 msgid "Indenting to spaces"
 msgstr "Indentazione a spazi"
 
-#: ../src/bfwin_uimanager.c:867
+#: ../src/bfwin_uimanager.c:883
 msgid "Indenting to T_abs"
 msgstr "Indentazione a T_ab"
 
-#: ../src/bfwin_uimanager.c:867
+#: ../src/bfwin_uimanager.c:883
 msgid "Indenting to tabs"
 msgstr "Indentazione a tab"
 
-#: ../src/bfwin_uimanager.c:869
+#: ../src/bfwin_uimanager.c:885
 msgid "_Join Lines Together"
 msgstr "_Unisci Linee"
 
-#: ../src/bfwin_uimanager.c:869
+#: ../src/bfwin_uimanager.c:885
 msgid "Join lines together"
 msgstr "Unisci linee"
 
-#: ../src/bfwin_uimanager.c:871
+#: ../src/bfwin_uimanager.c:887
 msgid "Split Lines on Right _Margin"
 msgstr "_Dividi le Linee al Margine Destro"
 
-#: ../src/bfwin_uimanager.c:871
+#: ../src/bfwin_uimanager.c:887
 msgid "Split lines on right margin"
 msgstr "Dividi le linee al margine destro"
 
-#: ../src/bfwin_uimanager.c:873
+#: ../src/bfwin_uimanager.c:889
 msgid "Merge Lines Into Col_umns"
 msgstr "Unisci Linee in Co_lonne"
 
-#: ../src/bfwin_uimanager.c:873
+#: ../src/bfwin_uimanager.c:889
 msgid "Merge lines into columns"
 msgstr "Unisci righe in colonne"
 
-#: ../src/bfwin_uimanager.c:875
+#: ../src/bfwin_uimanager.c:891
 msgid "Rewrap _Lines"
 msgstr "Ma_nda a Capo"
 
-#: ../src/bfwin_uimanager.c:875
+#: ../src/bfwin_uimanager.c:891
 msgid "Rewrap lines"
 msgstr "Manda a capo"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:892
 msgid "Strip T_railing Whitespace"
 msgstr "_Elimina gli Spazi Finali"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:892
 msgid "Strip trailing whitespace"
 msgstr "Elimina gli spazi finali"
 
-#: ../src/bfwin_uimanager.c:878
+#: ../src/bfwin_uimanager.c:894
+msgid "Javascript beautifier"
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:895
 msgid "Preview in browser"
 msgstr "Anteprima nel browser"
 
-#: ../src/bfwin_uimanager.c:883
+#: ../src/bfwin_uimanager.c:900
 msgid "_Full Screen"
 msgstr "_Schermo Intero"
 
-#: ../src/bfwin_uimanager.c:883
+#: ../src/bfwin_uimanager.c:900
 msgid "Full screen"
 msgstr "Schermo intero"
 
-#: ../src/bfwin_uimanager.c:885
+#: ../src/bfwin_uimanager.c:902
 msgid "_Main Toolbar"
 msgstr "Barra _Principale"
 
-#: ../src/bfwin_uimanager.c:885
+#: ../src/bfwin_uimanager.c:902
 msgid "Show main toolbar"
 msgstr "Mostra la barra principale"
 
-#: ../src/bfwin_uimanager.c:887
+#: ../src/bfwin_uimanager.c:904
 msgid "_Side Pane"
 msgstr "Barra _Laterale"
 
-#: ../src/bfwin_uimanager.c:887
+#: ../src/bfwin_uimanager.c:904
 msgid "Show side pane"
 msgstr "Mostra riquadro laterale"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:905
 msgid "_Output Pane"
 msgstr "Riquadro _Output"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:905
 msgid "Show output pane"
 msgstr "Mostra riquadro dell'output"
 
-#: ../src/bfwin_uimanager.c:890
+#: ../src/bfwin_uimanager.c:907
 msgid "Status_bar"
 msgstr "Barra di _stato"
 
-#: ../src/bfwin_uimanager.c:890
+#: ../src/bfwin_uimanager.c:907
 msgid "Show statusbar"
 msgstr "Barra di stato"
 
-#: ../src/bfwin_uimanager.c:892
+#: ../src/bfwin_uimanager.c:909
 msgid "Auto _Completion Popup"
 msgstr "Pop-up di Completamento Automatico [_h]"
 
-#: ../src/bfwin_uimanager.c:892
+#: ../src/bfwin_uimanager.c:909
 msgid "Show auto completion popup"
 msgstr "Mostra pop-up per il completamento automatico"
 
-#: ../src/bfwin_uimanager.c:894
+#: ../src/bfwin_uimanager.c:911
 msgid "_Auto Indent"
 msgstr "_Indentazione Automatica"
 
-#: ../src/bfwin_uimanager.c:894
+#: ../src/bfwin_uimanager.c:911
 msgid "Auto indent"
 msgstr "Auto indentazione"
 
-#: ../src/bfwin_uimanager.c:895
+#: ../src/bfwin_uimanager.c:912
 msgid "Highlight Block _Delimiters"
 msgstr "Evidenzia i Delimitatori del Blo_cco"
 
-#: ../src/bfwin_uimanager.c:896
+#: ../src/bfwin_uimanager.c:913
 msgid "Highlight block delimiters"
 msgstr "Evidenzia i delimitatori del blocco"
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:914
 msgid "_Highlight Syntax"
 msgstr "_Evidenzia Sintassi"
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:914
 msgid "Highlight syntax"
 msgstr "Evidenzia sintassi"
 
-#: ../src/bfwin_uimanager.c:899
+#: ../src/bfwin_uimanager.c:916
 msgid "Show _Blocks"
 msgstr "Mostra _Blocchi"
 
-#: ../src/bfwin_uimanager.c:899
+#: ../src/bfwin_uimanager.c:916
 msgid "Show blocks"
 msgstr "Mostra blocchi"
 
-#: ../src/bfwin_uimanager.c:900
+#: ../src/bfwin_uimanager.c:917
 msgid "Show Line N_umbers"
 msgstr "Visualizza N_umeri di Riga"
 
-#: ../src/bfwin_uimanager.c:900
+#: ../src/bfwin_uimanager.c:917
 msgid "Show line numbers"
 msgstr "Visualizza numeri di riga"
 
-#: ../src/bfwin_uimanager.c:902
+#: ../src/bfwin_uimanager.c:919
 msgid "Show Right _Margin"
 msgstr "Mostra il _Margine Destro"
 
-#: ../src/bfwin_uimanager.c:902
+#: ../src/bfwin_uimanager.c:919
 msgid "Show right margin"
 msgstr "Mostra il margine destro"
 
-#: ../src/bfwin_uimanager.c:904
+#: ../src/bfwin_uimanager.c:921
 msgid "Show Split _View"
 msgstr "Mostra _Vista Suddivisa"
 
-#: ../src/bfwin_uimanager.c:904
+#: ../src/bfwin_uimanager.c:921
 msgid "Show split view"
 msgstr "Mostra vista suddivisa"
 
-#: ../src/bfwin_uimanager.c:906
+#: ../src/bfwin_uimanager.c:923
 msgid "Show V_isible Spacing"
 msgstr "Spa_ziatura Visibile"
 
-#: ../src/bfwin_uimanager.c:906
+#: ../src/bfwin_uimanager.c:923
 msgid "Show visible spacing"
 msgstr "Spaziatura visibile"
 
-#: ../src/bfwin_uimanager.c:908
+#: ../src/bfwin_uimanager.c:925
 msgid "_Wrap Text"
 msgstr "Testo a Ca_po"
 
-#: ../src/bfwin_uimanager.c:908
+#: ../src/bfwin_uimanager.c:925
 msgid "Wrap text"
 msgstr "Testo a capo"
 
-#: ../src/bfwin_uimanager.c:912 ../src/document.c:2948
+#: ../src/bfwin_uimanager.c:929 ../src/document.c:2965
 msgid "_Close"
 msgstr "_Chiudi"
 
-#: ../src/bfwin_uimanager.c:912
+#: ../src/bfwin_uimanager.c:929
 msgid "Close current file"
 msgstr "Chiudi il file corrente"
 
-#: ../src/bfwin_uimanager.c:914
+#: ../src/bfwin_uimanager.c:931
 msgid "Close A_ll"
 msgstr "Chiudi _Tutti"
 
-#: ../src/bfwin_uimanager.c:914
+#: ../src/bfwin_uimanager.c:931
 msgid "Close all files"
 msgstr "Chiudi tutti i file"
 
-#: ../src/bfwin_uimanager.c:916 ../src/bfwin_uimanager.c:977
-#: ../src/file_dialogs.c:1428
+#: ../src/bfwin_uimanager.c:933 ../src/bfwin_uimanager.c:995
+#: ../src/file_dialogs.c:1459
 msgid "_Save"
 msgstr "_Salva"
 
-#: ../src/bfwin_uimanager.c:916
+#: ../src/bfwin_uimanager.c:933
 msgid "Save current file"
 msgstr "Salva il file corrente"
 
-#: ../src/bfwin_uimanager.c:918 ../src/bfwin_uimanager.c:978
+#: ../src/bfwin_uimanager.c:935 ../src/bfwin_uimanager.c:996
 msgid "Save _as..."
 msgstr "Sa_lva con nome..."
 
-#: ../src/bfwin_uimanager.c:918
+#: ../src/bfwin_uimanager.c:935
 msgid "Save file as"
 msgstr "Salva il file con nome"
 
-#: ../src/bfwin_uimanager.c:920
+#: ../src/bfwin_uimanager.c:937
 msgid "Sav_e All"
 msgstr "Sal_va tutti"
 
-#: ../src/bfwin_uimanager.c:920
+#: ../src/bfwin_uimanager.c:937
 msgid "Save all files"
 msgstr "Salva tutti i file"
 
-#: ../src/bfwin_uimanager.c:921
+#: ../src/bfwin_uimanager.c:938
 msgid "Rever_t to Saved"
 msgstr "Ri_pristina"
 
-#: ../src/bfwin_uimanager.c:921
+#: ../src/bfwin_uimanager.c:938
 msgid "Reload current file"
 msgstr "Ricarica file corrente"
 
-#: ../src/bfwin_uimanager.c:923
+#: ../src/bfwin_uimanager.c:940
+#, fuzzy
+msgid "Save a cop_y..."
+msgstr "Sa_lva con nome..."
+
+#: ../src/bfwin_uimanager.c:940
+#, fuzzy
+msgid "Save a copy"
+msgstr "Salva e _chiudi"
+
+#: ../src/bfwin_uimanager.c:941
 msgid "Rena_me..."
 msgstr "Rino_mina..."
 
-#: ../src/bfwin_uimanager.c:923
+#: ../src/bfwin_uimanager.c:941
 msgid "Rename file"
 msgstr "Rinomina il file"
 
-#: ../src/bfwin_uimanager.c:924
+#: ../src/bfwin_uimanager.c:942
 msgid "_Indent"
 msgstr "Sposta a _destra"
 
-#: ../src/bfwin_uimanager.c:924
+#: ../src/bfwin_uimanager.c:942
 msgid "Indent"
 msgstr "Spostamento a destra"
 
-#: ../src/bfwin_uimanager.c:925
+#: ../src/bfwin_uimanager.c:943
 msgid "Unin_dent"
 msgstr "Sposta_mento a sinistra"
 
-#: ../src/bfwin_uimanager.c:925
+#: ../src/bfwin_uimanager.c:943
 msgid "Unindent"
 msgstr "Spostamento a sinistra"
 
-#: ../src/bfwin_uimanager.c:927
+#: ../src/bfwin_uimanager.c:945
 msgid "F_irst Bookmark"
 msgstr "Pri_mo Segnalibro"
 
-#: ../src/bfwin_uimanager.c:927
+#: ../src/bfwin_uimanager.c:945
 msgid "Goto first bookmark"
 msgstr "Vai al primo segnalibro"
 
-#: ../src/bfwin_uimanager.c:929
+#: ../src/bfwin_uimanager.c:947
 msgid "L_ast Bookmark"
 msgstr "Ultimo Se_gnalibro"
 
-#: ../src/bfwin_uimanager.c:929
+#: ../src/bfwin_uimanager.c:947
 msgid "Goto last bookmark"
 msgstr "Val all'ultimo segnalibro"
 
-#: ../src/bfwin_uimanager.c:931
+#: ../src/bfwin_uimanager.c:949
 msgid "N_ext Bookmark"
 msgstr "Segnalibro Su_ccessivo"
 
-#: ../src/bfwin_uimanager.c:931
+#: ../src/bfwin_uimanager.c:949
 msgid "Goto next bookmark"
 msgstr "Vai al prossimo segnalibro"
 
-#: ../src/bfwin_uimanager.c:933
+#: ../src/bfwin_uimanager.c:951
 msgid "P_revious Bookmark"
 msgstr "Segnalibro Pr_ecedente"
 
-#: ../src/bfwin_uimanager.c:934 ../src/bfwin_uimanager.c:947
+#: ../src/bfwin_uimanager.c:952 ../src/bfwin_uimanager.c:965
 msgid "Goto previous document"
 msgstr "Vai documento precedente"
 
-#: ../src/bfwin_uimanager.c:935
+#: ../src/bfwin_uimanager.c:953
 msgid "Move Tab _Left"
 msgstr "Sposta la Scheda a _Sinistra"
 
-#: ../src/bfwin_uimanager.c:935
+#: ../src/bfwin_uimanager.c:953
 msgid "Move current tab left"
 msgstr "Sposta la scheda corrente a sinistra"
 
-#: ../src/bfwin_uimanager.c:937
+#: ../src/bfwin_uimanager.c:955
 msgid "Move Tab _Right"
 msgstr "Sposta la Scheda a _Destra"
 
-#: ../src/bfwin_uimanager.c:937
+#: ../src/bfwin_uimanager.c:955
 msgid "Move current tab right"
 msgstr "Sposta la scheda corrente a destra"
 
-#: ../src/bfwin_uimanager.c:939
+#: ../src/bfwin_uimanager.c:957
 #, fuzzy
 msgid "_Recent Document"
 msgstr "Documento Successi_vo"
 
-#: ../src/bfwin_uimanager.c:939
+#: ../src/bfwin_uimanager.c:957
 #, fuzzy
 msgid "Goto most recent document"
 msgstr "Vai all'ultimo documento"
 
-#: ../src/bfwin_uimanager.c:941
+#: ../src/bfwin_uimanager.c:959
 msgid "_First Document"
 msgstr "Primo _Documento"
 
-#: ../src/bfwin_uimanager.c:941
+#: ../src/bfwin_uimanager.c:959
 msgid "Goto first document"
 msgstr "Vai al primo documento"
 
-#: ../src/bfwin_uimanager.c:943
+#: ../src/bfwin_uimanager.c:961
 msgid "_Last Document"
 msgstr "_Ultimo Documento"
 
-#: ../src/bfwin_uimanager.c:943
+#: ../src/bfwin_uimanager.c:961
 msgid "Goto last document"
 msgstr "Vai all'ultimo documento"
 
-#: ../src/bfwin_uimanager.c:945
+#: ../src/bfwin_uimanager.c:963
 msgid "_Next Document"
 msgstr "Documento Successi_vo"
 
-#: ../src/bfwin_uimanager.c:945
+#: ../src/bfwin_uimanager.c:963
 msgid "Goto next document"
 msgstr "Vai al documento successivo"
 
-#: ../src/bfwin_uimanager.c:947
+#: ../src/bfwin_uimanager.c:965
 msgid "_Previous Document"
 msgstr "Documento _Precedente"
 
-#: ../src/bfwin_uimanager.c:949
-msgid "Goto _Line"
-msgstr "Vai alla _riga"
+#: ../src/bfwin_uimanager.c:967
+#, fuzzy
+msgid "_Goto Line"
+msgstr "Vai alla riga:"
 
-#: ../src/bfwin_uimanager.c:949
+#: ../src/bfwin_uimanager.c:967
 msgid "Goto line"
 msgstr "Vai alla riga"
 
-#: ../src/bfwin_uimanager.c:950
+#: ../src/bfwin_uimanager.c:968
 msgid "Goto Line Number from _Clipboard"
 msgstr "Vai al Numero di Riga dagli _Appunti"
 
-#: ../src/bfwin_uimanager.c:951
+#: ../src/bfwin_uimanager.c:969
 msgid "Goto line number in clipboard or selection"
 msgstr "Vai al numero di riga negli appunti o nella selezione"
 
-#: ../src/bfwin_uimanager.c:952
+#: ../src/bfwin_uimanager.c:970
 msgid "_Jump to Reference"
 msgstr "_Salta al Riferimento"
 
-#: ../src/bfwin_uimanager.c:952
+#: ../src/bfwin_uimanager.c:970
 msgid "Jump to reference"
 msgstr "Salta al riferimento"
 
-#: ../src/bfwin_uimanager.c:957
+#: ../src/bfwin_uimanager.c:975
 msgid "Cu_t"
 msgstr "_Taglia"
 
-#: ../src/bfwin_uimanager.c:957
+#: ../src/bfwin_uimanager.c:975
 msgid "Cut"
 msgstr "Taglia"
 
-#: ../src/bfwin_uimanager.c:958
+#: ../src/bfwin_uimanager.c:976
 msgid "_Copy"
 msgstr "_Copia"
 
-#: ../src/bfwin_uimanager.c:958
+#: ../src/bfwin_uimanager.c:976
 msgid "Copy"
 msgstr "Copia"
 
-#: ../src/bfwin_uimanager.c:959
+#: ../src/bfwin_uimanager.c:977
 msgid "_Paste"
 msgstr "_Incolla"
 
-#: ../src/bfwin_uimanager.c:959
+#: ../src/bfwin_uimanager.c:977
 msgid "Paste"
 msgstr "Incolla"
 
-#: ../src/bfwin_uimanager.c:960
-msgid "Paste _Special"
+#: ../src/bfwin_uimanager.c:978
+msgid "Paste Specia_l"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:960
+#: ../src/bfwin_uimanager.c:978
 msgid "Paste Special"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:964
+#: ../src/bfwin_uimanager.c:982
 msgid "_Find"
 msgstr "Tr_ova"
 
-#: ../src/bfwin_uimanager.c:964
+#: ../src/bfwin_uimanager.c:982
 msgid "Show find bar"
 msgstr "Mostra la barra di ricerca"
 
-#: ../src/bfwin_uimanager.c:965
+#: ../src/bfwin_uimanager.c:983
 msgid "Find A_gain"
 msgstr "Trova Successi_vo"
 
-#: ../src/bfwin_uimanager.c:965
+#: ../src/bfwin_uimanager.c:983
 msgid "Find again"
 msgstr "Trova successivo"
 
-#: ../src/bfwin_uimanager.c:966
+#: ../src/bfwin_uimanager.c:984
 msgid "Find from Clip_board"
 msgstr "Cerca dagli A_ppunti"
 
-#: ../src/bfwin_uimanager.c:966
+#: ../src/bfwin_uimanager.c:984
 msgid "Find from clipboard or selection"
 msgstr "Cerca dagli appunti o dalla selezione"
 
-#: ../src/bfwin_uimanager.c:968
-msgid "Advanced Find & Re_place..."
+#: ../src/bfwin_uimanager.c:986
+#, fuzzy
+msgid "Ad_vanced Find & Replace..."
 msgstr "Trova e _Sostituisci Avanzato..."
 
-#: ../src/bfwin_uimanager.c:968
+#: ../src/bfwin_uimanager.c:986
 msgid "Advanced Find and Replace"
 msgstr "Trova e Sostituisci Avanzato"
 
-#: ../src/bfwin_uimanager.c:975
+#: ../src/bfwin_uimanager.c:993
 msgid "Save & _close"
 msgstr "Salva e _chiudi"
 
-#: ../src/bfwin_uimanager.c:975
+#: ../src/bfwin_uimanager.c:993
 msgid "Save & close project"
 msgstr "Salva e chiudi il progetto"
 
-#: ../src/bfwin_uimanager.c:977
+#: ../src/bfwin_uimanager.c:995
 msgid "Save project"
 msgstr "Salva il progetto"
 
-#: ../src/bfwin_uimanager.c:978
+#: ../src/bfwin_uimanager.c:996
 msgid "Save project as"
 msgstr "Salva il progetto con nome"
 
-#: ../src/bfwin_uimanager.c:979
+#: ../src/bfwin_uimanager.c:997
 msgid "_Edit Project Options..."
 msgstr "Mo_difica le Opzioni del Progetto..."
 
-#: ../src/bfwin_uimanager.c:979
+#: ../src/bfwin_uimanager.c:997
 msgid "Edit project options"
 msgstr "Modifica opzioni del progetto"
 
-#: ../src/bfwin_uimanager.c:984
+#: ../src/bfwin_uimanager.c:1002
 msgid "_Undo"
 msgstr "_Annulla"
 
-#: ../src/bfwin_uimanager.c:984
+#: ../src/bfwin_uimanager.c:1002
 msgid "Undo"
 msgstr "Annulla"
 
-#: ../src/bfwin_uimanager.c:985
+#: ../src/bfwin_uimanager.c:1003
 msgid "U_ndo All"
 msgstr "Annulla T_utto"
 
-#: ../src/bfwin_uimanager.c:985
+#: ../src/bfwin_uimanager.c:1003
 msgid "Undo All"
 msgstr "Annulla Tutto"
 
-#: ../src/bfwin_uimanager.c:986
+#: ../src/bfwin_uimanager.c:1004
 msgid "_Redo"
 msgstr "_Ripeti"
 
-#: ../src/bfwin_uimanager.c:986
+#: ../src/bfwin_uimanager.c:1004
 msgid "Redo"
 msgstr "Ripeti"
 
-#: ../src/bfwin_uimanager.c:987
+#: ../src/bfwin_uimanager.c:1005
 msgid "R_edo All"
 msgstr "Rip_eti Tutto"
 
-#: ../src/bfwin_uimanager.c:987
+#: ../src/bfwin_uimanager.c:1005
 msgid "Redo All"
 msgstr "Ripeti Tutto"
 
-#: ../src/bfwin_uimanager.c:1129
+#: ../src/bfwin_uimanager.c:1147
 msgid "Open _URL..."
 msgstr "Apri _URL..."
 
-#: ../src/bfwin_uimanager.c:1139
-msgid "U_pload / Download..."
+#: ../src/bfwin_uimanager.c:1157
+#, fuzzy
+msgid "Upload _/ Download..."
 msgstr "U_pload / Download..."
 
-#: ../src/bfwin_uimanager.c:1152
+#: ../src/bfwin_uimanager.c:1170
 msgid "_Spell Check"
 msgstr "Controllo _Ortografico"
 
-#: ../src/bfwin_uimanager.c:1525
+#: ../src/bfwin_uimanager.c:1571
 msgid "Text area to filter"
 msgstr "Filtro dall'area di testo"
 
-#: ../src/bfwin_uimanager.c:1526
+#: ../src/bfwin_uimanager.c:1572
 msgid "All text"
 msgstr "Tutto il testo"
 
-#: ../src/bfwin_uimanager.c:1527
+#: ../src/bfwin_uimanager.c:1573
 msgid "Selected text only"
 msgstr "Selezionato solo testo"
+
+#: ../src/bfwin_uimanager.c:1575
+msgid "Never ask again"
+msgstr ""
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -1019,23 +1045,23 @@ msgstr ""
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr "Visitaci su http://bluefish.openoffice.nl"
 
-#: ../src/bluefish.c:268
+#: ../src/bluefish.c:316
 msgid "Open in existing window."
 msgstr "Apri in una finestra già esistente."
 
-#: ../src/bluefish.c:270
+#: ../src/bluefish.c:318
 msgid "Open in new window."
 msgstr "Apri in una nuova finestra."
 
-#: ../src/bluefish.c:272
+#: ../src/bluefish.c:320
 msgid "Print version information."
 msgstr "Stampa informazioni sulla versione."
 
-#: ../src/bluefish.c:294
+#: ../src/bluefish.c:342
 msgid " [FILE(S)]"
 msgstr " [FILE]"
 
-#: ../src/bluefish.c:305
+#: ../src/bluefish.c:353
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
@@ -1044,155 +1070,160 @@ msgstr ""
 "Errore processando le opzioni a riga di comando. %s\n"
 "Prego eseguire: %s -?\n"
 
-#: ../src/bookmark.c:558
+#: ../src/bookmark.c:576 ../src/bookmark.c:597
 msgid "_Name:"
 msgstr "_Nome:"
 
-#: ../src/bookmark.c:562
+#: ../src/bookmark.c:583 ../src/bookmark.c:601
 msgid "_Description:"
 msgstr "_Descrizione:"
 
-#: ../src/bookmark.c:564
+#: ../src/bookmark.c:586
+#, fuzzy
+msgid "_Temporary"
+msgstr "Temporaneo"
+
+#: ../src/bookmark.c:603
 msgid "Temporary"
 msgstr "Temporaneo"
 
-#: ../src/bookmark.c:725
+#: ../src/bookmark.c:767
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Volete veramente cancellare %s?"
 
-#: ../src/bookmark.c:728
+#: ../src/bookmark.c:770
 msgid "Delete permanent bookmark."
 msgstr "Cancella segnalibro permanente"
 
-#: ../src/bookmark.c:754
+#: ../src/bookmark.c:796
 msgid "Delete all bookmarks."
 msgstr "Elimina tutti i segnalibri."
 
-#: ../src/bookmark.c:792
+#: ../src/bookmark.c:834
 #, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "Siete sicuri di voler rimuovere tutti i segnalibri per %s?"
 
-#: ../src/bookmark.c:794
+#: ../src/bookmark.c:836
 msgid "Delete bookmarks?"
 msgstr "Eliminare i segnalibri?"
 
-#: ../src/bookmark.c:815 ../src/bookmark.c:876
+#: ../src/bookmark.c:857 ../src/bookmark.c:918
 msgid "Edit bookmark"
 msgstr "Modifica il segnalibro"
 
-#: ../src/bookmark.c:872
+#: ../src/bookmark.c:914
 msgid "Bookmark menu"
 msgstr "Menu segnalibri"
 
-#: ../src/bookmark.c:873
+#: ../src/bookmark.c:915
 msgid "Show Bookmark"
 msgstr "Visualizza Segnalibro"
 
-#: ../src/bookmark.c:874
+#: ../src/bookmark.c:916
 msgid "Show File"
 msgstr "Mostra file"
 
-#: ../src/bookmark.c:875
+#: ../src/bookmark.c:917
 msgid "Bookmark search menu"
 msgstr "Menu di ricerca nei segnalibri"
 
-#: ../src/bookmark.c:876
+#: ../src/bookmark.c:918
 msgid "_Edit..."
 msgstr "_Modifica..."
 
-#: ../src/bookmark.c:878 ../src/filebrowser2.c:2040
+#: ../src/bookmark.c:920 ../src/filebrowser2.c:2045
 msgid "_Delete"
 msgstr "_Cancella "
 
-#: ../src/bookmark.c:878 ../src/document.c:1921
+#: ../src/bookmark.c:920 ../src/document.c:1914
 msgid "Delete bookmark"
 msgstr "Elimina i segnalibri"
 
-#: ../src/bookmark.c:879
+#: ../src/bookmark.c:921
 msgid "Delete All"
 msgstr "Cancella Tutto"
 
-#: ../src/bookmark.c:879
+#: ../src/bookmark.c:921
 msgid "Delete all bookmarks"
 msgstr "Elimina tutti i segnalibri"
 
-#: ../src/bookmark.c:881
+#: ../src/bookmark.c:923
 msgid "Delete All in Document"
 msgstr "Elimina Tutto nel Documento"
 
-#: ../src/bookmark.c:881
+#: ../src/bookmark.c:924
 msgid "Delete all bookmarks in document"
 msgstr "Elimina tutto i segnalibri nel documento"
 
-#: ../src/bookmark.c:886
+#: ../src/bookmark.c:929
 msgid "Permanent by default"
 msgstr "Permanente predefinito"
 
-#: ../src/bookmark.c:891
+#: ../src/bookmark.c:934
 msgid "By Name"
 msgstr "Da Nome"
 
-#: ../src/bookmark.c:892
+#: ../src/bookmark.c:935
 msgid "By Full Path"
 msgstr "Da Percorso Completo"
 
-#: ../src/bookmark.c:893
+#: ../src/bookmark.c:936
 msgid "By Full URI"
 msgstr "Da URI completo"
 
-#: ../src/bookmark.c:897 ../src/bookmark.c:903
+#: ../src/bookmark.c:940 ../src/bookmark.c:946
 msgid "Content"
 msgstr "Contenuto"
 
-#: ../src/bookmark.c:898 ../src/bookmark.c:904 ../src/preferences.c:602
+#: ../src/bookmark.c:941 ../src/bookmark.c:947 ../src/preferences.c:602
 #: ../src/preferences.c:1368 ../src/preferences.c:1370
 #: ../src/preferences.c:1472
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/bookmark.c:899 ../src/bookmark.c:905
+#: ../src/bookmark.c:942 ../src/bookmark.c:948
 msgid "Name & Content"
 msgstr "Nome e Contenuto"
 
-#: ../src/bookmark.c:1230
+#: ../src/bookmark.c:1280
 msgid "First bookmark"
 msgstr "Primo segnalibro"
 
-#: ../src/bookmark.c:1234
+#: ../src/bookmark.c:1284
 msgid "Previous bookmark"
 msgstr "Segnalibro precedente"
 
-#: ../src/bookmark.c:1238
+#: ../src/bookmark.c:1288
 msgid "Next bookmark"
 msgstr "Segnalibro successivo"
 
-#: ../src/bookmark.c:1242
+#: ../src/bookmark.c:1292
 msgid "Last bookmark"
 msgstr "Ultimo segnalibro"
 
-#: ../src/bookmark.c:1944 ../src/bookmark.c:2091
+#: ../src/bookmark.c:2000 ../src/bookmark.c:2147
 msgid "Error adding bookmark"
 msgstr "Errore nell'aggiunta del segnalibro"
 
-#: ../src/bookmark.c:1944 ../src/bookmark.c:2091
+#: ../src/bookmark.c:2000 ../src/bookmark.c:2147
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Impossibile aggiungere segnalibri a un file non salvato."
 
-#: ../src/bookmark.c:2025
+#: ../src/bookmark.c:2081
 msgid "Can't add bookmark"
 msgstr "Impossibile aggiungere il segnalibro"
 
-#: ../src/bookmark.c:2025
+#: ../src/bookmark.c:2081
 msgid "You already have a bookmark here!"
 msgstr "Avete già una segnalibro qui!"
 
-#: ../src/document.c:411
+#: ../src/document.c:395
 msgid "Name: "
 msgstr "Nome:"
 
-#: ../src/document.c:414
+#: ../src/document.c:398
 msgid ""
 "\n"
 "Language mode: "
@@ -1200,7 +1231,7 @@ msgstr ""
 "\n"
 "Modalità linguaggio:"
 
-#: ../src/document.c:418
+#: ../src/document.c:402
 msgid ""
 "\n"
 "Encoding: "
@@ -1208,7 +1239,7 @@ msgstr ""
 "\n"
 "Codifica: "
 
-#: ../src/document.c:430
+#: ../src/document.c:414
 msgid ""
 "\n"
 "Mime type: "
@@ -1216,7 +1247,7 @@ msgstr ""
 "\n"
 "Mime type: "
 
-#: ../src/document.c:438
+#: ../src/document.c:422
 #, c-format
 msgid ""
 "\n"
@@ -1227,7 +1258,7 @@ msgstr ""
 "Permessi: %s\n"
 "Uid: %u Gid: %u"
 
-#: ../src/document.c:455
+#: ../src/document.c:439
 msgid ""
 "\n"
 "Size (on disk): "
@@ -1235,7 +1266,7 @@ msgstr ""
 "\n"
 "Dimensione (sul disco): "
 
-#: ../src/document.c:464
+#: ../src/document.c:448
 msgid ""
 "\n"
 "Last modified: "
@@ -1243,96 +1274,100 @@ msgstr ""
 "\n"
 "Modificato l'ultima volta: "
 
-#: ../src/document.c:502
+#: ../src/document.c:486
 #, c-format
 msgid "Untitled %d"
 msgstr "Senza nome %d"
 
-#: ../src/document.c:687
+#: ../src/document.c:667
 #, c-format
 msgid "Changed tab width to %d"
 msgstr "Larghezza del tab modificata in %d"
 
-#: ../src/document.c:861
+#: ../src/document.c:841
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "Il documento %s è già aperto in un altra finestra di Bluefish."
 
-#: ../src/document.c:863
+#: ../src/document.c:843
 msgid "Move to this window"
 msgstr "Sposta in questa finestra"
 
-#: ../src/document.c:863
+#: ../src/document.c:843
 msgid "Open readonly"
 msgstr "Apri in sola lettura"
 
-#: ../src/document.c:864
+#: ../src/document.c:844
 msgid "Do not open"
 msgstr "Non aprire"
 
-#: ../src/document.c:1176
+#: ../src/document.c:1156
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " Ln: %d, Col: %d, Car: %d"
 
-#: ../src/document.c:1179
+#: ../src/document.c:1159
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " Ln: %d, Col: %d"
 
-#: ../src/document.c:1202
+#: ../src/document.c:1182
 msgid " OVR"
 msgstr " SVR"
 
-#: ../src/document.c:1202
+#: ../src/document.c:1182
 msgid " INS"
 msgstr " INS"
 
-#: ../src/document.c:1204
+#: ../src/document.c:1184
 msgid " RO"
 msgstr " SL"
 
-#: ../src/document.c:1223
+#: ../src/document.c:1203
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-#: ../src/document.c:1674
+#: ../src/document.c:1654
 #, fuzzy
 msgid "_No"
 msgstr "V_ai"
 
-#: ../src/document.c:1674
+#: ../src/document.c:1654
 msgid "_Split"
 msgstr ""
 
-#: ../src/document.c:1677
+#: ../src/document.c:1657
 msgid "File contains very long lines. Split these lines?"
 msgstr ""
 
-#: ../src/document.c:1677
-msgid "The lines in this file are longer than Bluefish can handle."
+#: ../src/document.c:1657
+msgid ""
+"The lines in this file are longer than Bluefish can handle with reasonable "
+"performance. This split function, however, is unaware of any language "
+"syntax, and may replace spaces or tabs with newlines in any location, or "
+"insert newlines if no spaces or tabs are found."
 msgstr ""
 
-#: ../src/document.c:1740
+#: ../src/document.c:1733
 msgid "Cannot display file, unknown characters found."
 msgstr "Impossibile mostrare il file, trovati caratteri sconosciuti."
 
-#: ../src/document.c:1931
+#: ../src/document.c:1924
 msgid "Exit fullscreen"
 msgstr "Esci da schermo intero"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2075 ../src/file_dialogs.c:462 ../src/file_dialogs.c:500
+#: ../src/document.c:2068 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "Interrompi s_alvataggio"
 
-#: ../src/document.c:2075
+#: ../src/document.c:2068
 msgid "_Continue save in UTF-8"
 msgstr "_Continua il salvataggio in UTF-8"
 
-#: ../src/document.c:2088
+#: ../src/document.c:2081
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1345,15 +1380,15 @@ msgstr ""
 "\n"
 "Continuare a salvare codificato UTF-8?"
 
-#: ../src/document.c:2093
+#: ../src/document.c:2086
 msgid "File encoding conversion failure"
 msgstr "Conversione della codifica del file fallita"
 
-#: ../src/document.c:2250
+#: ../src/document.c:2243
 msgid "Previously: "
 msgstr "Precedentemente: "
 
-#: ../src/document.c:2735 ../src/file_dialogs.c:812
+#: ../src/document.c:2752 ../src/file_dialogs.c:844
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1362,11 +1397,11 @@ msgstr ""
 "La vostra versione di glib (%d.%d.%d) è inaffidabile con i file remoti. "
 "Prego aggiornare alla versione 2.18.0 o successiva."
 
-#: ../src/document.c:2864
+#: ../src/document.c:2881
 msgid "Unable to open file"
 msgstr "Impossibile aprire il file"
 
-#: ../src/document.c:2876
+#: ../src/document.c:2893
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1375,89 +1410,89 @@ msgstr ""
 "Se ripristinate \"%s\" all'ultima copia salvata, le modifiche in corso "
 "saranno definitivamente perse."
 
-#: ../src/document.c:2880
+#: ../src/document.c:2897
 msgid "Revert changes to last saved copy?"
 msgstr "Ripristinare all'ultima copia salvata?"
 
-#: ../src/document.c:2948
+#: ../src/document.c:2965
 msgid "_Retry"
 msgstr "_Riprova"
 
-#: ../src/document.c:2948
+#: ../src/document.c:2965
 msgid "Retry _all failed"
 msgstr "Riprova _tutti i falliti"
 
-#: ../src/document.c:2948
+#: ../src/document.c:2965
 msgid "Close all _failed"
 msgstr "Chiudi tutti i falliti"
 
-#: ../src/document.c:2953
+#: ../src/document.c:2970
 msgid "File "
 msgstr "File"
 
-#: ../src/document.c:2953
+#: ../src/document.c:2970
 msgid " failed to load."
 msgstr " caricamento fallito."
 
-#: ../src/document.c:2957
+#: ../src/document.c:2974
 msgid "File failed to load\n"
 msgstr "Caricamento del file fallito\n"
 
-#: ../src/document.c:3082
+#: ../src/document.c:3099
 msgid "Select file to insert"
 msgstr "Seleziona il file da inserire"
 
-#: ../src/document.c:3091
+#: ../src/document.c:3108
 msgid "No file to insert"
 msgstr "Nessun file da inserire"
 
-#: ../src/document.c:3171
+#: ../src/document.c:3188
 #, fuzzy
 msgid "Save pasted image as"
 msgstr "Salva il file con nome"
 
-#: ../src/document.c:3278
+#: ../src/document.c:3295
 msgid "Paste special"
 msgstr ""
 
-#: ../src/document.c:3285
+#: ../src/document.c:3302
 msgid "Paste as _HTML"
 msgstr ""
 
-#: ../src/document.c:3289
+#: ../src/document.c:3306
 msgid "Paste as HTML with _JPG"
 msgstr ""
 
-#: ../src/document.c:3291
+#: ../src/document.c:3308
 msgid "Paste as HTML _PNG"
 msgstr ""
 
-#: ../src/document.c:3371
+#: ../src/document.c:3388
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d linea"
 msgstr[1] "%d linee"
 
-#: ../src/document.c:3372
+#: ../src/document.c:3389
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d parola"
 msgstr[1] "%d parole"
 
-#: ../src/document.c:3373
+#: ../src/document.c:3390
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d carattere"
 msgstr[1] "%d caratteri"
 
-#: ../src/document.c:3375
+#: ../src/document.c:3392
 msgid "Selection statistics: "
 msgstr "Statistiche della selezione: "
 
-#: ../src/document.c:3375
+#: ../src/document.c:3392
 msgid "Statistics: "
 msgstr "Statistiche: "
 
@@ -1481,25 +1516,70 @@ msgstr "Separatore di colonna:"
 msgid "Fill empty entries:"
 msgstr "Riempi le voci vuote:"
 
-#: ../src/doc_extern_tools.c:49
-msgid "Number of paragraphs"
+#: ../src/doc_extern_tools.c:63
+#, fuzzy
+msgid "Number of _paragraphs:"
 msgstr "Numero di paragrafi"
 
-#: ../src/doc_extern_tools.c:51
-msgid "Number of sentences"
+#: ../src/doc_extern_tools.c:68
+#, fuzzy
+msgid "Number of _sentences:"
 msgstr "Numero di frasi"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert plain text"
 msgstr "Inserisci testo semplice"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert in <li>"
 msgstr "Inserisci in <li>"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert in <p>"
 msgstr "Inserisci in <p>"
+
+#: ../src/doc_extern_tools.c:81
+msgid "Number of paragraphs"
+msgstr "Numero di paragrafi"
+
+#: ../src/doc_extern_tools.c:84
+msgid "Number of sentences"
+msgstr "Numero di frasi"
+
+#: ../src/doc_extern_tools.c:134
+msgid "Javascript Beautify"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:148
+#, fuzzy
+msgid "_Indent size:"
+msgstr "Spostamento a destra"
+
+#: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
+msgid "Use _tabs to indent, not spaces"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
+msgid "Do not _preserve existing line breaks"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
+msgid "More _jslint-compatible output"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
+msgid "_Decode printable chars encoded in \\\\xNN notation"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
+#, fuzzy
+msgid "Beautify only in _selection"
+msgstr "Il tasto _Tab indenta la selezione"
+
+#: ../src/doc_extern_tools.c:179
+#, fuzzy
+msgid "_Indent size"
+msgstr "Spostamento a destra"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1521,14 +1601,36 @@ msgstr "Codifiche nel _menu: "
 msgid "Add or remove document encodings"
 msgstr "Aggiungi o rimuovi codifiche documenti"
 
-#: ../src/external_commands.c:405
+#: ../src/external_commands.c:167
+#, c-format
+msgid "The command %s exited with error code %d. %s"
+msgstr ""
+
+#: ../src/external_commands.c:167
+msgid "Probably this application is not installed on your system."
+msgstr ""
+
+#: ../src/external_commands.c:169
+msgid "Command returned error code"
+msgstr ""
+
+#: ../src/external_commands.c:419
 msgid "Supply extra arguments"
 msgstr "Fornisci argomenti aggiuntivi"
 
-#: ../src/external_commands.c:410
+#: ../src/external_commands.c:424
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr "Fornisci argomenti per definire%%a in '%s'"
+
+#: ../src/external_commands.c:673
+#, c-format
+msgid "Failed to create a command for %s."
+msgstr ""
+
+#: ../src/external_commands.c:675
+msgid "Failed to create a command"
+msgstr ""
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -1552,11 +1654,16 @@ msgstr "Documentroot"
 msgid "Webroot"
 msgstr "Webroot"
 
-#: ../src/filebrowser2.c:1549
+#: ../src/filebrowser2.c:1539 ../src/file_dialogs.c:789
+#, c-format
+msgid "Move/rename %s to"
+msgstr "Muovi/rinomina %s in"
+
+#: ../src/filebrowser2.c:1550
 msgid "Could not rename\n"
 msgstr "Impossibile rinominare\n"
 
-#: ../src/filebrowser2.c:1622 ../src/filebrowser2.c:2042
+#: ../src/filebrowser2.c:1623 ../src/filebrowser2.c:2047
 msgid "New directory"
 msgstr "Nuova cartella"
 
@@ -1568,7 +1675,7 @@ msgstr "Nuova cartella"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1739
+#: ../src/filebrowser2.c:1742
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -1577,144 +1684,144 @@ msgstr ""
 "Sicuri di voler cancellare\n"
 "\"%s\"?"
 
-#: ../src/filebrowser2.c:1740
+#: ../src/filebrowser2.c:1743
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "Se eliminate %s, verrà definitivamente perso."
 
-#: ../src/filebrowser2.c:2035
+#: ../src/filebrowser2.c:2040
 msgid "File Browser menu"
 msgstr "Menu del browser dei file"
 
-#: ../src/filebrowser2.c:2036
+#: ../src/filebrowser2.c:2041
 msgid "_Open"
 msgstr "_Apri file "
 
-#: ../src/filebrowser2.c:2036
+#: ../src/filebrowser2.c:2041
 msgid "Open"
 msgstr "Apri "
 
-#: ../src/filebrowser2.c:2037
+#: ../src/filebrowser2.c:2042
 msgid "Open _Advanced..."
 msgstr "Apri Avan_zato..."
 
-#: ../src/filebrowser2.c:2039
+#: ../src/filebrowser2.c:2044
 msgid "Rena_me"
 msgstr "Rino_mina"
 
-#: ../src/filebrowser2.c:2039
+#: ../src/filebrowser2.c:2044
 msgid "Rename"
 msgstr "Rinomina"
 
-#: ../src/filebrowser2.c:2040
+#: ../src/filebrowser2.c:2045
 msgid "Delete"
 msgstr "Cancella"
 
-#: ../src/filebrowser2.c:2041
+#: ../src/filebrowser2.c:2046
 msgid "New _File"
 msgstr "_Nuovo File"
 
-#: ../src/filebrowser2.c:2042
+#: ../src/filebrowser2.c:2047
 msgid "_New Directory"
 msgstr "Nuova _Cartella"
 
-#: ../src/filebrowser2.c:2044
+#: ../src/filebrowser2.c:2049
 msgid "_Refresh"
 msgstr "A_ggiorna"
 
-#: ../src/filebrowser2.c:2044
+#: ../src/filebrowser2.c:2049
 msgid "Refresh"
 msgstr "Aggiorna"
 
-#: ../src/filebrowser2.c:2045
+#: ../src/filebrowser2.c:2050
 msgid "_Set as base dir"
 msgstr "_Imposta come cartella base"
 
-#: ../src/filebrowser2.c:2045
+#: ../src/filebrowser2.c:2050
 msgid "Set as base directory"
 msgstr "Imposta come cartella base"
 
-#: ../src/filebrowser2.c:2047
+#: ../src/filebrowser2.c:2052
 msgid "Set as document root"
 msgstr "Imposta come documentroot"
 
-#: ../src/filebrowser2.c:2049
+#: ../src/filebrowser2.c:2054
 msgid "Show Full _Tree"
 msgstr "Mostra tutto l'albero"
 
-#: ../src/filebrowser2.c:2049
+#: ../src/filebrowser2.c:2054
 msgid "Show full tree"
 msgstr "Mostra tutto l'albero"
 
-#: ../src/filebrowser2.c:2051
+#: ../src/filebrowser2.c:2056
 msgid "View Mode"
 msgstr "Modalità di Visualizzazione"
 
-#: ../src/filebrowser2.c:2052
+#: ../src/filebrowser2.c:2057
 msgid "Filter"
 msgstr "Filtro"
 
-#: ../src/filebrowser2.c:2053
+#: ../src/filebrowser2.c:2058
 msgid "New Filter"
 msgstr "Nuovo Filtro"
 
-#: ../src/filebrowser2.c:2053 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:2058 ../src/filefilter.c:534
 msgid "New filter"
 msgstr "Nuovo filtro"
 
-#: ../src/filebrowser2.c:2054
+#: ../src/filebrowser2.c:2059
 msgid "Edit Filter"
 msgstr "Modifica il Filtro"
 
-#: ../src/filebrowser2.c:2054 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:2059 ../src/filefilter.c:540
 msgid "Edit filter"
 msgstr "Modifica il filtro"
 
-#: ../src/filebrowser2.c:2055
+#: ../src/filebrowser2.c:2060
 msgid "Delete Filter"
 msgstr "Cancella il Fitro"
 
-#: ../src/filebrowser2.c:2055
+#: ../src/filebrowser2.c:2060
 msgid "Delete filter"
 msgstr "Cancella il fitro"
 
-#: ../src/filebrowser2.c:2059
+#: ../src/filebrowser2.c:2064
 msgid "Follow Active Document"
 msgstr "Segui il Documento Attivo"
 
-#: ../src/filebrowser2.c:2059
+#: ../src/filebrowser2.c:2064
 msgid "Follow active document"
 msgstr "Segui il documento attivo"
 
-#: ../src/filebrowser2.c:2061
+#: ../src/filebrowser2.c:2066
 msgid "Show Backup Files"
 msgstr "Mostra File di Backup"
 
-#: ../src/filebrowser2.c:2061 ../src/gtk_easy.c:1288
+#: ../src/filebrowser2.c:2066 ../src/gtk_easy.c:1329
 msgid "Show backup files"
 msgstr "Mostra file di backup"
 
-#: ../src/filebrowser2.c:2063
+#: ../src/filebrowser2.c:2068
 msgid "Show Hidden Files"
 msgstr "Mostra File Nascosti"
 
-#: ../src/filebrowser2.c:2063
+#: ../src/filebrowser2.c:2068
 msgid "Show hidden files"
 msgstr "Mostra file nascosti"
 
-#: ../src/filebrowser2.c:2068
+#: ../src/filebrowser2.c:2073
 msgid "Dual"
 msgstr "Doppia"
 
-#: ../src/filebrowser2.c:2069
+#: ../src/filebrowser2.c:2074
 msgid "Flat"
 msgstr "Uniforme"
 
-#: ../src/filebrowser2.c:2070
+#: ../src/filebrowser2.c:2075
 msgid "Tree"
 msgstr "Albero"
 
-#: ../src/filebrowser2.c:2734
+#: ../src/filebrowser2.c:2742
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1725,37 +1832,37 @@ msgstr ""
 "che è l'equivalente di\n"
 "<b>%s%s</b>"
 
-#: ../src/file.c:827
+#: ../src/file.c:830
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "Caricamento in corso di %d file, %s completato"
 msgstr[1] "Caricamento in corso di %d file, %s completato"
 
-#: ../src/file.c:832
+#: ../src/file.c:835
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "Tutti i file caricati, %s completato"
 
-#: ../src/file.c:1340
+#: ../src/file.c:1347
 msgid "Finished advanced open"
 msgstr "Apertura avanzata conclusa"
 
-#: ../src/file.c:1514
+#: ../src/file.c:1521
 msgid "_Skip"
 msgstr "_Salta"
 
-#: ../src/file.c:1514 ../src/file_dialogs.c:637 ../src/file_dialogs.c:658
+#: ../src/file.c:1521 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
 #: ../src/project.c:309
 msgid "_Overwrite"
 msgstr "S_ovrascrivi"
 
-#: ../src/file.c:1518
+#: ../src/file.c:1525
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s non può essere copiato, esiste già, sovrascrivere?"
 
-#: ../src/file.c:1520
+#: ../src/file.c:1527
 msgid "Overwrite file?"
 msgstr "Sovrascrivere il file?"
 
@@ -1763,63 +1870,63 @@ msgstr "Sovrascrivere il file?"
 msgid "Autosave in progress..."
 msgstr "Salvataggio automatico in corso..."
 
-#: ../src/file_dialogs.c:108
+#: ../src/file_dialogs.c:109
 msgid "Started open advanced..."
 msgstr "Apertura avanzata avviata..."
 
-#: ../src/file_dialogs.c:119
+#: ../src/file_dialogs.c:120
 msgid "Select basedir"
 msgstr "Seleziona la cartella base"
 
-#: ../src/file_dialogs.c:141
+#: ../src/file_dialogs.c:142
 msgid "Advanced open file selector"
 msgstr "Selettore apertura file avanzato"
 
-#: ../src/file_dialogs.c:158
+#: ../src/file_dialogs.c:159
 msgid "<b>Files</b>"
 msgstr "<b>File</b>"
 
-#: ../src/file_dialogs.c:167
+#: ../src/file_dialogs.c:168
 msgid "Base _Dir:"
 msgstr "_Cartella Base"
 
-#: ../src/file_dialogs.c:183
+#: ../src/file_dialogs.c:184
 msgid "_Pattern:"
 msgstr "Mode_llo:"
 
-#: ../src/file_dialogs.c:191
+#: ../src/file_dialogs.c:192
 msgid "Pattern matches _full path:"
 msgstr "Percorso completo dei modelli di ricerca:"
 
-#: ../src/file_dialogs.c:195
+#: ../src/file_dialogs.c:196
 msgid "_Recursive:"
 msgstr "_Ricorsivo:"
 
-#: ../src/file_dialogs.c:199
+#: ../src/file_dialogs.c:200
 msgid "Ma_x recursion:"
 msgstr "Ma_ssima ricorsione:"
 
-#: ../src/file_dialogs.c:208
+#: ../src/file_dialogs.c:209
 msgid "<b>Contains</b>"
 msgstr "<b>Contiene</b>"
 
-#: ../src/file_dialogs.c:213
+#: ../src/file_dialogs.c:214
 msgid "Pa_ttern:"
 msgstr "Mode_llo:"
 
-#: ../src/file_dialogs.c:217
+#: ../src/file_dialogs.c:218
 msgid "Is rege_x:"
 msgstr "È un'e_spressione regolare:"
 
-#: ../src/file_dialogs.c:286 ../src/file_dialogs.c:306
+#: ../src/file_dialogs.c:287 ../src/file_dialogs.c:307
 msgid "Select files"
 msgstr "Seleziona i file"
 
-#: ../src/file_dialogs.c:366
+#: ../src/file_dialogs.c:367
 msgid "Open URL"
 msgstr "Apri URL"
 
-#: ../src/file_dialogs.c:376 ../src/file_dialogs.c:1334
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1365
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -1830,11 +1937,11 @@ msgstr ""
 "(smb, ftp, sftp, webdav ecc.). Prego aggiornare alla versione di glib 2.18.0 "
 "o successiva se fare affidamento sul sostegno di file remoti.</b>"
 
-#: ../src/file_dialogs.c:462 ../src/file_dialogs.c:500
+#: ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Continue save"
 msgstr "_Continua il salvataggio"
 
-#: ../src/file_dialogs.c:466
+#: ../src/file_dialogs.c:468
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -1843,52 +1950,42 @@ msgstr ""
 "Impossibile creare un file di backup per il file %s. Se continuate, il file "
 "sarà sovrascritto."
 
-#: ../src/file_dialogs.c:470
+#: ../src/file_dialogs.c:472
 msgid "File backup failure"
 msgstr "Backup del file fallito"
 
-#: ../src/file_dialogs.c:486
+#: ../src/file_dialogs.c:488
 msgid "Could not save file "
 msgstr "Impossibile salvare il file"
 
-#: ../src/file_dialogs.c:521 ../src/file_dialogs.c:1469
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1500
 msgid "File changed on disk\n"
 msgstr "File modificato sul disco\n"
 
-#: ../src/file_dialogs.c:610
-#, c-format
-msgid "Move/rename %s to"
-msgstr "Muovi/rinomina %s in"
-
-#: ../src/file_dialogs.c:610
-#, c-format
-msgid "Save %s as"
-msgstr "Salva %s come"
-
-#: ../src/file_dialogs.c:637 ../src/file_dialogs.c:658
-#: ../src/file_dialogs.c:956 ../src/project.c:309
+#: ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/file_dialogs.c:987 ../src/project.c:309
 msgid "_Cancel"
 msgstr "_Annulla"
 
-#: ../src/file_dialogs.c:638
+#: ../src/file_dialogs.c:639
 #, c-format
 msgid "File %s exists and is open, overwrite?"
 msgstr "Il file %s esite ed è aperto, sovrascrivere?"
 
-#: ../src/file_dialogs.c:641
+#: ../src/file_dialogs.c:642
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Il file selezionato è usato da Bluefish."
 
-#: ../src/file_dialogs.c:659 ../src/project.c:311
+#: ../src/file_dialogs.c:660 ../src/project.c:311
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Un file di nome \"%s\" esiste già."
 
-#: ../src/file_dialogs.c:662 ../src/project.c:315
+#: ../src/file_dialogs.c:663 ../src/project.c:315
 msgid "Do you want to replace the existing file?"
 msgstr "Volete sustituire il file esistente?"
 
-#: ../src/file_dialogs.c:758
+#: ../src/file_dialogs.c:769
 msgid ""
 "File:\n"
 "\""
@@ -1896,88 +1993,103 @@ msgstr ""
 "File:\n"
 "\""
 
-#: ../src/file_dialogs.c:759
+#: ../src/file_dialogs.c:770
 msgid "\" save is in progress"
 msgstr "\" salvataggio in corso"
 
-#: ../src/file_dialogs.c:761
+#: ../src/file_dialogs.c:772
 msgid "Save in progress!"
 msgstr "Salvataggio in corso!"
 
-#: ../src/file_dialogs.c:942
+#: ../src/file_dialogs.c:785
+#, fuzzy
+msgid "Save"
+msgstr "_Salva"
+
+#: ../src/file_dialogs.c:787
+#, c-format
+msgid "Save %s as"
+msgstr "Salva %s come"
+
+#: ../src/file_dialogs.c:791
+#, fuzzy, c-format
+msgid "Save copy of %s"
+msgstr "Salva il progetto con nome"
+
+#: ../src/file_dialogs.c:973
 msgid "Close _Without Saving"
 msgstr "Chiudi _Senza Salvare"
 
-#: ../src/file_dialogs.c:945
+#: ../src/file_dialogs.c:976
 #, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr "Salvare i cambiamenti a \"%s\" prima di chiudere?"
 
-#: ../src/file_dialogs.c:948 ../src/file_dialogs.c:960
+#: ../src/file_dialogs.c:979 ../src/file_dialogs.c:991
 msgid "If you don't save your changes they will be lost."
 msgstr "Se non salvate le modifiche andranno perse."
 
-#: ../src/file_dialogs.c:956
+#: ../src/file_dialogs.c:987
 msgid "Choose per _File"
 msgstr "Scegli per ogni _file"
 
-#: ../src/file_dialogs.c:956
+#: ../src/file_dialogs.c:987
 msgid "Close _All"
 msgstr "Ch_iudi Tutto"
 
-#: ../src/file_dialogs.c:956
+#: ../src/file_dialogs.c:987
 msgid "_Save All"
 msgstr "_Salva Tutto"
 
-#: ../src/file_dialogs.c:959
+#: ../src/file_dialogs.c:990
 msgid "One or more open files have been changed."
 msgstr "Uno o più file sono stati modificati."
 
-#: ../src/file_dialogs.c:1254
+#: ../src/file_dialogs.c:1285
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">%d fallito</span>"
 msgstr[1] "<span color=\"red\">%d falliti</span>"
 
-#: ../src/file_dialogs.c:1263
+#: ../src/file_dialogs.c:1294
 msgid "incomplete finished"
 msgstr "incompleto"
 
-#: ../src/file_dialogs.c:1265
+#: ../src/file_dialogs.c:1296
 msgid "completed"
 msgstr "completato"
 
-#: ../src/file_dialogs.c:1320
+#: ../src/file_dialogs.c:1351
 msgid "Upload / Download"
 msgstr "Upload / Download"
 
-#: ../src/file_dialogs.c:1323
+#: ../src/file_dialogs.c:1354
 msgid "Upload"
 msgstr "Upload"
 
-#: ../src/file_dialogs.c:1323
+#: ../src/file_dialogs.c:1354
 msgid "Download"
 msgstr "Download"
 
-#: ../src/file_dialogs.c:1346
+#: ../src/file_dialogs.c:1377
 msgid "Local directory"
 msgstr "Cartella locale"
 
-#: ../src/file_dialogs.c:1352
+#: ../src/file_dialogs.c:1383
 msgid "Remote directory"
 msgstr "Cartella remota"
 
-#: ../src/file_dialogs.c:1357
+#: ../src/file_dialogs.c:1388
 msgid "Delete deprecated files"
 msgstr "Elimina i file deprecati"
 
-#: ../src/file_dialogs.c:1361
+#: ../src/file_dialogs.c:1392
 msgid "Include hidden files"
 msgstr "Includi file nascosti"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1405
+#: ../src/file_dialogs.c:1436
 #, fuzzy, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -1994,34 +2106,34 @@ msgstr ""
 "La dimensione originale era %lu\n"
 "La nuova dimensione è %lu"
 
-#: ../src/file_dialogs.c:1428
+#: ../src/file_dialogs.c:1459
 msgid "_Unset file name"
 msgstr "_Annulla il nome del file"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1430
+#: ../src/file_dialogs.c:1461
 #, c-format
 msgid "File name: %s"
 msgstr "Nome file: %s"
 
-#: ../src/file_dialogs.c:1433
+#: ../src/file_dialogs.c:1464
 msgid "File disappeared from disk\n"
 msgstr "File scomparso dal disco\n"
 
-#: ../src/file_dialogs.c:1452
+#: ../src/file_dialogs.c:1483
 msgid "_Ignore"
 msgstr "_Ignora"
 
-#: ../src/file_dialogs.c:1452
+#: ../src/file_dialogs.c:1483
 msgid "_Reload"
 msgstr "_Ricarica"
 
-#: ../src/file_dialogs.c:1452
+#: ../src/file_dialogs.c:1483
 msgid "Check and reload all documents"
 msgstr "Verifica e ricarica tutti i documenti"
 
 #. build a list of filters
-#: ../src/filefilter.c:241 ../src/gtk_easy.c:1299 ../src/preferences.c:2090
+#: ../src/filefilter.c:241 ../src/gtk_easy.c:1340 ../src/preferences.c:2090
 msgid "All files"
 msgstr "Tutti i file"
 
@@ -2041,28 +2153,28 @@ msgstr "Mime type"
 msgid "Icon"
 msgstr "Icona"
 
-#: ../src/gtk_easy.c:928
+#: ../src/gtk_easy.c:965
 #, c-format
 msgid "%d of %d"
 msgstr "%d di %d"
 
-#: ../src/gtk_easy.c:1009
+#: ../src/gtk_easy.c:1046
 msgid "Select File"
 msgstr "Seleziona il file"
 
-#: ../src/gtk_easy.c:1349
+#: ../src/gtk_easy.c:1390
 msgid "Character _Encoding:"
 msgstr "_Codifica caratteri:"
 
-#: ../src/gtk_easy.c:1369
+#: ../src/gtk_easy.c:1410
 msgid "Automatic detection"
 msgstr "Rilevamento automatico"
 
-#: ../src/gtk_easy.c:1454
+#: ../src/gtk_easy.c:1495
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>Scelta battitura</b>"
 
-#: ../src/gtk_easy.c:1462
+#: ../src/gtk_easy.c:1503
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2074,7 +2186,7 @@ msgstr ""
 "Utilizzare Ctrl, Maiuscolo, Alt con qualsiasi altro tasto.\n"
 "<i>Esc per annullare, Canc per rimuovere.</i>"
 
-#: ../src/gtk_easy.c:1487
+#: ../src/gtk_easy.c:1528
 msgid "Press shortcut key combination"
 msgstr "Premere la combinazione di tasti di scelta rapida"
 
@@ -2090,7 +2202,7 @@ msgstr "Riga"
 msgid "Output"
 msgstr "Output"
 
-#: ../src/outputbox.c:473
+#: ../src/outputbox.c:478
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "Compilazione del modello di output %s fallito: %s"
@@ -2111,7 +2223,7 @@ msgstr "Nulla"
 msgid "_Template:"
 msgstr "M_odelli:"
 
-#: ../src/preferences.c:523 ../src/snr3.c:1552
+#: ../src/preferences.c:523 ../src/snr3.c:1578
 msgid "<b>Options</b>"
 msgstr "<b>Opzioni</b>"
 
@@ -2143,7 +2255,7 @@ msgstr "Visualizza _numeri di riga"
 msgid "Show _right margin indicator"
 msgstr "Mostra l'indicatore margine destro"
 
-#: ../src/preferences.c:543 ../src/preferences.c:2152
+#: ../src/preferences.c:543 ../src/preferences.c:2153
 msgid "Smart auto indentin_g"
 msgstr "Auto indentazione intelli_gente"
 
@@ -2201,19 +2313,19 @@ msgstr ""
 msgid "Label"
 msgstr "Etichetta"
 
-#: ../src/preferences.c:837 ../src/preferences.c:2257
+#: ../src/preferences.c:837 ../src/preferences.c:2260
 msgid "Foreground color"
 msgstr "Colore primo piano"
 
-#: ../src/preferences.c:838 ../src/preferences.c:2258
+#: ../src/preferences.c:838 ../src/preferences.c:2261
 msgid "_Foreground color:"
 msgstr "Colore _primo piano:"
 
-#: ../src/preferences.c:839 ../src/preferences.c:2261
+#: ../src/preferences.c:839 ../src/preferences.c:2264
 msgid "Background color"
 msgstr "Colore sfondo"
 
-#: ../src/preferences.c:840 ../src/preferences.c:2262
+#: ../src/preferences.c:840 ../src/preferences.c:2265
 msgid "_Background color:"
 msgstr "Colore _sfondo:"
 
@@ -2415,7 +2527,7 @@ msgstr "Evidenzia il nome"
 msgid "Textstyle"
 msgstr "Stile del testo"
 
-#: ../src/preferences.c:1832 ../src/preferences.c:2474
+#: ../src/preferences.c:1832 ../src/preferences.c:2477
 msgid "Auto"
 msgstr "Auto"
 
@@ -2471,7 +2583,7 @@ msgstr "cima"
 msgid "bottom"
 msgstr "fondo"
 
-#: ../src/preferences.c:2090
+#: ../src/preferences.c:2090 ../src/preferences.c:2096
 msgid "Never"
 msgstr "Mai"
 
@@ -2495,436 +2607,444 @@ msgstr "Tutti i finali"
 msgid "All except non-trailing spaces"
 msgstr "Tutti tranne gli spazi non finali"
 
-#: ../src/preferences.c:2106
+#: ../src/preferences.c:2096
+msgid "Always"
+msgstr ""
+
+#: ../src/preferences.c:2096
+msgid "Smart"
+msgstr ""
+
+#: ../src/preferences.c:2107
 msgid "Edit preferences"
 msgstr "Preferenze di modifica"
 
 #.
 #. *  Initial document settings
 #.
-#: ../src/preferences.c:2130
+#: ../src/preferences.c:2131
 msgid "<b>Non Project Defaults</b>"
 msgstr "<b>Impostazioni Predefinite Non di Progetto</b>"
 
-#: ../src/preferences.c:2132
+#: ../src/preferences.c:2133
 msgid "Initial document settings"
 msgstr "Impostazioni iniziali del documento"
 
-#: ../src/preferences.c:2144
+#: ../src/preferences.c:2145
 msgid "Editor settings"
 msgstr "Opzioni dell'editor"
 
-#: ../src/preferences.c:2147
+#: ../src/preferences.c:2148
 msgid "<b>Editor settings</b>"
 msgstr "<b>Opzioni dell'editor</b>"
 
-#: ../src/preferences.c:2155
+#: ../src/preferences.c:2156
 msgid "Smart Home/_End cursor positioning"
 msgstr "Posizionamento del cursore con Home/_End intelligente"
 
-#: ../src/preferences.c:2159
+#: ../src/preferences.c:2160
 msgid "_Tab key indents selection"
 msgstr "Il tasto _Tab indenta la selezione"
 
-#: ../src/preferences.c:2163
+#: ../src/preferences.c:2166
 msgid "Automatically insert closing brackets"
 msgstr "Inserisci automaticamente le parentesi di chiusura"
 
-#: ../src/preferences.c:2170
+#: ../src/preferences.c:2173
 msgid "Right _margin/split line end position:"
 msgstr "Posizione del _margine destro/linea di divisione:"
 
-#: ../src/preferences.c:2175
+#: ../src/preferences.c:2178
 msgid "Visible _whitespace mode:"
 msgstr "Modalità degli spazi visibili:"
 
-#: ../src/preferences.c:2178
+#: ../src/preferences.c:2181
 msgid "<b>Undo</b>"
 msgstr "<b>Annulla<b>"
 
-#: ../src/preferences.c:2183
+#: ../src/preferences.c:2186
 msgid "_Number of actions in history:"
 msgstr "_Numero di azioni nella cronologia degli annullamenti:"
 
-#: ../src/preferences.c:2186
+#: ../src/preferences.c:2189
 msgid "Clear _history on save"
 msgstr "Ca_ncella la cronologia degli annullamenti al salvataggio"
 
-#: ../src/preferences.c:2191
+#: ../src/preferences.c:2194
 msgid "Auto-completion & Reference"
 msgstr "Auto-completamento e Riferimento"
 
-#: ../src/preferences.c:2197
+#: ../src/preferences.c:2200
 msgid "<b>Auto-completion</b>"
 msgstr "<b>Auto-completamento</b>"
 
-#: ../src/preferences.c:2203
+#: ../src/preferences.c:2206
 msgid "Show _pop-up window:"
 msgstr "Mostra finestra di _pop-up:"
 
-#: ../src/preferences.c:2209
+#: ../src/preferences.c:2212
 msgid "Shortcut _key combination:"
 msgstr "Combinazione di _tasti di scelta rapida:"
 
-#: ../src/preferences.c:2212
+#: ../src/preferences.c:2215
 msgid "<b>Reference Information</b>"
 msgstr "<b>Informazioni di Riferimento</b>"
 
-#: ../src/preferences.c:2215
+#: ../src/preferences.c:2218
 msgid "_Load reference data from language files"
 msgstr "_Carica i riferimenti da file di linguaggio"
 
-#: ../src/preferences.c:2218
+#: ../src/preferences.c:2221
 msgid "Show references in auto-completion _pop-up window"
 msgstr ""
 "Mostra i riferimeni nella finestra di _pop-up per il completamento automatico"
 
-#: ../src/preferences.c:2221
+#: ../src/preferences.c:2224
 msgid "Show references if mouse is over text editor"
 msgstr "Mostra i riferimenti se il mouse è sopra l'editor"
 
-#: ../src/preferences.c:2230 ../src/preferences.c:2571
+#: ../src/preferences.c:2233 ../src/preferences.c:2574
 msgid "Font & Colors"
 msgstr "Caratteri e Colori"
 
-#: ../src/preferences.c:2236
+#: ../src/preferences.c:2239
 msgid "<b>Font &amp; Cursor</b>"
 msgstr "<b>Carattere %amp; Cursore</b>"
 
-#: ../src/preferences.c:2240
+#: ../src/preferences.c:2243
 msgid "_Editor font:"
 msgstr "Carattere dell'_editor:"
 
-#: ../src/preferences.c:2248
+#: ../src/preferences.c:2251
 msgid "Cursor / font size ratio (%):"
 msgstr "Rapporto di dimensione cursore / carattere (%):"
 
-#: ../src/preferences.c:2250 ../src/preferences.c:2597
+#: ../src/preferences.c:2253 ../src/preferences.c:2600
 msgid "<b>Colors</b>"
 msgstr "<b>Colori</b>"
 
-#: ../src/preferences.c:2254
+#: ../src/preferences.c:2257
 msgid "Use system wide color settings"
 msgstr "Utilizza le impostazioni colori del sistema"
 
-#: ../src/preferences.c:2265
+#: ../src/preferences.c:2268
 msgid "Cursor color"
 msgstr "Colore del cursore"
 
-#: ../src/preferences.c:2266
+#: ../src/preferences.c:2269
 msgid "C_ursor color:"
 msgstr "Colore del c_ursore:"
 
-#: ../src/preferences.c:2269
+#: ../src/preferences.c:2272
 msgid "Selection background color"
 msgstr "Seleziona il colore sfondo"
 
-#: ../src/preferences.c:2270
+#: ../src/preferences.c:2273
 msgid "_Selection background color:"
 msgstr "Colore di _sfondo della selezione:"
 
-#: ../src/preferences.c:2275
+#: ../src/preferences.c:2278
 msgid "Highlight cursor position"
 msgstr "Evidenzia la linea corrente"
 
-#: ../src/preferences.c:2277
+#: ../src/preferences.c:2280
 msgid "Cursor highlight color"
 msgstr "Colore dell'evidenziazione del cursore"
 
-#: ../src/preferences.c:2278
+#: ../src/preferences.c:2281
 msgid "_Cursor highlight color:"
 msgstr "_Colore dell'evidenziazione del cursore:"
 
-#: ../src/preferences.c:2283
+#: ../src/preferences.c:2286
 msgid "Current line color"
 msgstr "Colore della linea attuale"
 
-#: ../src/preferences.c:2284
+#: ../src/preferences.c:2287
 msgid "Cu_rrent line color:"
 msgstr "Colore della linea a_ttuale:"
 
-#: ../src/preferences.c:2287
+#: ../src/preferences.c:2290
 msgid "Visible whitespace color"
 msgstr "Colore degli spazi visibili"
 
-#: ../src/preferences.c:2288
+#: ../src/preferences.c:2291
 msgid "_Visible whitespace color:"
 msgstr "Colore degli spazi _visibili:"
 
-#: ../src/preferences.c:2300
+#: ../src/preferences.c:2303
 msgid "Text styles"
 msgstr "Stili di testo"
 
-#: ../src/preferences.c:2303
+#: ../src/preferences.c:2306
 msgid "<b>Text Styles</b>"
 msgstr "<b>Stili di Testo</b>"
 
-#: ../src/preferences.c:2317
+#: ../src/preferences.c:2320
 msgid "Files"
 msgstr "File"
 
-#: ../src/preferences.c:2320
+#: ../src/preferences.c:2323
 msgid "<b>Encoding</b>"
 msgstr "<b>Codifica</b>"
 
-#: ../src/preferences.c:2336
+#: ../src/preferences.c:2339
 msgid "_Default character set for new files:"
 msgstr "_Set di caratteri predefiniti per i nuovi file:"
 
-#: ../src/preferences.c:2342
+#: ../src/preferences.c:2345
 msgid "Auto set <meta> _HTML tag on encoding change"
 msgstr ""
 "Imposta automaticamente i <meta> tag _HTML al cambiamento della codifica"
 
-#: ../src/preferences.c:2346 ../src/preferences.c:2463
+#: ../src/preferences.c:2349 ../src/preferences.c:2466
 msgid "<b>Misc</b>"
 msgstr "<b>Altro</b>"
 
-#: ../src/preferences.c:2349
+#: ../src/preferences.c:2352
 #, fuzzy
 msgid "Strip trailing spaces on save"
 msgstr "Elimina gli spazi finali"
 
-#: ../src/preferences.c:2355
+#: ../src/preferences.c:2358
 msgid "Open co_mmandline files in running bluefish process"
 msgstr "Apri i file a riga di co_mando nella finestra corrente di bluefish"
 
-#: ../src/preferences.c:2360
+#: ../src/preferences.c:2363
 msgid "Open commandline files in new _window"
 msgstr "Apri i file a riga di comando in una nuova _finestra"
 
-#: ../src/preferences.c:2365
+#: ../src/preferences.c:2368
 msgid "_Periodically check if file is modified on disk"
 msgstr "Controlla _periodicamente se il file viene modificato sul disco"
 
-#: ../src/preferences.c:2371
+#: ../src/preferences.c:2374
 msgid "File properties to check on dis_k for modifications:"
 msgstr "Proprietà dei file da controllare sul dis_co per le modifiche:"
 
-#: ../src/preferences.c:2381
+#: ../src/preferences.c:2384
 msgid "Backup & Recovery"
 msgstr "Backup & Ripristino"
 
-#: ../src/preferences.c:2384
+#: ../src/preferences.c:2387
 msgid "<b>Backup</b>"
 msgstr "<b>Backup</b>"
 
-#: ../src/preferences.c:2386
+#: ../src/preferences.c:2389
 msgid "Create _backup file during file save"
 msgstr "Creare un file di _backup al salvataggio"
 
-#: ../src/preferences.c:2391
+#: ../src/preferences.c:2394
 msgid "_Remove backup file on close"
 msgstr "_Rimuovi il file di backup alla chiusura"
 
-#: ../src/preferences.c:2396
+#: ../src/preferences.c:2399
 msgid "If back_up fails:"
 msgstr "Se il back_up fallisce:"
 
-#: ../src/preferences.c:2403
+#: ../src/preferences.c:2406
 msgid "<b>Document Recovery</b>"
 msgstr "<b>Ripristino Documento</b>"
 
-#: ../src/preferences.c:2405
+#: ../src/preferences.c:2408
 msgid "_Enable recovery of modified documents"
 msgstr "_Abilita ripristino dei documenti modificati"
 
-#: ../src/preferences.c:2409
+#: ../src/preferences.c:2412
 msgid "_Frequency to store changes (seconds):"
 msgstr "_Frequenza per archiviare le modifiche (secondi):"
 
-#: ../src/preferences.c:2427
+#: ../src/preferences.c:2430
 msgid "Templates"
 msgstr "Modelli"
 
-#: ../src/preferences.c:2430
+#: ../src/preferences.c:2433
 msgid "<b>Templates</b>"
 msgstr "<b>Modelli</b>"
 
-#: ../src/preferences.c:2443
+#: ../src/preferences.c:2446
 msgid "User interface"
 msgstr "Interfaccia utente"
 
-#: ../src/preferences.c:2446
+#: ../src/preferences.c:2449
 msgid "<b>Layout</b>"
 msgstr "<b>Aspetto</b>"
 
-#: ../src/preferences.c:2452
+#: ../src/preferences.c:2455
 msgid "Document _tab position:"
 msgstr "Posizione dei _tab documenti:"
 
-#: ../src/preferences.c:2456
+#: ../src/preferences.c:2459
 msgid "_Sidebar position:"
 msgstr "Posizione della _barra laterale:"
 
-#: ../src/preferences.c:2461
+#: ../src/preferences.c:2464
 msgid "Sidebar tab _position:"
 msgstr "Posizione dei t_ab della della barra laterale:"
 
-#: ../src/preferences.c:2465
+#: ../src/preferences.c:2468
 msgid "Hide toolbars on full-screen"
 msgstr "Nascondie le barre degli strumenti quando in schermo intero"
 
-#: ../src/preferences.c:2474
+#: ../src/preferences.c:2477
 msgid "_Language:"
 msgstr "_Lingua:"
 
-#: ../src/preferences.c:2477
+#: ../src/preferences.c:2480
 msgid "<b>Recent Files</b>"
 msgstr "<b>File Recenti</b>"
 
-#: ../src/preferences.c:2482
+#: ../src/preferences.c:2485
 msgid "_Number of files in 'Open recent' menu:"
 msgstr "_Numero di file nel menu 'Apri recenti':"
 
 # English version should say something like "Register recent files with your desktop's recent files menu".
-#: ../src/preferences.c:2488
+#: ../src/preferences.c:2491
 msgid "_Register recent files with your desktop:"
 msgstr "_Registra i file recenti nel menu di sistema:"
 
-#: ../src/preferences.c:2499
+#: ../src/preferences.c:2502
 msgid "Shortcut keys"
 msgstr "Tasti di scelta rapida"
 
-#: ../src/preferences.c:2504
+#: ../src/preferences.c:2507
 msgid "<b>Shortcut keys</b>"
 msgstr "<b>Tasti di scelta rapida</b>"
 
-#: ../src/preferences.c:2507
+#: ../src/preferences.c:2510
 msgid "_Switch between tabs with <Alt>+0..9"
 msgstr "_Passa da una scheda all'altra con <Alt>+0..9"
 
-#: ../src/preferences.c:2511
+#: ../src/preferences.c:2514
 msgid "Save menu accelerators on exit"
 msgstr "Salva le scorciatoie personalizzate all'uscita"
 
-#: ../src/preferences.c:2514
+#: ../src/preferences.c:2517
 msgid "Save user customised menu accelerators now"
 msgstr "Salva le scorciatoie personalizzate adesso"
 
-#: ../src/preferences.c:2518
+#: ../src/preferences.c:2521
 msgid "Reset menu accelerators to application defaults"
 msgstr "Ripristina le scorciatoie predefinite"
 
-#: ../src/preferences.c:2530
+#: ../src/preferences.c:2533
 msgid "Dimensions"
 msgstr "Dimensioni"
 
-#: ../src/preferences.c:2533
+#: ../src/preferences.c:2536
 msgid "<b>Dimensions</b>"
 msgstr "<b>Dimensioni</b>"
 
-#: ../src/preferences.c:2535
+#: ../src/preferences.c:2538
 msgid "_Leave dimensions to window manager"
 msgstr "_Lascia l'impostazione delle dimensione al gestore finestre"
 
-#: ../src/preferences.c:2542
+#: ../src/preferences.c:2545
 msgid "_Restore last used dimensions"
 msgstr "_Ripristina le dimensioni usate l'ultima volta"
 
-#: ../src/preferences.c:2550
+#: ../src/preferences.c:2553
 msgid "Initial _sidebar width:"
 msgstr "Larghezza iniziale della _barra laterale:"
 
-#: ../src/preferences.c:2554
+#: ../src/preferences.c:2557
 msgid "Initial window _height:"
 msgstr "_Altezza iniziale della finestra:"
 
-#: ../src/preferences.c:2557
+#: ../src/preferences.c:2560
 msgid "Initial window _width:"
 msgstr "_Larghezza iniziale della finestra:"
 
-#: ../src/preferences.c:2564
+#: ../src/preferences.c:2567
 msgid "_Limit window title length"
 msgstr "_Limita la lunghezza del titolo finestra"
 
-#: ../src/preferences.c:2577
+#: ../src/preferences.c:2580
 msgid "<b>Font</b>"
 msgstr "<b>Carattere</b>"
 
-#: ../src/preferences.c:2582
+#: ../src/preferences.c:2585
 msgid "_Use system document tab font"
 msgstr "_Usa il carattere di sistema per le schede"
 
-#: ../src/preferences.c:2587
+#: ../src/preferences.c:2590
 msgid "_Document tab font:"
 msgstr "_Carattere delle schede:"
 
-#: ../src/preferences.c:2601
+#: ../src/preferences.c:2604
 msgid "Document error tab color"
 msgstr "Colore della scheda per documento in errore"
 
-#: ../src/preferences.c:2603
+#: ../src/preferences.c:2606
 msgid "Document tab _error color:"
 msgstr "Colore della scheda in _errore:"
 
-#: ../src/preferences.c:2607
+#: ../src/preferences.c:2610
 msgid "Document loading tab color"
 msgstr "Colore della scheda per documento in caricamento"
 
-#: ../src/preferences.c:2609
+#: ../src/preferences.c:2612
 msgid "Document tab loadin_g color:"
 msgstr "Colore della scheda in c_aricamento:"
 
-#: ../src/preferences.c:2613
+#: ../src/preferences.c:2616
 msgid "Document modified tab color"
 msgstr "Colore della scheda per documento modificato"
 
-#: ../src/preferences.c:2615
+#: ../src/preferences.c:2618
 msgid "Document tab _modified color:"
 msgstr "Colore della scheda _modificata:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2628 ../src/rcfile.c:1240
+#: ../src/preferences.c:2631 ../src/rcfile.c:1271
 msgid "Images"
 msgstr "Immagini"
 
-#: ../src/preferences.c:2631
+#: ../src/preferences.c:2634
 msgid "<b>Thumbnails</b>"
 msgstr "<b>Miniature</b>"
 
-#: ../src/preferences.c:2637
+#: ../src/preferences.c:2640
 msgid "Thumbnail _filetype:"
 msgstr "Tipo dei _file delle miniature:"
 
-#: ../src/preferences.c:2641
+#: ../src/preferences.c:2644
 msgid "Thumbnail _suffix:"
 msgstr "_Suffisso miniatura:"
 
-#: ../src/preferences.c:2654
+#: ../src/preferences.c:2657
 msgid "External commands"
 msgstr "Comandi esterni"
 
-#: ../src/preferences.c:2657
+#: ../src/preferences.c:2660
 msgid "<b>External Commands</b>"
 msgstr "<b>Comandi esterni</b>"
 
-#: ../src/preferences.c:2670
+#: ../src/preferences.c:2673
 msgid "External filters"
 msgstr "Filtri esterni"
 
-#: ../src/preferences.c:2673
+#: ../src/preferences.c:2676
 msgid "<b>External Filters</b>"
 msgstr "<b>Filtri esterni</b>"
 
-#: ../src/preferences.c:2686
+#: ../src/preferences.c:2689
 msgid "Output parsers"
 msgstr "Parser dell'output"
 
-#: ../src/preferences.c:2689
+#: ../src/preferences.c:2692
 msgid "<b>Output Parsers</b>"
 msgstr "<b>Parser dell'output</b>"
 
-#: ../src/preferences.c:2702
+#: ../src/preferences.c:2705
 msgid "Plugins"
 msgstr "Plugin"
 
-#: ../src/preferences.c:2705
+#: ../src/preferences.c:2708
 msgid "<b>Plugins</b>"
 msgstr "<b>Plugin</b>"
 
-#: ../src/preferences.c:2727
+#: ../src/preferences.c:2730
 msgid "Language support"
 msgstr "Supporto per il linguaggio"
 
@@ -2980,179 +3100,204 @@ msgstr "Crea un progetto con i file attualmente aperti"
 msgid "Create empty project"
 msgstr "Crea un progetto vuoto"
 
-#: ../src/rcfile.c:677 ../src/rcfile.c:705
+#: ../src/rcfile.c:680 ../src/rcfile.c:708
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:683
+#: ../src/rcfile.c:686
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:687
+#: ../src/rcfile.c:690
 msgid "weblint HTML checker"
 msgstr "verificatore HTML weblint"
 
-#: ../src/rcfile.c:692
+#: ../src/rcfile.c:695
 msgid "tidy HTML validator"
 msgstr "validatore tidy HTML"
 
-#: ../src/rcfile.c:696
+#: ../src/rcfile.c:699
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:700
+#: ../src/rcfile.c:703
 msgid "xmllint XML checker"
 msgstr "verificatore XML xmllint"
 
-#: ../src/rcfile.c:709
+#: ../src/rcfile.c:712
 msgid "php syntax check"
 msgstr "verifica sintassi php"
 
-#: ../src/rcfile.c:713
+#: ../src/rcfile.c:716
 msgid "perl syntax check"
 msgstr "verifica sintassi perl"
 
-#: ../src/rcfile.c:717
+#: ../src/rcfile.c:720
 msgid "php codesniffer"
 msgstr "Codesniffer PHP"
 
-#: ../src/rcfile.c:730
+#: ../src/rcfile.c:724
+msgid "pylint"
+msgstr ""
+
+#: ../src/rcfile.c:737
 msgid "Sort"
 msgstr "Ordina "
 
-#: ../src/rcfile.c:733
+#: ../src/rcfile.c:740
 msgid "Sort / Uniq"
 msgstr "Ordina ed elimina righe duplicate"
 
-#: ../src/rcfile.c:736
+#: ../src/rcfile.c:743
 msgid "Reverse lines"
 msgstr "Inverti le linee"
 
-#: ../src/rcfile.c:739
+#: ../src/rcfile.c:746
 msgid "Dos2unix"
 msgstr "Dos2Unix"
 
-#: ../src/rcfile.c:741
+#: ../src/rcfile.c:748
 msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
-#: ../src/rcfile.c:744
+#: ../src/rcfile.c:750
+#, fuzzy
+msgid "Tidy convert to XHTML"
+msgstr "Tidy HTML"
+
+#: ../src/rcfile.c:753
 msgid "Tidy HTML (perltidy)"
 msgstr "Tidy HTML (perltidy)"
 
-#: ../src/rcfile.c:747
+#: ../src/rcfile.c:756
 msgid "Strip empty lines"
 msgstr "Elimina le righe vuote"
 
-#: ../src/rcfile.c:750
+#: ../src/rcfile.c:759
 msgid "Render HTML to text"
 msgstr "Rendi l'HTML come testo"
 
-#: ../src/rcfile.c:763
+#: ../src/rcfile.c:762
+msgid "PHP Beautifier"
+msgstr ""
+
+#: ../src/rcfile.c:766 ../src/rcfile.c:773
+msgid "Javascript Minify with jsmin"
+msgstr ""
+
+#: ../src/rcfile.c:769 ../src/rcfile.c:776
+msgid "CSS Minify with cssmin"
+msgstr ""
+
+#: ../src/rcfile.c:780
+msgid "CSS tidy"
+msgstr ""
+
+#: ../src/rcfile.c:792
 msgid "Windows XP Firefox"
 msgstr "Windows XP Firefox"
 
-#: ../src/rcfile.c:768
+#: ../src/rcfile.c:797
 msgid "Windows XP Internet Explorer"
 msgstr "Windows XP Internet Explorer"
 
-#: ../src/rcfile.c:773
+#: ../src/rcfile.c:802
 msgid "Windows XP Opera"
 msgstr "Windows XP Opera"
 
-#: ../src/rcfile.c:777
+#: ../src/rcfile.c:806
 msgid "Windows XP Safari"
 msgstr "Windows XP Safari"
 
-#: ../src/rcfile.c:781
+#: ../src/rcfile.c:810
 msgid "Windows 7 Firefox 32-bit"
 msgstr "Windows 7 Firefox 32-bit"
 
-#: ../src/rcfile.c:786
+#: ../src/rcfile.c:815
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr "Windows 7 Internet Explorer 32-bit"
 
-#: ../src/rcfile.c:791
+#: ../src/rcfile.c:820
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr "Windows 7 Internet Explorer 64-bit"
 
-#: ../src/rcfile.c:797
+#: ../src/rcfile.c:826
 msgid "Safari"
 msgstr "Safari"
 
-#: ../src/rcfile.c:800 ../src/rcfile.c:810
+#: ../src/rcfile.c:829 ../src/rcfile.c:839
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:803 ../src/rcfile.c:814
+#: ../src/rcfile.c:832 ../src/rcfile.c:843
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:806 ../src/rcfile.c:833
+#: ../src/rcfile.c:835 ../src/rcfile.c:862
 msgid "chmod a+x"
 msgstr "chmod a+x"
 
-#: ../src/rcfile.c:818
+#: ../src/rcfile.c:847
 msgid "Chromium"
 msgstr "Chromium"
 
-#: ../src/rcfile.c:821
+#: ../src/rcfile.c:850
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:824
+#: ../src/rcfile.c:853
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:827
+#: ../src/rcfile.c:856
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:830
+#: ../src/rcfile.c:859
 msgid "Links2 (graphics)"
 msgstr "Links2 (grafico)"
 
-#: ../src/rcfile.c:876
+#: ../src/rcfile.c:905
 msgid "C Header"
 msgstr "Header C"
 
-#: ../src/rcfile.c:879
+#: ../src/rcfile.c:908
 msgid "C Header GPL"
 msgstr "Header C GPL"
 
-#: ../src/rcfile.c:882
+#: ../src/rcfile.c:911
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:885
+#: ../src/rcfile.c:914
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: ../src/rcfile.c:888
+#: ../src/rcfile.c:917
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:891
+#: ../src/rcfile.c:920
 msgid "LaTex Book"
 msgstr ""
 
-#: ../src/rcfile.c:894
+#: ../src/rcfile.c:923
 msgid "LaTex Presentation"
 msgstr ""
 
-#: ../src/rcfile.c:1140
+#: ../src/rcfile.c:1171
 msgid "Untitled Project"
 msgstr "Progetto senza nome"
 
-#: ../src/rcfile.c:1232
+#: ../src/rcfile.c:1263
 msgid "C programming"
 msgstr "Programmazione C"
 
-#: ../src/rcfile.c:1236
+#: ../src/rcfile.c:1267
 msgid "Web files"
 msgstr "File web"
 
-#: ../src/rcfile.c:1243
+#: ../src/rcfile.c:1274
 msgid "Hide objectfiles"
 msgstr "Nascondi i file oggetto"
 
@@ -3192,122 +3337,122 @@ msgid_plural "<i>Found %d entries</i>"
 msgstr[0] "<i>Trovata %d voce</i>"
 msgstr[1] "<i>Trovate %d voci</i>"
 
-#: ../src/snr3.c:1156
+#: ../src/snr3.c:1182
 #, c-format
 msgid "<i>Found %d result in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr[0] "<i>Trovato %d risultato in %d dei %d documenti analizzati</i>"
 msgstr[1] "<i>Trovati %d risultati in %d dei %d documenti analizzati</i>"
 
-#: ../src/snr3.c:1160
+#: ../src/snr3.c:1186
 #, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
 msgstr[0] "<i>Trovato %d risultato dal %d al %d carattere</i>"
 msgstr[1] "<i>Trovati %d risultati dal %d al %d carattere</i>"
 
-#: ../src/snr3.c:1163
+#: ../src/snr3.c:1189
 #, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
 msgstr[0] "<i>Trovato %d risultato nel documento attivo</i>"
 msgstr[1] "<i>Trovati %d risultati nel documento attivo</i>"
 
-#: ../src/snr3.c:1385
+#: ../src/snr3.c:1411
 msgid "No (more) results"
 msgstr "Nessun (altro) risultato"
 
-#: ../src/snr3.c:1483
+#: ../src/snr3.c:1509
 msgid "Active document"
 msgstr "Documento attivo"
 
-#: ../src/snr3.c:1484
+#: ../src/snr3.c:1510
 msgid "Forward from cursor position"
 msgstr "Prosegui dalla posizione del cursore"
 
-#: ../src/snr3.c:1485
+#: ../src/snr3.c:1511
 msgid "Current selection"
 msgstr "Selezione corrente"
 
-#: ../src/snr3.c:1486
+#: ../src/snr3.c:1512
 msgid "All open documents"
 msgstr "Tutti i documenti aperti"
 
-#: ../src/snr3.c:1487
+#: ../src/snr3.c:1513
 msgid "Files on disk"
 msgstr "File sul disco"
 
-#: ../src/snr3.c:1491 ../src/snr3.c:1496
+#: ../src/snr3.c:1517 ../src/snr3.c:1522
 msgid "Normal"
 msgstr "Normale"
 
-#: ../src/snr3.c:1497
+#: ../src/snr3.c:1523
 msgid "Uppercase"
 msgstr "Maiuscole"
 
-#: ../src/snr3.c:1498
+#: ../src/snr3.c:1524
 msgid "Lowercase"
 msgstr "Minuscole"
 
-#: ../src/snr3.c:1505
+#: ../src/snr3.c:1531
 msgid "Find and Replace"
 msgstr "Trova e Sostituisci"
 
-#: ../src/snr3.c:1524
+#: ../src/snr3.c:1550
 msgid "<b>_Search for</b>"
 msgstr "<b>_Ricerca</b>"
 
-#: ../src/snr3.c:1547
+#: ../src/snr3.c:1573
 msgid "<b>Replace _with</b>"
 msgstr "<b>_Sostituisci con</b>"
 
-#: ../src/snr3.c:1562
+#: ../src/snr3.c:1588
 msgid "Match Patter_n: "
 msgstr "_Modello di ricerca:"
 
-#: ../src/snr3.c:1574
+#: ../src/snr3.c:1600
 msgid "Replace T_ype: "
 msgstr "_Tipo di sostituzione:"
 
-#: ../src/snr3.c:1587
+#: ../src/snr3.c:1613
 msgid "Sco_pe: "
 msgstr "Am_bito:"
 
-#: ../src/snr3.c:1597
+#: ../src/snr3.c:1623
 msgid "Filename pattern: "
 msgstr "Modello del nome file:"
 
-#: ../src/snr3.c:1603
+#: ../src/snr3.c:1629
 msgid "Recursion level: "
 msgstr "Livello di ricorsione:"
 
-#: ../src/snr3.c:1609
+#: ../src/snr3.c:1635
 msgid "Basedir: "
 msgstr "Cartella base:"
 
-#: ../src/snr3.c:1628
+#: ../src/snr3.c:1654
 msgid "Case sensitive _matching"
 msgstr "_Distingui maiuscole e minuscole"
 
-#: ../src/snr3.c:1630
+#: ../src/snr3.c:1656
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Corrispondenza di maiuscole e minuscole."
 
-#: ../src/snr3.c:1634
+#: ../src/snr3.c:1660
 msgid "Pattern contains escape-se_quences"
 msgstr "Il modello contiene sequenze di _escape"
 
-#: ../src/snr3.c:1637
+#: ../src/snr3.c:1663
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr ""
 "Il modello contiene barre rovesciate nelle sequenze di escape come \\n \\t "
 "etc."
 
-#: ../src/snr3.c:1641
+#: ../src/snr3.c:1667
 msgid "Dot character in regex pattern matches newlines"
 msgstr "Il carattere punto in un'espressione regolare corisponde a nuova linea"
 
-#: ../src/snr3.c:1644
+#: ../src/snr3.c:1670
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
@@ -3315,19 +3460,19 @@ msgstr ""
 "Il carattere . corrisponde a tutto compreso 'nuova linea', utilizzare per "
 "ricerche multilinea."
 
-#: ../src/snr3.c:1666
+#: ../src/snr3.c:1692
 msgid "Replace _All"
 msgstr "Sostituisci _Tutto"
 
-#: ../src/snr3.c:1668
+#: ../src/snr3.c:1694
 msgid "_Replace"
 msgstr "_Sostituisci"
 
-#: ../src/snr3.c:1672
+#: ../src/snr3.c:1698
 msgid "_Find All"
 msgstr "_Trova Tutto"
 
-#: ../src/snr3.c:1674
+#: ../src/snr3.c:1700
 msgid "B_ookmark All"
 msgstr "_Segnalibri per tutti"
 
@@ -3346,6 +3491,12 @@ msgstr "Annullare la modifica in tutti i documenti?"
 #: ../src/undo_redo.c:560 ../src/undo_redo.c:702
 msgid "This change concerns multiple documents."
 msgstr "Questa modifica riguarda più documenti."
+
+#~ msgid "Fo_rmat"
+#~ msgstr "Fo_rmato"
+
+#~ msgid "Goto _Line"
+#~ msgstr "Vai alla _riga"
 
 #~ msgid "Co_nnect"
 #~ msgstr "Co_nnetti"
