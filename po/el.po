@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 22:07+0200\n"
+"POT-Creation-Date: 2012-12-14 09:05+0100\n"
 "PO-Revision-Date: 2004-12-09 12:11+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: no team\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Language: \n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
 #, fuzzy
@@ -32,1054 +32,1111 @@ msgstr ""
 
 #: ../desktop-data/bluefish.xml.in.h:1
 #, fuzzy
-msgid "Bluefish language definition file"
-msgstr "Ορισμός"
-
-#: ../desktop-data/bluefish.xml.in.h:2
-#, fuzzy
 msgid "Bluefish project file"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/bftextview2.c:1581
+#: ../desktop-data/bluefish.xml.in.h:2
+#, fuzzy
+msgid "Bluefish language definition file"
+msgstr "Ορισμός"
+
+#: ../src/bftextview2.c:1744
 #, fuzzy
 msgid "Collapse all"
 msgstr "Κλείσιμο _Όλων"
 
-#: ../src/bftextview2.c:1584
+#: ../src/bftextview2.c:1747
 msgid "Expand all"
 msgstr ""
 
-#: ../src/bftextview2.c:1591
+#: ../src/bftextview2.c:1756
 #, fuzzy, c-format
 msgid "Collapse %s"
 msgstr "Κλείσιμο _Όλων"
 
-#: ../src/bftextview2.c:1598
+#: ../src/bftextview2.c:1766
 #, c-format
 msgid "Expand %s"
 msgstr ""
 
-#: ../src/bftextview2_spell.c:690
+#: ../src/bftextview2_spell.c:691
 #, fuzzy
 msgid "Spell check language"
 msgstr "Έλεγχος Ορθογραφίας..."
 
-#: ../src/bftextview2_spell.c:723
+#: ../src/bftextview2_spell.c:724
 #, fuzzy
 msgid "Add to dictionary"
 msgstr " Γρήγορη μπάρα "
 
-#: ../src/bftextview2_spell.c:726
+#: ../src/bftextview2_spell.c:727
 #, fuzzy
 msgid "Ignore spelling"
 msgstr "Έλεγχος Ορθογραφίας"
 
-#: ../src/bftextview2_spell.c:741
+#: ../src/bftextview2_spell.c:742
 msgid "Insert special characters as entities"
 msgstr ""
 
-#: ../src/bfwin.c:224
+#: ../src/bfwin.c:227
 msgid "Filebrowser"
 msgstr "Περιηγητής αρχείων"
 
-#: ../src/bfwin.c:226
+#: ../src/bfwin.c:229
 msgid "Bookmarks"
 msgstr "Σελίδοδείκτες"
 
-#: ../src/bfwin.c:814
+#: ../src/bfwin.c:876
 #, fuzzy
 msgid "Goto Line:"
 msgstr "Πήγαινε στη γραμμή"
 
-#: ../src/bfwin.c:825
+#: ../src/bfwin.c:887
 #, fuzzy
 msgid "Find:"
 msgstr "Εύρεση"
 
-#: ../src/bfwin.c:835
+#: ../src/bfwin.c:898 ../src/snr3.c:1518
+#, fuzzy
+msgid "Regular expression (pcre)"
+msgstr "Κανονική έκφραση:"
+
+#: ../src/bfwin.c:901
+#, fuzzy
+msgid "Case sensitive"
+msgstr "Διαφορά πεζών-κεφαλαίων"
+
+#: ../src/bfwin.c:904
+#, fuzzy
+msgid "Dot character matches newlines"
+msgstr "Προεπιλεγμένο σετ χαρακτήρων"
+
+#: ../src/bfwin.c:907
+msgid "Pattern contains backslash escaped sequences"
+msgstr ""
+
+#: ../src/bfwin.c:919
 #, fuzzy
 msgid "Advanced"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/bfwin.c:1162
+#: ../src/bfwin.c:1325
 msgid "New Bluefish Window"
 msgstr "Νέο Παράθυρο Bluefish"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1217
+#: ../src/bfwin.c:1384
 #, fuzzy
 msgid "Stand by..."
 msgstr "Διάστημα..."
 
-#: ../src/bfwin_uimanager.c:722
+#: ../src/bfwin_uimanager.c:751
 msgid "Leave Fullscreen"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:722
+#: ../src/bfwin_uimanager.c:751
 msgid "Fullscreen"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:773
+#: ../src/bfwin_uimanager.c:802
 #, fuzzy
 msgid "_File"
 msgstr "/_Αρχείο"
 
-#: ../src/bfwin_uimanager.c:774
+#: ../src/bfwin_uimanager.c:803
 #, fuzzy
 msgid "New From Template"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/bfwin_uimanager.c:775 ../src/bfwin_uimanager.c:785
+#: ../src/bfwin_uimanager.c:804 ../src/bfwin_uimanager.c:814
 #, fuzzy
 msgid "Open _Recent"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/bfwin_uimanager.c:776
+#: ../src/bfwin_uimanager.c:805
 #, fuzzy
 msgid "_Edit"
 msgstr "/_Επεξεργασία"
 
-#: ../src/bfwin_uimanager.c:777
+#: ../src/bfwin_uimanager.c:806
 #, fuzzy
 msgid "_View"
 msgstr "/_Αρχείο"
 
-#: ../src/bfwin_uimanager.c:778
+#: ../src/bfwin_uimanager.c:807
 #, fuzzy
 msgid "_Document"
 msgstr "Σχόλιο"
 
-#: ../src/bfwin_uimanager.c:779
+#: ../src/bfwin_uimanager.c:808
 #, fuzzy
 msgid "_Tab Size"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/bfwin_uimanager.c:780
+#: ../src/bfwin_uimanager.c:809
 #, fuzzy
 msgid "_Font Size"
 msgstr "Μέγεθος γρ/σειράς +1"
 
-#: ../src/bfwin_uimanager.c:781
+#: ../src/bfwin_uimanager.c:810
 #, fuzzy
 msgid "Language M_ode"
 msgstr "Γλώσσα:"
 
-#: ../src/bfwin_uimanager.c:782
+#: ../src/bfwin_uimanager.c:811
 #, fuzzy
 msgid "Character _Encoding"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/bfwin_uimanager.c:783
+#: ../src/bfwin_uimanager.c:812
 msgid "_Go"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:784
+#: ../src/bfwin_uimanager.c:813
 #, fuzzy
 msgid "_Project"
 msgstr "/Σχέδιο/Αρχεία"
 
-#: ../src/bfwin_uimanager.c:786
+#: ../src/bfwin_uimanager.c:815
 #, fuzzy
 msgid "_Tools"
 msgstr "/_Εξωτερικά"
 
-#: ../src/bfwin_uimanager.c:787
+#: ../src/bfwin_uimanager.c:816
 #, fuzzy
 msgid "_Commands"
 msgstr "Εντολή"
 
-#: ../src/bfwin_uimanager.c:788
+#: ../src/bfwin_uimanager.c:817
 #, fuzzy
 msgid "_Filters"
 msgstr "Φίλτρο"
 
-#: ../src/bfwin_uimanager.c:789
+#: ../src/bfwin_uimanager.c:818
 #, fuzzy
 msgid "_Outputbox"
 msgstr "/Εξωτερικά/διαχ11"
 
-#: ../src/bfwin_uimanager.c:790
-#, fuzzy
-msgid "Fo_rmat"
-msgstr "Φόρμα"
+#: ../src/bfwin_uimanager.c:819
+msgid "For_mat"
+msgstr ""
 
-#: ../src/bfwin_uimanager.c:791
+#: ../src/bfwin_uimanager.c:820
 #, fuzzy
 msgid "_Insert"
 msgstr "Εισαγωγή"
 
-#: ../src/bfwin_uimanager.c:792
+#: ../src/bfwin_uimanager.c:821
 #, fuzzy
-msgid "Co_nvert"
+msgid "Con_vert"
 msgstr "Περιε_χόμενο:"
 
-#: ../src/bfwin_uimanager.c:796
+#: ../src/bfwin_uimanager.c:825
 msgid "_New"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:796 ../src/filebrowser2.c:1645
-#: ../src/filebrowser2.c:1647 ../src/filebrowser2.c:2041
+#: ../src/bfwin_uimanager.c:825 ../src/filebrowser2.c:1648
+#: ../src/filebrowser2.c:1650 ../src/filebrowser2.c:2046
 #, fuzzy
 msgid "New file"
 msgstr "Νέο στυλ"
 
-#: ../src/bfwin_uimanager.c:797
+#: ../src/bfwin_uimanager.c:826
 #, fuzzy
 msgid "New _Window"
 msgstr "Αρχείο/_Δημιουργία"
 
-#: ../src/bfwin_uimanager.c:797
+#: ../src/bfwin_uimanager.c:826
 #, fuzzy
 msgid "New window"
 msgstr "Αρχείο/_Δημιουργία"
 
-#: ../src/bfwin_uimanager.c:799
+#: ../src/bfwin_uimanager.c:828
 #, fuzzy
 msgid "Close Win_dow"
 msgstr "/Αρχείο/Κλείσιμο"
 
-#: ../src/bfwin_uimanager.c:799
+#: ../src/bfwin_uimanager.c:828
 #, fuzzy
 msgid "Close window"
 msgstr "/Αρχείο/Κλείσιμο"
 
-#: ../src/bfwin_uimanager.c:800
+#: ../src/bfwin_uimanager.c:829
 #, fuzzy
 msgid "_Open..."
 msgstr "Άνοιγμα..."
 
-#: ../src/bfwin_uimanager.c:800
+#: ../src/bfwin_uimanager.c:829
 #, fuzzy
 msgid "Open file"
 msgstr "Άνοιγμα αρχείου"
 
-#: ../src/bfwin_uimanager.c:801
+#: ../src/bfwin_uimanager.c:830
 #, fuzzy
 msgid "Open Ad_vanced..."
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/bfwin_uimanager.c:801 ../src/filebrowser2.c:2037
+#: ../src/bfwin_uimanager.c:830 ../src/filebrowser2.c:2042
 #, fuzzy
 msgid "Open advanced"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/bfwin_uimanager.c:803
+#: ../src/bfwin_uimanager.c:832
 #, fuzzy
 msgid "Open _from Selection"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/bfwin_uimanager.c:803
+#: ../src/bfwin_uimanager.c:832
 #, fuzzy
 msgid "Open from Selection"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/bfwin_uimanager.c:805
+#: ../src/bfwin_uimanager.c:834
 #, fuzzy
 msgid "_Insert..."
 msgstr "/Αρχείο/Εισαγωγή"
 
-#: ../src/bfwin_uimanager.c:805
+#: ../src/bfwin_uimanager.c:834
 #, fuzzy
 msgid "Insert file"
 msgstr "Εισαγωγή Ώρας"
 
-#: ../src/bfwin_uimanager.c:806
+#: ../src/bfwin_uimanager.c:835
 #, fuzzy
-msgid "_Print"
+msgid "_Print..."
 msgstr "Στόχος"
 
-#: ../src/bfwin_uimanager.c:806
+#: ../src/bfwin_uimanager.c:835
 #, fuzzy
 msgid "Print"
 msgstr "Στόχος"
 
-#: ../src/bfwin_uimanager.c:807
-msgid "U_pload / Download..."
-msgstr ""
-
-#: ../src/bfwin_uimanager.c:809
+#: ../src/bfwin_uimanager.c:836
 #, fuzzy
 msgid "_Quit"
 msgstr "/Αρχείο/Έξοδος"
 
-#: ../src/bfwin_uimanager.c:809
+#: ../src/bfwin_uimanager.c:836
 #, fuzzy
 msgid "Quit Bluefish"
 msgstr "Περί Bluefish"
 
-#: ../src/bfwin_uimanager.c:810
+#: ../src/bfwin_uimanager.c:837
 #, fuzzy
 msgid "Preference_s..."
 msgstr "Προτιμήσεις..."
 
-#: ../src/bfwin_uimanager.c:810
+#: ../src/bfwin_uimanager.c:837
 #, fuzzy
 msgid "Edit Preferences"
 msgstr "Επεξεργασία προτιμήσεων"
 
-#: ../src/bfwin_uimanager.c:812
+#: ../src/bfwin_uimanager.c:839
 #, fuzzy
 msgid "Select _All"
 msgstr "/Επεξεργασία/Επιλογή όλων"
 
-#: ../src/bfwin_uimanager.c:812
+#: ../src/bfwin_uimanager.c:839
 #, fuzzy
 msgid "Select all"
 msgstr "Επιλογή Αρχείου"
 
-#: ../src/bfwin_uimanager.c:813
+#: ../src/bfwin_uimanager.c:840
 #, fuzzy
 msgid "Add Boo_kmark"
 msgstr "Προσθήκη σελιδοδείκτη"
 
-#: ../src/bfwin_uimanager.c:813 ../src/document.c:1852
+#: ../src/bfwin_uimanager.c:840 ../src/document.c:1918
 msgid "Add bookmark"
 msgstr "Προσθήκη σελιδοδείκτη"
 
-#: ../src/bfwin_uimanager.c:815
+#: ../src/bfwin_uimanager.c:842
 msgid "_Add or Remove..."
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:815
+#: ../src/bfwin_uimanager.c:842
 #, fuzzy
 msgid "Add or remove character encoding"
 msgstr "/Σχέδιο/διαχ1"
 
-#: ../src/bfwin_uimanager.c:817
+#: ../src/bfwin_uimanager.c:844
 #, fuzzy
 msgid "Floati_ng Window"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/bfwin_uimanager.c:817
+#: ../src/bfwin_uimanager.c:844
 #, fuzzy
 msgid "Open current document in floating window"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/bfwin_uimanager.c:819 ../src/bfwin_uimanager.c:825
+#: ../src/bfwin_uimanager.c:846 ../src/bfwin_uimanager.c:852
 msgid "_Increase"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:819
+#: ../src/bfwin_uimanager.c:846
 msgid "Increase document font size"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:821 ../src/bfwin_uimanager.c:827
+#: ../src/bfwin_uimanager.c:848 ../src/bfwin_uimanager.c:854
 msgid "_Decrease"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:821
+#: ../src/bfwin_uimanager.c:848
 #, fuzzy
 msgid "Decrease document font size"
 msgstr "Σχόλιο"
 
-#: ../src/bfwin_uimanager.c:823 ../src/bfwin_uimanager.c:829
+#: ../src/bfwin_uimanager.c:850 ../src/bfwin_uimanager.c:856
 #, fuzzy
 msgid "_Reset"
 msgstr "Frameset"
 
-#: ../src/bfwin_uimanager.c:823
+#: ../src/bfwin_uimanager.c:850
 #, fuzzy
 msgid "Reset document font size"
 msgstr "Σχόλιο"
 
-#: ../src/bfwin_uimanager.c:825
+#: ../src/bfwin_uimanager.c:852
 msgid "Increase document tab size"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:827
+#: ../src/bfwin_uimanager.c:854
 #, fuzzy
 msgid "Decrease document tab size"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/bfwin_uimanager.c:829
+#: ../src/bfwin_uimanager.c:856
 #, fuzzy
 msgid "Reset document tab size"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/bfwin_uimanager.c:832
+#: ../src/bfwin_uimanager.c:859
 #, fuzzy
 msgid "Rescan Synta_x & Spelling"
 msgstr "/Προβολή/Υπογράμμιση σύνταξης"
 
-#: ../src/bfwin_uimanager.c:832 ../src/bfwin_uimanager.c:835
+#: ../src/bfwin_uimanager.c:859 ../src/bfwin_uimanager.c:862
 #, fuzzy
 msgid "Rescan document highlighting"
 msgstr "/Προβολή/Ανανέωση υπογράμμισης"
 
-#: ../src/bfwin_uimanager.c:835
+#: ../src/bfwin_uimanager.c:862
 #, fuzzy
 msgid "Rescan Synta_x"
 msgstr "/Προβολή/Υπογράμμιση σύνταξης"
 
-#: ../src/bfwin_uimanager.c:838
+#: ../src/bfwin_uimanager.c:865
 #, fuzzy
 msgid "_New Project..."
 msgstr "Νέο έργο"
 
-#: ../src/bfwin_uimanager.c:838 ../src/project.c:208
+#: ../src/bfwin_uimanager.c:865 ../src/project.c:209
 msgid "New project"
 msgstr "Νέο έργο"
 
-#: ../src/bfwin_uimanager.c:839
+#: ../src/bfwin_uimanager.c:866
 #, fuzzy
 msgid "_Open Project..."
 msgstr "Προσωρινός κατάλογος:"
 
-#: ../src/bfwin_uimanager.c:839
+#: ../src/bfwin_uimanager.c:866
 #, fuzzy
 msgid "Open project"
 msgstr "Νέο έργο"
 
-#: ../src/bfwin_uimanager.c:840
+#: ../src/bfwin_uimanager.c:867
 msgid "_Synchronize Text Block"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:840 ../src/blocksync.c:296
+#: ../src/bfwin_uimanager.c:867 ../src/blocksync.c:295
 msgid "Synchronize text block"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:842
+#: ../src/bfwin_uimanager.c:869
 #, fuzzy
-msgid "To_ggle Comment"
+msgid "_Toggle Comment"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/bfwin_uimanager.c:842
+#: ../src/bfwin_uimanager.c:869
 #, fuzzy
 msgid "Toggle comment"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/bfwin_uimanager.c:844
+#: ../src/bfwin_uimanager.c:871
 #, fuzzy
 msgid "Select _Block"
 msgstr "Επιλογή Αρχείου"
 
-#: ../src/bfwin_uimanager.c:844
+#: ../src/bfwin_uimanager.c:871
 msgid "Select block, use multiple times to select parent blocks "
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:846
-msgid "Duplica_te Line"
-msgstr ""
+#: ../src/bfwin_uimanager.c:873
+#, fuzzy
+msgid "D_uplicate Line"
+msgstr "Επιλογή αρχείου"
 
-#: ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:873
 #, fuzzy
 msgid "Duplicate the current line"
 msgstr "/Προβολή/Υπογράμμιση σύνταξης"
 
-#: ../src/bfwin_uimanager.c:848
+#: ../src/bfwin_uimanager.c:875
 #, fuzzy
-msgid "Delete Line"
+msgid "_Delete Line"
 msgstr "Επιλογή αρχείου"
 
-#: ../src/bfwin_uimanager.c:848
+#: ../src/bfwin_uimanager.c:875
 #, fuzzy
 msgid "Delete the current line"
 msgstr "/Προβολή/Υπογράμμιση σύνταξης"
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:877
 #, fuzzy
-msgid "Word Cou_nt"
+msgid "_Word Count"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:877
 #, fuzzy
 msgid "Word count"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
+#: ../src/bfwin_uimanager.c:878 ../src/doc_extern_tools.c:47
 msgid "Lorem Ipsum generator"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:852
+#: ../src/bfwin_uimanager.c:879
 #, fuzzy
 msgid "Insert Relative Filename"
 msgstr "όνομα αρχείου"
 
-#: ../src/bfwin_uimanager.c:853
+#: ../src/bfwin_uimanager.c:880
 #, fuzzy
 msgid "Insert Absolute Filename"
 msgstr "όνομα αρχείου"
 
-#: ../src/bfwin_uimanager.c:854
+#: ../src/bfwin_uimanager.c:881
 msgid "Indenting to S_paces"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:854
+#: ../src/bfwin_uimanager.c:881
 msgid "Indenting to spaces"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:856
+#: ../src/bfwin_uimanager.c:883
 msgid "Indenting to T_abs"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:856
+#: ../src/bfwin_uimanager.c:883
 msgid "Indenting to tabs"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:858
+#: ../src/bfwin_uimanager.c:885
 #, fuzzy
 msgid "_Join Lines Together"
 msgstr "/Εξωτερικά/διαχ1"
 
-#: ../src/bfwin_uimanager.c:858
+#: ../src/bfwin_uimanager.c:885
 #, fuzzy
 msgid "Join lines together"
 msgstr "/Εξωτερικά/διαχ1"
 
-#: ../src/bfwin_uimanager.c:860
+#: ../src/bfwin_uimanager.c:887
 #, fuzzy
 msgid "Split Lines on Right _Margin"
 msgstr "/Εξωτερικά/διαχ1"
 
-#: ../src/bfwin_uimanager.c:860
+#: ../src/bfwin_uimanager.c:887
 #, fuzzy
 msgid "Split lines on right margin"
 msgstr "/Εξωτερικά/διαχ1"
 
-#: ../src/bfwin_uimanager.c:862
+#: ../src/bfwin_uimanager.c:889
 msgid "Merge Lines Into Col_umns"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:862
+#: ../src/bfwin_uimanager.c:889
 msgid "Merge lines into columns"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:864
+#: ../src/bfwin_uimanager.c:891
 #, fuzzy
 msgid "Rewrap _Lines"
 msgstr "/Εξωτερικά/διαχ1"
 
-#: ../src/bfwin_uimanager.c:864
+#: ../src/bfwin_uimanager.c:891
 #, fuzzy
 msgid "Rewrap lines"
 msgstr "/Εξωτερικά/διαχ1"
 
-#: ../src/bfwin_uimanager.c:865
+#: ../src/bfwin_uimanager.c:892
 msgid "Strip T_railing Whitespace"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:865
+#: ../src/bfwin_uimanager.c:892
 msgid "Strip trailing whitespace"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:867
+#: ../src/bfwin_uimanager.c:894
+msgid "Javascript beautifier"
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:895
 #, fuzzy
 msgid "Preview in browser"
 msgstr "Προβολή στον περιηγητή"
 
-#: ../src/bfwin_uimanager.c:872
+#: ../src/bfwin_uimanager.c:900
 msgid "_Full Screen"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:872
+#: ../src/bfwin_uimanager.c:900
 msgid "Full screen"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:874
+#: ../src/bfwin_uimanager.c:902
 #, fuzzy
 msgid "_Main Toolbar"
 msgstr "/Επιλογές/Προβολή κύριας γραμμής εργαλείων"
 
-#: ../src/bfwin_uimanager.c:874
+#: ../src/bfwin_uimanager.c:902
 #, fuzzy
 msgid "Show main toolbar"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:904
 #, fuzzy
 msgid "_Side Pane"
 msgstr "/Επιλογές/Προβολή κύριας γραμμής εργαλείων"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:904
 #, fuzzy
 msgid "Show side pane"
 msgstr "Εμφάνιση κρυφών"
 
-#: ../src/bfwin_uimanager.c:877
+#: ../src/bfwin_uimanager.c:905
 #, fuzzy
 msgid "_Output Pane"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/bfwin_uimanager.c:877
+#: ../src/bfwin_uimanager.c:905
 msgid "Show output pane"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:879
+#: ../src/bfwin_uimanager.c:907
 #, fuzzy
 msgid "Status_bar"
 msgstr "/Αρχείο/κοψ1"
 
-#: ../src/bfwin_uimanager.c:879
+#: ../src/bfwin_uimanager.c:907
 #, fuzzy
 msgid "Show statusbar"
 msgstr "/Αρχείο/κοψ1"
 
-#: ../src/bfwin_uimanager.c:881
+#: ../src/bfwin_uimanager.c:909
 #, fuzzy
 msgid "Auto _Completion Popup"
 msgstr "/Επιλογές/Λίστες"
 
-#: ../src/bfwin_uimanager.c:881
+#: ../src/bfwin_uimanager.c:909
 #, fuzzy
 msgid "Show auto completion popup"
 msgstr "/Επιλογές/Λίστες"
 
-#: ../src/bfwin_uimanager.c:883
+#: ../src/bfwin_uimanager.c:911
 #, fuzzy
 msgid "_Auto Indent"
 msgstr "/Επιλογές/Λίστες"
 
-#: ../src/bfwin_uimanager.c:883
+#: ../src/bfwin_uimanager.c:911
 #, fuzzy
 msgid "Auto indent"
 msgstr "/Επιλογές/Λίστες"
 
-#: ../src/bfwin_uimanager.c:884
+#: ../src/bfwin_uimanager.c:912
 #, fuzzy
 msgid "Highlight Block _Delimiters"
 msgstr "Τύλιγμα λέξης"
 
-#: ../src/bfwin_uimanager.c:885
+#: ../src/bfwin_uimanager.c:913
 #, fuzzy
 msgid "Highlight block delimiters"
 msgstr "Τύλιγμα λέξης"
 
-#: ../src/bfwin_uimanager.c:886
+#: ../src/bfwin_uimanager.c:914
 #, fuzzy
 msgid "_Highlight Syntax"
 msgstr "Υπογράμμιση σα προεπιλογή"
 
-#: ../src/bfwin_uimanager.c:886
+#: ../src/bfwin_uimanager.c:914
 #, fuzzy
 msgid "Highlight syntax"
 msgstr "Υπογράμμιση σα προεπιλογή"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:916
 #, fuzzy
 msgid "Show _Blocks"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:916
 #, fuzzy
 msgid "Show blocks"
 msgstr "Εμφάνιση αντιγράφων ασφαλείας"
 
-#: ../src/bfwin_uimanager.c:889
+#: ../src/bfwin_uimanager.c:917
 #, fuzzy
 msgid "Show Line N_umbers"
 msgstr "Αριθμός _γραμμής:"
 
-#: ../src/bfwin_uimanager.c:889
+#: ../src/bfwin_uimanager.c:917
 #, fuzzy
 msgid "Show line numbers"
 msgstr "Αριθμός _γραμμής:"
 
-#: ../src/bfwin_uimanager.c:891
+#: ../src/bfwin_uimanager.c:919
 #, fuzzy
 msgid "Show Right _Margin"
 msgstr "Σχόλιο"
 
-#: ../src/bfwin_uimanager.c:891
+#: ../src/bfwin_uimanager.c:919
 #, fuzzy
 msgid "Show right margin"
 msgstr "Σχόλιο"
 
-#: ../src/bfwin_uimanager.c:893
+#: ../src/bfwin_uimanager.c:921
 msgid "Show Split _View"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:893
+#: ../src/bfwin_uimanager.c:921
 msgid "Show split view"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:895
+#: ../src/bfwin_uimanager.c:923
 #, fuzzy
 msgid "Show V_isible Spacing"
 msgstr "Σχόλιο"
 
-#: ../src/bfwin_uimanager.c:895
+#: ../src/bfwin_uimanager.c:923
 #, fuzzy
 msgid "Show visible spacing"
 msgstr "Σχόλιο"
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:925
 msgid "_Wrap Text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:925
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
+#: ../src/bfwin_uimanager.c:929 ../src/document.c:2965
 #, fuzzy
 msgid "_Close"
 msgstr "Κλείσιμο"
 
-#: ../src/bfwin_uimanager.c:901
+#: ../src/bfwin_uimanager.c:929
 #, fuzzy
 msgid "Close current file"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/bfwin_uimanager.c:903
+#: ../src/bfwin_uimanager.c:931
 #, fuzzy
 msgid "Close A_ll"
 msgstr "Κλείσιμο _Όλων"
 
-#: ../src/bfwin_uimanager.c:903
+#: ../src/bfwin_uimanager.c:931
 #, fuzzy
 msgid "Close all files"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/bfwin_uimanager.c:905 ../src/bfwin_uimanager.c:963
-#: ../src/file_dialogs.c:1430
+#: ../src/bfwin_uimanager.c:933 ../src/bfwin_uimanager.c:995
+#: ../src/file_dialogs.c:1459
 #, fuzzy
 msgid "_Save"
 msgstr "Αποθήκευση"
 
-#: ../src/bfwin_uimanager.c:905
+#: ../src/bfwin_uimanager.c:933
 #, fuzzy
 msgid "Save current file"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/bfwin_uimanager.c:907 ../src/bfwin_uimanager.c:964
+#: ../src/bfwin_uimanager.c:935 ../src/bfwin_uimanager.c:996
 #, fuzzy
 msgid "Save _as..."
 msgstr "Αποθήκευση ως..."
 
-#: ../src/bfwin_uimanager.c:907
+#: ../src/bfwin_uimanager.c:935
 #, fuzzy
 msgid "Save file as"
 msgstr "Αποθήκευση %s ως"
 
-#: ../src/bfwin_uimanager.c:909
+#: ../src/bfwin_uimanager.c:937
 #, fuzzy
 msgid "Sav_e All"
 msgstr "Απο_θήκευση Όλων"
 
-#: ../src/bfwin_uimanager.c:909
+#: ../src/bfwin_uimanager.c:937
 #, fuzzy
 msgid "Save all files"
 msgstr "Όλα τα αρχεία"
 
-#: ../src/bfwin_uimanager.c:910
+#: ../src/bfwin_uimanager.c:938
 #, fuzzy
 msgid "Rever_t to Saved"
 msgstr "/Αρχείο/Μετακίνηση"
 
-#: ../src/bfwin_uimanager.c:910
+#: ../src/bfwin_uimanager.c:938
 msgid "Reload current file"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:912
+#: ../src/bfwin_uimanager.c:940
+#, fuzzy
+msgid "Save a cop_y..."
+msgstr "Αποθήκευση ως..."
+
+#: ../src/bfwin_uimanager.c:940
+#, fuzzy
+msgid "Save a copy"
+msgstr "/Αρχείο/Αποθήκευση _ώς"
+
+#: ../src/bfwin_uimanager.c:941
 #, fuzzy
 msgid "Rena_me..."
 msgstr "Αρχείο/_Άνοιγμα"
 
-#: ../src/bfwin_uimanager.c:912
+#: ../src/bfwin_uimanager.c:941
 #, fuzzy
 msgid "Rename file"
 msgstr "Νέο στυλ"
 
-#: ../src/bfwin_uimanager.c:913
+#: ../src/bfwin_uimanager.c:942
 #, fuzzy
 msgid "_Indent"
 msgstr "/Επεξεργασία/Επικόλληση"
 
-#: ../src/bfwin_uimanager.c:913
+#: ../src/bfwin_uimanager.c:942
 msgid "Indent"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:914
+#: ../src/bfwin_uimanager.c:943
 #, fuzzy
 msgid "Unin_dent"
 msgstr "/Επεξεργασία/Επικόλληση"
 
-#: ../src/bfwin_uimanager.c:914
+#: ../src/bfwin_uimanager.c:943
 msgid "Unindent"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:916
+#: ../src/bfwin_uimanager.c:945
 #, fuzzy
 msgid "F_irst Bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bfwin_uimanager.c:916
+#: ../src/bfwin_uimanager.c:945
 #, fuzzy
 msgid "Goto first bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bfwin_uimanager.c:918
+#: ../src/bfwin_uimanager.c:947
 #, fuzzy
 msgid "L_ast Bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bfwin_uimanager.c:918
+#: ../src/bfwin_uimanager.c:947
 #, fuzzy
 msgid "Goto last bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bfwin_uimanager.c:920
+#: ../src/bfwin_uimanager.c:949
 #, fuzzy
 msgid "N_ext Bookmark"
 msgstr "Διαγραφή σελιδοδείκτη"
 
-#: ../src/bfwin_uimanager.c:920
+#: ../src/bfwin_uimanager.c:949
 #, fuzzy
 msgid "Goto next bookmark"
 msgstr "Διαγραφή σελιδοδείκτη"
 
-#: ../src/bfwin_uimanager.c:922
+#: ../src/bfwin_uimanager.c:951
 #, fuzzy
 msgid "P_revious Bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bfwin_uimanager.c:923 ../src/bfwin_uimanager.c:934
+#: ../src/bfwin_uimanager.c:952 ../src/bfwin_uimanager.c:965
 #, fuzzy
 msgid "Goto previous document"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/bfwin_uimanager.c:924
+#: ../src/bfwin_uimanager.c:953
 #, fuzzy
 msgid "Move Tab _Left"
 msgstr "Μετακίνηση Αριστερά"
 
-#: ../src/bfwin_uimanager.c:924
+#: ../src/bfwin_uimanager.c:953
 #, fuzzy
 msgid "Move current tab left"
 msgstr "Επιλογέας"
 
-#: ../src/bfwin_uimanager.c:926
+#: ../src/bfwin_uimanager.c:955
 #, fuzzy
 msgid "Move Tab _Right"
 msgstr "Μετακίνηση Δεξιά"
 
-#: ../src/bfwin_uimanager.c:926
+#: ../src/bfwin_uimanager.c:955
 #, fuzzy
 msgid "Move current tab right"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/bfwin_uimanager.c:928
+#: ../src/bfwin_uimanager.c:957
+#, fuzzy
+msgid "_Recent Document"
+msgstr "Σχόλιο"
+
+#: ../src/bfwin_uimanager.c:957
+#, fuzzy
+msgid "Goto most recent document"
+msgstr "Σχόλιο"
+
+#: ../src/bfwin_uimanager.c:959
 #, fuzzy
 msgid "_First Document"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/bfwin_uimanager.c:928
+#: ../src/bfwin_uimanager.c:959
 #, fuzzy
 msgid "Goto first document"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/bfwin_uimanager.c:930
+#: ../src/bfwin_uimanager.c:961
 #, fuzzy
 msgid "_Last Document"
 msgstr "Σχόλιο"
 
-#: ../src/bfwin_uimanager.c:930
+#: ../src/bfwin_uimanager.c:961
 #, fuzzy
 msgid "Goto last document"
 msgstr "Σχόλιο"
 
-#: ../src/bfwin_uimanager.c:932
+#: ../src/bfwin_uimanager.c:963
 #, fuzzy
 msgid "_Next Document"
 msgstr "Σχόλιο"
 
-#: ../src/bfwin_uimanager.c:932
+#: ../src/bfwin_uimanager.c:963
 #, fuzzy
 msgid "Goto next document"
 msgstr "Σχόλιο"
 
-#: ../src/bfwin_uimanager.c:934
+#: ../src/bfwin_uimanager.c:965
 #, fuzzy
 msgid "_Previous Document"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/bfwin_uimanager.c:936
+#: ../src/bfwin_uimanager.c:967
 #, fuzzy
-msgid "Goto _Line"
+msgid "_Goto Line"
 msgstr "Πήγαινε στη γραμμή"
 
-#: ../src/bfwin_uimanager.c:936
+#: ../src/bfwin_uimanager.c:967
 #, fuzzy
 msgid "Goto line"
 msgstr "Πήγαινε στη γραμμή"
 
-#: ../src/bfwin_uimanager.c:937
+#: ../src/bfwin_uimanager.c:968
 #, fuzzy
 msgid "Goto Line Number from _Clipboard"
 msgstr "/Επεξεργασία/Εύρεση γραμμής"
 
-#: ../src/bfwin_uimanager.c:938
+#: ../src/bfwin_uimanager.c:969
 #, fuzzy
 msgid "Goto line number in clipboard or selection"
 msgstr "/Επεξεργασία/Εύρεση γραμμής"
 
-#: ../src/bfwin_uimanager.c:939
+#: ../src/bfwin_uimanager.c:970
 #, fuzzy
 msgid "_Jump to Reference"
 msgstr "/Επιλογές/Προτιμήσεις"
 
-#: ../src/bfwin_uimanager.c:939
+#: ../src/bfwin_uimanager.c:970
 #, fuzzy
 msgid "Jump to reference"
 msgstr "/Επιλογές/Προτιμήσεις"
 
-#: ../src/bfwin_uimanager.c:944
+#: ../src/bfwin_uimanager.c:975
 msgid "Cu_t"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:944
+#: ../src/bfwin_uimanager.c:975
 msgid "Cut"
 msgstr "Αποκοπή"
 
-#: ../src/bfwin_uimanager.c:945
+#: ../src/bfwin_uimanager.c:976
 #, fuzzy
 msgid "_Copy"
 msgstr "Αντιγραφή"
 
-#: ../src/bfwin_uimanager.c:945
+#: ../src/bfwin_uimanager.c:976
 msgid "Copy"
 msgstr "Αντιγραφή"
 
-#: ../src/bfwin_uimanager.c:946
+#: ../src/bfwin_uimanager.c:977
 #, fuzzy
 msgid "_Paste"
 msgstr "Επικόλληση"
 
-#: ../src/bfwin_uimanager.c:946
+#: ../src/bfwin_uimanager.c:977
 msgid "Paste"
 msgstr "Επικόλληση"
 
-#: ../src/bfwin_uimanager.c:950
+#: ../src/bfwin_uimanager.c:978
+#, fuzzy
+msgid "Paste Specia_l"
+msgstr "/Ετικέτες/Ειδικοί χαρακτήρες"
+
+#: ../src/bfwin_uimanager.c:978
+#, fuzzy
+msgid "Paste Special"
+msgstr "/Ετικέτες/Ειδικοί χαρακτήρες"
+
+#: ../src/bfwin_uimanager.c:982
 #, fuzzy
 msgid "_Find"
 msgstr "Εύρεση"
 
-#: ../src/bfwin_uimanager.c:950
+#: ../src/bfwin_uimanager.c:982
 #, fuzzy
 msgid "Show find bar"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/bfwin_uimanager.c:951
+#: ../src/bfwin_uimanager.c:983
 #, fuzzy
 msgid "Find A_gain"
 msgstr "/Επεξεργασία/Εύρεση επομένου"
 
-#: ../src/bfwin_uimanager.c:951
+#: ../src/bfwin_uimanager.c:983
 #, fuzzy
 msgid "Find again"
 msgstr "/Επεξεργασία/Εύρεση επομένου"
 
-#: ../src/bfwin_uimanager.c:952
+#: ../src/bfwin_uimanager.c:984
 #, fuzzy
 msgid "Find from Clip_board"
 msgstr "Επιλογή γραμματοσειράς"
 
-#: ../src/bfwin_uimanager.c:952
+#: ../src/bfwin_uimanager.c:984
 #, fuzzy
 msgid "Find from clipboard or selection"
 msgstr "Επιλογή γραμματοσειράς"
 
-#: ../src/bfwin_uimanager.c:954
+#: ../src/bfwin_uimanager.c:986
 #, fuzzy
-msgid "Advanced Find & Re_place..."
+msgid "Ad_vanced Find & Replace..."
 msgstr "Αντικατάσταση"
 
-#: ../src/bfwin_uimanager.c:954
+#: ../src/bfwin_uimanager.c:986
 #, fuzzy
 msgid "Advanced Find and Replace"
 msgstr "Αντικατάσταση"
 
-#: ../src/bfwin_uimanager.c:961
+#: ../src/bfwin_uimanager.c:993
 #, fuzzy
 msgid "Save & _close"
 msgstr "/Αρχείο/Αποθήκευση _ώς"
 
-#: ../src/bfwin_uimanager.c:961
+#: ../src/bfwin_uimanager.c:993
 #, fuzzy
 msgid "Save & close project"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/bfwin_uimanager.c:963
+#: ../src/bfwin_uimanager.c:995
 #, fuzzy
 msgid "Save project"
 msgstr "Νέο έργο"
 
-#: ../src/bfwin_uimanager.c:964
+#: ../src/bfwin_uimanager.c:996
 #, fuzzy
 msgid "Save project as"
 msgstr "Νέο έργο"
 
-#: ../src/bfwin_uimanager.c:965
+#: ../src/bfwin_uimanager.c:997
 #, fuzzy
 msgid "_Edit Project Options..."
 msgstr "Επεξεργασία Έργου"
 
-#: ../src/bfwin_uimanager.c:965
+#: ../src/bfwin_uimanager.c:997
 #, fuzzy
 msgid "Edit project options"
 msgstr "Επεξεργασία Έργου"
 
-#: ../src/bfwin_uimanager.c:970
+#: ../src/bfwin_uimanager.c:1002
 #, fuzzy
 msgid "_Undo"
 msgstr "Αναίρεση"
 
-#: ../src/bfwin_uimanager.c:970
+#: ../src/bfwin_uimanager.c:1002
 msgid "Undo"
 msgstr "Αναίρεση"
 
-#: ../src/bfwin_uimanager.c:971
+#: ../src/bfwin_uimanager.c:1003
 #, fuzzy
 msgid "U_ndo All"
 msgstr "/Επεξεργασία/Αναίρεση όλων"
 
-#: ../src/bfwin_uimanager.c:971
+#: ../src/bfwin_uimanager.c:1003
 #, fuzzy
 msgid "Undo All"
 msgstr "/Επεξεργασία/Αναίρεση όλων"
 
-#: ../src/bfwin_uimanager.c:972
+#: ../src/bfwin_uimanager.c:1004
 #, fuzzy
 msgid "_Redo"
 msgstr "Επαναφορά"
 
-#: ../src/bfwin_uimanager.c:972
+#: ../src/bfwin_uimanager.c:1004
 msgid "Redo"
 msgstr "Επαναφορά"
 
-#: ../src/bfwin_uimanager.c:973
+#: ../src/bfwin_uimanager.c:1005
 #, fuzzy
 msgid "R_edo All"
 msgstr "/Επεξεργασία/Επαναφορά όλων"
 
-#: ../src/bfwin_uimanager.c:973
+#: ../src/bfwin_uimanager.c:1005
 #, fuzzy
 msgid "Redo All"
 msgstr "/Επεξεργασία/Επαναφορά όλων"
 
-#: ../src/bfwin_uimanager.c:1114
+#: ../src/bfwin_uimanager.c:1147
 #, fuzzy
 msgid "Open _URL..."
 msgstr "Αρχείο/_Άνοιγμα"
 
-#: ../src/bfwin_uimanager.c:1127
+#: ../src/bfwin_uimanager.c:1157
+msgid "Upload _/ Download..."
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:1170
 #, fuzzy
 msgid "_Spell Check"
 msgstr "Έλεγχος Ορθογραφίας..."
 
-#: ../src/bfwin_uimanager.c:1508
+#: ../src/bfwin_uimanager.c:1571
 #, fuzzy
 msgid "Text area to filter"
 msgstr "Πεδίο κειμένου"
 
-#: ../src/bfwin_uimanager.c:1509
+#: ../src/bfwin_uimanager.c:1572
 msgid "All text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:1510
+#: ../src/bfwin_uimanager.c:1573
 #, fuzzy
 msgid "Selected text only"
 msgstr "Επιλογή γραμματοσειράς"
+
+#: ../src/bfwin_uimanager.c:1575
+msgid "Never ask again"
+msgstr ""
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -1137,219 +1194,224 @@ msgstr ""
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr ""
 
-#: ../src/bluefish.c:267
+#: ../src/bluefish.c:316
 msgid "Open in existing window."
 msgstr ""
 
-#: ../src/bluefish.c:269
+#: ../src/bluefish.c:318
 msgid "Open in new window."
 msgstr ""
 
-#: ../src/bluefish.c:271
+#: ../src/bluefish.c:320
 msgid "Print version information."
 msgstr ""
 
-#: ../src/bluefish.c:293
+#: ../src/bluefish.c:342
 msgid " [FILE(S)]"
 msgstr ""
 
-#: ../src/bluefish.c:304
+#: ../src/bluefish.c:353
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
 "Please run: %s -?\n"
 msgstr ""
 
-#: ../src/bookmark.c:558
+#: ../src/bookmark.c:576 ../src/bookmark.c:597
 msgid "_Name:"
 msgstr "_Όνομα:"
 
-#: ../src/bookmark.c:562
+#: ../src/bookmark.c:583 ../src/bookmark.c:601
 msgid "_Description:"
 msgstr "_Περιγραφή:"
 
-#: ../src/bookmark.c:564
+#: ../src/bookmark.c:586
+#, fuzzy
+msgid "_Temporary"
+msgstr "Προσωρινό"
+
+#: ../src/bookmark.c:603
 msgid "Temporary"
 msgstr "Προσωρινό"
 
-#: ../src/bookmark.c:725
+#: ../src/bookmark.c:767
 #, fuzzy, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Είσαι σίγουρος για την αντικατάσταση;"
 
-#: ../src/bookmark.c:728
+#: ../src/bookmark.c:770
 msgid "Delete permanent bookmark."
 msgstr ""
 
-#: ../src/bookmark.c:754
+#: ../src/bookmark.c:796
 msgid "Delete all bookmarks."
 msgstr "Διαγραφή όλων των σελιδοδεικτών."
 
-#: ../src/bookmark.c:792
+#: ../src/bookmark.c:834
 #, fuzzy, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "Είσαι σίγουρος για την αντικατάσταση;"
 
-#: ../src/bookmark.c:794
+#: ../src/bookmark.c:836
 msgid "Delete bookmarks?"
 msgstr "Διαγραφή σελιδοδεικτών;"
 
-#: ../src/bookmark.c:815 ../src/bookmark.c:876
+#: ../src/bookmark.c:857 ../src/bookmark.c:918
 msgid "Edit bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bookmark.c:872
+#: ../src/bookmark.c:914
 #, fuzzy
 msgid "Bookmark menu"
 msgstr "/Επιλογές/διαχ1"
 
-#: ../src/bookmark.c:873
+#: ../src/bookmark.c:915
 #, fuzzy
 msgid "Show Bookmark"
 msgstr "Μετάβαση σε σελιδοδείκτη"
 
-#: ../src/bookmark.c:874
+#: ../src/bookmark.c:916
 #, fuzzy
 msgid "Show File"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/bookmark.c:875
+#: ../src/bookmark.c:917
 #, fuzzy
 msgid "Bookmark search menu"
 msgstr "Σελίδοδείκτες"
 
-#: ../src/bookmark.c:876
+#: ../src/bookmark.c:918
 #, fuzzy
 msgid "_Edit..."
 msgstr "/_Επεξεργασία"
 
-#: ../src/bookmark.c:878 ../src/filebrowser2.c:2040
+#: ../src/bookmark.c:920 ../src/filebrowser2.c:2045
 #, fuzzy
 msgid "_Delete"
 msgstr " Σβήσιμο "
 
-#: ../src/bookmark.c:878 ../src/document.c:1848
+#: ../src/bookmark.c:920 ../src/document.c:1914
 msgid "Delete bookmark"
 msgstr "Διαγραφή σελιδοδείκτη"
 
-#: ../src/bookmark.c:879
+#: ../src/bookmark.c:921
 #, fuzzy
 msgid "Delete All"
 msgstr "Διαγραφή όλων"
 
-#: ../src/bookmark.c:879
+#: ../src/bookmark.c:921
 #, fuzzy
 msgid "Delete all bookmarks"
 msgstr "Διαγραφή όλων των σελιδοδεικτών."
 
-#: ../src/bookmark.c:881
+#: ../src/bookmark.c:923
 #, fuzzy
 msgid "Delete All in Document"
 msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
 
-#: ../src/bookmark.c:881
+#: ../src/bookmark.c:924
 #, fuzzy
 msgid "Delete all bookmarks in document"
 msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
 
-#: ../src/bookmark.c:886
+#: ../src/bookmark.c:929
 #, fuzzy
 msgid "Permanent by default"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/bookmark.c:891
+#: ../src/bookmark.c:934
 #, fuzzy
 msgid "By Name"
 msgstr "Όνομα"
 
-#: ../src/bookmark.c:892
+#: ../src/bookmark.c:935
 msgid "By Full Path"
 msgstr ""
 
-#: ../src/bookmark.c:893
+#: ../src/bookmark.c:936
 msgid "By Full URI"
 msgstr ""
 
-#: ../src/bookmark.c:897 ../src/bookmark.c:903
+#: ../src/bookmark.c:940 ../src/bookmark.c:946
 #, fuzzy
 msgid "Content"
 msgstr "Περιε_χόμενο:"
 
-#: ../src/bookmark.c:898 ../src/bookmark.c:904 ../src/preferences.c:596
-#: ../src/preferences.c:1362 ../src/preferences.c:1364
-#: ../src/preferences.c:1465
+#: ../src/bookmark.c:941 ../src/bookmark.c:947 ../src/preferences.c:602
+#: ../src/preferences.c:1368 ../src/preferences.c:1370
+#: ../src/preferences.c:1472
 msgid "Name"
 msgstr "Όνομα"
 
-#: ../src/bookmark.c:899 ../src/bookmark.c:905
+#: ../src/bookmark.c:942 ../src/bookmark.c:948
 #, fuzzy
 msgid "Name & Content"
 msgstr "Περιε_χόμενο:"
 
-#: ../src/bookmark.c:1246
+#: ../src/bookmark.c:1280
 #, fuzzy
 msgid "First bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bookmark.c:1250
+#: ../src/bookmark.c:1284
 #, fuzzy
 msgid "Previous bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bookmark.c:1254
+#: ../src/bookmark.c:1288
 #, fuzzy
 msgid "Next bookmark"
 msgstr "Διαγραφή σελιδοδείκτη"
 
-#: ../src/bookmark.c:1258
+#: ../src/bookmark.c:1292
 #, fuzzy
 msgid "Last bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bookmark.c:1961 ../src/bookmark.c:2108
+#: ../src/bookmark.c:2000 ../src/bookmark.c:2147
 #, fuzzy
 msgid "Error adding bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bookmark.c:1961 ../src/bookmark.c:2108
+#: ../src/bookmark.c:2000 ../src/bookmark.c:2147
 #, fuzzy
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Κατάληξη αρχείου ασφαλείας"
 
-#: ../src/bookmark.c:2042
+#: ../src/bookmark.c:2081
 #, fuzzy
 msgid "Can't add bookmark"
 msgstr "Προσθήκη σελιδοδείκτη"
 
-#: ../src/bookmark.c:2042
+#: ../src/bookmark.c:2081
 msgid "You already have a bookmark here!"
 msgstr ""
 
-#: ../src/document.c:411
+#: ../src/document.c:395
 msgid "Name: "
 msgstr "Όνομα: "
 
-#: ../src/document.c:414
+#: ../src/document.c:398
 #, fuzzy
 msgid ""
 "\n"
 "Language mode: "
 msgstr "Γλώσσα:"
 
-#: ../src/document.c:418
+#: ../src/document.c:402
 msgid ""
 "\n"
 "Encoding: "
 msgstr ""
 
-#: ../src/document.c:430
+#: ../src/document.c:414
 #, fuzzy
 msgid ""
 "\n"
 "Mime type: "
 msgstr "Τύποι αρχείων"
 
-#: ../src/document.c:438
+#: ../src/document.c:422
 #, c-format
 msgid ""
 "\n"
@@ -1357,93 +1419,113 @@ msgid ""
 "Uid: %u Gid: %u"
 msgstr ""
 
-#: ../src/document.c:455
+#: ../src/document.c:439
 msgid ""
 "\n"
 "Size (on disk): "
 msgstr ""
 
-#: ../src/document.c:464
+#: ../src/document.c:448
 msgid ""
 "\n"
 "Last modified: "
 msgstr ""
 
-#: ../src/document.c:502
+#: ../src/document.c:486
 #, fuzzy, c-format
 msgid "Untitled %d"
 msgstr "Άτιτλο"
 
-#: ../src/document.c:687
+#: ../src/document.c:667
 #, c-format
 msgid "Changed tab width to %d"
 msgstr ""
 
-#: ../src/document.c:861
+#: ../src/document.c:841
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr ""
 
-#: ../src/document.c:863
+#: ../src/document.c:843
 msgid "Move to this window"
 msgstr ""
 
-#: ../src/document.c:863
+#: ../src/document.c:843
 msgid "Open readonly"
 msgstr ""
 
-#: ../src/document.c:864
+#: ../src/document.c:844
 #, fuzzy
 msgid "Do not open"
 msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
 
-#: ../src/document.c:1176
+#: ../src/document.c:1156
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr ""
 
-#: ../src/document.c:1179
+#: ../src/document.c:1159
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr ""
 
-#: ../src/document.c:1202
+#: ../src/document.c:1182
 msgid " OVR"
 msgstr ""
 
-#: ../src/document.c:1202
+#: ../src/document.c:1182
 msgid " INS"
 msgstr ""
 
-#: ../src/document.c:1204
+#: ../src/document.c:1184
 msgid " RO"
 msgstr ""
 
-#: ../src/document.c:1223
+#: ../src/document.c:1203
 #, fuzzy
 msgid "Unknown"
 msgstr "Άγνωστο εικονίδιο"
 
-#: ../src/document.c:1671
+#: ../src/document.c:1654
+msgid "_No"
+msgstr ""
+
+#: ../src/document.c:1654
+msgid "_Split"
+msgstr ""
+
+#: ../src/document.c:1657
+msgid "File contains very long lines. Split these lines?"
+msgstr ""
+
+#: ../src/document.c:1657
+msgid ""
+"The lines in this file are longer than Bluefish can handle with reasonable "
+"performance. This split function, however, is unaware of any language "
+"syntax, and may replace spaces or tabs with newlines in any location, or "
+"insert newlines if no spaces or tabs are found."
+msgstr ""
+
+#: ../src/document.c:1733
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 
-#: ../src/document.c:1858
+#: ../src/document.c:1924
 msgid "Exit fullscreen"
 msgstr ""
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2002 ../src/file_dialogs.c:474 ../src/file_dialogs.c:512
+#: ../src/document.c:2068 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr ""
 
-#: ../src/document.c:2002
+#: ../src/document.c:2068
 msgid "_Continue save in UTF-8"
 msgstr ""
 
-#: ../src/document.c:2015
+#: ../src/document.c:2081
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1452,99 +1534,120 @@ msgid ""
 "Continue saving in UTF-8 encoding?"
 msgstr ""
 
-#: ../src/document.c:2020
+#: ../src/document.c:2086
 msgid "File encoding conversion failure"
 msgstr ""
 
-#: ../src/document.c:2174
+#: ../src/document.c:2243
 msgid "Previously: "
 msgstr ""
 
-#: ../src/document.c:2646 ../src/file_dialogs.c:819
+#: ../src/document.c:2752 ../src/file_dialogs.c:844
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
 
-#: ../src/document.c:2775
+#: ../src/document.c:2881
 msgid "Unable to open file"
 msgstr "Δεν είναι δυνατή η προσπέλαση του αρχείου"
 
-#: ../src/document.c:2787
+#: ../src/document.c:2893
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr ""
 
-#: ../src/document.c:2791
+#: ../src/document.c:2897
 msgid "Revert changes to last saved copy?"
 msgstr ""
 
-#: ../src/document.c:2859
+#: ../src/document.c:2965
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:2859
+#: ../src/document.c:2965
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:2859
+#: ../src/document.c:2965
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/document.c:2864
+#: ../src/document.c:2970
 #, fuzzy
 msgid "File "
 msgstr "/_Αρχεία"
 
-#: ../src/document.c:2864
+#: ../src/document.c:2970
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:2868
+#: ../src/document.c:2974
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:2985
+#: ../src/document.c:3099
 #, fuzzy
 msgid "Select file to insert"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/document.c:2994
+#: ../src/document.c:3108
 #, fuzzy
 msgid "No file to insert"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/document.c:3101
+#: ../src/document.c:3188
+#, fuzzy
+msgid "Save pasted image as"
+msgstr "Αποθήκευση %s ως"
+
+#: ../src/document.c:3295
+msgid "Paste special"
+msgstr ""
+
+#: ../src/document.c:3302
+msgid "Paste as _HTML"
+msgstr ""
+
+#: ../src/document.c:3306
+msgid "Paste as HTML with _JPG"
+msgstr ""
+
+#: ../src/document.c:3308
+msgid "Paste as HTML _PNG"
+msgstr ""
+
+#: ../src/document.c:3388
 #, fuzzy, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "Πήγαινε στη γραμμή"
 msgstr[1] "Πήγαινε στη γραμμή"
 
-#: ../src/document.c:3102
+#: ../src/document.c:3389
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d από %d"
 msgstr[1] "%d από %d"
 
-#: ../src/document.c:3103
+#: ../src/document.c:3390
 #, fuzzy, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "Προεπιλεγμένο σετ χαρακτήρων"
 msgstr[1] "Προεπιλεγμένο σετ χαρακτήρων"
 
-#: ../src/document.c:3105
+#: ../src/document.c:3392
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "Εύρεση"
 
-#: ../src/document.c:3105
+#: ../src/document.c:3392
 #, fuzzy
 msgid "Statistics: "
 msgstr "Εύρεση"
@@ -1571,30 +1674,75 @@ msgstr ""
 msgid "Fill empty entries:"
 msgstr ""
 
-#: ../src/doc_extern_tools.c:49
+#: ../src/doc_extern_tools.c:63
 #, fuzzy
-msgid "Number of paragraphs"
+msgid "Number of _paragraphs:"
 msgstr "Αριθμός των _Πλαισίων:"
 
-#: ../src/doc_extern_tools.c:51
+#: ../src/doc_extern_tools.c:68
 #, fuzzy
-msgid "Number of sentences"
+msgid "Number of _sentences:"
 msgstr "Αριθμός των _στηλών:"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 #, fuzzy
 msgid "Insert plain text"
 msgstr "Εισαγωγή εικόνας"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 #, fuzzy
 msgid "Insert in <li>"
 msgstr "Εισαγωγή Ώρας"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 #, fuzzy
 msgid "Insert in <p>"
 msgstr "Εισαγωγή Ώρας"
+
+#: ../src/doc_extern_tools.c:81
+#, fuzzy
+msgid "Number of paragraphs"
+msgstr "Αριθμός των _Πλαισίων:"
+
+#: ../src/doc_extern_tools.c:84
+#, fuzzy
+msgid "Number of sentences"
+msgstr "Αριθμός των _στηλών:"
+
+#: ../src/doc_extern_tools.c:134
+msgid "Javascript Beautify"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:148
+#, fuzzy
+msgid "_Indent size:"
+msgstr "/Επεξεργασία/Επικόλληση"
+
+#: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
+msgid "Use _tabs to indent, not spaces"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
+msgid "Do not _preserve existing line breaks"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
+msgid "More _jslint-compatible output"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
+msgid "_Decode printable chars encoded in \\\\xNN notation"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
+#, fuzzy
+msgid "Beautify only in _selection"
+msgstr "Στην επιλογή"
+
+#: ../src/doc_extern_tools.c:179
+#, fuzzy
+msgid "_Indent size"
+msgstr "/Επεξεργασία/Επικόλληση"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1616,13 +1764,35 @@ msgstr ""
 msgid "Add or remove document encodings"
 msgstr ""
 
-#: ../src/external_commands.c:405
+#: ../src/external_commands.c:167
+#, c-format
+msgid "The command %s exited with error code %d. %s"
+msgstr ""
+
+#: ../src/external_commands.c:167
+msgid "Probably this application is not installed on your system."
+msgstr ""
+
+#: ../src/external_commands.c:169
+msgid "Command returned error code"
+msgstr ""
+
+#: ../src/external_commands.c:419
 msgid "Supply extra arguments"
 msgstr ""
 
-#: ../src/external_commands.c:410
+#: ../src/external_commands.c:424
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
+msgstr ""
+
+#: ../src/external_commands.c:673
+#, c-format
+msgid "Failed to create a command for %s."
+msgstr ""
+
+#: ../src/external_commands.c:675
+msgid "Failed to create a command"
 msgstr ""
 
 #: ../src/filebrowser2.c:277
@@ -1645,12 +1815,17 @@ msgstr "Σχόλιο"
 msgid "Webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:1549
+#: ../src/filebrowser2.c:1539 ../src/file_dialogs.c:789
+#, fuzzy, c-format
+msgid "Move/rename %s to"
+msgstr "Σχόλιο"
+
+#: ../src/filebrowser2.c:1550
 #, fuzzy
 msgid "Could not rename\n"
 msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
 
-#: ../src/filebrowser2.c:1622 ../src/filebrowser2.c:2042
+#: ../src/filebrowser2.c:1623 ../src/filebrowser2.c:2047
 #, fuzzy
 msgid "New directory"
 msgstr "Προσωρινός κατάλογος:"
@@ -1663,7 +1838,7 @@ msgstr "Προσωρινός κατάλογος:"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1739
+#: ../src/filebrowser2.c:1742
 #, fuzzy, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -1672,171 +1847,171 @@ msgstr ""
 "Είστε σίγουρος πως θέλετε να κλείσετε το \n"
 "%s ;"
 
-#: ../src/filebrowser2.c:1740
+#: ../src/filebrowser2.c:1743
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr ""
 
-#: ../src/filebrowser2.c:2035
+#: ../src/filebrowser2.c:2040
 #, fuzzy
 msgid "File Browser menu"
 msgstr "Περιηγητής αρχείων"
 
-#: ../src/filebrowser2.c:2036
+#: ../src/filebrowser2.c:2041
 #, fuzzy
 msgid "_Open"
 msgstr "/Ε_πιλογές"
 
-#: ../src/filebrowser2.c:2036
+#: ../src/filebrowser2.c:2041
 #, fuzzy
 msgid "Open"
 msgstr "/Ε_πιλογές"
 
-#: ../src/filebrowser2.c:2037
+#: ../src/filebrowser2.c:2042
 #, fuzzy
 msgid "Open _Advanced..."
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/filebrowser2.c:2039
+#: ../src/filebrowser2.c:2044
 #, fuzzy
 msgid "Rena_me"
 msgstr "Αρχείο/_Άνοιγμα"
 
-#: ../src/filebrowser2.c:2039
+#: ../src/filebrowser2.c:2044
 #, fuzzy
 msgid "Rename"
 msgstr "Όνομα αρχείου"
 
-#: ../src/filebrowser2.c:2040
+#: ../src/filebrowser2.c:2045
 #, fuzzy
 msgid "Delete"
 msgstr " Σβήσιμο "
 
-#: ../src/filebrowser2.c:2041
+#: ../src/filebrowser2.c:2046
 #, fuzzy
 msgid "New _File"
 msgstr "Νέο στυλ"
 
-#: ../src/filebrowser2.c:2042
+#: ../src/filebrowser2.c:2047
 #, fuzzy
 msgid "_New Directory"
 msgstr "Προσωρινός κατάλογος:"
 
-#: ../src/filebrowser2.c:2044
+#: ../src/filebrowser2.c:2049
 #, fuzzy
 msgid "_Refresh"
 msgstr "Ανανέωση εγγράφου"
 
-#: ../src/filebrowser2.c:2044
+#: ../src/filebrowser2.c:2049
 #, fuzzy
 msgid "Refresh"
 msgstr "Ανανέωση εγγράφου"
 
-#: ../src/filebrowser2.c:2045
+#: ../src/filebrowser2.c:2050
 #, fuzzy
 msgid "_Set as base dir"
 msgstr "Επιλεγμένο"
 
-#: ../src/filebrowser2.c:2045
+#: ../src/filebrowser2.c:2050
 #, fuzzy
 msgid "Set as base directory"
 msgstr "Επιλεγμένο"
 
-#: ../src/filebrowser2.c:2047
+#: ../src/filebrowser2.c:2052
 #, fuzzy
 msgid "Set as document root"
 msgstr "Σχόλιο"
 
-#: ../src/filebrowser2.c:2049
+#: ../src/filebrowser2.c:2054
 msgid "Show Full _Tree"
 msgstr ""
 
-#: ../src/filebrowser2.c:2049
+#: ../src/filebrowser2.c:2054
 #, fuzzy
 msgid "Show full tree"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/filebrowser2.c:2051
+#: ../src/filebrowser2.c:2056
 #, fuzzy
 msgid "View Mode"
 msgstr "/_Αρχείο"
 
-#: ../src/filebrowser2.c:2052
+#: ../src/filebrowser2.c:2057
 msgid "Filter"
 msgstr "Φίλτρο"
 
-#: ../src/filebrowser2.c:2053
+#: ../src/filebrowser2.c:2058
 #, fuzzy
 msgid "New Filter"
 msgstr "Νέο στυλ"
 
-#: ../src/filebrowser2.c:2053 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:2058 ../src/filefilter.c:534
 #, fuzzy
 msgid "New filter"
 msgstr "Νέο στυλ"
 
-#: ../src/filebrowser2.c:2054
+#: ../src/filebrowser2.c:2059
 #, fuzzy
 msgid "Edit Filter"
 msgstr "φίλτρο html"
 
-#: ../src/filebrowser2.c:2054 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:2059 ../src/filefilter.c:540
 #, fuzzy
 msgid "Edit filter"
 msgstr "φίλτρο html"
 
-#: ../src/filebrowser2.c:2055
+#: ../src/filebrowser2.c:2060
 #, fuzzy
 msgid "Delete Filter"
 msgstr "Επιλογή αρχείου"
 
-#: ../src/filebrowser2.c:2055
+#: ../src/filebrowser2.c:2060
 #, fuzzy
 msgid "Delete filter"
 msgstr "Επιλογή αρχείου"
 
-#: ../src/filebrowser2.c:2059
+#: ../src/filebrowser2.c:2064
 #, fuzzy
 msgid "Follow Active Document"
 msgstr "Σχόλιο"
 
-#: ../src/filebrowser2.c:2059
+#: ../src/filebrowser2.c:2064
 #, fuzzy
 msgid "Follow active document"
 msgstr "Σχόλιο"
 
-#: ../src/filebrowser2.c:2061
+#: ../src/filebrowser2.c:2066
 #, fuzzy
 msgid "Show Backup Files"
 msgstr "Εμφάνιση αντιγράφων ασφαλείας"
 
-#: ../src/filebrowser2.c:2061 ../src/gtk_easy.c:1288
+#: ../src/filebrowser2.c:2066 ../src/gtk_easy.c:1329
 msgid "Show backup files"
 msgstr "Εμφάνιση αντιγράφων ασφαλείας"
 
-#: ../src/filebrowser2.c:2063
+#: ../src/filebrowser2.c:2068
 #, fuzzy
 msgid "Show Hidden Files"
 msgstr "Εμφάνιση κρυφών αρχείων"
 
-#: ../src/filebrowser2.c:2063
+#: ../src/filebrowser2.c:2068
 #, fuzzy
 msgid "Show hidden files"
 msgstr "Εμφάνιση κρυφών αρχείων"
 
-#: ../src/filebrowser2.c:2068
+#: ../src/filebrowser2.c:2073
 msgid "Dual"
 msgstr ""
 
-#: ../src/filebrowser2.c:2069
+#: ../src/filebrowser2.c:2074
 msgid "Flat"
 msgstr ""
 
-#: ../src/filebrowser2.c:2070
+#: ../src/filebrowser2.c:2075
 msgid "Tree"
 msgstr ""
 
-#: ../src/filebrowser2.c:2734
+#: ../src/filebrowser2.c:2742
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1856,25 +2031,25 @@ msgstr[1] ""
 msgid "All files loaded, finished %s"
 msgstr ""
 
-#: ../src/file.c:1343
+#: ../src/file.c:1347
 msgid "Finished advanced open"
 msgstr ""
 
-#: ../src/file.c:1517
+#: ../src/file.c:1521
 msgid "_Skip"
 msgstr ""
 
-#: ../src/file.c:1517 ../src/file_dialogs.c:647 ../src/file_dialogs.c:668
-#: ../src/project.c:308
+#: ../src/file.c:1521 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/project.c:309
 msgid "_Overwrite"
 msgstr "_Αντικατάσταση"
 
-#: ../src/file.c:1521
+#: ../src/file.c:1525
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr ""
 
-#: ../src/file.c:1523
+#: ../src/file.c:1527
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "_Αντικατάσταση"
@@ -1883,69 +2058,69 @@ msgstr "_Αντικατάσταση"
 msgid "Autosave in progress..."
 msgstr ""
 
-#: ../src/file_dialogs.c:108
+#: ../src/file_dialogs.c:109
 #, fuzzy
 msgid "Started open advanced..."
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/file_dialogs.c:119
+#: ../src/file_dialogs.c:120
 #, fuzzy
 msgid "Select basedir"
 msgstr "Επιλεγμένο"
 
-#: ../src/file_dialogs.c:141
+#: ../src/file_dialogs.c:142
 msgid "Advanced open file selector"
 msgstr ""
 
-#: ../src/file_dialogs.c:158
+#: ../src/file_dialogs.c:159
 #, fuzzy
 msgid "<b>Files</b>"
 msgstr "Γνωρίσματα"
 
-#: ../src/file_dialogs.c:167
+#: ../src/file_dialogs.c:168
 #, fuzzy
 msgid "Base _Dir:"
 msgstr "Βασικός υποκατάλογος"
 
-#: ../src/file_dialogs.c:183
+#: ../src/file_dialogs.c:184
 #, fuzzy
 msgid "_Pattern:"
 msgstr "Επικόλληση"
 
-#: ../src/file_dialogs.c:191
+#: ../src/file_dialogs.c:192
 msgid "Pattern matches _full path:"
 msgstr ""
 
-#: ../src/file_dialogs.c:195
+#: ../src/file_dialogs.c:196
 msgid "_Recursive:"
 msgstr ""
 
-#: ../src/file_dialogs.c:199
+#: ../src/file_dialogs.c:200
 msgid "Ma_x recursion:"
 msgstr ""
 
-#: ../src/file_dialogs.c:208
+#: ../src/file_dialogs.c:209
 msgid "<b>Contains</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/file_dialogs.c:213
+#: ../src/file_dialogs.c:214
 #, fuzzy
 msgid "Pa_ttern:"
 msgstr "Επικόλληση"
 
-#: ../src/file_dialogs.c:217
+#: ../src/file_dialogs.c:218
 msgid "Is rege_x:"
 msgstr ""
 
-#: ../src/file_dialogs.c:298 ../src/file_dialogs.c:318
+#: ../src/file_dialogs.c:287 ../src/file_dialogs.c:307
 msgid "Select files"
 msgstr "Επιλογή αρχείων"
 
-#: ../src/file_dialogs.c:378
+#: ../src/file_dialogs.c:367
 msgid "Open URL"
 msgstr "Άνοιγμα URL"
 
-#: ../src/file_dialogs.c:388 ../src/file_dialogs.c:1341
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1365
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -1953,202 +2128,206 @@ msgid ""
 "if you rely on remote file support.</b>"
 msgstr ""
 
-#: ../src/file_dialogs.c:474 ../src/file_dialogs.c:512
+#: ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Continue save"
 msgstr ""
 
-#: ../src/file_dialogs.c:478
+#: ../src/file_dialogs.c:468
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr ""
 
-#: ../src/file_dialogs.c:482
+#: ../src/file_dialogs.c:472
 #, fuzzy
 msgid "File backup failure"
 msgstr "Δε βρέθηκε το όνομα συστήματος"
 
-#: ../src/file_dialogs.c:498
+#: ../src/file_dialogs.c:488
 #, fuzzy
 msgid "Could not save file "
 msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
 
-#: ../src/file_dialogs.c:533 ../src/file_dialogs.c:1471
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1500
 #, fuzzy
 msgid "File changed on disk\n"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/file_dialogs.c:620
-#, fuzzy, c-format
-msgid "Move/rename %s to"
-msgstr "Σχόλιο"
-
-#: ../src/file_dialogs.c:620
-#, fuzzy, c-format
-msgid "Save %s as"
-msgstr "Αποθήκευση %s ως"
-
-#: ../src/file_dialogs.c:647 ../src/file_dialogs.c:668
-#: ../src/file_dialogs.c:963 ../src/project.c:308
+#: ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/file_dialogs.c:987 ../src/project.c:309
 msgid "_Cancel"
 msgstr "_Ακύρωση"
 
-#: ../src/file_dialogs.c:648
+#: ../src/file_dialogs.c:639
 #, c-format
 msgid "File %s exists and is open, overwrite?"
 msgstr ""
 
-#: ../src/file_dialogs.c:651
+#: ../src/file_dialogs.c:642
 msgid "The file you have selected is being edited in Bluefish."
 msgstr ""
 
-#: ../src/file_dialogs.c:669 ../src/project.c:310
+#: ../src/file_dialogs.c:660 ../src/project.c:311
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr ""
 
-#: ../src/file_dialogs.c:672 ../src/project.c:314
+#: ../src/file_dialogs.c:663 ../src/project.c:315
 #, fuzzy
 msgid "Do you want to replace the existing file?"
 msgstr "Είσαι σίγουρος για την αντικατάσταση;"
 
-#: ../src/file_dialogs.c:765
+#: ../src/file_dialogs.c:769
 #, fuzzy
 msgid ""
 "File:\n"
 "\""
 msgstr "Φίλτρο:"
 
-#: ../src/file_dialogs.c:766
+#: ../src/file_dialogs.c:770
 msgid "\" save is in progress"
 msgstr ""
 
-#: ../src/file_dialogs.c:768
+#: ../src/file_dialogs.c:772
 msgid "Save in progress!"
 msgstr ""
 
-#: ../src/file_dialogs.c:949
+#: ../src/file_dialogs.c:785
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: ../src/file_dialogs.c:787
+#, fuzzy, c-format
+msgid "Save %s as"
+msgstr "Αποθήκευση %s ως"
+
+#: ../src/file_dialogs.c:791
+#, fuzzy, c-format
+msgid "Save copy of %s"
+msgstr "Νέο έργο"
+
+#: ../src/file_dialogs.c:973
 msgid "Close _Without Saving"
 msgstr ""
 
-#: ../src/file_dialogs.c:952
+#: ../src/file_dialogs.c:976
 #, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr ""
 
-#: ../src/file_dialogs.c:955 ../src/file_dialogs.c:967
+#: ../src/file_dialogs.c:979 ../src/file_dialogs.c:991
 msgid "If you don't save your changes they will be lost."
 msgstr ""
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:987
 #, fuzzy
 msgid "Choose per _File"
 msgstr "Επιλογή ανά αρχείο"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:987
 msgid "Close _All"
 msgstr "Κλείσιμο _Όλων"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:987
 msgid "_Save All"
 msgstr "Απο_θήκευση Όλων"
 
-#: ../src/file_dialogs.c:966
+#: ../src/file_dialogs.c:990
 msgid "One or more open files have been changed."
 msgstr ""
 
-#: ../src/file_dialogs.c:1261
+#: ../src/file_dialogs.c:1285
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file_dialogs.c:1270
+#: ../src/file_dialogs.c:1294
 msgid "incomplete finished"
 msgstr ""
 
-#: ../src/file_dialogs.c:1272
+#: ../src/file_dialogs.c:1296
 msgid "completed"
 msgstr ""
 
-#: ../src/file_dialogs.c:1327
+#: ../src/file_dialogs.c:1351
 msgid "Upload / Download"
 msgstr ""
 
-#: ../src/file_dialogs.c:1330
+#: ../src/file_dialogs.c:1354
 #, fuzzy
 msgid "Upload"
 msgstr "_Επαναφόρτωση"
 
-#: ../src/file_dialogs.c:1330
+#: ../src/file_dialogs.c:1354
 msgid "Download"
 msgstr ""
 
-#: ../src/file_dialogs.c:1353
+#: ../src/file_dialogs.c:1377
 #, fuzzy
 msgid "Local directory"
 msgstr "Προσωρινός κατάλογος:"
 
-#: ../src/file_dialogs.c:1359
+#: ../src/file_dialogs.c:1383
 #, fuzzy
 msgid "Remote directory"
 msgstr "Προσωρινός κατάλογος:"
 
-#: ../src/file_dialogs.c:1364
+#: ../src/file_dialogs.c:1388
 #, fuzzy
 msgid "Delete deprecated files"
 msgstr "Επιλογή αρχείων"
 
-#: ../src/file_dialogs.c:1368
+#: ../src/file_dialogs.c:1392
 #, fuzzy
 msgid "Include hidden files"
 msgstr "Εμφάνιση κρυφών αρχείων"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1409
+#: ../src/file_dialogs.c:1436
 #, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
 "Original modification time was %s\n"
 "New modification time is %s\n"
-"Original size was %lu\n"
-"New size is %lu"
+"Original size was %s bytes\n"
+"New size is %s bytes"
 msgstr ""
 
-#: ../src/file_dialogs.c:1430
+#: ../src/file_dialogs.c:1459
 #, fuzzy
 msgid "_Unset file name"
 msgstr "όνομα αρχείου"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1432
+#: ../src/file_dialogs.c:1461
 #, fuzzy, c-format
 msgid "File name: %s"
 msgstr "Όνομα αρχείου"
 
-#: ../src/file_dialogs.c:1435
+#: ../src/file_dialogs.c:1464
 msgid "File disappeared from disk\n"
 msgstr ""
 
-#: ../src/file_dialogs.c:1454
+#: ../src/file_dialogs.c:1483
 #, fuzzy
 msgid "_Ignore"
 msgstr "Μη αριθμημένα"
 
-#: ../src/file_dialogs.c:1454
+#: ../src/file_dialogs.c:1483
 msgid "_Reload"
 msgstr "_Επαναφόρτωση"
 
-#: ../src/file_dialogs.c:1454
+#: ../src/file_dialogs.c:1483
 #, fuzzy
 msgid "Check and reload all documents"
 msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
 
 #. build a list of filters
-#: ../src/filefilter.c:241 ../src/gtk_easy.c:1299 ../src/preferences.c:2077
+#: ../src/filefilter.c:241 ../src/gtk_easy.c:1340 ../src/preferences.c:2090
 msgid "All files"
 msgstr "Όλα τα αρχεία"
 
@@ -2170,29 +2349,29 @@ msgstr "Τύποι αρχείων"
 msgid "Icon"
 msgstr "Εικονίδιο"
 
-#: ../src/gtk_easy.c:928
+#: ../src/gtk_easy.c:965
 #, c-format
 msgid "%d of %d"
 msgstr "%d από %d"
 
-#: ../src/gtk_easy.c:1009
+#: ../src/gtk_easy.c:1046
 msgid "Select File"
 msgstr "Επιλογή Αρχείου"
 
-#: ../src/gtk_easy.c:1349
+#: ../src/gtk_easy.c:1390
 #, fuzzy
 msgid "Character _Encoding:"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/gtk_easy.c:1369
+#: ../src/gtk_easy.c:1410
 msgid "Automatic detection"
 msgstr ""
 
-#: ../src/gtk_easy.c:1454
+#: ../src/gtk_easy.c:1495
 msgid "<b>Keystroke choice</b>"
 msgstr ""
 
-#: ../src/gtk_easy.c:1462
+#: ../src/gtk_easy.c:1503
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2200,47 +2379,8 @@ msgid ""
 "<i>Esc to cancel, Delete to remove the accelerator.</i>"
 msgstr ""
 
-#: ../src/gtk_easy.c:1487
+#: ../src/gtk_easy.c:1528
 msgid "Press shortcut key combination"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:449
-msgid "Co_nnect"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:516
-msgid "Connect _anonymously"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:525
-msgid "Connect as u_ser:"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:563
-#, fuzzy
-msgid "_Username:"
-msgstr "Όνομα χρήστη:"
-
-#: ../src/gtkmountoperation.c:568
-#, fuzzy
-msgid "_Domain:"
-msgstr "Κάθετη στοίχηση"
-
-#: ../src/gtkmountoperation.c:574
-#, fuzzy
-msgid "_Password:"
-msgstr "Κωδικός:"
-
-#: ../src/gtkmountoperation.c:592
-msgid "Forget password _immediately"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:602
-msgid "Remember password until you _logout"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:612
-msgid "Remember _forever"
 msgstr ""
 
 #: ../src/outputbox.c:247
@@ -2257,181 +2397,186 @@ msgstr "Τύλιγμα γραμμής"
 msgid "Output"
 msgstr ""
 
-#: ../src/outputbox.c:473
+#: ../src/outputbox.c:478
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr ""
 
-#: ../src/preferences.c:299
+#: ../src/preferences.c:302
 #, fuzzy
 msgid "Untitled"
 msgstr "Άτιτλο"
 
-#: ../src/preferences.c:500
+#: ../src/preferences.c:504
 #, fuzzy
 msgid "_Mime type:"
 msgstr "Τύποι αρχείων"
 
-#: ../src/preferences.c:512 ../src/preferences.c:514
+#: ../src/preferences.c:516 ../src/preferences.c:518
 #, fuzzy
 msgid "None"
 msgstr "Σημειώσεις"
 
-#: ../src/preferences.c:516
+#: ../src/preferences.c:520
 #, fuzzy
 msgid "_Template:"
 msgstr "_Πρότυπο:"
 
-#: ../src/preferences.c:519 ../src/snr3.c:1526
+#: ../src/preferences.c:523 ../src/snr3.c:1578
 #, fuzzy
 msgid "<b>Options</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/preferences.c:523
+#: ../src/preferences.c:527
 #, fuzzy
 msgid "Enable a_uto-completion"
 msgstr "Πλαίσιο πίνακα"
 
-#: ../src/preferences.c:525
+#: ../src/preferences.c:529
 msgid "Enable _block folding"
 msgstr ""
 
-#: ../src/preferences.c:527
+#: ../src/preferences.c:531
 msgid "Display block stack in statusbar"
 msgstr ""
 
-#: ../src/preferences.c:529
+#: ../src/preferences.c:533
 #, fuzzy
 msgid "Highlight block _delimiters"
 msgstr "Τύλιγμα λέξης"
 
-#: ../src/preferences.c:531
+#: ../src/preferences.c:535
 #, fuzzy
 msgid "_Highlight current line"
 msgstr "/Προβολή/Υπογράμμιση σύνταξης"
 
-#: ../src/preferences.c:533
+#: ../src/preferences.c:537
 #, fuzzy
 msgid "Show line _numbers"
 msgstr "Αριθμός _γραμμής:"
 
-#: ../src/preferences.c:537
+#: ../src/preferences.c:541
 msgid "Show _right margin indicator"
 msgstr ""
 
-#: ../src/preferences.c:539 ../src/preferences.c:2139
+#: ../src/preferences.c:543 ../src/preferences.c:2153
 msgid "Smart auto indentin_g"
 msgstr ""
 
-#: ../src/preferences.c:541
+#: ../src/preferences.c:545
 msgid "Wra_p lines"
 msgstr ""
 
-#: ../src/preferences.c:544
+#: ../src/preferences.c:547
 msgid "Enable syntax scanning"
 msgstr ""
 
-#: ../src/preferences.c:547
+#: ../src/preferences.c:549
+#, fuzzy
+msgid "Show _visible spacing"
+msgstr "Σχόλιο"
+
+#: ../src/preferences.c:553
 #, fuzzy
 msgid "_Enable spell check"
 msgstr "Έλεγχος Ορθογραφίας..."
 
-#: ../src/preferences.c:552
+#: ../src/preferences.c:558
 #, fuzzy
 msgid "<b>Tab Stops</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/preferences.c:557
+#: ../src/preferences.c:563
 #, fuzzy
 msgid "Tab _width:"
 msgstr "Μέγεθος tab"
 
-#: ../src/preferences.c:560
+#: ../src/preferences.c:566
 msgid "Insert _spaces instead of tabs"
 msgstr ""
 
-#: ../src/preferences.c:597 ../src/preferences.c:1015
-#: ../src/preferences.c:1175
+#: ../src/preferences.c:603 ../src/preferences.c:1021
+#: ../src/preferences.c:1181
 #, fuzzy
 msgid "Enabled"
 msgstr "διόρθωση ετικέτας"
 
-#: ../src/preferences.c:599
+#: ../src/preferences.c:605
 msgid "Path to plugin"
 msgstr ""
 
-#: ../src/preferences.c:804
+#: ../src/preferences.c:810
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
 "applied to the same text, the top-most style in this list has the highest "
 "priority. Use drag and drop to re-order the text styles.</small>"
 msgstr ""
 
-#: ../src/preferences.c:815 ../src/preferences.c:1016
-#: ../src/preferences.c:1177
+#: ../src/preferences.c:821 ../src/preferences.c:1022
+#: ../src/preferences.c:1183
 msgid "Label"
 msgstr "Ταμπέλα"
 
-#: ../src/preferences.c:831 ../src/preferences.c:2244
+#: ../src/preferences.c:837 ../src/preferences.c:2260
 #, fuzzy
 msgid "Foreground color"
 msgstr "Χρώμα φόντου"
 
-#: ../src/preferences.c:832 ../src/preferences.c:2245
+#: ../src/preferences.c:838 ../src/preferences.c:2261
 #, fuzzy
 msgid "_Foreground color:"
 msgstr "Χρώμα φόντου"
 
-#: ../src/preferences.c:833 ../src/preferences.c:2248
+#: ../src/preferences.c:839 ../src/preferences.c:2264
 #, fuzzy
 msgid "Background color"
 msgstr "Χρώμα φόντου"
 
-#: ../src/preferences.c:834 ../src/preferences.c:2249
+#: ../src/preferences.c:840 ../src/preferences.c:2265
 #, fuzzy
 msgid "_Background color:"
 msgstr "Χρώμα φόντου"
 
-#: ../src/preferences.c:838
+#: ../src/preferences.c:844
 #, fuzzy
 msgid "_Normal weight"
 msgstr "font-wight"
 
-#: ../src/preferences.c:840
+#: ../src/preferences.c:846
 #, fuzzy
 msgid "Bold _weight"
 msgstr "font-wight"
 
-#: ../src/preferences.c:842
+#: ../src/preferences.c:848
 #, fuzzy
 msgid "Normal st_yle"
 msgstr "Κανονικό"
 
-#: ../src/preferences.c:845
+#: ../src/preferences.c:851
 #, fuzzy
 msgid "_Italic style"
 msgstr "Πλάγια"
 
-#: ../src/preferences.c:847
+#: ../src/preferences.c:853
 #, fuzzy
 msgid "_Spell check"
 msgstr "Έλεγχος Ορθογραφίας..."
 
-#: ../src/preferences.c:889 ../src/preferences.c:1054
-#: ../src/preferences.c:1208 ../src/preferences.c:1401
-#: ../src/preferences.c:1496
+#: ../src/preferences.c:895 ../src/preferences.c:1060
+#: ../src/preferences.c:1214 ../src/preferences.c:1407
+#: ../src/preferences.c:1503
 #, fuzzy
 msgid "Add entry"
 msgstr "Ιδιότητα"
 
-#: ../src/preferences.c:891 ../src/preferences.c:1056
-#: ../src/preferences.c:1210 ../src/preferences.c:1403
-#: ../src/preferences.c:1498
+#: ../src/preferences.c:897 ../src/preferences.c:1062
+#: ../src/preferences.c:1216 ../src/preferences.c:1409
+#: ../src/preferences.c:1505
 #, fuzzy
 msgid "Delete entry"
 msgstr " Διαγραφή "
 
-#: ../src/preferences.c:992
+#: ../src/preferences.c:998
 #, c-format
 msgid ""
 "<small><b>Input options</b>\n"
@@ -2448,29 +2593,29 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1018 ../src/preferences.c:1179
-#: ../src/preferences.c:1374
+#: ../src/preferences.c:1024 ../src/preferences.c:1185
+#: ../src/preferences.c:1380
 msgid "Command"
 msgstr "Εντολή"
 
-#: ../src/preferences.c:1021
+#: ../src/preferences.c:1027
 #, fuzzy
 msgid "Default browser"
 msgstr "Επιλεγμένο"
 
-#: ../src/preferences.c:1058 ../src/preferences.c:1212
-#: ../src/preferences.c:1405
+#: ../src/preferences.c:1064 ../src/preferences.c:1218
+#: ../src/preferences.c:1411
 #, fuzzy
 msgid "Update defaults"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/preferences.c:1060 ../src/preferences.c:1214
-#: ../src/preferences.c:1407
+#: ../src/preferences.c:1066 ../src/preferences.c:1220
+#: ../src/preferences.c:1413
 #, fuzzy
 msgid "Reset all"
 msgstr "Επιλογή Αρχείου"
 
-#: ../src/preferences.c:1150
+#: ../src/preferences.c:1156
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2490,7 +2635,7 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1336
+#: ../src/preferences.c:1342
 #, c-format
 msgid ""
 "<small><b>Input options</b>\n"
@@ -2510,661 +2655,673 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1366
+#: ../src/preferences.c:1372
 #, fuzzy
 msgid "Pattern"
 msgstr "Επικόλληση"
 
-#: ../src/preferences.c:1368
+#: ../src/preferences.c:1374
 #, fuzzy
 msgid "File #"
 msgstr "/_Αρχεία"
 
-#: ../src/preferences.c:1370
+#: ../src/preferences.c:1376
 #, fuzzy
 msgid "Line #"
 msgstr "Τύλιγμα γραμμής"
 
-#: ../src/preferences.c:1372
+#: ../src/preferences.c:1378
 msgid "Output #"
 msgstr ""
 
-#: ../src/preferences.c:1467
+#: ../src/preferences.c:1474
 #, fuzzy
 msgid "File"
 msgstr "/_Αρχεία"
 
-#: ../src/preferences.c:1637
+#: ../src/preferences.c:1645
 msgid "A restart is needed to see the effect of these options"
 msgstr ""
 
 #. 1=text
-#: ../src/preferences.c:1649
+#: ../src/preferences.c:1657
 #, fuzzy
 msgid "Option name"
 msgstr "Επιλογή"
 
 #. 2=boolean
-#: ../src/preferences.c:1651
+#: ../src/preferences.c:1659
 #, fuzzy
 msgid "value"
 msgstr "Τιμή"
 
 #. 1=text
-#: ../src/preferences.c:1668
+#: ../src/preferences.c:1676
 #, fuzzy
 msgid "Highlight name"
 msgstr "Υπογράμμιση σα προεπιλογή"
 
-#: ../src/preferences.c:1673
+#: ../src/preferences.c:1681
 #, fuzzy
 msgid "Textstyle"
 msgstr "Πεδίο κειμένου"
 
-#: ../src/preferences.c:1821 ../src/preferences.c:2455
+#: ../src/preferences.c:1832 ../src/preferences.c:2477
 #, fuzzy
 msgid "Auto"
 msgstr "Προσαρμοσμένο"
 
-#: ../src/preferences.c:2071
+#: ../src/preferences.c:2084
 #, fuzzy
 msgid "Delayed"
 msgstr "Διαγραφή"
 
-#: ../src/preferences.c:2071
+#: ../src/preferences.c:2084
 msgid "Immediately"
 msgstr ""
 
-#: ../src/preferences.c:2072
+#: ../src/preferences.c:2085
 #, fuzzy
 msgid "Continue save"
 msgstr "Να _μην αποθηκευτεί"
 
-#: ../src/preferences.c:2072
+#: ../src/preferences.c:2085
 #, fuzzy
 msgid "Abort save"
 msgstr "Να _μην αποθηκευτεί"
 
-#: ../src/preferences.c:2072
+#: ../src/preferences.c:2085
 msgid "Ask what to do"
 msgstr ""
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2087
 #, fuzzy
 msgid "Nothing"
 msgstr "Χωρίς σκιά"
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2087
 #, fuzzy
 msgid "Modified time and file size"
 msgstr " Σβήσιμο "
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2087
 msgid "Modified time"
 msgstr ""
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2087
 #, fuzzy
 msgid "File size"
 msgstr "/_Αρχεία"
 
-#: ../src/preferences.c:2075 ../src/preferences.c:2076
+#: ../src/preferences.c:2088 ../src/preferences.c:2089
 msgid "left"
 msgstr "αριστερά"
 
-#: ../src/preferences.c:2075 ../src/preferences.c:2076
+#: ../src/preferences.c:2088 ../src/preferences.c:2089
 msgid "right"
 msgstr "δεξιά"
 
-#: ../src/preferences.c:2075
+#: ../src/preferences.c:2088
 msgid "top"
 msgstr "πάνω"
 
-#: ../src/preferences.c:2075
+#: ../src/preferences.c:2088
 msgid "bottom"
 msgstr "κάτω"
 
-#: ../src/preferences.c:2077
+#: ../src/preferences.c:2090 ../src/preferences.c:2096
 #, fuzzy
 msgid "Never"
 msgstr "Εξυπηρετητές"
 
-#: ../src/preferences.c:2077
+#: ../src/preferences.c:2090
 #, fuzzy
 msgid "Only project files"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2093
 msgid "All"
 msgstr ""
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2093
 msgid "All except spaces"
 msgstr ""
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2093
 msgid "All trailing"
 msgstr ""
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2093
 msgid "All except non-trailing spaces"
 msgstr ""
 
-#: ../src/preferences.c:2093
+#: ../src/preferences.c:2096
+msgid "Always"
+msgstr ""
+
+#: ../src/preferences.c:2096
+msgid "Smart"
+msgstr ""
+
+#: ../src/preferences.c:2107
 msgid "Edit preferences"
 msgstr "Επεξεργασία προτιμήσεων"
 
 #.
 #. *  Initial document settings
 #.
-#: ../src/preferences.c:2117
+#: ../src/preferences.c:2131
 msgid "<b>Non Project Defaults</b>"
 msgstr ""
 
-#: ../src/preferences.c:2119
+#: ../src/preferences.c:2133
 #, fuzzy
 msgid "Initial document settings"
 msgstr "Αρχικό ύψος"
 
-#: ../src/preferences.c:2131
+#: ../src/preferences.c:2145
 #, fuzzy
 msgid "Editor settings"
 msgstr "Ρυθμίσεις διορθωτή"
 
-#: ../src/preferences.c:2134
+#: ../src/preferences.c:2148
 #, fuzzy
 msgid "<b>Editor settings</b>"
 msgstr "Ρυθμίσεις διορθωτή"
 
-#: ../src/preferences.c:2142
+#: ../src/preferences.c:2156
 msgid "Smart Home/_End cursor positioning"
 msgstr ""
 
-#: ../src/preferences.c:2146
+#: ../src/preferences.c:2160
 #, fuzzy
 msgid "_Tab key indents selection"
 msgstr "Στην επιλογή"
 
-#: ../src/preferences.c:2150
+#: ../src/preferences.c:2166
 msgid "Automatically insert closing brackets"
 msgstr ""
 
-#: ../src/preferences.c:2157
-msgid "Right _margin/split line end position:"
-msgstr ""
-
-#: ../src/preferences.c:2162
-#, fuzzy
-msgid "Visible _whitespace mode:"
-msgstr "Χρώμα ήδη επισκεπτώμενης διασύνδεσης"
-
-#: ../src/preferences.c:2165
-#, fuzzy
-msgid "<b>Undo</b>"
-msgstr "<b>Γενικά</b>"
-
-#: ../src/preferences.c:2170
-msgid "_Number of actions in history:"
-msgstr ""
-
 #: ../src/preferences.c:2173
-msgid "Clear _history on save"
+msgid "Right _margin/split line end position:"
 msgstr ""
 
 #: ../src/preferences.c:2178
 #, fuzzy
+msgid "Visible _whitespace mode:"
+msgstr "Χρώμα ήδη επισκεπτώμενης διασύνδεσης"
+
+#: ../src/preferences.c:2181
+#, fuzzy
+msgid "<b>Undo</b>"
+msgstr "<b>Γενικά</b>"
+
+#: ../src/preferences.c:2186
+msgid "_Number of actions in history:"
+msgstr ""
+
+#: ../src/preferences.c:2189
+msgid "Clear _history on save"
+msgstr ""
+
+#: ../src/preferences.c:2194
+#, fuzzy
 msgid "Auto-completion & Reference"
 msgstr "/Επιλογές/Προτιμήσεις"
 
-#: ../src/preferences.c:2184
+#: ../src/preferences.c:2200
 #, fuzzy
 msgid "<b>Auto-completion</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/preferences.c:2190
+#: ../src/preferences.c:2206
 msgid "Show _pop-up window:"
 msgstr ""
 
-#: ../src/preferences.c:2196
+#: ../src/preferences.c:2212
 msgid "Shortcut _key combination:"
 msgstr ""
 
-#: ../src/preferences.c:2199
+#: ../src/preferences.c:2215
 msgid "<b>Reference Information</b>"
 msgstr ""
 
-#: ../src/preferences.c:2202
+#: ../src/preferences.c:2218
 #, fuzzy
 msgid "_Load reference data from language files"
 msgstr "Γλώσσα:"
 
-#: ../src/preferences.c:2205
+#: ../src/preferences.c:2221
 #, fuzzy
 msgid "Show references in auto-completion _pop-up window"
 msgstr "/Επιλογές/Λίστες"
 
-#: ../src/preferences.c:2208
+#: ../src/preferences.c:2224
 msgid "Show references if mouse is over text editor"
 msgstr ""
 
-#: ../src/preferences.c:2217 ../src/preferences.c:2552
+#: ../src/preferences.c:2233 ../src/preferences.c:2574
 msgid "Font & Colors"
 msgstr ""
 
-#: ../src/preferences.c:2223
+#: ../src/preferences.c:2239
 #, fuzzy
 msgid "<b>Font &amp; Cursor</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/preferences.c:2227
+#: ../src/preferences.c:2243
 #, fuzzy
 msgid "_Editor font:"
 msgstr "Επεξεργαστής"
 
-#: ../src/preferences.c:2235
+#: ../src/preferences.c:2251
 msgid "Cursor / font size ratio (%):"
 msgstr ""
 
-#: ../src/preferences.c:2237 ../src/preferences.c:2578
+#: ../src/preferences.c:2253 ../src/preferences.c:2600
 #, fuzzy
 msgid "<b>Colors</b>"
 msgstr "Γνωρίσματα"
 
-#: ../src/preferences.c:2241
+#: ../src/preferences.c:2257
 msgid "Use system wide color settings"
 msgstr ""
 
-#: ../src/preferences.c:2252
+#: ../src/preferences.c:2268
 #, fuzzy
 msgid "Cursor color"
 msgstr "Επιλογέας"
 
-#: ../src/preferences.c:2253
+#: ../src/preferences.c:2269
 #, fuzzy
 msgid "C_ursor color:"
 msgstr "Επιλογέας"
 
-#: ../src/preferences.c:2256
+#: ../src/preferences.c:2272
 #, fuzzy
 msgid "Selection background color"
 msgstr "Χρώμα φόντου"
 
-#: ../src/preferences.c:2257
+#: ../src/preferences.c:2273
 #, fuzzy
 msgid "_Selection background color:"
 msgstr "Χρώμα φόντου"
 
-#: ../src/preferences.c:2262
+#: ../src/preferences.c:2278
 #, fuzzy
 msgid "Highlight cursor position"
 msgstr "/Προβολή/Υπογράμμιση σύνταξης"
 
-#: ../src/preferences.c:2264
+#: ../src/preferences.c:2280
 #, fuzzy
 msgid "Cursor highlight color"
 msgstr "Επιλογέας"
 
-#: ../src/preferences.c:2265
+#: ../src/preferences.c:2281
 #, fuzzy
 msgid "_Cursor highlight color:"
 msgstr "Επιλογέας"
 
-#: ../src/preferences.c:2270
+#: ../src/preferences.c:2286
 #, fuzzy
 msgid "Current line color"
 msgstr "Επιλογέας"
 
-#: ../src/preferences.c:2271
+#: ../src/preferences.c:2287
 #, fuzzy
 msgid "Cu_rrent line color:"
 msgstr "Επιλογέας"
 
-#: ../src/preferences.c:2274
+#: ../src/preferences.c:2290
 msgid "Visible whitespace color"
 msgstr ""
 
-#: ../src/preferences.c:2275
+#: ../src/preferences.c:2291
 #, fuzzy
 msgid "_Visible whitespace color:"
 msgstr "Χρώμα ήδη επισκεπτώμενης διασύνδεσης"
 
-#: ../src/preferences.c:2287
+#: ../src/preferences.c:2303
 msgid "Text styles"
 msgstr ""
 
-#: ../src/preferences.c:2290
+#: ../src/preferences.c:2306
 #, fuzzy
 msgid "<b>Text Styles</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/preferences.c:2304
+#: ../src/preferences.c:2320
 msgid "Files"
 msgstr "Αρχεία"
 
-#: ../src/preferences.c:2307
+#: ../src/preferences.c:2323
 #, fuzzy
 msgid "<b>Encoding</b>"
 msgstr "Κωδικοποίηση"
 
-#: ../src/preferences.c:2323
+#: ../src/preferences.c:2339
 #, fuzzy
 msgid "_Default character set for new files:"
 msgstr "Προεπιλεγμένο σετ χαρακτήρων"
 
-#: ../src/preferences.c:2329
+#: ../src/preferences.c:2345
 msgid "Auto set <meta> _HTML tag on encoding change"
 msgstr ""
 
-#: ../src/preferences.c:2333 ../src/preferences.c:2444
+#: ../src/preferences.c:2349 ../src/preferences.c:2466
 #, fuzzy
 msgid "<b>Misc</b>"
 msgstr "Γνωρίσματα"
 
-#: ../src/preferences.c:2337
+#: ../src/preferences.c:2352
+msgid "Strip trailing spaces on save"
+msgstr ""
+
+#: ../src/preferences.c:2358
 msgid "Open co_mmandline files in running bluefish process"
 msgstr ""
 
-#: ../src/preferences.c:2342
+#: ../src/preferences.c:2363
 msgid "Open commandline files in new _window"
 msgstr ""
 
-#: ../src/preferences.c:2347
+#: ../src/preferences.c:2368
 msgid "_Periodically check if file is modified on disk"
 msgstr ""
 
-#: ../src/preferences.c:2353
+#: ../src/preferences.c:2374
 msgid "File properties to check on dis_k for modifications:"
 msgstr ""
 
-#: ../src/preferences.c:2363
+#: ../src/preferences.c:2384
 msgid "Backup & Recovery"
 msgstr ""
 
-#: ../src/preferences.c:2366
+#: ../src/preferences.c:2387
 #, fuzzy
 msgid "<b>Backup</b>"
 msgstr "Αντίγραφο ασφαλείας"
 
-#: ../src/preferences.c:2368
+#: ../src/preferences.c:2389
 #, fuzzy
 msgid "Create _backup file during file save"
 msgstr "Κατάληξη αρχείου ασφαλείας"
 
-#: ../src/preferences.c:2373
+#: ../src/preferences.c:2394
 #, fuzzy
 msgid "_Remove backup file on close"
 msgstr "Κατάληξη αρχείου ασφαλείας"
 
-#: ../src/preferences.c:2378
+#: ../src/preferences.c:2399
 #, fuzzy
 msgid "If back_up fails:"
 msgstr "Εμφάνιση αντιγράφων ασφαλείας"
 
-#: ../src/preferences.c:2385
+#: ../src/preferences.c:2406
 msgid "<b>Document Recovery</b>"
 msgstr ""
 
-#: ../src/preferences.c:2387
+#: ../src/preferences.c:2408
 msgid "_Enable recovery of modified documents"
 msgstr ""
 
-#: ../src/preferences.c:2391
+#: ../src/preferences.c:2412
 msgid "_Frequency to store changes (seconds):"
 msgstr ""
 
-#: ../src/preferences.c:2408
+#: ../src/preferences.c:2430
 #, fuzzy
 msgid "Templates"
 msgstr "_Πρότυπο:"
 
-#: ../src/preferences.c:2411
+#: ../src/preferences.c:2433
 #, fuzzy
 msgid "<b>Templates</b>"
 msgstr "_Πρότυπο:"
 
-#: ../src/preferences.c:2424
+#: ../src/preferences.c:2446
 msgid "User interface"
 msgstr ""
 
-#: ../src/preferences.c:2427
+#: ../src/preferences.c:2449
 #, fuzzy
 msgid "<b>Layout</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/preferences.c:2433
+#: ../src/preferences.c:2455
 #, fuzzy
 msgid "Document _tab position:"
 msgstr "Επιλογέας"
 
-#: ../src/preferences.c:2437
+#: ../src/preferences.c:2459
 #, fuzzy
 msgid "_Sidebar position:"
 msgstr "Τοποθεσία εικόνας"
 
-#: ../src/preferences.c:2442
+#: ../src/preferences.c:2464
 #, fuzzy
 msgid "Sidebar tab _position:"
 msgstr "Θέση του σημειωματάριου"
 
-#: ../src/preferences.c:2446
+#: ../src/preferences.c:2468
 msgid "Hide toolbars on full-screen"
 msgstr ""
 
-#: ../src/preferences.c:2455
+#: ../src/preferences.c:2477
 #, fuzzy
 msgid "_Language:"
 msgstr "_Γλώσσα:"
 
-#: ../src/preferences.c:2458
+#: ../src/preferences.c:2480
 #, fuzzy
 msgid "<b>Recent Files</b>"
 msgstr "Γνωρίσματα"
 
-#: ../src/preferences.c:2463
+#: ../src/preferences.c:2485
 msgid "_Number of files in 'Open recent' menu:"
 msgstr ""
 
-#: ../src/preferences.c:2469
+#: ../src/preferences.c:2491
 msgid "_Register recent files with your desktop:"
 msgstr ""
 
-#: ../src/preferences.c:2480
+#: ../src/preferences.c:2502
 #, fuzzy
 msgid "Shortcut keys"
 msgstr "/Επιλογές/Αποθήκευση πλήκτρων συντομίας"
 
-#: ../src/preferences.c:2485
+#: ../src/preferences.c:2507
 #, fuzzy
 msgid "<b>Shortcut keys</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/preferences.c:2488
+#: ../src/preferences.c:2510
 msgid "_Switch between tabs with <Alt>+0..9"
 msgstr ""
 
-#: ../src/preferences.c:2492
+#: ../src/preferences.c:2514
 msgid "Save menu accelerators on exit"
 msgstr ""
 
-#: ../src/preferences.c:2495
+#: ../src/preferences.c:2517
 msgid "Save user customised menu accelerators now"
 msgstr ""
 
-#: ../src/preferences.c:2499
+#: ../src/preferences.c:2521
 msgid "Reset menu accelerators to application defaults"
 msgstr ""
 
-#: ../src/preferences.c:2511
+#: ../src/preferences.c:2533
 msgid "Dimensions"
 msgstr "Διαστάσεις"
 
-#: ../src/preferences.c:2514
+#: ../src/preferences.c:2536
 #, fuzzy
 msgid "<b>Dimensions</b>"
 msgstr "Διαστάσεις"
 
-#: ../src/preferences.c:2516
+#: ../src/preferences.c:2538
 msgid "_Leave dimensions to window manager"
 msgstr ""
 
-#: ../src/preferences.c:2523
+#: ../src/preferences.c:2545
 msgid "_Restore last used dimensions"
 msgstr ""
 
-#: ../src/preferences.c:2531
+#: ../src/preferences.c:2553
 #, fuzzy
 msgid "Initial _sidebar width:"
 msgstr "Αρχικό πλάτος"
 
-#: ../src/preferences.c:2535
+#: ../src/preferences.c:2557
 #, fuzzy
 msgid "Initial window _height:"
 msgstr "Αρχικό ύψος"
 
-#: ../src/preferences.c:2538
+#: ../src/preferences.c:2560
 #, fuzzy
 msgid "Initial window _width:"
 msgstr "Αρχικό πλάτος"
 
-#: ../src/preferences.c:2545
+#: ../src/preferences.c:2567
 msgid "_Limit window title length"
 msgstr ""
 
-#: ../src/preferences.c:2558
+#: ../src/preferences.c:2580
 #, fuzzy
 msgid "<b>Font</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/preferences.c:2563
+#: ../src/preferences.c:2585
 msgid "_Use system document tab font"
 msgstr ""
 
-#: ../src/preferences.c:2568
+#: ../src/preferences.c:2590
 #, fuzzy
 msgid "_Document tab font:"
 msgstr "Επιλογέας"
 
-#: ../src/preferences.c:2582
+#: ../src/preferences.c:2604
 #, fuzzy
 msgid "Document error tab color"
 msgstr "Θέση του σημειωματάριου"
 
-#: ../src/preferences.c:2584
+#: ../src/preferences.c:2606
 msgid "Document tab _error color:"
 msgstr ""
 
-#: ../src/preferences.c:2588
+#: ../src/preferences.c:2610
 #, fuzzy
 msgid "Document loading tab color"
 msgstr "Επιλογέας"
 
-#: ../src/preferences.c:2590
+#: ../src/preferences.c:2612
 #, fuzzy
 msgid "Document tab loadin_g color:"
 msgstr "Επιλογέας"
 
-#: ../src/preferences.c:2594
+#: ../src/preferences.c:2616
 #, fuzzy
 msgid "Document modified tab color"
 msgstr "Θέση του σημειωματάριου"
 
-#: ../src/preferences.c:2596
+#: ../src/preferences.c:2618
 msgid "Document tab _modified color:"
 msgstr ""
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2609 ../src/rcfile.c:1193
+#: ../src/preferences.c:2631 ../src/rcfile.c:1271
 msgid "Images"
 msgstr "Εικόνες"
 
 # src/configure.c:355		ΝΤΚ
-#: ../src/preferences.c:2612
+#: ../src/preferences.c:2634
 #, fuzzy
 msgid "<b>Thumbnails</b>"
 msgstr "Μικρογραφίες"
 
 # src/configure.c:355		ΝΤΚ
-#: ../src/preferences.c:2618
+#: ../src/preferences.c:2640
 #, fuzzy
 msgid "Thumbnail _filetype:"
 msgstr "Τύπος προεπισκόπησης"
 
 # src/configure.c:355		ΝΤΚ
-#: ../src/preferences.c:2622
+#: ../src/preferences.c:2644
 #, fuzzy
 msgid "Thumbnail _suffix:"
 msgstr "Τύπος προεπισκόπησης"
 
-#: ../src/preferences.c:2635
+#: ../src/preferences.c:2657
 #, fuzzy
 msgid "External commands"
 msgstr "/Εξωτερικά/Εντολές/"
 
-#: ../src/preferences.c:2638
+#: ../src/preferences.c:2660
 #, fuzzy
 msgid "<b>External Commands</b>"
 msgstr "/Εξωτερικά/Εντολές/"
 
-#: ../src/preferences.c:2651
+#: ../src/preferences.c:2673
 #, fuzzy
 msgid "External filters"
 msgstr "Εξωτερικά προγράμματα"
 
-#: ../src/preferences.c:2654
+#: ../src/preferences.c:2676
 #, fuzzy
 msgid "<b>External Filters</b>"
 msgstr "Εξωτερικά προγράμματα"
 
-#: ../src/preferences.c:2667
+#: ../src/preferences.c:2689
 msgid "Output parsers"
 msgstr ""
 
-#: ../src/preferences.c:2670
+#: ../src/preferences.c:2692
 #, fuzzy
 msgid "<b>Output Parsers</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/preferences.c:2683
+#: ../src/preferences.c:2705
 msgid "Plugins"
 msgstr ""
 
-#: ../src/preferences.c:2686
+#: ../src/preferences.c:2708
 #, fuzzy
 msgid "<b>Plugins</b>"
 msgstr "Γνωρίσματα"
 
-#: ../src/preferences.c:2708
+#: ../src/preferences.c:2730
 #, fuzzy
 msgid "Language support"
 msgstr "Γλώσσα:"
 
-#: ../src/project.c:280
+#: ../src/project.c:281
 #, fuzzy
 msgid "Enter Bluefish project filename"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/project.c:425
+#: ../src/project.c:426
 #, fuzzy
 msgid "Select Bluefish project filename"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/project.c:580
+#: ../src/project.c:581
 msgid "Create New Project"
 msgstr "Δημιουργία Νέου Έργου"
 
-#: ../src/project.c:583
+#: ../src/project.c:584
 msgid "Edit Project"
 msgstr "Επεξεργασία Έργου"
 
-#: ../src/project.c:609
+#: ../src/project.c:610
 #, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/project.c:622
+#: ../src/project.c:623
 msgid "Project _Name:"
 msgstr "_Όνομα Έργου:"
 
@@ -3173,205 +3330,240 @@ msgstr "_Όνομα Έργου:"
 #. but = file_but_new(pred->entries[template], 1, NULL);
 #. gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
-#: ../src/project.c:630
+#: ../src/project.c:631
 msgid "<b>Project Defaults</b>"
 msgstr ""
 
-#: ../src/project.c:644
+#: ../src/project.c:645
 msgid "Create _Project"
 msgstr ""
 
-#: ../src/project.c:693
+#: ../src/project.c:694
 msgid "Create project"
 msgstr ""
 
-#: ../src/project.c:698
+#: ../src/project.c:699
 msgid "Create project with currently opened documents"
 msgstr ""
 
-#: ../src/project.c:700
+#: ../src/project.c:701
 msgid "Create empty project"
 msgstr ""
 
-#: ../src/rcfile.c:675 ../src/rcfile.c:704
+#: ../src/rcfile.c:680 ../src/rcfile.c:708
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:682
+#: ../src/rcfile.c:686
 #, fuzzy
 msgid "make"
 msgstr "Εικόνα..."
 
-#: ../src/rcfile.c:686
+#: ../src/rcfile.c:690
 #, fuzzy
 msgid "weblint HTML checker"
 msgstr "Ορθογραφία"
 
-#: ../src/rcfile.c:691
+#: ../src/rcfile.c:695
 msgid "tidy HTML validator"
 msgstr ""
 
-#: ../src/rcfile.c:695
+#: ../src/rcfile.c:699
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:699
+#: ../src/rcfile.c:703
 #, fuzzy
 msgid "xmllint XML checker"
 msgstr "Ορθογραφία"
 
-#: ../src/rcfile.c:708
+#: ../src/rcfile.c:712
 msgid "php syntax check"
 msgstr ""
 
-#: ../src/rcfile.c:712
+#: ../src/rcfile.c:716
 #, fuzzy
 msgid "perl syntax check"
 msgstr "Έλεγχος Ορθογραφίας..."
 
-#: ../src/rcfile.c:716
+#: ../src/rcfile.c:720
 msgid "php codesniffer"
 msgstr ""
 
-#: ../src/rcfile.c:729
+#: ../src/rcfile.c:724
+msgid "pylint"
+msgstr ""
+
+#: ../src/rcfile.c:737
 #, fuzzy
 msgid "Sort"
 msgstr " Ταξινόμηση "
 
-#: ../src/rcfile.c:732
+#: ../src/rcfile.c:740
 msgid "Sort / Uniq"
 msgstr ""
 
-#: ../src/rcfile.c:735
+#: ../src/rcfile.c:743
 msgid "Reverse lines"
 msgstr ""
 
-#: ../src/rcfile.c:738
+#: ../src/rcfile.c:746
 #, fuzzy
 msgid "Dos2unix"
 msgstr "Φίλτρο Dos2Unix"
 
-#: ../src/rcfile.c:740
+#: ../src/rcfile.c:748
 #, fuzzy
 msgid "Tidy HTML"
 msgstr "HTML"
 
-#: ../src/rcfile.c:743
+#: ../src/rcfile.c:750
+#, fuzzy
+msgid "Tidy convert to XHTML"
+msgstr "HTML"
+
+#: ../src/rcfile.c:753
 #, fuzzy
 msgid "Tidy HTML (perltidy)"
 msgstr "HTML"
 
-#: ../src/rcfile.c:746
+#: ../src/rcfile.c:756
 msgid "Strip empty lines"
 msgstr ""
 
-#: ../src/rcfile.c:749
+#: ../src/rcfile.c:759
 #, fuzzy
 msgid "Render HTML to text"
 msgstr "Εισαγωγή Ώρας"
 
 #: ../src/rcfile.c:762
-msgid "Windows XP Firefox"
+msgid "PHP Beautifier"
 msgstr ""
 
-#: ../src/rcfile.c:767
-msgid "Windows XP Internet Explorer"
+#: ../src/rcfile.c:766 ../src/rcfile.c:773
+msgid "Javascript Minify with jsmin"
 msgstr ""
 
-#: ../src/rcfile.c:772
-msgid "Windows XP Opera"
-msgstr ""
-
-#: ../src/rcfile.c:776
-msgid "Windows XP Safari"
+#: ../src/rcfile.c:769 ../src/rcfile.c:776
+msgid "CSS Minify with cssmin"
 msgstr ""
 
 #: ../src/rcfile.c:780
+#, fuzzy
+msgid "CSS tidy"
+msgstr " CSS "
+
+#: ../src/rcfile.c:792
+msgid "Windows XP Firefox"
+msgstr ""
+
+#: ../src/rcfile.c:797
+msgid "Windows XP Internet Explorer"
+msgstr ""
+
+#: ../src/rcfile.c:802
+msgid "Windows XP Opera"
+msgstr ""
+
+#: ../src/rcfile.c:806
+msgid "Windows XP Safari"
+msgstr ""
+
+#: ../src/rcfile.c:810
 msgid "Windows 7 Firefox 32-bit"
 msgstr ""
 
-#: ../src/rcfile.c:785
+#: ../src/rcfile.c:815
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr ""
 
-#: ../src/rcfile.c:790
+#: ../src/rcfile.c:820
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr ""
 
-#: ../src/rcfile.c:796
+#: ../src/rcfile.c:826
 msgid "Safari"
 msgstr ""
 
-#: ../src/rcfile.c:799 ../src/rcfile.c:809
+#: ../src/rcfile.c:829 ../src/rcfile.c:839
 msgid "Firefox"
 msgstr ""
 
-#: ../src/rcfile.c:802 ../src/rcfile.c:813
+#: ../src/rcfile.c:832 ../src/rcfile.c:843
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:805 ../src/rcfile.c:832
+#: ../src/rcfile.c:835 ../src/rcfile.c:862
 msgid "chmod a+x"
 msgstr ""
 
-#: ../src/rcfile.c:817
+#: ../src/rcfile.c:847
 msgid "Chromium"
 msgstr ""
 
-#: ../src/rcfile.c:820
+#: ../src/rcfile.c:850
 msgid "Konqueror"
 msgstr ""
 
-#: ../src/rcfile.c:823
+#: ../src/rcfile.c:853
 msgid "Epiphany"
 msgstr ""
 
-#: ../src/rcfile.c:826
+#: ../src/rcfile.c:856
 msgid "Kazehakase"
 msgstr ""
 
-#: ../src/rcfile.c:829
+#: ../src/rcfile.c:859
 msgid "Links2 (graphics)"
 msgstr ""
 
-#: ../src/rcfile.c:874
+#: ../src/rcfile.c:905
 #, fuzzy
 msgid "C Header"
 msgstr "Κεφαλίδα Πίνακα"
 
-#: ../src/rcfile.c:877
+#: ../src/rcfile.c:908
 msgid "C Header GPL"
 msgstr ""
 
-#: ../src/rcfile.c:880
+#: ../src/rcfile.c:911
 #, fuzzy
 msgid "XHTML 1.0"
 msgstr "HTML"
 
-#: ../src/rcfile.c:883
+#: ../src/rcfile.c:914
 #, fuzzy
 msgid "HTML 5"
 msgstr "HTML"
 
-#: ../src/rcfile.c:886
+#: ../src/rcfile.c:917
 msgid "PHP"
 msgstr ""
 
-#: ../src/rcfile.c:1118
+#: ../src/rcfile.c:920
+msgid "LaTex Book"
+msgstr ""
+
+#: ../src/rcfile.c:923
+#, fuzzy
+msgid "LaTex Presentation"
+msgstr "Προσανατολισμός:"
+
+#: ../src/rcfile.c:1171
 #, fuzzy
 msgid "Untitled Project"
 msgstr "Άτιτλο"
 
-#: ../src/rcfile.c:1185
+#: ../src/rcfile.c:1263
 msgid "C programming"
 msgstr "Προγραμματισμός C"
 
-#: ../src/rcfile.c:1189
+#: ../src/rcfile.c:1267
 #, fuzzy
 msgid "Web files"
 msgstr "Σε όλα τα ανοικτά αρχεία"
 
-#: ../src/rcfile.c:1196
+#: ../src/rcfile.c:1274
 #, fuzzy
 msgid "Hide objectfiles"
 msgstr "Διάλεξε αρχεία"
@@ -3395,192 +3587,211 @@ msgid ""
 "span>"
 msgstr ""
 
-#: ../src/snr3.c:890
+#: ../src/snr3.c:891
 #, fuzzy, c-format
 msgid "<i>Replaced %d entry</i>"
 msgid_plural "<i>Replaced %d entries</i>"
 msgstr[0] "Γνωρίσματα"
 msgstr[1] "Γνωρίσματα"
 
-#: ../src/snr3.c:893
+#: ../src/snr3.c:894
 #, fuzzy, c-format
 msgid "<i>Found %d entry</i>"
 msgid_plural "<i>Found %d entries</i>"
 msgstr[0] "Γνωρίσματα"
 msgstr[1] "Γνωρίσματα"
 
-#: ../src/snr3.c:1131
+#: ../src/snr3.c:1182
 #, c-format
 msgid "<i>Found %d result in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/snr3.c:1135
+#: ../src/snr3.c:1186
 #, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/snr3.c:1138
+#: ../src/snr3.c:1189
 #, fuzzy, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
 msgstr[0] "Γνωρίσματα"
 msgstr[1] "Γνωρίσματα"
 
-#: ../src/snr3.c:1359
+#: ../src/snr3.c:1411
 msgid "No (more) results"
 msgstr ""
 
-#: ../src/snr3.c:1457
+#: ../src/snr3.c:1509
 #, fuzzy
 msgid "Active document"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/snr3.c:1458
+#: ../src/snr3.c:1510
 msgid "Forward from cursor position"
 msgstr ""
 
-#: ../src/snr3.c:1459
+#: ../src/snr3.c:1511
 #, fuzzy
 msgid "Current selection"
 msgstr "Στην επιλογή"
 
-#: ../src/snr3.c:1460
+#: ../src/snr3.c:1512
 #, fuzzy
 msgid "All open documents"
 msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
 
-#: ../src/snr3.c:1461
+#: ../src/snr3.c:1513
 #, fuzzy
 msgid "Files on disk"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/snr3.c:1465 ../src/snr3.c:1470
+#: ../src/snr3.c:1517 ../src/snr3.c:1522
 msgid "Normal"
 msgstr "Κανονικό"
 
-#: ../src/snr3.c:1466
-#, fuzzy
-msgid "Regular expression (pcre)"
-msgstr "Κανονική έκφραση:"
-
-#: ../src/snr3.c:1471
+#: ../src/snr3.c:1523
 msgid "Uppercase"
 msgstr "Κεφαλαία"
 
-#: ../src/snr3.c:1472
+#: ../src/snr3.c:1524
 msgid "Lowercase"
 msgstr "Πεζά"
 
-#: ../src/snr3.c:1479
+#: ../src/snr3.c:1531
 #, fuzzy
 msgid "Find and Replace"
 msgstr "Αντικατάσταση"
 
-#: ../src/snr3.c:1498
+#: ../src/snr3.c:1550
 #, fuzzy
 msgid "<b>_Search for</b>"
 msgstr "Α_ναζήτηση για: "
 
-#: ../src/snr3.c:1521
+#: ../src/snr3.c:1573
 #, fuzzy
 msgid "<b>Replace _with</b>"
 msgstr "_Αντικατάσταση με: "
 
-#: ../src/snr3.c:1536
+#: ../src/snr3.c:1588
 #, fuzzy
 msgid "Match Patter_n: "
 msgstr "Εύρεση"
 
-#: ../src/snr3.c:1548
+#: ../src/snr3.c:1600
 #, fuzzy
 msgid "Replace T_ype: "
 msgstr "Αντικατάσταση"
 
-#: ../src/snr3.c:1561
+#: ../src/snr3.c:1613
 msgid "Sco_pe: "
 msgstr ""
 
-#: ../src/snr3.c:1571
+#: ../src/snr3.c:1623
 #, fuzzy
 msgid "Filename pattern: "
 msgstr "Όνομα αρχείου"
 
-#: ../src/snr3.c:1577
+#: ../src/snr3.c:1629
 msgid "Recursion level: "
 msgstr ""
 
-#: ../src/snr3.c:1583
+#: ../src/snr3.c:1635
 #, fuzzy
 msgid "Basedir: "
 msgstr "Βασικός υποκατάλογος"
 
-#: ../src/snr3.c:1602
+#: ../src/snr3.c:1654
 #, fuzzy
 msgid "Case sensitive _matching"
 msgstr "Διαφορά πεζών-κεφαλαίων"
 
-#: ../src/snr3.c:1604
+#: ../src/snr3.c:1656
 msgid "Only match if case (upper/lower) is identical."
 msgstr ""
 
-#: ../src/snr3.c:1608
+#: ../src/snr3.c:1660
 msgid "Pattern contains escape-se_quences"
 msgstr ""
 
-#: ../src/snr3.c:1611
+#: ../src/snr3.c:1663
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr ""
 
-#: ../src/snr3.c:1615
+#: ../src/snr3.c:1667
 msgid "Dot character in regex pattern matches newlines"
 msgstr ""
 
-#: ../src/snr3.c:1618
+#: ../src/snr3.c:1670
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
 
-#: ../src/snr3.c:1640
+#: ../src/snr3.c:1692
 #, fuzzy
 msgid "Replace _All"
 msgstr "Αντικατάσταση _όλων"
 
-#: ../src/snr3.c:1642
+#: ../src/snr3.c:1694
 msgid "_Replace"
 msgstr "_Αντικατάσταση"
 
-#: ../src/snr3.c:1646
+#: ../src/snr3.c:1698
 #, fuzzy
 msgid "_Find All"
 msgstr "Εύρεση"
 
-#: ../src/snr3.c:1648
+#: ../src/snr3.c:1700
 #, fuzzy
 msgid "B_ookmark All"
 msgstr "Σελίδοδείκτες"
 
-#: ../src/undo_redo.c:543 ../src/undo_redo.c:685
+#: ../src/undo_redo.c:556 ../src/undo_redo.c:698
 #, fuzzy
 msgid "Undo in _all documents"
 msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
 
-#: ../src/undo_redo.c:543 ../src/undo_redo.c:685
+#: ../src/undo_redo.c:556 ../src/undo_redo.c:698
 #, fuzzy
 msgid "Undo only _this document"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/undo_redo.c:546 ../src/undo_redo.c:688
+#: ../src/undo_redo.c:559 ../src/undo_redo.c:701
 msgid "Undo this change in all documents?"
 msgstr ""
 
-#: ../src/undo_redo.c:547 ../src/undo_redo.c:689
+#: ../src/undo_redo.c:560 ../src/undo_redo.c:702
 msgid "This change concerns multiple documents."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Fo_rmat"
+#~ msgstr "Φόρμα"
+
+#, fuzzy
+#~ msgid "Goto _Line"
+#~ msgstr "Πήγαινε στη γραμμή"
+
+#, fuzzy
+#~ msgid "Paste _Special"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες"
+
+#, fuzzy
+#~ msgid "_Username:"
+#~ msgstr "Όνομα χρήστη:"
+
+#, fuzzy
+#~ msgid "_Domain:"
+#~ msgstr "Κάθετη στοίχηση"
+
+#, fuzzy
+#~ msgid "_Password:"
+#~ msgstr "Κωδικός:"
 
 #, fuzzy
 #~ msgid "_Find..."
@@ -3742,9 +3953,6 @@ msgstr ""
 
 #~ msgid "New"
 #~ msgstr "Νέο"
-
-#~ msgid "Save"
-#~ msgstr "Αποθήκευση"
 
 #~ msgid "Close"
 #~ msgstr "Κλείσιμο"
@@ -4321,10 +4529,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "posix regular expressions"
 #~ msgstr "Έκδοση HTML"
-
-#, fuzzy
-#~ msgid "Case Se_nsitive"
-#~ msgstr "Διαφορά πεζών-κεφαλαίων"
 
 #~ msgid "Extensions"
 #~ msgstr "Επεκτάσεις"
@@ -4936,9 +5140,6 @@ msgstr ""
 #~ msgid " List "
 #~ msgstr " Λίστα "
 
-#~ msgid " CSS "
-#~ msgstr " CSS "
-
 #~ msgid "_Selector:"
 #~ msgstr "_Επιλογέας:"
 
@@ -5342,10 +5543,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "/Tags/Headings/H_6"
 #~ msgstr "/Ετικέτες/Κεφαλίδες/H6"
-
-#, fuzzy
-#~ msgid "/Tags/_Special"
-#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες"
 
 #, fuzzy
 #~ msgid "/Tags/Special/tearoff1"
@@ -6375,9 +6572,6 @@ msgstr ""
 
 #~ msgid "Use _DTD:"
 #~ msgstr "Χρήση _DTD:"
-
-#~ msgid "Orientation:"
-#~ msgstr "Προσανατολισμός:"
 
 #~ msgid "_Horizontal"
 #~ msgstr "_Οριζόντια"
