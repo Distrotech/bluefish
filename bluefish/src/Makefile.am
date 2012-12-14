@@ -11,7 +11,7 @@ SUBDIRS = pixmaps\
 	plugin_zencoding
 
 #	plugin_xmltools
-# 	plugin_vcs \
+# 	plugin_vcs
 
 EXTRA_DIST = bluefish_rc.rc.in.in resource.h
 
