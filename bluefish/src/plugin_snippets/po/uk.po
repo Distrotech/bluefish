@@ -6,17 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 21:22+0200\n"
+"POT-Creation-Date: 2012-08-20 19:20+0200\n"
 "PO-Revision-Date: 2011-12-09 22:39+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: uk\n"
 "X-Generator: Lokalize 1.2\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: src/plugin_snippets/snippets_gui.c:416
 msgid "Click the right mouse button to add, edit or delete snippets."
@@ -33,109 +33,109 @@ msgstr ""
 "Щоб здійснити обмін фрагментами з іншими користувачами, скористайтеся "
 "імпортуванням та експортуванням"
 
-#: src/plugin_snippets/snippets_gui.c:640
+#: src/plugin_snippets/snippets_gui.c:638
 msgid "snippets"
 msgstr "фрагменти"
 
-#: src/plugin_snippets/snippets_gui.c:703
+#: src/plugin_snippets/snippets_gui.c:701
 msgid "Snippet export filename"
 msgstr "Назва файла експорту фрагмента"
 
-#: src/plugin_snippets/snippets_gui.c:741
+#: src/plugin_snippets/snippets_gui.c:739
 msgid "Snippet import filename"
 msgstr "Назва файла імпорту фрагмента"
 
-#: src/plugin_snippets/snippets_gui.c:759
+#: src/plugin_snippets/snippets_gui.c:757
 msgid "Set accelerator key"
 msgstr "Встановити клавішу-акселератор"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets menu"
 msgstr "Меню фрагментів"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:814
 msgid "_New Snippet"
 msgstr "С_творити фрагмент"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:814
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
 msgstr "Новий фрагмент"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:815
 msgid "_Edit Snippet"
 msgstr "_Змінити фрагмент"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:815
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
 msgstr "Змінити фрагмент"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:816
 msgid "_Delete Snippet"
 msgstr "_Вилучити фрагмент"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:816
 msgid "Delete snippet"
 msgstr "Вилучити фрагмент"
 
-#: src/plugin_snippets/snippets_gui.c:819
+#: src/plugin_snippets/snippets_gui.c:817
 msgid "Delete _Branch"
 msgstr "Вилучити _гілку"
 
-#: src/plugin_snippets/snippets_gui.c:819
+#: src/plugin_snippets/snippets_gui.c:817
 msgid "Delete branch"
 msgstr "Вилучити гілку"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "Set Snippet _Accelerator"
 msgstr "Встановити _акселератор фрагмента"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "Set snippet accelerator"
 msgstr "Встановити акселератор фрагмента"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Ex_pand All"
 msgstr "Р_озгорнути всі"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Expand all"
 msgstr "Розгорнути всі"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:821
 msgid "_Collapse All"
 msgstr "З_горнути всі"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:821
 msgid "Collapse all"
 msgstr "Згорнути всі"
 
-#: src/plugin_snippets/snippets_gui.c:824
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "E_xport"
 msgstr "_Експортувати"
 
-#: src/plugin_snippets/snippets_gui.c:824
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "Export snippets"
 msgstr "Експортувати фрагменти"
 
-#: src/plugin_snippets/snippets_gui.c:825
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "I_mport"
 msgstr "І_мпортувати"
 
-#: src/plugin_snippets/snippets_gui.c:825
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "Import snippets"
 msgstr "Імпортувати фрагменти"
 
-#: src/plugin_snippets/snippets_gui.c:829
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "_Show as menu"
 msgstr "По_казати як меню"
 
-#: src/plugin_snippets/snippets_gui.c:829
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Show snippets menu"
 msgstr "Показати меню фрагментів"
 
-#: src/plugin_snippets/snippets_gui.c:831
+#: src/plugin_snippets/snippets_gui.c:829
 msgid "S_nippets Menu"
 msgstr "Меню _фрагментів"
 
@@ -143,11 +143,11 @@ msgstr "Меню _фрагментів"
 msgid "[cursor position or selection]"
 msgstr "[позиція курсора або позначене]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:152
+#: src/plugin_snippets/snippets_leaf_snr.c:153
 msgid "Search for: '"
 msgstr "Шукати «"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:152
+#: src/plugin_snippets/snippets_leaf_snr.c:153
 msgid "', replace with: '"
 msgstr "», замінити «"
 
@@ -182,8 +182,8 @@ msgid ""
 "placeholders an appropriate name on the right. (Please use %% if you need "
 "literal % in your string!)"
 msgstr ""
-"Вкажіть параметри пошуку та ключ пошуку. Можна використовувати заповнювачі %"
-"0, %1, ...%5, які буде замінено значеннями, після активації цього пункту. "
+"Вкажіть параметри пошуку та ключ пошуку. Можна використовувати заповнювачі "
+"%0, %1, ...%5, які буде замінено значеннями, після активації цього пункту. "
 "Вказати назви заповнювачів можна праворуч. (Скористайтеся послідовністю %% "
 "якщо у вашому рядку є символ «%»!)"
 
@@ -232,8 +232,8 @@ msgid ""
 msgstr ""
 "<i>Перед</i>текст буде вставлено перед позицією курсора або поточним "
 "позначеним текстом. <i>Після</i>текст буде вставлено після позиції курсора "
-"або поточного позначеного тексту. Можна використовувати заповнювачі %0, %"
-"1, ...%9, які буде замінено значеннями, після активації цього пункту. "
+"або поточного позначеного тексту. Можна використовувати заповнювачі %0, "
+"%1, ...%9, які буде замінено значеннями, після активації цього пункту. "
 "Вказати назви заповнювачів можна праворуч. (Скористайтеся послідовністю %% "
 "якщо у вашому рядку є символ «%»!)"
 
