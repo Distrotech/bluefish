@@ -1131,7 +1131,7 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 static void
 setup_session_after_parse(Tsessionvars * session)
 {
-	if (session->editor_tab_width < 2)
+	if (session->editor_tab_width < 1)
 		session->editor_tab_width = 3;
 
 	if (session->default_mime_type == NULL)
