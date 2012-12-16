@@ -26,8 +26,8 @@
 #include "bftextview2_autocomp.h"
 #include "stringlist.h"
 
-#undef DBG_AUTOCOMP
-#define DBG_AUTOCOMP g_print
+/*#undef DBG_AUTOCOMP
+#define DBG_AUTOCOMP g_print*/
 
 typedef struct {
 	BluefishTextView *btv;
@@ -41,6 +41,7 @@ typedef struct {
 	gint listwidth;
 	gint w;
 	gint h;
+	gboolean in_fill; /* TRUE while filling the liststore */
 	guint16 contextnum;
 } Tacwin;
 
@@ -149,7 +150,7 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 					if (pattern_id) {
 						GSList *tmpslist =
 							g_array_index(master->bflang->st->matches, Tpattern, pattern_id).autocomp_items;
-						/* a pattern MAY have multiple autocomplete items. This code is not efficient iof in the future some 
+						/* a pattern MAY have multiple autocomplete items. This code is not efficient iof in the future some
 						   patterns would have many autocomplete items. I don't expect this, so I leave this as it is right now  */
 						while (tmpslist) {
 							Tpattern_autocomplete *pac = tmpslist->data;
@@ -220,6 +221,10 @@ acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(acw->btv->master);
+	DBG_AUTOCOMP("acw_selection_changed_lcb, in_fill=%d\n",acw->in_fill);
+	if (acw->in_fill)
+		return;
+
 	if (!g_array_index(master->bflang->st->contexts, Tcontext, acw->contextnum).patternhash
 		|| !main_v->props.show_autocomp_reference)
 		return;
@@ -235,7 +240,7 @@ acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw)
 			g_free(key);
 			if (pattern_id && g_array_index(master->bflang->st->matches, Tpattern, pattern_id).reference) {
 				GtkRequisition requisition;
-				DBG_AUTOCOMP("show %s\n",
+				DBG_AUTOCOMP("acw_selection_changed_lcb, show %s\n",
 							 g_array_index(master->bflang->st->matches, Tpattern, pattern_id).reference);
 				gtk_label_set_markup(GTK_LABEL(acw->reflabel),
 									 g_array_index(master->bflang->st->matches, Tpattern,
@@ -270,6 +275,7 @@ acwin_create(BluefishTextView * btv)
 
 	acw = g_slice_new0(Tacwin);
 	acw->btv = btv;
+	acw->in_fill = TRUE;
 	acw->win = gtk_window_new(GTK_WINDOW_POPUP);
 	gtk_widget_set_app_paintable(acw->win, TRUE);
 	gtk_window_set_resizable(GTK_WINDOW(acw->win), FALSE);
@@ -315,7 +321,7 @@ acwin_create(BluefishTextView * btv)
 	return acw;
 }
 
-/* returns TRUE if window is popped-up lower than the cursor, 
+/* returns TRUE if window is popped-up lower than the cursor,
 returns FALSE if window is popped-up higher than the cursor (because cursor is low in the screen) */
 static gboolean
 acwin_position_at_cursor(BluefishTextView * btv)
@@ -417,11 +423,12 @@ acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar * closetag, g
 {
 	GList *tmplist, *list = NULL;
 	gint everynth=1, i=0;
+
 	/* to avoid that we show 10000 items in the autocomplete list, we insert every N items where N % everynth == 0 */
 	if (numitems > 512) {
 		everynth = 1.0 * numitems / 512.0;
-		g_print("numitems=%d, everynth=%d\n", numitems, everynth); 
-	} 
+		DBG_AUTOCOMP("numitems=%d, everynth=%d\n", numitems, everynth);
+	}
 	if (items)
 		list = g_list_copy(items);
 	if (items2)
@@ -522,7 +529,7 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 														  fblock->patternum).tagclose_from_blockstack);
 			}
 /*		if (g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).tagclose_from_blockstack) {
-				gchar *start; 
+				gchar *start;
 				gtk_text_buffer_get_iter_at_mark(buffer, &it1, fblock->start1);
 				gtk_text_buffer_get_iter_at_mark(buffer, &it2, fblock->end1);
 				gtk_text_iter_forward_char(&it1);
@@ -556,7 +563,7 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 				gunichar uc = gtk_text_iter_get_char(&it1);
 				if (!g_unichar_isalnum(uc) && uc != '_') {
 					break;
-				}	
+				}
 				g_string_append_c(tmpstr, uc);
 			}
 			g_string_append_c(tmpstr, '>');
@@ -601,6 +608,7 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 			if (!btv->autocomp) {
 				btv->autocomp = acwin_create(btv);
 			} else {
+				ACWIN(btv->autocomp)->in_fill=TRUE;
 				g_free(ACWIN(btv->autocomp)->prefix);
 				g_free(ACWIN(btv->autocomp)->newprefix);
 				ACWIN(btv->autocomp)->prefix = NULL;
@@ -629,6 +637,7 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 				gtk_tree_view_scroll_to_cell(ACWIN(btv->autocomp)->tree, path, NULL, FALSE, 0.0, 0.0);
 				gtk_tree_path_free(path);
 			}
+			ACWIN(btv->autocomp)->in_fill=FALSE;
 			gtk_tree_selection_select_iter(selection, &it);
 			g_free(closetag);
 		} else {
