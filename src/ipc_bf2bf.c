@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * ipc_bf2bf.c - socket IPC communication, bluefish to bluefish
  *
- * Copyright (C) 2009-2011 Olivier Sessink
+ * Copyright (C) 2009-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,7 +76,7 @@ handle_message(const gchar * message, gsize len)
 	Tbfwin *bfwin;
 	if (!main_v->bfwinlist)
 		return;
-	
+
 	bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
 	if (strcmp(message, "openwin") == 0) {
 		/* call open new window */
@@ -88,6 +88,7 @@ handle_message(const gchar * message, gsize len)
 		file = g_file_new_for_uri(&message[8]);
 		file_handle(file, bfwin, NULL, TRUE);
 		g_object_unref(file);
+		gtk_window_present(GTK_WINDOW(bfwin->main_window));
 	} else {
 		g_print("unknown message with len %" G_GSIZE_FORMAT " on socket...\n", len);
 		/*DEBUG_MSG("message: %s\n",message); */
