@@ -43,6 +43,7 @@
 !define PLUG_HTMLBAR "Панель HTML"
 !define PLUG_INFBROWSER "Панель перегляду даних"
 !define PLUG_SNIPPETS "Фрагменти"
+!define PLUG_VCS "Керування версіями"
 !define PLUG_ZENCODING "Дзен-програмування"
 
 ; File Associations Page
