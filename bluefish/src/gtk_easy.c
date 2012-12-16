@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <stdlib.h>				/* strtod() */
@@ -30,7 +30,7 @@
 #include "bfwin.h"
 #include "pixmap.h"
 #include "dialog_utils.h"
-
+#include "filefilter.h"
 
 #ifdef WIN32
 #define DIRSTR "\\"
@@ -42,9 +42,9 @@
 
 /**
  * flush_queue:
- * 
+ *
  * handles the gtk and gdk queue
- * 
+ *
  * Return value: void
  **/
 void
@@ -58,9 +58,9 @@ flush_queue(void)
 /*
  * this function creates a GtkListStore with numcols columns, where numcols >= 2
  * every row will be filled from the data pointer of the list, which should be an array
- * every column is filled with the entries in the array, except the last one, that 
+ * every column is filled with the entries in the array, except the last one, that
  * will contain the array itself.
- * 
+ *
  * the last column will thus always contain a pointer to the array
  *
  */
@@ -145,9 +145,9 @@ widget_set_visible(GtkWidget * widget, gboolean visible)
 /**
  * window_destroy:
  * @windowname: a #GtkWidget pointer to the window
- * 
+ *
  * Remove grab and signals and then destroy window
- * 
+ *
  * Return value: void
  **/
 void
@@ -200,7 +200,7 @@ window_close_by_data_cb(GtkWidget * widget, gpointer data)
  * 	@entry: the button #GtkWidget * to read
  *
  * 	free the old string in **config_var, and replaces it with the new string from button label
- *   I assume that button is destroyed, so I create copy of a label 
+ *   I assume that button is destroyed, so I create copy of a label
  *
  * Return value:	void
  */
@@ -255,7 +255,7 @@ string_apply(gchar ** config_var, GtkWidget * widget)
 		/*tmpstring = gdk_color_to_string(&color);*/
 	}
 #if GTK_CHECK_VERSION(2,24,0)
-	else if (GTK_IS_COMBO_BOX_TEXT(widget)) 
+	else if (GTK_IS_COMBO_BOX_TEXT(widget))
 #else
 	else if (GTK_IS_COMBO_BOX(widget))
 #endif
@@ -435,7 +435,7 @@ boxed_checkbut_with_value(gchar * labeltext, gint which_config_int, GtkWidget * 
  * 	@enabled: #gint if the radiobutton is enabled or not
  * @prevbut: #GtkRadioButton* pointer to the first button or NULL if none
  *
- * 	Create new radiobutton with some value, and if there is a first button 
+ * 	Create new radiobutton with some value, and if there is a first button
  * for this group, add this button to that group
  *
  * Return value: #GtkWidget* pointer to the new radiobutton widget
@@ -461,7 +461,7 @@ radiobut_with_value(gchar * labeltext, gint enabled, GtkRadioButton * prevbut)
  * @prevbut: #GtkRadioButton* pointer to the first button or NULL if none
  * @box: the #GtkWidget* box widget to add the entry to
  *
- * 	Create new radiobutton with some value, and if there is a first button 
+ * 	Create new radiobutton with some value, and if there is a first button
  * for this group, add this button to that group, and this button to box
  *
  * Return value: #GtkWidget* pointer to the new radiobutton widget
@@ -501,7 +501,7 @@ is_int(gfloat testval)
  *
  * Return value: #GtkWidget* pointer to the new spinbutton widget
  */
- 
+
 static gboolean
 spinbut_output(GtkSpinButton *spin,gpointer data)
 {
@@ -544,7 +544,7 @@ spinbut_with_value(gchar * value, gfloat lower, gfloat upper, gfloat step_increm
 	if (!value || value[0]=='\0') {
 		gtk_entry_set_text(GTK_ENTRY(returnwidget), value);
 	}*/
-	
+
 	GtkWidget *returnwidget;
 	gchar *endptr;
 	double testval;
@@ -596,7 +596,7 @@ window_with_title(const gchar * title, GtkWindowPosition position, gint borderwi
 	return returnwidget;
 }
 
-/* GtkWindowPosition can be 
+/* GtkWindowPosition can be
 GTK_WIN_POS_NONE
 GTK_WIN_POS_CENTER
 GTK_WIN_POS_MOUSE */
@@ -636,7 +636,7 @@ window_delete_on_escape(GtkWindow * window)
  * and if needed set a callback so the window will be closed on escape press
  * and set it if needed transient for another window
  *
- * the close_func should have the form 
+ * the close_func should have the form
  * void close_func(GtkObject *object,gpointer user_data);
  *
  * Return value: #GtkWidget* pointer to created window
@@ -679,7 +679,7 @@ window_full2(const gchar * title, GtkWindowPosition position, gint borderwidth, 
  * 	@contents: #gchar* the initial contents of the textbox
  * 	@wrapmode: #GtkWrapMode the wrapmode for the TextView GTK_WRAP_NONE,GTK_WRAP_CHAR,GTK_WRAP_WORD
  *
- * creates a textbuffer, a textview widget (stored in the textview pointer), 
+ * creates a textbuffer, a textview widget (stored in the textview pointer),
  * puts that inside a scrolwin, adds the content and sets the size and returns
  * the scrolwin
  *
@@ -784,7 +784,7 @@ bf_label_with_markup(const gchar * labeltext)
  * @left_attach: #guint column number to attach the left side of the label to
  * @right_atach: #guint column number to attach the right side of a label to
  * @top_attach: #guint row number to attach the top of a label to
- * @bottom_attach: #guint row number to attach the bottom of a label to 	
+ * @bottom_attach: #guint row number to attach the bottom of a label to
  *
  *	create a label with markup, align it, and attach it to a table
  * using the table defaults
@@ -1110,7 +1110,7 @@ file_but_clicked_lcb(GtkWidget * widget, Tfilebut * fb)
 
 	tmpstring = run_file_select_dialog(GTK_WINDOW(gtk_widget_get_toplevel(fb->entry))
 							, setfile
-							, relativeto, 
+							, relativeto,
 							fb->chooseraction);
 	if (tmpstring) {
 		gtk_entry_set_text(GTK_ENTRY(fb->entry), tmpstring);
@@ -1142,7 +1142,7 @@ file_but_clicked_lcb(GtkWidget * widget, Tfilebut * fb)
 		if (!fb->fullpath && fb->bfwin && fb->bfwin->current_document) {
 			if (fb->bfwin->current_document->uri != NULL) {
 				gchar *doc_curi;
-				/ * the function g_file_get_relative_path cannot create links that don't 
+				/ * the function g_file_get_relative_path cannot create links that don't
 				   have the same prefix (relative links with ../../) * /
 				doc_curi = g_file_get_uri(fb->bfwin->current_document->uri);
 				tmp2string = create_relative_link_to(doc_curi, tmpstring);
@@ -1159,7 +1159,7 @@ file_but_clicked_lcb(GtkWidget * widget, Tfilebut * fb)
 		gtk_entry_set_text(GTK_ENTRY(fb->entry), tmpstring);
 
 	}*/
-	
+
 }
 
 static void
@@ -1248,22 +1248,28 @@ is_separator(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 static gboolean
 file_chooser_custom_filter_func(GtkFileFilterInfo * filter_info, gpointer data)
 {
-	gint ret;
+	/*gint ret;*/
 	Tfchooser_filter *cf = data;
-	if (!filter_info->display_name || filter_info->display_name[0] == '\0')
+	if (!filter_info->display_name || filter_info->display_name[0] == '\0') {
+		DEBUG_MSG("file_chooser_custom_filter_func, no display_name, don't display, return FALSE\n");
 		return FALSE;			/* error condition ?? */
+	}
 	if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(cf->show_backup))) {
 		gint namelen = strlen(filter_info->display_name);
-		if (filter_info->display_name[namelen - 1] == '~')
+		if (filter_info->display_name[namelen - 1] == '~') {
+			DEBUG_MSG("file_chooser_custom_filter_func, %s is backup file, return FALSE\n", filter_info->display_name);
 			return FALSE;
+		}
 	}
-	if (cf->filter == NULL)
+	/*if (cf->filter == NULL)
 		return TRUE;
 	if (!cf->filter->filetypes)
-		return !cf->filter->mode;
-
-	ret = GPOINTER_TO_INT(g_hash_table_lookup(cf->filter->filetypes, filter_info->mime_type));
-	return (ret ? cf->filter->mode : !cf->filter->mode);
+		return !cf->filter->mode;*/
+	DEBUG_MSG("file_chooser_custom_filter_func, calling file_visible_in_filter for %s with mime=%s and filename=%s\n", filter_info->display_name, filter_info->mime_type, filter_info->filename);
+	/* for some reason the GtkFileFilterInfo often has a NULL filename, so we use the display name to filter on */
+	return file_visible_in_filter(cf->filter, filter_info->mime_type, filter_info->display_name);
+	/*ret = GPOINTER_TO_INT(g_hash_table_lookup(cf->filter->filetypes, filter_info->mime_type));
+	return (ret ? cf->filter->mode : !cf->filter->mode);*/
 }
 
 GtkWidget *

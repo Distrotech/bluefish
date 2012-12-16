@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
- * filefilter.c - 
+ * filefilter.c -
  *
- * Copyright (C) 2002-2011 Olivier Sessink
+ * Copyright (C) 2002-2012 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,23 +72,29 @@ static gboolean
 filename_match(Tfilter * filter, const gchar * string)
 {
 	GList *tmplist;
+	gboolean retval=FALSE;
 	guint len = strlen(string);
-	const gchar *reversed = g_utf8_strreverse(string, -1);
+	gchar *reversed = g_utf8_strreverse(string, len);
 	for (tmplist = g_list_first(filter->patterns); tmplist; tmplist = g_list_next(tmplist)) {
-		if (g_pattern_match(((Tfilterpattern *) tmplist->data)->patspec, len, string, reversed))
-			return TRUE;
+		if (g_pattern_match(((Tfilterpattern *) tmplist->data)->patspec, len, string, reversed)) {
+			retval = TRUE;
+			break;
+		}
 	}
-	return FALSE;
+	g_free(reversed);
+	DEBUG_MSG("filename_match, return %d for %s\n", retval, string);
+	return retval;
 }
 
 gboolean
 file_visible_in_filter(Tfilter * filter, const gchar * mime_type, const gchar * filename)
 {
-
-	if (filter)
-		return (((mime_type && GPOINTER_TO_INT(g_hash_table_lookup(filter->filetypes, mime_type)))
+	DEBUG_MSG("file_visible_in_filter, filter=%p, mime_type=%s, filename=%s\n", filter, mime_type, filename);
+	if (filter) {
+		return (((mime_type && filter->filetypes && GPOINTER_TO_INT(g_hash_table_lookup(filter->filetypes, mime_type)))
 				 || (filter->patterns && filename
 					 && filename_match(filter, filename))) ? filter->mode : !filter->mode);
+	}
 	return TRUE;
 }
 
@@ -110,10 +116,12 @@ find_filter_by_name(const gchar * name)
 static GHashTable *
 hashtable_from_string(const gchar * mimetypes)
 {
-	GHashTable *filetypes = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
-	if (mimetypes) {
+	GHashTable *filetypes = NULL;
+	if (mimetypes && mimetypes[0] != '\0') {
 		gchar **types = g_strsplit(mimetypes, ":", 127);
 		gchar **type = types;
+		if (*type)
+			filetypes = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
 		while (*type) {
 			g_hash_table_replace(filetypes, g_strdup(*type), GINT_TO_POINTER(1));
 			type++;
@@ -160,7 +168,8 @@ filter_destroy(Tfilter * filter)
 {
 	GList *tmplist;
 	g_free(filter->name);
-	g_hash_table_destroy(filter->filetypes);
+	if (filter->filetypes)
+		g_hash_table_destroy(filter->filetypes);
 	for (tmplist = g_list_first(filter->patterns); tmplist; tmplist = g_list_next(tmplist)) {
 		Tfilterpattern *pat = tmplist->data;
 		g_pattern_spec_free(pat->patspec);
@@ -201,7 +210,7 @@ filter_delete(Tfilter * filter)
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	/* delete from current list of filters, but we need to 
+	/* delete from current list of filters, but we need to
 	   make sure no window is actually using this filter! */
 	tmplist = g_list_first(main_v->bfwinlist);
 	while (tmplist) {
@@ -221,7 +230,7 @@ filter_delete(Tfilter * filter)
 	filter_unref(filter);
 }
 
-/* 
+/*
  * WARNING: these filter are also used in the filechooser dialog (file->open in the menu)
  */
 void
@@ -278,8 +287,8 @@ restore_filter_from_config(Tfilter * filter, const gchar * origname)
 	if (mode != filter->mode) {
 		filter->mode = mode;
 	}
-
-	g_hash_table_destroy(filter->filetypes);
+	if (filter->filetypes)
+		g_hash_table_destroy(filter->filetypes);
 	filter->filetypes = hashtable_from_string(strarr[2]);
 	filter->patterns = patternlist_from_string(strarr[3]);
 }
@@ -326,7 +335,8 @@ apply_filter_to_config(Tfilter * filter, const gchar * origname)
 		g_free(strarr[1]);
 	strarr[1] = g_strdup_printf("%d", filter->mode);
 	gstr = g_string_new("");
-	g_hash_table_foreach(filter->filetypes, hashtable_to_string_lcb, gstr);
+	if (filter->filetypes)
+		g_hash_table_foreach(filter->filetypes, hashtable_to_string_lcb, gstr);
 	if (strarr[2])
 		g_free(strarr[2]);
 	strarr[2] = g_string_free(gstr, FALSE);
@@ -345,7 +355,7 @@ apply_filter_to_config(Tfilter * filter, const gchar * origname)
 }
 
 /*
-the filefilter gui has one listmodel with all filetypes currently known in bluefish, 
+the filefilter gui has one listmodel with all filetypes currently known in bluefish,
 and two filtermodels, in_model shows all types in the filter, out_model shows all other filetypes
 and two treeviews.
 
@@ -405,7 +415,7 @@ filefiltergui_infilter_visiblefunc(GtkTreeModel * model, GtkTreeIter * iter, gpo
 	gtk_tree_model_get(model, iter, 0, &name, 2, &type, -1);
 	if (name) {
 		if (type == 0) {
-			retval = (g_hash_table_lookup(ffg->curfilter->filetypes, name) != NULL);
+			retval = (ffg->curfilter->filetypes && g_hash_table_lookup(ffg->curfilter->filetypes, name) != NULL);
 		} else {				/* type == 1 */
 			GList *tmplist;
 			for (tmplist = g_list_first(ffg->curfilter->patterns); tmplist; tmplist = g_list_next(tmplist)) {
@@ -430,7 +440,7 @@ filefiltergui_outfilter_visiblefunc(GtkTreeModel * model, GtkTreeIter * iter, gp
 /*
 static void filefiltergui_add_filetypes(gpointer key,gpointer value,gpointer data) {
 	Tfilefiltergui *ffg = data;
-	
+
 	if (strlen(key)>0 && g_hash_table_lookup(main_v->filetypetable, key) == NULL) {
 		GtkTreeIter it;
 		gtk_list_store_prepend(ffg->lstore,&it);
@@ -454,6 +464,9 @@ filefiltergui_2right_clicked(GtkWidget * widget, Tfilefiltergui * ffg)
 		/* add the selection to the filter */
 		DEBUG_MSG("filefiltergui_2right_clicked, adding %s\n", name);
 		if (type == 0) {
+			if (!ffg->curfilter->filetypes) {
+				ffg->curfilter->filetypes = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+			}
 			g_hash_table_replace(ffg->curfilter->filetypes, name, GINT_TO_POINTER(1));
 		} else {
 			ffg->curfilter->patterns = g_list_append(ffg->curfilter->patterns, new_pattern(name));
@@ -484,7 +497,9 @@ filefiltergui_2left_clicked(GtkWidget * widget, Tfilefiltergui * ffg)
 		/* add the selection to the filter */
 		if (type == 0) {
 			DEBUG_MSG("filefiltergui_2left_clicked, removing %s\n", name);
-			g_hash_table_remove(ffg->curfilter->filetypes, name);
+			if (ffg->curfilter->filetypes) {
+				g_hash_table_remove(ffg->curfilter->filetypes, name);
+			}
 		} else {
 			/* remove from the list of the filter */
 			ffg->curfilter->patterns = remove_pattern_from_list(ffg->curfilter->patterns, name);
@@ -532,7 +547,6 @@ filefilter_gui(Tfilter * filter)
 	if (!filter) {
 		ffg->curfilter = g_new0(Tfilter, 1);
 		ffg->curfilter->name = g_strdup(_("New filter"));
-		ffg->curfilter->filetypes = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
 	}
 
 	DEBUG_MSG("filefilter_gui, editing filter %p\n", ffg->curfilter);
@@ -599,8 +613,6 @@ filefilter_gui(Tfilter * filter)
 
 	g_list_foreach(reglist, (GFunc) g_free, NULL);
 	g_list_free(reglist);
-	/* make sure that all filetypes that exist in the current filter are shown */
-	/*g_hash_table_foreach(ffg->curfilter->filetypes,filefiltergui_add_filetypes,ffg); */
 	/* add the patterns from the current filter */
 	tmplist = g_list_first(ffg->curfilter->patterns);
 	while (tmplist) {
