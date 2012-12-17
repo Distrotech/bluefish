@@ -36,8 +36,8 @@
 #include "document.h"
 #include "xml_entity.h"
 
-/*#undef DBG_SPELL
-#define DBG_SPELL g_print*/
+#undef DBG_SPELL
+#define DBG_SPELL g_print
 
 #define MAX_CONTINUOUS_SPELLCHECK_INTERVAL 0.1	/* float in seconds */
 
@@ -618,6 +618,7 @@ bftextview2_preferences_menu_lcb(GtkWidget * widget, gpointer data)
 {
 	Tbfwin *bfwin = data;
 	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
+		g_print("check menu widget %p is active, with label %s\n",widget, gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
 		if (bfwin->session->spell_lang)
 			g_free(bfwin->session->spell_lang);
 		bfwin->session->spell_lang =
@@ -625,6 +626,8 @@ bftextview2_preferences_menu_lcb(GtkWidget * widget, gpointer data)
 		g_print("bftextview2_preferences_menu_lcb, set spell check language '%s'\n",bfwin->session->spell_lang);
 		if (load_dictionary(bfwin)) {
 			mark_all_docs_needspelling(bfwin);
+		} else {
+			g_print("failed to load dictionary ?\n");
 		}
 	}
 }
