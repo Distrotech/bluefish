@@ -660,7 +660,7 @@ list_dicts_lcb(const char *const lang_tag, const char *const provider_name, cons
 		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 	}
 	g_print("list_dicts_lcb, connect menuitem %p with label %s and bfwin %p to menu callback\n",menuitem, lang_tag, dl->bfwin);
-	g_signal_connect(menuitem, "activate", G_CALLBACK(bftextview2_preferences_menu_lcb), dl->bfwin);
+	g_signal_connect(menuitem, "toggled", G_CALLBACK(bftextview2_preferences_menu_lcb), dl->bfwin);
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(dl->menu), GTK_WIDGET(menuitem));
 }
 
