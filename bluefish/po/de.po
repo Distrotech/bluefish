@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-12-14 09:05+0100\n"
-"PO-Revision-Date: 2012-06-13 18:20+0200\n"
+"POT-Creation-Date: 2012-12-18 12:44+0100\n"
+"PO-Revision-Date: 2012-12-18 12:42+0100\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: None\n"
 "Language: de\n"
@@ -18,14 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8 bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
+#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:95
 msgid "Bluefish Editor"
 msgstr "Bluefish Editor"
 
 #: ../desktop-data/bluefish.desktop.in.h:2
 msgid "Web Development Editor"
-msgstr "Webentwicklungseditor"
+msgstr "Editorprogramm zur Webentwicklung"
 
+# TODO
 #: ../desktop-data/bluefish.desktop.in.h:3
 msgid "programming;code;html;php;python;"
 msgstr "Programmierung;Code;HTML;PHP;Python;"
@@ -57,19 +58,19 @@ msgstr "%s einklappen"
 msgid "Expand %s"
 msgstr "%s ausklappen"
 
-#: ../src/bftextview2_spell.c:691
+#: ../src/bftextview2_spell.c:696
 msgid "Spell check language"
 msgstr "Sprache für die Rechtschreibprüfung"
 
-#: ../src/bftextview2_spell.c:724
+#: ../src/bftextview2_spell.c:729
 msgid "Add to dictionary"
 msgstr "Zum Wörterbuch hinzufügen"
 
-#: ../src/bftextview2_spell.c:727
+#: ../src/bftextview2_spell.c:732
 msgid "Ignore spelling"
 msgstr "Rechtschreibung ignorieren"
 
-#: ../src/bftextview2_spell.c:742
+#: ../src/bftextview2_spell.c:747
 msgid "Insert special characters as entities"
 msgstr "Sonderzeichen als Entitäten einfügen"
 
@@ -89,6 +90,7 @@ msgstr "Gehe zu Zeile:"
 msgid "Find:"
 msgstr "Suchen:"
 
+# TODO
 #: ../src/bfwin.c:898 ../src/snr3.c:1518
 msgid "Regular expression (pcre)"
 msgstr "Regulärer Ausdruck (PCRE)"
@@ -193,16 +195,15 @@ msgstr "_Ausgabefenster"
 
 #: ../src/bfwin_uimanager.c:819
 msgid "For_mat"
-msgstr ""
+msgstr "For_matieren"
 
 #: ../src/bfwin_uimanager.c:820
 msgid "_Insert"
 msgstr "E_infügen"
 
 #: ../src/bfwin_uimanager.c:821
-#, fuzzy
 msgid "Con_vert"
-msgstr "Ko_nvertieren"
+msgstr "Kon_vertieren"
 
 #: ../src/bfwin_uimanager.c:825
 msgid "_New"
@@ -262,9 +263,8 @@ msgid "Insert file"
 msgstr "Inhalt einer Datei einfügen"
 
 #: ../src/bfwin_uimanager.c:835
-#, fuzzy
 msgid "_Print..."
-msgstr "_Drucken"
+msgstr "_Drucken..."
 
 #: ../src/bfwin_uimanager.c:835
 msgid "Print"
@@ -391,9 +391,8 @@ msgid "Synchronize text block"
 msgstr "Textblock synchronisieren"
 
 #: ../src/bfwin_uimanager.c:869
-#, fuzzy
 msgid "_Toggle Comment"
-msgstr "Aus_kommentieren"
+msgstr "Auskommen_tieren"
 
 #: ../src/bfwin_uimanager.c:869
 msgid "Toggle comment"
@@ -409,19 +408,17 @@ msgstr "Block wählen; mehrfache Ausführung für die übergeordneten Blöcke"
 
 #
 #: ../src/bfwin_uimanager.c:873
-#, fuzzy
 msgid "D_uplicate Line"
-msgstr "Zeile du_plizieren"
+msgstr "Ko_pie der Zeile erzeugen"
 
 #
 #: ../src/bfwin_uimanager.c:873
 msgid "Duplicate the current line"
-msgstr "Aktuelle Zeile duplizieren"
+msgstr "Eine Kopie der aktuellen Zeile anfertigen"
 
 #: ../src/bfwin_uimanager.c:875
-#, fuzzy
 msgid "_Delete Line"
-msgstr "Zeile löschen"
+msgstr "Zeile lös_chen"
 
 #
 #: ../src/bfwin_uimanager.c:875
@@ -429,7 +426,6 @@ msgid "Delete the current line"
 msgstr "Aktuelle Zeile löschen"
 
 #: ../src/bfwin_uimanager.c:877
-#, fuzzy
 msgid "_Word Count"
 msgstr "_Wörter zählen"
 
@@ -507,7 +503,7 @@ msgstr "Führende Leerzeichen entfernen"
 
 #: ../src/bfwin_uimanager.c:894
 msgid "Javascript beautifier"
-msgstr ""
+msgstr "Javascript Beautifier"
 
 #: ../src/bfwin_uimanager.c:895
 msgid "Preview in browser"
@@ -685,14 +681,12 @@ msgid "Reload current file"
 msgstr "Aktuelle Datei erneut laden"
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a cop_y..."
-msgstr "Speichern _unter..."
+msgstr "Kop_ie speichern..."
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a copy"
-msgstr "Speichern & S_chließen"
+msgstr "Eine Kopie speichern"
 
 #: ../src/bfwin_uimanager.c:941
 msgid "Rena_me..."
@@ -767,14 +761,12 @@ msgid "Move current tab right"
 msgstr "Tab nach rechts verschieben"
 
 #: ../src/bfwin_uimanager.c:957
-#, fuzzy
 msgid "_Recent Document"
-msgstr "_Nächstes Dokument"
+msgstr "Z_uletzt geöffnetes Dokument"
 
 #: ../src/bfwin_uimanager.c:957
-#, fuzzy
 msgid "Goto most recent document"
-msgstr "Gehe zum letzten Dokument"
+msgstr "Gehe zum zuletzt geöffneten Dokument"
 
 #: ../src/bfwin_uimanager.c:959
 msgid "_First Document"
@@ -805,9 +797,8 @@ msgid "_Previous Document"
 msgstr "_Vorheriges Dokument"
 
 #: ../src/bfwin_uimanager.c:967
-#, fuzzy
 msgid "_Goto Line"
-msgstr "Gehe zu Zeile:"
+msgstr "_Gehe zu Zeile"
 
 #: ../src/bfwin_uimanager.c:967
 msgid "Goto line"
@@ -855,11 +846,11 @@ msgstr "Einfügen"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Paste Specia_l"
-msgstr ""
+msgstr "Einfügen Spezia_l"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Paste Special"
-msgstr ""
+msgstr "Einfügen Spezial"
 
 #: ../src/bfwin_uimanager.c:982
 msgid "_Find"
@@ -886,9 +877,8 @@ msgid "Find from clipboard or selection"
 msgstr "In Zwischenablage oder Auswahl suchen"
 
 #: ../src/bfwin_uimanager.c:986
-#, fuzzy
 msgid "Ad_vanced Find & Replace..."
-msgstr "Erweitertes Finden und Erset_zen"
+msgstr "Er_weitertes Finden und Ersetzen..."
 
 #: ../src/bfwin_uimanager.c:986
 msgid "Advanced Find and Replace"
@@ -955,9 +945,8 @@ msgid "Open _URL..."
 msgstr "_URL Öffnen..."
 
 #: ../src/bfwin_uimanager.c:1157
-#, fuzzy
 msgid "Upload _/ Download..."
-msgstr "H_och- / Herunterladen..."
+msgstr "Hochladen _/ Herunterladen..."
 
 #: ../src/bfwin_uimanager.c:1170
 msgid "_Spell Check"
@@ -977,7 +966,7 @@ msgstr "Nur ausgewählter Text"
 
 #: ../src/bfwin_uimanager.c:1575
 msgid "Never ask again"
-msgstr ""
+msgstr "Nicht mehr nachfragen"
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -1012,7 +1001,7 @@ msgid ""
 "<b>Proceed?</b>"
 msgstr ""
 "Der Text zwischen <i>%s</i> und <i>%s</i> wird in allen Dokumenten im "
-"geöffnetet Fenster ersetzt.\n"
+"geöffneten Fenster ersetzt.\n"
 "<b>Fortfahren?</b>"
 
 #: ../src/blocksync.c:225
@@ -1047,27 +1036,27 @@ msgstr ""
 "<span foreground=\"red\" weight=\"bold\">Text auswählen, der das Ende des "
 "Blocks markiert.</span>"
 
-#: ../src/bluefish.c:94
+#: ../src/bluefish.c:95
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr "Besuchen Sie uns auf http://bluefish.openoffice.nl"
 
-#: ../src/bluefish.c:316
+#: ../src/bluefish.c:317
 msgid "Open in existing window."
 msgstr "Im offenem Fenster öffnen"
 
-#: ../src/bluefish.c:318
+#: ../src/bluefish.c:319
 msgid "Open in new window."
 msgstr "In neuem Fenster öffnen"
 
-#: ../src/bluefish.c:320
+#: ../src/bluefish.c:321
 msgid "Print version information."
 msgstr "Version anzeigen"
 
-#: ../src/bluefish.c:342
+#: ../src/bluefish.c:343
 msgid " [FILE(S)]"
 msgstr " [DATEI(EN)]"
 
-#: ../src/bluefish.c:353
+#: ../src/bluefish.c:354
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
@@ -1085,9 +1074,8 @@ msgid "_Description:"
 msgstr "_Beschreibung"
 
 #: ../src/bookmark.c:586
-#, fuzzy
 msgid "_Temporary"
-msgstr "Temporär"
+msgstr "_Temporär"
 
 #: ../src/bookmark.c:603
 msgid "Temporary"
@@ -1096,7 +1084,7 @@ msgstr "Temporär"
 #: ../src/bookmark.c:767
 #, c-format
 msgid "Do you really want to delete %s?"
-msgstr "%s wirklich löschen?"
+msgstr "Möchten Sie %s wirklich löschen?"
 
 #: ../src/bookmark.c:770
 msgid "Delete permanent bookmark."
@@ -1334,17 +1322,17 @@ msgid "Unknown"
 msgstr "Unbekannt"
 
 #: ../src/document.c:1654
-#, fuzzy
 msgid "_No"
-msgstr "_Gehe zu"
+msgstr "_Nein"
 
 #: ../src/document.c:1654
 msgid "_Split"
-msgstr ""
+msgstr "_Spaltenumbruch"
 
 #: ../src/document.c:1657
 msgid "File contains very long lines. Split these lines?"
 msgstr ""
+"Die Datei enthält sehr lange Zeilen. Sollen diese geteilt dargestellt werden?"
 
 #: ../src/document.c:1657
 msgid ""
@@ -1353,6 +1341,12 @@ msgid ""
 "syntax, and may replace spaces or tabs with newlines in any location, or "
 "insert newlines if no spaces or tabs are found."
 msgstr ""
+"Die Zeilen in der Datei sind sehr lang. Das kann zu Perfomanceeinbußen bei "
+"der Nutzung von Bluefish führen. Die zur Verfügung gestellte Funktion zum "
+"Trennen der Zeilen kennt allerdings keinerlei Sprachsyntax und ersetzt "
+"möglicherweise Tabs oder Leerzeichen durch Zeilenumbrüche unabhängig von "
+"derem Vorkommen im Text oder ihrer Bedeutung und fügt auch Zeilenumbrüche "
+"ein, wo vorher weder Tabs noch Leerzeichen waren."
 
 #: ../src/document.c:1733
 msgid "Cannot display file, unknown characters found."
@@ -1400,7 +1394,7 @@ msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
-"Ihre Glib-Version (%d.%d.%d) arbeitet unzuverlässig mit Dateieni auf "
+"Ihre Glib-Version (%d.%d.%d) arbeitet unzuverlässig mit Dateien auf "
 "entfernten Systemen. Bitte aktualisieren Sie Glib auf Version 2.18.0 oder "
 "neuer."
 
@@ -1454,25 +1448,25 @@ msgid "No file to insert"
 msgstr "Keine Datei zum Einfügen"
 
 #: ../src/document.c:3188
-#, fuzzy
 msgid "Save pasted image as"
 msgstr "Datei speichern unter..."
 
 #: ../src/document.c:3295
 msgid "Paste special"
-msgstr ""
+msgstr "Einfügen Spezial"
 
 #: ../src/document.c:3302
 msgid "Paste as _HTML"
-msgstr ""
+msgstr "Einfügen als _HTML"
 
 #: ../src/document.c:3306
 msgid "Paste as HTML with _JPG"
-msgstr ""
+msgstr "Einfügen als HTML mit _JPG"
 
+# TODO
 #: ../src/document.c:3308
 msgid "Paste as HTML _PNG"
-msgstr ""
+msgstr "Einfügen als HTML mit _PNG"
 
 #: ../src/document.c:3388
 #, c-format
@@ -1524,14 +1518,12 @@ msgid "Fill empty entries:"
 msgstr "Leere Einträge ausfüllen:"
 
 #: ../src/doc_extern_tools.c:63
-#, fuzzy
 msgid "Number of _paragraphs:"
-msgstr "Anzahl der Absätze"
+msgstr "Anzahl der A_bsätze"
 
 #: ../src/doc_extern_tools.c:68
-#, fuzzy
 msgid "Number of _sentences:"
-msgstr "Anzahl der Sätze"
+msgstr "Anzahl der _Sätze"
 
 #: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert plain text"
@@ -1555,38 +1547,36 @@ msgstr "Anzahl der Sätze"
 
 #: ../src/doc_extern_tools.c:134
 msgid "Javascript Beautify"
-msgstr ""
+msgstr "Javascript Beautify"
 
 #: ../src/doc_extern_tools.c:148
-#, fuzzy
 msgid "_Indent size:"
-msgstr "Einrücken"
+msgstr "E_inrücktiefe:"
 
 #: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
 msgid "Use _tabs to indent, not spaces"
-msgstr ""
+msgstr "_Tabs statt Leerzeichen zum Einrücken nutzen"
 
 #: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
 msgid "Do not _preserve existing line breaks"
-msgstr ""
+msgstr "Existierende Zeilenum_brüche nicht beibehalten"
 
 #: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
 msgid "More _jslint-compatible output"
-msgstr ""
+msgstr "Ausgabe mehr _jslint-kompatibel gestalten"
 
 #: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
 msgid "_Decode printable chars encoded in \\\\xNN notation"
-msgstr ""
+msgstr "_Dekodiere darstellbare Zeichen in \\\\xNN Notation"
 
 #: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
-#, fuzzy
 msgid "Beautify only in _selection"
-msgstr "Einrücken von Auswahl mit _Tab-Taste"
+msgstr "Beautify-Funktion nur in Auswahl anwenden"
 
+# TODO
 #: ../src/doc_extern_tools.c:179
-#, fuzzy
 msgid "_Indent size"
-msgstr "Einrücken"
+msgstr "E_inrücktiefe"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1611,15 +1601,15 @@ msgstr "Dokumentkodierungen entfernen oder hinzufügen"
 #: ../src/external_commands.c:167
 #, c-format
 msgid "The command %s exited with error code %d. %s"
-msgstr ""
+msgstr "Der Befehl %s ist mit dem Fehlerrückgabewert %d fehlgeschlagen. %s"
 
 #: ../src/external_commands.c:167
 msgid "Probably this application is not installed on your system."
-msgstr ""
+msgstr "Möglicherweise ist das Programm nicht auf Ihrem System installiert."
 
 #: ../src/external_commands.c:169
 msgid "Command returned error code"
-msgstr ""
+msgstr "Der Befehl gab eine Fehlermeldung zurück"
 
 #: ../src/external_commands.c:419
 msgid "Supply extra arguments"
@@ -1633,11 +1623,11 @@ msgstr "Argumente bereitstellen um %%a in '%s' zu definieren"
 #: ../src/external_commands.c:673
 #, c-format
 msgid "Failed to create a command for %s."
-msgstr ""
+msgstr "Eine Befehlszeile für %s zu erzeugen, ist fehlgeschlagen."
 
 #: ../src/external_commands.c:675
 msgid "Failed to create a command"
-msgstr ""
+msgstr "Eine Befehlszeile zu erzeugen, ist fehlgeschlagen."
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -1652,7 +1642,7 @@ msgstr ""
 "Das <i>Dokumentverzeichnis</i> ist das Verzeichnis, in dem Bluefish die "
 "Dateien sucht.\n"
 " Die <i>Webadresse</i> ist das Verzeichnis bzw. der Pfad oder die URL, unter "
-"der die Dateien angzeigt werden können."
+"der die Dateien angezeigt werden können."
 
 #: ../src/filebrowser2.c:293
 msgid "Documentroot"
@@ -1774,7 +1764,7 @@ msgstr "Filter"
 msgid "New Filter"
 msgstr "Neuer Filter"
 
-#: ../src/filebrowser2.c:2058 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:2058 ../src/filefilter.c:549
 msgid "New filter"
 msgstr "Neuer Filter"
 
@@ -1782,7 +1772,7 @@ msgstr "Neuer Filter"
 msgid "Edit Filter"
 msgstr "Filter bearbeiten"
 
-#: ../src/filebrowser2.c:2059 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:2059 ../src/filefilter.c:554
 msgid "Edit filter"
 msgstr "Filter bearbeiten"
 
@@ -1806,7 +1796,7 @@ msgstr "Aktivem Dokument folgen"
 msgid "Show Backup Files"
 msgstr "Sicherungsdateien anzeigen"
 
-#: ../src/filebrowser2.c:2066 ../src/gtk_easy.c:1329
+#: ../src/filebrowser2.c:2066 ../src/gtk_easy.c:1335
 msgid "Show backup files"
 msgstr "Sicherungsdateien anzeigen"
 
@@ -2011,9 +2001,8 @@ msgid "Save in progress!"
 msgstr "Speichern läuft!"
 
 #: ../src/file_dialogs.c:785
-#, fuzzy
 msgid "Save"
-msgstr "_Speichern"
+msgstr "Speichern"
 
 #: ../src/file_dialogs.c:787
 #, c-format
@@ -2021,9 +2010,9 @@ msgid "Save %s as"
 msgstr "%s speichern unter..."
 
 #: ../src/file_dialogs.c:791
-#, fuzzy, c-format
+#, c-format
 msgid "Save copy of %s"
-msgstr "Projekt speichern als"
+msgstr "Kopie von %s speichern"
 
 #: ../src/file_dialogs.c:973
 msgid "Close _Without Saving"
@@ -2099,7 +2088,7 @@ msgstr "Versteckte Dateien erfassen"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1436
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -2108,12 +2097,12 @@ msgid ""
 "Original size was %s bytes\n"
 "New size is %s bytes"
 msgstr ""
-"Dateiname: %s wurde auf dem Datenträger verändert\n"
+"Dateiname: %s wurde auf dem Datenträger verändert.\n"
 "\n"
-"Ursprüngliche Änderungszeit war %s\n"
-"Neue Änderungszeit ist %s\n"
-"Ursprüngliche Größe war %lu\n"
-"Neue Größe ist %lu"
+"Ursprüngliche Änderungszeit: %s\n"
+"Neue Änderungszeit: %s\n"
+"Ursprüngliche Größe: %s Bytes\n"
+"Neue Größe: %s Bytes"
 
 #: ../src/file_dialogs.c:1459
 msgid "_Unset file name"
@@ -2142,23 +2131,23 @@ msgid "Check and reload all documents"
 msgstr "Alle Dokumente prüfen und erneut laden"
 
 #. build a list of filters
-#: ../src/filefilter.c:241 ../src/gtk_easy.c:1340 ../src/preferences.c:2090
+#: ../src/filefilter.c:250 ../src/gtk_easy.c:1346 ../src/preferences.c:2090
 msgid "All files"
 msgstr "Alle Dateien"
 
-#: ../src/filefilter.c:627
+#: ../src/filefilter.c:639
 msgid "Hide files that match the filter"
 msgstr "Auf Filter zutreffende Dateien verstecken"
 
-#: ../src/filefilter.c:631
+#: ../src/filefilter.c:643
 msgid "Add pattern"
 msgstr "Muster hinzufügen"
 
-#: ../src/filefilter.c:637 ../src/filefilter.c:649
+#: ../src/filefilter.c:649 ../src/filefilter.c:661
 msgid "Mime type"
 msgstr "MIME-Typ"
 
-#: ../src/filefilter.c:640 ../src/filefilter.c:652
+#: ../src/filefilter.c:652 ../src/filefilter.c:664
 msgid "Icon"
 msgstr "Symbol"
 
@@ -2171,19 +2160,19 @@ msgstr "%d von %d"
 msgid "Select File"
 msgstr "Datei wählen"
 
-#: ../src/gtk_easy.c:1390
+#: ../src/gtk_easy.c:1396
 msgid "Character _Encoding:"
 msgstr "Zeichensatz_kodierung:"
 
-#: ../src/gtk_easy.c:1410
+#: ../src/gtk_easy.c:1416
 msgid "Automatic detection"
 msgstr "Automatisch erkennen"
 
-#: ../src/gtk_easy.c:1495
+#: ../src/gtk_easy.c:1501
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>Tastenkombination wählen</b>"
 
-#: ../src/gtk_easy.c:1503
+#: ../src/gtk_easy.c:1509
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2195,7 +2184,7 @@ msgstr ""
 "Dafür Ctrl/Strg, Shift, Alt zusammen mit einer anderen Taste drücken.\n"
 "<i>Esc für Abbruch, Del um die Kombination zu löschen.</i>"
 
-#: ../src/gtk_easy.c:1528
+#: ../src/gtk_easy.c:1534
 msgid "Press shortcut key combination"
 msgstr "Tastenkombination wählen"
 
@@ -2280,9 +2269,8 @@ msgid "Enable syntax scanning"
 msgstr "Syntaxscans aktivieren"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Show _visible spacing"
-msgstr "Sichtbare Leerzeichen einschalten"
+msgstr "Leer_zeichen sichtbar machen"
 
 #: ../src/preferences.c:553
 msgid "_Enable spell check"
@@ -2291,7 +2279,7 @@ msgstr "Rechtschreib_prüfung aktivieren"
 #
 #: ../src/preferences.c:558
 msgid "<b>Tab Stops</b>"
-msgstr "<b>Tabstops</b>"
+msgstr "<b>Tabstopps</b>"
 
 #: ../src/preferences.c:563
 msgid "Tab _width:"
@@ -2316,7 +2304,7 @@ msgid ""
 "applied to the same text, the top-most style in this list has the highest "
 "priority. Use drag and drop to re-order the text styles.</small>"
 msgstr ""
-"<small>Textstile werden aufeinander angewendet. Falls meherere Stile auf den "
+"<small>Textstile werden aufeinander angewendet. Falls mehrere Stile auf den "
 "selben Text angewendet werden, hat der oberste Stil Priorität. Stile können "
 "mittels Drag-and-Drop neu angeordnet werden.</small>"
 
@@ -2621,11 +2609,11 @@ msgstr "Alle außer nicht-nachgestellte Leerzeichen"
 
 #: ../src/preferences.c:2096
 msgid "Always"
-msgstr ""
+msgstr "Immer"
 
 #: ../src/preferences.c:2096
 msgid "Smart"
-msgstr ""
+msgstr "Intelligent"
 
 #: ../src/preferences.c:2107
 msgid "Edit preferences"
@@ -2778,11 +2766,11 @@ msgstr "Fa_rbe für die aktuelle Zeile"
 
 #: ../src/preferences.c:2290
 msgid "Visible whitespace color"
-msgstr "Farbe für nicht-durckbare (Steuer-)Zeichen"
+msgstr "Farbe für nicht-druckbare (Steuer-)Zeichen"
 
 #: ../src/preferences.c:2291
 msgid "_Visible whitespace color:"
-msgstr "Farbe für nicht-durckbare (Steuer-)_Zeichen"
+msgstr "Farbe für nicht-druckbare (Steuer-)_Zeichen"
 
 #: ../src/preferences.c:2303
 msgid "Text styles"
@@ -2816,9 +2804,8 @@ msgid "<b>Misc</b>"
 msgstr "<b>Sonstiges</b>"
 
 #: ../src/preferences.c:2352
-#, fuzzy
 msgid "Strip trailing spaces on save"
-msgstr "Führende Leerzeichen entfernen"
+msgstr "Führende Leerzeichen beim Speichern entfernen"
 
 #: ../src/preferences.c:2358
 msgid "Open co_mmandline files in running bluefish process"
@@ -3031,7 +3018,7 @@ msgstr "Dateityp für Vorschaubilder:"
 
 #: ../src/preferences.c:2644
 msgid "Thumbnail _suffix:"
-msgstr "Dateisuffix für Vorschaubilder:"
+msgstr "Dateiendung für Vorschaubilder:"
 
 #: ../src/preferences.c:2657
 msgid "External commands"
@@ -3159,7 +3146,7 @@ msgstr "PHP Codesniffer"
 
 #: ../src/rcfile.c:724
 msgid "pylint"
-msgstr ""
+msgstr "pylint"
 
 #: ../src/rcfile.c:737
 msgid "Sort"
@@ -3182,9 +3169,8 @@ msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
 #: ../src/rcfile.c:750
-#, fuzzy
 msgid "Tidy convert to XHTML"
-msgstr "Tidy HTML"
+msgstr "Tidy Konvertierung in XHTML"
 
 #: ../src/rcfile.c:753
 msgid "Tidy HTML (perltidy)"
@@ -3200,19 +3186,19 @@ msgstr "HTML in Text überführen"
 
 #: ../src/rcfile.c:762
 msgid "PHP Beautifier"
-msgstr ""
+msgstr "PHP Beautifier"
 
 #: ../src/rcfile.c:766 ../src/rcfile.c:773
 msgid "Javascript Minify with jsmin"
-msgstr ""
+msgstr "Javascript Minify mit jsmin"
 
 #: ../src/rcfile.c:769 ../src/rcfile.c:776
 msgid "CSS Minify with cssmin"
-msgstr ""
+msgstr "CSS Minify mit cssmin"
 
 #: ../src/rcfile.c:780
 msgid "CSS tidy"
-msgstr ""
+msgstr "CSS tidy"
 
 #: ../src/rcfile.c:792
 msgid "Windows XP Firefox"
@@ -3300,11 +3286,11 @@ msgstr "PHP"
 
 #: ../src/rcfile.c:920
 msgid "LaTex Book"
-msgstr ""
+msgstr "LaTeX Buch"
 
 #: ../src/rcfile.c:923
 msgid "LaTex Presentation"
-msgstr ""
+msgstr "LaTeX Präsentation"
 
 #: ../src/rcfile.c:1171
 msgid "Untitled Project"
@@ -3544,7 +3530,7 @@ msgstr "Diese Änderung betrifft mehrere Dokumente"
 #~ msgstr "_Passwort:"
 
 #~ msgid "Forget password _immediately"
-#~ msgstr "Password sofort _vergessen"
+#~ msgstr "Passwort sofort _vergessen"
 
 #~ msgid "Remember password until you _logout"
 #~ msgstr "Passwort erst beim Ab_melden vergessen"
