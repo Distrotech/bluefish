@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-12-14 09:05+0100\n"
-"PO-Revision-Date: 2012-06-25 22:31+0900\n"
+"PO-Revision-Date: 2012-12-17 23:46+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -18,8 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=0;\n"
-"X-Poedit-Language: Japanese\n"
-"X-Poedit-Country: JAPAN\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
 msgid "Bluefish Editor"
@@ -193,17 +192,17 @@ msgid "_Outputbox"
 msgstr "_Outputbox"
 
 #: ../src/bfwin_uimanager.c:819
+#, fuzzy
 msgid "For_mat"
-msgstr ""
+msgstr "-- カーネルのバイナリパッケージ:"
 
 #: ../src/bfwin_uimanager.c:820
 msgid "_Insert"
 msgstr "挿入(_I)"
 
 #: ../src/bfwin_uimanager.c:821
-#, fuzzy
 msgid "Con_vert"
-msgstr "変換(_N)"
+msgstr "変換(_V)"
 
 #: ../src/bfwin_uimanager.c:825
 msgid "_New"
@@ -263,9 +262,8 @@ msgid "Insert file"
 msgstr "ファイルを挿入"
 
 #: ../src/bfwin_uimanager.c:835
-#, fuzzy
 msgid "_Print..."
-msgstr "印刷(_P)"
+msgstr "印刷(_P)..."
 
 #: ../src/bfwin_uimanager.c:835
 msgid "Print"
@@ -392,9 +390,8 @@ msgid "Synchronize text block"
 msgstr "テキストブロックを同期"
 
 #: ../src/bfwin_uimanager.c:869
-#, fuzzy
 msgid "_Toggle Comment"
-msgstr "コメントを切替え(_G)"
+msgstr "コメントを切替え(_T)"
 
 #: ../src/bfwin_uimanager.c:869
 msgid "Toggle comment"
@@ -410,27 +407,24 @@ msgstr ""
 "ブロックを選択してください、親ブロックを選択するには複数回使用してください。"
 
 #: ../src/bfwin_uimanager.c:873
-#, fuzzy
 msgid "D_uplicate Line"
-msgstr "行を複製(_T)"
+msgstr "行を複製(_U)"
 
 #: ../src/bfwin_uimanager.c:873
 msgid "Duplicate the current line"
 msgstr "現在の行を複製する"
 
 #: ../src/bfwin_uimanager.c:875
-#, fuzzy
 msgid "_Delete Line"
-msgstr "行を削除"
+msgstr "行を削除(_D)"
 
 #: ../src/bfwin_uimanager.c:875
 msgid "Delete the current line"
 msgstr "現在の行を削除する"
 
 #: ../src/bfwin_uimanager.c:877
-#, fuzzy
 msgid "_Word Count"
-msgstr "単語カウント(_N)"
+msgstr "単語カウント(_W)"
 
 #: ../src/bfwin_uimanager.c:877
 msgid "Word count"
@@ -766,7 +760,7 @@ msgstr "現在編集しているタブを右へ移動する"
 #: ../src/bfwin_uimanager.c:957
 #, fuzzy
 msgid "_Recent Document"
-msgstr "次の文書(_N)"
+msgstr "ドキュメントのフレーム"
 
 #: ../src/bfwin_uimanager.c:957
 #, fuzzy
@@ -802,9 +796,8 @@ msgid "_Previous Document"
 msgstr "前の文書(_P)"
 
 #: ../src/bfwin_uimanager.c:967
-#, fuzzy
 msgid "_Goto Line"
-msgstr "行ジャンプ:"
+msgstr "行ジャンプ(_G)"
 
 #: ../src/bfwin_uimanager.c:967
 msgid "Goto line"
@@ -883,9 +876,8 @@ msgid "Find from clipboard or selection"
 msgstr "クリップボードまたは選択範囲から検索する"
 
 #: ../src/bfwin_uimanager.c:986
-#, fuzzy
 msgid "Ad_vanced Find & Replace..."
-msgstr "高度な検索と置換(_P)..."
+msgstr "高度な検索と置換(_V)..."
 
 #: ../src/bfwin_uimanager.c:986
 msgid "Advanced Find and Replace"
@@ -952,9 +944,8 @@ msgid "Open _URL..."
 msgstr "URLを開く(_U)..."
 
 #: ../src/bfwin_uimanager.c:1157
-#, fuzzy
 msgid "Upload _/ Download..."
-msgstr "アップロード / ダウンロード(_P)..."
+msgstr "アップロード _/ ダウンロード..."
 
 #: ../src/bfwin_uimanager.c:1170
 msgid "_Spell Check"
@@ -1332,7 +1323,7 @@ msgstr "未知の言語"
 #: ../src/document.c:1654
 #, fuzzy
 msgid "_No"
-msgstr "移動(_G)"
+msgstr "いいえ"
 
 #: ../src/document.c:1654
 msgid "_Split"
@@ -1458,8 +1449,9 @@ msgid "Paste special"
 msgstr ""
 
 #: ../src/document.c:3302
+#, fuzzy
 msgid "Paste as _HTML"
-msgstr ""
+msgstr "  --fatal-warnings        警告をエラーとして取り扱う\n"
 
 #: ../src/document.c:3306
 msgid "Paste as HTML with _JPG"
@@ -1521,12 +1513,12 @@ msgstr "空のカラムを埋めるもの:"
 #: ../src/doc_extern_tools.c:63
 #, fuzzy
 msgid "Number of _paragraphs:"
-msgstr "段落の数"
+msgstr "アンカーの数"
 
 #: ../src/doc_extern_tools.c:68
 #, fuzzy
 msgid "Number of _sentences:"
-msgstr "文の数"
+msgstr "アンカーの数"
 
 #: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert plain text"
@@ -1555,7 +1547,7 @@ msgstr ""
 #: ../src/doc_extern_tools.c:148
 #, fuzzy
 msgid "_Indent size:"
-msgstr "字下げ"
+msgstr "現在のサイズ:"
 
 #: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
 msgid "Use _tabs to indent, not spaces"
@@ -1581,7 +1573,7 @@ msgstr "_Tab キーで選択範囲をインデントする"
 #: ../src/doc_extern_tools.c:179
 #, fuzzy
 msgid "_Indent size"
-msgstr "字下げ"
+msgstr "現在のサイズ:"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1631,8 +1623,9 @@ msgid "Failed to create a command for %s."
 msgstr ""
 
 #: ../src/external_commands.c:675
+#, fuzzy
 msgid "Failed to create a command"
-msgstr ""
+msgstr "  COMMAND   対象のコマンド (任意)\n"
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -2004,9 +1997,8 @@ msgid "Save in progress!"
 msgstr "保存中です!"
 
 #: ../src/file_dialogs.c:785
-#, fuzzy
 msgid "Save"
-msgstr "保存(_S)"
+msgstr "保存"
 
 #: ../src/file_dialogs.c:787
 #, c-format
@@ -2270,9 +2262,8 @@ msgid "Enable syntax scanning"
 msgstr "文法スキャンを有効にする"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Show _visible spacing"
-msgstr "空白を可視化する"
+msgstr "空白を可視化する(_V)"
 
 #: ../src/preferences.c:553
 msgid "_Enable spell check"
@@ -2798,9 +2789,8 @@ msgid "<b>Misc</b>"
 msgstr "<b>その他</b>"
 
 #: ../src/preferences.c:2352
-#, fuzzy
 msgid "Strip trailing spaces on save"
-msgstr "末尾の空白文字を取り除く"
+msgstr "保存時に末尾の空白文字を取り除く"
 
 #: ../src/preferences.c:2358
 msgid "Open co_mmandline files in running bluefish process"
@@ -3159,9 +3149,8 @@ msgid "Tidy HTML"
 msgstr "Tidy HTML 妥当性チェック"
 
 #: ../src/rcfile.c:750
-#, fuzzy
 msgid "Tidy convert to XHTML"
-msgstr "Tidy HTML 妥当性チェック"
+msgstr "Tidy XHTML への変換"
 
 #: ../src/rcfile.c:753
 msgid "Tidy HTML (perltidy)"
