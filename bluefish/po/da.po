@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-12-14 09:05+0100\n"
-"PO-Revision-Date: 2012-09-01 08:57+0200\n"
+"POT-Creation-Date: 2012-12-13 14:05+0100\n"
+"PO-Revision-Date: 2012-12-17 19:30+0100\n"
 "Last-Translator: flemming christensen <fc@stromata.dk>\n"
 "Language-Team: Dansk <dansk@dansk-gruppen.dk>\n"
-"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
@@ -31,12 +31,12 @@ msgid "programming;code;html;php;python;"
 msgstr "programmering;kode;html;php;python;"
 
 #: ../desktop-data/bluefish.xml.in.h:1
-msgid "Bluefish project file"
-msgstr "Projektfil for Bluefish"
-
-#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish language definition file"
 msgstr "Sprogdefinitionsfil for Bluefish"
+
+#: ../desktop-data/bluefish.xml.in.h:2
+msgid "Bluefish project file"
+msgstr "Projektfil for Bluefish"
 
 #: ../src/bftextview2.c:1744
 msgid "Collapse all"
@@ -99,6 +99,7 @@ msgstr "Forskel på store og små bogstaver"
 #: ../src/bfwin.c:904
 msgid "Dot character matches newlines"
 msgstr "Punktum matcher ny linje"
+
 
 #: ../src/bfwin.c:907
 msgid "Pattern contains backslash escaped sequences"
@@ -191,16 +192,15 @@ msgstr "_Uddataboks"
 
 #: ../src/bfwin_uimanager.c:819
 msgid "For_mat"
-msgstr ""
+msgstr "For_matér"
 
 #: ../src/bfwin_uimanager.c:820
 msgid "_Insert"
 msgstr "_Indsæt"
 
 #: ../src/bfwin_uimanager.c:821
-#, fuzzy
 msgid "Con_vert"
-msgstr "Ko_nvertér"
+msgstr "Kon_vertér"
 
 #: ../src/bfwin_uimanager.c:825
 msgid "_New"
@@ -388,9 +388,8 @@ msgid "Synchronize text block"
 msgstr "Synkronisér tekstblok"
 
 #: ../src/bfwin_uimanager.c:869
-#, fuzzy
 msgid "_Toggle Comment"
-msgstr "Vis/skjul k_ommentar"
+msgstr "Vis/skjul kommen_tar"
 
 #: ../src/bfwin_uimanager.c:869
 msgid "Toggle comment"
@@ -405,25 +404,22 @@ msgid "Select block, use multiple times to select parent blocks "
 msgstr "Vælg blok, brug gentagne gange for at vælge overordnede blokke "
 
 #: ../src/bfwin_uimanager.c:873
-#, fuzzy
 msgid "D_uplicate Line"
-msgstr "_Duplikér linje"
+msgstr "D_uplikér linje"
 
 #: ../src/bfwin_uimanager.c:873
 msgid "Duplicate the current line"
 msgstr "Duplikér aktuel linje"
 
 #: ../src/bfwin_uimanager.c:875
-#, fuzzy
 msgid "_Delete Line"
-msgstr "Slet linje"
+msgstr "S_let linje"
 
 #: ../src/bfwin_uimanager.c:875
 msgid "Delete the current line"
 msgstr "Slet aktuel linje"
 
 #: ../src/bfwin_uimanager.c:877
-#, fuzzy
 msgid "_Word Count"
 msgstr "Ordoptælli_ng"
 
@@ -501,7 +497,7 @@ msgstr "Fjern afsluttende blanktegn"
 
 #: ../src/bfwin_uimanager.c:894
 msgid "Javascript beautifier"
-msgstr ""
+msgstr "Javascript-forskønner"
 
 #: ../src/bfwin_uimanager.c:895
 msgid "Preview in browser"
@@ -677,14 +673,12 @@ msgid "Reload current file"
 msgstr "Genindlæs denne fil"
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a cop_y..."
-msgstr "Gem _som..."
+msgstr "Gem en kop_i..."
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a copy"
-msgstr "Gem og _luk"
+msgstr "Gem en kopi"
 
 #: ../src/bfwin_uimanager.c:941
 msgid "Rena_me..."
@@ -795,9 +789,8 @@ msgid "_Previous Document"
 msgstr "F_orrige dokument"
 
 #: ../src/bfwin_uimanager.c:967
-#, fuzzy
 msgid "_Goto Line"
-msgstr "Gå til linje:"
+msgstr "_Gå til linje"
 
 #: ../src/bfwin_uimanager.c:967
 msgid "Goto line"
@@ -813,7 +806,7 @@ msgstr "Gå til linje nummer i udklipsholder eller markering"
 
 #: ../src/bfwin_uimanager.c:970
 msgid "_Jump to Reference"
-msgstr "_Gå til reference"
+msgstr "G_å til reference"
 
 #: ../src/bfwin_uimanager.c:970
 msgid "Jump to reference"
@@ -844,9 +837,8 @@ msgid "Paste"
 msgstr "Indsæt"
 
 #: ../src/bfwin_uimanager.c:978
-#, fuzzy
 msgid "Paste Specia_l"
-msgstr "Indsæt speciel"
+msgstr "Indsæt specie_l"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Paste Special"
@@ -877,9 +869,8 @@ msgid "Find from clipboard or selection"
 msgstr "Find i udklipsholder eller markering"
 
 #: ../src/bfwin_uimanager.c:986
-#, fuzzy
 msgid "Ad_vanced Find & Replace..."
-msgstr "Avanceret søg og erstat..."
+msgstr "A_vanceret søg og erstat..."
 
 #: ../src/bfwin_uimanager.c:986
 msgid "Advanced Find and Replace"
@@ -946,9 +937,8 @@ msgid "Open _URL..."
 msgstr "Åbn _URL..."
 
 #: ../src/bfwin_uimanager.c:1157
-#, fuzzy
 msgid "Upload _/ Download..."
-msgstr "Overf_ør / Hent..."
+msgstr "Overfør _/ Hent..."
 
 #: ../src/bfwin_uimanager.c:1170
 msgid "_Spell Check"
@@ -968,7 +958,7 @@ msgstr "Kun markeret tekst"
 
 #: ../src/bfwin_uimanager.c:1575
 msgid "Never ask again"
-msgstr ""
+msgstr "Spørg ikke igen"
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -1075,9 +1065,8 @@ msgid "_Description:"
 msgstr "_Beskrivelse:"
 
 #: ../src/bookmark.c:586
-#, fuzzy
 msgid "_Temporary"
-msgstr "Midlertidig"
+msgstr "Midler_tidig"
 
 #: ../src/bookmark.c:603
 msgid "Temporary"
@@ -1342,6 +1331,11 @@ msgid ""
 "syntax, and may replace spaces or tabs with newlines in any location, or "
 "insert newlines if no spaces or tabs are found."
 msgstr ""
+"Linjerne i denne fil er længere end det, som Bluefish kan behandle med en "
+"rimelig ydelse. Men denne delingsfunktion kender ikke til sproglig syntaks "
+"og vil muligvis erstatte mellemrum eller tabuleringer med linjeskift visse "
+"steder, eller indsætte linjeskift, hvis der ikke findes mellemrum eller "
+"tabuleringer."
 
 #: ../src/document.c:1733
 msgid "Cannot display file, unknown characters found."
@@ -1511,14 +1505,12 @@ msgid "Fill empty entries:"
 msgstr "Fyld tomme poster:"
 
 #: ../src/doc_extern_tools.c:63
-#, fuzzy
 msgid "Number of _paragraphs:"
-msgstr "Antal afsnit"
+msgstr "Antal a_fsnit:"
 
 #: ../src/doc_extern_tools.c:68
-#, fuzzy
 msgid "Number of _sentences:"
-msgstr "Antal sætninger"
+msgstr "Antal _sætninger:"
 
 #: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert plain text"
@@ -1542,38 +1534,35 @@ msgstr "Antal sætninger"
 
 #: ../src/doc_extern_tools.c:134
 msgid "Javascript Beautify"
-msgstr ""
+msgstr "Forskøn javascript"
 
 #: ../src/doc_extern_tools.c:148
-#, fuzzy
 msgid "_Indent size:"
-msgstr "Ryk ind"
+msgstr "_Indrykningsstørrelse:"
 
 #: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
 msgid "Use _tabs to indent, not spaces"
-msgstr ""
+msgstr "Brug _tabulering, ikke mellemrum, til indrykning"
 
 #: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
 msgid "Do not _preserve existing line breaks"
-msgstr ""
+msgstr "Eksisterende linjeskift skal ikke be_vares"
 
 #: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
 msgid "More _jslint-compatible output"
-msgstr ""
+msgstr "Mere _jslint-kompatibelt uddata"
 
 #: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
 msgid "_Decode printable chars encoded in \\\\xNN notation"
-msgstr ""
+msgstr "_Afkod tegn, som kan udskrives og kodet i \\\\xNN-notation"
 
 #: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
-#, fuzzy
 msgid "Beautify only in _selection"
-msgstr "_Tab-tast indrykker markering"
+msgstr "For_skøn kun i markering"
 
 #: ../src/doc_extern_tools.c:179
-#, fuzzy
 msgid "_Indent size"
-msgstr "Ryk ind"
+msgstr "_Indrykningens størrelse"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1598,15 +1587,15 @@ msgstr "Tilføj eller fjern tegnkodninger"
 #: ../src/external_commands.c:167
 #, c-format
 msgid "The command %s exited with error code %d. %s"
-msgstr ""
+msgstr "Kommandoen %s afsluttede med fejlkode %d. %s"
 
 #: ../src/external_commands.c:167
 msgid "Probably this application is not installed on your system."
-msgstr ""
+msgstr "Dette program er sandsynligvis ikke installeret på dit system."
 
 #: ../src/external_commands.c:169
 msgid "Command returned error code"
-msgstr ""
+msgstr "Kommandoen returnerede fejlkode"
 
 #: ../src/external_commands.c:419
 msgid "Supply extra arguments"
@@ -1620,11 +1609,11 @@ msgstr "Angiv argumenter for at definere %%a i '%s'"
 #: ../src/external_commands.c:673
 #, c-format
 msgid "Failed to create a command for %s."
-msgstr ""
+msgstr "Kunne ikke oprette en kommando til %s."
 
 #: ../src/external_commands.c:675
 msgid "Failed to create a command"
-msgstr ""
+msgstr "Kunne ikke oprette kommando"
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -1995,9 +1984,8 @@ msgid "Save in progress!"
 msgstr "Gemning i gang!"
 
 #: ../src/file_dialogs.c:785
-#, fuzzy
 msgid "Save"
-msgstr "_Gem"
+msgstr "Gem"
 
 #: ../src/file_dialogs.c:787
 #, c-format
@@ -2005,9 +1993,9 @@ msgid "Save %s as"
 msgstr "Gem %s som"
 
 #: ../src/file_dialogs.c:791
-#, fuzzy, c-format
+#, c-format
 msgid "Save copy of %s"
-msgstr "Gem projekt som"
+msgstr "Gem kopi af %s"
 
 #: ../src/file_dialogs.c:973
 msgid "Close _Without Saving"
@@ -2600,11 +2588,11 @@ msgstr "Alle undtagen ikke-afsluttende mellemrums"
 
 #: ../src/preferences.c:2096
 msgid "Always"
-msgstr ""
+msgstr "Altid"
 
 #: ../src/preferences.c:2096
 msgid "Smart"
-msgstr ""
+msgstr "Smart"
 
 #: ../src/preferences.c:2107
 msgid "Edit preferences"
@@ -3125,7 +3113,7 @@ msgstr "php-kodefinder"
 
 #: ../src/rcfile.c:724
 msgid "pylint"
-msgstr ""
+msgstr "pylint"
 
 #: ../src/rcfile.c:737
 msgid "Sort"
@@ -3148,13 +3136,12 @@ msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
 #: ../src/rcfile.c:750
-#, fuzzy
 msgid "Tidy convert to XHTML"
-msgstr "Tidy HTML"
+msgstr "Ryddekig konvertering til XHTML"
 
 #: ../src/rcfile.c:753
 msgid "Tidy HTML (perltidy)"
-msgstr "Tidy HTML (perltidy)"
+msgstr "Ryddelig HTML (perltidy)"
 
 #: ../src/rcfile.c:756
 msgid "Strip empty lines"
@@ -3166,19 +3153,19 @@ msgstr "Vis HTML som tekst"
 
 #: ../src/rcfile.c:762
 msgid "PHP Beautifier"
-msgstr ""
+msgstr "PHP-forskønner"
 
 #: ../src/rcfile.c:766 ../src/rcfile.c:773
 msgid "Javascript Minify with jsmin"
-msgstr ""
+msgstr "Formindsk javascript med jsmin"
 
 #: ../src/rcfile.c:769 ../src/rcfile.c:776
 msgid "CSS Minify with cssmin"
-msgstr ""
+msgstr "Formindsk CSS med cssmin"
 
 #: ../src/rcfile.c:780
 msgid "CSS tidy"
-msgstr ""
+msgstr "Ryd op i CSS"
 
 #: ../src/rcfile.c:792
 msgid "Windows XP Firefox"
@@ -3476,9 +3463,6 @@ msgstr "Fortryd denne ændring i alle dokumenter?"
 #: ../src/undo_redo.c:560 ../src/undo_redo.c:702
 msgid "This change concerns multiple documents."
 msgstr "Denne ændring vedrører flere dokumenter."
-
-#~ msgid "Fo_rmat"
-#~ msgstr "Fo_rmatér"
 
 #~ msgid "Goto _Line"
 #~ msgstr "Gå til _linje"
