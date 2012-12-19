@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-29 10:34+0200\n"
+"POT-Creation-Date: 2012-12-18 09:45+0000\n"
 "PO-Revision-Date: 2004-12-02 10:42+0300\n"
 "Last-Translator: Eugene Rupakov <taurus_1@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
@@ -17,112 +17,114 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: src/plugin_infbrowser/infb_gui.c:140
+#: ../src/plugin_infbrowser/infb_gui.c:140
 msgid "Loading..."
 msgstr "Загрузка..."
 
-#: src/plugin_infbrowser/infb_gui.c:146 src/plugin_infbrowser/infb_gui.c:206
+#: ../src/plugin_infbrowser/infb_gui.c:146
+#: ../src/plugin_infbrowser/infb_gui.c:206
 msgid "Cannot load file from network"
 msgstr "Ошибка загрузки файла"
 
-#: src/plugin_infbrowser/infb_gui.c:160
+#: ../src/plugin_infbrowser/infb_gui.c:160
 msgid "Cannot find file"
 msgstr "Файл не найден"
 
-#: src/plugin_infbrowser/infb_gui.c:370
+#: ../src/plugin_infbrowser/infb_gui.c:370
 msgid "Fragment saved"
 msgstr "Фрагмент сохранён"
 
-#: src/plugin_infbrowser/infb_gui.c:374
+#: ../src/plugin_infbrowser/infb_gui.c:374
 msgid "Cannot open file"
 msgstr "Ошибка открытия файла"
 
-#: src/plugin_infbrowser/infb_gui.c:458 src/plugin_infbrowser/infb_gui.c:496
+#: ../src/plugin_infbrowser/infb_gui.c:458
+#: ../src/plugin_infbrowser/infb_gui.c:496
 msgid "Nothing found"
 msgstr "Ничего не найдено"
 
-#: src/plugin_infbrowser/infb_gui.c:562
+#: ../src/plugin_infbrowser/infb_gui.c:562
 msgid "Documentation index"
 msgstr "Структура документации"
 
-#: src/plugin_infbrowser/infb_gui.c:567
+#: ../src/plugin_infbrowser/infb_gui.c:567
 msgid "Document index"
 msgstr "Структура документа "
 
-#: src/plugin_infbrowser/infb_gui.c:572
+#: ../src/plugin_infbrowser/infb_gui.c:572
 msgid "Upper level"
 msgstr "Уровень выше"
 
-#: src/plugin_infbrowser/infb_gui.c:578
+#: ../src/plugin_infbrowser/infb_gui.c:578
 msgid "Save current view"
 msgstr "Сохранить текущий вид"
 
-#: src/plugin_infbrowser/infb_gui.c:579
+#: ../src/plugin_infbrowser/infb_gui.c:579
 msgid "Go to selected fragment"
 msgstr "Перейти к выбранному фрагменту"
 
-#: src/plugin_infbrowser/infb_gui.c:601
+#: ../src/plugin_infbrowser/infb_gui.c:601
 msgid "Find"
 msgstr "Найти"
 
-#: src/plugin_infbrowser/infb_gui.c:607
+#: ../src/plugin_infbrowser/infb_gui.c:607
 msgid "Info Browser"
 msgstr "просмотр справки"
 
-#: src/plugin_infbrowser/infb_load.c:41
+#: ../src/plugin_infbrowser/infb_load.c:41
 #, c-format
 msgid "Cannot load reference file %s\n"
 msgstr "Ошибка открытия файла %s\n"
 
-#: src/plugin_infbrowser/infb_load.c:164
+#: ../src/plugin_infbrowser/infb_load.c:164
 msgid "Documentation entries"
 msgstr "Содержание документации"
 
-#: src/plugin_infbrowser/infb_load.c:168
+#: ../src/plugin_infbrowser/infb_load.c:168
 msgid "References"
 msgstr "Ссылки"
 
-#: src/plugin_infbrowser/infb_load.c:170
+#: ../src/plugin_infbrowser/infb_load.c:170
 msgid "DTD"
 msgstr "DTD"
 
-#: src/plugin_infbrowser/infb_load.c:172
+#: ../src/plugin_infbrowser/infb_load.c:172
 msgid "Web pages"
 msgstr "Веб-страницы"
 
-#: src/plugin_infbrowser/infb_text.c:808
+#: ../src/plugin_infbrowser/infb_text.c:808
 msgid "Unknown document type"
 msgstr "Тип документа неизвестен"
 
-#: src/plugin_infbrowser/infb_wizard.c:116
-#: src/plugin_infbrowser/infb_wizard.c:164
+#: ../src/plugin_infbrowser/infb_wizard.c:116
+#: ../src/plugin_infbrowser/infb_wizard.c:164
 msgid "Local DTD file"
 msgstr "Локальный файл DTD"
 
-#: src/plugin_infbrowser/infb_wizard.c:124
+#: ../src/plugin_infbrowser/infb_wizard.c:124
 msgid "Remote DTD file"
 msgstr "Удалённый файл DTD"
 
-#: src/plugin_infbrowser/infb_wizard.c:161
+#: ../src/plugin_infbrowser/infb_wizard.c:161
 msgid "Choose file"
 msgstr "Выберите файл"
 
-#: src/plugin_infbrowser/infb_wizard.c:213
+#: ../src/plugin_infbrowser/infb_wizard.c:213
 msgid "Entry name"
 msgstr "Имя раздела"
 
-#: src/plugin_infbrowser/infb_wizard.c:222
+#: ../src/plugin_infbrowser/infb_wizard.c:222
 msgid "Description"
 msgstr "Описание"
 
-#: src/plugin_infbrowser/infb_wizard.c:258
+#: ../src/plugin_infbrowser/infb_wizard.c:258
 msgid "DTD file URI"
 msgstr "URI DTD-файла"
 
-#: src/plugin_infbrowser/infb_wizard.c:348
+#: ../src/plugin_infbrowser/infb_wizard.c:348
 msgid "New info item"
 msgstr "Новый элемент справки"
 
-#: src/plugin_infbrowser/infb_wizard.c:418
+#: ../src/plugin_infbrowser/infb_wizard.c:418
 msgid "Entries you can delete"
 msgstr "Эти разделы можно удалять"

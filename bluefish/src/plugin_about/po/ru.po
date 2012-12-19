@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-09-13 10:04+0200\n"
+"POT-Creation-Date: 2012-12-18 09:45+0000\n"
 "PO-Revision-Date: 2011-03-31 01:04+0400\n"
 "Last-Translator: Fr. Br. George <george@altlinux.org>\n"
 "Language-Team: Russian\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/plugin_about/about.c:75
+#: ../src/plugin_about/about.c:75
 msgid "This version of Bluefish was built with:\n"
 msgstr "Эта версия Bluefish собрана при помощи:\n"
 
-#: src/plugin_about/about.c:182
+#: ../src/plugin_about/about.c:182
 msgid ""
 "\n"
 "Developers of previous releases:"
@@ -32,7 +32,7 @@ msgstr ""
 "\n"
 "РАзработчики предыдущих выпусков:"
 
-#: src/plugin_about/about.c:197
+#: ../src/plugin_about/about.c:197
 msgid ""
 "\n"
 "Package maintainers:"
@@ -40,7 +40,7 @@ msgstr ""
 "\n"
 "Сопровождающие пакетов:"
 
-#: src/plugin_about/about.c:204
+#: ../src/plugin_about/about.c:204
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
@@ -50,7 +50,7 @@ msgstr ""
 "Если вы знаете, кого ещё следует добавить в этот список,\n"
 "пожалуйста, сообщите нам по адресу <bluefish@bluefish.openoffice.nl>."
 
-#: src/plugin_about/about.c:205
+#: ../src/plugin_about/about.c:205
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
@@ -58,7 +58,7 @@ msgstr ""
 "\n"
 "Спасибо всем, кто помог довести эту программу до ума."
 
-#: src/plugin_about/about.c:241
+#: ../src/plugin_about/about.c:241
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
@@ -77,45 +77,45 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:251
+#: ../src/plugin_about/about.c:251
 msgid "translator-credits"
 msgstr ""
 "Eugene Rupakov <rupakov@jet.msk.su>\n"
 "Fr. Br. George <george@altlinux.org>"
 
-#: src/plugin_about/about.c:317
+#: ../src/plugin_about/about.c:317
 msgid "_Help"
 msgstr "По_мощь"
 
-#: src/plugin_about/about.c:318
+#: ../src/plugin_about/about.c:318
 msgid "Bluefish _Homepage"
 msgstr "Домашняя _страница Bluefish"
 
-#: src/plugin_about/about.c:318
+#: ../src/plugin_about/about.c:318
 msgid "Bluefish homepage"
 msgstr "Домашняя страница Bluefish"
 
-#: src/plugin_about/about.c:320
+#: ../src/plugin_about/about.c:320
 msgid "Report a _Bug"
 msgstr "Сообщить об о_шибке"
 
-#: src/plugin_about/about.c:320
+#: ../src/plugin_about/about.c:320
 msgid "Report a bug"
 msgstr "Сообщить об ошибке"
 
-#: src/plugin_about/about.c:321
+#: ../src/plugin_about/about.c:321
 msgid "_About"
 msgstr "_О программе"
 
-#: src/plugin_about/about.c:321
+#: ../src/plugin_about/about.c:321
 msgid "About Bluefish"
 msgstr "О программе Bluefish"
 
-#: src/plugin_about/about.c:323
+#: ../src/plugin_about/about.c:323
 msgid "Build _Info"
 msgstr "_Информация о сборке"
 
-#: src/plugin_about/about.c:323
+#: ../src/plugin_about/about.c:323
 msgid "Build info"
 msgstr "Информация о сборке"
 

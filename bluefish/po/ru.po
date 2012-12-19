@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-12-14 09:05+0100\n"
-"PO-Revision-Date: 2012-06-18 12:38+0400\n"
+"POT-Creation-Date: 2012-12-18 09:40+0000\n"
+"PO-Revision-Date: 2012-12-18 14:51+0400\n"
 "Last-Translator: Fr. Br. George <george@altlinux.org>\n"
 "Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
 "Language: ru\n"
@@ -61,19 +61,19 @@ msgstr "Свернуть %s"
 msgid "Expand %s"
 msgstr "Развернуть %s"
 
-#: ../src/bftextview2_spell.c:691
+#: ../src/bftextview2_spell.c:696
 msgid "Spell check language"
 msgstr "Язык для проверки синтаксиса"
 
-#: ../src/bftextview2_spell.c:724
+#: ../src/bftextview2_spell.c:729
 msgid "Add to dictionary"
 msgstr "Добавить в словарь"
 
-#: ../src/bftextview2_spell.c:727
+#: ../src/bftextview2_spell.c:732
 msgid "Ignore spelling"
 msgstr "Не проверять правописание"
 
-#: ../src/bftextview2_spell.c:742
+#: ../src/bftextview2_spell.c:747
 msgid "Insert special characters as entities"
 msgstr "Вставлять спецсимволы в форме entity"
 
@@ -196,14 +196,13 @@ msgstr "Окно _вывода"
 
 #: ../src/bfwin_uimanager.c:819
 msgid "For_mat"
-msgstr ""
+msgstr "_Форматировать"
 
 #: ../src/bfwin_uimanager.c:820
 msgid "_Insert"
 msgstr "_Вставить"
 
 #: ../src/bfwin_uimanager.c:821
-#, fuzzy
 msgid "Con_vert"
 msgstr "_Преобразовать"
 
@@ -265,9 +264,8 @@ msgid "Insert file"
 msgstr "Вставить файл"
 
 #: ../src/bfwin_uimanager.c:835
-#, fuzzy
 msgid "_Print..."
-msgstr "_Печать"
+msgstr "_Печать..."
 
 #: ../src/bfwin_uimanager.c:835
 msgid "Print"
@@ -394,7 +392,6 @@ msgid "Synchronize text block"
 msgstr "Синхронизация текстового блока"
 
 #: ../src/bfwin_uimanager.c:869
-#, fuzzy
 msgid "_Toggle Comment"
 msgstr "Режим _комментария"
 
@@ -411,25 +408,22 @@ msgid "Select block, use multiple times to select parent blocks "
 msgstr "Выделить блок (повторное выделение определяет родительские блок) "
 
 #: ../src/bfwin_uimanager.c:873
-#, fuzzy
 msgid "D_uplicate Line"
-msgstr "_Удвоить строку"
+msgstr "У_двоить строку"
 
 #: ../src/bfwin_uimanager.c:873
 msgid "Duplicate the current line"
 msgstr "Удвоить текущую строку"
 
 #: ../src/bfwin_uimanager.c:875
-#, fuzzy
 msgid "_Delete Line"
-msgstr "Удалить строку"
+msgstr "_Удалить строку"
 
 #: ../src/bfwin_uimanager.c:875
 msgid "Delete the current line"
 msgstr "Удалить текущую строку"
 
 #: ../src/bfwin_uimanager.c:877
-#, fuzzy
 msgid "_Word Count"
 msgstr "_Количество слов"
 
@@ -507,7 +501,7 @@ msgstr "Убрать пробелы в конце строк"
 
 #: ../src/bfwin_uimanager.c:894
 msgid "Javascript beautifier"
-msgstr ""
+msgstr "Структуризатор javascript-кода"
 
 #: ../src/bfwin_uimanager.c:895
 msgid "Preview in browser"
@@ -683,14 +677,12 @@ msgid "Reload current file"
 msgstr "Загрузить текущий файл по новой"
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a cop_y..."
-msgstr "Сохранить _как..."
+msgstr "Сохранить _копию..."
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a copy"
-msgstr "Сохранить и _закрыть"
+msgstr "Сохранить копию"
 
 #: ../src/bfwin_uimanager.c:941
 msgid "Rena_me..."
@@ -765,12 +757,10 @@ msgid "Move current tab right"
 msgstr "Переместить текущую вкладку вправо"
 
 #: ../src/bfwin_uimanager.c:957
-#, fuzzy
 msgid "_Recent Document"
-msgstr "_Следующий документ"
+msgstr "_Предыдущий документ"
 
 #: ../src/bfwin_uimanager.c:957
-#, fuzzy
 msgid "Goto most recent document"
 msgstr "Перейти к последнему документу"
 
@@ -803,9 +793,8 @@ msgid "_Previous Document"
 msgstr "_Предыдущий документ"
 
 #: ../src/bfwin_uimanager.c:967
-#, fuzzy
 msgid "_Goto Line"
-msgstr "Перейти к строке:"
+msgstr "_Перейти к строке:"
 
 #: ../src/bfwin_uimanager.c:967
 msgid "Goto line"
@@ -853,11 +842,11 @@ msgstr "Вставить"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Paste Specia_l"
-msgstr ""
+msgstr "Вставить с _преобразованием"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Paste Special"
-msgstr ""
+msgstr "Вставить с преобразованием"
 
 #: ../src/bfwin_uimanager.c:982
 msgid "_Find"
@@ -884,13 +873,12 @@ msgid "Find from clipboard or selection"
 msgstr "Найти содержимое буфера обмена"
 
 #: ../src/bfwin_uimanager.c:986
-#, fuzzy
 msgid "Ad_vanced Find & Replace..."
-msgstr "_Разширенные поиск и замена"
+msgstr "_Расширенные поиск и замена..."
 
 #: ../src/bfwin_uimanager.c:986
 msgid "Advanced Find and Replace"
-msgstr "Разширенные поиск и замена"
+msgstr "Расширенные поиск и замена..."
 
 #: ../src/bfwin_uimanager.c:993
 msgid "Save & _close"
@@ -953,9 +941,8 @@ msgid "Open _URL..."
 msgstr "Открыть _URL..."
 
 #: ../src/bfwin_uimanager.c:1157
-#, fuzzy
 msgid "Upload _/ Download..."
-msgstr "В_ыгрузка / Загрузка..."
+msgstr "В_ыгрузка _/ Загрузка..."
 
 #: ../src/bfwin_uimanager.c:1170
 msgid "_Spell Check"
@@ -975,7 +962,7 @@ msgstr "Только выделенный текст"
 
 #: ../src/bfwin_uimanager.c:1575
 msgid "Never ask again"
-msgstr ""
+msgstr "Больше не спрашивать"
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -1082,9 +1069,8 @@ msgid "_Description:"
 msgstr "_Описание:"
 
 #: ../src/bookmark.c:586
-#, fuzzy
 msgid "_Temporary"
-msgstr "Временные"
+msgstr "_Временные"
 
 #: ../src/bookmark.c:603
 msgid "Temporary"
@@ -1331,17 +1317,16 @@ msgid "Unknown"
 msgstr "Неизв."
 
 #: ../src/document.c:1654
-#, fuzzy
 msgid "_No"
-msgstr "Пере_ход"
+msgstr "_Нет"
 
 #: ../src/document.c:1654
 msgid "_Split"
-msgstr ""
+msgstr "_Разбить"
 
 #: ../src/document.c:1657
 msgid "File contains very long lines. Split these lines?"
-msgstr ""
+msgstr "Файл содержит длинные строки. Разбить их?"
 
 #: ../src/document.c:1657
 msgid ""
@@ -1350,6 +1335,11 @@ msgid ""
 "syntax, and may replace spaces or tabs with newlines in any location, or "
 "insert newlines if no spaces or tabs are found."
 msgstr ""
+"Строки в файле такие длинные, что Bluefish, возможно, будет работать "
+"медленно. Длинные строки можно разбить, но функция, которая это делает, "
+"не принимает во внимание особенности синтаксиса: она может заменить пробел "
+"или табуляцию на перевод строки в любом месте текста и даже вставить "
+"дополнительный перевод строки, если пробелов нет."
 
 #: ../src/document.c:1733
 msgid "Cannot display file, unknown characters found."
@@ -1450,25 +1440,24 @@ msgid "No file to insert"
 msgstr "Файл для вставки не найден"
 
 #: ../src/document.c:3188
-#, fuzzy
 msgid "Save pasted image as"
-msgstr "Сохранить файл как"
+msgstr "Сохранить вставленное изображение как"
 
 #: ../src/document.c:3295
 msgid "Paste special"
-msgstr ""
+msgstr "Вставить с преобразованием"
 
 #: ../src/document.c:3302
 msgid "Paste as _HTML"
-msgstr ""
+msgstr "Вставить как _HTML"
 
 #: ../src/document.c:3306
 msgid "Paste as HTML with _JPG"
-msgstr ""
+msgstr "Вставить как HTML с _JPG"
 
 #: ../src/document.c:3308
 msgid "Paste as HTML _PNG"
-msgstr ""
+msgstr "Вставить как HTML с _PNG"
 
 #: ../src/document.c:3388
 #, c-format
@@ -1523,14 +1512,12 @@ msgid "Fill empty entries:"
 msgstr "Заполнить пустые строки:"
 
 #: ../src/doc_extern_tools.c:63
-#, fuzzy
 msgid "Number of _paragraphs:"
-msgstr "Количество абзацев"
+msgstr "Количество _абзацев:"
 
 #: ../src/doc_extern_tools.c:68
-#, fuzzy
 msgid "Number of _sentences:"
-msgstr "Количество предложений"
+msgstr "Количество _предложений:"
 
 #: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert plain text"
@@ -1554,38 +1541,35 @@ msgstr "Количество предложений"
 
 #: ../src/doc_extern_tools.c:134
 msgid "Javascript Beautify"
-msgstr ""
+msgstr "Структурировать javascript"
 
 #: ../src/doc_extern_tools.c:148
-#, fuzzy
 msgid "_Indent size:"
-msgstr "Сдвинуть вправо"
+msgstr "Размер _сдвига:"
 
 #: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
 msgid "Use _tabs to indent, not spaces"
-msgstr ""
+msgstr "Использовать для сдвига _табуляции, а не пробелы"
 
 #: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
 msgid "Do not _preserve existing line breaks"
-msgstr ""
+msgstr "Не _сохранять имеющиеся концы строк"
 
 #: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
 msgid "More _jslint-compatible output"
-msgstr ""
+msgstr "Вывод, более совместимый с _jslint"
 
 #: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
 msgid "_Decode printable chars encoded in \\\\xNN notation"
-msgstr ""
+msgstr "_Преобразовывать печатные символы в формате \\\\xNN"
 
 #: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
-#, fuzzy
 msgid "Beautify only in _selection"
-msgstr "Клавиша «Tab» _сдвигает выделенное"
+msgstr "Структурировать только выделенное"
 
 #: ../src/doc_extern_tools.c:179
-#, fuzzy
 msgid "_Indent size"
-msgstr "Сдвинуть вправо"
+msgstr "Размер _сдвига"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1610,15 +1594,15 @@ msgstr "Добавить или удалить кодировки докумен
 #: ../src/external_commands.c:167
 #, c-format
 msgid "The command %s exited with error code %d. %s"
-msgstr ""
+msgstr "Команда %s завершилась с кодом ошибки %d. %s"
 
 #: ../src/external_commands.c:167
 msgid "Probably this application is not installed on your system."
-msgstr ""
+msgstr "Возможно, это приложение не установлено на вашем компьютере"
 
 #: ../src/external_commands.c:169
 msgid "Command returned error code"
-msgstr ""
+msgstr "Команда завершилась с ошибкой"
 
 #: ../src/external_commands.c:419
 msgid "Supply extra arguments"
@@ -1632,11 +1616,11 @@ msgstr "Параметры, задающие %%a в '%s'"
 #: ../src/external_commands.c:673
 #, c-format
 msgid "Failed to create a command for %s."
-msgstr ""
+msgstr "Не удалось создать команду для %s."
 
 #: ../src/external_commands.c:675
 msgid "Failed to create a command"
-msgstr ""
+msgstr "Не удалось создать команду"
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -1768,7 +1752,7 @@ msgstr "Фильтр"
 msgid "New Filter"
 msgstr "Новый фильтр"
 
-#: ../src/filebrowser2.c:2058 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:2058 ../src/filefilter.c:549
 msgid "New filter"
 msgstr "Новый фильтр"
 
@@ -1776,7 +1760,7 @@ msgstr "Новый фильтр"
 msgid "Edit Filter"
 msgstr "Редактировать фильтр"
 
-#: ../src/filebrowser2.c:2059 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:2059 ../src/filefilter.c:554
 msgid "Edit filter"
 msgstr "Редактировать фильтр"
 
@@ -1800,7 +1784,7 @@ msgstr "Следовать за текущим документом"
 msgid "Show Backup Files"
 msgstr "Показывать файлы резервного копирования"
 
-#: ../src/filebrowser2.c:2066 ../src/gtk_easy.c:1329
+#: ../src/filebrowser2.c:2066 ../src/gtk_easy.c:1335
 msgid "Show backup files"
 msgstr "Показывать файлы резервного копирования"
 
@@ -2016,9 +2000,9 @@ msgid "Save %s as"
 msgstr "Сохранить %s как"
 
 #: ../src/file_dialogs.c:791
-#, fuzzy, c-format
+#, c-format
 msgid "Save copy of %s"
-msgstr "Сохранить проект как"
+msgstr "Сохранить копию %s"
 
 #: ../src/file_dialogs.c:973
 msgid "Close _Without Saving"
@@ -2047,7 +2031,7 @@ msgstr "_Сохранить все"
 
 #: ../src/file_dialogs.c:990
 msgid "One or more open files have been changed."
-msgstr "Один илм несколько открытых файлов были изменены."
+msgstr "Один или несколько открытых файлов были изменены."
 
 #: ../src/file_dialogs.c:1285
 #, c-format
@@ -2059,7 +2043,7 @@ msgstr[2] "<span color=\"red\">%d ошибок</span>"
 
 #: ../src/file_dialogs.c:1294
 msgid "incomplete finished"
-msgstr "неполностью закончено"
+msgstr "закончено не полностью"
 
 #: ../src/file_dialogs.c:1296
 msgid "completed"
@@ -2095,7 +2079,7 @@ msgstr "Включая скрытые файлы"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1436
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -2106,8 +2090,9 @@ msgid ""
 msgstr ""
 "Имя изменённого на диске файла: %s\n"
 "\n"
-"Новое время модификации %s\n"
 "Старое время модификации %s\n"
+"Новое время модификации %s\n"
+"Старый размер %s\n"
 "Новый размер %s"
 
 #: ../src/file_dialogs.c:1459
@@ -2137,23 +2122,23 @@ msgid "Check and reload all documents"
 msgstr "Проверить и перезагрузить все документы"
 
 #. build a list of filters
-#: ../src/filefilter.c:241 ../src/gtk_easy.c:1340 ../src/preferences.c:2090
+#: ../src/filefilter.c:250 ../src/gtk_easy.c:1346 ../src/preferences.c:2090
 msgid "All files"
 msgstr "Все файлы"
 
-#: ../src/filefilter.c:627
+#: ../src/filefilter.c:639
 msgid "Hide files that match the filter"
 msgstr "Скрыть файлы, подходящие по фильтру"
 
-#: ../src/filefilter.c:631
+#: ../src/filefilter.c:643
 msgid "Add pattern"
 msgstr "Добавить паттерн"
 
-#: ../src/filefilter.c:637 ../src/filefilter.c:649
+#: ../src/filefilter.c:649 ../src/filefilter.c:661
 msgid "Mime type"
 msgstr "Тип MIME"
 
-#: ../src/filefilter.c:640 ../src/filefilter.c:652
+#: ../src/filefilter.c:652 ../src/filefilter.c:664
 msgid "Icon"
 msgstr "Иконка"
 
@@ -2166,19 +2151,19 @@ msgstr "%d из %d"
 msgid "Select File"
 msgstr "Выберите Файл"
 
-#: ../src/gtk_easy.c:1390
+#: ../src/gtk_easy.c:1396
 msgid "Character _Encoding:"
 msgstr "Кодировка _символов:"
 
-#: ../src/gtk_easy.c:1410
+#: ../src/gtk_easy.c:1416
 msgid "Automatic detection"
 msgstr "Автоматическое распознавание"
 
-#: ../src/gtk_easy.c:1495
+#: ../src/gtk_easy.c:1501
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>Выбор горячих клавиш</b>"
 
-#: ../src/gtk_easy.c:1503
+#: ../src/gtk_easy.c:1509
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2190,7 +2175,7 @@ msgstr ""
 "Пожалуйста, используйте Ctrl, Shift или Alt с какой-нибудь другой клавишей.\n"
 "<i>Esc для выхода, Delete для удаления горячей клавиши.</i>"
 
-#: ../src/gtk_easy.c:1528
+#: ../src/gtk_easy.c:1534
 msgid "Press shortcut key combination"
 msgstr "Нажмите комбинацию клавиш"
 
@@ -2272,9 +2257,8 @@ msgid "Enable syntax scanning"
 msgstr "Включить проверку синтаксиса синтаксическое"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Show _visible spacing"
-msgstr "Показать видимые отступы"
+msgstr "Показать _видимые отступы"
 
 #: ../src/preferences.c:553
 msgid "_Enable spell check"
@@ -2449,7 +2433,7 @@ msgstr ""
 "настройках проекта, в противном случае идентична %u</small>"
 
 #: ../src/preferences.c:1342
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2475,8 +2459,6 @@ msgstr ""
 "<b>Параметры вывода</b>\n"
 "если заканчивается на '|', вывод предполагается на стандартный вывод\n"
 "%o временное имя файла\n"
-"%t временное имя файла и для ввода, и для вывода (для фильтров типа "
-"«изменения на месте»)\n"
 "<b>Прочие параметры</b>\n"
 "%c локальная папка хранения файла (доступно для локальных файлов)\n"
 "%n имя файла без пути к нему (доступно для всех именованных файлов)\n"
@@ -2609,11 +2591,11 @@ msgstr "Все, исключая не замыкающие пробелы"
 
 #: ../src/preferences.c:2096
 msgid "Always"
-msgstr ""
+msgstr "Всегда"
 
 #: ../src/preferences.c:2096
 msgid "Smart"
-msgstr ""
+msgstr "Автоматически"
 
 #: ../src/preferences.c:2107
 msgid "Edit preferences"
@@ -2800,9 +2782,8 @@ msgid "<b>Misc</b>"
 msgstr "<b>Разное</b>"
 
 #: ../src/preferences.c:2352
-#, fuzzy
 msgid "Strip trailing spaces on save"
-msgstr "Убрать пробелы в конце строк"
+msgstr "Убрать пробелы в конце строк при сохранении"
 
 #: ../src/preferences.c:2358
 msgid "Open co_mmandline files in running bluefish process"
@@ -3110,11 +3091,11 @@ msgstr "make"
 
 #: ../src/rcfile.c:690
 msgid "weblint HTML checker"
-msgstr "программа проверки HTML WebLint"
+msgstr "программа проверки HTML weblint"
 
 #: ../src/rcfile.c:695
 msgid "tidy HTML validator"
-msgstr "программа проверки синтаксиса HTML"
+msgstr "программа проверки синтаксиса HTML tidy"
 
 #: ../src/rcfile.c:699
 msgid "javac"
@@ -3138,7 +3119,7 @@ msgstr "Анализ кода php"
 
 #: ../src/rcfile.c:724
 msgid "pylint"
-msgstr ""
+msgstr "pylint"
 
 #: ../src/rcfile.c:737
 msgid "Sort"
@@ -3158,12 +3139,11 @@ msgstr "Dos2unix"
 
 #: ../src/rcfile.c:748
 msgid "Tidy HTML"
-msgstr "Tidy HTML"
+msgstr "Оптимизация HTML (tidy)"
 
 #: ../src/rcfile.c:750
-#, fuzzy
 msgid "Tidy convert to XHTML"
-msgstr "Tidy HTML"
+msgstr "Преобразовать в XHTML с помощью tidy"
 
 #: ../src/rcfile.c:753
 msgid "Tidy HTML (perltidy)"
@@ -3179,19 +3159,19 @@ msgstr "Трансформировать HTML в текст"
 
 #: ../src/rcfile.c:762
 msgid "PHP Beautifier"
-msgstr ""
+msgstr "Структуризатор PHP-кода"
 
 #: ../src/rcfile.c:766 ../src/rcfile.c:773
 msgid "Javascript Minify with jsmin"
-msgstr ""
+msgstr "Уменьшить объём javascript-кода с помощью jsmin"
 
 #: ../src/rcfile.c:769 ../src/rcfile.c:776
 msgid "CSS Minify with cssmin"
-msgstr ""
+msgstr "Уменьшить объём CSS с помощью cssmin"
 
 #: ../src/rcfile.c:780
 msgid "CSS tidy"
-msgstr ""
+msgstr "Оптимизация CSS"
 
 #: ../src/rcfile.c:792
 msgid "Windows XP Firefox"
@@ -3279,11 +3259,11 @@ msgstr "PHP"
 
 #: ../src/rcfile.c:920
 msgid "LaTex Book"
-msgstr ""
+msgstr "Книга LaTex"
 
 #: ../src/rcfile.c:923
 msgid "LaTex Presentation"
-msgstr ""
+msgstr "Слайды LaTex"
 
 #: ../src/rcfile.c:1171
 msgid "Untitled Project"
