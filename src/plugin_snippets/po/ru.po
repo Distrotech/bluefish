@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-08-20 19:20+0200\n"
+"POT-Creation-Date: 2012-12-18 09:45+0000\n"
 "PO-Revision-Date: 2011-03-31 00:56+0400\n"
 "Last-Translator: Fr. Br. George <george@altlinux.org>\n"
 "Language-Team: Russian\n"
@@ -20,163 +20,163 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/plugin_snippets/snippets_gui.c:416
+#: ../src/plugin_snippets/snippets_gui.c:416
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr ""
 "Нажмите правую кнопку мыши, чтобы добавлять, редактировать и удалять "
 "сниппеты."
 
-#: src/plugin_snippets/snippets_gui.c:417
+#: ../src/plugin_snippets/snippets_gui.c:417
 msgid "Use drag and drop to re-order snippets"
 msgstr "Используйте перетаскивание для переупорядочивания сниппетов"
 
-#: src/plugin_snippets/snippets_gui.c:418
+#: ../src/plugin_snippets/snippets_gui.c:418
 msgid "To exchange snippets with others use import or export"
 msgstr "Используйте экспорт и импорт, чтобы обмениваться сниппетами"
 
-#: src/plugin_snippets/snippets_gui.c:638
+#: ../src/plugin_snippets/snippets_gui.c:638
 msgid "snippets"
 msgstr "сниппеты"
 
-#: src/plugin_snippets/snippets_gui.c:701
+#: ../src/plugin_snippets/snippets_gui.c:701
 msgid "Snippet export filename"
 msgstr "Экспорт сниппета в файл"
 
-#: src/plugin_snippets/snippets_gui.c:739
+#: ../src/plugin_snippets/snippets_gui.c:739
 msgid "Snippet import filename"
 msgstr "Импорт сниппета из файла"
 
-#: src/plugin_snippets/snippets_gui.c:757
+#: ../src/plugin_snippets/snippets_gui.c:757
 msgid "Set accelerator key"
 msgstr "Установить клавишу-ускоритель"
 
-#: src/plugin_snippets/snippets_gui.c:813
+#: ../src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets menu"
 msgstr "Меню сниппетов"
 
-#: src/plugin_snippets/snippets_gui.c:814
+#: ../src/plugin_snippets/snippets_gui.c:814
 msgid "_New Snippet"
 msgstr "_Новый сниппет"
 
-#: src/plugin_snippets/snippets_gui.c:814
-#: src/plugin_snippets/snippets_wizard.c:754
+#: ../src/plugin_snippets/snippets_gui.c:814
+#: ../src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
 msgstr "Новый сниппет"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: ../src/plugin_snippets/snippets_gui.c:815
 msgid "_Edit Snippet"
 msgstr "_Редактировать сниппет"
 
-#: src/plugin_snippets/snippets_gui.c:815
-#: src/plugin_snippets/snippets_wizard.c:754
+#: ../src/plugin_snippets/snippets_gui.c:815
+#: ../src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
 msgstr "_Редактировать сниппет"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: ../src/plugin_snippets/snippets_gui.c:816
 msgid "_Delete Snippet"
 msgstr "_Удалить сниппет"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: ../src/plugin_snippets/snippets_gui.c:816
 msgid "Delete snippet"
 msgstr "_Удалить сниппет"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: ../src/plugin_snippets/snippets_gui.c:817
 msgid "Delete _Branch"
 msgstr "Удалить ветвь"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: ../src/plugin_snippets/snippets_gui.c:817
 msgid "Delete branch"
 msgstr "Удалить ветвь"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: ../src/plugin_snippets/snippets_gui.c:818
 msgid "Set Snippet _Accelerator"
 msgstr "Установить _ускоритель сниппета"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: ../src/plugin_snippets/snippets_gui.c:818
 msgid "Set snippet accelerator"
 msgstr "Установить _ускоритель сниппета"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: ../src/plugin_snippets/snippets_gui.c:820
 msgid "Ex_pand All"
 msgstr "Развернуть всё"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: ../src/plugin_snippets/snippets_gui.c:820
 msgid "Expand all"
 msgstr "Развернуть всё"
 
-#: src/plugin_snippets/snippets_gui.c:821
+#: ../src/plugin_snippets/snippets_gui.c:821
 msgid "_Collapse All"
 msgstr "_Свернуть всё"
 
-#: src/plugin_snippets/snippets_gui.c:821
+#: ../src/plugin_snippets/snippets_gui.c:821
 msgid "Collapse all"
 msgstr "Свернуть всё"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: ../src/plugin_snippets/snippets_gui.c:822
 msgid "E_xport"
 msgstr "_Экспорт"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: ../src/plugin_snippets/snippets_gui.c:822
 msgid "Export snippets"
 msgstr "Экспортировать сниппеты"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: ../src/plugin_snippets/snippets_gui.c:823
 msgid "I_mport"
 msgstr "_Импорт"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: ../src/plugin_snippets/snippets_gui.c:823
 msgid "Import snippets"
 msgstr "Импортировать сниппеты"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: ../src/plugin_snippets/snippets_gui.c:827
 msgid "_Show as menu"
 msgstr "_Показать в виде меню"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: ../src/plugin_snippets/snippets_gui.c:827
 msgid "Show snippets menu"
 msgstr "Показать в виде меню"
 
-#: src/plugin_snippets/snippets_gui.c:829
+#: ../src/plugin_snippets/snippets_gui.c:829
 msgid "S_nippets Menu"
 msgstr "Меню _сниппетов"
 
-#: src/plugin_snippets/snippets_leaf_insert.c:64
+#: ../src/plugin_snippets/snippets_leaf_insert.c:64
 msgid "[cursor position or selection]"
 msgstr "[позиция курсора или выделенное]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:153
+#: ../src/plugin_snippets/snippets_leaf_snr.c:153
 msgid "Search for: '"
 msgstr "Искать: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:153
+#: ../src/plugin_snippets/snippets_leaf_snr.c:153
 msgid "', replace with: '"
 msgstr "', заменить на: '"
 
-#: src/plugin_snippets/snippets_wizard.c:111
+#: ../src/plugin_snippets/snippets_wizard.c:111
 msgid "Entire document"
 msgstr "Весь документ"
 
-#: src/plugin_snippets/snippets_wizard.c:112
+#: ../src/plugin_snippets/snippets_wizard.c:112
 msgid "Forward from cursor position"
 msgstr "От курсора далее по тексту"
 
-#: src/plugin_snippets/snippets_wizard.c:113
+#: ../src/plugin_snippets/snippets_wizard.c:113
 msgid "Selection"
 msgstr "Выделенное"
 
-#: src/plugin_snippets/snippets_wizard.c:114
+#: ../src/plugin_snippets/snippets_wizard.c:114
 msgid "All open files"
 msgstr "Все открытые файлы"
 
-#: src/plugin_snippets/snippets_wizard.c:118
+#: ../src/plugin_snippets/snippets_wizard.c:118
 msgid "Normal"
 msgstr "Обычно"
 
-#: src/plugin_snippets/snippets_wizard.c:119
+#: ../src/plugin_snippets/snippets_wizard.c:119
 msgid "PERL"
 msgstr "Perl"
 
-#: src/plugin_snippets/snippets_wizard.c:130
+#: ../src/plugin_snippets/snippets_wizard.c:130
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
@@ -187,39 +187,39 @@ msgstr ""
 "подстановки значения каждого активного поля. Полям надо придать разумные "
 "названия в колонке справа. Вместо самого символа % используйте %%."
 
-#: src/plugin_snippets/snippets_wizard.c:140
+#: ../src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
 msgstr "_Искать: "
 
-#: src/plugin_snippets/snippets_wizard.c:144
+#: ../src/plugin_snippets/snippets_wizard.c:144
 msgid "Replace _with: "
 msgstr "_Заменить на:"
 
-#: src/plugin_snippets/snippets_wizard.c:151
+#: ../src/plugin_snippets/snippets_wizard.c:151
 msgid "Sco_pe: "
 msgstr "Область _видимости:"
 
-#: src/plugin_snippets/snippets_wizard.c:158
+#: ../src/plugin_snippets/snippets_wizard.c:158
 msgid "Match Patter_n: "
 msgstr "По _шаблону: "
 
-#: src/plugin_snippets/snippets_wizard.c:161
+#: ../src/plugin_snippets/snippets_wizard.c:161
 msgid "Case sensitive _matching"
 msgstr "С учётом регистра"
 
-#: src/plugin_snippets/snippets_wizard.c:162
+#: ../src/plugin_snippets/snippets_wizard.c:162
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Различать строчные и прописные буквы"
 
-#: src/plugin_snippets/snippets_wizard.c:165
+#: ../src/plugin_snippets/snippets_wizard.c:165
 msgid "_Use escape chars"
 msgstr "Использовать спецсимволы"
 
-#: src/plugin_snippets/snippets_wizard.c:166
+#: ../src/plugin_snippets/snippets_wizard.c:166
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr "Обратная косая черта определяет спецсимвол: \\n, \\t и т. п."
 
-#: src/plugin_snippets/snippets_wizard.c:335
+#: ../src/plugin_snippets/snippets_wizard.c:335
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -233,51 +233,51 @@ msgstr ""
 "%9 для подстановки значения каждого активного поля. Полям надо придать "
 "разумные названия в колонке справа. Вместо самого символя % используйте %%."
 
-#: src/plugin_snippets/snippets_wizard.c:344
+#: ../src/plugin_snippets/snippets_wizard.c:344
 msgid "<i>Before</i> text"
 msgstr "Текст <i>до</i>"
 
-#: src/plugin_snippets/snippets_wizard.c:354
+#: ../src/plugin_snippets/snippets_wizard.c:354
 msgid "<i>After</i> text"
 msgstr "Текст <i>после</i>"
 
-#: src/plugin_snippets/snippets_wizard.c:362
+#: ../src/plugin_snippets/snippets_wizard.c:362
 msgid "Number"
 msgstr "Номер"
 
-#: src/plugin_snippets/snippets_wizard.c:364
+#: ../src/plugin_snippets/snippets_wizard.c:364
 msgid "Name"
 msgstr "Имя"
 
-#: src/plugin_snippets/snippets_wizard.c:366
+#: ../src/plugin_snippets/snippets_wizard.c:366
 msgid "Is file path"
 msgstr "Это путь к файлу"
 
-#: src/plugin_snippets/snippets_wizard.c:492
+#: ../src/plugin_snippets/snippets_wizard.c:492
 msgid "Enter the name of the branch:"
 msgstr "Введите название ветви:"
 
-#: src/plugin_snippets/snippets_wizard.c:584
+#: ../src/plugin_snippets/snippets_wizard.c:584
 msgid "Name of the new item:"
 msgstr "Название элемента:"
 
-#: src/plugin_snippets/snippets_wizard.c:589
+#: ../src/plugin_snippets/snippets_wizard.c:589
 msgid "Description:"
 msgstr "Описание:"
 
-#: src/plugin_snippets/snippets_wizard.c:639
+#: ../src/plugin_snippets/snippets_wizard.c:639
 msgid "Select what you want to add"
 msgstr "Выберите, что необходимо добавить"
 
-#: src/plugin_snippets/snippets_wizard.c:641
+#: ../src/plugin_snippets/snippets_wizard.c:641
 msgid "Branch"
 msgstr "Ветка"
 
-#: src/plugin_snippets/snippets_wizard.c:643
+#: ../src/plugin_snippets/snippets_wizard.c:643
 msgid "Insert string"
 msgstr "Вставка строки"
 
-#: src/plugin_snippets/snippets_wizard.c:645
+#: ../src/plugin_snippets/snippets_wizard.c:645
 msgid "Search and replace pattern"
 msgstr "Шаблон поиска и замены"
 
