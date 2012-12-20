@@ -36,8 +36,8 @@
 #include "document.h"
 #include "xml_entity.h"
 
-#undef DBG_SPELL
-#define DBG_SPELL g_print
+/*#undef DBG_SPELL
+#define DBG_SPELL g_print*/
 
 #define MAX_CONTINUOUS_SPELLCHECK_INTERVAL 0.1	/* float in seconds */
 
