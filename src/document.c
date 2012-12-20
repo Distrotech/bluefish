@@ -227,7 +227,7 @@ add_filename_to_recentlist(Tbfwin * bfwin, GFile * uri)
 	bfwin->session->recent_files =
 				add_to_history_stringlist(bfwin->session->recent_files, curi, FALSE, TRUE);
 	bfwin_recent_menu_remove(bfwin, FALSE, curi);
-	
+
 	if (main_v->props.register_recent_mode == 0)
 		return;
 	if (main_v->props.register_recent_mode == 1) {
@@ -1500,6 +1500,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 	gchar *newbuf = NULL;
 	gsize wsize, rsize;
 	GError *error = NULL;
+	const gchar *end=NULL;
 	gchar *tmpencoding = NULL;
 	GList *tmplist;
 	gchar endingbyte = '\0';
@@ -1528,11 +1529,15 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 
 	if (tmpencoding) {
 		DEBUG_MSG("doc_buffer_to_textbox, try encoding %s from <meta>\n", tmpencoding);
-		newbuf = g_convert(buffer, buflen, "UTF-8", tmpencoding, NULL, &wsize, &error);
+		newbuf = g_convert(buffer, buflen, "UTF-8", tmpencoding, &rsize, &wsize, &error);
 		if (!newbuf || error) {
-			DEBUG_MSG("doc_buffer_to_textbox, cound not convert %s to UTF-8: \n", tmpencoding);
+			DEBUG_MSG("doc_buffer_to_textbox, cound not convert %s to UTF-8, %"G_GSIZE_FORMAT" bytes read until error\n", tmpencoding, rsize);
 			g_free(tmpencoding);
 			tmpencoding = NULL;
+			if (error) {
+				g_error_free(error);
+				error=NULL;
+			}
 		} else if (g_utf8_validate(newbuf, wsize, NULL)) {
 			*encoding = tmpencoding;
 			return newbuf;
@@ -1543,16 +1548,24 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 	/* because UTF-8 validation is very critical (very little texts in other encodings actually validate as UTF-8)
 	we do this early in the detection */
 	DEBUG_MSG("doc_buffer_to_textbox, file NOT is converted yet, trying UTF-8 encoding\n");
-	if (g_utf8_validate(buffer, buflen, NULL)) {
+	if (g_utf8_validate(buffer, buflen, &end)) {
 		*encoding = g_strdup("UTF-8");
 		return g_strdup(buffer);
+	} else {
+		DEBUG_MSG("failed to validate as UTF-8, remaining buffer was '%s'\n", end);
+		end=NULL;
 	}
 
 	if (sessionencoding) {
 		DEBUG_MSG
-			("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying session default encoding %s\n",
+			("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert and is not UTF8, trying session default encoding %s\n",
 			 sessionencoding);
-		newbuf = g_convert(buffer, buflen, "UTF-8", sessionencoding, NULL, &wsize, NULL);
+		newbuf = g_convert(buffer, buflen, "UTF-8", sessionencoding, &rsize, &wsize, &error);
+		if (error) {
+			DEBUG_MSG("failed to convert from sessionencoding %s, read %"G_GSIZE_FORMAT" bytes until error %s",sessionencoding,rsize,error->message);
+			g_error_free(error);
+			error=NULL;
+		}
 		if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
 			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s, newbuf=%p, wsize=%"G_GSIZE_FORMAT", strlen(newbuf)=%zd\n", sessionencoding, newbuf, wsize, strlen(newbuf));
 			*encoding = g_strdup(sessionencoding);
@@ -1561,7 +1574,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 		g_free(newbuf);
 	}
 	DEBUG_MSG
-		("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying newfile default encoding %s\n",
+		("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, not session encoding, not UTF8, trying newfile default encoding %s\n",
 		 main_v->props.newfile_default_encoding);
 	newbuf = g_convert(buffer, buflen, "UTF-8", main_v->props.newfile_default_encoding, NULL, &wsize, NULL);
 	if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
@@ -1632,7 +1645,7 @@ check_very_long_line(Tdocument *doc, gchar *buffer)
 {
 	gsize i=0, buflen;
 	guint curline=0,maxline=0, numtoolong=0;
-	
+
 	for (i=0;buffer[i]!='\0';i++) {
 		if (buffer[i] == '\n' || buffer[i] == '\r') {
 			if (curline > maxline)
@@ -1652,7 +1665,7 @@ check_very_long_line(Tdocument *doc, gchar *buffer)
 	if (maxline > MAX_TOO_LONG_LINE) {
 		gint response;
 		const gchar *buttons[] = { _("_No"), _("_Split"), NULL };
-		response = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, 
+		response = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
 						GTK_MESSAGE_WARNING, buttons,
 						_("File contains very long lines. Split these lines?"), _("The lines in this file are longer than Bluefish can handle with reasonable performance. This split function, however, is unaware of any language syntax, and may replace spaces or tabs with newlines in any location, or insert newlines if no spaces or tabs are found."));
 		if (response == 1) {
@@ -1665,14 +1678,14 @@ check_very_long_line(Tdocument *doc, gchar *buffer)
 					buffer[i] = '\n';
 					curline = 0;
 				} else if (curline > MAX_TOO_LONG_LINE && (
-								buffer[i] == ';' || 
-								buffer[i] == ',' || 
-								buffer[i] == '=' || 
-								buffer[i] == '}' || 
-								buffer[i] == '>' || 
-								buffer[i] == ')' || 
-								buffer[i] == '+' || 
-								buffer[i] == '-' 
+								buffer[i] == ';' ||
+								buffer[i] == ',' ||
+								buffer[i] == '=' ||
+								buffer[i] == '}' ||
+								buffer[i] == '>' ||
+								buffer[i] == ')' ||
+								buffer[i] == '+' ||
+								buffer[i] == '-'
 								)) {
 					DEBUG_MSG("check_very_long_line, insert newline at %d, move buffer %p to %p, %d bytes\n",i, buffer+i+1,buffer+i, buflen-i+inserted);
 					memmove(buffer+i+1, buffer+i, buflen-i+inserted);
@@ -1738,11 +1751,11 @@ doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean en
 		g_free(doc->encoding);
 	doc->encoding = encoding;
 	add_encoding_to_list(encoding);
-	
+
 	newbuf = check_very_long_line(doc, newbuf);
-	
+
 	gtk_text_buffer_insert_at_cursor(doc->buffer, newbuf, -1);
-	
+
 	g_free(newbuf);
 	if (!enable_undo) {
 		doc_unblock_undo_reg(doc);
@@ -1767,7 +1780,7 @@ doc_buffer_insert_text_lcb(GtkTextBuffer * textbuffer, GtkTextIter * iter, gchar
 	GSList *tmpslist;
 	gint pos = gtk_text_iter_get_offset(iter);
 	gint clen = g_utf8_strlen(string, len);
-	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s', len=%d, clen=%d\n", string, len, clen);
+	/*DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s', len=%d, clen=%d\n", string, len, clen);*/
 	/* 'len' is the number of bytes and not the number of characters.. */
 	if (!doc->block_undo_reg) {
 		if (!doc->in_paste_operation && (!doc_unre_test_last_entry(doc, UndoInsert, -1, pos)
@@ -1777,7 +1790,7 @@ doc_buffer_insert_text_lcb(GtkTextBuffer * textbuffer, GtkTextIter * iter, gchar
 			doc_unre_new_group(doc);
 		}
 		doc_unre_add(doc, string, pos, pos + clen, UndoInsert);
-		
+
 		doc_set_modified(doc, 1);
 	}
 	/* see if any other code wants to see document changes */
@@ -1800,7 +1813,7 @@ doc_buffer_delete_range_lcb(GtkTextBuffer * textbuffer, GtkTextIter * itstart, G
 	end = gtk_text_iter_get_offset(itend);
 	len = end - start;
 	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, TRUE);
-	
+
 	DEBUG_MSG("doc_buffer_delete_range_lcb, string='%s'\n", string);
 	if (!doc->block_undo_reg) {
 		if (string) {
@@ -1828,7 +1841,7 @@ doc_buffer_delete_range_lcb(GtkTextBuffer * textbuffer, GtkTextIter * itstart, G
 		Tcallback *cb = tmpslist->data;
 		((DocDeleteRangeCallback)cb->func)(doc, itstart, start, itend, end, string, cb->data);
 	}
-	g_free(string);	
+	g_free(string);
 }
 
 void
@@ -2001,7 +2014,7 @@ update_encoding_meta_in_file(Tdocument * doc, gchar * encoding)
 	gchar *type, *xhtmlend, *fulltext, *replacestring=NULL;
 	gint so, eo, cso, ceo;
 	/* first find if there is a meta encoding tag already */
-	
+
 	fulltext = doc_get_chars(doc, 0, -1);
 	regex = g_regex_new("<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"([^;]*);[ \t\n]*charset=[a-z0-9-]*\"[ \t\n]*(/?)>", G_REGEX_MULTILINE|G_REGEX_CASELESS, 0, NULL);
 	if (g_regex_match(regex, fulltext, 0, &match_info)) {
@@ -2130,17 +2143,17 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 	GSList *tmpslist;
 	GList *tmplist;
 	DEBUG_MSG("doc_destroy(%p,%d);\n", doc, delay_activation);
-	
+
 	tmplist = g_list_next(doc->recentpos);
 	if (tmplist)
 		switch_to_doc = tmplist->data;
-	
+
 	if (doc->status == DOC_STATUS_ERROR) {
 		bfwin_docs_not_complete(doc->bfwin, FALSE);
 	}
-	
+
 	bfwin_gotoline_search_bar_close(doc->bfwin);
-	
+
 	for (tmpslist=bfwin->doc_destroy;tmpslist;tmpslist=g_slist_next(tmpslist)) {
 		Tcallback *cb = tmpslist->data;
 		((DocDestroyCallback)cb->func)(doc, cb->data);
@@ -2151,7 +2164,7 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 	if (doc->uri && bfwin->session) {	/* in a special situation the bfwin does not have a session: if a project window is closing */
 		gchar *curi = g_file_get_uri(doc->uri);
 		bfwin_recent_menu_add(doc->bfwin,FALSE, curi);
-		g_free(curi); 
+		g_free(curi);
 	}
 	bfwin_notebook_block_signals(BFWIN(doc->bfwin));
 	if (doc->newdoc_autodetect_lang_id) {
@@ -2397,7 +2410,7 @@ doc_focus_in_lcb(GtkWidget *widget,GdkEvent  *event, Tdocument *doc)
 {
 	bfwin_set_cutcopypaste_actions(doc->bfwin, TRUE);
 	return FALSE;
-}  
+}
 
 static gboolean
 doc_focus_out_lcb(GtkWidget *widget,GdkEvent  *event, Tdocument *doc)
@@ -2406,7 +2419,7 @@ doc_focus_out_lcb(GtkWidget *widget,GdkEvent  *event, Tdocument *doc)
 		bfwin_set_cutcopypaste_actions(doc->bfwin, FALSE);
 	}
 	return FALSE;
-}  
+}
 
 static void
 doc_view_style_updated_lcb(GtkWidget *widget, gpointer user_data)
@@ -2488,7 +2501,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	DEBUG_MSG("doc_new_backend, encoding is %s\n", newdoc->encoding);
 
 	doc_set_title(newdoc);
-	
+
 	g_signal_connect(G_OBJECT(newdoc->buffer), "insert-text", G_CALLBACK(doc_buffer_insert_text_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "delete-range", G_CALLBACK(doc_buffer_delete_range_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "changed", G_CALLBACK(doc_buffer_changed_lcb), newdoc);
@@ -2584,7 +2597,7 @@ doc_auto_detect_lang_lcb(gpointer data)
 #ifdef WIN32
 	mimetype = g_content_type_get_mime_type(conttype);
 #endif
-	DEBUG_MSG("doc_auto_detect_lang_lcb, buflen=%d\n",buflen); 
+	DEBUG_MSG("doc_auto_detect_lang_lcb, buflen=%d\n",buflen);
 	g_free(buf);
 	if (!uncertain && conttype && (strcmp(conttype, "text/plain") != 0 || buflen > 50)) {
 		DEBUG_MSG("doc_auto_detect_lang_lcb, found %s for certain\n", conttype);
@@ -3014,7 +3027,7 @@ doc_activate(Tdocument * doc)
 		return;
 	} else {
 		if (doc->highlightstate && !BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner) {
-			DEBUG_MSG("doc_activate, enable scanner for %p\n",doc); 
+			DEBUG_MSG("doc_activate, enable scanner for %p\n",doc);
 			BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
 			bftextview2_schedule_scanning(BLUEFISH_TEXT_VIEW(doc->view));
 		}
@@ -3028,7 +3041,7 @@ doc_activate(Tdocument * doc)
 		BFWIN(doc->bfwin)->recentdoclist = g_list_concat(doc->recentpos, BFWIN(doc->bfwin)->recentdoclist);
 		DEBUG_MSG("recentlist now starts at %p\n", BFWIN(doc->bfwin)->recentdoclist);
 	}
-	
+
 	doc_start_modified_check(doc);
 
 	DEBUG_MSG("doc_activate, calling bfwin_set_document_menu_items()\n");
@@ -3181,21 +3194,21 @@ image_received(GtkClipboard *clipboard,GdkPixbuf *pixbuf,gpointer data)
 	gsize buflen;
 	GError *gerror=NULL;
 	Trefcpointer *refbuf;
-	
+
 	width = gdk_pixbuf_get_width(pixbuf);
 	height = gdk_pixbuf_get_height(pixbuf);
-	
+
 	filename = ask_new_filename(BFWIN(data), NULL, _("Save pasted image as"));
-	
+
 	if (!filename)
 		return;
-	
+
 	uri = g_file_new_for_uri(filename);
 	gdk_pixbuf_save_to_buffer(pixbuf, &buffer, &buflen, "jpeg", &gerror,"quality", "95", NULL);
 	refbuf = refcpointer_new(buffer);
 	/* save the file and insert the image tag */
 	file_checkNsave_uri_async(uri, NULL, refbuf, buflen, FALSE, FALSE,(CheckNsaveAsyncCallback) paste_image_save_lcb, NULL);
-	
+
 
 	if (BFWIN(data)->current_document->uri) {
 		gchar *curi = g_file_get_uri(BFWIN(data)->current_document->uri);
@@ -3203,7 +3216,7 @@ image_received(GtkClipboard *clipboard,GdkPixbuf *pixbuf,gpointer data)
 		g_free(curi);
 	}
 	str = g_strdup_printf("<img src=\"%s\" alt=\"\" width=\"%d\" height=\"%d\"/>", insertname? insertname : filename, width, height);
-	
+
 	doc_insert_two_strings(DOCUMENT(BFWIN(data)->current_document), str, NULL);
 
 	refcpointer_unref(refbuf);
@@ -3215,7 +3228,7 @@ image_received(GtkClipboard *clipboard,GdkPixbuf *pixbuf,gpointer data)
 
 
 static void
-paste_special_image(Tbfwin *bfwin, gboolean jpeg) 
+paste_special_image(Tbfwin *bfwin, gboolean jpeg)
 {
 	GtkClipboard *cb;
 	DEBUG_MSG("paste_special_image, started\n");
@@ -3238,7 +3251,7 @@ html_received(GtkClipboard *clipboard,GtkSelectionData *seldat,gpointer data)
 	GMatchInfo *match_info;
 	DEBUG_MSG("got %d bytes of data\n",gtk_selection_data_get_length(seldat));
 	DEBUG_MSG("got data '%s'\n", gtk_selection_data_get_data(seldat));
-	
+
 	reg = g_regex_new("<body[^>]*>(.*)</body>",G_REGEX_CASELESS|G_REGEX_MULTILINE|G_REGEX_DOTALL,0,&gerror);
 	if (!reg) {
 		g_warning("paste special, rich_text_received, internal regex error\n");
@@ -3309,7 +3322,7 @@ doc_paste_special(Tbfwin *bfwin)
 		gtk_box_pack_start(GTK_BOX(content_area), rbut2, TRUE, TRUE, 4);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(rbut1), TRUE);
 	}
-	
+
 	gtk_widget_show_all(win);
 	result = gtk_dialog_run(GTK_DIALOG(win));
 	DEBUG_MSG("gtk_dialog_run, got result %d\n", result);
@@ -3345,7 +3358,7 @@ doc_toggle_highlighting(Tbfwin * bfwin, gboolean active)
 		bfwin->current_document->highlightstate;
 	if (active) {
 		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
-	} else { 
+	} else {
 		bluefish_text_view_scan_cleanup(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 	}
 }
