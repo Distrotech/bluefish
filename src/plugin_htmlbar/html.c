@@ -618,7 +618,6 @@ quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
 static gboolean
 string_looks_like_url(gchar *string)
 {
-	gint len;
 	if (string == NULL)
 		return FALSE;
 	if (strchr(string, '\n')!=NULL)
