@@ -221,9 +221,9 @@ void snippets_activate_leaf_insert(Tsnippetswin *snw, xmlNodePtr parent) {
 		if (before || after) {
 			gchar *newbefore=NULL, *newafter=NULL;
 			if (after)
-				newafter = convert_noargs(after);
+				newafter = convert_noargs((const gchar *)after);
 			if (before)
-				newbefore = convert_noargs(before);
+				newbefore = convert_noargs((const gchar *)before);
 			doc_insert_two_strings(snw->bfwin->current_document, newbefore, newafter);
 			if (before) xmlFree(before);
 			if (after) xmlFree(after);
