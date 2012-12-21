@@ -604,6 +604,7 @@ bfwin_gotoline_from_clipboard(Tbfwin * bfwin)
 {
 	gchar *string;
 	GtkClipboard *cb;
+	DEBUG_MSG("bfwin_gotoline_from_clipboard, called!\n");
 	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
 		gtk_widget_show(bfwin->gotoline_frame);
 
@@ -625,6 +626,8 @@ bfwin_gotoline_frame_show(Tbfwin * bfwin)
 	gtk_widget_grab_focus(bfwin->gotoline_entry);
 }
 
+static void simplesearch_combo_entry_activated(gpointer widget, Tbfwin * bfwin);
+
 void
 bfwin_simplesearch_show(Tbfwin *bfwin)
 {
@@ -642,6 +645,7 @@ bfwin_simplesearch_show(Tbfwin *bfwin)
 			/* TODO: mark the current selection as the 'current' search result */
 		}
 	}
+	simplesearch_combo_entry_activated(bfwin->simplesearch_regex, bfwin);
 	gtk_widget_grab_focus(bfwin->simplesearch_combo);
 }
 
@@ -650,6 +654,7 @@ bfwin_simplesearch_from_clipboard(Tbfwin *bfwin)
 {
 	gchar *string;
 	GtkClipboard *cb;
+	DEBUG_MSG("bfwin_simplesearch_from_clipboard, called!\n");
 	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
 		gtk_widget_show(bfwin->gotoline_frame);
 
@@ -661,6 +666,7 @@ bfwin_simplesearch_from_clipboard(Tbfwin *bfwin)
 		/* TODO: mark the current selection as the 'current' search result */
 		g_free(string);
 	}
+	simplesearch_combo_entry_activated(bfwin->simplesearch_regex, bfwin);
 	gtk_widget_grab_focus(bfwin->simplesearch_combo);
 }
 
@@ -674,7 +680,7 @@ gotoline_entry_changed(GtkEditable * editable, Tbfwin * bfwin)
 
 	if (!bfwin->current_document)
 		return;
-
+	DEBUG_MSG("gotoline_entry_changed, called!\n");
 	linestr = gtk_editable_get_chars(editable, 0, -1);
 	linenum = get_int_from_string(linestr);
 	g_free(linestr);
@@ -724,6 +730,7 @@ gotoline_entry_insert_text(GtkEditable * editable, gchar * text, gint length, gi
 void
 bfwin_gotoline_search_bar_close(Tbfwin *bfwin)
 {
+	DEBUG_MSG("bfwin_gotoline_search_bar_close, called!\n");
 	gtk_widget_hide(bfwin->gotoline_frame);
 
 	if (bfwin->simplesearch_snr3run) {
@@ -744,6 +751,7 @@ bfwin_gotoline_search_bar_close(Tbfwin *bfwin)
 static void
 gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
 {
+	DEBUG_MSG("gotoline_close_button_clicked, called!\n");
 	bfwin_gotoline_search_bar_close(bfwin);
 	if (bfwin->current_document)
 		gtk_widget_grab_focus(bfwin->current_document->view);
@@ -754,8 +762,10 @@ simpleasearch_update_search_history(gpointer data)
 {
 	DEBUG_MSG("simpleasearch_update_search_history, called!\n");
 	if (BFWIN(data)->simplesearch_combo) {
+		const gchar *tmpstr = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(BFWIN(data)->simplesearch_combo))));
+		DEBUG_MSG("currenbt string=%s\n",tmpstr);
 		combobox_empty(BFWIN(data)->simplesearch_combo);
-		combobox_fill(BFWIN(data)->simplesearch_combo, NULL, BFWIN(data)->session->searchlist);
+		combobox_fill(BFWIN(data)->simplesearch_combo, tmpstr, BFWIN(data)->session->searchlist);
 		BFWIN(data)->update_searchhistory_idle_id = 0;
 	}
 	return FALSE;
@@ -820,18 +830,21 @@ simplesearch_back_clicked(GtkButton * button, Tbfwin * bfwin)
 static void
 simplesearch_combo_entry_changed(gpointer widget, Tbfwin * bfwin)
 {
+	DEBUG_MSG("simplesearch_combo_entry_changed, call simplesearch_start()\n");
 	simplesearch_start(bfwin, FALSE);
 }
 
 static void
 simplesearch_combo_entry_activated(gpointer widget, Tbfwin * bfwin)
 {
+	DEBUG_MSG("simplesearch_combo_entry_activated, call simplesearch_start()\n");
 	simplesearch_forward_clicked(NULL, bfwin);
 }
 
 static void
 simplesearch_option_toggled(gpointer widget, Tbfwin * bfwin)
 {
+	DEBUG_MSG("simplesearch_option_toggled, call simplesearch_start()\n");
 	simplesearch_start(bfwin, FALSE);
 	if (widget == bfwin->simplesearch_regex) {
 		gboolean regex = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bfwin->simplesearch_regex));
@@ -853,6 +866,10 @@ gotoline_entries_key_press_event(GtkWidget * widget, GdkEventKey * event, Tbfwin
 {
 	if (event->keyval == GDK_KEY_Escape) {
 		gotoline_close_button_clicked(NULL, bfwin);
+		return TRUE;
+	}
+	if (event->keyval == GDK_KEY_Return && widget == bfwin->gotoline_entry) {
+		gotoline_entry_changed(GTK_EDITABLE(widget), bfwin);
 		return TRUE;
 	}
 	return FALSE;
@@ -922,8 +939,6 @@ gotoline_frame_create(Tbfwin * bfwin)
 	
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->gotoline_frame, FALSE, FALSE, 2);
 	gtk_widget_show_all(hbox);
-	
-	simplesearch_combo_entry_activated(bfwin->simplesearch_regex, bfwin);
 }
 
 static void

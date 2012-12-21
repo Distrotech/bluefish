@@ -268,9 +268,9 @@ project_save(Tbfwin * bfwin, gboolean save_as)
 			  g_list_length(bfwin->project->files));
 	update_project_filelist(bfwin, bfwin->project);
 
-	bfwin->project->session->searchlist = limit_stringlist(bfwin->project->session->searchlist, 10, TRUE);
+	/*bfwin->project->session->searchlist = limit_stringlist(bfwin->project->session->searchlist, 10, TRUE);
 	bfwin->project->session->replacelist = limit_stringlist(bfwin->project->session->replacelist, 10, TRUE);
-	bfwin->project->session->urllist = limit_stringlist(bfwin->project->session->urllist, 10, TRUE);
+	bfwin->project->session->urllist = limit_stringlist(bfwin->project->session->urllist, 10, TRUE);*/
 	bmark_store_all(bfwin);
 
 	if (save_as || bfwin->project->uri == NULL) {

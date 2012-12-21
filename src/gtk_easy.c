@@ -354,15 +354,19 @@ combobox_fill(GtkWidget *combobox, const gchar * setstring, const GList * which_
 	gint activenum = -1, i = 0;
 	for (tmplist = g_list_last((GList *)which_list); tmplist; tmplist = g_list_previous(tmplist)) {
 		if (tmplist->data) {
-			/*g_print("append %s\n",(gchar *)tmplist->data);*/
-			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combobox), tmplist->data);
+			DEBUG_MSG("combobox_fill, prepend %s\n",(gchar *)tmplist->data);
+			gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(combobox), tmplist->data);
 			if (setstring && g_strcmp0(tmplist->data, setstring) == 0) {
 				activenum = i;
+				DEBUG_MSG("combobox_fill, %s has got activenum=%d\n",(gchar *)tmplist->data, activenum);
 			}
 			i++;
 		}
 	}
+	/* if we PREpend, the activenum is the number starting from the end!! */
+	activenum=(i-1)-activenum;
 	if (setstring) {
+		DEBUG_MSG("combobox_fill, setstring=%s, activenum=%d\n",setstring, activenum);
 		if (activenum == -1) {
 			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combobox), setstring);
 			gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), i);
@@ -370,7 +374,8 @@ combobox_fill(GtkWidget *combobox, const gchar * setstring, const GList * which_
 			gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), activenum);
 		}
 	} else {
-		gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), i-1);
+		/* for append this should be set to i-1, for prepend set to 0 */
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), 0);
 	}
 }
 
