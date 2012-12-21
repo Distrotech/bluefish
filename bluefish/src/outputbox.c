@@ -311,7 +311,7 @@ outputbox_add_line(Tbfwin *bfwin, const gchar *uri, gint line, const gchar *mess
 		} else {
 			ob = init_output_box(bfwin);
 		}
-		g_print("add_line to outputbox, message='%s'\n",message);
+		DEBUG_MSG("add_line to outputbox, message='%s'\n",message);
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
 		if (uri)
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 0, uri, -1);

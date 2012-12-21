@@ -2139,7 +2139,7 @@ void
 doc_destroy(Tdocument * doc, gboolean delay_activation)
 {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
-	Tdocument *switch_to_doc;
+	Tdocument *switch_to_doc=NULL;
 	GSList *tmpslist;
 	GList *tmplist;
 	DEBUG_MSG("doc_destroy(%p,%d);\n", doc, delay_activation);
@@ -2204,7 +2204,8 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 #endif
 	if (!delay_activation) {
 		gint newpage = -1;
-		bfwin_switch_to_document_by_pointer(bfwin, switch_to_doc);
+		if (switch_to_doc)
+			bfwin_switch_to_document_by_pointer(bfwin, switch_to_doc);
 		bfwin_notebook_changed(BFWIN(doc->bfwin), newpage);
 	}
 	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed(), vsplit=%p\n", doc, doc->vsplit);
@@ -3037,7 +3038,7 @@ doc_activate(Tdocument * doc)
 	if (BFWIN(doc->bfwin)->recentdoclist != doc->recentpos) {
 		/* put this document on top of the recentlist */
 		DEBUG_MSG("put this document %p with recentpos %p on top of the recentlist %p\n", doc,doc->recentpos,BFWIN(doc->bfwin)->recentdoclist);
-		GList * tmp = g_list_remove_link(BFWIN(doc->bfwin)->recentdoclist, doc->recentpos);
+		GList *dummy = g_list_remove_link(BFWIN(doc->bfwin)->recentdoclist, doc->recentpos);
 		BFWIN(doc->bfwin)->recentdoclist = g_list_concat(doc->recentpos, BFWIN(doc->bfwin)->recentdoclist);
 		DEBUG_MSG("recentlist now starts at %p\n", BFWIN(doc->bfwin)->recentdoclist);
 	}
@@ -3282,7 +3283,7 @@ void
 doc_paste_special(Tbfwin *bfwin)
 {
 	gint result;
-	GtkWidget *win, *content_area, *rbut0, *rbut1, *rbut2;
+	GtkWidget *win, *content_area, *rbut0=NULL, *rbut1=NULL, *rbut2;
 	gboolean have_html=FALSE, have_image=FALSE;
 	GdkAtom *targets;
 	gint numtargets;

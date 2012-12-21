@@ -617,18 +617,18 @@ static void
 bftextview2_preferences_menu_lcb(GtkWidget * widget, gpointer data)
 {
 	Tbfwin *bfwin = data;
-	g_print("bftextview2_preferences_menu_lcb, called for widget %p and bfwin %p\n",widget,data);
+	/*g_print("bftextview2_preferences_menu_lcb, called for widget %p and bfwin %p\n",widget,data);*/
 	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-		g_print("check menu widget %p is active, with label %s\n",widget, gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
+		/*g_print("check menu widget %p is active, with label %s\n",widget, gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));*/
 		if (bfwin->session->spell_lang)
 			g_free(bfwin->session->spell_lang);
 		bfwin->session->spell_lang =
 			g_strdup(gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
-		g_print("bftextview2_preferences_menu_lcb, set spell check language '%s'\n",bfwin->session->spell_lang);
+		DBG_SPELL("bftextview2_preferences_menu_lcb, set spell check language '%s'\n",bfwin->session->spell_lang);
 		if (load_dictionary(bfwin)) {
 			mark_all_docs_needspelling(bfwin);
 		} else {
-			g_print("failed to load dictionary ?\n");
+			DBG_SPELL("failed to load dictionary ?\n");
 		}
 	}
 }
@@ -659,8 +659,8 @@ list_dicts_lcb(const char *const lang_tag, const char *const provider_name, cons
 	if (g_strcmp0(dl->bfwin->session->spell_lang, lang_tag) == 0) {
 		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 	}
-	g_print("list_dicts_lcb, connect menuitem %p with label %s and bfwin %p to menu callback\n",menuitem, lang_tag, dl->bfwin);
-	g_signal_connect(menuitem, "toggled", G_CALLBACK(bftextview2_preferences_menu_lcb), dl->bfwin);
+	/*g_print("list_dicts_lcb, connect menuitem %p with group %p and label %s and bfwin %p to menu callback\n",menuitem, dl->group, lang_tag, dl->bfwin);*/
+	g_signal_connect(menuitem, "activate", G_CALLBACK(bftextview2_preferences_menu_lcb), dl->bfwin);
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(dl->menu), GTK_WIDGET(menuitem));
 }
 
