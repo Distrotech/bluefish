@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-12-14 09:05+0100\n"
-"PO-Revision-Date: 2012-09-18 18:12+0200\n"
+"POT-Creation-Date: 2012-12-20 19:27+0100\n"
+"PO-Revision-Date: 2012-12-21 11:31+0200\n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -59,19 +59,19 @@ msgstr "Replier %s"
 msgid "Expand %s"
 msgstr "Déplier %s"
 
-#: ../src/bftextview2_spell.c:691
+#: ../src/bftextview2_spell.c:696
 msgid "Spell check language"
 msgstr "Dictionnaire de langue"
 
-#: ../src/bftextview2_spell.c:724
+#: ../src/bftextview2_spell.c:729
 msgid "Add to dictionary"
 msgstr "Ajouter au dictionnaire"
 
-#: ../src/bftextview2_spell.c:727
+#: ../src/bftextview2_spell.c:732
 msgid "Ignore spelling"
 msgstr "Ignorer"
 
-#: ../src/bftextview2_spell.c:742
+#: ../src/bftextview2_spell.c:747
 msgid "Insert special characters as entities"
 msgstr "Insérer des entités pour les caractères spéciaux"
 
@@ -194,16 +194,15 @@ msgstr "Boîte de _sortie"
 
 #: ../src/bfwin_uimanager.c:819
 msgid "For_mat"
-msgstr ""
+msgstr "Fo_rmat"
 
 #: ../src/bfwin_uimanager.c:820
 msgid "_Insert"
 msgstr "_Insertion"
 
 #: ../src/bfwin_uimanager.c:821
-#, fuzzy
 msgid "Con_vert"
-msgstr "Conversion"
+msgstr "Con_version"
 
 #: ../src/bfwin_uimanager.c:825
 msgid "_New"
@@ -391,7 +390,6 @@ msgid "Synchronize text block"
 msgstr "Synchroniser le bloc de texte"
 
 #: ../src/bfwin_uimanager.c:869
-#, fuzzy
 msgid "_Toggle Comment"
 msgstr "Basc_uler les commentaires"
 
@@ -408,7 +406,6 @@ msgid "Select block, use multiple times to select parent blocks "
 msgstr "Sélectionner le bloc, répéter pour sélectionner les parents."
 
 #: ../src/bfwin_uimanager.c:873
-#, fuzzy
 msgid "D_uplicate Line"
 msgstr "Dupli_quer la ligne"
 
@@ -417,16 +414,14 @@ msgid "Duplicate the current line"
 msgstr "Dupliquer la ligne active"
 
 #: ../src/bfwin_uimanager.c:875
-#, fuzzy
 msgid "_Delete Line"
-msgstr "Supprimer la ligne active"
+msgstr "_Supprimer la ligne active"
 
 #: ../src/bfwin_uimanager.c:875
 msgid "Delete the current line"
 msgstr "Supprimer la ligne active"
 
 #: ../src/bfwin_uimanager.c:877
-#, fuzzy
 msgid "_Word Count"
 msgstr "Compter les _mots"
 
@@ -680,14 +675,12 @@ msgid "Reload current file"
 msgstr "Recharger le document courant"
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a cop_y..."
-msgstr "Enre_gistrer sous…"
+msgstr "_Enregistrer une copie…"
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a copy"
-msgstr "Enregistrer et _fermer"
+msgstr "Enregistrer une copie"
 
 #: ../src/bfwin_uimanager.c:941
 msgid "Rena_me..."
@@ -798,9 +791,8 @@ msgid "_Previous Document"
 msgstr "Document p_récédent"
 
 #: ../src/bfwin_uimanager.c:967
-#, fuzzy
 msgid "_Goto Line"
-msgstr "Aller à la ligne :"
+msgstr "Aller à la ligne"
 
 #: ../src/bfwin_uimanager.c:967
 msgid "Goto line"
@@ -847,7 +839,6 @@ msgid "Paste"
 msgstr "Coller"
 
 #: ../src/bfwin_uimanager.c:978
-#, fuzzy
 msgid "Paste Specia_l"
 msgstr "Coller spécial"
 
@@ -880,7 +871,6 @@ msgid "Find from clipboard or selection"
 msgstr "Rechercher du presse-papiers ou sélection"
 
 #: ../src/bfwin_uimanager.c:986
-#, fuzzy
 msgid "Ad_vanced Find & Replace..."
 msgstr "Chercher et Rem_placer avancé"
 
@@ -949,7 +939,6 @@ msgid "Open _URL..."
 msgstr "Ouvrir une _URL…"
 
 #: ../src/bfwin_uimanager.c:1157
-#, fuzzy
 msgid "Upload _/ Download..."
 msgstr "En_voyer / Télécharger…"
 
@@ -971,7 +960,7 @@ msgstr "Texte sélectionné uniquement"
 
 #: ../src/bfwin_uimanager.c:1575
 msgid "Never ask again"
-msgstr ""
+msgstr "Ne plus demander"
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -1078,9 +1067,8 @@ msgid "_Description:"
 msgstr "_Description :"
 
 #: ../src/bookmark.c:586
-#, fuzzy
 msgid "_Temporary"
-msgstr "Temporaire"
+msgstr "_Temporaire"
 
 #: ../src/bookmark.c:603
 msgid "Temporary"
@@ -1520,14 +1508,12 @@ msgid "Fill empty entries:"
 msgstr "Remplir les entrées vides :"
 
 #: ../src/doc_extern_tools.c:63
-#, fuzzy
 msgid "Number of _paragraphs:"
-msgstr "Nombre de paragraphes"
+msgstr "Nombre de _paragraphes"
 
 #: ../src/doc_extern_tools.c:68
-#, fuzzy
 msgid "Number of _sentences:"
-msgstr "Nombre de phrases"
+msgstr "Nombre de p_hrases"
 
 #: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert plain text"
@@ -1554,43 +1540,36 @@ msgid "Javascript Beautify"
 msgstr "Javascript Beautify"
 
 #: ../src/doc_extern_tools.c:148
-#, fuzzy
 msgid "_Indent size:"
 msgstr "Augmenter la taille"
 
 #: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
-#, fuzzy
 msgid "Use _tabs to indent, not spaces"
 msgstr "Indentation par tabulations"
 
 #: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
-#, fuzzy
 msgid "Do not _preserve existing line breaks"
 msgstr "Ne pas conserver les sauts de ligne existants"
 
 #: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
-#, fuzzy
 msgid "More _jslint-compatible output"
-msgstr "Plus de sorties jslint-compatible"
+msgstr "Plus de sorties _jslint-compatible"
 
 #: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
-#, fuzzy
 msgid "_Decode printable chars encoded in \\\\xNN notation"
-msgstr "Décoder les caractères affichables encodés en notation  \\\\xNN"
+msgstr "_Décoder les caractères affichables encodés en notation  \\\\xNN"
 
 #: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
-#, fuzzy
 msgid "Beautify only in _selection"
-msgstr "N'embellir que la sélection"
+msgstr "N'embellir que la _sélection"
 
 #: ../src/doc_extern_tools.c:179
-#, fuzzy
 msgid "_Indent size"
-msgstr "Augmenter la taille"
+msgstr "_Augmenter la taille"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
-msgstr "Encodages disponibles : "
+msgstr "_Encodages disponibles :"
 
 #: ../src/encodings_dialog.c:333 ../src/encodings_dialog.c:385
 msgid "Description"
@@ -1633,11 +1612,11 @@ msgstr "Arguments supplémentaires pour définir  %%a dans '%s'"
 #: ../src/external_commands.c:673
 #, c-format
 msgid "Failed to create a command for %s."
-msgstr ""
+msgstr "Impossible de créer une commande pour %s."
 
 #: ../src/external_commands.c:675
 msgid "Failed to create a command"
-msgstr ""
+msgstr "Impossible de créer une commande"
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -1772,7 +1751,7 @@ msgstr "Filtre"
 msgid "New Filter"
 msgstr "Nouveau fichier"
 
-#: ../src/filebrowser2.c:2058 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:2058 ../src/filefilter.c:549
 msgid "New filter"
 msgstr "Nouveau fichier"
 
@@ -1780,7 +1759,7 @@ msgstr "Nouveau fichier"
 msgid "Edit Filter"
 msgstr "Éditer le filtre"
 
-#: ../src/filebrowser2.c:2059 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:2059 ../src/filefilter.c:554
 msgid "Edit filter"
 msgstr "Éditer le filtre"
 
@@ -1804,7 +1783,7 @@ msgstr "Suivre le document actif"
 msgid "Show Backup Files"
 msgstr "Afficher les fichiers de sauvegarde"
 
-#: ../src/filebrowser2.c:2066 ../src/gtk_easy.c:1329
+#: ../src/filebrowser2.c:2066 ../src/gtk_easy.c:1335
 msgid "Show backup files"
 msgstr "Afficher les fichiers de sauvegarde"
 
@@ -2011,9 +1990,8 @@ msgid "Save in progress!"
 msgstr "Enregistrement en cours !"
 
 #: ../src/file_dialogs.c:785
-#, fuzzy
 msgid "Save"
-msgstr "_Enregistrer"
+msgstr "Enregistrer"
 
 #: ../src/file_dialogs.c:787
 #, c-format
@@ -2021,9 +1999,9 @@ msgid "Save %s as"
 msgstr "Enregistrer %s sous"
 
 #: ../src/file_dialogs.c:791
-#, fuzzy, c-format
+#, c-format
 msgid "Save copy of %s"
-msgstr "Enregistrer le projet sous"
+msgstr "Enregistrer une copie de %s"
 
 #: ../src/file_dialogs.c:973
 msgid "Close _Without Saving"
@@ -2145,23 +2123,23 @@ msgid "Check and reload all documents"
 msgstr "Vérifier et recharger tous les documents"
 
 #. build a list of filters
-#: ../src/filefilter.c:241 ../src/gtk_easy.c:1340 ../src/preferences.c:2090
+#: ../src/filefilter.c:250 ../src/gtk_easy.c:1346 ../src/preferences.c:2090
 msgid "All files"
 msgstr "Tous les fichiers"
 
-#: ../src/filefilter.c:627
+#: ../src/filefilter.c:639
 msgid "Hide files that match the filter"
 msgstr "Cacher les fichiers correspondant au filtre"
 
-#: ../src/filefilter.c:631
+#: ../src/filefilter.c:643
 msgid "Add pattern"
 msgstr "Ajouter le modèle"
 
-#: ../src/filefilter.c:637 ../src/filefilter.c:649
+#: ../src/filefilter.c:649 ../src/filefilter.c:661
 msgid "Mime type"
 msgstr "Type mime"
 
-#: ../src/filefilter.c:640 ../src/filefilter.c:652
+#: ../src/filefilter.c:652 ../src/filefilter.c:664
 msgid "Icon"
 msgstr "Icône"
 
@@ -2174,19 +2152,19 @@ msgstr "%d sur %d"
 msgid "Select File"
 msgstr "Sélectionner un fichier"
 
-#: ../src/gtk_easy.c:1390
+#: ../src/gtk_easy.c:1396
 msgid "Character _Encoding:"
 msgstr "_Encodage des caractères"
 
-#: ../src/gtk_easy.c:1410
+#: ../src/gtk_easy.c:1416
 msgid "Automatic detection"
 msgstr "Détection automatique"
 
-#: ../src/gtk_easy.c:1495
+#: ../src/gtk_easy.c:1501
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>raccourci-clavier</b>"
 
-#: ../src/gtk_easy.c:1503
+#: ../src/gtk_easy.c:1509
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2198,7 +2176,7 @@ msgstr ""
 "Utiliser Ctrl, Shift, Alt en combinaison avec une autre touche.\n"
 "<i>Esc pour abandonner, Suppr pour désactiver le raccourci.</i>"
 
-#: ../src/gtk_easy.c:1528
+#: ../src/gtk_easy.c:1534
 msgid "Press shortcut key combination"
 msgstr "Appuyez sur la combinaison de touches de raccourci"
 
@@ -2625,11 +2603,11 @@ msgstr "Tabulations, insécables et espaces en fin de ligne"
 
 #: ../src/preferences.c:2096
 msgid "Always"
-msgstr ""
+msgstr "Toujours"
 
 #: ../src/preferences.c:2096
 msgid "Smart"
-msgstr ""
+msgstr "Intelligent"
 
 #: ../src/preferences.c:2107
 msgid "Edit preferences"
