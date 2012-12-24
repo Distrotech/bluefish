@@ -327,7 +327,7 @@ static const linguas_t linguas[] = {
 #ifdef HAVE_LINGUA_ZH_CN
 	{ N_("Chinese Simplified"), "Chinese Simplified",
 #ifdef WIN32
-	LANG_CHINESE_SIMPLIFIED, SUBLANG_CHINESE_SIMPLIFIED,
+	 LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED,
 #endif /* WIN32 */
 	  "zh", "zh_CN"
 	},
@@ -337,7 +337,7 @@ static const linguas_t linguas[] = {
 	{
 	  N_("Chinese Traditional"), "Chinese Traditional",
 #ifdef WIN32
-	LANG_CHINESE_TRADITIONAL, SUBLANG_CHINESE_TRADITIONAL,
+	LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL,
 #endif /* WIN32 */
 	  "zh", "zh_TW"
 	},
