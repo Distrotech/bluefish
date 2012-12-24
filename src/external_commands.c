@@ -162,14 +162,15 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	GError *gerror=NULL;
 	gchar *tmp;
 	DEBUG_MSG("child_watch_lcb, child exited with status=%d\n",status);
-
+#ifndef WIN32
+	/* on windows this even fires dialogs when opening something in firefox, disabling that for the moment */
 	if (status != 0) {
 		tmp = g_markup_printf_escaped(_("The command %s exited with error code %d. %s"), ep->commandstring, status, (status==32512)?_("Probably this application is not installed on your system."):"");
 		message_dialog_new(BFWIN(ep->bfwin)->main_window, GTK_MESSAGE_ERROR
 					, GTK_BUTTONS_CLOSE, _("Command returned error code"), tmp);
 		g_free(tmp);
 	}
-
+#endif
 	if (ep->pipe_in && !ep->buffer_out) {
 		DEBUG_MSG("child_watch_lcb, the child has exited before we actually started\n");
 		/* the child has exited before we actually started to write data to the child, just abort now */
