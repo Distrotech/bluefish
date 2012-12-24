@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-12-14 09:05+0100\n"
-"PO-Revision-Date: 2012-11-18 00:26+0600\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2012-12-22 22:47+0800\n"
+"PO-Revision-Date: 2012-12-22 23:00+0600\n"
+"Last-Translator: ZhiFeng Ma <mzf9527@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -55,19 +55,19 @@ msgstr "收起 %s"
 msgid "Expand %s"
 msgstr "展开 %s"
 
-#: ../src/bftextview2_spell.c:691
+#: ../src/bftextview2_spell.c:696
 msgid "Spell check language"
 msgstr "语言拼写检查"
 
-#: ../src/bftextview2_spell.c:724
+#: ../src/bftextview2_spell.c:729
 msgid "Add to dictionary"
 msgstr "添加到字典中"
 
-#: ../src/bftextview2_spell.c:727
+#: ../src/bftextview2_spell.c:732
 msgid "Ignore spelling"
 msgstr "忽略拼写检查"
 
-#: ../src/bftextview2_spell.c:742
+#: ../src/bftextview2_spell.c:747
 msgid "Insert special characters as entities"
 msgstr "插入特殊字符"
 
@@ -79,40 +79,40 @@ msgstr "文件浏览器"
 msgid "Bookmarks"
 msgstr "书签"
 
-#: ../src/bfwin.c:876
+#: ../src/bfwin.c:893
 msgid "Goto Line:"
 msgstr "转到指定行:"
 
-#: ../src/bfwin.c:887
+#: ../src/bfwin.c:904
 msgid "Find:"
 msgstr "查找："
 
-#: ../src/bfwin.c:898 ../src/snr3.c:1518
+#: ../src/bfwin.c:915 ../src/snr3.c:1518
 msgid "Regular expression (pcre)"
 msgstr "正则表达式（pcre）"
 
-#: ../src/bfwin.c:901
+#: ../src/bfwin.c:918
 msgid "Case sensitive"
 msgstr "大小写敏感匹配(_m)"
 
-#: ../src/bfwin.c:904
+#: ../src/bfwin.c:921
 msgid "Dot character matches newlines"
 msgstr "在正则表达式中的豆点字符为匹配新行"
 
-#: ../src/bfwin.c:907
+#: ../src/bfwin.c:924
 msgid "Pattern contains backslash escaped sequences"
 msgstr "包含了转义序列的模式"
 
-#: ../src/bfwin.c:919
+#: ../src/bfwin.c:936
 msgid "Advanced"
 msgstr "高级"
 
-#: ../src/bfwin.c:1325
+#: ../src/bfwin.c:1340
 msgid "New Bluefish Window"
 msgstr "新建 Bluefish 窗口"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1384
+#: ../src/bfwin.c:1399
 msgid "Stand by..."
 msgstr "请等待..."
 
@@ -190,16 +190,15 @@ msgstr "输出窗口(_O)"
 
 #: ../src/bfwin_uimanager.c:819
 msgid "For_mat"
-msgstr ""
+msgstr "格式(_m)"
 
 #: ../src/bfwin_uimanager.c:820
 msgid "_Insert"
 msgstr "插入(_I)"
 
 #: ../src/bfwin_uimanager.c:821
-#, fuzzy
 msgid "Con_vert"
-msgstr "转换(_n)"
+msgstr "转换(_v)"
 
 #: ../src/bfwin_uimanager.c:825
 msgid "_New"
@@ -294,7 +293,7 @@ msgstr "全选"
 msgid "Add Boo_kmark"
 msgstr "添加书签(_k)"
 
-#: ../src/bfwin_uimanager.c:840 ../src/document.c:1918
+#: ../src/bfwin_uimanager.c:840 ../src/document.c:1931
 msgid "Add bookmark"
 msgstr "添加书签"
 
@@ -387,9 +386,8 @@ msgid "Synchronize text block"
 msgstr "同步文本块"
 
 #: ../src/bfwin_uimanager.c:869
-#, fuzzy
 msgid "_Toggle Comment"
-msgstr "切换注释(_g)"
+msgstr "切换注释(_T)"
 
 #: ../src/bfwin_uimanager.c:869
 msgid "Toggle comment"
@@ -404,27 +402,24 @@ msgid "Select block, use multiple times to select parent blocks "
 msgstr "选择块，用于选择其上一级的块，可多次使用"
 
 #: ../src/bfwin_uimanager.c:873
-#, fuzzy
 msgid "D_uplicate Line"
-msgstr "复制行(_t)"
+msgstr "复制行(_u)"
 
 #: ../src/bfwin_uimanager.c:873
 msgid "Duplicate the current line"
 msgstr "复制当前行"
 
 #: ../src/bfwin_uimanager.c:875
-#, fuzzy
 msgid "_Delete Line"
-msgstr "删除行"
+msgstr "删除行(_D)"
 
 #: ../src/bfwin_uimanager.c:875
 msgid "Delete the current line"
 msgstr "删除当前行"
 
 #: ../src/bfwin_uimanager.c:877
-#, fuzzy
 msgid "_Word Count"
-msgstr "字数统计(_n)"
+msgstr "字数统计(_W)"
 
 #: ../src/bfwin_uimanager.c:877
 msgid "Word count"
@@ -626,7 +621,7 @@ msgstr "文本换行(_W)"
 msgid "Wrap text"
 msgstr "文本换行"
 
-#: ../src/bfwin_uimanager.c:929 ../src/document.c:2965
+#: ../src/bfwin_uimanager.c:929 ../src/document.c:2979
 msgid "_Close"
 msgstr "关闭(_C)"
 
@@ -793,9 +788,8 @@ msgid "_Previous Document"
 msgstr "前一个文档(_P)"
 
 #: ../src/bfwin_uimanager.c:967
-#, fuzzy
 msgid "_Goto Line"
-msgstr "转到指定行:"
+msgstr "转到指定行(_G)"
 
 #: ../src/bfwin_uimanager.c:967
 msgid "Goto line"
@@ -842,9 +836,8 @@ msgid "Paste"
 msgstr "粘贴"
 
 #: ../src/bfwin_uimanager.c:978
-#, fuzzy
 msgid "Paste Specia_l"
-msgstr "特殊粘贴"
+msgstr "特殊粘贴(_l)"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Paste Special"
@@ -875,9 +868,8 @@ msgid "Find from clipboard or selection"
 msgstr "在剪切板或选择区域中查找"
 
 #: ../src/bfwin_uimanager.c:986
-#, fuzzy
 msgid "Ad_vanced Find & Replace..."
-msgstr "高级查找与替换(_p)..."
+msgstr "高级查找与替换(_v)..."
 
 #: ../src/bfwin_uimanager.c:986
 msgid "Advanced Find and Replace"
@@ -1124,7 +1116,7 @@ msgstr "编辑(_E)..."
 msgid "_Delete"
 msgstr "删除(_D)"
 
-#: ../src/bookmark.c:920 ../src/document.c:1914
+#: ../src/bookmark.c:920 ../src/document.c:1927
 msgid "Delete bookmark"
 msgstr "删除书签"
 
@@ -1314,19 +1306,19 @@ msgstr " 只读"
 msgid "Unknown"
 msgstr "未知文件类型"
 
-#: ../src/document.c:1654
+#: ../src/document.c:1667
 msgid "_No"
 msgstr "第(_N)"
 
-#: ../src/document.c:1654
+#: ../src/document.c:1667
 msgid "_Split"
 msgstr "分割(_S)"
 
-#: ../src/document.c:1657
+#: ../src/document.c:1670
 msgid "File contains very long lines. Split these lines?"
 msgstr "文件包含了一些很长的行，分割它们吗？"
 
-#: ../src/document.c:1657
+#: ../src/document.c:1670
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1337,26 +1329,26 @@ msgstr ""
 "言语法，它会在任何位置将空白或跳格用新行代替，或者在没有寻找到空白或跳格时插"
 "入新行。"
 
-#: ../src/document.c:1733
+#: ../src/document.c:1746
 msgid "Cannot display file, unknown characters found."
 msgstr "无法显示文件，字符集未知。"
 
-#: ../src/document.c:1924
+#: ../src/document.c:1937
 msgid "Exit fullscreen"
 msgstr "退出全屏方式"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2068 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2081 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "中断保存(_A)"
 
-#: ../src/document.c:2068
+#: ../src/document.c:2081
 msgid "_Continue save in UTF-8"
 msgstr "继续以 UTF-8 保存(_C)"
 
-#: ../src/document.c:2081
+#: ../src/document.c:2094
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1368,15 +1360,15 @@ msgstr ""
 "\n"
 "继续以 UTF-8 编码保存吗？"
 
-#: ../src/document.c:2086
+#: ../src/document.c:2099
 msgid "File encoding conversion failure"
 msgstr "文件编码转换失败"
 
-#: ../src/document.c:2243
+#: ../src/document.c:2257
 msgid "Previously: "
 msgstr "前一个："
 
-#: ../src/document.c:2752 ../src/file_dialogs.c:844
+#: ../src/document.c:2766 ../src/file_dialogs.c:844
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1385,100 +1377,100 @@ msgstr ""
 "你的版本号为（%d.%d.%d）的 glib 库运行远程文件不可靠。请升级到 2.18.0 或更高"
 "的版本。"
 
-#: ../src/document.c:2881
+#: ../src/document.c:2895
 msgid "Unable to open file"
 msgstr "无法打开文件"
 
-#: ../src/document.c:2893
+#: ../src/document.c:2907
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "如果你恢复 \"%s\" 到上次备份的位置，当前的修改将永久丢失。"
 
-#: ../src/document.c:2897
+#: ../src/document.c:2911
 msgid "Revert changes to last saved copy?"
 msgstr "恢复到上次保存的备份吗？"
 
-#: ../src/document.c:2965
+#: ../src/document.c:2979
 msgid "_Retry"
 msgstr "重试(_R)"
 
-#: ../src/document.c:2965
+#: ../src/document.c:2979
 msgid "Retry _all failed"
 msgstr "重试所有失败的文件(_a)"
 
-#: ../src/document.c:2965
+#: ../src/document.c:2979
 msgid "Close all _failed"
 msgstr "关闭所有失败的文件(_f)"
 
-#: ../src/document.c:2970
+#: ../src/document.c:2984
 msgid "File "
 msgstr "文件 "
 
-#: ../src/document.c:2970
+#: ../src/document.c:2984
 msgid " failed to load."
 msgstr " 读取失败。"
 
-#: ../src/document.c:2974
+#: ../src/document.c:2988
 msgid "File failed to load\n"
 msgstr "文件读取失败\n"
 
-#: ../src/document.c:3099
+#: ../src/document.c:3113
 msgid "Select file to insert"
 msgstr "选择要插入的文件"
 
-#: ../src/document.c:3108
+#: ../src/document.c:3122
 msgid "No file to insert"
 msgstr "没有要插入的文件"
 
 # c-format
-#: ../src/document.c:3188
+#: ../src/document.c:3202
 msgid "Save pasted image as"
 msgstr "粘贴的图像另存为"
 
-#: ../src/document.c:3295
+#: ../src/document.c:3309
 msgid "Paste special"
 msgstr "特殊粘贴"
 
-#: ../src/document.c:3302
+#: ../src/document.c:3316
 msgid "Paste as _HTML"
 msgstr "作为HTML粘贴(_H)"
 
-#: ../src/document.c:3306
+#: ../src/document.c:3320
 msgid "Paste as HTML with _JPG"
 msgstr "粘贴HTML为JPG(_J)"
 
-#: ../src/document.c:3308
+#: ../src/document.c:3322
 msgid "Paste as HTML _PNG"
 msgstr "粘贴HTML为PNG(_P)"
 
-#: ../src/document.c:3388
+#: ../src/document.c:3402
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d 行"
 msgstr[1] "%d 行"
 
-#: ../src/document.c:3389
+#: ../src/document.c:3403
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d 个字"
 msgstr[1] "%d 个字"
 
-#: ../src/document.c:3390
+#: ../src/document.c:3404
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d 个字符"
 msgstr[1] "%d 个字符"
 
-#: ../src/document.c:3392
+#: ../src/document.c:3406
 msgid "Selection statistics: "
 msgstr "统计选择区域："
 
-#: ../src/document.c:3392
+#: ../src/document.c:3406
 msgid "Statistics: "
 msgstr "统计："
 
@@ -1746,7 +1738,7 @@ msgstr "过滤器"
 msgid "New Filter"
 msgstr "新建过滤器"
 
-#: ../src/filebrowser2.c:2058 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:2058 ../src/filefilter.c:549
 msgid "New filter"
 msgstr "新建过滤器"
 
@@ -1754,7 +1746,7 @@ msgstr "新建过滤器"
 msgid "Edit Filter"
 msgstr "编辑过滤器"
 
-#: ../src/filebrowser2.c:2059 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:2059 ../src/filefilter.c:554
 msgid "Edit filter"
 msgstr "编辑过滤器"
 
@@ -1778,7 +1770,7 @@ msgstr "跟随当前文档"
 msgid "Show Backup Files"
 msgstr "显示备份文件"
 
-#: ../src/filebrowser2.c:2066 ../src/gtk_easy.c:1329
+#: ../src/filebrowser2.c:2066 ../src/gtk_easy.c:1340
 msgid "Show backup files"
 msgstr "显示备份文件"
 
@@ -2111,48 +2103,48 @@ msgid "Check and reload all documents"
 msgstr "检查并重新载入所有文档"
 
 #. build a list of filters
-#: ../src/filefilter.c:241 ../src/gtk_easy.c:1340 ../src/preferences.c:2090
+#: ../src/filefilter.c:250 ../src/gtk_easy.c:1351 ../src/preferences.c:2090
 msgid "All files"
 msgstr "所有文件"
 
-#: ../src/filefilter.c:627
+#: ../src/filefilter.c:639
 msgid "Hide files that match the filter"
 msgstr "隐藏符合过滤条件的文件"
 
-#: ../src/filefilter.c:631
+#: ../src/filefilter.c:643
 msgid "Add pattern"
 msgstr "添加模式"
 
-#: ../src/filefilter.c:637 ../src/filefilter.c:649
+#: ../src/filefilter.c:649 ../src/filefilter.c:661
 msgid "Mime type"
 msgstr "Mime 类型"
 
-#: ../src/filefilter.c:640 ../src/filefilter.c:652
+#: ../src/filefilter.c:652 ../src/filefilter.c:664
 msgid "Icon"
 msgstr "图标"
 
-#: ../src/gtk_easy.c:965
+#: ../src/gtk_easy.c:970
 #, c-format
 msgid "%d of %d"
 msgstr "%d 的 %d"
 
-#: ../src/gtk_easy.c:1046
+#: ../src/gtk_easy.c:1051
 msgid "Select File"
 msgstr "选择文件"
 
-#: ../src/gtk_easy.c:1390
+#: ../src/gtk_easy.c:1401
 msgid "Character _Encoding:"
 msgstr "字符编码(_E)："
 
-#: ../src/gtk_easy.c:1410
+#: ../src/gtk_easy.c:1421
 msgid "Automatic detection"
 msgstr "自动侦测"
 
-#: ../src/gtk_easy.c:1495
+#: ../src/gtk_easy.c:1506
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>按键选择</b>"
 
-#: ../src/gtk_easy.c:1503
+#: ../src/gtk_easy.c:1514
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2164,7 +2156,7 @@ msgstr ""
 "请按下Ctrl, Shift, Alt与其他任意键。\n"
 "<i>按 ESC 取消, 按 Delete 删除快捷键。</i>"
 
-#: ../src/gtk_easy.c:1528
+#: ../src/gtk_easy.c:1539
 msgid "Press shortcut key combination"
 msgstr "按下快捷键组合"
 
@@ -2578,11 +2570,11 @@ msgstr "显示全部非尾部空白"
 
 #: ../src/preferences.c:2096
 msgid "Always"
-msgstr ""
+msgstr "总是"
 
 #: ../src/preferences.c:2096
 msgid "Smart"
-msgstr ""
+msgstr "智能"
 
 #: ../src/preferences.c:2107
 msgid "Edit preferences"
