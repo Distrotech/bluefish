@@ -3,21 +3,21 @@
 # <pdenapo@dm.uba.ar> .
 # Copyright (C) 2002 Walter Echarri
 # <wecharri@yahoo.com>
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2009-2012.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2009-2012, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-12-14 09:05+0100\n"
-"PO-Revision-Date: 2012-06-06 09:39+0200\n"
+"POT-Creation-Date: 2012-12-13 14:05+0100\n"
+"PO-Revision-Date: 2012-12-26 13:46+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
 msgid "Bluefish Editor"
@@ -32,12 +32,12 @@ msgid "programming;code;html;php;python;"
 msgstr "programación;código;html;php;python;"
 
 #: ../desktop-data/bluefish.xml.in.h:1
-msgid "Bluefish project file"
-msgstr "Archivo de proyecto Bluefish"
-
-#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish language definition file"
 msgstr "Archivo de definición de idioma de Bluefish"
+
+#: ../desktop-data/bluefish.xml.in.h:2
+msgid "Bluefish project file"
+msgstr "Archivo de proyecto Bluefish"
 
 #: ../src/bftextview2.c:1744
 msgid "Collapse all"
@@ -192,14 +192,13 @@ msgstr "_Cuadro de salida"
 
 #: ../src/bfwin_uimanager.c:819
 msgid "For_mat"
-msgstr ""
+msgstr "Fo_rmatear"
 
 #: ../src/bfwin_uimanager.c:820
 msgid "_Insert"
 msgstr "_Insertar"
 
 #: ../src/bfwin_uimanager.c:821
-#, fuzzy
 msgid "Con_vert"
 msgstr "Co_nvertir"
 
@@ -261,9 +260,8 @@ msgid "Insert file"
 msgstr "Insertar archivo"
 
 #: ../src/bfwin_uimanager.c:835
-#, fuzzy
 msgid "_Print..."
-msgstr "_Imprimir"
+msgstr "_Imprimir…"
 
 #: ../src/bfwin_uimanager.c:835
 msgid "Print"
@@ -390,7 +388,6 @@ msgid "Synchronize text block"
 msgstr "Sincronizar bloque de texto"
 
 #: ../src/bfwin_uimanager.c:869
-#, fuzzy
 msgid "_Toggle Comment"
 msgstr "C_onmutar comentario"
 
@@ -407,7 +404,6 @@ msgid "Select block, use multiple times to select parent blocks "
 msgstr "Seleccionar bloque, usar varias veces para seleccionar bloques padre "
 
 #: ../src/bfwin_uimanager.c:873
-#, fuzzy
 msgid "D_uplicate Line"
 msgstr "Dup_licar la línea"
 
@@ -416,16 +412,14 @@ msgid "Duplicate the current line"
 msgstr "Duplicar la línea actual"
 
 #: ../src/bfwin_uimanager.c:875
-#, fuzzy
 msgid "_Delete Line"
-msgstr "Eliminar línea"
+msgstr "_Eliminar línea"
 
 #: ../src/bfwin_uimanager.c:875
 msgid "Delete the current line"
 msgstr "Eliminar la línea actual"
 
 #: ../src/bfwin_uimanager.c:877
-#, fuzzy
 msgid "_Word Count"
 msgstr "Con_tar palabras"
 
@@ -503,7 +497,7 @@ msgstr "Eliminar espacios en blanco sobrantes"
 
 #: ../src/bfwin_uimanager.c:894
 msgid "Javascript beautifier"
-msgstr ""
+msgstr "Embellecedor de JavaScript"
 
 #: ../src/bfwin_uimanager.c:895
 msgid "Preview in browser"
@@ -679,14 +673,12 @@ msgid "Reload current file"
 msgstr "Recargar el archivo actual"
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a cop_y..."
-msgstr "Guardar _como…"
+msgstr "Guardar una _copia…"
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a copy"
-msgstr "Guardar y _cerrar"
+msgstr "Guardar una copia"
 
 #: ../src/bfwin_uimanager.c:941
 msgid "Rena_me..."
@@ -761,14 +753,12 @@ msgid "Move current tab right"
 msgstr "Mover la pestaña actual a la derecha"
 
 #: ../src/bfwin_uimanager.c:957
-#, fuzzy
 msgid "_Recent Document"
-msgstr "_Siguiente documento"
+msgstr "Documento _reciente"
 
 #: ../src/bfwin_uimanager.c:957
-#, fuzzy
 msgid "Goto most recent document"
-msgstr "Ir al último documento"
+msgstr "Ir al documento más reciente"
 
 #: ../src/bfwin_uimanager.c:959
 msgid "_First Document"
@@ -799,9 +789,8 @@ msgid "_Previous Document"
 msgstr "Documento _anterior"
 
 #: ../src/bfwin_uimanager.c:967
-#, fuzzy
 msgid "_Goto Line"
-msgstr "Ir a la línea:"
+msgstr "_Ir a la línea"
 
 #: ../src/bfwin_uimanager.c:967
 msgid "Goto line"
@@ -849,11 +838,11 @@ msgstr "Pegar"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Paste Specia_l"
-msgstr ""
+msgstr "Pegado especia_l"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Paste Special"
-msgstr ""
+msgstr "Pegado especial"
 
 #: ../src/bfwin_uimanager.c:982
 msgid "_Find"
@@ -880,7 +869,6 @@ msgid "Find from clipboard or selection"
 msgstr "Buscar en el portapapeles o en la selección"
 
 #: ../src/bfwin_uimanager.c:986
-#, fuzzy
 msgid "Ad_vanced Find & Replace..."
 msgstr "Bu_scar y reemplazar avanzado…"
 
@@ -949,7 +937,6 @@ msgid "Open _URL..."
 msgstr "Abrir _URL…"
 
 #: ../src/bfwin_uimanager.c:1157
-#, fuzzy
 msgid "Upload _/ Download..."
 msgstr "Su_bir / Descargar…"
 
@@ -971,7 +958,7 @@ msgstr "Selecciona texto solamente"
 
 #: ../src/bfwin_uimanager.c:1575
 msgid "Never ask again"
-msgstr ""
+msgstr "No preguntarme de nuevo"
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -1079,9 +1066,8 @@ msgid "_Description:"
 msgstr "_Descripción:"
 
 #: ../src/bookmark.c:586
-#, fuzzy
 msgid "_Temporary"
-msgstr "Temporal"
+msgstr "_Temporal"
 
 #: ../src/bookmark.c:603
 msgid "Temporary"
@@ -1328,17 +1314,16 @@ msgid "Unknown"
 msgstr "Desconocido"
 
 #: ../src/document.c:1654
-#, fuzzy
 msgid "_No"
-msgstr "_Ir"
+msgstr "_No"
 
 #: ../src/document.c:1654
 msgid "_Split"
-msgstr ""
+msgstr "_Partir"
 
 #: ../src/document.c:1657
 msgid "File contains very long lines. Split these lines?"
-msgstr ""
+msgstr "El archivo contiene líneas muy largas. ¿Quiere dividirlas?"
 
 #: ../src/document.c:1657
 msgid ""
@@ -1347,6 +1332,11 @@ msgid ""
 "syntax, and may replace spaces or tabs with newlines in any location, or "
 "insert newlines if no spaces or tabs are found."
 msgstr ""
+"Las líneas de este archivo son más largas de lo que Bluefish puede manejar "
+"con un rendimiento razonable. Sin embargo, la función de dividir no tiene en "
+"cuenta la sintaxis del lenguaje, y puede reemplazar espacios o tabuladores "
+"en cualquier ubicación, o insertar líneas nuevas si no se encuentran "
+"espacios o tabuladores."
 
 #: ../src/document.c:1733
 msgid "Cannot display file, unknown characters found."
@@ -1408,8 +1398,8 @@ msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr ""
-"Si revierte «%s» a su última copia guardada, los cambios actuales se "
-"perderán permanentemente."
+"Si revierte «%s» a su última copia guardada, los cambios actuales se perderán "
+"permanentemente."
 
 #: ../src/document.c:2897
 msgid "Revert changes to last saved copy?"
@@ -1448,25 +1438,24 @@ msgid "No file to insert"
 msgstr "Ningún archivo para insertar"
 
 #: ../src/document.c:3188
-#, fuzzy
 msgid "Save pasted image as"
-msgstr "Guardar archivo como"
+msgstr "Guardar imagen pegada como"
 
 #: ../src/document.c:3295
 msgid "Paste special"
-msgstr ""
+msgstr "Pegado especial"
 
 #: ../src/document.c:3302
 msgid "Paste as _HTML"
-msgstr ""
+msgstr "Pegar como _HTML"
 
 #: ../src/document.c:3306
 msgid "Paste as HTML with _JPG"
-msgstr ""
+msgstr "Pegar como HTML con _JPG"
 
 #: ../src/document.c:3308
 msgid "Paste as HTML _PNG"
-msgstr ""
+msgstr "Pegar como HTML _PNG"
 
 #: ../src/document.c:3388
 #, c-format
@@ -1518,14 +1507,12 @@ msgid "Fill empty entries:"
 msgstr "Rellenar entradas vacías:"
 
 #: ../src/doc_extern_tools.c:63
-#, fuzzy
 msgid "Number of _paragraphs:"
-msgstr "Número de párrafos"
+msgstr "Número de párra_fos:"
 
 #: ../src/doc_extern_tools.c:68
-#, fuzzy
 msgid "Number of _sentences:"
-msgstr "Número de sentencias:"
+msgstr "Número de _sentencias:"
 
 #: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert plain text"
@@ -1549,38 +1536,36 @@ msgstr "Número de sentencias:"
 
 #: ../src/doc_extern_tools.c:134
 msgid "Javascript Beautify"
-msgstr ""
+msgstr "Embellecer JavaScript"
 
 #: ../src/doc_extern_tools.c:148
-#, fuzzy
 msgid "_Indent size:"
-msgstr "Sangrar"
+msgstr "_Tamaño de la sangría:"
 
 #: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
 msgid "Use _tabs to indent, not spaces"
-msgstr ""
+msgstr "Usar _tabuladores para sangrar, no espacios"
 
 #: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
 msgid "Do not _preserve existing line breaks"
-msgstr ""
+msgstr "No conservar los _saltos de línea existentes"
 
 #: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
 msgid "More _jslint-compatible output"
-msgstr ""
+msgstr "Más salida compatible con j_slint"
 
 #: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
 msgid "_Decode printable chars encoded in \\\\xNN notation"
 msgstr ""
+"_Decodificar los caracteres imprimibles codificados en notación \\\\xNN"
 
 #: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
-#, fuzzy
 msgid "Beautify only in _selection"
-msgstr "La tecla «_Tab» sangra la selección"
+msgstr "Embellecer sólo la _selección"
 
 #: ../src/doc_extern_tools.c:179
-#, fuzzy
 msgid "_Indent size"
-msgstr "Sangrar"
+msgstr "_Tamaño de la sangría"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1605,15 +1590,15 @@ msgstr "Añadir o quitar codificaciones de documentos"
 #: ../src/external_commands.c:167
 #, c-format
 msgid "The command %s exited with error code %d. %s"
-msgstr ""
+msgstr "El comando %s terminó con el código de error %d.%s"
 
 #: ../src/external_commands.c:167
 msgid "Probably this application is not installed on your system."
-msgstr ""
+msgstr "Probablemente esta aplicación no esté instalada en su sistema."
 
 #: ../src/external_commands.c:169
 msgid "Command returned error code"
-msgstr ""
+msgstr "El comando devolvió el código de error"
 
 #: ../src/external_commands.c:419
 msgid "Supply extra arguments"
@@ -1627,11 +1612,11 @@ msgstr "Proporcionar argumentos adicionales para definir %%a en «%s»"
 #: ../src/external_commands.c:673
 #, c-format
 msgid "Failed to create a command for %s."
-msgstr ""
+msgstr "Falló al crear un comando para %s"
 
 #: ../src/external_commands.c:675
 msgid "Failed to create a command"
-msgstr ""
+msgstr "Falló al crear el comando"
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -2003,9 +1988,8 @@ msgid "Save in progress!"
 msgstr "Guardado en progreso"
 
 #: ../src/file_dialogs.c:785
-#, fuzzy
 msgid "Save"
-msgstr "_Guardar"
+msgstr "Guardar"
 
 #: ../src/file_dialogs.c:787
 #, c-format
@@ -2013,9 +1997,9 @@ msgid "Save %s as"
 msgstr "Guardar %s como"
 
 #: ../src/file_dialogs.c:791
-#, fuzzy, c-format
+#, c-format
 msgid "Save copy of %s"
-msgstr "Guardar proyecto como"
+msgstr "Guardar una copia de %s"
 
 #: ../src/file_dialogs.c:973
 msgid "Close _Without Saving"
@@ -2091,7 +2075,7 @@ msgstr "Mostrar archivos ocultos"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1436
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -2100,12 +2084,12 @@ msgid ""
 "Original size was %s bytes\n"
 "New size is %s bytes"
 msgstr ""
-"El archivo ha cambiado en el disco: %s\n"
+"El archivo %s ha cambiado en el disco.\n"
 "\n"
 "La fecha original de modificación era %s\n"
 "La nueva hora de modificación es %s\n"
-"El tamaño original era %lu\n"
-"El nuevo tamaño es %lu"
+"El tamaño original eran %s bytes\n"
+"El nuevo tamaño es %s bytes"
 
 #: ../src/file_dialogs.c:1459
 msgid "_Unset file name"
@@ -2269,9 +2253,8 @@ msgid "Enable syntax scanning"
 msgstr "Activar el escaneado de sintaxis"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Show _visible spacing"
-msgstr "Mostrar espaciado visible"
+msgstr "Mostrar espaciado _visible"
 
 #: ../src/preferences.c:553
 msgid "_Enable spell check"
@@ -2610,11 +2593,11 @@ msgstr "Todo excepto espacios no sobrantes"
 
 #: ../src/preferences.c:2096
 msgid "Always"
-msgstr ""
+msgstr "Siempre"
 
 #: ../src/preferences.c:2096
 msgid "Smart"
-msgstr ""
+msgstr "Inteligente"
 
 #: ../src/preferences.c:2107
 msgid "Edit preferences"
@@ -2802,9 +2785,8 @@ msgid "<b>Misc</b>"
 msgstr "<b>Miscelánea</b>"
 
 #: ../src/preferences.c:2352
-#, fuzzy
 msgid "Strip trailing spaces on save"
-msgstr "Eliminar espacios en blanco sobrantes"
+msgstr "Eliminar espacios en blanco sobrantes al guardar"
 
 #: ../src/preferences.c:2358
 msgid "Open co_mmandline files in running bluefish process"
@@ -3140,7 +3122,7 @@ msgstr "php codesniffer"
 
 #: ../src/rcfile.c:724
 msgid "pylint"
-msgstr ""
+msgstr "pylint"
 
 #: ../src/rcfile.c:737
 msgid "Sort"
@@ -3163,9 +3145,8 @@ msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
 #: ../src/rcfile.c:750
-#, fuzzy
 msgid "Tidy convert to XHTML"
-msgstr "Tidy HTML"
+msgstr "Convertir Tidy a XHTML"
 
 #: ../src/rcfile.c:753
 msgid "Tidy HTML (perltidy)"
@@ -3181,19 +3162,19 @@ msgstr "Renderizar HTML a texto"
 
 #: ../src/rcfile.c:762
 msgid "PHP Beautifier"
-msgstr ""
+msgstr "Embellecedor de PHP"
 
 #: ../src/rcfile.c:766 ../src/rcfile.c:773
 msgid "Javascript Minify with jsmin"
-msgstr ""
+msgstr "Minimizar JavaScript con jsmin"
 
 #: ../src/rcfile.c:769 ../src/rcfile.c:776
 msgid "CSS Minify with cssmin"
-msgstr ""
+msgstr "Minimizar CSS con cssmin"
 
 #: ../src/rcfile.c:780
 msgid "CSS tidy"
-msgstr ""
+msgstr "CSS tidy"
 
 #: ../src/rcfile.c:792
 msgid "Windows XP Firefox"
@@ -3281,11 +3262,11 @@ msgstr "PHP"
 
 #: ../src/rcfile.c:920
 msgid "LaTex Book"
-msgstr ""
+msgstr "Libro de LaTex"
 
 #: ../src/rcfile.c:923
 msgid "LaTex Presentation"
-msgstr ""
+msgstr "Presentación LaTex"
 
 #: ../src/rcfile.c:1171
 msgid "Untitled Project"
@@ -3460,8 +3441,8 @@ msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
-"El carácter «.» coincidirá con todo, incluyendo las líneas nuevas, usado "
-"para coincidir con varias líneas."
+"El carácter «.» coincidirá con todo, incluyendo las líneas nuevas, usado para "
+"coincidir con varias líneas."
 
 #: ../src/snr3.c:1692
 msgid "Replace _All"
@@ -3494,9 +3475,6 @@ msgstr "¿Deshacer este cambio en todos los documentos?"
 #: ../src/undo_redo.c:560 ../src/undo_redo.c:702
 msgid "This change concerns multiple documents."
 msgstr "Este cambio afecta a múltiples documentos."
-
-#~ msgid "Fo_rmat"
-#~ msgstr "Fo_rmatear"
 
 #~ msgid "Goto _Line"
 #~ msgstr "Ir a la _línea"
