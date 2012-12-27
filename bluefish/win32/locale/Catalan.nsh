@@ -12,7 +12,7 @@
 !define SECT_BLUEFISH "Editor Bluefish"
 !define SECT_PLUGINS "Connectors"
 !define SECT_SHORTCUT "Drecera de l'escriptori"
-!define SECT_DICT "Verificació de l'ortografia (es necessita una conneció a Internet per a la descàrrega)"
+!define SECT_DICT "Verificació de l'ortografia (es necessita una connexió a Internet per a la descàrrega)"
 
 ; License Page
 !define LICENSEPAGE_BUTTON "Següent"
