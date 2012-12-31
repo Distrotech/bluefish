@@ -70,6 +70,7 @@ typedef struct {
 	GIOChannel* channel_in; /* the GIO channels for input into the filter */
 	gchar *buffer_out; /* the buffer that is the input for the filter */
 	gchar *buffer_out_position; /* a pointer inside the above buffer that points to the data that has not yet been written to the filter */
+	gboolean havedata;
 
 	GIOChannel* channel_out; /* the GIO channel for output from the filter */
 	GIOFunc channel_out_lcb; /* the callback that will be registered for output data  */
@@ -204,6 +205,7 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,ep->channel_out_lcb,ep->channel_out_data);
 	}
 	g_spawn_close_pid(pid);
+	DEBUG_MSG("child_watch_lcb, almost finished, call externalp_unref\n");
 	externalp_unref(ep);
 }
 
@@ -266,7 +268,6 @@ static void start_command_backend(Texternalp *ep) {
     g_shell_parse_argv(ep->commandstring, NULL, &argv, NULL);
 #endif
 	DEBUG_MSG("start_command_backend,commandstring=%s\n",ep->commandstring);
-	ep->include_stderr = FALSE;
 	DEBUG_MSG("start_command_backend, pipe_in=%d, pipe_out=%d, include_stderr=%d\n",ep->pipe_in,ep->pipe_out,ep->include_stderr);
 #ifdef USEBINSH
 	DEBUG_MSG("start_command_backend, about to spawn process /bin/sh -c %s\n",argv[2]);
@@ -384,9 +385,8 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		return NULL;
 	}
 
-	need_tmpin = (strstr(formatstring, "%I") != NULL);
-	/* %f is for backwards compatibility with bluefish 1.0 */
-	need_tmpout = (strstr(formatstring, "%O") != NULL);
+	need_tmpin = (strstr(formatstring, "%i") != NULL);
+	need_tmpout = (strstr(formatstring, "%o") != NULL);
 	need_inplace = (strstr(formatstring, "%t") != NULL);
 
 	if ((need_tmpout || need_inplace || need_pipeout) && discard_output) {
@@ -495,7 +495,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		}
 	}
 	if (need_tmpin) {
-		table[cur].my_int = 'I';
+		table[cur].my_int = 'i';
 		if (is_local_non_modified) {
 			table[cur].my_char = g_strdup(localname);
 		} else {
@@ -511,7 +511,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		cur++;
 	}
 	if (need_tmpout) {
-		table[cur].my_int = 'O';
+		table[cur].my_int = 'o';
 		ep->tmp_out = create_secure_dir_return_filename();
 		table[cur].my_char = g_strdup(ep->tmp_out);
 		cur++;
@@ -562,6 +562,7 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 			if (buflen > 0) {
 				if (termpos < buflen) buf[termpos] = '\0';
 				fill_output_box(ep->bfwin->outputbox, buf);
+				ep->havedata=TRUE;
 			}
 			g_free(buf);
 			status = g_io_channel_read_line(channel,&buf,&buflen,&termpos,&gerror);
