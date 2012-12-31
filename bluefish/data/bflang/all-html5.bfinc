@@ -153,8 +153,9 @@
 <b>Parents:</b> table
 <b>Children:</b> col
 <b>Interface:</b> HTMLTableColElement</reference></tag>
-<tag name="command" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="type,label,icon,disabled,checked,radiogroup,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="command" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="type,label,icon,disabled,checked,radiogroup,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Menu command
+<b>The following feature is at risk and may be removed due to lack of implementation.</b>  
 <b>Categories:</b> metadata, flow, phrasing
 <b>Parents:</b> head, phrasing
 <b>Children:</b> empty
@@ -177,8 +178,10 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> transparent
 <b>Interface:</b> HTMLModElement</reference></tag>
-<tag name="details" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="open,&globals;">
-<reference>Disclosure control for hiding details
+<tag name="details" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="open,&globals;">
+<reference>
+<b>The following feature is at risk and may be removed due to lack of implementation.</b>  
+Disclosure control for hiding details
 <b>Categories:</b> flow, sectioning root, interactive
 <b>Parents:</b> flow
 <b>Children:</b> summary*, flow
@@ -297,8 +300,9 @@
 <b>Parents:</b>flow 
 <b>Children:</b>flow* 
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="hgroup" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
+<tag name="hgroup" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>heading group 
+<b>The following feature is at risk and may be removed due to lack of implementation.</b>  
 <b>Categories:</b>flow; heading 
 <b>Parents:</b>flow 
 <b>Children:</b>One or more h1, h2, h3, h4, h5, and/or h6 
@@ -321,7 +325,7 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="iframe" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="src,srcdoc,name,sandbox,seamless,width,height,&globals;">
+<tag name="iframe" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="src,srcdoc,name,sandbox,width,height,&globals;">
 <reference>Nested browsing context
 <b>Categories:</b> flow, phrasing, embedded, interactive
 <b>Parents:</b> phrasing
@@ -394,8 +398,9 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="menu" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="type,label,&globals;">
+<tag name="menu" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="type,label,&globals;">
 <reference>Menu of commands
+<b>The following feature is at risk and may be removed due to lack of implementation. </b> 
 <b>Categories:</b> flow, interactive*
 <b>Parents:</b> flow
 <b>Children:</b> li*, flow
@@ -448,8 +453,9 @@
 <b>Parents:</b> select, datalist, optgroup
 <b>Children:</b> text
 <b>Interface:</b> HTMLOptionElement</reference></tag>
-<tag name="output" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="for,form,name,&globals;">
+<tag name="output" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="for,form,name,&globals;">
 <reference>Calculated output value
+<b>The following feature is at risk and may be removed due to lack of implementation. </b> 
 <b>Categories:</b> flow, phrasing, listed, labelable, resettable, form-associated
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
@@ -581,7 +587,7 @@
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 
-<tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="media,type,scoped,&globals;" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1">
+<tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="media,type,&globals;" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1">
 	<autocomplete append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" backup_cursor="9" />
 	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:" commentid_block="cm.cblockcomment" commentid_line="none">
 		<element idref="e.html.lcomment"/>
@@ -639,8 +645,9 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="summary" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Caption fordetails
+<tag name="summary" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
+<reference>Caption for details
+<b>The following feature is at risk and may be removed due to lack of implementation. </b> 
 <b>Categories:</b> none
 <b>Parents:</b> details
 <b>Children:</b> phrasing
