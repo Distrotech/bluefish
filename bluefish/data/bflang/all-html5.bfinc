@@ -27,7 +27,7 @@
 </element>
 
 
-<tag name="a" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="href,target,ping,rel,media,hreflang,type,&globals;">
+<tag name="a" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="href,target,rel,media,hreflang,type,&globals;">
 <reference>Hyperlink
 <b>Categories:</b> flow, phrasing*, interactive
 <b>Parents:</b> phrasing
@@ -45,7 +45,7 @@
 <b>Parents:</b>flow 
 <b>Children:</b>flow*
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="area" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="alt,coords,shape,href,target,ping,rel,media,hreflang,type,&globals;" sgml_shorttag="1" no_close="1">
+<tag name="area" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="alt,coords,shape,href,target,rel,media,hreflang,type,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Hyperlink or dead area on an image map
 <b>Categories:</b> flow, phrasing
 <b>Parents:</b> phrasing*
@@ -63,7 +63,7 @@
 <b>Parents:</b>flow 
 <b>Children:</b>flow
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="audio" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="src,crossorigin,preload,autoplay,mediagroup,loop,controls,muted,&globals;">
+<tag name="audio" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="src,crossorigin,preload,autoplay,mediagroup,loop,muted,controls,&globals;">
 <reference>Audio player 
 <b>Categories:</b>flow; phrasing; embedded; interactive 
 <b>Parents:</b>phrasing 
@@ -99,7 +99,7 @@
 <b>Parents:</b>flow 
 <b>Children:</b>flow 
 <b>Interface:</b> HTMLQuoteElement</reference></tag>
-<tag name="body" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="onafterprint,onbeforeprint,onbeforeunload,onhashchange,onmessage,onoffline,ononline,onpagehide,onpageshow,onpopstate,onresize,onstorage,onunload,&globals;">
+<tag name="body" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="onafterprint,onbeforeprint,onbeforeunload,onblur,onerror,onfocus,onhashchange,onload,onmessage,onoffline,ononline,onpagehide,onpageshow,onpopstate,onresize,onscroll,onstorage,onunload,&globals;">
 <reference>Document body 
 <b>Categories:</b>sectioning root 
 <b>Parents:</b>html 
@@ -411,7 +411,7 @@ Disclosure control for hiding details
 <b>Parents:</b> head, noscript*, phrasing*
 <b>Children:</b> empty
 <b>Interface:</b> HTMLMetaElement</reference></tag>
-<tag name="meter" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="value,min,max,low,high,optimum,form,&globals;">
+<tag name="meter" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="value,min,max,low,high,optimum,&globals;">
 <reference>Gauge 
 <b>Categories:</b>flow; phrasing; labelable 
 <b>Parents:</b>phrasing 
@@ -478,7 +478,7 @@ Disclosure control for hiding details
 <b>Parents:</b>flow 
 <b>Children:</b>phrasing
 <b>Interface:</b> HTMLPreElement</reference></tag>
-<tag name="progress" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="value,max,form,&globals;">
+<tag name="progress" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="value,max,&globals;">
 <reference>Progress bar 
 <b>Categories:</b>flow; phrasing; labelable 
 <b>Parents:</b>phrasing 
@@ -658,11 +658,6 @@ Disclosure control for hiding details
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<!-- <tag id="t.svg" name="svg" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1"  attributes="baseProfile,class,contentScriptType,contentStyleType,externalResourcesRequired,height,&svguniv;,&svgevent;,onabort,onerror,onresize,onscroll,onunload,onzoom,preserveAspectRatio,requiredExtensions,requiredFeatures,style,systemLanguage,version,viewBox,width,x,y,zoomAndPan,baseline-shift,clip,color-interpolation,color-profile,cursor,display,enable-background,filter,font-family,opacity,overflow,xmlns">
-<context id="c.svg" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment" commentid_line="none">
-&svg;
-</context>
-</tag> -->
 <tag name="table" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="border,&globals;">
 <reference>Table 
 <b>Categories:</b>flow 
