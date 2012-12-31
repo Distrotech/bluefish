@@ -3,21 +3,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
-# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2008-2011. 
-# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2012.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2008-2011. , 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-12-14 09:05+0100\n"
-"PO-Revision-Date: 2012-06-06 21:57+0200\n"
+"POT-Creation-Date: 2012-12-13 14:05+0100\n"
+"PO-Revision-Date: 2012-12-30 22:39+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
-"Language-Team: Basque <itzulpena@euskalgnu.org>\n"
-"Language: eu\n"
+"Language-Team: Euskara <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: eu\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -34,12 +33,12 @@ msgid "programming;code;html;php;python;"
 msgstr "programazioa;kodea;html;php;python;"
 
 #: ../desktop-data/bluefish.xml.in.h:1
-msgid "Bluefish project file"
-msgstr "Bluefish proiektuaren fitxategia"
-
-#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish language definition file"
 msgstr "Bluefish hizkuntzaren definizioaren fitxategia"
+
+#: ../desktop-data/bluefish.xml.in.h:2
+msgid "Bluefish project file"
+msgstr "Bluefish proiektuaren fitxategia"
 
 #: ../src/bftextview2.c:1744
 msgid "Collapse all"
@@ -194,14 +193,13 @@ msgstr "_Irteerako kutxa"
 
 #: ../src/bfwin_uimanager.c:819
 msgid "For_mat"
-msgstr ""
+msgstr "Formatua"
 
 #: ../src/bfwin_uimanager.c:820
 msgid "_Insert"
 msgstr "_Txertatu"
 
 #: ../src/bfwin_uimanager.c:821
-#, fuzzy
 msgid "Con_vert"
 msgstr "_Bihurtu"
 
@@ -263,9 +261,8 @@ msgid "Insert file"
 msgstr "Txertatu fitxategia"
 
 #: ../src/bfwin_uimanager.c:835
-#, fuzzy
 msgid "_Print..."
-msgstr "I_nprimatu"
+msgstr "I_nprimatu..."
 
 #: ../src/bfwin_uimanager.c:835
 msgid "Print"
@@ -392,7 +389,6 @@ msgid "Synchronize text block"
 msgstr "Sinkronizatu testu-blokea"
 
 #: ../src/bfwin_uimanager.c:869
-#, fuzzy
 msgid "_Toggle Comment"
 msgstr "Txandakatu _iruzkina"
 
@@ -409,7 +405,6 @@ msgid "Select block, use multiple times to select parent blocks "
 msgstr "Hautatu blokea, erabili hainbat aldiz bloke gurasoak hautatzeko"
 
 #: ../src/bfwin_uimanager.c:873
-#, fuzzy
 msgid "D_uplicate Line"
 msgstr "_Bikoiztu lerroa"
 
@@ -418,16 +413,14 @@ msgid "Duplicate the current line"
 msgstr "Bikoiztu uneko lerroa"
 
 #: ../src/bfwin_uimanager.c:875
-#, fuzzy
 msgid "_Delete Line"
-msgstr "Ezabatu lerroa"
+msgstr "E_zabatu lerroa"
 
 #: ../src/bfwin_uimanager.c:875
 msgid "Delete the current line"
 msgstr "Ezabatu uneko lerroa"
 
 #: ../src/bfwin_uimanager.c:877
-#, fuzzy
 msgid "_Word Count"
 msgstr "_Zenbatu hitzak"
 
@@ -505,7 +498,7 @@ msgstr "Kendu lerro amaierako zuriuneak"
 
 #: ../src/bfwin_uimanager.c:894
 msgid "Javascript beautifier"
-msgstr ""
+msgstr "Javascript dotoretzailea"
 
 #: ../src/bfwin_uimanager.c:895
 msgid "Preview in browser"
@@ -681,14 +674,12 @@ msgid "Reload current file"
 msgstr "Birkargatu uneko fitxategia"
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a cop_y..."
-msgstr "Gorde _honela..."
+msgstr "Gorde _kopia bat..."
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a copy"
-msgstr "Gorde _eta itxi"
+msgstr "Gorde kopia bat"
 
 #: ../src/bfwin_uimanager.c:941
 msgid "Rena_me..."
@@ -763,12 +754,10 @@ msgid "Move current tab right"
 msgstr "Uneko fitxa eskuinera eramaten du"
 
 #: ../src/bfwin_uimanager.c:957
-#, fuzzy
 msgid "_Recent Document"
-msgstr "_Hurrengo dokumentura"
+msgstr "_Azken dokumentua"
 
 #: ../src/bfwin_uimanager.c:957
-#, fuzzy
 msgid "Goto most recent document"
 msgstr "Joan azken dokumentura"
 
@@ -801,9 +790,8 @@ msgid "_Previous Document"
 msgstr "_Aurreko dokumentura"
 
 #: ../src/bfwin_uimanager.c:967
-#, fuzzy
 msgid "_Goto Line"
-msgstr "Joan lerrora:"
+msgstr "_Joan lerrora"
 
 #: ../src/bfwin_uimanager.c:967
 msgid "Goto line"
@@ -851,11 +839,11 @@ msgstr "Itsatsi"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Paste Specia_l"
-msgstr ""
+msgstr "Itsatsi _berezia"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Paste Special"
-msgstr ""
+msgstr "Itsatsi berezia"
 
 #: ../src/bfwin_uimanager.c:982
 msgid "_Find"
@@ -882,7 +870,6 @@ msgid "Find from clipboard or selection"
 msgstr "Bilatu arbel edo hautapenetik"
 
 #: ../src/bfwin_uimanager.c:986
-#, fuzzy
 msgid "Ad_vanced Find & Replace..."
 msgstr "Bilatu eta _ordeztu aurreratua..."
 
@@ -951,7 +938,6 @@ msgid "Open _URL..."
 msgstr "Ireki _URLa..."
 
 #: ../src/bfwin_uimanager.c:1157
-#, fuzzy
 msgid "Upload _/ Download..."
 msgstr "I_go / Deskargatu..."
 
@@ -973,7 +959,7 @@ msgstr "Hautatutako testua soilik"
 
 #: ../src/bfwin_uimanager.c:1575
 msgid "Never ask again"
-msgstr ""
+msgstr "Ez galdetu berriro"
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -1080,9 +1066,8 @@ msgid "_Description:"
 msgstr "_Azalpena:"
 
 #: ../src/bookmark.c:586
-#, fuzzy
 msgid "_Temporary"
-msgstr "Aldi baterako"
+msgstr "Aldi _baterako"
 
 #: ../src/bookmark.c:603
 msgid "Temporary"
@@ -1329,17 +1314,16 @@ msgid "Unknown"
 msgstr "Ezezaguna"
 
 #: ../src/document.c:1654
-#, fuzzy
 msgid "_No"
-msgstr "_Joan"
+msgstr "_Ez"
 
 #: ../src/document.c:1654
 msgid "_Split"
-msgstr ""
+msgstr "_Zatitu"
 
 #: ../src/document.c:1657
 msgid "File contains very long lines. Split these lines?"
-msgstr ""
+msgstr "Fitxategiak lerro oso luzeak ditu. Zatitu lerro horiek?"
 
 #: ../src/document.c:1657
 msgid ""
@@ -1348,6 +1332,12 @@ msgid ""
 "syntax, and may replace spaces or tabs with newlines in any location, or "
 "insert newlines if no spaces or tabs are found."
 msgstr ""
+"Fitxategi honetako lerroak bluefish-ek errendimendu egokiarekin kudea "
+"ditzakeen baino luzeagoak dira. Zatitzeko funtzio \n"
+"honek, hala ere ez dio hizkuntzen sintaxiari kasurik egiten, eta zuriune edo "
+"tabulazioak lerro berriekin ordeztu \n"
+"ditzake edozein lekutan, edo lerro berriak txerta ditzake zuriune edo "
+"tabulaziorik ez bada aurkitzen."
 
 #: ../src/document.c:1733
 msgid "Cannot display file, unknown characters found."
@@ -1448,25 +1438,24 @@ msgid "No file to insert"
 msgstr "Ez dago fitxategirik txertatzeko"
 
 #: ../src/document.c:3188
-#, fuzzy
 msgid "Save pasted image as"
-msgstr "Gorde fitxategia honela"
+msgstr "Gorde itsatsitako irudia honela"
 
 #: ../src/document.c:3295
 msgid "Paste special"
-msgstr ""
+msgstr "Itsatsi berezia"
 
 #: ../src/document.c:3302
 msgid "Paste as _HTML"
-msgstr ""
+msgstr "Itsatsi _HTML gisa"
 
 #: ../src/document.c:3306
 msgid "Paste as HTML with _JPG"
-msgstr ""
+msgstr "Itsatsi HTML _JPEG-rekin bezala"
 
 #: ../src/document.c:3308
 msgid "Paste as HTML _PNG"
-msgstr ""
+msgstr "Itsatsi HTML _PNG-rekin bezala"
 
 #: ../src/document.c:3388
 #, c-format
@@ -1518,14 +1507,12 @@ msgid "Fill empty entries:"
 msgstr "Bete sarrera hutsak:"
 
 #: ../src/doc_extern_tools.c:63
-#, fuzzy
 msgid "Number of _paragraphs:"
-msgstr "Paragrafo kopurua"
+msgstr "_Paragrafo kopurua:"
 
 #: ../src/doc_extern_tools.c:68
-#, fuzzy
 msgid "Number of _sentences:"
-msgstr "Sententzia kopurua"
+msgstr "_Sententzia kopurua:"
 
 #: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert plain text"
@@ -1549,38 +1536,35 @@ msgstr "Sententzia kopurua"
 
 #: ../src/doc_extern_tools.c:134
 msgid "Javascript Beautify"
-msgstr ""
+msgstr "Javascript dotoretzailea"
 
 #: ../src/doc_extern_tools.c:148
-#, fuzzy
 msgid "_Indent size:"
-msgstr "Lerratu eskuinera"
+msgstr "_Koskaren tamaina:"
 
 #: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
 msgid "Use _tabs to indent, not spaces"
-msgstr ""
+msgstr "Erabili _tabulazioak koskatzeko, ez zuriuneak"
 
 #: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
 msgid "Do not _preserve existing line breaks"
-msgstr ""
+msgstr "E_z mantendu existitzen diren lerro-jauziak"
 
 #: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
 msgid "More _jslint-compatible output"
-msgstr ""
+msgstr "_Jslint-ekin bateragarria den irteera gehiago"
 
 #: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
 msgid "_Decode printable chars encoded in \\\\xNN notation"
-msgstr ""
+msgstr "_Deskodetu \\\\xNN notazioan kodetutako karaktere inprimagarriak"
 
 #: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
-#, fuzzy
 msgid "Beautify only in _selection"
-msgstr "_Tabuladorea teklak hautapena koskatzen du"
+msgstr "Dotoretu hautapenean _soilik"
 
 #: ../src/doc_extern_tools.c:179
-#, fuzzy
 msgid "_Indent size"
-msgstr "Lerratu eskuinera"
+msgstr "_Koskaren tamaina"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1605,15 +1589,15 @@ msgstr "Gehitu edo kendu dokumentuen kodeketak"
 #: ../src/external_commands.c:167
 #, c-format
 msgid "The command %s exited with error code %d. %s"
-msgstr ""
+msgstr "%s komandoa %d errore-kodearekin amaitu da. %s"
 
 #: ../src/external_commands.c:167
 msgid "Probably this application is not installed on your system."
-msgstr ""
+msgstr "Baliteke aplikazio hau sisteman instalatu gabe egotea."
 
 #: ../src/external_commands.c:169
 msgid "Command returned error code"
-msgstr ""
+msgstr "Komandoak errore-kodea itzuli du"
 
 #: ../src/external_commands.c:419
 msgid "Supply extra arguments"
@@ -1627,11 +1611,11 @@ msgstr "Eman argumentuak %%a definitzeko '%s'(e)n"
 #: ../src/external_commands.c:673
 #, c-format
 msgid "Failed to create a command for %s."
-msgstr ""
+msgstr "Huts egin du %s(r)en komandoa sortzean."
 
 #: ../src/external_commands.c:675
 msgid "Failed to create a command"
-msgstr ""
+msgstr "Huts egin du komandoa sortzean"
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -2002,9 +1986,8 @@ msgid "Save in progress!"
 msgstr "Gordetzen ari da"
 
 #: ../src/file_dialogs.c:785
-#, fuzzy
 msgid "Save"
-msgstr "_Gorde"
+msgstr "Gorde"
 
 #: ../src/file_dialogs.c:787
 #, c-format
@@ -2012,9 +1995,9 @@ msgid "Save %s as"
 msgstr "Gorde %s honela..."
 
 #: ../src/file_dialogs.c:791
-#, fuzzy, c-format
+#, c-format
 msgid "Save copy of %s"
-msgstr "Gorde proiektua honela"
+msgstr "Gorde %s(r)en kopia"
 
 #: ../src/file_dialogs.c:973
 msgid "Close _Without Saving"
@@ -2090,7 +2073,7 @@ msgstr "Sartu ezkutuko fitxategiak"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1436
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -2101,10 +2084,10 @@ msgid ""
 msgstr ""
 "Fitxategi-izena: %s diskoan aldatuta\n"
 "\n"
-"Aldatze-ordu zaharra: %s\n"
+"Jatorriko aldatze-ordua: %s\n"
 "Aldatze-ordu berria: %s\n"
-"Tamaina zaharra: %lu\n"
-"Tamaina berria: %lu"
+"Jatorriko tamaina: %s byte\n"
+"Tamaina berria: %s byte"
 
 #: ../src/file_dialogs.c:1459
 msgid "_Unset file name"
@@ -2269,9 +2252,8 @@ msgid "Enable syntax scanning"
 msgstr "Gaitu sintaxia eskaneatzea"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Show _visible spacing"
-msgstr "Erakutsi tarte ikusgaia"
+msgstr "Erakutsi tarte _ikusgaia"
 
 #: ../src/preferences.c:553
 msgid "_Enable spell check"
@@ -2610,11 +2592,11 @@ msgstr "Soberako zuriune mota denak"
 
 #: ../src/preferences.c:2096
 msgid "Always"
-msgstr ""
+msgstr "Beti"
 
 #: ../src/preferences.c:2096
 msgid "Smart"
-msgstr ""
+msgstr "Azkarra"
 
 #: ../src/preferences.c:2107
 msgid "Edit preferences"
@@ -2800,7 +2782,6 @@ msgid "<b>Misc</b>"
 msgstr "<b>Hainbat</b>"
 
 #: ../src/preferences.c:2352
-#, fuzzy
 msgid "Strip trailing spaces on save"
 msgstr "Kendu lerro amaierako zuriuneak"
 
@@ -3137,7 +3118,7 @@ msgstr "php kode-aztertzailea (codesniffer)"
 
 #: ../src/rcfile.c:724
 msgid "pylint"
-msgstr ""
+msgstr "pylint"
 
 #: ../src/rcfile.c:737
 msgid "Sort"
@@ -3160,9 +3141,8 @@ msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
 #: ../src/rcfile.c:750
-#, fuzzy
 msgid "Tidy convert to XHTML"
-msgstr "Tidy HTML"
+msgstr "Bihurtzaile txikia XHTMLra"
 
 #: ../src/rcfile.c:753
 msgid "Tidy HTML (perltidy)"
@@ -3178,19 +3158,19 @@ msgstr "Errendatu HTML testura"
 
 #: ../src/rcfile.c:762
 msgid "PHP Beautifier"
-msgstr ""
+msgstr "PHP dotoretzailea"
 
 #: ../src/rcfile.c:766 ../src/rcfile.c:773
 msgid "Javascript Minify with jsmin"
-msgstr ""
+msgstr "Javascript uzkurtzailea jsmin-ekin"
 
 #: ../src/rcfile.c:769 ../src/rcfile.c:776
 msgid "CSS Minify with cssmin"
-msgstr ""
+msgstr "CSS uzkurtzailea cssmin-ekin"
 
 #: ../src/rcfile.c:780
 msgid "CSS tidy"
-msgstr ""
+msgstr "CSS txikia"
 
 #: ../src/rcfile.c:792
 msgid "Windows XP Firefox"
@@ -3278,11 +3258,11 @@ msgstr "PHP"
 
 #: ../src/rcfile.c:920
 msgid "LaTex Book"
-msgstr ""
+msgstr "LaTex liburua"
 
 #: ../src/rcfile.c:923
 msgid "LaTex Presentation"
-msgstr ""
+msgstr "LaTex aurkezpena"
 
 #: ../src/rcfile.c:1171
 msgid "Untitled Project"
@@ -3490,9 +3470,6 @@ msgstr "Desegin aldaketa hau dokumentu guztietan?"
 #: ../src/undo_redo.c:560 ../src/undo_redo.c:702
 msgid "This change concerns multiple documents."
 msgstr "Aldaketa hau hainbat dokumentutan aplikatu da."
-
-#~ msgid "Fo_rmat"
-#~ msgstr "_Formatua"
 
 #~ msgid "Goto _Line"
 #~ msgstr "Joan _lerrora"
