@@ -66,10 +66,11 @@ void
 bfwin_fullscreen_toggle(Tbfwin * bfwin, gboolean active)
 {
 	if (active) {
-		gtk_window_fullscreen(GTK_WINDOW(bfwin->main_window));		
+		gtk_window_fullscreen(GTK_WINDOW(bfwin->main_window));
 	} else {
 		gtk_window_unfullscreen(GTK_WINDOW(bfwin->main_window));
 	}
+	sync_fullscreen_toggle(bfwin, active);
 }
 
 static void
@@ -382,7 +383,7 @@ bfwin_apply_session(Tbfwin * bfwin)
 
 	fb2_update_settings_from_session(bfwin);
 	bfwin_recent_menu_create(bfwin, TRUE);
-	
+
 	if (bfwin->simplesearch_combo) {
 		combobox_empty(bfwin->simplesearch_combo);
 		combobox_fill(bfwin->simplesearch_combo, NULL, bfwin->session->searchlist);
@@ -457,7 +458,7 @@ bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 {
 	GList *tmplist;
 	DEBUG_MSG("bfwin_destroy_and_cleanup, started for %p\n", bfwin);
-	
+
 		/* all documents have to be freed for this window */
 	tmplist = g_list_first(bfwin->documentlist);
 	DEBUG_MSG("bfwin_cleanup, have %d documents in window %p\n", g_list_length(bfwin->documentlist),
@@ -475,7 +476,7 @@ bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 	if (bfwin->update_searchhistory_idle_id != 0) {
 		g_source_remove(bfwin->update_searchhistory_idle_id);
 	}
-	
+
 	gtk_widget_destroy(bfwin->main_window);
 	DEBUG_MSG("bfwin_destroy_and_cleanup, main_window destroyed for bfwin %p\n", bfwin);
 
@@ -498,7 +499,7 @@ bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 	if (bfwin->notebook_changed_doc_activate_id != 0) {
 		g_source_remove(bfwin->notebook_changed_doc_activate_id);
 	}
-	
+
 	DEBUG_MSG("bfwin_cleanup, unref static actiongroups\n");
 	g_object_unref(G_OBJECT(bfwin->uimanager));
 	/*g_object_unref(G_OBJECT(bfwin->globalGroup));
@@ -509,7 +510,7 @@ bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 	g_object_unref(G_OBJECT(bfwin->undoGroup));
 	g_object_unref(G_OBJECT(bfwin->bookmarkGroup));
 	g_object_unref(G_OBJECT(bfwin->filebrowserGroup)); invalid unref according to valgrind */
-	
+
 	DEBUG_MSG("unref dynamic templates actiongroups\n");
 	g_object_unref(G_OBJECT(bfwin->templates_group));
 	DEBUG_MSG("unref dynamic lang_mode actiongroups\n");
@@ -541,7 +542,7 @@ bfwin_delete_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin)
 	/*
 	   If you return FALSE in the "delete_event" signal handler GTK will emit the "destroy" signal.
 	   Returning TRUE means you handled the event, and it should not be further propagated
-	   
+
 	   we always handle it, so we always return TRUE
 	 */
 	DEBUG_MSG("bfwin_delete_event, started for bfwin %p\n", bfwin);
@@ -549,7 +550,7 @@ bfwin_delete_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin)
 		bfwin_destroy_and_cleanup(bfwin);
 		return TRUE;
 	}
-	
+
 	if (have_modified_documents(bfwin->documentlist)) {
 		Tclose_mode retval = multiple_files_modified_dialog(bfwin);
 
@@ -808,7 +809,7 @@ simplesearch_start(Tbfwin *bfwin, gboolean allow_single_char_search) {
 		}
 		retval = TRUE;
 	}
-	return retval;	
+	return retval;
 }
 
 static void
@@ -936,7 +937,7 @@ gotoline_frame_create(Tbfwin * bfwin)
 	button = (GtkWidget *)gtk_tool_button_new(NULL,_("Advanced"));
 	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(simplesearch_advanced_clicked),bfwin);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
-	
+
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->gotoline_frame, FALSE, FALSE, 2);
 	gtk_widget_show_all(hbox);
 }
@@ -1282,7 +1283,7 @@ bfwin_key_press_event(GtkWidget *widget,GdkEventKey  *kevent,gpointer   user_dat
 		DEBUG_MSG("bfwin_key_press_event, control tab pressed\n");
 		/* switch to the next recent document, without activating it */
 		i = gtk_notebook_get_current_page(GTK_NOTEBOOK(BFWIN(user_data)->notebook));
-		/* we cannot use the bfwin->current_document because if we tab multiple documents 
+		/* we cannot use the bfwin->current_document because if we tab multiple documents
 		with control-tab the current notebook page and the current document might be out
 		of sync */
 		doc = g_list_nth_data(BFWIN(user_data)->documentlist, i);
@@ -1447,7 +1448,7 @@ bfwin_create_main(Tbfwin * bfwin)
 #else
 		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_lncol), FALSE);
 		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_insovr), FALSE);
-		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar), FALSE);				
+		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar), FALSE);
 #endif /* gtk3 */
 		if (bfwin->session->view_statusbar)
 			gtk_widget_show_all(hbox);
@@ -1529,7 +1530,7 @@ bfwin_show_main(Tbfwin * bfwin)
 
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/HelpMenu/HelpAbout");
 	gtk_osxapplication_insert_app_menu_item(theApp, menuitem,5);
-	
+
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/FileMenu/FileQuit");
 	gtk_widget_hide(menuitem);
 
