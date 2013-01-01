@@ -748,6 +748,9 @@ sync_fullscreen_toggle(Tbfwin *bfwin, gboolean is_fullscreen)
 	/* TODO: This only works when "use-action-appearance" is TRUE. TRUE is default */
 	gtk_action_set_stock_id(action, (is_fullscreen ? GTK_STOCK_LEAVE_FULLSCREEN : GTK_STOCK_FULLSCREEN));
 	gtk_action_set_tooltip(action, (is_fullscreen ? _("Leave Fullscreen") : _("Fullscreen")));
+	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)) != is_fullscreen) {
+		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), is_fullscreen);
+	}
 }
 
 static void
