@@ -382,7 +382,7 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 	g_signal_connect(dialog->priv->heightPercent, "toggled",
 					 G_CALLBACK(image_dialog_height_percent_toggled), dialog);
 
-	dialog->priv->keepAspect = gtk_check_button_new_with_label("Keep aspect ratio");
+	dialog->priv->keepAspect = gtk_check_button_new_with_label(_("Keep aspect ratio"));
 	gtk_table_attach(GTK_TABLE(table), dialog->priv->keepAspect, 3, 4, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
 
 	dialog->priv->resetSizeButton = dialog_button_new_with_image_in_table(_("_Reset Dimensions"),
