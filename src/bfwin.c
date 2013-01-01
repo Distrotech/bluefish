@@ -70,7 +70,6 @@ bfwin_fullscreen_toggle(Tbfwin * bfwin, gboolean active)
 	} else {
 		gtk_window_unfullscreen(GTK_WINDOW(bfwin->main_window));
 	}
-	sync_fullscreen_toggle(bfwin, active);
 }
 
 static void
@@ -441,10 +440,13 @@ bfwin_configure_event(GtkWidget * widget, GdkEvent * revent, Tbfwin * bfwin)
 				DEBUG_MSG("bfwin_configure_event, NOT-maximized, setting width=%d\n",
 						  main_v->globses.main_window_w);
 			}
-			if (main_v->props.hide_bars_on_fullscreen && (event->changed_mask & GDK_WINDOW_STATE_FULLSCREEN)) {
+			if (event->changed_mask & GDK_WINDOW_STATE_FULLSCREEN) {
 				gboolean fullscreen = (event->new_window_state & GDK_WINDOW_STATE_FULLSCREEN);
-				widget_set_visible(bfwin->toolbarbox, !fullscreen);
-				widget_set_visible(gtk_widget_get_parent(bfwin->statusbar), !fullscreen);
+				if (main_v->props.hide_bars_on_fullscreen) {
+					widget_set_visible(bfwin->toolbarbox, !fullscreen);
+					widget_set_visible(gtk_widget_get_parent(bfwin->statusbar), !fullscreen);
+				}
+				sync_fullscreen_toggle(bfwin, fullscreen);
 			}
 		}
 	}
