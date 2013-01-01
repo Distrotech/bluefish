@@ -607,7 +607,6 @@ create_plugin_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->pd.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 200);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 
 	{
@@ -810,7 +809,7 @@ create_textstyle_gui(Tprefdialog * pd, GtkWidget * vbox1)
 						 ("<small>Text styles are applied on top of each other. If multiple styles are applied to the same text, the top-most style in this list has the highest priority. Use drag and drop to re-order the text styles.</small>"));
 	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), label, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1), label, FALSE, TRUE, 2);
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 2);
@@ -827,7 +826,6 @@ create_textstyle_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->tsd.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 300);
 	gtk_box_pack_start(GTK_BOX(hbox), scrolwin, TRUE, TRUE, 2);
 
 	vbox = gtk_vbox_new(FALSE, 0);
@@ -1044,7 +1042,6 @@ create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->bd.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 300);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 
 	reload_extcommands(pd, pd->lists[extcommands]);
@@ -1200,7 +1197,6 @@ create_filters_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ed.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 300);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	reload_extfilters(pd, pd->lists[extfilters]);
 	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->ed.lview), TRUE);
@@ -1393,7 +1389,6 @@ create_outputbox_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->od.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 300);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	reload_extoutputbox(pd, pd->lists[extoutputbox]);
 	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->od.lview), TRUE);
@@ -2302,10 +2297,8 @@ preferences_dialog_new(void)
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Text styles"), WIDGETCOL, frame, -1);
 	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Text Styles</b>"), vbox1);
-	create_textstyle_gui(pd, vbox2);
-
+	dialog_label_new(_("<b>Text Styles</b>"), 0, 0, vbox1, 4);
+	create_textstyle_gui(pd, vbox1);
 
 	/*
 	 *  Files
@@ -2656,9 +2649,8 @@ preferences_dialog_new(void)
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("External commands"), WIDGETCOL, frame, -1);
 	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
-
-	vbox2 = dialog_vbox_labeled(_("<b>External Commands</b>"), vbox1);
-	create_extcommands_gui(pd, vbox2);
+	dialog_label_new(_("<b>External Commands</b>"), 0, 0, vbox1, 4);
+	create_extcommands_gui(pd, vbox1);
 
 	/*
 	 * External Filters
@@ -2673,8 +2665,8 @@ preferences_dialog_new(void)
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("External filters"), WIDGETCOL, frame, -1);
 	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
-	vbox2 = dialog_vbox_labeled(_("<b>External Filters</b>"), vbox1);
-	create_filters_gui(pd, vbox2);
+	dialog_label_new(_("<b>External Filters</b>"), 0, 0, vbox1, 4);
+	create_filters_gui(pd, vbox1);
 
 	/*
 	 *  Output Parsers
@@ -2688,9 +2680,8 @@ preferences_dialog_new(void)
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Output parsers"), WIDGETCOL, frame, -1);
 	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Output Parsers</b>"), vbox1);
-	create_outputbox_gui(pd, vbox2);
+	dialog_label_new(_("<b>Output Parsers</b>"), 0, 0, vbox1, 4);
+	create_outputbox_gui(pd, vbox1);
 
 	/*
 	 *  Plugins
@@ -2704,9 +2695,8 @@ preferences_dialog_new(void)
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Plugins"), WIDGETCOL, frame, -1);
 	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Plugins</b>"), vbox1);
-	create_plugin_gui(pd, vbox2);
+	dialog_label_new(_("<b>Plugins</b>"), 0, 0, vbox1, 4);
+	create_plugin_gui(pd, vbox1);
 
 	/* plugin children */
 
