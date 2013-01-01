@@ -1,30 +1,31 @@
 # Czech translations for bluefish-unstable package.
 # Copyright (C) 2009 The Bluefish Development Team.
 # This file is distributed under the same license as the bluefish-unstable package.
-# Marek Černocký <marek@manet.cz>, 2009, 2010, 2011.
+#
+# Marek Černocký <marek@manet.cz>, 2009, 2010, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-11-09 08:19+0100\n"
-"PO-Revision-Date: 2011-12-13 17:30+0100\n"
+"POT-Creation-Date: 2012-12-13 14:05+0100\n"
+"PO-Revision-Date: 2012-12-19 11:11+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Gtranslator 2.91.5\n"
 
 #: src/plugin_htmlbar/html2.c:634
 msgid "Cascading Style Sheet Builder"
 msgstr "Tvůrce kaskádového stylopisu"
 
 #: src/plugin_htmlbar/html2.c:654
-#, fuzzy
 msgid "_Selector(s):"
-msgstr "_Selektor:"
+msgstr "_Selektor(y):"
 
 #: src/plugin_htmlbar/html2.c:680
 msgid "_Property:"
@@ -36,9 +37,8 @@ msgid "_Value:"
 msgstr "_Hodnota:"
 
 #: src/plugin_htmlbar/html2.c:704
-#, fuzzy
 msgid "Selector(s)"
-msgstr "Selektor"
+msgstr "Selektor(y)"
 
 #: src/plugin_htmlbar/html2.c:708
 msgid "Property"
@@ -78,11 +78,11 @@ msgstr "Upravit značku"
 
 #: src/plugin_htmlbar/htmlbar.c:98
 msgid "Htmlbar"
-msgstr ""
+msgstr "Lišta HTML"
 
 #: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
-msgstr ""
+msgstr "Funkce HTML"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:960
 msgid "T_ags"
@@ -142,7 +142,7 @@ msgstr "Vložit značku H6"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:974
 msgid "_Entities"
-msgstr ""
+msgstr "_Entity"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:975
 msgid "_Non-breaking space"
@@ -411,7 +411,7 @@ msgstr "_Tabulka"
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1034
 #: src/plugin_htmlbar/html_table.c:101
 msgid "Table"
-msgstr "Tabulka <table>"
+msgstr "Tabulka"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1036
 msgid "Table _Row"
@@ -420,7 +420,7 @@ msgstr "Řáde_k tabulky"
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1036
 #: src/plugin_htmlbar/html_table.c:242
 msgid "Table Row"
-msgstr "Řádek tabulky <tr>"
+msgstr "Řádek tabulky"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1038
 msgid "Table _Header"
@@ -429,7 +429,7 @@ msgstr "Zá_hlaví tabulky"
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1038
 #: src/plugin_htmlbar/html_table.c:363
 msgid "Table Header"
-msgstr "Záhlaví tabulky <th>"
+msgstr "Záhlaví tabulky"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1040
 msgid "Table _Data"
@@ -438,7 +438,7 @@ msgstr "_Data tabulky"
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1040
 #: src/plugin_htmlbar/html_table.c:361
 msgid "Table Data"
-msgstr "Data tabulky <td>"
+msgstr "Data tabulky"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1042
 msgid "Table _Caption"
@@ -509,68 +509,63 @@ msgstr "F_ormulář"
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1059
 #: src/plugin_htmlbar/html_form.c:156
 msgid "Form"
-msgstr "Formulář (form)"
+msgstr "Formulář"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1060
 msgid "_Fieldset"
-msgstr ""
+msgstr "S_kupina polí"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1061
 msgid "_Legend"
-msgstr ""
+msgstr "_Legenda"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1062
-#, fuzzy
 msgid "L_abel"
-msgstr "Popisek (_label):"
+msgstr "_Popisek"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1063
 msgid "_Input"
-msgstr "_Vstup"
+msgstr "Vst_up"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1064
 msgid "_Button"
 msgstr "_Tlačítko"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1065
-#, fuzzy
 msgid "_Select"
-msgstr "Výběr <select>"
+msgstr "Výběrový _seznam"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1066
-#, fuzzy
 msgid "_Datalist"
-msgstr "_Kurzívou"
+msgstr "_Našeptávač"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1067
-#, fuzzy
 msgid "Opt_group"
-msgstr "Skupina voleb <optgroup>"
+msgstr "Sk_upina voleb"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1068
-#, fuzzy
 msgid "Optio_n"
-msgstr "Volba <option>"
+msgstr "V_olba"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1069
 msgid "_Textarea"
-msgstr "Textová _oblast"
+msgstr "Te_xtová oblast"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1070
 msgid "_Keygen"
-msgstr ""
+msgstr "Generování _klíčů"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1071
 msgid "O_utput"
-msgstr ""
+msgstr "Výst_up"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1072
 msgid "_Progress"
-msgstr ""
+msgstr "Ukazatel _průběhu"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1073
 msgid "_Meter"
-msgstr ""
+msgstr "Ukazatel _hodnoty"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1074
 msgid "_Misc"
@@ -645,14 +640,12 @@ msgid "Body..."
 msgstr "Tělo…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1093
-#, fuzzy
 msgid "_Script..."
-msgstr "Skript <script>"
+msgstr "_Skript…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1093
-#, fuzzy
 msgid "Script..."
-msgstr "Skript <script>"
+msgstr "Skript…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1095
 msgid "_Anchor..."
@@ -803,9 +796,8 @@ msgid "Div..."
 msgstr "Blok…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1134
-#, fuzzy
 msgid "_Style"
-msgstr "_Styl:"
+msgstr "_Styl"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1134
 #: src/plugin_htmlbar/html_form.c:565
@@ -813,14 +805,12 @@ msgid "Style"
 msgstr "Styl"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "C_olumns..."
-msgstr "_Písmo…"
+msgstr "Sl_oupce…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1136
-#, fuzzy
 msgid "Columns..."
-msgstr "Plátno…"
+msgstr "Sloupce…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1138
 msgid "_Link to Stylesheet..."
@@ -940,15 +930,15 @@ msgstr "Více miniatur…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1168 src/plugin_htmlbar/html.c:1792
 msgid "Frame"
-msgstr "Rám <frame>"
+msgstr "Rám"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1169 src/plugin_htmlbar/html.c:1703
 msgid "Frameset"
-msgstr "Sada rámů <frameset>"
+msgstr "Sada rámů"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1171
 msgid "Noframes"
-msgstr "Bez rámů <noframes>"
+msgstr "Bez rámů"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1173
 msgid "Target"
@@ -1116,82 +1106,70 @@ msgid "Time..."
 msgstr "Čas…"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert _Color"
-msgstr "Barva _textu:"
+msgstr "Vložit _barvu"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert Color"
-msgstr "Vloženo"
+msgstr "Vložit barvu"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "_HTML Toolbar"
 msgstr "Panel nástrojů _HTML"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1339
-#, fuzzy
 msgid "Add to Quickbar"
-msgstr "Rychlý start"
+msgstr "Přidat mezi nejčastější"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1339
-#, fuzzy
 msgid "Remove from Quickbar"
-msgstr "Rychlý start"
+msgstr "Odebrat z nejčastějších"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1377
 msgid "Right click any html toolbar button to add it to the Quickbar."
 msgstr ""
+"Klikněte pravým tlačítkem na libovolné tlačítko lišty nástrojů a přidejte si "
+"jej mezi nejčastější."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1451
-#, fuzzy
 msgid "Quickbar"
-msgstr "Rychlý start"
+msgstr "Nejčastější"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1454
-#, fuzzy
 msgid "Standard"
-msgstr " Standardní"
+msgstr "Standardní"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1457
-#, fuzzy
 msgid "HTML 5"
-msgstr " HTML 5 "
+msgstr "HTML 5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1460
-#, fuzzy
 msgid "Formatting"
 msgstr "Formátování"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1463
-#, fuzzy
 msgid "Tables"
-msgstr "Tabulka <table>"
+msgstr "Tabulky"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1466
-#, fuzzy
 msgid "List"
-msgstr "S_eznam"
+msgstr "Seznamy"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1469
-#, fuzzy
 msgid "CSS"
-msgstr "_CSS"
+msgstr "CSS"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1472
-#, fuzzy
 msgid "Forms"
-msgstr "Formulář (form)"
+msgstr "Formuláře"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1475
-#, fuzzy
 msgid "Fonts"
-msgstr "Písmo"
+msgstr "Písma"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1478
-#, fuzzy
 msgid "Frames"
-msgstr "Parametry jednotlivých rámů"
+msgstr "Rámy"
 
 #: src/plugin_htmlbar/html.c:403
 msgid "Insert Time"
@@ -1263,11 +1241,11 @@ msgstr "Atributy"
 
 #: src/plugin_htmlbar/html.c:685 src/plugin_htmlbar/html.c:2699
 msgid "_HREF:"
-msgstr "Odkaz (_href):"
+msgstr "O_dkaz:"
 
 #: src/plugin_htmlbar/html.c:691 src/plugin_htmlbar/html_form.c:200
 msgid "_Target:"
-msgstr "_Cíl (target):"
+msgstr "_Cíl:"
 
 #: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/html.c:935
 #: src/plugin_htmlbar/html.c:1326 src/plugin_htmlbar/html.c:1804
@@ -1275,16 +1253,16 @@ msgstr "_Cíl (target):"
 #: src/plugin_htmlbar/html_form.c:538 src/plugin_htmlbar/html_form.c:633
 #: src/plugin_htmlbar/image.c:532
 msgid "_Name:"
-msgstr "_Název (name):"
+msgstr "_Název:"
 
 #: src/plugin_htmlbar/html.c:698 src/plugin_htmlbar/quickstart.c:558
 msgid "Titl_e:"
-msgstr "Titulek (titl_e):"
+msgstr "Titulek:"
 
 #: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:1200
 #: src/plugin_htmlbar/html.c:1343 src/plugin_htmlbar/html.c:2347
 msgid "_Language:"
-msgstr "_Jazyk (language):"
+msgstr "_Jazyk:"
 
 #: src/plugin_htmlbar/html.c:706 src/plugin_htmlbar/html.c:941
 #: src/plugin_htmlbar/html.c:1107 src/plugin_htmlbar/html.c:1203
@@ -1307,51 +1285,51 @@ msgstr "Události"
 
 #: src/plugin_htmlbar/html.c:711
 msgid "OnClic_k:"
-msgstr "Při kliknutí (onClic_k):"
+msgstr "Při kliknutí:"
 
 #: src/plugin_htmlbar/html.c:714
 msgid "OnD_blClick:"
-msgstr "Při dvojkliknutí (onD_blClick):"
+msgstr "Při dvojkliknutí:"
 
 #: src/plugin_htmlbar/html.c:717
 msgid "OnMouseO_ver:"
-msgstr "Při přejetí myší (onMouseO_ver):"
+msgstr "Při najetí myší:"
 
 #: src/plugin_htmlbar/html.c:720
 msgid "OnMouse_Down:"
-msgstr "Při stisku myši (onMouse_Down):"
+msgstr "Při stlačení myši:"
 
 #: src/plugin_htmlbar/html.c:723
 msgid "OnMouse_Move:"
-msgstr "Při posunu myši (onMouse_Move):"
+msgstr "Při pohybu myši:"
 
 #: src/plugin_htmlbar/html.c:726
 msgid "OnMouseOu_t:"
-msgstr "Při vyjetí myši (onMouseOu_t):"
+msgstr "Při vyjetí myši:"
 
 #: src/plugin_htmlbar/html.c:729
 msgid "OnMouse_Up:"
-msgstr "Při uvolnění myši (onMouse_Up):"
+msgstr "Při uvolnění myši:"
 
 #: src/plugin_htmlbar/html.c:732
 msgid "OnKeyDo_wn:"
-msgstr "Při stisku klávesy (onKeyDo_wn):"
+msgstr "Při stlačení klávesy:"
 
 #: src/plugin_htmlbar/html.c:735
 msgid "OnKey_Press:"
-msgstr "Při zmáčknutí klávesy (onKey_Press):"
+msgstr "Při úderu klávesy:"
 
 #: src/plugin_htmlbar/html.c:738
 msgid "OnKe_yUp:"
-msgstr "Při uvolnění klávesy (onKe_yUp):"
+msgstr "Při uvolnění klávesy:"
 
 #: src/plugin_htmlbar/html.c:883
 msgid "Div"
-msgstr "Blok <div>"
+msgstr "Blok"
 
 #: src/plugin_htmlbar/html.c:886
 msgid "Span"
-msgstr "Segment <span>"
+msgstr "Segment"
 
 #: src/plugin_htmlbar/html.c:889
 msgid "Heading 1"
@@ -1379,7 +1357,7 @@ msgstr "Nadpis 6"
 
 #: src/plugin_htmlbar/html.c:921
 msgid "Ali_gn:"
-msgstr "Zarovnání (ali_gn):"
+msgstr "Za_rovnání:"
 
 #: src/plugin_htmlbar/html.c:925 src/plugin_htmlbar/html.c:1194
 #: src/plugin_htmlbar/html.c:1933 src/plugin_htmlbar/html.c:1992
@@ -1388,40 +1366,40 @@ msgstr "Zarovnání (ali_gn):"
 #: src/plugin_htmlbar/html_table.c:268 src/plugin_htmlbar/html_table.c:392
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Cl_ass:"
-msgstr "Tříd_a (class):"
+msgstr "Tříd_a:"
 
 #: src/plugin_htmlbar/html.c:929 src/plugin_htmlbar/html.c:1187
 #: src/plugin_htmlbar/html_diag.c:484 src/plugin_htmlbar/html_table.c:131
 #: src/plugin_htmlbar/html_table.c:278 src/plugin_htmlbar/html_table.c:414
 msgid "St_yle:"
-msgstr "St_yl (style):"
+msgstr "St_yl:"
 
 #: src/plugin_htmlbar/html.c:938 src/plugin_htmlbar/html.c:1197
 #: src/plugin_htmlbar/html_diag.c:478
 msgid "_ID:"
-msgstr "_Identifikátor (id):"
+msgstr "_Identifikátor:"
 
 #: src/plugin_htmlbar/html.c:1070
 msgid "Horizontal Rule"
-msgstr "Vodorovná linka <hr>"
+msgstr "Vodorovná linka"
 
 #: src/plugin_htmlbar/html.c:1081 src/plugin_htmlbar/image.c:555
 #: src/plugin_htmlbar/image_dialog.c:451
 msgid "_Align:"
-msgstr "Z_arovnání (align):"
+msgstr "Z_arovnání:"
 
 #: src/plugin_htmlbar/html.c:1088 src/plugin_htmlbar/html.c:2006
 #: src/plugin_htmlbar/html.c:2110 src/plugin_htmlbar/html.c:2267
 #: src/plugin_htmlbar/image_dialog.c:376
 msgid "_Height:"
-msgstr "_Výška (height):"
+msgstr "_Výška:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:1094 src/plugin_htmlbar/html.c:2001
 #: src/plugin_htmlbar/html.c:2105 src/plugin_htmlbar/html.c:2263
 #: src/plugin_htmlbar/image.c:517 src/plugin_htmlbar/image_dialog.c:365
 msgid "_Width:"
-msgstr "Šíř_ka (width):"
+msgstr "Šíř_ka:"
 
 #: src/plugin_htmlbar/html.c:1097
 msgid "Is _percent"
@@ -1433,7 +1411,7 @@ msgstr "Bez _stínování"
 
 #: src/plugin_htmlbar/html.c:1172
 msgid "Body"
-msgstr "Tělo (body)"
+msgstr "Tělo"
 
 #: src/plugin_htmlbar/html.c:1180
 msgid "Options"
@@ -1441,11 +1419,11 @@ msgstr "Volby"
 
 #: src/plugin_htmlbar/html.c:1213
 msgid "On _Load:"
-msgstr "Při načtení (on_Load):"
+msgstr "Při načtení:"
 
 #: src/plugin_htmlbar/html.c:1217
 msgid "On _Unload:"
-msgstr "Při ukončení (on_UnLoad):"
+msgstr "Při ukončení:"
 
 #: src/plugin_htmlbar/html.c:1223
 msgid "Depreciated options"
@@ -1477,7 +1455,7 @@ msgstr "Barva _aktivního odkazu:"
 
 #: src/plugin_htmlbar/html.c:1318
 msgid "Meta"
-msgstr "Metainformace (meta)"
+msgstr "Metainformace"
 
 #: src/plugin_htmlbar/html.c:1335
 msgid "_HTTP-EQUIV:"
@@ -1485,11 +1463,11 @@ msgstr "_HTTP-EQUIV:"
 
 #: src/plugin_htmlbar/html.c:1340
 msgid "Con_tent:"
-msgstr "O_bsah (content):"
+msgstr "O_bsah:"
 
 #: src/plugin_htmlbar/html.c:1346
 msgid "_Scheme:"
-msgstr "_Schéma (scheme):"
+msgstr "_Schéma:"
 
 #: src/plugin_htmlbar/html.c:1430
 msgid "Font"
@@ -1561,68 +1539,66 @@ msgstr "Styl:"
 
 #: src/plugin_htmlbar/html.c:1709 src/plugin_htmlbar/html_form.c:259
 msgid "Co_ls:"
-msgstr "S_loupce (cols):"
+msgstr "S_loupce:"
 
 #: src/plugin_htmlbar/html.c:1712 src/plugin_htmlbar/html_form.c:255
 msgid "_Rows:"
-msgstr "Řád_ky (rows):"
+msgstr "Řád_ky:"
 
 #: src/plugin_htmlbar/html.c:1716
-#, fuzzy
 msgid "_Add &lt;frame&gt; elements"
-msgstr "Přid_at elementy <frame>"
+msgstr "Přid_at elementy &lt;frame&gt;"
 
 #: src/plugin_htmlbar/html.c:1800 src/plugin_htmlbar/html.c:1903
 #: src/plugin_htmlbar/html.c:2073 src/plugin_htmlbar/html.c:2256
 #: src/plugin_htmlbar/html.c:2343 src/plugin_htmlbar/image_dialog.c:326
 msgid "_Source:"
-msgstr "_Zdroj (source):"
+msgstr "_Zdroj:"
 
 #: src/plugin_htmlbar/html.c:1808
 msgid "Margin _Width:"
-msgstr "Šířka ohraničení (margin_width):"
+msgstr "Šířka ohraničení:"
 
 #: src/plugin_htmlbar/html.c:1812
 msgid "Margin _Height:"
-msgstr "Výška ohraničení (margin_height):"
+msgstr "Výška ohraničení:"
 
 #: src/plugin_htmlbar/html.c:1821
 msgid "Scrollin_g:"
-msgstr "Posuvníky (scrollin_g):"
+msgstr "Posuvníky:"
 
 #: src/plugin_htmlbar/html.c:1825
 msgid "_Frameborder:"
-msgstr "Rámeček (_frameborder):"
+msgstr "Rámeček:"
 
 #: src/plugin_htmlbar/html.c:1830
 msgid "No _Resize:"
-msgstr "Neměnitelné (no_resize):"
+msgstr "Neměnitelné:"
 
 #. Dialog construction and settings
 #: src/plugin_htmlbar/html.c:1896
 msgid "Audio"
-msgstr "Zvuk <audio>"
+msgstr "Zvuk"
 
 #: src/plugin_htmlbar/html.c:1907 src/plugin_htmlbar/html.c:2085
 msgid "_Autoplay:"
-msgstr "Přehrát _automaticky (autoplay):"
+msgstr "Přehrát _automaticky:"
 
 #: src/plugin_htmlbar/html.c:1911 src/plugin_htmlbar/html.c:2090
-#, fuzzy
 msgid "C_ontrols:"
-msgstr "_Ovládací prvky (controls):"
+msgstr "_Ovládací prvky:"
 
 #: src/plugin_htmlbar/html.c:1915 src/plugin_htmlbar/html.c:2095
 msgid "_Loop:"
-msgstr "S_myčka (loop):"
+msgstr "S_myčka:"
 
 #: src/plugin_htmlbar/html.c:1919 src/plugin_htmlbar/html.c:2100
 msgid "M_ute:"
-msgstr ""
+msgstr "Z_tišit:"
 
 #: src/plugin_htmlbar/html.c:1924 src/plugin_htmlbar/html.c:2124
 msgid "_Preload:"
-msgstr "Načíst na_před (preload):"
+msgstr "Načíst do_předu:"
 
 #: src/plugin_htmlbar/html.c:1929 src/plugin_htmlbar/html.c:1988
 #: src/plugin_htmlbar/html.c:2115 src/plugin_htmlbar/html.c:2271
@@ -1638,20 +1614,20 @@ msgstr "_Styl:"
 #. Dialog construction
 #: src/plugin_htmlbar/html.c:1983
 msgid "Canvas"
-msgstr "Plátno <canvas>"
+msgstr "Plátno"
 
 #: src/plugin_htmlbar/html.c:2065
 msgid "Video"
-msgstr "Video <video>"
+msgstr "Video"
 
 #: src/plugin_htmlbar/html.c:2080
 msgid "_Poster:"
-msgstr "U_poutávka (poster):"
+msgstr "U_poutávka:"
 
 #. Dialog construction
 #: src/plugin_htmlbar/html.c:2179
 msgid "Time"
-msgstr "Čas <time>"
+msgstr "Čas"
 
 #. Datetime help
 #: src/plugin_htmlbar/html.c:2184
@@ -1682,47 +1658,43 @@ msgstr ""
 
 #: src/plugin_htmlbar/html.c:2194
 msgid "_Datetime:"
-msgstr "_Datum a čas (datetime):"
+msgstr "_Datum a čas:"
 
 #: src/plugin_htmlbar/html.c:2249
 msgid "Embed"
-msgstr "Vložený objekt <embed>"
+msgstr "Vložený objekt"
 
 #: src/plugin_htmlbar/html.c:2260
-#, fuzzy
 msgid "_MIME Type:"
-msgstr "Typ (_type):"
+msgstr "Typ _MIME:"
 
 #: src/plugin_htmlbar/html.c:2325
 msgid "Script"
-msgstr "Skript <script>"
+msgstr "Skript"
 
 #: src/plugin_htmlbar/html.c:2349
 msgid "(HTML4 only)"
-msgstr ""
+msgstr "(jen HTML4)"
 
 #: src/plugin_htmlbar/html.c:2352
-#, fuzzy
 msgid "MIME _Type:"
-msgstr "Typ (_type):"
+msgstr "_Typ MIME:"
 
 #: src/plugin_htmlbar/html.c:2356
-#, fuzzy
 msgid "_Charset:"
-msgstr "Při změně (on_Change):"
+msgstr "_Znaková sada:"
 
 #: src/plugin_htmlbar/html.c:2358 src/plugin_htmlbar/html.c:2367
-#, fuzzy
 msgid "(HTML5)"
-msgstr "HTML_5"
+msgstr "(HTML5)"
 
 #: src/plugin_htmlbar/html.c:2361
 msgid "_Async:"
-msgstr ""
+msgstr "_Asynchronně:"
 
 #: src/plugin_htmlbar/html.c:2365
 msgid "_Defer:"
-msgstr ""
+msgstr "O_dložit:"
 
 #.
 #. todo check buttons:
@@ -1731,99 +1703,96 @@ msgstr ""
 #.
 #: src/plugin_htmlbar/html.c:2537
 msgid "CSS3 multi-column layout"
-msgstr ""
+msgstr "Vícesloupcový vzhled CSS3"
 
 #: src/plugin_htmlbar/html.c:2544
 msgid "Auto (default) or number of columns"
-msgstr ""
+msgstr "Automaticky (výchozí) nebo počet sloupců"
 
 #: src/plugin_htmlbar/html.c:2553
 msgid "Auto (default) or width"
-msgstr ""
+msgstr "Automaticky (výchozí) nebo šířka"
 
 #: src/plugin_htmlbar/html.c:2565
 msgid "Normal (default) or width of the gap between columns"
-msgstr ""
+msgstr "Normální (výchozí) nebo šířka mezery mezi sloupci"
 
 #: src/plugin_htmlbar/html.c:2583
 msgid "None (default) or style"
-msgstr ""
+msgstr "Žádný (výchozí) nebo styl"
 
 #: src/plugin_htmlbar/html.c:2589
 msgid "Medium (default) or width"
-msgstr ""
+msgstr "Střední (výchozí) nebo šířka"
 
 #: src/plugin_htmlbar/html.c:2602
 msgid "Use vendor-prefixed CSS property:"
-msgstr ""
+msgstr "Použít vlastnosti CSS s prefixem prohlížeče:"
 
 #: src/plugin_htmlbar/html.c:2610
-#, fuzzy
 msgid "styles_heet"
-msgstr "Vytvořit stylopis…"
+msgstr "sty_lopis"
 
 #: src/plugin_htmlbar/html.c:2611
 msgid "Add selector(s) to create a new rule"
-msgstr ""
+msgstr "Přidejte selektor(y) pro vytvoření nového pravidla"
 
 #: src/plugin_htmlbar/html.c:2613
-#, fuzzy
 msgid "style a_ttribute"
-msgstr "Atributy"
+msgstr "a_tributy stylu"
 
 #: src/plugin_htmlbar/html.c:2614
 msgid "Add a style attribute in tag"
-msgstr ""
+msgstr "Přidejte atribut „style“ ve značce"
 
 #: src/plugin_htmlbar/html.c:2616
 msgid "style _values"
-msgstr ""
+msgstr "_hodnoty stylu"
 
 #: src/plugin_htmlbar/html.c:2617
 msgid "Add values in a style attribute"
-msgstr ""
+msgstr "Přidejte hodnoty v atributu „style“"
 
 #: src/plugin_htmlbar/html.c:2627
-#, fuzzy
 msgid "Selecto_rs:"
-msgstr "_Selektor:"
+msgstr "Selekto_ry:"
 
 #: src/plugin_htmlbar/html.c:2628
 msgid "Leave empty to insert declarations into an existing rule."
-msgstr ""
+msgstr "Ponechte prázdné pro vložení deklarace do stávajícího pravidla."
 
 #: src/plugin_htmlbar/html.c:2688
 msgid "Link"
-msgstr "Odkaz (link)"
+msgstr "Odkaz"
 
 #: src/plugin_htmlbar/html.c:2705
 msgid "HREF_LANG:"
-msgstr "Jazyk odkazu (href_lang):"
+msgstr "_Jazyk odkazu:"
 
 #: src/plugin_htmlbar/html.c:2708
 msgid "T_itle:"
-msgstr "T_itulek (title):"
+msgstr "T_itulek:"
 
 #: src/plugin_htmlbar/html.c:2729 src/plugin_htmlbar/html_form.c:532
 #: src/plugin_htmlbar/html_form.c:641
 msgid "_Type:"
-msgstr "Typ (_type):"
+msgstr "_Typ:"
 
 #: src/plugin_htmlbar/html.c:2751
 msgid "_Forward Relation:"
-msgstr "Vztah k odkazu (r_el):"
+msgstr "Vztah k odkazu:"
 
 #: src/plugin_htmlbar/html.c:2755
 msgid "_Reverse Relation:"
-msgstr "Zpětný vztah (_rev):"
+msgstr "Zpětný vztah:"
 
 #: src/plugin_htmlbar/html.c:2767
 msgid "Media:"
-msgstr "Médium (media):"
+msgstr "Médium:"
 
 #: src/plugin_htmlbar/html.c:2771
 msgid "L_ang:"
-msgstr "Jazyk (l_ang):"
+msgstr "J_azyk:"
 
 #: src/plugin_htmlbar/html.c:2774
 msgid "_Custom:"
@@ -1831,27 +1800,27 @@ msgstr "_Vlastní:"
 
 #: src/plugin_htmlbar/html_form.c:174
 msgid "_Action:"
-msgstr "Akce (_action):"
+msgstr "_Akce:"
 
 #: src/plugin_htmlbar/html_form.c:184
 msgid "Metho_d:"
-msgstr "Způsob (metho_d):"
+msgstr "Meto_da:"
 
 #: src/plugin_htmlbar/html_form.c:193
 msgid "_Enctype:"
-msgstr "Typ kódování (_enctype):"
+msgstr "T_yp kódování:"
 
 #: src/plugin_htmlbar/html_form.c:245
 msgid "Text area"
-msgstr "Textová oblast (textarea)"
+msgstr "Textová oblast"
 
 #: src/plugin_htmlbar/html_form.c:309
 msgid "Select"
-msgstr "Výběr <select>"
+msgstr "Výběrový seznam"
 
 #: src/plugin_htmlbar/html_form.c:319 src/plugin_htmlbar/html_form.c:549
 msgid "Si_ze:"
-msgstr "Velikost (si_ze):"
+msgstr "Ve_likost:"
 
 #: src/plugin_htmlbar/html_form.c:323
 msgid "Multiple _Selections:"
@@ -1859,27 +1828,27 @@ msgstr "Vícenásobný _výběr:"
 
 #: src/plugin_htmlbar/html_form.c:369
 msgid "Option"
-msgstr "Volba <option>"
+msgstr "Volba"
 
 #: src/plugin_htmlbar/html_form.c:378 src/plugin_htmlbar/html_form.c:424
 msgid "_Label:"
-msgstr "Popisek (_label):"
+msgstr "_Popisek:"
 
 #: src/plugin_htmlbar/html_form.c:382
 msgid "_Selected:"
-msgstr "Vybráno (_selected):"
+msgstr "_Vybráno:"
 
 #: src/plugin_htmlbar/html_form.c:419
 msgid "Option group"
-msgstr "Skupina voleb <optgroup>"
+msgstr "Skupina voleb"
 
 #: src/plugin_htmlbar/html_form.c:515
 msgid "Input"
-msgstr "Vstup <input>"
+msgstr "Vstup"
 
 #: src/plugin_htmlbar/html_form.c:544
 msgid "_Checked:"
-msgstr "_Zaškrtnuto (checked):"
+msgstr "_Zaškrtnuto:"
 
 #: src/plugin_htmlbar/html_form.c:553
 msgid "Max _Length:"
@@ -1887,7 +1856,7 @@ msgstr "Maximální dé_lka:"
 
 #: src/plugin_htmlbar/html_form.c:557
 msgid "_Accept:"
-msgstr "Akceptované MIME (_accept):"
+msgstr "_Akceptované MIME:"
 
 #: src/plugin_htmlbar/html_form.c:560
 msgid "C_ustom:"
@@ -1895,57 +1864,57 @@ msgstr "_Vlastní:"
 
 #: src/plugin_htmlbar/html_form.c:572
 msgid "On_Focus:"
-msgstr "Při zaměření (on_Focus):"
+msgstr "Při za_měření:"
 
 #: src/plugin_htmlbar/html_form.c:575
 msgid "On_Blur:"
-msgstr "Při ztrátě zaměření (on_Blur):"
+msgstr "Při ztrátě zaměř_ení:"
 
 #: src/plugin_htmlbar/html_form.c:578
 msgid "On_Select:"
-msgstr "Při vyběru (on_Select):"
+msgstr "Při výbě_ru:"
 
 #: src/plugin_htmlbar/html_form.c:581
 msgid "On_Change:"
-msgstr "Při změně (on_Change):"
+msgstr "Při _změně:"
 
 #: src/plugin_htmlbar/html_form.c:627
 msgid "Button"
-msgstr "Tlačítko <button>"
+msgstr "Tlačítko"
 
 #: src/plugin_htmlbar/html_table.c:108
 msgid "<span color=\"#006000\">Cell _Padding:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Odsazení buňky:</span>"
 
 #: src/plugin_htmlbar/html_table.c:117
 msgid "<span color=\"#006000\">C_ell Spacing:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Mezery mez buňkami:</span>"
 
 #: src/plugin_htmlbar/html_table.c:144 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:377
 msgid "<span color=\"#006000\">_Align:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Z_arovnání:</span>"
 
 #: src/plugin_htmlbar/html_table.c:149 src/plugin_htmlbar/html_table.c:273
 #: src/plugin_htmlbar/html_table.c:449
 msgid "<span color=\"red\">_bgcolor:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_Barva pozadí:</span>"
 
 #: src/plugin_htmlbar/html_table.c:155
 msgid "<span color=\"#006000\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Šíř_ka:</span>"
 
 #: src/plugin_htmlbar/html_table.c:162
 msgid "<span color=\"#006000\">Bo_rder:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Ok_raj:</span>"
 
 #: src/plugin_htmlbar/html_table.c:168
 msgid "<span color=\"#A36A00\">_Border:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Okraj:</span>"
 
 #: src/plugin_htmlbar/html_table.c:183
 msgid "<span color=\"#006000\">_Frame:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">Rá_meček:</span>"
 
 #: src/plugin_htmlbar/html_table.c:194
 msgid "<span color=\"#006000\">R_ules:</span>"
@@ -1953,43 +1922,43 @@ msgstr ""
 
 #: src/plugin_htmlbar/html_table.c:264 src/plugin_htmlbar/html_table.c:388
 msgid "<span color=\"#006000\">_Valign:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">S_vislé zarování:</span>"
 
 #: src/plugin_htmlbar/html_table.c:396
 msgid "<span color=\"#A36A00\">_Headers:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">_Hlavičky:</span>"
 
 #: src/plugin_htmlbar/html_table.c:397
 msgid "Set of space-separated IDs of th elements."
-msgstr ""
+msgstr "Sada ID prvků th oddělených mezerami."
 
 #: src/plugin_htmlbar/html_table.c:408
 msgid "<span color=\"#A36A00\">_Scope:</span>"
-msgstr ""
+msgstr "<span color=\"#A36A00\">Roz_sah:</span>"
 
 #: src/plugin_htmlbar/html_table.c:410
 msgid "the header cell applies to cells in the same:"
-msgstr ""
+msgstr "Buňku hlavičky použít pro buňky ve stejném:"
 
 #: src/plugin_htmlbar/html_table.c:422
 msgid "Co_l Span:"
-msgstr "Sloučené sloupce (co_lspan):"
+msgstr "Sloučené s_e:"
 
 #: src/plugin_htmlbar/html_table.c:426
 msgid "_Row Span:"
-msgstr "Sloučené řádky (_rowspan):"
+msgstr "Sloučené řá_dky:"
 
 #: src/plugin_htmlbar/html_table.c:431
 msgid "<span color=\"red\">No _Wrap:</span>"
-msgstr ""
+msgstr "<span color=\"red\">Nez_alamovat:</span>"
 
 #: src/plugin_htmlbar/html_table.c:437
 msgid "<span color=\"red\">_Width:</span>"
-msgstr ""
+msgstr "<span color=\"red\">Šíř_ka:</span>"
 
 #: src/plugin_htmlbar/html_table.c:444
 msgid "<span color=\"red\">_Height:</span>"
-msgstr ""
+msgstr "<span color=\"red\">_Výška:</span>"
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:334
@@ -2015,27 +1984,27 @@ msgstr "_Umístění obrázku:"
 
 #: src/plugin_htmlbar/image.c:524
 msgid "Hei_ght:"
-msgstr "_Výška (height):"
+msgstr "_Výška:"
 
 #: src/plugin_htmlbar/image.c:529 src/plugin_htmlbar/image_dialog.c:417
 msgid "_Usemap:"
-msgstr "Použít mapu (_usemap):"
+msgstr "Po_užít mapu:"
 
 #: src/plugin_htmlbar/image.c:535
 msgid "Alternate _text:"
-msgstr "Alternativní te_xt (alt):"
+msgstr "Alternativní te_xt:"
 
 #: src/plugin_htmlbar/image.c:541 src/plugin_htmlbar/image_dialog.c:460
 msgid "_Hspace:"
-msgstr "Vodorovný prostor (_hspace):"
+msgstr "Vo_dorovný prostor:"
 
 #: src/plugin_htmlbar/image.c:545 src/plugin_htmlbar/image_dialog.c:464
 msgid "_Vspace:"
-msgstr "Svislý prostor (_vspace):"
+msgstr "S_vislý prostor:"
 
 #: src/plugin_htmlbar/image.c:559
 msgid "Borde_r:"
-msgstr "Rámeček (borde_r):"
+msgstr "_Rámeček:"
 
 #: src/plugin_htmlbar/image.c:974
 msgid "Select files for thumbnail creation"
@@ -2091,15 +2060,15 @@ msgstr "_Původní rozměry"
 
 #: src/plugin_htmlbar/image_dialog.c:398
 msgid "Alternate te_xt:"
-msgstr "Alternativní te_xt (alt):"
+msgstr "Alternativní te_xt:"
 
 #: src/plugin_htmlbar/image_dialog.c:403
 msgid "_Long description:"
-msgstr "Dlouhý popis (_longdesc):"
+msgstr "D_louhý popis:"
 
 #: src/plugin_htmlbar/image_dialog.c:412
 msgid "I_D:"
-msgstr "I_dentifikátor (id):"
+msgstr "I_dentifikátor:"
 
 #: src/plugin_htmlbar/image_dialog.c:440
 msgid "_Use Transitional options"
@@ -2107,7 +2076,7 @@ msgstr "Po_užít volby režimu transitional"
 
 #: src/plugin_htmlbar/image_dialog.c:456
 msgid "_Border:"
-msgstr "Rámeček (_border):"
+msgstr "_Rámeček:"
 
 #: src/plugin_htmlbar/image_dialog.c:779
 #, c-format
@@ -2158,15 +2127,15 @@ msgstr "<b>E_xterní stylopis</b>"
 
 #: src/plugin_htmlbar/quickstart.c:530
 msgid "Ty_pe:"
-msgstr "Typ (ty_pe):"
+msgstr "Ty_p:"
 
 #: src/plugin_htmlbar/quickstart.c:548
 msgid "HRE_F:"
-msgstr "Odkaz (hre_f):"
+msgstr "O_dkaz:"
 
 #: src/plugin_htmlbar/quickstart.c:553
 msgid "_Media:"
-msgstr "Médium (_media):"
+msgstr "_Médium:"
 
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
@@ -2185,7 +2154,7 @@ msgstr "<b>Atributy</b>"
 
 #: src/plugin_htmlbar/quickstart.c:603
 msgid "_Src:"
-msgstr "Zdroj (_src):"
+msgstr "Zdro_j:"
 
 #. TODO: add an option to place content in the script area
 #: src/plugin_htmlbar/quickstart.c:610
@@ -2206,7 +2175,7 @@ msgstr "_DTD:"
 
 #: src/plugin_htmlbar/quickstart.c:662 src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
-msgstr "_Titulek (_title):"
+msgstr "_Titulek:"
 
 #: src/plugin_htmlbar/quickstart.c:685
 msgid "_Head:"
@@ -2273,436 +2242,49 @@ msgid "Size:"
 msgstr "Velikost:"
 
 #: src/plugin_htmlbar/prefs.c:66
-#, fuzzy
 msgid "<b>HTML Toolbar</b>"
-msgstr "Panel nástrojů _HTML"
+msgstr "<b>Lišta nástrojů _HTML</b>"
 
 #: src/plugin_htmlbar/prefs.c:69
 msgid "Show toolbar in sidepanel"
-msgstr ""
+msgstr "Zobrazit lištu nástrojů v postranním panelu"
 
 #: src/plugin_htmlbar/prefs.c:70
 msgid "Keep HTML dialogs always on top"
-msgstr ""
+msgstr "Držet dialogová okna HTML vždy nahoře"
 
 #: src/plugin_htmlbar/prefs.c:75
 msgid "<b>HTML options</b>"
-msgstr ""
+msgstr "<b>Volby HTML</b>"
 
 #: src/plugin_htmlbar/prefs.c:79
 msgid "Use _XHTML style tags (<br />)"
-msgstr ""
+msgstr "Používat značky ve stylu _XHTML (<br />)"
 
 #: src/plugin_htmlbar/prefs.c:81
 msgid "Use lo_wercase HTML tags"
-msgstr ""
+msgstr "Požívat značky HTML _malými písmeny"
 
 #: src/plugin_htmlbar/prefs.c:83
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
-msgstr ""
+msgstr "Používat za_staralé značky (např. <font> a <nobr>)"
 
 #: src/plugin_htmlbar/prefs.c:87
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
-msgstr ""
+msgstr "_Formátovat v souladu s přístupností (např. <strong> pro <b>)"
 
 #: src/plugin_htmlbar/prefs.c:92
 msgid "<b>Auto Update Tag Options</b>"
-msgstr ""
+msgstr "<b>Volby automatických aktualizací značek</b>"
 
 #: src/plugin_htmlbar/prefs.c:96
 msgid "Automatically update a_uthor meta tag"
-msgstr ""
+msgstr "Automaticky aktualizovat metaznačku a_uthor"
 
 #: src/plugin_htmlbar/prefs.c:99
 msgid "Automatically update _date meta tag"
-msgstr ""
+msgstr "Automaticky aktualizovat metaznačku _date"
 
 #: src/plugin_htmlbar/prefs.c:102
 msgid "Automatically update _generator meta tag"
-msgstr ""
-
-#~ msgid "_Special"
-#~ msgstr "_Speciální"
-
-#~ msgid "_Accent"
-#~ msgstr "Di_akritika"
-
-#~ msgid "_Uppercase"
-#~ msgstr "_Velká písmena"
-
-#~ msgid "_A-I"
-#~ msgstr "_a-i"
-
-#~ msgid "A grave À"
-#~ msgstr "A s těžkým akcentem À"
-
-#~ msgid "A acute Á"
-#~ msgstr "A s čárkou Á"
-
-#~ msgid "A circumflex Â"
-#~ msgstr "A se stříškou Â"
-
-#~ msgid "A tilde Ã"
-#~ msgstr "A s tildou Ã"
-
-#~ msgid "AE ligature Æ"
-#~ msgstr "Slitek AE Æ"
-
-#~ msgid "A diaeresis Ä"
-#~ msgstr "A s přehláskou Ä"
-
-#~ msgid "A ring Å"
-#~ msgstr "A s kroužkem Å"
-
-#~ msgid "C cedilla Ç"
-#~ msgstr "C s cedilou Ç"
-
-#~ msgid "E grave È"
-#~ msgstr "E s těžkým akcentem È"
-
-#~ msgid "E acute É"
-#~ msgstr "E s čárkou É"
-
-#~ msgid "E circumflex Ê"
-#~ msgstr "E se stříškou Ê"
-
-#~ msgid "E diaeresis Ë"
-#~ msgstr "E s přehláskou Ë"
-
-#~ msgid "I grave Ì"
-#~ msgstr "I s těžkým akcentem Ì"
-
-#~ msgid "I acute Í"
-#~ msgstr "I s čárkou Í"
-
-#~ msgid "I circumflex Î"
-#~ msgstr "I se stříškou Î"
-
-#~ msgid "I diaeresis Ï"
-#~ msgstr "I s přehláskou Ï"
-
-#~ msgid "_J-Z"
-#~ msgstr "_j-z"
-
-#~ msgid "N tilde Ñ"
-#~ msgstr "N s tildou Ñ"
-
-#~ msgid "O grave Ò"
-#~ msgstr "O s těžkým akcentem Ò"
-
-#~ msgid "O acute Ó"
-#~ msgstr "O s čárkou Ó"
-
-#~ msgid "O circumflex Ô"
-#~ msgstr "O se stříškou Ô"
-
-#~ msgid "OE ligature Œ"
-#~ msgstr "Slitek OE Œ"
-
-#~ msgid "O tilde Õ"
-#~ msgstr "O s tildou Õ"
-
-#~ msgid "O diaeresis Ö"
-#~ msgstr "O s přehláskou Ö"
-
-#~ msgid "O slash Ø"
-#~ msgstr "Přeškrtnuté O Ø"
-
-#~ msgid "U grave Ù"
-#~ msgstr "U s těžkým akcentem Ù"
-
-#~ msgid "U acute Ú"
-#~ msgstr "U s čárkou Ú"
-
-#~ msgid "U circumflex Û"
-#~ msgstr "U se stříškou Û"
-
-#~ msgid "U diaeresis Ü"
-#~ msgstr "U s přehláskou Ü"
-
-#~ msgid "Y acute Ý"
-#~ msgstr "Y s čárkou Ý"
-
-#~ msgid "_Lowercase"
-#~ msgstr "_Malá písmena"
-
-#~ msgid "a grave à"
-#~ msgstr "a s těžkým akcentem à"
-
-#~ msgid "a acute á"
-#~ msgstr "a s čárkou á"
-
-#~ msgid "a circumflex â"
-#~ msgstr "a se stříškou â"
-
-#~ msgid "a tilde ã"
-#~ msgstr "a s tildou ã"
-
-#~ msgid "a ring å"
-#~ msgstr "a s kroužkem å"
-
-#~ msgid "ae ligature æ"
-#~ msgstr "Slitek ae æ"
-
-#~ msgid "a diaeresis ä"
-#~ msgstr "a s přehláskou ä"
-
-#~ msgid "c cedilla ç"
-#~ msgstr "c s cedilou ç"
-
-#~ msgid "e grave è"
-#~ msgstr "e s těžkým akcentem è"
-
-#~ msgid "e acute é"
-#~ msgstr "e s čárkou é"
-
-#~ msgid "e circumflex ê"
-#~ msgstr "e se stříškou ê"
-
-#~ msgid "e diaeresis ë"
-#~ msgstr "e s přehláskou ë"
-
-#~ msgid "i grave ì"
-#~ msgstr "i s těžkým akcentem ì"
-
-#~ msgid "i acute í"
-#~ msgstr "i s čárkou í"
-
-#~ msgid "i circumflex î"
-#~ msgstr "u se stříškou î"
-
-#~ msgid "i diaeresis ï"
-#~ msgstr "i s přehláskou ï"
-
-#~ msgid "n tilde ñ"
-#~ msgstr "n s tildou ñ"
-
-#~ msgid "o grave ò"
-#~ msgstr "o s těžkým akcentem ò"
-
-#~ msgid "o acute ó"
-#~ msgstr "o s čárkou ó"
-
-#~ msgid "oe ligature œ"
-#~ msgstr "Slitek oe œ"
-
-#~ msgid "o circumflex ô"
-#~ msgstr "o se stříškou ô"
-
-#~ msgid "o tilde õ"
-#~ msgstr "o s tildou õ"
-
-#~ msgid "o diaeresis ö"
-#~ msgstr "o s přehláskou ö"
-
-#~ msgid "o slash ø"
-#~ msgstr "Přeškrtnuté o ø"
-
-#~ msgid "u grave ù"
-#~ msgstr "u s těžkým akcentem ù"
-
-#~ msgid "u acute ú"
-#~ msgstr "u s čárkou ú"
-
-#~ msgid "u circumflex û"
-#~ msgstr "u se stříškou û"
-
-#~ msgid "u diaeresis ü"
-#~ msgstr "u s přehláskou ü"
-
-#~ msgid "y acute ý"
-#~ msgstr "y s čárkou ý"
-
-#~ msgid "y diaeresis ÿ"
-#~ msgstr "y s přehláskou ÿ"
-
-#~ msgid "_Acute ´"
-#~ msgstr "Čá_rka ´"
-
-#~ msgid "_Cedilla ¸"
-#~ msgstr "Cedila ¸"
-
-#~ msgid "U_mlaut ¨"
-#~ msgstr "_Přehláska ¨"
-
-#~ msgid "_Currency"
-#~ msgstr "_Měna"
-
-#~ msgid "_Cent sign ¢"
-#~ msgstr "_Cent ¢"
-
-#~ msgid "_Pound sterling £"
-#~ msgstr "_Libra £"
-
-#~ msgid "C_urrency sign ¤"
-#~ msgstr "Označení _měny ¤"
-
-#~ msgid "_Yen sign ¥"
-#~ msgstr "_Yen ¥"
-
-#~ msgid "_Euro €"
-#~ msgstr "_Euro €"
-
-#~ msgid "_Math-Science"
-#~ msgstr "Ma_tematika a věda"
-
-#~ msgid "Logical _not sign ¬"
-#~ msgstr "Logická ne_gace ¬"
-
-#~ msgid "_Multiplication sign ×"
-#~ msgstr "_Krát ×"
-
-#~ msgid "_Division sign ÷"
-#~ msgstr "Dě_leno ÷"
-
-#~ msgid "_Plus-minus sign ±"
-#~ msgstr "Pl_us mínus ±"
-
-#~ msgid "_Less-than sign <"
-#~ msgstr "_Menší než <"
-
-#~ msgid "_Greater-than sign >"
-#~ msgstr "_Větší než >"
-
-#~ msgid "Superscript _1 ¹"
-#~ msgstr "Na p_rvní ¹"
-
-#~ msgid "Superscript _2 ²"
-#~ msgstr "Na _druhou ²"
-
-#~ msgid "Superscript _3 ³"
-#~ msgstr "Na _třetí ³"
-
-#~ msgid "One _quarter ¼"
-#~ msgstr "_Jedna čtvrtina ¼"
-
-#~ msgid "One _half ½"
-#~ msgstr "Jedna _polovina ½"
-
-#~ msgid "_Three quarters ¾"
-#~ msgstr "_Tři čtvrtiny ¾"
-
-#~ msgid "Deg_ree sign °"
-#~ msgstr "Stupeň °"
-
-#~ msgid "_Non Latin"
-#~ msgstr "Nepatřící do _latinky"
-
-#~ msgid "_ETH (Icelandic) Ð"
-#~ msgstr "_ETH (Islandština) Ð"
-
-#~ msgid "_THORN (Icelandic) Þ"
-#~ msgstr "_THORN (Islandština) Þ"
-
-#~ msgid "et_h (Icelandic) ð"
-#~ msgstr "et_h (Islandština) ð"
-
-#, fuzzy
-#~ msgid "th_orn þ"
-#~ msgstr "th_orn (Islandština) þ"
-
-#~ msgid "Sharp _s ß"
-#~ msgstr "Ostré _s ß"
-
-#~ msgid "_Micro sign µ"
-#~ msgstr "_Mikro µ"
-
-#~ msgid "_Other"
-#~ msgstr "_Ostatní"
-
-#~ msgid "_Section sign §"
-#~ msgstr "Paragra_f §"
-
-#~ msgid "_Copyright sign ©"
-#~ msgstr "_Copyright ©"
-
-#~ msgid "_Left angle quotes «"
-#~ msgstr "_Levé lomené uvozovky «"
-
-#~ msgid "_Right angle quotes »"
-#~ msgstr "P_ravé lomené uvozovky »"
-
-#~ msgid "Registered _trademark ®"
-#~ msgstr "Registrovaná o_bchodní značka ®"
-
-#~ msgid "Inverted _exclamation ¡"
-#~ msgstr "Převrácený vy_křičník ¡"
-
-#~ msgid "Inverted _question mark ¿"
-#~ msgstr "Převrácený _otazník ¿"
-
-#~ msgid "_Feminine ordinal ª"
-#~ msgstr "Ž_enské číslo ª"
-
-#~ msgid "_Masculine ordinal º"
-#~ msgstr "_Mužské číslo º"
-
-#~ msgid "_Pilcrow (paragraph sign) ¶"
-#~ msgstr "_Pilcrow (znak odstavce) ¶"
-
-#~ msgid "Spa_cing macron ¯"
-#~ msgstr "Ma_cron ¯"
-
-#~ msgid "Middle _dot ·"
-#~ msgstr "_Tečka uprostřed ·"
-
-#~ msgid " Fonts "
-#~ msgstr "Písma"
-
-#~ msgid " Tables "
-#~ msgstr " Tabulky"
-
-#~ msgid " Frames "
-#~ msgstr " Rámy"
-
-#~ msgid " Forms "
-#~ msgstr " Formuláře"
-
-#~ msgid " List "
-#~ msgstr " Seznam"
-
-#~ msgid " CSS "
-#~ msgstr " CSS "
-
-#~ msgid "Cell _Padding:"
-#~ msgstr "Odsazení buňky (cellpadding):"
-
-#~ msgid "C_ell Spacing:"
-#~ msgstr "Mezery mez buňkami (cellspacing):"
-
-#~ msgid "_Valign:"
-#~ msgstr "Svislé zarovnání (_valign):"
-
-#~ msgid "Backgrou_nd Color:"
-#~ msgstr "Barva pozadí (b_gcolor):"
-
-#~ msgid "Bo_rder:"
-#~ msgstr "Rámeček (bo_rder):"
-
-#~ msgid "_Frame:"
-#~ msgstr "Rám (_frame):"
-
-#~ msgid "R_ules:"
-#~ msgstr "Linky (r_ules):"
-
-#~ msgid "No Wra_p:"
-#~ msgstr "Nezalamovat (nowrap):"
-
-#~ msgid "_Class:"
-#~ msgstr "Třída (_class):"
-
-#~ msgid "_Audio:"
-#~ msgstr "Zv_uk (audio):"
-
-#~ msgid "_Pubdate:"
-#~ msgstr "Datum z_veřejnění (pubdate):"
-
-#~ msgid "_Form"
-#~ msgstr "_Formulář"
-
-#, fuzzy
-#~ msgid "_Option"
-#~ msgstr "Volba <option>"
-
-#~ msgid "Style..."
-#~ msgstr "Styl…"
+msgstr "Automaticky aktualizovat metaznačku _generator"
