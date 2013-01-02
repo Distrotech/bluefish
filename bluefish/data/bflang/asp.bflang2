@@ -179,15 +179,15 @@
 		</element>
 		
 		<element pattern="'" highlight="vbscript-comment">
-			<context symbols="%&gt;&#10;" highlight="comment">
-				<element pattern="&#10;" ends_context="1" />
+			<context symbols="%&gt;&#10;&#13;" highlight="comment">
+				<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" ends_context="1" />
 				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="e.vbscript" highlight="region" mayfold="1" />
 			</context>
 		</element>
 		
 		<element pattern="rem" case_insens="1" highlight="vbscript-comment">
 			<context symbols="%&gt;&#10;" highlight="comment">
-				<element pattern="&#10;" ends_context="1" />
+				<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" ends_context="1" />
 				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="e.vbscript" highlight="region" mayfold="1" />
 			</context>
 		</element>
