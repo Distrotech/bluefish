@@ -419,8 +419,7 @@
 
 <element pattern="#" highlight="comment">
 <context symbols="&#10;&#13;" highlight="comment">
-	<element pattern="&#10;" highlight="comment" ends_context="1"/>
-	<element pattern="&#13;" highlight="comment" ends_context="1"/>
+	<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="comment" ends_context="1"/>
 </context>
 </element>
 <element pattern="'[^']*'" is_regex="1" highlight="string"/>
