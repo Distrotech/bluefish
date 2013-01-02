@@ -121,7 +121,8 @@ static void remove_block_comment(Tdocument *doc, const gchar *buf, const gchar *
 	
 	doc_unre_new_group(doc);
 	cstart = utf8_byteoffset_to_charsoffset_cached(buf, so);
-	cend = so+strlen(so_commentstring);
+	cend = cstart+strlen(so_commentstring);
+	DEBUG_MSG("remove_block_comment, remove start-of-comment %d:%d\n",coffset+cstart, coffset+cend);
 	doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cend);
 	coffset -= (cend-cstart); 
 	
@@ -149,7 +150,8 @@ static void remove_block_comment(Tdocument *doc, const gchar *buf, const gchar *
 	}
 	if (n==0) {
 		cstart = utf8_byteoffset_to_charsoffset_cached(buf, so);
-		cend = so+strlen(eo_commentstring);
+		cend = cstart+strlen(eo_commentstring);
+		DEBUG_MSG("remove_block_comment, remove end-of-comment %d:%d\n",coffset+cstart, coffset+cend);
 		doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cend);
 	}
 	
