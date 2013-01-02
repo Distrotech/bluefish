@@ -19,6 +19,8 @@
 /*#define DEVELOPMENT*/
 /*#define HL_PROFILING*/
 /*#define DUMP_SCANCACHE*/
+/*#define DUMP_SCANCACHE_UPDATE_OFFSET*/
+/*#define DUMP_HIGHLIGHTING*/
 
 /*#define VALGRIND_PROFILING*/
 
@@ -35,10 +37,10 @@
 #include "bftextview2_scanner.h"
 #include "bftextview2_identifier.h"
 
-/*#undef DBG_SCANCACHE
-#undef DBG_SCANNING
-#define DBG_SCANCACHE g_print
+/*#undef DBG_SCANNING
 #define DBG_SCANNING g_print*/
+/*#undef DBG_SCANCACHE
+#define DBG_SCANCACHE g_print*/
 
 /* use 
 G_SLICE=always-malloc G_DEBUG=gc-friendly valgrind --tool=memcheck --num-callers=32 src/bluefish
@@ -166,6 +168,36 @@ dump_scancache(BluefishTextView * btv)
 	g_print("END OF DUMP\n\n");
 }
 #endif							/* DUMP_SCANCACHE */
+
+#ifdef DUMP_HIGHLIGHTING
+void
+dump_highlighting(BluefishTextView * btv)
+{
+	GtkTextIter it;
+	gboolean cont=TRUE;
+	gtk_text_buffer_get_iter_at_offset(btv->buffer,&it,0);
+	g_print("START OF HIGHLIGHTING DUMP\n");
+	while (cont) {
+		if (gtk_text_iter_toggles_tag(&it, NULL)) {
+			GSList *lst, *tmplst;
+			g_print("pos %d has tags ", gtk_text_iter_get_offset(&it));
+			tmplst = lst = gtk_text_iter_get_tags(&it);
+			while (tmplst) {
+				gchar *name=NULL;
+				g_object_get(tmplst->data, "name", &name, NULL);
+				g_print("%p(%s) ",tmplst->data, name);
+				tmplst=tmplst->next;
+			}
+			g_slist_free(lst);
+			g_print("\n");
+		}/* else {
+			g_print("pos %d\n", gtk_text_iter_get_offset(&it));
+		}*/
+		cont = gtk_text_iter_forward_char(&it);
+	}
+	g_print("END OF DUMP\n\n");
+}
+#endif
 
 Tfound *
 get_foundcache_next(BluefishTextView * btv, GSequenceIter ** siter)
@@ -489,7 +521,7 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 		found->charoffset_o += offset;
 		found = get_foundcache_next(btv, &siter);
 	}
-#ifdef DUMP_SCANCACHE
+#ifdef DUMP_SCANCACHE_UPDATE_OFFSET
 	dump_scancache(btv);
 #endif
 }
@@ -689,8 +721,8 @@ pop_and_apply_contexts(BluefishTextView * btv, gint numchange, Tfoundcontext * c
 	guint offset = gtk_text_iter_get_offset(matchstart);
 	Tfoundcontext *fcontext = curcontext;
 	while (num < 0 && fcontext) {	/* pop, but don't pop if there is nothing to pop (because of an error in the language file) */
-		DBG_SCANNING("pop_and_apply_contexts, end context %d at pos %d, has tag %p and parent %p\n",
-					 fcontext->context, gtk_text_iter_get_offset(matchstart),
+		DBG_SCANNING("pop_and_apply_contexts, end context %d at %d:%d, has tag %p and parent %p\n",
+					 fcontext->context, fcontext->start_o, gtk_text_iter_get_offset(matchstart),
 					 g_array_index(btv->bflang->st->contexts, Tcontext, fcontext->context).contexttag,
 					 fcontext->parentfcontext);
 		fcontext->end_o = offset;
@@ -1476,6 +1508,10 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #ifdef DUMP_SCANCACHE
 	dump_scancache(btv);
 #endif
+#ifdef DUMP_HIGHLIGHTING
+	dump_highlighting(btv);
+#endif
+
 	DBG_MSG("cleaned scanning run, finished this run\n");
 	return !finished;
 }

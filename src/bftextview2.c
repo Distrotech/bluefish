@@ -2170,16 +2170,22 @@ bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its, GtkText
 		*its = tmpits;
 		*ite = tmpite;
 		gtk_text_iter_order(&tmpits, &tmpite);
+		DEBUG_MSG("bluefish_text_view_in_comment, testing selection from %d:%d\n",gtk_text_iter_get_offset(&tmpits), gtk_text_iter_get_offset(&tmpite));
 		/* first test if the selection starts the tag and selection ends ends the tag */
 		if (gtk_text_iter_begins_tag(&tmpits, comment_tag)) {
-			if (gtk_text_iter_ends_tag(&tmpite, comment_tag)) {
+			/*g_print("tmpite at %d is_end=%d, ends_tag=%d, ends_line=%d\n", gtk_text_iter_get_offset(&tmpite), gtk_text_iter_is_end(&tmpite), gtk_text_iter_ends_tag(&tmpite, comment_tag), gtk_text_iter_ends_line(&tmpite));*/
+			if (gtk_text_iter_ends_tag(&tmpite, comment_tag) || gtk_text_iter_is_end(&tmpite)) {
 				DEBUG_MSG("bluefish_text_view_in_comment, selection %d:%d toggles comment, return TRUE\n", gtk_text_iter_get_offset(&tmpits), gtk_text_iter_get_offset(&tmpite));
 				return TRUE;
 			}
 			/* in line comments, a comment may start after the newline, but the selection may not include the newline */
-			if (gtk_text_iter_ends_line(&tmpite) && gtk_text_iter_forward_line(&tmpite) && gtk_text_iter_ends_tag(&tmpite, comment_tag)) {
-				DEBUG_MSG("bluefish_text_view_in_comment, selection %d:%d (including newline) toggles comment, return TRUE\n", gtk_text_iter_get_offset(&tmpits), gtk_text_iter_get_offset(&tmpite));
-				return TRUE;
+			if (gtk_text_iter_ends_line(&tmpite)) {
+				gtk_text_iter_forward_line(&tmpite);
+				/*g_print("tmpite at %d is_end=%d, ends_tag=%d, ends_line=%d\n", gtk_text_iter_get_offset(&tmpite), gtk_text_iter_is_end(&tmpite), gtk_text_iter_ends_tag(&tmpite, comment_tag), gtk_text_iter_ends_line(&tmpite));*/
+				if (gtk_text_iter_ends_tag(&tmpite, comment_tag) || gtk_text_iter_is_end(&tmpite)) {
+					DEBUG_MSG("bluefish_text_view_in_comment, selection %d:%d (including newline) toggles comment, return TRUE\n", gtk_text_iter_get_offset(&tmpits), gtk_text_iter_get_offset(&tmpite));
+					return TRUE;
+				}
 			}
 		}
 		DEBUG_MSG("bluefish_text_view_in_comment, selection %d:%d does NOT toggle comment, return FALSE\n", gtk_text_iter_get_offset(&tmpits), gtk_text_iter_get_offset(&tmpite));
