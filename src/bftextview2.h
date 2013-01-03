@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2.h
  *
- * Copyright (C) 2008,2009,2010,2011,2012 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2011,2012,2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -381,9 +381,9 @@ struct _BluefishTextView {
 	gboolean showing_blockmatch;	/* a state of the widget if we are currently showing a blockmatch */
 	gboolean insert_was_auto_indent;	/* a state of the widget if the last keypress (enter) caused 
 										   autoindent (so we should unindent on a closing bracket */
-	gboolean needremovetags;	/* after we have removed all old highlighting, we set this to FALSE
-								   but after a change that needs highlighting we set this to TRUE again */
-
+	guint needremovetags;	/* after we have removed all old highlighting, we set this to G_MAXUINT32, or to the 
+									offset up to the point where we removed the old highlighting. but after a change that
+									needs highlighting we set this to the offset of the change. */
 	/* next three are used for margin painting */
 	gint margin_pixels_per_char;
 	gint margin_pixels_chars;
