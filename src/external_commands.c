@@ -701,7 +701,7 @@ static void
 outputbox_statuscode_lcb(gint status, Tbfwin *bfwin, gpointer data)
 {
 	Texternalp *ep=data;
-	gchar *tmp = g_strdup_printf(_("The command %s exited with error code %d."), ep->commandstring, status);
+	gchar *tmp = g_strdup_printf(_("The command %s exited with error code %d. %s"), ep->commandstring, status, "");
 	DEBUG_MSG("outputbox_statuscode_lcb, exitcode %d, add to outputbox: %s\n", status, tmp);
 	fill_output_box(bfwin->outputbox, tmp);
 	if (status==32512) {
