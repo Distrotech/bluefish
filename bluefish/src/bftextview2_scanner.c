@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_scanner.c
  *
- * Copyright (C) 2008,2009,2010,2011 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2011,2012,2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -552,13 +552,15 @@ found_free_lcb(gpointer data, gpointer btv)
 }
 
 static void
-remove_all_highlighting_in_area(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end)
+remove_all_highlighting_in_area(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end, guint endoffset)
 {
 	GList *tmplist = g_list_first(btv->bflang->tags);
+	DEBUG_MSG("remove_all_highlighting_in_area %d:%d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
 	while (tmplist) {
 		gtk_text_buffer_remove_tag(btv->buffer, (GtkTextTag *) tmplist->data, start, end);
 		tmplist = g_list_next(tmplist);
 	}
+	btv->needremovetags = endoffset;
 }
 
 /*
@@ -929,7 +931,7 @@ enlarge_scanning_region_to_iter(BluefishTextView * btv, Tscanning * scanning, Gt
 {
 	if (gtk_text_iter_compare(iter, &scanning->end) > 0) {
 		DBG_SCANCACHE("enlarge_scanning_region to offset %d\n", gtk_text_iter_get_offset(iter));
-		remove_all_highlighting_in_area(btv, &scanning->end, iter);
+		remove_all_highlighting_in_area(btv, &scanning->end, iter, gtk_text_iter_get_offset(iter));
 		scanning->end = *iter;
 		return TRUE;
 	}
@@ -1223,7 +1225,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	GtkTextIter mstart;
 	/*GArray *matchstack; */
 	Tscanning scanning;
-	guint pos = 0, newpos, reconstruction_o;
+	guint pos = 0, newpos, reconstruction_o, endoffset;
 	gboolean end_of_region = FALSE, last_character_run = FALSE, continue_loop = TRUE, finished;
 	gint loop = 0;
 #ifdef IDENTSTORING
@@ -1277,7 +1279,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #ifdef VALGRIND_PROFILING
 			CALLGRIND_STOP_INSTRUMENTATION;
 #endif							/* VALGRIND_PROFILING */
-			return TRUE;
+			return TRUE; /* call us again */
 		}
 		if (gtk_text_iter_compare(&scanning.end, visible_end) > 0) {
 			DBG_DELAYSCANNING
@@ -1316,8 +1318,9 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	}
 	if (!gtk_text_iter_is_end(&scanning.end)) {
 		/* the end position should be the largest of the end of the line and the 'end' iter */
-		gtk_text_iter_forward_to_line_end(&iter);
-		gtk_text_iter_forward_char(&iter);
+		/*gtk_text_iter_forward_to_line_end(&iter);
+		gtk_text_iter_forward_char(&iter);*/
+		gtk_text_iter_forward_line(&iter);
 		if (gtk_text_iter_compare(&iter, &scanning.end) >= 0)
 			scanning.end = iter;
 		iter = scanning.start;
@@ -1327,10 +1330,9 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #ifdef HL_PROFILING
 	stage2 = g_timer_elapsed(scanning.timer, NULL);
 #endif
-	if (btv->needremovetags) {
-		remove_all_highlighting_in_area(btv, &scanning.start, &scanning.end);
-/*		remove_old_scan_results(btv, buffer, &start);*/
-		btv->needremovetags = FALSE;
+	endoffset = gtk_text_iter_get_offset(&scanning.end);
+	if (btv->needremovetags < endoffset) {
+		remove_all_highlighting_in_area(btv, &scanning.start, &scanning.end, endoffset);
 	}
 #ifdef HL_PROFILING
 	stage3 = g_timer_elapsed(scanning.timer, NULL);

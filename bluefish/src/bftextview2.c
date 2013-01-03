@@ -727,7 +727,7 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning %p\n",
 				gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needscanning);
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
-	btv->needremovetags = TRUE;
+	btv->needremovetags = 0;
 	/*start_offset = gtk_text_iter_get_offset(&start); */
 
 #ifdef HAVE_LIBENCHANT
@@ -1341,7 +1341,7 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	/*gtk_text_iter_backward_word_start(&begin);
 	   gtk_text_iter_forward_word_end(&end); */
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
-	btv->needremovetags = TRUE;
+	btv->needremovetags = 0;
 	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
 				gtk_text_iter_get_offset(&end));
 #ifdef HAVE_LIBENCHANT
@@ -2148,7 +2148,7 @@ bluefish_text_view_rescan(BluefishTextView * btv)
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv->master));
 		gtk_text_buffer_get_bounds(buffer, &start, &end);
 		gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(btv->master)->needscanning, &start, &end);
-		btv->needremovetags = TRUE;
+		btv->needremovetags = 0;
 #ifdef HAVE_LIBENCHANT
 		DBG_SPELL("bluefish_text_view_rescan, mark all with needspellcheck\n");
 		gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(btv->master)->needspellcheck, &start, &end);
@@ -2465,7 +2465,7 @@ bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, c
 		/* restart scanning */
 		gtk_text_buffer_get_bounds(buffer, &start, &end);
 		gtk_text_buffer_apply_tag(buffer, master->needscanning, &start, &end);
-		btv->needremovetags = TRUE;
+		btv->needremovetags = 0;
 #ifdef HAVE_LIBENCHANT
 		gtk_text_buffer_apply_tag(buffer, master->needspellcheck, &start, &end);
 #endif
