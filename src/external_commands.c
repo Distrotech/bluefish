@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * external_commands.c - backend for external commands, filters and the outputbox
  *
- * Copyright (C) 2005-2012 Olivier Sessink
+ * Copyright (C) 2005-2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,6 +53,7 @@ typedef struct {
 	const gchar *formatstring; /* the command from the configuration, so including placeholders such as %i, %f, |,  etc. */
 	gchar *commandstring; /* the command that will be started by g_spawn, the placeholders should have been replaced/removed */
 	CustomCommandCallback customcommand_cb;
+	StatusCodeCallback statuscode_cb;
 	gpointer data;
 
 	gchar *securedir; /* if we need any local temporary files for input or output */
@@ -161,17 +162,10 @@ static void spawn_setup_lcb(gpointer data) {
 static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	Texternalp *ep = data;
 	GError *gerror=NULL;
-	gchar *tmp;
 	DEBUG_MSG("child_watch_lcb, child exited with status=%d\n",status);
-#ifndef WIN32
-	/* on windows this even fires dialogs when opening something in firefox, disabling that for the moment */
-	if (status != 0) {
-		tmp = g_markup_printf_escaped(_("The command %s exited with error code %d. %s"), ep->commandstring, status, (status==32512)?_("Probably this application is not installed on your system."):"");
-		message_dialog_new(BFWIN(ep->bfwin)->main_window, GTK_MESSAGE_ERROR
-					, GTK_BUTTONS_CLOSE, _("Command returned error code"), tmp);
-		g_free(tmp);
+	if (ep->statuscode_cb) {
+		ep->statuscode_cb(status, BFWIN(ep->bfwin), ep->data);
 	}
-#endif
 	if (ep->pipe_in && !ep->buffer_out) {
 		DEBUG_MSG("child_watch_lcb, the child has exited before we actually started\n");
 		/* the child has exited before we actually started to write data to the child, just abort now */
@@ -658,6 +652,7 @@ command_backend(Tbfwin *bfwin, gint begin, gint end,
 								const gchar *formatstring,
 								GIOFunc channel_out_cb,
 								gboolean incl_stderr,
+								StatusCodeCallback statuscode_cb,
 								CustomCommandCallback customcommand_cb, gpointer data) {
 	Texternalp *ep;
 
@@ -665,6 +660,7 @@ command_backend(Tbfwin *bfwin, gint begin, gint end,
 	ep = g_new0(Texternalp,1);
 	ep->bfwin = bfwin;
 	ep->customcommand_cb = customcommand_cb;
+	ep->statuscode_cb = statuscode_cb;
 	ep->data = data ? data : ep;
 	ep->doc = bfwin->current_document;
 	ep->begin = begin;
@@ -685,9 +681,37 @@ command_backend(Tbfwin *bfwin, gint begin, gint end,
 	ep->channel_out_lcb = channel_out_cb;
 	start_command(ep);
 }
+static void
+filter_statuscode_lcb(gint status, Tbfwin *bfwin, gpointer data)
+{
+	Texternalp *ep=data;
+	DEBUG_MSG("filter_statuscode_lcb, exitcode %d\n", status);
+#ifndef WIN32
+	/* on windows this even fires dialogs when opening something in firefox, disabling that for the moment */
+	if (status != 0) {
+		gchar *tmp = g_markup_printf_escaped(_("The command %s exited with error code %d. %s"), ep->commandstring, status, (status==32512)?_("Probably this application is not installed on your system."):"");
+		message_dialog_new(BFWIN(ep->bfwin)->main_window, GTK_MESSAGE_ERROR
+					, GTK_BUTTONS_CLOSE, _("Command returned error code"), tmp);
+		g_free(tmp);
+	}
+#endif
+}
+
+static void
+outputbox_statuscode_lcb(gint status, Tbfwin *bfwin, gpointer data)
+{
+	Texternalp *ep=data;
+	gchar *tmp = g_strdup_printf(_("The command %s exited with error code %d."), ep->commandstring, status);
+	DEBUG_MSG("outputbox_statuscode_lcb, exitcode %d, add to outputbox: %s\n", status, tmp);
+	fill_output_box(bfwin->outputbox, tmp);
+	if (status==32512) {
+		fill_output_box(bfwin->outputbox, _("Probably this application is not installed on your system."));
+	}
+	g_free(tmp);
+}
 
 void outputbox_command(Tbfwin *bfwin, const gchar *formatstring) {
-	command_backend(bfwin, 0, -1,formatstring, outputbox_io_watch_lcb, TRUE, NULL, NULL);
+	command_backend(bfwin, 0, -1,formatstring, outputbox_io_watch_lcb, TRUE, outputbox_statuscode_lcb,  NULL, NULL);
 }
 
 static void
@@ -714,15 +738,15 @@ filter_custom_lcb(const gchar *str_return, gpointer bfwin, gpointer data)
 }
 
 void filter_command(Tbfwin *bfwin, const gchar *formatstring, gint begin, gint end) {
-	command_backend(bfwin, begin, end,formatstring, full_data_io_watch_lcb, FALSE, filter_custom_lcb, NULL);
+	command_backend(bfwin, begin, end,formatstring, full_data_io_watch_lcb, FALSE, filter_statuscode_lcb, filter_custom_lcb, NULL);
 }
 
 void external_command(Tbfwin *bfwin, const gchar *formatstring) {
-	command_backend(bfwin, 0, -1,formatstring, NULL, FALSE, NULL, NULL);
+	command_backend(bfwin, 0, -1,formatstring, NULL, FALSE, filter_statuscode_lcb, NULL, NULL);
 }
 
 void
 custom_command(Tbfwin *bfwin, const gchar *formatstring, CustomCommandCallback func, gpointer data)
 {
-	command_backend(bfwin, 0, -1,formatstring, full_data_io_watch_lcb, TRUE, func, data);
+	command_backend(bfwin, 0, -1,formatstring, full_data_io_watch_lcb, TRUE, NULL, func, data);
 }

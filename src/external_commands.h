@@ -26,6 +26,7 @@ void filter_command(Tbfwin *bfwin, const gchar *formatstring, gint begin, gint e
 void external_command(Tbfwin *bfwin, const gchar *formatstring);
 
 typedef void (*CustomCommandCallback) (const gchar *output, gpointer bfwin, gpointer data);
+typedef void (*StatusCodeCallback) (gint exitstatus, Tbfwin *bfwin, gpointer data);
 void custom_command(Tbfwin *bfwin, const gchar *formatstring, CustomCommandCallback func, gpointer data);
 
 #endif /* __EXTERNAL_COMMANDS_H_ */
