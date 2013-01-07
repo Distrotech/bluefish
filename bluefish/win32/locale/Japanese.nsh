@@ -34,7 +34,6 @@
 !define GTK_FAILED "GTK+ のダウンロードに失敗しました:"
 !define GTK_INSTALL "GTK+ をインストールしています..."
 ; !define GTK_UNINSTALL "Uninstalling GTK+..."
-!define GTK_PATH "GTK+ をシステムパスにインストールしています。"
 ; !define GTK_REQUIRED "Please install GTK+ ${GTK_MIN_VERSION} or higher and make sure it is in your PATH before running Bluefish."
 
 ; Plugin Names

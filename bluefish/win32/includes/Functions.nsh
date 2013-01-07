@@ -2,7 +2,7 @@
 ; Bluefish Windows NSIS Macros Header
 ; [Functions.nsh]
 ; 
-;  Copyright (C) 2009-2010 The Bluefish Developers
+;  Copyright (C) 2009-2013 The Bluefish Developers
 ;   Shawn Novak <Kernel86@gmail.com>
 ;   Daniel Leidert <daniel.leidert@wgdd.de>
 ;----------------------------------------------
@@ -272,4 +272,30 @@ Function GtkVersionCheck
 	Pop $R2
 	Pop $R1
 	Pop $R0
+FunctionEnd
+
+Function PythonVersionCheck
+; Check if Python is installed as the Current User
+	StrCpy $0 0
+PyClassLoop:
+	EnumRegKey $1 HKCU "Software\Python\PythonCore" $0
+	StrCmp $1 "" PyAdmin 0 ; If not installed as CU check Admin
+	IntOp $0 $0 + 1
+	StrCmp $1 "2.7" PyFinish PyClassLoop
+
+; Check if Python is installed as Local Administrator
+PyAdmin:
+	StrCpy $0 0
+PyAdminLoop:
+	EnumRegKey $1 HKLM "Software\Python\PythonCore" $0
+	StrCmp $1 "" PyFail 0 ; If not, Python is not installed
+	IntOp $0 $0 + 1
+	StrCmp $1 "2.7" PyFinish PyAdminLoop
+
+PyFail:
+	StrCpy $PYTHON_STATUS ""
+	Return
+PyFinish:
+	StrCpy $PYTHON_STATUS "installed"
+	Return
 FunctionEnd

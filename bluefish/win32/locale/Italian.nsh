@@ -34,7 +34,6 @@
 !define GTK_FAILED "Impossibile scaricare GTK+:"
 !define GTK_INSTALL "Instalazione di GTK+..."
 !define GTK_UNINSTALL "Disinstallazione di GTK+..."
-!define GTK_PATH "Installazione di GTK+ nel percorso di sistema."
 !define GTK_REQUIRED "Si prega di installare GTK+ ${GTK_MIN_VERSION} o superiore e assicurarsi che sia nel PATH prima di eseguire Bluefish."
 
 
@@ -65,7 +64,7 @@
 !define INETC_TSEC "secondi"
 !define INETC_TMIN "minuti"
 !define INETC_THOUR "ore"
-!define INETC_TPLUR ""
+!define INETC_TPLUR " "
 !define INETC_PROGRESS "%dkB (%d%%) di %dkB @ %d.%01dkB/s"
 !define INETC_REMAIN " (%d %s%s restanti)"
 

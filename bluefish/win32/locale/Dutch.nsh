@@ -34,7 +34,6 @@
 !define GTK_FAILED "GTK+ bibliotheek download mislukt:"
 !define GTK_INSTALL "Installeer GTK+ bibliotheek..."
 !define GTK_UNINSTALL "GTK+ Deinstalleren..."
-!define GTK_PATH "Installeer GTK+ bibliotheek in het systeempad."
 !define GTK_REQUIRED "Installeer GTK+ ${GTK_MIN_VERSION} of hoger en maak deze beschikbaar in PATH voor het starten van Bluefish."
 
 ; Plugin Names

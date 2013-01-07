@@ -34,7 +34,6 @@
 !define GTK_FAILED "Kunne ikke hente GTK+:"
 !define GTK_INSTALL "Installerer GTK+..."
 !define GTK_UNINSTALL "Afinstallerer GTK+..."
-!define GTK_PATH "Installerer GTK+ i system-PATH."
 !define GTK_REQUIRED "Installer GTK+ ${GTK_MIN_VERSION} eller nyere og kontroller at den findes i din PATH før du starter Bluefish."
 
 ; Plugin Names

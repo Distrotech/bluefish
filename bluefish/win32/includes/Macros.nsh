@@ -2,7 +2,7 @@
 ; Bluefish Windows NSIS Macros Header
 ; [Macros.nsh]
 ; 
-;  Copyright (C) 2009-2010 The Bluefish Developers
+;  Copyright (C) 2009-2013 The Bluefish Developers
 ;   Shawn Novak <Kernel86@gmail.com>
 ;   Daniel Leidert <daniel.leidert@wgdd.de>
 ;----------------------------------------------
@@ -242,12 +242,18 @@
 	!insertmacro Localize "FILETYPE_REGISTER" "${LANG}"
 	!insertmacro Localize "UNSTABLE_UPGRADE" "${LANG}"
 
+	!insertmacro Localize "SECT_DEPENDS" "${LANG}"
+
 	!insertmacro Localize "GTK_DOWNLOAD" "${LANG}"
 	!insertmacro Localize "GTK_FAILED" "${LANG}"
 	!insertmacro Localize "GTK_INSTALL" "${LANG}"
 	!insertmacro Localize "GTK_UNINSTALL" "${LANG}"
-	!insertmacro Localize "GTK_PATH" "${LANG}"
 	!insertmacro Localize "GTK_REQUIRED" "${LANG}"
+
+	!insertmacro Localize "PYTHON_DOWNLOAD" "${LANG}"
+	!insertmacro Localize "PYTHON_FAILED" "${LANG}"
+	!insertmacro Localize "PYTHON_INSTALL" "${LANG}"
+	!insertmacro Localize "PYTHON_REQUIRED" "${LANG}"
 
 	!insertmacro Localize "SECT_PLUGINS" "${LANG}"
 	!insertmacro Localize "PLUG_CHARMAP" "${LANG}"

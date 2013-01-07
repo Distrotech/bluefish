@@ -34,7 +34,6 @@
 !define GTK_FAILED "La baixada del GTK+ ha fallat:"
 !define GTK_INSTALL "S'està instal·lant el GTK+..."
 !define GTK_UNINSTALL "S'està desintal·lant el GTK+..."
-!define GTK_PATH "S'està instal·lant el camí del sistema."
 !define GTK_REQUIRED "Instal·leu el GTK+ ${GTK_MIN_VERSION} o superior i assegureu-vos que està en el PATH abans d'executar el Bluefish."
 
 ; Plugin Names
