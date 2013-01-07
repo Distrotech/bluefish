@@ -34,7 +34,6 @@
 !define GTK_FAILED "Selhalo stažení GTK+:"
 !define GTK_INSTALL "Instaluje se GTK+..."
 !define GTK_UNINSTALL "Odinstalovává se GTK+…"
-!define GTK_PATH "Instaluje se GTK+ do systémové cesty."
 !define GTK_REQUIRED "Nainstalujte, prosím, GTK+ ${GTK_MIN_VERSION} nebo novější a před spuštěním Bluefish se ujistěte, že se nachází v cestách PATH."
 
 ; Plugin Names

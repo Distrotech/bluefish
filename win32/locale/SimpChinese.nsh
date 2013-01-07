@@ -34,7 +34,6 @@
 !define GTK_FAILED "GTK+ 下载失败："
 !define GTK_INSTALL "GTK+ 安装中..."
 !define GTK_UNINSTALL "GTK+ 卸载中..."
-!define GTK_PATH "GTK+ 正被安装到系统路径中。"
 !define GTK_REQUIRED "请安装 GTK+ ${GTK_MIN_VERSION} 或更高的版本，并保证运行 Bluefish 前将其置于你系统的 PATH 中。"
 
 ; Plugin Names
@@ -64,7 +63,7 @@
 !define INETC_TSEC "秒"
 !define INETC_TMIN "分"
 !define INETC_THOUR "小时"
-!define INETC_TPLUR ""
+!define INETC_TPLUR " "
 !define INETC_PROGRESS "当前 %dkB (%d%%) 全部 %dkB 速度 %d.%01dkB/秒"
 !define INETC_REMAIN " （剩余 %d %s%s）"
 

@@ -2,7 +2,7 @@
 ; Bluefish Windows NSIS Install Script
 ; [bluefish.nsi]
 ; 
-;  Copyright (C) 2009-2012 The Bluefish Developers
+;  Copyright (C) 2009-2013 The Bluefish Developers
 ;   Shawn Novak <Kernel86@gmail.com>
 ;   Daniel Leidert <daniel.leidert@wgdd.de>
 ;----------------------------------------------
@@ -15,6 +15,7 @@
 !include "WinVer.nsh"
 !include "WinMessages.nsh"
 !include "LogicLib.nsh"
+!define LOGICLIB_SECTIONCMP
 !include "nsDialogs.nsh"
 !include "StrFunc.nsh"
 ${StrLoc}
@@ -64,6 +65,11 @@ ${StrRep}
 	OutFile		"${PRODUCT}-${VERSION}-setup.exe"
 !endif
 
+!define PYTHON_MIN_VERSION "2.7.0"
+!define PYTHON_URL "http://www.python.org/ftp/python/2.7.3"
+!define PYTHON_FILENAME "python-2.7.3.msi"
+!define PYTHON_SIZE "15868"
+
 !define AS_DICT_URL	"http://www.muleslow.net/files/aspell/lang"
 
 !define REG_USER_SET	"Software\${PRODUCT}"
@@ -75,6 +81,7 @@ ${StrRep}
 ;----------------------------------------------
 Var HKEY
 Var GTK_STATUS
+Var PYTHON_STATUS
 Var StartMenuFolder
 
 Var FA_Dialog
@@ -320,55 +327,108 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	SetOverwrite off
 SectionEnd
 
-Section "-GTK+ Installer" SecGTK
-	${If} $GTK_STATUS == ""
-		IfFileExists "$EXEDIR\redist\${GTK_FILENAME}" 0 +13
-			${StrRep} $R1 "$(DOWN_LOCAL)" "%s" "${GTK_FILENAME}"
-			DetailPrint "$R1"
-			md5dll::GetMD5File "$EXEDIR\redist\${GTK_FILENAME}"
-  			Pop $R0
-  			${If} $R0 == ${MD5_${GTK_FILENAME}}
-  				DetailPrint "$(DOWN_CHKSUM)"
-  				ExecWait '"$EXEDIR\redist\${GTK_FILENAME}" /S /sideeffects=no /dllpath=root /D=$INSTDIR'
-  				Goto +30 ; Jump to setting version
-  			${Else}
-  				DetailPrint "$(DOWN_CHKSUM_ERROR)"
-  				Goto +2 ; Jump to '${EndIf}+1
-  			${EndIf}
-
-		IntFmt $R1 "%u" 0
-		IntCmp $R1 0 +3 +3 0
-			DetailPrint "Download Retry $R1 of 5..."
-			DetailPrint "$(GTK_DOWNLOAD) (${GTK_URL}/${GTK_FILENAME})"
-		Delete "$TEMP\${GTK_FILENAME}" ; Should never happen but just in case
-		inetc::get /TRANSLATE "$(INETC_DOWN)" "$(INETC_CONN)" "$(INETC_TSEC)" "$(INETC_TMIN)" "$(INETC_THOUR)" "$(INETC_TPLUR)" "$(INETC_PROGRESS)" "$(INETC_REMAIN)" "${GTK_URL}/${GTK_FILENAME}" "$TEMP\${GTK_FILENAME}"
-		Pop $R0
-			StrCmp $R0 "OK" +14
-			StrCmp $R0 "Terminated" +11
-			StrCmp $R0 "Cancelled" +10
-			StrCmp $R0 "Transfer Error" +6
-			StrCmp $R0 "Connection Error" +5
-			StrCmp $R0 "SendRequest Error" +4
-			StrCmp $R0 "File Not Found (404)" +3
-			StrCmp $R0 "Request Error" +2
-			StrCmp $R0 "Server Error" +1
-			IntCmp $R1 5 +3 0 0
-				IntOp $R1 $R1 + 1
-				Goto -16
-				MessageBox MB_OK|MB_ICONEXCLAMATION "$(GTK_FAILED) $R0$\n$\n$(GTK_REQUIRED)"
-				Return
-		DetailPrint "$(GTK_INSTALL) (${GTK_FILENAME})"
-		ExecWait '"$TEMP\${GTK_FILENAME}" /S /sideeffects=no /dllpath=root /D=$INSTDIR'
-		Delete "$TEMP\${GTK_FILENAME}"
-
-		IfFileExists "$INSTDIR\${UNINSTALL_GTK}" 0 -6 ; If the uninstaller exists install completed successfully, otherwise display an error
-			${If} $HKEY == "Classic"
-				WriteRegStr HKCU "${REG_USER_SET}" "GTK" "${GTK_VERSION}"
-			${Else}
-				WriteRegStr HKLM "${REG_USER_SET}" "GTK" "${GTK_VERSION}"
-			${EndIf}
-	${EndIf}
-SectionEnd
+SectionGroup "$(SECT_DEPENDS)" SecDepends
+	Section "GTK+ 2.24.8" SecGTK
+		SectionIn 1 RO
+		${If} $GTK_STATUS == ""
+			IfFileExists "$INSTDIR\${UNINSTALL_GTK}" +3 0 ; Uninstall previous version
+				DetailPrint "$(GTK_UNINSTALL)"
+				ExecWait '"$INSTDIR\${UNINSTALL_GTK}" /S /sideeffects=no /dllpath=root /remove_config=yes'
+	
+			IfFileExists "$EXEDIR\redist\${GTK_FILENAME}" 0 GtkInstDown
+				${StrRep} $R1 "$(DOWN_LOCAL)" "%s" "${GTK_FILENAME}"
+				DetailPrint "$R1"
+				md5dll::GetMD5File "$EXEDIR\redist\${GTK_FILENAME}"
+	  			Pop $R0
+	  			${If} $R0 == ${MD5_${GTK_FILENAME}}
+	  				DetailPrint "$(DOWN_CHKSUM)"
+	  				ExecWait '"$EXEDIR\redist\${GTK_FILENAME}" /S /sideeffects=no /dllpath=root /D=$INSTDIR'
+	  				Goto GtkInstSetVer ; Jump to setting version
+	  			${Else}
+	  				DetailPrint "$(DOWN_CHKSUM_ERROR)"
+	  				Goto GtkInstDown ; Jump to '${EndIf}+1
+	  			${EndIf}
+	
+	GtkInstDown:
+			IntFmt $R1 "%u" 0
+			IntCmp $R1 0 +3 +3 0
+	GtkInstDownRetry:
+				DetailPrint "Download Retry $R1 of 5..."
+				DetailPrint "$(GTK_DOWNLOAD) (${GTK_URL}/${GTK_FILENAME})"
+			Delete "$TEMP\${GTK_FILENAME}" ; Should never happen but just in case
+			inetc::get /TRANSLATE "$(INETC_DOWN)" "$(INETC_CONN)" "$(INETC_TSEC)" "$(INETC_TMIN)" "$(INETC_THOUR)" "$(INETC_TPLUR)" "$(INETC_PROGRESS)" "$(INETC_REMAIN)" "${GTK_URL}/${GTK_FILENAME}" "$TEMP\${GTK_FILENAME}"
+			Pop $R0
+				StrCmp $R0 "OK" +14
+				StrCmp $R0 "Terminated" +11
+				StrCmp $R0 "Cancelled" +10
+				StrCmp $R0 "Transfer Error" +6
+				StrCmp $R0 "Connection Error" +5
+				StrCmp $R0 "SendRequest Error" +4
+				StrCmp $R0 "File Not Found (404)" +3
+				StrCmp $R0 "Request Error" +2
+				StrCmp $R0 "Server Error" +1
+				IntCmp $R1 5 +3 0 0
+					IntOp $R1 $R1 + 1
+					Goto GtkInstDownRetry
+					MessageBox MB_OK|MB_ICONEXCLAMATION "$(GTK_FAILED) $R0$\n$\n$(GTK_REQUIRED)"
+					Return
+			DetailPrint "$(GTK_INSTALL) (${GTK_FILENAME})"
+			ExecWait '"$TEMP\${GTK_FILENAME}" /S /sideeffects=no /dllpath=root /D=$INSTDIR'
+			Delete "$TEMP\${GTK_FILENAME}"
+	
+	GtkInstSetVer:
+			IfFileExists "$INSTDIR\${UNINSTALL_GTK}" 0 -6 ; If the uninstaller exists install completed successfully, otherwise display an error
+				${If} $HKEY == "Classic"
+					WriteRegStr HKCU "${REG_USER_SET}" "GTK" "${GTK_VERSION}"
+				${Else}
+					WriteRegStr HKLM "${REG_USER_SET}" "GTK" "${GTK_VERSION}"
+				${EndIf}
+		${EndIf}
+	SectionEnd
+	Section /o "Python 2.7" SecPython
+		${If} $PYTHON_STATUS == ""
+			IfFileExists "$EXEDIR\redist\${PYTHON_FILENAME}" 0 PythonInstDown
+				${StrRep} $R1 "$(DOWN_LOCAL)" "%s" "${PYTHON_FILENAME}"
+				DetailPrint "$R1"
+				md5dll::GetMD5File "$EXEDIR\redist\${PYTHON_FILENAME}"
+	  			Pop $R0
+	  			${If} $R0 == ${MD5_${PYTHON_FILENAME}}
+	  				DetailPrint "$(DOWN_CHKSUM)"
+	  				ExecWait 'msiexec /i "$EXEDIR\redist\${PYTHON_FILENAME}"'
+	  			${Else}
+	  				DetailPrint "$(DOWN_CHKSUM_ERROR)"
+	  				Goto PythonInstDown ; Jump to '${EndIf}+1
+	  			${EndIf}
+	
+	PythonInstDown:
+			IntFmt $R1 "%u" 0
+			IntCmp $R1 0 +3 +3 0
+	PythonInstDownRetry:
+				DetailPrint "Download Retry $R1 of 5..."
+				DetailPrint "$(PYTHON_DOWNLOAD) (${PYTHON_URL}/${PYTHON_FILENAME})"
+			Delete "$TEMP\${PYTHON_FILENAME}" ; Should never happen but just in case
+			inetc::get /TRANSLATE "$(INETC_DOWN)" "$(INETC_CONN)" "$(INETC_TSEC)" "$(INETC_TMIN)" "$(INETC_THOUR)" "$(INETC_TPLUR)" "$(INETC_PROGRESS)" "$(INETC_REMAIN)" "${PYTHON_URL}/${PYTHON_FILENAME}" "$TEMP\${PYTHON_FILENAME}"
+			Pop $R0
+				StrCmp $R0 "OK" +14
+				StrCmp $R0 "Terminated" +11
+				StrCmp $R0 "Cancelled" +10
+				StrCmp $R0 "Transfer Error" +6
+				StrCmp $R0 "Connection Error" +5
+				StrCmp $R0 "SendRequest Error" +4
+				StrCmp $R0 "File Not Found (404)" +3
+				StrCmp $R0 "Request Error" +2
+				StrCmp $R0 "Server Error" +1
+				IntCmp $R1 5 +3 0 0
+					IntOp $R1 $R1 + 1
+					Goto PythonInstDownRetry
+					MessageBox MB_OK|MB_ICONEXCLAMATION "$(PYTHON_FAILED) $R0$\n$\n$(PYTHON_REQUIRED)"
+					Return
+			DetailPrint "$(PYTHON_INSTALL) (${PYTHON_FILENAME})"
+			ExecWait 'msiexec /i "$TEMP\${PYTHON_FILENAME}"'
+			Delete "$TEMP\${PYTHON_FILENAME}"
+		${EndIf}
+	SectionEnd
+SectionGroupEnd
 
 SectionGroup "$(SECT_PLUGINS)" SecPlugins
 	SetOverwrite on
@@ -406,20 +466,20 @@ SectionGroup "$(SECT_PLUGINS)" SecPlugins
 		SetOutPath "$INSTDIR\share\locale"
 		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_vcs.mo" /x "*_zencoding.mo" "build\share\locale\*"
 	SectionEnd
-	Section "$(PLUG_VCS)" SecPlVcs
-		SetOutPath "$INSTDIR\lib\${PACKAGE}"
-		File "build\lib\${PACKAGE}\vcs.dll"
-		SetOutPath "$INSTDIR\share\locale"
-		File /nonfatal /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
-	SectionEnd
-;	Section "$(PLUG_ZENDCODING)" SecPlZendcoding
+;	Section "$(PLUG_VCS)" SecPlVcs
 ;		SetOutPath "$INSTDIR\lib\${PACKAGE}"
-;		File "build\lib\${PACKAGE}\zendcoding.dll"
-;		SetOutPath "$INSTDIR\share\${PACKAGE}\plugins\zendcoding"
-;		File /r "build\share\${PACKAGE}\plugins\zendcoding\*"
+;		File "build\lib\${PACKAGE}\vcs.dll"
 ;		SetOutPath "$INSTDIR\share\locale"
-;		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_vcs.mo" "build\share\locale\*"
+;		File /nonfatal /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_zencoding.mo" "build\share\locale\*"
 ;	SectionEnd
+	Section /o "$(PLUG_ZENCODING)" SecPlZencoding
+		SetOutPath "$INSTDIR\lib\${PACKAGE}"
+		File "build\lib\${PACKAGE}\zencoding.dll"
+		SetOutPath "$INSTDIR\share\${PACKAGE}\plugins\zencoding"
+		File /r "build\share\${PACKAGE}\plugins\zencoding\*"
+		SetOutPath "$INSTDIR\share\locale"
+		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" /x "*_vcs.mo" "build\share\locale\*"
+	SectionEnd
 	SetOverwrite off
 SectionGroupEnd
 
@@ -638,6 +698,18 @@ Function .onInit
 	Call GtkVersionCheck
 	${If} $GTK_STATUS == ""	
 		SectionSetSize ${SecGTK} ${GTK_SIZE}	; 7.54MB Download
+	${EndIf}
+
+	Call PythonVersionCheck
+	${If} $PYTHON_STATUS == ""
+		SectionSetSize ${SecPython} ${PYTHON_SIZE}	; 15.1MB Download
+	${Else} ; Mark as enabled and readonly if already installed
+		!insertmacro SelectSection ${SecPython}
+		Push $0
+			SectionGetFlags ${SecPython} $0
+			IntOp $0 $0 | ${SF_RO}
+			SectionSetFlags ${SecPython} $0
+		Pop $0
 	${EndIf}
 
 	SectionSetSize ${SecLangBg} 2501		; 842KB Download
@@ -923,6 +995,13 @@ Function .onInit
 	Pop $R2
 	Pop $R1
 	Pop $R0
+FunctionEnd
+
+Function .onSelChange
+	${If} ${SectionIsSelected} ${SecPlZencoding}
+	${AndIfNot} ${SectionIsSelected} ${SecPython}
+		!insertmacro SelectSection ${SecPython}
+	${EndIf}
 FunctionEnd
 
 

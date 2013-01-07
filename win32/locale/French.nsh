@@ -34,7 +34,6 @@
 !define GTK_FAILED "Échec du téléchargement de GTK+ :"
 !define GTK_INSTALL "Installation de GTK+… "
 !define GTK_UNINSTALL "Désinstallation de GTK +… "
-!define GTK_PATH "Installation de GTK+ dans le chemin du système."
 !define GTK_REQUIRED "S'il vous plaît installer GTK + 2.14.7 ou supérieur et assurez-vous qu'il est dans votre PATH avant d'exécuter Bluefish."
 
 ; Plugin Names

@@ -34,7 +34,6 @@
 !define GTK_FAILED "Nedlasting av GTK+ feilet:"
 !define GTK_INSTALL "Installerer GTK+..."
 !define GTK_UNINSTALL "Avinstallerer GTK+..."
-!define GTK_PATH "Installerer GTK+ i systemfilbanen."
 !define GTK_REQUIRED "Installer GTK+ 2.14.7 eller nyere og sikre at biblioteket finnes i systemfilbanen (PATH) før du starter Bluefish."
 
 ; Plugin Names

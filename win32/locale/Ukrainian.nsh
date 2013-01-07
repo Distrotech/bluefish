@@ -34,7 +34,6 @@
 !define GTK_FAILED "Помилка під час звантаження GTK+:"
 !define GTK_INSTALL "Встановлення GTK+..."
 !define GTK_UNINSTALL "Вилучення GTK+..."
-!define GTK_PATH "Встановлення GTK+ до каталогу програм системи."
 !define GTK_REQUIRED "Будь ласка, встановіть GTK+ ${GTK_MIN_VERSION} або новішу версію і переконайтеся, що відповідні каталоги вказано у змінній PATH, перш ніж запускати Bluefish."
 
 ; Plugin Names
@@ -65,7 +64,7 @@
 !define INETC_TSEC "сек."
 !define INETC_TMIN "хв."
 !define INETC_THOUR "год."
-!define INETC_TPLUR ""
+!define INETC_TPLUR " "
 !define INETC_PROGRESS "%dкБ (%d%%) з %dкБ @ %d.%01dкБ/с"
 !define INETC_REMAIN " (лишилося %d %s%s)"
 

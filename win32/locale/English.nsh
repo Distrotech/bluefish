@@ -10,6 +10,7 @@
 
 ; Section Names
 !define SECT_BLUEFISH "Bluefish Editor"
+!define SECT_DEPENDS "Dependencies"
 !define SECT_PLUGINS "Plugins"
 !define SECT_SHORTCUT "Desktop Shortcut"
 !define SECT_DICT "Spellcheck Languages (Internet Connection Required for Download)"
@@ -34,8 +35,13 @@
 !define GTK_FAILED "GTK+ Download failed:"
 !define GTK_INSTALL "Installing GTK+..."
 !define GTK_UNINSTALL "Uninstalling GTK+..."
-!define GTK_PATH "Installing GTK+ in the system path."
 !define GTK_REQUIRED "Please install GTK+ ${GTK_MIN_VERSION} or higher and make sure it is in your PATH before running Bluefish."
+
+; Python Strings
+!define PYTHON_DOWNLOAD "Downloading Python..."
+!define PYTHON_FAILED "Python Download failed:"
+!define PYTHON_INSTALL "Installing Python..."
+!define PYTHON_REQUIRED "Please install Python ${PYTHON_MIN_VERSION} or higher before running Bluefish.$\nPython is required for the Zencoding plugin an other features."
 
 ; Plugin Names
 !define PLUG_CHARMAP "Character Map"
@@ -65,7 +71,7 @@
 !define INETC_TSEC "second"
 !define INETC_TMIN "minute"
 !define INETC_THOUR "hour"
-!define INETC_TPLUR "s"
+!define INETC_TPLUR "s" ; Use a space if blank
 !define INETC_PROGRESS "%dkB (%d%%) of %dkB @ %d.%01dkB/s"
 !define INETC_REMAIN " (%d %s%s remaining)"
 

@@ -2,14 +2,14 @@
 ; Bluefish Windows NSIS Checksum Header
 ; [Checksums.nsh]
 ; 
-;  Copyright (C) 2009-2010 The Bluefish Developers
+;  Copyright (C) 2009-2013 The Bluefish Developers
 ;   Shawn Novak <Kernel86@gmail.com>
 ;   Daniel Leidert <daniel.leidert@wgdd.de>
 ;----------------------------------------------
 
-!define MD5_gtk-runtime-2.14.7-rev-a.exe "6574425c6cab33aaa69a832f1314887a"
 !define MD5_gtk2-runtime-2.24.8-2011-12-03-ash.exe	"570ce4b0bf5c0982f106d104ac23290d"
 !define MD5_gtk2-runtime-2.16.6-2010-05-12-ash.exe	"714de69347290ce93bbcbae76aa00bf9"
+!define MD5_python-2.7.3.msi "c846d7a5ed186707d3675564a9838cc2"
 
 !define MD5_af_0.50-0	"43cad926a5f75df8ab45a89c67a9bfce"
 !define MD5_am_0.03-1	"88b7848599d13f8728fdb5413d288ca3"
