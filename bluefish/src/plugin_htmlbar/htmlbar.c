@@ -99,12 +99,12 @@ htmlbar_sidepanel_initgui(Tbfwin *bfwin)
 	} 
 }
 
-static void
+/*static void
 htmlbar_sidepanel_destroygui(Tbfwin *bfwin)
 {
-	/* only widgets to destroy ?? */
-}
 
+}
+*/
 static void
 htmlbar_init(void)
 {
