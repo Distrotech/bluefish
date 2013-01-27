@@ -99,13 +99,13 @@ lorem_ipsum_dialog(Tbfwin * bfwin)
 		command = g_strdup_printf("python " PKGDATADIR "/lorem-ipsum-generator -l -p %d -s %d %s|",
 								  (gint) gtk_spin_button_get_value(GTK_SPIN_BUTTON(spin1)),
 								  (gint) gtk_spin_button_get_value(GTK_SPIN_BUTTON(spin2)),
-								  i == 2 ? "" : (i == 1 ? "-f html-li" : "-f html-p")
+								  i == 0 ? "" : (i == 1 ? "-f html-li" : "-f html-p")
 			);
 #else
 		command = g_strdup_printf(PKGDATADIR "/lorem-ipsum-generator -l -p %d -s %d %s|",
 								  (gint) gtk_spin_button_get_value(GTK_SPIN_BUTTON(spin1)),
 								  (gint) gtk_spin_button_get_value(GTK_SPIN_BUTTON(spin2)),
-								  i == 2 ? "" : (i == 1 ? "-f html-li" : "-f html-p")
+								  i == 0 ? "" : (i == 1 ? "-f html-li" : "-f html-p")
 			);
 #endif
 		custom_command(bfwin, command, (CustomCommandCallback) lorem_ipsum_command_callback, NULL);
