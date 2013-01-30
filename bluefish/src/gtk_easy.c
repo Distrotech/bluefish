@@ -364,7 +364,8 @@ combobox_fill(GtkWidget *combobox, const gchar * setstring, const GList * which_
 		}
 	}
 	/* if we PREpend, the activenum is the number starting from the end!! */
-	activenum=(i-1)-activenum;
+	if (activenum != -1)
+		activenum=(i-1)-activenum;
 	if (setstring) {
 		DEBUG_MSG("combobox_fill, setstring=%s, activenum=%d\n",setstring, activenum);
 		if (activenum == -1) {
