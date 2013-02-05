@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-12-13 14:05+0100\n"
+"POT-Creation-Date: 2013-02-05 21:18+0100\n"
 "PO-Revision-Date: 2012-06-06 18:38+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
@@ -320,7 +320,7 @@ msgstr "Formatu _orokorra"
 msgid "_Paragraph"
 msgstr "_Paragrafoa"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1011 src/plugin_htmlbar/html.c:880
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1011 src/plugin_htmlbar/html.c:879
 msgid "Paragraph"
 msgstr "Paragrafoa"
 
@@ -930,11 +930,11 @@ msgstr "Koadro txiki _anitzak..."
 msgid "Multi thumbnail..."
 msgstr "Koadro txiki anitzak..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1168 src/plugin_htmlbar/html.c:1792
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1168 src/plugin_htmlbar/html.c:1791
 msgid "Frame"
 msgstr "Markoa"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1169 src/plugin_htmlbar/html.c:1703
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1169 src/plugin_htmlbar/html.c:1702
 msgid "Frameset"
 msgstr "Markoen egitura"
 
@@ -1233,46 +1233,46 @@ msgstr "  Unix dataren _katea (%s)"
 msgid "  ISO-8601 Ti_me "
 msgstr "  ISO-8601 ordua "
 
-#: src/plugin_htmlbar/html.c:658
+#: src/plugin_htmlbar/html.c:657
 msgid "Quick Anchor"
 msgstr "Aingura bizkorra"
 
-#: src/plugin_htmlbar/html.c:664 src/plugin_htmlbar/html_form.c:520
+#: src/plugin_htmlbar/html.c:663 src/plugin_htmlbar/html_form.c:520
 msgid "Attributes"
 msgstr "Atributuak"
 
-#: src/plugin_htmlbar/html.c:685 src/plugin_htmlbar/html.c:2699
+#: src/plugin_htmlbar/html.c:684 src/plugin_htmlbar/html.c:2698
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:691 src/plugin_htmlbar/html_form.c:200
+#: src/plugin_htmlbar/html.c:690 src/plugin_htmlbar/html_form.c:200
 msgid "_Target:"
 msgstr "_Helburua:"
 
-#: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/html.c:935
-#: src/plugin_htmlbar/html.c:1326 src/plugin_htmlbar/html.c:1804
+#: src/plugin_htmlbar/html.c:694 src/plugin_htmlbar/html.c:934
+#: src/plugin_htmlbar/html.c:1325 src/plugin_htmlbar/html.c:1803
 #: src/plugin_htmlbar/html_form.c:251 src/plugin_htmlbar/html_form.c:315
 #: src/plugin_htmlbar/html_form.c:538 src/plugin_htmlbar/html_form.c:633
 #: src/plugin_htmlbar/image.c:532
 msgid "_Name:"
 msgstr "_Izena:"
 
-#: src/plugin_htmlbar/html.c:698 src/plugin_htmlbar/quickstart.c:558
+#: src/plugin_htmlbar/html.c:697 src/plugin_htmlbar/quickstart.c:558
 msgid "Titl_e:"
 msgstr "_Titulua:"
 
-#: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:1200
-#: src/plugin_htmlbar/html.c:1343 src/plugin_htmlbar/html.c:2347
+#: src/plugin_htmlbar/html.c:702 src/plugin_htmlbar/html.c:1199
+#: src/plugin_htmlbar/html.c:1342 src/plugin_htmlbar/html.c:2346
 msgid "_Language:"
 msgstr "_Hizkuntza:"
 
-#: src/plugin_htmlbar/html.c:706 src/plugin_htmlbar/html.c:941
-#: src/plugin_htmlbar/html.c:1107 src/plugin_htmlbar/html.c:1203
-#: src/plugin_htmlbar/html.c:1349 src/plugin_htmlbar/html.c:1733
-#: src/plugin_htmlbar/html.c:1842 src/plugin_htmlbar/html.c:1941
-#: src/plugin_htmlbar/html.c:2010 src/plugin_htmlbar/html.c:2134
-#: src/plugin_htmlbar/html.c:2199 src/plugin_htmlbar/html.c:2283
-#: src/plugin_htmlbar/html.c:2370 src/plugin_htmlbar/html_form.c:204
+#: src/plugin_htmlbar/html.c:705 src/plugin_htmlbar/html.c:940
+#: src/plugin_htmlbar/html.c:1106 src/plugin_htmlbar/html.c:1202
+#: src/plugin_htmlbar/html.c:1348 src/plugin_htmlbar/html.c:1732
+#: src/plugin_htmlbar/html.c:1841 src/plugin_htmlbar/html.c:1940
+#: src/plugin_htmlbar/html.c:2009 src/plugin_htmlbar/html.c:2133
+#: src/plugin_htmlbar/html.c:2198 src/plugin_htmlbar/html.c:2282
+#: src/plugin_htmlbar/html.c:2369 src/plugin_htmlbar/html_form.c:204
 #: src/plugin_htmlbar/html_form.c:267 src/plugin_htmlbar/html_form.c:328
 #: src/plugin_htmlbar/html_form.c:645 src/plugin_htmlbar/html_table.c:136
 #: src/plugin_htmlbar/html_table.c:283 src/plugin_htmlbar/html_table.c:419
@@ -1280,359 +1280,359 @@ msgstr "_Hizkuntza:"
 msgid "Custo_m:"
 msgstr "_Pertsonalizatu:"
 
-#: src/plugin_htmlbar/html.c:708 src/plugin_htmlbar/html.c:1207
+#: src/plugin_htmlbar/html.c:707 src/plugin_htmlbar/html.c:1206
 #: src/plugin_htmlbar/html_form.c:569
 msgid "Events"
 msgstr "Gertaerak"
 
-#: src/plugin_htmlbar/html.c:711
+#: src/plugin_htmlbar/html.c:710
 msgid "OnClic_k:"
 msgstr "_KlikEgitean:"
 
-#: src/plugin_htmlbar/html.c:714
+#: src/plugin_htmlbar/html.c:713
 msgid "OnD_blClick:"
 msgstr "Klik_BikoitzaEgitean:"
 
-#: src/plugin_htmlbar/html.c:717
+#: src/plugin_htmlbar/html.c:716
 msgid "OnMouseO_ver:"
 msgstr "Sagua_Gainean:"
 
-#: src/plugin_htmlbar/html.c:720
+#: src/plugin_htmlbar/html.c:719
 msgid "OnMouse_Down:"
 msgstr "SaguarenBotoia_Sakatzean:"
 
-#: src/plugin_htmlbar/html.c:723
+#: src/plugin_htmlbar/html.c:722
 msgid "OnMouse_Move:"
 msgstr "Sagua_Mugitzean"
 
-#: src/plugin_htmlbar/html.c:726
+#: src/plugin_htmlbar/html.c:725
 msgid "OnMouseOu_t:"
 msgstr "Sagua_Ateratzean:"
 
-#: src/plugin_htmlbar/html.c:729
+#: src/plugin_htmlbar/html.c:728
 msgid "OnMouse_Up:"
 msgstr "SaguarenBotoiaAs_katzean:"
 
-#: src/plugin_htmlbar/html.c:732
+#: src/plugin_htmlbar/html.c:731
 msgid "OnKeyDo_wn:"
 msgstr "_TeklaBeheraSakatzean:"
 
-#: src/plugin_htmlbar/html.c:735
+#: src/plugin_htmlbar/html.c:734
 msgid "OnKey_Press:"
 msgstr "Tekla_Sakatzean:"
 
-#: src/plugin_htmlbar/html.c:738
+#: src/plugin_htmlbar/html.c:737
 msgid "OnKe_yUp:"
 msgstr "TeklaAs_katzean:"
 
-#: src/plugin_htmlbar/html.c:883
+#: src/plugin_htmlbar/html.c:882
 msgid "Div"
 msgstr "Zatia"
 
-#: src/plugin_htmlbar/html.c:886
+#: src/plugin_htmlbar/html.c:885
 msgid "Span"
 msgstr "Hedapena"
 
-#: src/plugin_htmlbar/html.c:889
+#: src/plugin_htmlbar/html.c:888
 msgid "Heading 1"
 msgstr "Izenburua 1"
 
-#: src/plugin_htmlbar/html.c:892
+#: src/plugin_htmlbar/html.c:891
 msgid "Heading 2"
 msgstr "Izenburua 2"
 
-#: src/plugin_htmlbar/html.c:895
+#: src/plugin_htmlbar/html.c:894
 msgid "Heading 3"
 msgstr "Izenburua 3"
 
-#: src/plugin_htmlbar/html.c:898
+#: src/plugin_htmlbar/html.c:897
 msgid "Heading 4"
 msgstr "Izenburua 4"
 
-#: src/plugin_htmlbar/html.c:901
+#: src/plugin_htmlbar/html.c:900
 msgid "Heading 5"
 msgstr "Izenburua 5"
 
-#: src/plugin_htmlbar/html.c:904
+#: src/plugin_htmlbar/html.c:903
 msgid "Heading 6"
 msgstr "Izenburua 6"
 
-#: src/plugin_htmlbar/html.c:921
+#: src/plugin_htmlbar/html.c:920
 msgid "Ali_gn:"
 msgstr "_Lerrokatu:"
 
-#: src/plugin_htmlbar/html.c:925 src/plugin_htmlbar/html.c:1194
-#: src/plugin_htmlbar/html.c:1933 src/plugin_htmlbar/html.c:1992
-#: src/plugin_htmlbar/html.c:2119 src/plugin_htmlbar/html.c:2275
+#: src/plugin_htmlbar/html.c:924 src/plugin_htmlbar/html.c:1193
+#: src/plugin_htmlbar/html.c:1932 src/plugin_htmlbar/html.c:1991
+#: src/plugin_htmlbar/html.c:2118 src/plugin_htmlbar/html.c:2274
 #: src/plugin_htmlbar/html_diag.c:470 src/plugin_htmlbar/html_table.c:127
 #: src/plugin_htmlbar/html_table.c:268 src/plugin_htmlbar/html_table.c:392
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Cl_ass:"
 msgstr "_Klasea:"
 
-#: src/plugin_htmlbar/html.c:929 src/plugin_htmlbar/html.c:1187
+#: src/plugin_htmlbar/html.c:928 src/plugin_htmlbar/html.c:1186
 #: src/plugin_htmlbar/html_diag.c:484 src/plugin_htmlbar/html_table.c:131
 #: src/plugin_htmlbar/html_table.c:278 src/plugin_htmlbar/html_table.c:414
 msgid "St_yle:"
 msgstr "Es_tiloa:"
 
-#: src/plugin_htmlbar/html.c:938 src/plugin_htmlbar/html.c:1197
+#: src/plugin_htmlbar/html.c:937 src/plugin_htmlbar/html.c:1196
 #: src/plugin_htmlbar/html_diag.c:478
 msgid "_ID:"
 msgstr "_IDa:"
 
-#: src/plugin_htmlbar/html.c:1070
+#: src/plugin_htmlbar/html.c:1069
 msgid "Horizontal Rule"
 msgstr "Marra horizontala"
 
-#: src/plugin_htmlbar/html.c:1081 src/plugin_htmlbar/image.c:555
+#: src/plugin_htmlbar/html.c:1080 src/plugin_htmlbar/image.c:555
 #: src/plugin_htmlbar/image_dialog.c:451
 msgid "_Align:"
 msgstr "_Lerrokatu:"
 
-#: src/plugin_htmlbar/html.c:1088 src/plugin_htmlbar/html.c:2006
-#: src/plugin_htmlbar/html.c:2110 src/plugin_htmlbar/html.c:2267
+#: src/plugin_htmlbar/html.c:1087 src/plugin_htmlbar/html.c:2005
+#: src/plugin_htmlbar/html.c:2109 src/plugin_htmlbar/html.c:2266
 #: src/plugin_htmlbar/image_dialog.c:376
 msgid "_Height:"
 msgstr "_Altuera:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1094 src/plugin_htmlbar/html.c:2001
-#: src/plugin_htmlbar/html.c:2105 src/plugin_htmlbar/html.c:2263
+#: src/plugin_htmlbar/html.c:1093 src/plugin_htmlbar/html.c:2000
+#: src/plugin_htmlbar/html.c:2104 src/plugin_htmlbar/html.c:2262
 #: src/plugin_htmlbar/image.c:517 src/plugin_htmlbar/image_dialog.c:365
 msgid "_Width:"
 msgstr "_Zabalera:"
 
-#: src/plugin_htmlbar/html.c:1097
+#: src/plugin_htmlbar/html.c:1096
 msgid "Is _percent"
 msgstr "_Ehunekoa da:"
 
-#: src/plugin_htmlbar/html.c:1102
+#: src/plugin_htmlbar/html.c:1101
 msgid "No _shading"
 msgstr "_Itzaldurarik ez"
 
-#: src/plugin_htmlbar/html.c:1172
+#: src/plugin_htmlbar/html.c:1171
 msgid "Body"
 msgstr "Gorputza"
 
-#: src/plugin_htmlbar/html.c:1180
+#: src/plugin_htmlbar/html.c:1179
 msgid "Options"
 msgstr "Aukerak"
 
-#: src/plugin_htmlbar/html.c:1213
+#: src/plugin_htmlbar/html.c:1212
 msgid "On _Load:"
 msgstr "_Kargatzean:"
 
-#: src/plugin_htmlbar/html.c:1217
+#: src/plugin_htmlbar/html.c:1216
 msgid "On _Unload:"
 msgstr "_Deskargatzean:"
 
-#: src/plugin_htmlbar/html.c:1223
+#: src/plugin_htmlbar/html.c:1222
 msgid "Depreciated options"
 msgstr "Aukera zaharkituak"
 
-#: src/plugin_htmlbar/html.c:1232
+#: src/plugin_htmlbar/html.c:1231
 msgid "Background _Image:"
 msgstr "Atze_ko planoko irudia:"
 
-#: src/plugin_htmlbar/html.c:1238
+#: src/plugin_htmlbar/html.c:1237
 msgid "Back_ground Color:"
 msgstr "A_tzeko planoko kolorea:"
 
-#: src/plugin_htmlbar/html.c:1244
+#: src/plugin_htmlbar/html.c:1243
 msgid "_Text Color:"
 msgstr "_Testuaren kolorea:"
 
-#: src/plugin_htmlbar/html.c:1250
+#: src/plugin_htmlbar/html.c:1249
 msgid "_Link Color:"
 msgstr "_Estekaren kolorea:"
 
-#: src/plugin_htmlbar/html.c:1256
+#: src/plugin_htmlbar/html.c:1255
 msgid "_Visited Link Color:"
 msgstr "_Bisitatutako esteken kolorea:"
 
-#: src/plugin_htmlbar/html.c:1262
+#: src/plugin_htmlbar/html.c:1261
 msgid "_Active Link Color:"
 msgstr "Esteka _aktiboen kolorea:"
 
-#: src/plugin_htmlbar/html.c:1318
+#: src/plugin_htmlbar/html.c:1317
 msgid "Meta"
 msgstr "Meta"
 
-#: src/plugin_htmlbar/html.c:1335
+#: src/plugin_htmlbar/html.c:1334
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: src/plugin_htmlbar/html.c:1340
+#: src/plugin_htmlbar/html.c:1339
 msgid "Con_tent:"
 msgstr "_Edukia:"
 
-#: src/plugin_htmlbar/html.c:1346
+#: src/plugin_htmlbar/html.c:1345
 msgid "_Scheme:"
 msgstr "E_skema:"
 
-#: src/plugin_htmlbar/html.c:1430
+#: src/plugin_htmlbar/html.c:1429
 msgid "Font"
 msgstr "Letra-tipoa"
 
-#: src/plugin_htmlbar/html.c:1433
+#: src/plugin_htmlbar/html.c:1432
 msgid "Base Font"
 msgstr "Oinarrizko letra-tipoa"
 
-#: src/plugin_htmlbar/html.c:1448
+#: src/plugin_htmlbar/html.c:1447
 msgid "Size"
 msgstr "Tamaina"
 
-#: src/plugin_htmlbar/html.c:1457
+#: src/plugin_htmlbar/html.c:1456
 msgid "Color"
 msgstr "Kolorea"
 
-#: src/plugin_htmlbar/html.c:1462
+#: src/plugin_htmlbar/html.c:1461
 msgid "Face"
 msgstr "Tipoa"
 
-#: src/plugin_htmlbar/html.c:1466
+#: src/plugin_htmlbar/html.c:1465
 msgid "Custom"
 msgstr "Pertsonalizatu"
 
-#: src/plugin_htmlbar/html.c:1556
+#: src/plugin_htmlbar/html.c:1555
 msgid "E-mail"
 msgstr "Posta elektronikoa"
 
-#: src/plugin_htmlbar/html.c:1564
+#: src/plugin_htmlbar/html.c:1563
 msgid "_Mail to:"
 msgstr "_Bidali honi:"
 
-#: src/plugin_htmlbar/html.c:1567
+#: src/plugin_htmlbar/html.c:1566
 msgid "_Copy to:"
 msgstr "_Kopia:"
 
-#: src/plugin_htmlbar/html.c:1570
+#: src/plugin_htmlbar/html.c:1569
 msgid "Blin_d copy to:"
 msgstr "Kopia _itxua:"
 
-#: src/plugin_htmlbar/html.c:1573
+#: src/plugin_htmlbar/html.c:1572
 msgid "with _Subject:"
 msgstr "_Gaia:"
 
-#: src/plugin_htmlbar/html.c:1576
+#: src/plugin_htmlbar/html.c:1575
 msgid "with _Body:"
 msgstr "G_orputza:"
 
-#: src/plugin_htmlbar/html.c:1622
+#: src/plugin_htmlbar/html.c:1621
 msgid "Quick List"
 msgstr "Zerrenda bizkorra"
 
-#: src/plugin_htmlbar/html.c:1627 src/plugin_htmlbar/wizards.c:81
+#: src/plugin_htmlbar/html.c:1626 src/plugin_htmlbar/wizards.c:81
 msgid "Number of _rows:"
 msgstr "_Errenkada-kopurua:"
 
-#: src/plugin_htmlbar/html.c:1630
+#: src/plugin_htmlbar/html.c:1629
 msgid "Or_dered"
 msgstr "O_rdenatuta"
 
-#: src/plugin_htmlbar/html.c:1631
+#: src/plugin_htmlbar/html.c:1630
 msgid "_Unordered"
 msgstr "Or_denatu gabe"
 
-#: src/plugin_htmlbar/html.c:1633 src/plugin_htmlbar/image_dialog.c:422
+#: src/plugin_htmlbar/html.c:1632 src/plugin_htmlbar/image_dialog.c:422
 msgid "Style:"
 msgstr "Estiloa:"
 
-#: src/plugin_htmlbar/html.c:1709 src/plugin_htmlbar/html_form.c:259
+#: src/plugin_htmlbar/html.c:1708 src/plugin_htmlbar/html_form.c:259
 msgid "Co_ls:"
 msgstr "_Zutabeak:"
 
-#: src/plugin_htmlbar/html.c:1712 src/plugin_htmlbar/html_form.c:255
+#: src/plugin_htmlbar/html.c:1711 src/plugin_htmlbar/html_form.c:255
 msgid "_Rows:"
 msgstr "_Errenkadak:"
 
-#: src/plugin_htmlbar/html.c:1716
+#: src/plugin_htmlbar/html.c:1715
 msgid "_Add &lt;frame&gt; elements"
 msgstr "_Gehitu &lt;frame&gt; elementuak"
 
-#: src/plugin_htmlbar/html.c:1800 src/plugin_htmlbar/html.c:1903
-#: src/plugin_htmlbar/html.c:2073 src/plugin_htmlbar/html.c:2256
-#: src/plugin_htmlbar/html.c:2343 src/plugin_htmlbar/image_dialog.c:326
+#: src/plugin_htmlbar/html.c:1799 src/plugin_htmlbar/html.c:1902
+#: src/plugin_htmlbar/html.c:2072 src/plugin_htmlbar/html.c:2255
+#: src/plugin_htmlbar/html.c:2342 src/plugin_htmlbar/image_dialog.c:326
 msgid "_Source:"
 msgstr "_Iturburua:"
 
-#: src/plugin_htmlbar/html.c:1808
+#: src/plugin_htmlbar/html.c:1807
 msgid "Margin _Width:"
 msgstr "_Marjina-zabalera:"
 
-#: src/plugin_htmlbar/html.c:1812
+#: src/plugin_htmlbar/html.c:1811
 msgid "Margin _Height:"
 msgstr "M_arjina-altuera:"
 
-#: src/plugin_htmlbar/html.c:1821
+#: src/plugin_htmlbar/html.c:1820
 msgid "Scrollin_g:"
 msgstr "_Korritzea:"
 
-#: src/plugin_htmlbar/html.c:1825
+#: src/plugin_htmlbar/html.c:1824
 msgid "_Frameborder:"
 msgstr "Ma_rkoaren ertza:"
 
-#: src/plugin_htmlbar/html.c:1830
+#: src/plugin_htmlbar/html.c:1829
 msgid "No _Resize:"
 msgstr "_Ez aldatu tamaina:"
 
 #. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:1896
+#: src/plugin_htmlbar/html.c:1895
 msgid "Audio"
 msgstr "Audioa"
 
-#: src/plugin_htmlbar/html.c:1907 src/plugin_htmlbar/html.c:2085
+#: src/plugin_htmlbar/html.c:1906 src/plugin_htmlbar/html.c:2084
 msgid "_Autoplay:"
 msgstr "_Auto-erreprodukzioa:"
 
-#: src/plugin_htmlbar/html.c:1911 src/plugin_htmlbar/html.c:2090
+#: src/plugin_htmlbar/html.c:1910 src/plugin_htmlbar/html.c:2089
 msgid "C_ontrols:"
 msgstr "_Kontrolak:"
 
-#: src/plugin_htmlbar/html.c:1915 src/plugin_htmlbar/html.c:2095
+#: src/plugin_htmlbar/html.c:1914 src/plugin_htmlbar/html.c:2094
 msgid "_Loop:"
 msgstr "_Begizta:"
 
-#: src/plugin_htmlbar/html.c:1919 src/plugin_htmlbar/html.c:2100
+#: src/plugin_htmlbar/html.c:1918 src/plugin_htmlbar/html.c:2099
 msgid "M_ute:"
 msgstr "_Mututu:"
 
-#: src/plugin_htmlbar/html.c:1924 src/plugin_htmlbar/html.c:2124
+#: src/plugin_htmlbar/html.c:1923 src/plugin_htmlbar/html.c:2123
 msgid "_Preload:"
 msgstr "_Aurrekarga:"
 
-#: src/plugin_htmlbar/html.c:1929 src/plugin_htmlbar/html.c:1988
-#: src/plugin_htmlbar/html.c:2115 src/plugin_htmlbar/html.c:2271
+#: src/plugin_htmlbar/html.c:1928 src/plugin_htmlbar/html.c:1987
+#: src/plugin_htmlbar/html.c:2114 src/plugin_htmlbar/html.c:2270
 #: src/plugin_htmlbar/html_table.c:124
 msgid "_Id:"
 msgstr "_IDa:"
 
-#: src/plugin_htmlbar/html.c:1936 src/plugin_htmlbar/html.c:1995
-#: src/plugin_htmlbar/html.c:2129 src/plugin_htmlbar/html.c:2278
+#: src/plugin_htmlbar/html.c:1935 src/plugin_htmlbar/html.c:1994
+#: src/plugin_htmlbar/html.c:2128 src/plugin_htmlbar/html.c:2277
 msgid "_Style:"
 msgstr "E_stiloa:"
 
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:1983
+#: src/plugin_htmlbar/html.c:1982
 msgid "Canvas"
 msgstr "Oihala"
 
-#: src/plugin_htmlbar/html.c:2065
+#: src/plugin_htmlbar/html.c:2064
 msgid "Video"
 msgstr "Bideoa"
 
-#: src/plugin_htmlbar/html.c:2080
+#: src/plugin_htmlbar/html.c:2079
 msgid "_Poster:"
 msgstr "_Posterra:"
 
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:2179
+#: src/plugin_htmlbar/html.c:2178
 msgid "Time"
 msgstr "Denbora"
 
 #. Datetime help
-#: src/plugin_htmlbar/html.c:2184
+#: src/plugin_htmlbar/html.c:2183
 msgid ""
 "Datetime format (ex. YYYY-MM-DDThh:mm:ssTZD) :\n"
 "\n"
@@ -1658,43 +1658,43 @@ msgstr ""
 "TZD - Ordu-zonaren izendatzailea (Z-k Zulu adierazten du, Greenwich Mean "
 "Time bezala ezaguna ere)\n"
 
-#: src/plugin_htmlbar/html.c:2194
+#: src/plugin_htmlbar/html.c:2193
 msgid "_Datetime:"
 msgstr "_Data-ordua:"
 
-#: src/plugin_htmlbar/html.c:2249
+#: src/plugin_htmlbar/html.c:2248
 msgid "Embed"
 msgstr "Kapsulatu"
 
-#: src/plugin_htmlbar/html.c:2260
+#: src/plugin_htmlbar/html.c:2259
 msgid "_MIME Type:"
 msgstr "_MIME mota:"
 
-#: src/plugin_htmlbar/html.c:2325
+#: src/plugin_htmlbar/html.c:2324
 msgid "Script"
 msgstr "Script-a"
 
-#: src/plugin_htmlbar/html.c:2349
+#: src/plugin_htmlbar/html.c:2348
 msgid "(HTML4 only)"
 msgstr "(HTML4 soilik)"
 
-#: src/plugin_htmlbar/html.c:2352
+#: src/plugin_htmlbar/html.c:2351
 msgid "MIME _Type:"
 msgstr "MIME _mota:"
 
-#: src/plugin_htmlbar/html.c:2356
+#: src/plugin_htmlbar/html.c:2355
 msgid "_Charset:"
 msgstr "_Karaktere-jokoa:"
 
-#: src/plugin_htmlbar/html.c:2358 src/plugin_htmlbar/html.c:2367
+#: src/plugin_htmlbar/html.c:2357 src/plugin_htmlbar/html.c:2366
 msgid "(HTML5)"
 msgstr "(HTML5)"
 
-#: src/plugin_htmlbar/html.c:2361
+#: src/plugin_htmlbar/html.c:2360
 msgid "_Async:"
 msgstr "_Asink:"
 
-#: src/plugin_htmlbar/html.c:2365
+#: src/plugin_htmlbar/html.c:2364
 msgid "_Defer:"
 msgstr "_Atzeratu:"
 
@@ -1703,100 +1703,100 @@ msgstr "_Atzeratu:"
 #. column-span: all (default none)
 #. column-fill: auto (default balance)
 #.
-#: src/plugin_htmlbar/html.c:2537
+#: src/plugin_htmlbar/html.c:2536
 msgid "CSS3 multi-column layout"
 msgstr "CSS3 zutabe anitzeko diseinua"
 
-#: src/plugin_htmlbar/html.c:2544
+#: src/plugin_htmlbar/html.c:2543
 msgid "Auto (default) or number of columns"
 msgstr "Automatikoa (lehenetsia) edo zutabe kopurua"
 
-#: src/plugin_htmlbar/html.c:2553
+#: src/plugin_htmlbar/html.c:2552
 msgid "Auto (default) or width"
 msgstr "Automatikoa (lehenetsia) edo zabalera"
 
-#: src/plugin_htmlbar/html.c:2565
+#: src/plugin_htmlbar/html.c:2564
 msgid "Normal (default) or width of the gap between columns"
 msgstr "Normala (lehenetsia) edo zutabeen arteko tartearen zabalera"
 
-#: src/plugin_htmlbar/html.c:2583
+#: src/plugin_htmlbar/html.c:2582
 msgid "None (default) or style"
 msgstr "Bat ere ez (lehenetsia) edo estiloa"
 
-#: src/plugin_htmlbar/html.c:2589
+#: src/plugin_htmlbar/html.c:2588
 msgid "Medium (default) or width"
 msgstr "Tartekoa (lehenetsia) edo zabalera"
 
-#: src/plugin_htmlbar/html.c:2602
+#: src/plugin_htmlbar/html.c:2601
 msgid "Use vendor-prefixed CSS property:"
 msgstr "Erabili hornitzaileak aurrefinkatutako CSS propietatea."
 
-#: src/plugin_htmlbar/html.c:2610
+#: src/plugin_htmlbar/html.c:2609
 msgid "styles_heet"
 msgstr "estilo-_orria"
 
-#: src/plugin_htmlbar/html.c:2611
+#: src/plugin_htmlbar/html.c:2610
 msgid "Add selector(s) to create a new rule"
 msgstr "Gehitu hautatzaileak arau berria sortzeko"
 
-#: src/plugin_htmlbar/html.c:2613
+#: src/plugin_htmlbar/html.c:2612
 msgid "style a_ttribute"
 msgstr "estiloaren _atributuak"
 
-#: src/plugin_htmlbar/html.c:2614
+#: src/plugin_htmlbar/html.c:2613
 msgid "Add a style attribute in tag"
 msgstr "Gehitu estiloaren atributua etiketari"
 
-#: src/plugin_htmlbar/html.c:2616
+#: src/plugin_htmlbar/html.c:2615
 msgid "style _values"
 msgstr "estiloaren _balioak"
 
-#: src/plugin_htmlbar/html.c:2617
+#: src/plugin_htmlbar/html.c:2616
 msgid "Add values in a style attribute"
 msgstr "Gehitu balioak estiloaren atributuei"
 
-#: src/plugin_htmlbar/html.c:2627
+#: src/plugin_htmlbar/html.c:2626
 msgid "Selecto_rs:"
 msgstr "_Hautatzaileak:"
 
-#: src/plugin_htmlbar/html.c:2628
+#: src/plugin_htmlbar/html.c:2627
 msgid "Leave empty to insert declarations into an existing rule."
 msgstr "Utzi hutsik dagoen arau batean deklarazioak txertatzeko."
 
-#: src/plugin_htmlbar/html.c:2688
+#: src/plugin_htmlbar/html.c:2687
 msgid "Link"
 msgstr "Esteka"
 
-#: src/plugin_htmlbar/html.c:2705
+#: src/plugin_htmlbar/html.c:2704
 msgid "HREF_LANG:"
 msgstr "HREF_HIZK:"
 
-#: src/plugin_htmlbar/html.c:2708
+#: src/plugin_htmlbar/html.c:2707
 msgid "T_itle:"
 msgstr "_Titulua:"
 
-#: src/plugin_htmlbar/html.c:2729 src/plugin_htmlbar/html_form.c:532
+#: src/plugin_htmlbar/html.c:2728 src/plugin_htmlbar/html_form.c:532
 #: src/plugin_htmlbar/html_form.c:641
 msgid "_Type:"
 msgstr "_Mota:"
 
-#: src/plugin_htmlbar/html.c:2751
+#: src/plugin_htmlbar/html.c:2750
 msgid "_Forward Relation:"
 msgstr "_Aurrerako erlazioa:"
 
-#: src/plugin_htmlbar/html.c:2755
+#: src/plugin_htmlbar/html.c:2754
 msgid "_Reverse Relation:"
 msgstr "_Alderantzizko erlazioa:"
 
-#: src/plugin_htmlbar/html.c:2767
+#: src/plugin_htmlbar/html.c:2766
 msgid "Media:"
 msgstr "Euskarria:"
 
-#: src/plugin_htmlbar/html.c:2771
+#: src/plugin_htmlbar/html.c:2770
 msgid "L_ang:"
 msgstr "_Hizkuntza:"
 
-#: src/plugin_htmlbar/html.c:2774
+#: src/plugin_htmlbar/html.c:2773
 msgid "_Custom:"
 msgstr "_Pertsonalizatua:"
 
@@ -2055,6 +2055,11 @@ msgstr ""
 "%w: jatorrizko zabalera  %h: jatorrizko altuera\n"
 "%x: koadro txikiaren zabalera  %y: koadro txikiaren altuera\n"
 "%b: jatorrizko tamaina (byteak)"
+
+#: src/plugin_htmlbar/image_dialog.c:385
+#, fuzzy
+msgid "Keep aspect ratio"
+msgstr "Zabaleraren arabera; mantendu proportzioa"
 
 #: src/plugin_htmlbar/image_dialog.c:388
 msgid "_Reset Dimensions"

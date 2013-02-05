@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2013-01-01 23:14+0800\n"
+"POT-Creation-Date: 2013-02-05 21:18+0100\n"
 "PO-Revision-Date: 2013-01-01 23:18+0600\n"
 "Last-Translator: ZhiFeng Ma <mzf9527@gmail.com>\n"
 "Language-Team: \n"
-"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 
 #: src/plugin_htmlbar/html2.c:634
 msgid "Cascading Style Sheet Builder"
@@ -29,10 +29,8 @@ msgstr "选择器(_S)："
 msgid "_Property:"
 msgstr "属性(_P)："
 
-#: src/plugin_htmlbar/html2.c:684
-#: src/plugin_htmlbar/html_form.c:375
-#: src/plugin_htmlbar/html_form.c:541
-#: src/plugin_htmlbar/html_form.c:636
+#: src/plugin_htmlbar/html2.c:684 src/plugin_htmlbar/html_form.c:375
+#: src/plugin_htmlbar/html_form.c:541 src/plugin_htmlbar/html_form.c:636
 msgid "_Value:"
 msgstr "值(_V)："
 
@@ -60,8 +58,7 @@ msgstr " 更新(_U) "
 msgid " _Delete "
 msgstr " 删除(_D) "
 
-#: src/plugin_htmlbar/html2.c:1009
-#: src/plugin_htmlbar/html2.c:1046
+#: src/plugin_htmlbar/html2.c:1009 src/plugin_htmlbar/html2.c:1046
 msgid "_Style..."
 msgstr "样式(_S)..."
 
@@ -81,8 +78,7 @@ msgstr "编辑标签"
 msgid "Htmlbar"
 msgstr "Html栏"
 
-#: src/plugin_htmlbar/htmlbar.c:261
-#: src/plugin_htmlbar/prefs.c:63
+#: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
 msgid "HTML Features"
 msgstr "HTML特性"
 
@@ -320,8 +316,7 @@ msgstr "常规格式(_G)"
 msgid "_Paragraph"
 msgstr "段落(_P)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1011
-#: src/plugin_htmlbar/html.c:879
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1011 src/plugin_htmlbar/html.c:879
 msgid "Paragraph"
 msgstr "段落"
 
@@ -931,13 +926,11 @@ msgstr "多相册(_M)..."
 msgid "Multi thumbnail..."
 msgstr "多相册..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1168
-#: src/plugin_htmlbar/html.c:1791
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1168 src/plugin_htmlbar/html.c:1791
 msgid "Frame"
 msgstr "框架"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1169
-#: src/plugin_htmlbar/html.c:1702
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1169 src/plugin_htmlbar/html.c:1702
 msgid "Frameset"
 msgstr "框架集"
 
@@ -1238,72 +1231,50 @@ msgstr "  ISO-8601 时间(_m) "
 msgid "Quick Anchor"
 msgstr "快速锚点"
 
-#: src/plugin_htmlbar/html.c:663
-#: src/plugin_htmlbar/html_form.c:520
+#: src/plugin_htmlbar/html.c:663 src/plugin_htmlbar/html_form.c:520
 msgid "Attributes"
 msgstr "属性"
 
-#: src/plugin_htmlbar/html.c:684
-#: src/plugin_htmlbar/html.c:2698
+#: src/plugin_htmlbar/html.c:684 src/plugin_htmlbar/html.c:2698
 msgid "_HREF:"
 msgstr "被链接文档的位置(_H)："
 
-#: src/plugin_htmlbar/html.c:690
-#: src/plugin_htmlbar/html_form.c:200
+#: src/plugin_htmlbar/html.c:690 src/plugin_htmlbar/html_form.c:200
 msgid "_Target:"
 msgstr "目标(_T)："
 
-#: src/plugin_htmlbar/html.c:694
-#: src/plugin_htmlbar/html.c:934
-#: src/plugin_htmlbar/html.c:1325
-#: src/plugin_htmlbar/html.c:1803
-#: src/plugin_htmlbar/html_form.c:251
-#: src/plugin_htmlbar/html_form.c:315
-#: src/plugin_htmlbar/html_form.c:538
-#: src/plugin_htmlbar/html_form.c:633
+#: src/plugin_htmlbar/html.c:694 src/plugin_htmlbar/html.c:934
+#: src/plugin_htmlbar/html.c:1325 src/plugin_htmlbar/html.c:1803
+#: src/plugin_htmlbar/html_form.c:251 src/plugin_htmlbar/html_form.c:315
+#: src/plugin_htmlbar/html_form.c:538 src/plugin_htmlbar/html_form.c:633
 #: src/plugin_htmlbar/image.c:532
 msgid "_Name:"
 msgstr "名称(_N)："
 
-#: src/plugin_htmlbar/html.c:697
-#: src/plugin_htmlbar/quickstart.c:558
+#: src/plugin_htmlbar/html.c:697 src/plugin_htmlbar/quickstart.c:558
 msgid "Titl_e:"
 msgstr "标题(_e)："
 
-#: src/plugin_htmlbar/html.c:702
-#: src/plugin_htmlbar/html.c:1199
-#: src/plugin_htmlbar/html.c:1342
-#: src/plugin_htmlbar/html.c:2346
+#: src/plugin_htmlbar/html.c:702 src/plugin_htmlbar/html.c:1199
+#: src/plugin_htmlbar/html.c:1342 src/plugin_htmlbar/html.c:2346
 msgid "_Language:"
 msgstr "语言(_L)："
 
-#: src/plugin_htmlbar/html.c:705
-#: src/plugin_htmlbar/html.c:940
-#: src/plugin_htmlbar/html.c:1106
-#: src/plugin_htmlbar/html.c:1202
-#: src/plugin_htmlbar/html.c:1348
-#: src/plugin_htmlbar/html.c:1732
-#: src/plugin_htmlbar/html.c:1841
-#: src/plugin_htmlbar/html.c:1940
-#: src/plugin_htmlbar/html.c:2009
-#: src/plugin_htmlbar/html.c:2133
-#: src/plugin_htmlbar/html.c:2198
-#: src/plugin_htmlbar/html.c:2282
-#: src/plugin_htmlbar/html.c:2369
-#: src/plugin_htmlbar/html_form.c:204
-#: src/plugin_htmlbar/html_form.c:267
-#: src/plugin_htmlbar/html_form.c:328
-#: src/plugin_htmlbar/html_form.c:645
-#: src/plugin_htmlbar/html_table.c:136
-#: src/plugin_htmlbar/html_table.c:283
-#: src/plugin_htmlbar/html_table.c:419
-#: src/plugin_htmlbar/image.c:538
-#: src/plugin_htmlbar/image_dialog.c:428
+#: src/plugin_htmlbar/html.c:705 src/plugin_htmlbar/html.c:940
+#: src/plugin_htmlbar/html.c:1106 src/plugin_htmlbar/html.c:1202
+#: src/plugin_htmlbar/html.c:1348 src/plugin_htmlbar/html.c:1732
+#: src/plugin_htmlbar/html.c:1841 src/plugin_htmlbar/html.c:1940
+#: src/plugin_htmlbar/html.c:2009 src/plugin_htmlbar/html.c:2133
+#: src/plugin_htmlbar/html.c:2198 src/plugin_htmlbar/html.c:2282
+#: src/plugin_htmlbar/html.c:2369 src/plugin_htmlbar/html_form.c:204
+#: src/plugin_htmlbar/html_form.c:267 src/plugin_htmlbar/html_form.c:328
+#: src/plugin_htmlbar/html_form.c:645 src/plugin_htmlbar/html_table.c:136
+#: src/plugin_htmlbar/html_table.c:283 src/plugin_htmlbar/html_table.c:419
+#: src/plugin_htmlbar/image.c:538 src/plugin_htmlbar/image_dialog.c:428
 msgid "Custo_m:"
 msgstr "自定义(_m)："
 
-#: src/plugin_htmlbar/html.c:707
-#: src/plugin_htmlbar/html.c:1206
+#: src/plugin_htmlbar/html.c:707 src/plugin_htmlbar/html.c:1206
 #: src/plugin_htmlbar/html_form.c:569
 msgid "Events"
 msgstr "事件"
@@ -1384,31 +1355,22 @@ msgstr "标题 6"
 msgid "Ali_gn:"
 msgstr "对齐(_g)："
 
-#: src/plugin_htmlbar/html.c:924
-#: src/plugin_htmlbar/html.c:1193
-#: src/plugin_htmlbar/html.c:1932
-#: src/plugin_htmlbar/html.c:1991
-#: src/plugin_htmlbar/html.c:2118
-#: src/plugin_htmlbar/html.c:2274
-#: src/plugin_htmlbar/html_diag.c:470
-#: src/plugin_htmlbar/html_table.c:127
-#: src/plugin_htmlbar/html_table.c:268
-#: src/plugin_htmlbar/html_table.c:392
+#: src/plugin_htmlbar/html.c:924 src/plugin_htmlbar/html.c:1193
+#: src/plugin_htmlbar/html.c:1932 src/plugin_htmlbar/html.c:1991
+#: src/plugin_htmlbar/html.c:2118 src/plugin_htmlbar/html.c:2274
+#: src/plugin_htmlbar/html_diag.c:470 src/plugin_htmlbar/html_table.c:127
+#: src/plugin_htmlbar/html_table.c:268 src/plugin_htmlbar/html_table.c:392
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Cl_ass:"
 msgstr "类："
 
-#: src/plugin_htmlbar/html.c:928
-#: src/plugin_htmlbar/html.c:1186
-#: src/plugin_htmlbar/html_diag.c:484
-#: src/plugin_htmlbar/html_table.c:131
-#: src/plugin_htmlbar/html_table.c:278
-#: src/plugin_htmlbar/html_table.c:414
+#: src/plugin_htmlbar/html.c:928 src/plugin_htmlbar/html.c:1186
+#: src/plugin_htmlbar/html_diag.c:484 src/plugin_htmlbar/html_table.c:131
+#: src/plugin_htmlbar/html_table.c:278 src/plugin_htmlbar/html_table.c:414
 msgid "St_yle:"
 msgstr "样式(_y)："
 
-#: src/plugin_htmlbar/html.c:937
-#: src/plugin_htmlbar/html.c:1196
+#: src/plugin_htmlbar/html.c:937 src/plugin_htmlbar/html.c:1196
 #: src/plugin_htmlbar/html_diag.c:478
 msgid "_ID:"
 msgstr "_ID:"
@@ -1417,27 +1379,21 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "水平线"
 
-#: src/plugin_htmlbar/html.c:1080
-#: src/plugin_htmlbar/image.c:555
+#: src/plugin_htmlbar/html.c:1080 src/plugin_htmlbar/image.c:555
 #: src/plugin_htmlbar/image_dialog.c:451
 msgid "_Align:"
 msgstr "对齐(_A)："
 
-#: src/plugin_htmlbar/html.c:1087
-#: src/plugin_htmlbar/html.c:2005
-#: src/plugin_htmlbar/html.c:2109
-#: src/plugin_htmlbar/html.c:2266
+#: src/plugin_htmlbar/html.c:1087 src/plugin_htmlbar/html.c:2005
+#: src/plugin_htmlbar/html.c:2109 src/plugin_htmlbar/html.c:2266
 #: src/plugin_htmlbar/image_dialog.c:376
 msgid "_Height:"
 msgstr "高度(_H)："
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1093
-#: src/plugin_htmlbar/html.c:2000
-#: src/plugin_htmlbar/html.c:2104
-#: src/plugin_htmlbar/html.c:2262
-#: src/plugin_htmlbar/image.c:517
-#: src/plugin_htmlbar/image_dialog.c:365
+#: src/plugin_htmlbar/html.c:1093 src/plugin_htmlbar/html.c:2000
+#: src/plugin_htmlbar/html.c:2104 src/plugin_htmlbar/html.c:2262
+#: src/plugin_htmlbar/image.c:517 src/plugin_htmlbar/image_dialog.c:365
 msgid "_Width:"
 msgstr "宽度(_W)："
 
@@ -1561,8 +1517,7 @@ msgstr "主体(_B)："
 msgid "Quick List"
 msgstr "快速列表"
 
-#: src/plugin_htmlbar/html.c:1626
-#: src/plugin_htmlbar/wizards.c:81
+#: src/plugin_htmlbar/html.c:1626 src/plugin_htmlbar/wizards.c:81
 msgid "Number of _rows:"
 msgstr "行数(_r)："
 
@@ -1574,18 +1529,15 @@ msgstr "有序(_d)"
 msgid "_Unordered"
 msgstr "无序(_U)"
 
-#: src/plugin_htmlbar/html.c:1632
-#: src/plugin_htmlbar/image_dialog.c:422
+#: src/plugin_htmlbar/html.c:1632 src/plugin_htmlbar/image_dialog.c:422
 msgid "Style:"
 msgstr "样式："
 
-#: src/plugin_htmlbar/html.c:1708
-#: src/plugin_htmlbar/html_form.c:259
+#: src/plugin_htmlbar/html.c:1708 src/plugin_htmlbar/html_form.c:259
 msgid "Co_ls:"
 msgstr "列(_l)："
 
-#: src/plugin_htmlbar/html.c:1711
-#: src/plugin_htmlbar/html_form.c:255
+#: src/plugin_htmlbar/html.c:1711 src/plugin_htmlbar/html_form.c:255
 msgid "_Rows:"
 msgstr "行(_R)："
 
@@ -1593,12 +1545,9 @@ msgstr "行(_R)："
 msgid "_Add &lt;frame&gt; elements"
 msgstr "添加 &lt;frame&gt; 元素(_A)"
 
-#: src/plugin_htmlbar/html.c:1799
-#: src/plugin_htmlbar/html.c:1902
-#: src/plugin_htmlbar/html.c:2072
-#: src/plugin_htmlbar/html.c:2255
-#: src/plugin_htmlbar/html.c:2342
-#: src/plugin_htmlbar/image_dialog.c:326
+#: src/plugin_htmlbar/html.c:1799 src/plugin_htmlbar/html.c:1902
+#: src/plugin_htmlbar/html.c:2072 src/plugin_htmlbar/html.c:2255
+#: src/plugin_htmlbar/html.c:2342 src/plugin_htmlbar/image_dialog.c:326
 msgid "_Source:"
 msgstr "源文件(_S)："
 
@@ -1627,43 +1576,34 @@ msgstr "不改变尺寸(_R)："
 msgid "Audio"
 msgstr "Audio标签"
 
-#: src/plugin_htmlbar/html.c:1906
-#: src/plugin_htmlbar/html.c:2084
+#: src/plugin_htmlbar/html.c:1906 src/plugin_htmlbar/html.c:2084
 msgid "_Autoplay:"
 msgstr "自动播放(_A):"
 
-#: src/plugin_htmlbar/html.c:1910
-#: src/plugin_htmlbar/html.c:2089
+#: src/plugin_htmlbar/html.c:1910 src/plugin_htmlbar/html.c:2089
 msgid "C_ontrols:"
 msgstr "控制器(_o)："
 
-#: src/plugin_htmlbar/html.c:1914
-#: src/plugin_htmlbar/html.c:2094
+#: src/plugin_htmlbar/html.c:1914 src/plugin_htmlbar/html.c:2094
 msgid "_Loop:"
 msgstr "循环播放(_L):"
 
-#: src/plugin_htmlbar/html.c:1918
-#: src/plugin_htmlbar/html.c:2099
+#: src/plugin_htmlbar/html.c:1918 src/plugin_htmlbar/html.c:2099
 msgid "M_ute:"
 msgstr "静音(_u)："
 
-#: src/plugin_htmlbar/html.c:1923
-#: src/plugin_htmlbar/html.c:2123
+#: src/plugin_htmlbar/html.c:1923 src/plugin_htmlbar/html.c:2123
 msgid "_Preload:"
 msgstr "预载入(_P)："
 
-#: src/plugin_htmlbar/html.c:1928
-#: src/plugin_htmlbar/html.c:1987
-#: src/plugin_htmlbar/html.c:2114
-#: src/plugin_htmlbar/html.c:2270
+#: src/plugin_htmlbar/html.c:1928 src/plugin_htmlbar/html.c:1987
+#: src/plugin_htmlbar/html.c:2114 src/plugin_htmlbar/html.c:2270
 #: src/plugin_htmlbar/html_table.c:124
 msgid "_Id:"
 msgstr "_Id:"
 
-#: src/plugin_htmlbar/html.c:1935
-#: src/plugin_htmlbar/html.c:1994
-#: src/plugin_htmlbar/html.c:2128
-#: src/plugin_htmlbar/html.c:2277
+#: src/plugin_htmlbar/html.c:1935 src/plugin_htmlbar/html.c:1994
+#: src/plugin_htmlbar/html.c:2128 src/plugin_htmlbar/html.c:2277
 msgid "_Style:"
 msgstr "样式(_S)："
 
@@ -1697,7 +1637,8 @@ msgid ""
 "hh - hour (e.g. 22 for 10.00pm)\n"
 "mm - minutes (e.g. 55)\n"
 "ss - seconds (e.g. 03)\n"
-"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean Time)\n"
+"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean "
+"Time)\n"
 msgstr ""
 "日期时间格式 (例如：YYYY-MM-DDThh:mm:ssTZD) :\n"
 "\n"
@@ -1738,8 +1679,7 @@ msgstr "MIME类型(_T)："
 msgid "_Charset:"
 msgstr "字符集(_C)："
 
-#: src/plugin_htmlbar/html.c:2357
-#: src/plugin_htmlbar/html.c:2366
+#: src/plugin_htmlbar/html.c:2357 src/plugin_htmlbar/html.c:2366
 msgid "(HTML5)"
 msgstr "(HTML5)"
 
@@ -1828,8 +1768,7 @@ msgstr "被链接文档中文本的语言:"
 msgid "T_itle:"
 msgstr "标题(_T)："
 
-#: src/plugin_htmlbar/html.c:2728
-#: src/plugin_htmlbar/html_form.c:532
+#: src/plugin_htmlbar/html.c:2728 src/plugin_htmlbar/html_form.c:532
 #: src/plugin_htmlbar/html_form.c:641
 msgid "_Type:"
 msgstr "类型(_T)："
@@ -1874,8 +1813,7 @@ msgstr "文本域"
 msgid "Select"
 msgstr "可选列表"
 
-#: src/plugin_htmlbar/html_form.c:319
-#: src/plugin_htmlbar/html_form.c:549
+#: src/plugin_htmlbar/html_form.c:319 src/plugin_htmlbar/html_form.c:549
 msgid "Si_ze:"
 msgstr "大小(_z)："
 
@@ -1887,8 +1825,7 @@ msgstr "多选(_S)："
 msgid "Option"
 msgstr "可选列表的选项"
 
-#: src/plugin_htmlbar/html_form.c:378
-#: src/plugin_htmlbar/html_form.c:424
+#: src/plugin_htmlbar/html_form.c:378 src/plugin_htmlbar/html_form.c:424
 msgid "_Label:"
 msgstr "标签(_L)："
 
@@ -1948,14 +1885,12 @@ msgstr "<span color=\"#006000\">单元格边距(_P)：</span>"
 msgid "<span color=\"#006000\">C_ell Spacing:</span>"
 msgstr "<span color=\"#006000\">单元格间距(_e)：</span>"
 
-#: src/plugin_htmlbar/html_table.c:144
-#: src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:144 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:377
 msgid "<span color=\"#006000\">_Align:</span>"
 msgstr "<span color=\"#006000\">对齐方式(_A)：</span>"
 
-#: src/plugin_htmlbar/html_table.c:149
-#: src/plugin_htmlbar/html_table.c:273
+#: src/plugin_htmlbar/html_table.c:149 src/plugin_htmlbar/html_table.c:273
 #: src/plugin_htmlbar/html_table.c:449
 msgid "<span color=\"red\">_bgcolor:</span>"
 msgstr "<span color=\"red\">背景色(_b)：</span>"
@@ -1980,8 +1915,7 @@ msgstr "<span color=\"#006000\">框架(_F)：</span>"
 msgid "<span color=\"#006000\">R_ules:</span>"
 msgstr "<span color=\"#006000\">规则(_u)：</span>"
 
-#: src/plugin_htmlbar/html_table.c:264
-#: src/plugin_htmlbar/html_table.c:388
+#: src/plugin_htmlbar/html_table.c:264 src/plugin_htmlbar/html_table.c:388
 msgid "<span color=\"#006000\">_Valign:</span>"
 msgstr "<span color=\"#006000\">垂直对齐(_V)：</span>"
 
@@ -2035,8 +1969,7 @@ msgstr "正在载入文件 %s ..."
 msgid "Insert thumbnail"
 msgstr "插入相册"
 
-#: src/plugin_htmlbar/image.c:486
-#: src/plugin_htmlbar/image_dialog.c:344
+#: src/plugin_htmlbar/image.c:486 src/plugin_htmlbar/image_dialog.c:344
 msgid "Preview"
 msgstr "预览"
 
@@ -2048,8 +1981,7 @@ msgstr "图像位置(_I)："
 msgid "Hei_ght:"
 msgstr "高度(_g)："
 
-#: src/plugin_htmlbar/image.c:529
-#: src/plugin_htmlbar/image_dialog.c:417
+#: src/plugin_htmlbar/image.c:529 src/plugin_htmlbar/image_dialog.c:417
 msgid "_Usemap:"
 msgstr "使用映射(_U)："
 
@@ -2057,13 +1989,11 @@ msgstr "使用映射(_U)："
 msgid "Alternate _text:"
 msgstr "替代文本(_t)："
 
-#: src/plugin_htmlbar/image.c:541
-#: src/plugin_htmlbar/image_dialog.c:460
+#: src/plugin_htmlbar/image.c:541 src/plugin_htmlbar/image_dialog.c:460
 msgid "_Hspace:"
 msgstr "水平间距(_H)："
 
-#: src/plugin_htmlbar/image.c:545
-#: src/plugin_htmlbar/image_dialog.c:464
+#: src/plugin_htmlbar/image.c:545 src/plugin_htmlbar/image_dialog.c:464
 msgid "_Vspace:"
 msgstr "垂直间距(_V)："
 
@@ -2079,13 +2009,11 @@ msgstr "选择用于生成相册的文件"
 msgid "Scaling (%)"
 msgstr "缩放 (%)"
 
-#: src/plugin_htmlbar/image.c:1020
-#: src/plugin_htmlbar/image.c:1028
+#: src/plugin_htmlbar/image.c:1020 src/plugin_htmlbar/image.c:1028
 msgid "Width"
 msgstr "宽度"
 
-#: src/plugin_htmlbar/image.c:1024
-#: src/plugin_htmlbar/image.c:1070
+#: src/plugin_htmlbar/image.c:1024 src/plugin_htmlbar/image.c:1070
 msgid "Height"
 msgstr "高度"
 
@@ -2244,8 +2172,7 @@ msgstr "快速启动"
 msgid "_DTD:"
 msgstr "文档类型定义 DTD(_D):"
 
-#: src/plugin_htmlbar/quickstart.c:662
-#: src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/quickstart.c:662 src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "标题(_T)："
 
