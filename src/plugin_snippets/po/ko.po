@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 21:22+0200\n"
+"POT-Creation-Date: 2013-02-05 21:19+0100\n"
 "PO-Revision-Date: 2009-05-26 08:48+0900\n"
 "Last-Translator: Taehun Kang 강태헌 <u4800330@anu.edu.au>\n"
 "Language-Team: \n"
@@ -27,109 +27,109 @@ msgstr "Snippet을 재정렬하실려면 드래그앱드랍을 이용하세요"
 msgid "To exchange snippets with others use import or export"
 msgstr "Snippet을 교환하실려면 가져오기 또는 내보내기를 이용하세요"
 
-#: src/plugin_snippets/snippets_gui.c:640
+#: src/plugin_snippets/snippets_gui.c:638
 msgid "snippets"
 msgstr "Snippet"
 
-#: src/plugin_snippets/snippets_gui.c:703
+#: src/plugin_snippets/snippets_gui.c:701
 msgid "Snippet export filename"
 msgstr "Snippet 내보내기 파일명"
 
-#: src/plugin_snippets/snippets_gui.c:741
+#: src/plugin_snippets/snippets_gui.c:739
 msgid "Snippet import filename"
 msgstr "Snippet 가져오기 파일명"
 
-#: src/plugin_snippets/snippets_gui.c:759
+#: src/plugin_snippets/snippets_gui.c:757
 msgid "Set accelerator key"
 msgstr "Accelator 키 설정하기"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets menu"
 msgstr "Snippet 메뉴"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:814
 msgid "_New Snippet"
 msgstr "새 Snippet(_N)"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:814
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
 msgstr "새 Snippet"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:815
 msgid "_Edit Snippet"
 msgstr "Snippet 편집(_E)"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:815
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
 msgstr "Snippet 편집"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:816
 msgid "_Delete Snippet"
 msgstr "Snippet 삭제(_D)"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:816
 msgid "Delete snippet"
 msgstr "Snippet 삭제"
 
-#: src/plugin_snippets/snippets_gui.c:819
+#: src/plugin_snippets/snippets_gui.c:817
 msgid "Delete _Branch"
 msgstr "Branch 삭제(_B)"
 
-#: src/plugin_snippets/snippets_gui.c:819
+#: src/plugin_snippets/snippets_gui.c:817
 msgid "Delete branch"
 msgstr "Branch 삭제"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "Set Snippet _Accelerator"
 msgstr "Snippet Accelerator 설정하기(_A)"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:818
 msgid "Set snippet accelerator"
 msgstr "Snippet Accelerator 설정하기"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Ex_pand All"
 msgstr "모두 펼치기(_P)"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:820
 msgid "Expand all"
 msgstr "모두 펼치기"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:821
 msgid "_Collapse All"
 msgstr "모두 접기(_C)"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:821
 msgid "Collapse all"
 msgstr "모두 접기"
 
-#: src/plugin_snippets/snippets_gui.c:824
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "E_xport"
 msgstr "내보내기(_X)"
 
-#: src/plugin_snippets/snippets_gui.c:824
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "Export snippets"
 msgstr "Snippet 내보내기"
 
-#: src/plugin_snippets/snippets_gui.c:825
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "I_mport"
 msgstr "가져오기(_M)"
 
-#: src/plugin_snippets/snippets_gui.c:825
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "Import snippets"
 msgstr "Snippet 가져오기"
 
-#: src/plugin_snippets/snippets_gui.c:829
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "_Show as menu"
 msgstr "메뉴로 보이기(_S)"
 
-#: src/plugin_snippets/snippets_gui.c:829
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Show snippets menu"
 msgstr "Snippet 메뉴 보이기"
 
-#: src/plugin_snippets/snippets_gui.c:831
+#: src/plugin_snippets/snippets_gui.c:829
 #, fuzzy
 msgid "S_nippets Menu"
 msgstr "Snippet 메뉴"
@@ -138,11 +138,11 @@ msgstr "Snippet 메뉴"
 msgid "[cursor position or selection]"
 msgstr "[커서 위치 또는 선택영역]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:152
+#: src/plugin_snippets/snippets_leaf_snr.c:153
 msgid "Search for: '"
 msgstr "찾기: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:152
+#: src/plugin_snippets/snippets_leaf_snr.c:153
 msgid "', replace with: '"
 msgstr "', 교체: '"
 
