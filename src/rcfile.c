@@ -1221,7 +1221,7 @@ static void
 add_new_encodings(GList *defaults, GList *current)
 {
 	GHashTable *ht;
-	GList *tmplist, *last;
+	GList *tmplist, *last=NULL;
 	ht = g_hash_table_new(g_str_hash, g_str_equal);
 
 	for (tmplist=g_list_first(current);tmplist;tmplist=tmplist->next) {
