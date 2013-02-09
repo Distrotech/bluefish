@@ -55,5 +55,6 @@ void bfwin_recent_menu_remove(Tbfwin *bfwin, gboolean project, const gchar *curi
 void bfwin_recent_menu_create(Tbfwin *bfwin, gboolean only_update_session);
 void bfwin_templates_menu_create(Tbfwin * bfwin);
 
+void sync_fullscreen_toggle(Tbfwin *bfwin, gboolean is_fullscreen);
 
 #endif							/* BFWIN_UIMANAGER_H_ */
