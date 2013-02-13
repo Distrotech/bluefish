@@ -373,6 +373,7 @@ int main(int argc, char *argv[])
 	xmlInitParser();
 	startup = g_new0(Tstartup,1);
 	main_v = g_new0(Tmain, 1);
+	main_v->alldochash = g_hash_table_new(g_file_hash, (GEqualFunc) g_file_equal);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
 
 	if (files != NULL) {

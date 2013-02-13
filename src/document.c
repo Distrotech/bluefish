@@ -269,6 +269,23 @@ documentlist_return_index_from_uri(GList * doclist, GFile * uri)
 	return -1;
 }
 
+void
+doc_set_uri(Tdocument *doc, GFile *uri)
+{
+	if (doc->uri) {
+		g_hash_table_remove(main_v->alldochash, doc->uri);
+		fb2_set_uri_state(doc->uri, FALSE);
+		g_object_unref(doc->uri);
+	}
+	doc->uri = uri;
+	if (doc->uri) {
+		g_object_ref(doc->uri);
+		g_hash_table_insert(main_v->alldochash, doc->uri, doc);
+		fb2_set_uri_state(doc->uri, TRUE);
+	}
+}
+
+
 /**
  * documentlist_return_document_from_uri:
  * @doclist: #GList* with the documents to search in
@@ -282,6 +299,7 @@ documentlist_return_index_from_uri(GList * doclist, GFile * uri)
 Tdocument *
 documentlist_return_document_from_uri(GList * doclist, GFile * uri)
 {
+#ifdef DEVELOPMENT
 	GList *tmplist;
 	if (!uri) {
 		DEBUG_MSG("documentlist_return_document_from_filename, no filename! returning\n");
@@ -292,12 +310,20 @@ documentlist_return_document_from_uri(GList * doclist, GFile * uri)
 		if (DOCUMENT(tmplist->data)->uri
 			&& (DOCUMENT(tmplist->data)->uri == uri || g_file_equal(DOCUMENT(tmplist->data)->uri, uri))) {
 			DEBUG_MSG("documentlist_return_document_from_filename, found, returning %p\n", tmplist->data);
+			if (tmplist->data != g_hash_table_lookup(main_v->alldochash, uri)) {
+				g_warning("document uri hash table is corrupt!!!!!!!!!!!!!!\n");
+			} else {
+				g_print("alldochash is correct\n");
+			}
 			return DOCUMENT(tmplist->data);
 		}
 		tmplist = g_list_next(tmplist);
 	}
 	DEBUG_MSG("documentlist_return_document_from_filename, not found, returning NULL\n");
 	return NULL;
+#else
+	return g_hash_table_lookup(main_v.alldochash, uri);
+#endif
 }
 
 /**
@@ -2153,7 +2179,6 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 	}
 
 	bfwin_gotoline_search_bar_close(doc->bfwin);
-
 	for (tmpslist=bfwin->doc_destroy;tmpslist;tmpslist=g_slist_next(tmpslist)) {
 		Tcallback *cb = tmpslist->data;
 		((DocDestroyCallback)cb->func)(doc, cb->data);
@@ -2223,7 +2248,7 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 			g_object_unref(backupuri);
 		}
 		DEBUG_MSG("doc_destroy, unref doc->uri %p\n",doc->uri);
-		g_object_unref(doc->uri);
+		doc_set_uri(doc, NULL);
 	}
 
 	if (doc->encoding)
@@ -2255,9 +2280,7 @@ document_unset_filename(Tdocument * doc)
 	if (doc->uri) {
 		gchar *tmpstr;
 		tmpstr = g_strconcat(_("Previously: "), gtk_label_get_text(GTK_LABEL(doc->tab_label)), NULL);
-
-		g_object_unref(doc->uri);
-		doc->uri = NULL;
+		doc_set_uri(doc, NULL);
 		if (doc->fileinfo) {
 			g_object_unref(doc->fileinfo);
 			doc->fileinfo = NULL;
@@ -2574,7 +2597,7 @@ doc_new_loading_in_background(Tbfwin * bfwin, GFile * uri, GFileInfo * finfo, gb
 	} else {
 		doc->fileinfo = NULL;
 	}
-	doc->uri = g_object_ref(uri);
+	doc_set_uri(doc, uri);
 	doc_set_title(doc);
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	bfwin_docs_not_complete(bfwin, TRUE);
