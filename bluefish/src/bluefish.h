@@ -572,6 +572,7 @@ typedef struct {
 	guint autosave_id;			/* used with g_timeout_add */
 	guint periodic_check_id;	/* used with g_timeout_add */
 	GList *bfwinlist;
+	GHashTable *alldochash;			/* hash table with uri as key and Tdocument as value */
 	Tsessionvars *session;		/* holds all session variables for non-project windows */
 	gpointer fb2config;			/* filebrowser2config */
 	GList *filefilters;			/* initialized by fb2config functions */

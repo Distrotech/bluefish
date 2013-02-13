@@ -83,6 +83,7 @@ enum {
 	REFRESH_COLUMN,
 	TYPE_COLUMN,
 	FILEINFO_COLUMN,
+	WEIGHT_COLUMN,
 	N_COLUMNS
 };
 
@@ -414,6 +415,7 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 		}
 	} else {					/* child does not yet exist */
 		gchar *display_name;
+		gboolean opened;
 #ifdef WIN32
 		const gchar *cont_type;
 		gchar *mime_type;
@@ -452,6 +454,7 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 		   child_uri, REFRESH_COLUMN, 0, TYPE_COLUMN, mime_type, FILEINFO_COLUMN,
 		   finfo, -1); */
 		DEBUG_MSG("fb2_add_filesystem_entry, store child_uri %p, finfo %p\n",child_uri, finfo);
+		opened = (g_hash_table_lookup(main_v->alldochash, child_uri)!=NULL);
 		gtk_tree_store_insert_with_values(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
 										  newiter, parent, 0,
 										  ICON_NAME_COLUMN, icon_name,
@@ -459,7 +462,9 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 										  URI_COLUMN, child_uri,
 										  REFRESH_COLUMN, 0,
 										  TYPE_COLUMN, mime_type,
-										  FILEINFO_COLUMN, finfo, -1);
+										  FILEINFO_COLUMN, finfo,
+										  WEIGHT_COLUMN, opened?800:400,
+										  -1);
 		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
 		g_free(icon_name);
 #ifdef WIN32
@@ -1041,6 +1046,24 @@ fb2_focus_document(Tbfwin * bfwin, Tdocument * doc)
 #endif
 		fb2_focus_dir(FILEBROWSER2(bfwin->fb2), dir_uri, FALSE);
 		g_object_unref(dir_uri);
+	}
+}
+
+void
+fb2_set_uri_state(GFile *uri, gboolean opened)
+{
+	GtkTreeIter *iter;
+	if (!uri)
+		return;
+	
+	iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
+	if (!iter) {
+		return;
+	}
+	if (opened) {
+		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),iter, WEIGHT_COLUMN, 800, -1);
+	} else {
+		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),iter, WEIGHT_COLUMN, 400, -1);
 	}
 }
 
@@ -2860,7 +2883,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	renderer = gtk_cell_renderer_text_new();
 	g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
 	gtk_tree_view_column_pack_start(column, renderer, TRUE);
-	gtk_tree_view_column_set_attributes(column, renderer, "text", FILENAME_COLUMN, NULL);
+	gtk_tree_view_column_set_attributes(column, renderer, "text", FILENAME_COLUMN, "weight", WEIGHT_COLUMN, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(fb2->dir_v), column);
 	fb2->dirscrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(fb2->dirscrolwin), GTK_POLICY_AUTOMATIC,
@@ -3147,7 +3170,7 @@ fb2config_init(void)
 		g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, uri_hash_destroy, iter_value_destroy);
 	fb2config->filesystem_tstore =
 		gtk_tree_store_new(N_COLUMNS, /*GDK_TYPE_PIXBUF,*/ G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
-						   G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
+						   G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_INT, G_TYPE_BOOLEAN);
 	DEBUG_TREEMODELREFS("fb2config_init, created filesystem treestore at %p\n",fb2config->filesystem_tstore);
 	DEBUG_MSG("fb2config_init, finished\n");
 }
