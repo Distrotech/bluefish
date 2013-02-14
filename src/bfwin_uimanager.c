@@ -593,6 +593,15 @@ ui_jump_to_reference(GtkAction * action, gpointer user_data)
 		doc_jump(bfwin->current_document);
 }
 
+static void
+ui_jump_to_matching_block_boundary(GtkAction * action, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+
+	if (bfwin->current_document)
+		doc_jump_matching_block_boundary(bfwin->current_document);
+}
+
 /* project action callbacks */
 
 static void
@@ -974,7 +983,9 @@ static const GtkActionEntry document_actions[] = {
 	{"GotoLineSelection", NULL, N_("Goto Line Number from _Clipboard"), "<shift><control>L",
 	 N_("Goto line number in clipboard or selection"), G_CALLBACK(ui_goto_line_selection)},
 	{"JumpToReference", NULL, N_("_Jump to Reference"), "<control>J", N_("Jump to reference"),
-	 G_CALLBACK(ui_jump_to_reference)}
+	 G_CALLBACK(ui_jump_to_reference)},
+	{"JumpToMatchingBlockBoundary", NULL, N_("Jump to Matching Block Boundary"), "<control>m", N_("Jump to Matching Block Boundary"),
+	 G_CALLBACK(ui_jump_to_matching_block_boundary)}
 };
 
 static const GtkActionEntry edit_actions[] = {
