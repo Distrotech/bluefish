@@ -3732,6 +3732,28 @@ doc_jump(Tdocument * doc)
 	g_free(string);
 }
 
+void
+doc_jump_matching_block_boundary(Tdocument *doc)
+{
+	GtkTextIter it1, it2, it3, it4, location;
+	guint offset;
+	gpointer haveblock; 
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &location, gtk_text_buffer_get_insert(doc->buffer));
+	offset = gtk_text_iter_get_offset(&location);
+	haveblock = bftextview2_get_block_at_boundary_location(BLUEFISH_TEXT_VIEW(doc->view), offset, &it1, &it2, &it3, &it4);
+	if (!haveblock)
+		return;
+	if (gtk_text_iter_equal(&location, &it1)) {
+		gtk_text_buffer_place_cursor(doc->buffer, &it4);
+	} else if (gtk_text_iter_equal(&location, &it2)) {
+		gtk_text_buffer_place_cursor(doc->buffer, &it3);
+	} else if (gtk_text_iter_equal(&location, &it3)) {
+		gtk_text_buffer_place_cursor(doc->buffer, &it2);
+	} else if (gtk_text_iter_equal(&location, &it4)) {
+		gtk_text_buffer_place_cursor(doc->buffer, &it1);
+	}
+}
+
 static void
 floatingview_destroy_lcb(GtkWidget * widget, Tdocument * doc)
 {

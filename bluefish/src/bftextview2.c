@@ -532,12 +532,33 @@ blockstack_string(BluefishTextView * btv, Tfoundblock * fblock)
 	return g_string_free(tmp, FALSE);
 }
 
+/* because we don't want to expose the Tfoundblock to the external API we return gpointer
+external functions should treat this as a boolean: NULL means there is no block, a pointer means there is a block
+*/
+gpointer
+bftextview2_get_block_at_boundary_location(BluefishTextView *btv, guint offset, GtkTextIter *it1, GtkTextIter *it2, GtkTextIter *it3, GtkTextIter *it4)
+{
+	Tfoundblock *fblock;
+	
+	fblock = bftextview2_get_active_block_at_offset(btv->master, FALSE, offset);
+	if (fblock)
+		fblock = first_fully_defined_block(fblock);
+	if (fblock) {
+		if (fblock->start2_o != BF2_OFFSET_UNDEFINED && (fblock->start1_o == offset || fblock->end1_o == offset || fblock->start2_o == offset
+			|| fblock->end2_o == offset)) {
+			bftextview2_get_iters_at_foundblock(btv->buffer, fblock, it1, it2, it3, it4);
+			return fblock;
+		}
+	}
+	return NULL;
+}
+
 static gboolean
 mark_set_idle_lcb(gpointer widget)
 {
 	BluefishTextView *btv = widget;
 	BluefishTextView *master = btv->master;
-	GtkTextIter it1, it2, location;
+	GtkTextIter it1, it2, it3, it4, location;
 	Tfoundblock *fblock;
 	gchar *tmpstr = NULL;
 	guint offset;
@@ -550,8 +571,8 @@ mark_set_idle_lcb(gpointer widget)
 	}
 
 	offset = gtk_text_iter_get_offset(&location);
-	/*fblock = bftextview2_get_block_at_offset(btv, &found, gtk_text_iter_get_offset(&location)); */
-	fblock = bftextview2_get_active_block_at_offset(master, FALSE, offset);
+	fblock = (Tfoundblock *)bftextview2_get_block_at_boundary_location(btv, offset, &it1, &it2, &it3, &it4);
+	/*fblock = bftextview2_get_active_block_at_offset(master, FALSE, offset);
 	DBG_BLOCKMATCH("mark_set_idle_lcb, got fblock %p\n", fblock);
 	DBG_SIGNALS("mark_set_idle_lcb, 'insert' set at %d\n", gtk_text_iter_get_offset(&location));
 	if (fblock)
@@ -574,7 +595,11 @@ mark_set_idle_lcb(gpointer widget)
 			} else {
 				DBG_MSG("mark_set_idle_lcb, block has no end - no matching\n");
 			}
-		}
+		}*/
+	if (fblock) {
+		gtk_text_buffer_apply_tag(btv->buffer, master->blockmatch, &it1, &it2);
+		gtk_text_buffer_apply_tag(btv->buffer, master->blockmatch, &it3, &it4);
+		btv->showing_blockmatch = TRUE;
 		if (BFWIN(DOCUMENT(master->doc)->bfwin)->session->view_blockstack)
 			tmpstr = blockstack_string(btv, fblock);
 	}							/*else if (found && found->fblock && BFWIN(DOCUMENT(btv->doc)->bfwin)->session->view_blockstack) {
