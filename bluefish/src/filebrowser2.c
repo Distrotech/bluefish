@@ -463,7 +463,7 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 										  REFRESH_COLUMN, 0,
 										  TYPE_COLUMN, mime_type,
 										  FILEINFO_COLUMN, finfo,
-										  WEIGHT_COLUMN, opened?800:400,
+										  WEIGHT_COLUMN, opened?PANGO_WEIGHT_BOLD:PANGO_WEIGHT_NORMAL,
 										  -1);
 		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
 		g_free(icon_name);
@@ -1055,16 +1055,14 @@ fb2_set_uri_state(GFile *uri, gboolean opened)
 	GtkTreeIter *iter;
 	if (!uri)
 		return;
-	
+
 	iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
 	if (!iter) {
+		DEBUG_MSG("no iter, cannot set bold=%d \n", opened);
 		return;
 	}
-	if (opened) {
-		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),iter, WEIGHT_COLUMN, 800, -1);
-	} else {
-		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),iter, WEIGHT_COLUMN, 400, -1);
-	}
+	DEBUG_MSG("iter, set bold=%d \n", opened);
+	gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),iter, WEIGHT_COLUMN, opened?PANGO_WEIGHT_BOLD:PANGO_WEIGHT_NORMAL, -1);
 }
 
 /**
@@ -2881,9 +2879,9 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 										/*"pixbuf_expander_closed", PIXMAP_COLUMN,
 										"pixbuf_expander_open", PIXMAP_COLUMN,*/ NULL);
 	renderer = gtk_cell_renderer_text_new();
-	g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
 	gtk_tree_view_column_pack_start(column, renderer, TRUE);
 	gtk_tree_view_column_set_attributes(column, renderer, "text", FILENAME_COLUMN, "weight", WEIGHT_COLUMN, NULL);
+	g_object_set(G_OBJECT(renderer), "editable", FALSE, "weight-set", TRUE, NULL);	/* Not editable. */
 	gtk_tree_view_append_column(GTK_TREE_VIEW(fb2->dir_v), column);
 	fb2->dirscrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(fb2->dirscrolwin), GTK_POLICY_AUTOMATIC,
@@ -2937,9 +2935,9 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 											/*"pixbuf_expander_closed", PIXMAP_COLUMN,
 											"pixbuf_expander_open", PIXMAP_COLUMN,*/ NULL);
 		renderer = gtk_cell_renderer_text_new();
-		g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
 		gtk_tree_view_column_pack_start(column, renderer, TRUE);
-		gtk_tree_view_column_set_attributes(column, renderer, "text", FILENAME_COLUMN, NULL);
+		gtk_tree_view_column_set_attributes(column, renderer, "text", FILENAME_COLUMN, "weight", WEIGHT_COLUMN, NULL);
+		g_object_set(G_OBJECT(renderer), "editable", FALSE, "weight-set", TRUE, NULL);	/* Not editable. */
 		gtk_tree_view_append_column(GTK_TREE_VIEW(fb2->file_v), column);
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC,
