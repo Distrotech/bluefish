@@ -461,7 +461,7 @@ typedef struct {
 } Tattrib;
 
 static void
-parse_attributes(xmlTextReaderPtr reader, Tattrib *attribs, gint num_attribs)
+parse_attributes(Tbflang *bflang,xmlTextReaderPtr reader, Tattrib *attribs, gint num_attribs)
 {
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		gint i;
@@ -469,19 +469,24 @@ parse_attributes(xmlTextReaderPtr reader, Tattrib *attribs, gint num_attribs)
 		for (i=0;i<num_attribs;i++) {
 			if (xmlStrEqual(aname, (xmlChar *)attribs[i].name)) {
 				gchar *value = (gchar *)xmlTextReaderValue(reader);
+				gchar *useval = value;
+				if (strncmp(value, "option:", 7)==0) {
+					/*g_print("lookup option %s\n",value+7);*/
+					useval = lookup_user_option(bflang->name, value+7);
+					/*g_print("useval=%s\n",useval);*/
+				}
 				switch (attribs[i].type) {
 					case attribtype_int:
-						*((gint *)attribs[i].var) = (gint) g_ascii_strtoll(value, NULL, 10);
-						xmlFree(value);
+						*((gint *)attribs[i].var) = (gint) useval?g_ascii_strtoll(useval, NULL, 10):0;
 					break;
 					case attribtype_string:
-						*((gchar **)attribs[i].var) = value;
+						*((gchar **)attribs[i].var) = g_strdup(useval?useval:"");
 					break;
 					case attribtype_boolean:
-						*((gboolean *)attribs[i].var) = (value[0]=='1');
-						xmlFree(value);
+						*((gboolean *)attribs[i].var) = useval?(useval[0]=='1'):FALSE;
 					break;
 				}
+				xmlFree(value);
 				break;
 			}	
 		}
@@ -505,7 +510,7 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 		if (xmlStrEqual(name, (xmlChar *) "mime")) {
 			gchar *mimetype=NULL;
 			Tattrib attribs[] = {{"type", &mimetype, attribtype_string}};
-			parse_attributes(reader, attribs, 1);
+			parse_attributes(bflang,reader, attribs, 1);
 			if (mimetype) {
 				bflang->mimetypes = g_list_prepend(bflang->mimetypes, mimetype);
 			}
@@ -516,7 +521,7 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 			Tattrib attribs[] = {{"name", &optionname, attribtype_string},
 					{"description", &description, attribtype_string},
 					{"default", &defaultval, attribtype_boolean}};
-			parse_attributes(reader, attribs, 3);
+			parse_attributes(bflang,reader, attribs, 3);
 			if (optionname) {
 				const gchar *val = lookup_user_option(bflang->name, optionname);
 				if (!val) {
@@ -545,7 +550,7 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 			gchar *name = NULL, *style = NULL;
 			Tattrib attribs[] = {{"name", &name, attribtype_string},
 					{"style", &style, attribtype_string}};
-			parse_attributes(reader, attribs, 2);
+			parse_attributes(bflang,reader, attribs, 2);
 			if (name) {
 				gchar *use_textstyle = langmgr_lookup_style_for_highlight(bflang->name, name);
 				if (use_textstyle) {	/* we have a user-configured textstyle for this highlight */
@@ -677,7 +682,7 @@ process_autocomplete(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GSList 
 	if (!bfparser->load_completion)
 		return;
 	
-	parse_attributes(reader, attribs, 6);
+	parse_attributes(bfparser->bflang,reader, attribs, 6);
 	enabled = do_parse(bfparser, class, notclass);
 	g_free(class);
 	g_free(notclass);
@@ -750,7 +755,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 					{"identifier_jump", &identifier_jump, attribtype_int},
 					{"identifier_autocomp", &identifier_autocomp, attribtype_int}
 					};
-	parse_attributes(reader, attribs, 19);
+	parse_attributes(bfparser->bflang,reader, attribs, 19);
 	if (stretch_blockstart && ends_block) {
 		g_print("Error in language file, id %s / pattern %s has mutually exclusive options stretch_blockstart and ends_block both enabled\n", id?id:"-", pattern?pattern:"null");
 		stretch_blockstart = FALSE;
@@ -925,7 +930,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					{"no_close", &no_close, attribtype_boolean},
 					{"attrib_autocomplete_append", &attrib_autocomplete_append, attribtype_string},
 					{"attrib_autocomplete_backup_cursor", &attrib_autocomplete_backup_cursor, attribtype_int}};
-	parse_attributes(reader, attribs, bfparser->load_completion ? 14 : 12);
+	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 14 : 12);
 	add_tag = do_parse(bfparser, class, notclass);
 	if (add_tag) {
 		if (idref && idref[0] && !tag) {
@@ -1192,7 +1197,7 @@ process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gint 
 					{"attribhighlight", &attribhighlight, attribtype_string},
 					{"attrib_autocomplete_append", &attrib_autocomplete_append, attribtype_string},
 					{"attrib_autocomplete_backup_cursor", &attrib_autocomplete_backup_cursor, attribtype_int}};
-	parse_attributes(reader, attribs, bfparser->load_completion ? 8 : 6);
+	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 8 : 6);
 	add_group = do_parse(bfparser, class, notclass);
 	DBG_PARSING("add_group=%d for class=%s and notclass=%s\n",add_group, class, notclass);
 	if (!add_group) {
@@ -1309,7 +1314,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 					{"commentid_block", &commentid_block, attribtype_string},
 					{"commentid_line", &commentid_line, attribtype_string},
 					{"autocomplete_case_insens", &autocomplete_case_insens, attribtype_boolean}};
-	parse_attributes(reader, attribs, bfparser->load_completion ? 7 : 6);
+	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 7 : 6);
 	DBG_PARSING("found <context> with id=%s, idref=%s\n", id, idref);
 	if (idref && idref[0] && !id && !symbols && !highlight && !autocomplete_case_insens) {
 		DBG_PARSING("lookup context %s in hash table..\n", idref);
@@ -1463,7 +1468,7 @@ build_lang_thread(gpointer data)
 							{"end", &com.eo, attribtype_string},
 							{"type", &typestr, attribtype_string},
 							{"id", &id, attribtype_string}};
-					parse_attributes(reader, attribs, 4);
+					parse_attributes(bflang,reader, attribs, 4);
 					com.type = g_strcmp0(typestr, "block") == 0 ? comment_type_block : comment_type_line;
 					if (com.so && (com.type == comment_type_line || com.eo)) {
 						g_array_append_val(bfparser->st->comments, com);
@@ -1480,15 +1485,15 @@ build_lang_thread(gpointer data)
 					xmlFree(typestr);
 				} else if (xmlStrEqual(name2, (xmlChar *) "smartindent")) {
 					Tattrib attribs[] = {{"characters", &bfparser->smartindentchars, attribtype_string}};
-					parse_attributes(reader, attribs, 1);
+					parse_attributes(bflang,reader, attribs, 1);
 				} else if (xmlStrEqual(name2, (xmlChar *) "smartoutdent")) {
 					Tattrib attribs[] = {{"characters", &bfparser->smartoutdentchars, attribtype_string}};
-					parse_attributes(reader, attribs, 1);
+					parse_attributes(bflang,reader, attribs, 1);
 #ifdef HAVE_LIBENCHANT
 				} else if (xmlStrEqual(name2, (xmlChar *) "default_spellcheck")) {
 					Tattrib attribs[] = {{"enabled", &bfparser->default_spellcheck, attribtype_boolean},
 							{"spell_decode_entities", &bfparser->spell_decode_entities, attribtype_boolean}};
-					parse_attributes(reader, attribs, 2);
+					parse_attributes(bflang,reader, attribs, 2);
 #endif
 				} else if (xmlStrEqual(name2, (xmlChar *) "properties")) {
 					xmlFree(name2);
@@ -1610,7 +1615,7 @@ parse_bflang2_header(const gchar * filename)
 					{"table", &bflang->size_table, attribtype_int},
 					{"matches", &bflang->size_matches, attribtype_int},
 					{"contexts", &bflang->size_contexts, attribtype_int}};
-			parse_attributes(reader, attribs, 5);
+			parse_attributes(bflang,reader, attribs, 5);
 		} else if (xmlStrEqual(name, (xmlChar *) "header")) {
 			process_header(reader, bflang);
 			xmlFree(name);

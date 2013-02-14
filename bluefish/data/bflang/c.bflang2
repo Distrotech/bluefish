@@ -27,6 +27,7 @@
 	<mime type="application/x-chdr"/>
 	<mime type="text/plain?c"/>
 	<mime type="text/plain?h"/>
+	<option name="string_is_block" default="0" description="Show a string as a block"/>
 	<option name="load_glib_functions" default="0" description="Load glib types and functions"/>
 	<option name="load_gobject_functions" default="0" description="Load GObject functions"/>
 	<option name="load_gtk_functions" default="0" description="Load GTK+ functions"/>
@@ -6517,10 +6518,10 @@
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element pattern="'" highlight="string">
+<element id="e.dquote" pattern="'" highlight="string" starts_block="option:string_is_block">
 	<context symbols="\'" highlight="string" >
 		<element pattern="\\." is_regex="1" highlight="string" />
-		<element pattern="'" highlight="string" ends_context="1" />
+		<element pattern="'" highlight="string" ends_context="1" ends_block="option:string_is_block" blockstartelement="e.dquote" />
 	</context>
 </element>
 		<element id="e.lbrace" pattern="{" starts_block="1" highlight="bracket-curly" block_name="Curly brackets block"/>
