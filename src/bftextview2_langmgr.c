@@ -472,12 +472,12 @@ parse_attributes(Tbflang *bflang,xmlTextReaderPtr reader, Tattrib *attribs, gint
 				gchar *useval = value;
 				if (strncmp(value, "option:", 7)==0) {
 					/*g_print("lookup option %s\n",value+7);*/
-					useval = lookup_user_option(bflang->name, value+7);
+					useval = (gchar *) lookup_user_option(bflang->name, value+7);
 					/*g_print("useval=%s\n",useval);*/
 				}
 				switch (attribs[i].type) {
 					case attribtype_int:
-						*((gint *)attribs[i].var) = (gint) useval?g_ascii_strtoll(useval, NULL, 10):0;
+						*((gint *)attribs[i].var) = GPOINTER_TO_INT(useval)?g_ascii_strtoll(useval, NULL, 10):0;
 					break;
 					case attribtype_string:
 						*((gchar **)attribs[i].var) = g_strdup(useval?useval:"");
