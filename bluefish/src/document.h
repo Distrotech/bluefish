@@ -63,6 +63,7 @@ gint doc_get_tabsize(Tdocument * doc);
 void doc_change_tabsize(Tdocument * doc, gint direction);
 void doc_font_size(Tdocument * doc, gint direction);
 void doc_paste_special(Tbfwin *bfwin);
+void doc_jump_matching_block_boundary(Tdocument *doc);
 
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument * doc);
 gboolean test_docs_modified(GList * doclist);
