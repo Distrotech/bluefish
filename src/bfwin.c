@@ -683,6 +683,9 @@ gotoline_entry_changed(GtkEditable * editable, Tbfwin * bfwin)
 
 	if (!bfwin->current_document)
 		return;
+	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
+		return;
+	
 	DEBUG_MSG("gotoline_entry_changed, called!\n");
 	linestr = gtk_editable_get_chars(editable, 0, -1);
 	linenum = get_int_from_string(linestr);
@@ -833,6 +836,8 @@ simplesearch_back_clicked(GtkButton * button, Tbfwin * bfwin)
 static void
 simplesearch_combo_entry_changed(gpointer widget, Tbfwin * bfwin)
 {
+	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
+		return;
 	DEBUG_MSG("simplesearch_combo_entry_changed, call simplesearch_start()\n");
 	simplesearch_start(bfwin, FALSE);
 }
@@ -840,6 +845,8 @@ simplesearch_combo_entry_changed(gpointer widget, Tbfwin * bfwin)
 static void
 simplesearch_combo_entry_activated(gpointer widget, Tbfwin * bfwin)
 {
+	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
+		return;
 	DEBUG_MSG("simplesearch_combo_entry_activated, call simplesearch_start()\n");
 	simplesearch_forward_clicked(NULL, bfwin);
 }
