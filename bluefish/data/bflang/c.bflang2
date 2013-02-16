@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		c.bflang2 $Revision$
- 
+
 		Copyright (C) 2008-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <bflang name="C" version="2.0" table="49046" contexts="5" matches="6402">
@@ -32,7 +32,7 @@
 	<option name="load_gobject_functions" default="0" description="Load GObject functions"/>
 	<option name="load_gtk_functions" default="0" description="Load GTK+ functions"/>
 	<option name="load_libc_functions" default="1" description="Load standard C library functions "/>
-	
+
 	<option name="load_reference" default="1" description="Load reference data"/>
 	<option name="load_completion" default="1" description="Load completion data"/>
 	<option name="autocompl_with_semicolon" default="0" description="Autocomplete function names with semicolon"/>
@@ -52,7 +52,7 @@
 	<highlight name="value" style="value" />
 	<highlight name="preprocessor" style="preprocessor" />
 	<highlight name="libc-function" style="function" />
-	<highlight name="glib-function" style="special-function" />	
+	<highlight name="glib-function" style="special-function" />
 	<highlight name="gtk-function" style="special-function" />
 	<highlight name="gtk-type" style="special-type" />
 	<highlight name="glib-type" style="special-type" />
@@ -2589,7 +2589,7 @@
 		<element pattern="gssize" />
 		<element pattern="goffset" />
 	</group>
-	<element pattern="TRUE"  highlight="value" />	
+	<element pattern="TRUE"  highlight="value" />
 	<element pattern="FALSE"  highlight="value" />
 </group>
 
@@ -6326,7 +6326,7 @@
 	<element pattern="g_value_get_uint" />
 	<element pattern="g_param_spec_long" />
 	<element pattern="g_value_set_long" />
-	<element pattern="g_value_get_long" /> 
+	<element pattern="g_value_get_long" />
 	<element pattern="g_param_spec_ulong" />
 	<element pattern="g_value_set_ulong" />
 	<element pattern="g_value_get_ulong" />
@@ -6512,16 +6512,16 @@
 <element pattern="NULL"  highlight="value" >
 	<autocomplete enable="1" />
 </element>
-<element pattern="&#34;" highlight="string">
+<element id="e.dquote" pattern="&#34;" highlight="string" starts_block="option:string_is_block">
 	<context symbols="\&#34;nrt" highlight="string">
 		<element pattern="\\." is_regex="1" highlight="string" />
-		<element pattern="&#34;" highlight="string" ends_context="1" />
+		<element pattern="&#34;" highlight="string" ends_context="1" ends_block="option:string_is_block" blockstartelement="e.dquote" />
 	</context>
 </element>
-<element id="e.dquote" pattern="'" highlight="string" starts_block="option:string_is_block">
+<element id="e.squote" pattern="'" highlight="string" starts_block="option:string_is_block">
 	<context symbols="\'" highlight="string" >
 		<element pattern="\\." is_regex="1" highlight="string" />
-		<element pattern="'" highlight="string" ends_context="1" ends_block="option:string_is_block" blockstartelement="e.dquote" />
+		<element pattern="'" highlight="string" ends_context="1" ends_block="option:string_is_block" blockstartelement="e.squote" />
 	</context>
 </element>
 		<element id="e.lbrace" pattern="{" starts_block="1" highlight="bracket-curly" block_name="Curly brackets block"/>
@@ -6532,7 +6532,7 @@
 		<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="bracket-round" />
 		<element id="e.lcomment" pattern="/*" starts_block="1" highlight="block-comment" block_name="C style comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="block-comment" >
-				<element pattern="/*" highlight="error"/> 
+				<element pattern="/*" highlight="error"/>
 				<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="block-comment" ends_context="1" />
 			</context>
 		</element>
