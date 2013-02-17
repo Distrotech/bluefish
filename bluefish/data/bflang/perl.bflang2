@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<bflang name="Perl" version="2.0" table="1591" contexts="5" matches="234">
+<bflang name="Perl" version="2.0" table="1438" contexts="68" matches="439">
 <header>
 	<mime type="application/x-perl"/>
 	<mime type="text/x-perl" />
@@ -64,6 +64,7 @@
 	<element pattern="next" />
 	<element pattern="our" />
 	<element pattern="return" />
+	<element pattern="state" />
 	<element pattern="sub" />
 	<element pattern="unless" />
 	<element pattern="until" />
@@ -71,12 +72,20 @@
 	<element pattern="while" />
 	<element pattern="__BEGIN__" />
 	<element pattern="__END__" />
-	<element pattern="__FILE__" />
-	<element pattern="__LINE__" />
 	<element pattern="__PACKAGE__" />
+	<element pattern="__DATA__" />
+	<element pattern="__LINE__" />
+	<element pattern="__FILE__" />
 	<element pattern="BEGIN" />
+	<element pattern="INIT" />
+	<element pattern="UNITCHECK" />
+	<element pattern="END" />
 	<element pattern="STDIN" />
 	<element pattern="STDERR" />
+	<element pattern="@EXPORT" />
+	<element pattern="@EXPORT_OK" />
+	<element pattern="@ISA" />
+	<element pattern="$|" />
 </group>
 <group  highlight="special_keyword">
 	<autocomplete enable="1" />
@@ -87,6 +96,7 @@
 <group  highlight="warning">
 	<autocomplete enable="1" />
 	<element pattern="strict" />
+	<element pattern="feature" />
 	<element pattern="warnings" />
 </group>
 <group  highlight="pragma">
@@ -226,6 +236,7 @@
 	<element pattern="push" />
 	<element pattern="quotemeta" />
 	<element pattern="qw" />
+	<element pattern="qr" />
 	<element pattern="rand" />
 	<element pattern="read" />
 	<element pattern="readdir" />
@@ -310,8 +321,13 @@
 	<element pattern="@$[a-z_][a-z0-9_]*" is_regex="1" />
 	<element pattern="%$[a-z_][a-z0-9_]*" is_regex="1" />
 	<element pattern="$[a-z_][a-z0-9_]*" is_regex="1" />
+	<element pattern="$#[a-z_][a-z0-9_]*" is_regex="1" />
+	<element pattern="$[1-9]" is_regex="1" />
+	<element pattern="$[`'@!]" is_regex="1" />
+	<element pattern="$[$]" is_regex="1" />
 	<element pattern="&amp;[a-z_][a-z0-9_]*;" is_regex="1" />
 </group>
+
 <group highlight="value">
 	<element pattern="0x[0-9a-fA-F]+" is_regex="1"  />
 	<element pattern="[0-9]+\.[0-9]+" is_regex="1"  />
@@ -336,12 +352,382 @@
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
+<element pattern="=~ /" highlight="function">
+	<context symbols="\/" highlight="function">
+		<element pattern="/" highlight="function" ends_context="1" />
+	</context>
+</element>
+
+<!-- QQ -->
+<element pattern="qq#" highlight="string">
+	<context symbols="\#" highlight="string">
+<!-- 		<element pattern="\#" is_regex="1"/> -->
+		<element pattern="#" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qq/" highlight="string">
+	<context symbols="\/" highlight="string">
+		<element pattern="/" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qq{" highlight="string">
+	<context symbols="\}" highlight="string">
+		<element pattern="}" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qq(" highlight="string">
+	<context symbols="\)" highlight="string">
+		<element pattern="\\\)" is_regex="1"/>
+		<element pattern=")" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qq!" highlight="string">
+	<context symbols="\!" highlight="string">
+		<element pattern="!" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qq\" highlight="string">
+	<context symbols="\\" highlight="string">
+		<element pattern="\" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qq+" highlight="string">
+	<context symbols="\+" highlight="string">
+		<element pattern="+" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<!-- Q -->
+<element pattern="q#" highlight="string">
+	<context symbols="\#" highlight="string">
+		<element pattern="#" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="q/" highlight="string">
+	<context symbols="\/" highlight="string">
+		
+		<element pattern="/" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="q{" highlight="string">
+	<context symbols="\}" highlight="string">
+		<element pattern="}" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="q(" highlight="string">
+	<context symbols="\)" highlight="string">
+		<element pattern="\\\)" is_regex="1"/>
+		<element pattern=")" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="q!" highlight="string">
+	<context symbols="\!" highlight="string">
+		<element pattern="!" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="q\" highlight="string">
+	<context symbols="\\" highlight="string">
+		<element pattern="\" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="q+" highlight="string">
+	<context symbols="\+" highlight="string">
+		<element pattern="+" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<!-- QR -->
+<element pattern="qr#" highlight="string">
+	<context symbols="\#" highlight="string">
+		<element pattern="#" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qr/" highlight="string">
+	<context symbols="\/" highlight="string">
+		<element pattern="/" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qr{" highlight="string">
+	<context symbols="\}" highlight="string">
+		<element pattern="}" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qr(" highlight="string">
+	<context symbols="\)" highlight="string">
+		<element pattern="\\\)" is_regex="1"/>
+		<element pattern=")" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qr!" highlight="string">
+	<context symbols="\!" highlight="string">
+		<element pattern="!" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qr\" highlight="string">
+	<context symbols="\\" highlight="string">
+		<element pattern="\" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qr+" highlight="string">
+	<context symbols="\+" highlight="string">
+		<element pattern="+" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<!-- QX -->
+<element pattern="qx#" highlight="string">
+	<context symbols="\#" highlight="string">
+		<element pattern="#" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qx/" highlight="string">
+	<context symbols="\/" highlight="string">
+		<element pattern="/" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qx{" highlight="string">
+	<context symbols="\}" highlight="string">
+		<element pattern="}" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qx(" highlight="string">
+	<context symbols="\)" highlight="string">
+		<element pattern="\\\)" is_regex="1"/>
+		<element pattern=")" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qx!" highlight="string">
+	<context symbols="\!" highlight="string">
+		<element pattern="!" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qx\" highlight="string">
+	<context symbols="\\" highlight="string">
+		<element pattern="\" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qx+" highlight="string">
+	<context symbols="\+" highlight="string">
+		<element pattern="+" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<!-- QW -->
+<element pattern="qw#" highlight="string">
+	<context symbols="\#" highlight="string">
+		<element pattern="#" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qw/" highlight="string">
+	<context symbols="\/" highlight="string">
+		<element pattern="/" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qw{" highlight="string">
+	<context symbols="\}" highlight="string">
+		<element pattern="}" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qw(" highlight="string">
+	<context symbols="\)" highlight="string">
+		<element pattern="\\\)" is_regex="1"/>
+		<element pattern=")" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qw!" highlight="string">
+	<context symbols="\!" highlight="string">
+		<element pattern="!" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qw\" highlight="string">
+	<context symbols="\\" highlight="string">
+		<element pattern="\" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="qw+" highlight="string">
+	<context symbols="\+" highlight="string">
+		<element pattern="+" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<!-- M -->
+<element pattern="m#" highlight="string">
+	<context symbols="\#" highlight="string">
+		<element pattern="#" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="m/" highlight="string">
+	<context symbols="\/" highlight="string">
+		<element pattern="/" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="m{" highlight="string">
+	<context symbols="\}" highlight="string">
+		<element pattern="}" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="m(" highlight="string">
+	<context symbols="\)" highlight="string">
+		<element pattern="\\\)" is_regex="1"/>
+		<element pattern=")" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="m!" highlight="string">
+	<context symbols="\!" highlight="string">
+		<element pattern="!" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="m\" highlight="string">
+	<context symbols="\\" highlight="string">
+		<element pattern="\" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="m+" highlight="string">
+	<context symbols="\+" highlight="string">
+		<element pattern="+" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<!-- S -->
+<element pattern="s#" highlight="string">
+	<context symbols="\#" highlight="string">
+		<element pattern="[#][^#]*#" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="s/" highlight="string">
+	<context symbols="\/" highlight="string">
+		<element pattern="[/][^/]*/" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="s{" highlight="string">
+	<context symbols="\}" highlight="string">
+		<element pattern="\{" is_regex="1"/>
+		<element pattern="[}][^}]*}" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="s(" highlight="string">
+	<context symbols="\)" highlight="string">
+		<element pattern="\)" is_regex="1"/>
+		<element pattern="[)][^)]*)" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="s!" highlight="string">
+	<context symbols="\!" highlight="string">
+		<element pattern="\!" is_regex="1"/>
+		<element pattern="[!][^!]*!" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="s+" highlight="string">
+	<context symbols="\+" highlight="string">
+		<element pattern="\+" is_regex="1"/>
+		<element pattern="[+][^+]*+" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="s'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\'" is_regex="1"/>
+		<element pattern="['][^']*'" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<!-- Y -->
+<element pattern="y#" highlight="string">
+	<context symbols="\#" highlight="string">
+		<element pattern="\#" is_regex="1"/>
+		<element pattern="[#][^#]*#" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="y/" highlight="string">
+	<context symbols="\/" highlight="string">
+		<element pattern="\/" is_regex="1"/>
+		<element pattern="[/][^/]*/" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="y{" highlight="string">
+	<context symbols="\}" highlight="string">
+		<element pattern="\{" is_regex="1"/>
+		<element pattern="[}][^}]*}" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="y(" highlight="string">
+	<context symbols="\)" highlight="string">
+		<element pattern="\)" is_regex="1"/>
+		<element pattern="[)][^)]*)" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="y!" highlight="string">
+	<context symbols="\!" highlight="string">
+		<element pattern="\!" is_regex="1"/>
+		<element pattern="[!][^!]*!" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="y+" highlight="string">
+	<context symbols="\+" highlight="string">
+		<element pattern="\+" is_regex="1"/>
+		<element pattern="[+][^+]*+" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="y'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\'" is_regex="1"/>
+		<element pattern="['][^']*'" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<!-- TR -->
+<element pattern="tr#" highlight="string">
+	<context symbols="\#" highlight="string">
+		<element pattern="\#" is_regex="1"/>
+		<element pattern="[#][^#]*#" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="tr/" highlight="string">
+	<context symbols="\/" highlight="string">
+		<element pattern="\/" is_regex="1"/>
+		<element pattern="[/][^/]*/" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="tr{" highlight="string">
+	<context symbols="\}" highlight="string">
+		<element pattern="\{" is_regex="1"/>
+		<element pattern="[}][^}]*}" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="tr(" highlight="string">
+	<context symbols="\)" highlight="string">
+		<element pattern="\)" is_regex="1"/>
+		<element pattern="[)][^)]*)" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="tr!" highlight="string">
+	<context symbols="\!" highlight="string">
+		<element pattern="\!" is_regex="1"/>
+		<element pattern="[!][^!]*!" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="tr+" highlight="string">
+	<context symbols="\+" highlight="string">
+		<element pattern="\+" is_regex="1"/>
+		<element pattern="[+][^+]*+" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="tr'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\'" is_regex="1"/>
+		<element pattern="['][^']*'" is_regex="1" highlight="string" ends_context="1" />
+	</context>
+</element>
+
 <element id="e.lbrace" pattern="{" starts_block="1" highlight="brackets" block_name="Curly brackets block"/>
 <element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
 <element id="e.lbracket" pattern="[" starts_block="1" highlight="brackets" />
 <element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
 <element id="e.lparen" pattern="(" starts_block="1" highlight="brackets" block_name="Parentheses block" />
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+
+<element id="pod" pattern="=[a-zA-Z][a-zA-Z0-9 _]*[&#10;&#13;]" is_regex="1" starts_block="1" mayfold="1" highlight="comment" />
+<element pattern="=cut" ends_block="1" blockstartelement="pod" highlight="comment" />
+
 <element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment" />
 
 </context>
