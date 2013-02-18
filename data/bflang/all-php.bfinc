@@ -26109,7 +26109,7 @@ or false.
 	<autocomplete append="() {" backup_cursor="3" />
 </element>
 <element pattern="foreach" />
-<element pattern="function"    identifier_mode="1"  identifier_jump="1" identifier_autocomp="1" >
+<element pattern="function"    identifier_mode="1"  identifier_jump="1" identifier_autocomp="option:autocomplete_PHP_function" >
 	<autocomplete append=" () {" backup_cursor="4" />
 </element>
 <element pattern="global" />

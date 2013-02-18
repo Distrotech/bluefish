@@ -46,6 +46,8 @@
 	<option name="Javascript Curly brackets block_foldable" default="1" description="Allow folding of Javascript Curly brackets block"/>
 	<option name="C style comment_foldable" default="1" description="Allow folding of C style comments" />
 	<option name="PHP block_foldable" default="1" description="Allow folding of PHP blocks" />
+	<option name="autocomplete_PHP_variable" default="1" description="Auto-complete PHP variables" />
+	<option name="autocomplete_PHP_function" default="1" description="Auto-complete PHP functions" />
 	<option name="html-block_foldable" default="0" />
 <!--	<option name="autocomplete_tags" default="1" />-->
 	<option name="autocomplete_with_arguments" default="1" />
@@ -157,7 +159,7 @@
 		<element pattern="(&#10;|&#13;|&#13;&#10;)EOF"  is_regex="1" ends_block="1" ends_context="1" blockstartelement="e.php.short.nowdoc_string" highlight="brackets" />
 	</context>
 </element>
-<element id="e.php.short.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" identifier_mode="2" identifier_autocomp="1" />
+<element id="e.php.short.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" identifier_mode="2" identifier_autocomp="option:autocomplete_PHP_variable" />
 <element id="e.php.short.doublequotedstring" pattern="&#34;" highlight="string" starts_block="1">
 	<context symbols="\&#34;$ &#9;&#10;&#13;' -&lt;&gt;{}[]" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
@@ -249,7 +251,7 @@ was disabled, this whole section is not parsed by the language manager, so the c
 	</context>
 </element>
 
-<element id="e.php.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" identifier_mode="2" identifier_autocomp="1"/>
+<element id="e.php.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" identifier_mode="2" identifier_autocomp="option:autocomplete_PHP_variable"/>
 <element pattern="&#34;" highlight="string" id="e.php.doublequotedstring">
 	<context symbols="\&#34;$ &#9;&#10;&#13;' -&lt;&gt;{}[]" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
