@@ -189,13 +189,15 @@ snippets_connect_accelerators_from_doc(Tsnippetswin * snw, xmlNodePtr cur, GtkAc
 					hcbdata->snw = snw;
 					hcbdata->cur = cur;
 					DEBUG_MSG
-						("snippets_connect_accelerators_from_doc, connecting accelerator %s to data %p\n",
-						 accelerator, hcbdata);
+						("snippets_connect_accelerators_from_doc, connecting accelerator %s to data %p, and add to accel_group %p\n",
+						 accelerator, hcbdata, accel_group);
 					closure =
 						g_cclosure_new(G_CALLBACK(snippets_accelerator_activated_lcb), hcbdata,
 									   (GClosureNotify) accelerator_cbdata_free);
 					gtk_accel_group_connect(accel_group, key, mod, GTK_ACCEL_VISIBLE, closure);
-					g_object_watch_closure(G_OBJECT(snw->view), closure);
+					g_object_watch_closure(G_OBJECT(snw->bfwin->main_window), closure);
+				} else {
+					g_print("Invalid shortcut key %s found in snippets library\n", accelerator);
 				}
 				xmlFree(accelerator);
 			}
@@ -215,10 +217,12 @@ snippets_rebuild_accelerators(void)
 		Tsnippetswin *snw = g_hash_table_lookup(snippets_v.lookup, bfwin);
 		if (!snw)
 			continue;
+		DEBUG_MSG("remove accel_group from bfwin %p\n",bfwin);
 		gtk_window_remove_accel_group(GTK_WINDOW(bfwin->main_window), snw->accel_group);
 		g_object_unref(G_OBJECT(snw->accel_group));
 
 		snw->accel_group = gtk_accel_group_new();
+		DEBUG_MSG("add new accel_group %p to bfwin %p\n",snw->accel_group,bfwin);
 		gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), snw->accel_group);
 		if (snippets_v.doc) {
 			xmlNodePtr cur = xmlDocGetRootElement(snippets_v.doc);
@@ -551,13 +555,13 @@ snippets_search(GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *it
 	xmlNodePtr node;
 	gchar *tmp=NULL, *title=NULL;
 	gboolean retval = TRUE;
-	
+
 	gtk_tree_model_get(model, iter, NODE_COLUMN, &node, TITLE_COLUMN, &title, -1);
 	if (title && strcasestr(title, key)!= NULL) {
 		retval = FALSE;
 	}
 	g_free(title);
-		
+
 	if (node) {
 		xmlChar *type = xmlGetProp(node, (const xmlChar *) "type");
 		if (type && xmlStrEqual(type, (const xmlChar *) "insert")) {
@@ -763,6 +767,7 @@ popup_menu_set_accelerator(GtkAction * action, gpointer user_data)
 			} else {
 				xmlSetProp(snw->lastclickednode, (const xmlChar *) "accelerator", (const xmlChar *) accel);
 			}
+			DEBUG_MSG("popup_menu_set_accelerator, call snippets_rebuild_accelerators()\n");
 			snippets_rebuild_accelerators();
 			g_idle_add(snippets_store_lcb, NULL);
 			g_free(accel);
