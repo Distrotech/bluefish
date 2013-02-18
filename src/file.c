@@ -75,10 +75,10 @@ static Tasyncqueue ffdqueue;
 void
 file_static_queues_init(void)
 {
-	queue_init(&ofqueue, 16, openfile_run);
-	queue_init(&ffdqueue, 16, findfiles_rundir);
-	queue_init(&fiqueue, 16, fill_fileinfo_run);
-	queue_init(&sfqueue, 16, file_checkNsave_run);
+	queue_init(&ofqueue, 8, openfile_run);
+	queue_init(&ffdqueue, 8, findfiles_rundir);
+	queue_init(&fiqueue, 8, fill_fileinfo_run);
+	queue_init(&sfqueue, 8, file_checkNsave_run);
 }
 
 /********************************** wait for mount functions **********************************/
