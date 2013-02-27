@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 <!-- TODO: Add generic XML and (X)HTML support via options! Add EXSLT support! -->
-<bflang name="XSLT" version="2.0" table="1698" contexts="43" matches="232">
+<bflang name="XSLT" version="2.0" table="1735" contexts="43" matches="232">
 <header>
 	<mime type="application/xslt+xml" />
 	<option name="xslt_2" default="0" description="Load XSLT 2.0 support." />
@@ -118,10 +118,7 @@
 			<autocomplete append=" name=&quot;&quot;" />
 			<reference>Define a named set of attributes.</reference>
 			<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-				<tag name="xsl:attribute" attributes="name,namespace"  attrib_autocomplete_append="=&quot;&quot;" highlight="tag-element" attribhighlight="attribute" id="t.xslt.attribute">
-					<autocomplete append=" name=&quot;&quot;" />
-					<reference>Add attributes to a result element, whether created literally or by instruction.</reference>
-				</tag>
+				<tag idref="t.xslt.attribute" />
 				<!-- <element idref="e.xml.tag.open" /> -->
 				<element idref="e.xml.lcomment" />
 				<element idref="e.xml.entity" />
@@ -151,7 +148,10 @@
 							<autocomplete append=" name=&quot;&quot;" />
 							<reference>Create an element with a computed name.</reference>
 						</tag>
-						<tag idref="t.xslt.attribute" />
+						<tag name="xsl:attribute" attributes="name,namespace" attrib_autocomplete_append="=&quot;&quot;" highlight="tag-element" attribhighlight="attribute" id="t.xslt.attribute">
+						<autocomplete append=" name=&quot;&quot;" />
+						<reference>Add attributes to a result element, whether created literally or by instruction.</reference>
+					</tag>
 					</group>
 					<group highlight="tag-value">
 						<tag name="xsl:copy" attributes="use-attribute-sets">
