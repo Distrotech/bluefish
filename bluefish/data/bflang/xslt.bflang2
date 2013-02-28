@@ -114,17 +114,6 @@
 			</tag>
 		</group>
 
-		<tag name="xsl:attribute-set" attributes="name,use-attribute-sets"  attrib_autocomplete_append="=&quot;&quot;" highlight="tag-element" attribhighlight="attribute">
-			<autocomplete append=" name=&quot;&quot;" />
-			<reference>Define a named set of attributes.</reference>
-			<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-				<tag idref="t.xslt.attribute" />
-				<!-- <element idref="e.xml.tag.open" /> -->
-				<element idref="e.xml.lcomment" />
-				<element idref="e.xml.entity" />
-			</context>
-		</tag>
-
 		<tag name="xsl:template" attributes="name,match,priority,mode" highlight="tag" attribhighlight="attribute">
 			<reference>Define a template rule.</reference>
 			<context id="c.xslt.generic" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
@@ -245,7 +234,16 @@
 				<element idref="e.xml.entity" />
 			</context>
 		</tag>
-		
+		<tag name="xsl:attribute-set" attributes="name,use-attribute-sets"  attrib_autocomplete_append="=&quot;&quot;" highlight="tag-element" attribhighlight="attribute">
+			<autocomplete append=" name=&quot;&quot;" />
+			<reference>Define a named set of attributes.</reference>
+			<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+				<tag idref="t.xslt.attribute" />
+				<!-- <element idref="e.xml.tag.open" /> -->
+				<element idref="e.xml.lcomment" />
+				<element idref="e.xml.entity" />
+			</context>
+		</tag>
 		<element idref="e.xml.tag.open" />
 		<element idref="e.xml.lcomment" />
 		<element idref="e.xml.entity" />
