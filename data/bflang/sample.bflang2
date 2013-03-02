@@ -2,11 +2,11 @@
 <!-- $Revision$ -->
 <!-- a bflang2 file should start with a xml declaration -->
 
-<!-- 
-the root tag of the bflang2 file is <bflang name="NAME"> 
-it should have attribute 'name', which is a human readable name of the 
+<!--
+the root tag of the bflang2 file is <bflang name="NAME">
+it should have attribute 'name', which is a human readable name of the
 language that is defined. The version number specifies the compatibility
-of the langueg file.  
+of the langueg file.
 -->
 <bflang name="Sample" version="2.0">
 <!-- within the bflang tag is first a <header>, then <properties> and then a <definition> tag.
@@ -16,48 +16,48 @@ the properties and definition tag are parsed only on-demand if a file of this ty
 <header>
 <!-- the <header> tag can have <mime> and <highlight> and <option> -->
 
-<!-- <mime type="TYPE"> defines which mime-types are described by this language file. 
-There can be multiple mime tags in the header section (for example C source and 
+<!-- <mime type="TYPE"> defines which mime-types are described by this language file.
+There can be multiple mime tags in the header section (for example C source and
 C header files have a different mimetype and can be described by the same
 language file) -->
 	<mime type="fake/sample"/>
-<!-- Sometimes a file doesn't have a specific mime type, or the mime type is not defined 
+<!-- Sometimes a file doesn't have a specific mime type, or the mime type is not defined
 on many systems. In that case the mime type is often something like text/plain
 Bluefish supports a combination of mime type and extension. To detect a file type that
 ends on .fake you add: -->
 	<mime type="text/plain?fake"/>
-	
-<!-- <highlight name="NAME" style="STYLE"> defines which element-types that are defined in 
+
+<!-- <highlight name="NAME" style="STYLE"> defines which element-types that are defined in
 the file, and which styles should be applied for each of these types. THESE CAN BE ALTERED
 BY THE USER IN THE PREFERENCES PANEL.
 
-So if an element in this file has attribute highlight="foo", this section should have 
-<highlight name="foo" style="somestyle"/>. Look at other language files and try to 
+So if an element in this file has attribute highlight="foo", this section should have
+<highlight name="foo" style="somestyle"/>. Look at other language files and try to
 re-use styles !!!!!!!!!
 
 For the end-user it is convenient if styles are re-used. All languages that define a comment
-should use style 'comment' by default. 
+should use style 'comment' by default.
 -->
 	<highlight name="comment" style="comment" />
 
-<!-- Some users may like the same color for all keywords, other may like a different style for 
-storage types and language keywords. So use a different 'highlight' name for them, such that 
+<!-- Some users may like the same color for all keywords, other may like a different style for
+storage types and language keywords. So use a different 'highlight' name for them, such that
 users may assign a different textstyle if they want.-->
 	<highlight name="storage-types" style="keyword" />
 	<highlight name="keyword" style="keyword" />
 
 
-<!-- <option> defines an option that can be set for this language --> 
+<!-- <option> defines an option that can be set for this language -->
 	<option name="allphpfunctions" default="1" description="All php functions" />
 <!-- this example adds the option 'allphpfunctions' to the language file
 if in the <definition> section of this file we have a <group class="allphpfunctions"> the user
-can enable/disable this complete section with this option  
- -->	
+can enable/disable this complete section with this option
+ -->
 	<option name="php block_foldable" default="1" description="Allow the PHP block to fold"/>
-<!-- In this example a block named 'php block' is made optionally foldable (or not). 
+<!-- In this example a block named 'php block' is made optionally foldable (or not).
 The '_foldable' suffix is hardcoded in bluefish -->
 
-<!-- there are a couple of hardcoded option names for options that the user may set --> 
+<!-- there are a couple of hardcoded option names for options that the user may set -->
 	<option name="load_reference" default="1"/>
 	<!-- whether or not to load the reference data for this language -->
 	<option name="load_completion" default="1" />
@@ -78,45 +78,45 @@ The '_foldable' suffix is hardcoded in bluefish -->
 	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
 	<comment id="cm.cpplinecomment" type="line" start="//" />
 	<comment id="cm.scriptcomment" type="line" start="#" />
-	
-	<!-- smartindent characters specify which characters, followed by a return, should increase the indenting. 
+
+	<!-- smartindent characters specify which characters, followed by a return, should increase the indenting.
 	Smartoutdent means that this character, typed immediately after auto-indenting has set the indenting, should
 	decrease the previous auto-indenting -->
 	<smartindent characters="{" />
 	<smartoutdent characters="}" />
 
-	<!-- default_spellcheck defines if regions that are not highlighted will be checked by the spell checker. 
+	<!-- default_spellcheck defines if regions that are not highlighted will be checked by the spell checker.
 	This is typically enabled for HTML/XML like languages, and disabled (or ignored, because the default=0)
 	for all programming languages
-	-->	
+	-->
 	<default_spellcheck enabled="1" />
 </properties>
 <definition>
 <!-- within <definition> the actual language description is found. A language definition always
-starts with a <context> tag, and contains ONE SINGLE context tag (which may have other context tags 
+starts with a <context> tag, and contains ONE SINGLE context tag (which may have other context tags
 as children).
  -->
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" commentid_block="cm.htmlcomment" commentid_line="none">
 <!-- <context symbols="LIST OF CHARACTERS" highlight="HIGHLIGHT-TYPE" id="IDENTIFIER"
 a <context> tag should always define "symbols". Symbols are those characters that may start or end an element.
 
-To detect function strlen in the following examples (language C): 
-i=strlen(a);   
+To detect function strlen in the following examples (language C):
+i=strlen(a);
 i+strlen(a);
 i*strlen (a);
-we need at least symbols =+*( 
+we need at least symbols =+*(
 
 In most languages all whitespace is a symbol ( =space, &#9;=tab, &#10;=newline, &#13;=carriange return).
 
-In xml/sgml/html only '<>&;' are symbols, but withtin a tag also "' are symbols.  
+In xml/sgml/html only '<>&;' are symbols, but withtin a tag also "' are symbols.
 
 The optional attribute highlight may specify a highlight type that is valid for the complete text region
-that has this context. Useful for 'comment' or 'string' type of contexts where the complete context is 
-highlighted 
+that has this context. Useful for 'comment' or 'string' type of contexts where the complete context is
+highlighted
 
 The optional attribute 'id' is used to define an identifier which can be used to re-use this context.
 
-To re-use a context, use <context idref="IDENTIFIER" /> where IDENTIFIER refers to a previously defined 
+To re-use a context, use <context idref="IDENTIFIER" /> where IDENTIFIER refers to a previously defined
 context. The file is parsed top to bottom.
 
 Within <context> there can be <element> <tag> and <group> tags.
@@ -128,7 +128,7 @@ Within <context> there can be <element> <tag> and <group> tags.
 it always needs attribute 'pattern' which defines the pattern that will be looked for in this context
 
 the pattern can be defined in 'regular expression' style, to do this add attribute is_regex="1". however, there is
-only limited regular expression support. you may use 
+only limited regular expression support. you may use
 - a range of characters such as [a-z0-9;']
 - an inverted range such as [^0-9]
 - operators such as ? (zero or one), + (one or more), and * (zero or more)
@@ -139,7 +139,7 @@ only limited regular expression support. you may use
 
 a pattern may be case insensitive, set case_insens="1"
 
-to highlight the pattern use attribute highlight="TYPE", where TYPE should be defined within the <header> 
+to highlight the pattern use attribute highlight="TYPE", where TYPE should be defined within the <header>
 section of the language file
 
 <element> may have attribute 'id' so this element may be referred to later. To re-use element 'foo' later in the file
@@ -155,12 +155,12 @@ the start and the end may be hidden when the block is 'folded'.
 
 to make a pattern a block start define starts_block="1" and use the 'id' attribute
 
-to specify a pattern that ends a block use ends_block="1" and use blockstartelement="FOO" where FOO is the id of 
+to specify a pattern that ends a block use ends_block="1" and use blockstartelement="FOO" where FOO is the id of
 the start-of-block-element
 
-Because this block has a name ('Bracket block') it can be selected by the user in the 
+Because this block has a name ('Bracket block') it can be selected by the user in the
 expand/collapse popup menu. You can also create an option 'Bracket block_foldable' so
-the user may decide if this block may fold or not. If you don't need either the 
+the user may decide if this block may fold or not. If you don't need either the
 block_name can be left empty.
 -->
 
@@ -171,14 +171,14 @@ block_name can be left empty.
 	</context>
 </element>
 <!--
-an element may also start a new context for the scanner. 
+an element may also start a new context for the scanner.
 whenever this pattern is found the engine switches to this context
-and starts scanning only the patterns defined in this context. To do this define <context></context> 
+and starts scanning only the patterns defined in this context. To do this define <context></context>
 between <element> and </element>. within this <context> there are entirely different patterns. There
-can be only 1 context within an element. 
+can be only 1 context within an element.
 
 There is an end of the context too in most languages. To make the scanner switch back to the previous context
-an element INSIDE the inner context that has ends_context="NUM" where NUM specifies the number of contexts 
+an element INSIDE the inner context that has ends_context="NUM" where NUM specifies the number of contexts
 that are ended by this element. Because
 context may be nested there may be several contexts inside each other.
 
@@ -188,11 +188,11 @@ i = 1;
 /* text */
 i = 1 + 1;
 ------------
-pattern '/*' exists in the initial context, but when it is found, the initial context is pushed on the 
+pattern '/*' exists in the initial context, but when it is found, the initial context is pushed on the
 context stack, and the scanner switches to a new context context (for c-style-comment). In this context
 there exists only a single pattern: '*/'
-The scanner now continues until it finds */, at this point it pops 1 context from the stack, and thus in 
-this example it continues with the initial context 
+The scanner now continues until it finds */, at this point it pops 1 context from the stack, and thus in
+this example it continues with the initial context
 -->
 
 <!-- next is a nested context example, inside a php comment, there may be the end of the php block. Note that
@@ -205,7 +205,7 @@ this element has ends_context=2 -->
 				<element pattern="*/" highlight="c-style-comment" ends_context="1" />
 				<element pattern="?&gt;" highlight="php-block" ends_context="2" />
 			</context>
-		</element> 
+		</element>
 	</context>
 </element>
 
@@ -221,21 +221,21 @@ will be autocompleted. The cursor position AFTER auto completion can be set back
 of characters. This is defined by attribute backup_cursor
 
 a regular expession pattern may be autocompletable as well. but to autocomplete the pattern
-itself usually makes no sense because it matches various other patterns. use 
+itself usually makes no sense because it matches various other patterns. use
 string="STRING" to autocomplete STRING in this context -->
 
 
 <!-- next example shows a xml/sgml tag with attributes -->
 <tag name="body" highlight="tag" attributes="style,class,id" attribhighlight="attribute" />
 <!--
-because there are many languages that use sgml/xml/html style patterns there is <tag> for convenience. 
+because there are many languages that use sgml/xml/html style patterns there is <tag> for convenience.
 
 it should have attribute 'name' to specify the name of the tag
 
 the attribute 'attributes' defines attributes that are valid for this tag
 
 to highlight the tag use highlight="TYPE" where TYPE is the highlight type defined in the <header> section
-to highlight attributes use attrib_highlight="TYPE" 
+to highlight attributes use attrib_highlight="TYPE"
 -->
 <!-- next example show the equivalent of the above <tag. as you can see a single tag
 needs a lot of configuration. That's why the convenience <tag was created.  -->
@@ -255,7 +255,7 @@ needs a lot of configuration. That's why the convenience <tag was created.  -->
 a <tag> may also start a new context just as <element> does
 -->
 <!-- next example shows autocompletion for tags -->
-<tag name="img" attributes="style,class,id,src,width,height" 
+<tag name="img" attributes="style,class,id,src,width,height"
 		autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2"/>
 <!--
 a <tag> automatically autocompletes. it also has an 'attrib_autocomplete_append' atribute.
@@ -267,24 +267,24 @@ a <tag> will automaticaly suggest </tag> for autocompletion (if not disabled for
 some tags don't need a closing tag because they close themselves <tag />. use no_close="1"
 typical tags in html are for example br img hr input
 -->
-<!-- next example shows how to enable SGML short tags. This suggests to the autocompletion that this tag 
+<!-- next example shows how to enable SGML short tags. This suggests to the autocompletion that this tag
 is not closed and also does not end on '/>' (thus no proper xml syntax).
 instead of suggesting <br /> it will suggest <br> -->
 <tag name="img" sgml_shorttag="1" />
 <!--
 in XML or XHTML a tag always needs to be closed, either <img /> or <img></img>
-in SGML <img> is also allowed. set sgml_shorttag="1" to enable this  
+in SGML <img> is also allowed. set sgml_shorttag="1" to enable this
 -->
 
 <group highlight="keyword" >
 	<autocomplete enable="1" />
 	<element pattern="for"/>
 	<element pattern="while"/>
-</group>	
-<!-- 
+</group>
+<!--
 often there are many elements that need the same attribute such as highlight or autocomplete
 
-to make this easier you can group these elements inside <group>.  
+to make this easier you can group these elements inside <group>.
 
 supported atributes are:
 - highlight
@@ -299,29 +299,29 @@ supported atributes are:
 	<autocomplete append="&gt;" />
 	<tag name="p" attributes="style,id,width"/>
 	<tag name="div" attributes="style,id" />
-</group>	
+</group>
 <!--
-also many <tag> entries can have the same attributes, so these can also be 
+also many <tag> entries can have the same attributes, so these can also be
 grouped inside <group>
 
 supported attributes are:
 - highlight
 - attribhighlight
 - attrib_autocomplete_append
-- class 
+- class
 -->
 
-<!-- 
+<!--
 a special usage of <group is to allow the user to disable/enable a section of the file.
 if the <header> section has <option name="allphpfunctions" default="1" description="All php functions" />
-we can put this option into effect like this:  
+we can put this option into effect like this:
 -->
 <group class="allphpfunctions">
 	<element pattern="mysql_query" />
 	<element pattern="mysql_fetch_row" />
 	<element pattern="mysql_fetch_array" />
 </group>
-<!-- the reverse is also supported, using the notclass attribute, this can be used to make a 
+<!-- the reverse is also supported, using the notclass attribute, this can be used to make a
 option that disables one section but enables a different section -->
 <group notclass="mysetting">
 	<element pattern="foo" />
@@ -330,25 +330,33 @@ option that disables one section but enables a different section -->
 	<element pattern="bar" />
 </group>
 
+<!--
+Since 2.2.5 Bluefish supports variables inside the language file. There are two ways
+these can be used, as option: (for boolean values) and as condition: (for string values).
+-->
+<element pattern="foo" highlight="condition:foo_as_string?string:function" >
+	<autocomplete enable="option:autocomplete_foo" />
+</element>
+
 <!-- -------- OPTIMISATIONS ---------
-context re-use (<context idref=""/>) is more important than element or tag re-use 
-(<element idref=""/> or <tag idref=""/>). 
+context re-use (<context idref=""/>) is more important than element or tag re-use
+(<element idref=""/> or <tag idref=""/>).
 
-element or tag re-use saves memory when the reference documentation is large, 
-and saves a few bytes when the same element/tag is used multiple times. 
+element or tag re-use saves memory when the reference documentation is large,
+and saves a few bytes when the same element/tag is used multiple times.
 
-A re-used element is still compiled into every DFA table from every context it is 
+A re-used element is still compiled into every DFA table from every context it is
 used in, and the DFA table uses most memory.
 
-context re-use saves more bytes: although the contexts themlseves are tiny, 
-the same DFA table is re-used when a context is re-used (and the DFA table 
+context re-use saves more bytes: although the contexts themlseves are tiny,
+the same DFA table is re-used when a context is re-used (and the DFA table
 is the largest memory object, easily 500 times larger than the elements).
 
 As illustration here the sizes from html.bflang2
 table     7906 (1976.50 Kbytes) --- the DFA tables, compiled patterns for each context
 contexts   100 (4.69 Kbytes)    --- context metadata
 matches   1752 (123.19 Kbytes)  --- element/tag metadata
---> 
+-->
 
 <!-- --------------------- END OF DOCUMENTATION ------------------------------------------------ -->
 

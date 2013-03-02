@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		bflang2.bflang2 $Revision$
- 
+
 		Copyright (C) 2008-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <bflang name="Bflang2" version="2.0" table="1632" contexts="40" matches="221">
@@ -59,17 +59,18 @@
 		<element idref="e.comment"/>
 		<element idref="e.entity" />
 		<tag name="mime" highlight="tag" attributes="type" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
-			<autocomplete append=" type=&quot;&quot; /&gt;" /> 
+			<autocomplete append=" type=&quot;&quot; /&gt;" />
 			<reference>The <i>mime</i> tag should have attribute <i>type</i> which has the mime type. The mime type is used to find the correct language definition for a file in the editor. There can be multiple mime tags in the heading section.</reference>
 		</tag>
 		<tag name="option" highlight="tag" attributes="default,description,name" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
-			 <autocomplete append=" name=&quot;&quot; /&gt;" /> 
-			<reference>A boolean (0 or 1) option that can be changed by the user. Each <i>class</i> or <i>notclass</i> used in the language file can be set by the user if defined as an option. Each block with a <i>block-name</i> used in the language file can be made <b>not foldable</b> if <i>`block-name`_foldable</i> is defined as an option. The default value defines the behavior if the user previously did not have this option, and the description is a human readable description on what the option does.</reference>
+			 <autocomplete append=" name=&quot;&quot; /&gt;" />
+			<reference>A boolean (0 or 1) option that can be changed by the user. Each <i>class</i> or <i>notclass</i> used in the language file can be set by the user if defined as an option. Each block with a <i>block-name</i> used in the language file can be made <b>not foldable</b> if <i>`block-name`_foldable</i> is defined as an option. Options are also used if a parameter has the value option:foobar or condition:foobar?foo:bar. In the first example a 0 or 1 is used depending on the state of option foobar. In the second case foo is inserted if foobar is 1, else bar is inserted.
+The default value defines the behavior if the user previously did not have this option, and the description is a human readable description on what the option does.</reference>
 		</tag>
 		<tag name="highlight" highlight="tag" attributes="name,style" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
-			<autocomplete append=" name=&quot;&quot; style=&quot;&quot; /&gt;" /> 
+			<autocomplete append=" name=&quot;&quot; style=&quot;&quot; /&gt;" />
 			<reference>The <i>highlight</i> tag should have attributes <i>name</i> and <i>style</i>. The tag links the types of elements that can be highlighted (called <i>highlights</i>) and <i>styles</i> that are used by multiple languages. Default styles are hardcoded in bftexdtview2_langmgr.c A user may override each highlight / style combination in the configuration and may change the looks of each style.</reference>
-		</tag>		
+		</tag>
 		</context>
 	</tag>
 	<tag name="properties" highlight="tag">
@@ -78,13 +79,13 @@
 			<element idref="e.comment"/>
 			<element idref="e.entity" />
 			<tag id="t.tagcomment" name="comment" highlight="tag" attributes="type,start,end,id" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
-				<autocomplete append=" type=&quot;&quot; start=&quot;&quot; /&gt;" /> 
+				<autocomplete append=" type=&quot;&quot; start=&quot;&quot; /&gt;" />
 				<reference>The comment tag specifies which comment syntax is possible in this language. This is used by the 'toggle comment' feature. In some languages this is context specific (for example Javascript inside HTML has a different comment than HTML). The id attribute can be used to set a certain comment type for a certain context.</reference>
 			</tag>
 			<tag name="smartindent" highlight="tag" attributes="characters" autocomplete_append=" characters=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
 			<tag name="smartoutdent" highlight="tag" attributes="characters" autocomplete_append=" characters=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
 			<tag name="default_spellcheck" highlight="tag" attributes="enabled,spell_decode_entities" attribhighlight="attribute" attrib_autocomplete_append="=&quot;1&quot;">
-				<autocomplete append=" enabled=&quot;1&quot; /&gt;" /> 
+				<autocomplete append=" enabled=&quot;1&quot; /&gt;" />
 			</tag>
 		</context>
 	</tag>
@@ -94,7 +95,7 @@
 		<element idref="e.comment"/>
 		<element idref="e.entity" />
 		<tag name="context" id="t.context" highlight="tag" attributes="id,idref,symbols,highlight,commentid_block,commentid_line" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
-			<autocomplete append=" symbols=&quot;&quot; &gt;" /> 
+			<autocomplete append=" symbols=&quot;&quot; &gt;" />
 			<reference>Every definition starts with a context. The most important attribute of a context are the symbols. Symbols is a string with all characters that may be at the start or end of a pattern (for example whitespace in most programming languages, or &lt; and &gt; in XML, SGML and HTML), or characters that are a pattern themselves (for example a bracket [ ).</reference>
 			<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 			<element idref="e.comment"/>
@@ -150,7 +151,7 @@ Some elements are identifiers, for example the name of a function or variable. I
 				<tag idref="t.group"/>
 				<tag idref="t.autocomplete"/>
 				</context>
-			</tag>			
+			</tag>
 			</context>
 		</tag>
 		</context>
