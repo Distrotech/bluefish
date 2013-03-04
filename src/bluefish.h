@@ -323,7 +323,7 @@ typedef struct {
 	GList *plugin_config;		/* array, 0=filename, 1=enabled, 2=name */
 	gint use_system_colors;
 	gchar *btv_color_str[BTV_COLOR_COUNT];	/* editor colors */
-	GList *textstyles;			/* tet styles: name,foreground,background,weight,style */
+	GList *textstyles;			/* text styles: name,foreground,background,weight,style */
 	gint block_folding_mode;
 	GList *highlight_styles;
 	GList *bflang_options;		/* array with: lang_name, option_name, value */
@@ -365,6 +365,7 @@ typedef struct {
 	GList *reference_files;		/* all reference files */
 	GList *recent_projects;
 	GList *encodings;			/* all encodings you can choose from, array with 0=human name, 1=name, 2="0" or "1" if it should be user visible or not */
+	GList *custombflangmime; /* bflang name - mime type name */
 #ifdef WITH_MSG_QUEUE
 	gint msg_queue_poll_time;	/* milliseconds, automatically tuned to your system */
 #endif
