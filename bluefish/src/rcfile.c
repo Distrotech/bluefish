@@ -404,7 +404,7 @@ parse_config_file(GHashTable * config_list, GFile * file)
 static GHashTable *
 props_init_main(GHashTable * config_rc)
 {
-	init_prop_string(&config_rc, &main_v->props.config_version, "config_version:", "2.2.2");
+	init_prop_string(&config_rc, &main_v->props.config_version, "config_version:", "2.2.5");
 	init_prop_integer(&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "monospace 10");
 	init_prop_integer(&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
@@ -1030,7 +1030,8 @@ return_globalsession_configlist(gboolean init_values)
 	init_prop_arraylist(&config_rc, &main_v->globses.reference_files, "reference_files:", 2, init_values);
 	init_prop_limitedstringlist(&config_rc, &main_v->globses.recent_projects, "recent_projects:",
 								main_v->props.max_recent_files, init_values);
-	init_prop_arraylist(&config_rc, &main_v->globses.encodings, "encodings:", 3, FALSE);
+	init_prop_arraylist(&config_rc, &main_v->globses.encodings, "encodings:", 3, init_values);
+	init_prop_arraylist(&config_rc, &main_v->globses.custombflangmime, "custom_bflang_mime:", 2, init_values);
 #ifdef WITH_MSG_QUEUE
 	init_prop_integer(&config_rc, &main_v->globses.msg_queue_poll_time, "msg_queue_poll_time:", 500,
 					  init_values);

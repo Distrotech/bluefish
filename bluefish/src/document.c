@@ -2445,6 +2445,7 @@ doc_focus_out_lcb(GtkWidget *widget,GdkEvent  *event, Tdocument *doc)
 	return FALSE;
 }
 
+#if GTK_CHECK_VERSION(3,0,0)
 static void
 doc_view_style_updated_lcb(GtkWidget *widget, gpointer user_data)
 {
@@ -2452,6 +2453,7 @@ doc_view_style_updated_lcb(GtkWidget *widget, gpointer user_data)
 	DEBUG_MSG("doc_view_style_updated_lcb\n");
 	doc_set_tabsize(doc, BFWIN(doc->bfwin)->session->editor_tab_width);
 }
+#endif
 
 Tdocument *
 doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean init_fileinfo)
@@ -2576,8 +2578,10 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(bfwin->notebook), newdoc->vsplit, TRUE);
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize(newdoc, BFWIN(bfwin)->session->editor_tab_width);
+#if GTK_CHECK_VERSION(3,0,0)
 	g_signal_connect(G_OBJECT(newdoc->view), "style-updated",
 					 G_CALLBACK(doc_view_style_updated_lcb), newdoc);
+#endif
 	return newdoc;
 }
 

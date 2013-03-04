@@ -53,6 +53,8 @@ void refcpointer_unref(Trefcpointer *rp);
 /*gchar *filename_utf8_from_uri(GFile *uri);*/
 /*gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname);*/
 
+gchar *mime_with_extension(const gchar *mimetype, const gchar *filename);
+
 GList *urilist_to_stringlist(GList *urilist);
 void free_urilist(GList *urilist);
 #if GTK_CHECK_VERSION(2,14,0)

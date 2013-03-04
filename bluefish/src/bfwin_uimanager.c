@@ -42,6 +42,7 @@
 #include "preferences.h"
 #include "project.h"
 #include "stringlist.h"
+#include "bf_lib.h"
 #include "snr3.h"
 #include "undo_redo.h"
 #include "print.h"
@@ -1038,15 +1039,64 @@ dynamic_menu_empty(GtkUIManager *uimanager, guint merge_id, GtkActionGroup *acti
 	g_list_free(actions);
 }
 
+
+static void
+register_custommime_for_bflang(Tbflang *bflang, gchar *mime) {
+	g_print("register_custommime_for_bflang, bflang=%s, mime=%s\n",bflang->name, mime);
+	main_v->globses.custombflangmime = g_list_prepend(main_v->globses.custombflangmime, array_from_arglist(bflang->name,mime,NULL));
+	
+}
+
+static void
+ask_register_custom_mime_for_bflang(Tbfwin *bfwin, Tbflang *bflang, gchar *mime) 
+{
+	GtkWidget *dialog;
+	gint response;
+	dialog =	gtk_message_dialog_new(GTK_WINDOW(bfwin->main_window), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION
+			, GTK_BUTTONS_YES_NO,_("Always use this syntax for files of type %s ?"), mime);
+	response = gtk_dialog_run(GTK_DIALOG(dialog));
+	if (response == GTK_RESPONSE_YES) {
+		main_v->globses.custombflangmime = g_list_prepend(main_v->globses.custombflangmime, array_from_arglist(bflang->name,mime,NULL));
+	}
+	gtk_widget_destroy(dialog);
+}
+
 static void
 lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
+	Tdocument *doc = bfwin->current_document;
 	Tbflang *bflang = g_object_get_data(G_OBJECT(action), "bflang");
 	if (!bflang)
 		return;
 	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)) && bfwin->current_document) {
+		Tbflang *tmpbflang;
+		gchar *oldmime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+		if (!oldmime) {
+			oldmime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+		}
+		if (oldmime) {
+			gchar *curi = NULL;
+			if (doc->uri) {
+				curi = g_file_get_uri(doc->uri);
+			}
+			tmpbflang = langmgr_get_bflang(oldmime, curi);
+			
+			g_print("got %p for tmpbflang with name %s\n",tmpbflang, tmpbflang->name);
+			
+			if (!tmpbflang) {
+				/* ask the user to register oldmime for the chosen language */
+				ask_register_custom_mime_for_bflang(bfwin, bflang, oldmime);
+			} else {
+				gchar *key = mime_with_extension(oldmime, curi);
+				ask_register_custom_mime_for_bflang(bfwin, bflang, key);
+				g_free(key);
+			}
+			g_free(curi);
+		}
+		
 		doc_set_mimetype(bfwin->current_document, bflang->mimetypes->data, NULL);
+		
 	}
 }
 

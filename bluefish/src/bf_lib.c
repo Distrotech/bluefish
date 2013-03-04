@@ -259,6 +259,17 @@ gchar *return_root_with_protocol(const gchar *url) {
 	return NULL;
 }
 */
+
+gchar *mime_with_extension(const gchar *mimetype, const gchar *filename) {
+	gchar *tmp;
+	tmp = strrchr(filename, '.');
+	if (tmp) {
+		return g_strconcat(mimetype, "?", tmp + 1, NULL);
+	} else {
+		return g_strdup(mimetype);
+	}
+}
+
 /**
  * pointer_switch_addresses:
  * a: #gpointer;

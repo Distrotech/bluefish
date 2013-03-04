@@ -29,6 +29,7 @@
 #include "bftextview2_patcompile.h"
 
 #include "bluefish.h"
+#include "bf_lib.h"
 #include "bfwin_uimanager.h"
 #include "document.h"
 #include "stringlist.h"
@@ -1575,14 +1576,10 @@ langmgr_get_bflang(const gchar * mimetype, const gchar * filename)
 		return NULL;
 	DBG_MSG("langmgr_get_bflang, request for mimetype %s filename %s\n",mimetype, filename);
 	if (filename && strchr(mimetype, '?') == NULL) {
-		gchar *key, *tmp;
-		tmp = strrchr(filename, '.');
-		if (tmp) {
-			key = g_strconcat(mimetype, "?", tmp + 1, NULL);
-/*			g_print("langmgr_get_bflang, search for key %s\n",key);*/
-			bflang = g_hash_table_lookup(langmgr.bflang_lookup, key);
-			g_free(key);
-		}
+		gchar *key = mime_with_extension(mimetype, filename);
+/*		g_print("search for key=%s\n",key);*/
+		bflang = g_hash_table_lookup(langmgr.bflang_lookup, key);
+		g_free(key);
 	}
 	if (!bflang) {
 		bflang = g_hash_table_lookup(langmgr.bflang_lookup, mimetype);
@@ -1805,6 +1802,16 @@ register_bflanguage(Tbflang * bflang)
 		GList *tmplist;
 		gboolean registered = FALSE;
 		DBG_PARSING("register_bflanguage, register bflang %p %s\n",bflang,bflang->name);
+		
+		/* see if the user has additional mime types */
+		for (tmplist = g_list_last(main_v->globses.custombflangmime); tmplist; tmplist = tmplist->prev) {
+			gchar **arr = (gchar **) tmplist->data;
+			if (g_strv_length(arr) == 2 && strcmp(arr[0],bflang->name)==0) {
+				DEBUG_MSG("adding additional user mime %s to %s\n",arr[1], arr[0]);
+				bflang->mimetypes = g_list_prepend(bflang->mimetypes, g_strdup(arr[1]));
+			}
+		}
+		
 		tmplist = g_list_first(bflang->mimetypes);
 		while (tmplist) {
 			if (!g_hash_table_lookup(langmgr.bflang_lookup, (gchar *) tmplist->data)) {
@@ -1849,6 +1856,7 @@ static gboolean
 bflang2scan_finished_lcb(gpointer data)
 {
 	GList *tmplist;
+	
 	/* now add the languages once the GUI if the GUI has been loaded */
 	DBG_MSG("bflang2scan_finished_lcb\n");
 	for (tmplist = g_list_first(main_v->bfwinlist); tmplist; tmplist = g_list_next(tmplist)) {
