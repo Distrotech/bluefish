@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<bflang name="Python" version="2.0" table="15399" contexts="7" matches="2025">
+<bflang name="Python" version="2.0" table="15407" contexts="7" matches="2018">
 <header>
 	<mime type="application/x-python"/>
 	<mime type="text/x-python" />
@@ -2055,7 +2055,7 @@
 </group>
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;" highlight="string">
-		<element pattern="\." is_regex="1"/>
+		<element pattern="\\." is_regex="1"/>
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
@@ -2066,7 +2066,7 @@
 </element>
 <element pattern="'" highlight="string">
 	<context symbols="\'" highlight="string">
-		<element pattern="\." is_regex="1"/>
+		<element pattern="\\." is_regex="1"/>
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
