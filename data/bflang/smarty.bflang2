@@ -36,7 +36,7 @@
 		</element>
 		<element pattern="&#39;" highlight="string">
 			<context symbols="\&#39;" highlight="string">
-				<element pattern="\." is_regex="1" highlight="string" />
+				<element pattern="\\." is_regex="1" highlight="string" />
 				<element pattern="&#39;" highlight="string" ends_context="1" />
 			</context>
 		</element>

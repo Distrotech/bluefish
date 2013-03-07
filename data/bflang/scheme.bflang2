@@ -307,16 +307,16 @@
 
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;" highlight="string">
-		<element pattern="\&#34;" highlight="string" />
+		<element pattern="\&#34;" is_regex="1" highlight="string" />
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
-<!-- <element pattern="'" highlight="string">
+<element pattern="'" highlight="string">
 	<context symbols="\'" highlight="string">
-		<element pattern="\." is_regex="1" highlight="string" />
+		<element pattern="\\." is_regex="1" highlight="string" />
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
-</element> -->
+</element> 
 <element id="e.lparen" pattern="(" starts_block="1" highlight="brackets" block_name="Parentheses block"/>
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
 
