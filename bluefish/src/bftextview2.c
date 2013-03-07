@@ -176,9 +176,6 @@ bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 
 static void bftextview2_set_margin_size(BluefishTextView * btv);
 static gboolean bftextview2_scanner_idle(gpointer data);
-#ifdef ENABLE_DELAYED_SCANNING
-static gboolean bftextview2_scanner_timeout(gpointer data);
-#endif
 
 static gboolean
 bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
@@ -187,6 +184,7 @@ bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
 		btv->scanner_idle = 0;
 		btv->scanner_immediate = 0;
 		btv->scanner_delayed = 0;
+		DBG_MSG("bftextview2_scanner_scan, no bflang, return FALSE\n");
 		return FALSE;
 	}
 	if (!btv->bflang->st
@@ -194,111 +192,13 @@ bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
 		&& !btv->spell_check
 #endif
 		) {
+		DBG_MSG("bftextview2_scanner_scan, no scantable or no spellcheck, return FALSE\n");
 		btv->scanner_idle = 0;
 		btv->scanner_immediate = 0;
 		btv->scanner_delayed = 0;
 		return FALSE;
 	}
-#ifdef ENABLE_DELAYED_SCANNING
-	if (main_v->props.delay_full_scan) {
-		guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
-		DBG_DELAYSCANNING("delay_full_scan=%d, %d milliseconds elapsed since last user action\n",
-						  main_v->props.delay_full_scan, elapsed);
-		if ((elapsed + 20) >= main_v->props.delay_scan_time) {	/* delay scan time has passed ! */
-			DBG_DELAYSCANNING("the user is idle, call scan for everything\n");
-			if (!bftextview2_run_scanner(btv, NULL)
-#ifdef HAVE_LIBENCHANT
-				&& !bftextview2_run_spellcheck(btv)
-#endif
-				) {
-				/* finished scanning, make sure we are not called again */
-				DBG_DELAYSCANNING("finished scanning (idle=%d)\n", in_idle);
-				if (in_idle && btv->scanner_delayed) {
-					g_source_remove(btv->scanner_delayed);
-				} else if (!in_idle && btv->scanner_idle) {
-					g_source_remove(btv->scanner_idle);
-				}
-				btv->scanner_delayed = 0;
-				btv->scanner_idle = 0;
-				bftextview2_set_margin_size(btv);
-				DBG_DELAYSCANNING
-					("return FALSE, scanning was finished (in_idle=%d, scanned_delayed=%d, scanner_idle=%d)\n",
-					 in_idle, btv->scanner_delayed, btv->scanner_idle);
-				return FALSE;
-			}
-			if (!in_idle) {
-				/* don't call timeout function again (run in idle) */
-				if (!btv->scanner_idle) {
-					DBG_DELAYSCANNING("schedule scan again in idle time with priority %d\n",
-									  SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY);
-					btv->scanner_idle =
-						g_idle_add_full(SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY, bftextview2_scanner_idle, btv,
-										NULL);
-				} else {
-					DBG_DELAYSCANNING("scan in idle is already scheduled\n");
-				}
-				btv->scanner_delayed = 0;
-				DBG_DELAYSCANNING
-					("return FALSE for timeout callback (in_idle=%d, scanned_delayed=%d, scanner_idle=%d)\n",
-					 in_idle, btv->scanner_delayed, btv->scanner_idle);
-				return FALSE;
-			}
-			DBG_DELAYSCANNING("return TRUE, call idle callback again (scanned_delayed=%d, scanner_idle=%d)\n",
-							  btv->scanner_delayed, btv->scanner_idle);
-			return TRUE;		/* call idle function again */
-		} else {				/* user is not idle, only scan visible area */
-			GtkTextIter endvisible;
-			GdkRectangle rect;
-			/* get visible area and only scan the visible area */
-			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(btv), &rect);
-			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(btv), &endvisible, rect.y + rect.height, NULL);
-			gtk_text_iter_forward_to_line_end(&endvisible);
-			DBG_DELAYSCANNING("user is not idle, call scan only for visible area\n");
-			/* hmm spell checking should always be delayed, right? we should
-			   rewrite this bit such that we always schedule spell checking in
-			   the timeout function */
-			if (!bftextview2_run_scanner(btv, &endvisible)
-#ifdef HAVE_LIBENCHANT
-				&& !btv->spell_check
-#endif
-				) {
-				DBG_DELAYSCANNING("finished scanning, remove callbacks\n");
-				if (in_idle && btv->scanner_delayed) {
-					g_source_remove(btv->scanner_delayed);
-				} else if (!in_idle && btv->scanner_idle) {
-					g_source_remove(btv->scanner_idle);
-				}
-				btv->scanner_delayed = 0;
-				btv->scanner_idle = 0;
-				bftextview2_set_margin_size(btv);
-				DBG_DELAYSCANNING
-					("scanning was finished, so return FALSE (scanned_delayed=%d, scanner_idle=%d)\n",
-					 btv->scanner_delayed, btv->scanner_idle);
-				return FALSE;
-			}
-			if (in_idle) {
-				/* don't call idle function again, but call timeout function */
-				if (!btv->scanner_delayed) {
-					DBG_DELAYSCANNING("schedule delayed scanning after %d timeout\n",
-									  main_v->props.delay_scan_time);
-					btv->scanner_delayed =
-						g_timeout_add(main_v->props.delay_scan_time, bftextview2_scanner_timeout, btv);
-				} else {
-					DBG_DELAYSCANNING("delayed scanning already scheduled\n");
-				}
-				btv->scanner_idle = 0;
-				DBG_DELAYSCANNING
-					("return FALSE for this idle (in_idle=%d) callback (scanned_delayed=%d, scanner_idle=%d)\n",
-					 in_idle, btv->scanner_delayed, btv->scanner_idle);
-				return FALSE;
-			}
-			DBG_DELAYSCANNING
-				("return TRUE, call timeout again (in_idle=%d, scanned_delayed=%d, scanner_idle=%d)\n",
-				 in_idle, btv->scanner_delayed, btv->scanner_idle);
-			return TRUE;		/* call timeout function again */
-		}
-	} else						/* no delayed scanning, run everything in the idle callback */
-#endif							/*ENABLE_DELAYED_SCANNING */
+	DBG_DELAYSCANNING("bftextview2_scanner_scan, start scanning\n");
 	{
 		DBG_DELAYSCANNING
 			("bftextview2_scanner_idle, running scanner idle function, scanner_idle=%d, scanner_immediate=%d\n",
@@ -331,36 +231,40 @@ bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
 static gboolean
 bftextview2_scanner_idle(gpointer data)
 {
-	DBG_MSG("bftextview2_scanner_idle callback started\n");
-	if (!((BluefishTextView *) data)->enable_scanner)
+	DBG_DELAYSCANNING("bftextview2_scanner_idle callback started\n");
+	if (!BLUEFISH_TEXT_VIEW(data)->enable_scanner
+#ifdef HAVE_LIBENCHANT
+			&& !BLUEFISH_TEXT_VIEW(data)->spell_check
+#endif
+			)
 		return FALSE;
 	return bftextview2_scanner_scan((BluefishTextView *) data, TRUE);
 }
 
-#ifdef ENABLE_DELAYED_SCANNING
-static gboolean
-bftextview2_scanner_timeout(gpointer data)
-{
-	if (!((BluefishTextView *) data)->enable_scanner)
-		return FALSE;
-	DBG_DELAYSCANNING("bftextview2_scanner_timeout callback started\n");
-	return bftextview2_scanner_scan((BluefishTextView *) data, FALSE);
-}
-#endif
-
 void
 bftextview2_schedule_scanning(BluefishTextView * btv)
 {
-	DBG_MSG("bftextview2_schedule_scanning, enable=%d, bflang=%p,scanner_idle=%d\n",
-			BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner, BLUEFISH_TEXT_VIEW(btv->master)->bflang,
-			BLUEFISH_TEXT_VIEW(btv->master)->scanner_idle);
+	DBG_MSG("bftextview2_schedule_scanning, enable=%d, spell_check=%d, bflang=%p,scanner_idle=%d,scanner_immediate=%d\n",
+			BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner,
+#ifdef HAVE_LIBENCHANT
+			BLUEFISH_TEXT_VIEW(btv->master)->spell_check,
+#else
+			0
+#endif
+			BLUEFISH_TEXT_VIEW(btv->master)->bflang,
+			BLUEFISH_TEXT_VIEW(btv->master)->scanner_idle,
+			BLUEFISH_TEXT_VIEW(btv->master)->scanner_immediate);
 	if (BLUEFISH_TEXT_VIEW(btv->master)->scanner_idle) {
 		DBG_MSG("bftextview2_schedule_scanning, remove scanning_idle callback\n");
 		g_source_remove(BLUEFISH_TEXT_VIEW(btv->master)->scanner_idle);
 		BLUEFISH_TEXT_VIEW(btv->master)->scanner_idle = 0;
 	}
 
-	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner
+	if ((BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner
+#ifdef HAVE_LIBENCHANT
+	 || BLUEFISH_TEXT_VIEW(btv->master)->spell_check
+#endif
+	 )
 		&& BLUEFISH_TEXT_VIEW(btv->master)->bflang
 		&& BLUEFISH_TEXT_VIEW(btv->master)->scanner_idle == 0
 		&& BLUEFISH_TEXT_VIEW(btv->master)->scanner_immediate == 0) {
@@ -368,6 +272,7 @@ bftextview2_schedule_scanning(BluefishTextView * btv)
 		BLUEFISH_TEXT_VIEW(btv->master)->scanner_immediate =
 			g_idle_add_full(SCANNING_IDLE_PRIORITY, bftextview2_scanner_idle, btv->master, NULL);
 	}
+	DBG_DELAYSCANNING("bftextview2_schedule_scanning, scanner_immediate=%d\n", BLUEFISH_TEXT_VIEW(btv->master)->scanner_immediate);
 }
 
 static void
@@ -539,7 +444,7 @@ gpointer
 bftextview2_get_block_at_boundary_location(BluefishTextView *btv, guint offset, GtkTextIter *it1, GtkTextIter *it2, GtkTextIter *it3, GtkTextIter *it4)
 {
 	Tfoundblock *fblock;
-	
+
 	fblock = bftextview2_get_active_block_at_offset(btv->master, FALSE, offset);
 	if (fblock)
 		fblock = first_fully_defined_block(fblock);
