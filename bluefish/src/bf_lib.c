@@ -261,13 +261,14 @@ gchar *return_root_with_protocol(const gchar *url) {
 */
 
 gchar *mime_with_extension(const gchar *mimetype, const gchar *filename) {
-	gchar *tmp;
-	tmp = strrchr(filename, '.');
-	if (tmp) {
-		return g_strconcat(mimetype, "?", tmp + 1, NULL);
-	} else {
-		return g_strdup(mimetype);
+	if (filename) {
+		gchar *tmp;
+		tmp = strrchr(filename, '.');
+		if (tmp) {
+			return g_strconcat(mimetype, "?", tmp + 1, NULL);
+		}
 	}
+	return g_strdup(mimetype);
 }
 
 /**
