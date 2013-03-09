@@ -25,6 +25,7 @@ bflang_bflang2_files = \
 	bflang2.bflang2 \
 	c.bflang2 \
 	cfml.bflang2 \
+	chuck.bflang2 \
 	clojure.bflang2 \
 	cpp.bflang2 \
 	css.bflang2 \
