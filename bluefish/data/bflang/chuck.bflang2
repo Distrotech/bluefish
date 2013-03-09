@@ -2168,27 +2168,27 @@ Math.random2f()
 </element>
 </group>
 <group name="machine">
-<element pattern="Machine.add">
+<element pattern="machine.add">
 	<reference>int <b>add</b> ( string <b>path</b> );
-		 compile and spork a new shred from file at 'path' into the VM now returns the shred ID (see example/machine.ck)</reference>
+		 compile and spork a new shred from file at 'path' into the VM now returns the shred ID</reference>
 </element>	
-<element pattern	="Machine.spork">
+<element pattern="machine.spork">
 	<reference>int <b>spork</b> ( string <b>path</b> );
 		 same as add</reference>
 </element>	
-<element pattern	="Machine.remove">
+<element pattern="machine.remove">
 	<reference>int <b>remove</b> ( int <b>id</b> );
 		 remove shred from VM by shred ID (returned by add/spork)</reference>
 </element>	
-<element pattern	="Machine.replace">
+<element pattern="machine.replace">
 	<reference>int <b>replace</b> ( int <b>id</b>, string <b>path</b> );
 		 replace shred with new shred from file returns shred ID , or 0 on error </reference>
 </element>	
-<element pattern	="Machine.status">
+<element pattern="machine.status">
 	<reference>int <b>status</b> (  );
 		 display current status of VM (see example/status.ck)</reference>
 </element>	
-<element pattern	="Machine.crash">
+<element pattern="machine.crash">
 	<reference>void <b>crash</b> (  );
 		literally causes the VM to crash.  the very last resort; use with care.  Thanks.</reference>
 </element>
@@ -2199,137 +2199,137 @@ Math.random2f()
 	<reference>float <b>sin</b> ( float <b>x</b> );
 		computes the sine of <b>x</b></reference>
 </element>	
-<element pattern	="Math.cos">
+<element pattern="Math.cos">
 	<reference>float <b>cos</b> ( float <b>x</b> );
 		computes the cosine of <b>x</b></reference>
 </element>	
-<element pattern	="Math.tan">
+<element pattern="Math.tan">
 	<reference>float <b>tan</b> ( float <b>x</b> );
 		computes the tangent of <b>x</b></reference>
 </element>	
-<element pattern	="Math.asin">
+<element pattern="Math.asin">
 	<reference>float <b>asin</b> ( float <b>x</b> );
 		computes the arc sine of <b>x</b></reference>
 </element>	
-<element pattern	="Math.acos">
+<element pattern="Math.acos">
 	<reference>float <b>acos</b> ( float <b>x</b> );
 		computes the arc cosine of <b>x</b></reference>
 </element>	
-<element pattern	="Math.atan">
+<element pattern="Math.atan">
 	<reference>float <b>atan</b> ( float <b>x</b> );
 		computes the arc tangent of <b>x</b></reference>
 </element>	
-<element pattern	="Math.atan2">
+<element pattern="Math.atan2">
 	<reference>float <b>atan2</b> ( float <b>y</b>, float <b>x</b> );
 		computes the principal value of the arc tangent of
 <b>y</b>/<b>x</b>, using the signs of both arguments to determine the quadrant of the
 return value
 </reference>
 </element>	
-<element pattern	="Math.sinh">
+<element pattern="Math.sinh">
 	<reference>float <b>sinh</b> ( float <b>x</b> );
 		computes the hyperbolic sine of <b>x</b></reference>
 </element>	
-<element pattern	="Math.cosh">
+<element pattern="Math.cosh">
 	<reference>float <b>cosh</b> ( float <b>x</b> );
 		computes the hyperbolic cosine of <b>x</b></reference>
 </element>	
-<element pattern	="Math.tanh">
+<element pattern="Math.tanh">
 	<reference>float <b>tanh</b> ( float <b>x</b> );
 		computes the hyperbolic tangent of <b>x</b></reference>
 </element>	
-<element pattern	="Math.hypot">
+<element pattern="Math.hypot">
 	<reference>float <b>hypot</b> ( float <b>x</b>, float <b>y</b> );
 		computes the euclidean distance of the orthogonal vectors (<b>x</b>,0) 
 and (0,<b>y</b>)</reference>
 </element>	
-<element pattern	="Math.pow">
+<element pattern="Math.pow">
 	<reference>float <b>pow</b> ( float <b>x</b>, float <b>y</b> );
 		computes <b>x</b> taken to the <b>y</b>-th power</reference>
 </element>	
-<element pattern	="Math.sqrt">
+<element pattern="Math.sqrt">
 	<reference>float <b>sqrt</b> ( float <b>x</b> );
 		computes the nonnegative square root of <b>x</b>  (x must 
 be >= 0)</reference>
 </element>	
-<element pattern	="Math.exp">
+<element pattern="Math.exp">
 	<reference>float <b>exp</b> ( float <b>x</b> );
 		computes e^<b>x</b>, the base-e exponential of <b>x</b></reference>
 </element>	
-<element pattern	="Math.log">
+<element pattern="Math.log">
 	<reference>float <b>log</b> ( float <b>x</b> );
 		computes the natural logarithm of <b>x</b></reference>
 </element>	
-<element pattern	="Math.log2">
+<element pattern="Math.log2">
 	<reference>float <b>log2</b> ( float <b>x</b> );
 		computes the logarithm of <b>x</b> to base 2</reference>
 </element>	
-<element pattern	="Math.log10">
+<element pattern="Math.log10">
 	<reference>float <b>log10</b> ( float <b>x</b> );
 		computes the logarithm of <b>x</b> to base 10</reference>
 </element>	
-<element pattern	="Math.random">
+<element pattern="Math.random">
 	<reference>int <b>random</b> (  );
 		generates random integer between 0 and Math.RANDOM_MAX>(NOTE: Math.random*() functions use a different, 
 superior random number generator than the Std.rand*() functions)</reference>
 </element>	
-<element pattern	="Math.random2">
+<element pattern="Math.random2">
 	<reference>int <b>random2</b> ( int <b>min</b>, int <b>max</b> );
 		generates random integer in the range [min, max]</reference>
 </element>	
-<element pattern	="Math.randomf">
+<element pattern="Math.randomf">
 	<reference>float <b>randomf</b> (  );
 		generates random floating point number in the range [0, 1]
 (NOTE: this is different semantics than Std.randf(), which has the range [-1,1])</reference>
 </element>	
-<element pattern	="Math.random2f">
+<element pattern="Math.random2f">
 	<reference>float <b>random2f</b> ( float <b>min</b>, float <b>max</b> );
 		generates random floating point number in the range [min, max]</reference>
 </element>	
-<element pattern	="Math.floor">
+<element pattern="Math.floor">
 	<reference>float <b>floor</b> ( float <b>x</b> );
 		round to largest integral value (returned as float) not greater 
 than <b>x</b></reference>
 </element>	
-<element pattern	="Math.ceil">
+<element pattern="Math.ceil">
 	<reference>float <b>ceil</b> ( float <b>x</b> );
 		round to smallest integral value (returned as float) not less
 than <b>x</b></reference>
 </element>	
-<element pattern	="Math.round">
+<element pattern="Math.round">
 	<reference>float <b>round</b> ( float <b>x</b> );
 		round to nearest integral value (returned as float)</reference>
 </element>	
-<element pattern	="Math.trunc">
+<element pattern="Math.trunc">
 	<reference>float <b>trunc</b> ( float <b>x</b> );
 		round to largest integral value (returned as float) no greater in 
 magnitude than <b>x</b></reference>
 </element>	
-<element pattern	="Math.fmod">
+<element pattern="Math.fmod">
 	<reference>float <b>fmod</b> ( float <b>x</b>, float <b>y</b> );
 		computes the floating point remainder of <b>x</b> / <b>y</b></reference>
 </element>	
-<element pattern	="Math.remainder">
+<element pattern="Math.remainder">
 	<reference>float <b>remainder</b> ( float <b>x</b>, float <b>y</b> );
 		computes the value r such that r = <b>x</b> - n * <b>y</b>, where n is the integer nearest the exact value of <b>x</b> / <b>y</b>.  If there are two integers closest to <b>x</b> / <b>y</b>, n shall be the even one. If r is zero, it is given the same sign as <b>x</b></reference>
 </element>	
-<element pattern	="Math.min">
+<element pattern="Math.min">
 	<reference>float <b>min</b> ( float <b>x</b>, float <b>y</b> );
 		choose lesser of two values</reference>
 </element>	
-<element pattern	="Math.max">
+<element pattern="Math.max">
 	<reference>float <b>max</b> ( float <b>x</b>, float <b>y</b> );
 		choose greater of two values</reference>
 </element>	
-<element pattern	="Math.nextpow2">
+<element pattern="Math.nextpow2">
 	<reference>int <b>nextpow2</b> ( int <b>x</b> );
 		computes the integeral (returned as int) smallest power of 2 greater than the value of <b>x</b></reference>
 </element>	
-<element pattern	="Math.isinf">
+<element pattern="Math.isinf">
 	<reference>float <b>isinf</b> ( float <b>x</b> );
 		tests if <b>x</b> is infinity</reference>
 </element>	
-<element pattern	="Math.isnan">
+<element pattern="Math.isnan">
 	<reference>float <b>isnan</b> ( float <b>x</b> );
 		tests if <b>x</b> "is not a number"</reference>
 </element>	
@@ -2382,6 +2382,15 @@ The magnitude and phase values can be accessed via .mag and .phase:
 	pol.mag => float m; // m is 2
 	pol.phase => float p; //p is .5π</reference>
 </element>
+<element pattern="string">
+	<reference> string (of characters)</reference>
+</element>
+<element pattern="Object">
+	<reference></reference>
+</element>
+<element pattern="Event">
+	<reference></reference>
+</element>
 </group>
 <group name="constant" highlight="special-value">
 <autocomplete enable="1" />
@@ -2389,19 +2398,19 @@ The magnitude and phase values can be accessed via .mag and .phase:
 	<reference>float <b>PI</b>;
 	constant PI; use as: Math.PI</reference>
 </element>	
-<element pattern	="Math.TWO_PI">
+<element pattern="Math.TWO_PI">
 	<reference>float <b>TWO_PI</b>;
 	constant PI*2; example usage: Math.TWO_PI</reference>
 </element>	
-<element pattern	="Math.e">
+<element pattern="Math.e">
 	<reference>float <b>e</b>; // same as: E
 	Euler's constant, base of natural logarithm; same as Math.exp(1); use as: Math.e or Math.E</reference>
 </element>	
-<element pattern	="Math.j">
+<element pattern="Math.j">
 	<reference>complex <b>i</b>; // same as: j, I, or J
 	the imaginary number 'i' as a complex value; use as: Math.i or Math.j or Math.I or Math.J</reference>
 </element>	
-<element pattern	="Math.RANDOM_MAX">
+<element pattern="Math.RANDOM_MAX">
 	<reference>int <b>RANDOM_MAX</b>;
 	max value returned by Math.random()
 	(NOTE: not to be confused with Std.rand*)</reference>
