@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<bflang name="ChucK" version="2.0" table="925" contexts="8" matches="224">
+<bflang name="ChucK" version="2.0" table="1918" contexts="8" matches="419">
 <header>
 	<mime type="text/x-ChucK"/>
 	<mime type="text/plain?ck"/>
@@ -38,6 +38,7 @@
 	<highlight name="comment" style="comment" />
 	<highlight name="string" style="string" />
 	<highlight name="value" style="value" />
+	<highlight name="ck-attribute" style="attribute" />
 	<highlight name="unit" style="special-value" />
 </header>
 <properties>
@@ -49,7 +50,7 @@
 </properties>
 
 <definition>
-<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<context symbols=". ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
 <group name="basic UAna objects" highlight="ck-keyword">
 <autocomplete enable="1" />
@@ -2051,10 +2052,209 @@ Sometimes it is useful to suspend the current shred without advancing time, and 
 	<reference>duration of 1 week</reference>
 </element>
 </group>
+
+<group name="control parameters" highlight="ck-attribute">
+	<autocomplete enable="1" />
+	<element pattern=".a" />
+	<element pattern=".addPhase" />
+	<element pattern=".addPhaseOffset" />
+	<element pattern=".addr" />
+	<element pattern=".adsrTarget" />
+	<element pattern=".afterTouch" />
+	<element pattern=".aifFilename" />
+	<element pattern=".allpass" />
+	<element pattern=".aperture" />
+	<element pattern=".attackRate" />
+	<element pattern=".attackTime" />
+	<element pattern=".b" />
+	<element pattern=".baseLoopGain" />
+	<element pattern=".bi" />
+	<element pattern=".blackmanHarris" />
+	<element pattern=".blockZero" />
+	<element pattern=".blowPosition" />
+	<element pattern=".bodySize" />
+	<element pattern=".bowMotion" />
+	<element pattern=".bowPosition" />
+	<element pattern=".bowPressure" />
+	<element pattern=".bowRate" />
+	<element pattern=".chan" />
+	<element pattern=".channel" />
+	<element pattern=".channels" />
+	<element pattern=".chunks" />
+	<element pattern=".clear" />
+	<element pattern=".closeFile" />
+	<element pattern=".coefs" />
+	<element pattern=".compress" />
+	<element pattern=".compute" />
+	<element pattern=".controlChange" />
+	<element pattern=".controlOne" />
+	<element pattern=".controlTwo" />
+	<element pattern=".cval" />
+	<element pattern=".cvals" />
+	<element pattern=".damp" />
+	<element pattern=".decay" />
+	<element pattern=".decayRate" />
+	<element pattern=".decayTime" />
+	<element pattern=".delay" />
+	<element pattern=".directGain" />
+	<element pattern=".duck" />
+	<element pattern=".duration" />
+	<element pattern=".endReflection" />
+	<element pattern=".energy" />
+	<element pattern=".eqzs" />
+	<element pattern=".expand" />
+	<element pattern=".externalSideInput" />
+	<element pattern=".feedback" />
+	<element pattern=".filterQ" />
+	<element pattern=".filterSweepRate" />
+	<element pattern=".freq" />
+	<element pattern=".fval" />
+	<element pattern=".fvals" />
+	<element pattern=".gain" />
+	<element pattern=".gate" />
+	<element pattern=".getVoice" />
+	<element pattern=".hamming" />
+	<element pattern=".hann" />
+	<element pattern=".harmonics" />
+	<element pattern=".integrationConstant" />
+	<element pattern=".interp" />
+	<element pattern=".jetDelay" />
+	<element pattern=".jetReflection" />
+	<element pattern=".keyOff" />
+	<element pattern=".keyOn" />
+	<element pattern=".left" />
+	<element pattern=".length" />
+	<element pattern=".lfoDepth" />
+	<element pattern=".lfoSpeed" />
+	<element pattern=".limit" />
+	<element pattern=".lip" />
+	<element pattern=".lookup" />
+	<element pattern=".loop" />
+	<element pattern=".loopEnd" />
+	<element pattern=".loopEndRec" />
+	<element pattern=".loopRec" />
+	<element pattern=".loopStart" />
+	<element pattern=".loudness" />
+	<element pattern=".masterGain" />
+	<element pattern=".matFilename" />
+	<element pattern=".max" />
+	<element pattern=".maxVoices" />
+	<element pattern=".mix" />
+	<element pattern=".modDepth" />
+	<element pattern=".mode" />
+	<element pattern=".modeGain" />
+	<element pattern=".modeRadius" />
+	<element pattern=".modeRatio" />
+	<element pattern=".modesGain" />
+	<element pattern=".modFreq" />
+	<element pattern=".name" />
+	<element pattern=".next" />
+	<element pattern=".noiseGain" />
+	<element pattern=".norm" />
+	<element pattern=".noteOff" />
+	<element pattern=".noteOn" />
+	<element pattern=".objects" />
+	<element pattern=".pan" />
+	<element pattern=".path" />
+	<element pattern=".percent" />
+	<element pattern=".pfreq" />
+	<element pattern=".phase" />
+	<element pattern=".phaseOffset" />
+	<element pattern=".phoneme" />
+	<element pattern=".phonemeNum" />
+	<element pattern=".pickupPosition" />
+	<element pattern=".pitchSweepRate" />
+	<element pattern=".play" />
+	<element pattern=".playPos" />
+	<element pattern=".pluck" />
+	<element pattern=".pluckPos" />
+	<element pattern=".pole" />
+	<element pattern=".port" />
+	<element pattern=".pos" />
+	<element pattern=".prad" />
+	<element pattern=".preset" />
+	<element pattern=".pressure" />
+	<element pattern=".Q" />
+	<element pattern=".quiet" />
+	<element pattern=".radius" />
+	<element pattern=".rampDown" />
+	<element pattern=".rampUp" />
+	<element pattern=".randomGain" />
+	<element pattern=".rate" />
+	<element pattern=".ratio" />
+	<element pattern=".rawFilename" />
+	<element pattern=".read" />
+	<element pattern=".record" />
+	<element pattern=".recPos" />
+	<element pattern=".recRamp" />
+	<element pattern=".rectangle" />
+	<element pattern=".reed" />
+	<element pattern=".releaseRate" />
+	<element pattern=".releaseTime" />
+	<element pattern=".reset" />
+	<element pattern=".right" />
+	<element pattern=".samples" />
+	<element pattern=".set" />
+	<element pattern=".sfreq" />
+	<element pattern=".shift" />
+	<element pattern=".sideInput" />
+	<element pattern=".size" />
+	<element pattern=".slide" />
+	<element pattern=".slopeAbove" />
+	<element pattern=".slopeBelow" />
+	<element pattern=".sndFilename" />
+	<element pattern=".speak" />
+	<element pattern=".spectralTilt" />
+	<element pattern=".spectrum" />
+	<element pattern=".startBlowing" />
+	<element pattern=".startBowing" />
+	<element pattern=".state" />
+	<element pattern=".stickHardness" />
+	<element pattern=".stiffness" />
+	<element pattern=".stopBlowing" />
+	<element pattern=".stopBowing" />
+	<element pattern=".stretch" />
+	<element pattern=".strike" />
+	<element pattern=".strikePosition" />
+	<element pattern=".stringDamping" />
+	<element pattern=".stringDetune" />
+	<element pattern=".sustain" />
+	<element pattern=".sustainLevel" />
+	<element pattern=".sync" />
+	<element pattern=".target" />
+	<element pattern=".thresh" />
+	<element pattern=".time" />
+	<element pattern=".tonehole" />
+	<element pattern=".track" />
+	<element pattern=".transform" />
+	<element pattern=".triangle" />
+	<element pattern=".unVoiced" />
+	<element pattern=".upchuck" />
+	<element pattern=".value" />
+	<element pattern=".valueAt" />
+	<element pattern=".vent" />
+	<element pattern=".vibratoFreq" />
+	<element pattern=".vibratoGain" />
+	<element pattern=".vibratoRate" />
+	<element pattern=".voiced" />
+	<element pattern=".voiceGain" />
+	<element pattern=".voiceMix" />
+	<element pattern=".volume" />
+	<element pattern=".vowel" />
+	<element pattern=".wavFilename" />
+	<element pattern=".when" />
+	<element pattern=".width" />
+	<element pattern=".window" />
+	<element pattern=".windowSize" />
+	<element pattern=".write" />
+	<element pattern=".zero" />
+	<element pattern=".zfreq" />
+	<element pattern=".zrad" />
+</group>
+
 <element pattern="&#60;&#60;&#60;" highlight="keyword">
 	<context symbols="\>&#13;&#10;" highlight="string">
 		<element pattern="\\." is_regex="1" highlight="string"/>
-<!--		<element pattern=">>>" highlight="keyword" ends_context="1" />-->
 		<element pattern="(&#10;|&#13;|&#13;&#10;|>>>)" is_regex="1" highlight="keyword" ends_context="1" />
 	</context>
 </element>
