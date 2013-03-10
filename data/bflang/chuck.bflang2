@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		ChucK.bflang2 $Revision$
- 
+
 		Copyright (C) 2013 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <bflang name="ChucK" version="2.0" table="925" contexts="8" matches="224">
@@ -54,8 +54,7 @@
 <group name="basic UAna objects" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="UAna">
-<reference>
- Unit Analyzer base class
+	<reference>Unit Analyzer base class
     Base class from which all unit analyzers (UAnae) inherit;
     UAnae (note plural form) can be interconnected via =&gt;
     (standard chuck operator) or via =^ (upchuck operator),
@@ -68,28 +67,26 @@
     in the language specification.
 <i>Members (control parameters):</i>
 UAnaBlob <b>.upchuck()</b> - initiate analysis at the UAna; returns result.
-</reference>
+	</reference>
 </element>
 <element pattern="UAnaBlob">
-<reference>
-Unit Analyzer blob for contain of data
+	<reference>Unit Analyzer blob for contain of data
     This object contains results associated with UAna analysis.
     There is a UAnaBlob associated with every UAna.  As a UAna
     is upchucked, the result is stored in the UAnaBlob's floating
     point vector and/or complex vector.  The intended interpretation
     of the results depends on the specific UAna.
 <i>Members (control parameters):</i>
-float <b>.fval( </b>int index<b> )</b> - get blob's float value at index 
-complex <b>.cval( </b>int index<b> )</b> - get blob's complex value at index 
+float <b>.fval( </b>int index<b> )</b> - get blob's float value at index
+complex <b>.cval( </b>int index<b> )</b> - get blob's complex value at index
 float[] <b>.fvals()</b> - get blob's float array
 complex[] <b>.cvals()</b> - get blob's complex array
 time <b>.when()</b> - get the time when blob was last upchucked
-</reference>
+	</reference>
 </element>
 <element pattern="Windowing">
-<reference>
-Helper class for generating transform windows
-    This class contains static methods for generating common 
+	<reference>Helper class for generating transform windows
+    This class contains static methods for generating common
     transform windows for use with FFT/IFFT.  The windows are
     returned in a static array associated with the Windowing
     class (note: do not use the returned array for anything
@@ -100,123 +97,110 @@ float[] <b>.triangle( </b>int lenght<b> )</b> - generate a triangular (or Barlet
 float[] <b>.hann( </b>int lenght<b> )</b> - generate a Hann window
 float[] <b>.hamming( </b>int lenght<b> )</b> - generate a Hamming window
 float[] <b>.blackmanHarris( </b>int lenght<b> )</b> - generate a blackmanHarris window
-</reference>
+	</reference>
 </element>
 </group>
 <group name="domain transformations" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="FFT">
-<reference>
- Fast Fourier Transform
-    This UAna computes the Fast Fourier Transform on incoming 
-    audio samples, and outputs the result via its UAnaBlob as 
-    both the complex spectrum and the magnitude spectrum.  A 
-    buffering mechanism maintains the previous FFTsize # of 
-    samples, allowing FFT's to be taken at any point in time, 
+	<reference>Fast Fourier Transform
+    This UAna computes the Fast Fourier Transform on incoming
+    audio samples, and outputs the result via its UAnaBlob as
+    both the complex spectrum and the magnitude spectrum.  A
+    buffering mechanism maintains the previous FFTsize # of
+    samples, allowing FFT's to be taken at any point in time,
     on demand (via .upchuck() or by upchucking a downstream UAna.
     The window size (along with an arbitry window shape) is
     controlled via the .window method. The hop size is complete
     dynamic, and is throttled by how time is advanced.
 extends UAna
 <i>Members (control parameters):</i>
-<b>.size</b> - ( float, READ/WRITE ) - get/set the FFT size
-<b>.window</b>() - ( float[], READ/WRITE ) - get/set the transform window/size (also see AAA Windowing)
-<b>.windowSize</b> - ( int, READ only ) - get the current window size
-<b>.transform</b> - ( float[], WRITE only ) - <b>manually</b> take FFT (as opposed to using .upchuck() 
-/ upchuck operator)
-<b>.spectrum</b> - ( complex[], READ only ) - <b>manually</b> retrieve the results of a transform
-<i>(UAna input/output)</i>
-<b>input</b>: audio samples from an incoming UGen
-<b>output</b>: spectrum in complex array; magnitude spectrum in float array
-</reference>
+  <b>.size</b> - ( float, READ/WRITE ) - get/set the FFT size
+  <b>.window</b>() - ( float[], READ/WRITE ) - get/set the transform window/size (also see AAA Windowing)
+  <b>.windowSize</b> - ( int, READ only ) - get the current window size
+  <b>.transform</b> - ( float[], WRITE only ) - <b>manually</b> take FFT (as opposed to using .upchuck() / upchuck operator)
+  <b>.spectrum</b> - ( complex[], READ only ) - <b>manually</b> retrieve the results of a transform <i>(UAna input/output)</i>
+	<b>input</b>: audio samples from an incoming UGen
+	<b>output</b>: spectrum in complex array; magnitude spectrum in float array
+	</reference>
 </element>
 <element pattern="IFFT">
-<reference>
-Inverse Fast Fourier Transform
-    This UAna computes the inverse Fast Fourier Transform on 
-    incoming spectral frames (on demand), and overlap-adds the 
+	<reference>Inverse Fast Fourier Transform
+    This UAna computes the inverse Fast Fourier Transform on
+    incoming spectral frames (on demand), and overlap-adds the
     results into its internal buffer, ready to be sent to
     other UGen's connected via =&gt;.  The window size
-    (along with an arbitry window shape) is controlled via the 
+    (along with an arbitry window shape) is controlled via the
     .window method.
 extends UAna
 <i>Members (control parameters):</i>
-<b>.size</b> - ( float, READ/WRITE ) - get/set the IFFT size
-<b>.window</b>() - ( float[], READ/WRITE ) - get/set the transform window/size (also see AAA Windowing)
-<b>.windowSize</b> - ( int, READ only ) - get the current window size
-<b>.transform</b> - ( complex[], WRITE only ) - <b>manually</b> take IFFT (as opposed to using .upchuck() / upchuck operator)
-<b>.samples</b> - ( float[], READ only ) - <b>manually</b> retrieve the result of the previous IFFT
-<i>(UAna input/output)</i>
-<b>input</b>: complex spectral frames (either via UAnae connected via =^, or manullay via .transform())
-<b>output</b>: audio samples (overlap-added and streamed out to UGens connected via =&gt;)
-</reference>
+  <b>.size</b> - ( float, READ/WRITE ) - get/set the IFFT size
+  <b>.window</b>() - ( float[], READ/WRITE ) - get/set the transform window/size (also see AAA Windowing)
+  <b>.windowSize</b> - ( int, READ only ) - get the current window size
+  <b>.transform</b> - ( complex[], WRITE only ) - <b>manually</b> take IFFT (as opposed to using .upchuck() / upchuck operator)
+  <b>.samples</b> - ( float[], READ only ) - <b>manually</b> retrieve the result of the previous IFFT <i>(UAna input/output)</i>
+	<b>input</b>: complex spectral frames (either via UAnae connected via =^, or manullay via .transform())
+	<b>output</b>: audio samples (overlap-added and streamed out to UGens connected via =&gt;)
+	</reference>
 </element>
 <element pattern="DCT">
-<reference>
-Discrete Cosine Transform
-    This UAna computes the Discrete Cosine Transform on incoming 
-    audio samples, and outputs the result via its UAnaBlob as 
-    real values in the D.C. spectrum.  A 
-    buffering mechanism maintains the previous DCT size # of 
-    samples, allowing DCT to be taken at any point in time, 
+	<reference>Discrete Cosine Transform
+    This UAna computes the Discrete Cosine Transform on incoming
+    audio samples, and outputs the result via its UAnaBlob as
+    real values in the D.C. spectrum.  A
+    buffering mechanism maintains the previous DCT size # of
+    samples, allowing DCT to be taken at any point in time,
     on demand (via .upchuck() or by upchucking a downstream UAna.
     The window size (along with an arbitry window shape) is
     controlled via the .window method. The hop size is complete
     dynamic, and is throttled by how time is advanced.
 extends UAna
 <i>Members (control parameters):</i>
-<b>.size</b> - ( float, READ/WRITE ) - get/set the DCT size
-<b>.window</b>() - ( float[], READ/WRITE ) - get/set the transform window/size (also see AAA Windowing)
-<b>.windowSize</b> - ( int, READ only ) - get the current window size
-<b>.transform</b> - ( float[], WRITE ) - <b>manually</b> take DCT (as opposed to using .upchuck() / upchuck operator)
-<b>.spectrum</b> - ( float[], READ only ) - <b>manually</b> retrieve the results of a transform
-<i>(UAna input/output)</i>
-<b>input</b>: audio samples (either via UAnae connected via =^, or manullay via .transform())
-<b>output</b>: discrete cosine spectrum
-</reference>
+  <b>.size</b> - ( float, READ/WRITE ) - get/set the DCT size
+  <b>.window</b>() - ( float[], READ/WRITE ) - get/set the transform window/size (also see AAA Windowing)
+  <b>.windowSize</b> - ( int, READ only ) - get the current window size
+  <b>.transform</b> - ( float[], WRITE ) - <b>manually</b> take DCT (as opposed to using .upchuck() / upchuck operator)
+  <b>.spectrum</b> - ( float[], READ only ) - <b>manually</b> retrieve the results of a transform <i>(UAna input/output)</i>
+	<b>input</b>: audio samples (either via UAnae connected via =^, or manullay via .transform())
+	<b>output</b>: discrete cosine spectrum
+	</reference>
 </element>
 <element pattern="IDCT">
-<reference>
-Inverse Discrete Cosine Transform
-    This UAna computes the inverse Discrete Cosine Transform on 
-    incoming spectral frames (on demand), and overlap-adds the 
+	<reference>Inverse Discrete Cosine Transform
+    This UAna computes the inverse Discrete Cosine Transform on
+    incoming spectral frames (on demand), and overlap-adds the
     results into its internal buffer, ready to be sent to
     other UGen's connected via =&gt;.  The window size
-    (along with an arbitry window shape) is controlled via the 
+    (along with an arbitry window shape) is controlled via the
     .window method.
 extends UAna
 <i>Members (control parameters):</i>
-<b>.size</b> - ( float, READ/WRITE ) - get/set the IDCT size
-<b>.window</b>() - ( float[], READ/WRITE ) - get/set the transform window/size (also see AAA Windowing)
-<b>.windowSize</b> - ( int, READ only ) - get the current window size
-<b>.transform</b> - ( float[], WRITE ) - <b>manually</b> take IDCT (as opposed to using .upchuck() / upchuck operator)
-<b>.samples</b> - ( float[], WRITE ) - <b>manually</b> get result of previous IDCT
-<i>(UAna input/output)</i>
-<b>input</b>: real-valued spectral frames (either via UAnae connected via =^, or manullay via .transform())
-<b>output</b>: audio samples (overlap-added and streamed out to UGens connected via =&gt;)
-</reference>
+  <b>.size</b> - ( float, READ/WRITE ) - get/set the IDCT size
+  <b>.window</b>() - ( float[], READ/WRITE ) - get/set the transform window/size (also see AAA Windowing)
+  <b>.windowSize</b> - ( int, READ only ) - get the current window size
+  <b>.transform</b> - ( float[], WRITE ) - <b>manually</b> take IDCT (as opposed to using .upchuck() / upchuck operator)
+  <b>.samples</b> - ( float[], WRITE ) - <b>manually</b> get result of previous IDCT <i>(UAna input/output)</i>
+	<b>input</b>: real-valued spectral frames (either via UAnae connected via =^, or manullay via .transform())
+	<b>output</b>: audio samples (overlap-added and streamed out to UGens connected via =&gt;)
+	</reference>
 </element>
 </group>
 <group name="feature extractors" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="Centroid">
-<reference>
-Spectral Centroid
+	<reference>Spectral Centroid
     This UAna computes the spectral centroid from a magnitude
     spectrum (either from incoming UAna or manually given),
     and outputs one value in its blob.
 extends UAna
 <i>Members (control parameters):</i>
-float <b>.compute( </b>float[]<b> )</b> - <b>manually</b> computes the centroid from a float array
-<i>(UAna input/output)</i>
-<b>input</b>: complex spectral frames (e.g., via UAnae connected via =^)
-<b>output</b>: the computed Centroid value is stored in the blob's floating point vector, accessible via .fval(0).  This is a normalized value in the 
-range [0,1), mapped to the frequency range 0Hz to Nyquist
-</reference>
+float <b>.compute( </b>float[]<b> )</b> - <b>manually</b> computes the centroid from a float array <i>(UAna input/output)</i>
+	<b>input</b>: complex spectral frames (e.g., via UAnae connected via =^)
+	<b>output</b>: the computed Centroid value is stored in the blob's floating point vector, accessible via .fval(0).  This is a normalized value in the range [0,1), mapped to the frequency range 0Hz to Nyquist
+	</reference>
 </element>
 <element pattern="Flux">
-<reference>
-Spectral Flux
+	<reference>Spectral Flux
     This UAna computes the spectral flux between successive
     magnitude spectra (via incoming UAna, or given manually),
     and outputs one value in its blob.
@@ -224,30 +208,26 @@ extends UAna
 <i>Members (control parameters):</i>
 void <b>.reset( )</b> - reset the extractor
 float <b>.compute( </b>float[] f1, float[] f2<b> )</b> - <b>manually</b> computes the flux between two frames
-float <b>.compute( </b>float[] f1, float[] f2, float[] diff<b> )</b> - <b>manually</b> computes the flux between two 
-frames, and stores the difference in a third array
-<i>(UAna input/output)</i>
-<b>input</b>: complex spectral frames (e.g., via UAnae connected via =^)
-<b>output</b>: the computed Flux value is stored in the blob's floating point vector, accessible via .fval(0)
-</reference>
+float <b>.compute( </b>float[] f1, float[] f2, float[] diff<b> )</b> - <b>manually</b> computes the flux between two
+frames, and stores the difference in a third array <i>(UAna input/output)</i>
+	<b>input</b>: complex spectral frames (e.g., via UAnae connected via =^)
+	<b>output</b>: the computed Flux value is stored in the blob's floating point vector, accessible via .fval(0)
+	</reference>
 </element>
 <element pattern="RMS">
-<reference>
-Spectral RMS
+	<reference>Spectral RMS
     This UAna computes the RMS power mean from a magnitude
     spectrum (either from an incoming UAna, or given manually),
     and outputs one value in its blob.
 extends UAna
 <i>Members (control parameters):</i>
-float <b>.compute( </b>float[]<b> )</b> - <b>manually</b> computes the RMS from a float array
-<i>(UAna input/output)</i>
-<b>input</b>: complex spectral frames (e.g., via UAnae connected via =^)
-<b>output</b>: the computed RMS value is stored in the blob's floating point vector, accessible via .fval(0)
-</reference>
+float <b>.compute( </b>float[]<b> )</b> - <b>manually</b> computes the RMS from a float array <i>(UAna input/output)</i>
+	<b>input</b>: complex spectral frames (e.g., via UAnae connected via =^)
+	<b>output</b>: the computed RMS value is stored in the blob's floating point vector, accessible via .fval(0)
+	</reference>
 </element>
 <element pattern="RollOff">
-<reference>
-Spectral RollOff
+	<reference>Spectral RollOff
     This UAna computes the spectral rolloff from a magnitude
     spectrum (either from incoming UAna, or given manually),
     and outputs one value in its blob.
@@ -255,88 +235,80 @@ extends UAna
 <i>Members (control parameters):</i>
 float <b>.percent( </b>float val<b>)</b> - set the percentage for computing rolloff
 float <b>.percent( )</b> - get the percentage specified for the rolloff
-float <b>.compute( </b>float[]<b> )</b> - <b>manually</b> computes the rolloff from a float array
-<i>(UAna input/output)</i>
-<b>input</b>: complex spectral frames (e.g., via UAnae connected via =^)
-<b>output</b>: the computed rolloff value is stored in the blob's floating point vector, accessible via .fval(0). This is a normalized
+float <b>.compute( </b>float[]<b> )</b> - <b>manually</b> computes the rolloff from a float array <i>(UAna input/output)</i>
+	<b>input</b>: complex spectral frames (e.g., via UAnae connected via =^)
+	<b>output</b>: the computed rolloff value is stored in the blob's floating point vector, accessible via .fval(0). This is a normalized
 value in the range [0,1), mapped to the frequency range 0 to nyquist frequency.
-</reference>
+	</reference>
 </element>
 </group>
 <group name="audio output" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="dac">
-<reference>
- digital/analog converter
+	<reference>digital/analog converter
  abstraction for underlying audio output device
 <i>Members (control parameters):</i>
-<b>.left</b> - ( UGen ) - input to left channel
-<b>.right</b> - ( UGen ) - input to right channel
-<b>.chan( int n )</b> - ( UGen ) - returns nth channel (all UGens have this function) 
-</reference>
+  <b>.left</b> - ( UGen ) - input to left channel
+  <b>.right</b> - ( UGen ) - input to right channel
+  <b>.chan( int n )</b> - ( UGen ) - returns nth channel (all UGens have this function)
+	</reference>
 </element>
 <element pattern="adc">
-<reference>
- analog/digital converter
+	<reference>analog/digital converter
  abstraction for underlying audio input device
 <i>Members (control parameters):</i>
-<b>.left</b> - ( UGen ) - output of left channel
-<b>.right</b> - ( UGen ) - output of right channel
-<b>.chan( int n )</b> - ( UGen ) - returns nth channel (all UGens have this function)
-</reference>
+  <b>.left</b> - ( UGen ) - output of left channel
+  <b>.right</b> - ( UGen ) - output of right channel
+  <b>.chan( int n )</b> - ( UGen ) - returns nth channel (all UGens have this function)
+	</reference>
 </element>
 <element pattern="blackhole">
-<reference>
- sample rate sample sucker
+	<reference>sample rate sample sucker
  ( like dac, ticks ugens, but no more )
-</reference>
+	</reference>
 </element>
 <element pattern="Gain">
-<reference>
- gain control
+	<reference>gain control
  (NOTE - all unit generators can themselves change their gain)
- (this is a way to add N outputs together and scale them) 
+ (this is a way to add N outputs together and scale them)
 <i>Members (control parameters):</i>
-<b>.gain</b> - ( float , READ/WRITE ) - set gain ( all ugen's have this ) 
+  <b>.gain</b> - ( float , READ/WRITE ) - set gain ( all ugen's have this )
  Noise n => Gain g => dac;
  SinOsc s => g;
  .3 => g.gain;
  while( true ) { 100::ms => now; }
-</reference>
+	</reference>
 </element>
 </group>
 <group name="wave forms" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="Noise">
-<reference>
- white noise generator 
-</reference>
+	<reference>white noise generator
+	</reference>
 </element>
 <element pattern="Impulse">
-<reference>
- pulse generator - can set the value of the current sample
+	<reference>pulse generator - can set the value of the current sample
  default for each sample is 0 if not set
 <i>Members (control parameters):</i>
-<b>.next</b> - ( float , READ/WRITE ) - set 
-value of next sample to be generated.  (note: if you are using 
-the <b>UGen.last</b> method to read the output of the impulse, the 
-value set by <b>Impulse.next</b> does not appear as the output until 
-after the next sample boundary. In this case, there is a 
-consistent 1::samp offset between setting .next and reading 
-that value using .last) 
+  <b>.next</b> - ( float , READ/WRITE ) - set
+value of next sample to be generated.  (note: if you are using
+the <b>UGen.last</b> method to read the output of the impulse, the
+value set by <b>Impulse.next</b> does not appear as the output until
+after the next sample boundary. In this case, there is a
+consistent 1::samp offset between setting .next and reading
+that value using .last)
  Impulse i => dac;
  while( true ) {
     1.0 => i.next;
     100::ms => now;
  }
-</reference>
+	</reference>
 </element>
 <element pattern="Step">
-<reference>
- step generator - like Impulse, but once a value is set, 
+	<reference>step generator - like Impulse, but once a value is set,
  it is held for all following samples, until value is set again
 <i>Members (control parameters):</i>
-<b>.next</b> - ( float , READ/WRITE ) - set the step value 
+  <b>.next</b> - ( float , READ/WRITE ) - set the step value
  Step s => dac;
  -1.0 => float amp;
  // square wave using Step
@@ -344,461 +316,351 @@ that value using .last)
      -amp => amp => s.next;
      800::samp => now;
  }
-</reference>
+	</reference>
 </element>
 </group>
 <group name="basic signal processing" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="HalfRect">
-<reference>
- half wave rectifier
- for half-wave rectification. 
-</reference>
+	<reference>half wave rectifier
+ for half-wave rectification.
+	</reference>
 </element>
 <element pattern="FullRect">
-<reference>
- full wave rectifier
-</reference>
+	<reference>full wave rectifier
+	</reference>
 </element>
 <element pattern="ZeroX">
-<reference>
- zero crossing detector
- emits a single pulse at the the zero crossing in the direction of the zero crossing.  
-</reference>
+	<reference>zero crossing detector
+ emits a single pulse at the the zero crossing in the direction of the zero crossing.
+	</reference>
 </element>
 </group>
 <group name="filters" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="BiQuad">
-<reference>
- STK biquad (two-pole, two-zero) filter class.
-    This protected Filter subclass implements a
-    two-pole, two-zero digital filter.  A method
-    is provided for creating a resonance in the
-    frequency response while maintaining a constant
-    filter gain.
+	<reference>STK biquad (two-pole, two-zero) filter class.
+    This protected Filter subclass implements a two-pole, two-zero digital filter.  A method is provided for creating a resonance in the frequency response while maintaining a constant filter gain.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.b2</b> - ( float , READ/WRITE ) - b2 coefficient
-<b>.b1</b> - ( float , READ/WRITE ) - b1 coefficient
-<b>.b0</b> - ( float , READ/WRITE ) - b0 coefficient
-<b>.a2</b> - ( float , READ/WRITE ) - a2 coefficient
-<b>.a1</b> - ( float , READ/WRITE ) - a1 coefficient
-<b>.a0</b> - ( float , READ only ) - a0 coefficient
-<b>.pfreq</b> - ( float , READ/WRITE) - set resonance frequency (poles)
-<b>.prad</b> - ( float , READ/WRITE ) - pole radius (less than 1 to be stable)
-<b>.zfreq</b> - ( float , READ/WRITE ) - notch frequency
-<b>.zrad</b> - ( float , READ/WRITE ) - zero radius
-<b>.norm</b> - ( float , READ/WRITE ) - normalization
-<b>.eqzs</b> - ( float , READ/WRITE ) - equal gain zeroes
-</reference>
+  <b>.b2</b> - ( float , READ/WRITE ) - b2 coefficient
+  <b>.b1</b> - ( float , READ/WRITE ) - b1 coefficient
+  <b>.b0</b> - ( float , READ/WRITE ) - b0 coefficient
+  <b>.a2</b> - ( float , READ/WRITE ) - a2 coefficient
+  <b>.a1</b> - ( float , READ/WRITE ) - a1 coefficient
+  <b>.a0</b> - ( float , READ only ) - a0 coefficient
+  <b>.pfreq</b> - ( float , READ/WRITE) - set resonance frequency (poles)
+  <b>.prad</b> - ( float , READ/WRITE ) - pole radius (less than 1 to be stable)
+  <b>.zfreq</b> - ( float , READ/WRITE ) - notch frequency
+  <b>.zrad</b> - ( float , READ/WRITE ) - zero radius
+  <b>.norm</b> - ( float , READ/WRITE ) - normalization
+  <b>.eqzs</b> - ( float , READ/WRITE ) - equal gain zeroes
+	</reference>
 </element>
 <element pattern="Filter">
-<reference>
- STK filter class.
-    This class implements a generic structure which
-    can be used to create a wide range of filters.
-    It can function independently or be subclassed
-    to provide more specific controls based on a
-    particular filter type.
-    In particular, this class implements the standard
-    difference equation:
-    a[0]*y[n] = b[0]*x[n] + ... + b[nb]*x[n-nb] -
-                a[1]*y[n-1] - ... - a[na]*y[n-na]
-    If a[0] is not equal to 1, the filter coeffcients
-    are normalized by a[0].
-    The \e gain parameter is applied at the filter
-    input and does not affect the coefficient values.
-    The default gain value is 1.0.  This structure
-    results in one extra multiply per computed sample,
-    but allows easy control of the overall filter gain.
+	<reference>STK filter class.
+    This class implements a generic structure which can be used to create a wide range of filters.
+    It can function independently or be subclassed to provide more specific controls based on a particular filter type.
+    In particular, this class implements the standard difference equation:
+    a[0]*y[n] = b[0]*x[n] + ... + b[nb]*x[n-nb] -  a[1]*y[n-1] - ... - a[na]*y[n-na]
+    If a[0] is not equal to 1, the filter coeffcients are normalized by a[0].
+    The \e gain parameter is applied at the filter input and does not affect the coefficient values.
+    The default gain value is 1.0.  This structure results in one extra multiply per computed sample, but allows easy control of the overall filter gain.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.coefs</b> - ( string , WRITE only ) - 
-</reference>
+  <b>.coefs</b> - ( string , WRITE only ) -
+	</reference>
 </element>
 <element pattern="OnePole">
-<reference>
- STK one-pole filter class.
-    This protected Filter subclass implements
-    a one-pole digital filter.  A method is
-    provided for setting the pole position along
-    the real axis of the z-plane while maintaining
-    a constant peak filter gain.
+	<reference>STK one-pole filter class.
+    This protected Filter subclass implements a one-pole digital filter.  A method is provided for setting the pole position along the real axis of the z-plane while maintaining a constant peak filter gain.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.a1</b> - ( float , READ/WRITE ) - filter coefficient
-<b>.b0</b> - ( float , READ/WRITE ) - filter coefficient 
-<b>.pole</b> - ( float , READ/WRITE ) - set pole position along real axis of z-plane
-</reference>
+  <b>.a1</b> - ( float , READ/WRITE ) - filter coefficient
+  <b>.b0</b> - ( float , READ/WRITE ) - filter coefficient
+  <b>.pole</b> - ( float , READ/WRITE ) - set pole position along real axis of z-plane
+	</reference>
 </element>
 <element pattern="TwoPole">
-<reference>
- STK two-pole filter class.
-    This protected Filter subclass implements
-    a two-pole digital filter.  A method is
-    provided for creating a resonance in the
-    frequency response while maintaining a nearly
-    constant filter gain.
+	<reference>STK two-pole filter class.
+    This protected Filter subclass implements a two-pole digital filter.  A method is provided for creating a resonance in the frequency response while maintaining a nearly constant filter gain.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.a1</b> - ( float , READ/WRITE ) - filter coefficient
-<b>.a2</b> - ( float , READ/WRITE ) - filter coefficient
-<b>.b0</b> - ( float , READ/WRITE ) - filter coefficient
-<b>.freq</b> - ( float , READ/WRITE ) - filter resonance frequency
-<b>.radius</b> - ( float , READ/WRITE ) - filter resonance radius
-<b>.norm</b> - ( int , READ/WRITE ) - toggle filter normalization 
-</reference>
+  <b>.a1</b> - ( float , READ/WRITE ) - filter coefficient
+  <b>.a2</b> - ( float , READ/WRITE ) - filter coefficient
+  <b>.b0</b> - ( float , READ/WRITE ) - filter coefficient
+  <b>.freq</b> - ( float , READ/WRITE ) - filter resonance frequency
+  <b>.radius</b> - ( float , READ/WRITE ) - filter resonance radius
+  <b>.norm</b> - ( int , READ/WRITE ) - toggle filter normalization
+	</reference>
 </element>
 <element pattern="OneZero">
-<reference>
- STK one-zero filter class.
-    This protected Filter subclass implements
-    a one-zero digital filter.  A method is
-    provided for setting the zero position
-    along the real axis of the z-plane while
-    maintaining a constant filter gain.
+	<reference>STK one-zero filter class.
+    This protected Filter subclass implements a one-zero digital filter.  A method is provided for setting the zero position along the real axis of the z-plane while maintaining a constant filter gain.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.zero</b> - ( float , READ/WRITE ) - set zero position
-<b>.b0</b> - ( float , READ/WRITE ) - filter coefficient
-<b>.b1</b> - ( float , READ/WRITE ) - filter coefficient 
-</reference>
+  <b>.zero</b> - ( float , READ/WRITE ) - set zero position
+  <b>.b0</b> - ( float , READ/WRITE ) - filter coefficient
+  <b>.b1</b> - ( float , READ/WRITE ) - filter coefficient
+	</reference>
 </element>
 <element pattern="TwoZero">
-<reference>
- STK two-zero filter class.
-    This protected Filter subclass implements
-    a two-zero digital filter.  A method is
-    provided for creating a "notch" in the
-    frequency response while maintaining a
-    constant filter gain.
+	<reference>STK two-zero filter class.
+    This protected Filter subclass implements a two-zero digital filter.  A method is provided for creating a "notch" in the frequency response while maintaining a constant filter gain.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.b0</b> - ( float , READ/WRITE ) - filter coefficient 
-<b>.b1</b> - ( float , READ/WRITE ) - filter coefficient 
-<b>.b2</b> - ( float , READ/WRITE ) - filter coefficient 
-<b>.freq</b> - ( float , READ/WRITE ) - filter notch frequency
-<b>.radius</b> - ( float , READ/WRITE ) - filter notch radius
-</reference>
+  <b>.b0</b> - ( float , READ/WRITE ) - filter coefficient
+  <b>.b1</b> - ( float , READ/WRITE ) - filter coefficient
+  <b>.b2</b> - ( float , READ/WRITE ) - filter coefficient
+  <b>.freq</b> - ( float , READ/WRITE ) - filter notch frequency
+  <b>.radius</b> - ( float , READ/WRITE ) - filter notch radius
+	</reference>
 </element>
 <element pattern="PoleZero">
-<reference>
- STK one-pole, one-zero filter class.
-    This protected Filter subclass implements
-    a one-pole, one-zero digital filter.  A
-    method is provided for creating an allpass
-    filter with a given coefficient.  Another
-    method is provided to create a DC blocking filter.
+	<reference>STK one-pole, one-zero filter class.
+    This protected Filter subclass implements a one-pole, one-zero digital filter.  A method is provided for creating an allpass filter with a given coefficient.  Another method is provided to create a DC blocking filter.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.a1</b> - ( float , READ/WRITE ) - filter coefficient 
-<b>.b0</b> - ( float , READ/WRITE ) - filter coefficient 
-<b>.b1</b> - ( float , READ/WRITE ) - filter coefficient 
-<b>.blockZero</b> - ( float , READ/WRITE ) - DC blocking filter with given pole position
-<b>.allpass</b> - ( float , READ/WRITE ) - allpass filter with given coefficient
-</reference>
+  <b>.a1</b> - ( float , READ/WRITE ) - filter coefficient
+  <b>.b0</b> - ( float , READ/WRITE ) - filter coefficient
+  <b>.b1</b> - ( float , READ/WRITE ) - filter coefficient
+  <b>.blockZero</b> - ( float , READ/WRITE ) - DC blocking filter with given pole position
+  <b>.allpass</b> - ( float , READ/WRITE ) - allpass filter with given coefficient
+	</reference>
 </element>
 <element pattern="LPF">
-<reference>
- resonant low pass filter.
+	<reference>resonant low pass filter.
     Resonant low pass filter.  2nd order Butterworth.
-    (In the future, this class may be expanded so that order
-    and type of filter can be set).
+    (In the future, this class may be expanded so that order and type of filter can be set).
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - cutoff frequency
-<b>.Q</b> - ( float , READ/WRITE ) - resonance (default is 1)
-<b>.set</b> - ( float, float, WRITE only ) - set freq and Q at once
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - cutoff frequency
+  <b>.Q</b> - ( float , READ/WRITE ) - resonance (default is 1)
+  <b>.set</b> - ( float, float, WRITE only ) - set freq and Q at once
+	</reference>
 </element>
 <element pattern="HPF">
-<reference>
- resonant high pass filter.
+	<reference>resonant high pass filter.
     Resonant high pass filter.  2nd order Butterworth.
-    (In the future, this class may be expanded so that order
-    and type of filter can be set).
+    (In the future, this class may be expanded so that order and type of filter can be set).
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - cutoff frequency
-<b>.Q</b> - ( float , READ/WRITE ) - resonance (default is 1)
-<b>.set</b> - ( float, float, WRITE only ) - set freq and Q at once
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - cutoff frequency
+  <b>.Q</b> - ( float , READ/WRITE ) - resonance (default is 1)
+  <b>.set</b> - ( float, float, WRITE only ) - set freq and Q at once
+	</reference>
 </element>
 <element pattern="BPF">
-<reference>
- band pass filter.
+	<reference>band pass filter.
     Band pass filter.  2nd order Butterworth.
-    (In the future, this class may be expanded so that order
-    and type of filter can be set).
+    (In the future, this class may be expanded so that order and type of filter can be set).
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - center frequency
-<b>.Q</b> - ( float , READ/WRITE ) - Q (quality)
-<b>.set</b> - ( float, float, WRITE only ) - set freq and Q at once
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - center frequency
+  <b>.Q</b> - ( float , READ/WRITE ) - Q (quality)
+  <b>.set</b> - ( float, float, WRITE only ) - set freq and Q at once
+	</reference>
 </element>
 <element pattern="BRF">
-<reference>
- band reject filter.
+	<reference>band reject filter.
     Band reject filter.  2nd order Butterworth.
-    (In the future, this class may be expanded so that order
-    and type of filter can be set).
+    (In the future, this class may be expanded so that order and type of filter can be set).
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - center frequency
-<b>.Q</b> - ( float , READ/WRITE ) - Q (quality)
-<b>.set</b> - ( float, float, WRITE only ) - set freq and Q at once
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - center frequency
+  <b>.Q</b> - ( float , READ/WRITE ) - Q (quality)
+  <b>.set</b> - ( float, float, WRITE only ) - set freq and Q at once
+	</reference>
 </element>
 <element pattern="ResonZ">
-<reference>
- resonance filter 
+	<reference>resonance filter
     Resonance filter.  BiQuad with equal-gain zeros.
     keeps gain under control independent of frequency.
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - center frequency
-<b>.Q</b> - ( float , READ/WRITE ) - Q (quality)
-<b>.set</b> - ( float, float, WRITE only ) - set freq and Q at once
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - center frequency
+  <b>.Q</b> - ( float , READ/WRITE ) - Q (quality)
+  <b>.set</b> - ( float, float, WRITE only ) - set freq and Q at once
+	</reference>
 </element>
 <element pattern="FilterBasic">
-<reference>
- filter basic base class 
+	<reference>filter basic base class
     Filter basic base class, with .freq, .Q, .set.
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - frequency
-<b>.Q</b> - ( float , READ/WRITE ) - Q
-<b>.set</b> - ( float, float, WRITE only ) - set freq and Q at once
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - frequency
+  <b>.Q</b> - ( float , READ/WRITE ) - Q
+  <b>.set</b> - ( float, float, WRITE only ) - set freq and Q at once
+	</reference>
 </element>
 <element pattern="Dyno">
-<reference>
-dynamics processor
+	<reference>dynamics processor
 includes limiter, compressor, expander, noise gate, and ducker (presets)
-    default limiter values:
-    slopeAbove = 0.1
-    slopeBelow = 1.0
-    thresh = 0.5
-    attackTime = 5 ms
-    releaseTime = 300 ms
-    externalSideInput = 0 (false)
-    default compressor values:
-    slopeAbove = 0.5
-    slopeBelow = 1.0
-    thresh = 0.5
-    attackTime = 5 ms
-    releaseTime = 300 ms
-    externalSideInput = 0 (false)
-    default expander values:
-    slopeAbove = 2.0
-    slopeBelow = 1.0
-    thresh = 0.5
-    attackTime = 20 ms
-    releaseTime = 400 ms
-    externalSideInput = 0 (false)
-    default noise gate values:
-    slopeAbove = 1.0
-    slopeBelow = 10000000
-    thresh = 0.1
-    attackTime = 11 ms
-    releaseTime = 100 ms
-    externalSideInput = 0 (false)
-    default ducker values:
-    slopeAbove = 0.5
-    slopeBelow = 1.0
-    thresh = 0.1
-    attackTime = 100 ms
-    releaseTime = 1000 ms
-    externalSideInput = 1 (true)
-    Note that the input to sideInput determines the level of 
-    gain, not the direct signal input to Dyno.
+    default limiter values:   slopeAbove = 0.1   slopeBelow = 1.0   thresh = 0.5   attackTime = 5 ms   releaseTime = 300 ms   externalSideInput = 0 (false)
+    default compressor values:   slopeAbove = 0.5   slopeBelow = 1.0   thresh = 0.5   attackTime = 5 ms   releaseTime = 300 ms   externalSideInput = 0 (false)
+    default expander values:   slopeAbove = 2.0   slopeBelow = 1.0   thresh = 0.5   attackTime = 20 ms   releaseTime = 400 ms   externalSideInput = 0 (false)
+    default noise gate values:   slopeAbove = 1.0   slopeBelow = 10000000   thresh = 0.1   attackTime = 11 ms   releaseTime = 100 ms   externalSideInput = 0 (false)
+    default ducker values:   slopeAbove = 0.5   slopeBelow = 1.0   thresh = 0.1   attackTime = 100 ms   releaseTime = 1000 ms   externalSideInput = 1 (true)
+    Note that the input to sideInput determines the level of gain, not the direct signal input to Dyno.
 <i>Members (control parameters):</i>
-<b>.limit</b> - () - set parameters to default limiter values
-<b>.compress</b> - () - set parameters to default compressor values
-<b>.expand</b> - () - set parameters to default expander values
-<b>.gate</b> - () - set parameters to default noise gate values
-<b>.duck</b> - () - set parameters to default ducker values
-<b>.thresh</b> - ( float, READ/WRITE ) - the point above which to stop using slopeBelow and start using slopeAbove to determine output gain vs input gain
-<b>.attackTime</b> - ( dur, READ/WRITE ) - duration for the envelope to move linearly from current value to the absolute value of the signal's amplitude
-<b>.releaseTime</b> - ( dur, READ/WRITE ) - duration for the envelope to decay down to around 1/10 of its current amplitude, if not brought back up by the signal
-<b>.ratio</b> - ( float, READ/WRITE ) - alternate way of setting slopeAbove and slopeBelow; sets slopeBelow to 1.0 and slopeAbove to 1.0 / ratio
-<b>.slopeBelow</b> - ( float, READ/WRITE ) - determines the slope of the output gain vs the input envelope's level in dB when the envelope is below thresh.  For example, if slopeBelow were 0.5, thresh were 0.1, and the envelope's value were 0.05, the envelope's amplitude would be about 6 dB below thresh, so a gain of 3 dB would be applied to bring the output signal's amplitude up to only 3 dB below thresh.  in general, setting slopeBelow to be lower than slopeAbove results in expansion of dynamic range.
-<b>.slopeAbove</b> - ( float, READ/WRITE ) - determines the slope of the output gain vs the input envelope's level in dB when the envelope is above thresh.  For example, if slopeAbove were 0.5, thresh were 0.1, and the envelope's value were 0.2, the envelope's amplitude would be about 6 dB above thresh, so a gain of -3 dB would be applied to bring the output signal's amplitude up to only 3 dB above thresh.  in general, setting slopeAbove to be lower than slopeBelow results in compression of dynamic range
-<b>.sideInput</b> - ( float, READ/WRITE ) - if externalSideInput is set to true, replaces the signal being processed as the input to the amplitude envelope. see dynoduck.ck for an example of using an external side chain.
-<b>.externalSideInput</b> - ( int, READ/WRITE ) - set to true to cue the amplitude envelope off of sideInput instead of the input signal. note that this means you will need to manually set sideInput every so often. if false, the amplitude envelope represents the amplitude of the input signal whose dynamics are being processed. see dynoduck.ck for an example of using an external side chain.
-</reference>
+  <b>.limit</b> - () - set parameters to default limiter values
+  <b>.compress</b> - () - set parameters to default compressor values
+  <b>.expand</b> - () - set parameters to default expander values
+  <b>.gate</b> - () - set parameters to default noise gate values
+  <b>.duck</b> - () - set parameters to default ducker values
+  <b>.thresh</b> - ( float, READ/WRITE ) - the point above which to stop using slopeBelow and start using slopeAbove to determine output gain vs input gain
+  <b>.attackTime</b> - ( dur, READ/WRITE ) - duration for the envelope to move linearly from current value to the absolute value of the signal's amplitude
+  <b>.releaseTime</b> - ( dur, READ/WRITE ) - duration for the envelope to decay down to around 1/10 of its current amplitude, if not brought back up by the signal
+  <b>.ratio</b> - ( float, READ/WRITE ) - alternate way of setting slopeAbove and slopeBelow; sets slopeBelow to 1.0 and slopeAbove to 1.0 / ratio
+  <b>.slopeBelow</b> - ( float, READ/WRITE ) - determines the slope of the output gain vs the input envelope's level in dB when the envelope is below thresh.  For example, if slopeBelow were 0.5, thresh were 0.1, and the envelope's value were 0.05, the envelope's amplitude would be about 6 dB below thresh, so a gain of 3 dB would be applied to bring the output signal's amplitude up to only 3 dB below thresh.  in general, setting slopeBelow to be lower than slopeAbove results in expansion of dynamic range.
+  <b>.slopeAbove</b> - ( float, READ/WRITE ) - determines the slope of the output gain vs the input envelope's level in dB when the envelope is above thresh.  For example, if slopeAbove were 0.5, thresh were 0.1, and the envelope's value were 0.2, the envelope's amplitude would be about 6 dB above thresh, so a gain of -3 dB would be applied to bring the output signal's amplitude up to only 3 dB above thresh.  in general, setting slopeAbove to be lower than slopeBelow results in compression of dynamic range
+  <b>.sideInput</b> - ( float, READ/WRITE ) - if externalSideInput is set to true, replaces the signal being processed as the input to the amplitude envelope. see dynoduck.ck for an example of using an external side chain.
+  <b>.externalSideInput</b> - ( int, READ/WRITE ) - set to true to cue the amplitude envelope off of sideInput instead of the input signal. note that this means you will need to manually set sideInput every so often. if false, the amplitude envelope represents the amplitude of the input signal whose dynamics are being processed. see dynoduck.ck for an example of using an external side chain.
+	</reference>
 </element>
 </group>
 <group name="sound files" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="SndBuf">
-<reference>
- sound buffer ( now interpolating ) 
+	<reference>sound buffer ( now interpolating )
  reads from a variety of file formats
 <i>Members (control parameters):</i>
-<b>.read</b> - ( string , WRITE only ) - loads file for reading
-<b>.chunks</b> - ( int, READ/WRITE ) - size of chunk (# of frames) to read on-demand; 0 implies entire file, default; must be set before reading to take effect.
-<b>.samples</b> - ( int , READ only ) - get number of samples
-<b>.length</b> - ( dur, READ only ) - get length as duration
-<b>.channels</b> - ( int , READ only ) - get number of channels
-<b>.pos</b> - ( int , READ/WRITE ) - set position ( 0 &lt; p &lt; .samples ) 
-<b>.rate</b> - ( float , READ/WRITE ) - set/get playback rate ( relative to file's natural speed ) 
-<b>.interp</b> - ( int , READ/WRITE ) - set/get interpolation ( 0=drop, 1=linear, 2=sinc )
-<b>.loop</b> - ( int , READ/WRITE ) - toggle looping 
-<b>.freq</b> - ( float , READ/WRITE ) - set/get loop rate ( file loops / second ) 
-<b>.phase</b> - ( float , READ/WRITE ) - set/get phase position ( 0-1 )
-<b>.channel</b> - ( int , READ/WRITE ) - sel/get channel ( 0 &lt; p &lt; .channels )
-<b>.phaseOffset</b> - ( float , READ/WRITE ) - set/get a phase offset
-<b>.write</b> - ( string , WRITE only ) - loads a file for writing ( or not ) 
-</reference>
+  <b>.read</b> - ( string , WRITE only ) - loads file for reading
+  <b>.chunks</b> - ( int, READ/WRITE ) - size of chunk (# of frames) to read on-demand; 0 implies entire file, default; must be set before reading to take effect.
+  <b>.samples</b> - ( int , READ only ) - get number of samples
+  <b>.length</b> - ( dur, READ only ) - get length as duration
+  <b>.channels</b> - ( int , READ only ) - get number of channels
+  <b>.pos</b> - ( int , READ/WRITE ) - set position ( 0 &lt; p &lt; .samples )
+  <b>.rate</b> - ( float , READ/WRITE ) - set/get playback rate ( relative to file's natural speed )
+  <b>.interp</b> - ( int , READ/WRITE ) - set/get interpolation ( 0=drop, 1=linear, 2=sinc )
+  <b>.loop</b> - ( int , READ/WRITE ) - toggle looping
+  <b>.freq</b> - ( float , READ/WRITE ) - set/get loop rate ( file loops / second )
+  <b>.phase</b> - ( float , READ/WRITE ) - set/get phase position ( 0-1 )
+  <b>.channel</b> - ( int , READ/WRITE ) - sel/get channel ( 0 &lt; p &lt; .channels )
+  <b>.phaseOffset</b> - ( float , READ/WRITE ) - set/get a phase offset
+  <b>.write</b> - ( string , WRITE only ) - loads a file for writing ( or not )
+	</reference>
 </element>
 <!-- ugen_osc.html oscillators-->
 <element pattern="Phasor">
-<reference>
- phasor - simple ramp generator ( 0 to 1 )
+	<reference>phasor - simple ramp generator ( 0 to 1 )
  can be used as a phase control.
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - oscillator 
-frequency (Hz), phase-matched 
-<b>.sfreq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz)
-<b>.phase</b> - ( float , READ/WRITE ) - current phase
-<b>.sync</b> - ( int , READ/WRITE ) - (0) sync frequency to input, (1) sync phase to input, (2) fm synth  
-<b>.width</b> - ( float , READ/WRITE ) - set duration of the ramp in each cycle. ( default 1.0) 
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz), phase-matched
+  <b>.sfreq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz)
+  <b>.phase</b> - ( float , READ/WRITE ) - current phase
+  <b>.sync</b> - ( int , READ/WRITE ) - (0) sync frequency to input, (1) sync phase to input, (2) fm synth
+  <b>.width</b> - ( float , READ/WRITE ) - set duration of the ramp in each cycle. ( default 1.0)
+	</reference>
 </element>
 <element pattern="SinOsc">
-<reference>
- sine oscillator
+	<reference>sine oscillator
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - oscillator 
-frequency (Hz), phase-matched 
-<b>.sfreq</b> - ( float , READ/WRITE ) - oscillator 
-frequency (Hz)
-<b>.phase</b> - ( float , READ/WRITE ) - current phase
-<b>.sync</b> - ( int , READ/WRITE ) - (0) sync frequency to input, (1) sync phase to input, (2) fm synth 
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz), phase-matched
+  <b>.sfreq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz)
+  <b>.phase</b> - ( float , READ/WRITE ) - current phase
+  <b>.sync</b> - ( int , READ/WRITE ) - (0) sync frequency to input, (1) sync phase to input, (2) fm synth
+	</reference>
 </element>
 <element pattern="PulseOsc">
-<reference>
- pulse oscillators
+	<reference>pulse oscillators
  a pulse wave oscillator with variable width.
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - oscillator 
-frequency (Hz), phase-matched 
-<b>.sfreq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz)
-<b>.phase</b> - ( float , READ/WRITE ) - current phase
-<b>.sync</b> - ( int , READ/WRITE ) - (0) sync frequency to input, (1) sync phase to input, (2) fm synth 
-<b>.width</b> - ( float , READ/WRITE ) - length of duty cycle ( 0-1 ) 
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz), phase-matched
+  <b>.sfreq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz)
+  <b>.phase</b> - ( float , READ/WRITE ) - current phase
+  <b>.sync</b> - ( int , READ/WRITE ) - (0) sync frequency to input, (1) sync phase to input, (2) fm synth
+  <b>.width</b> - ( float , READ/WRITE ) - length of duty cycle ( 0-1 )
+	</reference>
 </element>
 <element pattern="SqrOsc">
-<reference>
- square wave oscillator ( pulse with fixed width of 0.5 )
+	<reference>square wave oscillator ( pulse with fixed width of 0.5 )
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz), phase-matched
-<b>.sfreq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz)
-<b>.phase</b> - ( float , READ/WRITE ) - current phase
-<b>.sync</b> - ( int , READ/WRITE ) - (0) sync frequency to input, (1) sync phase to input, (2) fm synth 
-<b>.width</b> - ( int , READ/WRITE ) - length of duty cycle ( 0 to 1 )
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz), phase-matched
+  <b>.sfreq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz)
+  <b>.phase</b> - ( float , READ/WRITE ) - current phase
+  <b>.sync</b> - ( int , READ/WRITE ) - (0) sync frequency to input, (1) sync phase to input, (2) fm synth
+  <b>.width</b> - ( int , READ/WRITE ) - length of duty cycle ( 0 to 1 )
+	</reference>
 </element>
 <element pattern="TriOsc">
-<reference>
- triangle wave oscillator
+	<reference>triangle wave oscillator
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - oscillator 
-frequency (Hz), phase-matched 
-<b>.sfreq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz)
-<b>.phase</b> - ( float , READ/WRITE ) - current phase
-<b>.sync</b> - ( int , READ/WRITE ) - (0) sync frequency to input, (1) sync phase to input, (2) fm synth 
-<b>.width</b> - ( float , READ/WRITE ) - control midpoint of triangle ( 0 to 1 ) 
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz), phase-matched
+  <b>.sfreq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz)
+  <b>.phase</b> - ( float , READ/WRITE ) - current phase
+  <b>.sync</b> - ( int , READ/WRITE ) - (0) sync frequency to input, (1) sync phase to input, (2) fm synth
+  <b>.width</b> - ( float , READ/WRITE ) - control midpoint of triangle ( 0 to 1 )
+	</reference>
 </element>
 <element pattern="SawOsc">
-<reference>
- sawtooth wave oscillator ( triangle, width forced to 0.0 or 1.0 )
+	<reference>sawtooth wave oscillator ( triangle, width forced to 0.0 or 1.0 )
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - oscillator 
-frequency (Hz), phase-matched 
-<b>.sfreq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz)
-<b>.phase</b> - ( float , READ/WRITE ) - current phase
-<b>.sync</b> - ( int , READ/WRITE ) - (0) sync frequency to input, (1) sync phase to input, (2) fm synth 
-<b>.width</b> - ( float , READ/WRITE ) - increasing ( w &gt; 0.5 ) or decreasing ( w &lt; 0.5 )
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz), phase-matched
+  <b>.sfreq</b> - ( float , READ/WRITE ) - oscillator frequency (Hz)
+  <b>.phase</b> - ( float , READ/WRITE ) - current phase
+  <b>.sync</b> - ( int , READ/WRITE ) - (0) sync frequency to input, (1) sync phase to input, (2) fm synth
+  <b>.width</b> - ( float , READ/WRITE ) - increasing ( w &gt; 0.5 ) or decreasing ( w &lt; 0.5 )
+	</reference>
 </element>
 <element pattern="GenX">
-<reference>
-base class for classic MusicN lookup table unit generators
-Ported from rtcmix.Lookup can either be done using the lookup() function, or by driving the table with an input UGen, typically a Phasor.  For an input signal between [ -1, 1 ], using the absolute value for [ -1, 0 ), GenX will output the table value indexed by the current input. 
+	<reference>base class for classic MusicN lookup table unit generators
+Ported from rtcmix.Lookup can either be done using the lookup() function, or by driving the table with an input UGen, typically a Phasor.  For an input signal between [ -1, 1 ], using the absolute value for [ -1, 0 ), GenX will output the table value indexed by the current input.
 <i>Members (control parameters):</i>
-<b>.lookup( float i )</b> - ( float , READ ONLY ) - returns lookup table value at index i [ -1, 1 ]; absolute value is used in the range [ -1, 0 )
-<b>.coefs</b> - ( float [ ] , WRITE ONLY ) - set lookup table coefficients; meaning is dependent on subclass
-</reference>
+  <b>.lookup( float i )</b> - ( float , READ ONLY ) - returns lookup table value at index i [ -1, 1 ]; absolute value is used in the range [ -1, 0 )
+  <b>.coefs</b> - ( float [ ] , WRITE ONLY ) - set lookup table coefficients; meaning is dependent on subclass
+	</reference>
 </element>
 <element pattern="Gen5">
-<reference>
-exponential line segment lookup table table generator
-Constructs a lookup table composed of sequential exponential curves.  For a table with N curves, starting value of y', and value y<sub>n</sub> for lookup index x<sub>n</sub>, set the coefficients to [ y', y<sub>0</sub>, x<sub>0</sub>, ..., y<sub>N-1</sub>, x<sub>N-1</sub> ].  Note that there must be an odd number of coefficients.  If an even number of coefficients is specified, behavior is undefined.  The sum of x<sub>n</sub> for 0 &lt; n &lt; N must be 1.  y<sub>n</sub> = 0 is approximated as 0.000001 to avoid strange results arising from the nature of exponential curves.  
-</reference>
+	<reference>exponential line segment lookup table table generator
+Constructs a lookup table composed of sequential exponential curves.  For a table with N curves, starting value of y', and value y<sub>n</sub> for lookup index x<sub>n</sub>, set the coefficients to [ y', y<sub>0</sub>, x<sub>0</sub>, ..., y<sub>N-1</sub>, x<sub>N-1</sub> ].  Note that there must be an odd number of coefficients.  If an even number of coefficients is specified, behavior is undefined.  The sum of x<sub>n</sub> for 0 &lt; n &lt; N must be 1.  y<sub>n</sub> = 0 is approximated as 0.000001 to avoid strange results arising from the nature of exponential curves.
+	</reference>
 </element>
 <element pattern="Gen7">
-<reference>
-line segment lookup table table generator
+	<reference>line segment lookup table table generator
 Constructs a lookup table composed of sequential line segments.  For a table with N lines, starting value of y', and value y<sub>n</sub> for lookup index x<sub>n</sub>, set the coefficients to [ y', y<sub>0</sub>, x<sub>0</sub>, ..., y<sub>N-1</sub>, x<sub>N-1</sub> ].  Note that there must be an odd number of coefficients.  If an even number of coefficients is specified, behavior is undefined.  The sum of x<sub>n</sub> for 0 &lt; n &lt; N must be 1.
-</reference>
+	</reference>
 </element>
-<element pattern="Gen9"> 
-<reference>
-sinusoidal lookup table with harmonic ratio, amplitude, and phase control
-
-Constructs a lookup table of partials with specified amplitudes, phases, and harmonic ratios to the fundamental.  Coefficients are specified in triplets of [ ratio, amplitude, phase ] arranged in a single linear array.  
-</reference>
+<element pattern="Gen9">
+	<reference>sinusoidal lookup table with harmonic ratio, amplitude, and phase control
+Constructs a lookup table of partials with specified amplitudes, phases, and harmonic ratios to the fundamental.  Coefficients are specified in triplets of [ ratio, amplitude, phase ] arranged in a single linear array.
+	</reference>
 </element>
-<element pattern="Gen10"> 
-<reference>
-sinusoidal lookup table with partial amplitude control
-Constructs a lookup table of harmonic partials with specified amplitudes.  The amplitude of partial n is specified by the n<sup>th</sup> element of the coefficients. For example, setting coefs to [ 1 ] will produce a sine wave. 
-</reference>
+<element pattern="Gen10">
+	<reference>sinusoidal lookup table with partial amplitude control
+Constructs a lookup table of harmonic partials with specified amplitudes.  The amplitude of partial n is specified by the n<sup>th</sup> element of the coefficients. For example, setting coefs to [ 1 ] will produce a sine wave.
+	</reference>
 </element>
 <element pattern="Gen17">
-<reference>
-chebyshev polynomial lookup table
-Constructs a Chebyshev polynomial wavetable with harmonic partials of specified weights.  The weight of partial n is specified by the n<sup>th</sup> element of the coefficients. 
-Primarily used for waveshaping, driven by a SinOsc instead of a Phasor. </reference>
+	<reference>chebyshev polynomial lookup table
+Constructs a Chebyshev polynomial wavetable with harmonic partials of specified weights.  The weight of partial n is specified by the n<sup>th</sup> element of the coefficients.
+Primarily used for waveshaping, driven by a SinOsc instead of a Phasor.	</reference>
 </element>
 <element pattern="CurveTable">
-<reference>
-flexible curve/line segment table generator
-Constructs a wavetable composed of segments of variable times, values, and curvatures. Coefficients are specified as a single linear array of triplets of [ time, value, curvature ] followed by a final duple of [ time, value ] to specify the final value of the table. time values are expressed in unitless, ascending values.  For curvature equal to 0, the segment is a line; for curvature less than 0, the segment is a convex curve; for curvature greater than 0, the segment is a concave curve. 
-</reference>
+	<reference>flexible curve/line segment table generator
+Constructs a wavetable composed of segments of variable times, values, and curvatures. Coefficients are specified as a single linear array of triplets of [ time, value, curvature ] followed by a final duple of [ time, value ] to specify the final value of the table. time values are expressed in unitless, ascending values.  For curvature equal to 0, the segment is a line; for curvature less than 0, the segment is a convex curve; for curvature greater than 0, the segment is a concave curve.
+	</reference>
 </element>
 <element pattern="WarpTable">
-<reference>end-constrained mapping table
+	<reference>end-constrained mapping table
     useful for control signal conditioning
-</reference>
+	</reference>
 </element>
 </group>
 <group name="live sampling " highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="LiSa">
-<reference>
-live sampling utility.
+	<reference>live sampling utility.
   LiSa provides basic live sampling functionality.
 An internal buffer stores samples chucked to LiSa's input.
-Segments of this buffer can be played back, with ramping and 
-speed/direction control.
-Multiple voice facility is built in, allowing for a single 
-LiSa object to serve as a source for sample layering and 
-granular textures.
+Segments of this buffer can be played back, with ramping and speed/direction control.
+Multiple voice facility is built in, allowing for a single LiSa object to serve as a source for sample layering and granular textures.
 by Dan Trueman (2007)
 <i>Members (control parameters):</i>
-  <b>.duration</b> - ( dur , READ/WRITE ) - sets buffer size; required to allocate memory, also resets all parameter values to default 
-  <b>.record</b> - ( int , READ/WRITE ) - turns recording on and off 
-  <b>.getVoice</b> - (  READ ) - returns the voice number of the next available voice 
-  <b>.maxVoices</b> - ( int , READ/WRITE ) - sets the maximum number of voices allowable; 10 by default (200 is the current hardwired internal limit) 
+  <b>.duration</b> - ( dur , READ/WRITE ) - sets buffer size; required to allocate memory, also resets all parameter values to default
+  <b>.record</b> - ( int , READ/WRITE ) - turns recording on and off
+  <b>.getVoice</b> - (  READ ) - returns the voice number of the next available voice
+  <b>.maxVoices</b> - ( int , READ/WRITE ) - sets the maximum number of voices allowable; 10 by default (200 is the current hardwired internal limit)
   <b>.play</b> - ( int, WRITE ) - turn on/off sample playback <i>(voice 0) </i>
-  <b>.play</b> - ( int voice, int, WRITE) - for particular voice (arg 1), turn on/off sample playback 
+  <b>.play</b> - ( int voice, int, WRITE) - for particular voice (arg 1), turn on/off sample playback
   <b>.rampUp</b> - ( dur, WRITE ) - turn on sample playback, with ramp <i>(voice 0) </i>
-  <b>.rampUp</b> - ( int voice dur, WRITE ) - for particular voice (arg 1), turn on sample playback, with ramp 
+  <b>.rampUp</b> - ( int voice dur, WRITE ) - for particular voice (arg 1), turn on sample playback, with ramp
   <b>.rampDown</b> - ( dur, WRITE ) - turn off sample playback, with ramp <i>(voice 0) </i>
-  <b>.rampDown</b> - ( int voice, dur, WRITE ) - for particular voice (arg 1), turn off sample playback, with ramp 
+  <b>.rampDown</b> - ( int voice, dur, WRITE ) - for particular voice (arg 1), turn off sample playback, with ramp
   <b>.rate</b> - ( float, WRITE ) - <i>set playback rate (voice 0). Note that the int/float type for this method will determine whether the rate is being set (float, for voice 0) or read (int, for voice number)</i>
   <b>.rate</b> - ( int voice, float, WRITE ) - for particular voice (arg 1),<i> set playback rate</i>
   <b>.rate</b> - ( READ ) - <i>get playback rate (voice 0) </i>
@@ -811,67 +673,62 @@ by Dan Trueman (2007)
   <b>.recRamp</b> - ( dur , READ/WRITE ) - set ramping when recording (from 0 to loopEndRec)
   <b>.loopRec</b> - ( int, READ/WRITE ) - <i>turn on/off loop recording </i>
   <b>.loopEndRec</b> - ( dur, READ/WRITE ) - <i>set end point in buffer for loop recording </i>
-  <b>.loopStart</b> - ( dur , READ/WRITE ) - set loop starting point for playback (voice 0). only applicable when 1 =&gt; loop. 
-  <b>.loopStart</b> - ( int voice, dur , WRITE ) - <i>for particular voice (arg 1), set loop starting point for playback. only applicable when .loop(voice, 1).</i> 
-  <b>.loopEnd</b> - ( dur , READ/WRITE ) - set loop ending point for playback (voice 0). only applicable when 1 =&gt; loop. 
-  <b>.loopEnd</b> - ( int voice, dur , WRITE ) - <i>for particular voice (arg 1), set loop ending point for playback. only applicable when .loop(voice, 1).</i>  
-  <b>.loop</b> - ( int , READ/WRITE ) - turn on/off looping  (voice 0) 
-  <b>.loop</b> - ( int voice, int, READ/WRITE ) - <i>for particular voice (arg 1), turn on/off looping</i> 
-  <b>.bi</b> - ( int , READ/WRITE ) - turn on/off bidirectional playback (voice 0) 
-  <b>.bi</b> - ( int voice, int , WRITE ) - <i>for particular voice (arg 1), turn on/off bidirectional playback</i> 
-  <b>.voiceGain</b> - ( float , READ/WRITE ) - set playback gain  (voice 0) 
-  <b>.voiceGain</b> - ( int voice, float , WRITE ) - <i> for particular voice (arg 1), set gain </i> 
-  <b>.feedback</b> - ( float , READ/WRITE ) - get/set feedback amount when overdubbing (loop recording; how much to retain) 
+  <b>.loopStart</b> - ( dur , READ/WRITE ) - set loop starting point for playback (voice 0). only applicable when 1 =&gt; loop.
+  <b>.loopStart</b> - ( int voice, dur , WRITE ) - <i>for particular voice (arg 1), set loop starting point for playback. only applicable when .loop(voice, 1).</i>
+  <b>.loopEnd</b> - ( dur , READ/WRITE ) - set loop ending point for playback (voice 0). only applicable when 1 =&gt; loop.
+  <b>.loopEnd</b> - ( int voice, dur , WRITE ) - <i>for particular voice (arg 1), set loop ending point for playback. only applicable when .loop(voice, 1).</i>
+  <b>.loop</b> - ( int , READ/WRITE ) - turn on/off looping  (voice 0)
+  <b>.loop</b> - ( int voice, int, READ/WRITE ) - <i>for particular voice (arg 1), turn on/off looping</i>
+  <b>.bi</b> - ( int , READ/WRITE ) - turn on/off bidirectional playback (voice 0)
+  <b>.bi</b> - ( int voice, int , WRITE ) - <i>for particular voice (arg 1), turn on/off bidirectional playback</i>
+  <b>.voiceGain</b> - ( float , READ/WRITE ) - set playback gain  (voice 0)
+  <b>.voiceGain</b> - ( int voice, float , WRITE ) - <i> for particular voice (arg 1), set gain </i>
+  <b>.feedback</b> - ( float , READ/WRITE ) - get/set feedback amount when overdubbing (loop recording; how much to retain)
   <b>.valueAt </b>- ( dur, READ ) - <i>get value directly from record buffer </i>
   <b>.valueAt </b>- ( sample, dur, WRITE ) - <i>set value directly in record buffer </i>
   <b>.sync</b> - (int, READ/WRITE) - <i>set input mode; (0) input is recorded to internal buffer, (1) input sets playback position [0,1] (phase value between loopStart and loopEnd for all active voices), (2) input sets playback position, interpreted as a time value in samples (only works with voice 0) </i>
   <b>.track</b> - (int, READ/WRITE) - <i>identical to sync </i>
   <b>.clear </b> - <i>clear recording buffer </i>
-</reference>
+	</reference>
 </element>
 <element pattern="netout">
-<reference>
- UDP-based network audio transmitter
+	<reference>UDP-based network audio transmitter
 <i>Members (control parameters):</i>
-<b>.addr</b> - ( string , READ/WRITE ) - target address
-<b>.port</b> - ( int , READ/WRITE ) - target port
-<b>.size</b> - ( int , READ/WRITE ) - packet size
-<b>.name</b> - ( string , READ/WRITE ) - name?
-</reference>
+  <b>.addr</b> - ( string , READ/WRITE ) - target address
+  <b>.port</b> - ( int , READ/WRITE ) - target port
+  <b>.size</b> - ( int , READ/WRITE ) - packet size
+  <b>.name</b> - ( string , READ/WRITE ) - name?
+	</reference>
 </element>
 <element pattern="netin">
-<reference>
- UDP-based network audio receiver
+	<reference>UDP-based network audio receiver
 <i>Members (control parameters):</i>
-<b>.port</b> - ( int , READ/WRITE ) - set port to receive
-<b>.name</b> - ( string , READ/WRITE ) - name?
-</reference>
+  <b>.port</b> - ( int , READ/WRITE ) - set port to receive
+  <b>.name</b> - ( string , READ/WRITE ) - name?
+	</reference>
 </element>
 <element pattern="Pan2">
-<reference>
- spread mono signal to stereo 
+	<reference>spread mono signal to stereo
 <i>Members (control parameters):</i>
-<b>.left</b> - ( UGen ) - left (mono) channel out
-<b>.right</b> - ( UGen ) - right (mono) channel out 
-<b>.pan</b> - ( float , READ/WRITE ) - pan location value ( -1 to 1 )
-</reference>
+  <b>.left</b> - ( UGen ) - left (mono) channel out
+  <b>.right</b> - ( UGen ) - right (mono) channel out
+  <b>.pan</b> - ( float , READ/WRITE ) - pan location value ( -1 to 1 )
+	</reference>
 </element>
 <element pattern="Mix2">
-<reference>
- mix stereo input down to mono channel
+	<reference>mix stereo input down to mono channel
 <i>Members (control parameters):</i>
-<b>.left</b> - ( UGen ) - left (mono) channel in
-<b>.right</b> - ( UGen ) - right (mono) channel in
-<b>.pan</b> - ( float , READ/WRITE ) - mix parameter value ( 0 to 1 )
-</reference>
+  <b>.left</b> - ( UGen ) - left (mono) channel in
+  <b>.right</b> - ( UGen ) - right (mono) channel in
+  <b>.pan</b> - ( float , READ/WRITE ) - mix parameter value ( 0 to 1 )
+	</reference>
 </element>
 </group>
 <!-- ulib_stk.html STK-->
 <group name="stk - instruments" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="StkInstrument">
-<reference>
- Super-class for STK instruments.
+	<reference>Super-class for STK instruments.
     The following UGens subclass StkInstrument:
        - BandedWG
        - BlowBotl
@@ -880,8 +737,7 @@ by Dan Trueman (2007)
        - Brass
        - Clarinet
        - Flute
-       - FM (and all its subclasses: BeeThree, FMVoices,
-             HevyMetl, PercFlut, Rhodey, TubeBell, Wurley)
+       - FM (and all its subclasses: BeeThree, FMVoices, HevyMetl, PercFlut, Rhodey, TubeBell, Wurley)
        - Mandolin
        - ModalBar
        - Moog
@@ -891,23 +747,16 @@ by Dan Trueman (2007)
        - StifKarp
        - VoicForm
 <i>Members (control parameters):</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change - numbers are instrument specific, value range: [0.0 - 128.0] 
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change - numbers are instrument specific, value range: [0.0 - 128.0]
+	</reference>
 </element>
 <element pattern="BandedWG">
-<reference>
- Banded waveguide modeling class.
-    This class uses banded waveguide techniques to
-    model a variety of sounds, including bowed
-    bars, glasses, and bowls.  For more
-    information, see Essl, G. and Cook, P. "Banded
-    Waveguides: Towards Physical Modelling of Bar
-    Percussion Instruments", Proceedings of the
-    1999 International Computer Music Conference.
-    Control Change Numbers: 
+	<reference>Banded waveguide modeling class.
+    This class uses banded waveguide techniques to model a variety of sounds, including bowed bars, glasses, and bowls.
+    Control Change Numbers:
        - Bow Pressure = 2
        - Bow Motion = 4
        - Strike Position = 8 (not implemented)
@@ -920,74 +769,55 @@ by Dan Trueman (2007)
          - Tuned Bar = 1
          - Glass Harmonica = 2
          - Tibetan Bowl = 3
-    by Georg Essl, 1999 - 2002.
-    Modified for Stk 4.0 by Gary Scavone.
+    by Georg Essl, 1999 - 2002. Modified for Stk 4.0 by Gary Scavone.
 <i>Members (control parameters):</i>
-<b>.bowPressure</b> - ( float , READ/WRITE ) - bow pressure [0.0 - 1.0]
-<b>.bowMotion</b> - ( float , READ/WRITE ) - bow motion [0.0 - 1.0]
-<b>.bowRate</b> - ( float , READ/WRITE ) - bow attack rate (sec)
-<b>.strikePosition</b> - ( float , READ/WRITE ) - strike Position [0.0 - 1.0]
-<b>.integrationConstant</b> - ( float , READ/WRITE ) - ?? [0.0 - 1.0]
-<b>.modesGain</b> - ( float , READ/WRITE ) - amplitude for modes [0.0 - 1.0]
-<b>.preset</b> - ( int , READ/WRITE ) - instrument presets (0 - 3, see above)
-<b>.pluck</b> - ( float , WRITE only ) - pluck instrument [0.0 - 1.0]
-<b>.startBowing</b> - ( float , WRITE only ) - start bowing [0.0 - 1.0]
-<b>.stopBowing</b> - ( float , WRITE only ) - stop bowing [0.0 - 1.0]
+  <b>.bowPressure</b> - ( float , READ/WRITE ) - bow pressure [0.0 - 1.0]
+  <b>.bowMotion</b> - ( float , READ/WRITE ) - bow motion [0.0 - 1.0]
+  <b>.bowRate</b> - ( float , READ/WRITE ) - bow attack rate (sec)
+  <b>.strikePosition</b> - ( float , READ/WRITE ) - strike Position [0.0 - 1.0]
+  <b>.integrationConstant</b> - ( float , READ/WRITE ) - ?? [0.0 - 1.0]
+  <b>.modesGain</b> - ( float , READ/WRITE ) - amplitude for modes [0.0 - 1.0]
+  <b>.preset</b> - ( int , READ/WRITE ) - instrument presets (0 - 3, see above)
+  <b>.pluck</b> - ( float , WRITE only ) - pluck instrument [0.0 - 1.0]
+  <b>.startBowing</b> - ( float , WRITE only ) - start bowing [0.0 - 1.0]
+  <b>.stopBowing</b> - ( float , WRITE only ) - stop bowing [0.0 - 1.0]
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="BlowBotl">
-<reference>
- STK blown bottle instrument class.
-    This class implements a helmholtz resonator
-    (biquad filter) with a polynomial jet
-    excitation (a la Cook).
-    Control Change Numbers: 
+	<reference>STK blown bottle instrument class.
+    This class implements a helmholtz resonator (biquad filter) with a polynomial jet excitation (a la Cook).
+    Control Change Numbers:
        - Noise Gain = 4
        - Vibrato Frequency = 11
        - Vibrato Gain = 1
        - Volume = 128
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.noiseGain</b> - ( float , READ/WRITE ) - noise component gain [0.0 - 1.0]
-<b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
-<b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
-<b>.volume</b> - ( float , READ/WRITE ) - yet another volume knob [0.0 - 1.0]
-<b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
-<b>.startBlowing</b> - ( float , WRITE only ) - start blowing [0.0 - 1.0]
-<b>.stopBlowing</b> - ( float , WRITE only ) - stop blowing [0.0 - 1.0]
+  <b>.noiseGain</b> - ( float , READ/WRITE ) - noise component gain [0.0 - 1.0]
+  <b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
+  <b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
+  <b>.volume</b> - ( float , READ/WRITE ) - yet another volume knob [0.0 - 1.0]
+  <b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
+  <b>.startBlowing</b> - ( float , WRITE only ) - start blowing [0.0 - 1.0]
+  <b>.stopBlowing</b> - ( float , WRITE only ) - stop blowing [0.0 - 1.0]
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="BlowHole">
-<reference>
- STK clarinet physical model with one
-           register hole and one tonehole.
-    This class is based on the clarinet model,
-    with the addition of a two-port register hole
-    and a three-port dynamic tonehole
-    implementation, as discussed by Scavone and
-    Cook (1998).
-    In this implementation, the distances between
-    the reed/register hole and tonehole/bell are
-    fixed.  As a result, both the tonehole and
-    register hole will have variable influence on
-    the playing frequency, which is dependent on
-    the length of the air column.  In addition,
-    the highest playing freqeuency is limited by
-    these fixed lengths.
-    This is a digital waveguide model, making its
-    use possibly subject to patents held by Stanford
-    University, Yamaha, and others.
-    Control Change Numbers: 
+	<reference>STK clarinet physical model with one register hole and one tonehole.
+    This class is based on the clarinet model, with the addition of a two-port register hole and a three-port dynamic tonehole implementation, as discussed by Scavone and Cook (1998).
+    In this implementation, the distances between the reed/register hole and tonehole/bell are fixed.  As a result, both the tonehole and register hole will have variable influence on the playing frequency, which is dependent on the length of the air column.  In addition, the highest playing freqeuency is limited by these fixed lengths.
+    This is a digital waveguide model, making its use possibly subject to patents held by Stanford University, Yamaha, and others.
+    Control Change Numbers:
        - Reed Stiffness = 2
        - Noise Gain = 4
        - Tonehole State = 11
@@ -995,31 +825,26 @@ by Dan Trueman (2007)
        - Breath Pressure = 128
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.reed</b> - ( float , READ/WRITE ) - reed stiffness [0.0 - 1.0]
-<b>.noiseGain</b> - ( float , READ/WRITE ) - noise component gain  [0.0 - 1.0]
-<b>.tonehole</b> - ( float , READ/WRITE ) - tonehole size  [0.0 - 1.0]
-<b>.vent</b> - ( float , READ/WRITE ) - vent frequency [0.0 - 1.0]
-<b>.pressure</b> - ( float , READ/WRITE ) - pressure  [0.0 - 1.0]
-<b>.startBlowing</b> - ( float , WRITE only ) - start blowing  [0.0 - 1.0]
-<b>.stopBlowing</b> - ( float , WRITE only ) - stop blowing  [0.0 - 1.0]
-<b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
+  <b>.reed</b> - ( float , READ/WRITE ) - reed stiffness [0.0 - 1.0]
+  <b>.noiseGain</b> - ( float , READ/WRITE ) - noise component gain  [0.0 - 1.0]
+  <b>.tonehole</b> - ( float , READ/WRITE ) - tonehole size  [0.0 - 1.0]
+  <b>.vent</b> - ( float , READ/WRITE ) - vent frequency [0.0 - 1.0]
+  <b>.pressure</b> - ( float , READ/WRITE ) - pressure  [0.0 - 1.0]
+  <b>.startBlowing</b> - ( float , WRITE only ) - start blowing  [0.0 - 1.0]
+  <b>.stopBlowing</b> - ( float , WRITE only ) - stop blowing  [0.0 - 1.0]
+  <b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="Bowed">
-<reference>
- STK bowed string instrument class.
-    This class implements a bowed string model, a
-    la Smith (1986), after McIntyre, Schumacher,
-    Woodhouse (1983).
-    This is a digital waveguide model, making its
-    use possibly subject to patents held by
-    Stanford University, Yamaha, and others.
-    Control Change Numbers: 
+	<reference>STK bowed string instrument class.
+    This class implements a bowed string model, a la Smith (1986), after McIntyre, Schumacher, Woodhouse (1983).
+    This is a digital waveguide model, making its use possibly subject to patents held by Stanford University, Yamaha, and others.
+    Control Change Numbers:
        - Bow Pressure = 2
        - Bow Position = 4
        - Vibrato Frequency = 11
@@ -1027,30 +852,26 @@ by Dan Trueman (2007)
        - Volume = 128
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.bowPressure</b> - ( float , READ/WRITE ) - bow pressure [0.0 - 1.0]
-<b>.bowPosition</b> - ( float , READ/WRITE ) - bow position [0.0 - 1.0]
-<b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
-<b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
-<b>.volume</b> - ( float , READ/WRITE ) - volume [0.0 - 1.0]
-<b>.startBowing</b> - ( float , WRITE only ) - start bowing [0.0 - 1.0]
-<b>.stopBowing</b> - ( float , WRITE only ) - stop bowing [0.0 - 1.0]
-<b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
+  <b>.bowPressure</b> - ( float , READ/WRITE ) - bow pressure [0.0 - 1.0]
+  <b>.bowPosition</b> - ( float , READ/WRITE ) - bow position [0.0 - 1.0]
+  <b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
+  <b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
+  <b>.volume</b> - ( float , READ/WRITE ) - volume [0.0 - 1.0]
+  <b>.startBowing</b> - ( float , WRITE only ) - start bowing [0.0 - 1.0]
+  <b>.stopBowing</b> - ( float , WRITE only ) - stop bowing [0.0 - 1.0]
+  <b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="Brass">
-<reference>
- STK simple brass instrument class.
-    This class implements a simple brass instrument
-    waveguide model, a la Cook (TBone, HosePlayer).
-    This is a digital waveguide model, making its
-    use possibly subject to patents held by
-    Stanford University, Yamaha, and others.
-    Control Change Numbers: 
+	<reference>STK simple brass instrument class.
+    This class implements a simple brass instrument waveguide model, a la Cook (TBone, HosePlayer).
+    This is a digital waveguide model, making its use possibly subject to patents held by Stanford University, Yamaha, and others.
+    Control Change Numbers:
        - Lip Tension = 2
        - Slide Length = 4
        - Vibrato Frequency = 11
@@ -1058,33 +879,27 @@ by Dan Trueman (2007)
        - Volume = 128
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.lip</b> - ( float , READ/WRITE ) - lip tension [0.0 - 1.0]
-<b>.slide</b> - ( float , READ/WRITE ) - slide length [0.0 - 1.0]
-<b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
-<b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
-<b>.volume</b> - ( float , READ/WRITE ) - volume [0.0 - 1.0]
-<b>.clear</b> - ( float , WRITE only ) - clear instrument
-<b>.startBlowing</b> - ( float , WRITE only ) - start blowing [0.0 - 1.0]
-<b>.stopBlowing</b> - ( float , WRITE only ) - stop blowing [0.0 - 1.0]
-<b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
+  <b>.lip</b> - ( float , READ/WRITE ) - lip tension [0.0 - 1.0]
+  <b>.slide</b> - ( float , READ/WRITE ) - slide length [0.0 - 1.0]
+  <b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
+  <b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
+  <b>.volume</b> - ( float , READ/WRITE ) - volume [0.0 - 1.0]
+  <b>.clear</b> - ( float , WRITE only ) - clear instrument
+  <b>.startBlowing</b> - ( float , WRITE only ) - start blowing [0.0 - 1.0]
+  <b>.stopBlowing</b> - ( float , WRITE only ) - stop blowing [0.0 - 1.0]
+  <b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="Clarinet">
-<reference>
- STK clarinet physical model class.
-    This class implements a simple clarinet
-    physical model, as discussed by Smith (1986),
-    McIntyre, Schumacher, Woodhouse (1983), and
-    others.
-    This is a digital waveguide model, making its
-    use possibly subject to patents held by Stanford
-    University, Yamaha, and others.
-    Control Change Numbers: 
+	<reference>STK clarinet physical model class.
+    This class implements a simple clarinet physical model, as discussed by Smith (1986), McIntyre, Schumacher, Woodhouse (1983), and others.
+    This is a digital waveguide model, making its use possibly subject to patents held by Stanford University, Yamaha, and others.
+    Control Change Numbers:
        - Reed Stiffness = 2
        - Noise Gain = 4
        - Vibrato Frequency = 11
@@ -1092,33 +907,27 @@ by Dan Trueman (2007)
        - Breath Pressure = 128
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.reed</b> - ( float , READ/WRITE ) - reed stiffness [0.0 - 1.0]
-<b>.noiseGain</b> - ( float , READ/WRITE ) - noise component gain [0.0 - 1.0]
-<b>.clear</b> - ( ) - clear instrument
-<b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
-<b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
-<b>.pressure</b> - ( float , READ/WRITE ) - pressure/volume [0.0 - 1.0]
-<b>.startBlowing</b> - ( float , WRITE only ) - start blowing [0.0 - 1.0]
-<b>.stopBlowing</b> - ( float , WRITE only ) - stop blowing [0.0 - 1.0]
-<b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
+  <b>.reed</b> - ( float , READ/WRITE ) - reed stiffness [0.0 - 1.0]
+  <b>.noiseGain</b> - ( float , READ/WRITE ) - noise component gain [0.0 - 1.0]
+  <b>.clear</b> - ( ) - clear instrument
+  <b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
+  <b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
+  <b>.pressure</b> - ( float , READ/WRITE ) - pressure/volume [0.0 - 1.0]
+  <b>.startBlowing</b> - ( float , WRITE only ) - start blowing [0.0 - 1.0]
+  <b>.stopBlowing</b> - ( float , WRITE only ) - stop blowing [0.0 - 1.0]
+  <b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="Flute">
-<reference>
- STK flute physical model class.
-    This class implements a simple flute
-    physical model, as discussed by Karjalainen,
-    Smith, Waryznyk, etc.  The jet model uses
-    a polynomial, a la Cook.
-    This is a digital waveguide model, making its
-    use possibly subject to patents held by Stanford
-    University, Yamaha, and others.
-    Control Change Numbers: 
+	<reference>STK flute physical model class.
+    This class implements a simple flute physical model, as discussed by Karjalainen, Smith, Waryznyk, etc.  The jet model uses a polynomial, a la Cook.
+    This is a digital waveguide model, making its use possibly subject to patents held by Stanford University, Yamaha, and others.
+    Control Change Numbers:
        - Jet Delay = 2
        - Noise Gain = 4
        - Vibrato Frequency = 11
@@ -1126,40 +935,29 @@ by Dan Trueman (2007)
        - Breath Pressure = 128
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.jetDelay</b> - ( float , READ/WRITE ) - jet delay [...]
-<b>.jetReflection</b> - ( float , READ/WRITE ) - jet reflection [...]
-<b>.endReflection</b> - ( float , READ/WRITE ) - end delay [...]
-<b>.noiseGain</b> - ( float , READ/WRITE ) - noise component gain [0.0 - 1.0]
-<b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
-<b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
-<b>.pressure</b> - ( float , READ/WRITE ) - pressure/volume [0.0 - 1.0]
-<b>.clear</b> - ( ) - clear instrument
-<b>.startBlowing</b> - ( float , WRITE only ) - start blowing [0.0 - 1.0]
-<b>.stopBlowing</b> - ( float , WRITE only ) - stop blowing [0.0 - 1.0]
-<b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
+  <b>.jetDelay</b> - ( float , READ/WRITE ) - jet delay [...]
+  <b>.jetReflection</b> - ( float , READ/WRITE ) - jet reflection [...]
+  <b>.endReflection</b> - ( float , READ/WRITE ) - end delay [...]
+  <b>.noiseGain</b> - ( float , READ/WRITE ) - noise component gain [0.0 - 1.0]
+  <b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
+  <b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
+  <b>.pressure</b> - ( float , READ/WRITE ) - pressure/volume [0.0 - 1.0]
+  <b>.clear</b> - ( ) - clear instrument
+  <b>.startBlowing</b> - ( float , WRITE only ) - start blowing [0.0 - 1.0]
+  <b>.stopBlowing</b> - ( float , WRITE only ) - stop blowing [0.0 - 1.0]
+  <b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="Mandolin">
-<reference>
- STK mandolin instrument model class.
-    This class inherits from PluckTwo and uses
-    "commuted synthesis" techniques to model a
-    mandolin instrument.
-    This is a digital waveguide model, making its
-    use possibly subject to patents held by
-    Stanford University, Yamaha, and others.
-    Commuted Synthesis, in particular, is covered
-    by patents, granted, pending, and/or
-    applied-for.  All are assigned to the Board of
-    Trustees, Stanford University.  For
-    information, contact the Office of Technology
-    Licensing, Stanford University.
-    Control Change Numbers: 
+	<reference>STK mandolin instrument model class.
+    This class inherits from PluckTwo and uses "commuted synthesis" techniques to model a mandolin instrument.
+    This is a digital waveguide model, making its use possibly subject to patents held by Stanford University, Yamaha, and others. Commuted Synthesis, in particular, is covered by patents, granted, pending, and/or applied-for.  All are assigned to the Board of Trustees, Stanford University.  For information, contact the Office of Technology Licensing, Stanford University.
+    Control Change Numbers:
        - Body Size = 2
        - Pluck Position = 4
        - String Sustain = 11
@@ -1167,26 +965,23 @@ by Dan Trueman (2007)
        - Microphone Position = 128
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.bodySize</b> - ( float , READ/WRITE ) - body size (percentage)
-<b>.pluckPos</b> - ( float , READ/WRITE ) - pluck position [0.0 - 1.0]
-<b>.stringDamping</b> - ( float , READ/WRITE ) - string damping [0.0 - 1.0]
-<b>.stringDetune</b> - ( float , READ/WRITE ) - detuning of string pair [0.0 - 1.0]
-<b>.afterTouch</b> - ( float , WRITE only ) - aftertouch (currently unsupported)
-<b>.pluck</b> - ( float , WRITE only ) - pluck instrument [0.0 - 1.0]
+  <b>.bodySize</b> - ( float , READ/WRITE ) - body size (percentage)
+  <b>.pluckPos</b> - ( float , READ/WRITE ) - pluck position [0.0 - 1.0]
+  <b>.stringDamping</b> - ( float , READ/WRITE ) - string damping [0.0 - 1.0]
+  <b>.stringDetune</b> - ( float , READ/WRITE ) - detuning of string pair [0.0 - 1.0]
+  <b>.afterTouch</b> - ( float , WRITE only ) - aftertouch (currently unsupported)
+  <b>.pluck</b> - ( float , WRITE only ) - pluck instrument [0.0 - 1.0]
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="ModalBar">
-<reference>
- STK resonant bar instrument class.
-    This class implements a number of different
-    struck bar instruments.  It inherits from the
-    Modal class.
-    Control Change Numbers: 
+	<reference>STK resonant bar instrument class.
+    This class implements a number of different struck bar instruments.  It inherits from the Modal class.
+    Control Change Numbers:
        - Stick Hardness = 2
        - Stick Position = 4
        - Vibrato Gain = 11
@@ -1205,36 +1000,32 @@ by Dan Trueman (2007)
          - Clump = 8
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.stickHardness</b> - ( float , READ/WRITE ) - stick hardness [0.0 - 1.0]
-<b>.strikePosition</b> - ( float , READ/WRITE ) - strike position [0.0 - 1.0]
-<b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
-<b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
-<b>.directGain</b> - ( float , READ/WRITE ) - direct gain [0.0 - 1.0]
-<b>.masterGain</b> - ( float , READ/WRITE ) - master gain [0.0 - 1.0]
-<b>.volume</b> - ( float , READ/WRITE ) - volume [0.0 - 1.0]
-<b>.preset</b> - ( int , READ/WRITE ) - choose preset (see above)
-<b>.strike</b> - ( float , WRITE only ) - strike bar [0.0 - 1.0]
-<b>.damp</b> - ( float , WRITE only ) - damp bar [0.0 - 1.0]
-<b>.clear</b> - ( ) - reset [none]
-<b>.mode</b> - ( int , READ/WRITE ) - select mode [0.0 - 1.0]
-<b>.modeRatio</b> - ( float , READ/WRITE ) - edit selected mode ratio [...]
-<b>.modeRadius</b> - ( float , READ/WRITE ) - edit selected mode radius [0.0 - 1.0]
-<b>.modeGain</b> - ( float , READ/WRITE ) - edit selected mode gain [0.0 - 1.0]
+  <b>.stickHardness</b> - ( float , READ/WRITE ) - stick hardness [0.0 - 1.0]
+  <b>.strikePosition</b> - ( float , READ/WRITE ) - strike position [0.0 - 1.0]
+  <b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
+  <b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
+  <b>.directGain</b> - ( float , READ/WRITE ) - direct gain [0.0 - 1.0]
+  <b>.masterGain</b> - ( float , READ/WRITE ) - master gain [0.0 - 1.0]
+  <b>.volume</b> - ( float , READ/WRITE ) - volume [0.0 - 1.0]
+  <b>.preset</b> - ( int , READ/WRITE ) - choose preset (see above)
+  <b>.strike</b> - ( float , WRITE only ) - strike bar [0.0 - 1.0]
+  <b>.damp</b> - ( float , WRITE only ) - damp bar [0.0 - 1.0]
+  <b>.clear</b> - ( ) - reset [none]
+  <b>.mode</b> - ( int , READ/WRITE ) - select mode [0.0 - 1.0]
+  <b>.modeRatio</b> - ( float , READ/WRITE ) - edit selected mode ratio [...]
+  <b>.modeRadius</b> - ( float , READ/WRITE ) - edit selected mode radius [0.0 - 1.0]
+  <b>.modeGain</b> - ( float , READ/WRITE ) - edit selected mode gain [0.0 - 1.0]
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="Moog">
-<reference>
- STK moog-like swept filter sampling synthesis class.
-    This instrument uses one attack wave, one
-    looped wave, and an ADSR envelope (inherited
-    from the Sampler class) and adds two sweepable
-    formant (FormSwep) filters.
-    Control Change Numbers: 
+	<reference>STK moog-like swept filter sampling synthesis class.
+    This instrument uses one attack wave, one looped wave, and an ADSR envelope (inherited from the Sampler class) and adds two sweepable formant (FormSwep) filters.
+    Control Change Numbers:
        - Filter Q = 2
        - Filter Sweep Rate = 4
        - Vibrato Frequency = 11
@@ -1242,40 +1033,23 @@ by Dan Trueman (2007)
        - Gain = 128
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.filterQ</b> - ( float , READ/WRITE ) - filter Q value [0.0 - 1.0]
-<b>.filterSweepRate</b> - ( float , READ/WRITE ) - filter sweep rate [0.0 - 1.0]
-<b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
-<b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
-<b>.afterTouch</b> - ( float , WRITE only ) - aftertouch [0.0 - 1.0]
+  <b>.filterQ</b> - ( float , READ/WRITE ) - filter Q value [0.0 - 1.0]
+  <b>.filterSweepRate</b> - ( float , READ/WRITE ) - filter sweep rate [0.0 - 1.0]
+  <b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
+  <b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
+  <b>.afterTouch</b> - ( float , WRITE only ) - aftertouch [0.0 - 1.0]
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="Saxofony">
-<reference>
- STK faux conical bore reed instrument class.
-    This class implements a "hybrid" digital
-    waveguide instrument that can generate a
-    variety of wind-like sounds.  It has also been
-    referred to as the "blowed string" model.  The
-    waveguide section is essentially that of a
-    string, with one rigid and one lossy
-    termination.  The non-linear function is a
-    reed table.  The string can be "blown" at any
-    point between the terminations, though just as
-    with strings, it is impossible to excite the
-    system at either end.  If the excitation is
-    placed at the string mid-point, the sound is
-    that of a clarinet.  At points closer to the
-    "bridge", the sound is closer to that of a
-    saxophone.  See Scavone (2002) for more details.
-    This is a digital waveguide model, making its
-    use possibly subject to patents held by Stanford
-    University, Yamaha, and others.
-    Control Change Numbers: 
+	<reference>STK faux conical bore reed instrument class.
+    This class implements a "hybrid" digital waveguide instrument that can generate a variety of wind-like sounds.  It has also been referred to as the "blowed string" model.  The waveguide section is essentially that of a string, with one rigid and one lossy termination.  The non-linear function is a reed table.  The string can be "blown" at any point between the terminations, though just as with strings, it is impossible to excite the system at either end.  If the excitation is placed at the string mid-point, the sound is that of a clarinet.  At points closer to the "bridge", the sound is closer to that of a saxophone.  See Scavone (2002) for more details.
+    This is a digital waveguide model, making its use possibly subject to patents held by Stanford University, Yamaha, and others.
+    Control Change Numbers:
        - Reed Stiffness = 2
        - Reed Aperture = 26
        - Noise Gain = 4
@@ -1285,41 +1059,28 @@ by Dan Trueman (2007)
        - Breath Pressure = 128
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.stiffness</b> - ( float , READ/WRITE ) - reed stiffness [0.0 - 1.0]
-<b>.aperture</b> - ( float , READ/WRITE ) - reed aperture [0.0 - 1.0]
-<b>.pressure</b> - ( float , READ/WRITE ) - pressure/volume [0.0 - 1.0]
-<b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
-<b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
-<b>.noiseGain</b> - ( float , READ/WRITE ) - noise component gain [0.0 - 1.0]
-<b>.blowPosition</b> - ( float , READ/WRITE ) - lip stiffness [0.0 - 1.0]
-<b>.clear</b> - ( ) - clear instrument
-<b>.startBlowing</b> - ( float , WRITE only ) - start blowing [0.0 - 1.0]
-<b>.stopBlowing</b> - ( float , WRITE only ) - stop blowing [0.0 - 1.0]
-<b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
+  <b>.stiffness</b> - ( float , READ/WRITE ) - reed stiffness [0.0 - 1.0]
+  <b>.aperture</b> - ( float , READ/WRITE ) - reed aperture [0.0 - 1.0]
+  <b>.pressure</b> - ( float , READ/WRITE ) - pressure/volume [0.0 - 1.0]
+  <b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
+  <b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
+  <b>.noiseGain</b> - ( float , READ/WRITE ) - noise component gain [0.0 - 1.0]
+  <b>.blowPosition</b> - ( float , READ/WRITE ) - lip stiffness [0.0 - 1.0]
+  <b>.clear</b> - ( ) - clear instrument
+  <b>.startBlowing</b> - ( float , WRITE only ) - start blowing [0.0 - 1.0]
+  <b>.stopBlowing</b> - ( float , WRITE only ) - stop blowing [0.0 - 1.0]
+  <b>.rate</b> - ( float , READ/WRITE ) - rate of attack (sec)
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="Shakers">
-<reference>
- PhISEM and PhOLIES class.
-    PhISEM (Physically Informed Stochastic Event
-    Modeling) is an algorithmic approach for
-    simulating collisions of multiple independent
-    sound producing objects.  This class is a
-    meta-model that can simulate a Maraca, Sekere,
-    Cabasa, Bamboo Wind Chimes, Water Drops,
-    Tambourine, Sleighbells, and a Guiro.
-    PhOLIES (Physically-Oriented Library of
-    Imitated Environmental Sounds) is a similar
-    approach for the synthesis of environmental
-    sounds.  This class implements simulations of
-    breaking sticks, crunchy snow (or not), a
-    wrench, sandpaper, and more.
-    Control Change Numbers: 
+	<reference>PhISEM and PhOLIES class.
+    PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.  This class is a meta-model that can simulate a Maraca, Sekere, Cabasa, Bamboo Wind Chimes, Water Drops, Tambourine, Sleighbells, and a Guiro. PhOLIES (Physically-Oriented Library of Imitated Environmental Sounds) is a similar approach for the synthesis of environmental sounds.  This class implements simulations of breaking sticks, crunchy snow (or not), a wrench, sandpaper, and more.
+    Control Change Numbers:
        - Shake Energy = 2
        - System Decay = 4
        - Number Of Objects = 11
@@ -1351,84 +1112,61 @@ by Dan Trueman (2007)
         - Tuned Bamboo Chimes = 22
     by Perry R. Cook, 1996 - 1999.
 <i>Members (control parameters):</i>
-<b>.preset</b> - ( int , READ/WRITE ) - select instrument (0 - 22; see above)
-<b>.energy</b> - ( float , READ/WRITE ) - shake energy [0.0 - 1.0]
-<b>.decay</b> - ( float , READ/WRITE ) - system decay [0.0 - 1.0]
-<b>.objects</b> - ( float , READ/WRITE ) - number of objects [0.0 - 128.0]
+  <b>.preset</b> - ( int , READ/WRITE ) - select instrument (0 - 22; see above)
+  <b>.energy</b> - ( float , READ/WRITE ) - shake energy [0.0 - 1.0]
+  <b>.decay</b> - ( float , READ/WRITE ) - system decay [0.0 - 1.0]
+  <b>.objects</b> - ( float , READ/WRITE ) - number of objects [0.0 - 128.0]
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="Sitar">
-<reference>
- STK sitar string model class.
-    This class implements a sitar plucked string
-    physical model based on the Karplus-Strong
-    algorithm.
-    This is a digital waveguide model, making its
-    use possibly subject to patents held by
-    Stanford University, Yamaha, and others.
-    There exist at least two patents, assigned to
-    Stanford, bearing the names of Karplus and/or
-    Strong.
+	<reference>STK sitar string model class.
+    This class implements a sitar plucked string physical model based on the Karplus-Strong algorithm.
+    This is a digital waveguide model, making its use possibly subject to patents held by Stanford University, Yamaha, and others. There exist at least two patents, assigned to Stanford, bearing the names of Karplus and/or Strong.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.pluck</b> - ( float , WRITE only ) - pluck string [0.0 - 1.0]
-<b>.clear</b> - ( ) - reset
+  <b>.pluck</b> - ( float , WRITE only ) - pluck string [0.0 - 1.0]
+  <b>.clear</b> - ( ) - reset
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="StifKarp">
-<reference>
- STK plucked stiff string instrument.
-    This class implements a simple plucked string
-    algorithm (Karplus Strong) with enhancements
-    (Jaffe-Smith, Smith, and others), including
-    string stiffness and pluck position controls.
+	<reference>STK plucked stiff string instrument.
+    This class implements a simple plucked string algorithm (Karplus Strong) with enhancements (Jaffe-Smith, Smith, and others), including string stiffness and pluck position controls.
     The stiffness is modeled with allpass filters.
-    This is a digital waveguide model, making its
-    use possibly subject to patents held by
-    Stanford University, Yamaha, and others.
+    This is a digital waveguide model, making its use possibly subject to patents held by Stanford University, Yamaha, and others.
     Control Change Numbers:
        - Pickup Position = 4
        - String Sustain = 11
        - String Stretch = 1
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.pickupPosition</b> - ( float , READ/WRITE ) - pickup position [0.0 - 1.0]
-<b>.sustain</b> - ( float , READ/WRITE ) - string sustain [0.0 - 1.0]
-<b>.stretch</b> - ( float , READ/WRITE ) - string stretch [0.0 - 1.0]
-<b>.pluck</b> - ( float , WRITE only ) - pluck string [0.0 - 1.0]
-<b>.baseLoopGain</b> - ( float , READ/WRITE ) - ?? [0.0 - 1.0]
-<b>.clear</b> - ( ) - reset instrument
+  <b>.pickupPosition</b> - ( float , READ/WRITE ) - pickup position [0.0 - 1.0]
+  <b>.sustain</b> - ( float , READ/WRITE ) - string sustain [0.0 - 1.0]
+  <b>.stretch</b> - ( float , READ/WRITE ) - string stretch [0.0 - 1.0]
+  <b>.pluck</b> - ( float , WRITE only ) - pluck string [0.0 - 1.0]
+  <b>.baseLoopGain</b> - ( float , READ/WRITE ) - ?? [0.0 - 1.0]
+  <b>.clear</b> - ( ) - reset instrument
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="VoicForm">
-<reference>
- Four formant synthesis instrument.
-    This instrument contains an excitation singing
-    wavetable (looping wave with random and
-    periodic vibrato, smoothing on frequency,
-    etc.), excitation noise, and four sweepable
-    complex resonances.
-    Measured formant data is included, and enough
-    data is there to support either parallel or
-    cascade synthesis.  In the floating point case
-    cascade synthesis is the most natural so
-    that's what you'll find here.
-    Control Change Numbers: 
+	<reference>Four formant synthesis instrument.
+    This instrument contains an excitation singing wavetable (looping wave with random and periodic vibrato, smoothing on frequency, etc.), excitation noise, and four sweepable complex resonances.
+    Measured formant data is included, and enough data is there to support either parallel or cascade synthesis.  In the floating point case cascade synthesis is the most natural so that's what you'll find here.
+    Control Change Numbers:
        - Voiced/Unvoiced Mix = 2
        - Vowel/Phoneme Selection = 4
        - Vibrato Frequency = 11
@@ -1436,72 +1174,60 @@ by Dan Trueman (2007)
        - Loudness (Spectral Tilt) = 128
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
     Phoneme Names:
-    "eee"  "ihh"  "ehh"  "aaa" 
-    "ahh"  "aww"  "ohh"  "uhh" 
-    "uuu"  "ooo"  "rrr"  "lll" 
-    "mmm"  "nnn"  "nng"  "ngg" 
-    "fff"  "sss"  "thh"  "shh" 
-    "xxx"  "hee"  "hoo"  "hah" 
-    "bbb"  "ddd"  "jjj"  "ggg" 
+    "eee"  "ihh"  "ehh"  "aaa"
+    "ahh"  "aww"  "ohh"  "uhh"
+    "uuu"  "ooo"  "rrr"  "lll"
+    "mmm"  "nnn"  "nng"  "ngg"
+    "fff"  "sss"  "thh"  "shh"
+    "xxx"  "hee"  "hoo"  "hah"
+    "bbb"  "ddd"  "jjj"  "ggg"
     "vvv"  "zzz"  "thz"  "zhh"
-    
 <i>Members (control parameters):</i>
-<b>.phoneme</b> - ( string , READ/WRITE ) - select phoneme ( see above )
-<b>.phonemeNum</b> - ( int , READ/WRITE ) - select phoneme by number [0.0 - 128.0]
-<b>.speak</b> - ( float , WRITE only ) - start singing [0.0 - 1.0]
-<b>.quiet</b> - ( float , WRITE only ) - stop singing [0.0 - 1.0]
-<b>.voiced</b> - ( float , READ/WRITE ) - set mix for voiced component [0.0 - 1.0]
-<b>.unVoiced</b> - ( float , READ/WRITE ) - set mix for unvoiced component [0.0 - 1.0]
-<b>.pitchSweepRate</b> - ( float , READ/WRITE ) - pitch sweep [0.0 - 1.0]
-<b>.voiceMix</b> - ( float , READ/WRITE ) - voiced/unvoiced mix [0.0 - 1.0]
-<b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
-<b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
-<b>.loudness</b> - ( float , READ/WRITE ) - 'loudness' of voice [0.0 - 1.0]
+  <b>.phoneme</b> - ( string , READ/WRITE ) - select phoneme ( see above )
+  <b>.phonemeNum</b> - ( int , READ/WRITE ) - select phoneme by number [0.0 - 128.0]
+  <b>.speak</b> - ( float , WRITE only ) - start singing [0.0 - 1.0]
+  <b>.quiet</b> - ( float , WRITE only ) - stop singing [0.0 - 1.0]
+  <b>.voiced</b> - ( float , READ/WRITE ) - set mix for voiced component [0.0 - 1.0]
+  <b>.unVoiced</b> - ( float , READ/WRITE ) - set mix for unvoiced component [0.0 - 1.0]
+  <b>.pitchSweepRate</b> - ( float , READ/WRITE ) - pitch sweep [0.0 - 1.0]
+  <b>.voiceMix</b> - ( float , READ/WRITE ) - voiced/unvoiced mix [0.0 - 1.0]
+  <b>.vibratoFreq</b> - ( float , READ/WRITE ) - vibrato frequency (Hz)
+  <b>.vibratoGain</b> - ( float , READ/WRITE ) - vibrato gain [0.0 - 1.0]
+  <b>.loudness</b> - ( float , READ/WRITE ) - 'loudness' of voice [0.0 - 1.0]
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="FM">
-<reference>
- STK abstract FM synthesis base class.
-    This class controls an arbitrary number of
-    waves and envelopes, determined via a
-    constructor argument.
-    Control Change Numbers: 
+	<reference>STK abstract FM synthesis base class.
+    This class controls an arbitrary number of waves and envelopes, determined via a constructor argument.
+    Control Change Numbers:
        - Control One = 2
        - Control Two = 4
        - LFO Speed = 11
        - LFO Depth = 1
        - ADSR 2 &amp; 4 Target = 128
-    The basic Chowning/Stanford FM patent expired
-    in 1995, but there exist follow-on patents,
-    mostly assigned to Yamaha.  If you are of the
-    type who should worry about this (making
-    money) worry away.
+    The basic Chowning/Stanford FM patent expired in 1995, but there exist follow-on patents, mostly assigned to Yamaha.  If you are of the type who should worry about this (making money) worry away.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.lfoSpeed</b> - ( float , READ/WRITE ) - modulation Speed (Hz)
-<b>.lfoDepth</b> - ( float , READ/WRITE ) - modulation Depth [0.0 - 1.0]
-<b>.afterTouch</b> - ( float , READ/WRITE ) - aftertouch [0.0 - 1.0]
-<b>.controlOne</b> - ( float , READ/WRITE ) - control one [instrument specific]
-<b>.controlTwo</b> - ( float , READ/WRITE ) - control two [instrument specific]
+  <b>.lfoSpeed</b> - ( float , READ/WRITE ) - modulation Speed (Hz)
+  <b>.lfoDepth</b> - ( float , READ/WRITE ) - modulation Depth [0.0 - 1.0]
+  <b>.afterTouch</b> - ( float , READ/WRITE ) - aftertouch [0.0 - 1.0]
+  <b>.controlOne</b> - ( float , READ/WRITE ) - control one [instrument specific]
+  <b>.controlTwo</b> - ( float , READ/WRITE ) - control two [instrument specific]
 <i>(inherited from StkInstrument)</i>
-<b>.noteOn</b> - ( float velocity ) - trigger note on
-<b>.noteOff</b> - ( float velocity ) - trigger note off
-<b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
-<b>.controlChange</b> - ( int number, float value ) - assert control change
-</reference>
+  <b>.noteOn</b> - ( float velocity ) - trigger note on
+  <b>.noteOff</b> - ( float velocity ) - trigger note off
+  <b>.freq</b> - ( float frequency ) - set/get frequency (Hz)
+  <b>.controlChange</b> - ( int number, float value ) - assert control change
+	</reference>
 </element>
 <element pattern="BeeThree">
-<reference>
- STK Hammond-oid organ FM synthesis instrument.
-    This class implements a simple 4 operator
-    topology, also referred to as algorithm 8 of
-    the TX81Z.
+	<reference>STK Hammond-oid organ FM synthesis instrument.
+    This class implements a simple 4 operator topology, also referred to as algorithm 8 of the TX81Z.
     \code
     Algorithm 8 is :
                      1 --.
@@ -1510,561 +1236,361 @@ by Dan Trueman (2007)
                      3 -/|
                      4 --
     \endcode
-    Control Change Numbers: 
+    Control Change Numbers:
        - Operator 4 (feedback) Gain = 2 (.controlOne)
        - Operator 3 Gain = 4 (.controlTwo)
        - LFO Speed = 11
        - LFO Depth = 1
        - ADSR 2 &amp; 4 Target = 128
-    The basic Chowning/Stanford FM patent expired
-    in 1995, but there exist follow-on patents,
-    mostly assigned to Yamaha.  If you are of the
-    type who should worry about this (making
-    money) worry away.
+    The basic Chowning/Stanford FM patent expired in 1995, but there exist follow-on patents, mostly assigned to Yamaha.  If you are of the type who should worry about this (making money) worry away.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
 <b>( see super classes )</b>
-</reference>
+	</reference>
 </element>
 <element pattern="FMVoices">
-<reference>
- STK singing FM synthesis instrument.
-    This class implements 3 carriers and a common
-    modulator, also referred to as algorithm 6 of
-    the TX81Z.
+	<reference>STK singing FM synthesis instrument.
+    This class implements 3 carriers and a common modulator, also referred to as algorithm 6 of the TX81Z.
     \code
     Algorithm 6 is :
                         /->1 -\
                      4-|-->2 - +-> Out
                         \->3 -/
     \endcode
-    Control Change Numbers: 
+    Control Change Numbers:
        - Vowel = 2 (.controlOne)
        - Spectral Tilt = 4 (.controlTwo)
        - LFO Speed = 11
        - LFO Depth = 1
        - ADSR 2 &amp; 4 Target = 128
-    The basic Chowning/Stanford FM patent expired
-    in 1995, but there exist follow-on patents,
-    mostly assigned to Yamaha.  If you are of the
-    type who should worry about this (making
-    money) worry away.
+    The basic Chowning/Stanford FM patent expired in 1995, but there exist follow-on patents, mostly assigned to Yamaha.  If you are of the type who should worry about this (making money) worry away.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.vowel</b> - ( float , WRITE only ) - select vowel [0.0 - 1.0]
-<b>.spectralTilt</b> - ( float , WRITE only ) - spectral tilt [0.0 - 1.0]
-<b>.adsrTarget</b> - ( float , WRITE only ) - adsr targets [0.0 - 1.0]
-</reference>
+  <b>.vowel</b> - ( float , WRITE only ) - select vowel [0.0 - 1.0]
+  <b>.spectralTilt</b> - ( float , WRITE only ) - spectral tilt [0.0 - 1.0]
+  <b>.adsrTarget</b> - ( float , WRITE only ) - adsr targets [0.0 - 1.0]
+	</reference>
 </element>
 <element pattern="HevyMetl">
-<reference>
- STK heavy metal FM synthesis instrument.
-    This class implements 3 cascade operators with
-    feedback modulation, also referred to as
-    algorithm 3 of the TX81Z.
+	<reference>STK heavy metal FM synthesis instrument.
+    This class implements 3 cascade operators with feedback modulation, also referred to as algorithm 3 of the TX81Z.
     Algorithm 3 is :     4--\
                     3-->2-- + -->1-->Out
-    Control Change Numbers: 
+    Control Change Numbers:
        - Total Modulator Index = 2 (.controlOne)
        - Modulator Crossfade = 4 (.controlTwo)
        - LFO Speed = 11
        - LFO Depth = 1
        - ADSR 2 &amp; 4 Target = 128
-    The basic Chowning/Stanford FM patent expired
-    in 1995, but there exist follow-on patents,
-    mostly assigned to Yamaha.  If you are of the
-    type who should worry about this (making
-    money) worry away.
+    The basic Chowning/Stanford FM patent expired in 1995, but there exist follow-on patents, mostly assigned to Yamaha.  If you are of the type who should worry about this (making money) worry away.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
 <b>( see super classes )</b>
-</reference>
+	</reference>
 </element>
 <element pattern="PercFlut">
-<reference>
- STK percussive flute FM synthesis instrument.
+	<reference>STK percussive flute FM synthesis instrument.
     This class implements algorithm 4 of the TX81Z.
     \code
     Algorithm 4 is :   4->3--\
                           2-- + -->1-->Out
     \endcode
-    Control Change Numbers: 
+    Control Change Numbers:
        - Total Modulator Index = 2 (.controlOne)
        - Modulator Crossfade = 4 (.controlTwo)
        - LFO Speed = 11
        - LFO Depth = 1
        - ADSR 2 &amp; 4 Target = 128
-    The basic Chowning/Stanford FM patent expired
-    in 1995, but there exist follow-on patents,
-    mostly assigned to Yamaha.  If you are of the
-    type who should worry about this (making
-    money) worry away.
+    The basic Chowning/Stanford FM patent expired in 1995, but there exist follow-on patents, mostly assigned to Yamaha.  If you are of the type who should worry about this (making money) worry away.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
 <b>( see super classes )</b>
-</reference>
+	</reference>
 </element>
 <element pattern="Rhodey">
-<reference>
- STK Fender Rhodes-like electric piano FM
-           synthesis instrument.
-    This class implements two simple FM Pairs
-    summed together, also referred to as algorithm
-    5 of the TX81Z.
+	<reference>STK Fender Rhodes-like electric piano FM synthesis instrument.
+    This class implements two simple FM Pairs summed together, also referred to as algorithm 5 of the TX81Z.
     \code
     Algorithm 5 is :  4->3--\
                              + --> Out
                       2->1--/
     \endcode
-    Control Change Numbers: 
+    Control Change Numbers:
        - Modulator Index One = 2 (.controlOne)
        - Crossfade of Outputs = 4 (.controlTwo)
        - LFO Speed = 11
        - LFO Depth = 1
        - ADSR 2 &amp; 4 Target = 128
-    The basic Chowning/Stanford FM patent expired
-    in 1995, but there exist follow-on patents,
-    mostly assigned to Yamaha.  If you are of the
-    type who should worry about this (making
-    money) worry away.
+    The basic Chowning/Stanford FM patent expired in 1995, but there exist follow-on patents, mostly assigned to Yamaha.  If you are of the type who should worry about this (making money) worry away.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
 <b>( see super classes )</b>
-</reference>
+	</reference>
 </element>
 <element pattern="TubeBell">
-<reference>
- STK tubular bell (orchestral chime) FM
-           synthesis instrument.
-    This class implements two simple FM Pairs
-    summed together, also referred to as algorithm
-    5 of the TX81Z.
+	<reference>STK tubular bell (orchestral chime) FM synthesis instrument.
+    This class implements two simple FM Pairs summed together, also referred to as algorithm 5 of the TX81Z.
     \code
     Algorithm 5 is :  4->3--\
                              + --> Out
                       2->1--/
     \endcode
-    Control Change Numbers: 
+    Control Change Numbers:
        - Modulator Index One = 2 (.controlOne)
        - Crossfade of Outputs = 4 (.controlTwo)
        - LFO Speed = 11
        - LFO Depth = 1
        - ADSR 2 &amp; 4 Target = 128
-    The basic Chowning/Stanford FM patent expired
-    in 1995, but there exist follow-on patents,
-    mostly assigned to Yamaha.  If you are of the
-    type who should worry about this (making
-    money) worry away.
+    The basic Chowning/Stanford FM patent expired in 1995, but there exist follow-on patents, mostly assigned to Yamaha.  If you are of the type who should worry about this (making money) worry away.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
 <b>( see super classes )</b>
-</reference>
+	</reference>
 </element>
 <element pattern="Wurley">
-<reference>
- STK Wurlitzer electric piano FM
-           synthesis instrument.
-    This class implements two simple FM Pairs
-    summed together, also referred to as algorithm
-    5 of the TX81Z.
+	<reference>STK Wurlitzer electric piano FM synthesis instrument.
+    This class implements two simple FM Pairs summed together, also referred to as algorithm 5 of the TX81Z.
     \code
     Algorithm 5 is :  4->3--\
                              + --> Out
                       2->1--/
     \endcode
-    Control Change Numbers: 
+    Control Change Numbers:
        - Modulator Index One = 2 (.controlOne)
        - Crossfade of Outputs = 4 (.controlTwo)
        - LFO Speed = 11
        - LFO Depth = 1
        - ADSR 2 &amp; 4 Target = 128
-    The basic Chowning/Stanford FM patent expired
-    in 1995, but there exist follow-on patents,
-    mostly assigned to Yamaha.  If you are of the
-    type who should worry about this (making
-    money) worry away.
+    The basic Chowning/Stanford FM patent expired in 1995, but there exist follow-on patents, mostly assigned to Yamaha.  If you are of the type who should worry about this (making money) worry away.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
 <b>( see super classes )</b>
-</reference>
+	</reference>
 </element>
 </group>
 <group name="stk - delay" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="Delay">
-<reference>
- STK non-interpolating delay line class.
-    This protected Filter subclass implements
-    a non-interpolating digital delay-line.
-    A fixed maximum length of 4095 and a delay
-    of zero is set using the default constructor.
-    Alternatively, the delay and maximum length
-    can be set during instantiation with an
-    overloaded constructor.
-    
-    A non-interpolating delay line is typically
-    used in fixed delay-length applications, such
-    as for reverberation.
+	<reference>STK non-interpolating delay line class.
+    This protected Filter subclass implements a non-interpolating digital delay-line.
+    A fixed maximum length of 4095 and a delay of zero is set using the default constructor.
+    Alternatively, the delay and maximum length can be set during instantiation with an overloaded constructor.
+    A non-interpolating delay line is typically used in fixed delay-length applications, such as for reverberation.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.delay</b> - ( dur , READ/WRITE ) - length of delay
-<b>.max</b> - ( dur , READ/WRITE ) - max delay (buffer size) 
-</reference>
+  <b>.delay</b> - ( dur , READ/WRITE ) - length of delay
+  <b>.max</b> - ( dur , READ/WRITE ) - max delay (buffer size)
+	</reference>
 </element>
 <element pattern="DelayA">
-<reference>
- STK allpass interpolating delay line class.
-    This Delay subclass implements a fractional-
-    length digital delay-line using a first-order
-    allpass filter.  A fixed maximum length
-    of 4095 and a delay of 0.5 is set using the
-    default constructor.  Alternatively, the
-    delay and maximum length can be set during
-    instantiation with an overloaded constructor.
-    An allpass filter has unity magnitude gain but
-    variable phase delay properties, making it useful
-    in achieving fractional delays without affecting
-    a signal's frequency magnitude response.  In
-    order to achieve a maximally flat phase delay
-    response, the minimum delay possible in this
-    implementation is limited to a value of 0.5.
+	<reference>STK allpass interpolating delay line class.
+    This Delay subclass implements a fractional- length digital delay-line using a first-order allpass filter.  A fixed maximum length of 4095 and a delay of 0.5 is set using the default constructor.  Alternatively, the delay and maximum length can be set during instantiation with an overloaded constructor.
+    An allpass filter has unity magnitude gain but variable phase delay properties, making it useful in achieving fractional delays without affecting a signal's frequency magnitude response.  In order to achieve a maximally flat phase delay response, the minimum delay possible in this implementation is limited to a value of 0.5.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.delay</b> - ( dur , READ/WRITE ) - length of delay
-<b>.max</b> - ( dur , READ/WRITE ) - max delay ( buffer size ) 
-</reference>
+  <b>.delay</b> - ( dur , READ/WRITE ) - length of delay
+  <b>.max</b> - ( dur , READ/WRITE ) - max delay ( buffer size )
+	</reference>
 </element>
 <element pattern="DelayL">
-<reference>
- STK linear interpolating delay line class.
-    This Delay subclass implements a fractional-
-    length digital delay-line using first-order
-    linear interpolation.  A fixed maximum length
-    of 4095 and a delay of zero is set using the
-    default constructor.  Alternatively, the
-    delay and maximum length can be set during
-    instantiation with an overloaded constructor.
-    Linear interpolation is an efficient technique
-    for achieving fractional delay lengths, though
-    it does introduce high-frequency signal
-    attenuation to varying degrees depending on the
-    fractional delay setting.  The use of higher
-    order Lagrange interpolators can typically
-    improve (minimize) this attenuation characteristic.
+	<reference>STK linear interpolating delay line class.
+    This Delay subclass implements a fractional- length digital delay-line using first-order linear interpolation.  A fixed maximum length of 4095 and a delay of zero is set using the default constructor.  Alternatively, the delay and maximum length can be set during instantiation with an overloaded constructor.
+    Linear interpolation is an efficient technique for achieving fractional delay lengths, though it does introduce high-frequency signal attenuation to varying degrees depending on the fractional delay setting.  The use of higher order Lagrange interpolators can typically improve (minimize) this attenuation characteristic.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.delay</b> - ( dur , READ/WRITE ) - length of delay
-<b>.max</b> - ( dur , READ/WRITE ) - max delay ( buffer size ) 
-</reference>
+  <b>.delay</b> - ( dur , READ/WRITE ) - length of delay
+  <b>.max</b> - ( dur , READ/WRITE ) - max delay ( buffer size )
+	</reference>
 </element>
 <element pattern="Echo">
-<reference>
- STK echo effect class.
+	<reference>STK echo effect class.
     This class implements a echo effect.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.delay</b> - ( dur , READ/WRITE ) - length of echo
-<b>.max</b> - ( dur , READ/WRITE ) - max delay
-<b>.mix</b> - ( float , READ/WRITE ) - mix level ( wet/dry ) 
-</reference>
+  <b>.delay</b> - ( dur , READ/WRITE ) - length of echo
+  <b>.max</b> - ( dur , READ/WRITE ) - max delay
+  <b>.mix</b> - ( float , READ/WRITE ) - mix level ( wet/dry )
+	</reference>
 </element>
 </group>
 <group name="stk - envelopes" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="Envelope">
-<reference>
- STK envelope base class.
-    This class implements a simple envelope
-    generator which is capable of ramping to
-    a target value by a specified \e rate.
-    It also responds to simple \e keyOn and
-    \e keyOff messages, ramping to 1.0 on
-    keyOn and to 0.0 on keyOff.
+	<reference>STK envelope base class.
+    This class implements a simple envelope generator which is capable of ramping to a target value by a specified \e rate.
+    It also responds to simple \e keyOn and \e keyOff messages, ramping to 1.0 on keyOn and to 0.0 on keyOff.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.keyOn</b> - ( int , WRITE only ) - ramp to 1.0
-<b>.keyOff</b> - ( int , WRITE only ) - ramp to 0.0
-<b>.target</b> - ( float , READ/WRITE ) - ramp to arbitrary value.
-<b>.time</b> - ( float , READ/WRITE ) - time to reach target (in seconds)
-<b>.duration</b> - ( dur , READ/WRITE ) - duration to reach target
-<b>.rate</b> - ( float , READ/WRITE ) - rate of change 
-<b>.value</b> - ( float , READ/WRITE ) - set immediate value
-</reference>
+  <b>.keyOn</b> - ( int , WRITE only ) - ramp to 1.0
+  <b>.keyOff</b> - ( int , WRITE only ) - ramp to 0.0
+  <b>.target</b> - ( float , READ/WRITE ) - ramp to arbitrary value.
+  <b>.time</b> - ( float , READ/WRITE ) - time to reach target (in seconds)
+  <b>.duration</b> - ( dur , READ/WRITE ) - duration to reach target
+  <b>.rate</b> - ( float , READ/WRITE ) - rate of change
+  <b>.value</b> - ( float , READ/WRITE ) - set immediate value
+	</reference>
 </element>
 <element pattern="ADSR">
-<reference>
- STK ADSR envelope class.
-    This Envelope subclass implements a
-    traditional ADSR (Attack, Decay,
-    Sustain, Release) envelope.  It
-    responds to simple keyOn and keyOff
-    messages, keeping track of its state.
-    The \e state = ADSR::DONE after the
-    envelope value reaches 0.0 in the
-    ADSR::RELEASE state.
+	<reference>STK ADSR envelope class.
+    This Envelope subclass implements a traditional ADSR (Attack, Decay, Sustain, Release) envelope.  It responds to simple keyOn and keyOff messages, keeping track of its state.
+    The \e state = ADSR::DONE after the envelope value reaches 0.0 in the ADSR::RELEASE state.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.keyOn</b> - ( int , WRITE only ) - start the attack for non-zero values
-<b>.keyOff</b> - ( int , WRITE only ) - start release for non-zero values
-<b>.attackTime</b> - ( dur , READ/WRITE ) - attack time
-<b>.attackRate</b> - ( float , READ/WRITE ) - attack rate
-<b>.decayTime</b> - ( dur , READ/WRITE ) - decay time 
-<b>.decayRate</b> - ( float , READ/WRITE ) - decay rate
-<b>.sustainLevel</b> - ( float , READ/WRITE ) - sustain level
-<b>.releaseTime</b> - ( dur , READ/WRITE ) - release time 
-<b>.releaseRate</b> - ( float , READ/WRITE ) - release rate
-<b>.state</b> - ( int , READ only ) - attack=0, decay=1 , sustain=2, release=3, done=4
-<b>.set</b> - ( dur, dur, float, dur ) - set A, D, S, and R all at once
-</reference>
+  <b>.keyOn</b> - ( int , WRITE only ) - start the attack for non-zero values
+  <b>.keyOff</b> - ( int , WRITE only ) - start release for non-zero values
+  <b>.attackTime</b> - ( dur , READ/WRITE ) - attack time
+  <b>.attackRate</b> - ( float , READ/WRITE ) - attack rate
+  <b>.decayTime</b> - ( dur , READ/WRITE ) - decay time
+  <b>.decayRate</b> - ( float , READ/WRITE ) - decay rate
+  <b>.sustainLevel</b> - ( float , READ/WRITE ) - sustain level
+  <b>.releaseTime</b> - ( dur , READ/WRITE ) - release time
+  <b>.releaseRate</b> - ( float , READ/WRITE ) - release rate
+  <b>.state</b> - ( int , READ only ) - attack=0, decay=1 , sustain=2, release=3, done=4
+  <b>.set</b> - ( dur, dur, float, dur ) - set A, D, S, and R all at once
+	</reference>
 </element>
 </group>
 <group name="stk-reverbs" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="JCRev">
-<reference>
- John Chowning's reverberator class.
-    This class is derived from the CLM JCRev
-    function, which is based on the use of
-    networks of simple allpass and comb delay
-    filters.  This class implements three series
-    allpass units, followed by four parallel comb
-    filters, and two decorrelation delay lines in
-    parallel at the output.
+	<reference>John Chowning's reverberator class.
+    This class is derived from the CLM JCRev function, which is based on the use of networks of simple allpass and comb delay filters.  This class implements three series allpass units, followed by four parallel comb filters, and two decorrelation delay lines in parallel at the output.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.mix</b> - ( float , READ/WRITE ) - mix level
-</reference>
+  <b>.mix</b> - ( float , READ/WRITE ) - mix level
+	</reference>
 </element>
 <element pattern="NRev">
-<reference>
- CCRMA's NRev reverberator class.
-    This class is derived from the CLM NRev
-    function, which is based on the use of
-    networks of simple allpass and comb delay
-    filters.  This particular arrangement consists
-    of 6 comb filters in parallel, followed by 3
-    allpass filters, a lowpass filter, and another
-    allpass in series, followed by two allpass
-    filters in parallel with corresponding right
-    and left outputs.
+	<reference>CCRMA's NRev reverberator class.
+    This class is derived from the CLM NRev function, which is based on the use of networks of simple allpass and comb delay filters.  This particular arrangement consists of 6 comb filters in parallel, followed by 3 allpass filters, a lowpass filter, and another allpass in series, followed by two allpass filters in parallel with corresponding right and left outputs.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.mix</b> - ( float , READ/WRITE ) - 
-</reference>
+  <b>.mix</b> - ( float , READ/WRITE ) -
+	</reference>
 </element>
 <element pattern="PRCRev">
-<reference>
- Perry's simple reverberator class.
-    This class is based on some of the famous
-    Stanford/CCRMA reverbs (NRev, KipRev), which
-    were based on the Chowning/Moorer/Schroeder
-    reverberators using networks of simple allpass
-    and comb delay filters.  This class implements
-    two series allpass units and two parallel comb
-    filters.
+	<reference>Perry's simple reverberator class.
+    This class is based on some of the famous Stanford/CCRMA reverbs (NRev, KipRev), which were based on the Chowning/Moorer/Schroeder reverberators using networks of simple allpass and comb delay filters.  This class implements two series allpass units and two parallel comb filters.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.mix</b> - ( float , READ/WRITE ) - mix level
-</reference>
+  <b>.mix</b> - ( float , READ/WRITE ) - mix level
+	</reference>
 </element>
 </group>
 <group name="stk - components" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="Chorus">
-<reference>
- STK chorus effect class.
+	<reference>STK chorus effect class.
     This class implements a chorus effect.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.modFreq</b> - ( float , READ/WRITE ) - modulation frequency
-<b>.modDepth</b> - ( float , READ/WRITE ) - modulation depth
-<b>.mix</b> - ( float , READ/WRITE ) - effect mix
-</reference>
+  <b>.modFreq</b> - ( float , READ/WRITE ) - modulation frequency
+  <b>.modDepth</b> - ( float , READ/WRITE ) - modulation depth
+  <b>.mix</b> - ( float , READ/WRITE ) - effect mix
+	</reference>
 </element>
 <element pattern="Modulate">
-<reference>
- STK periodic/random modulator.
-    This class combines random and periodic
-    modulations to give a nice, natural human
-    modulation function.
+	<reference>STK periodic/random modulator.
+    This class combines random and periodic modulations to give a nice, natural human modulation function.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.vibratoRate</b> - ( float , READ/WRITE ) - set rate of vibrato
-<b>.vibratoGain</b> - ( float , READ/WRITE ) - gain for vibrato
-<b>.randomGain</b> - ( float , READ/WRITE ) - gain for random contribution
-</reference>
+  <b>.vibratoRate</b> - ( float , READ/WRITE ) - set rate of vibrato
+  <b>.vibratoGain</b> - ( float , READ/WRITE ) - gain for vibrato
+  <b>.randomGain</b> - ( float , READ/WRITE ) - gain for random contribution
+	</reference>
 </element>
 <element pattern="PitShift">
-<reference>
- STK simple pitch shifter effect class.
-    This class implements a simple pitch shifter
-    using delay lines.
+	<reference>STK simple pitch shifter effect class.
+    This class implements a simple pitch shifter using delay lines.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.mix</b> - ( float , READ/WRITE ) - effect dry/web mix level
-<b>.shift</b> - ( float , READ/WRITE ) - degree of pitch shifting
-</reference>
+  <b>.mix</b> - ( float , READ/WRITE ) - effect dry/web mix level
+  <b>.shift</b> - ( float , READ/WRITE ) - degree of pitch shifting
+	</reference>
 </element>
 <element pattern="SubNoise">
-<reference>
- STK sub-sampled noise generator.
-    Generates a new random number every "rate" ticks
-    using the C rand() function.  The quality of the
-    rand() function varies from one OS to another.
+	<reference>STK sub-sampled noise generator.
+    Generates a new random number every "rate" ticks using the C rand() function.  The quality of the rand() function varies from one OS to another.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.rate</b> - ( int , READ/WRITE ) - subsampling rate
-</reference>
+  <b>.rate</b> - ( int , READ/WRITE ) - subsampling rate
+	</reference>
 </element>
 <element pattern="Blit">
-<reference>Blit (STK Import)
+	<reference>Blit (STK Import)
  STK band-limited impulse train.
-    This class generates a band-limited impulse train using a
-    closed-form algorithm reported by Stilson and Smith in 
-    "Alias-Free Digital Synthesis of Classic Analog Waveforms", 
-    1996. The user can specify both the fundamental frequency 
-    of the impulse train and the number of harmonics contained
-    in the resulting signal.
+    This class generates a band-limited impulse train using a closed-form algorithm reported by Stilson and Smith in "Alias-Free Digital Synthesis of Classic Analog Waveforms", 1996. The user can specify both the fundamental frequency of the impulse train and the number of harmonics contained in the resulting signal.
     The signal is normalized so that the peak value is +/-1.0.
-    If nHarmonics is 0, then the signal will contain all 
-    harmonics up to half the sample rate. Note, however, 
-    that this setting may produce aliasing in the signal 
-    when the frequency is changing (no automatic modification 
-    of the number of harmonics is performed by the 
-    setFrequency() function).
-    Original code by Robin Davies, 2005.
-    Revisions by Gary Scavone for STK, 2005.
+    If nHarmonics is 0, then the signal will contain all harmonics up to half the sample rate. Note, however, that this setting may produce aliasing in the signal when the frequency is changing (no automatic modification of the number of harmonics is performed by the setFrequency() function).
+    Original code by Robin Davies, 2005. Revisions by Gary Scavone for STK, 2005.
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - base frequency (hz)
-<b>.harmonics</b> - ( int , READ/WRITE ) - number of harmonics in pass band
-<b>.phase</b> - ( float , READ/WRITE ) - phase of the the signal
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - base frequency (hz)
+  <b>.harmonics</b> - ( int , READ/WRITE ) - number of harmonics in pass band
+  <b>.phase</b> - ( float , READ/WRITE ) - phase of the the signal
+	</reference>
 </element>
 <element pattern="BlitSaw">
-<reference>BlitSaw (STK Import)
+	<reference>BlitSaw (STK Import)
  STK band-limited sawtooth wave.
-    This class generates a band-limited sawtooth waveform
-    using a closed-form algorithm reported by Stilson and
-    Smith in "Alias-Free Digital Synthesis of Classic Analog
-    Waveforms", 1996. The user can specify both the 
-    fundamental frequency of the sawtooth and the number 
-    of harmonics contained in the resulting signal.
-    If nHarmonics is 0, then the signal will contain all 
-    harmonics up to half the sample rate. Note, however,
-    that this setting may produce aliasing in the signal
-    when the frequency is changing (no automatic modification
-    of the number of harmonics is performed by the setFrequency()
-    function).
+    This class generates a band-limited sawtooth waveform using a closed-form algorithm reported by Stilson and Smith in "Alias-Free Digital Synthesis of Classic Analog Waveforms", 1996. The user can specify both the fundamental frequency of the sawtooth and the number of harmonics contained in the resulting signal.
+    If nHarmonics is 0, then the signal will contain all harmonics up to half the sample rate. Note, however, that this setting may produce aliasing in the signal when the frequency is changing (no automatic modification of the number of harmonics is performed by the setFrequency() function).
     Based on initial code of Robin Davies, 2005.
     Modified algorithm code by Gary Scavone, 2005.
- Members: <i>(control 
+ Members: <i>(control
 parameters)</i>
-<b>.freq</b> - ( float , READ/WRITE ) - base frequency (hz)
-<b>.harmonics</b> - ( int , READ/WRITE ) - number of harmonics in pass band
-<b>.phase</b> - ( float , READ/WRITE ) - phase of the the signal
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - base frequency (hz)
+  <b>.harmonics</b> - ( int , READ/WRITE ) - number of harmonics in pass band
+  <b>.phase</b> - ( float , READ/WRITE ) - phase of the the signal
+	</reference>
 </element>
 <element pattern="BlitSquare">
-<reference>BlitSquare (STK Import)
+	<reference>BlitSquare (STK Import)
  STK band-limited square wave.
-    This class generates a band-limited square wave signal.
-    It is derived in part from the approach reported by 
-    Stilson and Smith in "Alias-Free Digital Synthesis of
-    Classic Analog Waveforms", 1996. The algorithm implemented
-    in this class uses a SincM function with an even M value to
-    achieve a bipolar bandlimited impulse train. This 
-    signal is then integrated to achieve a square waveform.
-    The integration process has an associated DC offset but that
-    is subtracted off the output signal.
-    The user can specify both the fundamental frequency of the
-    waveform and the number of harmonics contained in the 
-    resulting signal.
-    If nHarmonics is 0, then the signal will contain all 
-    harmonics up to half the sample rate. Note, however, that
-    this setting may produce aliasing in the signal when the
-    frequency is changing (no automatic modification of the
-    number of harmonics is performed by the setFrequency() function).
-    Based on initial code of Robin Davies, 2005.
-    Modified algorithm code by Gary Scavone, 2005.
- Members: <i>(control 
+    This class generates a band-limited square wave signal. It is derived in part from the approach reported by Stilson and Smith in "Alias-Free Digital Synthesis of Classic Analog Waveforms", 1996. The algorithm implemented in this class uses a SincM function with an even M value to achieve a bipolar bandlimited impulse train. This signal is then integrated to achieve a square waveform. The integration process has an associated DC offset but that is subtracted off the output signal.
+    The user can specify both the fundamental frequency of the waveform and the number of harmonics contained in the resulting signal.
+    If nHarmonics is 0, then the signal will contain all harmonics up to half the sample rate. Note, however, that this setting may produce aliasing in the signal when the frequency is changing (no automatic modification of the number of harmonics is performed by the setFrequency() function).
+    Based on initial code of Robin Davies, 2005. Modified algorithm code by Gary Scavone, 2005.
+ Members: <i>(control
 parameters)</i>
-<b>.freq</b> - ( float , READ/WRITE ) - base frequency (hz)
-<b>.harmonics</b> - ( int , READ/WRITE ) - number of harmonics in pass band
-<b>.phase</b> - ( float , READ/WRITE ) - phase of the the signal
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - base frequency (hz)
+  <b>.harmonics</b> - ( int , READ/WRITE ) - number of harmonics in pass band
+  <b>.phase</b> - ( float , READ/WRITE ) - phase of the the signal
+	</reference>
 </element>
 </group>
 <group name="stk - file i/o" highlight="ck-keyword">
 <autocomplete enable="1" />
 <element pattern="WvIn">
-<reference>
- STK audio data input base class.
-    This class provides input support for various
-    audio file formats.  It also serves as a base
-    class for "realtime" streaming subclasses.
-    WvIn loads the contents of an audio file for
-    subsequent output.  Linear interpolation is
-    used for fractional "read rates".
-    WvIn supports multi-channel data in interleaved
-    format.  It is important to distinguish the
-    tick() methods, which return samples produced
-    by averaging across sample frames, from the 
-    tickFrame() methods, which return pointers to
-    multi-channel sample frames.  For single-channel
-    data, these methods return equivalent values.
-    Small files are completely read into local memory
-    during instantiation.  Large files are read
-    incrementally from disk.  The file size threshold
-    and the increment size values are defined in
-    WvIn.h.
+	<reference>STK audio data input base class.
+    This class provides input support for various audio file formats.  It also serves as a base class for "realtime" streaming subclasses. WvIn loads the contents of an audio file for subsequent output.  Linear interpolation is used for fractional "read rates".
+    WvIn supports multi-channel data in interleaved format.  It is important to distinguish the tick() methods, which return samples produced by averaging across sample frames, from the tickFrame() methods, which return pointers to multi-channel sample frames.  For single-channel data, these methods return equivalent values. Small files are completely read into local memory during instantiation.  Large files are read incrementally from disk.  The file size threshold and the increment size values are defined in WvIn.h.
 <i>Members (control parameters):</i>
-<b>.rate</b> - ( float , READ/WRITE ) - playback rate
-<b>.path</b> - ( string , READ/WRITE ) - specifies file to be played
-</reference>
+  <b>.rate</b> - ( float , READ/WRITE ) - playback rate
+  <b>.path</b> - ( string , READ/WRITE ) - specifies file to be played
+	</reference>
 </element>
 <element pattern="WaveLoop">
-<reference>
- STK waveform oscillator class.
-    This class inherits from WvIn and provides
-    audio file looping functionality.
-    WaveLoop supports multi-channel data in
-    interleaved format.  It is important to
-    distinguish the tick() methods, which return
-    samples produced by averaging across sample
-    frames, from the tickFrame() methods, which
-    return pointers to multi-channel sample frames.
-    For single-channel data, these methods return
-    equivalent values.
+	<reference>STK waveform oscillator class.
+    This class inherits from WvIn and provides audio file looping functionality. WaveLoop supports multi-channel data in interleaved format.  It is important to distinguish the tick() methods, which return samples produced by averaging across sample frames, from the tickFrame() methods, which return pointers to multi-channel sample frames. For single-channel data, these methods return equivalent values.
     by Perry R. Cook and Gary P. Scavone, 1995 - 2002.
 <i>Members (control parameters):</i>
-<b>.freq</b> - ( float , READ/WRITE ) - set frequency of playback ( loops / second )
-<b>.addPhase</b> - ( float , READ/WRITE ) - offset by phase
-<b>.addPhaseOffset</b> - ( float , READ/WRITE ) - set phase offset
-</reference>
+  <b>.freq</b> - ( float , READ/WRITE ) - set frequency of playback ( loops / second )
+  <b>.addPhase</b> - ( float , READ/WRITE ) - offset by phase
+  <b>.addPhaseOffset</b> - ( float , READ/WRITE ) - set phase offset
+	</reference>
 </element>
 <element pattern="WvOut">
-<reference>
- STK audio data output base class.
-    This class provides output support for various
-    audio file formats.  It also serves as a base
-    class for "realtime" streaming subclasses.
-     WvOut writes samples to an audio file.  It
-    supports multi-channel data in interleaved
-    format.  It is important to distinguish the
-    tick() methods, which output single samples
-    to all channels in a sample frame, from the
-    tickFrame() method, which takes a pointer
-    to multi-channel sample frame data.
-     Currently, WvOut is non-interpolating and the
-    output rate is always Stk::sampleRate().
+	<reference>STK audio data output base class.
+    This class provides output support for various audio file formats.  It also serves as a base class for "realtime" streaming subclasses.
+    WvOut writes samples to an audio file.  It supports multi-channel data in interleaved format.  It is important to distinguish the tick() methods, which output single samples to all channels in a sample frame, from the tickFrame() method, which takes a pointer to multi-channel sample frame data.  Currently, WvOut is non-interpolating and the output rate is always Stk::sampleRate().
 <i>Members (control parameters):</i>
-<b>.matFilename</b> - ( string , WRITE only ) - open matlab file for writing
-<b>.sndFilename</b> - ( string , WRITE only ) - open snd file for writing
-<b>.wavFilename</b> - ( string , WRITE only ) - open WAVE file for writing
-<b>.rawFilename</b> - ( string , WRITE only ) - open raw file for writing
-<b>.aifFilename</b> - ( string , WRITE only ) - open AIFF file for writing
-<b>.closeFile</b> - ( string , WRITE only ) - close file properly 
-</reference>
+  <b>.matFilename</b> - ( string , WRITE only ) - open matlab file for writing
+  <b>.sndFilename</b> - ( string , WRITE only ) - open snd file for writing
+  <b>.wavFilename</b> - ( string , WRITE only ) - open WAVE file for writing
+  <b>.rawFilename</b> - ( string , WRITE only ) - open raw file for writing
+  <b>.aifFilename</b> - ( string , WRITE only ) - open AIFF file for writing
+  <b>.closeFile</b> - ( string , WRITE only ) - close file properly
+	</reference>
 </element>
 </group>
 <element pattern="spork ~" highlight="ck-function" >
@@ -2085,7 +1611,7 @@ parameters)</i>
 		returns absolute value of floating point number</reference>
 </element>
 <element pattern="Std.rand">
-	<reference>int <b>rand</b> (  ); // soon-to-be-deprecated; use Math.random() 
+	<reference>int <b>rand</b> (  ); // soon-to-be-deprecated; use Math.random()
 		generates random integer</reference>
 </element>
 <element pattern="Std.rand2">
@@ -2097,13 +1623,13 @@ parameters)</i>
 		generates random floating point number in the range [-1, 1]</reference>
 </element>
 <element pattern="Std.rand2f">
-	<reference>float <b>rand2f</b> ( float <b>min</b>, float <b>max</b> ); // soon-to-be-deprecated; use 
+	<reference>float <b>rand2f</b> ( float <b>min</b>, float <b>max</b> ); // soon-to-be-deprecated; use
 Math.random2f()
 		generates random floating point number in the range [min, max]</reference>
 </element>
 <element pattern="Std.sgn">
 	<reference>float <b>sgn</b> ( float <b>value</b> );
-		computes the sign of the input as -1.0 (negative), 0 (zero), or 
+		computes the sign of the input as -1.0 (negative), 0 (zero), or
 1.0 (positive)</reference>
 </element>
 <element pattern="Std.system">
@@ -2156,171 +1682,171 @@ Math.random2f()
 <element pattern="machine.add">
 	<reference>int <b>add</b> ( string <b>path</b> );
 		 compile and spork a new shred from file at 'path' into the VM now returns the shred ID</reference>
-</element>	
+</element>
 <element pattern="machine.spork">
 	<reference>int <b>spork</b> ( string <b>path</b> );
 		 same as add</reference>
-</element>	
+</element>
 <element pattern="machine.remove">
 	<reference>int <b>remove</b> ( int <b>id</b> );
 		 remove shred from VM by shred ID (returned by add/spork)</reference>
-</element>	
+</element>
 <element pattern="machine.replace">
 	<reference>int <b>replace</b> ( int <b>id</b>, string <b>path</b> );
-		 replace shred with new shred from file returns shred ID , or 0 on error </reference>
-</element>	
+		 replace shred with new shred from file returns shred ID , or 0 on error	</reference>
+</element>
 <element pattern="machine.status">
 	<reference>int <b>status</b> (  );
 		 display current status of VM (see example/status.ck)</reference>
-</element>	
+</element>
 <element pattern="machine.crash">
 	<reference>void <b>crash</b> (  );
 		literally causes the VM to crash.  the very last resort; use with care.  Thanks.</reference>
 </element>
 </group>
-<group name="math">
 
+<group name="math">
 <element pattern="Math.sin">
 	<reference>float <b>sin</b> ( float <b>x</b> );
 		computes the sine of <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.cos">
 	<reference>float <b>cos</b> ( float <b>x</b> );
 		computes the cosine of <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.tan">
 	<reference>float <b>tan</b> ( float <b>x</b> );
 		computes the tangent of <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.asin">
 	<reference>float <b>asin</b> ( float <b>x</b> );
 		computes the arc sine of <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.acos">
 	<reference>float <b>acos</b> ( float <b>x</b> );
 		computes the arc cosine of <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.atan">
 	<reference>float <b>atan</b> ( float <b>x</b> );
 		computes the arc tangent of <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.atan2">
 	<reference>float <b>atan2</b> ( float <b>y</b>, float <b>x</b> );
 		computes the principal value of the arc tangent of
 <b>y</b>/<b>x</b>, using the signs of both arguments to determine the quadrant of the
 return value
-</reference>
-</element>	
+	</reference>
+</element>
 <element pattern="Math.sinh">
 	<reference>float <b>sinh</b> ( float <b>x</b> );
 		computes the hyperbolic sine of <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.cosh">
 	<reference>float <b>cosh</b> ( float <b>x</b> );
 		computes the hyperbolic cosine of <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.tanh">
 	<reference>float <b>tanh</b> ( float <b>x</b> );
 		computes the hyperbolic tangent of <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.hypot">
 	<reference>float <b>hypot</b> ( float <b>x</b>, float <b>y</b> );
-		computes the euclidean distance of the orthogonal vectors (<b>x</b>,0) 
+		computes the euclidean distance of the orthogonal vectors (<b>x</b>,0)
 and (0,<b>y</b>)</reference>
-</element>	
+</element>
 <element pattern="Math.pow">
 	<reference>float <b>pow</b> ( float <b>x</b>, float <b>y</b> );
 		computes <b>x</b> taken to the <b>y</b>-th power</reference>
-</element>	
+</element>
 <element pattern="Math.ensurePow2">
 	<reference>int Math.ensurePow2( int x ) - returns the next largest integer power of 2.</reference>
-</element>	
+</element>
 <element pattern="Math.sqrt">
 	<reference>float <b>sqrt</b> ( float <b>x</b> );
-		computes the nonnegative square root of <b>x</b>  (x must 
+		computes the nonnegative square root of <b>x</b>  (x must
 be >= 0)</reference>
-</element>	
+</element>
 <element pattern="Math.exp">
 	<reference>float <b>exp</b> ( float <b>x</b> );
 		computes e^<b>x</b>, the base-e exponential of <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.log">
 	<reference>float <b>log</b> ( float <b>x</b> );
 		computes the natural logarithm of <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.log2">
 	<reference>float <b>log2</b> ( float <b>x</b> );
 		computes the logarithm of <b>x</b> to base 2</reference>
-</element>	
+</element>
 <element pattern="Math.log10">
 	<reference>float <b>log10</b> ( float <b>x</b> );
 		computes the logarithm of <b>x</b> to base 10</reference>
-</element>	
+</element>
 <element pattern="Math.random">
 	<reference>int <b>random</b> (  );
-		generates random integer between 0 and Math.RANDOM_MAX>(NOTE: Math.random*() functions use a different, 
+		generates random integer between 0 and Math.RANDOM_MAX>(NOTE: Math.random*() functions use a different,
 superior random number generator than the Std.rand*() functions)</reference>
-</element>	
+</element>
 <element pattern="Math.random2">
 	<reference>int <b>random2</b> ( int <b>min</b>, int <b>max</b> );
 		generates random integer in the range [min, max]</reference>
-</element>	
+</element>
 <element pattern="Math.randomf">
 	<reference>float <b>randomf</b> (  );
 		generates random floating point number in the range [0, 1]
 (NOTE: this is different semantics than Std.randf(), which has the range [-1,1])</reference>
-</element>	
+</element>
 <element pattern="Math.random2f">
 	<reference>float <b>random2f</b> ( float <b>min</b>, float <b>max</b> );
 		generates random floating point number in the range [min, max]</reference>
-</element>	
+</element>
 <element pattern="Math.floor">
 	<reference>float <b>floor</b> ( float <b>x</b> );
-		round to largest integral value (returned as float) not greater 
+		round to largest integral value (returned as float) not greater
 than <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.ceil">
 	<reference>float <b>ceil</b> ( float <b>x</b> );
 		round to smallest integral value (returned as float) not less
 than <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.round">
 	<reference>float <b>round</b> ( float <b>x</b> );
 		round to nearest integral value (returned as float)</reference>
-</element>	
+</element>
 <element pattern="Math.trunc">
 	<reference>float <b>trunc</b> ( float <b>x</b> );
-		round to largest integral value (returned as float) no greater in 
+		round to largest integral value (returned as float) no greater in
 magnitude than <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.fmod">
 	<reference>float <b>fmod</b> ( float <b>x</b>, float <b>y</b> );
 		computes the floating point remainder of <b>x</b> / <b>y</b></reference>
-</element>	
+</element>
 <element pattern="Math.remainder">
 	<reference>float <b>remainder</b> ( float <b>x</b>, float <b>y</b> );
 		computes the value r such that r = <b>x</b> - n * <b>y</b>, where n is the integer nearest the exact value of <b>x</b> / <b>y</b>.  If there are two integers closest to <b>x</b> / <b>y</b>, n shall be the even one. If r is zero, it is given the same sign as <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.min">
 	<reference>float <b>min</b> ( float <b>x</b>, float <b>y</b> );
 		choose lesser of two values</reference>
-</element>	
+</element>
 <element pattern="Math.max">
 	<reference>float <b>max</b> ( float <b>x</b>, float <b>y</b> );
 		choose greater of two values</reference>
-</element>	
+</element>
 <element pattern="Math.nextpow2">
 	<reference>int <b>nextpow2</b> ( int <b>x</b> );
 		computes the integeral (returned as int) smallest power of 2 greater than the value of <b>x</b></reference>
-</element>	
+</element>
 <element pattern="Math.isinf">
 	<reference>float <b>isinf</b> ( float <b>x</b> );
 		tests if <b>x</b> is infinity</reference>
-</element>	
+</element>
 <element pattern="Math.isnan">
 	<reference>float <b>isnan</b> ( float <b>x</b> );
 		tests if <b>x</b> "is not a number"</reference>
-</element>	
+</element>
 </group>
 </group>
 <group  highlight="ck-variable">
@@ -2331,8 +1857,8 @@ Some properties of now include:
     now holds the current ChucK time (when read).
     modifying now has the side effects of:
         advancing time;
-        suspending the current process (called shred) until the desired time is reached - allowing other shreds and audio synthesis to compute; 
-    the value of now only changes when it is explicitly modified. </reference>
+        suspending the current process (called shred) until the desired time is reached - allowing other shreds and audio synthesis to compute;
+    the value of now only changes when it is explicitly modified.	</reference>
 </element>
 
 </group>
@@ -2361,16 +1887,16 @@ Some properties of now include:
 </element>
 <element pattern="polar">
 	<reference>complex number in polar form
-	The polar type offers an equivalent, alternative representation of complex numbers in terms of a magnitude and phase value. A polar representation of a complex number can be declared as
+	The polar type offers an equivalent, alternative representation of complex numbers in terms of a magnitude and phase value.
+	A polar representation of a complex number can be declared as:
 	%(2, .5*pi) => polar pol; // pol is 2∠.5π
-
 The magnitude and phase values can be accessed via .mag and .phase:
 	%(2, .5*pi) => polar pol;
 	pol.mag => float m; // m is 2
 	pol.phase => float p; //p is .5π</reference>
 </element>
 <element pattern="string">
-	<reference> string (of characters)</reference>
+	<reference>string (of characters)</reference>
 </element>
 <element pattern="Object">
 	<reference></reference>
@@ -2386,7 +1912,7 @@ The magnitude and phase values can be accessed via .mag and .phase:
 </element>
 <element pattern="Shred">
 	<reference>
- // spork a new shred to start running from go(), 
+ // spork a new shred to start running from go(),
  // store reference to new shred in offspring
     spork ~ go() => Shred @ offspring;</reference>
 </element>
@@ -2396,19 +1922,19 @@ The magnitude and phase values can be accessed via .mag and .phase:
 <element pattern="Math.PI">
 	<reference>float <b>PI</b>;
 	constant PI; use as: Math.PI</reference>
-</element>	
+</element>
 <element pattern="Math.TWO_PI">
 	<reference>float <b>TWO_PI</b>;
 	constant PI*2; example usage: Math.TWO_PI</reference>
-</element>	
+</element>
 <element pattern="Math.e">
 	<reference>float <b>e</b>; // same as: E
 	Euler's constant, base of natural logarithm; same as Math.exp(1); use as: Math.e or Math.E</reference>
-</element>	
+</element>
 <element pattern="Math.j">
 	<reference>complex <b>i</b>; // same as: j, I, or J
 	the imaginary number 'i' as a complex value; use as: Math.i or Math.j or Math.I or Math.J</reference>
-</element>	
+</element>
 <element pattern="Math.RANDOM_MAX">
 	<reference>int <b>RANDOM_MAX</b>;
 	max value returned by Math.random()
@@ -2429,7 +1955,7 @@ The magnitude and phase values can be accessed via .mag and .phase:
 <element pattern="Math.INT_MAX">
 	<reference>int Math.INT_MAX -constant set to the largest value a integer can have
 	</reference>
-</element>	
+</element>
 </group>
 <group  highlight="keyword">
 	<autocomplete enable="1" />
@@ -2450,7 +1976,7 @@ Sometimes it is useful to suspend the current shred without advancing time, and 
 </group>
 <group  highlight="ck-operator">
 <element pattern="=>">
-	<reference> foundational ChucK operator
+	<reference>foundational ChucK operator
 		=> connects two unit generators:
 			SinOsc b => Gain g => BiQuad f => dac;
 		=> does assignment on primitive types (int, float, dur, time):
@@ -2458,9 +1984,9 @@ Sometimes it is useful to suspend the current shred without advancing time, and 
 		=> chuck values to a function == function call
 			( 30, 1000 ) => Math.rand2f;
 	</reference>
-</element> 
+</element>
 <element pattern="@=>">
-	<reference> explicit assignment ChucK operator
+	<reference>explicit assignment ChucK operator
 		@=> can be used for reference assignments of objects,classes,arrays.
 		reference assign moe to larry, such that both moe and larry reference the same object:
 			Object moe @=> Object @ larry;
@@ -2471,33 +1997,33 @@ Sometimes it is useful to suspend the current shred without advancing time, and 
 	</reference>
 </element>
 <element pattern="+=>">
-	<reference> add 4 to foo and assign result to foo
+	<reference>add 4 to foo and assign result to foo
     4 +=> foo;</reference>
 </element>
 <element pattern="-=>">
-	<reference> subtract 10 from foo and assign result to foo
+	<reference>subtract 10 from foo and assign result to foo
     remember this is (foo-10), not (10-foo)
     10 -=> foo;</reference>
 </element>
 <element pattern="*=>">
-	<reference> 2 times foo assign result to foo
+	<reference>2 times foo assign result to foo
     2 *=> foo;</reference>
 </element>
 <element pattern="/=>">
-	<reference> divide 4 into foo and assign result to foo
+	<reference>divide 4 into foo and assign result to foo
     again remember this is (foo/4), not (4/foo)
     4 /=> foo;</reference>
 </element>
 <element pattern="%=>">
-	<reference> mod foo by T and assign result to foo
+	<reference>mod foo by T and assign result to foo
     T %=> foo;</reference>
 </element>
 <element pattern="&amp;=>">
-	<reference> bitwise AND 0xff and bar and assign result to bar
+	<reference>bitwise AND 0xff and bar and assign result to bar
     0xff &amp;=> bar;</reference>
 </element>
 <element pattern="|=>">
-	<reference> bitwise OR 0xff and bar and assign result to bar
+	<reference>bitwise OR 0xff and bar and assign result to bar
     0xff |=> bar;</reference>
 </element>
 </group>
@@ -2523,7 +2049,7 @@ Sometimes it is useful to suspend the current shred without advancing time, and 
 </element>
 <element pattern="week">
 	<reference>duration of 1 week</reference>
-</element>	
+</element>
 </group>
 <element pattern="&#60;&#60;&#60;" highlight="keyword">
 	<context symbols="\>&#13;&#10;" highlight="string">
@@ -2560,7 +2086,7 @@ Sometimes it is useful to suspend the current shred without advancing time, and 
 <element pattern="#" highlight="comment">
 	<context symbols="&#10;&#13;" highlight="comment">
 		<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" ends_context="1" />
-	</context>		
+	</context>
 </element>
 </context>
 </definition>
