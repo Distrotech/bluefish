@@ -481,6 +481,21 @@ doc_set_tooltip(Tdocument * doc)
 	g_free(tmp);
 }
 
+static void
+tab_label_set_string(Tdocument *doc, const gchar *string)
+{
+	gtk_label_set_text(GTK_LABEL(doc->tab_label), string);
+	if (main_v->props.max_shown_filename_len > 5) {
+		gint len = g_utf8_strlen(string, -1);
+		if (len > main_v->props.max_shown_filename_len) {
+			gtk_label_set_width_chars(GTK_LABEL(doc->tab_label), MIN(main_v->props.max_shown_filename_len, len));
+			gtk_label_set_ellipsize(GTK_LABEL(doc->tab_label), PANGO_ELLIPSIZE_MIDDLE);
+			return;
+		}
+	}
+	gtk_label_set_ellipsize(GTK_LABEL(doc->tab_label), PANGO_ELLIPSIZE_NONE);
+}
+
 /**
  * doc_set_title:
  * @doc: #Tdocument*
@@ -514,7 +529,7 @@ doc_set_title(Tdocument * doc)
 		main_v->num_untitled_documents++;
 	}
 	gtk_label_set_text(GTK_LABEL(doc->tab_menu), tabmenu_string);
-	gtk_label_set_text(GTK_LABEL(doc->tab_label), label_string);
+	tab_label_set_string(doc, label_string);
 	DEBUG_MSG("doc_set_title, tabmenu_string=%s,label_string=%s\n", tabmenu_string, label_string);
 	doc_set_tooltip(doc);
 	g_free(label_string);
@@ -2287,9 +2302,7 @@ document_unset_filename(Tdocument * doc)
 		}
 		doc_set_title(doc);
 		doc_set_modified(doc, TRUE);
-
-		gtk_label_set_text(GTK_LABEL(doc->tab_label), tmpstr);
-
+		tab_label_set_string(doc, tmpstr);
 		g_free(tmpstr);
 	}
 }
@@ -3406,8 +3419,11 @@ all_documents_apply_settings()
 	font_desc = pango_font_description_from_string(main_v->props.editor_font_string);
 	while (tmplist) {
 		Tdocument *doc = tmplist->data;
+		const gchar *tmpstr;
 		bluefish_text_view_set_font(BLUEFISH_TEXT_VIEW(doc->view), font_desc);
 		bluefish_text_view_set_colors(BLUEFISH_TEXT_VIEW(doc->view), main_v->props.btv_color_str);
+		tmpstr = gtk_label_get_text(GTK_LABEL(doc->tab_label));
+		tab_label_set_string(doc, tmpstr);
 		tmplist = g_list_next(tmplist);
 	}
 	pango_font_description_free(font_desc);

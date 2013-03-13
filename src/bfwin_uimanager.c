@@ -1039,14 +1039,6 @@ dynamic_menu_empty(GtkUIManager *uimanager, guint merge_id, GtkActionGroup *acti
 	g_list_free(actions);
 }
 
-
-static void
-register_custommime_for_bflang(Tbflang *bflang, gchar *mime) {
-	g_print("register_custommime_for_bflang, bflang=%s, mime=%s\n",bflang->name, mime);
-	main_v->globses.custombflangmime = g_list_prepend(main_v->globses.custombflangmime, array_from_arglist(bflang->name,mime,NULL));
-	
-}
-
 static void
 ask_register_custom_mime_for_bflang(Tbfwin *bfwin, Tbflang *bflang, gchar *mime) 
 {
@@ -1056,7 +1048,7 @@ ask_register_custom_mime_for_bflang(Tbfwin *bfwin, Tbflang *bflang, gchar *mime)
 			, GTK_BUTTONS_YES_NO,_("Always use this syntax for files of type %s ?"), mime);
 	response = gtk_dialog_run(GTK_DIALOG(dialog));
 	if (response == GTK_RESPONSE_YES) {
-		main_v->globses.custombflangmime = g_list_prepend(main_v->globses.custombflangmime, array_from_arglist(bflang->name,mime,NULL));
+		langmgr_add_custom_mime(bflang, mime);
 	}
 	gtk_widget_destroy(dialog);
 }
@@ -1080,9 +1072,9 @@ lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 			if (doc->uri) {
 				curi = g_file_get_uri(doc->uri);
 			}
-			tmpbflang = langmgr_get_bflang(oldmime, curi);
+			tmpbflang = langmgr_get_bflang(oldmime, NULL);
 			
-			g_print("got %p for tmpbflang with name %s\n",tmpbflang, tmpbflang->name);
+			DEBUG_MSG("lang_mode_menu_activate, got %p for tmpbflang with name %s\n",tmpbflang, tmpbflang->name);
 			
 			if (!tmpbflang) {
 				/* ask the user to register oldmime for the chosen language */

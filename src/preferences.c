@@ -53,6 +53,7 @@ enum {
 	editor_tab_indent_sel,
 	editor_auto_close_brackets,
 	use_system_tab_font,
+	max_shown_filename_len,
 	tab_font_string,			/* notebook tabs font */
 	/*tab_color_normal, *//* notebook tabs text color normal.  This is just NULL! */
 	tab_color_modified,			/* tab text color when doc is modified and unsaved */
@@ -1809,6 +1810,7 @@ preferences_apply(Tprefdialog * pd)
 	}
 
 	integer_apply(&main_v->props.use_system_tab_font, pd->prefs[use_system_tab_font], TRUE);
+	integer_apply(&main_v->props.max_shown_filename_len, pd->prefs[max_shown_filename_len], FALSE);
 	string_apply(&main_v->props.tab_font_string, pd->prefs[tab_font_string]);
 	string_apply(&main_v->props.tab_color_modified, pd->prefs[tab_color_modified]);
 	string_apply(&main_v->props.tab_color_loading, pd->prefs[tab_color_loading]);
@@ -2570,7 +2572,7 @@ preferences_dialog_new(void)
 	vbox1 = gtk_vbox_new(FALSE, 12);
 	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
 	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-	vbox2 = dialog_vbox_labeled(_("<b>Font</b>"), vbox1);
+	vbox2 = dialog_vbox_labeled(_("<b>Document tab</b>"), vbox1);
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
@@ -2589,6 +2591,12 @@ preferences_dialog_new(void)
 														   (pd->prefs[use_system_tab_font])));
 	g_signal_connect(G_OBJECT(pd->prefs[use_system_tab_font]), "toggled",
 					 G_CALLBACK(prefs_togglebutton_toggled_not_lcb), hbox);
+
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
+	pd->prefs[max_shown_filename_len] = dialog_spin_button_labeled(0, 1000, main_v->props.max_shown_filename_len,
+								   _("Maximum filename length shown in tab (0 is no limit)"), hbox, 0);
+
 
 	vbox2 = dialog_vbox_labeled(_("<b>Colors</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
