@@ -411,6 +411,7 @@ props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.editor_tab_indent_sel, "editor_tab_indent_sel:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.editor_auto_close_brackets, "editor_auto_close_brackets:", 2, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.use_system_tab_font, "use_system_tab_font:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.max_shown_filename_len, "max_shown_filename_len:", 0, TRUE);
 	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
 	init_prop_string(&config_rc, &main_v->props.tab_color_modified, "tab_color_modified:", "#0000FF");
 	init_prop_string(&config_rc, &main_v->props.tab_color_loading, "tab_color_loading:", "#C7C7C7");

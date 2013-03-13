@@ -1795,6 +1795,13 @@ langmgr_cleanup(void)
 }
 #endif
 
+void
+langmgr_add_custom_mime(Tbflang *bflang, const gchar *mime)
+{
+	main_v->globses.custombflangmime = g_list_prepend(main_v->globses.custombflangmime, array_from_arglist(bflang->name,mime,NULL));
+	g_hash_table_insert(langmgr.bflang_lookup, mime, bflang);
+} 
+
 static void
 register_bflanguage(Tbflang * bflang)
 {
