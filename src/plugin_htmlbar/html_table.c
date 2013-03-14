@@ -49,20 +49,20 @@ tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	gchar *thestring, *finalstring;
 
 	thestring = g_strdup(cap("<TABLE"));
-	thestring = insert_integer_if_spin(dg->spin[1], cap("CELLPADDING"), thestring,
-							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[4])), 0);							   
-	thestring = insert_integer_if_spin(dg->spin[3], cap("CELLSPACING"), thestring,
-							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[5])), 0);	
+	thestring = insert_if_spin(dg->spin[1], cap("CELLPADDING"), thestring,
+							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[4])));							   
+	thestring = insert_if_spin(dg->spin[3], cap("CELLSPACING"), thestring,
+							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[5])));	
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3]))) {
 		thestring = insert_attr_if_checkbox(dg->check[3],
 			main_v->props.xhtml == 1 ? cap("BORDER=\"border\"") : cap("BORDER"), thestring);
-	} else {	thestring =	insert_integer_if_spin(dg->spin[4], cap("BORDER"), thestring,
-							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2])), 0);
+	} else {	thestring =	insert_if_spin(dg->spin[4], cap("BORDER"), thestring,
+							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2])));
 	}						   
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("BGCOLOR"), thestring, NULL);
-	thestring =	insert_integer_if_spin(dg->spin[2], cap("WIDTH"), thestring,
-							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[1])), 0);
+	thestring =	insert_if_spin(dg->spin[2], cap("WIDTH"), thestring,
+							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[1])));
 	thestring =	insert_string_if_entry(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(dg->combo[4]))), cap("CLASS"), 
 								thestring, NULL);
 	thestring =	insert_string_if_entry(GTK_ENTRY(dg->entry[3]), cap("ID"), thestring, NULL);
