@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file_autosave.c - autosave 
  *
- * Copyright (C) 2009,2010,2011,2012 Olivier Sessink
+ * Copyright (C) 2009,2010,2011,2012,2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -85,6 +85,8 @@ during startup:
 #include "document.h"
 #include "file.h"
 #include "stringlist.h"
+#include "project.h"
+#include "rcfile.h"
 
 
 static GHashTable *
@@ -145,16 +147,14 @@ create_autosave_path(Tdocument * doc, GHashTable * excludehash)
 static void
 autosave_save_journal(void)
 {
-	if (main_v->autosave_need_journal_save) {
-		GFile *file;
-		gchar *path = g_strdup_printf("%s/." PACKAGE "/autosave_journal.%d", g_get_home_dir(), getpid());
-		DEBUG_MSG("autosave_save_journal in %s\n", path);
-		file = g_file_new_for_path(path);
-		g_free(path);
-		put_stringlist(file, main_v->autosave_journal, TRUE);
-		g_object_unref(file);
-		main_v->autosave_need_journal_save = FALSE;
-	}
+	GFile *file;
+	gchar *path = g_strdup_printf("%s/." PACKAGE "/autosave_journal.%d", g_get_home_dir(), getpid());
+	DEBUG_MSG("autosave_save_journal in %s\n", path);
+	file = g_file_new_for_path(path);
+	g_free(path);
+	put_stringlist(file, main_v->autosave_journal, TRUE);
+	g_object_unref(file);
+	main_v->autosave_need_journal_save = FALSE;
 }
 
 GList *
@@ -246,7 +246,7 @@ autosave_complete_lcb(gint status, gint error_info, gpointer data)
 		DEBUG_MSG("autosave_complete_lcb, status %d is not handled\n", status);
 		break;
 	}
-	if (main_v->autosave_progress == NULL) {
+	if (main_v->autosave_progress == NULL && main_v->autosave_need_journal_save) {
 		autosave_save_journal();
 	}
 }
@@ -276,10 +276,15 @@ static gboolean
 run_autosave(gpointer data)
 {
 	GList *tmplist;
+	static gint counter=0;
+	gboolean disk_spun_up=FALSE;
 	DEBUG_MSG("run_autosave\n");
 	if (main_v->autosave_progress)
 		return TRUE;
 
+	/* we try to synchronise auto-project and auto-session save wit the autosave, so only if we 
+	have to auto save something we might save the project or session as well */
+	counter++;
 	if (main_v->need_autosave) {
 		GHashTable *hasht;
 		bfwin_all_statusbar_message(_("Autosave in progress..."), 1);
@@ -295,9 +300,20 @@ run_autosave(gpointer data)
 			tmplist = g_list_next(tmplist);
 		}
 		g_hash_table_destroy(hasht);
-	} else {
+		disk_spun_up = TRUE;
+	} else if (main_v->autosave_need_journal_save) {
 		autosave_save_journal();
-		return TRUE;
+		disk_spun_up = TRUE;
+	}
+	if (disk_spun_up && counter > 30) {
+		/* with default values (every minute autosave) this means once in 30 minutes config file save */
+		for (tmplist=g_list_first(main_v->bfwinlist);tmplist;tmplist=g_list_next(tmplist)) {
+			if (BFWIN(tmplist->data)->project) {
+				project_save(BFWIN(tmplist->data), FALSE);
+			}
+		}
+		rcfile_save_global_session();
+		counter=0;
 	}
 	return TRUE;
 }
