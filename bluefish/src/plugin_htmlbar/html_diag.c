@@ -391,6 +391,23 @@ insert_string_if_combobox(GtkComboBox * combobox, gchar * itemname, gchar * stri
 }
 
 gchar *
+insert_if_spin(GtkWidget *spin, gchar * itemname, gchar * string2add2, gboolean ispercentage)
+{
+	const gchar *text = gtk_entry_get_text(GTK_ENTRY(spin));
+	if (text && text[0] != '\0') {
+		gchar *tempstring;
+		if (ispercentage) {
+			tempstring = g_strdup_printf("%s %s=\"%s%%\"", string2add2, itemname, text);
+		} else {
+			tempstring = g_strdup_printf("%s %s=\"%s\"", string2add2, itemname, text);
+		}
+		g_free(string2add2);
+		string2add2 = tempstring;
+	}
+	return string2add2;
+}
+
+gchar *
 insert_integer_if_spin(GtkWidget * spin, gchar * itemname, gchar * string2add2, gboolean ispercentage,
 					   gint dontinsertonvalue)
 {

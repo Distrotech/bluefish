@@ -201,10 +201,10 @@ image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag * imdg)
 			insert_integer_if_spin(imdg->dg->spin[1], cap("HEIGHT"), thestring,
 								   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(imdg->dg->check[1])), 0);
 		if (!main_v->props.xhtml) {
-			thestring = insert_integer_if_spin(imdg->dg->spin[2], cap("BORDER"), thestring, FALSE, 1);
+			thestring = insert_if_spin(imdg->dg->spin[2], cap("BORDER"), thestring, FALSE);
 		}
-		thestring = insert_integer_if_spin(imdg->dg->spin[3], cap("HSPACE"), thestring, FALSE, 0);
-		thestring = insert_integer_if_spin(imdg->dg->spin[4], cap("VSPACE"), thestring, FALSE, 0);
+		thestring = insert_if_spin(imdg->dg->spin[3], cap("HSPACE"), thestring, FALSE);
+		thestring = insert_if_spin(imdg->dg->spin[4], cap("VSPACE"), thestring, FALSE);
 		thestring = insert_string_if_entry(GTK_ENTRY(imdg->dg->entry[1]), cap("NAME"), thestring, NULL);
 		thestring = insert_string_if_entry(GTK_ENTRY(imdg->dg->entry[2]), cap("ALT"), thestring, "");
 		thestring = insert_string_if_entry(GTK_ENTRY(imdg->dg->entry[3]), cap("USEMAP"), thestring, NULL);
