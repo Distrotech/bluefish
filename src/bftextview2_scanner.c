@@ -60,6 +60,8 @@ G_SLICE=always-malloc G_DEBUG=gc-friendly,resident-modules valgrind --tool=memch
 #define MAX_CONTINUOUS_SCANNING_INTERVAL 0.1	/* float in seconds */
 #endif
 
+#define NUM_TIMER_CHECKS_PER_RUN 10
+
 #ifdef DEVELOPMENT
 static void scancache_check_integrity(BluefishTextView * btv, GTimer *timer);
 #endif
@@ -1109,6 +1111,9 @@ static gboolean
 bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, GtkTextIter * start,
 							 GtkTextIter * end)
 {
+	GtkTextIter nextit;
+	gboolean cont;
+	guint startoffset;
 	/* first find a region that needs scanning */
 	gtk_text_buffer_get_start_iter(buffer, start);
 	if (!gtk_text_iter_begins_tag(start, btv->needscanning)) {
@@ -1120,15 +1125,28 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 	}
 	/* find the end of the region */
 	*end = *start;
-	gtk_text_iter_forward_char(end);
-	if (!gtk_text_iter_ends_tag(end, btv->needscanning)) {
-		if (!gtk_text_iter_forward_to_tag_toggle(end, btv->needscanning)) {
-			DBG_MSG("BUG: we should never get here\n");
-			return FALSE;
+	startoffset = gtk_text_iter_get_offset(start);
+	do {
+		cont=FALSE;
+		gtk_text_iter_forward_char(end);
+		if (!gtk_text_iter_ends_tag(end, btv->needscanning)) {
+			if (!gtk_text_iter_forward_to_tag_toggle(end, btv->needscanning)) {
+				DBG_MSG("BUG: we should never get here\n");
+				return FALSE;
+			}
 		}
-	}
-	DBG_SCANNING("first region that needs scanning runs from %d to %d\n", gtk_text_iter_get_offset(start),
-				 gtk_text_iter_get_offset(end));
+		DBG_SCANNING("region that needs scanning runs from %d to %d\n", gtk_text_iter_get_offset(start),
+					 gtk_text_iter_get_offset(end));
+		nextit = *end;
+		if (gtk_text_iter_forward_char(&nextit) && (gtk_text_iter_begins_tag(&nextit, btv->needscanning) || gtk_text_iter_forward_to_tag_toggle(&nextit, btv->needscanning))) {
+			/* there is another start in the doc, see if it is close (doable within one scanning run) or far away */
+			if (gtk_text_iter_get_offset(&nextit) - startoffset < (NUM_TIMER_CHECKS_PER_RUN * loops_per_timer)) {
+				DBG_SCANNING("next region that needs scanning starts at %d, merge them together!\n", gtk_text_iter_get_offset(&nextit));
+				*end = nextit;
+				cont = TRUE;
+			}
+		}
+	} while(cont);
 	/* now move start to the beginning of the line and end to the end of the line */
 	/*gtk_text_iter_set_line_offset(start,0);
 	   DBG_SCANNING("set startposition to beginning of line, offset is now %d\n",gtk_text_iter_get_offset(start));
@@ -1494,7 +1512,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #endif
 	/* tune the loops_per_timer, try to have 10 timer checks per loop, so we have around 10% deviation from the set interval */
 	if (!end_of_region)
-		loops_per_timer = MAX(loop / 10, 200);
+		loops_per_timer = MAX(loop / NUM_TIMER_CHECKS_PER_RUN, 200);
 
 #ifdef DEVELOPMENT
 	if (finished)
