@@ -41,7 +41,7 @@
 </properties>
 
 <definition>
-<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
 <element pattern="[0-9.]+" is_regex="1" highlight="value"/>
 <element pattern="\$+[!@?*#\$a-zA-Z0-9_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="variable"/>
 <element pattern="\${[!@?*#\$a-zA-Z0-9_][a-zA-Z0-9_]*" is_regex="1" highlight="variable">
@@ -50,7 +50,23 @@
 <element pattern="}" highlight="variable" ends_context="1"/>
 </context>
 </element>
-
+<group highlight="keyword" >
+	<autocomplete enable="1" />
+	<element pattern="do" />
+	<element pattern="done" />
+	<element pattern="elif" />
+	<element pattern="else" />
+	<element pattern="fi" />
+	<element pattern="for" />
+	<element pattern="if" />
+	<element pattern="in" />
+	<element pattern="select" />
+	<element pattern="until" />
+	<element pattern="while" />
+	<element pattern="case" />
+	<element pattern="esac" />
+	<element pattern="time" />
+</group>
 <group  highlight="function">
 	<autocomplete enable="1" />
 	<element pattern="alias" />
@@ -68,11 +84,7 @@
    <element pattern="declare" />
    <element pattern="dirs" />
    <element pattern="disown" />
-   <element pattern="do" />
-   <element pattern="done" />
    <element pattern="echo" />
-   <element pattern="elif" />
-   <element pattern="else" />
    <element pattern="enable" />
    <element pattern="eval" />
    <element pattern="exec" />
@@ -80,15 +92,11 @@
    <element pattern="export" />
    <element pattern="fc" />
    <element pattern="fg" />
-   <element pattern="fi" />
-   <element pattern="for" />
    <element pattern="function" />
    <element pattern="getopts" />
    <element pattern="hash" />
    <element pattern="help" />
    <element pattern="history" />
-   <element pattern="if" />
-   <element pattern="in" />
    <element pattern="jobs" />
    <element pattern="kill" />
    <element pattern="let" />
@@ -103,7 +111,6 @@
    <element pattern="readarray" />
    <element pattern="readonly" />
    <element pattern="return" />
-	<element pattern="select" />
    <element pattern="set" />
    <element pattern="shift" />
    <element pattern="shopt" />
@@ -119,13 +126,8 @@
    <element pattern="umask" />
    <element pattern="unalias" />
    <element pattern="unset" />
-	<element pattern="until" />
    <element pattern="wait" />
-   <element pattern="while" />
-   <element pattern="case" />
-   <element pattern="esac" />
    <element pattern="coproc" />
-   <element pattern="time" />
    <element pattern="true" />
    <element pattern="false" />
 </group>
