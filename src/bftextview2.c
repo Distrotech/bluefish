@@ -1465,11 +1465,11 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 	/* following code moves a selected block */
 	if (kevent->state & GDK_CONTROL_MASK) {
 		if (kevent->keyval == GDK_KEY_Up) {
-			doc_move_selection(btv->doc, TRUE);
+			doc_move_selection(btv->doc, TRUE, TRUE);
 			return TRUE;
 		}
 		if (kevent->keyval == GDK_KEY_Down) {
-			doc_move_selection(btv->doc, FALSE);
+			doc_move_selection(btv->doc, FALSE, TRUE);
 			return TRUE;
 		}
 	}
