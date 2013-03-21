@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * doc_text_tools.c - text tools
  *
- * Copyright (C) 2008-2012 Olivier Sessink
+ * Copyright (C) 2008-2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -131,7 +131,7 @@ split_lines_backend(Tdocument * doc, gint start, gint end)
 {
 	gint coffset = 0; /* the offset that we have introduced since the start of this function call */
 	gint count = 0, tabsize;
-	gint startws = 0, endws = 0, starti = start, endi = -1, requested_size;	
+	gint startws = 0, endws = 0, starti = start, endi = -1, requested_size;
 	/* ws= whitespace, i=indenting, these are character positions in the GtkTextBufferr !!!!!!!! */
 	gint charpos;
 	gchar *buf, *p;
@@ -434,11 +434,11 @@ select_between_matching_block_boundaries(Tdocument *doc)
 	} else {
 		innerblock = !innerblock;
 	}
-	
+
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &cursor, gtk_text_buffer_get_insert(doc->buffer));
 	DEBUG_MSG("select_between_matching_block_boundaries, innerblock=%d, location=%d\n", innerblock, gtk_text_iter_get_offset(&cursor));
 	offset = gtk_text_iter_get_offset(&cursor);
-	if (!bluefish_text_view_get_active_block_boundaries(BLUEFISH_TEXT_VIEW(doc->view), 
+	if (!bluefish_text_view_get_active_block_boundaries(BLUEFISH_TEXT_VIEW(doc->view),
 					offset, innerblock, &so, &eo)) {
 		DEBUG_MSG("select_between_matching_block_boundaries, no block, return\n");
 		return;
@@ -446,11 +446,11 @@ select_between_matching_block_boundaries(Tdocument *doc)
 	if (innerblock && gtk_text_iter_equal(&so, &eo)) {
 		DEBUG_MSG("select_between_matching_block_boundaries, iters are equal, request innerblock=FALSE\n");
 		innerblock = FALSE;
-		if (!bluefish_text_view_get_active_block_boundaries(BLUEFISH_TEXT_VIEW(doc->view), 
+		if (!bluefish_text_view_get_active_block_boundaries(BLUEFISH_TEXT_VIEW(doc->view),
 						offset, innerblock, &so, &eo)) {
 			DEBUG_MSG("select_between_matching_block_boundaries, innerblock=FALSE, no block, return\n");
 			return;
-		}	
+		}
 	}
 	gtk_text_buffer_select_range(doc->buffer, &so, &eo);
 }
@@ -485,31 +485,49 @@ delete_line(Tdocument *doc)
 }
 
 void
-doc_move_selection(Tdocument *doc, gboolean up)
+doc_move_selection(Tdocument *doc, gboolean up, gboolean curline_if_no_selection)
 {
 	GtkTextIter so, eo;
 	gchar *text;
 	gint offset, size;
 	if (!gtk_text_buffer_get_selection_bounds(doc->buffer, &so, &eo)) {
-		return;
+		DEBUG_MSG("doc_move_selection, no selection, select the current line!\n");
+		if (curline_if_no_selection) {
+			gtk_text_buffer_get_iter_at_mark(doc->buffer,&so,gtk_text_buffer_get_insert(doc->buffer));
+			eo = so;
+		} else {
+			return;
+		}
 	}
 	/* so and eo are guaranteed to be in ascending order */
+	if (gtk_text_iter_equal(&so, &eo)) {
+		gtk_text_iter_forward_char(&eo);
+	}
+	if (!gtk_text_iter_starts_line(&so))
+		gtk_text_iter_set_line_offset(&so, 0);
+	if (!gtk_text_iter_starts_line(&eo))
+		gtk_text_iter_forward_line(&eo);
+
 	doc_unre_new_group(doc);
 	doc_block_undo_reg(doc);
-	
+
 	offset = gtk_text_iter_get_offset(&so);
+	DEBUG_MSG("start moving text from %d:%d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&eo));
 	size = gtk_text_iter_get_offset(&eo)-offset;
 	text = gtk_text_buffer_get_text(doc->buffer,&so,&eo,TRUE);
 	/*g_print("doc_move_selection, got selection %d:%d\n",offset,offset+size);*/
 	gtk_text_buffer_delete(doc->buffer, &so, &eo);
 	doc_unre_add(doc, text, offset, offset+size, UndoDelete);
 
-	/* now we have to move the cursor up */
+	/* now we have to move the cursor up,
+	because we changed the text we invalidated all iters, so get them again */
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &so, offset);
 	if (up) {
 		gtk_text_iter_backward_line(&so);
+		DEBUG_MSG("UP -> new start location is at %d\n",gtk_text_iter_get_offset(&so));
 	} else {
 		gtk_text_iter_forward_line(&so);
+		DEBUG_MSG("DOWN -> new start location is at %d\n",gtk_text_iter_get_offset(&so));
 	}
 	offset = gtk_text_iter_get_offset(&so);
 	gtk_text_buffer_insert(doc->buffer,&so,text,-1);
@@ -519,11 +537,12 @@ doc_move_selection(Tdocument *doc, gboolean up)
 	doc_unblock_undo_reg(doc);
 	doc_set_modified(doc, 1);
 	doc_unre_new_group(doc);
-	
+
 	/* and select the text again */
-	/*g_print("doc_move_selection, select %d:%d\n",offset,offset+size);*/
+	DEBUG_MSG("doc_move_selection, select %d:%d\n",offset,offset+size);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &so, offset);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &eo, offset+size);
+	DEBUG_MSG("select new location %d:%d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&eo));
 	gtk_text_buffer_select_range(doc->buffer,&so,&eo);
 }
 
@@ -537,7 +556,7 @@ doc_insert_filename(Tdocument *doc, gboolean relative)
 	tmp = run_file_select_dialog(GTK_WINDOW(BFWIN(doc->bfwin)->main_window)
 							, NULL, relativeto,GTK_FILE_CHOOSER_ACTION_OPEN);
 	if (tmp)
-		doc_insert_two_strings(doc, tmp, NULL);	
+		doc_insert_two_strings(doc, tmp, NULL);
 	g_free(relativeto);
 	g_free(tmp);
 }

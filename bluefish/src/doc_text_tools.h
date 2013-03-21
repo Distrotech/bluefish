@@ -30,6 +30,6 @@ void convert_to_columns(Tdocument *doc);
 void select_between_matching_block_boundaries(Tdocument *doc);
 void duplicate_line(Tdocument *doc);
 void delete_line(Tdocument *doc);
-void doc_move_selection(Tdocument *doc, gboolean up);
+void doc_move_selection(Tdocument *doc, gboolean up, gboolean curline_if_no_selection);
 void doc_insert_filename(Tdocument *doc, gboolean relative);
 #endif							/* __DOC_TEXT_TOOLS_H_ */
