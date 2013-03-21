@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		all-php.bfinc $Revision$
  
-		Copyright (C) 2008-2012 Olivier Sessink
+		Copyright (C) 2008-2013 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -26001,371 +26001,170 @@ or false.
 </reference></element>
 
 <!-- php 5.3+ -->
-<element pattern="acosh">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($arg);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 4 &amp;gt;= 4.1.0, PHP 5)</i>
-	Returns the inverse hyperbolic cosine of arg, i.e. the value whose hyperbolic cosine is arg.
-<b>Parameters:</b>
-	<b>arg</b>: The value to process
-<b>Return Values: </b>The inverse hyperbolic cosine of arg</reference>
-</element>
-<element pattern="array_replace_recursive">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($array, $array1, $...);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	array_replace_recursive() replaces the values of the first array with the same values from all the following arrays. If a key from the first array exists in the second array, its value will be replaced by the value from the second array. If the key exists in the second array, and not the first, it will be created in the first array. If a key only exists in the first array, it will be left as is. If several arrays are passed for replacement, they will be processed in order, the later array overwriting the previous values.
-<b>Parameters:</b>
-	<b>array</b>: The array in which elements are replaced.
-	<b>array1</b>: The array from which elements will be extracted.
-	<b>...</b>: Optional. More arrays from which elements will be extracted.
-<b>Return Values: </b>Returns an array, or NULL if an error occurs.</reference>
-</element>
 <element pattern="array_replace">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($array, $array1, $...);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	array_replace() replaces the values of the first array with the same values from all the following arrays. If a key from the first array exists in the second array, its value will be replaced by the value from the second array. If the key exists in the second array, and not the first, it will be created in the first array. If a key only exists in the first array, it will be left as is. If several arrays are passed for replacement, they will be processed in order, the later arrays overwriting the previous values.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($array, $array1, $...);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+array array_replace ( array $array , array $array1 [, array $... ] )
+array_replace() replaces the values of the first array with the same values from all the following arrays. If a key from the first array exists in the second array, its value will be replaced by the value from the second array. If the key exists in the second array, and not the first, it will be created in the first array. If a key only exists in the first array, it will be left as is. If several arrays are passed for replacement, they will be processed in order, the later arrays overwriting the previous values.
 <b>Parameters:</b>
 	<b>array</b>: The array in which elements are replaced.
 	<b>array1</b>: The array from which elements will be extracted.
 	<b>...</b>: More arrays from which elements will be extracted. Values from later arrays overwrite the previous values.
 <b>Return Values: </b>Returns an array, or NULL if an error occurs.</reference>
 </element>
-<element pattern="asinh">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($arg);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 4 &amp;gt;= 4.1.0, PHP 5)</i>
-	Returns the inverse hyperbolic sine of arg, i.e. the value whose hyperbolic sine is arg.
+<element pattern="array_replace_recursive">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($array, $array1, $...);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+array array_replace_recursive ( array $array , array $array1 [, array $... ] )
+array_replace_recursive() replaces the values of the first array with the same values from all the following arrays. If a key from the first array exists in the second array, its value will be replaced by the value from the second array. If the key exists in the second array, and not the first, it will be created in the first array. If a key only exists in the first array, it will be left as is. If several arrays are passed for replacement, they will be processed in order, the later array overwriting the previous values.
 <b>Parameters:</b>
-	<b>arg</b>: The argument to process
-<b>Return Values: </b>The inverse hyperbolic sine of arg</reference>
-</element>
-<element pattern="atanh">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($arg);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 4 &amp;gt;= 4.1.0, PHP 5)</i>
-	Returns the inverse hyperbolic tangent of arg, i.e. the value whose hyperbolic tangent is arg.
-<b>Parameters:</b>
-	<b>arg</b>: The argument to process
-<b>Return Values: </b>Inverse hyperbolic tangent of arg</reference>
+	<b>array</b>: The array in which elements are replaced.
+	<b>array1</b>: The array from which elements will be extracted.
+	<b>...</b>: Optional. More arrays from which elements will be extracted.
+<b>Return Values: </b>Returns an array, or NULL if an error occurs.</reference>
 </element>
 <element pattern="class_alias">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($original, $alias, $autoload);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Creates an alias named alias based on the defined class original. The aliased class is exactly the same as the original class.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($original, $alias, $autoload);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+bool class_alias ( string $original , string $alias [, bool $autoload = TRUE ] )
+Creates an alias named alias based on the defined class original. The aliased class is exactly the same as the original class.
 <b>Parameters:</b>
 	<b>original</b>: The original class.
 	<b>alias</b>: The alias name for the class.
 	<b>autoload</b>: Whether do autoload if the original class is not found.
 <b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
 </element>
-<element pattern="date_add">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	</reference>
-</element>
-<element pattern="date_create_from_format">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	</reference>
-</element>
-<element pattern="date_diff">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	</reference>
-</element>
-<element pattern="date_get_last_errors">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	</reference>
-</element>
-<element pattern="date_parse_from_format">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($format, $date);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Returns associative array with detailed info about given date.
-<b>Parameters:</b>
-	<b>format</b>: Format accepted by DateTime::createFromFormat().
-	<b>date</b>: String representing the date.
-<b>Return Values: </b>Returns associative array with detailed info about given date.</reference>
-</element>
-<element pattern="date_sub">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	</reference>
-</element>
-<element pattern="expm1">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($arg);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 4 &amp;gt;= 4.1.0, PHP 5)</i>
-	expm1() returns the equivalent to &amp;#039;exp(arg) - 1&amp;#039; computed in a way that is accurate even if the value of arg is near zero, a case where &amp;#039;exp (arg) - 1&amp;#039; would be inaccurate due to subtraction of two numbers that are nearly equal.
-<b>Parameters:</b>
-	<b>arg</b>: The argument to process
-<b>Return Values: </b>&amp;#039;e&amp;#039; to the power of arg minus one</reference>
-</element>
-<element pattern="forward_static_call_array">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($function, $parameters);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Calls a user defined function or method given by the function parameter. This function must be called within a method context, it can&amp;#039;t be used outside a class. It uses the late static binding. All arguments of the forwarded method are passed as values, and as an array, similarly to call_user_func_array().
-<b>Parameters:</b>
-	<b>function</b>: The function or method to be called. This parameter may be an array, with the name of the class, and the method, or a string, with a function name.
-	<b>parameter</b>: One parameter, gathering all the method parameter in one array.
-<b>Return Values: </b>Returns the function result, or FALSE on error.</reference>
-</element>
 <element pattern="forward_static_call">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($function, $parameter, $...);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Calls a user defined function or method given by the function parameter, with the following arguments. This function must be called within a method context, it can&amp;#039;t be used outside a class. It uses the late static binding.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($function, $parameter, $...);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+mixed forward_static_call ( callable $function [, mixed $parameter [, mixed $... ]] )
+Calls a user defined function or method given by the function parameter, with the following arguments. This function must be called within a method context, it can't be used outside a class. It uses the late static binding.
 <b>Parameters:</b>
 	<b>function</b>: The function or method to be called. This parameter may be an array, with the name of the class, and the method, or a string, with a function name.
 	<b>parameter</b>: Zero or more parameters to be passed to the function.
 <b>Return Values: </b>Returns the function result, or FALSE on error.</reference>
 </element>
+<element pattern="forward_static_call_array">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($function, $parameters);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+mixed forward_static_call_array ( callable $function , array $parameters )
+Calls a user defined function or method given by the function parameter. This function must be called within a method context, it can't be used outside a class. It uses the late static binding. All arguments of the forwarded method are passed as values, and as an array, similarly to call_user_func_array().
+<b>Parameters:</b>
+	<b>function</b>: The function or method to be called. This parameter may be an array, with the name of the class, and the method, or a string, with a function name.
+	<b>parameter</b>: One parameter, gathering all the method parameter in one array.
+<b>Return Values: </b>Returns the function result, or FALSE on error.</reference>
+</element>
 <element pattern="gc_collect_cycles">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Forces collection of any existing garbage cycles.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+int gc_collect_cycles ( void )
+Forces collection of any existing garbage cycles.
 <b>Parameters:</b>
 <b>Return Values: </b>Returns number of collected cycles.</reference>
 </element>
 <element pattern="gc_disable">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Deactivates the circular reference collector, setting zend.enable_gc to 0.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+void gc_disable ( void )
+Deactivates the circular reference collector, setting zend.enable_gc to 0.
+<b>Parameters:</b>
+<b>Return Values: </b>No value is returned.</reference>
+</element>
+<element pattern="gc_enable">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+void gc_enable ( void )
+Activates the circular reference collector, setting zend.enable_gc to 1.
 <b>Parameters:</b>
 <b>Return Values: </b>No value is returned.</reference>
 </element>
 <element pattern="gc_enabled">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Returns status of the circular reference collector.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+bool gc_enabled ( void )
+Returns status of the circular reference collector.
 <b>Parameters:</b>
 <b>Return Values: </b>Returns TRUE if the garbage collector is enabled, FALSE otherwise.</reference>
 </element>
-<element pattern="gc_enable">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Activates the circular reference collector, setting zend.enable_gc to 1.
-<b>Parameters:</b>
-<b>Return Values: </b>No value is returned.</reference>
-</element>
 <element pattern="get_called_class">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Gets the name of the class the static method is called in.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+string get_called_class ( void )
+Gets the name of the class the static method is called in.
 <b>Return Values: </b>Returns the class name. Returns FALSE if called from outside a class.</reference>
 </element>
 <element pattern="gethostname">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP &amp;gt;= 5.3.0)</i>
-	gethostname() gets the standard host name for the local machine.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP >= 5.3.0)</i>
+string gethostname ( void )
+gethostname() gets the standard host name for the local machine.
 <b>Return Values: </b>Returns a string with the hostname on success, otherwise FALSE is returned.</reference>
 </element>
-<element pattern="gmp_testbit">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($a, $index);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Tests if the specified bit is set.
-<b>Parameters:</b>
-	<b>a</b>: It can be either a GMP number resource, or a numeric string given that it is possible to convert the latter to a number.
-	<b>index</b>: The bit to test
-<b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
-</element>
-<element pattern="hash_copy">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($context);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	
-<b>Parameters:</b>
-	<b>context</b>: Hashing context returned by hash_init().
-<b>Return Values: </b>Returns a copy of Hashing Context resource.</reference>
-</element>
 <element pattern="header_remove">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($name);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Removes an HTTP header previously set using header().
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($name);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+void header_remove ([ string $name ] )
+Removes an HTTP header previously set using header().
 <b>Parameters:</b>
 	<b>name</b>: The header name to be removed.
 <b>Return Values: </b>No value is returned.</reference>
 </element>
 <element pattern="header">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($string, $replace, $http_response_code);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 4, PHP 5)</i>
-	header() is used to send a raw HTTP header. See the &amp;raquo;&amp;nbsp;HTTP/1.1 specification for more information on HTTP headers.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($string, $replace, $http_response_code);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 4, PHP 5)</i>
+void header ( string $string [, bool $replace = true [, int $http_response_code ]] )
+header() is used to send a raw HTTP header. See the » HTTP/1.1 specification for more information on HTTP headers.
 <b>Parameters:</b>
 	<b>string</b>: The header string.
 	<b>replace</b>: The optional replace parameter indicates whether the header should replace a previous similar header, or add a second header of the same type. By default it will replace, but if you pass in FALSE as the second argument you can force multiple headers of the same type. For example:
 	<b>http_response_code</b>: Forces the HTTP response code to the specified value. Note that this parameter only has an effect if the string is not empty.
 <b>Return Values: </b>No value is returned.</reference>
 </element>
-<element pattern="imap_gc">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($imap_stream, $caches);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Purges the cache of entries of a specific type.
-<b>Parameters:</b>
-	<b>imap_stream</b>: An IMAP stream returned by imap_open().
-	<b>caches</b>: Specifies the cache to purge. It may one or a combination of the following constants: IMAP_GC_ELT (message cache elements), IMAP_GC_ENV (enveloppe and bodies), IMAP_GC_TEXTS (texts).
-<b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
-</element>
-<element pattern="json_last_error">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Returns the last error (if any) occurred during the last JSON encoding/decoding.
-<b>Parameters:</b>
-<b>Return Values: </b>Returns an integer, the value can be one of the following constants:</reference>
-</element>
 <element pattern="lcfirst">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($str);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Returns a string with the first character of str , lowercased if that character is alphabetic.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($str);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+string lcfirst ( string $str )
+Returns a string with the first character of str , lowercased if that character is alphabetic.
 <b>Parameters:</b>
 	<b>str</b>: The input string.
 <b>Return Values: </b>Returns the resulting string.</reference>
 </element>
-<element pattern="log1p">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($number);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 4 &amp;gt;= 4.1.0, PHP 5)</i>
-	log1p() returns log(1 + number) computed in a way that is accurate even when the value of number is close to zero. log() might only return log(1) in this case due to lack of precision.
-<b>Parameters:</b>
-	<b>number</b>: The argument to process
-<b>Return Values: </b>log(1 + number)</reference>
-</element>
-<element pattern="msg_queue_exists">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($key);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Checks whether the message queue key exists.
-<b>Parameters:</b>
-	<b>key</b>: Queue key.
-<b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
-</element>
-<element pattern="openssl_random_pseudo_bytes">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($length, &amp;$crypto_strong);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Generates a string of pseudo-random bytes, with the number of bytes determined by the length parameter.
-<b>Parameters:</b>
-	<b>length</b>: The length of the desired string of bytes. Must be a positive integer. PHP will try to cast this parameter to a non-null integer to use it.
-	<b>crypto_strong</b>: If passed into the function, this will hold a boolean value that determines if the algorithm used was &amp;quot;cryptographically strong&amp;quot;, e.g., safe for usage with GPG, passwords, etc. TRUE if it did, otherwise FALSE
-<b>Return Values: </b>Returns the generated string of bytes on success, or FALSE on failure.</reference>
-</element>
 <element pattern="parse_ini_string">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($ini, $process_sections, $scanner_mode);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	parse_ini_string() returns the settings in string ini in an associative array.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($ini, $process_sections, $scanner_mode);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+array parse_ini_string ( string $ini [, bool $process_sections = false [, int $scanner_mode = INI_SCANNER_NORMAL ]] )
+parse_ini_string() returns the settings in string ini in an associative array.
 <b>Parameters:</b>
 	<b>ini</b>: The contents of the ini file being parsed.
 	<b>process_sections</b>: By setting the process_sections parameter to TRUE, you get a multidimensional array, with the section names and settings included. The default for process_sections is FALSE
 	<b>scanner_mode</b>: Can either be INI_SCANNER_NORMAL (default) or INI_SCANNER_RAW. If INI_SCANNER_RAW is supplied, then option values will not be parsed.
 <b>Return Values: </b>The settings are returned as an associative array on success, and FALSE on failure.</reference>
 </element>
-<element pattern="pcntl_signal_dispatch">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	The pcntl_signal_dispatch() function calls the signal handlers installed by pcntl_signal() for each pending signal.
-<b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
-</element>
-<element pattern="pcntl_sigprocmask">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($how, $set, &amp;$oldset);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	The pcntl_sigprocmask() function adds, removes or sets blocked signals, depending on the how parameter.
-<b>Parameters:</b>
-	<b>how</b>: Sets the behavior of pcntl_sigprocmask(). Possible values: SIG_BLOCK: Add the signals to the currently blocked signals. SIG_UNBLOCK: Remove the signals from the currently blocked signals. SIG_SETMASK: Replace the currently blocked signals by the given list of signals.
-	<b>set</b>: List of signals.
-	<b>oldset</b>: The oldset parameter is set to an array containing the list of the previously blocked signals.
-<b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
-</element>
-<element pattern="pcntl_sigtimedwait">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($set, &amp;$siginfo, $seconds, $nanoseconds);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	The pcntl_sigtimedwait() function operates in exactly the same way as pcntl_sigwaitinfo() except that it takes two additional parameters, seconds and nanoseconds, which enable an upper bound to be placed on the time for which the script is suspended.
-<b>Parameters:</b>
-	<b>set</b>: Array of signals to wait for.
-	<b>siginfo</b>: The siginfo is set to an array containing informations about the signal. See pcntl_sigwaitinfo().
-	<b>seconds</b>: Timeout in seconds.
-	<b>nanoseconds</b>: Timeout in nanoseconds.
-<b>Return Values: </b>On success, pcntl_sigtimedwait() returns a signal number.</reference>
-</element>
-<element pattern="pcntl_sigwaitinfo">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($set, &amp;$siginfo);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	The pcntl_sigwaitinfo() function suspends execution of the calling script until one of the signals given in set are delivered. If one of the signal is already pending (e.g. blocked by pcntl_sigprocmask()), pcntl_sigwaitinfo() will return immediately.
-<b>Parameters:</b>
-	<b>set</b>: Array of signals to wait for.
-	<b>siginfo</b>: The siginfo parameter is set to an array containing informations about the signal.
-<b>Return Values: </b>On success, pcntl_sigwaitinfo() returns a signal number.</reference>
-</element>
-<element pattern="preg_filter">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($pattern, $replacement, $subject, $limit, &amp;$count);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	preg_filter() is identical to preg_replace() except it only returns the (possibly transformed) subjects where there was a match. For details about how this function works, read the preg_replace() documentation.
-<b>Return Values: </b>Returns an array if the subject parameter is an array, or a string otherwise.</reference>
-</element>
 <element pattern="quoted_printable_encode">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($str);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Returns a quoted printable string created according to &amp;raquo;&amp;nbsp;RFC2045, section 6.7.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($str);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+string quoted_printable_encode ( string $str )
+Returns a quoted printable string created according to » RFC2045, section 6.7.
 <b>Parameters:</b>
 	<b>str</b>: The input string.
 <b>Return Values: </b>Returns the encoded string.</reference>
 </element>
-<element pattern="shm_has_var">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($shm_identifier, $variable_key);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Checks whether a specific key exists inside a shared memory segment.
-<b>Parameters:</b>
-	<b>shm_identifier</b>: Shared memory segment, obtained from shm_attach().
-	<b>variable_key</b>: The variable key.
-<b>Return Values: </b>Returns TRUE if the entry exists, otherwise FALSE</reference>
-</element>
-<element pattern="stream_context_get_params">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($stream_or_context);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Retrieves parameter and options information from the stream or context.
-<b>Parameters:</b>
-	<b>stream_or_context</b>: A stream resource or a context resource
-<b>Return Values: </b>Returns an associate array containing all context options and parameters.</reference>
-</element>
-<element pattern="stream_context_set_default">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($options);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	
-<b>Parameters:</b>
-	<b>options</b>: The options to set for the default context.
-<b>Return Values: </b>Returns the default stream context.</reference>
-</element>
-<element pattern="stream_supports_lock">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($stream);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Tells whether the stream supports locking through flock().
-<b>Parameters:</b>
-	<b>stream</b>: The stream to check.
-<b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
-</element>
 <element pattern="str_getcsv">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($input, $delimiter, $enclosure, $escape);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Parses a string input for fields in CSV format and returns an array containing the fields read.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($input, $delimiter, $enclosure, $escape);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+array str_getcsv ( string $input [, string $delimiter = ',' [, string $enclosure = '"' [, string $escape = '\\' ]]] )
+Parses a string input for fields in CSV format and returns an array containing the fields read.
 <b>Parameters:</b>
 	<b>input</b>: The string to parse.
 	<b>delimiter</b>: Set the field delimiter (one character only).
@@ -26373,26 +26172,173 @@ or false.
 	<b>escape</b>: Set the escape character (one character only). Defaults as a backslash (\)
 <b>Return Values: </b>Returns an indexed array containing the fields read.</reference>
 </element>
+<element pattern="stream_context_set_default">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($options);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+resource stream_context_set_default ( array $options )
+
+<b>Parameters:</b>
+	<b>options</b>: The options to set for the default context.
+<b>Return Values: </b>Returns the default stream context.</reference>
+</element>
+<element pattern="stream_supports_lock">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($stream);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+bool stream_supports_lock ( resource $stream )
+Tells whether the stream supports locking through flock().
+<b>Parameters:</b>
+	<b>stream</b>: The stream to check.
+<b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
+</element>
+<element pattern="stream_context_get_params">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($stream_or_context);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+array stream_context_get_params ( resource $stream_or_context )
+Retrieves parameter and options information from the stream or context.
+<b>Parameters:</b>
+	<b>stream_or_context</b>: A stream resource or a context resource
+<b>Return Values: </b>Returns an associate array containing all context options and parameters.</reference>
+</element>
+<element pattern="streamWrapper::stream_cast">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($cast_as);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+public resource streamWrapper::stream_cast ( int $cast_as )
+This method is called in response to stream_select().
+<b>Parameters:</b>
+	<b>cast_as</b>: Can be STREAM_CAST_FOR_SELECT when stream_select() is calling stream_cast() or STREAM_CAST_AS_STREAM when stream_cast() is called for other uses.
+<b>Return Values: </b>Should return the underlying stream resource used by the wrapper, or FALSE.</reference>
+</element>
+<element pattern="streamWrapper::stream_set_option">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($option, $arg1, $arg2);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+public bool streamWrapper::stream_set_option ( int $option , int $arg1 , int $arg2 )
+This method is called to set options on the stream.
+<b>Parameters:</b>
+	<b>option</b>: One of: STREAM_OPTION_BLOCKING (The method was called in response to stream_set_blocking()) STREAM_OPTION_READ_TIMEOUT (The method was called in response to stream_set_timeout()) STREAM_OPTION_WRITE_BUFFER (The method was called in response to stream_set_write_buffer())
+	<b>arg1</b>: If option is STREAM_OPTION_BLOCKING: requested blocking mode (1 meaning block 0 not blocking). STREAM_OPTION_READ_TIMEOUT: the timeout in seconds. STREAM_OPTION_WRITE_BUFFER: buffer mode (STREAM_BUFFER_NONE or STREAM_BUFFER_FULL).
+	<b>arg2</b>: If option is STREAM_OPTION_BLOCKING: This option is not set. STREAM_OPTION_READ_TIMEOUT: the timeout in microseconds. STREAM_OPTION_WRITE_BUFFER: the requested buffer size.
+<b>Return Values: </b>Returns TRUE on success or FALSE on failure. If option is not implemented, FALSE should be returned.</reference>
+</element>
+<element pattern="date_add">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+
+</reference>
+</element>
+<element pattern="date_create_from_format">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+
+</reference>
+</element>
+<element pattern="date_diff">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+
+</reference>
+</element>
+<element pattern="date_get_last_errors">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+
+</reference>
+</element>
+<element pattern="date_parse_from_format">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($format, $date);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+array date_parse_from_format ( string $format , string $date )
+Returns associative array with detailed info about given date.
+<b>Parameters:</b>
+	<b>format</b>: Format accepted by DateTime::createFromFormat().
+	<b>date</b>: String representing the date.
+<b>Return Values: </b>Returns associative array with detailed info about given date.</reference>
+</element>
+<element pattern="date_sub">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+
+</reference>
+</element>
 <element pattern="timezone_version_get">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Returns the current version of the timezonedb.
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+string timezone_version_get ( void )
+Returns the current version of the timezonedb.
 <b>Return Values: </b>Returns a string.</reference>
 </element>
+<element pattern="gmp_testbit">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($a, $index);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+bool gmp_testbit ( resource $a , int $index )
+Tests if the specified bit is set.
+<b>Parameters:</b>
+	<b>a</b>: It can be either a GMP number resource, or a numeric string given that it is possible to convert the latter to a number.
+	<b>index</b>: The bit to test
+<b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
+</element>
+<element pattern="hash_copy">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($context);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+resource hash_copy ( resource $context )
+
+<b>Parameters:</b>
+	<b>context</b>: Hashing context returned by hash_init().
+<b>Return Values: </b>Returns a copy of Hashing Context resource.</reference>
+</element>
+<element pattern="imap_gc">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($imap_stream, $caches);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+bool imap_gc ( resource $imap_stream , int $caches )
+Purges the cache of entries of a specific type.
+<b>Parameters:</b>
+	<b>imap_stream</b>: An IMAP stream returned by imap_open().
+	<b>caches</b>: Specifies the cache to purge. It may one or a combination of the following constants: IMAP_GC_ELT (message cache elements), IMAP_GC_ENV (enveloppe and bodies), IMAP_GC_TEXTS (texts).
+<b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
+</element>
+<element pattern="json_last_error">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+int json_last_error ( void )
+Returns the last error (if any) occurred during the last JSON encoding/decoding.
+<b>Parameters:</b>
+<b>Return Values: </b>Returns an integer, the value can be one of the following constants:</reference>
+</element>
+<element pattern="mysqli_fetch_all">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($result, $resulttype);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+mixed mysqli_fetch_all ( mysqli_result $result [, int $resulttype = MYSQLI_NUM ] )
+Procedural style
+<b>Parameters:</b>
+	<b>result</b>: Procedural style only: A result set identifier returned by mysqli_query(), mysqli_store_result() or mysqli_use_result().
+	<b>resulttype</b>: This optional parameter is a constant indicating what type of array should be produced from the current row data. The possible values for this parameter are the constants MYSQLI_ASSOC, MYSQLI_NUM, or MYSQLI_BOTH.
+<b>Return Values: </b>Returns an array of associative or numeric arrays holding result rows.</reference>
+</element>
 <element pattern="mysqli_get_connection_stats">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($link);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Procedural style
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($link);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+array mysqli_get_connection_stats ( mysqli $link )
+Procedural style
 <b>Parameters:</b>
 	<b>link</b>: Procedural style only: A link identifier returned by mysqli_connect() or mysqli_init()
 <b>Return Values: </b>Returns an array with connection stats if success, FALSE otherwise.</reference>
 </element>
 <element pattern="mysqli_poll">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="(&amp;$read, &amp;$error, &amp;$reject, $sec, $usec);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Procedural style
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="(&#38;$read, &#38;$error, &#38;$reject, $sec, $usec);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+int mysqli_poll ( array &#38;$read , array &#38;$error , array &#38;$reject , int $sec [, int $usec ] )
+Procedural style
 <b>Parameters:</b>
 	<b>read</b>: 
 	<b>error</b>: 
@@ -26402,43 +26348,147 @@ or false.
 <b>Return Values: </b>Returns number of ready connections upon success, FALSE otherwise.</reference>
 </element>
 <element pattern="mysqli_reap_async_query">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($link);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Procedural style
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($link);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+mysqli_result mysqli_reap_async_query ( mysql $link )
+Procedural style
 <b>Parameters:</b>
 	<b>link</b>: Procedural style only: A link identifier returned by mysqli_connect() or mysqli_init()
 <b>Return Values: </b>Returns mysqli_result in success, FALSE otherwise.</reference>
 </element>
-<element pattern="mysqli_fetch_all">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($result, $resulttype);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	Procedural style
+<element pattern="openssl_random_pseudo_bytes">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($length, &#38;$crypto_strong);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+string openssl_random_pseudo_bytes ( int $length [, bool &#38;$crypto_strong ] )
+Generates a string of pseudo-random bytes, with the number of bytes determined by the length parameter.
 <b>Parameters:</b>
-	<b>result</b>: Procedural style only: A result set identifier returned by mysqli_query(), mysqli_store_result() or mysqli_use_result().
-	<b>resulttype</b>: This optional parameter is a constant indicating what type of array should be produced from the current row data. The possible values for this parameter are the constants MYSQLI_ASSOC, MYSQLI_NUM, or MYSQLI_BOTH.
-<b>Return Values: </b>Returns an array of associative or numeric arrays holding result rows.</reference>
+	<b>length</b>: The length of the desired string of bytes. Must be a positive integer. PHP will try to cast this parameter to a non-null integer to use it.
+	<b>crypto_strong</b>: If passed into the function, this will hold a boolean value that determines if the algorithm used was "cryptographically strong", e.g., safe for usage with GPG, passwords, etc. TRUE if it did, otherwise FALSE
+<b>Return Values: </b>Returns the generated string of bytes on success, or FALSE on failure.</reference>
 </element>
-<element pattern="streamWrapper::stream_cast">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($cast_as);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	This method is called in response to stream_select().
-<b>Parameters:</b>
-	<b>cast_as</b>: Can be STREAM_CAST_FOR_SELECT when stream_select() is calling stream_cast() or STREAM_CAST_AS_STREAM when stream_cast() is called for other uses.
-<b>Return Values: </b>Should return the underlying stream resource used by the wrapper, or FALSE.</reference>
+<element pattern="pcntl_signal_dispatch">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+bool pcntl_signal_dispatch ( void )
+The pcntl_signal_dispatch() function calls the signal handlers installed by pcntl_signal() for each pending signal.
+<b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
 </element>
-<element pattern="streamWrapper::stream_set_option">
-  <autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
-  <autocomplete append="($option, $arg1, $arg2);" backup_cursor="2" class="autocomplete_with_arguments"/>
-  <reference><i>(PHP 5 &amp;gt;= 5.3.0)</i>
-	This method is called to set options on the stream.
+<element pattern="pcntl_sigprocmask">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($how, $set, &#38;$oldset);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+bool pcntl_sigprocmask ( int $how , array $set [, array &#38;$oldset ] )
+The pcntl_sigprocmask() function adds, removes or sets blocked signals, depending on the how parameter.
 <b>Parameters:</b>
-	<b>option</b>: One of: STREAM_OPTION_BLOCKING (The method was called in response to stream_set_blocking()) STREAM_OPTION_READ_TIMEOUT (The method was called in response to stream_set_timeout()) STREAM_OPTION_WRITE_BUFFER (The method was called in response to stream_set_write_buffer())
-	<b>arg1</b>: If option is STREAM_OPTION_BLOCKING: requested blocking mode (1 meaning block 0 not blocking). STREAM_OPTION_READ_TIMEOUT: the timeout in seconds. STREAM_OPTION_WRITE_BUFFER: buffer mode (STREAM_BUFFER_NONE or STREAM_BUFFER_FULL).
-	<b>arg2</b>: If option is STREAM_OPTION_BLOCKING: This option is not set. STREAM_OPTION_READ_TIMEOUT: the timeout in microseconds. STREAM_OPTION_WRITE_BUFFER: the requested buffer size.
-<b>Return Values: </b>Returns TRUE on success or FALSE on failure. If option is not implemented, FALSE should be returned.</reference>
+	<b>how</b>: Sets the behavior of pcntl_sigprocmask(). Possible values: SIG_BLOCK: Add the signals to the currently blocked signals. SIG_UNBLOCK: Remove the signals from the currently blocked signals. SIG_SETMASK: Replace the currently blocked signals by the given list of signals.
+	<b>set</b>: List of signals.
+	<b>oldset</b>: The oldset parameter is set to an array containing the list of the previously blocked signals.
+<b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
+</element>
+<element pattern="pcntl_sigtimedwait">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($set, &#38;$siginfo, $seconds, $nanoseconds);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+int pcntl_sigtimedwait ( array $set [, array &#38;$siginfo [, int $seconds = 0 [, int $nanoseconds = 0 ]]] )
+The pcntl_sigtimedwait() function operates in exactly the same way as pcntl_sigwaitinfo() except that it takes two additional parameters, seconds and nanoseconds, which enable an upper bound to be placed on the time for which the script is suspended.
+<b>Parameters:</b>
+	<b>set</b>: Array of signals to wait for.
+	<b>siginfo</b>: The siginfo is set to an array containing informations about the signal. See pcntl_sigwaitinfo().
+	<b>seconds</b>: Timeout in seconds.
+	<b>nanoseconds</b>: Timeout in nanoseconds.
+<b>Return Values: </b>On success, pcntl_sigtimedwait() returns a signal number.</reference>
+</element>
+<element pattern="pcntl_sigwaitinfo">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($set, &#38;$siginfo);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+int pcntl_sigwaitinfo ( array $set [, array &#38;$siginfo ] )
+The pcntl_sigwaitinfo() function suspends execution of the calling script until one of the signals given in set are delivered. If one of the signal is already pending (e.g. blocked by pcntl_sigprocmask()), pcntl_sigwaitinfo() will return immediately.
+<b>Parameters:</b>
+	<b>set</b>: Array of signals to wait for.
+	<b>siginfo</b>: The siginfo parameter is set to an array containing informations about the signal.
+<b>Return Values: </b>On success, pcntl_sigwaitinfo() returns a signal number.</reference>
+</element>
+<element pattern="preg_filter">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($pattern, $replacement, $subject, $limit, &#38;$count);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+mixed preg_filter ( mixed $pattern , mixed $replacement , mixed $subject [, int $limit = -1 [, int &#38;$count ]] )
+preg_filter() is identical to preg_replace() except it only returns the (possibly transformed) subjects where there was a match. For details about how this function works, read the preg_replace() documentation.
+<b>Return Values: </b>Returns an array if the subject parameter is an array, or a string otherwise.</reference>
+</element>
+<element pattern="msg_queue_exists">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($key);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+bool msg_queue_exists ( int $key )
+Checks whether the message queue key exists.
+<b>Parameters:</b>
+	<b>key</b>: Queue key.
+<b>Return Values: </b>Returns TRUE on success or FALSE on failure.</reference>
+</element>
+<element pattern="shm_has_var">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($shm_identifier, $variable_key);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 5 >= 5.3.0)</i>
+bool shm_has_var ( resource $shm_identifier , int $variable_key )
+Checks whether a specific key exists inside a shared memory segment.
+<b>Parameters:</b>
+	<b>shm_identifier</b>: Shared memory segment, obtained from shm_attach().
+	<b>variable_key</b>: The variable key.
+<b>Return Values: </b>Returns TRUE if the entry exists, otherwise FALSE</reference>
+</element>
+<element pattern="acosh">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($arg);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 4 >= 4.1.0, PHP 5)</i>
+float acosh ( float $arg )
+Returns the inverse hyperbolic cosine of arg, i.e. the value whose hyperbolic cosine is arg.
+<b>Parameters:</b>
+	<b>arg</b>: The value to process
+<b>Return Values: </b>The inverse hyperbolic cosine of arg</reference>
+</element>
+<element pattern="asinh">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($arg);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 4 >= 4.1.0, PHP 5)</i>
+float asinh ( float $arg )
+Returns the inverse hyperbolic sine of arg, i.e. the value whose hyperbolic sine is arg.
+<b>Parameters:</b>
+	<b>arg</b>: The argument to process
+<b>Return Values: </b>The inverse hyperbolic sine of arg</reference>
+</element>
+<element pattern="atanh">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($arg);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 4 >= 4.1.0, PHP 5)</i>
+float atanh ( float $arg )
+Returns the inverse hyperbolic tangent of arg, i.e. the value whose hyperbolic tangent is arg.
+<b>Parameters:</b>
+	<b>arg</b>: The argument to process
+<b>Return Values: </b>Inverse hyperbolic tangent of arg</reference>
+</element>
+<element pattern="expm1">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($arg);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 4 >= 4.1.0, PHP 5)</i>
+float expm1 ( float $arg )
+expm1() returns the equivalent to 'exp(arg) - 1' computed in a way that is accurate even if the value of arg is near zero, a case where 'exp (arg) - 1' would be inaccurate due to subtraction of two numbers that are nearly equal.
+<b>Parameters:</b>
+	<b>arg</b>: The argument to process
+<b>Return Values: </b>'e' to the power of arg minus one</reference>
+</element>
+<element pattern="log1p">
+	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses"/>
+	<autocomplete append="($number);" backup_cursor="2" class="autocomplete_with_arguments"/>
+	<reference><i>(PHP 4 >= 4.1.0, PHP 5)</i>
+float log1p ( float $number )
+log1p() returns log(1 + number) computed in a way that is accurate even when the value of number is close to zero. log() might only return log(1) in this case due to lack of precision.
+<b>Parameters:</b>
+	<b>number</b>: The argument to process
+<b>Return Values: </b>log(1 + number)</reference>
 </element>
 </group>
 
