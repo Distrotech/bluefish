@@ -2447,21 +2447,29 @@ preferences_dialog_new(void)
 	pd->widgetfreelist = g_slist_prepend(pd->widgetfreelist, frame);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Layout</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(4, 2, 0, vbox2);
 
 	pd->prefs[document_tabposition] = dialog_combo_box_text_in_table(notebooktabpositions,
-																	main_v->props.document_tabposition, table,
-																	1,2,0,1);
-	dialog_mnemonic_label_in_table(_("Document _tab position:"), pd->prefs[left_panel_left], table, 0, 1, 0, 1);
+								main_v->props.document_tabposition, 
+								table,1,2,0,1);
+	dialog_mnemonic_label_in_table(_("Document _tab position:"), pd->prefs[left_panel_left], 
+								table, 0, 1, 0, 1);
+
+	pd->prefs[max_shown_filename_len] = dialog_spin_button_in_table(0, 1000, main_v->props.max_shown_filename_len, 
+								table,1, 2, 1,2);
+	dialog_mnemonic_label_in_table(_("Maximum filename length shown in tab (0 is no limit)"), pd->prefs[max_shown_filename_len], 
+								table, 0, 1, 1, 2);
 
 	pd->prefs[left_panel_left] =
-		dialog_combo_box_text_in_table(panellocations, main_v->props.left_panel_left, table, 1, 2, 1,2);
-	dialog_mnemonic_label_in_table(_("_Sidebar position:"), pd->prefs[left_panel_left], table, 0, 1, 1,2);
+		dialog_combo_box_text_in_table(panellocations, main_v->props.left_panel_left, 
+								table, 1, 2, 2,3);
+	dialog_mnemonic_label_in_table(_("_Sidebar position:"), pd->prefs[left_panel_left], 
+								table, 0, 1, 2,3);
 
 	pd->prefs[leftpanel_tabposition] = dialog_combo_box_text_in_table(notebooktabpositions,
 																	  main_v->props.leftpanel_tabposition,
-																	  table, 1, 2, 2,3);
-	dialog_mnemonic_label_in_table(_("Sidebar tab _position:"), pd->prefs[leftpanel_tabposition], table, 0, 1, 2,3);
+																	  table, 1, 2, 3,4);
+	dialog_mnemonic_label_in_table(_("Sidebar tab _position:"), pd->prefs[leftpanel_tabposition], table, 0, 1, 3,4);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Misc</b>"), vbox1);
 	pd->prefs[hide_bars_on_fullscreen] =
@@ -2596,12 +2604,6 @@ preferences_dialog_new(void)
 														   (pd->prefs[use_system_tab_font])));
 	g_signal_connect(G_OBJECT(pd->prefs[use_system_tab_font]), "toggled",
 					 G_CALLBACK(prefs_togglebutton_toggled_not_lcb), hbox);
-
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	pd->prefs[max_shown_filename_len] = dialog_spin_button_labeled(0, 1000, main_v->props.max_shown_filename_len,
-								   _("Maximum filename length shown in tab (0 is no limit)"), hbox, 0);
-
 
 	vbox2 = dialog_vbox_labeled(_("<b>Colors</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
