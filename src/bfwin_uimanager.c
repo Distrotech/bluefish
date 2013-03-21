@@ -1040,7 +1040,7 @@ dynamic_menu_empty(GtkUIManager *uimanager, guint merge_id, GtkActionGroup *acti
 }
 
 static void
-ask_register_custom_mime_for_bflang(Tbfwin *bfwin, Tbflang *bflang, gchar *mime) 
+ask_register_custom_mime_for_bflang(Tbfwin *bfwin, Tbflang *bflang, const gchar *mime)
 {
 	GtkWidget *dialog;
 	gint response;
@@ -1063,7 +1063,7 @@ lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 		return;
 	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)) && bfwin->current_document) {
 		Tbflang *tmpbflang;
-		gchar *oldmime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+		const gchar *oldmime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 		if (!oldmime) {
 			oldmime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 		}
@@ -1073,9 +1073,9 @@ lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 				curi = g_file_get_uri(doc->uri);
 			}
 			tmpbflang = langmgr_get_bflang(oldmime, NULL);
-			
+
 			DEBUG_MSG("lang_mode_menu_activate, got %p for tmpbflang with name %s\n",tmpbflang, tmpbflang->name);
-			
+
 			if (!tmpbflang) {
 				/* ask the user to register oldmime for the chosen language */
 				ask_register_custom_mime_for_bflang(bfwin, bflang, oldmime);
@@ -1086,9 +1086,9 @@ lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 			}
 			g_free(curi);
 		}
-		
+
 		doc_set_mimetype(bfwin->current_document, bflang->mimetypes->data, NULL);
-		
+
 	}
 }
 

@@ -140,9 +140,9 @@ bftextview2_user_idle_timer(gpointer data)
 	BluefishTextView *btv = data;
 	guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 	if ((elapsed + 20) >= USER_IDLE_EVENT_INTERVAL) {	/* avoid delaying again for less than 20 milliseconds */
-		DBG_AUTOCOMP("bftextview2_user_idle_timer, user is > %d milliseconds idle, autocomp=%d, mode=%d\n",
+		DBG_AUTOCOMP("bftextview2_user_idle_timer, user is > %d milliseconds idle, autocomp=%d, mode=%d, needs_autocomp=%d\n",
 					 elapsed, BLUEFISH_TEXT_VIEW(btv->master)->auto_complete,
-					 main_v->props.autocomp_popup_mode);
+					 main_v->props.autocomp_popup_mode, btv->needs_autocomp);
 		if (BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && btv->needs_autocomp
 			&& main_v->props.autocomp_popup_mode == 0) {
 			autocomp_run(btv, FALSE);
@@ -636,9 +636,9 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 		&& (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb: call autocomp_run\n");
 		autocomp_run(btv, FALSE);
+		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, set needs_autocomp to FALSE\n");
+		btv->needs_autocomp = FALSE;
 	}
-	DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, set needs_autocomp to FALSE\n");
-	btv->needs_autocomp = FALSE;
 
 	bftextview2_reset_user_idle_timer(btv);
 	bftextview2_set_margin_size(BLUEFISH_TEXT_VIEW(btv->master));

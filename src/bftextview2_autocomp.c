@@ -508,6 +508,14 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 	if (G_UNLIKELY(uc > NUMSCANCHARS))
 		return;
 
+	/* see if we have enough characters */
+	if (!user_requested && gtk_text_iter_get_offset(&cursorpos) - gtk_text_iter_get_offset(&iter) < main_v->props.autocomp_min_prefix_len) {
+		DBG_AUTOCOMP("autocomp_run, prefix len %d < autocomp_min_prefix_len (%d), abort!\n"
+					, gtk_text_iter_get_offset(&cursorpos) - gtk_text_iter_get_offset(&iter)
+					, main_v->props.autocomp_min_prefix_len);
+		return;
+	}
+
 	/*identstate = g_array_index(master->bflang->st->contexts, Tcontext, contextnum).identstate;*/
 	if (!character_is_symbol(master->bflang->st,contextnum,uc)) {
 		/* current character is not a symbol! */

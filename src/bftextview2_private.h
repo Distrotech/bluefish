@@ -62,7 +62,7 @@ extern void g_none(char *first, ...);
 #define COMMENT_INDEX_INHERIT 255
 #define COMMENT_INDEX_NONE 254
 	typedef struct {
-	GArray *table; /* a pointer to the DFA table for this context */ 
+	GArray *table; /* a pointer to the DFA table for this context */
 	GCompletion *ac;			/* autocompletion items in this context */
 	/*GHashTable *reference; *//* reference help for each autocompletion item */
 	GHashTable *patternhash;	/* a hash table where the pattern and its autocompletion string are the keys, and an integer to the ID of the pattern is the value */
@@ -74,8 +74,8 @@ extern void g_none(char *first, ...);
 								   except the characters (symbols) thay may be the begin or end of an identifier such
 								   as whitespace, ();[]{}*+-/ etc. */
 	guint8 has_tagclose_from_blockstack;	/* this context has xml end patterns that need autoclosing for generix xml tags, based on the tag that is on top of the blockstack */
-	guint8 comment_block;		/* block comment index in array scantable->comments 
-								   or COMMENT_INDEX_INHERIT (which means inherit) 
+	guint8 comment_block;		/* block comment index in array scantable->comments
+								   or COMMENT_INDEX_INHERIT (which means inherit)
 								   or COMMENT_INDEX_NONE if there is no block comment  */
 	guint8 comment_line;		/* index in array scantable->comments for line comments; see comment_block */
 	guint8 autocomplete_case_insens;
@@ -102,10 +102,10 @@ typedef struct {
 	gchar *reference;			/* the reference data, or NULL. may be inserted in hash tables for multiple keys in multiple contexts */
 	gchar *pattern;				/* the pattern itself. stored in the Tpattern so we can re-use it in another context */
 	GSList *autocomp_items;
-	gchar *selfhighlight;		/* a string with the highlight for this pattern. used when re-linking highlights and textstyles 
+	gchar *selfhighlight;		/* a string with the highlight for this pattern. used when re-linking highlights and textstyles
 								   if the user changed any of these in the preferences */
 	/*gchar *blockhighlight;*/		/* a string for the highlight corresponding to the  blocktag */
-	guint16 block; 
+	guint16 block;
 	gint16 blockstartpattern;	/* the number of the pattern that may start this block, or -1 to end the last started block */
 	gint16 nextcontext;			/* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
 								   to pop a context of the stack */
@@ -123,7 +123,7 @@ typedef struct {
 	guint8 identmode :1;
 #endif							/* IDENTSTORING */
 } Tpattern;
-/* 
+/*
 32bit size = 5*32 + 3*16 + 1*2 + 8*1 = 217 + 7 padding = 28 bytes
 64bit size = 5*64 + 3*16 + 1*2 + 8*1 = 361 + 7 padding = 48 bytes
 */
@@ -187,11 +187,11 @@ typedef struct {
 typedef struct {
 	Tfoundcontext *fcontext;	/* if numcontextchange == 0 this points to the current active context
 								   if numcontextchange > 0 this points to the pushed context, which also happens to be the current context
-								   if numcontextchange < 0 this points to the top of the stack at this position, to get the current position 
+								   if numcontextchange < 0 this points to the top of the stack at this position, to get the current position
 								   you'll have to pop N items (where N is -1 * numcontextchange). */
 	Tfoundblock *fblock;		/* if numblockchange == 0 this points to the current active block
 								   if numblockchange > 0 this points to the pushed block, which also happens to be the current block
-								   if numblockchange < 0 this points to the top of the stack at this position, to get the current position 
+								   if numblockchange < 0 this points to the top of the stack at this position, to get the current position
 								   you'll have to pop N items (where N is -1 * numblockchange). */
 	guint32 charoffset_o;
 	gint16 numblockchange;		/* there are files that have > 127 pops in a single position
