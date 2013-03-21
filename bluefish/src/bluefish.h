@@ -335,6 +335,7 @@ typedef struct {
 	gboolean delay_full_scan;
 	gint delay_scan_time;
 	gint autocomp_popup_mode;	/* delayed or immediately */
+	gint autocomp_min_prefix_len; /* minimum number of matching characters before autocomp is activated */
 	gboolean reduced_scan_triggers;
 	gint autosave;
 	gint autosave_time;

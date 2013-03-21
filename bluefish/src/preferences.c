@@ -99,6 +99,7 @@ enum {
 	show_tooltip_reference,
 	delay_full_scan,
 	autocomp_popup_mode,
+	autocomp_min_prefix_len,
 	reduced_scan_triggers,
 	use_system_colors,
 	editor_fg,
@@ -1838,6 +1839,7 @@ preferences_apply(Tprefdialog * pd)
 
 	main_v->props.autocomp_popup_mode =
 		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[autocomp_popup_mode]));
+	integer_apply(&main_v->props.autocomp_min_prefix_len, pd->prefs[autocomp_min_prefix_len], FALSE);
 
 	if (main_v->props.autocomp_accel_string)
 		g_free(main_v->props.autocomp_accel_string);
@@ -2195,19 +2197,22 @@ preferences_dialog_new(void)
 	gtk_container_add(GTK_CONTAINER(frame), vbox1);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Auto-completion</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(2, 2, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
 
 	pd->prefs[autocomp_popup_mode] = dialog_combo_box_text_in_table(autocompmodes,
 																	main_v->props.autocomp_popup_mode, table,
 																	1, 2, 0, 1);
 	dialog_mnemonic_label_in_table(_("Show _pop-up window:"), pd->prefs[autocomp_popup_mode], table, 0, 1, 0,
 								   1);
+	pd->prefs[autocomp_min_prefix_len]
+		= dialog_spin_button_in_table(1, 10, main_v->props.autocomp_min_prefix_len, table, 1, 2, 1, 2);
+	dialog_mnemonic_label_in_table(_("Minimum matching length for auto-completion:"), pd->prefs[autocomp_min_prefix_len], table, 0,1,1,2);
 
 	pd->prefs[autocomp_accel_string] = accelerator_button(main_v->props.autocomp_accel_string);
-	gtk_table_attach(GTK_TABLE(table), pd->prefs[autocomp_accel_string], 1, 2, 1, 2, GTK_FILL, GTK_SHRINK, 0,
+	gtk_table_attach(GTK_TABLE(table), pd->prefs[autocomp_accel_string], 1, 2, 2, 3, GTK_FILL, GTK_SHRINK, 0,
 					 0);
 	dialog_mnemonic_label_in_table(_("Shortcut _key combination:"), pd->prefs[autocomp_accel_string], table,
-								   0, 1, 1, 2);
+								   0, 1, 2, 3);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Reference Information</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(3, 1, 0, vbox2);

@@ -1799,8 +1799,8 @@ void
 langmgr_add_custom_mime(Tbflang *bflang, const gchar *mime)
 {
 	main_v->globses.custombflangmime = g_list_prepend(main_v->globses.custombflangmime, array_from_arglist(bflang->name,mime,NULL));
-	g_hash_table_insert(langmgr.bflang_lookup, mime, bflang);
-} 
+	g_hash_table_insert(langmgr.bflang_lookup, g_strdup(mime), bflang);
+}
 
 static void
 register_bflanguage(Tbflang * bflang)
@@ -1809,7 +1809,7 @@ register_bflanguage(Tbflang * bflang)
 		GList *tmplist;
 		gboolean registered = FALSE;
 		DBG_PARSING("register_bflanguage, register bflang %p %s\n",bflang,bflang->name);
-		
+
 		/* see if the user has additional mime types */
 		for (tmplist = g_list_last(main_v->globses.custombflangmime); tmplist; tmplist = tmplist->prev) {
 			gchar **arr = (gchar **) tmplist->data;
@@ -1818,7 +1818,7 @@ register_bflanguage(Tbflang * bflang)
 				bflang->mimetypes = g_list_prepend(bflang->mimetypes, g_strdup(arr[1]));
 			}
 		}
-		
+
 		tmplist = g_list_first(bflang->mimetypes);
 		while (tmplist) {
 			if (!g_hash_table_lookup(langmgr.bflang_lookup, (gchar *) tmplist->data)) {
@@ -1863,7 +1863,7 @@ static gboolean
 bflang2scan_finished_lcb(gpointer data)
 {
 	GList *tmplist;
-	
+
 	/* now add the languages once the GUI if the GUI has been loaded */
 	DBG_MSG("bflang2scan_finished_lcb\n");
 	for (tmplist = g_list_first(main_v->bfwinlist); tmplist; tmplist = g_list_next(tmplist)) {

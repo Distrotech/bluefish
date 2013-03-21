@@ -505,6 +505,7 @@ props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.delay_full_scan, "delay_full_scan:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.delay_scan_time, "delay_scan_time:", 900, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.autocomp_popup_mode, "autocomp_popup_mode:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.autocomp_min_prefix_len, "autocomp_min_prefix_len:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.reduced_scan_triggers, "reduce_scan_triggers:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.autosave, "autosave:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.autosave_time, "autosave_time:", 60, TRUE);
