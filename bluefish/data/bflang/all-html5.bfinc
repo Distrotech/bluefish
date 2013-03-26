@@ -99,7 +99,7 @@
 <b>Parents:</b>flow 
 <b>Children:</b>flow 
 <b>Interface:</b> HTMLQuoteElement</reference></tag>
-<tag name="body" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="onafterprint,onbeforeprint,onbeforeunload,onblur,onerror,onfocus,onhashchange,onload,onmessage,onoffline,ononline,onpagehide,onpageshow,onpopstate,onresize,onscroll,onstorage,onunload,&globals;">
+<tag name="body" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="onafterprint,onbeforeprint,onbeforeunload,onhashchange,onmessage,onoffline,ononline,onpagehide,onpageshow,onpopstate,onresize,onstorage,onunload,&globals;">
 <reference>Document body 
 <b>Categories:</b>sectioning root 
 <b>Parents:</b>html 
@@ -531,6 +531,9 @@ Disclosure control for hiding details
 		<element pattern="[" id="e.html.js.lbracket" starts_block="1" highlight="js-brackets" block_name="Javascript Square brackets block" />
 		<element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbracket" />
 		&all-javascript;
+		<group class="JQuery">
+			&JQuery;
+		</group>
 		<element pattern="//" highlight="js-comment">
 			<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
 				<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="js-comment" ends_context="1" />
