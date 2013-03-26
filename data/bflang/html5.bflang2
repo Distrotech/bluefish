@@ -30,6 +30,7 @@
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 	<!ENTITY all-html5 SYSTEM "all-html5.bfinc">
 	<!ENTITY svg SYSTEM "svg.bfinc">
+	<!ENTITY JQuery SYSTEM "JQuery.bfinc">
 ]>
 
 <bflang name="HTML5" version="2.0" table="59239" contexts="192" matches="10435">
@@ -54,6 +55,7 @@
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
 	<option name="javascript_css_properties" default="1" description="CSS properties" />
+	<option name="JQuery" default="0" description="JQuery" />
 	<option name="html-block_foldable" default="0" description="Allow to fold the the root html tag" />
 	<option name="Javascript Parentheses block_foldable" default="0" description="Allow folding of Javascript Parentheses block"/>
 	<option name="Javascript Square brackets block_foldable" default="0" description="Allow folding of Javascript Square brackets block"/>
