@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+#define DEBUG
 
 #include "htmlbar_uimanager.h"
 #include "../bluefish.h"
@@ -37,8 +37,6 @@
 #include "quickstart.h"
 #include "wizards.h"
 
-
-/*#define DEBUG*/
 
 #define HTMLBAR_PIXMAP_DIR PKGDATADIR"/plugins/htmlbar/pixmaps/"
 #define HTMLBAR_MENU_UI	   PKGDATADIR"/plugins/htmlbar/ui/htmlbar_menu_ui.xml"
@@ -814,7 +812,7 @@ htmlbar_toolbar_show(Thtmlbarwin * hbw, Thtmlbarsession *hbs, gboolean show)
 {
 	if (htmlbar_v.in_sidepanel)
 		return;
-	
+
 	if (show) {
 		if (hbw->handlebox) {
 			gtk_widget_show(hbw->handlebox);
@@ -840,7 +838,7 @@ htmlbar_toolbar_show_toogle(GtkAction * action, gpointer user_data)
 	Thtmlbarsession *hbs;
 
 	hbs = g_hash_table_lookup(htmlbar_v.lookup, hbw->bfwin->session);
-	if (!hbs) 
+	if (!hbs)
 		return;
 	hbs->view_htmlbar = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
 	htmlbar_toolbar_show(hbw, hbs, gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)));
@@ -1134,7 +1132,7 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"MiscStyle", BF_STOCK_CSSSTYLE, N_("_Style"), NULL, N_("Style"),
 	 G_CALLBACK(htmlbar_misc_style)},
 	{"Dialogscolumns", BF_STOCK_CSS_COLUMNS, N_("C_olumns..."), NULL, N_("Columns..."),
-	 G_CALLBACK(htmlbar_dialog_columns)},	 
+	 G_CALLBACK(htmlbar_dialog_columns)},
 	{"DialogsLinkStylesheet", BF_STOCK_LINK_STYLESHEET, N_("_Link to Stylesheet..."), NULL,
 	 N_("Link to Stylesheet..."),
 	 G_CALLBACK(htmlbar_dialog_style_link_to)},
@@ -1263,9 +1261,9 @@ htmlbar_quickbar_add_item(Thtmlbarwin * hbw, const gchar *actionname)
 		/*g_print("have child-child %p of type %s\n", tmplist2->data, G_OBJECT_TYPE_NAME(tmplist2->data));*/
 		g_signal_connect(tmplist2->data, "button-press-event", G_CALLBACK(quickbar_button_press_event_lcb), hbw);
 	}
-	g_list_free(children2);	
-	
-	gtk_toolbar_insert(GTK_TOOLBAR(hbw->quickbar_toolbar), GTK_TOOL_ITEM(toolitem), -1);	
+	g_list_free(children2);
+
+	gtk_toolbar_insert(GTK_TOOLBAR(hbw->quickbar_toolbar), GTK_TOOL_ITEM(toolitem), -1);
 }
 
 static void
@@ -1279,7 +1277,7 @@ add_to_quickbar_activate_lcb(GtkMenuItem *m, gpointer data)
 		return;
 	}
 	firstitem = (htmlbar_v.quickbar_items==NULL);
-	
+
 	DEBUG_MSG("add_to_quickbar_activate_lcb, adding %s to quickbar_items\n", (gchar *)data);
 	htmlbar_v.quickbar_items = g_list_append(htmlbar_v.quickbar_items, g_strdup(data));
 	/* now loop over all the windows that have a htmlbar, and add the item */
@@ -1292,7 +1290,7 @@ add_to_quickbar_activate_lcb(GtkMenuItem *m, gpointer data)
 				if (children)
 					gtk_container_remove(GTK_CONTAINER(hbw->quickbar_toolbar), children->data);
 			}
-			
+
 			htmlbar_quickbar_add_item(hbw, (gchar *)data);
 		}
 	}
@@ -1358,7 +1356,7 @@ toolbar_button_press_event_lcb(GtkWidget *widget,GdkEvent  *event,gpointer   use
 		if (!action)
 			return FALSE;
 		DEBUG_MSG("toolbar_button_press_event_lcb, add action %s \n", gtk_action_get_name(action));
-		
+
 		menu = quickbar_create_popup_menu(TRUE, gtk_action_get_name(action));
 		gtk_menu_popup(GTK_MENU(menu),NULL,NULL,NULL,NULL,3,event->button.time);
 /*		htmlbar_v.quickbar_items = g_list_prepend(htmlbar_v.quickbar_items, g_strdup(gtk_action_get_name(action)));*/
@@ -1391,7 +1389,7 @@ setup_items_for_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
 	DEBUG_MSG("setup_items_for_quickbar, about to connect signals to toolbar buttons\n");
 	children = gtk_container_get_children(GTK_CONTAINER(toolbar));
 	for (tmplist=g_list_first(children);tmplist;tmplist=g_list_next(tmplist)) {
-/*		g_print("have child %p of type %s\n", tmplist->data, G_OBJECT_TYPE_NAME(tmplist->data));*/
+		g_print("have child %p of type %s\n", tmplist->data, G_OBJECT_TYPE_NAME(tmplist->data));
 		GtkAction *action = gtk_activatable_get_related_action(tmplist->data);
 		if (action) {
 			children2 = gtk_container_get_children(GTK_CONTAINER(tmplist->data));
@@ -1399,9 +1397,9 @@ setup_items_for_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
 				/*g_print("have child-child %p of type %s\n", tmplist2->data, G_OBJECT_TYPE_NAME(tmplist2->data));*/
 				g_signal_connect(tmplist2->data, "button-press-event", G_CALLBACK(toolbar_button_press_event_lcb), hbw);
 			}
-			g_list_free(children2);			
+			g_list_free(children2);
 		}
-		/*g_print("action=%p %s\n", action, action? gtk_action_get_name(action): "NULL");*/
+		g_print("action=%p %s\n", action, action? gtk_action_get_name(action): "NULL");
 	}
 	g_list_free(children);
 }
@@ -1421,17 +1419,19 @@ notebook_switch_page_lcb(GtkNotebook *notebook,GtkWidget   *page,guint        pa
 static GtkWidget *new_html_subtoolbar(Thtmlbarwin * hbw, GtkWidget *html_notebook, GtkWidget *toolbar, const gchar *labeltext)
 {
 	GtkWidget *label;
-	
+	DEBUG_MSG("new_html_subtoolbar, setup toolbar %p for %s\n",toolbar,labeltext);
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	if (htmlbar_v.in_sidepanel) {
+		DEBUG_MSG("new_html_subtoolbar, setup vertical orientation\n");
 		gtk_orientable_set_orientation(GTK_ORIENTABLE(toolbar), GTK_ORIENTATION_VERTICAL);
 	}
 	label = gtk_label_new(labeltext);
 /*	gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_END);*/
+	DEBUG_MSG("new_html_subtoolbar, append toolbar to html_notebook\n");
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, label);
 	gtk_container_child_set(GTK_CONTAINER(html_notebook), label, "tab-fill", TRUE, "tab-expand", TRUE, NULL);
-
-	return toolbar;	
+	DEBUG_MSG("new_html_subtoolbar, return toolbar=%p for %s\n", toolbar, labeltext);
+	return toolbar;
 }
 
 GtkWidget *
@@ -1443,15 +1443,16 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw, Thtmlbarsession *hbs)
 	GtkWidget *toolbar;
 
 	html_notebook = gtk_notebook_new();
-	
+	DEBUG_MSG("htmlbar_toolbar_create, created notebook %p\n",html_notebook);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(html_notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(html_notebook), TRUE);
 	gtk_notebook_set_scrollable(GTK_NOTEBOOK(html_notebook), TRUE);
 
 	hbw->quickbar_toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_toolbar_new(), _("Quickbar"));
 	htmlbar_load_quickbar(hbw, hbw->quickbar_toolbar);
-
+	DEBUG_MSG("quickbar done\n");
 	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar"), _("Standard"));
+	DEBUG_MSG("standard created\n");
 	setup_items_for_quickbar(hbw, toolbar);
 
 	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLHTML5Toolbar"), _("HTML 5"));
@@ -1462,10 +1463,10 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw, Thtmlbarsession *hbs)
 
 	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLTablesToolbar"), _("Tables"));
 	setup_items_for_quickbar(hbw, toolbar);
-	
+
 	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLListToolbar"), _("List"));
 	setup_items_for_quickbar(hbw, toolbar);
-	
+
 	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLCSSToolbar"), _("CSS"));
 	setup_items_for_quickbar(hbw, toolbar);
 
@@ -1477,11 +1478,11 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw, Thtmlbarsession *hbs)
 
 	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLFramesToolbar"), _("Frames"));
 	setup_items_for_quickbar(hbw, toolbar);
-	
+
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(html_notebook), hbs->notebooktab);
 	DEBUG_MSG("htmlbar htmlbar_toolbar_create, make page %d active\n", hbs->notebooktab);
 	g_signal_connect(G_OBJECT(html_notebook), "switch-page", G_CALLBACK(notebook_switch_page_lcb), hbw);
-	
+
 	return html_notebook;
 }
 
@@ -1618,7 +1619,7 @@ htmlbar_register_stock_icons(void)
 
 	for (i = 0; i < G_N_ELEMENTS(htmlbar_stock_icons); i++) {
 		GdkPixbuf *pixbuf;
-		
+
 		pixbuf = gdk_pixbuf_new_from_inline(-1,htmlbar_stock_icons[i].data,FALSE,NULL);
 		icon_set = gtk_icon_set_new_from_pixbuf(pixbuf);
 		g_object_unref(pixbuf);
