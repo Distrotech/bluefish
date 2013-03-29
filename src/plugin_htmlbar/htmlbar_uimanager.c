@@ -812,7 +812,7 @@ htmlbar_toolbar_show(Thtmlbarwin * hbw, Thtmlbarsession *hbs, gboolean show)
 {
 	if (htmlbar_v.in_sidepanel)
 		return;
-
+	DEBUG_MSG("htmlbar_toolbar_show, show=%d, handlebox=%p\n",show,hbw->handlebox);
 	if (show) {
 		if (hbw->handlebox) {
 			gtk_widget_show(hbw->handlebox);
@@ -820,6 +820,7 @@ htmlbar_toolbar_show(Thtmlbarwin * hbw, Thtmlbarsession *hbs, gboolean show)
 			GtkWidget *html_notebook;
 			html_notebook = htmlbar_toolbar_create(hbw, hbs);
 			hbw->handlebox = gtk_handle_box_new();
+			DEBUG_MSG("htmlbar_toolbar_show, created handlebox=%p\n",hbw->handlebox);
 			gtk_container_add(GTK_CONTAINER(hbw->handlebox), html_notebook);
 			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP);
 			gtk_box_pack_start(GTK_BOX(hbw->bfwin->toolbarbox), hbw->handlebox, FALSE, FALSE, 0);
@@ -1373,7 +1374,7 @@ htmlbar_load_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
 		GtkWidget *label;
 		GtkToolItem *ti = gtk_tool_item_new();
 		label = gtk_label_new(_("Right click any html toolbar button to add it to the Quickbar."));
-		/*gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_END);*/
+		gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_END);
 		gtk_container_add(GTK_CONTAINER(ti), label);
 		gtk_toolbar_insert(GTK_TOOLBAR(toolbar),ti,0);
 	}
@@ -1419,14 +1420,13 @@ notebook_switch_page_lcb(GtkNotebook *notebook,GtkWidget   *page,guint        pa
 static GtkWidget *new_html_subtoolbar(Thtmlbarwin * hbw, GtkWidget *html_notebook, GtkWidget *toolbar, const gchar *labeltext)
 {
 	GtkWidget *label;
-	DEBUG_MSG("new_html_subtoolbar, setup toolbar %p for %s\n",toolbar,labeltext);
+	DEBUG_MSG("new_html_subtoolbar, setup toolbar(=%s) %p for %s\n",G_OBJECT_TYPE_NAME(toolbar), toolbar,labeltext);
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	if (htmlbar_v.in_sidepanel) {
 		DEBUG_MSG("new_html_subtoolbar, setup vertical orientation\n");
 		gtk_orientable_set_orientation(GTK_ORIENTABLE(toolbar), GTK_ORIENTATION_VERTICAL);
 	}
 	label = gtk_label_new(labeltext);
-/*	gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_END);*/
 	DEBUG_MSG("new_html_subtoolbar, append toolbar to html_notebook\n");
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, label);
 	gtk_container_child_set(GTK_CONTAINER(html_notebook), label, "tab-fill", TRUE, "tab-expand", TRUE, NULL);
@@ -1454,6 +1454,7 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw, Thtmlbarsession *hbs)
 	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar"), _("Standard"));
 	DEBUG_MSG("standard created\n");
 	setup_items_for_quickbar(hbw, toolbar);
+	DEBUG_MSG("standard setup done\n");
 
 	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLHTML5Toolbar"), _("HTML 5"));
 	setup_items_for_quickbar(hbw, toolbar);
