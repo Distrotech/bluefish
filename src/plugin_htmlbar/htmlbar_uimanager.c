@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#define DEBUG
+/*#define DEBUG*/
 
 #include "htmlbar_uimanager.h"
 #include "../bluefish.h"
@@ -1390,7 +1390,7 @@ setup_items_for_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
 	DEBUG_MSG("setup_items_for_quickbar, about to connect signals to toolbar buttons\n");
 	children = gtk_container_get_children(GTK_CONTAINER(toolbar));
 	for (tmplist=g_list_first(children);tmplist;tmplist=g_list_next(tmplist)) {
-		g_print("have child %p of type %s\n", tmplist->data, G_OBJECT_TYPE_NAME(tmplist->data));
+		/*g_print("have child %p of type %s\n", tmplist->data, G_OBJECT_TYPE_NAME(tmplist->data));*/
 		GtkAction *action = gtk_activatable_get_related_action(tmplist->data);
 		if (action) {
 			children2 = gtk_container_get_children(GTK_CONTAINER(tmplist->data));
@@ -1400,7 +1400,7 @@ setup_items_for_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
 			}
 			g_list_free(children2);
 		}
-		g_print("action=%p %s\n", action, action? gtk_action_get_name(action): "NULL");
+		/*g_print("action=%p %s\n", action, action? gtk_action_get_name(action): "NULL");*/
 	}
 	g_list_free(children);
 }
@@ -1420,7 +1420,15 @@ notebook_switch_page_lcb(GtkNotebook *notebook,GtkWidget   *page,guint        pa
 static GtkWidget *new_html_subtoolbar(Thtmlbarwin * hbw, GtkWidget *html_notebook, GtkWidget *toolbar, const gchar *labeltext)
 {
 	GtkWidget *label;
-	DEBUG_MSG("new_html_subtoolbar, setup toolbar(=%s) %p for %s\n",G_OBJECT_TYPE_NAME(toolbar), toolbar,labeltext);
+	GtkWidget *parent;
+	parent = gtk_widget_get_parent(toolbar);
+	DEBUG_MSG("new_html_subtoolbar, setup toolbar(parent=%p) %p for %s\n",parent, toolbar,labeltext);
+	if (parent) {
+		g_object_ref(toolbar);
+		gtk_container_remove(GTK_CONTAINER(parent), toolbar);
+	}
+	
+	
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	if (htmlbar_v.in_sidepanel) {
 		DEBUG_MSG("new_html_subtoolbar, setup vertical orientation\n");
@@ -1431,6 +1439,9 @@ static GtkWidget *new_html_subtoolbar(Thtmlbarwin * hbw, GtkWidget *html_noteboo
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, label);
 	gtk_container_child_set(GTK_CONTAINER(html_notebook), label, "tab-fill", TRUE, "tab-expand", TRUE, NULL);
 	DEBUG_MSG("new_html_subtoolbar, return toolbar=%p for %s\n", toolbar, labeltext);
+	if (parent) {
+		g_object_unref(toolbar);
+	}
 	return toolbar;
 }
 

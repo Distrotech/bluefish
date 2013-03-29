@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#define DEBUG
+/*#define DEBUG*/
 
 #include <string.h>
 
@@ -85,11 +85,6 @@ htmlbar_sidepanel_initgui(Tbfwin *bfwin)
 			g_warning("htmlbar, no hbw/hbs when creating sidebar, please report");
 			return;
 		}
-		if (hbw->handlebox) {
-			DEBUG_MSG("htmlbar_sidepanel_initgui, destroy hbw->handlebox %p\n",hbw->handlebox);
-			gtk_widget_destroy(hbw->handlebox);
-			hbw->handlebox = NULL;
-		}
 
 		image = gtk_image_new_from_stock(BF_STOCK_BROWSER_PREVIEW, GTK_ICON_SIZE_LARGE_TOOLBAR);
 		html_notebook = htmlbar_toolbar_create(hbw, hbs);
@@ -98,6 +93,12 @@ htmlbar_sidepanel_initgui(Tbfwin *bfwin)
 		gtk_widget_show_all(html_notebook);
 		DEBUG_MSG("htmlbar_sidepanel_initgui, append html_notebook=%p to leftpanel_notebook %p and image %p\n",html_notebook, bfwin->leftpanel_notebook, image);
 		gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),html_notebook,image,gtk_label_new(_("Htmlbar")));
+		if (hbw->handlebox) {
+			DEBUG_MSG("htmlbar_sidepanel_initgui, destroy hbw->handlebox %p\n",hbw->handlebox);
+			gtk_widget_destroy(hbw->handlebox);
+			hbw->handlebox = NULL;
+		}
+
 	}
 }
 
