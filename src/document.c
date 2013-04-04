@@ -3757,7 +3757,7 @@ doc_jump_matching_block_boundary(Tdocument *doc)
 {
 	GtkTextIter it1, it2, it3, it4, location;
 	guint offset;
-	gpointer haveblock; 
+	gpointer haveblock;
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &location, gtk_text_buffer_get_insert(doc->buffer));
 	offset = gtk_text_iter_get_offset(&location);
 	haveblock = bftextview2_get_block_at_boundary_location(BLUEFISH_TEXT_VIEW(doc->view), offset, &it1, &it2, &it3, &it4);
@@ -3772,6 +3772,7 @@ doc_jump_matching_block_boundary(Tdocument *doc)
 	} else if (gtk_text_iter_equal(&location, &it4)) {
 		gtk_text_buffer_place_cursor(doc->buffer, &it1);
 	}
+	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(doc->view),gtk_text_buffer_get_insert(doc->buffer));
 }
 
 static void
