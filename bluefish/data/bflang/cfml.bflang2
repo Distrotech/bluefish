@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		cfml.bflang2 $$Revision$
- 
+
 		Copyright (C) 2008-2011 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <!DOCTYPE bflang [
 	<!ENTITY i18n "dir,lang">
@@ -35,6 +35,7 @@
 	<option name="load_reference" default="1"/>
 	<option name="load_completion" default="1"/>
 	<option name="show_in_menu" default="0"/>
+	<option name="attribute_string_is_block" default="0" description="Show tag attributes as block"/>
 	<option name="javascript_anchors_object" default="1" description="Anchors object" />
 	<option name="javascript_applets_object" default="1" description="Applet object" />
 	<option name="javascript_date_object" default="1" description="Date object" />
@@ -68,7 +69,7 @@
 	<highlight name="html-reference-external-tag" style="special-tag" />
 	<highlight name="html-table-tag" style="special-tag2" />
 	<highlight name="html-tag" style="tag" />
-	
+
 	<highlight name="js-brackets" style="brackets" />
 	<highlight name="js-comment" style="comment" />
 	<highlight name="js-css-property" style="function" />
@@ -79,7 +80,7 @@
 	<highlight name="js-type" style="type" />
 	<highlight name="js-value" style="value" />
 	<highlight name="js-variable" style="variable" />
-	
+
 	<highlight name="css-brackets" style="brackets" />
 	<highlight name="css-comment" style="comment" />
 	<highlight name="css-html-classid" style="tag" />
@@ -135,11 +136,11 @@
 			</element>
 		</context>
 	</element>
-	
-	
-	
+
+
+
 	&all-html;
-	
+
 </context>
 </definition>
 </bflang>

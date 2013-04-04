@@ -105,7 +105,7 @@ typedef struct {
 	gchar *selfhighlight;		/* a string with the highlight for this pattern. used when re-linking highlights and textstyles
 								   if the user changed any of these in the preferences */
 	/*gchar *blockhighlight;*/		/* a string for the highlight corresponding to the  blocktag */
-	guint16 block;
+	guint16 block;			/* this is 0 for most blocks, only blocks that need a tag have this set */
 	gint16 blockstartpattern;	/* the number of the pattern that may start this block, or -1 to end the last started block */
 	gint16 nextcontext;			/* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
 								   to pop a context of the stack */

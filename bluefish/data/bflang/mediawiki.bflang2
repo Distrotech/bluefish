@@ -2,7 +2,7 @@
 <!--
     Bluefish HTML Editor
     mediawiki.bflang2 $Revision: 5613 $
- 
+
     Copyright (C) 2009 Olivier Sessink
 
 	This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <!DOCTYPE bflang [
    <!ENTITY i18n "dir,lang">
@@ -35,6 +35,7 @@
    <option name="autocomplete_tags" default="1" />
    <option name="load_reference" default="1" />
    <option name="show_in_menu" default="0"/>
+   <option name="attribute_string_is_block" default="0" description="Show tag attributes as block"/>
    <highlight name="attribute-string" style="string-no-spell-check" />
    <highlight name="html_tag" style="tag" />
    <highlight name="html_table_tag" style="special-tag2" />
@@ -46,8 +47,8 @@
    <highlight name="wiki_table" style="tag" />
    <highlight name="link" style="special-tag" />
    <highlight name="ext_link" style="value" />
-   <highlight name="title" style="special-tag3" /> 
-   <highlight name="pre" style="special-warning" />    
+   <highlight name="title" style="special-tag3" />
+   <highlight name="pre" style="special-warning" />
    <highlight name="comment" style="comment" />
 	<highlight name="css-operator" style="operator" />
 </header>
@@ -61,7 +62,7 @@
 
 <element id="e.comment" pattern="&lt;!--" highlight="comment" starts_block="1">
    <context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
-     <element pattern="--&gt;" ends_block="1" blockstartelement="e.comment" highlight="comment" 
+     <element pattern="--&gt;" ends_block="1" blockstartelement="e.comment" highlight="comment"
      mayfold="1" ends_context="1" />
    </context>
 </element>
@@ -109,7 +110,7 @@
 		<!-- Indent with no marking -->
       <element pattern="&#10;:"  />
 		<!-- Definition list -->
-      <element pattern="&#10;;"  />  
+      <element pattern="&#10;;"  />
 </group>
 <!-- Pre-formatted text -->
 <element pattern="&#10; " is_regex="1" highlight="pre" />
@@ -117,7 +118,7 @@
 
 <element pattern="&#10;?\{\{[^\}]*\}\}" is_regex="1" highlight="wiki"/>
 <!-- wiki table -->
-<group is_regex="1" highlight="wiki_table">	
+<group is_regex="1" highlight="wiki_table">
 <element  pattern="&#10; *\{|" is_regex="1" highlight="wiki_table" />
 <element pattern="&#10;|" />
 <element pattern="&#10;|-" />
@@ -135,7 +136,7 @@
    <context symbols="=">
    <element pattern="======" ends_block="1" blockstartelement="e.title6" ends_context="1" highlight="title" />
    </context>
-</element> 
+</element>
 <element id="e.title5" pattern="&#10;=====" is_regex="1" starts_block="1" >
 	<autocomplete append=" =====" backup_cursor="6" />
    <context symbols="=">
@@ -147,13 +148,13 @@
    <context symbols="=">
    <element pattern="====" ends_block="1" blockstartelement="e.title4" ends_context="1" highlight="title" />
    </context>
-</element> 
+</element>
 <element id="e.title3" pattern="&#10;===" is_regex="1" starts_block="1" >
 	<autocomplete append=" ===" backup_cursor="4" />
    <context symbols="=">
     <element pattern="===" ends_block="1" blockstartelement="e.title3" ends_context="1" highlight="title" />
    </context>
-</element> 
+</element>
 <element id="e.title2" pattern="&#10;==" is_regex="1" starts_block="1" >
 	<autocomplete append=" ==" backup_cursor="3" />
    <context symbols="=">
@@ -172,7 +173,7 @@
 			   <element pattern="\]" highlight="ext_link" />
 				<element pattern="]" highlight="ext_link" ends_context="2" />
 			</context>
-		</element> 
+		</element>
 	</context>
 </element>
 
@@ -185,7 +186,7 @@
 			   <element pattern="\]" highlight="link" />
 				<element pattern="]]" highlight="link" ends_context="2" />
 			</context>
-		</element> 
+		</element>
 	</context>
 </element>
 
@@ -201,7 +202,7 @@
    <reference></reference>
 </tag>
 <!-- html -->
-<group highlight="html_tag" attribhighlight="html_attribute" attrib_autocomplete_append="=&quot;&quot;" 
+<group highlight="html_tag" attribhighlight="html_attribute" attrib_autocomplete_append="=&quot;&quot;"
 attrib_autocomplete_backup_cursor="1">
    <tag name="abbr" attributes="&univ;,&i18n;,&evnt;">
       <reference>Defines an embedded object</reference>
@@ -221,7 +222,7 @@ attrib_autocomplete_backup_cursor="1">
    </tag>
    <tag name="cite" attributes="&univ;,&i18n;,&evnt;">
       <reference>Defines a citation</reference>
-   </tag>	
+   </tag>
    <tag name="code" attributes="&univ;,&i18n;,&evnt;">
       <reference>Defines computer code text</reference>
    </tag>
@@ -303,10 +304,10 @@ attrib_autocomplete_backup_cursor="1">
    </tag>
    <tag name="var" attributes="&univ;,&i18n;,&evnt;">
       <reference>Defines a variable part of a text</reference>
-   </tag>			
+   </tag>
 
 </group>
-<group highlight="html_table_tag" attribhighlight="html_attribute" attrib_autocomplete_append="=&quot;&quot;" 
+<group highlight="html_table_tag" attribhighlight="html_attribute" attrib_autocomplete_append="=&quot;&quot;"
 attrib_autocomplete_backup_cursor="1">
    <tag name="table" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" >
    	<autocomplete append=" summary=&quot;&quot; &gt;&#10;&#10;&lt;/table&gt;" backup_cursor="9" />
@@ -315,7 +316,7 @@ attrib_autocomplete_backup_cursor="1">
    <tag name="caption" attributes="align,&univ;,&i18n;,&evnt;">
       <reference>Defines a table caption</reference>
    </tag>
-   <tag name="td" 
+   <tag name="td"
 attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;">
       <reference>Defines a cell in a table</reference>
    </tag>
@@ -326,7 +327,7 @@ attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,r
       <reference>Defines a row in a table</reference>
    </tag>
 </group>
-<group highlight="html_deprecated_tag" attribhighlight="html_attribute" attrib_autocomplete_append="=&quot;&quot;" 
+<group highlight="html_deprecated_tag" attribhighlight="html_attribute" attrib_autocomplete_append="=&quot;&quot;"
 attrib_autocomplete_backup_cursor="1">
    <tag name="center" attributes="&univ;,&i18n;,&evnt;">
       <reference>Center text (<b>deprecated</b>)</reference>
@@ -345,7 +346,7 @@ attrib_autocomplete_backup_cursor="1">
    </tag>
 
 </group>
-<group highlight="wiki" attribhighlight="html_attribute" attrib_autocomplete_append="=&quot;&quot;" 
+<group highlight="wiki" attribhighlight="html_attribute" attrib_autocomplete_append="=&quot;&quot;"
 attrib_autocomplete_backup_cursor="1">
 <tag name="ruby" />
 <tag name="rb" />

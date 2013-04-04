@@ -923,6 +923,31 @@ stringcmp(const void *sp1, const void *sp2)
 }
 
 static guint16
+add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringname, const gchar *singlematch, const gchar *fullmatch)
+{
+	static const gchar *stringhighlight = "attribute-string";
+	guint16 matchstring;
+	const gchar *val = lookup_user_option(bfparser->bflang->name, "attribute_string_is_block");
+	if (val && val[0]=='1') {
+		guint16 strcontext, endmatch;
+		strcontext = new_context(bfparser->st, 4, bfparser->bflang->name, (gchar *)singlematch, stringhighlight, FALSE);
+		matchstring = add_pattern_to_scanning_table(bfparser->st, singlematch, FALSE, FALSE, contexttag);
+		pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,strcontext,FALSE,FALSE,0,FALSE,FALSE);
+		pattern_set_blockmatch(bfparser->st, matchstring,TRUE,FALSE,0,NULL,NULL,FALSE);
+		endmatch = add_pattern_to_scanning_table(bfparser->st, singlematch, FALSE, FALSE, strcontext);
+		pattern_set_runtime_properties(bfparser->st, endmatch, stringhighlight,-1,FALSE,FALSE,0,FALSE,FALSE);
+		pattern_set_blockmatch(bfparser->st, endmatch,FALSE,TRUE,matchstring,NULL,NULL,FALSE);
+	} else {
+		matchstring = add_pattern_to_scanning_table(bfparser->st, fullmatch, TRUE, FALSE, contexttag);
+		pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,
+					0, FALSE, FALSE,0, FALSE, FALSE);
+	}
+	g_hash_table_insert(bfparser->patterns, g_strdup(stringname),
+						GINT_TO_POINTER((gint) matchstring));
+	return matchstring;
+}
+
+static guint16
 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16 context,
 					 GQueue * contextstack, gchar * ih_highlight,
 					 gchar * ih_attrib_autocomplete_append, gchar * ih_attribhighlight,
@@ -964,7 +989,6 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			if (matchnum)
 				compile_existing_match(bfparser->st, matchnum, context);
 		} else if (tag && tag[0]) {
-			static const gchar *stringhighlight = "attribute-string";
 			gchar *attrib_context_id = NULL;
 			gchar **attrib_arr = NULL;
 			guint16 starttagmatch = 0, endtagmatch, matchstring;
@@ -1046,24 +1070,37 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					/*g_print("adding existing tag string %s to context %d\n",internal_tag_string_d,contexttag); */
 					compile_existing_match(bfparser->st, matchstring, contexttag);
 				} else {
-					/*g_print("adding new tag string %s to context %d and highlight %s\n",internal_tag_string_d,contexttag,stringhighlight); */
-					matchstring = add_pattern_to_scanning_table(bfparser->st, "\"[^\"]*\"", TRUE, FALSE, contexttag);
-					pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,
-								0, FALSE, FALSE,0, FALSE, FALSE);
+					add_string(bfparser, contexttag, internal_tag_string_d, "\"", "\"[^\"]*\"");
+/*					gchar *val = lookup_user_option(bfparser->bflang->name, "attribute_string_is_block");
+					if (val && val[0]=='1') {
+						guint16 strcontext, endmatch;
+						strcontext = new_context(bfparser->st, 4, bfparser->bflang->name, "\"", stringhighlight, FALSE);
+						matchstring = add_pattern_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, contexttag);
+						pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,strcontext,FALSE,FALSE,0,FALSE,FALSE);
+						pattern_set_blockmatch(bfparser->st, matchstring,TRUE,FALSE,0,NULL,NULL,FALSE);
+						endmatch = add_pattern_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, strcontext);
+						pattern_set_runtime_properties(bfparser->st, endmatch, stringhighlight,-1,FALSE,FALSE,0,FALSE,FALSE);
+						pattern_set_blockmatch(bfparser->st, endmatch,FALSE,TRUE,matchstring,NULL,NULL,FALSE);
+					} else {
+						matchstring = add_pattern_to_scanning_table(bfparser->st, "\"[^\"]*\"", TRUE, FALSE, contexttag);
+						pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,
+									0, FALSE, FALSE,0, FALSE, FALSE);
+					}
 					g_hash_table_insert(bfparser->patterns, g_strdup(internal_tag_string_d),
-										GINT_TO_POINTER((gint) matchstring));
+										GINT_TO_POINTER((gint) matchstring));*/
 				}
 				matchstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, internal_tag_string_s));
 				if (matchstring) {
 					/*g_print("adding existing tag string %s to context %d\n",internal_tag_string_s,contexttag); */
 					compile_existing_match(bfparser->st, matchstring, contexttag);
 				} else {
-					/*g_print("adding new tag string %s to context %d and highlight %s\n",internal_tag_string_s,contexttag,stringhighlight); */
+					add_string(bfparser, contexttag, internal_tag_string_s, "'", "'[^']*'");
+/*					static const gchar *stringhighlight = "attribute-string";
 					matchstring = add_pattern_to_scanning_table(bfparser->st, "'[^']*'", TRUE, FALSE, contexttag);
 					pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,
 								0, FALSE, FALSE,0, FALSE, FALSE);
 					g_hash_table_insert(bfparser->patterns, g_strdup(internal_tag_string_s),
-										GINT_TO_POINTER((gint) matchstring));
+										GINT_TO_POINTER((gint) matchstring));*/
 				}
 
 				if (!sgml_shorttag) {
