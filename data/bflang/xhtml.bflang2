@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		xhtml.bflang2 $Revision$
- 
+
 		Copyright (C) 2008-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <!DOCTYPE bflang [
 	<!ENTITY xml "xml:lang">
@@ -36,6 +36,7 @@
 	<option name="show_in_menu" default="1"/>
 	<option name="autocomplete_tags" default="1" />
 	<option name="stretch_tag_block" default="1" />
+	<option name="attribute_string_is_block" default="0" description="Show tag attributes as block"/>
 	<option name="javascript_anchors_object" default="1" description="Anchors object" />
 	<option name="javascript_applets_object" default="1" description="Applet object" />
 	<option name="javascript_date_object" default="1" description="Date object" />
@@ -87,7 +88,7 @@
 	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />
 	<comment id="cm.cpplinecomment" type="line" start="//" />
 	<comment id="cm.scriptcomment" type="line" start="#" />
-	
+
 	<default_spellcheck enabled="1" spell_decode_entities="1" />
 </properties>
 
@@ -180,7 +181,7 @@
 					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
 						<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
 					</context>
-				</element>			
+				</element>
 				&css-rules;
 				<element pattern="&lt;/style&gt;" highlight="tag" ends_context="3" />
 				<element pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="brackets" ends_context="1" />

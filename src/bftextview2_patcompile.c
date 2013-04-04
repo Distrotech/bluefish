@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_patcompile.c
  *
- * Copyright (C) 2008,2009,2011 Olivier Sessink
+ * Copyright (C) 2008,2009,2011,2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -212,11 +212,11 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 				will simply follow the existing states. BUT IT DOES NOT CHECK IF THERE ARE MULTIPLE WAYS TO GET TO THESE
 				EXISTING STATES. So if those states are created by a regex pattern that allows jumping to these states via
 				various other characters, you will have an overlapping pattern WITHOUT WARNING.
-				
-				You can avoid this bug by having regex patterns alwats in the end of a context.  
+
+				You can avoid this bug by having regex patterns alwats in the end of a context.
 				 */
-				
-				
+
+
 				if (get_tablerow(st, context, pos).row[c] != 0
 					&& get_tablerow(st, context, pos).row[c] != identstate) {
 					if (get_tablerow(st, context, pos).row[c] == pos) {
@@ -429,10 +429,10 @@ inputpositions, and returns all valid outputstates.
 regexpart_ends_regex is a boolean that is used to set the state for the last character of the regex.
 if the last character of a pattern is a symbol, the states are different. because this function is
 called recursively this is only relevant for the first call.
-BUG: this is not true, for a pattern like <(a|b) the a and b are both end-patterns, but they are handled in a 
-subpattern  
+BUG: this is not true, for a pattern like <(a|b) the a and b are both end-patterns, but they are handled in a
+subpattern
 
- 
+
 */
 static GQueue *
 process_regex_part(Tscantable * st, gchar * regexpart, gint16 context, gboolean caseinsensitive,
@@ -506,7 +506,7 @@ process_regex_part(Tscantable * st, gchar * regexpart, gint16 context, gboolean 
 						characters[j - 32] = characters[j];
 					}
 				}
-				/* BUG: the following code misses a lot of cases where the next state could be a possible 
+				/* BUG: the following code misses a lot of cases where the next state could be a possible
 				   end-state already. For example <%[=@]? does not work */
 				if (regexpart_ends_regex && regexpart[i] != '\0' && regexpart[i + 1] == '\0') {
 					gboolean only_symbols = TRUE;
@@ -610,7 +610,7 @@ compile_limitedregex_to_DFA(Tscantable * st, gchar * input, gboolean caseinsensi
 /* this function cannot do any regex style patterns
 just full keywords */
 static void
-compile_keyword_to_DFA(Tscantable * st, gchar * keyword, guint16 matchnum, gint16 context,
+compile_keyword_to_DFA(Tscantable * st, const gchar * keyword, guint16 matchnum, gint16 context,
 					   gboolean case_insens)
 {
 	gint i, len;
@@ -677,12 +677,12 @@ compile_keyword_to_DFA(Tscantable * st, gchar * keyword, guint16 matchnum, gint1
 }
 
 gint16
-new_context(Tscantable * st, guint expected_size, const gchar * lang, gchar * symbols, const gchar * contexthighlight,
+new_context(Tscantable * st, guint expected_size, const gchar * lang, const gchar * symbols, const gchar * contexthighlight,
 			gboolean autocomplete_case_insens)
 {
 	gint16 context;
 	gint i;
-	gchar *tmp;
+	const gchar *tmp;
 	GArray *tmptable;
 
 	context = st->contexts->len;
@@ -691,7 +691,7 @@ new_context(Tscantable * st, guint expected_size, const gchar * lang, gchar * sy
 	g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens = autocomplete_case_insens;
 	g_array_index(st->contexts, Tcontext, context).contexthighlight = (gchar *) contexthighlight;
 	tmptable = g_array_index(st->contexts, Tcontext, context).table = g_array_sized_new(TRUE, TRUE, sizeof(Ttablerow), expected_size);
-	g_array_set_size(g_array_index(st->contexts, Tcontext, context).table, 2); /* first two states are the startstate (0) and the identstate (1) */ 
+	g_array_set_size(g_array_index(st->contexts, Tcontext, context).table, 2); /* first two states are the startstate (0) and the identstate (1) */
 	/* identstate refers to itself for all characters except the symbols. we cannot use memset
 	   because an guint16 occupies 2 bytes */
 	for (i = 0; i < NUMSCANCHARS; i++)
@@ -842,22 +842,22 @@ compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context)
 }
 
 void
-pattern_set_blockmatch(Tscantable * st, guint16 matchnum, 
+pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
 							gboolean starts_block,
-							gboolean ends_block, 
+							gboolean ends_block,
 							guint blockstartpattern,
 							const gchar *blockhighlight,
 							const gchar *blockname,
-							gboolean foldable) 
+							gboolean foldable)
 {
 	if (starts_block == TRUE && ends_block == TRUE) {
-		g_warning("Error in language file or Bluefish bug: pattern %s both starts and ends a block\n", 
+		g_warning("Error in language file or Bluefish bug: pattern %s both starts and ends a block\n",
 						g_array_index(st->matches, Tpattern, matchnum).pattern);
 	}
 	if (blockname && !starts_block) {
 		g_warning("Error in language file or Bluefish bug: block_name %s can only be set on a block start\n", blockname);
 	}
-	
+
 	if (starts_block) {
 		guint16 blocknum = 0;
 		if (blockname || blockhighlight) { /* only create a block if we need it */
@@ -877,7 +877,7 @@ pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
 }
 
 void
-pattern_set_runtime_properties(Tscantable * st, guint16 matchnum, 
+pattern_set_runtime_properties(Tscantable * st, guint16 matchnum,
 								const gchar * selfhighlight,
 								gint16 nextcontext,
 								gboolean tagclose_from_blockstack,
@@ -897,7 +897,7 @@ pattern_set_runtime_properties(Tscantable * st, guint16 matchnum,
 }
 
 guint16
-add_pattern_to_scanning_table(Tscantable * st, gchar * pattern,
+add_pattern_to_scanning_table(Tscantable * st, const gchar * pattern,
 								gboolean is_regex,
 								gboolean case_insens,
 								gint16 context)
@@ -914,22 +914,22 @@ add_pattern_to_scanning_table(Tscantable * st, gchar * pattern,
 	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
 	DBG_PATCOMPILE("add_pattern_to_scanning_table,pattern=%s for context=%d got matchnum %d\n",pattern, context, matchnum);
 	if (is_regex) {
-		compile_limitedregex_to_DFA(st, pattern, case_insens, matchnum, context);
+		compile_limitedregex_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern, case_insens, matchnum, context);
 	} else {
-		compile_keyword_to_DFA(st, pattern, matchnum, context, case_insens);
+		compile_keyword_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern, matchnum, context, case_insens);
 	}
 	/*if (g_strcmp0(pattern, "rem ")==0 || g_strcmp0(pattern, "\\.?[a-zA-Z][a-zA-Z_0-9]*[\\$%]?")==0) {
 		print_DFA_subset(st, context, "rem var");
 	}*/
 	return matchnum;
-} 
+}
 
 
 /*guint16
 add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * lang,
 							  const gchar * selfhighlight, const gchar * blockhighlight, gboolean is_regex,
 							  gboolean case_insens, gint16 context, gint16 nextcontext, gboolean starts_block,
-							  gboolean ends_block, guint blockstartpattern, 
+							  gboolean ends_block, guint blockstartpattern,
 							  gboolean tagclose_from_blockstack, gboolean stretch_blockstart,
 							  guint8 identmode, gboolean identjump, gboolean identautocomp)
 {
@@ -939,7 +939,7 @@ add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * la
 		g_print("CORRUPT LANGUAGE FILE: empty pattern/tag/keyword\n");
 		return 0;
 	}
-	
+
 	if (context == nextcontext)
 		DBG_PATCOMPILE("context=nextcontext=%d for %s\n", context, pattern);
 
@@ -957,7 +957,7 @@ add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * la
 	g_array_index(st->matches, Tpattern, matchnum).case_insens = case_insens;
 	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
 	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = (gchar *) selfhighlight;
-	
+
 	g_array_index(st->matches, Tpattern, matchnum).tagclose_from_blockstack = tagclose_from_blockstack;
 	g_array_index(st->matches, Tpattern, matchnum).stretch_blockstart = stretch_blockstart;
 #ifdef IDENTSTORING
@@ -1032,7 +1032,7 @@ print_DFA(Tscantable * st, gint16 context, char start, char end)
 		for (j = start; j <= end; j++) {
 			g_print("%3d ", g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).row[j]);
 		}
-		g_print(": %3d (%s)\n", g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match, 
+		g_print(": %3d (%s)\n", g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match,
 					g_array_index(st->matches, Tpattern,g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match).pattern);
 	}
 

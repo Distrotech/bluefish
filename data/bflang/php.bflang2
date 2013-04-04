@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		php.bflang2 $Revision$
- 
+
 		Copyright (C) 2008-2013 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <!DOCTYPE bflang [
 	<!ENTITY i18n "dir,lang">
@@ -53,6 +53,7 @@
 	<option name="autocomplete_with_arguments" default="1" />
 	<option name="autocomplete_with_parentheses" default="0" />
 	<option name="stretch_tag_block" default="1" />
+	<option name="attribute_string_is_block" default="0" description="Show tag attributes as block"/>
 	<option name="javascript_anchors_object" default="1" />
 	<option name="javascript_applets_object" default="1" />
 	<option name="javascript_date_object" default="1"  />
@@ -89,7 +90,7 @@
 	<highlight name="html-table-tag" style="special-tag2" />
 	<highlight name="html-form-tag" style="special-tag3" />
 	<highlight name="html-deprecated-tag" style="warning" />
-	
+
 	<highlight name="js-keyword" style="keyword"  />
 	<highlight name="js-brackets" style="brackets"  />
 	<highlight name="js-type" style="type"  />
@@ -148,7 +149,7 @@
 <span color="red">Warning</span>: only <b>&lt;&lt;&lt;EOF</b> (without space) is correctly highligted.</reference>
 	<autocomplete enable="1" />
 	<context symbols="&#13;&#10;EF$ " highlight="php-heredoc-string">
-		<element pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" />	
+		<element pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" />
 		<element pattern="(&#10;|&#13;|&#13;&#10;)EOF"  is_regex="1" ends_block="1" ends_context="1" blockstartelement="e.php.short.heredoc_string" highlight="brackets" />
 	</context>
 </element>
@@ -208,7 +209,7 @@
 	</context>
 </element>
 <!-- there is a bug in the scanning engine such that a regex style pattern like (#|//) won't work. The reason is that
-there is special code if a pattern ends on a symbol. That code fails on the above pattern because both # and / are ends 
+there is special code if a pattern ends on a symbol. That code fails on the above pattern because both # and / are ends
 for this pattern and both of them are a symbol. That's why we have a separate entry for # and for // -->
 <element pattern="#" highlight="php-comment">
 	<context idref="c.php.short.linecomment"/>
@@ -219,7 +220,7 @@ for this pattern and both of them are a symbol. That's why we have a separate en
 <group notclass="php_short_open_tag">
 <element id="e.php.open" pattern="&lt;?php" starts_block="1" highlight="php-block-tag" block_name="PHP block">
 <context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" commentid_block="cm.cblockcomment" commentid_line="cm.cpplinecomment">
-<!-- unfortunately we cannot refer the context as previously used, because if option php_short_open_tag 
+<!-- unfortunately we cannot refer the context as previously used, because if option php_short_open_tag
 was disabled, this whole section is not parsed by the language manager, so the context does not yet exist..  -->
 &all-php;
 <element id="e.php.lbrace" pattern="{" starts_block="1" highlight="brackets" block_name="Curly brackets block"/>
@@ -239,7 +240,7 @@ was disabled, this whole section is not parsed by the language manager, so the c
 <span color="red">Warning</span>: only <b>&lt;&lt;&lt;EOF</b> (without space) is correctly highligted.</reference>
 	<autocomplete enable="1" />
 	<context symbols="&#13;&#10;EF$ " highlight="php-heredoc-string">
-		<element pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" />	
+		<element pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" />
 		<element pattern="(&#10;|&#13;|&#13;&#10;)EOF"  is_regex="1" ends_block="1" ends_context="1" blockstartelement="e.php.heredoc_string" highlight="brackets" />
 	</context>
 </element>
@@ -299,7 +300,7 @@ was disabled, this whole section is not parsed by the language manager, so the c
 	</context>
 </element>
 <!-- there is a bug in the scanning engine such that a regex style pattern like (#|//) won't work. The reason is that
-there is special code if a pattern ends on a symbol. That code fails on the above pattern because both # and / are ends 
+there is special code if a pattern ends on a symbol. That code fails on the above pattern because both # and / are ends
 for this pattern and both of them are a symbol. That's why we have a separate entry for # and for // -->
 <element pattern="#" highlight="php-comment">
 	<context idref="c.php.linecomment"/>

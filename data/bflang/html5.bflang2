@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		html5.bflang2 $Revision$
- 
+
 		Copyright (C) 2008-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <!DOCTYPE bflang [
@@ -41,6 +41,7 @@
 	<option name="show_in_menu" default="1"/>
 	<option name="autocomplete_tags" default="1" />
 	<option name="stretch_tag_block" default="1" />
+	<option name="attribute_string_is_block" default="0" description="Show tag attributes as block"/>
 	<option name="javascript_anchors_object" default="1" description="Anchors object" />
 	<option name="javascript_applets_object" default="1" description="Applet object" />
 	<option name="javascript_date_object" default="1" description="Date object" />

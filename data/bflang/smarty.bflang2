@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		smarty.bflang2 $Revision: 6414 $
- 
+
 		Copyright (C) 2008-20011 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <!DOCTYPE bflang [
@@ -54,6 +54,7 @@
 	<option name="show_in_menu" default="0"/>
 	<option name="load_php_functions" default="1" description="All php functions" />
 	<option name="autocomplete_tags" default="1" />
+	<option name="attribute_string_is_block" default="0" description="Show tag attributes as block"/>
 	<option name="javascript_anchors_object" default="1" description="Anchors object" />
 	<option name="javascript_applets_object" default="1" description="Applet object" />
 	<option name="javascript_date_object" default="1" description="Date object" />
@@ -84,7 +85,7 @@
 	<highlight name="html-entity" style="value" />
 	<highlight name="html-brackets" style="brackets" />
 	<highlight name="html-comment" style="comment" />
-	
+
 	<highlight name="js-keyword" style="keyword" />
 	<highlight name="js-brackets" style="brackets" />
 	<highlight name="js-type" style="type" />
@@ -108,13 +109,13 @@
 	<highlight name="css-value" style="value" />
 	<highlight name="css-pseudo-element" style="keyword" />
 	<highlight name="css-operator" style="operator" />
-	
+
 	<highlight name="smarty-comment" style="comment" />
 	<highlight name="smarty-value" style="value" />
 	<highlight name="smarty-tag" style="special-type" />
 	<highlight name="smarty-variable" style="variable" />
 	<highlight name="smarty-attribute" style="attribute" />
-	
+
 	<highlight name="php-block-tag" style="special-value" />
 	<highlight name="string" style="string" />
 	<highlight name="brackets" style="brackets" />
@@ -318,7 +319,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-	
+
 <!-- eval -->
 <element pattern="{eval" highlight="smarty-tag">
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
@@ -328,7 +329,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 <!-- fetch -->
 <element pattern="{fetch" highlight="smarty-tag">
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
@@ -338,7 +339,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 <!-- html_checkboxes -->
 <element pattern="{html_checkboxes" highlight="smarty-tag">
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
@@ -354,7 +355,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 <!-- html_image -->
 <element pattern="{html_image" highlight="smarty-tag">
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
@@ -369,7 +370,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 <!-- html_options -->
 <element pattern="{html_options" highlight="smarty-tag">
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
@@ -382,7 +383,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 <!-- html_radios -->
 <element pattern="{html_radios" highlight="smarty-tag">
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
@@ -396,7 +397,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 <!-- html_select_date -->
 <element pattern="{html_select_date" highlight="smarty-tag">
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
@@ -430,7 +431,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 <!-- html_select_time -->
 <element pattern="{html_select_time" highlight="smarty-tag">
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
@@ -453,7 +454,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 <!-- html_table -->
 <element pattern="{html_table" highlight="smarty-tag">
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
@@ -473,7 +474,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 <!-- mailto -->
 <element pattern="{mailto" highlight="smarty-tag">
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
@@ -490,7 +491,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 <!-- math -->
 <element pattern="{math" highlight="smarty-tag">
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
@@ -502,7 +503,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 <!-- popup -->
 <element pattern="{popup" highlight="smarty-tag" >
 	<autocomplete enable="1" />
@@ -571,7 +572,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 <!-- textformat -->
 <element pattern="{textformat" highlight="smarty-tag">
 	<context symbols="};\&quot;=' &#9;&#10;&#13;">
@@ -587,7 +588,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-		
+
 
 
 <!-- Catch-all stanza for custom plugins, etc.  Must be next to last. -->
@@ -598,7 +599,7 @@
 		<element idref="e.s.end" />
 	</context>
 </element>
-			
+
 <!-- Standalone smarty variable inclusion. Must be last.  -->
 <element pattern="{" highlight="smarty-tag">
 	<context symbols="};\&quot;='$&#9;&#10;&#13;">

@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_patcompile.h
  *
- * Copyright (C) 2008,2009,2010 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 
 #include "bftextview2.h"
 GList *bftextview2_scantable_rematch_highlights(Tscantable * st, const gchar * lang);
-gint16 new_context(Tscantable * st, guint expected_size, const gchar * lang, gchar * symbols, const gchar * contexthighlight,
+gint16 new_context(Tscantable * st, guint expected_size, const gchar * lang, const gchar * symbols, const gchar * contexthighlight,
 				   gboolean autocomplete_case_insens);
 void match_set_nextcontext(Tscantable * st, guint16 matchnum, guint16 nextcontext);
 void match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context);
@@ -33,16 +33,16 @@ void match_set_reference(Tscantable * st, guint16 matchnum, const gchar * refere
 void compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context);
 
 void
-pattern_set_blockmatch(Tscantable * st, guint16 matchnum, 
+pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
 							gboolean starts_block,
-							gboolean ends_block, 
+							gboolean ends_block,
 							guint blockstartpattern,
 							const gchar *blockhighlight,
 							const gchar *blockname,
 							gboolean foldable);
 
 void
-pattern_set_runtime_properties(Tscantable * st, guint16 matchnum, 
+pattern_set_runtime_properties(Tscantable * st, guint16 matchnum,
 								const gchar * selfhighlight,
 								gint16 nextcontext,
 								gboolean tagclose_from_blockstack,
@@ -52,7 +52,7 @@ pattern_set_runtime_properties(Tscantable * st, guint16 matchnum,
 								gboolean identautocomp);
 
 guint16
-add_pattern_to_scanning_table(Tscantable * st, gchar * pattern,
+add_pattern_to_scanning_table(Tscantable * st, const gchar * pattern,
 								gboolean is_regex,
 								gboolean case_insens,
 								gint16 context);
@@ -61,7 +61,7 @@ add_pattern_to_scanning_table(Tscantable * st, gchar * pattern,
 /*guint16 add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * lang,
 							  const gchar * selfhighlight, const gchar * blockhighlight, gboolean is_regex,
 							  gboolean case_insens, gint16 context, gint16 nextcontext, gboolean starts_block,
-							  gboolean ends_block, guint blockstartpattern, 
+							  gboolean ends_block, guint blockstartpattern,
 							  gboolean tagclose_from_blockstack, gboolean stretch_blockstart,
 							  guint8 identmode, gboolean identjump, gboolean identautocomp);*/
 void print_DFA(Tscantable * st, gint16 context, char start, char end);

@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		php.bflang2 $Revision: 5532 $
- 
+
 		Copyright (C) 2008-2009 Olivier Sessink
 
 		This program is free software; you can redistribute it and/or modify
@@ -17,7 +17,7 @@
 
 		You should have received a copy of the GNU General Public License
 		along with this program; if not, write to the Free Software
-		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
 <!DOCTYPE bflang [
 	<!ENTITY i18n "dir,lang">
@@ -41,6 +41,7 @@
 	<option name="php_short_open_tag" default="0" />
 	<option name="autocomplete_tags" default="1" />
 	<option name="Parentheses block_foldable" default="0" description="Allow folding of the Parentheses block" />
+	<option name="attribute_string_is_block" default="0" description="Show tag attributes as block"/>
 	<option name="javascript_anchors_object" default="1" description="Anchors object" />
 	<option name="javascript_applets_object" default="1" description="Applet object" />
 	<option name="javascript_date_object" default="1" description="Date object" />
@@ -78,7 +79,7 @@
 	<highlight name="html-table-tag" style="special-tag2" />
 	<highlight name="html-form-tag" style="special-tag3" />
 	<highlight name="html-deprecated-tag" style="warning" />
-	
+
 	<highlight name="js-keyword" style="keyword"  />
 	<highlight name="js-brackets" style="brackets"  />
 	<highlight name="js-type" style="type"  />
@@ -103,7 +104,7 @@
 </header>
 <properties>
 	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
-	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />	
+	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />
 	<comment id="cm.cpplinecomment" type="line" start="//" />
 	<comment id="cm.scriptcomment" type="line" start="#" />
 	<smartindent characters="{" />
@@ -163,7 +164,7 @@
 	</context>
 </element>
 <!-- there is a bug in the scanning engine such that a regex style pattern like (#|//) won't work. The reason is that
-there is special code if a pattern ends on a symbol. That code fails on the above pattern because both # and / are ends 
+there is special code if a pattern ends on a symbol. That code fails on the above pattern because both # and / are ends
 for this pattern and both of them are a symbol. That's why we have a separate entry for # and for // -->
 <element pattern="#" highlight="php-comment">
 	<context idref="c.php.short.linecomment"/>
@@ -174,7 +175,7 @@ for this pattern and both of them are a symbol. That's why we have a separate en
 <group notclass="php_short_open_tag">
 <element id="e.php.open" pattern="&lt;?php" starts_block="1" highlight="php-block-tag">
 <context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;">
-<!-- unfortunately we cannot refer the context as previously used, because if option php_short_open_tag 
+<!-- unfortunately we cannot refer the context as previously used, because if option php_short_open_tag
 was disabled, this whole section is not parsed by the language manager, so the context does not yet exist..  -->
 &all-wordpress;
 &all-php;
@@ -219,7 +220,7 @@ was disabled, this whole section is not parsed by the language manager, so the c
 	</context>
 </element>
 <!-- there is a bug in the scanning engine such that a regex style pattern like (#|//) won't work. The reason is that
-there is special code if a pattern ends on a symbol. That code fails on the above pattern because both # and / are ends 
+there is special code if a pattern ends on a symbol. That code fails on the above pattern because both # and / are ends
 for this pattern and both of them are a symbol. That's why we have a separate entry for # and for // -->
 <element pattern="#" highlight="php-comment">
 	<context idref="c.php.linecomment"/>
