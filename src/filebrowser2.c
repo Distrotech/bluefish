@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filebrowser2.c - the filebrowser v2
  *
- * Copyright (C) 2002-2012 Olivier Sessink
+ * Copyright (C) 2002-2013 Olivier Sessink
  * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
@@ -3127,6 +3127,7 @@ fb2_cleanup(Tbfwin * bfwin)
 			gtk_action_group_remove_action(bfwin->filebrowserGroup, GTK_ACTION(list->data));
 		}
 		g_list_free(actions);
+		gtk_ui_manager_remove_action_group(bfwin->uimanager,bfwin->filebrowserGroup);
 		bfwin->filebrowserGroup = NULL;
 /*		g_print("fb2_cleanup, disconnect dirmenu_changed_signal\n");
 		g_signal_handler_disconnect(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
