@@ -72,7 +72,7 @@ bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTextBuffer * buffe
 		}
 	}
 	/* if the region is within a misspelled word, enlarge it to the total misspelled word
-	   (this fixes the situation where you add a space in the middle of "forgotthespace" and only 
+	   (this fixes the situation where you add a space in the middle of "forgotthespace" and only
 	   the space is scanned again) */
 	misspelled = gtk_text_tag_table_lookup(langmgr_get_tagtable(), "_spellerror_");
 	DBG_SPELL("find_region2spellcheck, start at %d has misspelled=%d, ends_mispelled=%d\n"
@@ -386,14 +386,22 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 	timer = g_timer_new();
 	iter = so;
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &itcursor, gtk_text_buffer_get_insert(btv->buffer));
-	/* if we start at the cursor, that might be an indication that the previous word was 
+	/* if we start at the cursor, that might be an indication that the previous word was
 	skipped because it ended at the cursor, so lets skip back one word */
-	
-	
-	
+
+
+
 	DBG_SPELL("bftextview2_run_spellcheck, in bfwin=%p, bfwin->ed=%p loop1 from %d to %d\n",
 			  DOCUMENT(btv->doc)->bfwin, BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, gtk_text_iter_get_offset(&so),
 			  gtk_text_iter_get_offset(&eo));
+
+	gtk_text_buffer_remove_tag_by_name(btv->buffer, "_spellerror_", &so, &eo);
+	/* we have two loops inside each other:
+		* loop1 loops over the entire region that was marked with 'needspellcheck'
+		   within this loop1 html tags and such are found, these are not to be scanned
+	   * loop2 loops over the elements, keywords, function names etc. that are found
+	     within this loop only the remaining text is scanned
+	*/
 	do {
 		GtkTextIter eo2 = eo;
 		gboolean cont2 = TRUE;
@@ -405,8 +413,8 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 		} else {				/* no scantable */
 			eo2 = eo;
 		}
-		gtk_text_buffer_remove_tag_by_name(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),
-										   "_spellerror_", &iter, &eo2);
+		/*gtk_text_buffer_remove_tag_by_name(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),
+										   "_spellerror_", &iter, &eo2);*/
 		DBG_SPELL("bftextview2_run_spellcheck, loop2 from %d to %d\n", gtk_text_iter_get_offset(&iter),
 				  gtk_text_iter_get_offset(&eo2));
 		while (cont2 && (loop % loops_per_timer != 0 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) {	/* loop from iter to eo2 */
@@ -652,7 +660,7 @@ list_dicts_lcb(const char *const lang_tag, const char *const provider_name, cons
 {
 	Tdictlist *dl = data;
 	GtkWidget *menuitem;
-	DBG_SPELL("lang_tag=%s, provider_name=%s, provider_desc=%s, provider_file=%s\n",lang_tag,provider_name,provider_desc,provider_file); 
+	DBG_SPELL("lang_tag=%s, provider_name=%s, provider_desc=%s, provider_file=%s\n",lang_tag,provider_name,provider_desc,provider_file);
 	menuitem = gtk_radio_menu_item_new_with_label(dl->group, lang_tag);
 	if (!dl->group)
 		dl->group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
@@ -787,7 +795,7 @@ static void bftextview2_preferences_menu_enable_lcb(GtkWidget *widget, gpointer 
 void bftextview2_populate_preferences_popup(GtkMenu *menu, Tdocument *doc) {
 	GtkWidget *menuitem, *submenu;
 	Tdictlist dl;
-	
+
 
 	menuitem = gtk_check_menu_item_new_with_label(_("Enable spell check"));
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), BFWIN(doc->bfwin)->session->spell_enable);
