@@ -1321,7 +1321,6 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 		}
 	}
 #ifdef HL_PROFILING
-	startpos = gtk_text_iter_get_offset(&scanning.start);
 	stage1 = g_timer_elapsed(scanning.timer, NULL);
 #endif
 	iter = mstart = scanning.start;
@@ -1333,6 +1332,11 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 		scanning.curfblock = NULL;
 		reconstruction_o = 0;
 	} else {
+		/* we do not want to reconstruct a blockstart exactly at the point where scanning.start is right now, otherwise
+		if we previously found <b and now there is <bo and we reconstruct the stack between the b and the o and we would not 
+		detect that the tag has changed. so we move scanning.start one position up. */
+		gtk_text_iter_backward_char(&iter);
+		DBG_SCANNING("moved scanning.start back to %d\n",gtk_text_iter_get_offset(&scanning.start));
 		/* reconstruct the context stack and the block stack */
 		reconstruction_o = reconstruct_scanning(btv, &iter, &scanning);
 		pos = 0;
@@ -1360,6 +1364,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	DBG_SCANNING("scanning from %d to %d\n", gtk_text_iter_get_offset(&scanning.start),
 				 gtk_text_iter_get_offset(&scanning.end));
 #ifdef HL_PROFILING
+	startpos = gtk_text_iter_get_offset(&scanning.start);
 	stage2 = g_timer_elapsed(scanning.timer, NULL);
 #endif
 	endoffset = gtk_text_iter_get_offset(&scanning.end);
