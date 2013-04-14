@@ -1114,7 +1114,8 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 {
 	GtkTextIter nextit;
 	gboolean cont;
-	guint startoffset;
+	guint startoffset, nextitoffset, endoffset;
+	/*guint needscanning=0, noneedscanning=0;*/
 	/* first find a region that needs scanning */
 	gtk_text_buffer_get_start_iter(buffer, start);
 	if (!gtk_text_iter_begins_tag(start, btv->needscanning)) {
@@ -1125,8 +1126,9 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 		}
 	}
 	/* find the end of the region */
-	*end = *start;
+	*end = nextit = *start;
 	startoffset = gtk_text_iter_get_offset(start);
+	nextitoffset = startoffset;
 	do {
 		cont=FALSE;
 		gtk_text_iter_forward_char(end);
@@ -1136,13 +1138,19 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 				return FALSE;
 			}
 		}
+		endoffset = gtk_text_iter_get_offset(end);
+		/*needscanning += endoffset - nextitoffset;*/
 		DBG_SCANNING("region that needs scanning runs from %d to %d\n", gtk_text_iter_get_offset(start),
 					 gtk_text_iter_get_offset(end));
 		nextit = *end;
 		if (gtk_text_iter_forward_char(&nextit) && (gtk_text_iter_begins_tag(&nextit, btv->needscanning) || gtk_text_iter_forward_to_tag_toggle(&nextit, btv->needscanning))) {
-			/* there is another start in the doc, see if it is close (doable within one scanning run) or far away */
-			if (gtk_text_iter_get_offset(&nextit) - startoffset < (NUM_TIMER_CHECKS_PER_RUN * loops_per_timer)) {
+			nextitoffset = gtk_text_iter_get_offset(&nextit);
+			/* there is another start in the doc, see if it is close (doable within one scanning run, and 
+			the number of chars between the regions should not be a lot more than the number of chars that 
+			actually need scanning), if so merge them */
+			if ((nextitoffset - endoffset < loops_per_timer) && (nextitoffset - startoffset) < (NUM_TIMER_CHECKS_PER_RUN * loops_per_timer)) {
 				DBG_SCANNING("next region that needs scanning starts at %d, merge them together!\n", gtk_text_iter_get_offset(&nextit));
+				/*noneedscanning += nextitoffset-endoffset;*/
 				*end = nextit;
 				cont = TRUE;
 			}
