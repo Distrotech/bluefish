@@ -80,18 +80,18 @@ typedef struct {
 	guint searchednumdoc; /* the number of documents searched */
 
 	guint unre_action_id;
-	
+
 	/* following entries are used during the search run */
 	Tdocument *curdoc; /* the current document */
 	gchar *curbuf; /* the current buffer */
 	gint curoffset; /* when running replace all, the difference between the offset in curbuf and the offset in the text widget */
-	guint curposition; /* the position in curbuf to continue the next search run, used if the first 
+	guint curposition; /* the position in curbuf to continue the next search run, used if the first
 							search run took longer than our maximum-allowed-gui-block-time */
 	guint so; /* area to search in */
 	guint eo; /* see so */
 	void (*callback) (gpointer data);	/* to be called when the search has finished */
 	guint idle_id;
-	guint changed_idle_id;	
+	guint changed_idle_id;
 	Tasyncqueue idlequeue;
 	Tasyncqueue threadqueue;
 	volatile gint runcount;
@@ -152,7 +152,7 @@ typedef struct {
 	GtkWidget *select_match;
 	GtkWidget *bookmarks;
 	GtkWidget *findButton;
-	GtkWidget *backButton;	
+	GtkWidget *backButton;
 	GtkWidget *findAllButton;
 	GtkWidget *replaceButton;
 	GtkWidget *replaceAllButton;
@@ -166,7 +166,7 @@ typedef struct {
 	gpointer nothing;
 } Tsnr3config;
 
-#define MAX_CONTINUOUS_SEARCH_INTERVAL 0.1
+#define MAX_CONTINUOUS_SEARCH_INTERVAL 0.2
 
 void snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void *)); /* called from snr3_files.c */
 void snr3_run_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, gboolean update);
