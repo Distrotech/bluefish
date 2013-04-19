@@ -1678,8 +1678,8 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 	return NULL;
 }
 
-#define MAX_TOO_LONG_LINE 900
-#define MIN_TOO_LONG_LINE 800
+#define MAX_TOO_LONG_LINE 10000
+#define MIN_TOO_LONG_LINE 9500
 
 static gchar *
 check_very_long_line(Tdocument *doc, gchar *buffer)
