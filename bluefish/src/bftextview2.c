@@ -991,6 +991,8 @@ paint_margin(BluefishTextView * btv, cairo_t * cr, GtkTextIter * startvisible, G
 
 /* whitespace macro. Possibly include: '/n', 8206-8207, maybe others */
 #define BTV_ISWS(c) ( \
+  ((c) == '\r') || \
+  ((c) == '\n') || \
   ((c) == '\t') || \
   ((c) == ' ') || \
   ((c) == 160) || \
@@ -1035,7 +1037,13 @@ paint_spaces(BluefishTextView * btv, cairo_t * cr, GtkTextIter * startvisible, G
 				  BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_block +
 				  BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_symbol);
 #endif
-			if (uc == '\t' && (trailing || main_v->props.visible_ws_mode != 2)) {
+			if ((uc=='\n'||uc=='\r')&& main_v->props.visible_ws_mode != 2) {
+				gint fourtheight= rect.height/4;
+				/* draw newline or carriage return */
+				cairo_move_to(cr, x+0.5 , y-0.5-fourtheight);
+				cairo_rel_line_to(cr, fourtheight, 0);
+				cairo_rel_line_to(cr, 0, 2*fourtheight);
+			} else if (uc == '\t' && (trailing || main_v->props.visible_ws_mode != 2)) {
 				/* draw tab */
 				cairo_move_to(cr, x + 3.5, y - 2.5);
 				cairo_rel_line_to(cr, 0, 3);
