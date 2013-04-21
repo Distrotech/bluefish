@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_spell.c
  *
- * Copyright (C) 2009-2011 Olivier Sessink
+ * Copyright (C) 2009-2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*#define SPELL_PROFILING*/
+#define SPELL_PROFILING
 
 /* for the design docs see bftextview2.h */
 
@@ -357,16 +357,107 @@ text_iter_next_word_bounds(GtkTextIter * soword, GtkTextIter * eoword, gboolean 
 	return TRUE;
 }
 
+#ifdef SPELL_PROFILING
+	static guint profile_words;
+#endif
+
+static gboolean
+spellcheck_region(BluefishTextView * btv, GTimer *timer, GtkTextIter *itcursor, GtkTextIter *so, GtkTextIter *eo)
+{
+	GtkTextIter iter;
+	gboolean cont=TRUE;
+	gint loop=0;
+
+#ifdef SPELL_PROFILING
+	gdouble time_at_start = g_timer_elapsed(timer, NULL);
+	guint words_at_start = profile_words;
+#endif
+
+	iter = *so;
+	DBG_SPELL("spellcheck_region, in bfwin=%p, bfwin->ed=%p loop1 from %d to %d\n",
+			  DOCUMENT(btv->doc)->bfwin, BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, gtk_text_iter_get_offset(so),
+			  gtk_text_iter_get_offset(eo));
+
+	gtk_text_buffer_remove_tag_by_name(btv->buffer, "_spellerror_", so, eo);
+	/* we have two loops inside each other:
+		* loop1 loops over the entire region that was marked with 'needspellcheck'
+		   within this loop1 html tags and such are found, these are not to be scanned
+	   * loop2 loops over the elements, keywords, function names etc. that are found
+	     within this loop only the remaining text is scanned
+	*/
+	do {
+		GtkTextIter eo2 = *eo;
+		gboolean cont2 = TRUE;
+		if (btv->bflang->st) {
+			cont2 = get_next_region(btv, &iter, &eo2);
+			if (!cont2) {
+				iter = *eo;
+			}
+		} else {				/* no scantable */
+			eo2 = *eo;
+		}
+		DBG_SPELL("spellcheck_region, loop2 from %d to %d\n", gtk_text_iter_get_offset(&iter),
+				  gtk_text_iter_get_offset(&eo2));
+		while (cont2 && (loop % loops_per_timer != 0 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) {	/* loop from iter to eo2 */
+			GtkTextIter wordstart = iter;
+			loop++;
+			DBG_SPELL("spellcheck_region, iter at %d, now forward to word end\n", gtk_text_iter_get_offset(&iter));
+			if (text_iter_next_word_bounds(&wordstart, &iter, btv->bflang->spell_decode_entities)
+				&& gtk_text_iter_compare(&iter, &eo2) <= 0) {
+				DBG_SPELL("spellcheck_region, iter at %d, backward wordstart at %d\n", gtk_text_iter_get_offset(&iter),
+						  gtk_text_iter_get_offset(&wordstart));
+
+				/* check word */
+#ifdef SPELL_PROFILING
+				profile_words++;
+#endif
+				spellcheck_word(btv, btv->buffer, &wordstart, &iter);
+			} else {
+				DBG_SPELL("spellcheck_region, no word end within region\n");
+				iter = eo2;
+				cont2 = FALSE;
+			}
+			DBG_SPELL("spellcheck_region, iter=%d, eo=%d, eo2=%d\n", gtk_text_iter_get_offset(&iter),
+					  gtk_text_iter_get_offset(eo), gtk_text_iter_get_offset(&eo2));
+			if (cont2 && gtk_text_iter_compare(&iter, &eo2) >= 0)
+				cont2 = FALSE;
+		}
+
+		if (gtk_text_iter_compare(&iter, eo) >= 0) {
+			DBG_SPELL
+				("spellcheck_region, iter (%d) equals eo, finished this area for spell checking\n",
+				 gtk_text_iter_get_offset(&iter));
+			cont = FALSE;
+		}
+
+	} while (cont
+			 && (loop % loops_per_timer != 0
+				 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SPELLCHECK_INTERVAL));
+	DBG_SPELL("spellcheck_region, loop finished, cont=%d, timer_elapsed=%d ms\n",cont,(gint) (1000.0 * g_timer_elapsed(timer, NULL)));
+	if (cont) {
+		loops_per_timer = MAX(loop / 10, 100);
+	}
+#ifdef SPELL_PROFILING
+	g_print("%d ms spell run from %d to %d checked %d words\n",
+			(gint) (1000.0 * (g_timer_elapsed(timer, NULL)-time_at_start)), gtk_text_iter_get_offset(so),
+			gtk_text_iter_get_offset(&iter), profile_words-words_at_start);
+#endif
+	DBG_SPELL("spellcheck_region, remove needspellcheck from start %d to iter at %d\n",
+			  gtk_text_iter_get_offset(so), gtk_text_iter_get_offset(&iter));
+	gtk_text_buffer_remove_tag(btv->buffer, btv->needspellcheck, so, &iter);
+
+	return (!gtk_text_iter_is_end(&iter));
+}
+
 gboolean
 bftextview2_run_spellcheck(BluefishTextView * btv)
 {
-	GtkTextIter so, eo, iter, itcursor;
-	GtkTextBuffer *buffer;
+	GtkTextIter so, eo, itcursor;
 	GTimer *timer;
-	gint loop = 0;
 	gboolean cont = TRUE;
+
 #ifdef SPELL_PROFILING
-	guint profile_words = 0;
+	profile_words = 0;
 #endif
 
 	if (!btv->spell_check)
@@ -377,116 +468,37 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 		return FALSE;
 	}
 
-	buffer = btv->buffer;
-	if (!bftextview2_find_region2spellcheck(btv, buffer, &so, &eo)) {
-		DBG_SPELL("bftextview2_run_spellcheck, no region to spellcheck found... return FALSE\n");
-		DBG_DELAYSCANNING("bftextview2_run_spellcheck, nothing to spellcheck..\n");
-		return FALSE;
-	}
 	timer = g_timer_new();
-	iter = so;
+	
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &itcursor, gtk_text_buffer_get_insert(btv->buffer));
 	/* if we start at the cursor, that might be an indication that the previous word was
 	skipped because it ended at the cursor, so lets skip back one word */
-
-
-
-	DBG_SPELL("bftextview2_run_spellcheck, in bfwin=%p, bfwin->ed=%p loop1 from %d to %d\n",
-			  DOCUMENT(btv->doc)->bfwin, BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, gtk_text_iter_get_offset(&so),
-			  gtk_text_iter_get_offset(&eo));
-
-	gtk_text_buffer_remove_tag_by_name(btv->buffer, "_spellerror_", &so, &eo);
-	/* we have two loops inside each other:
-		* loop1 loops over the entire region that was marked with 'needspellcheck'
-		   within this loop1 html tags and such are found, these are not to be scanned
-	   * loop2 loops over the elements, keywords, function names etc. that are found
-	     within this loop only the remaining text is scanned
-	*/
+	
 	do {
-		GtkTextIter eo2 = eo;
-		gboolean cont2 = TRUE;
-		if (btv->bflang->st) {
-			cont2 = get_next_region(btv, &iter, &eo2);
-			if (!cont2) {
-				iter = eo;
-			}
-		} else {				/* no scantable */
-			eo2 = eo;
-		}
-		/*gtk_text_buffer_remove_tag_by_name(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),
-										   "_spellerror_", &iter, &eo2);*/
-		DBG_SPELL("bftextview2_run_spellcheck, loop2 from %d to %d\n", gtk_text_iter_get_offset(&iter),
-				  gtk_text_iter_get_offset(&eo2));
-		while (cont2 && (loop % loops_per_timer != 0 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) {	/* loop from iter to eo2 */
-			GtkTextIter wordstart = iter;
-			loop++;
-			DBG_SPELL("iter at %d, now forward to word end\n", gtk_text_iter_get_offset(&iter));
-			if (text_iter_next_word_bounds(&wordstart, &iter, btv->bflang->spell_decode_entities)
-				&& gtk_text_iter_compare(&iter, &eo2) <= 0) {
-				DBG_SPELL("iter at %d, backward wordstart at %d\n", gtk_text_iter_get_offset(&iter),
-						  gtk_text_iter_get_offset(&wordstart));
-
-/*
-				if (gtk_text_iter_get_char(&iter) == '\'') {
-					DBG_SPELL("handle apostrophe, forward to next word end\n");
-					if (gtk_text_iter_forward_char(&iter)) {
-						if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
-							gtk_text_iter_forward_word_end(&iter);
-						}
-					}
-				} else if (gtk_text_iter_get_char(&iter) == '&' && forward_to_end_of_entity(&iter)) { / * handle entities gracefully * /
-					DBG_SPELL("handle entity, forward to next word end\n");
-					if (gtk_text_iter_forward_char(&iter)) {
-						if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
-							gtk_text_iter_forward_word_end(&iter);
-						}
-					}
-				}*/
-				/* check word */
+		if (!bftextview2_find_region2spellcheck(btv, btv->buffer, &so, &eo)) {
+			DBG_SPELL("bftextview2_run_spellcheck, no region to spellcheck found... return FALSE\n");
+			DBG_DELAYSCANNING("bftextview2_run_spellcheck, nothing to spellcheck..\n");
+			g_timer_destroy(timer);
 #ifdef SPELL_PROFILING
-				profile_words++;
+			g_print("no more region to spellcheck, %d ms spell run\n",
+					(gint) (1000.0 * g_timer_elapsed(timer, NULL)));
 #endif
-/*				if (gtk_text_iter_equal(&itcursor, &iter)) {
-					g_print("skip spellcheck for %d:%d, cursor is at %d\n",gtk_text_iter_get_offset(&wordstart),
-						  gtk_text_iter_get_offset(&iter), gtk_text_iter_get_offset(&itcursor));
-				} else {*/
-					spellcheck_word(btv, buffer, &wordstart, &iter);
-/*				}*/
-			} else {
-				DBG_SPELL("bftextview2_run_spellcheck, no word end within region\n");
-				iter = eo2;
-				cont2 = FALSE;
-			}
-			DBG_SPELL("iter=%d, eo=%d, eo2=%d\n", gtk_text_iter_get_offset(&iter),
-					  gtk_text_iter_get_offset(&eo), gtk_text_iter_get_offset(&eo2));
-			if (cont2 && gtk_text_iter_compare(&iter, &eo2) >= 0)
-				cont2 = FALSE;
+			return FALSE;
 		}
-
-		if (gtk_text_iter_compare(&iter, &eo) >= 0) {
-			DBG_SPELL
-				("bftextview2_run_spellcheck, iter (%d) equals eo, finished this area for spell checking\n",
-				 gtk_text_iter_get_offset(&iter));
-			cont = FALSE;
-		}
-
-	} while (cont
-			 && (loop % loops_per_timer != 0
-				 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SPELLCHECK_INTERVAL));
-	if (cont) {
-		loops_per_timer = MAX(loop / 10, 100);
-	}
+		DBG_SPELL("bftextview2_run_spellcheck, call spellcheck_region(%d:%d)\n",gtk_text_iter_get_offset(&so), gtk_text_iter_get_offset(&eo));
+		cont = spellcheck_region(btv, timer, &itcursor, &so, &eo);
+		
+		
+		
+		
+	} while(cont && g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SPELLCHECK_INTERVAL);
 #ifdef SPELL_PROFILING
-	g_print("%d ms spell run from %d to %d checked %d words\n",
-			(gint) (1000.0 * g_timer_elapsed(timer, NULL)), gtk_text_iter_get_offset(&so),
-			gtk_text_iter_get_offset(&iter), profile_words);
+	g_print("%d ms spell run, checked %d words, not yet finished\n",
+			(gint) (1000.0 * g_timer_elapsed(timer, NULL)), profile_words);
 #endif
-	DBG_SPELL("bftextview2_run_spellcheck, remove needspellcheck from start %d to iter at %d\n",
-			  gtk_text_iter_get_offset(&so), gtk_text_iter_get_offset(&iter));
-	gtk_text_buffer_remove_tag(buffer, btv->needspellcheck, &so, &iter);
+	
 	g_timer_destroy(timer);
-
-	return (!gtk_text_iter_is_end(&iter));
+	return cont;
 }
 
 void
