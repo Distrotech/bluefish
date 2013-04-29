@@ -134,4 +134,17 @@ void callback_remove_all(GSList **slist);
 char *strcasestr(char *a, char *b);
 #endif
 
+typedef struct {
+	gpointer next;
+	gpointer prev;
+} Telist;
+#define BF_ELIST(var) ((Telist *)var)
+#define bf_elist_next(var) (var)->next
+#define bf_elist_prev(var) (var)->prev
+
+Telist * bf_elist_prepend(gpointer cur, gpointer new);
+Telist * bf_elist_append(gpointer cur, gpointer new);
+Telist * bf_elist_first(gpointer cur);
+Telist * bf_elist_last(gpointer cur);
+
 #endif /* __BF_LIB_H_ */

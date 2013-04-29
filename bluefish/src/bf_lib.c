@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bf_lib.c - non-GUI general functions
  *
- * Copyright (C) 2000-20010 Olivier Sessink
+ * Copyright (C) 2000-2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1520,3 +1520,44 @@ char *strcasestr(char *a, char *b)
 }
 #endif
 
+Telist *
+bf_elist_prepend(gpointer cur, gpointer new)
+{
+	BF_ELIST(new)->prev = NULL;
+	BF_ELIST(new)->next = cur;
+	if (cur) {
+		BF_ELIST(cur)->prev = new;
+	}
+	return new;
+}
+
+Telist *
+bf_elist_append(gpointer cur, gpointer new)
+{
+	BF_ELIST(new)->next = NULL;
+	BF_ELIST(new)->prev = cur;
+	if (cur) {
+		BF_ELIST(cur)->next = new;
+	}
+	return new;
+}
+
+Telist *
+bf_elist_first(gpointer cur)
+{
+	Telist *tmp=cur;
+	while (tmp->prev) {
+		tmp = tmp->prev;
+	}
+	return tmp;
+}
+
+Telist *
+bf_elist_last(gpointer cur)
+{
+	Telist *tmp=cur;
+	while (tmp->next) {
+		tmp = tmp->next;
+	}
+	return tmp;
+}
