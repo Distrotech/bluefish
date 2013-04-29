@@ -18,8 +18,8 @@
  */
 /*#define DEVELOPMENT*/
 #define HL_PROFILING
-/*#define DUMP_SCANCACHE
-#define DUMP_SCANCACHE_UPDATE_OFFSET*/
+#define DUMP_SCANCACHE
+#define DUMP_SCANCACHE_UPDATE_OFFSET
 /*#define DUMP_HIGHLIGHTING*/
 
 /*#define VALGRIND_PROFILING*/
@@ -575,7 +575,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		sou->found->charoffset_o += handleoffset;
 
 		tmpfound = get_foundcache_next(btv, &tmpsiter);
-		if (!tmpfound || tmpfound->charoffset_o < nextpos) {
+		if (!tmpfound || tmpfound->charoffset_o >= nextpos) {
 			break;
 		}
 		sou->found = tmpfound;
@@ -595,7 +595,7 @@ foundcache_process_offsetupdates(BluefishTextView * btv)
 	while(tmplist) {
 		Toffsetupdate *ou = tmplist->data;
 		GList *nextlist = tmplist->next;
-		g_print("foundcache_process_offsetupdates, update position %d with offset %d, next position at %d (nextlist=%p), prevpos=%d, prevoffset=%d\n", 
+		g_print("foundcache_process_offsetupdates, update position %u with offset %d, next position at %u (nextlist=%p), prevpos=%u, prevoffset=%d\n", 
 							(guint) ou->startpos, (gint) ou->offset, 
 							(guint) (nextlist ? OFFSETUPDATE(nextlist->data)->startpos : BF_POSITION_UNDEFINED), 
 							nextlist,
