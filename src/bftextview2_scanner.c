@@ -604,6 +604,7 @@ foundcache_process_offsetupdates(BluefishTextView * btv)
 		g_slice_free(Toffsetupdate, ou);
 		ou = nextou;
 	}
+	btv->scancache.offsetupdates = NULL;
 #ifdef DUMP_SCANCACHE_UPDATE_OFFSET
 	dump_scancache(btv);
 #endif
