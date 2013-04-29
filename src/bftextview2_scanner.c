@@ -18,8 +18,8 @@
  */
 /*#define DEVELOPMENT*/
 #define HL_PROFILING
-/*#define DUMP_SCANCACHE*/
-/*#define DUMP_SCANCACHE_UPDATE_OFFSET*/
+/*#define DUMP_SCANCACHE
+#define DUMP_SCANCACHE_UPDATE_OFFSET*/
 /*#define DUMP_HIGHLIGHTING*/
 
 /*#define VALGRIND_PROFILING*/
@@ -371,12 +371,280 @@ mark_needscanning(BluefishTextView * btv, guint startpos, guint endpos)
 {
 	GtkTextIter it1, it2;
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, startpos);
-	gtk_text_buffer_get_iter_at_offset(btv->buffer, &it2, endpos);
+	if (endpos == -1) {
+		gtk_text_buffer_get_end_iter(btv->buffer, &it2);
+	} else {
+		gtk_text_buffer_get_iter_at_offset(btv->buffer, &it2, endpos);
+	}
 	gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &it1, &it2);
 }
 
+#ifdef UPDATE_OFFSET_DELAYED
+
+typedef struct {
+	guint32 prevpos;
+	gint32 prevoffset;
+	GSequenceIter *siter;
+	Tfound *found;
+} Tscancache_offset_update;
+
+/*
+ * scancache_update_single_offset updates the offset in the scancache 
+ * 
+ * if there have been multiple changes to the offsets (multiple inserts or deletes)
+ * these can be combined:
+ *
+ * nextpos is the next position where the next new offset is recorded. This function may return
+ * for a found > nextpos because the it will be called again for the next new offset.
+ *
+ * when it is called again for a second change, for any Tfound with charoffset_o > sou->prevpos the new
+ * offset will be offset + prevoffset;
+ *
+ */
+static void
+scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update *sou, guint32 startpos, gint32 offset, guint32 nextpos)
+{
+	gint comparepos;
+	gint handleoffset=offset;
+	g_assert(btv == btv->master);
+
+	comparepos = (offset < 0) ? startpos - offset : startpos;
+	DBG_SCANCACHE
+		("scancache_update_single_offset, update with offset %d starting at startpos %d, cache length=%d, comparepos=%d, prevpos=%d, prevoffset=%d\n",
+		 offset, startpos, g_sequence_get_length(btv->scancache.foundcaches), comparepos, sou->prevpos, sou->prevoffset);
+	if (sou->found == NULL) {
+		sou->found = get_foundcache_at_offset(btv, startpos, &sou->siter);
+	} else {
+		DBG_SCANCACHE("scancache_update_single_offset, continue with found %p at charpos %d\n",sou->found, sou->found->charoffset_o);
+	}
+
+	if (sou->found)
+		DBG_SCANCACHE("scancache_update_single_offset, got found %p with offset %d\n", sou->found, sou->found->charoffset_o);
+	else
+		DBG_SCANCACHE("scancache_update_single_offset, got found %p\n", sou->found);
+
+	if (sou->found && sou->found->charoffset_o > sou->prevpos && handleoffset == offset) {
+		handleoffset += sou->prevoffset;
+	}
+
+	/* first update all block ends and context ends that are on the stack */
+	if (sou->found && sou->found->charoffset_o <= startpos) {
+		Tfoundcontext *tmpfcontext;
+		Tfoundblock *tmpfblock;
+		DBG_SCANCACHE
+			("scancache_update_single_offset, handle first found %p with offset %d, complete stack fcontext %p fblock %p\n",
+			 sou->found, sou->found->charoffset_o, sou->found->fcontext, sou->found->fblock);
+		/* for the first found, we have to update the end-offsets for all contexts/blocks on the stack */
+		tmpfcontext = sou->found->fcontext;
+		while (tmpfcontext) {
+			DBG_SCANCACHE("scancache_update_single_offset, fcontext on stack=%p, start_o=%d end_o=%d\n",
+						  tmpfcontext, tmpfcontext->start_o, tmpfcontext->end_o);
+			if (tmpfcontext->end_o > startpos && tmpfcontext->end_o != BF2_OFFSET_UNDEFINED) {
+				DBG_SCANCACHE("scancache_update_single_offset, update fcontext %p end from %d to %d\n",
+							  tmpfcontext, tmpfcontext->end_o, tmpfcontext->end_o + handleoffset);
+				tmpfcontext->end_o += handleoffset;
+			}
+			tmpfcontext = (Tfoundcontext *) tmpfcontext->parentfcontext;
+		}
+
+		tmpfblock = sou->found->fblock;
+		while (tmpfblock) {
+			DBG_SCANCACHE("scancache_update_single_offset, fblock on stack=%p, %d:%d-%d:%d\n", tmpfblock,
+						  tmpfblock->start1_o, tmpfblock->end1_o,tmpfblock->start2_o, tmpfblock->end2_o);
+			if (G_UNLIKELY(tmpfblock->start2_o != BF2_OFFSET_UNDEFINED)) {
+				if (G_UNLIKELY(offset < 0 && tmpfblock->start2_o < comparepos && tmpfblock->end2_o >= comparepos)) {
+					/* the end of the block might be within the deleted region, if so, set the end as undefined */
+					DBG_SCANCACHE("update end of fblock %p %d:%d-%d:%d to UNDEFINED\n",tmpfblock
+									, tmpfblock->start1_o, tmpfblock->end1_o, tmpfblock->start2_o, tmpfblock->end2_o );
+					tmpfblock->start2_o = BF2_OFFSET_UNDEFINED;
+					tmpfblock->end2_o = BF2_OFFSET_UNDEFINED;
+				} else {
+					if (tmpfblock->start2_o >= startpos) {
+					/* notice the difference: the start needs >= startpos and the end needs > startpos */
+						DBG_SCANCACHE
+							("scancache_update_single_offset, update fblock %p from start2_o=%d to start2_o=%d\n",
+						 	tmpfblock, tmpfblock->start2_o, tmpfblock->start2_o + offset);
+						tmpfblock->start2_o += handleoffset;
+					}
+					if (tmpfblock->end2_o > startpos) {
+						DBG_SCANCACHE
+							("scancache_update_single_offset, update fblock %p from end2_o=%d to end2_o=%d\n",
+						 	tmpfblock, tmpfblock->end2_o, tmpfblock->end2_o + offset);
+						tmpfblock->end2_o += handleoffset;
+					}
+				}
+			}
+			tmpfblock = (Tfoundblock *) tmpfblock->parentfblock;
+		}
+	}
+
+	if (offset < 0 /* text was deleted*/ ) {
+		/* loop over any items within the deleted region and remove them */
+		while (sou->found && sou->found->charoffset_o <= startpos - offset) {
+			if (G_UNLIKELY(sou->found->charoffset_o > startpos)) {
+				gint numblockchange = sou->found->numblockchange;
+				DBG_SCANCACHE("scancache_update_single_offset, remove found %p from the cache\n",sou->found);
+				if (numblockchange > 0) {
+					/* we have to enlarge needscanning to the place where this was popped */
+					DBG_SCANCACHE("scancache_update_single_offset, found pushed a block, mark obsolete block %d:%d as needscanning\n",sou->found->fblock->start1_o, sou->found->fblock->end2_o);
+					mark_needscanning(btv, sou->found->fblock->start1_o, sou->found->fblock->end2_o);
+				}
+				if (sou->found->numcontextchange > 0) {
+					/* we have to enlarge needscanning to the place where this was popped */
+					DBG_SCANCACHE("scancache_update_single_offset, found pushed a context, mark obsolete context %d:%d as needscanning\n",sou->found->fcontext->start_o, sou->found->fcontext->end_o);
+					mark_needscanning(btv, sou->found->fcontext->start_o, sou->found->fcontext->end_o);
+				}
+				remove_cache_entry(btv, &sou->found, &sou->siter, NULL, NULL);
+				if (!sou->found && (numblockchange < 0)) {
+					mark_needscanning(btv, startpos, -1);
+					/* there is a special situation: if this is the last found in the cache, and it pops a block,
+					   we have to enlarge the scanning region to the end of the text */
+					DBG_SCANCACHE("scancache_update_single_offset, mark area from %d to end with needscanning\n",
+								  startpos);
+				}
+			} else {
+				sou->found = get_foundcache_next(btv, &sou->siter);
+			}
+		}
+	} else /* offset > 0, text was inserted */ {
+		if (sou->found)
+			g_print("found->charoffset_o=%d, startpos=%d\n",(gint)sou->found->charoffset_o, (gint)startpos);
+		if (sou->found && sou->found->charoffset_o < startpos) {
+			sou->found = get_foundcache_next(btv, &sou->siter);
+		}
+#ifdef DEVELOPMENT
+		if (sou->found) {
+			if (sou->found->charoffset_o > sou->prevpos) {
+				if ((sou->found->charoffset_o + sou->prevoffset) < startpos) {
+					g_print("ABORT: sou->found->charoffset_o(%d) + sou->prevoffset(%d) < startpos(%d) (prevpos=%d)\n",
+								(gint)sou->found->charoffset_o, (gint)sou->prevoffset, (gint)startpos, (gint)sou->prevpos);
+					g_assert_not_reached();
+				}
+			} else {
+				if (sou->found->charoffset_o < startpos) {
+					g_print("ABORT: sou->found->charoffset_o(%d) < startpos(%d) (prevpos=%d, prevoffset=%d)\n",
+								(gint)sou->found->charoffset_o, (gint)startpos, (gint)sou->prevpos, (gint)sou->prevoffset);
+					g_assert_not_reached();
+				}
+			}
+		}
+#endif
+	}
+
+
+	while (sou->found && sou->found->charoffset_o < nextpos) {
+		Tfound *tmpfound = sou->found;
+		GSequenceIter *tmpsiter=sou->siter;
+		/* loop over all the remaining entries in the cache < nextpos */
+		/* for all further founds, we only handle the pushedblock and pushedcontext */
+		
+		if (sou->found && sou->found->charoffset_o > sou->prevpos && handleoffset == offset) {
+			handleoffset += sou->prevoffset;
+		}
+		
+		DBG_SCANCACHE
+			("scancache_update_single_offset, about to update found %p with charoffset %d to %d, fcontext %p and fblock %p\n",
+			 sou->found, sou->found->charoffset_o, 
+			 sou->found->charoffset_o + handleoffset, 
+			 sou->found->fcontext, sou->found->fblock);
+		if (G_UNLIKELY(IS_FOUNDMODE_CONTEXTPUSH(sou->found))) {
+			DBG_SCANCACHE("scancache_update_single_offset, contextpush %p update from %d:%d to %d:%d\n",
+						  sou->found->fcontext, sou->found->fcontext->start_o, sou->found->fcontext->end_o,
+						  sou->found->fcontext->start_o + handleoffset, 
+						  sou->found->fcontext->end_o + handleoffset);
+			if (G_LIKELY(sou->found->fcontext->start_o != BF2_OFFSET_UNDEFINED))
+				sou->found->fcontext->start_o += handleoffset;
+			if (G_LIKELY(sou->found->fcontext->end_o != BF2_OFFSET_UNDEFINED))
+				sou->found->fcontext->end_o += handleoffset;
+		}
+		if (G_UNLIKELY(IS_FOUNDMODE_BLOCKPUSH(sou->found))) {
+			DBG_SCANCACHE("scancache_update_single_offset, blockpush %p update from %d:%d to %d:%d\n",
+						  sou->found->fblock, sou->found->fblock->start1_o, sou->found->fblock->end2_o
+						  , sou->found->fblock->start1_o + handleoffset
+						  , sou->found->fblock->end2_o + handleoffset);
+			if (G_LIKELY(sou->found->fblock->start1_o != BF2_OFFSET_UNDEFINED))
+				sou->found->fblock->start1_o += handleoffset;
+			if (G_LIKELY(sou->found->fblock->end1_o != BF2_OFFSET_UNDEFINED))
+				sou->found->fblock->end1_o += handleoffset;
+			if (G_LIKELY(sou->found->fblock->start2_o != BF2_OFFSET_UNDEFINED))
+				sou->found->fblock->start2_o += handleoffset;
+			if (G_LIKELY(sou->found->fblock->end2_o != BF2_OFFSET_UNDEFINED))
+				sou->found->fblock->end2_o += handleoffset;
+		}
+		/*g_print("startpos=%d, offset=%d, found=%p, update charoffset_o from %d to %d\n",startpos,offset, found,found->charoffset_o,found->charoffset_o+offset); */
+		sou->found->charoffset_o += handleoffset;
+
+		tmpfound = get_foundcache_next(btv, &tmpsiter);
+		if (!tmpfound || tmpfound->charoffset_o < nextpos) {
+			break;
+		}
+		sou->found = tmpfound;
+		sou->siter = tmpsiter;
+	}
+	if (sou->found) {
+		sou->prevpos = sou->found->charoffset_o;
+	}
+	sou->prevoffset += handleoffset;
+}
+
+static void
+foundcache_process_offsetupdates(BluefishTextView * btv)
+{
+	Tscancache_offset_update sou = {0,0,NULL,NULL};
+	GList *tmplist = btv->scancache.offsetupdates.head;
+	while(tmplist) {
+		Toffsetupdate *ou = tmplist->data;
+		GList *nextlist = tmplist->next;
+		g_print("foundcache_process_offsetupdates, update position %d with offset %d, next position at %d (nextlist=%p), prevpos=%d, prevoffset=%d\n", 
+							(guint) ou->startpos, (gint) ou->offset, 
+							(guint) (nextlist ? OFFSETUPDATE(nextlist->data)->startpos : BF_POSITION_UNDEFINED), 
+							nextlist,
+							sou.prevpos, sou.prevoffset);
+		scancache_update_single_offset(btv, &sou, ou->startpos, ou->offset, nextlist ? OFFSETUPDATE(nextlist->data)->startpos : BF_POSITION_UNDEFINED);
+		g_slice_free(Toffsetupdate, ou);
+		tmplist = nextlist;
+	}
+	g_queue_clear(&btv->scancache.offsetupdates);
+#ifdef DUMP_SCANCACHE_UPDATE_OFFSET
+	dump_scancache(btv);
+#endif
+}
+
 /**
- * foundcache_update_offsets
+ * foundcache_update_offsets for UPDATE_OFFSET_DELAYED
+ *
+ * runs for every call to the insert_text and delete_text signal
+ * this version only registers the offset changes, and processes them later
+ * this reduces the latency on the insert_text and delete_text signals
+ *
+ * startpos is the lowest position
+ *  so on insert it is the point _after_ which the insert will be (and offset is a positive number)
+ *  on delete it is the point _after_ which the delete area starts (and offset is a negative number)
+*/
+void
+foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
+{
+	Toffsetupdate *ou;
+	if (offset == 0)
+		return;
+
+	/* check if the current offsetupdate has an offset greater than the last one */
+	if (btv->scancache.offsetupdates.head && OFFSETUPDATE(btv->scancache.offsetupdates.tail->data)->startpos > startpos) {
+		DBG_SCANCACHE("foundcache_update_offsets, offset=%d, tail offset=%d, call process_offsetupdates()\n", startpos, OFFSETUPDATE(btv->scancache.offsetupdates.tail->data)->startpos);
+		/* handle all the offsets */
+		foundcache_process_offsetupdates(btv);
+	}		
+	ou = g_slice_new(Toffsetupdate);
+	ou->startpos = (guint32)startpos;
+	ou->offset = (gint32)offset;
+	DBG_SCANCACHE("foundcache_update_offsets, push offset %d at position %d on offsetupdates\n",offset,startpos);
+	g_queue_push_tail(&btv->scancache.offsetupdates, ou);
+}
+
+#else
+/**
+ * foundcache_update_offsets original version
+ * runs for every call to the insert_text and delete_text signal
  *
  * startpos is the lowest position
  *  so on insert it is the point _after_ which the insert will be (and offset is a positive number)
@@ -456,6 +724,7 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 	}
 
 	if (offset < 0) {
+		/* loop over any items in the deleted region */
 		while (found && found->charoffset_o <= startpos - offset) {
 			if (G_UNLIKELY(found->charoffset_o > startpos)) {
 				gint numblockchange = found->numblockchange;
@@ -472,14 +741,11 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 				}
 				remove_cache_entry(btv, &found, &siter, NULL, NULL);
 				if (!found && (numblockchange < 0)) {
-					GtkTextIter it1, it2;
+					mark_needscanning(btv, startpos, -1);
 					/* there is a special situation: if this is the last found in the cache, and it pops a block,
 					   we have to enlarge the scanning region to the end of the text */
-					gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, startpos);
-					gtk_text_buffer_get_end_iter(btv->buffer, &it2);
-					DBG_SCANCACHE("foundcache_update_offsets, mark area from %d to end with needscanning\n",
+					DBG_SCANCACHE("scancache_update_single_offset, mark area from %d to end with needscanning\n",
 								  startpos);
-					gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &it1, &it2);
 				}
 			} else {
 				found = get_foundcache_next(btv, &siter);
@@ -528,6 +794,7 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 	dump_scancache(btv);
 #endif
 }
+#endif
 
 void
 found_free_lcb(gpointer data, gpointer btv)
@@ -1287,6 +1554,11 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #ifdef VALGRIND_PROFILING
 	CALLGRIND_START_INSTRUMENTATION;
 #endif							/* VALGRIND_PROFILING */
+
+#ifdef UPDATE_OFFSET_DELAYED
+	DEBUG_MSG("bftextview2_run_scanner, first call foundcache_process_offsetupdates()\n");
+	foundcache_process_offsetupdates(btv);
+#endif
 
 	if (!bftextview2_find_region2scan(btv, btv->buffer, &scanning.start, &scanning.end)) {
 		DBG_MSG("nothing to scan here.. return FALSE\n");
