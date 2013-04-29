@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2.c
  *
- * Copyright (C) 2008-2012 Olivier Sessink
+ * Copyright (C) 2008-2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -2832,6 +2832,11 @@ bluefish_text_view_init(BluefishTextView * textview)
 /*	PangoFontDescription *font_desc;*/
 	textview->user_idle_timer = g_timer_new();
 	textview->scancache.foundcaches = g_sequence_new(NULL);
+#ifdef UPDATE_OFFSET_DELAYED
+	textview->scancache.offsetupdates.head = NULL;
+	textview->scancache.offsetupdates.tail = NULL;
+	textview->scancache.offsetupdates.length = 0;
+#endif
 	bluefish_text_view_set_colors(textview, main_v->props.btv_color_str);
 	textview->showsymbols = FALSE;
 	textview->button_press_line = -1;

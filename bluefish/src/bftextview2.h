@@ -262,6 +262,8 @@ The slave widget should always be destroyed before the master.
 #include "config.h"
 
 #define IDENTSTORING
+/*#define UPDATE_OFFSET_DELAYED*/
+
 
 typedef enum {
 	comment_type_block,
@@ -286,6 +288,9 @@ typedef struct {
 	GSequence *foundcaches;		/* a sorted structure of Tfound for
 								   each position where the stack changes so we can restart scanning
 								   on any location */
+#ifdef UPDATE_OFFSET_DELAYED
+	GQueue offsetupdates;
+#endif
 } Tscancache;
 /********************************/
 /* language manager */
