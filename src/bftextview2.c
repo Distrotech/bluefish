@@ -2833,9 +2833,7 @@ bluefish_text_view_init(BluefishTextView * textview)
 	textview->user_idle_timer = g_timer_new();
 	textview->scancache.foundcaches = g_sequence_new(NULL);
 #ifdef UPDATE_OFFSET_DELAYED
-	textview->scancache.offsetupdates.head = NULL;
-	textview->scancache.offsetupdates.tail = NULL;
-	textview->scancache.offsetupdates.length = 0;
+	textview->scancache.offsetupdates = NULL;
 #endif
 	bluefish_text_view_set_colors(textview, main_v->props.btv_color_str);
 	textview->showsymbols = FALSE;

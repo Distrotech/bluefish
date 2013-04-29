@@ -289,7 +289,7 @@ typedef struct {
 								   each position where the stack changes so we can restart scanning
 								   on any location */
 #ifdef UPDATE_OFFSET_DELAYED
-	GQueue offsetupdates;
+	Telist *offsetupdates;
 #endif
 } Tscancache;
 /********************************/

@@ -382,6 +382,8 @@ mark_needscanning(BluefishTextView * btv, guint startpos, guint endpos)
 #ifdef UPDATE_OFFSET_DELAYED
 
 typedef struct {
+	gpointer next;
+	gpointer prev;
 	guint32 prevpos;
 	gint32 prevoffset;
 	GSequenceIter *siter;
@@ -591,20 +593,17 @@ static void
 foundcache_process_offsetupdates(BluefishTextView * btv)
 {
 	Tscancache_offset_update sou = {0,0,NULL,NULL};
-	GList *tmplist = btv->scancache.offsetupdates.head;
-	while(tmplist) {
-		Toffsetupdate *ou = tmplist->data;
-		GList *nextlist = tmplist->next;
-		g_print("foundcache_process_offsetupdates, update position %u with offset %d, next position at %u (nextlist=%p), prevpos=%u, prevoffset=%d\n", 
+	Toffsetupdate *ou = bf_elist_first(btv->scancache.offsetupdates);
+	while(ou) {
+		Toffsetupdate *nextou = ou->next;
+		g_print("foundcache_process_offsetupdates, update position %u with offset %d, next position at %u, prevpos=%u, prevoffset=%d\n", 
 							(guint) ou->startpos, (gint) ou->offset, 
-							(guint) (nextlist ? OFFSETUPDATE(nextlist->data)->startpos : BF_POSITION_UNDEFINED), 
-							nextlist,
+							(guint) (nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED), 
 							sou.prevpos, sou.prevoffset);
-		scancache_update_single_offset(btv, &sou, ou->startpos, ou->offset, nextlist ? OFFSETUPDATE(nextlist->data)->startpos : BF_POSITION_UNDEFINED);
+		scancache_update_single_offset(btv, &sou, ou->startpos, ou->offset, nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED);
 		g_slice_free(Toffsetupdate, ou);
-		tmplist = nextlist;
+		ou = nextou;
 	}
-	g_queue_clear(&btv->scancache.offsetupdates);
 #ifdef DUMP_SCANCACHE_UPDATE_OFFSET
 	dump_scancache(btv);
 #endif
@@ -629,8 +628,8 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 		return;
 
 	/* check if the current offsetupdate has an offset greater than the last one */
-	if (btv->scancache.offsetupdates.head && OFFSETUPDATE(btv->scancache.offsetupdates.tail->data)->startpos > startpos) {
-		DBG_SCANCACHE("foundcache_update_offsets, offset=%d, tail offset=%d, call process_offsetupdates()\n", startpos, OFFSETUPDATE(btv->scancache.offsetupdates.tail->data)->startpos);
+	if (btv->scancache.offsetupdates && OFFSETUPDATE(btv->scancache.offsetupdates)->startpos > startpos) {
+		DBG_SCANCACHE("foundcache_update_offsets, offset=%d, tail offset=%d, call process_offsetupdates()\n", startpos, OFFSETUPDATE(btv->scancache.offsetupdates)->startpos);
 		/* handle all the offsets */
 		foundcache_process_offsetupdates(btv);
 	}		
@@ -638,7 +637,7 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 	ou->startpos = (guint32)startpos;
 	ou->offset = (gint32)offset;
 	DBG_SCANCACHE("foundcache_update_offsets, push offset %d at position %d on offsetupdates\n",offset,startpos);
-	g_queue_push_tail(&btv->scancache.offsetupdates, ou);
+	btv->scancache.offsetupdates = bf_elist_append(btv->scancache.offsetupdates, ou);
 }
 
 #else
