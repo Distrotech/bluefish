@@ -1257,7 +1257,7 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	}
 
 	loop = gtk_text_iter_get_offset(obegin);	/* re-use the loop variable */
-	DBG_SCANCACHE("bftextview2_delete_range_lcb, delete from %d to %d\n", gtk_text_iter_get_offset(obegin),
+	DBG_SIGNALS("bftextview2_delete_range_lcb, delete from %d to %d\n", gtk_text_iter_get_offset(obegin),
 				  gtk_text_iter_get_offset(oend));
 	foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), loop, loop - gtk_text_iter_get_offset(oend));
 
