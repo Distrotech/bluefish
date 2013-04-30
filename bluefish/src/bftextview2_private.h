@@ -53,7 +53,11 @@ extern void g_none(char *first, ...);
 #define DBG_IDENTIFIER DBG_NONE
 
 #ifdef UPDATE_OFFSET_DELAYED
+
+#include "bf_lib.h"
+
 typedef struct {
+	BF_ELIST_HEAD;
 	guint32 startpos;
 	gint32 offset;
 } Toffsetupdate;

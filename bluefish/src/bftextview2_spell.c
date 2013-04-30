@@ -438,7 +438,7 @@ spellcheck_region(BluefishTextView * btv, GTimer *timer, GtkTextIter *itcursor, 
 		loops_per_timer = MAX(loop / 10, 100);
 	}
 #ifdef SPELL_PROFILING
-	g_print("%d ms spell run from %d to %d checked %d words\n",
+	g_print("%d ms spell run (loop=%d, loops_per_timer=%d) from %d to %d checked %d words\n",loop, loops_per_timer,
 			(gint) (1000.0 * (g_timer_elapsed(timer, NULL)-time_at_start)), gtk_text_iter_get_offset(so),
 			gtk_text_iter_get_offset(&iter), profile_words-words_at_start);
 #endif
