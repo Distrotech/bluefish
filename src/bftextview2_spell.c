@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#define SPELL_PROFILING
+/*#define SPELL_PROFILING*/
 
 /* for the design docs see bftextview2.h */
 

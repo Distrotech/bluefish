@@ -262,7 +262,7 @@ The slave widget should always be destroyed before the master.
 #include "config.h"
 
 #define IDENTSTORING
-#define UPDATE_OFFSET_DELAYED
+/*#define UPDATE_OFFSET_DELAYED*/
 
 typedef enum {
 	comment_type_block,
