@@ -131,41 +131,41 @@ extern void g_none(gchar * first, ...);
 
 /*
 G_PRIORITY_HIGH -100 			Use this for high priority event sources. It is not used within GLib or GTK+.
-G_PRIORITY_DEFAULT 0 			Use this for default priority event sources. In GLib this priority is used when adding 
-										timeout functions with g_timeout_add(). 
-G_PRIORITY_HIGH_IDLE 100 		Use this for high priority idle functions. 
-G_PRIORITY_DEFAULT_IDLE 200 	Use this for default priority idle functions. In GLib this priority is used when adding idle 
+G_PRIORITY_DEFAULT 0 			Use this for default priority event sources. In GLib this priority is used when adding
+										timeout functions with g_timeout_add().
+G_PRIORITY_HIGH_IDLE 100 		Use this for high priority idle functions.
+G_PRIORITY_DEFAULT_IDLE 200 	Use this for default priority idle functions. In GLib this priority is used when adding idle
 										functions with g_idle_add().
 G_PRIORITY_LOW 300
 
 GDK  uses   0 for events from the X server.
-GTK+ uses 110 for resizing operations 
-GTK+ uses 120 for redrawing operations. (This is done to ensure 
-										that any pending resizes are processed before any pending 
+GTK+ uses 110 for resizing operations
+GTK+ uses 120 for redrawing operations. (This is done to ensure
+										that any pending resizes are processed before any pending
 										redraws, so that widgets are not redrawn twice unnecessarily.)
 */
 
-/* inserting data into a GtkTextBuffer should be in a lower priority than 
-the drawing of the GUI, otherwise the bluefish GUI won't show when loading 
-large files from the commandline. 
+/* inserting data into a GtkTextBuffer should be in a lower priority than
+the drawing of the GUI, otherwise the bluefish GUI won't show when loading
+large files from the commandline.
 I don't understand what it interacts with, but 145 is a too high priority
 so set it lower to 155 */
 #define FILEINTODOC_PRIORITY 155
 #define FILE2DOC_PRIORITY 155
-/* doc activate will stop scanning for the old document and schedule 
+/* doc activate will stop scanning for the old document and schedule
 for the new document. Set it between the X event (0) and the normal
 gtk events (100) */
 #define NOTEBOOKCHANGED_DOCACTIVATE_PRIORITY 50
 /* set between a X event (0) and a normal event (100) */
-#define SCANNING_IDLE_PRIORITY 10 
-/* set idle after timeout scanning to 115. 
-		a higher priority (109 is too high) makes bluefish go greyed-out 
+#define SCANNING_IDLE_PRIORITY 10
+/* set idle after timeout scanning to 115.
+		a higher priority (109 is too high) makes bluefish go greyed-out
 		(it will not redraw if required while the loop is running)
-	   and a much lower priority (199 is too low) will first draw 
+	   and a much lower priority (199 is too low) will first draw
 	   all textstyles on screen before the next burst of scanning is done */
-#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 115	
+#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 115
 /*  make sure that we don't scan or spellcheck a file that will be scanned again we do timeout
-scanning in a lower priority timeout than the language file notice 
+scanning in a lower priority timeout than the language file notice
 so a newly loaded language file uses a priority 113 event to notice all documents to be rescanned. */
 #define BUILD_LANG_FINISHED_PRIORITY 113
 
@@ -179,16 +179,17 @@ typedef enum {
 } undo_op_t;
 
 typedef struct {
-	GList *entries;				/* the list of entries that should be undone in one action */
+	gpointer next, prev; /* should equal BF_ELIST_HEAD as defined in bf_lib.h */
+	gpointer entries;				/* the list of entries that should be undone in one action */
 	gint32 changed;				/* doc changed status at this undo node */
 	guint32 action_id;
 } unregroup_t;
 
 typedef struct {
-	GList *first;
-	GList *last;
+	gpointer first;
+	gpointer last;
 	unregroup_t *current;
-	GList *redofirst;
+	gpointer redofirst;
 	gint num_groups;
 } unre_t;
 
@@ -348,7 +349,7 @@ typedef struct {
 	gint adv_textview_left_margin; /* advanced option for the textview margin */
 } Tproperties;
 
-/* the Tglobalsession contains all settings that can change 
+/* the Tglobalsession contains all settings that can change
 over every time you run Bluefish, so things that *need* to be
 saved after every run! */
 typedef struct {
@@ -430,7 +431,7 @@ typedef struct {
 	gint spell_insert_entities;
 	gchar *spell_lang;
 #endif
-	/* if you add strings or lists to the session, please make sure they are free'ed 
+	/* if you add strings or lists to the session, please make sure they are free'ed
 	in free_session() in project.c */
 	gchar *ssearch_text;
 	gchar *default_mime_type;
@@ -544,7 +545,7 @@ typedef struct {
 #ifdef HAVE_LIBENCHANT
 	gpointer *ed;				/* EnchantDict */
 #endif
-	/* following is a new approach, that we have only a gpointer here, whioh is typecasted 
+	/* following is a new approach, that we have only a gpointer here, whioh is typecasted
 	   in the file where it is needed */
 	gpointer outputbox;
 	gpointer bfspell;
@@ -581,7 +582,7 @@ typedef struct {
 	GList *filefilters;			/* initialized by fb2config functions */
 	GList *templates; 			/* loaded in rcfile.c */
 	Tdocument *bevent_doc;
-	gint bevent_charoffset; 	/* for example used in the spellcheck code to find on which 
+	gint bevent_charoffset; 	/* for example used in the spellcheck code to find on which
 											word the user clicked */
 	guint autocomp_accel_key;				 /* by default <ctrl><space> activates autocompletion */
 	GdkModifierType autocomp_accel_mods; /* but this shortcut is also used to switch input languages for example by chinese users */
@@ -644,7 +645,7 @@ void bluefish_exit_request(void);
 #define GDK_KEY_7 GDK_7
 #define GDK_KEY_8 GDK_8
 #define GDK_KEY_9 GDK_9
-#define GDK_KEY_F1 GDK_F1 
+#define GDK_KEY_F1 GDK_F1
 #define GDK_KEY_F12 GDK_F12
 #define GDK_KEY_Delete GDK_Delete
 #define GDK_KEY_BackSpace GDK_BackSpace
@@ -657,7 +658,7 @@ void bluefish_exit_request(void);
 /*#define GDK_KEY_ GDK_*/
 #define GTK_COMBO_BOX_TEXT(arg) GTK_COMBO_BOX(arg)
 #define gtk_combo_box_text_get_active_text gtk_combo_box_get_active_text
-#define gtk_combo_box_text_new_with_entry gtk_combo_box_entry_new_text 
+#define gtk_combo_box_text_new_with_entry gtk_combo_box_entry_new_text
 #define gtk_combo_box_text_new gtk_combo_box_new_text
 #define gtk_combo_box_text_append_text gtk_combo_box_append_text
 #define gtk_combo_box_text_prepend_text gtk_combo_box_prepend_text
