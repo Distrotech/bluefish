@@ -27,7 +27,7 @@ typedef struct {
 	gchar *my_char;
 } Tconvert_table;
 
-typedef enum { 
+typedef enum {
 	tcc2i_full_match = 0,
 	tcc2i_firstchar,
 	tcc2i_mycharlen,
@@ -138,6 +138,7 @@ typedef struct {
 	gpointer next;
 	gpointer prev;
 } Telist;
+#define BF_ELIST_HEAD gpointer next, prev
 #define BF_ELIST(var) ((Telist *)var)
 #define bf_elist_next(var) (var)->next
 #define bf_elist_prev(var) (var)->prev
