@@ -21,7 +21,7 @@
 
 #include "config.h"
 
-/* this is needed for Solaris to comply with the latest POSIX standard 
+/* this is needed for Solaris to comply with the latest POSIX standard
  * regarding the ctime_r() function
  */
 #ifdef PLATFORM_SOLARIS
@@ -143,7 +143,7 @@ GFile *user_bfdir(const gchar *filename) {
 
 	GFileInfo* ginfo;
 	GError *error=NULL;
-	const gchar *utf8uri; 
+	const gchar *utf8uri;
 	ginfo = g_file_query_info(uri, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME, G_FILE_QUERY_INFO_NONE, NULL, &error);
 	utf8uri = g_file_info_get_display_name(ginfo);
 	g_object_unref(ginfo);
@@ -152,7 +152,7 @@ GFile *user_bfdir(const gchar *filename) {
 
 gchar *filename_utf8_from_uri(GFile *uri) {
 	gchar *utf8name, *slashpos;
-	
+
 	utf8name = full_path_utf8_from_uri(uri);
 	slashpos = strrchr(utf8name,'/');
 	if (slashpos) {
@@ -226,7 +226,7 @@ gchar *filemode_to_string(mode_t statmode) {
 
 /**
  * return_root_with_protocol:
- * @url: #const gchar* with the url 
+ * @url: #const gchar* with the url
  *
  * returns the root of the url, including its trailing slash
  * this might be in the form
@@ -248,7 +248,7 @@ gchar *return_root_with_protocol(const gchar *url) {
 		gchar *root = strchr(q+3, '/');
 		if (root) return g_strndup(url, root - url + 1);
 		/ * if there is no third slash character, we probably
-		have an url like http://someserver so we will append 
+		have an url like http://someserver so we will append
 		the slash ourselves * /
 		return g_strconcat(url, "/",NULL);
 	} else if (url[0] == '/') {
@@ -282,7 +282,7 @@ gchar *mime_with_extension(const gchar *mimetype, const gchar *filename) {
  * Return value: void
  */
 #ifdef __GNUC__
-__inline__ 
+__inline__
 #endif
 void pointer_switch_addresses(gpointer *a, gpointer *b) {
 	gpointer c;
@@ -297,11 +297,11 @@ void pointer_switch_addresses(gpointer *a, gpointer *b) {
  * list_switch_order:
  * @first: a #GList * item
  * @second: a #GList * item
- * 
+ *
  * this function will switch place of these two list items
- * actually not the items themselves, but the data they are 
+ * actually not the items themselves, but the data they are
  * pointer to is switched
- * 
+ *
  * Return value: void
  **/
 void list_switch_order(GList *first, GList *second) {
@@ -321,13 +321,13 @@ void list_switch_order(GList *first, GList *second) {
 /**
  * find_common_prefix_in_stringlist:
  * @stringlist: a #GList* with strings
- * 
- * tests every string in stringlist, and returns the length of the 
+ *
+ * tests every string in stringlist, and returns the length of the
  * common prefix all these strings have
  *
  * This is for example useful to find out if a list of filenames
  * share the same base directory
- * 
+ *
  * Return value: #gint with number of common characters
  **/
 /*gint find_common_prefixlen_in_stringlist(GList *stringlist) {
@@ -355,7 +355,7 @@ void list_switch_order(GList *first, GList *second) {
  * @chars: a gchar * with the characters you are interested in
  *
  * this function will count every character in string that is also in chars
- * 
+ *
  * Return value: guint with the number of characters found
  **/
 static guint countchars(const gchar *string, const gchar *chars) {
@@ -394,10 +394,10 @@ static int strfull_match_gettext(const gchar *mychar, const gchar *tablechar) {
  * @table: a #tconvert_table * with strings and integers
  * @my_char: a #gchar * containing the string to convert
  * @mode: #Ttcc2i_mode
- * 
+ *
  * this function can be used to translate a string from some set (in table)
  * to an integer
- * 
+ *
  * Return value: gint, found in table, or -1 if not found
  **/
 gint table_convert_char2int(Tconvert_table *table, const gchar *my_char, Ttcc2i_mode mode) {
@@ -419,12 +419,12 @@ gint table_convert_char2int(Tconvert_table *table, const gchar *my_char, Ttcc2i_
  * table_convert_int2char:
  * @table: a #tconvert_table * with strings and integers
  * @my_int: a #gint containing the integer to convert
- * 
+ *
  * this function can be used to translate an integer from some set (in table)
  * to a string
- * WARNING: This function will return a pointer into table, it will 
+ * WARNING: This function will return a pointer into table, it will
  * NOT allocate new memory
- * 
+ *
  * Return value: gchar * found in table, else NULL
  **/
 gchar *table_convert_int2char(Tconvert_table *table, gint my_int) {
@@ -443,16 +443,16 @@ gchar *table_convert_int2char(Tconvert_table *table, gint my_int) {
  * @string: a formatstring #gchar * to convert
  * @specialchar: a const char to use as 'delimited' or 'special character'
  * @table: a #Tconvert_table * array to use for conversion
- * 
- * this function can convert a format string with %0, %1, or \n, \t 
- * into the final string, where each %number or \char entry is replaced 
+ *
+ * this function can convert a format string with %0, %1, or \n, \t
+ * into the final string, where each %number or \char entry is replaced
  * with the string found in table
  *
- * so this function is the backend for unescape_string() and 
+ * so this function is the backend for unescape_string() and
  * for replace_string_printflike()
  *
  * table is an array with last entry {0, NULL}
- * 
+ *
  * Return value: a newly allocated gchar * with the resulting string
  **/
 gchar *expand_string(const gchar *string, const char specialchar, Tconvert_table *table) {
@@ -479,7 +479,7 @@ gchar *expand_string(const gchar *string, const char specialchar, Tconvert_table
 	tmp = dest;
 	dest = g_strconcat(dest, prev, NULL); /* append the end to the current string */
 	g_free(tmp);
-	
+
 	g_free(stringdup);
 	DEBUG_MSG("expand_string, dest='%s'\n", dest);
 	return dest;
@@ -498,7 +498,7 @@ single character strings like "\n", "\t" etc. */
 gchar *unexpand_string(const gchar *original, const char specialchar, Tconvert_table *table) {
 	gchar *tmp, *tosearchfor, *retval, *prev, *dest, *orig;
 	Tconvert_table *tmpentry;
-	
+
 	orig = g_strdup(original);
 	DEBUG_MSG("original='%s', strlen()=%zd\n",original,strlen(original));
 	tosearchfor = g_malloc(tablesize(table)+1);
@@ -615,7 +615,7 @@ void free_convert_table(Tconvert_table *tct) {
 
 /*
 html files usually have enough cache at size 4
-large php files, a cache of 
+large php files, a cache of
 	10 resulted in 160% of the buffer to be parsed
 	12 resulted in 152% of the buffer to be parsed
 	14 resulted in 152% of the buffer to be parsed
@@ -626,7 +626,7 @@ so we keep it at 12 for the moment
 /*#define UTF8_BYTECHARDEBUG */
 
 typedef struct {
-	/* the two arrays must be grouped and in this order, because they are moved back 
+	/* the two arrays must be grouped and in this order, because they are moved back
 	one position in ONE memmove() call */
 	guint last_byteoffset[UTF8_OFFSET_CACHE_SIZE];
 	guint last_charoffset[UTF8_OFFSET_CACHE_SIZE];
@@ -646,14 +646,14 @@ static Tutf8_offset_cache utf8_offset_cache = {{0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0
 
 /**
  * utf8_offset_cache_reset:
- * 
- * this function will reset the utf8 offset cache used by 
+ *
+ * this function will reset the utf8 offset cache used by
  * utf8_byteoffset_to_charsoffset_cached() to use a new buffer
  *
  * Return value: void
  **/
 #ifdef __GNUC__
-__inline__ 
+__inline__
 #endif
 void utf8_offset_cache_reset() {
 #ifdef UTF8_BYTECHARDEBUG
@@ -673,7 +673,7 @@ void utf8_offset_cache_reset() {
 
 guint utf8_charoffset_to_byteoffset_cached(const gchar *string, guint charoffset) {
 	guint i=UTF8_OFFSET_CACHE_SIZE-1, retval;
-	
+
 	if (charoffset ==0) return 0;
 	/*g_print("requested charoffset %d\n",charoffset);*/
 	while (i > 0 && utf8_offset_cache.last_charoffset[i] > charoffset) {
@@ -707,16 +707,16 @@ guint utf8_charoffset_to_byteoffset_cached(const gchar *string, guint charoffset
  * utf8_byteoffset_to_charsoffset_cached:
  * @string: the gchar * you want to count
  * @byteoffset: glong with the byteoffset you want the charoffset for
- * 
+ *
  * this function calculates the UTF-8 character offset in a string for
  * a given byte offset
  * It uses caching to speedup multiple calls for the same buffer, the cache
- * is emptied if you change to another buffer. If you use the same buffer but 
+ * is emptied if you change to another buffer. If you use the same buffer but
  * change it inbetween calls, you have to reset it yourself using
  * the utf8_offset_cache_reset() function
  *
  **** the result is undefined if the provided byteoffset is in the middle of a UTF8 character ***
- * 
+ *
  * Return value: guint with character offset
  **/
 guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffset) {
@@ -778,10 +778,10 @@ guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffse
  * strip_any_whitespace:
  * @string: a gchar * to strip
  *
- * strips any double chars defined by isspace() from the string, 
+ * strips any double chars defined by isspace() from the string,
  * only single spaces are returned
  * the same string is returned, no memory is allocated in this function
- * 
+ *
  * Return value: the same gchar * as passed to the function
  **/
 /* used only in the htmlbar plugin */
@@ -821,7 +821,7 @@ gchar *strip_any_whitespace(gchar *string) {
  *
  * Returns a pointer to the same string which is truncated at the first
  * occurence of which_char
- * 
+ *
  * Return value: the same gchar * as passed to the function
  **/
 gchar *trunc_on_char(gchar * string, gchar which_char)
@@ -838,9 +838,9 @@ gchar *trunc_on_char(gchar * string, gchar which_char)
 }
 /* gchar *strip_common_path(char *image_fn, char *html_fn)
  * returns a newly allocated string containing the the to_filename
- * but all the common path with from_filename is removed 
+ * but all the common path with from_filename is removed
  *
- * IS THIS IN USE ?? OBVIOUSLY NOT BECAUSE I CAN REMOVE IT */ 
+ * IS THIS IN USE ?? OBVIOUSLY NOT BECAUSE I CAN REMOVE IT */
 /*gchar *strip_common_path(char *to_filename, char *from_filename)
 {
 	gchar *tempstr;
@@ -874,7 +874,7 @@ gchar *trunc_on_char(gchar * string, gchar which_char)
  *
  * tries to eliminate any dir/../ combinations in filename
  * this function could do evern better, it should also remove /./ entries
- * 
+ *
  * Return value: the same gchar * as passed to the function
  **/
 gchar *most_efficient_filename(gchar *filename) {
@@ -904,10 +904,10 @@ gchar *most_efficient_filename(gchar *filename) {
  * @current_filepath: a #gchar * with the current filename
  * @link_to_filepath: a #gchar * with a file to link to
  *
- * creates a newly allocated relative link from current_filepath 
+ * creates a newly allocated relative link from current_filepath
  * to link_to_filepath
  *
- * if current_filepath == NULL it returns the most efficient filepath 
+ * if current_filepath == NULL it returns the most efficient filepath
  * for link_to_filepath
  *
  * if link_to_filepath == NULL it will return NULL
@@ -937,17 +937,17 @@ gchar *create_relative_link_to(const gchar * current_filepath, const gchar * lin
 	so we always use the / as character */
 	current_filename_length = strlen(strrchr(eff_current_filepath, '/'))-1;
 	link_to_filename_length = strlen(strrchr(eff_link_to_filepath, '/'))-1;
-	DEBUG_MSG("create_relative_link_to, filenames: current: %d, link_to:%d\n", current_filename_length,link_to_filename_length); 
+	DEBUG_MSG("create_relative_link_to, filenames: current: %d, link_to:%d\n", current_filename_length,link_to_filename_length);
 	current_dirname_length = strlen(eff_current_filepath) - current_filename_length;
 	link_to_dirname_length = strlen(eff_link_to_filepath) - link_to_filename_length;
-	DEBUG_MSG("create_relative_link_to, dir's: current: %d, link_to:%d\n", current_dirname_length, link_to_dirname_length); 
+	DEBUG_MSG("create_relative_link_to, dir's: current: %d, link_to:%d\n", current_dirname_length, link_to_dirname_length);
 
 	if (current_dirname_length < link_to_dirname_length) {
 		maxcommonlen = current_dirname_length;
 	} else {
 		maxcommonlen = link_to_dirname_length;
 	}
-	
+
 	/* first lets get the common basedir for both dir+file  by comparing the
 	   common path in the directories */
 	common_lenght = 0;
@@ -1012,7 +1012,7 @@ gchar *strip_trailing_slash(gchar *input) {
  * ending_slash:
  * @dirname: a #const gchar * with a diretory name
  *
- * makes sure the last character of the newly allocated 
+ * makes sure the last character of the newly allocated
  * string it returns is a '/'
  *
  * Return value: a newly allocated gchar * dirname that does end on a '/'
@@ -1032,7 +1032,7 @@ gchar *ending_slash(const gchar *dirname) {
  * path_get_dirname_with_ending_slash:
  * @filename: a #const gchar * with a file path
  *
- * returns a newly allocated string, containing everything up to 
+ * returns a newly allocated string, containing everything up to
  * the last '/' character, including that character itself.
  *
  * if no '/' character is found it returns NULL
@@ -1120,10 +1120,10 @@ GFile *return_first_existing_filename(const gchar *filename, ...) {
 
 /**
  * bf_str_repeat:
- * @str: a #const gchar * 
+ * @str: a #const gchar *
  * @number_of: a #gint
  *
- * returns a newly allocated string, 
+ * returns a newly allocated string,
  * containing str repeated number_of times
  *
  * Return value: the newly allocated #gchar *
@@ -1142,7 +1142,7 @@ gchar *bf_str_repeat(const gchar * str, gint number_of) {
 
 /**
  * get_int_from_string:
- * @string: a #const gchar * 
+ * @string: a #const gchar *
  *
  * tries to find a positive integer value in the string and returns it
  * the string does not have to start or end with the integer
@@ -1230,7 +1230,7 @@ static gchar *return_securedir(void) {
  * the name is chosen by tempnam() so the chance that mkdir() fails in
  * a normal situation is minimal, it almost must be a hacking attempt
  *
- * the filename generated can safely be used for output of an external 
+ * the filename generated can safely be used for output of an external
  * script because the dir has rwx------ permissions
  *
  * Return value: a newly allocated #gchar * containing a temporary filename in a secure dir
@@ -1247,7 +1247,7 @@ gchar *create_secure_dir_return_filename(void) {
  * remove_secure_dir_and_filename:
  * @filename: the #gchar * filename to remove
  *
- * this function will remove a the filename created 
+ * this function will remove a the filename created
  * by create_secure_dir_return_filename(), and the safe
  * directory the file was created in
  *
@@ -1295,13 +1295,13 @@ void wordcount(gchar *text, guint *chars, guint *lines, guint *words)
 {
 	guint in_word = 0;
 	gunichar utext;
-	
+
 	if(!text) return; /* politely refuse to operate on NULL .. */
-		
+
 	*chars = *words = *lines = 0;
 	while (*text != '\0') {
 		(*chars)++;
-		
+
 		switch (*text) {
 			case '\n':
 				(*lines)++;
@@ -1325,10 +1325,10 @@ void wordcount(gchar *text, guint *chars, guint *lines, guint *words)
 					in_word = 1;
 				break;
 		} /* switch */
-		
+
 		text = g_utf8_next_char(text); /* Even if the current char is 2 bytes, this will iterate correctly. */
 	}
-	
+
 	/* Capture last word, if there's no whitespace at the end of the file. */
 	if(in_word) (*words)++;
 	/* We start counting line numbers from 1 */
@@ -1387,7 +1387,7 @@ gboolean arr3_equal (gconstpointer v1,gconstpointer v2)
 {
 	const gchar **arr1 = (const gchar **)v1;
 	const gchar **arr2 = (const gchar **)v2;
-  
+
 	return ((strcmp ((char *)arr1[0], (char *)arr2[0]) == 0 )&&
 			(strcmp ((char *)arr1[1], (char *)arr2[1]) == 0) &&
 			(strcmp ((char *)arr1[2], (char *)arr2[2]) == 0));
@@ -1418,7 +1418,7 @@ gchar *gfile_display_name(GFile *uri, GFileInfo *finfo) {
 		DEBUG_MSG("gfile_display_name, got %s from finfo\n",retval);
 	} else {
 		GFileInfo *finfo2;
-		
+
 		finfo2 = g_file_query_info(uri,G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,G_FILE_QUERY_INFO_NONE,NULL,NULL);
 		retval = g_strdup(g_file_info_get_display_name(finfo2));
 		DEBUG_MSG("gfile_display_name, queried uri %p, and got %s from finfo %p\n",uri,retval,finfo2);
@@ -1434,7 +1434,7 @@ gboolean gfile_uri_is_parent(GFile *parent, GFile *child, gboolean recursive) {
 	if (parent == NULL) {
 		DEBUG_MSG("gfile_uri_is_parent, parent=NULL ??\n");
 		return FALSE;
-	} 
+	}
 	if (child == NULL) {
 		DEBUG_MSG("gfile_uri_is_parent, child=NULL ??\n");
 		return FALSE;
@@ -1458,7 +1458,7 @@ gboolean gfile_uri_is_parent(GFile *parent, GFile *child, gboolean recursive) {
 
 gchar *get_hostname_from_uri(GFile *uri) {
 	gchar *tmp, *begin, *end1, *end2, *end, *retval;
-	
+
 	tmp = g_file_get_uri(uri);
 	begin = strstr(tmp, "://");
 	begin += 3;
@@ -1466,7 +1466,7 @@ gchar *get_hostname_from_uri(GFile *uri) {
 	end2 = strchr(begin, '/');
 	end = (end1 < end2) ? end1 : end2;
 	retval = g_strndup(begin, (end-begin));
-	g_free(tmp); 
+	g_free(tmp);
 	return retval;
 }
 
@@ -1476,7 +1476,7 @@ callback_register(GSList **slist, void (*func)(), gpointer data) {
 	cb = g_slice_new0(Tcallback);
 	cb->func = func;
 	cb->data = data;
-	*slist = g_slist_append(*slist, cb);	
+	*slist = g_slist_append(*slist, cb);
 }
 
 void
@@ -1546,6 +1546,8 @@ Telist *
 bf_elist_first(gpointer cur)
 {
 	Telist *tmp=cur;
+	if (!cur)
+		return NULL;
 	while (tmp->prev) {
 		tmp = tmp->prev;
 	}
@@ -1556,8 +1558,26 @@ Telist *
 bf_elist_last(gpointer cur)
 {
 	Telist *tmp=cur;
+	if (!cur)
+		return NULL;
 	while (tmp->next) {
 		tmp = tmp->next;
 	}
 	return tmp;
+}
+
+Telist *
+bf_elist_remove(gpointer toremove)
+{
+	Telist *ret;
+	if (BF_ELIST(toremove)->prev) {
+		BF_ELIST(BF_ELIST(toremove)->prev)->next = BF_ELIST(toremove)->next;
+	}
+	if (BF_ELIST(toremove)->next) {
+		BF_ELIST(BF_ELIST(toremove)->next)->prev = BF_ELIST(toremove)->prev;
+	}
+	ret = BF_ELIST(toremove)->prev ? BF_ELIST(toremove)->prev : BF_ELIST(toremove)->next;
+	BF_ELIST(toremove)->next = NULL;
+	BF_ELIST(toremove)->prev = NULL;
+	return ret;
 }
