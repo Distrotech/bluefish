@@ -382,8 +382,7 @@ mark_needscanning(BluefishTextView * btv, guint startpos, guint endpos)
 #ifdef UPDATE_OFFSET_DELAYED
 
 typedef struct {
-	gpointer next;
-	gpointer prev;
+	BF_ELIST_HEAD;
 	guint32 prevpos;
 	gint32 prevoffset;
 	GSequenceIter *siter;
@@ -391,8 +390,8 @@ typedef struct {
 } Tscancache_offset_update;
 
 /*
- * scancache_update_single_offset updates the offset in the scancache 
- * 
+ * scancache_update_single_offset updates the offset in the scancache
+ *
  * if there have been multiple changes to the offsets (multiple inserts or deletes)
  * these can be combined:
  *
@@ -539,20 +538,20 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		GSequenceIter *tmpsiter=sou->siter;
 		/* loop over all the remaining entries in the cache < nextpos */
 		/* for all further founds, we only handle the pushedblock and pushedcontext */
-		
+
 		if (sou->found && sou->found->charoffset_o > sou->prevpos && handleoffset == offset) {
 			handleoffset += sou->prevoffset;
 		}
-		
+
 		DBG_SCANCACHE
 			("scancache_update_single_offset, about to update found %p with charoffset %d to %d, fcontext %p and fblock %p\n",
-			 sou->found, sou->found->charoffset_o, 
-			 sou->found->charoffset_o + handleoffset, 
+			 sou->found, sou->found->charoffset_o,
+			 sou->found->charoffset_o + handleoffset,
 			 sou->found->fcontext, sou->found->fblock);
 		if (G_UNLIKELY(IS_FOUNDMODE_CONTEXTPUSH(sou->found))) {
 			DBG_SCANCACHE("scancache_update_single_offset, contextpush %p update from %d:%d to %d:%d\n",
 						  sou->found->fcontext, sou->found->fcontext->start_o, sou->found->fcontext->end_o,
-						  sou->found->fcontext->start_o + handleoffset, 
+						  sou->found->fcontext->start_o + handleoffset,
 						  sou->found->fcontext->end_o + handleoffset);
 			if (G_LIKELY(sou->found->fcontext->start_o != BF2_OFFSET_UNDEFINED))
 				sou->found->fcontext->start_o += handleoffset;
@@ -596,9 +595,9 @@ foundcache_process_offsetupdates(BluefishTextView * btv)
 	Toffsetupdate *ou = bf_elist_first(btv->scancache.offsetupdates);
 	while(ou) {
 		Toffsetupdate *nextou = ou->next;
-		g_print("foundcache_process_offsetupdates, update position %u with offset %d, next position at %u, prevpos=%u, prevoffset=%d\n", 
-							(guint) ou->startpos, (gint) ou->offset, 
-							(guint) (nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED), 
+		g_print("foundcache_process_offsetupdates, update position %u with offset %d, next position at %u, prevpos=%u, prevoffset=%d\n",
+							(guint) ou->startpos, (gint) ou->offset,
+							(guint) (nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED),
 							sou.prevpos, sou.prevoffset);
 		scancache_update_single_offset(btv, &sou, ou->startpos, ou->offset, nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED);
 		g_slice_free(Toffsetupdate, ou);
@@ -633,7 +632,7 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 		DBG_SCANCACHE("foundcache_update_offsets, offset=%d, tail offset=%d, call process_offsetupdates()\n", startpos, OFFSETUPDATE(btv->scancache.offsetupdates)->startpos);
 		/* handle all the offsets */
 		foundcache_process_offsetupdates(btv);
-	}		
+	}
 	ou = g_slice_new(Toffsetupdate);
 	ou->startpos = (guint32)startpos;
 	ou->offset = (gint32)offset;
@@ -1412,8 +1411,8 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 		nextit = *end;
 		if (gtk_text_iter_forward_char(&nextit) && (gtk_text_iter_begins_tag(&nextit, btv->needscanning) || gtk_text_iter_forward_to_tag_toggle(&nextit, btv->needscanning))) {
 			nextitoffset = gtk_text_iter_get_offset(&nextit);
-			/* there is another start in the doc, see if it is close (doable within one scanning run, and 
-			the number of chars between the regions should not be a lot more than the number of chars that 
+			/* there is another start in the doc, see if it is close (doable within one scanning run, and
+			the number of chars between the regions should not be a lot more than the number of chars that
 			actually need scanning), if so merge them */
 			if ((nextitoffset - endoffset < loops_per_timer) && (nextitoffset - startoffset) < (NUM_TIMER_CHECKS_PER_RUN * loops_per_timer)) {
 				DBG_SCANNING("next region that needs scanning starts at %d, merge them together!\n", gtk_text_iter_get_offset(&nextit));
@@ -1613,7 +1612,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 		reconstruction_o = 0;
 	} else {
 		/* we do not want to reconstruct a blockstart exactly at the point where scanning.start is right now, otherwise
-		if we previously found <b and now there is <bo and we reconstruct the stack between the b and the o and we would not 
+		if we previously found <b and now there is <bo and we reconstruct the stack between the b and the o and we would not
 		detect that the tag has changed. so we move scanning.start one position up. */
 		gtk_text_iter_backward_char(&iter);
 		DBG_SCANNING("moved scanning.start back to %d\n",gtk_text_iter_get_offset(&scanning.start));
