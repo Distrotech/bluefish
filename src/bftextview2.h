@@ -264,6 +264,15 @@ The slave widget should always be destroyed before the master.
 #define IDENTSTORING
 #define UPDATE_OFFSET_DELAYED
 
+#define MARKREGION
+
+#ifdef MARKREGION
+typedef struct {
+	gpointer head;
+	gpointer tail;
+} Tregions;
+#endif
+
 typedef enum {
 	comment_type_block,
 	comment_type_line
@@ -362,7 +371,12 @@ struct _BluefishTextView {
 	GtkTextTag *blockmatch;
 	GtkTextTag *cursortag;
 	Tscancache scancache;
-
+#ifdef MARKREGION
+	Tregions scanning;
+#ifdef HAVE_LIBENCHANT
+	Tregions spellcheck;
+#endif /*HAVE_LIBENCHANT*/
+#endif /*MARKREGION*/
 	guint scanner_immediate; /* event ID for the high priority scanning run */
 	guint scanner_idle;			/* event ID for the idle function that handles the scanning. 0 if no idle function is running */
 	guint scanner_delayed;		/* event ID for the timeout function that handles the delayed scanning. 0 if no timeout function is running */
