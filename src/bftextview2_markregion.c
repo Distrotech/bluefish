@@ -19,6 +19,7 @@
 
 #include "bluefish.h"
 #include "bf_lib.h"
+#include "bftextview2_private.h"
 #include "bftextview2_markregion.h"
 
 #ifdef MARKREGION
@@ -56,8 +57,11 @@ insert_start_and_end(Tregions *rg, guint start, guint end)
 			tmp = tmp->next;
 		}
 		/* if tmp->is_start == FALSE we don't need to insert a new start, because
-		the previous start is valid */
-		if (tmp->is_start == TRUE) {
+		the previous start is valid 
+		if there is no tmp we append to the tail */
+		if (!tmp) {
+			rg->tail = tmp = CHANGE(bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(start, TRUE))));
+		} else if (tmp->is_start == TRUE) {
 			tmp = (Tchange *)bf_elist_prepend(BF_ELIST(tmp), new_change(start, TRUE));
 		} else {
 			tmp = tmp->prev;
@@ -66,12 +70,12 @@ insert_start_and_end(Tregions *rg, guint start, guint end)
 	/* tmp now points to the start position, continue to the end position */
 	while (tmp && tmp->pos < end) {
 		Tchange *toremove = tmp;
-		tmp = CHANGE(bf_elist_remove(BF_ELIST(toremove))); /* returns the previous entry */
+		tmp = CHANGE(bf_elist_remove(BF_ELIST(toremove))); /* returns the previous entry if there is one */
 		g_slice_free(Tchange, toremove);
 		tmp = tmp->next;
 	}
 	if (!tmp) {
-		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(start, FALSE)));
+		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(end, FALSE)));
 		return;
 	}
 
@@ -86,7 +90,7 @@ insert_start_and_end(Tregions *rg, guint start, guint end)
 			bf_elist_remove(BF_ELIST(toremove));
 			g_slice_free(Tchange, toremove);
 		} else {
-			bf_elist_prepend(BF_ELIST(tmp), BF_ELIST(new_change(start, FALSE)));
+			bf_elist_prepend(BF_ELIST(tmp), BF_ELIST(new_change(end, FALSE)));
 		}
 	}
 }
@@ -94,18 +98,19 @@ insert_start_and_end(Tregions *rg, guint start, guint end)
 void
 mark_region_changed(Tregions *rg, guint start, guint end)
 {
+	g_print("mark_region_changed, %u:%u\n",start,end);
 	if (!rg->head) {
 		rg->head = new_change(start, TRUE);
-		rg->tail = bf_elist_append(BF_ELIST(rg->head), BF_ELIST(new_change(start, FALSE)));
+		rg->tail = bf_elist_append(BF_ELIST(rg->head), BF_ELIST(new_change(end, FALSE)));
 		return;
 	}
 
 	if (CHANGE(rg->tail)->pos < start) {
 		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(start, TRUE)));
-		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(start, FALSE)));
+		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(end, FALSE)));
 		return;
 	} else if (CHANGE(rg->head)->pos > end){
-		rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(start, FALSE)));
+		rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(end, FALSE)));
 		rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(start, TRUE)));
 		return;
 	}
@@ -116,20 +121,25 @@ mark_region_changed(Tregions *rg, guint start, guint end)
 void mark_region_done(Tregions *rg, guint end)
 {
 	Tchange *tmp;
+	g_print("mark_region_done, end=%u\n",end);
 	if (!rg->head) {
 		return;
 	}
 	tmp = rg->head;
-	while (tmp && tmp->pos < end) {
+	while (tmp && tmp->pos <= end) {
+		g_print("mark_region_done, remove change with pos=%u\n",tmp->pos);
 		tmp = CHANGE(bf_elist_remove(BF_ELIST(tmp))); /* returns the previous entry if that exists, but
 										it does not exist in this case because we remove all entries */
 	}
 	if (tmp && tmp->is_start == FALSE) {
+		g_print("next change at %u is a end!\n",tmp->pos);
 		if (tmp->pos == end) {
 			Tchange *toremove = tmp;
+			g_print("mark_region_done, remove change with pos=%u\n",toremove->pos);
 			tmp = CHANGE(bf_elist_remove(BF_ELIST(toremove)));
 			g_slice_free(Tchange, toremove);
 		} else {
+			g_print("mark_region_done, prepend change with end=%u\n",end);
 			tmp = CHANGE(bf_elist_prepend(BF_ELIST(tmp), BF_ELIST(new_change(end, TRUE))));
 		}
 	}
@@ -142,17 +152,56 @@ void mark_region_done(Tregions *rg, guint end)
 gpointer
 update_offset(Tregions *rg, gpointer cur, guint start , gint offset, guint nextpos)
 {
+	g_print("update_offset, start=%u, offset=%d, nextpos=%u\n",start,offset,nextpos);
 	if (cur == NULL) {
 		cur = rg->head;
-		while (cur && CHANGE(cur)->pos < start) {
+		while (cur && CHANGE(cur)->pos <= start) {
 			cur = CHANGE(cur)->next;
 		}
 	}
+	g_print("update_offset, start at cur->pos=%u\n",CHANGE(cur)->pos);
 	while (cur && CHANGE(cur)->pos+offset < nextpos) {
+		g_print("update_offset, update cur->pos=%u to %u\n",CHANGE(cur)->pos, CHANGE(cur)->pos + offset);
 		CHANGE(cur)->pos += offset;
 		cur = CHANGE(cur)->next;
 	}
 	return cur;
 }
+
+gpointer
+get_region(Tregions *rg, gpointer cur, guint *start, guint *end)
+{
+	if (cur == NULL) {
+		if (rg->head==NULL) {
+			*start = BF2_OFFSET_UNDEFINED;
+			*end = BF2_OFFSET_UNDEFINED;
+			return NULL;
+		}
+		cur = rg->head;
+	}
+
+#ifdef DEVELOPMENT
+	if (!CHANGE(cur)->is_start) {
+		g_print("ABORT: get_region is called, and cur is not a start of region\n");
+		g_assert_not_reached();
+	}
+#endif
+	*start = CHANGE(cur)->pos;
+	cur = CHANGE(cur)->next;
+#ifdef DEVELOPMENT
+	if (!cur) {
+		g_print("ABORT: get_region is called, and next cur does not exist\n");
+		g_assert_not_reached();
+	}
+	if (CHANGE(cur)->is_start) {
+		g_print("ABORT: get_region is called, and next cur is a start of region\n");
+		g_assert_not_reached();
+	}
+#endif
+	*end = CHANGE(cur)->pos;
+	cur = CHANGE(cur)->next;
+	return cur;
+}
+
 #endif
 

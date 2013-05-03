@@ -38,6 +38,10 @@
 #include "bftextview2_scanner.h"
 #include "bftextview2_identifier.h"
 
+#ifdef MARKREGION
+#include "bftextview2_markregion.h"
+#endif
+
 /*#undef DBG_SCANNING
 #define DBG_SCANNING g_print*/
 /*#undef DBG_SCANCACHE
@@ -371,6 +375,9 @@ static void
 mark_needscanning(BluefishTextView * btv, guint startpos, guint endpos)
 {
 	GtkTextIter it1, it2;
+#ifdef MARKREGION
+	mark_region_changed(&btv->scanning, startpos, endpos);
+#endif
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, startpos);
 	if (endpos == -1) {
 		gtk_text_buffer_get_end_iter(btv->buffer, &it2);
@@ -661,6 +668,10 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 static void
 foundcache_process_offsetupdates(BluefishTextView * btv)
 {
+#ifdef MARKREGION
+	gpointer mr=NULL;
+	gint handleoffset=0;
+#endif
 	Tscancache_offset_update sou = {NULL, NULL, 0,0,NULL,NULL};
 	Toffsetupdate *ou = (Toffsetupdate *)bf_elist_first((Toffsetupdate *)btv->scancache.offsetupdates);
 	while(ou) {
@@ -669,6 +680,10 @@ foundcache_process_offsetupdates(BluefishTextView * btv)
 							(guint) ou->startpos, (gint) ou->offset,
 							(guint) (nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED),
 							sou.prevpos, sou.prevoffset);
+#ifdef MARKREGION
+		handleoffset += ou->offset;
+		mr = update_offset(&btv->scanning, mr, ou->startpos , handleoffset, nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED);
+#endif
 		scancache_update_single_offset(btv, &sou, ou->startpos, ou->offset, nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED);
 		g_slice_free(Toffsetupdate, ou);
 		ou = nextou;
@@ -1444,6 +1459,31 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	return scanning->context;
 }
 
+#ifdef MARKREGION
+static gboolean
+bftextview2_mr_find_region2scan(BluefishTextView * btv, GtkTextIter * sit, GtkTextIter * eit)
+{
+	gpointer tmp=NULL;
+	gboolean cont=TRUE;
+	guint start,end;
+	tmp = get_region(&btv->scanning, tmp, &start, &end);
+	if (start == BF2_OFFSET_UNDEFINED) {
+		return FALSE;
+	}
+	while (tmp && cont) {
+		guint start2, end2;
+		cont=FALSE;
+		tmp = get_region(&btv->scanning, tmp, &start2, &end2);
+		if (start2-end < loops_per_timer && (end2 - start) < (NUM_TIMER_CHECKS_PER_RUN * loops_per_timer)) {
+			end = end2;
+			cont=TRUE;
+		}
+	}
+	gtk_text_buffer_get_iter_at_offset(btv->buffer, sit, start);
+	gtk_text_buffer_get_iter_at_offset(btv->buffer, eit, end);
+	return TRUE;
+}
+#endif
 static gboolean
 bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, GtkTextIter * start,
 							 GtkTextIter * end)
@@ -1458,6 +1498,17 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 		if (!gtk_text_iter_forward_to_tag_toggle(start, btv->needscanning)) {
 			/* nothing to scan */
 			DBG_DELAYSCANNING("bftextview2_find_region2scan, nothing to scan..\n");
+
+#ifdef MARKREGION
+#ifdef DEVELOPMENT 
+			if (bftextview2_mr_find_region2scan(btv, start, end)) {
+				g_print("ABORT: markregion has a region (%u:%u), but original code has not!!\n", 
+							gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
+				g_assert_not_reached();
+			}
+#endif 
+#endif
+			
 			return FALSE;
 		}
 	}
@@ -1497,6 +1548,25 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 	   DBG_SCANNING("set startposition to beginning of line, offset is now %d\n",gtk_text_iter_get_offset(start));
 	   gtk_text_iter_forward_to_line_end(end);
 	   gtk_text_iter_forward_char(end); */
+
+#ifdef MARKREGION
+#ifdef DEVELOPMENT 
+	{
+		GtkTextIter its,ite;
+		if (!bftextview2_mr_find_region2scan(btv, &its, &ite)) {
+			g_print("ABORT: markregion does not have a region, but original code has!!\n");
+			g_assert_not_reached();
+		}
+		if (!gtk_text_iter_equal(&its, start) || !gtk_text_iter_equal(&ite, end)) {
+			g_print("ABORT: markregion (%d:%d) and original code(%d:%d) have different regions!!\n",
+					gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite),
+					gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
+			g_assert_not_reached();
+		}
+	}
+#endif 
+#endif
+
 	return TRUE;
 }
 
@@ -1836,6 +1906,12 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 													scanning.curfcontext->context).contexttag, &iter, &iter2);
 		}
 	}
+#ifdef MARKREGION
+	mark_region_done(&btv->scanning, gtk_text_iter_get_offset(&iter));
+	if (gtk_text_iter_compare(&iter, &scanning.end) < 0) {
+		mark_region_changed(&btv->scanning, gtk_text_iter_get_offset(&iter), gtk_text_iter_get_offset(&scanning.end));
+	}
+#endif
 	gtk_text_buffer_remove_tag(btv->buffer, btv->needscanning, &scanning.start, &iter);
 	if (gtk_text_iter_compare(&iter, &scanning.end) < 0) {
 		gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &iter, &scanning.end);
