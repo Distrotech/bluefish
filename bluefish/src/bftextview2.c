@@ -39,6 +39,10 @@
 #ifdef HAVE_LIBENCHANT
 #include "bftextview2_spell.h"
 #endif
+#ifdef MARKREGION
+#include "bftextview2_markregion.h"
+#endif
+
 /*#undef DEBUG_MSG
 #define DEBUG_MSG g_print*/
 /*#undef DBG_SCANCACHE
@@ -656,11 +660,17 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning %p\n",
 				gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needscanning);
+#ifdef MARKREGION
+	mark_region_changed(&btv->scanning, gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter));
+#endif
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
 	btv->needremovetags = 0;
 	/*start_offset = gtk_text_iter_get_offset(&start); */
 
 #ifdef HAVE_LIBENCHANT
+#ifdef MARKREGION
+	mark_region_changed(&btv->spellcheck, gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter));
+#endif
 	DBG_SPELL("bftextview2_insert_text_after_lcb, mark area from %d to %d with tag 'needspellcheck' %p\n",
 			  gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needspellcheck);
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
@@ -1278,11 +1288,17 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 		loop++;
 	/*gtk_text_iter_backward_word_start(&begin);
 	   gtk_text_iter_forward_word_end(&end); */
+#ifdef MARKREGION
+	mark_region_changed(&btv->scanning, gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
+#endif
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
 	btv->needremovetags = 0;
 	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
 				gtk_text_iter_get_offset(&end));
 #ifdef HAVE_LIBENCHANT
+#ifdef MARKREGION
+	mark_region_changed(&btv->spellcheck, gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
+#endif
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &begin, &end);
 	DBG_SPELL("mark text from %d to %d as needspellcheck\n", gtk_text_iter_get_offset(&begin),
 			  gtk_text_iter_get_offset(&end));
