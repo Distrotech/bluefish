@@ -621,9 +621,14 @@ bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * 
 {
 	DBG_SIGNALS("bftextview2_insert_text_lcb, btv=%p, master=%p, stringlen=%d\n", btv, btv->master,
 				stringlen);
-	if (btv == btv->master)
+	if (btv == btv->master) {
 		foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), gtk_text_iter_get_offset(iter),
 								  g_utf8_strlen(string, stringlen));
+#ifdef MARKREGION
+		update_offset(&btv->scanning, gtk_text_iter_get_offset(iter), g_utf8_strlen(string, stringlen));
+#endif
+
+		}
 }
 
 static void
@@ -1270,6 +1275,9 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	DBG_SIGNALS("bftextview2_delete_range_lcb, delete from %d to %d\n", gtk_text_iter_get_offset(obegin),
 				  gtk_text_iter_get_offset(oend));
 	foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), loop, loop - gtk_text_iter_get_offset(oend));
+#ifdef MARKREGION
+	update_offset(&btv->scanning, loop, loop - gtk_text_iter_get_offset(oend));
+#endif
 
 	/* mark the surroundings of the text that will be deleted */
 

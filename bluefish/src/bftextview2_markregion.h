@@ -23,7 +23,7 @@
 #ifdef MARKREGION
 void mark_region_changed(Tregions *rg, guint start, guint end);
 void mark_region_done(Tregions *rg, guint end);
-gpointer update_offset(Tregions *rg, gpointer cur, guint start , gint offset, guint nextpos);
+void update_offset(Tregions *rg, guint start , gint offset);
 gpointer get_region(Tregions *rg, gpointer cur, guint *start, guint *end);
 #endif
 

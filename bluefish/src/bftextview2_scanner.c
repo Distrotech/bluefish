@@ -668,10 +668,6 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 static void
 foundcache_process_offsetupdates(BluefishTextView * btv)
 {
-#ifdef MARKREGION
-	gpointer mr=NULL;
-	gint handleoffset=0;
-#endif
 	Tscancache_offset_update sou = {NULL, NULL, 0,0,NULL,NULL};
 	Toffsetupdate *ou = (Toffsetupdate *)bf_elist_first((Toffsetupdate *)btv->scancache.offsetupdates);
 	while(ou) {
@@ -680,10 +676,6 @@ foundcache_process_offsetupdates(BluefishTextView * btv)
 							(guint) ou->startpos, (gint) ou->offset,
 							(guint) (nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED),
 							sou.prevpos, sou.prevoffset);
-#ifdef MARKREGION
-		handleoffset += ou->offset;
-		mr = update_offset(&btv->scanning, mr, ou->startpos , handleoffset, nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED);
-#endif
 		scancache_update_single_offset(btv, &sou, ou->startpos, ou->offset, nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED);
 		g_slice_free(Toffsetupdate, ou);
 		ou = nextou;
