@@ -19,14 +19,19 @@
 
 #include "bluefish.h"
 #include "bf_lib.h"
+#include "bftextview2_markregion.h"
+
+#ifdef MARKREGION
 
 typedef struct {
 	BF_ELIST_HEAD;
 	guint32 pos;
-	guint8 is_start;
+	guint32 is_start; /* a guint8 would have been good enough, but 
+								both on 32bit or 64 bit systems that doesn't affect 
+								the size of Tchange, and this is faster on 32bit 
+								systems */
 } Tchange;
 #define CHANGE(var) ((Tchange *)var)
-
 
 static Tchange *
 new_change(guint pos, gboolean is_start)
@@ -149,3 +154,5 @@ update_offset(Tregions *rg, gpointer cur, guint start , gint offset, guint nextp
 	}
 	return cur;
 }
+#endif
+
