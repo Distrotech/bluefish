@@ -270,6 +270,8 @@ The slave widget should always be destroyed before the master.
 typedef struct {
 	gpointer head;
 	gpointer tail;
+	gpointer cachehead;
+	gpointer cachetail;
 } Tregions;
 #endif
 

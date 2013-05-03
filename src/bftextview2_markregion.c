@@ -96,7 +96,7 @@ insert_start_and_end(Tregions *rg, guint start, guint end)
 }
 
 void
-mark_region_changed(Tregions *rg, guint start, guint end)
+mark_region_changed_real(Tregions *rg, guint start, guint end)
 {
 	g_print("mark_region_changed, %u:%u\n",start,end);
 	if (!rg->head) {
@@ -150,7 +150,7 @@ void mark_region_done(Tregions *rg, guint end)
 }
 
 gpointer
-update_offset(Tregions *rg, gpointer cur, guint start , gint offset, guint nextpos)
+update_offset_real(Tregions *rg, gpointer cur, guint start , gint offset, guint nextpos)
 {
 	g_print("update_offset, start=%u, offset=%d, nextpos=%u\n",start,offset,nextpos);
 	if (cur == NULL) {
@@ -159,7 +159,7 @@ update_offset(Tregions *rg, gpointer cur, guint start , gint offset, guint nextp
 			cur = CHANGE(cur)->next;
 		}
 	}
-	g_print("update_offset, start at cur->pos=%u\n",CHANGE(cur)->pos);
+	g_print("update_offset, start at cur->pos=%u\n",cur ? CHANGE(cur)->pos : -1);
 	while (cur && CHANGE(cur)->pos+offset < nextpos) {
 		g_print("update_offset, update cur->pos=%u to %u\n",CHANGE(cur)->pos, CHANGE(cur)->pos + offset);
 		CHANGE(cur)->pos += offset;
@@ -168,9 +168,93 @@ update_offset(Tregions *rg, gpointer cur, guint start , gint offset, guint nextp
 	return cur;
 }
 
+typedef enum {
+	cache_changed,
+	cache_offset
+} Tcachetype;
+
+typedef struct {
+	BF_ELIST_HEAD;
+	Tcachetype type;
+	gint val1;
+	gint val2;
+} Tcache;
+
+static guint
+cache_get_nextpos(Tcache *startch)
+{
+	Tcache *ch = startch->next;
+	while (ch) {
+		if (ch->type == cache_offset) {
+			return ch->val1;
+		}
+		ch = ch->next;
+	}
+	return BF2_OFFSET_UNDEFINED;
+}
+
+static gboolean
+process_cache(Tregions *rg)
+{
+	Tcache *ch, *nextch;
+	gpointer cur=NULL;
+	gint handleoffset=0;
+	if (!rg->cachehead)
+		return FALSE;
+	
+	ch = rg->cachehead;
+	while (ch) {
+		if (ch->type == cache_changed) {
+			mark_region_changed_real(rg, ch->val1, ch->val2);
+		} else if (ch->type == cache_offset) {
+			guint nextpos = cache_get_nextpos(ch);
+			handleoffset += ch->val2;
+			cur = update_offset_real(rg, cur, ch->val1 , handleoffset, nextpos);
+		} else {
+#ifdef DEVELOPMENT
+			g_assert_not_reached();
+#endif			
+		}
+		nextch = ch->next;
+		g_slice_free(Tcache, ch);
+		ch = nextch;
+	}
+	rg->cachehead = rg->cachetail = NULL;
+	return TRUE;
+}
+
+static void
+add_to_cache(Tregions *rg, Tcachetype type, gint val1, gint val2)
+{
+	Tcache *ch = g_slice_new(Tcache);
+	ch->prev = ch->next = NULL;
+	ch->val1 = val1;
+	ch->val2 = val2;
+	ch->type = type;
+	rg->cachetail = bf_elist_append(rg->cachetail, ch);
+	if (!rg->cachehead)
+		rg->cachehead = rg->cachetail;
+}
+
+void
+mark_region_changed(Tregions *rg, guint start, guint end)
+{
+	add_to_cache(rg, cache_changed, start, end);
+}
+
+void
+update_offset(Tregions *rg, guint start , gint offset)
+{
+	add_to_cache(rg, cache_offset, start, offset);
+}
+
 gpointer
 get_region(Tregions *rg, gpointer cur, guint *start, guint *end)
 {
+	if (process_cache(rg)) {
+		cur = NULL;
+	}
+	
 	if (cur == NULL) {
 		if (rg->head==NULL) {
 			*start = BF2_OFFSET_UNDEFINED;
@@ -202,6 +286,7 @@ get_region(Tregions *rg, gpointer cur, guint *start, guint *end)
 	cur = CHANGE(cur)->next;
 	return cur;
 }
+
 
 #endif
 
