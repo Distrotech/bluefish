@@ -53,6 +53,8 @@ bluefish_SOURCES = \
 	bftextview2_autocomp.h \
 	bftextview2_identifier.c \
 	bftextview2_identifier.h \
+	bftextview2_markregion.c \
+	bftextview2_markregion.h \
 	bftextview2_patcompile.c \
 	bftextview2_patcompile.h \
 	bftextview2_scanner.c \
