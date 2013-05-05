@@ -446,16 +446,16 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		return;
 	}
 
-	/* 
+	/*
 	either found is returned by get_foundcache_at_offset() and prevpos and prevoffset are 0
 	or found is defined in the previous call to scancache_update_single_offset()
-			if it was defined, and it has a position before startpos, this position should equal prevpos 
+			if it was defined, and it has a position before startpos, this position should equal prevpos
 						and prevoffset is included already
-			if it was defined, and it has a position beyond startpos, that essentially means it is the 
-						first found in the cache, so prevpos should be still at 0 
-	
+			if it was defined, and it has a position beyond startpos, that essentially means it is the
+						first found in the cache, so prevpos should be still at 0
+
 	first update all block ends and context ends that are on the stack already before the position where the offset changes
-	if there is a found before the offset changes it should have an updated prevpos already, and prevpos should equal 
+	if there is a found before the offset changes it should have an updated prevpos already, and prevpos should equal
 	this location.*/
 #ifdef DEVELOPMENT
 	if (sou->found && sou->prevpos!=0 && sou->found->charoffset_o != sou->prevpos) {
@@ -524,18 +524,18 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 #ifdef DEVELOPMENT
 		if (tmpfound)
 			DBG_SCANCACHE("tmpfound->charoffset_o=%d, startpos=%u\n",(gint)sou->found->charoffset_o, (gint)startpos);
-	
+
 		/* we should have a found now that has offset > startpos and thus it should be beyond prevpos as well */
 		if (tmpfound && tmpfound->charoffset_o+sou->prevoffset < startpos) {
-			DBG_SCANCACHE("ABORT: tmpfound->charoffset_o(%u) + sou->prevoffset(%d) < startpos(%u) (prevpos=%u)\n",
+			g_print("ABORT: tmpfound->charoffset_o(%u) + sou->prevoffset(%d) < startpos(%u) (prevpos=%u)\n",
 								(gint)sou->found->charoffset_o, (gint)sou->prevoffset, (gint)startpos, (gint)sou->prevpos);
 			g_assert_not_reached();
 		}
 #endif
 
 
-		/* loop over any items within the deleted region and remove them. because these 
-		Tfound offsets are not yet updated we don't compare with 'startpos-offset' but we 
+		/* loop over any items within the deleted region and remove them. because these
+		Tfound offsets are not yet updated we don't compare with 'startpos-offset' but we
 		compare with 'startpos-offset-sou->prevoffset' */
 		while (tmpfound && tmpfound->charoffset_o+offset+sou->prevoffset <= startpos) {
 			if (G_LIKELY(tmpfound->charoffset_o+sou->prevoffset > startpos)) {
@@ -586,14 +586,14 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 
 #ifdef DEVELOPMENT
 	if (sou->found) {
-		if (sou->found->charoffset_o > sou->prevpos) {
+		if (sou->found->charoffset_o+sou->prevoffset+offset > sou->prevpos) {
 			if ((sou->found->charoffset_o + sou->prevoffset) < startpos) {
 				g_print("ABORT: sou->found->charoffset_o(%u) + sou->prevoffset(%d) < startpos(%u) (prevpos=%u)\n",
 							(gint)sou->found->charoffset_o, (gint)sou->prevoffset, (gint)startpos, (gint)sou->prevpos);
 				g_assert_not_reached();
 			}
 		} else {
-			
+
 			/*if (sou->found->charoffset_o < startpos) {*/
 			g_print("ABORT: sou->found->charoffset_o(%u) < prevpos(%u) (startpos=%u, prevoffset=%d)\n",
 							(gint)sou->found->charoffset_o, (gint)sou->prevpos, (gint)startpos, (gint)sou->prevoffset);
@@ -608,7 +608,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		Tfound *tmpfound = sou->found;
 		GSequenceIter *tmpsiter=sou->siter;
 		/* loop over all the remaining entries in the cache < nextpos
-		for all further founds, we only handle the pushedblock and pushedcontext, and 
+		for all further founds, we only handle the pushedblock and pushedcontext, and
 		we update both start and end of the blocks and contexts */
 
 		if (sou->found && sou->found->charoffset_o > sou->prevpos && handleoffset == offset) {
@@ -644,14 +644,14 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 			if (G_LIKELY(sou->found->fblock->end2_o != BF2_OFFSET_UNDEFINED))
 				sou->found->fblock->end2_o += handleoffset;
 		}
-		DBG_SCANCACHE("startpos=%u, offset=%d, prevoffset=%d, found=%p, update charoffset_o from %u to %u\n",startpos,offset,sou->prevoffset, sou->found,sou->found->charoffset_o,sou->found->charoffset_o+handleoffset); 
+		DBG_SCANCACHE("startpos=%u, offset=%d, prevoffset=%d, found=%p, update charoffset_o from %u to %u\n",startpos,offset,sou->prevoffset, sou->found,sou->found->charoffset_o,sou->found->charoffset_o+handleoffset);
 		sou->found->charoffset_o += handleoffset;
 
 		tmpfound = get_foundcache_next(btv, &tmpsiter);
 		if (!tmpfound || tmpfound->charoffset_o+sou->prevoffset+offset >= nextpos) {
 #ifdef DEVELOPMENT
 			if (tmpfound)
-				DBG_SCANCACHE("tmpfound->charoffset=%u+sou->prevoffset=%d >= nextpos=%u\n",tmpfound->charoffset_o,sou->prevoffset, nextpos);
+				DBG_SCANCACHE("abort loop, tmpfound->charoffset=%u+sou->prevoffset=%d+offset=%d >= nextpos=%u\n",tmpfound->charoffset_o,sou->prevoffset,offset, nextpos);
 #endif
 			break;
 		}
@@ -663,6 +663,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		sou->prevpos = sou->found->charoffset_o;
 	}
 	sou->prevoffset += offset;
+	DBG_SCANCACHE("return prevpos %d, prevoffset=%d, nextpos=%u, found->charoffset=%d\n",sou->prevpos,sou->prevoffset, nextpos, sou->found?sou->found->charoffset_o:-1);
 }
 
 static void
@@ -1492,15 +1493,15 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 			DBG_DELAYSCANNING("bftextview2_find_region2scan, nothing to scan..\n");
 
 #ifdef MARKREGION
-#ifdef DEVELOPMENT 
+#ifdef DEVELOPMENT
 			if (bftextview2_mr_find_region2scan(btv, start, end)) {
-				g_print("ABORT: markregion has a region (%u:%u), but original code has not!!\n", 
+				g_print("ABORT: markregion has a region (%u:%u), but original code has not!!\n",
 							gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
 				g_assert_not_reached();
 			}
-#endif 
 #endif
-			
+#endif
+
 			return FALSE;
 		}
 	}
@@ -1542,7 +1543,7 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 	   gtk_text_iter_forward_char(end); */
 
 #ifdef MARKREGION
-#ifdef DEVELOPMENT 
+#ifdef DEVELOPMENT
 	{
 		GtkTextIter its,ite;
 		if (!bftextview2_mr_find_region2scan(btv, &its, &ite)) {
@@ -1556,7 +1557,7 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 			g_assert_not_reached();
 		}
 	}
-#endif 
+#endif
 #endif
 
 	return TRUE;
