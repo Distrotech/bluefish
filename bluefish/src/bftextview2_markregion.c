@@ -27,9 +27,9 @@
 typedef struct {
 	BF_ELIST_HEAD;
 	guint32 pos;
-	guint32 is_start; /* a guint8 would have been good enough, but 
-								both on 32bit or 64 bit systems that doesn't affect 
-								the size of Tchange, and this is faster on 32bit 
+	guint32 is_start; /* a guint8 would have been good enough, but
+								both on 32bit or 64 bit systems that doesn't affect
+								the size of Tchange, and this is faster on 32bit
 								systems */
 } Tchange;
 #define CHANGE(var) ((Tchange *)var)
@@ -57,7 +57,7 @@ insert_start_and_end(Tregions *rg, guint start, guint end)
 			tmp = tmp->next;
 		}
 		/* if tmp->is_start == FALSE we don't need to insert a new start, because
-		the previous start is valid 
+		the previous start is valid
 		if there is no tmp we append to the tail */
 		if (!tmp) {
 			rg->tail = tmp = CHANGE(bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(start, TRUE))));
@@ -201,7 +201,7 @@ process_cache(Tregions *rg)
 	gint handleoffset=0;
 	if (!rg->cachehead)
 		return FALSE;
-	
+
 	ch = rg->cachehead;
 	while (ch) {
 		if (ch->type == cache_changed) {
@@ -213,7 +213,7 @@ process_cache(Tregions *rg)
 		} else {
 #ifdef DEVELOPMENT
 			g_assert_not_reached();
-#endif			
+#endif
 		}
 		nextch = ch->next;
 		g_slice_free(Tcache, ch);
@@ -248,13 +248,95 @@ update_offset(Tregions *rg, guint start , gint offset)
 	add_to_cache(rg, cache_offset, start, offset);
 }
 
+static void
+update_offset(Tchange *start, gint offset)
+{
+	while (start) {
+		start->pos += offset;
+		start = start->next;
+	}
+}
+
+void
+add_region(Tregions *rg, guint markstart, guint markend, guint pos, gint offset)
+{
+
+	g_print("add_region, %u:%u, from pos=%u update offset with %d\n",markstart,markend,pos,offset);
+	if (!rg->head) {
+		/* empty region, just append the start and end */
+		rg->head = new_change(markstart, TRUE);
+		rg->tail = bf_elist_append(BF_ELIST(rg->head), BF_ELIST(new_change(markend, FALSE)));
+		return;
+	}
+	if (CHANGE(rg->tail)->pos < markstart) {
+		/* the new region is beyond the end */
+		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(markstart, TRUE)));
+		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(markend, FALSE)));
+		return;
+	}
+	if (CHANGE(rg->head)->pos > markend) {
+		/* the first region is before the current start */
+		Tchange *oldhead = rg->head;
+
+		/* if the offset is negative, we might have to remove a few entries */
+		while (rg->head->pos < pos && ) {
+
+		}
+		update_offset(oldhead, offset);
+
+
+
+		rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(markend, FALSE)));
+		rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(markstart, TRUE)));
+		return;
+	}
+	if (CHANGE(rg->tail)->pos <= markend) {
+		/* the new region ends beyond the end, but starts before */
+
+		/* first find the place where to start it */
+		while (rg->tail && CHANGE(rg->tail)->pos > markstart) {
+			rg->tail = bf_elist_remove(rg->tail); /* returns 'change->prev' if there is one */
+		}
+		if (CHANGE(rg->tail)->is_start != TRUE) {
+			if (CHANGE(rg->tail)->pos == markstart) {
+				rg->tail = bf_elist_remove(CHANGE(rg->tail));
+			} else {
+				rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(markstart, TRUE)));
+			}
+		}
+		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(markend, FALSE)));
+		return;
+	}
+
+	if (CHANGE(rg->head)->pos > markstart) {
+		/* the new region begins beyond the begin, but ends after */
+		/* first find the place where to end it */
+		while (rg->head && CHANGE(rg->head)->pos < markend) {
+			rg->head = bf_elist_remove(rg->head); /* returns 'change->prev' if there is one, but there is none, so it will return 'next' */
+		}
+		if (CHANGE(rg->head)->is_start == TRUE) {
+			if (CHANGE(rg->head)->pos == markend) {
+				rg->head = bf_elist_remove(CHANGE(rg->head));
+			} else {
+				rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(markend, FALSE)));
+			}
+		}
+		rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(markstart, TRUE)));
+		return;
+	}
+
+	/* the most complex case: it somewhere in the middle of existing regions */
+
+}
+
+
 gpointer
 get_region(Tregions *rg, gpointer cur, guint *start, guint *end)
 {
 	if (process_cache(rg)) {
 		cur = NULL;
 	}
-	
+
 	if (cur == NULL) {
 		if (rg->head==NULL) {
 			*start = BF2_OFFSET_UNDEFINED;
