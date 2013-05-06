@@ -621,13 +621,11 @@ bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * 
 {
 	DBG_SIGNALS("bftextview2_insert_text_lcb, btv=%p, master=%p, stringlen=%d\n", btv, btv->master,
 				stringlen);
+	guint charlen = g_utf8_strlen(string, stringlen);
+	guint startpos = gtk_text_iter_get_offset(iter);
 	if (btv == btv->master) {
-		foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), gtk_text_iter_get_offset(iter),
-								  g_utf8_strlen(string, stringlen));
-#ifdef MARKREGION
-		update_offset(&btv->scanning, gtk_text_iter_get_offset(iter), g_utf8_strlen(string, stringlen));
-#endif
-
+		foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), startpos,
+								  charlen);
 		}
 }
 
@@ -636,6 +634,8 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 								  gint stringlen, BluefishTextView * btv)
 {
 	GtkTextIter start, end;
+	guint charlen = g_utf8_strlen(string, stringlen);
+	guint startpos;
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb, btv=%p, master=%p, stringlen=%d, string=%s\n", btv,
 				btv->master, stringlen, string);
 	if (DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->in_paste_operation)
@@ -665,17 +665,23 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning %p\n",
 				gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needscanning);
+	startpos = gtk_text_iter_get_offset(&start);
 #ifdef MARKREGION
-	mark_region_changed(&btv->scanning, gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter));
+	markregion_insert(&btv->scanning, startpos, startpos+charlen);
+	g_print("bftextview2_insert_text_after_lcb, apply needscanning to %u:%u\n",gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter));
 #endif
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
+#ifdef MARKREGION
+	bftextview2_dump_needscanning(btv);
+#endif	
+	
 	btv->needremovetags = 0;
 	/*start_offset = gtk_text_iter_get_offset(&start); */
 
 #ifdef HAVE_LIBENCHANT
-#ifdef MARKREGION
+/*#ifdef MARKREGION
 	mark_region_changed(&btv->spellcheck, gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter));
-#endif
+#endif*/
 	DBG_SPELL("bftextview2_insert_text_after_lcb, mark area from %d to %d with tag 'needspellcheck' %p\n",
 			  gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needspellcheck);
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
@@ -1261,23 +1267,47 @@ static void
 bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 							 GtkTextIter * oend, gpointer user_data)
 {
-	gint loop;
-	GtkTextIter begin = *obegin, end = *oend;
 	BluefishTextView *btv = user_data;
+	guint so,eo;
 	DBG_SIGNALS("bftextview2_delete_range_lcb\n");
 
 	if (btv->master != btv) {
-		bftextview2_reset_user_idle_timer(btv);
 		return;
 	}
 
-	loop = gtk_text_iter_get_offset(obegin);	/* re-use the loop variable */
-	DBG_SIGNALS("bftextview2_delete_range_lcb, delete from %d to %d\n", gtk_text_iter_get_offset(obegin),
-				  gtk_text_iter_get_offset(oend));
-	foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), loop, loop - gtk_text_iter_get_offset(oend));
-#ifdef MARKREGION
-	update_offset(&btv->scanning, loop, loop - gtk_text_iter_get_offset(oend));
-#endif
+	so = gtk_text_iter_get_offset(obegin);	/* re-use the loop variable */
+	eo = gtk_text_iter_get_offset(oend);
+	DBG_SIGNALS("bftextview2_delete_range_lcb, delete from %d to %d\n", so,eo);
+	foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), so, so - eo);
+}
+
+static void
+bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
+								   GtkTextIter * oend, gpointer user_data)
+{
+	BluefishTextView *btv = user_data;
+	gint so,eo,mso,meo,loop;
+	GtkTextIter begin = *obegin, end = *oend;
+	
+	so = gtk_text_iter_get_offset(obegin);	/* re-use the loop variable */
+	eo = gtk_text_iter_get_offset(oend);
+	DBG_SIGNALS("bftextview2_delete_range_after_lcb, btv=%p, master=%p, needs_autocomp=%d\n", btv,
+				btv->master, btv->needs_autocomp);
+	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
+		&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && (btv->autocomp
+															  || main_v->props.autocomp_popup_mode != 0)) {
+		DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, before autocomp_run()\n");
+		autocomp_run(btv, FALSE);
+	}
+	DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, after run, set needs_autocomp to FALSE\n");
+	btv->needs_autocomp = FALSE;
+
+	bftextview2_reset_user_idle_timer(btv);
+	if (btv->master != btv) {
+		return;
+	}
+	
+	bftextview2_schedule_scanning(btv);
 
 	/* mark the surroundings of the text that will be deleted */
 
@@ -1294,42 +1324,28 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	loop = 0;
 	while (loop < 32 && gtk_text_iter_forward_char(&end) && !g_unichar_isspace(gtk_text_iter_get_char(&end)))
 		loop++;
+	mso = gtk_text_iter_get_offset(&begin);
+	meo = gtk_text_iter_get_offset(&end);
 	/*gtk_text_iter_backward_word_start(&begin);
 	   gtk_text_iter_forward_word_end(&end); */
 #ifdef MARKREGION
-	mark_region_changed(&btv->scanning, gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
+	markregion_delete(&btv->scanning, mso, meo, so-eo);
+	g_print("bftextview2_delete_range_lcb, apply needscanning to %u:%u\n",gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
 #endif
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
 	btv->needremovetags = 0;
 	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
 				gtk_text_iter_get_offset(&end));
 #ifdef HAVE_LIBENCHANT
-#ifdef MARKREGION
-	mark_region_changed(&btv->spellcheck, gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
-#endif
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &begin, &end);
 	DBG_SPELL("mark text from %d to %d as needspellcheck\n", gtk_text_iter_get_offset(&begin),
 			  gtk_text_iter_get_offset(&end));
 #endif							/*HAVE_LIBENCHANT */
-	bftextview2_reset_user_idle_timer(btv);
-	bftextview2_schedule_scanning(btv);
-}
 
-static void
-bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
-								   GtkTextIter * oend, gpointer user_data)
-{
-	BluefishTextView *btv = user_data;
-	DBG_SIGNALS("bftextview2_delete_range_after_lcb, btv=%p, master=%p, needs_autocomp=%d\n", btv,
-				btv->master, btv->needs_autocomp);
-	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
-		&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && (btv->autocomp
-															  || main_v->props.autocomp_popup_mode != 0)) {
-		DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, before autocomp_run()\n");
-		autocomp_run(btv, FALSE);
-	}
-	DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, after run, set needs_autocomp to FALSE\n");
-	btv->needs_autocomp = FALSE;
+	
+	
+	
+	
 }
 
 static gboolean

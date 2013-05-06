@@ -21,10 +21,11 @@
 #define _BFTEXTVIEW2_MARKREGION_H_
 
 #ifdef MARKREGION
-void mark_region_changed(Tregions *rg, guint start, guint end);
-void mark_region_done(Tregions *rg, guint end);
-void update_offset(Tregions *rg, guint start , gint offset);
-gpointer get_region(Tregions *rg, gpointer cur, guint *start, guint *end);
+void markregion_region_done(Tregions *rg, guint end);
+void markregion_insert(Tregions *rg, guint markstart, guint markend);
+void markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset);
+void markregion_nochange(Tregions *rg, guint markstart, guint markend);
+gpointer markregion_get_region(Tregions *rg, gpointer cur, guint *start, guint *end);
 #endif
 
 #endif /* _BFTEXTVIEW2_MARKREGION_H_ */
