@@ -1523,10 +1523,15 @@ char *strcasestr(char *a, char *b)
 Telist *
 bf_elist_prepend(gpointer cur, gpointer new)
 {
-	BF_ELIST(new)->prev = NULL;
 	BF_ELIST(new)->next = cur;
 	if (cur) {
+		BF_ELIST(new)->prev = BF_ELIST(cur)->prev;
+		if (BF_ELIST(cur)->prev) {
+			BF_ELIST(BF_ELIST(cur)->prev)->next = new;
+		}
 		BF_ELIST(cur)->prev = new;
+	} else {
+		BF_ELIST(new)->prev = NULL;
 	}
 	return new;
 }
@@ -1534,10 +1539,15 @@ bf_elist_prepend(gpointer cur, gpointer new)
 Telist *
 bf_elist_append(gpointer cur, gpointer new)
 {
-	BF_ELIST(new)->next = NULL;
 	BF_ELIST(new)->prev = cur;
 	if (cur) {
+		BF_ELIST(new)->next = BF_ELIST(cur)->next;
+		if (BF_ELIST(cur)->next) {
+			BF_ELIST(BF_ELIST(cur)->next)->prev = new;
+		}
 		BF_ELIST(cur)->next = new;
+	} else {
+		BF_ELIST(new)->next = NULL;
 	}
 	return new;
 }

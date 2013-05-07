@@ -375,9 +375,6 @@ static void
 mark_needscanning(BluefishTextView * btv, guint startpos, guint endpos)
 {
 	GtkTextIter it1, it2;
-#ifdef MARKREGION
-	markregion_nochange(&btv->scanning, startpos, endpos);
-#endif
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, startpos);
 	if (endpos == -1) {
 		gtk_text_buffer_get_end_iter(btv->buffer, &it2);
@@ -385,6 +382,12 @@ mark_needscanning(BluefishTextView * btv, guint startpos, guint endpos)
 		gtk_text_buffer_get_iter_at_offset(btv->buffer, &it2, endpos);
 	}
 	gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &it1, &it2);
+#ifdef MARKREGION
+	if (endpos == -1) {
+		endpos = gtk_text_iter_get_offset(&it2);
+	}
+	markregion_nochange(&btv->scanning, startpos, endpos);
+#endif
 }
 
 #ifdef UPDATE_OFFSET_DELAYED
