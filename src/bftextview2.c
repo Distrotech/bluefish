@@ -1268,7 +1268,8 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 							 GtkTextIter * oend, gpointer user_data)
 {
 	BluefishTextView *btv = user_data;
-	guint so,eo;
+	gint so,eo,mso,meo,loop,offset;
+	GtkTextIter begin = *obegin, end = *oend;
 	DBG_SIGNALS("bftextview2_delete_range_lcb\n");
 
 	if (btv->master != btv) {
@@ -1277,37 +1278,9 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 
 	so = gtk_text_iter_get_offset(obegin);	/* re-use the loop variable */
 	eo = gtk_text_iter_get_offset(oend);
-	DBG_SIGNALS("bftextview2_delete_range_lcb, delete from %d to %d\n", so,eo);
+	g_print("bftextview2_delete_range_lcb, delete from %d to %d\n", so,eo);
 	foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), so, so - eo);
-}
 
-static void
-bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
-								   GtkTextIter * oend, gpointer user_data)
-{
-	BluefishTextView *btv = user_data;
-	gint so,eo,mso,meo,loop;
-	GtkTextIter begin = *obegin, end = *oend;
-
-	so = gtk_text_iter_get_offset(obegin);	/* re-use the loop variable */
-	eo = gtk_text_iter_get_offset(oend);
-	DBG_SIGNALS("bftextview2_delete_range_after_lcb, btv=%p, master=%p, needs_autocomp=%d\n", btv,
-				btv->master, btv->needs_autocomp);
-	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
-		&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && (btv->autocomp
-															  || main_v->props.autocomp_popup_mode != 0)) {
-		DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, before autocomp_run()\n");
-		autocomp_run(btv, FALSE);
-	}
-	DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, after run, set needs_autocomp to FALSE\n");
-	btv->needs_autocomp = FALSE;
-
-	bftextview2_reset_user_idle_timer(btv);
-	if (btv->master != btv) {
-		return;
-	}
-
-	bftextview2_schedule_scanning(btv);
 
 	/* mark the surroundings of the text that will be deleted */
 
@@ -1329,14 +1302,11 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	/*gtk_text_iter_backward_word_start(&begin);
 	   gtk_text_iter_forward_word_end(&end); */
 #ifdef MARKREGION
-	markregion_delete(&btv->scanning, mso, meo, so-eo);
-	g_print("bftextview2_delete_range_lcb, apply needscanning to %u:%u\n",gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
+	offset = so-eo;
+	markregion_delete(&btv->scanning, mso, meo+offset, offset);
+	g_print("bftextview2_delete_range_lcb, apply needscanning (before offset is applied!) to %u:%u\n",gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
 #endif
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
-
-#ifdef MARKREGION
-	bftextview2_dump_needscanning(btv);
-#endif
 
 	btv->needremovetags = 0;
 	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
@@ -1346,11 +1316,38 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	DBG_SPELL("mark text from %d to %d as needspellcheck\n", gtk_text_iter_get_offset(&begin),
 			  gtk_text_iter_get_offset(&end));
 #endif							/*HAVE_LIBENCHANT */
+}
 
+static void
+bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
+								   GtkTextIter * oend, gpointer user_data)
+{
+	BluefishTextView *btv = user_data;
+	/* in delete_range_after the text has been altered, so obegin and oend now both point to 
+	the same location, where the text was deleted */
+	
+	g_print("bftextview2_delete_range_after_lcb, btv=%p, master=%p, needs_autocomp=%d\n", btv,
+				btv->master, btv->needs_autocomp);
+	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
+		&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && (btv->autocomp
+															  || main_v->props.autocomp_popup_mode != 0)) {
+		DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, before autocomp_run()\n");
+		autocomp_run(btv, FALSE);
+	}
+	DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, after run, set needs_autocomp to FALSE\n");
+	btv->needs_autocomp = FALSE;
 
+	bftextview2_reset_user_idle_timer(btv);
+	if (btv->master != btv) {
+		return;
+	}
+	bftextview2_schedule_scanning(btv);
 
-
-
+#ifdef MARKREGION
+	/* because dump_needscanning() compared needscanning and markregion code, the offset needs to be adjusted in both. 
+	for needscanning the offset is only adjusted in the 'after' callback */
+	bftextview2_dump_needscanning(btv);
+#endif
 }
 
 static gboolean

@@ -264,7 +264,7 @@ The slave widget should always be destroyed before the master.
 #define IDENTSTORING
 #define UPDATE_OFFSET_DELAYED
 
-/*#define MARKREGION*/
+#define MARKREGION
 
 #ifdef MARKREGION
 typedef struct {
