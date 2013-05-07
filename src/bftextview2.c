@@ -673,8 +673,8 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
 #ifdef MARKREGION
 	bftextview2_dump_needscanning(btv);
-#endif	
-	
+#endif
+
 	btv->needremovetags = 0;
 	/*start_offset = gtk_text_iter_get_offset(&start); */
 
@@ -1288,7 +1288,7 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	BluefishTextView *btv = user_data;
 	gint so,eo,mso,meo,loop;
 	GtkTextIter begin = *obegin, end = *oend;
-	
+
 	so = gtk_text_iter_get_offset(obegin);	/* re-use the loop variable */
 	eo = gtk_text_iter_get_offset(oend);
 	DBG_SIGNALS("bftextview2_delete_range_after_lcb, btv=%p, master=%p, needs_autocomp=%d\n", btv,
@@ -1306,7 +1306,7 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	if (btv->master != btv) {
 		return;
 	}
-	
+
 	bftextview2_schedule_scanning(btv);
 
 	/* mark the surroundings of the text that will be deleted */
@@ -1333,6 +1333,11 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	g_print("bftextview2_delete_range_lcb, apply needscanning to %u:%u\n",gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
 #endif
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
+
+#ifdef MARKREGION
+	bftextview2_dump_needscanning(btv);
+#endif
+
 	btv->needremovetags = 0;
 	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
 				gtk_text_iter_get_offset(&end));
@@ -1342,10 +1347,10 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 			  gtk_text_iter_get_offset(&end));
 #endif							/*HAVE_LIBENCHANT */
 
-	
-	
-	
-	
+
+
+
+
 }
 
 static gboolean
