@@ -568,17 +568,20 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		}
 	}
 
-	/* now see if we have to update offsets for any other founds, or if we are ready in the case that the found is beyond nextpos */
+	/* from this point on: see if we have to update offsets for any other founds, or if we are ready in the case that the found 
+	is beyond nextpos (in that case the next call to scancache_update_single_offset() will update their offsets) */
+
 	nextfound=sou->found;
 	nextsiter=sou->siter;
 	nextfound = get_foundcache_next(btv, &nextsiter);
+	/* if the nextfound is already beyond nextpos, we mark the current found as prevpos, set sou->prevoffset and return */
 	if (!nextfound || nextfound->charoffset_o + sou->prevoffset + offset >= nextpos) {
 		if (sou->found) {
 			sou->prevpos = sou->found->charoffset_o;
 			DBG_SCANCACHE("nextfound(%u)+prevoffset(%u)+offset(%u) >- nextpos(%u), so we return at the current found(%u) and set prevpos to %u as well\n"
 					,nextfound->charoffset_o, sou->prevoffset, offset, nextpos, sou->found->charoffset_o, sou->prevpos);
 		} else {
-			g_print("ABORT: no sou->found, is this possible?\n");
+			g_print("ABORT: scancache_update_single_offset, no sou->found, is this possible?\n");
 			g_assert_not_reached();
 		}
 		sou->prevoffset += offset;
@@ -587,19 +590,20 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 	sou->found = nextfound;
 	sou->siter = nextsiter;
 
+	/* if we reach this point, sou->found is NULL or points to a position before nextpos but beyond prevpos */
 #ifdef DEVELOPMENT
 	if (sou->found) {
 		if (sou->found->charoffset_o+sou->prevoffset+offset > sou->prevpos) {
 			if ((sou->found->charoffset_o + sou->prevoffset) < startpos) {
-				g_print("ABORT: sou->found->charoffset_o(%u) + sou->prevoffset(%d) < startpos(%u) (prevpos=%u)\n",
+				g_print("ABORT: scancache_update_single_offset, sou->found->charoffset_o(%u) + sou->prevoffset(%d) < startpos(%u) (prevpos=%u)\n",
 							(gint)sou->found->charoffset_o, (gint)sou->prevoffset, (gint)startpos, (gint)sou->prevpos);
 				g_assert_not_reached();
 			}
 		} else {
 
 			/*if (sou->found->charoffset_o < startpos) {*/
-			g_print("ABORT: sou->found->charoffset_o(%u) < prevpos(%u) (startpos=%u, prevoffset=%d)\n",
-							(gint)sou->found->charoffset_o, (gint)sou->prevpos, (gint)startpos, (gint)sou->prevoffset);
+			g_print("ABORT: scancache_update_single_offset, sou->found->charoffset_o(%u)+sou->prevoffset(%d)+offset(%d)=%u <= prevpos(%u) (startpos=%u, prevoffset=%d)\n",
+							sou->found->charoffset_o,sou->prevoffset,offset,sou->found->charoffset_o+sou->prevoffset+offset, (gint)sou->prevpos, (gint)startpos, (gint)sou->prevoffset);
 			g_assert_not_reached();
 			/*}*/
 		}
@@ -1499,7 +1503,7 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 #ifdef MARKREGION
 #ifdef DEVELOPMENT
 			if (bftextview2_mr_find_region2scan(btv, start, end)) {
-				g_print("ABORT: markregion has a region (%u:%u), but original code has not!!\n",
+				g_print("ABORT: bftextview2_find_region2scan, markregion has a region (%u:%u), but original code has not!!\n",
 							gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
 				g_assert_not_reached();
 			}
@@ -1533,7 +1537,7 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 			the number of chars between the regions should not be a lot more than the number of chars that
 			actually need scanning), if so merge them */
 			if ((nextitoffset - endoffset < loops_per_timer) && (nextitoffset - startoffset) < (NUM_TIMER_CHECKS_PER_RUN * loops_per_timer)) {
-				DBG_SCANNING("bftextview2_find_region2scan, next region that needs scanning starts at %d, merge them together!\n", gtk_text_iter_get_offset(&nextit));
+				g_print("bftextview2_find_region2scan, next region that needs scanning starts at %d, merge them together!\n", gtk_text_iter_get_offset(&nextit));
 				/*noneedscanning += nextitoffset-endoffset;*/
 				*end = nextit;
 				cont = TRUE;
@@ -1551,11 +1555,11 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 	{
 		GtkTextIter its,ite;
 		if (!bftextview2_mr_find_region2scan(btv, &its, &ite)) {
-			g_print("ABORT: markregion does not have a region, but original code has!!\n");
+			g_print("ABORT: bftextview2_find_region2scan, markregion does not have a region, but original code has!!\n");
 			g_assert_not_reached();
 		}
 		if (!gtk_text_iter_equal(&its, start) || !gtk_text_iter_equal(&ite, end)) {
-			g_print("ABORT: markregion (%d:%d) and original code(%d:%d) have different regions!!\n",
+			g_print("ABORT: bftextview2_find_region2scan, markregion (%d:%d) and original code(%d:%d) have different regions!!\n",
 					gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite),
 					gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
 			g_assert_not_reached();
