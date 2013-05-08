@@ -115,7 +115,7 @@ GTimer *totalruntimer = NULL;
 
 guint loops_per_timer = 1000;	/* a tunable to avoid asking time too often. this is auto-tuned. */
 
-#ifdef DUMP_SCANCACHE
+#ifdef DEVELOPMENT
 void
 dump_scancache(BluefishTextView * btv)
 {
@@ -2182,22 +2182,30 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 			break;
 
 		if (found->charoffset_o < prevfound_o) {
-			g_warning("previous found had offset %d, the next found has offset %d, not ordered correctly?!?!!\n",found->charoffset_o, prevfound_o);
+			g_warning("previous found(%p) had offset %d, the previous found had offset %d, not ordered correctly?!?!!\n",found,found->charoffset_o, prevfound_o);
+			dump_scancache(btv);
+			g_assert_not_reached();
 		} else if (found->charoffset_o == prevfound_o) {
 			g_warning("previous found and the next found have offset %d, duplicate!!\n",found->charoffset_o);
+			dump_scancache(btv);
+			g_assert_not_reached();
 		}
 		prevfound_o = found->charoffset_o;
 		if (found->numcontextchange > 0) {
 			/* push context */
 			if (found->fcontext->parentfcontext != g_queue_peek_head(&contexts)) {
 				if (found->fcontext->parentfcontext == NULL) {
-					g_warning("pushing context at %d:%d on top of non-NULL stack, but parent contexts is NULL!?\n"
-									,found->fcontext->start_o, found->fcontext->end_o);
+					g_warning("pushing context at %d:%d on top of non-NULL stack, but parent contexts is NULL!? found at %d\n"
+									,found->fcontext->start_o, found->fcontext->end_o,found->charoffset_o);
+					dump_scancache(btv);
+					g_assert_not_reached();
 				} else {
-					g_warning("pushing context at %d:%d, parent contexts at %d:%d do not match!\n"
+					g_warning("pushing context at %d:%d, parent contexts at %d:%d do not match! found at %d\n"
 									,found->fcontext->start_o, found->fcontext->end_o
 									,((Tfoundcontext *)found->fcontext->parentfcontext)->start_o
-									,((Tfoundcontext *)found->fcontext->parentfcontext)->end_o);
+									,((Tfoundcontext *)found->fcontext->parentfcontext)->end_o,found->charoffset_o);
+					dump_scancache(btv);
+					g_assert_not_reached();
 				}
 			}
 			g_queue_push_head(&contexts, found->fcontext);
@@ -2205,7 +2213,9 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 			gint i;
 			/* check the current context */
 			if (found->fcontext != g_queue_peek_head(&contexts)) {
-				g_warning("contexts don't match\n");
+				g_warning("contexts don't match, found(%p) at %d\n",found,found->charoffset_o);
+				dump_scancache(btv);
+				g_assert_not_reached();
 			}
 			i = found->numcontextchange;
 			while (i < 0) {
@@ -2216,14 +2226,18 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 
 		if (found->numblockchange > 0) {
 			if (found->fblock->parentfblock != g_queue_peek_head(&blocks)) {
-				g_warning("pushing block, parent blocks do not match!\n");
+				g_warning("pushing block, parent blocks do not match, found(%p) at %d\n",found,found->charoffset_o);
+				dump_scancache(btv);
+				g_assert_not_reached();
 			}
 			g_queue_push_head(&blocks, found->fblock);
 		} else {
 			gint i;
 			/* check the current context */
 			if (found->fblock != g_queue_peek_head(&blocks)) {
-				g_warning("blocks don't match\n");
+				g_warning("blocks don't match, found(%p) at %d\n",found,found->charoffset_o);
+				dump_scancache(btv);
+				g_assert_not_reached();
 			}
 			i = found->numblockchange;
 			while (i < 0) {
