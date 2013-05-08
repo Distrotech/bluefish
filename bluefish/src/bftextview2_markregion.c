@@ -225,14 +225,14 @@ mark_region_changed_real(Tregions *rg, guint start, guint end)
 void markregion_region_done(Tregions *rg, guint end)
 {
 	Tchange *tmp;
-	g_print("mark_region_done, end=%u\n",end);
+	g_print("markregion_region_done, end=%u\n",end);
 	if (!rg->head) {
 		return;
 	}
 	tmp = rg->head;
 	while (tmp && tmp->pos <= end) {
 		Tchange *toremove = tmp;
-/*		g_print("mark_region_done, remove change with pos=%u\n",tmp->pos);*/
+		g_print("markregion_region_done, remove change with pos=%u\n",tmp->pos);
 		tmp = CHANGE(bf_elist_remove(BF_ELIST(tmp))); /* returns the previous entry if that exists, but
 										it does not exist in this case because we remove all entries */
 		g_slice_free(Tchange, toremove);
@@ -242,17 +242,17 @@ void markregion_region_done(Tregions *rg, guint end)
 		g_print("next change at %u is a end!\n",tmp->pos);
 		if (tmp->pos == end) {
 			Tchange *toremove = tmp;
-			/*g_print("mark_region_done, remove change with pos=%u\n",toremove->pos);*/
+			g_print("markregion_region_done, remove change with pos=%u\n",toremove->pos);
 			tmp = CHANGE(bf_elist_remove(BF_ELIST(toremove)));
 			g_slice_free(Tchange, toremove);
 		} else {
-			g_print("mark_region_done, prepend change with end=%u\n",end);
+			g_print("markregion_region_done, prepend change with end=%u\n",end);
 			tmp = CHANGE(bf_elist_prepend(BF_ELIST(tmp), BF_ELIST(new_change(end, TRUE))));
 		}
 	} else {
 #ifdef DEVELOPMENT
 		if (tmp) {
-			g_print("mark_region_done, keep %u, is_start=%d\n",tmp->pos,tmp->is_start);
+			g_print("markregion_region_done, keep %u, is_start=%d\n",tmp->pos,tmp->is_start);
 		}
 #endif
 	}
@@ -261,6 +261,8 @@ void markregion_region_done(Tregions *rg, guint end)
 	if (tmp == NULL) {
 		rg->tail = NULL;
 	}
+	g_print("markregion_region_done, return, head(%d)|tail(%d)\n",rg->head?CHANGE(rg->head)->pos:-1
+						,rg->tail?CHANGE(rg->tail)->pos:-1);
 }
 /*
 gpointer
