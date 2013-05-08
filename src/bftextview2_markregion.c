@@ -231,16 +231,18 @@ void markregion_region_done(Tregions *rg, guint end)
 	}
 	tmp = rg->head;
 	while (tmp && tmp->pos <= end) {
+		Tchange *toremove = tmp;
 /*		g_print("mark_region_done, remove change with pos=%u\n",tmp->pos);*/
 		tmp = CHANGE(bf_elist_remove(BF_ELIST(tmp))); /* returns the previous entry if that exists, but
 										it does not exist in this case because we remove all entries */
+		g_slice_free(Tchange, toremove);
 	}
 	if (tmp && tmp->is_start == FALSE) {
 		/* we cannot begin our list of regions with an end-of-region, so remove it, or prepend a start position in front of it */
 		g_print("next change at %u is a end!\n",tmp->pos);
 		if (tmp->pos == end) {
 			Tchange *toremove = tmp;
-			g_print("mark_region_done, remove change with pos=%u\n",toremove->pos);
+			/*g_print("mark_region_done, remove change with pos=%u\n",toremove->pos);*/
 			tmp = CHANGE(bf_elist_remove(BF_ELIST(toremove)));
 			g_slice_free(Tchange, toremove);
 		} else {
@@ -512,8 +514,10 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 	/* oldlast has he position _before_ the deleted area */
 	if (CHANGE(oldlast)->is_start == FALSE) {
 		if (oldlast->pos == markstart) {
+			Tchange *toremove = oldlast;
 			/* previous region ends at our start, merge the previous and this region together */
 			oldlast = CHANGE(bf_elist_remove(BF_ELIST(oldlast))); /* returns 'change->prev' if there is one */
+			g_slice_free(Tchange,toremove);
 		} else {
 			/* previous region ended before our start, start a new region */
 			oldlast = CHANGE(bf_elist_append(BF_ELIST(oldlast), BF_ELIST(new_change(markstart, TRUE))));
