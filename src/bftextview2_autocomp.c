@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_autocomp.c
  *
- * Copyright (C) 2008,2009,2010,2011 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2011,2012,2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -508,18 +508,19 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 	if (G_UNLIKELY(uc > NUMSCANCHARS))
 		return;
 
+	/*identstate = g_array_index(master->bflang->st->contexts, Tcontext, contextnum).identstate;*/
+	if (!character_is_symbol(master->bflang->st,contextnum,uc)) {
+		/* current character is not a symbol! */
+		DBG_AUTOCOMP("autocomp_run, character at cursor %d '%c' is not a symbol, return\n", uc, (char) uc);
+		acwin_cleanup(btv);
+		return;
+	}
+
 	/* see if we have enough characters */
 	if (!user_requested && gtk_text_iter_get_offset(&cursorpos) - gtk_text_iter_get_offset(&iter) < main_v->props.autocomp_min_prefix_len) {
 		DBG_AUTOCOMP("autocomp_run, prefix len %d < autocomp_min_prefix_len (%d), abort!\n"
 					, gtk_text_iter_get_offset(&cursorpos) - gtk_text_iter_get_offset(&iter)
 					, main_v->props.autocomp_min_prefix_len);
-		return;
-	}
-
-	/*identstate = g_array_index(master->bflang->st->contexts, Tcontext, contextnum).identstate;*/
-	if (!character_is_symbol(master->bflang->st,contextnum,uc)) {
-		/* current character is not a symbol! */
-		DBG_AUTOCOMP("autocomp_run, character at cursor %d '%c' is not a symbol, return\n", uc, (char) uc);
 		acwin_cleanup(btv);
 		return;
 	}

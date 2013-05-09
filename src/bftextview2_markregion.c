@@ -79,6 +79,8 @@ static void
 markregion_verify_integrity(Tregions *rg)
 {
 	Tchange *end, *start = rg->head;
+	g_print("markregion_verify_integrity, started, head(%d)|tail(%d)\n",rg->head?CHANGE(rg->head)->pos:-1
+						,rg->tail?CHANGE(rg->tail)->pos:-1);
 	if (!rg->head) {
 		if (rg->tail || rg->last) {
 			g_print("ERROR: markregion_verify_integrity, !rg->head but there is a tail (%p) or last (%p) !?!?!\n",rg->tail, rg->last);
@@ -573,7 +575,9 @@ markregion_get_region(Tregions *rg, gpointer cur, guint *start, guint *end)
 #ifdef DEVELOPMENT
 	markregion_verify_integrity(rg);
 #endif
-
+	g_print("markregion_get_region, cur->pos(%d), head(%d)|tail(%d)\n",cur?CHANGE(cur)->pos:-1
+						,rg->head?CHANGE(rg->head)->pos:-1
+						,rg->tail?CHANGE(rg->tail)->pos:-1);
 	if (cur == NULL) {
 		if (rg->head==NULL) {
 			*start = BF2_OFFSET_UNDEFINED;
