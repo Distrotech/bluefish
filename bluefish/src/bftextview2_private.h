@@ -38,7 +38,7 @@ extern void g_none(char *first, ...);
 /*#define CHECK_CONSISTENCY*/
 
 #define DBG_MSG DBG_NONE
-#define DBG_SCANCACHE g_print
+#define DBG_SCANCACHE DBG_NONE
 #define DBG_SCANNING DBG_NONE
 #define DBG_BLOCKMATCH DBG_NONE
 #define DBG_PATCOMPILE DBG_NONE
