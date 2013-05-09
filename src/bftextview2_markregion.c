@@ -450,8 +450,14 @@ markregion_insert(Tregions *rg, guint markstart, guint markend)
 	gint offset = markend-markstart;
 #ifdef DEVELOPMENT
 	markregion_verify_integrity(rg);
+	if (markstart > markend) {
+		g_print("ABORT: markregion_insert, markstart > markend ?!?!?!\n");
+		g_assert_not_reached();
+	}
 #endif
 	g_print("markregion_insert, markstart=%u, markend=%u, offset=%d\n",markstart,markend,offset);
+	if (markstart == markend)
+		return;
 
 	if (markregion_handle_generic(rg, markstart, markend, markstart, offset))
 		return;
@@ -498,10 +504,31 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 
 #ifdef DEVELOPMENT
 	markregion_verify_integrity(rg);
+	if (markstart > markend) {
+		g_print("ABORT: markregion_insert, markstart > markend ?!?!?!\n");
+		g_assert_not_reached();
+	}
 #endif
 	g_print("markregion_delete, %u:%u, update offset with %d, comparepos=%d. head(%d)|tail(%d)\n",markstart,markend,offset,comparepos
 						,rg->head?CHANGE(rg->head)->pos:-1
 						,rg->tail?CHANGE(rg->tail)->pos:-1);
+	if (markstart == 0 && markend == 0 && rg->tail) {
+		rg->last = rg->head;
+		while(rg->last && CHANGE(rg->last)->pos <= comparepos) {
+			Tchange *toremove = CHANGE(rg->last);
+			rg->last = CHANGE(rg->last)->next;
+			bf_elist_remove(BF_ELIST(toremove));
+			g_print("markregion_delete, remove pos=%u, because it is lower than %d\n",toremove->pos,comparepos);
+			g_slice_free(Tchange, toremove);
+		}
+		rg->head = rg->last;
+		if (!rg->last) {
+			rg->tail = NULL;
+		}
+	}
+	if (markstart == markend) {
+		 return;
+	}
 
 	if (markregion_handle_generic(rg, markstart, markend, comparepos, offset))
 		return;
@@ -543,7 +570,7 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 
 	if (rg->last && CHANGE(rg->last)->pos == comparepos && CHANGE(rg->last)->is_start == TRUE) {
 		/* if rg->last equals comparepos and is a start, we can remove it to merge the regions. if it is a start, 
-		there should also be an end, so removing this entry should now delete the tail! */
+		there should also be an end, so removing this entry should not delete the tail! */
 		Tchange *toremove = CHANGE(rg->last);
 		rg->last = CHANGE(rg->last)->next;
 #ifdef DEVELOPMENT
