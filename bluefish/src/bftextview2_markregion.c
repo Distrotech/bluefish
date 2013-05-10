@@ -17,6 +17,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* markregion design:
+
+the markregion code is used to mark which characters of the BluefishTextView need
+to be re-scanned for syntax, or for spell checking. Each document has a
+separate Tregions structure for syntax scanning and spell checking in BluefishTextView 
+
+The Tregions simply point to a head and tail of a double linked list of Tchange elements.
+
+After syntax scanning is complete and spell checking is complete these regions are empty.
+
+So usually the list is very short, and if the list is long (for example after tabs-to-spaces 
+or another function that does many text changes in one go) it is usually only appended to
+because these functions start in the beginning of the text and work towards the end. That's 
+why a linked list is good enough, and a balanced tree would probably be worse in performance. 
+
+The list has two entries for each sequence of characters that need rescanning/spellchecking,
+one entry positions the start, the second entry positions the end.
+*/
+
 #include "bluefish.h"
 #include "bf_lib.h"
 #include "bftextview2_private.h"
@@ -149,80 +168,6 @@ new_change(guint pos, gboolean is_start)
 	change->is_start = is_start;
 	return change;
 }
-/*
-static void
-insert_start_and_end(Tregions *rg, guint start, guint end)
-{
-	Tchange *tmp = rg->head;
-	/ * insert start * /
-	if (tmp->pos > start) {
-		rg->head = bf_elist_prepend(rg->head, new_change(start, TRUE));
-		tmp = rg->head;
-	} else {
-		while (tmp && tmp->pos < start) {
-			tmp = tmp->next;
-		}
-		/ * if tmp->is_start == FALSE we don't need to insert a new start, because
-		the previous start is valid
-		if there is no tmp we append to the tail * /
-		if (!tmp) {
-			rg->tail = tmp = CHANGE(bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(start, TRUE))));
-		} else if (tmp->is_start == TRUE) {
-			tmp = (Tchange *)bf_elist_prepend(BF_ELIST(tmp), new_change(start, TRUE));
-		} else {
-			tmp = tmp->prev;
-		}
-	}
-	/ * tmp now points to the start position, continue to the end position * /
-	while (tmp && tmp->pos < end) {
-		Tchange *toremove = tmp;
-		tmp = CHANGE(bf_elist_remove(BF_ELIST(toremove))); / * returns the previous entry if there is one * /
-		g_slice_free(Tchange, toremove);
-		tmp = tmp->next;
-	}
-	if (!tmp) {
-		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(end, FALSE)));
-		return;
-	}
-
-	/ * if tmp->is_start == FALSE we do not have to do anything:
-		the already existing region ends on or beyond the region we are ending now, so use
-		the existing end and merge them together * /
-	if (tmp->is_start == TRUE) {
-		if (tmp->pos == end) {
-			Tchange *toremove = tmp;
-			/ * the end of the current region starts the next region, simply remove
-			the start of the next region so they form a continuous region * /
-			bf_elist_remove(BF_ELIST(toremove));
-			g_slice_free(Tchange, toremove);
-		} else {
-			bf_elist_prepend(BF_ELIST(tmp), BF_ELIST(new_change(end, FALSE)));
-		}
-	}
-}
-
-void
-mark_region_changed_real(Tregions *rg, guint start, guint end)
-{
-	g_print("mark_region_changed, %u:%u\n",start,end);
-	if (!rg->head) {
-		rg->head = new_change(start, TRUE);
-		rg->tail = bf_elist_append(BF_ELIST(rg->head), BF_ELIST(new_change(end, FALSE)));
-		return;
-	}
-
-	if (CHANGE(rg->tail)->pos < start) {
-		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(start, TRUE)));
-		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(end, FALSE)));
-		return;
-	} else if (CHANGE(rg->head)->pos > end){
-		rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(end, FALSE)));
-		rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(start, TRUE)));
-		return;
-	}
-
-	insert_start_and_end(rg, start, end);
-}*/
 
 void markregion_region_done(Tregions *rg, guint end)
 {
@@ -266,105 +211,6 @@ void markregion_region_done(Tregions *rg, guint end)
 	g_print("markregion_region_done, return, head(%d)|tail(%d)\n",rg->head?CHANGE(rg->head)->pos:-1
 						,rg->tail?CHANGE(rg->tail)->pos:-1);
 }
-/*
-gpointer
-update_offset_real(Tregions *rg, gpointer cur, guint start , gint offset, guint nextpos)
-{
-	g_print("update_offset, start=%u, offset=%d, nextpos=%u\n",start,offset,nextpos);
-	if (cur == NULL) {
-		cur = rg->head;
-		while (cur && CHANGE(cur)->pos <= start) {
-			cur = CHANGE(cur)->next;
-		}
-	}
-	g_print("update_offset, start at cur->pos=%u\n",cur ? CHANGE(cur)->pos : -1);
-	while (cur && CHANGE(cur)->pos+offset < nextpos) {
-		g_print("update_offset, update cur->pos=%u to %u\n",CHANGE(cur)->pos, CHANGE(cur)->pos + offset);
-		CHANGE(cur)->pos += offset;
-		cur = CHANGE(cur)->next;
-	}
-	return cur;
-}
-
-typedef enum {
-	cache_changed,
-	cache_offset
-} Tcachetype;
-
-typedef struct {
-	BF_ELIST_HEAD;
-	Tcachetype type;
-	gint val1;
-	gint val2;
-} Tcache;
-
-static guint
-cache_get_nextpos(Tcache *startch)
-{
-	Tcache *ch = startch->next;
-	while (ch) {
-		if (ch->type == cache_offset) {
-			return ch->val1;
-		}
-		ch = ch->next;
-	}
-	return BF2_OFFSET_UNDEFINED;
-}
-
-static gboolean
-process_cache(Tregions *rg)
-{
-	Tcache *ch, *nextch;
-	gpointer cur=NULL;
-	gint handleoffset=0;
-	if (!rg->cachehead)
-		return FALSE;
-
-	ch = rg->cachehead;
-	while (ch) {
-		if (ch->type == cache_changed) {
-			mark_region_changed_real(rg, ch->val1, ch->val2);
-		} else if (ch->type == cache_offset) {
-			guint nextpos = cache_get_nextpos(ch);
-			handleoffset += ch->val2;
-			cur = update_offset_real(rg, cur, ch->val1 , handleoffset, nextpos);
-		} else {
-#ifdef DEVELOPMENT
-			g_assert_not_reached();
-#endif
-		}
-		nextch = ch->next;
-		g_slice_free(Tcache, ch);
-		ch = nextch;
-	}
-	rg->cachehead = rg->cachetail = NULL;
-	return TRUE;
-}
-
-static void
-add_to_cache(Tregions *rg, Tcachetype type, gint val1, gint val2)
-{
-	Tcache *ch = g_slice_new(Tcache);
-	ch->prev = ch->next = NULL;
-	ch->val1 = val1;
-	ch->val2 = val2;
-	ch->type = type;
-	rg->cachetail = bf_elist_append(rg->cachetail, ch);
-	if (!rg->cachehead)
-		rg->cachehead = rg->cachetail;
-}
-
-void
-mark_region_changed(Tregions *rg, guint start, guint end)
-{
-	add_to_cache(rg, cache_changed, start, end);
-}
-
-void
-update_offset(Tregions *rg, guint start , gint offset)
-{
-	add_to_cache(rg, cache_offset, start, offset);
-}*/
 
 static void
 update_offset(Tchange *start, gint offset)
@@ -637,6 +483,5 @@ markregion_get_region(Tregions *rg, gpointer cur, guint *start, guint *end)
 	g_print("markregion_get_region, start=%u,end=%u,cur->pos(%d)\n",*start,*end,cur?CHANGE(cur)->pos:-1);
 	return cur;
 }
-
 
 #endif
