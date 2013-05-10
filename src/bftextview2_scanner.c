@@ -1588,7 +1588,8 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 	{
 		GtkTextIter its,ite;
 		if (!bftextview2_mr_find_region2scan(btv, &its, &ite)) {
-			g_print("ABORT: bftextview2_find_region2scan, markregion does not have a region, but original code has!!\n");
+			g_print("ABORT: bftextview2_find_region2scan, markregion does not have a region, but original code has %u:%u!!\n",
+						gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
 			g_assert_not_reached();
 		}
 		if (!gtk_text_iter_equal(&its, start) || !gtk_text_iter_equal(&ite, end)) {

@@ -2126,6 +2126,9 @@ bluefish_text_view_rescan(BluefishTextView * btv)
 		GtkTextIter start, end;
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv->master));
 		gtk_text_buffer_get_bounds(buffer, &start, &end);
+#ifdef MARKREGION
+		markregion_nochange(&btv->scanning, gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
+#endif
 		gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(btv->master)->needscanning, &start, &end);
 		btv->needremovetags = 0;
 #ifdef HAVE_LIBENCHANT
