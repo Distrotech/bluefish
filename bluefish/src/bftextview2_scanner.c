@@ -523,16 +523,20 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 	if (offset < 0 /* text was deleted*/ ) {
 		Tfound *tmpfound = sou->found;
 		GSequenceIter *tmpsiter=sou->siter;
+		g_print("before get_foundcache_next, tmpfound is at %u\n",tmpfound->charoffset_o);
 		tmpfound = get_foundcache_next(btv, &tmpsiter);
+		g_print("after get_foundcache_next, tmpfound is at %u\n",tmpfound->charoffset_o);
 
 #ifdef DEVELOPMENT
 		if (tmpfound)
 			g_print("tmpfound->charoffset_o=%d, startpos=%u\n",(gint)sou->found->charoffset_o, (gint)startpos);
 
-		/* we should have a found now that has offset > startpos and thus it should be beyond prevpos as well */
+		/* we should have a tmpfound now that has offset > startpos and thus it should be beyond prevpos as well */
 		if (tmpfound && ((gint)(tmpfound->charoffset_o+sou->prevoffset)) < startpos) {
-			g_print("ABORT: tmpfound->charoffset_o(%u) + sou->prevoffset(%d) < startpos(%u) (prevpos=%u)\n",
-								(gint)sou->found->charoffset_o, (gint)sou->prevoffset, (gint)startpos, (gint)sou->prevpos);
+			g_print("ABORT: tmpfound->charoffset_o(%u)+sou->prevoffset(%d)=%u < startpos(%u) (prevpos=%u)\n",
+								(gint)tmpfound->charoffset_o, (gint)sou->prevoffset,
+								(gint)tmpfound->charoffset_o+sou->prevoffset,
+								(gint)startpos, (gint)sou->prevpos);
 			g_assert_not_reached();
 		}
 #endif
@@ -578,18 +582,29 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 	nextsiter=sou->siter;
 	nextfound = get_foundcache_next(btv, &nextsiter);
 	if (nextfound && ((gint)nextfound->charoffset_o + sou->prevoffset) == ((gint)startpos)) {
-		/* nextfound is at the startpos itself, beyond here we need to correct with 'offset', but this one needs only correction with 'prevoffset' */
+		g_print("nextfound(%u)+prevoffset(%d)=%u is at the startpos(%u) itself, so handleoffset=%d\n",
+					nextfound->charoffset_o,
+					sou->prevoffset,
+					nextfound->charoffset_o+sou->prevoffset,
+					startpos,
+					handleoffset);
+		/* nextfound is at the startpos itself, beyond here we need to correct with 'offset+prevoffset', but this one needs only correction with 'prevoffset' */
 	} else {
+		g_print("update handleoffset(%d)+offset(%d)=%d\n",handleoffset,offset,handleoffset+offset);
 		handleoffset += offset;
 	}
-	
 
-	g_print("found(%p) was at %d, nextfound(%p) is at %d\n",sou->found,sou->found->charoffset_o,nextfound,nextfound?nextfound->charoffset_o:-1);
+	g_print("found(%p) was at %d, nextfound(%d)+handleoffset(%d)=%d, nextpos=%u\n",sou->found
+							, sou->found->charoffset_o
+							, nextfound?nextfound->charoffset_o:-1
+							, handleoffset
+							, nextfound?nextfound->charoffset_o+handleoffset:-1 
+							, nextpos);
 	/* if the nextfound is already beyond nextpos, we mark the current found as prevpos, set sou->prevoffset and return */
 	if (!nextfound || ((gint)nextfound->charoffset_o + handleoffset) >= ((gint)nextpos)) {
 		if (sou->found) {
 			sou->prevpos = sou->found->charoffset_o;
-			DBG_SCANCACHE("nextfound(%u)+handleoffset(%d)=%d >- nextpos(%u), so we return at the current found(%u) and set prevpos to %u as well\n"
+			g_print("nextfound(%u)+handleoffset(%d)=%d >= nextpos(%u), so we return at the current found(%u) and set prevpos to %u as well\n"
 					,nextfound->charoffset_o, handleoffset, nextfound->charoffset_o+handleoffset,nextpos, sou->found->charoffset_o, sou->prevpos);
 		} else {
 			g_print("ABORT: scancache_update_single_offset, no sou->found, is this possible?\n");
@@ -622,16 +637,12 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 #endif
 
 
-	while (sou->found && ((gint)sou->found->charoffset_o+sou->prevoffset+offset) < ((gint)nextpos)) {
+	while (sou->found && ((gint)sou->found->charoffset_o+handleoffset) < ((gint)nextpos)) {
 		Tfound *tmpfound = sou->found;
 		GSequenceIter *tmpsiter=sou->siter;
 		/* loop over all the remaining entries in the cache < nextpos
 		for all further founds, we only handle the pushedblock and pushedcontext, and
 		we update both start and end of the blocks and contexts */
-
-		if (sou->found && sou->found->charoffset_o > sou->prevpos && handleoffset == offset) {
-			handleoffset += sou->prevoffset;
-		}
 
 		DBG_SCANCACHE
 			("scancache_update_single_offset, about to update found %p with charoffset %u to %u, fcontext %p and fblock %p\n",
@@ -666,10 +677,17 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		sou->found->charoffset_o += handleoffset;
 
 		tmpfound = get_foundcache_next(btv, &tmpsiter);
-		if (!tmpfound || ((gint)tmpfound->charoffset_o+sou->prevoffset+offset) >= ((gint)nextpos)) {
+		if (tmpfound && tmpfound->charoffset_o > sou->prevpos && handleoffset == sou->prevoffset) {
+			g_print("tmpfound(%u) > prevpos(%u), update handleoffset\n",tmpfound->charoffset_o,sou->prevpos);
+			handleoffset += offset;
+		}
+
+		if (!tmpfound || ((gint)tmpfound->charoffset_o+handleoffset) >= ((gint)nextpos)) {
 #ifdef DEVELOPMENT
 			if (tmpfound)
-				DBG_SCANCACHE("abort loop, tmpfound->charoffset=%u+sou->prevoffset=%d+offset=%d >= nextpos=%u\n",tmpfound->charoffset_o,sou->prevoffset,offset, nextpos);
+				g_print("abort loop, tmpfound->charoffset=%u+handleoffset=%d=%d >= nextpos=%u\n",tmpfound->charoffset_o,handleoffset,
+						tmpfound->charoffset_o+handleoffset,
+						nextpos);
 #endif
 			break;
 		}
