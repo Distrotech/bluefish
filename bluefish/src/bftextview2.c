@@ -624,9 +624,8 @@ bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * 
 	guint charlen = g_utf8_strlen(string, stringlen);
 	guint startpos = gtk_text_iter_get_offset(iter);
 	if (btv == btv->master) {
-		foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), startpos,
-								  charlen);
-		}
+		foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master),startpos,charlen);
+	}
 }
 
 static void
@@ -661,7 +660,7 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 	}
 	/* mark the text that is changed */
 	end = start = *iter;
-	gtk_text_iter_backward_chars(&start, stringlen);
+	gtk_text_iter_backward_chars(&start, charlen);
 
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning %p\n",
 				gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needscanning);
