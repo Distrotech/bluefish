@@ -1503,6 +1503,7 @@ bftextview2_mr_find_region2scan(BluefishTextView * btv, GtkTextIter * sit, GtkTe
 	if (start == BF2_OFFSET_UNDEFINED) {
 		return FALSE;
 	}
+	g_print("bftextview2_mr_find_region2scan, got region %u:%u\n",start,end);
 	while (tmp && cont) {
 		guint start2, end2;
 		cont=FALSE;
@@ -1532,7 +1533,6 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 		if (!gtk_text_iter_forward_to_tag_toggle(start, btv->needscanning)) {
 			/* nothing to scan */
 			DBG_DELAYSCANNING("bftextview2_find_region2scan, nothing to scan..\n");
-
 #ifdef MARKREGION
 #ifdef DEVELOPMENT
 			if (bftextview2_mr_find_region2scan(btv, start, end)) {
@@ -1542,7 +1542,6 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 			}
 #endif
 #endif
-
 			return FALSE;
 		}
 	}
