@@ -523,9 +523,9 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 	if (offset < 0 /* text was deleted*/ ) {
 		Tfound *tmpfound = sou->found;
 		GSequenceIter *tmpsiter=sou->siter;
-		g_print("before get_foundcache_next, tmpfound is at %u\n",tmpfound->charoffset_o);
+		g_print("before get_foundcache_next, tmpfound is at %u\n",tmpfound?tmpfound->charoffset_o:-1);
 		tmpfound = get_foundcache_next(btv, &tmpsiter);
-		g_print("after get_foundcache_next, tmpfound is at %u\n",tmpfound->charoffset_o);
+		g_print("after get_foundcache_next, tmpfound is at %u\n",tmpfound?tmpfound->charoffset_o:-1);
 
 #ifdef DEVELOPMENT
 		if (tmpfound)
