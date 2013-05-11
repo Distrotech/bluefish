@@ -32,7 +32,7 @@ extern void g_none(char *first, ...);
 
 #define CURRENT_BFLANG2_VERSION "2.0"
 
-#define BF2_OFFSET_UNDEFINED G_MAXUINT32
+#define BF2_OFFSET_UNDEFINED G_MAXINT32
 
 /*#define DUMP_SCANCACHE*/
 /*#define CHECK_CONSISTENCY*/
@@ -62,7 +62,7 @@ typedef struct {
 	gint32 offset;
 } Toffsetupdate;
 #define OFFSETUPDATE(var) ((Toffsetupdate *)var)
-#define BF_POSITION_UNDEFINED G_MAXUINT32
+#define BF_POSITION_UNDEFINED G_MAXINT32
 
 #endif
 

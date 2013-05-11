@@ -601,11 +601,16 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 							, nextfound?nextfound->charoffset_o+handleoffset:-1 
 							, nextpos);
 	/* if the nextfound is already beyond nextpos, we mark the current found as prevpos, set sou->prevoffset and return */
-	if (!nextfound || ((gint)nextfound->charoffset_o + handleoffset) >= ((gint)nextpos)) {
+	if (!nextfound || (((gint)nextfound->charoffset_o) + handleoffset) >= ((gint)nextpos)) {
 		if (sou->found) {
 			sou->prevpos = sou->found->charoffset_o;
 			g_print("nextfound(%u)+handleoffset(%d)=%d >= nextpos(%u), so we return at the current found(%u) and set prevpos to %u as well\n"
-					,nextfound->charoffset_o, handleoffset, nextfound->charoffset_o+handleoffset,nextpos, sou->found->charoffset_o, sou->prevpos);
+					,nextfound?nextfound->charoffset_o:-1
+					, handleoffset
+					, nextfound?nextfound->charoffset_o+handleoffset:-1
+					,nextpos
+					, sou->found->charoffset_o
+					, sou->prevpos);
 		} else {
 			g_print("ABORT: scancache_update_single_offset, no sou->found, is this possible?\n");
 			g_assert_not_reached();
