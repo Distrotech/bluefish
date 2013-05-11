@@ -61,7 +61,8 @@ bftextview2_dump_needscanning(BluefishTextView *btv) {
 	Tchange *cso, *ceo;
 	guint so,eo;
 	GtkTextIter start,end;
-/*	g_print("*****\n");*/
+	g_print("bftextview2_dump_needscanning, started, markregion has head(%d)|tail(%d)\n",btv->scanning.head?CHANGE(btv->scanning.head)->pos:-1
+						,btv->scanning.tail?CHANGE(btv->scanning.tail)->pos:-1);
 	gtk_text_buffer_get_start_iter(btv->buffer, &start);
 	cso = CHANGE(btv->scanning.head);
 	while (cont) {

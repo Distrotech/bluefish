@@ -383,7 +383,7 @@ mark_needscanning(BluefishTextView * btv, guint startpos, guint endpos)
 	}
 	gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &it1, &it2);
 #ifdef MARKREGION
-	if (endpos == -1) {
+	if (endpos == -1 || endpos == BF_POSITION_UNDEFINED) {
 		endpos = gtk_text_iter_get_offset(&it2);
 	}
 	markregion_nochange(&btv->scanning, startpos, endpos);
