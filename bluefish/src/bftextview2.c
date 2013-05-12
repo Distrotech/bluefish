@@ -1322,9 +1322,9 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 								   GtkTextIter * oend, gpointer user_data)
 {
 	BluefishTextView *btv = user_data;
-	/* in delete_range_after the text has been altered, so obegin and oend now both point to 
+	/* in delete_range_after the text has been altered, so obegin and oend now both point to
 	the same location, where the text was deleted */
-	
+
 	g_print("bftextview2_delete_range_after_lcb, btv=%p, master=%p, needs_autocomp=%d\n", btv,
 				btv->master, btv->needs_autocomp);
 	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
@@ -1343,7 +1343,7 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	bftextview2_schedule_scanning(btv);
 
 #ifdef MARKREGION
-	/* because dump_needscanning() compared needscanning and markregion code, the offset needs to be adjusted in both. 
+	/* because dump_needscanning() compared needscanning and markregion code, the offset needs to be adjusted in both.
 	for needscanning the offset is only adjusted in the 'after' callback */
 	bftextview2_dump_needscanning(btv);
 #endif
