@@ -21,16 +21,16 @@
 
 the markregion code is used to mark which characters of the BluefishTextView need
 to be re-scanned for syntax, or for spell checking. Each document has a
-separate Tregions structure for syntax scanning and spell checking in BluefishTextView 
+separate Tregions structure for syntax scanning and spell checking in BluefishTextView
 
 The Tregions simply point to a head and tail of a double linked list of Tchange elements.
 
 After syntax scanning is complete and spell checking is complete these regions are empty.
 
-So usually the list is very short, and if the list is long (for example after tabs-to-spaces 
+So usually the list is very short, and if the list is long (for example after tabs-to-spaces
 or another function that does many text changes in one go) it is usually only appended to
-because these functions start in the beginning of the text and work towards the end. That's 
-why a linked list is good enough, and a balanced tree would probably be worse in performance. 
+because these functions start in the beginning of the text and work towards the end. That's
+why a linked list is good enough, and a balanced tree would probably be worse in performance.
 
 The list has two entries for each sequence of characters that need rescanning/spellchecking,
 one entry positions the start, the second entry positions the end.
@@ -108,7 +108,7 @@ markregion_verify_integrity(Tregions *rg)
 		}
 		return;
 	}
-	
+
 /*	g_print("* * * * *\n");*/
 	if (CHANGE(rg->head)->prev) {
 		g_print("ERROR: markregion_verify_integrity, rg->head has a previous entry !?!?!\n");
@@ -153,7 +153,7 @@ markregion_verify_integrity(Tregions *rg)
 				g_print("ERROR: markregion_verify_integrity, rg->tail(%u) does not equal the last entry %u ?!?\n",CHANGE(rg->tail)->pos, end->pos);
 				g_assert_not_reached();
 			}
-			
+
 		}
 	}
 /*	g_print("* * * * *\n");*/
@@ -416,7 +416,7 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 	}
 
 	if (rg->last && CHANGE(rg->last)->pos == comparepos && CHANGE(rg->last)->is_start == TRUE) {
-		/* if rg->last equals comparepos and is a start, we can remove it to merge the regions. if it is a start, 
+		/* if rg->last equals comparepos and is a start, we can remove it to merge the regions. if it is a start,
 		there should also be an end, so removing this entry should not delete the tail! */
 		Tchange *toremove = CHANGE(rg->last);
 		rg->last = CHANGE(rg->last)->next;

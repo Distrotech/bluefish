@@ -372,7 +372,7 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 }
 
 static void
-mark_needscanning(BluefishTextView * btv, guint startpos, guint endpos)
+mark_needscanning(BluefishTextView * btv, gint startpos, gint endpos)
 {
 	GtkTextIter it1, it2;
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, startpos);
@@ -383,7 +383,9 @@ mark_needscanning(BluefishTextView * btv, guint startpos, guint endpos)
 	}
 	gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &it1, &it2);
 #ifdef MARKREGION
-	if (endpos == -1 || endpos == BF_POSITION_UNDEFINED) {
+	g_print("mark_needscanning, markregion_nochange() was called with %d:%d\n",startpos,endpos);
+	if (endpos == -1 || endpos == BF_POSITION_UNDEFINED || endpos == BF2_OFFSET_UNDEFINED) {
+		gtk_text_buffer_get_end_iter(btv->buffer, &it2);
 		endpos = gtk_text_iter_get_offset(&it2);
 	}
 	markregion_nochange(&btv->scanning, startpos, endpos);
@@ -553,12 +555,12 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 				if (numblockchange > 0) {
 					/* we have to enlarge needscanning to the place where this was popped */
 					DBG_SCANCACHE("scancache_update_single_offset, found pushed a block, mark obsolete block %u:%u as needscanning\n",tmpfound->fblock->start1_o, tmpfound->fblock->end2_o);
-					mark_needscanning(btv, tmpfound->fblock->start1_o+sou->prevoffset, tmpfound->fblock->end2_o+sou->prevoffset);
+					mark_needscanning(btv, tmpfound->fblock->start1_o+sou->prevoffset, tmpfound->fblock->end2_o==BF2_OFFSET_UNDEFINED ? -1 : tmpfound->fblock->end2_o+sou->prevoffset);
 				}
 				if (tmpfound->numcontextchange > 0) {
 					/* we have to enlarge needscanning to the place where this was popped */
 					DBG_SCANCACHE("scancache_update_single_offset, found pushed a context, mark obsolete context %u:%u as needscanning\n",tmpfound->fcontext->start_o, tmpfound->fcontext->end_o);
-					mark_needscanning(btv, tmpfound->fcontext->start_o+sou->prevoffset, tmpfound->fcontext->end_o+sou->prevoffset);
+					mark_needscanning(btv, tmpfound->fcontext->start_o+sou->prevoffset, tmpfound->fcontext->end_o==BF2_OFFSET_UNDEFINED ? -1 : tmpfound->fcontext->end_o+sou->prevoffset);
 				}
 				remove_cache_entry(btv, &tmpfound, &tmpsiter, NULL, NULL);
 				if (!tmpfound && (numblockchange < 0)) {
@@ -575,7 +577,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		}
 	}
 
-	/* from this point on: see if we have to update offsets for any other founds, or if we are ready in the case that the found 
+	/* from this point on: see if we have to update offsets for any other founds, or if we are ready in the case that the found
 	is beyond nextpos (in that case the next call to scancache_update_single_offset() will update their offsets) */
 
 	nextfound=sou->found;
@@ -598,7 +600,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 							, sou->found->charoffset_o
 							, nextfound?nextfound->charoffset_o:-1
 							, handleoffset
-							, nextfound?nextfound->charoffset_o+handleoffset:-1 
+							, nextfound?nextfound->charoffset_o+handleoffset:-1
 							, nextpos);
 	/* if the nextfound is already beyond nextpos, we mark the current found as prevpos, set sou->prevoffset and return */
 	if (!nextfound || (((gint)nextfound->charoffset_o) + handleoffset) >= ((gint)nextpos)) {
