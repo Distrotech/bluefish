@@ -139,7 +139,7 @@ get_existing_end_len(BluefishTextView * btv, const gchar *string, gint prefix_by
 	g_print("got tmp='%s'\n",tmp);
 	i = strlen(tmp);
 	do {
-		if (strncmp(string+prefix_bytelen+i, tmp, i)) {
+		if (strncmp(string+prefix_bytelen+i, tmp, i)==0) {
 			g_print("get_existing_end_len, found %d existing characters\n",i);
 			g_free(tmp);
 			return i;
