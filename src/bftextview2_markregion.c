@@ -314,7 +314,7 @@ markregion_insert(Tregions *rg, guint markstart, guint markend)
 	if (markstart == markend)
 		return;
 
-	if (markregion_handle_generic(rg, markstart, markend, markend, offset))
+	if (markregion_handle_generic(rg, markstart, markend, markstart, offset))
 		return;
 
 	/* insert somewhere within the existing regions */
