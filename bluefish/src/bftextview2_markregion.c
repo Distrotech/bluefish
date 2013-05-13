@@ -69,6 +69,10 @@ bftextview2_dump_needscanning(BluefishTextView *btv) {
 		if (!gtk_text_iter_begins_tag(&start, btv->needscanning)) {
 			if (!gtk_text_iter_forward_to_tag_toggle(&start, btv->needscanning)) {
 				cont=FALSE;
+				if (cso) {
+					g_print("ABORT: needscanning has no further region, markregion has cso=%d, ceo=%d\n",cso->pos, cso->next?CHANGE(cso->next)->pos:-1);
+					g_assert_not_reached();
+				}
 				break;
 			}
 		}
@@ -86,10 +90,14 @@ bftextview2_dump_needscanning(BluefishTextView *btv) {
 			g_print("ABORT: needscanning has %u:%u, markregion has %u:%u\n",so,eo,cso->pos,ceo->pos);
 			g_assert_not_reached();
 		}
-/*		g_print("region %u:%u\n",so,eo);*/
+		g_print("region %u:%u\n",so,eo);
 		start = end;
 		cso = ceo->next;
 		cont = gtk_text_iter_forward_char(&start);
+		if (!cont && cso) {
+			g_print("ABORT: buffer has no further characters, markregion has cso=%d, ceo=%d\n",cso->pos, cso->next?CHANGE(cso->next)->pos:-1);
+			g_assert_not_reached();
+		}
 	}
 /*	g_print("*****\n");*/
 }
@@ -306,11 +314,14 @@ markregion_insert(Tregions *rg, guint markstart, guint markend)
 	if (markstart == markend)
 		return;
 
-	if (markregion_handle_generic(rg, markstart, markend, markstart, offset))
+	if (markregion_handle_generic(rg, markstart, markend, markend, offset))
 		return;
 
 	/* insert somewhere within the existing regions */
 	rg->last = find_prev_or_equal_position(rg, markstart);
+	if (!rg->last && CHANGE(rg->head)->pos > markstart) {
+		rg->head = rg->last = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(markstart, TRUE)));
+	}
 	if (CHANGE(rg->last)->is_start == TRUE) {
 		/* only update the offset */
 		g_print("update offset, starting at %u\n",CHANGE(CHANGE(rg->last)->next)->pos);
