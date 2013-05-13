@@ -42,6 +42,20 @@ one entry positions the start, the second entry positions the end.
 #include "bftextview2_markregion.h"
 
 #ifdef MARKREGION
+#define PROFILE_MARKREGION
+
+#ifdef PROFILE_MARKREGION
+typedef struct {
+	gint num_list_walks;
+	gint num_region_changes;
+	gint num_new;
+	gint num_full_append;
+	gint num_full_prepend;
+	gint num_insert;
+	gint num_allocs;
+} Tprofile_markregion;
+Tprofile_markregion prof = {0,0,0,0,0,0,0};
+#endif
 
 typedef struct {
 	BF_ELIST_HEAD;
@@ -175,12 +189,18 @@ new_change(guint pos, gboolean is_start)
 	change->next = change->prev = NULL;
 	change->pos = pos;
 	change->is_start = is_start;
+#ifdef PROFILE_MARKREGION
+	prof.num_allocs++;
+#endif
 	return change;
 }
 
 void markregion_region_done(Tregions *rg, guint end)
 {
 	Tchange *tmp;
+#ifdef PROFILE_MARKREGION
+	prof.num_region_changes++;
+#endif
 	g_print("markregion_region_done, end=%u\n",end);
 	if (!rg->head) {
 		return;
@@ -192,6 +212,10 @@ void markregion_region_done(Tregions *rg, guint end)
 		tmp = CHANGE(bf_elist_remove(BF_ELIST(tmp))); /* returns the previous entry if that exists, but
 										it does not exist in this case because we remove all entries */
 		g_slice_free(Tchange, toremove);
+#ifdef PROFILE_MARKREGION
+		prof.num_allocs--;
+		prof.num_list_walks++;
+#endif
 	}
 	if (tmp && tmp->is_start == FALSE) {
 		/* we cannot begin our list of regions with an end-of-region, so remove it, or prepend a start position in front of it */
@@ -200,6 +224,9 @@ void markregion_region_done(Tregions *rg, guint end)
 			Tchange *toremove = tmp;
 			g_print("markregion_region_done, remove change with pos=%u\n",toremove->pos);
 			tmp = CHANGE(bf_elist_remove(BF_ELIST(toremove)));
+#ifdef PROFILE_MARKREGION
+			prof.num_allocs--;
+#endif
 			g_slice_free(Tchange, toremove);
 		} else {
 			g_print("markregion_region_done, prepend change with end=%u\n",end);
@@ -219,6 +246,15 @@ void markregion_region_done(Tregions *rg, guint end)
 	}
 	g_print("markregion_region_done, return, head(%d)|tail(%d)\n",rg->head?CHANGE(rg->head)->pos:-1
 						,rg->tail?CHANGE(rg->tail)->pos:-1);
+#ifdef PROFILE_MARKREGION
+	g_print("***\nmarkregion profiling: changes:%d, allocs=%d, walks=%d, new/append/prepend/insert=%f/%f/%f/%f\n***\n",
+				prof.num_region_changes, prof.num_allocs, prof.num_list_walks,
+				100.0 * prof.num_new / prof.num_region_changes,
+				100.0 * prof.num_full_append / prof.num_region_changes,
+				100.0 * prof.num_full_prepend / prof.num_region_changes,
+				100.0 * prof.num_insert / prof.num_region_changes
+				 );
+#endif
 }
 
 static void
@@ -229,6 +265,9 @@ update_offset(Tchange *start, gint offset)
 	while (start) {
 		start->pos += offset;
 		start = start->next;
+#ifdef PROFILE_MARKREGION
+		prof.num_list_walks++;
+#endif
 	}
 }
 
@@ -256,6 +295,9 @@ find_prev_or_equal_position(Tregions *rg, guint position)
 		while (rg->last && CHANGE(rg->last)->pos > position) {
 /*			g_print("backward start %p(%u) to %p\n",CHANGE(rg->last),CHANGE(rg->last)->pos,CHANGE(rg->last)->prev);*/
 			rg->last = CHANGE(rg->last)->prev;
+#ifdef PROFILE_MARKREGION
+			prof.num_list_walks++;
+#endif
 		}
 	} else {
 		Tchange *next = CHANGE(rg->last)->next;
@@ -264,6 +306,9 @@ find_prev_or_equal_position(Tregions *rg, guint position)
 /*			g_print("forward start %p(%u) to %p(%u), next->next=%p\n",CHANGE(rg->last),CHANGE(rg->last)->pos,next,next->pos,next->next);*/
 			rg->last = next;
 			next = next->next;
+#ifdef PROFILE_MARKREGION
+			prof.num_list_walks++;
+#endif
 		}
 	}
 	g_print("find_prev_or_equal_position, requested position %u, returning change->pos=%d\n",position,rg->last?CHANGE(rg->last)->pos:-1);
@@ -278,6 +323,9 @@ markregion_handle_generic(Tregions *rg, guint markstart, guint markend, guint co
 		g_print("markregion_handle_generic, empty, just add the first entries\n");
 		rg->head = new_change(markstart, TRUE);
 		rg->last = rg->tail = bf_elist_append(BF_ELIST(rg->head), BF_ELIST(new_change(markend, FALSE)));
+#ifdef PROFILE_MARKREGION
+		prof.num_new++;
+#endif
 		return TRUE;
 	}
 	if (CHANGE(rg->tail)->pos < markstart) {
@@ -285,6 +333,9 @@ markregion_handle_generic(Tregions *rg, guint markstart, guint markend, guint co
 		/* the new region is beyond the end */
 		rg->last = rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(markstart, TRUE)));
 		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(markend, FALSE)));
+#ifdef PROFILE_MARKREGION
+		prof.num_full_append++;
+#endif
 		return TRUE;
 	}
 	if (CHANGE(rg->head)->pos > comparepos) {
@@ -294,6 +345,9 @@ markregion_handle_generic(Tregions *rg, guint markstart, guint markend, guint co
 		rg->last = rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(markend, FALSE)));
 		rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(markstart, TRUE)));
 		update_offset(oldhead, offset);
+#ifdef PROFILE_MARKREGION
+		prof.num_full_prepend++;
+#endif
 		return TRUE;
 	}
 	return FALSE;
@@ -303,6 +357,9 @@ void
 markregion_insert(Tregions *rg, guint markstart, guint markend)
 {
 	gint offset = markend-markstart;
+#ifdef PROFILE_MARKREGION
+	prof.num_region_changes++;
+#endif
 #ifdef DEVELOPMENT
 	markregion_verify_integrity(rg);
 	if (markstart > markend) {
@@ -316,6 +373,10 @@ markregion_insert(Tregions *rg, guint markstart, guint markend)
 
 	if (markregion_handle_generic(rg, markstart, markend, markstart, offset))
 		return;
+
+#ifdef PROFILE_MARKREGION
+		prof.num_insert++;
+#endif
 
 	/* insert somewhere within the existing regions */
 	rg->last = find_prev_or_equal_position(rg, markstart);
@@ -334,6 +395,9 @@ markregion_insert(Tregions *rg, guint markstart, guint markend)
 		toremove = rg->last;
  		rg->last = bf_elist_remove(toremove); /* returns 'change->prev' if there is one */
  		g_slice_free(Tchange,toremove);
+#ifdef PROFILE_MARKREGION
+		prof.num_allocs--;
+#endif
 		rg->last = bf_elist_append(BF_ELIST(rg->last), BF_ELIST(new_change(markend, FALSE)));
 		if (CHANGE(rg->last)->next) {
 			update_offset(CHANGE(rg->last)->next, offset);
@@ -359,6 +423,9 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 {
 	gint comparepos = markend-offset;
 	Tchange *oldlast;
+#ifdef PROFILE_MARKREGION
+	prof.num_region_changes++;
+#endif
 
 #ifdef DEVELOPMENT
 	markregion_verify_integrity(rg);
@@ -378,6 +445,9 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 			bf_elist_remove(BF_ELIST(toremove));
 			g_print("markregion_delete, remove pos=%u, because it is lower than %d\n",toremove->pos,comparepos);
 			g_slice_free(Tchange, toremove);
+#ifdef PROFILE_MARKREGION
+			prof.num_allocs--;
+#endif
 		}
 		rg->head = rg->last;
 		if (!rg->last) {
@@ -390,6 +460,10 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 
 	if (markregion_handle_generic(rg, markstart, markend, comparepos, offset))
 		return;
+
+#ifdef PROFILE_MARKREGION
+		prof.num_insert++;
+#endif
 
 	rg->last = find_prev_or_equal_position(rg, markstart);
 	if (rg->last == NULL) {
@@ -407,6 +481,9 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 			/* previous region ends at our start, merge the previous and this region together */
 			oldlast = CHANGE(bf_elist_remove(BF_ELIST(oldlast))); /* returns 'change->prev' if there is one */
 			g_slice_free(Tchange,toremove);
+#ifdef PROFILE_MARKREGION
+			prof.num_allocs--;
+#endif
 		} else {
 			/* previous region ended before our start, start a new region */
 			oldlast = CHANGE(bf_elist_append(BF_ELIST(oldlast), BF_ELIST(new_change(markstart, TRUE))));
@@ -419,6 +496,10 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 		bf_elist_remove(BF_ELIST(toremove));
 /*		g_print("markregion_delete, remove pos=%u, because it is lower than %d\n",toremove->pos,comparepos);*/
 		g_slice_free(Tchange, toremove);
+#ifdef PROFILE_MARKREGION
+		prof.num_allocs--;
+#endif
+
 	}
 	/* after the delete loop rg->last points to a position equal or beyond comparepos, or NULL if there was no following position */
 	if (!rg->last) {
@@ -436,6 +517,9 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 #endif
 		bf_elist_remove(BF_ELIST(toremove));
 		g_print("markregion_delete, remove pos=%u, because it equals %d and starts the next region (merge them)\n",toremove->pos,comparepos);
+#ifdef PROFILE_MARKREGION
+		prof.num_allocs--;
+#endif
 		g_slice_free(Tchange, toremove);
 		update_offset(rg->last, offset);
 		return;
