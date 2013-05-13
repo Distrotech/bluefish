@@ -116,6 +116,41 @@ acwin_move_selection(BluefishTextView * btv, gint keyval)
 	return FALSE;
 }
 
+/* returns the number of bytes
+that are already present in the text.
+
+this is used to avoid for example inserting "return;" in a location where ';' is already the
+character directly beyond the insert position.
+*/
+static gint
+get_existing_end_len(BluefishTextView * btv, const gchar *string, gint prefix_bytelen)
+{
+	gchar *tmp;
+	GtkTextIter it1, it2;
+	gint i;
+	gint string_len = g_utf8_strlen(string, -1);
+
+	gtk_text_buffer_get_iter_at_mark(btv->buffer, &it1, gtk_text_buffer_get_insert(btv->buffer));
+	it2 = it1;
+	g_print("get_existing_end_len, forward %d chars\n",string_len - prefix_bytelen);
+	gtk_text_iter_forward_chars(&it2,string_len - prefix_bytelen);
+	g_print("get the text %d:%d\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2));
+	tmp = gtk_text_buffer_get_text(btv->buffer, &it1, &it2, TRUE);
+	g_print("got tmp='%s'\n",tmp);
+	i = strlen(tmp);
+	do {
+		if (strncmp(string+prefix_bytelen+i, tmp, i)) {
+			g_print("get_existing_end_len, found %d existing characters\n",i);
+			g_free(tmp);
+			return i;
+		}
+		i--;
+	} while(i>0);
+	g_free(tmp);
+	g_print("get_existing_end_len, found no existing characters\n");
+	return 0;
+}
+
 gboolean
 acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 {
@@ -133,7 +168,8 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 			selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 			if (selection && gtk_tree_selection_get_selected(selection, &model, &it)) {
 				gchar *string;
-				GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+				gint stringlen;
+				gint existing_len, prefix_len;
 				guint pattern_id;
 				gint backup_chars = 0;
 				gtk_tree_model_get(model, &it, 1, &string, -1);
@@ -161,15 +197,19 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 						}
 					}
 				}
+				stringlen = strlen(string);
+				prefix_len = strlen(ACWIN(btv->autocomp)->prefix);
+				existing_len = get_existing_end_len(btv, string, prefix_len);
+
 				DBG_AUTOCOMP("acwin_check_keypress: ENTER: insert %s\n",
-							 string + strlen(ACWIN(btv->autocomp)->prefix));
-				gtk_text_buffer_insert_at_cursor(buffer, string + strlen(ACWIN(btv->autocomp)->prefix), -1);
+							 string + prefix_len);
+				gtk_text_buffer_insert_at_cursor(btv->buffer, string + prefix_len, stringlen - prefix_len - existing_len);
 				if (backup_chars != 0) {
 					GtkTextIter iter;
-					gtk_text_buffer_get_iter_at_mark(buffer, &iter, gtk_text_buffer_get_insert(buffer));
-					if (gtk_text_iter_backward_chars(&iter, backup_chars)) {
+					gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, gtk_text_buffer_get_insert(btv->buffer));
+					if (backup_chars-existing_len > 0 && gtk_text_iter_backward_chars(&iter, backup_chars-existing_len)) {
 						DBG_AUTOCOMP("move cursor %d chars back!\n", backup_chars);
-						gtk_text_buffer_place_cursor(buffer, &iter);
+						gtk_text_buffer_place_cursor(btv->buffer, &iter);
 					}
 				}
 
