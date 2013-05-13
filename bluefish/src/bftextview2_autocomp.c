@@ -203,7 +203,8 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 
 				DBG_AUTOCOMP("acwin_check_keypress: ENTER: insert %s\n",
 							 string + prefix_len);
-				gtk_text_buffer_insert_at_cursor(btv->buffer, string + prefix_len, stringlen - prefix_len - existing_len);
+				string[stringlen - existing_len] = '\0';
+				gtk_text_buffer_insert_at_cursor(btv->buffer, string + prefix_len, -1);
 				if (backup_chars != 0) {
 					GtkTextIter iter;
 					gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, gtk_text_buffer_get_insert(btv->buffer));
