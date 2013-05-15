@@ -291,6 +291,7 @@ typedef struct {
 	gint max_recent_files;		/* length of Open Recent list */
 	gint max_dir_history;		/* length of directory history */
 	gint backup_file;			/* wheather to use a backup file */
+	gint show_long_line_warning;
 	/* GIO has hardcoded backup file names */
 /*	gchar *backup_suffix;  / * the string to append to the backup filename */
 /*	gchar *backup_prefix;  / * the string to prepend to the backup filename (between the directory and the filename) */

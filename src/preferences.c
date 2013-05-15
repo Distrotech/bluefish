@@ -72,6 +72,7 @@ enum {
 	max_recent_files,			/* length of Open Recent list */
 	max_dir_history,			/* length of directory history */
 	backup_file,				/* wheather to use a backup file */
+	show_long_line_warning,
 	backup_abort_action,		/* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
 	backup_cleanuponclose,		/* remove the backupfile after close ? */
 	image_thumbnailstring,		/* string to append to thumbnail filenames */
@@ -1791,6 +1792,7 @@ preferences_apply(Tprefdialog * pd)
 	integer_apply(&main_v->props.open_in_running_bluefish, pd->prefs[open_in_running_bluefish], TRUE);
 	integer_apply(&main_v->props.open_in_new_window, pd->prefs[open_in_new_window], TRUE);
 #endif							/* ifndef WIN32 */
+	integer_apply(&main_v->props.show_long_line_warning, pd->prefs[show_long_line_warning], TRUE);
 	main_v->props.register_recent_mode =
 		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[register_recent_mode]));
 	main_v->props.modified_check_type =
@@ -2374,6 +2376,10 @@ preferences_dialog_new(void)
 		dialog_combo_box_text_labeled(_("File properties to check on dis_k for modifications:"),
 									  modified_check_types, main_v->props.modified_check_type, hbox, 0);
 
+	pd->prefs[show_long_line_warning] =
+		boxed_checkbut_with_value(_("Show warning for files with very long lines"),
+								  main_v->props.show_long_line_warning, vbox2);
+
 	frame = gtk_frame_new(NULL);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
 	vbox1 = gtk_vbox_new(FALSE, 12);
@@ -2450,20 +2456,20 @@ preferences_dialog_new(void)
 	table = dialog_table_in_vbox_defaults(4, 2, 0, vbox2);
 
 	pd->prefs[document_tabposition] = dialog_combo_box_text_in_table(notebooktabpositions,
-								main_v->props.document_tabposition, 
+								main_v->props.document_tabposition,
 								table,1,2,0,1);
-	dialog_mnemonic_label_in_table(_("Document _tab position:"), pd->prefs[left_panel_left], 
+	dialog_mnemonic_label_in_table(_("Document _tab position:"), pd->prefs[left_panel_left],
 								table, 0, 1, 0, 1);
 
-	pd->prefs[max_shown_filename_len] = dialog_spin_button_in_table(0, 1000, main_v->props.max_shown_filename_len, 
+	pd->prefs[max_shown_filename_len] = dialog_spin_button_in_table(0, 1000, main_v->props.max_shown_filename_len,
 								table,1, 2, 1,2);
-	dialog_mnemonic_label_in_table(_("Maximum filename length shown in tab (0 is no limit)"), pd->prefs[max_shown_filename_len], 
+	dialog_mnemonic_label_in_table(_("Maximum filename length shown in tab (0 is no limit)"), pd->prefs[max_shown_filename_len],
 								table, 0, 1, 1, 2);
 
 	pd->prefs[left_panel_left] =
-		dialog_combo_box_text_in_table(panellocations, main_v->props.left_panel_left, 
+		dialog_combo_box_text_in_table(panellocations, main_v->props.left_panel_left,
 								table, 1, 2, 2,3);
-	dialog_mnemonic_label_in_table(_("_Sidebar position:"), pd->prefs[left_panel_left], 
+	dialog_mnemonic_label_in_table(_("_Sidebar position:"), pd->prefs[left_panel_left],
 								table, 0, 1, 2,3);
 
 	pd->prefs[leftpanel_tabposition] = dialog_combo_box_text_in_table(notebooktabpositions,

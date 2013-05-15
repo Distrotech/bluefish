@@ -1792,8 +1792,9 @@ doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean en
 		g_free(doc->encoding);
 	doc->encoding = encoding;
 	add_encoding_to_list(encoding);
-
-	newbuf = check_very_long_line(doc, newbuf);
+	if (main_v->props.show_long_line_warning) {
+		newbuf = check_very_long_line(doc, newbuf);
+	}
 
 	gtk_text_buffer_insert_at_cursor(doc->buffer, newbuf, -1);
 
