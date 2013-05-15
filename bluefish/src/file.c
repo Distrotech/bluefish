@@ -37,6 +37,7 @@
 #include "gtk_easy.h"
 #include "stringlist.h"
 #include "async_queue.h"
+#include "undo_redo.h"
 
 #undef OAD_MEMCOUNT
 #ifdef OAD_MEMCOUNT
@@ -794,11 +795,20 @@ file2doc_finished_idle_lcb(gpointer data)
 
 		f2d->recovery_status = 2;
 		doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
+		g_print("file2doc_finished_idle_lcb, recovery of existing file, inserted original file\n");
+		f2d->doc->block_undo_reg = TRUE;
+		doc_unre_new_group(f2d->doc);
+		doc_unre_add(f2d->doc, f2d->buffer->data, 0, g_utf8_strlen(f2d->buffer->data, f2d->buflen), UndoDelete);
 		gtk_text_buffer_get_bounds(f2d->doc->buffer, &itstart, &itend);
 		gtk_text_buffer_delete(f2d->doc->buffer, &itstart, &itend);
+		DEBUG_MSG("file2doc_finished_idle_lcb, recovery of existing file, deleted contents, load autosaved file\n");
 		f2d->of = file_openfile_uri_async(f2d->recover_uri, f2d->bfwin, file2doc_lcb, f2d);
 	} else if (f2d->recovery_status == 2) {
 		doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
+		doc_unre_add(f2d->doc, f2d->buffer->data, 0, g_utf8_strlen(f2d->buffer->data, f2d->buflen), UndoInsert);
+		f2d->doc->block_undo_reg = FALSE;
+		doc_unre_new_group(f2d->doc);
+		DEBUG_MSG("file2doc_finished_idle_lcb, inserted loaded file\n");
 		f2d->doc->autosave_uri = f2d->recover_uri;
 		f2d->doc->autosaved = register_autosave_journal(f2d->recover_uri, f2d->doc->uri, NULL);
 		doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
