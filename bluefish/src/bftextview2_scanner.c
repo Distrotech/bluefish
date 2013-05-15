@@ -376,6 +376,12 @@ mark_needscanning(BluefishTextView * btv, gint startpos, gint endpos)
 {
 	GtkTextIter it1, it2;
 	gint bufferendpos;
+	/* if text is deleted, mark_needscanning could be called for a Tfound that is in the deleted region.
+	Sometimes after applying the offset to a deleted Tfound, the final region is negative. Correct for that
+	situation */
+	if (startpos < 0) startpos = 0;
+	if (endpos <= 0) return;
+
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, startpos);
 	if (endpos == -1) {
 		gtk_text_buffer_get_end_iter(btv->buffer, &it2);
@@ -458,8 +464,8 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 	if (!sou->found)
 		return;
 
-	if (sou->found->charoffset_o > startpos && sou->found->charoffset_o+offset >= nextpos) {
-		g_print("current found at %d is bigger then startpos(%u) and bigger then nextpos(%u)\n",sou->found->charoffset_o,startpos,nextpos);
+	if (sou->found->charoffset_o > startpos && ((gint)sou->found->charoffset_o+(gint)offset) >= ((gint)nextpos)) {
+		g_print("current found at %d is bigger then startpos(%u) and bigger then nextpos(%u), return\n",sou->found->charoffset_o,startpos,nextpos);
 		sou->prevoffset += offset;
 		return;
 	}
@@ -554,7 +560,6 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 			g_assert_not_reached();
 		}
 #endif
-
 
 		/* loop over any items within the deleted region and remove them. because these
 		Tfound offsets are not yet updated we don't compare with 'startpos-offset' but we
@@ -694,7 +699,13 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		}
 		DBG_SCANCACHE("startpos=%u, offset=%d, prevoffset=%d, found=%p, update charoffset_o from %u to %u\n",startpos,offset,sou->prevoffset, sou->found,sou->found->charoffset_o,sou->found->charoffset_o+handleoffset);
 		sou->found->charoffset_o += handleoffset;
-
+#ifdef DEVELOPMENT
+		if (sou->found->charoffset_o < 0) {
+			g_print("ABORT: scancache_update_single_offset, sou->found(%p)->charoffset_o(%d) < 0 ?!?!?! offset=%d, prevoffset=%d\n",
+							sou->found,sou->found->charoffset_o,offset,sou->prevoffset);
+			g_assert_not_reached();
+		}
+#endif
 		tmpfound = get_foundcache_next(btv, &tmpsiter);
 		if (tmpfound && tmpfound->charoffset_o > sou->prevpos && handleoffset == sou->prevoffset) {
 			g_print("tmpfound(%u) > prevpos(%u), update handleoffset\n",tmpfound->charoffset_o,sou->prevpos);
