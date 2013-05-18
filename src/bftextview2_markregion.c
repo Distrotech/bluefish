@@ -195,7 +195,12 @@ new_change(guint pos, gboolean is_start)
 	return change;
 }
 
-void markregion_region_done(Tregions *rg, guint end)
+/* 
+markregion_region_done is called after a scanning run, it is called with the position up to the point
+where scanning was finished.
+*/
+void 
+markregion_region_done(Tregions *rg, guint end)
 {
 	Tchange *tmp;
 #ifdef PROFILE_MARKREGION
@@ -315,6 +320,8 @@ find_prev_or_equal_position(Tregions *rg, guint position)
 	return CHANGE(rg->last);
 }
 
+/* both delete and insert can be handled in a generic way if the new region is either the
+only region, beyond the end, or before the beginning. */
 static gboolean
 markregion_handle_generic(Tregions *rg, guint markstart, guint markend, guint comparepos, gint offset)
 {
@@ -352,7 +359,9 @@ markregion_handle_generic(Tregions *rg, guint markstart, guint markend, guint co
 	}
 	return FALSE;
 }
-
+/*
+markregion_insert is called from the text insert callback
+*/
 void
 markregion_insert(Tregions *rg, guint markstart, guint markend)
 {
@@ -418,6 +427,11 @@ markregion_insert(Tregions *rg, guint markstart, guint markend)
 #endif
 }
 
+
+/* 
+markregion_delete is called from the text delete callback
+the markend parameter in markregion_delete should be already corrected for the offset. 
+*/
 void
 markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 {
@@ -531,6 +545,11 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 	update_offset(rg->last, offset);
 }
 
+/* 
+markregion_nochange is called from the scanning engine when the scanning 
+engine detects that the region needs to be enlarged. The code to add these 
+to the Tregions is equal to markregion_delete with an offset of zero. 
+ */
 void
 markregion_nochange(Tregions *rg, guint markstart, guint markend)
 {
@@ -538,6 +557,13 @@ markregion_nochange(Tregions *rg, guint markstart, guint markend)
 	markregion_delete(rg, markstart, markend, 0);
 }
 
+/*
+markregion_get_region returns the first region in Tregions. Some calling funcions
+(especially find_region_to_scan) call this function multiple times to find the next
+region, see if it close and merge them. To support this this function returns a pointer
+to the current TChange, so if you call it the next time, pass this pointer as
+second parameter, and you get the next one instead of the first region.
+*/
 gpointer
 markregion_get_region(Tregions *rg, gpointer cur, guint *start, guint *end)
 {
