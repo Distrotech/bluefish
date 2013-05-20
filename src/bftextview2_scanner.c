@@ -18,11 +18,13 @@
  */
 /*#define DEVELOPMENT*/
 #define HL_PROFILING
+/*#define VALGRIND_PROFILING*/
+
 /*#define DUMP_SCANCACHE*/
 /*#define DUMP_SCANCACHE_UPDATE_OFFSET*/
 /*#define DUMP_HIGHLIGHTING*/
 
-/*#define VALGRIND_PROFILING*/
+/*#define JOIN_MULTIPLE_SMALL_LOOPS*/
 
 #ifdef VALGRIND_PROFILING
 #include <valgrind/callgrind.h>
@@ -89,6 +91,13 @@ typedef struct {
 	gint16 context;
 	guint8 identmode;
 	guint8 identaction;
+#ifdef HL_PROFILING
+	guint startpos;
+	gdouble stage1;
+	gdouble stage2;
+	gdouble stage3;
+	gdouble stage4;
+#endif
 } Tscanning;
 
 #ifdef HL_PROFILING
@@ -1671,49 +1680,362 @@ reconstruct_scanning(BluefishTextView * btv, GtkTextIter * position, Tscanning *
 	}
 }
 
-/*
-static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *iter) {
-	GSList *toggles, *tmplist;
-	/ * remove any toggled tags * /
-	toggles = tmplist = gtk_text_iter_get_toggled_tags(iter,FALSE);
-	while (tmplist) {
-		GtkTextIter tmpit;
-		tmpit = *iter;
-		gtk_text_iter_forward_to_tag_toggle(&tmpit,tmplist->data);
-		DBG_MSG("%s:%d, removing tag %p from %d to %d\n",__FILE__,__LINE__,tmplist->data,gtk_text_iter_get_offset(iter),gtk_text_iter_get_offset(&tmpit));
-		gtk_text_buffer_remove_tag(buffer,tmplist->data,iter,&tmpit);
-		tmplist = g_slist_next(tmplist);
-	}
-	g_slist_free(toggles);
-	/ * TODO see if there are any old blockstack or context changes * /
-
-}*/
-/*
-static void
-remove_old_scan_results(BluefishTextView * btv, GtkTextIter * fromhere)
+#ifdef JOIN_MULTIPLE_SMALL_LOOPS
+static gboolean
+bftextview2_run_scanner_real(BluefishTextView * btv, Tscanning *scanning, GtkTextIter *itcursor)
 {
-	GtkTextIter end;
-	GSequenceIter *sit1, *sit2;
-	Tfound fakefound;
+	GtkTextIter iter;
+	GtkTextIter mstart;
+	guint pos = 0, newpos, reconstruction_o, endoffset;
+	gboolean end_of_region = FALSE, last_character_run = FALSE, continue_loop = TRUE, finished;
+	gint loop = 0;
 
-	gtk_text_buffer_get_end_iter(btv->buffer, &end);
-	DBG_SCANCACHE("remove_old_scan_results: remove tags from charoffset %d to %d\n",
-				  gtk_text_iter_get_offset(fromhere), gtk_text_iter_get_offset(&end));
-	remove_all_highlighting_in_area(btv, fromhere, &end);
-	fakefound.charoffset_o = gtk_text_iter_get_offset(fromhere);
-	sit1 = g_sequence_search(btv->scancache.foundcaches, &fakefound, foundcache_compare_charoffset_o, NULL);
-	if (sit1 && !g_sequence_iter_is_end(sit1)) {
-		sit2 = g_sequence_get_end_iter(btv->scancache.foundcaches);
-		DBG_SCANCACHE("sit1=%p, sit2=%p\n", sit1, sit2);
-		DBG_SCANCACHE("remove_old_scan_results: remove foundcache entries %d to %d\n",
-					  g_sequence_iter_get_position(sit1), g_sequence_iter_get_position(sit2));
-		g_sequence_foreach_range(sit1, sit2, found_free_lcb, btv);
-		g_sequence_remove_range(sit1, sit2);
+
+	scanning->context = 1;
+	scanning->identmode = 0;
+
+#ifdef HL_PROFILING
+	scanning->stage1 = g_timer_elapsed(scanning->timer, NULL);
+#endif
+	iter = mstart = scanning->start;
+	if (gtk_text_iter_is_start(&scanning->start)) {
+		DBG_SCANNING("bftextview2_run_scanner_real, start scanning at start iter\n");
+		scanning->siter = g_sequence_get_begin_iter(btv->scancache.foundcaches);
+		scanning->nextfound = get_foundcache_first(btv, &scanning->siter);
+		scanning->curfcontext = NULL;
+		scanning->curfblock = NULL;
+		reconstruction_o = 0;
 	} else {
-		DBG_SCANCACHE("no sit1, no cleanup ??\n");
+		/* we do not want to reconstruct a blockstart exactly at the point where scanning.start is right now, otherwise
+		if we previously found <b and now there is <bo and we reconstruct the stack between the b and the o and we would not
+		detect that the tag has changed. so we move scanning.start one position up. */
+		gtk_text_iter_backward_char(&iter);
+		DBG_SCANNING("bftextview2_run_scanner_real, moved scanning->start back to %d\n",gtk_text_iter_get_offset(&scanning->start));
+		/* reconstruct the context stack and the block stack */
+		reconstruction_o = reconstruct_scanning(btv, &iter, scanning);
+		pos = 0;
+		DBG_SCANNING("bftextview2_run_scanner_real, reconstructed stacks, context=%d, startstate=%d, nextfound=%p\n", scanning->context, pos, scanning->nextfound);
+		/* now move the start position either to the start of the line, or to the position
+		   where the stack was reconstructed, the largest offset */
+		gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, reconstruction_o);
+		gtk_text_iter_set_line_offset(&scanning->start, 0);
+		DBG_SCANNING("bftextview2_run_scanner_real, compare possible start positions %d and %d\n",
+					 gtk_text_iter_get_offset(&scanning->start), gtk_text_iter_get_offset(&iter));
+		if (gtk_text_iter_compare(&iter, &scanning->start) > 0)
+			mstart = scanning->start = iter;
+		else
+			iter = mstart = scanning->start;
 	}
+	if (!gtk_text_iter_is_end(&scanning->end)) {
+		/* the end position should be the largest of the end of the line and the 'end' iter */
+		/*gtk_text_iter_forward_to_line_end(&iter);
+		gtk_text_iter_forward_char(&iter);*/
+		gtk_text_iter_forward_line(&iter);
+		if (gtk_text_iter_compare(&iter, &scanning->end) >= 0)
+			scanning->end = iter;
+		iter = scanning->start;
+	}
+	DBG_SCANNING("bftextview2_run_scanner_real, scanning from %d to %d\n", gtk_text_iter_get_offset(&scanning->start),
+				 gtk_text_iter_get_offset(&scanning->end));
+#ifdef HL_PROFILING
+	scanning->startpos = gtk_text_iter_get_offset(&scanning->start);
+	scanning->stage2 = g_timer_elapsed(scanning->timer, NULL);
+#endif
+	endoffset = gtk_text_iter_get_offset(&scanning->end);
+	if (btv->needremovetags < endoffset) {
+		remove_all_highlighting_in_area(btv, &scanning->start, &scanning->end, endoffset);
+	}
+#ifdef HL_PROFILING
+	scanning->stage3 = g_timer_elapsed(scanning->timer, NULL);
+#endif
+
+
+	do {
+		gunichar uc;
+		loop++;
+#ifdef HL_PROFILING
+		hl_profiling.numloops++;
+#endif
+		if (G_UNLIKELY(last_character_run)) {
+			uc = '\0';
+		} else {
+			uc = gtk_text_iter_get_char(&iter);
+			if (G_UNLIKELY(uc > 128)) {
+				/* multibyte characters cannot be matched by the engine. character
+				   1 in ascii is "SOH (start of heading)". we need this to support a
+				   pattern like [^#]* .  */
+				uc = 1;
+			}
+		}
+		DBG_SCANNING("bftextview2_run_scanner_real, scanning offset %d pos %d %c ", gtk_text_iter_get_offset(&iter), pos, uc);
+		newpos = get_tablerow(btv->bflang->st,scanning->context,pos).row[uc];
+		DBG_SCANNING("(context=%d).. got newpos %d\n", scanning->context, newpos);
+		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
+			if (G_UNLIKELY(get_tablerow(btv->bflang->st,scanning->context,pos).match)) {
+				Tmatch match;
+				guint oldcontext = scanning->context;
+				match.patternum = get_tablerow(btv->bflang->st,scanning->context,pos).match;
+				match.start = mstart;
+				match.end = iter;
+				DBG_SCANNING("bftextview2_run_scanner_real, we have a match from pos %d to %d\n", gtk_text_iter_get_offset(&match.start),
+							 gtk_text_iter_get_offset(&match.end));
+				scanning->context = found_match(btv, &match, scanning);
+				DBG_SCANNING("bftextview2_run_scanner_real, after match context=%d\n", scanning->context);
+				if (G_UNLIKELY(scanning->identmode == 2 && !gtk_text_iter_in_range(itcursor, &mstart, &iter)
+								 && !gtk_text_iter_equal(itcursor, &mstart)
+								 && !gtk_text_iter_equal(itcursor, &iter))) {
+					found_identifier(btv, &mstart, &iter, oldcontext, scanning->identaction);
+					scanning->identmode = 0;
+				}
+			} else {
+				if (G_UNLIKELY(uc == '\0' && scanning->nextfound &&
+					scanning->nextfound->charoffset_o <= gtk_text_iter_get_offset(&iter))) {
+					guint invalidoffset;
+					/* scanning->nextfound is invalid! remove from cache */
+					invalidoffset = remove_invalid_cache(btv, gtk_text_iter_get_offset(&iter), scanning);
+					if (enlarge_scanning_region(btv, scanning, invalidoffset))
+						last_character_run = FALSE;
+				}
+
+				if (G_UNLIKELY
+					(scanning->identmode == 1 && pos == 1)) {
+					/* ignore if the cursor is within the range, because it could be that the user is still typing the name */
+					if (G_LIKELY(!gtk_text_iter_in_range(itcursor, &mstart, &iter)
+								 && !gtk_text_iter_equal(itcursor, &mstart)
+								 && !gtk_text_iter_equal(itcursor, &iter))) {
+						found_identifier(btv, &mstart, &iter, scanning->context, scanning->identaction);
+						scanning->identmode = 0;
+					}
+				}
+			}
+
+			if (G_UNLIKELY(last_character_run && scanning->nextfound && !nextcache_valid(scanning))) {
+				guint invalidoffset;
+				/* see if nextfound has a valid context and block stack, if not we enlarge the scanning area */
+				DBG_SCANNING("bftextview2_run_scanner_real, last_character_run, but nextfound %p is INVALID!\n", scanning->nextfound);
+				invalidoffset = remove_invalid_cache(btv, 0, scanning);
+				enlarge_scanning_region(btv, scanning, invalidoffset);
+				/* TODO: do we need to rescan this position with the real uc instead of uc='\0' ?? */
+			}
+
+			if (G_LIKELY(gtk_text_iter_equal(&mstart, &iter) && !last_character_run)) {
+				gtk_text_iter_forward_char(&iter);
+#ifdef HL_PROFILING
+				hl_profiling.numchars++;
+#endif
+			}
+			mstart = iter;
+			newpos = 0;
+		} else if (G_LIKELY(!last_character_run)) {
+			gtk_text_iter_forward_char(&iter);
+#ifdef HL_PROFILING
+			hl_profiling.numchars++;
+#endif
+		}
+		pos = newpos;
+		end_of_region = gtk_text_iter_equal(&iter, &scanning->end);
+		if (G_UNLIKELY(end_of_region || last_character_run)) {
+			last_character_run = !last_character_run;
+		}
+		continue_loop = (!end_of_region || last_character_run);
+		/*DBG_SCANNING("continue_loop=%d, end_of_region=%d, last_character_run=%d\n",continue_loop,end_of_region,last_character_run); */
+	} while (continue_loop
+			 && (loop % loops_per_timer != 0
+				 || g_timer_elapsed(scanning->timer, NULL) < MAX_CONTINUOUS_SCANNING_INTERVAL));
+	DBG_SCANNING
+		("bftextview2_run_scanner_real, scanned from %d to position %d, (end=%d) which took %f microseconds, loops_per_timer=%d\n",
+		 gtk_text_iter_get_offset(&scanning->start), gtk_text_iter_get_offset(&iter),
+		 gtk_text_iter_get_offset(&scanning->end), g_timer_elapsed(scanning->timer, NULL), loops_per_timer);
+	/* TODO: if we end the scan within a context that has a tag, we have to apply the contexttag */
+	if (!gtk_text_iter_is_end(&scanning->end) && scanning->curfcontext) {
+		if (g_array_index(btv->bflang->st->contexts, Tcontext, scanning->curfcontext->context).contexttag) {
+			GtkTextIter iter2;
+			gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter2, scanning->curfcontext->start_o);
+			gtk_text_buffer_apply_tag(btv->buffer,
+									  g_array_index(btv->bflang->st->contexts, Tcontext,
+													scanning->curfcontext->context).contexttag, &iter, &iter2);
+		}
+	}
+
+	gtk_text_buffer_remove_tag(btv->buffer, btv->needscanning, &scanning->start, &iter);
+	if (gtk_text_iter_compare(&iter, &scanning->end) < 0) {
+		gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &iter, &scanning->end);
+	}
+#ifdef MARKREGION
+	g_print("bftextview2_run_scanner_real, region done until %d, mark needscanning from %d:%d\n",gtk_text_iter_get_offset(&iter), gtk_text_iter_get_offset(&iter), gtk_text_iter_get_offset(&scanning->end));
+	markregion_region_done(&btv->scanning, gtk_text_iter_get_offset(&iter));
+	if (gtk_text_iter_compare(&iter, &scanning->end) < 0) {
+		markregion_nochange(&btv->scanning, gtk_text_iter_get_offset(&iter), gtk_text_iter_get_offset(&scanning->end));
+	}
+	bftextview2_dump_needscanning(btv);
+#endif
+
+	finished = gtk_text_iter_is_end(&iter);
+
+#ifdef HL_PROFILING
+	scanning->stage4 = g_timer_elapsed(scanning->timer, NULL);
+	hl_profiling.total_runs++;
+	hl_profiling.total_chars += hl_profiling.numchars;
+	hl_profiling.total_time_ms += (gint) (1000.0 * scanning->stage4);
+	g_print
+		("scanning run %d (%d ms): %d, %d, %d, %d; from %d-%d, loops=%d,chars=%d,blocks %d/%d (%d) contexts %d/%d (%d) scancache %d\n",
+		 hl_profiling.total_runs, (gint) (1000.0 * scanning->stage4)
+		 , (gint) (1000.0 * scanning->stage1)
+		 , (gint) (1000.0 * scanning->stage2 - scanning->stage1)
+		 , (gint) (1000.0 * scanning->stage3 - scanning->stage2)
+		 , (gint) (1000.0 * scanning->stage4 - scanning->stage3)
+		 , scanning->startpos, gtk_text_iter_get_offset(&iter)
+		 , hl_profiling.numloops, hl_profiling.numchars, hl_profiling.numblockstart, hl_profiling.numblockend,
+		 hl_profiling.longest_blockstack, hl_profiling.numcontextstart, hl_profiling.numcontextend,
+		 hl_profiling.longest_contextstack, g_sequence_get_length(btv->scancache.foundcaches)
+		);
+#endif
+	/* tune the loops_per_timer, try to have 10 timer checks per loop, so we have around 10% deviation from the set interval */
+	if (!end_of_region)
+		loops_per_timer = MAX(loop / NUM_TIMER_CHECKS_PER_RUN, 200);
+
+	DBG_MSG("bftextview2_run_scanner_real, finished this run\n");
+	return !finished;
 }
-*/
+
+/* if visible_end is set (not NULL) we will scan only the visible area and nothing else.
+this can be used to delay scanning everything until the editor is idle for several milliseconds */
+gboolean
+bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
+{
+	GtkTextIter iter;
+	Tscanning scanning;
+	gboolean end_of_region = FALSE, continue_loop = TRUE, finished;
+	gint loop = 0;
+	GtkTextIter itcursor;
+#ifdef HL_PROFILING
+	hl_profiling.longest_contextstack = 0;
+	hl_profiling.longest_blockstack = 0;
+	hl_profiling.numcontextstart = 0;
+	hl_profiling.numcontextend = 0;
+	hl_profiling.numblockstart = 0;
+	hl_profiling.numblockend = 0;
+	hl_profiling.numchars = 0;
+	hl_profiling.numloops = 0;
+
+	scanning.stage1 = 0;
+#endif
+
+	scanning.context = 1;
+#ifdef IDENTSTORING
+	scanning.identmode = 0;
+#endif							/* IDENTSTORING */
+
+	DBG_MSG("bftextview2_run_scanner for btv %p..\n", btv);
+	if (!btv->bflang->st) {
+		DBG_MSG("no scantable, nothing to scan, returning...\n");
+		return FALSE;
+	}
+#ifdef VALGRIND_PROFILING
+	CALLGRIND_START_INSTRUMENTATION;
+#endif							/* VALGRIND_PROFILING */
+
+#ifdef UPDATE_OFFSET_DELAYED
+	DEBUG_MSG("bftextview2_run_scanner, first call foundcache_process_offsetupdates()\n");
+	foundcache_process_offsetupdates(btv);
+#endif
+
+	/* start timer */
+	scanning.timer = g_timer_new();
+#ifdef HL_PROFILING
+	if (totalruntimer == NULL) {
+		totalruntimer = g_timer_new();
+	}
+#endif
+
+	gtk_text_buffer_get_iter_at_mark(btv->buffer, &itcursor, gtk_text_buffer_get_insert(btv->buffer));
+
+	do {
+		g_print("bftextview2_run_scanner, start of loop\n");
+		if (!bftextview2_find_region2scan(btv, btv->buffer, &scanning.start, &scanning.end)) {
+			DBG_MSG("nothing to scan here.. return FALSE\n");
+#ifdef VALGRIND_PROFILING
+			CALLGRIND_STOP_INSTRUMENTATION;
+#endif							/* VALGRIND_PROFILING */
+#ifdef HL_PROFILING
+			if (totalruntimer) {
+				g_print("Nothing to scan anymore, total run timer took %d ms\n",(gint) (1000.0 * g_timer_elapsed(totalruntimer,NULL)));
+				g_timer_destroy(totalruntimer);
+				totalruntimer = NULL;
+			}
+#endif /*HL_PROFILING*/
+			return FALSE;
+		}
+
+		if (visible_end) {
+			/* make sure that we only scan up to visible_end and no further */
+			if (gtk_text_iter_compare(&scanning.start, visible_end) > 0) {
+				DBG_DELAYSCANNING("start of region that needs scanning is beyond visible_end, return TRUE\n");
+				g_timer_destroy(scanning.timer);
+#ifdef VALGRIND_PROFILING
+				CALLGRIND_STOP_INSTRUMENTATION;
+#endif							/* VALGRIND_PROFILING */
+				return TRUE; /* call us again */
+			}
+			if (gtk_text_iter_compare(&scanning.end, visible_end) > 0) {
+				DBG_DELAYSCANNING
+					("end of region that needs scanning (%d) is beyond visible_end (%d), reset end\n",
+					 gtk_text_iter_get_offset(&scanning.end), gtk_text_iter_get_offset(visible_end));
+				scanning.end = *visible_end;
+			}
+		}
+		g_print("bftextview2_run_scanner, call ..._real with %d:%d\n", gtk_text_iter_get_offset(&scanning.start), gtk_text_iter_get_offset(&scanning.end));
+		continue_loop = bftextview2_run_scanner_real(btv, &scanning, &itcursor);
+
+
+		g_print("bftextview2_run_scanner, continue_loop=%d\n",continue_loop);
+	} while (!visible_end && continue_loop
+			 && g_timer_elapsed(scanning.timer, NULL) < MAX_CONTINUOUS_SCANNING_INTERVAL);
+	g_print("bftextview2_run_scanner, beyond loop\n");
+
+#ifdef HL_PROFILING
+	g_print("memory scancache %d(%dKb+%dKb) found %d(%dKb) fcontext %d(%dKb) = %dKb\n",
+			hl_profiling.found_refcount, (gint) (hl_profiling.found_refcount * sizeof(Tfound) / 1024.0),
+			(gint) (hl_profiling.found_refcount * 40 / 1024.0)
+			, hl_profiling.fblock_refcount,
+			(gint) (hl_profiling.fblock_refcount * sizeof(Tfoundblock) / 1024.0)
+			, hl_profiling.fcontext_refcount,
+			(gint) (hl_profiling.fcontext_refcount * sizeof(Tfoundcontext) / 1024.0)
+			,
+			(gint) ((hl_profiling.found_refcount * sizeof(Tfound) +
+					 hl_profiling.found_refcount * 5 * sizeof(gpointer) +
+					 hl_profiling.fblock_refcount * sizeof(Tfoundblock) +
+					 hl_profiling.fcontext_refcount * sizeof(Tfoundcontext)) / 1024.0)
+		);
+	g_print("average %d chars/s %d chars/run\n",
+			(guint) (1000.0 * hl_profiling.total_chars / hl_profiling.total_time_ms)
+			, (guint) (1.0 * hl_profiling.total_chars / hl_profiling.total_runs)
+		);
+#endif
+
+#ifdef DEVELOPMENT
+	if (continue_loop)
+		scancache_check_integrity(btv, scanning.timer);
+#endif
+
+	g_timer_destroy(scanning.timer);
+
+#ifdef VALGRIND_PROFILING
+	CALLGRIND_STOP_INSTRUMENTATION;
+#endif							/* VALGRIND_PROFILING */
+
+#ifdef DUMP_SCANCACHE
+	dump_scancache(btv);
+#endif
+#ifdef DUMP_HIGHLIGHTING
+	dump_highlighting(btv);
+#endif
+
+	DBG_MSG("cleaned scanning run, finished this run\n");
+	return !finished;
+}
+
+#else /* !JOIN_MULTIPLE_SMALL_LOOPS */
 /* if visible_end is set (not NULL) we will scan only the visible area and nothing else.
 this can be used to delay scanning everything until the editor is idle for several milliseconds */
 gboolean
@@ -2046,6 +2368,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	DBG_MSG("cleaned scanning run, finished this run\n");
 	return !finished;
 }
+#endif /* JOIN_MULTIPLE_SMALL_LOOPS */
 
 GQueue *
 get_contextstack_at_position(BluefishTextView * btv, GtkTextIter * position)
