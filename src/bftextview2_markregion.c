@@ -75,7 +75,7 @@ bftextview2_dump_needscanning(BluefishTextView *btv) {
 	Tchange *cso, *ceo;
 	guint so,eo;
 	GtkTextIter start,end;
-	g_print("bftextview2_dump_needscanning, started, markregion has head(%d)|tail(%d)\n",btv->scanning.head?CHANGE(btv->scanning.head)->pos:-1
+	DBG_MARKREGION("bftextview2_dump_needscanning, started, markregion has head(%d)|tail(%d)\n",btv->scanning.head?CHANGE(btv->scanning.head)->pos:-1
 						,btv->scanning.tail?CHANGE(btv->scanning.tail)->pos:-1);
 	gtk_text_buffer_get_start_iter(btv->buffer, &start);
 	cso = CHANGE(btv->scanning.head);
@@ -104,7 +104,7 @@ bftextview2_dump_needscanning(BluefishTextView *btv) {
 			g_print("ABORT: needscanning has %u:%u, markregion has %u:%u\n",so,eo,cso->pos,ceo->pos);
 			g_assert_not_reached();
 		}
-		g_print("region %u:%u\n",so,eo);
+/*		DBG_MARKREGION("region %u:%u\n",so,eo);*/
 		start = end;
 		cso = ceo->next;
 		cont = gtk_text_iter_forward_char(&start);
@@ -121,7 +121,7 @@ static void
 markregion_verify_integrity(Tregions *rg)
 {
 	Tchange *end, *start = rg->head;
-	g_print("markregion_verify_integrity, started, head(%d)|tail(%d)\n",rg->head?CHANGE(rg->head)->pos:-1
+	DBG_MARKREGION("markregion_verify_integrity, started, head(%d)|tail(%d)\n",rg->head?CHANGE(rg->head)->pos:-1
 						,rg->tail?CHANGE(rg->tail)->pos:-1);
 	if (!rg->head) {
 		if (rg->tail || rg->last) {
@@ -206,14 +206,14 @@ markregion_region_done(Tregions *rg, guint end)
 #ifdef PROFILE_MARKREGION
 	prof.num_region_changes++;
 #endif
-	g_print("markregion_region_done, end=%u\n",end);
+	DBG_MARKREGION("markregion_region_done, end=%u\n",end);
 	if (!rg->head) {
 		return;
 	}
 	tmp = rg->head;
 	while (tmp && tmp->pos <= end) {
 		Tchange *toremove = tmp;
-		g_print("markregion_region_done, remove change with pos=%u\n",tmp->pos);
+		DBG_MARKREGION("markregion_region_done, remove change with pos=%u\n",tmp->pos);
 		tmp = CHANGE(bf_elist_remove(BF_ELIST(tmp))); /* returns the previous entry if that exists, but
 										it does not exist in this case because we remove all entries */
 		g_slice_free(Tchange, toremove);
@@ -224,23 +224,23 @@ markregion_region_done(Tregions *rg, guint end)
 	}
 	if (tmp && tmp->is_start == FALSE) {
 		/* we cannot begin our list of regions with an end-of-region, so remove it, or prepend a start position in front of it */
-		g_print("next change at %u is a end!\n",tmp->pos);
+		DBG_MARKREGION("next change at %u is a end!\n",tmp->pos);
 		if (tmp->pos == end) {
 			Tchange *toremove = tmp;
-			g_print("markregion_region_done, remove change with pos=%u\n",toremove->pos);
+			DBG_MARKREGION("markregion_region_done, remove change with pos=%u\n",toremove->pos);
 			tmp = CHANGE(bf_elist_remove(BF_ELIST(toremove)));
 #ifdef PROFILE_MARKREGION
 			prof.num_allocs--;
 #endif
 			g_slice_free(Tchange, toremove);
 		} else {
-			g_print("markregion_region_done, prepend change with end=%u\n",end);
+			DBG_MARKREGION("markregion_region_done, prepend change with end=%u\n",end);
 			tmp = CHANGE(bf_elist_prepend(BF_ELIST(tmp), BF_ELIST(new_change(end, TRUE))));
 		}
 	} else {
 #ifdef DEVELOPMENT
 		if (tmp) {
-			g_print("markregion_region_done, keep %u, is_start=%d\n",tmp->pos,tmp->is_start);
+			DBG_MARKREGION("markregion_region_done, keep %u, is_start=%d\n",tmp->pos,tmp->is_start);
 		}
 #endif
 	}
@@ -249,7 +249,7 @@ markregion_region_done(Tregions *rg, guint end)
 	if (tmp == NULL) {
 		rg->tail = NULL;
 	}
-	g_print("markregion_region_done, return, head(%d)|tail(%d)\n",rg->head?CHANGE(rg->head)->pos:-1
+	DBG_MARKREGION("markregion_region_done, return, head(%d)|tail(%d)\n",rg->head?CHANGE(rg->head)->pos:-1
 						,rg->tail?CHANGE(rg->tail)->pos:-1);
 #ifdef PROFILE_MARKREGION
 	g_print("***\nmarkregion profiling: changes:%d, allocs=%d, walks=%d, new/append/prepend/insert=%f/%f/%f/%f\n***\n",
@@ -296,9 +296,9 @@ find_prev_or_equal_position(Tregions *rg, guint position)
 		return CHANGE(rg->last);
 
 	if (CHANGE(rg->last)->pos > position) {
-/*		g_print("find_prev_or_equal_position, current position %u is beyond the requested position %u\n",CHANGE(rg->last)->pos,position);*/
+/*		DBG_MARKREGION("find_prev_or_equal_position, current position %u is beyond the requested position %u\n",CHANGE(rg->last)->pos,position);*/
 		while (rg->last && CHANGE(rg->last)->pos > position) {
-/*			g_print("backward start %p(%u) to %p\n",CHANGE(rg->last),CHANGE(rg->last)->pos,CHANGE(rg->last)->prev);*/
+/*			DBG_MARKREGION("backward start %p(%u) to %p\n",CHANGE(rg->last),CHANGE(rg->last)->pos,CHANGE(rg->last)->prev);*/
 			rg->last = CHANGE(rg->last)->prev;
 #ifdef PROFILE_MARKREGION
 			prof.num_list_walks++;
@@ -306,9 +306,9 @@ find_prev_or_equal_position(Tregions *rg, guint position)
 		}
 	} else {
 		Tchange *next = CHANGE(rg->last)->next;
-/*		g_print("find_prev_or_equal_position, current position %u is before the requested position %u\n",CHANGE(rg->last)->pos,position);*/
+/*		DBG_MARKREGION("find_prev_or_equal_position, current position %u is before the requested position %u\n",CHANGE(rg->last)->pos,position);*/
 		while (next && next->pos <= position) {
-/*			g_print("forward start %p(%u) to %p(%u), next->next=%p\n",CHANGE(rg->last),CHANGE(rg->last)->pos,next,next->pos,next->next);*/
+/*			DBG_MARKREGION("forward start %p(%u) to %p(%u), next->next=%p\n",CHANGE(rg->last),CHANGE(rg->last)->pos,next,next->pos,next->next);*/
 			rg->last = next;
 			next = next->next;
 #ifdef PROFILE_MARKREGION
@@ -316,7 +316,7 @@ find_prev_or_equal_position(Tregions *rg, guint position)
 #endif
 		}
 	}
-	g_print("find_prev_or_equal_position, requested position %u, returning change->pos=%d\n",position,rg->last?CHANGE(rg->last)->pos:-1);
+	DBG_MARKREGION("find_prev_or_equal_position, requested position %u, returning change->pos=%d\n",position,rg->last?CHANGE(rg->last)->pos:-1);
 	return CHANGE(rg->last);
 }
 
@@ -327,7 +327,7 @@ markregion_handle_generic(Tregions *rg, guint markstart, guint markend, guint co
 {
 	if (!rg->head) {
 		/* empty region, just append the start and end */
-		g_print("markregion_handle_generic, empty, just add the first entries\n");
+		DBG_MARKREGION("markregion_handle_generic, empty, just add the first entries\n");
 		rg->head = new_change(markstart, TRUE);
 		rg->last = rg->tail = bf_elist_append(BF_ELIST(rg->head), BF_ELIST(new_change(markend, FALSE)));
 #ifdef PROFILE_MARKREGION
@@ -336,7 +336,7 @@ markregion_handle_generic(Tregions *rg, guint markstart, guint markend, guint co
 		return TRUE;
 	}
 	if (CHANGE(rg->tail)->pos < markstart) {
-		g_print("markregion_handle_generic, markstart (%u) beyond the end (%u), append new entries\n", markstart, CHANGE(rg->tail)->pos);
+		DBG_MARKREGION("markregion_handle_generic, markstart (%u) beyond the end (%u), append new entries\n", markstart, CHANGE(rg->tail)->pos);
 		/* the new region is beyond the end */
 		rg->last = rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(markstart, TRUE)));
 		rg->tail = bf_elist_append(BF_ELIST(rg->tail), BF_ELIST(new_change(markend, FALSE)));
@@ -347,7 +347,7 @@ markregion_handle_generic(Tregions *rg, guint markstart, guint markend, guint co
 	}
 	if (CHANGE(rg->head)->pos > comparepos) {
 		Tchange *oldhead = rg->head;
-		g_print("markregion_handle_generic, comparepos (%u) before the head (%u), prepend new entries and update offsets\n",comparepos,CHANGE(rg->head)->pos);
+		DBG_MARKREGION("markregion_handle_generic, comparepos (%u) before the head (%u), prepend new entries and update offsets\n",comparepos,CHANGE(rg->head)->pos);
 		/* the first region is before the current start */
 		rg->last = rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(markend, FALSE)));
 		rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(markstart, TRUE)));
@@ -376,7 +376,7 @@ markregion_insert(Tregions *rg, guint markstart, guint markend)
 		g_assert_not_reached();
 	}
 #endif
-	g_print("markregion_insert, markstart=%u, markend=%u, offset=%d\n",markstart,markend,offset);
+	DBG_MARKREGION("markregion_insert, markstart=%u, markend=%u, offset=%d\n",markstart,markend,offset);
 	if (markstart == markend)
 		return;
 
@@ -394,7 +394,7 @@ markregion_insert(Tregions *rg, guint markstart, guint markend)
 	}
 	if (CHANGE(rg->last)->is_start == TRUE) {
 		/* only update the offset */
-		g_print("update offset, starting at %u\n",CHANGE(CHANGE(rg->last)->next)->pos);
+		DBG_MARKREGION("update offset, starting at %u\n",CHANGE(CHANGE(rg->last)->next)->pos);
 		update_offset(CHANGE(rg->last)->next, offset);
 		return;
 	}
@@ -448,7 +448,7 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 		g_assert_not_reached();
 	}
 #endif
-	g_print("markregion_delete, %u:%u, update offset with %d, comparepos=%d. head(%d)|tail(%d)\n",markstart,markend,offset,comparepos
+	DBG_MARKREGION("markregion_delete, %u:%u, update offset with %d, comparepos=%d. head(%d)|tail(%d)\n",markstart,markend,offset,comparepos
 						,rg->head?CHANGE(rg->head)->pos:-1
 						,rg->tail?CHANGE(rg->tail)->pos:-1);
 	if (markstart == 0 && markend == 0 && rg->tail) {
@@ -457,7 +457,7 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 			Tchange *toremove = CHANGE(rg->last);
 			rg->last = CHANGE(rg->last)->next;
 			bf_elist_remove(BF_ELIST(toremove));
-			g_print("markregion_delete, remove pos=%u, because it is lower than %d\n",toremove->pos,comparepos);
+			DBG_MARKREGION("markregion_delete, remove pos=%u, because it is lower than %d\n",toremove->pos,comparepos);
 			g_slice_free(Tchange, toremove);
 #ifdef PROFILE_MARKREGION
 			prof.num_allocs--;
@@ -482,7 +482,7 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 	rg->last = find_prev_or_equal_position(rg, markstart);
 	if (rg->last == NULL) {
 		/* starts before head */
-		g_print("markregion_delete, prepend start %u to head (%u)\n",markstart,rg->head?CHANGE(rg->head)->pos:-1);
+		DBG_MARKREGION("markregion_delete, prepend start %u to head (%u)\n",markstart,rg->head?CHANGE(rg->head)->pos:-1);
 		rg->last = rg->head = bf_elist_prepend(BF_ELIST(rg->head), BF_ELIST(new_change(markstart, TRUE)));
 	}
 
@@ -508,7 +508,7 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 		Tchange *toremove = CHANGE(rg->last);
 		rg->last = CHANGE(rg->last)->next;
 		bf_elist_remove(BF_ELIST(toremove));
-/*		g_print("markregion_delete, remove pos=%u, because it is lower than %d\n",toremove->pos,comparepos);*/
+/*		DBG_MARKREGION("markregion_delete, remove pos=%u, because it is lower than %d\n",toremove->pos,comparepos);*/
 		g_slice_free(Tchange, toremove);
 #ifdef PROFILE_MARKREGION
 		prof.num_allocs--;
@@ -530,7 +530,7 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 		g_assert(rg->last);
 #endif
 		bf_elist_remove(BF_ELIST(toremove));
-		g_print("markregion_delete, remove pos=%u, because it equals %d and starts the next region (merge them)\n",toremove->pos,comparepos);
+		DBG_MARKREGION("markregion_delete, remove pos=%u, because it equals %d and starts the next region (merge them)\n",toremove->pos,comparepos);
 #ifdef PROFILE_MARKREGION
 		prof.num_allocs--;
 #endif
@@ -538,7 +538,7 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 		update_offset(rg->last, offset);
 		return;
 	}
-	/*g_print("rg->last(%u) is_start=%d, oldlast(%u) is_start=%d\n",CHANGE(rg->last)->pos,CHANGE(rg->last)->is_start,oldlast->pos,oldlast->is_start);*/
+	/*DBG_MARKREGION("rg->last(%u) is_start=%d, oldlast(%u) is_start=%d\n",CHANGE(rg->last)->pos,CHANGE(rg->last)->is_start,oldlast->pos,oldlast->is_start);*/
 	if (CHANGE(rg->last)->is_start == TRUE) {
 		bf_elist_prepend(BF_ELIST(rg->last), BF_ELIST(new_change(markend, FALSE)));
 	}
@@ -553,7 +553,7 @@ to the Tregions is equal to markregion_delete with an offset of zero.
 void
 markregion_nochange(Tregions *rg, guint markstart, guint markend)
 {
-	g_print("markregion_nochange, markstart=%u, markend=%u\n",markstart,markend);
+	DBG_MARKREGION("markregion_nochange, markstart=%u, markend=%u\n",markstart,markend);
 	markregion_delete(rg, markstart, markend, 0);
 }
 
@@ -570,7 +570,7 @@ markregion_get_region(Tregions *rg, gpointer cur, guint *start, guint *end)
 #ifdef DEVELOPMENT
 	markregion_verify_integrity(rg);
 #endif
-	g_print("markregion_get_region, cur->pos(%d), head(%d)|tail(%d)\n",cur?CHANGE(cur)->pos:-1
+	DBG_MARKREGION("markregion_get_region, cur->pos(%d), head(%d)|tail(%d)\n",cur?CHANGE(cur)->pos:-1
 						,rg->head?CHANGE(rg->head)->pos:-1
 						,rg->tail?CHANGE(rg->tail)->pos:-1);
 	if (cur == NULL) {
@@ -602,7 +602,7 @@ markregion_get_region(Tregions *rg, gpointer cur, guint *start, guint *end)
 #endif
 	*end = CHANGE(cur)->pos;
 	cur = CHANGE(cur)->next;
-	g_print("markregion_get_region, start=%u,end=%u,cur->pos(%d)\n",*start,*end,cur?CHANGE(cur)->pos:-1);
+	DBG_MARKREGION("markregion_get_region, start=%u,end=%u,cur->pos(%d)\n",*start,*end,cur?CHANGE(cur)->pos:-1);
 	return cur;
 }
 
