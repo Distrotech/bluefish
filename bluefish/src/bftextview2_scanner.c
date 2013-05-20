@@ -572,16 +572,16 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 				if (numblockchange > 0) {
 					/* we have to enlarge needscanning to the place where this was popped */
 					DBG_SCANCACHE("scancache_update_single_offset, found pushed a block, mark obsolete block %u:%u as needscanning\n",tmpfound->fblock->start1_o, tmpfound->fblock->end2_o);
-					mark_needscanning(btv, tmpfound->fblock->start1_o+sou->prevoffset+offset, tmpfound->fblock->end2_o==BF2_OFFSET_UNDEFINED ? -1 : tmpfound->fblock->end2_o+sou->prevoffset+offset);
+					mark_needscanning(btv, tmpfound->fblock->start1_o+sou->prevoffset+offset, tmpfound->fblock->end2_o==BF2_OFFSET_UNDEFINED ? BF2_OFFSET_UNDEFINED : tmpfound->fblock->end2_o+sou->prevoffset+offset);
 				}
 				if (tmpfound->numcontextchange > 0) {
 					/* we have to enlarge needscanning to the place where this was popped */
 					DBG_SCANCACHE("scancache_update_single_offset, found pushed a context, mark obsolete context %u:%u as needscanning\n",tmpfound->fcontext->start_o, tmpfound->fcontext->end_o);
-					mark_needscanning(btv, tmpfound->fcontext->start_o+sou->prevoffset+offset, tmpfound->fcontext->end_o==BF2_OFFSET_UNDEFINED ? -1 : tmpfound->fcontext->end_o+sou->prevoffset+offset);
+					mark_needscanning(btv, tmpfound->fcontext->start_o+sou->prevoffset+offset, tmpfound->fcontext->end_o==BF2_OFFSET_UNDEFINED ? BF2_OFFSET_UNDEFINED : tmpfound->fcontext->end_o+sou->prevoffset+offset);
 				}
 				remove_cache_entry(btv, &tmpfound, &tmpsiter, NULL, NULL);
 				if (!tmpfound && (numblockchange < 0)) {
-					mark_needscanning(btv, startpos, -1);
+					mark_needscanning(btv, startpos, BF2_OFFSET_UNDEFINED);
 					/* there is a special situation: if this is the last found in the cache, and it pops a block,
 					   we have to enlarge the scanning region to the end of the text */
 					DBG_SCANCACHE("scancache_update_single_offset, mark area from %u to end (-1) with needscanning\n",
@@ -888,7 +888,7 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 				}
 				remove_cache_entry(btv, &found, &siter, NULL, NULL);
 				if (!found && (numblockchange < 0)) {
-					mark_needscanning(btv, startpos, -1);
+					mark_needscanning(btv, startpos, BF2_OFFSET_UNDEFINED);
 					/* there is a special situation: if this is the last found in the cache, and it pops a block,
 					   we have to enlarge the scanning region to the end of the text */
 					DBG_SCANCACHE("scancache_update_single_offset, mark area from %d to end with needscanning\n",
