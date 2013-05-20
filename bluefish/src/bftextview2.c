@@ -667,7 +667,7 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 	startpos = gtk_text_iter_get_offset(&start);
 #ifdef MARKREGION
 	markregion_insert(&btv->scanning, startpos, startpos+charlen);
-	g_print("bftextview2_insert_text_after_lcb, apply needscanning to %u:%u\n",gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter));
+	DBG_MARKREGION("bftextview2_insert_text_after_lcb, apply needscanning to %u:%u\n",gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter));
 #endif
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
 #ifdef MARKREGION
@@ -1277,7 +1277,7 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 
 	so = gtk_text_iter_get_offset(obegin);	/* re-use the loop variable */
 	eo = gtk_text_iter_get_offset(oend);
-	g_print("bftextview2_delete_range_lcb, delete from %d to %d\n", so,eo);
+	DBG_SIGNALS("bftextview2_delete_range_lcb, delete from %d to %d\n", so,eo);
 	foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), so, so - eo);
 
 
@@ -1303,7 +1303,7 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 #ifdef MARKREGION
 	offset = so-eo;
 	markregion_delete(&btv->scanning, mso, meo+offset, offset);
-	g_print("bftextview2_delete_range_lcb, apply needscanning (before offset is applied!) to %u:%u\n",gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
+	DBG_MARKREGION("bftextview2_delete_range_lcb, apply needscanning (before offset is applied!) to %u:%u\n",gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
 #endif
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
 
@@ -1325,7 +1325,7 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	/* in delete_range_after the text has been altered, so obegin and oend now both point to
 	the same location, where the text was deleted */
 
-	g_print("bftextview2_delete_range_after_lcb, btv=%p, master=%p, needs_autocomp=%d\n", btv,
+	DBG_SIGNALS("bftextview2_delete_range_after_lcb, btv=%p, master=%p, needs_autocomp=%d\n", btv,
 				btv->master, btv->needs_autocomp);
 	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
 		&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && (btv->autocomp
