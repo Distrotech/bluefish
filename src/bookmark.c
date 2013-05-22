@@ -2,7 +2,7 @@
  * bookmark.c - bookmarks
  *
  * Copyright (C) 2003 Oskar Swida
- * modifications (C) 2004-2012 Olivier Sessink
+ * modifications (C) 2004-2013 Olivier Sessink
  * modifications (C) 2011-2012 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*#define DEBUG*/
+#define DEBUG
 /*#define BMARKREF*/
 
 #include <gtk/gtk.h>
@@ -85,7 +85,7 @@ enum {
 
 typedef struct {
 	GtkTextMark *mark;
-	GFile *filepath;
+	GFile *uri;
 	gint offset;
 	Tdocument *doc;
 	GtkTreeIter iter;			/* for tree view */
@@ -142,8 +142,9 @@ bmark_free(gpointer ptr)
 		DEBUG_MSG("bmark_free, NOT GOOD, strarr should be NULL here...\n");
 	}
 #endif
-	DEBUG_MSG("bmark_free, unref filepath %p\n", m->filepath);
-	g_object_unref(m->filepath);
+	DEBUG_MSG("bmark_free, unref uri %p\n", m->uri);
+	if (m->uri)
+		g_object_unref(m->uri);
 	g_free(m->text);
 	g_free(m->name);
 	g_free(m->description);
@@ -164,19 +165,28 @@ bmark_showname(Tbfwin * bfwin, Tbmark * b)
 }
 
 static gchar *
-bmark_filename(Tbfwin * bfwin, GFile * filepath)
+bmark_filename(Tbfwin * bfwin, GFile * uri)
 {
 	gchar *title;
+	if (!uri) {
+		g_warning("Bookmark without uri! Please report this message as a bug!\n");
+		return g_strdup("Bug - please report");
+	}
+	if (g_file_has_uri_scheme(uri, "tmp")) {
+		DEBUG_MSG("bmark_filename, have untitled document with uri scheme %s and path %s\n",g_file_get_uri_scheme(uri), g_file_get_basename(uri));
+		return g_file_get_basename(uri);
+	}
+	
 	switch (bfwin->session->bookmarks_filename_mode) {
 	case BM_FMODE_PATH:
-		title = g_file_get_uri(filepath);
+		title = g_file_get_uri(uri);
 		break;
 	case BM_FMODE_FILE:
-		title = g_file_get_basename(filepath);
+		title = g_file_get_basename(uri);
 		break;
 	case BM_FMODE_URI:
 	default:
-		title = g_file_get_uri(filepath);
+		title = g_file_get_uri(uri);
 		break;
 	}
 	return title;
@@ -199,7 +209,8 @@ bmark_update_treestore_name(Tbfwin * bfwin)
 		if (cont2) {
 			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &citer, PTR_COLUMN,
 							   &b, -1);
-			name = bmark_filename(bfwin, b->filepath);
+			/* TODO: if the bookmark has a document, use the untitled number from that document */
+			name = bmark_filename(bfwin, b->uri);
 			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &piter, NAME_COLUMN, name, -1);
 			g_free(name);
 		}
@@ -266,106 +277,18 @@ bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * pa
 	return b1;
 }
 
-/*
-static Tbmark *
-bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * parent)
-{
-	gint jumpsize, num_children, child;
-	GtkTreeIter iter;
-
-	num_children =
-		gtk_tree_model_iter_n_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), parent);
-	if (num_children == 0) {
-		return NULL;
-	}
-
-	if (num_children == 1) {
-		gint compare;
-		Tbmark *b;
-		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter,
-									  parent, 0);
-		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter, PTR_COLUMN, &b,
-						   -1);
-
-		bmark_update_offset_from_textmark(b);
-		DEBUG_MSG("bmark_find_bookmark_before_offset, num_children=%d\n", num_children);
-		compare = (offset - b->offset);
-
-		if (compare <= 0) {
-			return NULL;
-		} else {
-			return b;
-		}
-	}
-	jumpsize = (num_children + 2) / 2;
-	child = num_children + 1 - jumpsize;
-	DEBUG_MSG("bmark_find_bookmark_before_offset, num_children=%d,jumpsize=%d,child=%d\n", num_children,
-			  jumpsize, child);
-	while (jumpsize > 0) {
-		gint compare;
-		Tbmark *b;
-
-		if (child > num_children)
-			child = num_children;
-		if (child < 1)
-			child = 1;
-		/ * we request child-1, NOT child * /
-		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter,
-									  parent, child - 1);
-		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter, PTR_COLUMN, &b,
-						   -1);
-
-		bmark_update_offset_from_textmark(b);
-		compare = (offset - b->offset);
-		DEBUG_MSG("in_loop: jumpsize=%2d, child=%2d, child offset=%3d, compare=%3d\n", jumpsize, child,
-				  b->offset, compare);
-		if (compare == 0) {
-			return b;
-		} else if (compare < 0) {
-			jumpsize = (jumpsize > 3) ? (jumpsize + 1) / 2 : jumpsize - 1;
-			if (jumpsize <= 0) {
-				child--;
-				/ * we request child-1, NOT child * /
-				if (child >= 1
-					&&
-					gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),
-												  &iter, parent, child - 1)) {
-					gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter,
-									   PTR_COLUMN, &b, -1);
-					bmark_update_offset_from_textmark(b);
-					DEBUG_MSG("in_loop: returning bookmark (offset %d) for previous child %d\n", b->offset,
-							  child);
-					return b;
-				} else {
-					DEBUG_MSG("in_loop: no previous child, return NULL\n");
-					return NULL;
-				}
-			}
-			child = child - jumpsize;
-		} else {				/ * compare > 0 * /
-			jumpsize = (jumpsize > 3) ? (jumpsize + 1) / 2 : jumpsize - 1;
-			if (jumpsize <= 0) {
-				DEBUG_MSG("in_loop: return bookmark (offset %d) from child %d\n", b->offset, child);
-				return b;
-			}
-			child = child + jumpsize;
-		}
-	}
-	DEBUG_MSG("bmark_find_bookmark_before_offset, end-of-function, return NULL\n");
-	return NULL;
-}
-*/
 void
 bmark_rename_uri(Tbfwin * bfwin, Tbmark * b, GFile * newuri)
 {
-	g_object_unref(b->filepath);
-	b->filepath = newuri;
+	if (b->uri)
+		g_object_unref(b->uri);
+	b->uri = newuri;
 	if (newuri)
-		g_object_ref(b->filepath);
+		g_object_ref(b->uri);
 	if (b->strarr != NULL) {
 		g_free(b->strarr[2]);
 		if (newuri)
-			b->strarr[2] = g_file_get_parse_name(b->filepath);
+			b->strarr[2] = g_file_get_parse_name(b->uri);
 		else
 			b->strarr[2] = g_strdup("");
 	}
@@ -410,13 +333,20 @@ bmark_store(Tbfwin * bfwin, Tbmark * b)
 		DEBUG_MSG("bmark_store, called for temp bookmark %p ?!?! weird!!!! returning\n", b);
 		return;
 	}
-
+	if (!b->uri) {
+		DEBUG_MSG("bmark_store, cannot store bookmark for file without filename\n");
+		return;
+	}
+	if (g_file_has_uri_scheme(b->uri,"tmp")) {
+		DEBUG_MSG("bmark_store, cannot store bookmark for file without filename (tmp:// uri)\n");
+		return;
+	}
 	/* if there is a strarr already, we only update the fields, else we append a new one */
 	if (b->strarr == NULL) {
 		DEBUG_MSG("bmark_store, creating new strarr for bookmark %p\n", b);
 		strarr = g_malloc0(sizeof(gchar *) * 7);
 		DEBUG_MSG("name=%s, description=%s, text=%s\n", b->name, b->description, b->text);
-		strarr[2] = g_file_get_parse_name(b->filepath);
+		strarr[2] = g_file_get_parse_name(b->uri);
 		strarr[4] = g_strdup(b->text);
 	} else {
 		DEBUG_MSG("bmark_store, bookmark %p has strarr at %p\n", b, b->strarr);
@@ -639,14 +569,22 @@ bmark_activate(Tbfwin * bfwin, Tbmark * b, gboolean select_bmark)
 	if (!b)
 		return;
 
+	if (!b->doc && !b->uri)
+		return;
+
 	if (b->doc && b->mark) {
 		/* recalculate offset */
 		gtk_text_buffer_get_iter_at_mark(b->doc->buffer, &it, b->mark);
 		b->offset = gtk_text_iter_get_offset(&it);
 	}
-	DEBUG_MSG("bmark_activate, bmark at %p, filepath at %p\n", b, b->filepath);
+	DEBUG_MSG("bmark_activate, bmark at %p, uri at %p\n", b, b->uri);
 	DEBUG_MSG("bmark_activate, calling doc_new_from_uri with goto_offset %d\n", b->offset);
-	doc_new_from_uri(bfwin, b->filepath, NULL, FALSE, FALSE, -1, b->offset);
+	if (b->doc) {
+		bfwin_switch_to_document_by_pointer(BFWIN(b->doc->bfwin), b->doc);
+		doc_select_line_by_offset(b->doc, b->offset, TRUE);
+	} else {
+		doc_new_from_uri(bfwin, b->uri, NULL, FALSE, FALSE, -1, b->offset);
+	}
 	/* remove selection */
 	if (b->doc) {
 		gtk_text_buffer_get_iter_at_mark(b->doc->buffer, &it, gtk_text_buffer_get_insert(b->doc->buffer));
@@ -680,7 +618,7 @@ static gboolean
 bmark_check_remove(Tbfwin * bfwin, Tbmark * b)
 {
 	GtkTreeIter parent;
-	GtkTextIter it;
+	/*GtkTextIter it;*/
 
 	if (gtk_tree_model_iter_parent
 		(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &parent, &b->iter)) {
@@ -690,19 +628,20 @@ bmark_check_remove(Tbfwin * bfwin, Tbmark * b)
 		DEBUG_MSG("bmark_check_remove, the parent of this bookmark has %d children\n", numchild);
 		gtk_tree_store_remove(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &(b->iter));
 
-		if (b->doc) {
+		/* Olivier, 22 may 2013: what does the next line do ?????????? seems it can be removed */
+		/*if (b->doc) {
 			gtk_text_buffer_get_iter_at_mark(b->doc->buffer, &it, b->mark);
-		}
+		}*/
 
 		if (numchild == 1) {
 			GtkTextIter *tmpiter;
 			DEBUG_MSG("bmark_check_remove, we removed the last child, now remove the parent\n");
 			gtk_tree_store_remove(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &parent);
 			/* if the document is open, it should be removed from the hastable as well */
-			tmpiter = g_hash_table_lookup(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, b->filepath);
+			tmpiter = g_hash_table_lookup(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, b->uri);
 			if (tmpiter) {
 				DEBUG_MSG("bmark_check_remove, removing iter %p from hashtable\n", tmpiter);
-				g_hash_table_remove(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, b->filepath);
+				g_hash_table_remove(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, b->uri);
 				if (b->doc)
 					b->doc->bmark_parent = NULL;
 			}
@@ -1336,19 +1275,18 @@ bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m)
 	GtkTreeIter *parent;
 	gpointer ptr;
 	DEBUG_MSG("bmark_get_iter_at_tree_position, started\n");
-	ptr = g_hash_table_lookup(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, m->filepath);
+	ptr = g_hash_table_lookup(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, m->uri);
 	DEBUG_MSG("bmark_get_iter_at_tree_position, found %p in hashtable %p\n", ptr,
 			  BMARKDATA(bfwin->bmarkdata)->bmarkfiles);
 	if (ptr == NULL) {			/* closed document or bookmarks never set */
 		gchar *title;
 		parent = g_slice_new0(GtkTreeIter);
-/*		parent = g_new0(GtkTreeIter, 1);*/
 #ifdef BMARKREF
 		bmarkref.itercount++;
 		g_print("bmark_get_iter_at_tree_position, itercount=%d\n", bmarkref.itercount);
 #endif
 		/* we should sort the document names in the treestore */
-		title = bmark_filename(bfwin, m->filepath);
+		title = bmark_filename(bfwin, m->uri);
 		DEBUG_MSG("insert parent with name %s and doc=%p in treestore %p\n", title, m->doc,
 				  BMARKDATA(bfwin->bmarkdata)->bookmarkstore);
 		gtk_tree_store_insert_with_values(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, parent, NULL, 0,
@@ -1362,8 +1300,8 @@ bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m)
 		DEBUG_MSG("bmark_get_iter_at_tree_position, appending parent %p in hashtable %p\n", parent,
 				  BMARKDATA(bfwin->bmarkdata)->bmarkfiles);
 		/* the hash table frees the key, but not the value, on destroy */
-		g_object_ref(m->filepath);
-		g_hash_table_insert(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, m->filepath, parent);
+		g_object_ref(m->uri);
+		g_hash_table_insert(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, m->uri, parent);
 	} else {
 		parent = (GtkTreeIter *) ptr;
 	}
@@ -1404,7 +1342,6 @@ bmark_hash_value_free(gpointer data)
 	g_print("bmark_hash_value_free, itercount=%d\n", bmarkref.itercount);
 #endif
 	g_slice_free(GtkTreeIter, data);
-/*	g_free(data);*/
 }
 
 static void
@@ -1500,20 +1437,20 @@ bmark_reload(Tbfwin * bfwin)
 			if (strchr(items[2], ':') == NULL) {
 				gchar *tmp;
 				tmp = g_strconcat("file://", items[2], NULL);
-				b->filepath = g_file_parse_name(tmp);
+				b->uri = g_file_parse_name(tmp);
 				g_free(tmp);
 			} else {
-				b->filepath = g_file_parse_name(items[2]);
+				b->uri = g_file_parse_name(items[2]);
 			}
 			/* because the bookmark list is usually sorted, we try to cache the uri's and consume less memory */
-			if (cacheduri && (cacheduri == b->filepath || g_file_equal(cacheduri, b->filepath))) {
+			if (cacheduri && (cacheduri == b->uri || g_file_equal(cacheduri, b->uri))) {
 				DEBUG_MSG("bmark_reload, uri %p and %p are identical, unref %p and use %p\n", cacheduri,
-						  b->filepath, b->filepath, cacheduri);
-				g_object_unref(b->filepath);
-				b->filepath = g_object_ref(cacheduri);;
+						  b->uri, b->uri, cacheduri);
+				g_object_unref(b->uri);
+				b->uri = g_object_ref(cacheduri);;
 			} else {
-				DEBUG_MSG("bmark_reload, new uri %p\n", b->filepath);
-				cacheduri = b->filepath;
+				DEBUG_MSG("bmark_reload, new uri %p\n", b->uri);
+				cacheduri = b->uri;
 			}
 
 			b->offset = atoi(items[3]);
@@ -1521,7 +1458,7 @@ bmark_reload(Tbfwin * bfwin)
 			b->len = atoi(items[5]);
 			b->strarr = items;
 			DEBUG_MSG("bmark_reload, loaded bookmark %p for uri=%pat offset %d with text %s\n", b,
-					  b->filepath, b->offset, b->text);
+					  b->uri, b->offset, b->text);
 			bmark_get_iter_at_tree_position(bfwin, b);
 			ptr = bmark_showname(bfwin, b);
 			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &(b->iter), NAME_COLUMN, ptr,
@@ -1831,7 +1768,16 @@ bmark_add_backend(Tdocument * doc, GtkTextIter * itoffset, gint offset, const gc
 	}
 
 	m->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
-	m->filepath = g_object_ref(doc->uri);
+	m->uri = doc->uri;
+	if (m->uri) {
+		g_object_ref(m->uri);
+	} else {
+		gchar *tmp = g_strdup_printf("tmp:///%s", gtk_label_get_text(GTK_LABEL(doc->tab_label)));
+		DEBUG_MSG("use uri '%s' for untitled document\n", tmp);
+		m->uri = g_file_new_for_uri(tmp);
+		g_free(tmp);
+	}
+		
 	m->is_temp = is_temp;
 	m->text = g_strdup(text);
 	m->name = (name) ? g_strdup(name) : g_strdup("");
@@ -1991,15 +1937,6 @@ bmark_get_bmark_at_offset(Tdocument * doc, gint offset)
 	return bmark_get_bmark_at_iter(doc, &iter, offset);
 }
 
-static void
-bmark_warn_unsaved_file(Tbfwin * bfwin)
-{
-	message_dialog_new(bfwin->main_window,
-					   GTK_MESSAGE_ERROR,
-					   GTK_BUTTONS_CLOSE,
-					   _("Error adding bookmark"), _("Cannot add bookmarks to unsaved files."));
-}
-
 /**
  * bmark_add_extern
  * @doc: a #Tdocument* with the document
@@ -2016,10 +1953,6 @@ bmark_add_extern(Tdocument * doc, gint offset, const gchar * name, const gchar *
 {
 	if (!doc)
 		return;
-	if (!doc->uri) {
-		bmark_warn_unsaved_file(doc->bfwin);
-		return;
-	}
 	DEBUG_MSG("adding bookmark at offset %d with name %s\n", offset, name);	/* dummy */
 	if (!bmark_get_bmark_at_offset(doc, offset)) {
 		if (text) {
@@ -2038,10 +1971,6 @@ bmark_toggle(Tdocument * doc, gint offset, const gchar * name, const gchar * tex
 	Tbmark *bmark;
 	if (!doc)
 		return;
-	if (!doc->uri) {
-		bmark_warn_unsaved_file(doc->bfwin);
-		return;
-	}
 	bmark = bmark_get_bmark_at_offset(doc, offset);
 	if (bmark) {
 		bmark_check_remove(BFWIN(doc->bfwin), bmark);	/* check  if we should remove a filename too */
@@ -2058,12 +1987,6 @@ bmark_add(Tbfwin * bfwin)
 	GtkTextIter it, it2;
 	gint offset;
 	gboolean has_mark;
-	/* check for unnamed document */
-	if (!bfwin->current_document || !DOCUMENT(bfwin->current_document)->uri) {
-		bmark_warn_unsaved_file(bfwin);
-		/*Please save the file first. A Save button in this dialog would be cool -- Alastair */
-		return;
-	}
 	/* if the left panel is disabled, we simply should add the bookmark to the list, and do nothing else */
 	gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer, &it,
 									 gtk_text_buffer_get_insert(DOCUMENT(bfwin->current_document)->buffer));
@@ -2140,13 +2063,6 @@ void
 bmark_add_at_bevent(Tdocument * doc)
 {
 	/* check for unnamed document */
-	if (!doc->uri) {
-		message_dialog_new(BFWIN(doc->bfwin)->main_window,
-						   GTK_MESSAGE_ERROR,
-						   GTK_BUTTONS_CLOSE,
-						   _("Error adding bookmark"), _("Cannot add bookmarks to unsaved files."));
-		return;
-	}
 	if (main_v->bevent_doc == doc) {
 		gint offset = main_v->bevent_charoffset;
 		/* we have the location */
