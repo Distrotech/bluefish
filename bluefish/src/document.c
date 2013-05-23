@@ -272,6 +272,9 @@ documentlist_return_index_from_uri(GList * doclist, GFile * uri)
 void
 doc_set_uri(Tdocument *doc, GFile *uri)
 {
+	if (uri == doc->uri)
+		return;
+	
 	if (doc->uri) {
 		g_hash_table_remove(main_v->alldochash, doc->uri);
 		fb2_set_uri_state(doc->uri, FALSE);
@@ -283,6 +286,8 @@ doc_set_uri(Tdocument *doc, GFile *uri)
 		g_hash_table_insert(main_v->alldochash, doc->uri, doc);
 		fb2_set_uri_state(doc->uri, TRUE);
 	}
+	g_print("doc_set_uri, call bmark_doc_renamed for doc %p (new uri %p)\n",doc,uri);
+	bmark_doc_renamed(BFWIN(doc->bfwin), doc);
 }
 
 
@@ -508,10 +513,13 @@ tab_label_set_string(Tdocument *doc, const gchar *string)
  * Return value: void
  */
 void
-doc_set_title(Tdocument * doc)
+doc_set_title(Tdocument * doc, const gchar *override_label_string)
 {
 	gchar *label_string, *tabmenu_string;
-	if (doc->uri) {
+	if (override_label_string) {
+		label_string = g_strdup(override_label_string);
+		tabmenu_string = g_strdup(override_label_string);
+	} else if (doc->uri) {
 		gchar *parsename, *basename;
 		if (g_file_is_native(doc->uri)) {
 			tabmenu_string = g_file_get_path(doc->uri);
@@ -2296,14 +2304,16 @@ document_unset_filename(Tdocument * doc)
 	if (doc->uri) {
 		gchar *tmpstr;
 		tmpstr = g_strconcat(_("Previously: "), gtk_label_get_text(GTK_LABEL(doc->tab_label)), NULL);
+		/* doc_set_uri calls bmark_renamed which uses the tab_label for the name, so first set the tab label */
+		doc_set_title(doc, tmpstr);
 		doc_set_uri(doc, NULL);
+		
 		if (doc->fileinfo) {
 			g_object_unref(doc->fileinfo);
 			doc->fileinfo = NULL;
 		}
-		doc_set_title(doc);
+		
 		doc_set_modified(doc, TRUE);
-		tab_label_set_string(doc, tmpstr);
 		g_free(tmpstr);
 	}
 }
@@ -2540,7 +2550,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 		g_strdup(main_v->props.newfile_default_encoding);
 	DEBUG_MSG("doc_new_backend, encoding is %s\n", newdoc->encoding);
 
-	doc_set_title(newdoc);
+	doc_set_title(newdoc, NULL);
 
 	g_signal_connect(G_OBJECT(newdoc->buffer), "insert-text", G_CALLBACK(doc_buffer_insert_text_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "delete-range", G_CALLBACK(doc_buffer_delete_range_lcb), newdoc);
@@ -2616,7 +2626,7 @@ doc_new_loading_in_background(Tbfwin * bfwin, GFile * uri, GFileInfo * finfo, gb
 		doc->fileinfo = NULL;
 	}
 	doc_set_uri(doc, uri);
-	doc_set_title(doc);
+	doc_set_title(doc, NULL);
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	bfwin_docs_not_complete(bfwin, TRUE);
 	return doc;

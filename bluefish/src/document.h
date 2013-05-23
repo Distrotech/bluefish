@@ -53,7 +53,7 @@ gint document_return_num_notcomplete(GList * doclist);
 void doc_update_highlighting(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
 void doc_set_wrap(Tdocument * doc, gboolean enabled);
 void doc_set_tooltip(Tdocument * doc);
-void doc_set_title(Tdocument * doc);
+void doc_set_title(Tdocument * doc, const gchar *override_label_string);
 void doc_set_statusbar_lang_encoding(Tdocument * doc);
 void doc_set_mimetype(Tdocument * doc, const gchar * mimetype, const gchar * filename);
 void doc_reset_filetype(Tdocument * doc, GFile * newuri, gconstpointer buf, gssize buflen);

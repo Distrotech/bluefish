@@ -192,6 +192,22 @@ bmark_filename(Tbfwin * bfwin, GFile * uri)
 	return title;
 }
 
+static GFile *
+bmark_uri_from_doc(Tdocument *doc)
+{
+	GFile *uri;
+	if (!doc->uri) {
+		gchar *tmp = g_strdup_printf("tmp:///%s", gtk_label_get_text(GTK_LABEL(doc->tab_label)));
+		DEBUG_MSG("use uri '%s' for untitled document\n", tmp);
+		uri = g_file_new_for_uri(tmp);
+		g_free(tmp);
+	} else {
+		g_object_ref(doc->uri);
+		uri = doc->uri;
+	}
+	return uri;
+}
+
 static void
 bmark_update_treestore_name(Tbfwin * bfwin)
 {
@@ -278,16 +294,14 @@ bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * pa
 }
 
 void
-bmark_rename_uri(Tbfwin * bfwin, Tbmark * b, GFile * newuri)
+bmark_rename_uri(Tbfwin * bfwin, Tbmark * b, Tdocument *doc)
 {
 	if (b->uri)
 		g_object_unref(b->uri);
-	b->uri = newuri;
-	if (newuri)
-		g_object_ref(b->uri);
+	b->uri = bmark_uri_from_doc(doc);
 	if (b->strarr != NULL) {
 		g_free(b->strarr[2]);
-		if (newuri)
+		if (b->uri)
 			b->strarr[2] = g_file_get_parse_name(b->uri);
 		else
 			b->strarr[2] = g_strdup("");
@@ -297,28 +311,36 @@ bmark_rename_uri(Tbfwin * bfwin, Tbmark * b, GFile * newuri)
 void
 bmark_doc_renamed(Tbfwin * bfwin, Tdocument * doc)
 {
-	if (doc->uri && doc->bmark_parent) {
-		GtkTreeIter tmpiter;
-		gboolean cont;
-		gchar *name;
-		name = bmark_filename(bfwin, doc->uri);
-		gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, doc->bmark_parent, NAME_COLUMN, name,
-						   -1);
-		g_free(name);
-		cont =
-			gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter,
-										 doc->bmark_parent);
-		while (cont) {
-			Tbmark *b;
-			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter,
-							   PTR_COLUMN, &b, -1);
-			if (b) {
-				bmark_rename_uri(bfwin, b, doc->uri);
-			}
-			cont =
-				gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),
-										 &tmpiter);
+	if (!doc->bmark_parent) {
+		DEBUG_MSG("bmark_doc_renamed, doc %p with uri %p has no bmark_parent, return\n", doc, doc->uri);
+		return;
+	}
+	GtkTreeIter tmpiter;
+	gboolean cont;
+	gboolean parent_renamed=FALSE;
+	
+	cont =
+		gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter,
+									 doc->bmark_parent);
+	while (cont) {
+		Tbmark *b;
+		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter,
+						   PTR_COLUMN, &b, -1);
+		if (b) {
+			bmark_rename_uri(bfwin, b, doc);
 		}
+		if (!parent_renamed) {
+			gchar *name = bmark_filename(bfwin, b->uri);
+			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, doc->bmark_parent, NAME_COLUMN, name,
+					   -1);
+			DEBUG_MSG("bmark_doc_renamed, renamed parent to %s\n",name);
+			g_free(name);
+			parent_renamed = TRUE;
+		}
+	
+		cont =
+			gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),
+									 &tmpiter);
 	}
 }
 
@@ -1768,16 +1790,7 @@ bmark_add_backend(Tdocument * doc, GtkTextIter * itoffset, gint offset, const gc
 	}
 
 	m->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
-	m->uri = doc->uri;
-	if (m->uri) {
-		g_object_ref(m->uri);
-	} else {
-		gchar *tmp = g_strdup_printf("tmp:///%s", gtk_label_get_text(GTK_LABEL(doc->tab_label)));
-		DEBUG_MSG("use uri '%s' for untitled document\n", tmp);
-		m->uri = g_file_new_for_uri(tmp);
-		g_free(tmp);
-	}
-		
+	m->uri = bmark_uri_from_doc(doc);
 	m->is_temp = is_temp;
 	m->text = g_strdup(text);
 	m->name = (name) ? g_strdup(name) : g_strdup("");

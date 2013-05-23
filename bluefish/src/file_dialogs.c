@@ -819,9 +819,6 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 		g_object_ref(dest_uri);
 	}
 	DEBUG_MSG("doc_save_backend, dest_uri=%p\n",dest_uri);
-	if (doc->uri && (savemode == docsave_move || savemode==docsave_saveas)) {
-		bmark_doc_renamed(BFWIN(doc->bfwin), doc);
-	}
 	if ((firstsave || savemode != docsave_normal)&& dest_uri) {
 		dsb->fbrefresh_uri = dest_uri;	/* refresh this uri later */
 		g_object_ref(dest_uri);
@@ -857,7 +854,7 @@ glib_major_version, glib_minor_version, glib_micro_version);
 	if (firstsave || savemode == docsave_saveas || savemode == docsave_move) {
 		doc->readonly = FALSE;
 		doc_reset_filetype(doc, doc->uri, buffer->data, strlen(buffer->data));
-		doc_set_title(doc);
+		doc_set_title(doc, NULL);
 		doc_force_activate(doc);
 	}
 	g_object_unref(dest_uri);
