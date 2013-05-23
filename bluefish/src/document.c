@@ -270,7 +270,7 @@ documentlist_return_index_from_uri(GList * doclist, GFile * uri)
 }
 
 void
-doc_set_uri(Tdocument *doc, GFile *uri)
+doc_set_uri(Tdocument *doc, GFile *uri, gboolean on_destroy)
 {
 	if (uri == doc->uri)
 		return;
@@ -286,8 +286,10 @@ doc_set_uri(Tdocument *doc, GFile *uri)
 		g_hash_table_insert(main_v->alldochash, doc->uri, doc);
 		fb2_set_uri_state(doc->uri, TRUE);
 	}
-	g_print("doc_set_uri, call bmark_doc_renamed for doc %p (new uri %p)\n",doc,uri);
-	bmark_doc_renamed(BFWIN(doc->bfwin), doc);
+	if (!on_destroy) {
+		g_print("doc_set_uri, call bmark_doc_renamed for doc %p (new uri %p)\n",doc,uri);
+		bmark_doc_renamed(BFWIN(doc->bfwin), doc);
+	}
 }
 
 
@@ -2272,7 +2274,7 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 			g_object_unref(backupuri);
 		}
 		DEBUG_MSG("doc_destroy, unref doc->uri %p\n",doc->uri);
-		doc_set_uri(doc, NULL);
+		doc_set_uri(doc, NULL, TRUE);
 	}
 
 	if (doc->encoding)
@@ -2306,7 +2308,7 @@ document_unset_filename(Tdocument * doc)
 		tmpstr = g_strconcat(_("Previously: "), gtk_label_get_text(GTK_LABEL(doc->tab_label)), NULL);
 		/* doc_set_uri calls bmark_renamed which uses the tab_label for the name, so first set the tab label */
 		doc_set_title(doc, tmpstr);
-		doc_set_uri(doc, NULL);
+		doc_set_uri(doc, NULL, FALSE);
 		
 		if (doc->fileinfo) {
 			g_object_unref(doc->fileinfo);
@@ -2625,7 +2627,7 @@ doc_new_loading_in_background(Tbfwin * bfwin, GFile * uri, GFileInfo * finfo, gb
 	} else {
 		doc->fileinfo = NULL;
 	}
-	doc_set_uri(doc, uri);
+	doc_set_uri(doc, uri, FALSE);
 	doc_set_title(doc, NULL);
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	bfwin_docs_not_complete(bfwin, TRUE);

@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#define DEBUG
+/*#define DEBUG*/
 /*#define BMARKREF*/
 
 #include <gtk/gtk.h>
@@ -133,7 +133,7 @@ bmark_free(gpointer ptr)
 		return;
 	m = BMARK(ptr);
 	if (m->doc && m->mark) {
-		DEBUG_MSG("bmark_free, deleting mark %p\n", m->mark);
+		DEBUG_MSG("bmark_free, deleting GtkTextMark %p\n", m->mark);
 		gtk_text_buffer_delete_mark(m->doc->buffer, m->mark);
 		m->doc = NULL;
 	}
@@ -293,7 +293,7 @@ bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * pa
 	return b1;
 }
 
-void
+static void
 bmark_rename_uri(Tbfwin * bfwin, Tbmark * b, Tdocument *doc)
 {
 	if (b->uri)
@@ -301,10 +301,7 @@ bmark_rename_uri(Tbfwin * bfwin, Tbmark * b, Tdocument *doc)
 	b->uri = bmark_uri_from_doc(doc);
 	if (b->strarr != NULL) {
 		g_free(b->strarr[2]);
-		if (b->uri)
-			b->strarr[2] = g_file_get_parse_name(b->uri);
-		else
-			b->strarr[2] = g_strdup("");
+		b->strarr[2] = g_file_get_parse_name(b->uri);
 	}
 }
 
@@ -326,24 +323,57 @@ bmark_doc_renamed(Tbfwin * bfwin, Tdocument * doc)
 		Tbmark *b;
 		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter,
 						   PTR_COLUMN, &b, -1);
-		if (b) {
-			bmark_rename_uri(bfwin, b, doc);
+		cont =
+			gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),
+									 &tmpiter);
+		if (!b) {
+			continue;
 		}
+#ifdef DEVELOPMENT
+		if (b->doc != doc) {
+			g_warning("bmark_doc_renamed, bug, b->doc(%p)!=doc(%p)\n",b->doc,doc);
+			g_assert_not_reached();
+		}
+#endif
+	
+		if (doc->uri == b->uri || (doc->uri && g_file_equal(doc->uri, b->uri))) {
+			return;
+		}
+		
 		if (!parent_renamed) {
+			/* first remove the old uri from the hash table, but keep the GtkTreeIter stored in a variable */
+			GtkTreeIter *newiter;
+			newiter = g_slice_new(GtkTreeIter);
+			*newiter = *doc->bmark_parent;
+			g_hash_table_remove(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, b->uri);
+			doc->bmark_parent = newiter;
+		}
+		bmark_rename_uri(bfwin, b, doc);
+		if (!parent_renamed) {
+			/* now use the new b->uri as new name, and insert the new uri in the hash table */
 			gchar *name = bmark_filename(bfwin, b->uri);
 			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, doc->bmark_parent, NAME_COLUMN, name,
 					   -1);
+			g_object_ref(b->uri);
+			g_hash_table_insert(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, b->uri, doc->bmark_parent);
 			DEBUG_MSG("bmark_doc_renamed, renamed parent to %s\n",name);
 			g_free(name);
 			parent_renamed = TRUE;
 		}
-	
-		cont =
-			gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),
-									 &tmpiter);
 	}
 }
 
+/* removes the bookmark from the session, removed the b->strarr pointer and frees it */
+static void
+bmark_unstore(Tbfwin * bfwin, Tbmark * b)
+{
+	if (bfwin->session->bmarks == NULL || b->strarr == NULL)
+		return;
+	DEBUG_MSG("bmark_remove, removing bookmark %p from sessionlist\n", b);
+	bfwin->session->bmarks = g_list_remove(bfwin->session->bmarks, b->strarr);
+	g_strfreev(b->strarr);
+	b->strarr = NULL;
+}
 
 /* this function re-uses the b->strarr if possible, otherwise it will create a new one and
 append it to the list */
@@ -361,6 +391,9 @@ bmark_store(Tbfwin * bfwin, Tbmark * b)
 	}
 	if (g_file_has_uri_scheme(b->uri,"tmp")) {
 		DEBUG_MSG("bmark_store, cannot store bookmark for file without filename (tmp:// uri)\n");
+		if (b->strarr) {
+			bmark_unstore(bfwin, b);
+		}
 		return;
 	}
 	/* if there is a strarr already, we only update the fields, else we append a new one */
@@ -440,18 +473,6 @@ bmark_store_all(Tbfwin * bfwin)
 		}
 		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &fileit);
 	}							/* cont */
-}
-
-/* removes the bookmark from the session, removed the b->strarr pointer and frees it */
-static void
-bmark_unstore(Tbfwin * bfwin, Tbmark * b)
-{
-	if (bfwin->session->bmarks == NULL || b->strarr == NULL)
-		return;
-	DEBUG_MSG("bmark_remove, removing bookmark %p from sessionlist\n", b);
-	bfwin->session->bmarks = g_list_remove(bfwin->session->bmarks, b->strarr);
-	g_strfreev(b->strarr);
-	b->strarr = NULL;
 }
 
 static Tbmark *
@@ -1540,9 +1561,6 @@ bmark_clean_for_doc(Tdocument * doc)
 	if (doc->bmark_parent == NULL)
 		return;
 
-	if (!doc->uri)
-		return;
-
 	if (BFWIN(doc->bfwin)->bmarkdata == NULL)
 		return;
 
@@ -1560,8 +1578,8 @@ bmark_clean_for_doc(Tdocument * doc)
 		if (b) {
 			bmark_update_offset_from_textmark(b);
 			DEBUG_MSG
-				("bmark_clean_for_doc, bookmark=%p, new offset=%d, now deleting GtkTextMark from TextBuffer\n",
-				 b, b->offset);
+				("bmark_clean_for_doc, bookmark=%p, new offset=%d, now deleting GtkTextMark %p from TextBuffer\n",
+				 b, b->offset, b->mark);
 			gtk_text_buffer_delete_mark(doc->buffer, b->mark);
 			if (doc->fileinfo)
 				b->len = gtk_text_buffer_get_char_count(doc->buffer);
@@ -1702,6 +1720,7 @@ bmark_set_for_doc(Tdocument * doc, gboolean check_positions)
 				}
 			}
 			mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
+			DEBUG_MSG("bmark_set_for_doc, create GtkTextMark for bmark %p at %p\n",mark,mark->mark);
 		}
 		cont2 =
 			gtk_tree_model_iter_next(GTK_TREE_MODEL
@@ -1790,6 +1809,7 @@ bmark_add_backend(Tdocument * doc, GtkTextIter * itoffset, gint offset, const gc
 	}
 
 	m->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
+	DEBUG_MSG("bmark_add_backend, mark=%p, create GtkTextMark %p\n",m,m->mark);
 	m->uri = bmark_uri_from_doc(doc);
 	m->is_temp = is_temp;
 	m->text = g_strdup(text);

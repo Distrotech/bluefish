@@ -807,7 +807,7 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 					g_object_ref(dsb->unlink_uri);
 				}
 			}
-			doc_set_uri(doc, dest_uri);
+			doc_set_uri(doc, dest_uri, FALSE);
 			dest_finfo = doc->fileinfo;
 		}
 		DEBUG_MSG("doc_save_backend, newfilename=%s, dest_uri=%p, doc->uri=%p\n",newfilename, dest_uri, doc->uri);
