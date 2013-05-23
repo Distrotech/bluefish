@@ -84,32 +84,43 @@ if test "${APPLECURRENCY}"; then
 fi
 unset APPLECURRENCY APPLELANG APPLELOCALE FILES
 
+APP=bluefish
+I18NDIR="$bundle_data/locale"
+
 # Has a language ordering been set?
-# If so, set LC_MESSAGES accordingly; otherwise skip it.
-APPLELANGUAGES=`defaults read .GlobalPreferences AppleLanguages | awk 'length > 2' | awk -F, '{print $1}' | sed s/\ //g | sed s/-/_/ | sed s/\"//g`
+# If so, set LC_MESSAGES and LANG accordingly; otherwise skip it.
+# First step uses sed to clean off the quotes and commas, to change - to _, and change the names for the chinese scripts from "Hans" to CN and "Hant" to TW.
+APPLELANGUAGES=`defaults read .GlobalPreferences AppleLanguages | sed -En   -e 's/\-/_/' -e 's/Hant/TW/' -e 's/Hans/CN/' -e 's/[[:space:]]*\"?([[:alnum:]_]+)\"?,?/\1/p' `
 if test "$APPLELANGUAGES"; then
     # A language ordering exists.
     # Test, item per item, to see whether there is an corresponding locale.
-    for L in $APPLELANGUAGES
-    do
-        POS=`echo ${L} | awk '{print index(ENVIRON["LANG"], $0)}'`
-        if test $POS -eq 1; then
-            # The language symbol is a subset of the $LANG variable. We're done!
+    for L in $APPLELANGUAGES; do
+	#test for exact matches:
+       if test -f "$I18NDIR/${L}/LC_MESSAGES/$APP.mo"; then
+	    	export LANG=$L
             break
         fi
-        # NOTE: the following may fail for the alternate Chinese localizations.
-        LC=`ls -d /usr/share/locale/${L}*.UTF-8 2>> /dev/null`
-        # $LC is potentially multi-line; concatenate lines by not using quotes.
-        if test $LC; then
-            # There is a UTF-8 locale matching this language.
-            export LC_MESSAGES=`echo ${LC} | awk '{print $1}' | awk -F/ '{print $5}'`
-            break
-        fi
+	#This is a special case, because often the original strings are in US
+	#English and there is no translation file.
+	if test "x$L" == "xen_US"; then
+	    export LANG=$L
+	    break
+	fi
+	#OK, now test for just the first two letters:
+        if test -f "$I18NDIR/${L:0:2}/LC_MESSAGES/$APP.mo"; then
+	    export LANG=${L:0:2}
+	    break
+	fi
+	#Same thing, but checking for any english variant.
+	if test "x${L:0:2}" == "xen"; then
+	    export LANG=$L
+	    break
+	fi;
     done  
 fi
-unset APPLELANGUAGES POS LC L
+unset APPLELANGUAGES L
 
-echo "LANG IS SET TO $LANG"
+echo "LANG is set to $LANG"
 
 if test -f "$bundle_lib/charset.alias"; then
     export CHARSETALIASDIR="$bundle_lib"
