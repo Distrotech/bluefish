@@ -45,7 +45,7 @@ GList *return_urilist_from_doclist(GList * doclist);
 void add_filename_to_recentlist(Tbfwin * bfwin, GFile * uri);
 
 gint documentlist_return_index_from_uri(GList * doclist, GFile * uri);
-void doc_set_uri(Tdocument *doc, GFile *uri);
+void doc_set_uri(Tdocument *doc, GFile *uri, gboolean on_destroy);
 Tdocument *documentlist_return_document_from_uri(GList * doclist, GFile * uri);
 Tdocument *documentlist_return_document_from_index(GList * doclist, gint index);
 gint document_return_num_notcomplete(GList * doclist);
