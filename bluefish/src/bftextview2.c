@@ -668,23 +668,25 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 #ifdef MARKREGION
 	markregion_insert(&btv->scanning, startpos, startpos+charlen);
 	DBG_MARKREGION("bftextview2_insert_text_after_lcb, apply needscanning to %u:%u\n",gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter));
-#endif
-	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
-#ifdef MARKREGION
-	bftextview2_dump_needscanning(btv);
-#endif
-
-	btv->needremovetags = 0;
-	/*start_offset = gtk_text_iter_get_offset(&start); */
-
 #ifdef HAVE_LIBENCHANT
-/*#ifdef MARKREGION
-	mark_region_changed(&btv->spellcheck, gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter));
-#endif*/
+	markregion_insert(&btv->spellcheck, startpos, startpos+charlen);
+#endif
+#endif
+#ifdef NEEDSCANNING
+	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
+#ifdef HAVE_LIBENCHANT
 	DBG_SPELL("bftextview2_insert_text_after_lcb, mark area from %d to %d with tag 'needspellcheck' %p\n",
 			  gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needspellcheck);
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
 #endif							/*HAVE_LIBENCHANT */
+#endif /* NEEDSCANNING */
+	btv->needremovetags = 0;
+
+#ifdef MARKREGION
+#ifdef NEEDSCANNING
+	compare_markregion_needscanning(btv);
+#endif
+#endif
 }
 
 /*static void print_found(Tfound * found)
@@ -1304,10 +1306,12 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	offset = so-eo;
 	markregion_delete(&btv->scanning, mso, meo+offset, offset);
 	DBG_MARKREGION("bftextview2_delete_range_lcb, apply needscanning (before offset is applied!) to %u:%u\n",gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
+#ifdef HAVE_LIBENCHANT
+	markregion_delete(&btv->spellcheck, mso, meo+offset, offset);
 #endif
+#endif
+#ifdef NEEDSCANNING
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
-
-	btv->needremovetags = 0;
 	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
 				gtk_text_iter_get_offset(&end));
 #ifdef HAVE_LIBENCHANT
@@ -1315,6 +1319,8 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	DBG_SPELL("mark text from %d to %d as needspellcheck\n", gtk_text_iter_get_offset(&begin),
 			  gtk_text_iter_get_offset(&end));
 #endif							/*HAVE_LIBENCHANT */
+#endif
+	btv->needremovetags = 0;
 }
 
 static void
@@ -1342,10 +1348,13 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	}
 	bftextview2_schedule_scanning(btv);
 
-#ifdef MARKREGION
-	/* because dump_needscanning() compared needscanning and markregion code, the offset needs to be adjusted in both.
+
+	/* because compare_markregion_needscanning() compares needscanning and markregion code, the offset needs to be adjusted in both.
 	for needscanning the offset is only adjusted in the 'after' callback */
-	bftextview2_dump_needscanning(btv);
+#ifdef MARKREGION
+#ifdef NEEDSCANNING
+	compare_markregion_needscanning(btv);
+#endif
 #endif
 }
 
@@ -2129,13 +2138,18 @@ bluefish_text_view_rescan(BluefishTextView * btv)
 #ifdef MARKREGION
 		markregion_nochange(&btv->scanning, gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
 		g_print("bluefish_text_view_rescan, apply needscanning to %d:%d\n",gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
+#ifdef HAVE_LIBENCHANT
+		markregion_nochange(&btv->spellcheck, gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
 #endif
+#endif
+#ifdef NEEDSCANNING
 		gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(btv->master)->needscanning, &start, &end);
-		btv->needremovetags = 0;
 #ifdef HAVE_LIBENCHANT
 		DBG_SPELL("bluefish_text_view_rescan, mark all with needspellcheck\n");
 		gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(btv->master)->needspellcheck, &start, &end);
 #endif							/*HAVE_LIBENCHANT */
+#endif
+		btv->needremovetags = 0;
 		bftextview2_schedule_scanning(btv);
 	}
 }
@@ -2450,12 +2464,17 @@ bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, c
 #ifdef MARKREGION
 		markregion_nochange(&master->scanning, gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
 		g_print("bluefish_text_view_set_mimetype, apply needscanning to %d:%d\n",gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
+#ifdef HAVE_LIBENCHANT
+		markregion_nochange(&master->spellcheck, gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
 #endif
+#endif
+#ifdef NEEDSCANNING
 		gtk_text_buffer_apply_tag(buffer, master->needscanning, &start, &end);
-		btv->needremovetags = 0;
 #ifdef HAVE_LIBENCHANT
 		gtk_text_buffer_apply_tag(buffer, master->needspellcheck, &start, &end);
 #endif
+#endif
+		btv->needremovetags = 0;
 		if (master->enable_scanner) {
 			DBG_MSG("bluefish_text_view_select_language, schedule scanning\n");
 			bftextview2_schedule_scanning(master);
@@ -2607,24 +2626,27 @@ void
 bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check)
 {
 	GtkTextIter start, end;
-	GtkTextBuffer *buffer;
+	BluefishTextView *master = btv->master;
 
 	g_return_if_fail(btv != NULL);
 
-	if (btv->spell_check == spell_check) {
+	if (master->spell_check == spell_check) {
 		return;
 	}
 
-	btv->spell_check = spell_check;
+	master->spell_check = spell_check;
+	gtk_text_buffer_get_bounds(master->buffer, &start, &end);
 
-	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-	gtk_text_buffer_get_bounds(buffer, &start, &end);
-
-	if (btv->spell_check) {
-		gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
-		bftextview2_schedule_scanning(btv->master);
+	if (master->spell_check) {
+#ifdef NEEDSCANNING
+		gtk_text_buffer_apply_tag(master->buffer, master->needspellcheck, &start, &end);
+#endif
+#ifdef MARKREGION
+		markregion_nochange(master, 0, gtk_text_iter_get_offset(&end));
+#endif
+		bftextview2_schedule_scanning(master);
 	} else {
-		gtk_text_buffer_remove_tag_by_name(buffer, "_spellerror_", &start, &end);
+		gtk_text_buffer_remove_tag_by_name(master->buffer, "_spellerror_", &start, &end);
 	}
 }
 #endif
@@ -2888,10 +2910,12 @@ bluefish_text_view_init(BluefishTextView * textview)
 	textview->showsymbols = FALSE;
 	textview->button_press_line = -1;
 	ttt = langmgr_get_tagtable();
+#ifdef NEEDSCANNING
 	textview->needscanning = gtk_text_tag_table_lookup(ttt, "_needscanning_");
 #ifdef HAVE_LIBENCHANT
 	textview->needspellcheck = gtk_text_tag_table_lookup(ttt, "_needspellcheck_");
 #endif							/*HAVE_LIBENCHANT */
+#endif
 	textview->blockmatch = gtk_text_tag_table_lookup(ttt, "blockmatch");
 	textview->cursortag = gtk_text_tag_table_lookup(ttt, "cursor_highlight");
 	textview->enable_scanner = FALSE;

@@ -68,14 +68,14 @@ typedef struct {
 #define CHANGE(var) ((Tchange *)var)
 
 #ifdef DEVELOPMENT
-
+#ifdef NEEDSCANNING
 void
-bftextview2_dump_needscanning(BluefishTextView *btv) {
+compare_markregion_needscanning(BluefishTextView *btv) {
 	gboolean cont=TRUE;
 	Tchange *cso, *ceo;
 	guint so,eo;
 	GtkTextIter start,end;
-	DBG_MARKREGION("bftextview2_dump_needscanning, started, markregion has head(%d)|tail(%d)\n",btv->scanning.head?CHANGE(btv->scanning.head)->pos:-1
+	DBG_MARKREGION("compare_markregion_needscanning, started, markregion has head(%d)|tail(%d)\n",btv->scanning.head?CHANGE(btv->scanning.head)->pos:-1
 						,btv->scanning.tail?CHANGE(btv->scanning.tail)->pos:-1);
 	gtk_text_buffer_get_start_iter(btv->buffer, &start);
 	cso = CHANGE(btv->scanning.head);
@@ -115,7 +115,7 @@ bftextview2_dump_needscanning(BluefishTextView *btv) {
 	}
 /*	g_print("*****\n");*/
 }
-
+#endif
 
 static void
 markregion_verify_integrity(Tregions *rg)
@@ -554,6 +554,12 @@ void
 markregion_nochange(Tregions *rg, guint markstart, guint markend)
 {
 	DBG_MARKREGION("markregion_nochange, markstart=%u, markend=%u\n",markstart,markend);
+#ifdef DEVELOPMENT
+	if (markstart == BF_POSITION_UNDEFINED || markend == BF_POSITION_UNDEFINED) {
+		g_print("ABORT: markregion_nochange is called with a region UNDEFINED, markstart=%d, markend=%d\n",markstart,markend);
+		g_assert_not_reached();
+	}
+#endif
 	markregion_delete(rg, markstart, markend, 0);
 }
 
