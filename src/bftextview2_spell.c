@@ -33,6 +33,9 @@
 #include "bftextview2_scanner.h"
 #include "bftextview2_langmgr.h"
 #include "bftextview2_spell.h"
+#ifdef MARKREGION
+#include "bftextview2_markregion.h"
+#endif
 #include "document.h"
 #include "xml_entity.h"
 
@@ -44,14 +47,28 @@
 static EnchantBroker *eb;
 static guint loops_per_timer = 1000;
 
+#ifdef MARKREGION
 static gboolean
-bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTextBuffer * buffer, GtkTextIter * start,
-								   GtkTextIter * end)
+markregion_find_region2spellcheck(BluefishTextView * btv, GtkTextIter * sit, GtkTextIter * eit)
 {
-	GtkTextTag *misspelled;
+	guint start,end;
+	markregion_get_region(&btv->spellcheck, NULL, &start, &end);
+	if (start == BF2_OFFSET_UNDEFINED) {
+		return FALSE;
+	}
+	gtk_text_buffer_get_iter_at_offset(btv->buffer, sit, start);
+	gtk_text_buffer_get_iter_at_offset(btv->buffer, eit, end);
+	g_print("markregion_find_region2spellcheck, tried iters at %u:%u, got iters at %u:%u\n",start,end,gtk_text_iter_get_offset(sit),gtk_text_iter_get_offset(eit));
+	return TRUE;
+}
+#endif
 
+#ifdef NEEDSCANNING
+static gboolean
+needscanning_find_region2spellcheck(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end)
+{
 	/* first find a region that needs a spellcheck */
-	gtk_text_buffer_get_start_iter(buffer, start);
+	gtk_text_buffer_get_start_iter(btv->buffer, start);
 	if (!gtk_text_iter_begins_tag(start, btv->needspellcheck)) {
 		DBG_SPELL("iter %d does not begins tag needspellcheck %p, needscanning(%p)=%d\n",
 				  gtk_text_iter_get_offset(start), btv->needspellcheck, btv->needscanning,
@@ -70,6 +87,45 @@ bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTextBuffer * buffe
 			DBG_MSG("BUG: we should never get here\n");
 			return FALSE;
 		}
+	}
+	g_print("needscanning_find_region2spellcheck, return iters at %d:%d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
+	return TRUE;
+}
+#endif
+
+static gboolean
+bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTextIter * start,GtkTextIter * end)
+{
+	GtkTextTag *misspelled;
+	gboolean ret;
+#ifdef MARKREGION
+	ret = markregion_find_region2spellcheck(btv, start, end);
+#ifdef NEEDSCANNING
+	gboolean mrret = ret;
+	GtkTextIter mrits=*start, mrite=*end;
+#endif
+#endif
+#ifdef NEEDSCANNING
+	ret = needscanning_find_region2spellcheck(btv, start, end);
+#endif
+
+#ifdef MARKREGION
+#ifdef NEEDSCANNING
+	if (mrret != ret) {
+		g_print("ABORT: find_region2spellcheck, markregion returned %d, needscanning returned %d\n",mrret,ret);
+		g_assert_not_reached();
+	}
+	
+	if (ret && (!gtk_text_iter_equal(&mrits, start) || !gtk_text_iter_equal(&mrite, end))) {
+		g_print("ABORT: find_region2spellcheck, markregion (%d:%d) and needscanning code(%d:%d) have different regions!!\n",
+				gtk_text_iter_get_offset(&mrits),gtk_text_iter_get_offset(&mrite),
+				gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
+		g_assert_not_reached();
+	}
+#endif
+#endif
+	if (!ret) {
+		return FALSE;
 	}
 	/* if the region is within a misspelled word, enlarge it to the total misspelled word
 	   (this fixes the situation where you add a space in the middle of "forgotthespace" and only
@@ -442,10 +498,14 @@ spellcheck_region(BluefishTextView * btv, GTimer *timer, GtkTextIter *itcursor, 
 			(gint) (1000.0 * (g_timer_elapsed(timer, NULL)-time_at_start)), gtk_text_iter_get_offset(so),
 			gtk_text_iter_get_offset(&iter), profile_words-words_at_start);
 #endif
+#ifdef NEEDSCANNING
 	DBG_SPELL("spellcheck_region, remove needspellcheck from start %d to iter at %d\n",
 			  gtk_text_iter_get_offset(so), gtk_text_iter_get_offset(&iter));
 	gtk_text_buffer_remove_tag(btv->buffer, btv->needspellcheck, so, &iter);
-
+#endif
+#ifdef MARKREGION
+	markregion_region_done(&btv->spellcheck, gtk_text_iter_get_offset(&iter));
+#endif
 	return (!gtk_text_iter_is_end(&iter));
 }
 
@@ -475,7 +535,7 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 	skipped because it ended at the cursor, so lets skip back one word */
 	
 	do {
-		if (!bftextview2_find_region2spellcheck(btv, btv->buffer, &so, &eo)) {
+		if (!bftextview2_find_region2spellcheck(btv, &so, &eo)) {
 			DBG_SPELL("bftextview2_run_spellcheck, no region to spellcheck found... return FALSE\n");
 			DBG_DELAYSCANNING("bftextview2_run_spellcheck, nothing to spellcheck..\n");
 			g_timer_destroy(timer);
@@ -521,9 +581,16 @@ bftextview2_spell_cleanup(void)
 static void
 recheck_document(Tdocument * doc)
 {
+#ifdef NEEDSCANNING
 	GtkTextIter start, end;
 	gtk_text_buffer_get_bounds(doc->buffer, &start, &end);
 	gtk_text_buffer_apply_tag(doc->buffer, BLUEFISH_TEXT_VIEW(doc->view)->needspellcheck, &start, &end);
+#endif
+#ifdef MARKREGION
+	GtkTextIter ite;
+	gtk_text_buffer_get_end_iter(BLUEFISH_TEXT_VIEW(doc->view)->buffer, &ite);
+	markregion_nochange(&BLUEFISH_TEXT_VIEW(doc->view)->spellcheck, 0, gtk_text_iter_get_offset(&ite));
+#endif
 }
 
 static void
@@ -624,10 +691,7 @@ mark_all_docs_needspelling(Tbfwin * bfwin)
 	GList *tmplist;
 	/* now mark all documents in this window with 'need_spellcheck' */
 	for (tmplist = g_list_first(bfwin->documentlist); tmplist; tmplist = g_list_next(tmplist)) {
-		Tdocument *doc = DOCUMENT(tmplist->data);
-		GtkTextIter start, end;
-		gtk_text_buffer_get_bounds(doc->buffer, &start, &end);
-		gtk_text_buffer_apply_tag(doc->buffer, BLUEFISH_TEXT_VIEW(doc->view)->needspellcheck, &start, &end);
+		recheck_document(DOCUMENT(tmplist->data));
 	}
 	if (bfwin->current_document)
 		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
