@@ -2642,7 +2642,7 @@ bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check)
 		gtk_text_buffer_apply_tag(master->buffer, master->needspellcheck, &start, &end);
 #endif
 #ifdef MARKREGION
-		markregion_nochange(master, 0, gtk_text_iter_get_offset(&end));
+		markregion_nochange(&master->spellcheck, 0, gtk_text_iter_get_offset(&end));
 #endif
 		bftextview2_schedule_scanning(master);
 	} else {

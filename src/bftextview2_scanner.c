@@ -2309,6 +2309,10 @@ cleanup_scanner(BluefishTextView * btv)
 
 	gtk_text_buffer_get_bounds(btv->buffer, &begin, &end);
 	gtk_text_buffer_remove_all_tags(btv->buffer, &begin, &end);
+#ifdef MARKREGION
+	markregion_region_done(&btv->scanning, BF_POSITION_UNDEFINED);
+	markregion_region_done(&btv->spellcheck, BF_POSITION_UNDEFINED);
+#endif
 
 	g_sequence_foreach(btv->scancache.foundcaches, found_free_lcb, btv);
 	sit1 = g_sequence_get_begin_iter(btv->scancache.foundcaches);
