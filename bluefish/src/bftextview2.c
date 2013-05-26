@@ -207,7 +207,7 @@ bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
 		DBG_DELAYSCANNING
 			("bftextview2_scanner_idle, running scanner idle function, scanner_idle=%d, scanner_immediate=%d\n",
 			 btv->scanner_idle, btv->scanner_immediate);
-		if (!bftextview2_run_scanner(btv, NULL)
+		if (!(btv->enable_scanner && bftextview2_run_scanner(btv, NULL))
 #ifdef HAVE_LIBENCHANT
 			&& !bftextview2_run_spellcheck(btv)
 #endif
