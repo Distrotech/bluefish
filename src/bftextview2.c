@@ -2137,7 +2137,7 @@ bluefish_text_view_rescan(BluefishTextView * btv)
 		gtk_text_buffer_get_bounds(buffer, &start, &end);
 #ifdef MARKREGION
 		markregion_nochange(&btv->scanning, gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
-		g_print("bluefish_text_view_rescan, apply needscanning to %d:%d\n",gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
+		DBG_MARKREGION("bluefish_text_view_rescan, apply needscanning to %d:%d\n",gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
 #ifdef HAVE_LIBENCHANT
 		markregion_nochange(&btv->spellcheck, gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
 #endif
@@ -2463,7 +2463,7 @@ bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, c
 		gtk_text_buffer_get_bounds(buffer, &start, &end);
 #ifdef MARKREGION
 		markregion_nochange(&master->scanning, gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
-		g_print("bluefish_text_view_set_mimetype, apply needscanning to %d:%d\n",gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
+		DBG_MARKREGION("bluefish_text_view_set_mimetype, apply needscanning to %d:%d\n",gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
 #ifdef HAVE_LIBENCHANT
 		markregion_nochange(&master->spellcheck, gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(&end));
 #endif
