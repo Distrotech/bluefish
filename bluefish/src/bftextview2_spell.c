@@ -58,7 +58,7 @@ markregion_find_region2spellcheck(BluefishTextView * btv, GtkTextIter * sit, Gtk
 	}
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, sit, start);
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, eit, end);
-	g_print("markregion_find_region2spellcheck, tried iters at %u:%u, got iters at %u:%u\n",start,end,gtk_text_iter_get_offset(sit),gtk_text_iter_get_offset(eit));
+	DBG_MARKREGION("markregion_find_region2spellcheck, tried iters at %u:%u, got iters at %u:%u\n",start,end,gtk_text_iter_get_offset(sit),gtk_text_iter_get_offset(eit));
 	return TRUE;
 }
 #endif
@@ -88,7 +88,7 @@ needscanning_find_region2spellcheck(BluefishTextView * btv, GtkTextIter * start,
 			return FALSE;
 		}
 	}
-	g_print("needscanning_find_region2spellcheck, return iters at %d:%d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
+	DBG_MARKREGION("needscanning_find_region2spellcheck, return iters at %d:%d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
 	return TRUE;
 }
 #endif
@@ -115,7 +115,7 @@ bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTextIter * start,G
 		g_print("ABORT: find_region2spellcheck, markregion returned %d, needscanning returned %d\n",mrret,ret);
 		g_assert_not_reached();
 	}
-	
+
 	if (ret && (!gtk_text_iter_equal(&mrits, start) || !gtk_text_iter_equal(&mrite, end))) {
 		g_print("ABORT: find_region2spellcheck, markregion (%d:%d) and needscanning code(%d:%d) have different regions!!\n",
 				gtk_text_iter_get_offset(&mrits),gtk_text_iter_get_offset(&mrite),
@@ -529,11 +529,11 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 	}
 
 	timer = g_timer_new();
-	
+
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &itcursor, gtk_text_buffer_get_insert(btv->buffer));
 	/* if we start at the cursor, that might be an indication that the previous word was
 	skipped because it ended at the cursor, so lets skip back one word */
-	
+
 	do {
 		if (!bftextview2_find_region2spellcheck(btv, &so, &eo)) {
 			DBG_SPELL("bftextview2_run_spellcheck, no region to spellcheck found... return FALSE\n");
@@ -547,16 +547,16 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 		}
 		DBG_SPELL("bftextview2_run_spellcheck, call spellcheck_region(%d:%d)\n",gtk_text_iter_get_offset(&so), gtk_text_iter_get_offset(&eo));
 		cont = spellcheck_region(btv, timer, &itcursor, &so, &eo);
-		
-		
-		
-		
+
+
+
+
 	} while(cont && g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SPELLCHECK_INTERVAL);
 #ifdef SPELL_PROFILING
 	g_print("%d ms spell run, checked %d words, not yet finished\n",
 			(gint) (1000.0 * g_timer_elapsed(timer, NULL)), profile_words);
 #endif
-	
+
 	g_timer_destroy(timer);
 	return cont;
 }

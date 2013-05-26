@@ -274,7 +274,7 @@ doc_set_uri(Tdocument *doc, GFile *uri, gboolean on_destroy)
 {
 	if (uri == doc->uri)
 		return;
-	
+
 	if (doc->uri) {
 		g_hash_table_remove(main_v->alldochash, doc->uri);
 		fb2_set_uri_state(doc->uri, FALSE);
@@ -287,7 +287,7 @@ doc_set_uri(Tdocument *doc, GFile *uri, gboolean on_destroy)
 		fb2_set_uri_state(doc->uri, TRUE);
 	}
 	if (!on_destroy) {
-		g_print("doc_set_uri, call bmark_doc_renamed for doc %p (new uri %p)\n",doc,uri);
+		DEBUG_MSG("doc_set_uri, call bmark_doc_renamed for doc %p (new uri %p)\n",doc,uri);
 		bmark_doc_renamed(BFWIN(doc->bfwin), doc);
 	}
 }
@@ -2309,12 +2309,12 @@ document_unset_filename(Tdocument * doc)
 		/* doc_set_uri calls bmark_renamed which uses the tab_label for the name, so first set the tab label */
 		doc_set_title(doc, tmpstr);
 		doc_set_uri(doc, NULL, FALSE);
-		
+
 		if (doc->fileinfo) {
 			g_object_unref(doc->fileinfo);
 			doc->fileinfo = NULL;
 		}
-		
+
 		doc_set_modified(doc, TRUE);
 		g_free(tmpstr);
 	}

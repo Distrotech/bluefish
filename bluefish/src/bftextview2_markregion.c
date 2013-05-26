@@ -48,13 +48,14 @@ one entry positions the start, the second entry positions the end.
 typedef struct {
 	gint num_list_walks;
 	gint num_region_changes;
+	gint num_offset_updates;
 	gint num_new;
 	gint num_full_append;
 	gint num_full_prepend;
 	gint num_insert;
 	gint num_allocs;
 } Tprofile_markregion;
-Tprofile_markregion prof = {0,0,0,0,0,0,0};
+Tprofile_markregion prof = {0,0,0,0,0,0,0,0};
 #endif
 
 typedef struct {
@@ -195,11 +196,11 @@ new_change(guint pos, gboolean is_start)
 	return change;
 }
 
-/* 
+/*
 markregion_region_done is called after a scanning run, it is called with the position up to the point
 where scanning was finished.
 */
-void 
+void
 markregion_region_done(Tregions *rg, guint end)
 {
 	Tchange *tmp;
@@ -252,8 +253,8 @@ markregion_region_done(Tregions *rg, guint end)
 	DBG_MARKREGION("markregion_region_done, return, head(%d)|tail(%d)\n",rg->head?CHANGE(rg->head)->pos:-1
 						,rg->tail?CHANGE(rg->tail)->pos:-1);
 #ifdef PROFILE_MARKREGION
-	g_print("***\nmarkregion profiling: changes:%d, allocs=%d, walks=%d, new/append/prepend/insert=%f/%f/%f/%f\n***\n",
-				prof.num_region_changes, prof.num_allocs, prof.num_list_walks,
+	g_print("markregion profiling: changes:%d, allocs=%d, offset_updates=%d, list_walks=%d, new/append/prepend/insert=%f/%f/%f/%f\n",
+				prof.num_region_changes, prof.num_allocs, prof.num_offset_updates, prof.num_list_walks,
 				100.0 * prof.num_new / prof.num_region_changes,
 				100.0 * prof.num_full_append / prof.num_region_changes,
 				100.0 * prof.num_full_prepend / prof.num_region_changes,
@@ -267,6 +268,9 @@ update_offset(Tchange *start, gint offset)
 {
 	if (offset == 0)
 		return;
+#ifdef PROFILE_MARKREGION
+	prof.num_offset_updates++;
+#endif
 	while (start) {
 		start->pos += offset;
 		start = start->next;
@@ -428,9 +432,9 @@ markregion_insert(Tregions *rg, guint markstart, guint markend)
 }
 
 
-/* 
+/*
 markregion_delete is called from the text delete callback
-the markend parameter in markregion_delete should be already corrected for the offset. 
+the markend parameter in markregion_delete should be already corrected for the offset.
 */
 void
 markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
@@ -545,10 +549,10 @@ markregion_delete(Tregions *rg, guint markstart, guint markend, gint offset)
 	update_offset(rg->last, offset);
 }
 
-/* 
-markregion_nochange is called from the scanning engine when the scanning 
-engine detects that the region needs to be enlarged. The code to add these 
-to the Tregions is equal to markregion_delete with an offset of zero. 
+/*
+markregion_nochange is called from the scanning engine when the scanning
+engine detects that the region needs to be enlarged. The code to add these
+to the Tregions is equal to markregion_delete with an offset of zero.
  */
 void
 markregion_nochange(Tregions *rg, guint markstart, guint markend)
