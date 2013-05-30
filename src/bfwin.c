@@ -880,6 +880,8 @@ gotoline_entries_key_press_event(GtkWidget * widget, GdkEventKey * event, Tbfwin
 	}
 	if (event->keyval == GDK_KEY_Return && widget == bfwin->gotoline_entry) {
 		gotoline_entry_changed(GTK_EDITABLE(widget), bfwin);
+		if (bfwin->current_document)
+			gtk_widget_grab_focus(bfwin->current_document->view);
 		return TRUE;
 	}
 	return FALSE;
