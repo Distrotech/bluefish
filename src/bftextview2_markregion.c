@@ -585,8 +585,8 @@ markregion_get_region(Tregions *rg, gpointer cur, guint *start, guint *end)
 						,rg->tail?CHANGE(rg->tail)->pos:-1);
 	if (cur == NULL) {
 		if (rg->head==NULL) {
-			*start = BF2_OFFSET_UNDEFINED;
-			*end = BF2_OFFSET_UNDEFINED;
+			*start = BF_OFFSET_UNDEFINED;
+			*end = BF_OFFSET_UNDEFINED;
 			return NULL;
 		}
 		cur = rg->head;

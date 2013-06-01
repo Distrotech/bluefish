@@ -573,7 +573,7 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 		if (found) {
 			fblock =
 				found->numblockchange < 0 ? pop_blocks(found->numblockchange, found->fblock) : found->fblock;
-			if (fblock && fblock->start2_o != BF2_OFFSET_UNDEFINED) {
+			if (fblock && fblock->start2_o != BF_OFFSET_UNDEFINED) {
 				g_print("abort offering closing tag: block has an end already\n");
 				fblock = NULL;
 				DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n",
