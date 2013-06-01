@@ -32,7 +32,8 @@ extern void g_none(char *first, ...);
 
 #define CURRENT_BFLANG2_VERSION "2.0"
 
-#define BF2_OFFSET_UNDEFINED G_MAXINT32
+#define BF_OFFSET_UNDEFINED G_MAXINT32
+#define BF_POSITION_UNDEFINED G_MAXINT32
 
 /*#define DUMP_SCANCACHE*/
 /*#define CHECK_CONSISTENCY*/
@@ -54,18 +55,14 @@ extern void g_none(char *first, ...);
 #define DBG_MARKREGION DBG_NONE
 
 #ifdef UPDATE_OFFSET_DELAYED
-
 #include "bf_lib.h"
-
 typedef struct {
 	BF_ELIST_HEAD;
 	guint32 startpos;
 	gint32 offset;
 } Toffsetupdate;
 #define OFFSETUPDATE(var) ((Toffsetupdate *)var)
-#define BF_POSITION_UNDEFINED G_MAXINT32
-
-#endif
+#endif /*UPDATE_OFFSET_DELAYED*/
 
 #define NUMSCANCHARS 127		/* 128 is ascii, but the last character is never scanned (DEL)
 								   and the Ttablerow has one more 16bit value. By setting this to 127 instead of 128

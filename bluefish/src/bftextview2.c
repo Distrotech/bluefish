@@ -325,7 +325,7 @@ bftextview2_get_block_at_offset(BluefishTextView * btv, Tfound **found, guint of
 static Tfoundblock *
 first_fully_defined_block(Tfoundblock * fblock)
 {
-	while (fblock && fblock->start2_o == BF2_OFFSET_UNDEFINED) {
+	while (fblock && fblock->start2_o == BF_OFFSET_UNDEFINED) {
 		fblock = fblock->parentfblock;
 	}
 	return fblock;
@@ -363,7 +363,7 @@ bftextview2_get_active_block_at_offset(BluefishTextView * btv, gboolean innerblo
 		   which is stored in the next Tfound in the scancache */
 		found2 = get_foundcache_next(btv, &siter);
 		if (found2 && found2->numblockchange > 0 && found2->fblock->start1_o <= offset
-			&& found2->fblock->start2_o != BF2_OFFSET_UNDEFINED) {
+			&& found2->fblock->start2_o != BF_OFFSET_UNDEFINED) {
 			return found2->fblock;
 		}
 	}
@@ -416,7 +416,7 @@ blockstack_string(BluefishTextView * btv, Tfoundblock * fblock)
 	parent = fblock;
 	tmp = g_string_new("");
 	while (parent) {
-		if (parent->start2_o != BF2_OFFSET_UNDEFINED) {
+		if (parent->start2_o != BF_OFFSET_UNDEFINED) {
 			if (parent != fblock)
 				tmp = g_string_prepend(tmp, " ");
 			if (g_array_index
@@ -453,7 +453,7 @@ bftextview2_get_block_at_boundary_location(BluefishTextView *btv, guint offset, 
 	if (fblock)
 		fblock = first_fully_defined_block(fblock);
 	if (fblock) {
-		if (fblock->start2_o != BF2_OFFSET_UNDEFINED && (fblock->start1_o == offset || fblock->end1_o == offset || fblock->start2_o == offset
+		if (fblock->start2_o != BF_OFFSET_UNDEFINED && (fblock->start1_o == offset || fblock->end1_o == offset || fblock->start2_o == offset
 			|| fblock->end2_o == offset)) {
 			bftextview2_get_iters_at_foundblock(btv->buffer, fblock, it1, it2, it3, it4);
 			return fblock;
@@ -493,7 +493,7 @@ mark_set_idle_lcb(gpointer widget)
 
 			DBG_BLOCKMATCH("mark_set_idle_lcb, got fblock %p with offsets %d:%d %d:%d\n", fblock,
 						   fblock->start1_o, fblock->end1_o, fblock->start2_o, fblock->end2_o);
-			if (fblock->start2_o != BF2_OFFSET_UNDEFINED) {
+			if (fblock->start2_o != BF_OFFSET_UNDEFINED) {
 				bftextview2_get_iters_at_foundblock(btv->buffer, fblock, &it1, &it2, &it3, &it4);
 				DBG_MSG("mark_set_idle_lcb, found a block to highlight the start (%d:%d) and end (%d:%d)\n",
 						gtk_text_iter_get_offset(&it1), gtk_text_iter_get_offset(&it2),

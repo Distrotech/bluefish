@@ -53,7 +53,7 @@ markregion_find_region2spellcheck(BluefishTextView * btv, GtkTextIter * sit, Gtk
 {
 	guint start,end;
 	markregion_get_region(&btv->spellcheck, NULL, &start, &end);
-	if (start == BF2_OFFSET_UNDEFINED) {
+	if (start == BF_OFFSET_UNDEFINED) {
 		return FALSE;
 	}
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, sit, start);
