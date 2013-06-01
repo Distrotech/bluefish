@@ -559,13 +559,25 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 	if (offset < 0 /* text was deleted*/ ) {
 		Tfound *tmpfound = sou->found;
 		GSequenceIter *tmpsiter=sou->siter;
-		DBG_SCANCACHE("before get_foundcache_next, tmpfound is at %u\n",tmpfound?tmpfound->charoffset_o:-1);
-		tmpfound = get_foundcache_next(btv, &tmpsiter);
-		DBG_SCANCACHE("after get_foundcache_next, tmpfound is at %u\n",tmpfound?tmpfound->charoffset_o:-1);
+		
+		/*
+		in the situation that there was a Tfound before the deleted region, sou->found points to this found that does not need to be deleted
+		BUT in the case that there was no found before the deleted region (for example when the deleted region starts at 0), the current found
+		could be in the deleted region already!!!!
+		*/
+		if (sou->found->charoffset_o > startpos) {
+			/* no need to go the next item, the current items needs to be deleted too */
+			sou->found = NULL;
+			sou->siter = NULL;
+		} else {
+			DBG_SCANCACHE("before get_foundcache_next, tmpfound is at %u\n",tmpfound?tmpfound->charoffset_o:-1);
+			tmpfound = get_foundcache_next(btv, &tmpsiter);
+			DBG_SCANCACHE("after get_foundcache_next, tmpfound is at %u\n",tmpfound?tmpfound->charoffset_o:-1);
+		}
 
 #ifdef DEVELOPMENT
 		if (tmpfound)
-			DBG_SCANCACHE("tmpfound->charoffset_o=%d, startpos=%u\n",(gint)sou->found->charoffset_o, (gint)startpos);
+			DBG_SCANCACHE("tmpfound->charoffset_o=%d, startpos=%u\n",(gint)tmpfound->charoffset_o, (gint)startpos);
 
 		/* we should have a tmpfound now that has offset > startpos and thus it should be beyond prevpos as well */
 		if (tmpfound && ((gint)(tmpfound->charoffset_o+sou->prevoffset)) < startpos) {
@@ -612,10 +624,14 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 
 	/* from this point on: see if we have to update offsets for any other founds, or if we are ready in the case that the found
 	is beyond nextpos (in that case the next call to scancache_update_single_offset() will update their offsets) */
-
-	nextfound=sou->found;
-	nextsiter=sou->siter;
-	nextfound = get_foundcache_next(btv, &nextsiter);
+	if (!sou->found) {
+		/* possibly text was deleted starting at offset 0, in that case all previous founds have been deleted, so get the first one */
+		DBG_SCANCACHE("scancache_update_single_offset, after delete loop, sou->found==NULL, so get the first found\n");
+		nextfound = get_foundcache_first(btv, &nextsiter);
+	} else {
+		nextsiter=sou->siter;
+		nextfound = get_foundcache_next(btv, &nextsiter);
+	}
 	if (nextfound && ((gint)nextfound->charoffset_o + sou->prevoffset) == ((gint)startpos)) {
 		DBG_SCANCACHE("nextfound(%u)+prevoffset(%d)=%u is at the startpos(%u) itself, so handleoffset=%d\n",
 					nextfound->charoffset_o,
@@ -630,7 +646,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 	}
 
 	DBG_SCANCACHE("found(%p) was at %d, nextfound(%d)+handleoffset(%d)=%d, nextpos=%u\n",sou->found
-							, sou->found->charoffset_o
+							, sou->found?sou->found->charoffset_o:-1
 							, nextfound?nextfound->charoffset_o:-1
 							, handleoffset
 							, nextfound?nextfound->charoffset_o+handleoffset:-1
@@ -647,8 +663,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 					, sou->found->charoffset_o
 					, sou->prevpos);
 		} else {
-			g_print("ABORT: scancache_update_single_offset, no sou->found, is this possible?\n");
-			g_assert_not_reached();
+			sou->prevpos = 0;
 		}
 		sou->prevoffset += offset;
 		return;
