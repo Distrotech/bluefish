@@ -16,7 +16,7 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <!DOCTYPE bflang [
 	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
@@ -49,11 +49,11 @@
 <definition>
 	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[]()#,">
 		<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
-			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
+			<context symbols="*/&#9;&#10;&#13;@ " highlight="css-comment">
 				<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" ends_context="1" />
 			</context>
-		</element>		
-		<element id="e.css.grouping" pattern="/\* @group[^*]+\*/" starts_block="1" highlight="css-keyword"  is_regex="1">
+		</element>
+		<!--<element id="e.css.grouping" pattern="/\* @group[^*]+\*/" starts_block="1" highlight="css-keyword"  is_regex="1">
 			<context symbols="*/&#9;&#10;&#13;@{}./*&lt;&gt;:+~[],">
 				<element id="e.css.grouping.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
@@ -85,15 +85,11 @@
 					<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.group.lbrace" ends_context="2" />
 				</group>
 				<element id="e.css.grouping.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
-					<context symbols=" &#9;&#10;&#13;{}.:&quot;';*/" id="c.css.rules">
-						&css-rules;
-						<element idref="e.css.grouping.lcomment" />
-						<element id="e.css.grouping.rbrace1" pattern="}" ends_block="1" blockstartelement="e.css.grouping.lbrace" highlight="css-brackets" ends_context="1" />
-					</context>
+
 				</element>
 				<element pattern="/\* @end[^*]+\*/" ends_block="1" blockstartelement="e.css.grouping" highlight="css-keyword" ends_context="1" is_regex="1" />
 			</context>
-		</element>
+		</element>-->
 		&css-selectors;
 		<group highlight="css-html-media">
 			<element pattern="@media">
@@ -119,7 +115,11 @@
 			<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.lbrace" ends_context="2" />
 		</group>
 		<element id="e.css.lbrace" pattern="{" starts_block="1" highlight="css-brackets" >
-			<context idref="c.css.rules" />
+			<context symbols=" &#9;&#10;&#13;{}.:&quot;';*/" id="c.css.rules">
+						&css-rules;
+						<element idref="e.css.lcomment" />
+						<element id="e.css.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="1" />
+					</context>
 		</element>
 	</context>
 </definition>
