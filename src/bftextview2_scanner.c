@@ -2224,7 +2224,7 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 		Tfound *found = g_sequence_get(siter);
 		if (!found)
 			break;
-		if (found->charoffset_o < 0) {
+		if (found->charoffset_o <= 0) {
 			g_warning("found %p has offset < 0\n", found);
 			dump_scancache(btv);
 			g_assert_not_reached();
@@ -2238,7 +2238,7 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 			dump_scancache(btv);
 			g_assert_not_reached();
 		}
-		prevfound_o = found->charoffset_o;
+
 		if (found->numcontextchange > 0) {
 			/* push context */
 			if (found->fcontext->parentfcontext != g_queue_peek_head(&contexts)) {
@@ -2257,6 +2257,14 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 				}
 			}
 			g_queue_push_head(&contexts, found->fcontext);
+			
+			if (found->fcontext->start_o < prevfound_o || found->fcontext->start_o > found->fcontext->end_o || found->fcontext->end_o < found->charoffset_o) {
+					g_warning("context is at %d:%d, but prevoffset is at %d and charoffset_o is at %d\n"
+									,found->fcontext->start_o, found->fcontext->end_o,prevfound_o, found->charoffset_o);
+					dump_scancache(btv);
+					g_assert_not_reached();
+			}
+			
 		} else {
 			gint i;
 			/* check the current context */
@@ -2279,6 +2287,19 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 				g_assert_not_reached();
 			}
 			g_queue_push_head(&blocks, found->fblock);
+			
+			if (found->fblock->start1_o < prevfound_o 
+					|| found->fblock->end1_o < found->charoffset_o
+					|| found->fblock->end1_o < found->fblock->start1_o 
+					|| found->fblock->start2_o < found->fblock->end1_o 
+					|| found->fblock->end2_o < found->fblock->start2_o) {
+				g_warning("block is at %d:%d-%d:%d, prevfound_o at %d and charoffset_o at %d\n",
+								found->fblock->start1_o,found->fblock->end1_o,found->fblock->start2_o,found->fblock->end2_o,
+								prevfound_o,found->charoffset_o);
+				dump_scancache(btv);
+				g_assert_not_reached();
+			}
+			
 		} else {
 			gint i;
 			/* check the current context */
@@ -2293,6 +2314,7 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 				i++;
 			}
 		}
+		prevfound_o = found->charoffset_o;
 		siter = g_sequence_iter_next(siter);
 	}
 	g_queue_clear(&contexts);
