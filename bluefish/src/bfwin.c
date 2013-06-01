@@ -2,7 +2,7 @@
  * Bluefish HTML Editor
  * bfwin.c
  *
- * Copyright (C) 2002-2012 Olivier Sessink
+ * Copyright (C) 2002-2013 Olivier Sessink
  * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
@@ -685,7 +685,7 @@ gotoline_entry_changed(GtkEditable * editable, Tbfwin * bfwin)
 		return;
 	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
 		return;
-	
+
 	DEBUG_MSG("gotoline_entry_changed, called!\n");
 	linestr = gtk_editable_get_chars(editable, 0, -1);
 	linenum = get_int_from_string(linestr);
@@ -880,8 +880,8 @@ gotoline_entries_key_press_event(GtkWidget * widget, GdkEventKey * event, Tbfwin
 	}
 	if (event->keyval == GDK_KEY_Return && widget == bfwin->gotoline_entry) {
 		gotoline_entry_changed(GTK_EDITABLE(widget), bfwin);
-		if (bfwin->current_document)
-			gtk_widget_grab_focus(bfwin->current_document->view);
+		/* the close button clicked function automatically switches the focus to the text widget */
+		gotoline_close_button_clicked(NULL, bfwin);
 		return TRUE;
 	}
 	return FALSE;
