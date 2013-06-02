@@ -559,7 +559,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 	if (offset < 0 /* text was deleted*/ ) {
 		Tfound *tmpfound = sou->found;
 		GSequenceIter *tmpsiter=sou->siter;
-		
+
 		/*
 		in the situation that there was a Tfound before the deleted region, sou->found points to this found that does not need to be deleted
 		BUT in the case that there was no found before the deleted region (for example when the deleted region starts at 0), the current found
@@ -2273,14 +2273,14 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 				}
 			}
 			g_queue_push_head(&contexts, found->fcontext);
-			
+
 			if (found->fcontext->start_o < prevfound_o || found->fcontext->start_o > found->fcontext->end_o || found->fcontext->end_o < found->charoffset_o) {
 					g_warning("context is at %d:%d, but prevoffset is at %d and charoffset_o is at %d\n"
 									,found->fcontext->start_o, found->fcontext->end_o,prevfound_o, found->charoffset_o);
 					dump_scancache(btv);
 					g_assert_not_reached();
 			}
-			
+
 		} else {
 			gint i;
 			/* check the current context */
@@ -2303,11 +2303,11 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 				g_assert_not_reached();
 			}
 			g_queue_push_head(&blocks, found->fblock);
-			
-			if (found->fblock->start1_o < prevfound_o 
+
+			if (found->fblock->start1_o < prevfound_o
 					|| found->fblock->end1_o < found->charoffset_o
-					|| found->fblock->end1_o < found->fblock->start1_o 
-					|| found->fblock->start2_o < found->fblock->end1_o 
+					|| found->fblock->end1_o < found->fblock->start1_o
+					|| found->fblock->start2_o < found->fblock->end1_o
 					|| found->fblock->end2_o < found->fblock->start2_o) {
 				g_warning("block is at %d:%d-%d:%d, prevfound_o at %d and charoffset_o at %d\n",
 								found->fblock->start1_o,found->fblock->end1_o,found->fblock->start2_o,found->fblock->end2_o,
@@ -2315,7 +2315,7 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 				dump_scancache(btv);
 				g_assert_not_reached();
 			}
-			
+
 		} else {
 			gint i;
 			/* check the current context */
@@ -2349,7 +2349,9 @@ cleanup_scanner(BluefishTextView * btv)
 	gtk_text_buffer_remove_all_tags(btv->buffer, &begin, &end);
 #ifdef MARKREGION
 	markregion_region_done(&btv->scanning, BF_POSITION_UNDEFINED);
+#ifdef HAVE_LIBENCHANT
 	markregion_region_done(&btv->spellcheck, BF_POSITION_UNDEFINED);
+#endif
 #endif
 
 	g_sequence_foreach(btv->scancache.foundcaches, found_free_lcb, btv);
