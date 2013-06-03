@@ -45,7 +45,7 @@ AM_GLIB_GNU_GETTEXT
 IT_PROG_INTLTOOL
 dnl if AM_PO_SUBDIRS is available use it (most recent systems)
 dnl else try to use the very old AM_WITH_NLS
-dnl or try AM_GNU_GETTEXT at last 
+dnl or try AM_GNU_GETTEXT at last
 m4_ifdef(
 	[AM_PO_SUBDIRS],
 	[AM_PO_SUBDIRS],
@@ -105,7 +105,7 @@ esac
 case "$host" in
 	*-*-mingw* | *cygwin* | *windows*)
 		native_win32=yes
-	;;		
+	;;
 	*-apple-darwin*)
 		AC_DEFINE([PLATFORM_DARWIN], [1], [Define to 1 if you have a Darwin host.])
 		AC_MSG_NOTICE([platform is... MacOSX])
@@ -322,7 +322,7 @@ AC_ARG_WITH(
 )
 
 AC_ARG_WITH(
-	[freedesktop_org-mime], 
+	[freedesktop_org-mime],
 	AC_HELP_STRING(
 		[--with-freedesktop_org-mime=@<:@DIR@:>@],
 		[install freedesktop.org mime support files in directory DIR (if supplied) or suppress installation @<:@default=${datadir}/mime@:>@]
@@ -361,7 +361,7 @@ else
 	AC_MSG_RESULT([$xmlcatalog])
 	XML_CATALOG_FILE="$xmlcatalog"
 fi
-	
+
 AC_SUBST([XML_CATALOG_FILE])
 AM_CONDITIONAL([REGISTER_XML_CATALOG], [test "x$enable_xml_catalog_update" != "xno" -a -n "$XML_CATALOG_FILE" ])
 AC_SUBST([fdomenupath])
@@ -472,7 +472,11 @@ PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
 # from https://sourceforge.net/apps/trac/gtk-osx/wiki/Integrate
 # to integrate bluefish in the OSX GUI
 AC_MSG_CHECKING([for Mac OSX integration])
-_gdk_tgt=`$PKG_CONFIG --variable=target gdk-2.0`
+if test "x$with_gtk3" != "xno"; then
+	_gdk_tgt=`$PKG_CONFIG --variable=targets gdk-3.0`
+else
+	_gdk_tgt=`$PKG_CONFIG --variable=target gdk-2.0`
+fi
 if test "x$_gdk_tgt" = "xquartz"; then
 	BF_gtkmacintegration="gtk-mac-integration"
 	AC_MSG_RESULT([gdk target is $_gdk_tgt])
@@ -498,7 +502,7 @@ if test "x$with_gtk3" != "xno"; then
 			build_charmap_plugin=yes
 			AC_DEFINE([HAVE_LIBGUCHARMAP_2], [1], [Define to 1 if you have the 'gucharmap-2.90' library (-lgucharmap).])
 		],
-		[		
+		[
 	 		build_charmap_plugin=no
 	 		AC_MSG_WARN([Disabling the building of the charmap plugin.])
 	 		AC_MSG_WARN([Install gucharmap/gucharmap2.90 (>= 2.90) library/headers to build the plugin.])
