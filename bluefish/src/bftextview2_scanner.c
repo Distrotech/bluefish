@@ -803,6 +803,12 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 	if (offset == 0)
 		return;
 
+#ifdef HL_PROFILING
+	if (totalruntimer == NULL) {
+		totalruntimer = g_timer_new();
+	}
+#endif
+
 	/* check if the current offsetupdate has an offset greater than the last one */
 	if (btv->scancache.offsetupdates && OFFSETUPDATE(btv->scancache.offsetupdates)->startpos > startpos) {
 		DBG_SCANCACHE("foundcache_update_offsets, offset=%d, tail offset=%d, call process_offsetupdates()\n", startpos, OFFSETUPDATE(btv->scancache.offsetupdates)->startpos);
@@ -840,6 +846,13 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 
 	if (offset == 0)
 		return;
+
+#ifdef HL_PROFILING
+	if (totalruntimer == NULL) {
+		totalruntimer = g_timer_new();
+	}
+#endif
+
 	comparepos = (offset < 0) ? startpos - offset : startpos;
 	DBG_SCANCACHE
 		("foundcache_update_offsets, update with offset %d starting at startpos %d, cache length=%d, comparepos=%d\n",

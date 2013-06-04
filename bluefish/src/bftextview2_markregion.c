@@ -42,7 +42,7 @@ one entry positions the start, the second entry positions the end.
 #include "bftextview2_markregion.h"
 
 #ifdef MARKREGION
-#define PROFILE_MARKREGION
+/*#define PROFILE_MARKREGION*/
 
 #ifdef PROFILE_MARKREGION
 typedef struct {
