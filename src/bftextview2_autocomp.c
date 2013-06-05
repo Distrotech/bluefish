@@ -132,22 +132,22 @@ get_existing_end_len(BluefishTextView * btv, const gchar *string, gint prefix_by
 
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &it1, gtk_text_buffer_get_insert(btv->buffer));
 	it2 = it1;
-	g_print("get_existing_end_len, forward %d chars\n",string_len - prefix_bytelen);
+	DBG_AUTOCOMP("get_existing_end_len, forward %d chars\n",string_len - prefix_bytelen);
 	gtk_text_iter_forward_chars(&it2,string_len - prefix_bytelen);
-	g_print("get the text %d:%d\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2));
+	DBG_AUTOCOMP("get the text %d:%d\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2));
 	tmp = gtk_text_buffer_get_text(btv->buffer, &it1, &it2, TRUE);
 	g_print("got tmp='%s'\n",tmp);
 	i = strlen(tmp);
 	do {
 		if (strncmp(string+prefix_bytelen+i, tmp, i)==0) {
-			g_print("get_existing_end_len, found %d existing characters\n",i);
+			DBG_AUTOCOMP("get_existing_end_len, found %d existing characters\n",i);
 			g_free(tmp);
 			return i;
 		}
 		i--;
 	} while(i>0);
 	g_free(tmp);
-	g_print("get_existing_end_len, found no existing characters\n");
+	DBG_AUTOCOMP("get_existing_end_len, found no existing characters\n");
 	return 0;
 }
 
