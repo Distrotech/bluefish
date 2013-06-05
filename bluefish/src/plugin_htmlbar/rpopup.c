@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rpopup.c
  *
- * Copyright (C) 2003-2005 Olivier Sessink
+ * Copyright (C) 2003-2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -219,6 +219,12 @@ typedef struct {
 	void (*func) ();
 }Ttagdialog;
 
+typedef enum {
+	quote_none = 0,
+	quote_double,
+	quote_single
+} Tquotestatus;
+
 static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end)
 {
 	GList *tmplist = NULL;
@@ -226,7 +232,8 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 	gint count, prevtag, item_value_delimiter;
 	Ttagitem *tag_item;
 	Ttagpopup *tag_popup;
-	gboolean in_quote, has_quotes;
+	gboolean in_quote;
+	Tquotestatus has_quotes;
 	Ttagdialog tagdia[] = {
 		{"a", G_CALLBACK(quickanchor_dialog)},
 		{"audio", G_CALLBACK(audio_dialog)},
@@ -269,7 +276,8 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 	tmpstring = g_strdup(tagstring);
 	strip_any_whitespace(tmpstring);
 	item_value_delimiter = prevtag = count = 0;
-	has_quotes = in_quote = FALSE;
+	in_quote = FALSE;
+	has_quotes = quote_none;
 	while (tmpstring[count] != '\0') {
 		/* extra spacing like between the name = value can be ignored */
 		if (g_ascii_isspace((gchar)tmpstring[count])) {
@@ -279,7 +287,7 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 				if (g_ascii_isspace((gchar)tmpstring[count2]) || tmpstring[count2]=='\n') {
 					count2++;
 				} else {
-					if (tmpstring[count2] == '=' || tmpstring[count2] == '"') {
+					if (tmpstring[count2] == '=' || tmpstring[count2] == '"' || tmpstring[count2] == '\'') {
 						DEBUG_MSG("found ignorable spaces, increasing count from %d to %d\n", count, count2);
 						count = count2;
 					}
@@ -289,8 +297,8 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 		}
 		DEBUG_MSG("tmpstring[%d]=%c\n",count,tmpstring[count]);
 		/* spaces (delimiters) are allowed within quotes, so we have to keep track of quotes */
-		if (tmpstring[count] == '"') {
-			has_quotes = TRUE;
+		if (tmpstring[count] == '"' || tmpstring[count] == '\'') {
+			has_quotes = tmpstring[count] == '"' ? quote_double : quote_single;
 			if (in_quote) {
 				in_quote = FALSE;
 			} else {
@@ -314,13 +322,13 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 				if (item_value_delimiter > prevtag) {
 					item = g_strndup(&tmpstring[prevtag + 1], item_value_delimiter - prevtag - 1);
 					DEBUG_MSG("item from %d to %d=%s\n", prevtag+1, item_value_delimiter - prevtag - 1, item);
-					if (has_quotes == TRUE) {
+					if (has_quotes != quote_none) {
 						gchar *tmp;
 						tmp = g_strndup(&tmpstring[item_value_delimiter + 1], count - item_value_delimiter - 1);
 						g_strstrip(tmp);
 						value = g_strndup(&tmp[1], strlen(tmp)-1);
 						g_free(tmp);
-						value = trunc_on_char(value, '"');
+						value = trunc_on_char(value, has_quotes == quote_double ? '"' : '\'');
 						DEBUG_MSG("value from %d to %d=%s", item_value_delimiter + 2, count - item_value_delimiter - 2, value);
 					} else {
 						value = g_strndup(&tmpstring[item_value_delimiter + 1], count - item_value_delimiter);
@@ -340,7 +348,7 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 				tmplist = g_list_append(tmplist, tag_item);
 				DEBUG_MSG("parse_tagstring, item=%s with value=%s appended to list %p\n", item, value, tmplist);
 				prevtag = count;
-				has_quotes = FALSE;
+				has_quotes = quote_none;
 			}
 		}
 		count++;
