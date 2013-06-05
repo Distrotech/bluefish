@@ -327,8 +327,8 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 		while (tmpfblock && blockstackcount < 0) {
 			if (!curblockstack || is_fblock_on_stack(curblockstack, tmpfblock)) {
 				DBG_SCANCACHE("remove_cache_entry, mark end of fblock %p as undefined\n", tmpfblock);
-				tmpfblock->start2_o = BF_OFFSET_UNDEFINED;
-				tmpfblock->end2_o = BF_OFFSET_UNDEFINED;
+				tmpfblock->start2_o = BF_POSITION_UNDEFINED;
+				tmpfblock->end2_o = BF_POSITION_UNDEFINED;
 			}
 			tmpfblock = tmpfblock->parentfblock;
 			blockstackcount++;
@@ -342,7 +342,7 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 		while (tmpfcontext && contextstackcount < 0) {
 			if (!curcontextstack || is_fcontext_on_stack(curcontextstack, tmpfcontext)) {
 				DBG_SCANCACHE("remove_cache_entry, mark end of fcontext %p as undefined\n", tmpfcontext);
-				tmpfcontext->end_o = BF_OFFSET_UNDEFINED;
+				tmpfcontext->end_o = BF_POSITION_UNDEFINED;
 			}
 			tmpfcontext = tmpfcontext->parentfcontext;
 			contextstackcount++;
@@ -529,13 +529,13 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		while (tmpfblock) {
 			DBG_SCANCACHE("scancache_update_single_offset, fblock on stack=%p, %u:%u-%u:%u\n", tmpfblock,
 						  tmpfblock->start1_o, tmpfblock->end1_o,tmpfblock->start2_o, tmpfblock->end2_o);
-			if (G_UNLIKELY(tmpfblock->start2_o != BF_OFFSET_UNDEFINED)) {
+			if (G_UNLIKELY(tmpfblock->start2_o != BF_POSITION_UNDEFINED)) {
 				if (G_UNLIKELY(offset < 0 && tmpfblock->start2_o < comparepos && tmpfblock->end2_o >= comparepos)) {
 					/* the end of the block might be within the deleted region, if so, set the end as undefined */
 					DBG_SCANCACHE("update end of fblock %p %u:%u-%u:%u to UNDEFINED\n",tmpfblock
 									, tmpfblock->start1_o, tmpfblock->end1_o, tmpfblock->start2_o, tmpfblock->end2_o );
-					tmpfblock->start2_o = BF_OFFSET_UNDEFINED;
-					tmpfblock->end2_o = BF_OFFSET_UNDEFINED;
+					tmpfblock->start2_o = BF_POSITION_UNDEFINED;
+					tmpfblock->end2_o = BF_POSITION_UNDEFINED;
 				} else {
 					if (tmpfblock->start2_o >= startpos) {
 					/* notice the difference: the start needs >= startpos and the end needs > startpos */
@@ -719,13 +719,13 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 						  sou->found->fblock, sou->found->fblock->start1_o, sou->found->fblock->end2_o
 						  , sou->found->fblock->start1_o + handleoffset
 						  , sou->found->fblock->end2_o + handleoffset);
-			if (G_LIKELY(sou->found->fblock->start1_o != BF_OFFSET_UNDEFINED))
+			if (G_LIKELY(sou->found->fblock->start1_o != BF_POSITION_UNDEFINED))
 				sou->found->fblock->start1_o += handleoffset;
-			if (G_LIKELY(sou->found->fblock->end1_o != BF_OFFSET_UNDEFINED))
+			if (G_LIKELY(sou->found->fblock->end1_o != BF_POSITION_UNDEFINED))
 				sou->found->fblock->end1_o += handleoffset;
-			if (G_LIKELY(sou->found->fblock->start2_o != BF_OFFSET_UNDEFINED))
+			if (G_LIKELY(sou->found->fblock->start2_o != BF_POSITION_UNDEFINED))
 				sou->found->fblock->start2_o += handleoffset;
-			if (G_LIKELY(sou->found->fblock->end2_o != BF_OFFSET_UNDEFINED))
+			if (G_LIKELY(sou->found->fblock->end2_o != BF_POSITION_UNDEFINED))
 				sou->found->fblock->end2_o += handleoffset;
 		}
 		DBG_SCANCACHE("startpos=%u, offset=%d, prevoffset=%d, found=%p, update charoffset_o from %u to %u\n",startpos,offset,sou->prevoffset, sou->found,sou->found->charoffset_o,sou->found->charoffset_o+handleoffset);
@@ -876,7 +876,7 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 		while (tmpfcontext) {
 			DBG_SCANCACHE("foundcache_update_offsets, fcontext on stack=%p, start_o=%d end_o=%d\n",
 						  tmpfcontext, tmpfcontext->start_o, tmpfcontext->end_o);
-			if (tmpfcontext->end_o > startpos && tmpfcontext->end_o != BF_OFFSET_UNDEFINED) {
+			if (tmpfcontext->end_o > startpos && tmpfcontext->end_o != BF_POSITION_UNDEFINED) {
 				DBG_SCANCACHE("foundcache_update_offsets, update fcontext %p end from %d to %d\n",
 							  tmpfcontext, tmpfcontext->end_o, tmpfcontext->end_o + offset);
 				tmpfcontext->end_o += offset;
@@ -888,13 +888,13 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 		while (tmpfblock) {
 			DBG_SCANCACHE("foundcache_update_offsets, fblock on stack=%p, %d:%d-%d:%d\n", tmpfblock,
 						  tmpfblock->start1_o, tmpfblock->end1_o,tmpfblock->start2_o, tmpfblock->end2_o);
-			if (G_UNLIKELY(tmpfblock->start2_o != BF_OFFSET_UNDEFINED)) {
+			if (G_UNLIKELY(tmpfblock->start2_o != BF_POSITION_UNDEFINED)) {
 				if (G_UNLIKELY(offset < 0 && tmpfblock->start2_o < comparepos && tmpfblock->end2_o >= comparepos)) {
 					/* the end of the block might be within the deleted region, if so, set the end as undefined */
 					DBG_SCANCACHE("update end of fblock %p %d:%d-%d:%d to UNDEFINED\n",tmpfblock
 									, tmpfblock->start1_o, tmpfblock->end1_o, tmpfblock->start2_o, tmpfblock->end2_o );
-					tmpfblock->start2_o = BF_OFFSET_UNDEFINED;
-					tmpfblock->end2_o = BF_OFFSET_UNDEFINED;
+					tmpfblock->start2_o = BF_POSITION_UNDEFINED;
+					tmpfblock->end2_o = BF_POSITION_UNDEFINED;
 				} else {
 					if (tmpfblock->start2_o >= startpos) {
 					/* notice the difference: the start needs >= startpos and the end needs > startpos */
@@ -969,13 +969,13 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 			DBG_SCANCACHE("foundcache_update_offsets, blockpush %p update from %d:%d to %d:%d\n",
 						  found->fblock, found->fblock->start1_o, found->fblock->end2_o,
 						  found->fblock->start1_o + offset, found->fblock->end2_o + offset);
-			if (G_LIKELY(found->fblock->start1_o != BF_OFFSET_UNDEFINED))
+			if (G_LIKELY(found->fblock->start1_o != BF_POSITION_UNDEFINED))
 				found->fblock->start1_o += offset;
-			if (G_LIKELY(found->fblock->end1_o != BF_OFFSET_UNDEFINED))
+			if (G_LIKELY(found->fblock->end1_o != BF_POSITION_UNDEFINED))
 				found->fblock->end1_o += offset;
-			if (G_LIKELY(found->fblock->start2_o != BF_OFFSET_UNDEFINED))
+			if (G_LIKELY(found->fblock->start2_o != BF_POSITION_UNDEFINED))
 				found->fblock->start2_o += offset;
-			if (G_LIKELY(found->fblock->end2_o != BF_OFFSET_UNDEFINED))
+			if (G_LIKELY(found->fblock->end2_o != BF_POSITION_UNDEFINED))
 				found->fblock->end2_o += offset;
 		}
 		/*g_print("startpos=%d, offset=%d, found=%p, update charoffset_o from %d to %d\n",startpos,offset, found,found->charoffset_o,found->charoffset_o+offset); */
@@ -1061,8 +1061,8 @@ found_start_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scannin
 	fblock->start1_o = gtk_text_iter_get_offset(&match->start);
 	fblock->end1_o = gtk_text_iter_get_offset(&match->end);
 	/*g_print("found blockstart with start_1 %d end1 %d\n",fblock->start1_o,fblock->end1_o); */
-	fblock->start2_o = BF_OFFSET_UNDEFINED;
-	fblock->end2_o = BF_OFFSET_UNDEFINED;
+	fblock->start2_o = BF_POSITION_UNDEFINED;
+	fblock->end2_o = BF_POSITION_UNDEFINED;
 	fblock->patternum = match->patternum;
 	DBG_BLOCKMATCH("found_start_of_block, %d:%d, put block for pattern %d (%s) on blockstack\n",
 					fblock->start1_o,fblock->start2_o,match->patternum,
@@ -1111,7 +1111,7 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 
 	DBG_BLOCKMATCH("found the matching start-of-block fblock %p, patternum %d, parent %p, end2_o=%d\n",
 				   fblock, fblock->patternum, fblock->parentfblock, fblock->end2_o);
-	if (G_UNLIKELY(fblock->start2_o != BF_OFFSET_UNDEFINED)) {
+	if (G_UNLIKELY(fblock->start2_o != BF_POSITION_UNDEFINED)) {
 		Tfound *ifound;
 		GSequenceIter *isiter = NULL, *cursiter;
 		DBG_SCANCACHE
@@ -1437,9 +1437,23 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 					 gtk_text_iter_get_offset(&match->start), gtk_text_iter_get_offset(&match->end));
 		gtk_text_buffer_apply_tag(btv->buffer, pat->selftag, &match->start, &match->end);
 	}
-	if (G_UNLIKELY(pat->stretch_blockstart && scanning->curfblock && scanning->curfblock->patternum == pat->blockstartpattern)) {
+	/* the conditions when to apply stretch_blocktag:
+		- currently found pattern (pat) has stretch_blockstart set
+		- there must be a block on the stack
+		- the blockstartpattern for the current found pattern must refer to the block on the stack 
+		- the block on the stack must not have an end that is before the current position. start2_o 
+		  could be equal to the current position if the end starts where the start ends as in  <p></p>
+		  or it could be undefined
+	*/
+	if (G_UNLIKELY(pat->stretch_blockstart 
+				&& scanning->curfblock 
+				&& scanning->curfblock->patternum == pat->blockstartpattern
+				&& (scanning->curfblock->start2_o == BF_POSITION_UNDEFINED || scanning->curfblock->start2_o >= match_end_o))) {
 		/* get the current block on the stack and stretch the end-of-blockstart to the end of the match */
-		DBG_SCANNING("found_match, pat->stretch_blockstart=%d, update curfblock end1_o from %d to %d\n", pat->stretch_blockstart, scanning->curfblock->end1_o, match_end_o);
+		DBG_SCANNING("found_match, pat->stretch_blockstart=%d, pat->blockstartpattern=%d, update curfblock(%d:%d-%d:%d) with patternum=%d from end1_o from %d to %d\n", 
+						pat->stretch_blockstart,pat->blockstartpattern,
+						scanning->curfblock->start1_o, scanning->curfblock->end1_o, scanning->curfblock->start2_o, scanning->curfblock->end2_o, 
+						scanning->curfblock->patternum, scanning->curfblock->end1_o, match_end_o);
 		scanning->curfblock->end1_o = match_end_o;
 	}
 
