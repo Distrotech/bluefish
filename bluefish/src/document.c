@@ -3227,7 +3227,7 @@ paste_image_save_lcb(TcheckNsave_status status, GError * gerror, gpointer callba
 {
 	/* TODO: handle error */
 	if (gerror) {
-		g_print("paste_image_save_lcb, failed to save thumbnail: %s\n",gerror->message);
+		g_warning("paste_image_save_lcb, failed to save thumbnail: %s\n",gerror->message);
 	}
 	return CHECKNSAVE_CONT;
 }
@@ -3323,6 +3323,7 @@ doc_paste_special(Tbfwin *bfwin)
 	gint result;
 	GtkWidget *win, *content_area, *rbut0=NULL, *rbut1=NULL, *rbut2=NULL, *rbut3=NULL;
 	gboolean have_html=FALSE, have_image=FALSE, have_plain=FALSE;
+	GSList *rgroup=NULL; 
 	GdkAtom *targets;
 	gint numtargets;
 	GtkClipboard *cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -3352,20 +3353,27 @@ doc_paste_special(Tbfwin *bfwin)
 				, GTK_STOCK_OK, GTK_RESPONSE_ACCEPT
 				,GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,NULL);
 	content_area = gtk_dialog_get_content_area(GTK_DIALOG(win));
+	if (!have_html && !have_image && !have_plain) {
+		gtk_box_pack_start(GTK_BOX(content_area), gtk_label_new(_("No compatible clipboard data found")), TRUE, TRUE, 4);
+	}
 
 	if (have_html) {
 		rbut0 = gtk_radio_button_new_with_mnemonic(NULL, _("Paste as _HTML"));
 		gtk_box_pack_start(GTK_BOX(content_area), rbut0, TRUE, TRUE, 4);
+		rgroup = gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbut0));
 	}
 	if (have_image) {
-		rbut1 = gtk_radio_button_new_with_mnemonic(have_html ? gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbut0)) : NULL, _("Paste as HTML with _JPG"));
+		rbut1 = gtk_radio_button_new_with_mnemonic(rgroup, _("Paste as HTML with _JPG"));
 		gtk_box_pack_start(GTK_BOX(content_area), rbut1, TRUE, TRUE, 4);
-		/*rbut2 = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbut1)), _("Paste as HTML _PNG"));
+		/*rbut2 = gtk_radio_button_new_with_mnemonic(rgroup, _("Paste as HTML _PNG"));
 		gtk_box_pack_start(GTK_BOX(content_area), rbut2, TRUE, TRUE, 4);*/
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(rbut1), TRUE);
+		if (!rgroup) {
+			rgroup = gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbut1));
+		}
 	}
 	if (have_plain) {
-		rbut3 = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group(GTK_RADIO_BUTTON(rbut1)), _("Paste as plain text"));
+		rbut3 = gtk_radio_button_new_with_mnemonic(rgroup, _("Paste as plain text"));
 		gtk_box_pack_start(GTK_BOX(content_area), rbut3, TRUE, TRUE, 4);
 	}
 	gtk_widget_show_all(win);
