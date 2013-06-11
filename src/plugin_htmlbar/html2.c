@@ -1118,8 +1118,7 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 	GtkWidget *vbox, *hbox, *but;
 	GdkColor gcolor;
 	const gchar *this_color=setcolor;
-
-	csd = g_malloc(sizeof(Tcolsel));
+	csd = g_new0(Tcolsel, 1);
 	/* warning: bfwin might be NULL if this dialog is started by return_color() */
 	csd->bfwin = bfwin;
 	csd->is_modal = modal;
