@@ -819,12 +819,22 @@ htmlbar_toolbar_show(Thtmlbarwin * hbw, Thtmlbarsession *hbs, gboolean show)
 		} else {
 			GtkWidget *html_notebook;
 			html_notebook = htmlbar_toolbar_create(hbw, hbs);
+#if GTK_CHECK_VERSION(3,2,0)
+			/*gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP); this is the default, so why set it?*/ 
+ 			gtk_widget_set_hexpand(GTK_WIDGET(html_notebook),TRUE);
+ 			hbw->handlebox = gtk_event_box_new();
+ 			gtk_widget_set_name(GTK_WIDGET(hbw->handlebox), "html_notebook_event_box");
+			gtk_container_add(GTK_CONTAINER(hbw->handlebox),html_notebook); 
+			gtk_container_add(GTK_CONTAINER(hbw->bfwin->toolbarbox),hbw->handlebox);
+			gtk_widget_show_all(hbw->handlebox);
+#else			
 			hbw->handlebox = gtk_handle_box_new();
-			DEBUG_MSG("htmlbar_toolbar_show, created handlebox=%p\n",hbw->handlebox);
 			gtk_container_add(GTK_CONTAINER(hbw->handlebox), html_notebook);
 			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP);
 			gtk_box_pack_start(GTK_BOX(hbw->bfwin->toolbarbox), hbw->handlebox, FALSE, FALSE, 0);
 			gtk_widget_show_all(hbw->handlebox);
+#endif
+		DEBUG_MSG("htmlbar_toolbar_show, created handlebox=%p\n",hbw->handlebox);
 		}
 	} else {
 		if (hbw->handlebox)

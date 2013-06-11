@@ -394,8 +394,11 @@ insert_time_dialog(Tbfwin * bfwin)
 	struct tm *time_struct;
 	TimeInsert *timeinsert;
 	GtkWidget *ok_b, *cancel_b, *vbox, *hbox;
-
+#ifdef MAC_INTEGRATION
+	timeinsert = g_new0(TimeInsert, 1);
+#else
 	timeinsert = g_malloc(sizeof(TimeInsert));
+#endif
 	timeinsert->bfwin = bfwin;
 	time_var = time(NULL);
 	time_struct = localtime(&time_var);

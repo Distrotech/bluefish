@@ -67,8 +67,7 @@ html_diag_new(Tbfwin * bfwin, gchar * title)
 		g_warning("plugin_htmlbar: bfwin may not be NULL in html_diag_new()\n");
 		return NULL;
 	}
-
-	dg = g_malloc(sizeof(Thtml_diag));
+	dg = g_new0(Thtml_diag, 1);
 	dg->tobedestroyed = FALSE;
 	DEBUG_MSG("html_diag_new, dg=%p\n", dg);
 	dg->dialog =
