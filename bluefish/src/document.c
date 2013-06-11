@@ -3106,7 +3106,7 @@ doc_activate(Tdocument * doc)
 	doc_set_statusbar_lang_encoding(doc);
 #ifdef MAC_INTEGRATION
 /*	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(doc->bfwin)->menubar));*/
-	gtk_osxapplication_sync_menubar(g_object_new(GTK_TYPE_OSX_APPLICATION, NULL));
+	gtkosx_application_sync_menubar(g_object_new(GTKOSX_TYPE_APPLICATION, NULL));
 #endif
 
 /*	doc_scroll_to_cursor(doc);*/

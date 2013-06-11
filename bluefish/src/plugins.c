@@ -28,6 +28,9 @@
 #include "bf_lib.h"
 #include "plugins.h"
 #include "stringlist.h"
+#ifdef MAC_INTEGRATION
+#include <gtkosxapplication.h>
+#endif
 
 typedef struct {
 	gchar *filename;
@@ -187,7 +190,23 @@ void bluefish_load_plugins(void) {
 	oldlist = main_v->props.plugin_config;
 	DEBUG_MSG("bluefish_load_plugins, oldlist %p len=%d\n",oldlist,g_list_length(oldlist));
 	main_v->props.plugin_config = NULL;
-
+	
+#ifdef MAC_INTEGRATION
+	if (gtkosx_application_get_bundle_id ())
+	{
+		gchar *bluefish_plugin_dir;
+		gchar *bundle_resource_dir = gtkosx_application_get_resource_path ();
+		bluefish_plugin_dir = g_build_filename (bundle_resource_dir,
+						     "lib",
+						     PACKAGE,
+						     NULL);
+		bluefish_scan_dir_load_plugins(&oldlist,bluefish_plugin_dir);
+		g_warning("plugin_init_for_MacOSX, plugin path=%s\n", bluefish_plugin_dir);
+		g_free(bluefish_plugin_dir);
+		g_free(bundle_resource_dir);
+	}
+#else
+	
 	/* load from the user directory first */
 	path = g_strconcat(g_get_home_dir(), "/."PACKAGE"/",NULL);
 	bluefish_scan_dir_load_plugins(&oldlist,path);
@@ -216,6 +235,7 @@ void bluefish_load_plugins(void) {
 #else /* WIN32 */
 	bluefish_scan_dir_load_plugins(&oldlist,PKGLIBDIR);
 #endif /* NSIS || OSXAPP */
+#endif /* MAC_INTEGRATION */
 
 	free_arraylist(oldlist);
 	main_v->plugins = g_slist_sort(main_v->plugins,(GCompareFunc)plugins_compare_priority);
