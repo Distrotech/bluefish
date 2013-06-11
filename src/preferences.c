@@ -1908,7 +1908,7 @@ preferences_apply(Tprefdialog * pd)
 				doc_force_activate(bfwin->current_document);
 #ifdef MAC_INTEGRATION
 /*			ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));*/
-			gtk_osxapplication_sync_menubar(g_object_new(GTK_TYPE_OSX_APPLICATION, NULL));
+			gtkosx_application_sync_menubar(g_object_new(GTKOSX_TYPE_APPLICATION, NULL));
 #endif
 			tmplist = g_list_next(tmplist);
 		}

@@ -269,7 +269,12 @@ snippets_show_as_menu(Tsnippetswin * snw, gboolean enable)
 		if (!snw->snippetsmenu) {
 			gint width = gdk_screen_get_width(gtk_window_get_screen(GTK_WINDOW(snw->bfwin->main_window)));
 			snw->snippetsmenu = snippets_menu_new(width);
+#if !GTK_CHECK_VERSION(3,4,0)
 			gtk_box_pack_start(GTK_BOX(snw->bfwin->toolbarbox), snw->snippetsmenu, FALSE, FALSE, 0);
+#else
+			gtk_widget_set_name(GTK_WIDGET(snw->snippetsmenu), "snippets_menu_bar");
+			gtk_container_add(GTK_CONTAINER(snw->bfwin->toolbarbox),snw->snippetsmenu);
+#endif
 			gtk_widget_show(snw->snippetsmenu);	/* show is required such that the size requests are accurate */
 			snippets_menu_set_model((SnippetsMenu *) snw->snippetsmenu, (GtkTreeModel *) snippets_v.store,
 									snippetsmenu_cb, snw, TITLE_COLUMN, NODE_COLUMN);

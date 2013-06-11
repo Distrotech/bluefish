@@ -132,11 +132,11 @@ static void handle_signals(void) {
 #endif
 
 #ifdef MAC_INTEGRATION
-static gboolean osx_open_file_cb(GtkOSXApplication *app, gchar *path, gpointer user_data) {
-	GFile *file;
+static gboolean osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer user_data) {
+	GFile *tmpfile = g_file_new_for_path(path);
 	Tbfwin *bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
 	g_print("osx_open_file_cb, open %s\n",path);
-	doc_new_from_input(bfwin,path,FALSE,FALSE,-1);
+	file_handle(tmpfile, bfwin , NULL, TRUE);	
 	return TRUE;
 }
 #endif
@@ -228,13 +228,6 @@ static gboolean startup_in_idle(gpointer data) {
 		break;
 		case 3:
 			bfwin_show_main(startup->firstbfwin);
-#ifdef MAC_INTEGRATION
-			{
-				GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
-				gtk_osxapplication_ready(theApp);
-				g_signal_connect(theApp, "NSApplicationOpenFile", osx_open_file_cb, NULL);
-			}
-#endif
 		break;
 		case 4:
 			main_v->recentm = gtk_recent_manager_get_default();
@@ -443,11 +436,19 @@ int main(int argc, char *argv[])
 #endif /* WITH_MSG_QUEUE */
 	}
 #ifdef MAC_INTEGRATION
+	
+	GtkosxApplication *theApp = g_object_new(GTKOSX_TYPE_APPLICATION, NULL);
+	g_signal_connect(theApp, "NSApplicationOpenFile", G_CALLBACK (osx_open_file_cb), NULL);
+	
+	int loop;
+	for (loop=0;loop<5;loop++) /* Number of loops should be in sync with startup_in_idle cycles */
 	{
-	GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
+	startup_in_idle(startup);
 	}
-#endif
+	gtkosx_application_ready(theApp);
+#else
 	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, NULL);
+#endif
 	DEBUG_MSG("main, before gtk_main()\n");
 	gtk_main();
 	DEBUG_MSG("main, after gtk_main()\n");

@@ -1238,7 +1238,11 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 #endif
 
 	bfwin->menubar = gtk_ui_manager_get_widget(manager, "/MainMenu");
+#if GTK_CHECK_VERSION(3,4,0)
+	gtk_container_add(GTK_CONTAINER(vbox),bfwin->menubar);
+#else
 	gtk_box_pack_start(GTK_BOX(vbox), bfwin->menubar, FALSE, FALSE, 0);
+#endif
 	gtk_widget_show(bfwin->menubar);
 
 	bfwin_templates_menu_create(bfwin);
@@ -1259,14 +1263,14 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 #if GTK_CHECK_VERSION(3,4,0)
 	bfwin->main_toolbar_hb = gtk_grid_new();
 	gtk_orientable_set_orientation(GTK_ORIENTABLE(bfwin->main_toolbar_hb), GTK_ORIENTATION_HORIZONTAL);
-	bfwin->html_toolbar_hb = gtk_grid_new();
-	gtk_orientable_set_orientation(GTK_ORIENTABLE(bfwin->html_toolbar_hb), GTK_ORIENTATION_HORIZONTAL);
+	gtk_container_add(GTK_CONTAINER(bfwin->toolbarbox),bfwin->main_toolbar_hb);
 #else
 	bfwin->main_toolbar_hb = gtk_handle_box_new();
-	bfwin->html_toolbar_hb = gtk_handle_box_new();
+	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->main_toolbar_hb, TRUE, FALSE, 0);
 #endif
-	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->main_toolbar_hb, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->html_toolbar_hb, FALSE, FALSE, 0);
+
+/* looks like this is dead code
+	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->html_toolbar_hb, FALSE, FALSE, 0); */
 
 	toolbar = gtk_ui_manager_get_widget(manager, "/MainToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
@@ -1274,6 +1278,7 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 #if GTK_CHECK_VERSION(3,4,0)
 	/* This shouldn't be necessary, but work around a sizing issue when using GtkGrid */
 	gtk_toolbar_set_show_arrow(GTK_TOOLBAR(toolbar), FALSE);
+	gtk_widget_set_hexpand(GTK_WIDGET(toolbar),TRUE);
 #endif
 	gtk_container_add(GTK_CONTAINER(bfwin->main_toolbar_hb), toolbar);
 

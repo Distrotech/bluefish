@@ -1374,11 +1374,16 @@ bfwin_create_main(Tbfwin * bfwin)
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(bfwin->main_window), vbox);
 	gtk_widget_show(vbox);
-
+#if GTK_CHECK_VERSION(3,4,0)
+	bfwin->toolbarbox = gtk_grid_new(); 
+	gtk_orientable_set_orientation(GTK_ORIENTABLE(bfwin->toolbarbox), GTK_ORIENTATION_VERTICAL);
+	gtk_box_pack_start(GTK_BOX(vbox), bfwin->toolbarbox, FALSE, FALSE, 0); 
+	gtk_widget_show(bfwin->toolbarbox);
+#else
 	bfwin->toolbarbox = gtk_vbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), bfwin->toolbarbox, FALSE, FALSE, 0);
 	gtk_widget_show(bfwin->toolbarbox);
-
+#endif
 	/* first a menubar */
 	bfwin->uimanager = gtk_ui_manager_new();
 #if !GTK_CHECK_VERSION(3,4,0)
@@ -1531,16 +1536,20 @@ bfwin_show_main(Tbfwin * bfwin)
 {
 #ifdef MAC_INTEGRATION
 	GtkWidget *menuitem;
-	GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
+	GtkosxApplication *theApp = g_object_new(GTKOSX_TYPE_APPLICATION, NULL);
 	gtk_widget_hide(bfwin->menubar);
-	gtk_osxapplication_set_menu_bar(theApp, GTK_MENU_SHELL(bfwin->menubar));
+	gtkosx_application_set_menu_bar(theApp, GTK_MENU_SHELL(bfwin->menubar));
 	g_print("hide gtk menubar, set gtkosxapplication menubar\n");
-
-	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/EditMenu/EditPreferences");
-	gtk_osxapplication_insert_app_menu_item(theApp, menuitem,5);
-
+/*This arrangement gives more mackish ordering of menu. TODO Window menu does not track opened toplevels correctly */	
+	gtkosx_application_set_window_menu (theApp, NULL);
+	
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/HelpMenu/HelpAbout");
-	gtk_osxapplication_insert_app_menu_item(theApp, menuitem,5);
+	gtkosx_application_insert_app_menu_item(theApp, menuitem,0);
+	
+	gtkosx_application_insert_app_menu_item (theApp, g_object_ref(gtk_separator_menu_item_new ()), 1);
+		
+	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/EditMenu/EditPreferences");
+	gtkosx_application_insert_app_menu_item(theApp, menuitem,2);
 
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/FileMenu/FileQuit");
 	gtk_widget_hide(menuitem);

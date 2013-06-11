@@ -406,7 +406,11 @@ props_init_main(GHashTable * config_rc)
 {
 	init_prop_string(&config_rc, &main_v->props.config_version, "config_version:", "2.2.5");
 	init_prop_integer(&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
+#ifdef MAC_INTEGRATION
+	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "Lucida Grande 13");
+#else
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "monospace 10");
+#endif
 	init_prop_integer(&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.editor_tab_indent_sel, "editor_tab_indent_sel:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.editor_auto_close_brackets, "editor_auto_close_brackets:", 2, TRUE);
@@ -1007,11 +1011,11 @@ static GHashTable *
 return_globalsession_configlist(gboolean init_values)
 {
 	GHashTable *config_rc = g_hash_table_new_full(g_str_hash, g_str_equal, NULL, free_config_list_item);
-	init_prop_integer(&config_rc, &main_v->globses.main_window_h, "main_window_height:", 400, init_values);
-	init_prop_integer(&config_rc, &main_v->globses.main_window_w, "main_window_width:", 600, init_values);	/* negative width means maximized */
+	init_prop_integer(&config_rc, &main_v->globses.main_window_h, "main_window_height:", 800, init_values);
+	init_prop_integer(&config_rc, &main_v->globses.main_window_w, "main_window_width:", 1200, init_values);	/* negative width means maximized */
 	init_prop_integer(&config_rc, &main_v->globses.two_pane_filebrowser_height,
-					  "two_pane_filebrowser_height:", 250, init_values);
-	init_prop_integer(&config_rc, &main_v->globses.left_panel_width, "left_panel_width:", 150, init_values);
+					  "two_pane_filebrowser_height:", 300, init_values);
+	init_prop_integer(&config_rc, &main_v->globses.left_panel_width, "left_panel_width:", 250, init_values);
 	/*init_prop_integer   (&config_rc, &main_v->globses.lasttime_filetypes, "lasttime_filetypes:", 0, init_values);
 	   init_prop_integer   (&config_rc, &main_v->globses.lasttime_encodings, "lasttime_encodings:", 0, init_values); */
 	init_prop_integer(&config_rc, &main_v->globses.bookmarks_default_store, "bookmarks_default_store:", 1,
