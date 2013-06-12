@@ -215,6 +215,7 @@ static gboolean startup_in_idle(gpointer data) {
 				}
 			}
 #ifdef MAC_INTEGRATION
+			gtkosx_application_ready(startup->OsxApp);
 			g_signal_connect(startup->OsxApp, "NSApplicationOpenFile", G_CALLBACK(osx_open_file_cb), NULL);
 #endif
 			if (startup->firstbfwin->session == main_v->session)
