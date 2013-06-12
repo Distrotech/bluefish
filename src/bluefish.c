@@ -67,15 +67,12 @@
 #include "file_autosave.h"
 #include "languages.h"
 
+/*#define STARTUP_PROFILING*/
+
 /*********************************************/
 /* this var is global for all bluefish files */
 /*********************************************/
 Tmain *main_v;
-
-/********************************/
-/* functions used in bluefish.c */
-/********************************/
-/*#define STARTUP_PROFILING*/
 
 #ifdef STARTUP_PROFILING
 static GTimer *startuptimer;
@@ -132,11 +129,14 @@ static void handle_signals(void) {
 #endif
 
 #ifdef MAC_INTEGRATION
-static gboolean osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer user_data) {
-	GFile *tmpfile = g_file_new_for_path(path);
+static gboolean
+osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer user_data)
+{
+	GFile *uri = g_file_new_for_path(path);
 	Tbfwin *bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
-	g_print("osx_open_file_cb, open %s\n",path);
-	file_handle(tmpfile, bfwin , NULL, TRUE);	
+	g_print("osx_open_file_cb, open %s, bfwin=%p\n",path, bfwin);
+	file_handle(uri, bfwin , NULL, TRUE);
+	g_object_unref(uri);
 	return TRUE;
 }
 #endif
@@ -149,6 +149,9 @@ typedef struct {
 	Tbfwin *firstbfwin;
 	GList *filenames;
 	guint state;
+#ifdef MAC_INTEGRATION
+	GtkosxApplication *OsxApp;
+#endif
 } Tstartup;
 
 static gboolean startup_in_idle(gpointer data) {
@@ -211,6 +214,9 @@ static gboolean startup_in_idle(gpointer data) {
 					tmplist = g_list_next(tmplist);
 				}
 			}
+#ifdef MAC_INTEGRATION
+			g_signal_connect(startup->OsxApp, "NSApplicationOpenFile", G_CALLBACK(osx_open_file_cb), NULL);
+#endif
 			if (startup->firstbfwin->session == main_v->session)
 				bmark_reload(startup->firstbfwin); /* do not reload bookmarks for a project */
 			/* set GTK settings, must be AFTER the menu is created */
@@ -233,9 +239,9 @@ static gboolean startup_in_idle(gpointer data) {
 			main_v->recentm = gtk_recent_manager_get_default();
 			doc_scroll_to_cursor(BFWIN(startup->firstbfwin)->current_document);
 			modified_on_disk_check_init();
-#ifndef WIN32            
+#ifndef WIN32
 			handle_signals();
-#endif            
+#endif
 			g_free(startup);
 			return FALSE;
 		break;
@@ -244,7 +250,7 @@ static gboolean startup_in_idle(gpointer data) {
 	g_print("startup_in_idle, end of state=%d, elapsed=%d\n",startup->state,(gint)(g_timer_elapsed(startuptimer,NULL)*1000.0));
 #endif
 	startup->state++;
-	return TRUE;	
+	return TRUE;
 }
 
 int main(int argc, char *argv[])
@@ -262,7 +268,7 @@ int main(int argc, char *argv[])
     HKEY hPython;
     DWORD dwSize;
     DWORD dwError;
-    
+
     DEBUG_MSG("main, about to add Python to PATH");
     // Open HKLM registry key, if that fails try to open HKCU registry key
     if((dwError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Python\\PythonCore\\2.7\\InstallPath", 0, KEY_QUERY_VALUE, &hPython)) != ERROR_SUCCESS)
@@ -315,10 +321,11 @@ int main(int argc, char *argv[])
 		 "Special option that collects any remaining arguments for us", NULL},
 		{NULL}
 	};
-
+#if !GLIB_CHECK_VERSION(2, 32, 0)
+	/* g_thread_init() is called by default starting at glib 2.32 */
 	if (!g_thread_supported())
 		g_thread_init(NULL);
-/*  gdk_threads_init ();*/
+#endif
 
 #ifdef STARTUP_PROFILING
 	startuptimer = g_timer_new();
@@ -368,6 +375,10 @@ int main(int argc, char *argv[])
 	main_v = g_new0(Tmain, 1);
 	main_v->alldochash = g_hash_table_new(g_file_hash, (GEqualFunc) g_file_equal);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
+
+#ifdef MAC_INTEGRATION
+	startup->OsxApp = g_object_new(GTKOSX_TYPE_APPLICATION, NULL);
+#endif
 
 	if (files != NULL) {
 		gchar **tmp = files;
@@ -425,7 +436,7 @@ int main(int argc, char *argv[])
 #endif /* ENABLE_NLS */
 	if (main_v->props.open_in_running_bluefish) {
 #ifdef WITH_MSG_QUEUE
-		/* start message queue as early as possible so a running bluefish process has a lot of 
+		/* start message queue as early as possible so a running bluefish process has a lot of
 		time to respond to our request-alive request */
 		msg_queue_start(startup->filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) );
 #else
@@ -435,20 +446,8 @@ int main(int argc, char *argv[])
 		}
 #endif /* WITH_MSG_QUEUE */
 	}
-#ifdef MAC_INTEGRATION
-	
-	GtkosxApplication *theApp = g_object_new(GTKOSX_TYPE_APPLICATION, NULL);
-	g_signal_connect(theApp, "NSApplicationOpenFile", G_CALLBACK (osx_open_file_cb), NULL);
-	
-	int loop;
-	for (loop=0;loop<5;loop++) /* Number of loops should be in sync with startup_in_idle cycles */
-	{
-	startup_in_idle(startup);
-	}
-	gtkosx_application_ready(theApp);
-#else
+
 	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, NULL);
-#endif
 	DEBUG_MSG("main, before gtk_main()\n");
 	gtk_main();
 	DEBUG_MSG("main, after gtk_main()\n");
@@ -470,9 +469,9 @@ int main(int argc, char *argv[])
 	bluefish_cleanup_plugins();
 	langmgr_cleanup();
 	xmlCleanupParser();
-	
+
 	/*cairo_debug_reset_static_data();
-	FcFini();*/ 
+	FcFini();*/
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
 #else
 	exit(0);
