@@ -666,4 +666,15 @@ void bluefish_exit_request(void);
 #define gtk_combo_box_text_remove gtk_combo_box_remove_text
 #endif /* GTK_CHECK_VERSION(2,24,0) */
 
+#ifdef OLD_MAC_INTEGRATION
+#define GtkosxApplication GtkOSXApplication
+#define gtkosx_application_ready gtk_osxapplication_ready
+#define GTKOSX_TYPE_APPLICATION GTK_TYPE_OSX_APPLICATION
+#define gtkosx_application_sync_menubar gtk_osxapplication_sync_menubar
+#define gtkosx_application_get_resource_path quartz_application_get_resource_path
+#define gtkosx_application_set_window_menu gtk_osxapplication_set_window_menu
+#define gtkosx_application_insert_app_menu_item gtk_osxapplication_insert_app_menu_item
+#define gtkosx_application_set_menu_bar gtk_osxapplication_set_menu_bar
+#define gtkosx_application_get_bundle_id quartz_application_get_bundle_id
+#endif
 #endif							/* __BLUEFISH_H_ */
