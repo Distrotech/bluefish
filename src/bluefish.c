@@ -152,7 +152,7 @@ osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer user_data)
 		g_object_unref(uri);
 	} else {
 		Tstartup *startup = user_data;
-		g_print("osx_open_file_cb, open %s, add uri to startup->filenames\n",path, bfwin);
+		g_print("osx_open_file_cb, open %s, add uri to startup->filenames\n",path);
 		startup->filenames = g_list_prepend(startup->filenames, uri);
 	}
 	return TRUE;
