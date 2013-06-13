@@ -247,9 +247,6 @@ static gboolean startup_in_idle(gpointer data) {
 #ifndef WIN32
 			handle_signals();
 #endif
-#ifdef MAC_INTEGRATION
-			gtkosx_application_ready(startup->OsxApp);
-#endif
 			g_free(startup);
 			return FALSE;
 		break;
@@ -457,6 +454,9 @@ int main(int argc, char *argv[])
 	}
 
 	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, NULL);
+#ifdef MAC_INTEGRATION
+			gtkosx_application_ready(startup->OsxApp);
+#endif
 	DEBUG_MSG("main, before gtk_main()\n");
 	gtk_main();
 	DEBUG_MSG("main, after gtk_main()\n");
