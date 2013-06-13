@@ -128,23 +128,8 @@ static void handle_signals(void) {
 }
 #endif
 
-#ifdef MAC_INTEGRATION
-static gboolean
-osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer user_data)
-{
-	GFile *uri = g_file_new_for_path(path);
-	Tbfwin *bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
-	g_print("osx_open_file_cb, open %s, bfwin=%p\n",path, bfwin);
-	file_handle(uri, bfwin , NULL, TRUE);
-	g_object_unref(uri);
-	return TRUE;
-}
-#endif
-
-/*********************/
-/* the main function */
-/*********************/
-
+/* Tstartup is used during the
+initialization inside gtk_main() */
 typedef struct {
 	Tbfwin *firstbfwin;
 	GList *filenames;
@@ -153,6 +138,27 @@ typedef struct {
 	GtkosxApplication *OsxApp;
 #endif
 } Tstartup;
+
+
+#ifdef MAC_INTEGRATION
+static gboolean
+osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer user_data)
+{
+	GFile *uri = g_file_new_for_path(path);
+	if (main_v->bfwinlist) {
+		Tbfwin *bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
+		g_print("osx_open_file_cb, open %s, bfwin=%p\n",path, bfwin);
+		file_handle(uri, bfwin , NULL, TRUE);
+		g_object_unref(uri);
+	} else {
+		Tstartup *startup = user_data;
+		g_print("osx_open_file_cb, open %s, add uri to startup->filenames\n",path, bfwin);
+		startup->filenames = g_list_prepend(startup->filenames, uri);
+	}
+	return TRUE;
+}
+#endif
+
 
 static gboolean startup_in_idle(gpointer data) {
 	Tstartup *startup=data;
@@ -211,13 +217,11 @@ static gboolean startup_in_idle(gpointer data) {
 				startup->firstbfwin->focus_next_new_doc = TRUE;
 				while (tmplist) {
 					file_handle((GFile *)tmplist->data, startup->firstbfwin, NULL, TRUE);
+					g_object_unref((GFile *)tmplist->data);
 					tmplist = g_list_next(tmplist);
 				}
+				g_list_free(startup->filenames);
 			}
-#ifdef MAC_INTEGRATION
-			gtkosx_application_ready(startup->OsxApp);
-			g_signal_connect(startup->OsxApp, "NSApplicationOpenFile", G_CALLBACK(osx_open_file_cb), NULL);
-#endif
 			if (startup->firstbfwin->session == main_v->session)
 				bmark_reload(startup->firstbfwin); /* do not reload bookmarks for a project */
 			/* set GTK settings, must be AFTER the menu is created */
@@ -242,6 +246,9 @@ static gboolean startup_in_idle(gpointer data) {
 			modified_on_disk_check_init();
 #ifndef WIN32
 			handle_signals();
+#endif
+#ifdef MAC_INTEGRATION
+			gtkosx_application_ready(startup->OsxApp);
 #endif
 			g_free(startup);
 			return FALSE;
@@ -379,6 +386,7 @@ int main(int argc, char *argv[])
 
 #ifdef MAC_INTEGRATION
 	startup->OsxApp = g_object_new(GTKOSX_TYPE_APPLICATION, NULL);
+	g_signal_connect(startup->OsxApp, "NSApplicationOpenFile", G_CALLBACK(osx_open_file_cb), startup);
 #endif
 
 	if (files != NULL) {
