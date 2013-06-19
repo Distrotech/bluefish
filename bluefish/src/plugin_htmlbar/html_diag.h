@@ -110,6 +110,7 @@ gchar *insert_string_if_combobox(GtkComboBox * combobox, gchar * itemname, gchar
 								 gchar * defaultvalue);
 gchar *insert_integer_if_spin(GtkWidget * spin, gchar * itemname, gchar * string2add2, gboolean ispercentage,
 							  gint dontinsertonvalue);
+gchar *insert_if_spin(GtkWidget *spin, gchar * itemname, gchar * string2add2, gboolean ispercentage);
 gchar *insert_attr_if_checkbox(GtkWidget * checkbox, gchar * itemname, gchar * string2add2);
 gchar *format_entry_into_string(GtkEntry * entry, gchar * formatstring);
 GList *add_entry_to_stringlist(GList * which_list, GtkWidget * entry);
