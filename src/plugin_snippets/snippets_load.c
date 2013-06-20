@@ -318,6 +318,7 @@ void snippets_load(void) {
 }
 
 gboolean snippets_store_lcb(gpointer data) {
+	DEBUG_SIG("snippets_store_lcb, priority=%d\n",G_PRIORITY_DEFAULT_IDLE)
 	DEBUG_MSG("snippets_store_lcb, started\n");
 	if (snippets_v.doc) {
 		gchar *snipfile = get_snipfile(FALSE);

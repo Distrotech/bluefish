@@ -419,7 +419,7 @@ static gboolean
 build_lang_finished_lcb(gpointer data)
 {
 	Tbflangparsing *bfparser = data;
-
+	DEBUG_SIG("build_lang_finished_lcb, priority=%d\n",BUILD_LANG_FINISHED_PRIORITY);
 	if (bfparser->st) {
 		bfparser->bflang->st = bfparser->st;
 		/*bfparser->bflang->line = bfparser->line;
@@ -1900,6 +1900,7 @@ static gboolean
 bflang2scan_finished_lcb(gpointer data)
 {
 	GList *tmplist;
+	DEBUG_SIG("bflang2scan_finished_lcb, priority=%d\n",BFLANGSCAN_FINISHED_PRIORITY);
 
 	/* now add the languages once the GUI if the GUI has been loaded */
 	DBG_MSG("bflang2scan_finished_lcb\n");

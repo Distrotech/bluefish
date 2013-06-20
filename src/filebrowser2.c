@@ -673,6 +673,7 @@ static gboolean
 fb2_fill_dir_async_low_priority(gpointer data)
 {
 	Turi_in_refresh *uir = data;
+	DEBUG_SIG("fb2_fill_dir_async_low_priority, priority=%d\n",G_PRIORITY_LOW);
 	DEBUG_MSG("fb2_fill_dir_async_low_priority, start fill dir %s async low priority\n",g_file_get_path(uir->uri));
 	g_file_enumerate_children_async(uir->uri,
 									"standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
@@ -2302,6 +2303,7 @@ dirmenu_idle_cleanup_lcb(gpointer callback_data)
 	GtkTreeModel *oldmodel = callback_data;
 	gboolean cont;
 	GtkTreeIter iter;
+	DEBUG_SIG("dirmenu_idle_cleanup_lcb, priority=%d\n",G_PRIORITY_LOW+10);
 	DEBUG_MSG("dirmenu_idle_cleanup_lcb, cleanup the old model %p\n", oldmodel);
 	/* now we cleanup the old model and it's contents */
 

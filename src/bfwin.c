@@ -1077,6 +1077,7 @@ notebook_set_tab_accels(Tbfwin * bfwin)
 static gboolean
 notebook_changed_activate_current_document(gpointer data)
 {
+	DEBUG_SIG("notebook_changed_activate_current_document, priority=%d\n",NOTEBOOKCHANGED_DOCACTIVATE_PRIORITY);
 	DEBUG_MSG("notebook_changed_activate_current_document, current_document=%p\n",BFWIN(data)->current_document);
 	if (BFWIN(data)->current_document)
 		doc_activate(BFWIN(data)->current_document);

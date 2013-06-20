@@ -145,6 +145,7 @@ static gboolean
 delete_async_finished_lcb(gpointer data)
 {
 	Tdelete *del = data;
+	DEBUG_SIG("delete_async_finished_lcb, started, priority %d\n",G_PRIORITY_LOW);
 	if (del->callback) {
 		del->callback(del->callback_data);
 	}
@@ -208,6 +209,7 @@ delete_async(GIOSchedulerJob * job, GCancellable * cancellable, gpointer user_da
 {
 	Tdelete *del = user_data;
 	GError *error = NULL;
+	DEBUG_SIG("delete_async, started, priority %d\n",G_PRIORITY_LOW);
 	g_file_delete(del->uri, NULL, &error);
 	if (error) {
 		if (error->code == G_IO_ERROR_NOT_EMPTY && del->recursive) {
@@ -629,6 +631,7 @@ static gboolean
 fileintodoc_finished_idle_lcb(gpointer data)
 {
 	Tfileintodoc *fid = data;
+	DEBUG_SIG("file2doc_finished_idle_lcb, started, priority %d\n",FILEINTODOC_PRIORITY);
 	DEBUG_MSG("fileintodoc_finished_idle_lcb, loading the data for doc %p\n",fid->doc);
 	if (fid->isTemplate || fid->untiledRecovery) {
 		doc_buffer_to_textbox(fid->doc, fid->buffer->data, fid->buflen, FALSE, TRUE);
@@ -789,6 +792,7 @@ file2doc_finished_idle_lcb(gpointer data)
 {
 	Tfile2doc * f2d=data;
 	Trefcpointer *refp = f2d->buffer;
+	DEBUG_SIG("file2doc_finished_idle_lcb, started, priority %d\n",FILE2DOC_PRIORITY);
 	DEBUG_MSG("file2doc_finished_idle_lcb started for doc %p\n",f2d->doc);
 	if (f2d->recovery_status == 1) {
 		GtkTextIter itstart, itend;
@@ -1783,6 +1787,7 @@ static gboolean
 do_update_push(gpointer data)
 {
 	Tsync_update *su = data;
+	DEBUG_SIG("do_update_push, started, priority %d\n",G_PRIORITY_DEFAULT_IDLE);
 	queue_push(&su->sync->queue_update, su);
 	return FALSE;
 }
@@ -2004,6 +2009,7 @@ static gboolean
 walk_local_directory_push(gpointer data)
 {
 	Tsync_walkdir *swd = data;
+	DEBUG_SIG("walk_local_directory_push, started, priority %d\n",G_PRIORITY_DEFAULT_IDLE);
 	queue_push(&swd->sync->queue_walkdir_local, swd);
 	return FALSE;
 }
