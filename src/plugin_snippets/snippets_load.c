@@ -244,6 +244,7 @@ static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 static gboolean snippets_load_finished_lcb(gpointer data) {
 	xmlDocPtr doc = (xmlDocPtr)data;
 	xmlNodePtr cur=NULL;
+	DEBUG_SIG("snippets_load_finished_lcb, priority=%d\n",G_PRIORITY_LOW);
 	DEBUG_MSG("snippets_load_finished_lcb, doc=%p, starting to load xml data into treestore\n", doc);
 	if (doc) {
 		cur = xmlDocGetRootElement(doc);
@@ -307,6 +308,7 @@ static gpointer snippets_load_async(gpointer data) {
 }
 
 static gboolean snippets_load_low_priority(gpointer data) {
+	DEBUG_SIG("snippets_load_low_priority, priority=%d\n",G_PRIORITY_LOW);
 	g_thread_create(snippets_load_async, NULL, FALSE, NULL);
 /*	g_print("snippets_load_low_priority\n");*/
 	return FALSE;
@@ -318,7 +320,7 @@ void snippets_load(void) {
 }
 
 gboolean snippets_store_lcb(gpointer data) {
-	DEBUG_SIG("snippets_store_lcb, priority=%d\n",G_PRIORITY_DEFAULT_IDLE)
+	DEBUG_SIG("snippets_store_lcb, priority=%d\n",G_PRIORITY_DEFAULT_IDLE);
 	DEBUG_MSG("snippets_store_lcb, started\n");
 	if (snippets_v.doc) {
 		gchar *snipfile = get_snipfile(FALSE);
@@ -367,7 +369,7 @@ typedef struct {
 
 static gboolean snippets_import_load_finished_lcb(gpointer data) {
 	Tsnippets_import *si = (Tsnippets_import *)data;
-
+	DEBUG_SIG("snippets_import_load_finished_lcb, priority=%d\n",G_PRIORITY_LOW);
 	if (si->doc) {
 		xmlNodePtr cur;
 		cur = xmlDocGetRootElement(si->doc);
