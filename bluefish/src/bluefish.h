@@ -128,6 +128,18 @@ extern void g_none(gchar * first, ...);
 /*************************************/
 /*** priorities for the main loop ****/
 /*************************************/
+#define DEBUG_SIGNALS
+#ifdef DEBUG_SIGNALS
+#define DEBUG_SIG g_print
+#else
+#if defined(__GNUC__) || defined(__SUNPRO_C) && (__SUNPRO_C > 0x580)
+#define DEBUG_SIG(args...)
+ /**/
+#else							/* notdef __GNUC__ || __SUNPRO_C */
+extern void g_none(char * first, ...);
+#define DEBUG_SIG g_none
+#endif							/* __GNUC__ || __SUNPRO_C */
+#endif							/* DEBUG_SIGNALS */
 
 /*
 G_PRIORITY_HIGH -100 			Use this for high priority event sources. It is not used within GLib or GTK+.
@@ -170,6 +182,8 @@ so a newly loaded language file uses a priority 113 event to notice all document
 #define BUILD_LANG_FINISHED_PRIORITY 113
 
 #define BFLANGSCAN_FINISHED_PRIORITY 101
+
+#define BLUEFISH_STARTUP_IN_IDLE_PRIORITY (G_PRIORITY_DEFAULT_IDLE-50)
 
 /*********************/
 /* undo/redo structs */

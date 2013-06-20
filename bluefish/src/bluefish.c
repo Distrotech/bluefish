@@ -162,6 +162,7 @@ osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer user_data)
 
 static gboolean startup_in_idle(gpointer data) {
 	Tstartup *startup=data;
+	DEBUG_SIG("startup_in_idle, started, priority %d, state=%d\n",BLUEFISH_STARTUP_IN_IDLE_PRIORITY, startup->state);
 	DEBUG_MSG("startup_in_idle, started state=%d, elapsed=\n",startup->state);
 #ifdef STARTUP_PROFILING
 	g_print("startup_in_idle, state=%d, elapsed=%d\n",startup->state,(gint)(g_timer_elapsed(startuptimer,NULL)*1000.0));
@@ -453,7 +454,7 @@ int main(int argc, char *argv[])
 #endif /* WITH_MSG_QUEUE */
 	}
 
-	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, NULL);
+	g_idle_add_full(BLUEFISH_STARTUP_IN_IDLE_PRIORITY, startup_in_idle, startup, NULL);
 #ifdef MAC_INTEGRATION
 			gtkosx_application_ready(startup->OsxApp);
 #endif
