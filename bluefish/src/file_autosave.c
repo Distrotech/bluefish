@@ -278,6 +278,7 @@ run_autosave(gpointer data)
 	GList *tmplist;
 	static gint counter=0;
 	gboolean disk_spun_up=FALSE;
+	DEBUG_SIG("run_autosave, after timeout priority=%d\n",G_PRIORITY_DEFAULT);
 	DEBUG_MSG("run_autosave\n");
 	if (main_v->autosave_progress)
 		return TRUE;
