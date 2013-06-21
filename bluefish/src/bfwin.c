@@ -411,7 +411,6 @@ bfwin_apply_settings(Tbfwin * bfwin)
 		}
 	}
 }
-
 static gboolean
 bfwin_configure_event(GtkWidget * widget, GdkEvent * revent, Tbfwin * bfwin)
 {
@@ -449,6 +448,11 @@ bfwin_configure_event(GtkWidget * widget, GdkEvent * revent, Tbfwin * bfwin)
 				sync_fullscreen_toggle(bfwin, fullscreen);
 			}
 		}
+	}
+
+	if (revent->type == GDK_CONFIGURE && main_v->props.wrap_on_right_margin) {
+		/* all docs need to recalculate the amount of whitespace on the right */
+		g_list_foreach(bfwin->documentlist, doc_recalculate_right_margin, bfwin);
 	}
 
 	return FALSE;

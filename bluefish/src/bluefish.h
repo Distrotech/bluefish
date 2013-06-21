@@ -289,7 +289,6 @@ typedef struct {
 	gchar *tab_color_loading;	/* tab text color when doc is loading */
 	gchar *tab_color_error;		/* tab text color when doc has errors */
 	gint visible_ws_mode;
-	gint right_margin_pos;
 	/* new replacements: */
 	GList *external_command;	/* array: name,command,is_default_browser */
 	GList *external_filter;		/* array: name,command */
@@ -360,8 +359,10 @@ typedef struct {
 	gchar *autosave_file_suffix;
 	gchar *language;
 	gint rcfile_from_old_version;
-	gint adv_textview_right_margin; /* advanced option for the textview margin */
-	gint adv_textview_left_margin; /* advanced option for the textview margin */
+	gint right_margin_pos;
+	gint adv_textview_right_margin; /* advanced option for the amount of whitespace inside the textview widget */
+	gboolean wrap_on_right_margin; /* sets adv_textview_right_margin dynamically based on right_margin_pos */
+	gint adv_textview_left_margin; /* advanced option for the amount of whitespace inside the textview widget */
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change
