@@ -2481,6 +2481,31 @@ doc_view_style_updated_lcb(GtkWidget *widget, gpointer user_data)
 }
 #endif
 
+static gint
+calc_right_margin_pixels_to_border(Tdocument *doc)
+{
+	gint width, retval, borderleft;
+	GdkWindow *gwin = gtk_text_view_get_window(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_TEXT);
+	if (!gwin)
+		return 0;
+	width = gdk_window_get_width(gwin);
+	borderleft = gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_LEFT);
+	retval = width - BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char * main_v->props.right_margin_pos - borderleft;
+	DEBUG_MSG("calc_right_margin_pixels_to_border, width=%d, borderleft=%d, margin*pixel=%d, retval=%d\n",width, borderleft, BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char * main_v->props.right_margin_pos, retval);
+	if (retval <= 0) {
+		return 0;
+	}
+	return retval;
+}
+
+/* called from g_list_foreach() in bfwin.c on a window configure event */
+void
+doc_recalculate_right_margin(gpointer data,gpointer user_data)
+{
+	gtk_text_view_set_right_margin(GTK_TEXT_VIEW(DOCUMENT(data)->view), calc_right_margin_pixels_to_border(DOCUMENT(data)));
+}
+
+
 Tdocument *
 doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean init_fileinfo)
 {
@@ -2505,7 +2530,12 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	newdoc->buffer = gtk_text_buffer_new(langmgr_get_tagtable());
 	newdoc->view = bftextview2_new_with_buffer(newdoc->buffer);
 	gtk_text_view_set_left_margin(GTK_TEXT_VIEW(newdoc->view), main_v->props.adv_textview_left_margin);
-	gtk_text_view_set_right_margin(GTK_TEXT_VIEW(newdoc->view), main_v->props.adv_textview_right_margin);
+	if (main_v->props.wrap_on_right_margin) {
+		gtk_text_view_set_right_margin(GTK_TEXT_VIEW(newdoc->view), calc_right_margin_pixels_to_border(newdoc));
+	} else {
+		gtk_text_view_set_right_margin(GTK_TEXT_VIEW(newdoc->view), main_v->props.adv_textview_right_margin);
+	}
+	
 	bluefish_text_view_multiset(BLUEFISH_TEXT_VIEW(newdoc->view), newdoc,
 								BFWIN(bfwin)->session->view_line_numbers, BFWIN(bfwin)->session->view_blocks,
 								BFWIN(bfwin)->session->autoindent, BFWIN(bfwin)->session->autocomplete,
