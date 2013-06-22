@@ -60,7 +60,6 @@ enum {
 	tab_color_loading,			/* tab text color when doc is loading */
 	tab_color_error,			/* tab text color when doc has errors */
 	visible_ws_mode,
-	right_margin_pos,
 	/*defaulthighlight, *//* highlight documents by default */
 	leave_to_window_manager,
 	restore_dimensions,
@@ -117,6 +116,8 @@ enum {
 	autosave,
 	autosave_time,
 	language,
+	right_margin_pos,
+	wrap_on_right_margin,
 	property_num_max
 };
 
@@ -1768,6 +1769,8 @@ preferences_apply(Tprefdialog * pd)
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_SELECTION], pd->prefs[selected_color]);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_CURSOR_HIGHLIGHT], pd->prefs[cursor_highlight_color]);
 	integer_apply(&main_v->props.right_margin_pos, pd->prefs[right_margin_pos], FALSE);
+	integer_apply(&main_v->props.wrap_on_right_margin, pd->prefs[wrap_on_right_margin], TRUE);
+
 	main_v->props.visible_ws_mode = gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[visible_ws_mode]));
 	/*integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE); */
 
@@ -2172,6 +2175,10 @@ preferences_dialog_new(void)
 	pd->prefs[right_margin_pos] =
 		dialog_spin_button_labeled(1, 500, main_v->props.right_margin_pos,
 								   _("Right _margin/split line end position:"), hbox, 0);
+
+	pd->prefs[wrap_on_right_margin] =
+		boxed_checkbut_with_value(_("Wrap lines on right margin indicator"),
+								  main_v->props.wrap_on_right_margin, vbox2);
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
