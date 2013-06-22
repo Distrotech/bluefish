@@ -67,7 +67,7 @@
 #include "file_autosave.h"
 #include "languages.h"
 
-/*#define STARTUP_PROFILING*/
+#define STARTUP_PROFILING
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -128,34 +128,33 @@ static void handle_signals(void) {
 }
 #endif
 
-/* Tstartup is used during the
-initialization inside gtk_main() */
+#ifdef MAC_INTEGRATION
+static gboolean osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer user_data) {
+	GFile *uri = g_file_new_for_path(path);
+	Tbfwin *bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
+	g_print("osx_open_file_cb, open %s\n",path);
+	file_handle(uri, bfwin , NULL, TRUE);
+	g_object_unref(uri);
+	return TRUE;
+}
+
+#endif
+
 typedef struct {
 	Tbfwin *firstbfwin;
 	GList *filenames;
 	guint state;
 #ifdef MAC_INTEGRATION
-	GtkosxApplication *OsxApp;
+	GMainLoop *startup_main_loop;
 #endif
 } Tstartup;
 
-
-#ifdef MAC_INTEGRATION
-static gboolean
-osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer user_data)
-{
-	GFile *uri = g_file_new_for_path(path);
-	if (main_v->bfwinlist) {
-		Tbfwin *bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
-		g_print("osx_open_file_cb, open %s, bfwin=%p\n",path, bfwin);
-		file_handle(uri, bfwin , NULL, TRUE);
-		g_object_unref(uri);
-	} else {
-		Tstartup *startup = user_data;
-		g_print("osx_open_file_cb, open %s, add uri to startup->filenames\n",path);
-		startup->filenames = g_list_prepend(startup->filenames, uri);
-	}
-	return TRUE;
+#ifdef MAC_INTEGRATION /* quits startup loop and releases pointers */
+void startup_finished_cb(gpointer data) {
+	Tstartup *startup=data;
+	g_main_loop_quit (startup->startup_main_loop);
+	g_main_loop_unref (startup->startup_main_loop);
+	g_free(startup);
 }
 #endif
 
@@ -248,7 +247,10 @@ static gboolean startup_in_idle(gpointer data) {
 #ifndef WIN32
 			handle_signals();
 #endif
-			g_free(startup);
+#ifndef MAC_INTEGRATION /*We need startup to stop the startup_main_loop running*/
+			g_free(startup); 
+#endif
+			
 			return FALSE;
 		break;
 	}
@@ -264,6 +266,10 @@ int main(int argc, char *argv[])
 	static gboolean arg_curwindow = FALSE, arg_newwindow=FALSE;
 	static gchar **files = NULL;
 	Tstartup *startup;
+#ifdef MAC_INTEGRATION
+	GPollFunc orig_poll_func;
+	GPollFunc gdk_poll_func;
+#endif
 
 #ifdef WIN32
 	gchar *path;
@@ -345,6 +351,10 @@ int main(int argc, char *argv[])
 	textdomain(PACKAGE);
 #endif							/* ENABLE_NLS */
 
+#ifdef MAC_INTEGRATION /* get virgin polling function */
+	orig_poll_func = g_main_context_get_poll_func (NULL);
+#endif
+
 	context = g_option_context_new(_(" [FILE(S)]"));
 #ifdef ENABLE_NLS
 	g_option_context_add_main_entries(context, options, PACKAGE);
@@ -381,11 +391,6 @@ int main(int argc, char *argv[])
 	main_v = g_new0(Tmain, 1);
 	main_v->alldochash = g_hash_table_new(g_file_hash, (GEqualFunc) g_file_equal);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
-
-#ifdef MAC_INTEGRATION
-	startup->OsxApp = g_object_new(GTKOSX_TYPE_APPLICATION, NULL);
-	g_signal_connect(startup->OsxApp, "NSApplicationOpenFile", G_CALLBACK(osx_open_file_cb), startup);
-#endif
 
 	if (files != NULL) {
 		gchar **tmp = files;
@@ -453,10 +458,27 @@ int main(int argc, char *argv[])
 		}
 #endif /* WITH_MSG_QUEUE */
 	}
-
-	g_idle_add_full(BLUEFISH_STARTUP_IN_IDLE_PRIORITY, startup_in_idle, startup, NULL);
 #ifdef MAC_INTEGRATION
-			gtkosx_application_ready(startup->OsxApp);
+	GtkosxApplication *theApp = g_object_new(GTKOSX_TYPE_APPLICATION, NULL);
+	g_signal_connect(theApp, "NSApplicationOpenFile", G_CALLBACK (osx_open_file_cb), NULL);
+	/* These callbacks are not setup yet TODO */
+	/*g_signal_connect (theApp,
+	                  "NSApplicationWillTerminate",
+	                  G_CALLBACK (osx_will_terminate_cb),
+	                  main_v);
+	g_signal_connect (theApp,
+	                  "NSApplicationBlockTermination",
+	                  G_CALLBACK (osx_block_termination_cb),
+	                  main_v); */
+	gdk_poll_func = g_main_context_get_poll_func (NULL);
+	g_main_context_set_poll_func (NULL, orig_poll_func); /* use virgin polling funtion for startup loop */
+	startup->startup_main_loop = g_main_loop_new (NULL, FALSE);
+	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, (GDestroyNotify)startup_finished_cb);
+	g_main_loop_run (startup->startup_main_loop);
+	g_main_context_set_poll_func (NULL, gdk_poll_func); /* return to NORMAL polling function */
+	gtkosx_application_ready(theApp);
+#else
+	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, NULL);
 #endif
 	DEBUG_MSG("main, before gtk_main()\n");
 	gtk_main();
