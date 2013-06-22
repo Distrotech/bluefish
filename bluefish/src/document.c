@@ -403,7 +403,12 @@ doc_update_highlighting(Tbfwin * bfwin, guint callback_action, GtkWidget * widge
 void
 doc_set_wrap(Tdocument * doc, gboolean enabled)
 {
-	GtkWrapMode wmode = enabled ? GTK_WRAP_WORD : GTK_WRAP_NONE;
+	GtkWrapMode wmode;
+	if (enabled) {
+		wmode = main_v->props.wrap_on_right_margin?GTK_WRAP_CHAR:GTK_WRAP_WORD;
+	} else {
+		wmode = GTK_WRAP_NONE;
+	}
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view), wmode);
 	if (doc->slave)
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->slave), wmode);
@@ -2485,12 +2490,17 @@ static gint
 calc_right_margin_pixels_to_border(Tdocument *doc)
 {
 	gint width, retval, borderleft;
-	GdkWindow *gwin = gtk_text_view_get_window(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_TEXT);
+	GdkWindow *gwin;
+
+	if (!main_v->props.wrap_on_right_margin) {
+		return main_v->props.adv_textview_right_margin;
+	}
+	gwin = gtk_text_view_get_window(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_TEXT);
 	if (!gwin)
-		return 0;
+		return main_v->props.adv_textview_right_margin;
 	width = gdk_window_get_width(gwin);
 	borderleft = gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_LEFT);
-	retval = width - BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char * main_v->props.right_margin_pos - borderleft;
+	retval = width - BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char * main_v->props.right_margin_pos /*- borderleft*/;
 	DEBUG_MSG("calc_right_margin_pixels_to_border, width=%d, borderleft=%d, margin*pixel=%d, retval=%d\n",width, borderleft, BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char * main_v->props.right_margin_pos, retval);
 	if (retval <= 0) {
 		return 0;
@@ -2530,12 +2540,8 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	newdoc->buffer = gtk_text_buffer_new(langmgr_get_tagtable());
 	newdoc->view = bftextview2_new_with_buffer(newdoc->buffer);
 	gtk_text_view_set_left_margin(GTK_TEXT_VIEW(newdoc->view), main_v->props.adv_textview_left_margin);
-	if (main_v->props.wrap_on_right_margin) {
-		gtk_text_view_set_right_margin(GTK_TEXT_VIEW(newdoc->view), calc_right_margin_pixels_to_border(newdoc));
-	} else {
-		gtk_text_view_set_right_margin(GTK_TEXT_VIEW(newdoc->view), main_v->props.adv_textview_right_margin);
-	}
-	
+	gtk_text_view_set_right_margin(GTK_TEXT_VIEW(newdoc->view), calc_right_margin_pixels_to_border(newdoc));
+
 	bluefish_text_view_multiset(BLUEFISH_TEXT_VIEW(newdoc->view), newdoc,
 								BFWIN(bfwin)->session->view_line_numbers, BFWIN(bfwin)->session->view_blocks,
 								BFWIN(bfwin)->session->autoindent, BFWIN(bfwin)->session->autocomplete,
@@ -3353,7 +3359,7 @@ doc_paste_special(Tbfwin *bfwin)
 	gint result;
 	GtkWidget *win, *content_area, *rbut0=NULL, *rbut1=NULL, *rbut2=NULL, *rbut3=NULL;
 	gboolean have_html=FALSE, have_image=FALSE, have_plain=FALSE;
-	GSList *rgroup=NULL; 
+	GSList *rgroup=NULL;
 	GdkAtom *targets;
 	gint numtargets;
 	GtkClipboard *cb = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -3473,6 +3479,10 @@ all_documents_apply_settings()
 		const gchar *tmpstr;
 		bluefish_text_view_set_font(BLUEFISH_TEXT_VIEW(doc->view), font_desc);
 		bluefish_text_view_set_colors(BLUEFISH_TEXT_VIEW(doc->view), main_v->props.btv_color_str);
+		gtk_text_view_set_right_margin(GTK_TEXT_VIEW(DOCUMENT(doc)->view), calc_right_margin_pixels_to_border(DOCUMENT(doc)));
+		if (gtk_text_view_get_wrap_mode(GTK_TEXT_VIEW(doc->view))!=GTK_WRAP_NONE) {
+			doc_set_wrap(doc, TRUE);
+		}
 		tmpstr = gtk_label_get_text(GTK_LABEL(doc->tab_label));
 		tab_label_set_string(doc, tmpstr);
 		tmplist = g_list_next(tmplist);
