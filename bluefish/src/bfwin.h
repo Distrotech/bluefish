@@ -69,6 +69,9 @@ void bfwin_apply_session(Tbfwin * bfwin);
 void bfwin_apply_settings(Tbfwin * bfwin);
 void bfwin_destroy_and_cleanup(Tbfwin *bfwin);
 gboolean bfwin_delete_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin);
+#ifdef MAC_INTEGRATION
+gboolean bfwin_osx_terminate_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin);
+#endif
 
 void bfwin_create_main(Tbfwin * bfwin);
 void bfwin_show_main(Tbfwin * bfwin);

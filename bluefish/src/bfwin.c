@@ -605,6 +605,38 @@ bfwin_delete_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin)
 	}
 
 }
+#ifdef MAC_INTEGRATION
+gboolean
+bfwin_osx_terminate_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin)
+{
+	/*
+	   On OSX we need this simplified function since showing dialog window on NSApplicationBlockTermination callback 
+	   causes bluefish to crash. Probably this is bug in gtk-mac-integration. So, we save all modified documents
+	   by default without asking if user really wants to do it.
+	 */
+	
+	DEBUG_MSG("bfwin_osx_terminate_event, started for bfwin %p\n", bfwin);
+	if (!bfwin->documentlist) {
+		bfwin_destroy_and_cleanup(bfwin);
+		return TRUE;
+	}
+
+	if (have_modified_documents(bfwin->documentlist)) {
+			DEBUG_MSG("bfwin_osx_terminate_event, per file\n");
+			if (bfwin->project) {
+			project_save_and_mark_closed(bfwin);
+			}
+			doc_save_all_close(bfwin);
+	} else {
+		DEBUG_MSG("bfwin_osx_terminate_event, nothing modified, close all\n");
+		if (bfwin->project) {
+		project_save_and_mark_closed(bfwin);
+		}
+		doc_close_multiple_backend(bfwin, TRUE, close_mode_close_all);
+	}
+	return TRUE;
+}
+#endif
 
 void
 bfwin_gotoline_from_clipboard(Tbfwin * bfwin)

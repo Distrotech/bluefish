@@ -67,7 +67,7 @@
 #include "file_autosave.h"
 #include "languages.h"
 
-#define STARTUP_PROFILING
+/*#define STARTUP_PROFILING */
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -137,6 +137,28 @@ static gboolean osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer u
 	g_object_unref(uri);
 	return TRUE;
 }
+
+static gboolean osx_block_termination_cb(GtkosxApplication *app, gpointer user_data) {
+	GList *tmplist;
+	DEBUG_MSG("osx_block_termination, started\n");
+	tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		Tbfwin *bfwin = BFWIN(tmplist->data);
+		bfwin_osx_terminate_event(NULL,NULL,bfwin);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(tmplist);
+	return TRUE;
+}
+
+static gboolean osx_will_terminate_cb(GtkosxApplication *app, gpointer user_data) {
+	/* Connect final shutdown routine here */
+	g_print("gtkosx terminating application");
+	flush_queue();
+	rcfile_save_global_session();
+	gtk_main_quit();
+}
+
 
 #endif
 
@@ -461,15 +483,14 @@ int main(int argc, char *argv[])
 #ifdef MAC_INTEGRATION
 	GtkosxApplication *theApp = g_object_new(GTKOSX_TYPE_APPLICATION, NULL);
 	g_signal_connect(theApp, "NSApplicationOpenFile", G_CALLBACK (osx_open_file_cb), NULL);
-	/* These callbacks are not setup yet TODO */
-	/*g_signal_connect (theApp,
+	g_signal_connect (theApp,
 	                  "NSApplicationWillTerminate",
 	                  G_CALLBACK (osx_will_terminate_cb),
-	                  main_v);
+	                  NULL);
 	g_signal_connect (theApp,
 	                  "NSApplicationBlockTermination",
 	                  G_CALLBACK (osx_block_termination_cb),
-	                  main_v); */
+	                  NULL); 
 	gdk_poll_func = g_main_context_get_poll_func (NULL);
 	g_main_context_set_poll_func (NULL, orig_poll_func); /* use virgin polling funtion for startup loop */
 	startup->startup_main_loop = g_main_loop_new (NULL, FALSE);
