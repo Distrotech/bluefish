@@ -128,7 +128,7 @@ extern void g_none(gchar * first, ...);
 /*************************************/
 /*** priorities for the main loop ****/
 /*************************************/
-#define DEBUG_SIGNALS
+/* #define DEBUG_SIGNALS */
 #ifdef DEBUG_SIGNALS
 #define DEBUG_SIG g_print
 #else
