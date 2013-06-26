@@ -69,7 +69,7 @@
 		<autocomplete append=" {&#10;&#9;&#10;}" backup_cursor="2" class="autocomplete_with_newlines"/>
 		<autocomplete append=" {" notclass="autocomplete_with_newlines"/>
 	</element>
-	<element pattern="var" />
+	<element pattern="var" identifier_mode="1"  identifier_jump="1" identifier_autocomp="option:autocomplete_javascript_var"/>
 	<element pattern="void" />
 	<element pattern="while" >
 		<autocomplete append=" ()" backup_cursor="1"/>
