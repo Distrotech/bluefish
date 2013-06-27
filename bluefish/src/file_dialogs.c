@@ -950,18 +950,6 @@ file_save_all_cb(GtkWidget * widget, Tbfwin * bfwin)
 	}
 }
 
-void
-doc_save_all_close(Tbfwin * bfwin)
-{
-	GList *tmplist = g_list_first(bfwin->documentlist);
-	while (tmplist) {
-		Tdocument *tmpdoc = (Tdocument *) tmplist->data;
-		doc_save_backend(tmpdoc, docsave_normal, TRUE, TRUE);
-		tmplist = g_list_next(tmplist);
-	}
-}
-
-
 gint
 doc_modified_dialog(Tdocument * doc)
 {
@@ -1078,6 +1066,32 @@ doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean clos
 	}
 	DEBUG_MSG("doc_close_single_backend, finished!\n");
 	return TRUE;
+}
+
+void
+doc_save_all_close(Tbfwin * bfwin)
+{
+	GList *tmplist, *duplist;
+	Tdocument *tmpdoc;
+	duplist = g_list_copy(bfwin->documentlist); /* Copy ducumentlist first, since using just tmplist causes unexpected behavior as docs are destroyed */
+	tmplist = g_list_first(duplist);
+	while (tmplist) {
+		Tdocument *tmpdoc = (Tdocument *) tmplist->data;
+#ifdef MAC_INTEGRATION
+		if (tmpdoc->uri == NULL && main_v->osx_status == 1 ) { /* if osx app is terminating we do not save untitled files that does not have uri */
+		DEBUG_MSG("bfwin_osx_terminate_event, closing untitled document\n");
+		tmpdoc->modified = FALSE;
+		doc_close_single_backend(tmpdoc, TRUE, TRUE); }
+		else {
+		DEBUG_MSG("bfwin_osx_terminate_event, saving document\n");
+		doc_save_backend(tmpdoc, docsave_normal, TRUE, TRUE);	
+		}
+#else
+		doc_save_backend(tmpdoc, docsave_normal, TRUE, TRUE);
+#endif
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(duplist);
 }
 
 /**

@@ -139,15 +139,17 @@ static gboolean osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer u
 }
 
 static gboolean osx_block_termination_cb(GtkosxApplication *app, gpointer user_data) {
-	GList *tmplist;
+	GList *tmplist, *duplist;
+	main_v->osx_status = 1;
 	DEBUG_MSG("osx_block_termination, started\n");
-	tmplist = g_list_first(main_v->bfwinlist);
+	duplist = g_list_copy(main_v->bfwinlist); /* Copy bfwinlist first, since using just tmplist causes unexpected behavior as bfwin is destroyed */
+	tmplist = g_list_first(duplist);
 	while (tmplist) {
 		Tbfwin *bfwin = BFWIN(tmplist->data);
 		bfwin_osx_terminate_event(NULL,NULL,bfwin);
 		tmplist = g_list_next(tmplist);
 	}
-	g_list_free(tmplist);
+	g_list_free(duplist);
 	return TRUE;
 }
 
@@ -481,6 +483,7 @@ int main(int argc, char *argv[])
 #endif /* WITH_MSG_QUEUE */
 	}
 #ifdef MAC_INTEGRATION
+	main_v->osx_status = 0; /*normal operation */
 	GtkosxApplication *theApp = g_object_new(GTKOSX_TYPE_APPLICATION, NULL);
 	g_signal_connect(theApp, "NSApplicationOpenFile", G_CALLBACK (osx_open_file_cb), NULL);
 	g_signal_connect (theApp,

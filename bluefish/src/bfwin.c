@@ -617,12 +617,13 @@ bfwin_osx_terminate_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin)
 	
 	DEBUG_MSG("bfwin_osx_terminate_event, started for bfwin %p\n", bfwin);
 	if (!bfwin->documentlist) {
+		g_print("bfwin_osx_terminate_event, document list is empty\n");
 		bfwin_destroy_and_cleanup(bfwin);
 		return TRUE;
 	}
 
 	if (have_modified_documents(bfwin->documentlist)) {
-			DEBUG_MSG("bfwin_osx_terminate_event, per file\n");
+			DEBUG_MSG("bfwin_osx_terminate_event, have modified documents\n");
 			if (bfwin->project) {
 			project_save_and_mark_closed(bfwin);
 			}
