@@ -2498,7 +2498,11 @@ calc_right_margin_pixels_to_border(Tdocument *doc)
 	gwin = gtk_text_view_get_window(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_TEXT);
 	if (!gwin)
 		return main_v->props.adv_textview_right_margin;
+#if GTK_CHECK_VERSION(2,24,0)
 	width = gdk_window_get_width(gwin);
+#else
+	gdk_drawable_get_size((GdkDrawable *)gwin, &width, &retval);
+#endif
 	borderleft = gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_LEFT);
 	retval = width - BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char * main_v->props.right_margin_pos /*- borderleft*/;
 	DEBUG_MSG("calc_right_margin_pixels_to_border, width=%d, borderleft=%d, margin*pixel=%d, retval=%d\n",width, borderleft, BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char * main_v->props.right_margin_pos, retval);
