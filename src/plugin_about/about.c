@@ -262,8 +262,8 @@ about_dialog_create(GtkAction * action, gpointer user_data)
 #if !GTK_CHECK_VERSION(3, 0, 0)
 	gtk_about_dialog_set_url_hook(about_activate_url, NULL, NULL);
 #endif /* gtk3 */
-
-	gtk_show_about_dialog(GTK_WINDOW(bfwin->main_window), "logo", logo, "name", PACKAGE,
+#ifndef MAC_INTEGRATION
+	gtk_show_about_dialog(GTK_WINDOW(bfwin->main_window), "logo", logo, "name", PACKAGE, 
 #ifdef SVN_REVISION
 						  "version", VERSION " rev" SVN_REVISION,
 #else	/* SVN_REVISION */
@@ -282,6 +282,37 @@ about_dialog_create(GtkAction * action, gpointer user_data)
 
 	if (logo)
 		g_object_unref(logo);
+#else
+/* gtk_show_about_dialog hides window when it is closed (no other choices). On OSX this hidden dead window can be accessed from WIndow menu, so we have 
+to construct about dialog manually and destroy it after use */
+	GtkAboutDialog *dialog;
+	dialog = gtk_about_dialog_new();
+	gtk_window_set_transient_for(GTK_WINDOW( dialog ), GTK_WINDOW(bfwin->main_window));
+	gtk_window_set_destroy_with_parent (GTK_WINDOW(dialog), TRUE);
+         /* Set it's properties */
+	gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), "Bluefish" );
+	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), 
+#ifdef SVN_REVISION
+						  VERSION " rev" SVN_REVISION
+#else	/* SVN_REVISION */
+					  VERSION
+#endif	/* SVN_REVISION */	
+	 );
+	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), copyright);
+	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://bluefish.openoffice.nl" );
+	gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(dialog), authors);
+	gtk_about_dialog_set_artists(GTK_ABOUT_DIALOG(dialog), artists);
+	gtk_about_dialog_set_documenters(GTK_ABOUT_DIALOG(dialog), documenters);
+	gtk_about_dialog_set_license(GTK_ABOUT_DIALOG(dialog), license);
+	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), comments);
+	gtk_about_dialog_set_translator_credits(GTK_ABOUT_DIALOG(dialog), translator_credits);
+	gtk_about_dialog_set_wrap_license(GTK_ABOUT_DIALOG(dialog), TRUE);
+	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), logo);
+	g_object_unref(logo), logo=NULL;
+    /* Run dialog and destroy it after it returns. */
+    gtk_dialog_run( GTK_DIALOG(dialog) );
+    gtk_widget_destroy( dialog );
+#endif /* MAC_INTEGRATION */
 }
 
 static void
