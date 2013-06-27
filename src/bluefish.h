@@ -617,6 +617,9 @@ typedef struct {
 									   is destroyed */
 	GSList *pref_initgui; /* register a PrefInitguiCallback function here to add a preferences panel */
 	GSList *pref_apply; /* PrefApplyCallback */
+#ifdef MAC_INTEGRATION
+	gint osx_status; /* 0- normal operation, 1- osx app is terminating, 2-osx app is suspended (only app menu visible). */
+#endif
 } Tmain;
 
 extern EXPORT Tmain *main_v;
