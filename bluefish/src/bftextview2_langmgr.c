@@ -930,7 +930,7 @@ add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringnam
 	const gchar *val = lookup_user_option(bfparser->bflang->name, "attribute_string_is_block");
 	if (val && val[0]=='1') {
 		guint16 strcontext, endmatch;
-		strcontext = new_context(bfparser->st, 4, bfparser->bflang->name, (gchar *)singlematch, stringhighlight, FALSE);
+		strcontext = new_context(bfparser->st, 4, bfparser->bflang->name, (gchar *)singlematch, stringhighlight, FALSE, FALSE);
 		matchstring = add_pattern_to_scanning_table(bfparser->st, singlematch, FALSE, FALSE, contexttag);
 		pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,strcontext,FALSE,FALSE,0,FALSE,FALSE);
 		pattern_set_blockmatch(bfparser->st, matchstring,TRUE,FALSE,0,NULL,NULL,FALSE);
@@ -1044,7 +1044,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			if (!contexttag) {
 				static const gchar *internal_tag_string_d = "__internal_tag_string_d__";
 				static const gchar *internal_tag_string_s = "__internal_tag_string_s__";
-				contexttag = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r<", NULL, FALSE);
+				contexttag = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r<", NULL, FALSE, FALSE);
 				match_set_nextcontext(bfparser->st, matchnum, contexttag);
 				if (attrib_arr) {
 					gchar **tmp2;
@@ -1364,6 +1364,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	gchar *symbols = NULL, *highlight = NULL, *id = NULL, *idref = NULL, *commentid_block =
 		NULL, *commentid_line = NULL;
 	gboolean autocomplete_case_insens = FALSE;
+	gboolean default_spellcheck = FALSE;
 	gint context;
 
 	Tattrib attribs[] = {{"id", &id, attribtype_string},
@@ -1372,6 +1373,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 					{"highlight", &highlight, attribtype_string},
 					{"commentid_block", &commentid_block, attribtype_string},
 					{"commentid_line", &commentid_line, attribtype_string},
+					{"default_spellcheck", &default_spellcheck, attribtype_boolean},
 					{"autocomplete_case_insens", &autocomplete_case_insens, attribtype_boolean}};
 	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 7 : 6);
 	DBG_PARSING("found <context> with id=%s, idref=%s\n", id, idref);
@@ -1386,7 +1388,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	}
 	/* create context */
 	DBG_PARSING("create context symbols %s and highlight %s\n", symbols, highlight);
-	context = new_context(bfparser->st, 32, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens);
+	context = new_context(bfparser->st, 32, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens, default_spellcheck);
 	g_queue_push_head(contextstack, GINT_TO_POINTER(context));
 	if (id) {
 		DBG_PARSING("insert context %s into hash table as %d\n", id, context);
