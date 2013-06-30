@@ -846,7 +846,8 @@ file2doc_finished_idle_lcb(gpointer data)
 											   BFWIN(f2d->bfwin)->num_docs_not_completed),
 									  BFWIN(f2d->bfwin)->num_docs_not_completed, utf8uri);
 			} else {
-				tmp = g_strdup_printf(_("All files loaded, finished %s, %d documents open"), utf8uri, g_list_length(BFWIN(f2d->bfwin)->documentlist));
+				gint doclistlen = g_list_length(BFWIN(f2d->bfwin)->documentlist);
+				tmp = g_strdup_printf(ngettext("All files loaded, finished %s, %d documents open", "All files loaded, finished %s, %d document open", doclistlen), utf8uri, doclistlen);
 			}
 			bfwin_statusbar_message(f2d->doc->bfwin, tmp, 3);
 			g_free(tmp);
@@ -1358,7 +1359,8 @@ open_advanced_cleanup(Topenadvanced *oa) {
 static void open_advanced_unref(Topenadvanced *oa) {
 	oa->refcount--;
 	if (oa->refcount == 0) {
-		gchar *tmp = g_strdup_printf(_("Finished advanced open, %d documents open."), g_list_length(oa->bfwin->documentlist));
+		gint doclistlen = g_list_length(oa->bfwin->documentlist);
+		gchar *tmp = g_strdup_printf(ngettext("Finished advanced open, %d documents open.", "Finished advanced open, %d document open.", doclistlen), doclistlen);
 		bfwin_statusbar_message(oa->bfwin, tmp, 2);
 		g_free(tmp);
 		open_advanced_cleanup(oa);
