@@ -91,6 +91,7 @@ typedef struct {
 								   or COMMENT_INDEX_NONE if there is no block comment  */
 	guint8 comment_line;		/* index in array scantable->comments for line comments; see comment_block */
 	guint8 autocomplete_case_insens;
+	guint8 default_spellcheck;
 } Tcontext;
 
 typedef struct {

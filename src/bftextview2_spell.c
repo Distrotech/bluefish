@@ -284,8 +284,13 @@ get_next_region(BluefishTextView * btv, GtkTextIter * so, GtkTextIter * eo)
 		} else if (has_tags(tmpslist, langmgr_no_spellcheck_tags())) {
 			/* do not scan */
 			DBG_SPELL("found tag not to scan, skip at %d\n", gtk_text_iter_get_offset(&iter));
-		} else {
+		} else if (btv->bflang && btv->bflang->st) {
 			/* scan depending on the settings of the language if it needs spell checking in default area's */
+			guint16 context = get_context_at_position(btv, &iter);
+			if (g_array_index(btv->bflang->st->contexts, Tcontext, context).default_spellcheck) {
+				fso = TRUE;
+			}
+		} else {
 			if (btv->bflang->default_spellcheck) {
 				DBG_SPELL("no tags: scan at %d\n", gtk_text_iter_get_offset(&iter));
 				fso = TRUE;
