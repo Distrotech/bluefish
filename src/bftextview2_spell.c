@@ -267,6 +267,38 @@ has_tags(GSList * tags, GtkTextTag ** tagarr)
 }
 
 static gboolean
+get_spellcheck_from_context_at_position(BluefishTextView *btv, GtkTextIter *iter)
+{
+	Tfoundcontext *tmpfcontext=NULL;
+	Tfound *found;
+	gint changecounter;
+
+	if (!btv || !btv->bflang)
+		return TRUE;
+
+	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(iter), NULL);
+
+	if (!found) {
+		return btv->bflang->default_spellcheck;
+	}
+
+	tmpfcontext = found->fcontext;
+	changecounter = found->numcontextchange;
+	while (changecounter < 0) {
+		tmpfcontext = (Tfoundcontext *) tmpfcontext->parentfcontext;
+		changecounter++;
+	}
+
+	while (tmpfcontext && g_array_index(btv->bflang->st->contexts, Tcontext, tmpfcontext->context).default_spellcheck == SPELLCHECK_INHERIT) {
+		tmpfcontext = (Tfoundcontext *) tmpfcontext->parentfcontext;
+	}
+	if (tmpfcontext) {
+		return g_array_index(btv->bflang->st->contexts, Tcontext, tmpfcontext->context).default_spellcheck;
+	}
+	return btv->bflang->default_spellcheck;
+}
+
+static gboolean
 get_next_region(BluefishTextView * btv, GtkTextIter * so, GtkTextIter * eo)
 {
 	gboolean fso = FALSE, feo = FALSE;

@@ -73,7 +73,10 @@ typedef struct {
 /*****************************************************************/
 #define COMMENT_INDEX_INHERIT 255
 #define COMMENT_INDEX_NONE 254
-	typedef struct {
+#define SPELLCHECK_INHERIT 255
+#define SPELLCHECK_ENABLED 1
+#define SPELLCHECK_DISABLED 0
+typedef struct {
 	GArray *table; /* a pointer to the DFA table for this context */
 	GCompletion *ac;			/* autocompletion items in this context */
 	/*GHashTable *reference; *//* reference help for each autocompletion item */
