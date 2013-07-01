@@ -56,5 +56,9 @@ void bfwin_recent_menu_create(Tbfwin *bfwin, gboolean only_update_session);
 void bfwin_templates_menu_create(Tbfwin * bfwin);
 
 void sync_fullscreen_toggle(Tbfwin *bfwin, gboolean is_fullscreen);
+#ifdef MAC_INTEGRATION
+void bfwin_action_groups_set_sensitive(Tbfwin * bfwin, gboolean sensitive);
+gboolean bfwin_action_group_is_available(GtkUIManager * manager, gchar * action_group_name);
+#endif
 
 #endif							/* BFWIN_UIMANAGER_H_ */

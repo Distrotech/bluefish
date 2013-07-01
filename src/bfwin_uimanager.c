@@ -847,7 +847,6 @@ static const GtkActionEntry global_actions[] = {
 	 G_CALLBACK(ui_open_advanced)},
 	{"FileOpenSelection", NULL, N_("Open _from Selection"), NULL, N_("Open from Selection"),
 	 G_CALLBACK(ui_open_from_selection)},
-	{"FileInsert", NULL, N_("_Insert..."), NULL, N_("Insert file"), G_CALLBACK(ui_insert_doc)},
 	{"FilePrint", NULL, N_("_Print..."), NULL, N_("Print"), G_CALLBACK(ui_print_doc)},
 	{"FileQuit", GTK_STOCK_QUIT, N_("_Quit"), "<control>Q", N_("Quit Bluefish"), G_CALLBACK(ui_quit)},
 	{"EditPreferences", GTK_STOCK_PREFERENCES, N_("Preference_s..."), NULL, N_("Edit Preferences"),
@@ -954,6 +953,7 @@ static const GtkActionEntry document_actions[] = {
 	{"FileRevert", GTK_STOCK_REVERT_TO_SAVED, N_("Rever_t to Saved"), NULL, N_("Reload current file"),
 	 G_CALLBACK(ui_file_reload)},
 	{"FileSaveCopy", NULL, N_("Save a cop_y..."), "<shift><control>y", N_("Save a copy"), G_CALLBACK(ui_file_save_copy)},
+	{"FileInsert", NULL, N_("_Insert..."), NULL, N_("Insert file"), G_CALLBACK(ui_insert_doc)}, /* Required to move here to disable sensitivity on OSX */
 	{"FileRename", NULL, N_("Rena_me..."), "F2", N_("Rename file"), G_CALLBACK(ui_file_rename)},
 	{"EditIndent", GTK_STOCK_INDENT, N_("_Indent"), "<control>period", N_("Indent"), G_CALLBACK(ui_indent)},
 	{"EditUnindent", GTK_STOCK_UNINDENT, N_("Unin_dent"), "<control>comma", N_("Unindent"),
@@ -1381,6 +1381,59 @@ bfwin_set_menu_toggle_item(GtkActionGroup * action_group, const gchar * action_n
 	if ((gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) != is_active)
 		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), is_active);
 }
+
+#ifdef MAC_INTEGRATION
+/* Makes menu bar insensitive except for New... Open.. actions */
+void
+bfwin_action_groups_set_sensitive(Tbfwin * bfwin, gboolean sensitive)
+{
+	GList *tmplist;
+	GtkUIManager *manager = bfwin->uimanager;
+	GList *action_group_list = gtk_ui_manager_get_action_groups (manager);
+	for (tmplist = g_list_first(action_group_list); tmplist; tmplist = tmplist->next) {
+		gchar *group_name = gtk_action_group_get_name(GTK_ACTION_GROUP(tmplist->data));
+		if (!sensitive) {
+			if (strcmp(group_name, "topLevelMenus") != 0
+		 		&& strcmp(group_name, "GlobalActions") !=0
+		  		&& strcmp(group_name, "AboutActions") !=0
+		   		&& strcmp(group_name, "TemplateActions") !=0 ) {
+			DEBUG_MSG("setting action group sensitivity %s \n", group_name);
+			gtk_action_group_set_sensitive(GTK_ACTION_GROUP(tmplist->data), sensitive);
+			}
+		} else {
+			DEBUG_MSG("setting action group sensitivity %s \n", group_name);
+			gtk_action_group_set_sensitive(GTK_ACTION_GROUP(tmplist->data), sensitive);
+		}
+	}
+
+/*	Disable actions that should not be there in suspended mode on OSX */
+	bfwin_action_set_sensitive(manager, "/MainMenu/ViewMenu", sensitive);
+	bfwin_action_set_sensitive(manager, "/MainMenu/DocumentMenu", sensitive);
+	bfwin_action_set_sensitive(manager, "/MainMenu/ToolsMenu", sensitive);
+	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu", sensitive);
+	bfwin_action_set_sensitive(manager, "/MainMenu/FileMenu/FileNewWindow", sensitive);
+	bfwin_action_set_sensitive(manager, "/MainMenu/FileMenu/FileOpenSelection", sensitive);
+	bfwin_action_set_sensitive(manager, "/MainMenu/FileMenu/FileInsert", sensitive);
+	bfwin_action_set_sensitive(manager, "/MainMenu/FileMenu/FilePrint", sensitive);
+	bfwin_action_set_sensitive(manager, "/MainMenu/FileMenu/FileCloseWindow", sensitive);
+}
+
+/* Returns whether action group is available in menu bar */
+gboolean
+bfwin_action_group_is_available(GtkUIManager * manager, gchar * action_group_name) {
+	GList *tmplist;
+	gboolean retval = FALSE;
+	GList *action_group_list = gtk_ui_manager_get_action_groups (manager);
+	for (tmplist = g_list_first(action_group_list); tmplist; tmplist = tmplist->next) {
+		gchar *group_name = gtk_action_group_get_name(GTK_ACTION_GROUP(tmplist->data));
+		if (strcmp(group_name, action_group_name) == 0 ) {
+			retval = TRUE;
+			break;
+		}
+	}
+	return retval;
+}
+#endif
 
 void
 bfwin_set_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path, gboolean is_active)

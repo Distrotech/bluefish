@@ -1001,11 +1001,25 @@ bfwin_destroy_event(GtkWidget * widget, Tbfwin * bfwin)
 	}
 	main_v->bfwinlist = g_list_remove(main_v->bfwinlist, bfwin);
 	DEBUG_MSG("bfwin_destroy_event, bfwin(%p) is removed from bfwinlist\n", bfwin);
-
+#ifndef MAC_INTEGRATION
 	if (NULL == main_v->bfwinlist) {
 		rcfile_save_global_session();
 		gtk_main_quit();
 	}
+#else
+	if (NULL == main_v->bfwinlist) {
+		if (main_v->osx_status == 0 ) {
+			main_v->osx_status = 2;
+			bfwin_window_new();
+			return;
+		} 
+		if (main_v->osx_status == 1 ) {
+			rcfile_save_global_session();
+			gtk_main_quit();
+			return;
+		}
+	}
+#endif
 }
 
 static void
@@ -1070,7 +1084,13 @@ static void
 notebook_set_tab_accels(Tbfwin * bfwin)
 {
 	GtkAccelGroup *tab_accels;
-
+	gboolean create_signals = TRUE;
+#ifdef MAC_INTEGRATION /* We need to create these signals just once, at startup */
+	if (main_v->osx_status != 0 || main_v->bfwinlist != NULL) {
+	create_signals = FALSE;
+	}
+#endif
+	if (create_signals) {
 	DEBUG_MSG("notebook_set_tab_accels, g_signal_new for <Alt>X triggered events\n");
 	g_signal_new("tab-last", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
 				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
@@ -1092,7 +1112,7 @@ notebook_set_tab_accels(Tbfwin * bfwin)
 				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 	g_signal_new("tab9", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
 				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
+	}
 	tab_accels = gtk_accel_group_new();
 	DEBUG_MSG("notebook_set_tab_accels, gtk_window_add_accel_group\n");
 	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), tab_accels);
@@ -1390,7 +1410,9 @@ bfwin_create_main(Tbfwin * bfwin)
 		window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(bfwin_destroy_event),
 					 bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
-	gtk_widget_realize(bfwin->main_window);
+#ifndef MAC_INTEGRATION
+	gtk_widget_realize(bfwin->main_window); /* Causes half baked window entry to appear on OSX WIndow menu. Probably this is not required also on other systems */
+#endif
 	if (!main_v->props.leave_to_window_manager) {
 		if (main_v->globses.main_window_w > 0) {
 			gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->globses.main_window_w,
@@ -1578,23 +1600,31 @@ bfwin_show_main(Tbfwin * bfwin)
 	gtk_widget_hide(bfwin->menubar);
 	gtkosx_application_set_menu_bar(theApp, GTK_MENU_SHELL(bfwin->menubar));
 	g_print("hide gtk menubar, set gtkosxapplication menubar\n");
-/*This arrangement gives more mackish ordering of menu. TODO Window menu does not track opened toplevels correctly */	
+/*This arrangement gives more mackish ordering of menu. TODO Window menu does not track opened toplevels correctly; see bug #701571  */	
+	gint menupos = 0;
+	if (bfwin_action_group_is_available(bfwin->uimanager, "AboutActions")) { /*Since it is plugin, user can disable it, and this leads to bf crash */
+		menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/HelpMenu");
+		gtkosx_application_set_help_menu (theApp, menuitem);
+		menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/HelpMenu/HelpAbout");
+		gtkosx_application_insert_app_menu_item(theApp, menuitem, 0);
+		gtkosx_application_insert_app_menu_item (theApp, g_object_ref(gtk_separator_menu_item_new ()), 1);
+		menupos = 2;
+	}
 	gtkosx_application_set_window_menu (theApp, NULL);
 	
-	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/HelpMenu/HelpAbout");
-	gtkosx_application_insert_app_menu_item(theApp, menuitem,0);
-	
-	gtkosx_application_insert_app_menu_item (theApp, g_object_ref(gtk_separator_menu_item_new ()), 1);
-		
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/EditMenu/EditPreferences");
-	gtkosx_application_insert_app_menu_item(theApp, menuitem,2);
+	gtkosx_application_insert_app_menu_item(theApp, menuitem, menupos);
 
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/FileMenu/FileQuit");
 	gtk_widget_hide(menuitem);
-
-	gtk_accel_map_foreach_unfiltered(NULL, osx_accel_map_foreach_controltometa_lcb);
-	gtk_accel_map_foreach_unfiltered(NULL, osx_accel_map_foreach_mod1tocontrol_lcb);
-
+	
+	gtkosx_application_set_use_quartz_accelerators (theApp, FALSE);
+	
+	if (main_v->osx_status == 0 && g_list_length(main_v->bfwinlist) == 1) { /* Accelarators should be moved just once, at the startup */
+		DEBUG_MSG("bfwin_show_main, configuring accelerators for OSX\n");
+		gtk_accel_map_foreach_unfiltered(NULL, osx_accel_map_foreach_controltometa_lcb);
+		gtk_accel_map_foreach_unfiltered(NULL, osx_accel_map_foreach_mod1tocontrol_lcb);
+	}
 
 /*
 IgeMacMenuGroup *group;
@@ -1616,6 +1646,13 @@ IgeMacMenuGroup *group;
 
 	/* MACTODO: add focus in and focus out event so we can sync the menu
 	   when we switch to a different bluefish window */
+	   
+	   if (main_v->osx_status == 2) {
+	   	
+	   	bfwin_action_groups_set_sensitive(bfwin, FALSE);
+		
+		return;	   
+	   }
 #endif
 	DEBUG_MSG("bfwin_show_main, before show\n");
 	gtk_widget_show(bfwin->main_window);
