@@ -1364,7 +1364,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	gchar *symbols = NULL, *highlight = NULL, *id = NULL, *idref = NULL, *commentid_block =
 		NULL, *commentid_line = NULL;
 	gboolean autocomplete_case_insens = FALSE;
-	gboolean default_spellcheck = FALSE;
+	gint default_spellcheck = SPELLCHECK_INHERIT;
 	gint context;
 
 	Tattrib attribs[] = {{"id", &id, attribtype_string},
@@ -1375,6 +1375,11 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 					{"commentid_line", &commentid_line, attribtype_string},
 					{"default_spellcheck", &default_spellcheck, attribtype_boolean},
 					{"autocomplete_case_insens", &autocomplete_case_insens, attribtype_boolean}};
+	if (g_queue_get_length(contextstack)==0) {
+		g_print("top level context, set default_spellcheck to %d\n", bfparser->default_spellcheck);
+		default_spellcheck = bfparser->default_spellcheck;
+	}
+
 	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 7 : 6);
 	DBG_PARSING("found <context> with id=%s, idref=%s\n", id, idref);
 	if (idref && idref[0] && !id && !symbols && !highlight && !autocomplete_case_insens) {
