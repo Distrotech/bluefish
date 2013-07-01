@@ -624,13 +624,13 @@ bfwin_osx_terminate_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin)
 
 	if (have_modified_documents(bfwin->documentlist)) {
 			DEBUG_MSG("bfwin_osx_terminate_event, have modified documents\n");
-			if (bfwin->project) {
+			if (bfwin->project && bfwin->project->uri) {
 			project_save_and_mark_closed(bfwin);
 			}
 			doc_save_all_close(bfwin);
 	} else {
 		DEBUG_MSG("bfwin_osx_terminate_event, nothing modified, close all\n");
-		if (bfwin->project) {
+		if (bfwin->project && bfwin->project->uri) {
 		project_save_and_mark_closed(bfwin);
 		}
 		doc_close_multiple_backend(bfwin, TRUE, close_mode_close_all);
