@@ -2527,7 +2527,15 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	Tdocument *newdoc;
 	GtkWidget *hbox, *button;
 	GList *tmplist;
-
+	
+#ifdef MAC_INTEGRATION
+	if (main_v->osx_status == 2 && g_list_length(main_v->bfwinlist) == 1){
+		gtk_widget_show(bfwin->main_window);
+		bfwin_action_groups_set_sensitive(bfwin, TRUE);
+		force_new = FALSE;
+		main_v->osx_status = 0;
+	}
+#endif	
 	/* test if the current document is empty and nameless, if so we return that */
 	if (!force_new && bfwin->current_document && g_list_length(bfwin->documentlist) == 1
 		&& doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
@@ -2730,9 +2738,10 @@ doc_new(Tbfwin * bfwin, gboolean delay_activate)
 	Tdocument *doc = doc_new_backend(bfwin, TRUE, FALSE, TRUE);
 	doc_set_status(doc, DOC_STATUS_COMPLETE);
 	DEBUG_MSG("doc_new, doc=%p, status=%d\n", doc, doc->status);
-
-	doc->newdoc_autodetect_lang_id =
-		g_timeout_add_seconds_full(G_PRIORITY_DEFAULT_IDLE, 10, doc_auto_detect_lang_lcb, doc, NULL);
+	if (!doc->newdoc_autodetect_lang_id) {
+		doc->newdoc_autodetect_lang_id =
+			g_timeout_add_seconds_full(G_PRIORITY_DEFAULT_IDLE, 10, doc_auto_detect_lang_lcb, doc, NULL);
+	}
 	if (!delay_activate)
 		gtk_widget_show(doc->view);	/* Delay _show() if neccessary */
 	return doc;

@@ -218,7 +218,7 @@ static gboolean startup_in_idle(gpointer data) {
 			startup->firstbfwin = g_new0(Tbfwin, 1);
 			startup->firstbfwin->session = main_v->session;
 			startup->firstbfwin->bmarkdata = main_v->bmarkdata;
-			main_v->bfwinlist = g_list_append(NULL, startup->firstbfwin);
+			main_v->bfwinlist = NULL;
 #ifdef WITH_MSG_QUEUE
 			if (main_v->props.open_in_running_bluefish) {
 				msg_queue_check_server(FALSE);
@@ -227,6 +227,7 @@ static gboolean startup_in_idle(gpointer data) {
 		break;
 		case 1:
 			bfwin_create_main(startup->firstbfwin);
+			main_v->bfwinlist = g_list_append(NULL, startup->firstbfwin); /* Moved it here, so it is handled the same way as in bfwin_window_new() */
 #ifdef WITH_MSG_QUEUE
 			if (main_v->props.open_in_running_bluefish) {
 				msg_queue_check_server(FALSE);

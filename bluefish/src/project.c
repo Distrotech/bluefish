@@ -547,6 +547,13 @@ project_edit_ok_clicked_lcb(GtkWidget * widget, Tprojecteditor * pred)
 		pred->bfwin->session = pred->project->session;
 		setup_bfwin_for_project(pred->bfwin);
 	} else {
+#ifdef MAC_INTEGRATION
+	if (main_v->osx_status == 2){
+		gtk_widget_show(pred->bfwin->main_window);
+		bfwin_action_groups_set_sensitive(pred->bfwin, TRUE);
+		main_v->osx_status = 0;
+	}
+#endif	
 		bfwin_set_title(pred->bfwin, pred->bfwin->current_document, 0);
 	}
 /* set_project_menu_widgets(pred->bfwin, TRUE);*/
