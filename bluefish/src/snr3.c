@@ -1138,7 +1138,7 @@ simple_search_add_to_history(Tbfwin *bfwin, const gchar *string)
 		}
 	}
 	DEBUG_MSG("prepend %s to searchlist\n", string);
-	bfwin->session->searchlist = add_to_history_stringlist(bfwin->session->searchlist, string, TRUE, TRUE);
+	bfwin->session->searchlist = add_to_history_stringlist(bfwin->session->searchlist, string, TRUE);
 }
 
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string, Tsnr3type type
@@ -1374,11 +1374,11 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 	if (guichange == -1)
 		return;
 
-	snrwin->bfwin->session->searchlist = add_to_history_stringlist(snrwin->bfwin->session->searchlist, s3run->query, TRUE,TRUE);
+	snrwin->bfwin->session->searchlist = add_to_history_stringlist(snrwin->bfwin->session->searchlist, s3run->query, TRUE);
 	if (s3run->replace && s3run->replace[0] != '\0')
-		snrwin->bfwin->session->replacelist = add_to_history_stringlist(snrwin->bfwin->session->replacelist, s3run->replace,TRUE, TRUE);
+		snrwin->bfwin->session->replacelist = add_to_history_stringlist(snrwin->bfwin->session->replacelist, s3run->replace,TRUE);
 	if (s3run->scope == snr3scope_files && s3run->filepattern && s3run->filepattern[0] != '\0')
-		snrwin->bfwin->session->filegloblist = add_to_history_stringlist(snrwin->bfwin->session->filegloblist, s3run->filepattern,TRUE, TRUE);
+		snrwin->bfwin->session->filegloblist = add_to_history_stringlist(snrwin->bfwin->session->filegloblist, s3run->filepattern,TRUE);
 
 	switch(response) {
 		case SNR_RESPONSE_FIND:

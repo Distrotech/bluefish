@@ -598,7 +598,7 @@ GList *find_in_stringlist(GList *thelist, const gchar *string) {
  *
  * Return value: GList* with the modified list
  */
-GList *add_to_history_stringlist(GList *which_list, const gchar *string, gboolean recent_on_top, gboolean move_if_exists) {
+GList *add_to_history_stringlist(GList *which_list, const gchar *string, gboolean move_if_exists) {
 	GList *tmplist;
 	if (!string || string[0]=='\0' )
 		return which_list;
@@ -609,21 +609,13 @@ GList *add_to_history_stringlist(GList *which_list, const gchar *string, gboolea
 		if (move_if_exists) {
 			DEBUG_MSG("add_to_history_stringlist, entry %s exists, moving!\n", string);
 			which_list = g_list_remove_link(which_list, tmplist);
-			if (recent_on_top) {
-				return g_list_concat(tmplist, which_list);
-			} else {
-				return g_list_concat(which_list, tmplist);
-			}
+			return g_list_concat(tmplist, which_list);
 		} else {
 			return which_list;
 		}
 	} else {
 		DEBUG_MSG("add_to_history_stringlist, adding new entry %s\n",string);
-		if (recent_on_top) {
-			which_list = g_list_prepend(which_list, g_strdup(string));
-		} else {
-			which_list = g_list_append(which_list, g_strdup(string));
-		}
+		which_list = g_list_prepend(which_list, g_strdup(string));
 	}
 	return which_list;
 }

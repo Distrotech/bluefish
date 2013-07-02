@@ -1249,7 +1249,7 @@ add_uri_to_recent_dirs(Tfilebrowser2 * fb2, GFile * uri)
 	tmp = g_file_get_uri(uri);
 
 	fb2->bfwin->session->recent_dirs =
-		add_to_history_stringlist(fb2->bfwin->session->recent_dirs, tmp, FALSE, TRUE);
+		add_to_history_stringlist(fb2->bfwin->session->recent_dirs, tmp, TRUE);
 	g_free(tmp);
 }
 
@@ -2392,7 +2392,7 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 		cont = (tmp != NULL);
 	} while (cont);
 
-	tmplist = g_list_last(fb2->bfwin->session->recent_dirs);
+	tmplist = g_list_first(fb2->bfwin->session->recent_dirs);
 	while (tmplist) {
 		GFile *uri;
 		gchar *name;
@@ -2410,7 +2410,7 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 		} else if (uri) {
 			g_object_unref(uri);
 		}
-		tmplist = g_list_previous(tmplist);
+		tmplist = g_list_next(tmplist);
 	}
 
 	gvolmon = g_volume_monitor_get();
@@ -3002,7 +3002,7 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 			need_refilter = TRUE;
 		}
 		if (bfwin->session->recent_dirs) {
-			const gchar *tmp = (gchar *) ((GList *) g_list_last(bfwin->session->recent_dirs))->data;
+			const gchar *tmp = (gchar *) ((GList *) g_list_first(bfwin->session->recent_dirs))->data;
 			/* the fb2_set_basedir function tests itself if  the basedir if changed, if not it does not refresh */
 			DEBUG_MSG("fb2_update_settings_from_session, set basedir %s\n", tmp);
 			if (tmp && tmp[0]) {
