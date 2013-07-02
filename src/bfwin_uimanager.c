@@ -1902,9 +1902,10 @@ static void recent_create_backend(Tbfwin *bfwin, const gchar *menupath, GList *r
 		}
 	}
 	g_list_free(list);
-	for (tmplist = g_list_first(recentlist); tmplist; tmplist = tmplist->next) {
+	for (tmplist = g_list_last(recentlist); tmplist; tmplist = tmplist->prev) {
 		if (num > main_v->props.max_recent_files)
 			break;
+		/* recent_menu_add adds from the top, so the last item added will be on top */ 
 		recent_menu_add(bfwin, GTK_MENU(menu), (const gchar *)tmplist->data);
 		num++;
 	}

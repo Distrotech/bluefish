@@ -81,9 +81,9 @@ files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 	baseuri = g_file_new_for_uri(basedir);
 	content_filter = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(tfs->grep_pattern));
 	if (content_filter && content_filter[0]!='\0')
-		tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist, content_filter, FALSE, TRUE);
+		tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist, content_filter, TRUE);
 	if (extension_filter && extension_filter[0] != '\0')
-		tfs->bfwin->session->filegloblist = add_to_history_stringlist(tfs->bfwin->session->filegloblist, extension_filter,FALSE, TRUE);
+		tfs->bfwin->session->filegloblist = add_to_history_stringlist(tfs->bfwin->session->filegloblist, extension_filter, TRUE);
 
 	retval =
 		open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))

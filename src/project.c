@@ -363,7 +363,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 	}
 	curi = g_file_get_uri(fromuri);
 	main_v->globses.recent_projects =
-				add_to_history_stringlist(main_v->globses.recent_projects, curi, FALSE, TRUE);
+				add_to_history_stringlist(main_v->globses.recent_projects, curi, TRUE);
 	bfwin_recent_menu_remove(bfwin, TRUE, curi);
 	if (main_v->props.register_recent_mode != 0) {
 		gtk_recent_manager_add_item(main_v->recentm, curi);

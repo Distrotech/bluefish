@@ -225,7 +225,7 @@ add_filename_to_recentlist(Tbfwin * bfwin, GFile * uri)
 {
 	gchar *curi = g_file_get_uri(uri);
 	bfwin->session->recent_files =
-				add_to_history_stringlist(bfwin->session->recent_files, curi, FALSE, TRUE);
+				add_to_history_stringlist(bfwin->session->recent_files, curi, TRUE);
 	bfwin_recent_menu_remove(bfwin, FALSE, curi);
 
 	if (main_v->props.register_recent_mode == 0)
