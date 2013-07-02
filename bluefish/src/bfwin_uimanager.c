@@ -1059,6 +1059,7 @@ lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 	Tbfwin *bfwin = BFWIN(user_data);
 	Tdocument *doc = bfwin->current_document;
 	Tbflang *bflang = g_object_get_data(G_OBJECT(action), "bflang");
+	DEBUG_MSG("lang_mode_menu_activate, bfwin=%p, action=%p, active=%d, bflang=%p (%s)\n",bfwin,action,gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)),bflang, bflang?bflang->name:"not set");
 	if (!bflang)
 		return;
 	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)) && bfwin->current_document) {
@@ -1086,7 +1087,6 @@ lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 		}
 
 		doc_set_mimetype(bfwin->current_document, bflang->mimetypes->data, NULL);
-
 	}
 }
 
@@ -1100,24 +1100,33 @@ lang_mode_menu_create(Tbfwin * bfwin)
 	if (!bfwin->uimanager)
 		return;
 
+	freelist = langmgr_get_languages();
+	DEBUG_MSG("lang_mode_menu_create, add %d languages to bfwin %p\n",g_list_length(freelist),bfwin);
+
+	if (!freelist)
+		return;
+
 	if (!bfwin->lang_mode_group) {
 		bfwin->lang_mode_group = gtk_action_group_new("LangModeActions");
 		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->lang_mode_group, 1);
 	} else {
 		dynamic_menu_empty(bfwin->uimanager,bfwin->lang_mode_merge_id, bfwin->lang_mode_group);
 	}
-
+	
 	bfwin->lang_mode_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
-	freelist = langmgr_get_languages();
 	for (list = g_list_first(freelist); list; list = list->next) {
 		Tbflang *bflang = (Tbflang *) list->data;
 		if (bflang->in_menu) {
 			GtkRadioAction *action;
 			action = gtk_radio_action_new(bflang->name, bflang->name, NULL, NULL, value);
+			DEBUG_MSG("lang_mode_menu_create, create action %p for lang %p (%s)\n",action,bflang,bflang->name);
 			gtk_action_group_add_action(bfwin->lang_mode_group, GTK_ACTION(action));
 			gtk_radio_action_set_group(action, group);
 			group = gtk_radio_action_get_group(action);
 			g_object_set_data(G_OBJECT(action), "bflang", (gpointer) bflang);
+			if (bfwin->current_document && BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->bflang == bflang) {
+				gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
+			}
 			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(lang_mode_menu_activate), bfwin);
 			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->lang_mode_merge_id,
 								  "/MainMenu/DocumentMenu/DocumentLangMode/LangModePlaceholder", bflang->name,
@@ -1245,6 +1254,7 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 
 	bfwin_templates_menu_create(bfwin);
 	bfwin_encodings_menu_create(bfwin);
+	g_print("bfwin_main_ui_init, call lang_mode_menu_create(bfwin=%p)\n",bfwin);
 	lang_mode_menu_create(bfwin);
 	bfwin_commands_menu_create(bfwin);
 	bfwin_filters_menu_create(bfwin);
@@ -1508,23 +1518,28 @@ bfwin_encoding_set_wo_activate(Tbfwin * bfwin, const gchar * encoding)
 void
 bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
 {
-	if (bflang) {
-		GtkAction *action = gtk_action_group_get_action(bfwin->lang_mode_group, bflang->name);
-		DEBUG_MSG("bfwin_lang_mode_set_wo_activate, got action %p for bflang=%s\n",action,bflang->name);
-		if (!action) {
-			/* because we hide certain languages from the menu it is perfectly fine if we cannot find an
-			action for a certain language file. */
-			return;
-		}
-
-		if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
-			/*gtk_action_block_activate(action); this only blocks a direct call to gtk_action_activate, not a set_active() */
-			g_object_set_data(G_OBJECT(action), "bflang", (gpointer) NULL);
-			gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
-			g_object_set_data(G_OBJECT(action), "bflang", (gpointer) bflang);
-			/*gtk_action_unblock_activate(action);*/
-		}
+	GtkAction *action;
+	if (!bflang) {
+		DEBUG_MSG("bfwin_lang_mode_set_wo_activate, bflang=%p ????? return\n",bflang);
+		return;
 	}
+	action = gtk_action_group_get_action(bfwin->lang_mode_group, bflang->name);
+	DEBUG_MSG("bfwin_lang_mode_set_wo_activate, got action %p for bflang=%s\n",action,bflang->name);
+	if (!action) {
+		/* because we hide certain languages from the menu it is perfectly fine if we cannot find an
+		action for a certain language file. */
+		return;
+	}
+
+	if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
+		DEBUG_MSG("action %p was not active, so activate it!\n",action);
+		/*gtk_action_block_activate(action); this only blocks a direct call to gtk_action_activate, not a set_active() */
+		g_object_set_data(G_OBJECT(action), "bflang", (gpointer) NULL);
+		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
+		g_object_set_data(G_OBJECT(action), "bflang", (gpointer) bflang);
+		/*gtk_action_unblock_activate(action);*/
+	}
+
 }
 
 static void

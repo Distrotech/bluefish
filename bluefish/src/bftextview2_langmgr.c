@@ -73,6 +73,7 @@ typedef struct {
 } Tautocomplete;
 
 typedef struct {
+	gboolean done_scanning;
 	GHashTable *bflang_lookup;
 	GList *bflang_list;
 	GtkTextTagTable *tagtable;	/* a GtkTextTagTable uses a hashtable internally, so lookups by name are fast */
@@ -91,9 +92,9 @@ typedef struct {
 #endif
 } Tlangmgr;
 #ifdef HAVE_LIBENCHANT
-static Tlangmgr langmgr = { NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL };
+static Tlangmgr langmgr = { FALSE, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL };
 #else
-static Tlangmgr langmgr = { NULL, NULL, NULL, 0, NULL, NULL };
+static Tlangmgr langmgr = { FALSE, NULL, NULL, NULL, 0, NULL, NULL };
 #endif
 
 /* utils */
@@ -1745,7 +1746,9 @@ langmgr_need_spellcheck_tags(void)
 GList *
 langmgr_get_languages(void)
 {
-	return g_list_copy(langmgr.bflang_list);
+	if (langmgr.done_scanning)
+		return g_list_copy(langmgr.bflang_list);
+	return NULL;
 }
 
 static gint
@@ -1908,12 +1911,12 @@ bflang2scan_finished_lcb(gpointer data)
 {
 	GList *tmplist;
 	DEBUG_SIG("bflang2scan_finished_lcb, priority=%d\n",BFLANGSCAN_FINISHED_PRIORITY);
-
+	langmgr.done_scanning = TRUE;
 	/* now add the languages once the GUI if the GUI has been loaded */
 	DBG_MSG("bflang2scan_finished_lcb\n");
 	for (tmplist = g_list_first(main_v->bfwinlist); tmplist; tmplist = g_list_next(tmplist)) {
 		GList *tmplist2;
-		DBG_MSG("bflang2scan_finished, create menu in bfwin %p\n", tmplist->data);
+		g_print("bflang2scan_finished, call lang_mode_menu_create() for bfwin %p\n", tmplist->data);
 		lang_mode_menu_create(BFWIN(tmplist->data));
 		for (tmplist2 = g_list_first(BFWIN(tmplist->data)->documentlist); tmplist2; tmplist2 = g_list_next(tmplist2)) {
 			DBG_MSG("bflang2scan_finished, request bflang for document %p\n", tmplist2->data);
