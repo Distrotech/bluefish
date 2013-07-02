@@ -2068,22 +2068,6 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	return !finished;
 }
 
-guint16 
-get_context_at_position(BluefishTextView * btv, GtkTextIter * position)
-{
-	Tfoundcontext *tmpfcontext=NULL;
-	Tfound *found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), NULL);
-	if (found) {
-		tmpfcontext = found->fcontext;
-		gint changecounter = found->numcontextchange;
-		while (changecounter < 0) {
-			tmpfcontext = (Tfoundcontext *) tmpfcontext->parentfcontext;
-			changecounter++;
-		}
-	}
-	return (tmpfcontext ? tmpfcontext->context : 0);
-}
-
 GQueue *
 get_contextstack_at_position(BluefishTextView * btv, GtkTextIter * position)
 {

@@ -1377,7 +1377,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 					{"default_spellcheck", &default_spellcheck, attribtype_boolean},
 					{"autocomplete_case_insens", &autocomplete_case_insens, attribtype_boolean}};
 	if (g_queue_get_length(contextstack)==0) {
-		g_print("top level context, set default_spellcheck to %d\n", bfparser->default_spellcheck);
+		DBG_PARSING("top level context, set default_spellcheck to %d\n", bfparser->default_spellcheck);
 		default_spellcheck = bfparser->default_spellcheck;
 	}
 
@@ -1393,7 +1393,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 		return 0;
 	}
 	/* create context */
-	DBG_PARSING("create context symbols %s and highlight %s\n", symbols, highlight);
+	DBG_PARSING("create context %s, symbols %s and highlight %s\n", id, symbols, highlight);
 	context = new_context(bfparser->st, 32, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens, default_spellcheck);
 	g_queue_push_head(contextstack, GINT_TO_POINTER(context));
 	if (id) {
