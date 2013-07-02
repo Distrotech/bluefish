@@ -284,17 +284,24 @@ get_spellcheck_from_context_at_position(BluefishTextView *btv, GtkTextIter *iter
 
 	tmpfcontext = found->fcontext;
 	changecounter = found->numcontextchange;
+
 	while (changecounter < 0) {
 		tmpfcontext = (Tfoundcontext *) tmpfcontext->parentfcontext;
 		changecounter++;
 	}
-
+	DBG_SPELL("get_spellcheck_from_context_at_position, got context %d with default_spellcheck=%d\n"
+					,tmpfcontext ? tmpfcontext->context: 0
+					, tmpfcontext ?g_array_index(btv->bflang->st->contexts, Tcontext, tmpfcontext->context).default_spellcheck: -1);
 	while (tmpfcontext && g_array_index(btv->bflang->st->contexts, Tcontext, tmpfcontext->context).default_spellcheck == SPELLCHECK_INHERIT) {
 		tmpfcontext = (Tfoundcontext *) tmpfcontext->parentfcontext;
+		DBG_SPELL("get_spellcheck_from_context_at_position, get parent, got context %d with default_spellcheck=%d\n"
+					,tmpfcontext ? tmpfcontext->context: 0
+					, tmpfcontext ?g_array_index(btv->bflang->st->contexts, Tcontext, tmpfcontext->context).default_spellcheck: -1);
 	}
 	if (tmpfcontext) {
 		return g_array_index(btv->bflang->st->contexts, Tcontext, tmpfcontext->context).default_spellcheck;
 	}
+	DBG_SPELL("return bflang->default_spellcheck=%d\n",btv->bflang->default_spellcheck);
 	return btv->bflang->default_spellcheck;
 }
 
@@ -318,10 +325,7 @@ get_next_region(BluefishTextView * btv, GtkTextIter * so, GtkTextIter * eo)
 			DBG_SPELL("found tag not to scan, skip at %d\n", gtk_text_iter_get_offset(&iter));
 		} else if (btv->bflang && btv->bflang->st) {
 			/* scan depending on the settings of the language if it needs spell checking in default area's */
-			guint16 context = get_context_at_position(btv, &iter);
-			if (g_array_index(btv->bflang->st->contexts, Tcontext, context).default_spellcheck) {
-				fso = TRUE;
-			}
+			fso = get_spellcheck_from_context_at_position(btv, &iter);
 		} else {
 			if (btv->bflang->default_spellcheck) {
 				DBG_SPELL("no tags: scan at %d\n", gtk_text_iter_get_offset(&iter));
