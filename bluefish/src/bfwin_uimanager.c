@@ -1067,11 +1067,9 @@ lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 		if (!oldmime) {
 			oldmime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 		}
-		if (oldmime && g_strcmp0(oldmime,"text/plain")!=0 && strchr(oldmime, '?')==NULL) {
+		if (doc->uri && oldmime && strchr(oldmime, '?')==NULL) {
 			gchar *curi = NULL;
-			if (doc->uri) {
-				curi = g_file_get_uri(doc->uri);
-			}
+			curi = g_file_get_uri(doc->uri);
 			tmpbflang = langmgr_get_bflang(oldmime, NULL);
 
 			DEBUG_MSG("lang_mode_menu_activate, got %p for tmpbflang with name %s\n",tmpbflang, tmpbflang->name);
