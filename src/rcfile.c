@@ -216,7 +216,7 @@ save_config_file(GHashTable * config_list, GFile * file)
 
 			DEBUG_MSG("save_config_file, adding %s\n", tmpstring);
 
-			rclist = g_list_append(rclist, tmpstring);
+			rclist = g_list_prepend(rclist, tmpstring);
 			break;
 		case 's':
 			DEBUG_MSG("save_config_file, converting \"%p\" to string\n", tmpitem);
@@ -228,7 +228,7 @@ save_config_file(GHashTable * config_list, GFile * file)
 
 				DEBUG_MSG("save_config_file, adding %s\n", tmpstring);
 
-				rclist = g_list_append(rclist, tmpstring);
+				rclist = g_list_prepend(rclist, tmpstring);
 			}
 			break;
 		case 'e':
@@ -241,7 +241,7 @@ save_config_file(GHashTable * config_list, GFile * file)
 
 				DEBUG_MSG("save_config_file, adding %s\n", tmpstring);
 
-				rclist = g_list_append(rclist, tmpstring);
+				rclist = g_list_prepend(rclist, tmpstring);
 				g_free(tmpstring2);
 			}
 			break;
@@ -252,15 +252,15 @@ save_config_file(GHashTable * config_list, GFile * file)
 						  &tmpitem);
 				if (tmpitem->type == 'm')
 					max = tmpitem->len;
-				tmplist2 = g_list_last((GList *) * (void **) tmpitem->pointer);
+				tmplist2 = g_list_first((GList *) * (void **) tmpitem->pointer);
 				while (tmplist2 != NULL && max != 0) {
 					tmpstring2 = escape_string((char *) tmplist2->data, FALSE);
 					tmpstring = g_strconcat(tmpitem->identifier, " ", tmpstring2, NULL);
 					g_free(tmpstring2);
 					DEBUG_MSG("save_config_file, tmpstring(%p)=%s, orig was %s\n", tmpstring, tmpstring,
 							  (gchar *) tmplist2->data);
-					rclist = g_list_append(rclist, tmpstring);
-					tmplist2 = g_list_previous(tmplist2);
+					rclist = g_list_prepend(rclist, tmpstring);
+					tmplist2 = g_list_next(tmplist2);
 					max--;
 #ifdef DEBUG
 					if (max == 0 && tmplist2 != NULL)
@@ -281,7 +281,7 @@ save_config_file(GHashTable * config_list, GFile * file)
 				else
 					tmpstring = g_strdup_printf("%s", tmpstring2);
 				DEBUG_MSG("save_config_file, tmpstring(%p)=%s\n", tmpstring, tmpstring);
-				rclist = g_list_append(rclist, tmpstring);
+				rclist = g_list_prepend(rclist, tmpstring);
 				tmplist2 = g_list_previous(tmplist2);
 				g_free(tmpstring2);
 			}
