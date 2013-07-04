@@ -131,7 +131,7 @@
 
 <group class="php_short_open_tag">
 <element id="e.php.short.open" pattern="&lt;(\?|\?php)" is_regex="1" starts_block="1" block_name="PHP block" highlight="php-block-tag">
-<context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" commentid_block="cm.cblockcomment" commentid_line="cm.cpplinecomment" >
+<context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" commentid_block="cm.cblockcomment" commentid_line="cm.cpplinecomment" default_spellcheck="0">
 &all-php;
 <element id="e.php.short.lbrace" pattern="{" starts_block="1" highlight="brackets" block_name="Curly brackets block" />
 <element pattern="}" ends_block="1" blockstartelement="e.php.short.lbrace" highlight="brackets" />
@@ -220,7 +220,7 @@ for this pattern and both of them are a symbol. That's why we have a separate en
 </group>
 <group notclass="php_short_open_tag">
 <element id="e.php.open" pattern="&lt;?php" starts_block="1" highlight="php-block-tag" block_name="PHP block">
-<context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" commentid_block="cm.cblockcomment" commentid_line="cm.cpplinecomment">
+<context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" commentid_block="cm.cblockcomment" commentid_line="cm.cpplinecomment" default_spellcheck="0">
 <!-- unfortunately we cannot refer the context as previously used, because if option php_short_open_tag
 was disabled, this whole section is not parsed by the language manager, so the context does not yet exist..  -->
 &all-php;

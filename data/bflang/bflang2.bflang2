@@ -94,9 +94,13 @@ The default value defines the behavior if the user previously did not have this 
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" >
 		<element idref="e.comment"/>
 		<element idref="e.entity" />
-		<tag name="context" id="t.context" highlight="tag" attributes="id,idref,symbols,highlight,commentid_block,commentid_line" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+		<tag name="context" id="t.context" highlight="tag" attributes="id,idref,symbols,highlight,commentid_block,commentid_line,default_spellcheck" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 			<autocomplete append=" symbols=&quot;&quot; &gt;" />
-			<reference>Every definition starts with a context. The most important attribute of a context are the symbols. Symbols is a string with all characters that may be at the start or end of a pattern (for example whitespace in most programming languages, or &lt; and &gt; in XML, SGML and HTML), or characters that are a pattern themselves (for example a bracket [ ).</reference>
+<reference>Every definition starts with a context. The most important attribute of a context are the symbols. Symbols is a string with all characters that may be at the start or end of a pattern (for example whitespace in most programming languages, or &lt; and &gt; in XML, SGML and HTML), or characters that are a pattern themselves (for example a bracket [ ).
+
+Some contexts change to a different language syntax, e.g. javascript inside html. In such a case the context ay bring new options for the line coment (commentid_block; refers to the id in properties/comment), block comment (commentid_line; refers to the id in properties/comment) and the default spellcheck (default_spellcheck, set to 0 or 1 if words that are not highlighted should be checked for spelling or not).
+
+</reference>
 			<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 			<element idref="e.comment"/>
 			<element idref="e.entity" />
