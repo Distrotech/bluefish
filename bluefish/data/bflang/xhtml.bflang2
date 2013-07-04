@@ -121,7 +121,7 @@
 
 <tag id="t.xhtml.script" name="script" highlight="tag" attributes="charset,defer,language,src,type"  attribhighlight="attribute">
 	<autocomplete append=" type=&quot;text/javascript&quot; &gt;" />
-<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
+<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." default_spellcheck="0">
 	<element pattern="(" id="e.xhtml.js.lparen" starts_block="1" highlight="js-brackets" />
 	<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.xhtml.js.lparen" />
 	<element pattern="{" id="e.xhtml.js.lbrace" starts_block="1" highlight="js-brackets" />
@@ -146,7 +146,7 @@
 </tag>
 <tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
 	<autocomplete append=" /&gt;" />
-	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[],">
+	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[]," default_spellcheck="0">
 		<element idref="e.html.comment"/>
 		<element id="e.xhtml.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">

@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		all-html5.bfinc $Revision$
- 
+
 		Copyright (C) 2008-2012 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <bfinc>
@@ -39,10 +39,10 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="address" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;"> 
-<reference>Contact information for a page or article element 
-<b>Categories:</b>flow 
-<b>Parents:</b>flow 
+<tag name="address" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
+<reference>Contact information for a page or article element
+<b>Categories:</b>flow
+<b>Parents:</b>flow
 <b>Children:</b>flow*
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="area" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="alt,coords,shape,href,target,rel,media,hreflang,type,&globals;" sgml_shorttag="1" no_close="1">
@@ -51,22 +51,22 @@
 <b>Parents:</b> phrasing*
 <b>Children:</b> empty
 <b>Interface:</b> HTMLAreaElement</reference></tag>
-<tag name="article" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;"> 
-<reference>Self-contained syndicatable or reusable composition 
-<b>Categories:</b>flow; sectioning 
-<b>Parents:</b>flow 
-<b>Children:</b>flow 
+<tag name="article" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
+<reference>Self-contained syndicatable or reusable composition
+<b>Categories:</b>flow; sectioning
+<b>Parents:</b>flow
+<b>Children:</b>flow
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="aside" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Sidebar for tangentially related content 
-<b>Categories:</b>flow; sectioning 
-<b>Parents:</b>flow 
+<reference>Sidebar for tangentially related content
+<b>Categories:</b>flow; sectioning
+<b>Parents:</b>flow
 <b>Children:</b>flow
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="audio" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="src,crossorigin,preload,autoplay,mediagroup,loop,muted,controls,&globals;">
-<reference>Audio player 
-<b>Categories:</b>flow; phrasing; embedded; interactive 
-<b>Parents:</b>phrasing 
+<reference>Audio player
+<b>Categories:</b>flow; phrasing; embedded; interactive
+<b>Parents:</b>phrasing
 <b>Children:</b>source*; transparent*
 <b>Interface:</b> HTMLAudioElement</reference></tag>
 <tag name="b" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
@@ -94,16 +94,16 @@
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="blockquote" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="cite,&globals;">
-<reference>A section quoted from another source 
-<b>Categories:</b>flow; sectioning root 
-<b>Parents:</b>flow 
-<b>Children:</b>flow 
+<reference>A section quoted from another source
+<b>Categories:</b>flow; sectioning root
+<b>Parents:</b>flow
+<b>Children:</b>flow
 <b>Interface:</b> HTMLQuoteElement</reference></tag>
 <tag name="body" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="onafterprint,onbeforeprint,onbeforeunload,onhashchange,onmessage,onoffline,ononline,onpagehide,onpageshow,onpopstate,onresize,onstorage,onunload,&globals;">
-<reference>Document body 
-<b>Categories:</b>sectioning root 
-<b>Parents:</b>html 
-<b>Children:</b>flow 
+<reference>Document body
+<b>Categories:</b>sectioning root
+<b>Parents:</b>html
+<b>Children:</b>flow
 <b>Interface:</b> HTMLBodyElement</reference></tag>
 <tag name="br" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;" sgml_shorttag="1" no_close="1">
 <reference>Line break, e.g. in poem or postal address
@@ -155,7 +155,7 @@
 <b>Interface:</b> HTMLTableColElement</reference></tag>
 <tag name="command" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="type,label,icon,disabled,checked,radiogroup,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Menu command
-<b>The following feature is at risk and may be removed due to lack of implementation.</b>  
+<b>The following feature is at risk and may be removed due to lack of implementation.</b>
 <b>Categories:</b> metadata, flow, phrasing
 <b>Parents:</b> head, phrasing
 <b>Children:</b> empty
@@ -180,7 +180,7 @@
 <b>Interface:</b> HTMLModElement</reference></tag>
 <tag name="details" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="open,&globals;">
 <reference>
-<b>The following feature is at risk and may be removed due to lack of implementation.</b>  
+<b>The following feature is at risk and may be removed due to lack of implementation.</b>
 Disclosure control for hiding details
 <b>Categories:</b> flow, sectioning root, interactive
 <b>Parents:</b> flow
@@ -193,10 +193,10 @@ Disclosure control for hiding details
 <b>Children:</b> phrasing*
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="div" block_name="DIV block" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Generic flow container 
-<b>Categories:</b>flow 
-<b>Parents:</b>flow 
-<b>Children:</b>flow 
+<reference>Generic flow container
+<b>Categories:</b>flow
+<b>Parents:</b>flow
+<b>Children:</b>flow
 <b>Interface:</b> HTMLDivElement</reference></tag>
 <tag name="dl" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Association list consisting of zero or more name-value groups
@@ -205,10 +205,10 @@ Disclosure control for hiding details
 <b>Children:</b> dt*, dd*
 <b>Interface:</b> HTMLDListElement</reference></tag>
 <tag name="dt" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Legend for corresponding dd element(s) 
-<b>Categories:</b>none 
-<b>Parents:</b>dl 
-<b>Children:</b>flow* 
+<reference>Legend for corresponding dd element(s)
+<b>Categories:</b>none
+<b>Parents:</b>dl
+<b>Children:</b>flow*
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="em" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Stress emphasis
@@ -241,10 +241,10 @@ Disclosure control for hiding details
 <b>Children:</b> figcaption*, flow
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="footer" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Footer for a page or section 
-<b>Categories:</b>flow 
-<b>Parents:</b>flow 
-<b>Children:</b>flow* 
+<reference>Footer for a page or section
+<b>Categories:</b>flow
+<b>Parents:</b>flow
+<b>Children:</b>flow*
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="form" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="accept-charset,action,autocomplete,enctype,method,name,novalidate,target,&globals;">
 <reference>User-submittable form
@@ -253,10 +253,10 @@ Disclosure control for hiding details
 <b>Children:</b> flow*
 <b>Interface:</b> HTMLFormElement</reference></tag>
 <tag name="h1" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Section heading 
-<b>Categories:</b>flow; heading 
-<b>Parents:</b>hgroup; flow 
-<b>Children:</b>phrasing 
+<reference>Section heading
+<b>Categories:</b>flow; heading
+<b>Parents:</b>hgroup; flow
+<b>Children:</b>phrasing
 <b>Interface:</b> HTMLHeadingElement</reference></tag>
 <tag name="h2" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Section heading
@@ -295,17 +295,17 @@ Disclosure control for hiding details
 <b>Children:</b> metadata content*
 <b>Interface:</b> HTMLHeadElement</reference></tag>
 <tag name="header" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Introductory or navigational aids for a page or section 
-<b>Categories:</b>flow 
-<b>Parents:</b>flow 
-<b>Children:</b>flow* 
+<reference>Introductory or navigational aids for a page or section
+<b>Categories:</b>flow
+<b>Parents:</b>flow
+<b>Children:</b>flow*
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="hgroup" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>heading group 
-<b>The following feature is at risk and may be removed due to lack of implementation.</b>  
-<b>Categories:</b>flow; heading 
-<b>Parents:</b>flow 
-<b>Children:</b>One or more h1, h2, h3, h4, h5, and/or h6 
+<reference>heading group
+<b>The following feature is at risk and may be removed due to lack of implementation.</b>
+<b>Categories:</b>flow; heading
+<b>Parents:</b>flow
+<b>Children:</b>One or more h1, h2, h3, h4, h5, and/or h6
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="hr" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;" sgml_shorttag="1" no_close="1">
 <reference>Thematic break
@@ -333,10 +333,10 @@ Disclosure control for hiding details
 <b>Interface:</b> HTMLIFrameElement</reference></tag>
 <tag name="img" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="alt,src,crossorigin,usemap,ismap,width,height,&globals;" sgml_shorttag="1" no_close="1">
 <autocomplete append=" src=&#34;&#34; alt=&#34;&#34;&gt;" backup_cursor="9" />
-<reference>Image 
-<b>Categories:</b>flow; phrasing; embedded; interactive* 
-<b>Parents:</b>phrasing 
-<b>Children:</b>empty 
+<reference>Image
+<b>Categories:</b>flow; phrasing; embedded; interactive*
+<b>Parents:</b>phrasing
+<b>Children:</b>empty
 <b>Interface:</b> HTMLImageElement</reference></tag>
 <tag name="input" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="accept,alt,autocomplete,autofocus,checked,dirname,disabled,form,formaction,formenctype,formmethod,formnovalidate,formtarget,height,list,max,maxlength,min,multiple,name,pattern,placeholder,readonly,required,size,src,step,type,value,width,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Form control
@@ -400,7 +400,7 @@ Disclosure control for hiding details
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="menu" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="type,label,&globals;">
 <reference>Menu of commands
-<b>The following feature is at risk and may be removed due to lack of implementation. </b> 
+<b>The following feature is at risk and may be removed due to lack of implementation. </b>
 <b>Categories:</b> flow, interactive*
 <b>Parents:</b> flow
 <b>Children:</b> li*, flow
@@ -412,16 +412,16 @@ Disclosure control for hiding details
 <b>Children:</b> empty
 <b>Interface:</b> HTMLMetaElement</reference></tag>
 <tag name="meter" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="value,min,max,low,high,optimum,&globals;">
-<reference>Gauge 
-<b>Categories:</b>flow; phrasing; labelable 
-<b>Parents:</b>phrasing 
-<b>Children:</b>phrasing* 
+<reference>Gauge
+<b>Categories:</b>flow; phrasing; labelable
+<b>Parents:</b>phrasing
+<b>Children:</b>phrasing*
 <b>Interface:</b> HTMLMeterElement</reference></tag>
 <tag name="nav" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Section with navigational links 
-<b>Categories:</b>flow; sectioning 
-<b>Parents:</b>flow 
-<b>Children:</b>flow 
+<reference>Section with navigational links
+<b>Categories:</b>flow; sectioning
+<b>Parents:</b>flow
+<b>Children:</b>flow
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="noscript" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Fallback content for script
@@ -430,10 +430,10 @@ Disclosure control for hiding details
 <b>Children:</b> varies*
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="object" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="data,type,typemustmatch,name,usemap,form,width,height,&globals;">
-<reference>Image, nested browsing context, or plugin 
-<b>Categories:</b>flow; phrasing; embedded; interactive*; listed; submittable; form-associated 
-<b>Parents:</b>phrasing 
-<b>Children:</b>param*; transparent 
+<reference>Image, nested browsing context, or plugin
+<b>Categories:</b>flow; phrasing; embedded; interactive*; listed; submittable; form-associated
+<b>Parents:</b>phrasing
+<b>Children:</b>param*; transparent
 <b>Interface:</b> HTMLObjectElement</reference></tag>
 <tag name="ol" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="reversed,start,&globals;">
 <reference>Ordered list
@@ -455,16 +455,16 @@ Disclosure control for hiding details
 <b>Interface:</b> HTMLOptionElement</reference></tag>
 <tag name="output" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="for,form,name,&globals;">
 <reference>Calculated output value
-<b>The following feature is at risk and may be removed due to lack of implementation. </b> 
+<b>The following feature is at risk and may be removed due to lack of implementation. </b>
 <b>Categories:</b> flow, phrasing, listed, labelable, resettable, form-associated
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLOutputElement</reference></tag>
 <tag name="p" highlight="html-tag" block_name="Paragraph block" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Paragraph 
-<b>Categories:</b>flow 
-<b>Parents:</b>flow 
-<b>Children:</b>phrasing 
+<reference>Paragraph
+<b>Categories:</b>flow
+<b>Parents:</b>flow
+<b>Children:</b>phrasing
 <b>Interface:</b> HTMLParagraphElement</reference></tag>
 <tag name="param" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="name,value,&globals;" sgml_shorttag="1" no_close="1">
 <reference>Parameter forobject
@@ -473,16 +473,16 @@ Disclosure control for hiding details
 <b>Children:</b> empty
 <b>Interface:</b> HTMLParamElement</reference></tag>
 <tag name="pre" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Block of preformatted text 
-<b>Categories:</b>flow 
-<b>Parents:</b>flow 
+<reference>Block of preformatted text
+<b>Categories:</b>flow
+<b>Parents:</b>flow
 <b>Children:</b>phrasing
 <b>Interface:</b> HTMLPreElement</reference></tag>
 <tag name="progress" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="value,max,&globals;">
-<reference>Progress bar 
-<b>Categories:</b>flow; phrasing; labelable 
-<b>Parents:</b>phrasing 
-<b>Children:</b>phrasing* 
+<reference>Progress bar
+<b>Categories:</b>flow; phrasing; labelable
+<b>Parents:</b>phrasing
+<b>Children:</b>phrasing*
 <b>Interface:</b> HTMLProgressElement</reference></tag>
 <tag name="q" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="cite,&globals;">
 <reference>Quotation
@@ -503,10 +503,10 @@ Disclosure control for hiding details
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="ruby" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Ruby annotation(s) 
-<b>Categories:</b>flow; phrasing 
-<b>Parents:</b>phrasing 
-<b>Children:</b>phrasing; rt; rp* 
+<reference>Ruby annotation(s)
+<b>Categories:</b>flow; phrasing
+<b>Parents:</b>phrasing
+<b>Children:</b>phrasing; rt; rp*
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="s" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Inaccurate text
@@ -523,7 +523,7 @@ Disclosure control for hiding details
 
 <tag name="script" id="t.html.script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="src,async,defer,type,charset,&globals;" attribhighlight="html-attribute"  attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" >
 	<autocomplete append=" type=&quot;text/javascript&quot;&gt;&#10;&#10;&lt;/script&gt;" backup_cursor="10" />
-	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="cm.cpplinecomment"  commentid_block="none">
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="cm.cpplinecomment"  commentid_block="none" default_spellcheck="0">
 		<element pattern="(" id="e.html.js.lparen" starts_block="1" highlight="js-brackets" block_name="Javascript Parentheses block" />
 		<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lparen" />
 		<element pattern="{" id="e.html.js.lbrace" starts_block="1" highlight="js-brackets" block_name="Javascript Curly brackets block" />
@@ -554,10 +554,10 @@ Disclosure control for hiding details
 <b>Children:</b> script, data, or script documentation*
 <b>Interface:</b> HTMLScriptElement</reference></tag>
 <tag name="section" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Generic document or application section 
-<b>Categories:</b>flow; sectioning 
-<b>Parents:</b>flow 
-<b>Children:</b>flow 
+<reference>Generic document or application section
+<b>Categories:</b>flow; sectioning
+<b>Parents:</b>flow
+<b>Children:</b>flow
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="select" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="autofocus,disabled,form,multiple,name,required,size,&globals;">
 <reference>List box control
@@ -592,7 +592,7 @@ Disclosure control for hiding details
 
 <tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="media,type,&globals;" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1">
 	<autocomplete append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" backup_cursor="9" />
-	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:" commentid_block="cm.cblockcomment" commentid_line="none">
+	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:" commentid_block="cm.cblockcomment" commentid_line="none" default_spellcheck="0">
 		<element idref="e.html.lcomment"/>
 		<element id="e.html.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
@@ -650,7 +650,7 @@ Disclosure control for hiding details
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="summary" highlight="html-not-supported-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Caption for details
-<b>The following feature is at risk and may be removed due to lack of implementation. </b> 
+<b>The following feature is at risk and may be removed due to lack of implementation. </b>
 <b>Categories:</b> none
 <b>Parents:</b> details
 <b>Children:</b> phrasing
@@ -662,10 +662,10 @@ Disclosure control for hiding details
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="table" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="border,&globals;">
-<reference>Table 
-<b>Categories:</b>flow 
-<b>Parents:</b>flow 
-<b>Children:</b>caption*; colgroup*; thead*; tbody*; tfoot*; tr* 
+<reference>Table
+<b>Categories:</b>flow
+<b>Parents:</b>flow
+<b>Children:</b>caption*; colgroup*; thead*; tbody*; tfoot*; tr*
 <b>Interface:</b> HTMLTableElement</reference></tag>
 <tag name="tbody" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Group of rows in a table
@@ -680,10 +680,10 @@ Disclosure control for hiding details
 <b>Children:</b> flow
 <b>Interface:</b> HTMLTableDataCellElement</reference></tag>
 <tag name="textarea" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="autofocus,cols,dirname,disabled,form,maxlength,name,placeholder,readonly,required,rows,wrap,&globals;">
-<reference>Multiline text field 
-<b>Categories:</b>flow; phrasing; interactive; listed; labelable; submittable; resettable; form-associated 
-<b>Parents:</b>phrasing 
-<b>Children:</b>text 
+<reference>Multiline text field
+<b>Categories:</b>flow; phrasing; interactive; listed; labelable; submittable; resettable; form-associated
+<b>Parents:</b>phrasing
+<b>Children:</b>text
 <b>Interface:</b> HTMLTextAreaElement</reference></tag>
 <tag name="tfoot" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Group of footer rows in a table
@@ -692,10 +692,10 @@ Disclosure control for hiding details
 <b>Children:</b> tr
 <b>Interface:</b> HTMLTableSectionElement</reference></tag>
 <tag name="th" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="colspan,rowspan,headers,scope,&globals;">
-<reference>Table header cell 
-<b>Categories:</b>none 
-<b>Parents:</b>tr 
-<b>Children:</b>flow* 
+<reference>Table header cell
+<b>Categories:</b>none
+<b>Parents:</b>tr
+<b>Children:</b>flow*
 <b>Interface:</b> HTMLTableHeaderCellElement</reference></tag>
 <tag name="thead" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Group of heading rows in a table
@@ -704,10 +704,10 @@ Disclosure control for hiding details
 <b>Children:</b> tr
 <b>Interface:</b> HTMLTableSectionElement</reference></tag>
 <tag name="time" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="datetime,&globals;">
-<reference>Machine-readable equivalent of date- or time-related data 
-<b>Categories:</b>flow; phrasing 
-<b>Parents:</b>phrasing 
-<b>Children:</b>phrasing 
+<reference>Machine-readable equivalent of date- or time-related data
+<b>Categories:</b>flow; phrasing
+<b>Parents:</b>phrasing
+<b>Children:</b>phrasing
 <b>Interface:</b> HTMLTimeElement</reference></tag>
 <tag name="title" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Document title
@@ -728,10 +728,10 @@ Disclosure control for hiding details
 <b>Children:</b> empty
 <b>Interface:</b> HTMLTrackElement</reference></tag>
 <tag name="u" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
-<reference>Keywords 
-<b>Categories:</b>flow; phrasing 
-<b>Parents:</b>phrasing 
-<b>Children:</b>phrasing 
+<reference>Keywords
+<b>Categories:</b>flow; phrasing
+<b>Parents:</b>phrasing
+<b>Children:</b>phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="ul" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>List
@@ -746,10 +746,10 @@ Disclosure control for hiding details
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 <tag name="video" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="src,crossorigin,poster,preload,autoplay,mediagroup,loop,muted,controls,width,height,&globals;">
-<reference>Video player 
-<b>Categories:</b>flow; phrasing; embedded; interactive 
-<b>Parents:</b>phrasing 
-<b>Children:</b>source*; transparent* 
+<reference>Video player
+<b>Categories:</b>flow; phrasing; embedded; interactive
+<b>Parents:</b>phrasing
+<b>Children:</b>source*; transparent*
 <b>Interface:</b> HTMLVideoElement</reference></tag>
 <tag name="wbr" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;" sgml_shorttag="1">
 <reference>Line breaking opportunity
