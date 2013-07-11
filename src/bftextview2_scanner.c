@@ -1082,6 +1082,8 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 	Tfoundblock *retfblock, *fblock = scanning->curfblock;
 	GtkTextIter iter;
 	gboolean allowfold=TRUE;
+	guint match_start_o, match_end_o;
+	
 	DBG_BLOCKMATCH("found_end_of_block(), found %d (%s), blockstartpattern %d, curfblock=%p\n",
 					match->patternum,
 					g_array_index(btv->bflang->st->matches, Tpattern, match->patternum).pattern,
@@ -1111,15 +1113,23 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 
 	DBG_BLOCKMATCH("found the matching start-of-block fblock %p, patternum %d, parent %p, end2_o=%d\n",
 				   fblock, fblock->patternum, fblock->parentfblock, fblock->end2_o);
+	match_start_o = gtk_text_iter_get_offset(&match->start);
+	match_end_o = gtk_text_iter_get_offset(&match->end);
+	if (G_UNLIKELY(fblock->end1_o > match_start_o)) {
+		/* possibly the block was stretched with stretch_block, undo the stretch */
+		fblock->end1_o = match_start_o;
+	}
+	
+	
 	if (G_UNLIKELY(fblock->start2_o != BF_POSITION_UNDEFINED)) {
 		Tfound *ifound;
 		GSequenceIter *isiter = NULL, *cursiter;
 		DBG_SCANCACHE
-			("found_end_of_block, block has an end already! invalidate and enlarge region to previous end at end2_o %d\n",
-			 fblock->end2_o);
+			("found_end_of_block, block (start at %d:%d) has an end already (old end %d:%d)! invalidate and enlarge region to previous end at end2_o %d\n",
+					fblock->start1_o, fblock->end1_o,fblock->start2_o, fblock->end2_o, fblock->end2_o);
 		/* this block was previously larger, so now we have to invalidate the previous
 		   end of block in the cache */
-		if (fblock->end2_o < gtk_text_iter_get_offset(&match->end)) {
+		if (fblock->end2_o < match_end_o) {
 			g_print("BUG: this block %p was ended already on a lower offset (%d) then we have right now (%d), so our blockstack is broken??\n", fblock, fblock->end2_o, gtk_text_iter_get_offset(&match->end));
 			g_print("BUG: block %p started at %d:%d, ended at %d:%d\n",fblock, fblock->start1_o, fblock->end1_o, fblock->start2_o, fblock->end2_o);
 		} else {
@@ -1146,8 +1156,8 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 		}
 	}
 
-	fblock->start2_o = gtk_text_iter_get_offset(&match->start);
-	fblock->end2_o = gtk_text_iter_get_offset(&match->end);
+	fblock->start2_o = match_start_o;
+	fblock->end2_o = match_end_o;
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, fblock->end1_o);
 	if (G_UNLIKELY(g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).block)) {
 		if (g_array_index(btv->bflang->st->blocks, Tpattern_block, g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).block).tag
@@ -1448,7 +1458,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	if (G_UNLIKELY(pat->stretch_blockstart 
 				&& scanning->curfblock 
 				&& scanning->curfblock->patternum == pat->blockstartpattern
-				&& (scanning->curfblock->start2_o == BF_POSITION_UNDEFINED || scanning->curfblock->start2_o >= match_end_o))) {
+				&& (scanning->curfblock->start2_o == BF_POSITION_UNDEFINED || scanning->curfblock->start2_o < match_end_o))) {
 		/* get the current block on the stack and stretch the end-of-blockstart to the end of the match */
 		DBG_SCANNING("found_match, pat->stretch_blockstart=%d, pat->blockstartpattern=%d, update curfblock(%d:%d-%d:%d) with patternum=%d from end1_o from %d to %d\n", 
 						pat->stretch_blockstart,pat->blockstartpattern,
@@ -2268,16 +2278,16 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 		if (!found)
 			break;
 		if (found->charoffset_o <= 0) {
-			g_warning("found %p has offset < 0\n", found);
+			g_warning("scancache_check_integrity, found %p has offset < 0\n", found);
 			dump_scancache(btv);
 			g_assert_not_reached();
 		}
 		if (found->charoffset_o < prevfound_o) {
-			g_warning("found(%p) has offset %d, the previous found had offset %d, not ordered correctly?!?!!\n",found,found->charoffset_o, prevfound_o);
+			g_warning("scancache_check_integrity, found(%p) has offset %d, the previous found had offset %d, not ordered correctly?!?!!\n",found,found->charoffset_o, prevfound_o);
 			dump_scancache(btv);
 			g_assert_not_reached();
 		} else if (found->charoffset_o == prevfound_o) {
-			g_warning("previous found and the next found have offset %d, duplicate!!\n",found->charoffset_o);
+			g_warning("scancache_check_integrity, previous found and the next found have offset %d, duplicate!!\n",found->charoffset_o);
 			dump_scancache(btv);
 			g_assert_not_reached();
 		}
@@ -2286,12 +2296,12 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 			/* push context */
 			if (found->fcontext->parentfcontext != g_queue_peek_head(&contexts)) {
 				if (found->fcontext->parentfcontext == NULL) {
-					g_warning("pushing context at %d:%d on top of non-NULL stack, but parent contexts is NULL!? found at %d\n"
+					g_warning("scancache_check_integrity, pushing context at %d:%d on top of non-NULL stack, but parent contexts is NULL!? found at %d\n"
 									,found->fcontext->start_o, found->fcontext->end_o,found->charoffset_o);
 					dump_scancache(btv);
 					g_assert_not_reached();
 				} else {
-					g_warning("pushing context at %d:%d, parent contexts at %d:%d do not match! found at %d\n"
+					g_warning("scancache_check_integrity, pushing context at %d:%d, parent contexts at %d:%d do not match! found at %d\n"
 									,found->fcontext->start_o, found->fcontext->end_o
 									,((Tfoundcontext *)found->fcontext->parentfcontext)->start_o
 									,((Tfoundcontext *)found->fcontext->parentfcontext)->end_o,found->charoffset_o);
@@ -2302,7 +2312,7 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 			g_queue_push_head(&contexts, found->fcontext);
 
 			if (found->fcontext->start_o < prevfound_o || found->fcontext->start_o > found->fcontext->end_o || found->fcontext->end_o < found->charoffset_o) {
-					g_warning("context is at %d:%d, but prevoffset is at %d and charoffset_o is at %d\n"
+					g_warning("scancache_check_integrity, context is at %d:%d, but prevoffset is at %d and charoffset_o is at %d\n"
 									,found->fcontext->start_o, found->fcontext->end_o,prevfound_o, found->charoffset_o);
 					dump_scancache(btv);
 					g_assert_not_reached();
@@ -2312,7 +2322,7 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 			gint i;
 			/* check the current context */
 			if (found->fcontext != g_queue_peek_head(&contexts)) {
-				g_warning("contexts don't match, found(%p) at %d\n",found,found->charoffset_o);
+				g_warning("scancache_check_integrity, contexts don't match, found(%p) at %d\n",found,found->charoffset_o);
 				dump_scancache(btv);
 				g_assert_not_reached();
 			}
@@ -2325,7 +2335,7 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 
 		if (found->numblockchange > 0) {
 			if (found->fblock->parentfblock != g_queue_peek_head(&blocks)) {
-				g_warning("pushing block, parent blocks do not match, found(%p) at %d\n",found,found->charoffset_o);
+				g_warning("scancache_check_integrity, pushing block, parent blocks do not match, found(%p) at %d\n",found,found->charoffset_o);
 				dump_scancache(btv);
 				g_assert_not_reached();
 			}
@@ -2336,7 +2346,7 @@ scancache_check_integrity(BluefishTextView * btv, GTimer *timer) {
 					|| found->fblock->end1_o < found->fblock->start1_o
 					|| found->fblock->start2_o < found->fblock->end1_o
 					|| found->fblock->end2_o < found->fblock->start2_o) {
-				g_warning("block is at %d:%d-%d:%d, prevfound_o at %d and charoffset_o at %d\n",
+				g_warning("scancache_check_integrity, block is at %d:%d-%d:%d, prevfound_o at %d and charoffset_o at %d\n",
 								found->fblock->start1_o,found->fblock->end1_o,found->fblock->start2_o,found->fblock->end2_o,
 								prevfound_o,found->charoffset_o);
 				dump_scancache(btv);
