@@ -681,12 +681,13 @@ bfwin_simplesearch_show(Tbfwin *bfwin)
 			gchar *tmpstr = gtk_text_buffer_get_text(bfwin->current_document->buffer,&itstart,&itend,TRUE);
 			gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))),tmpstr);
 			g_free(tmpstr);
-			gtk_editable_select_region(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))),0,-1);
 			/* TODO: mark the current selection as the 'current' search result */
 		}
 	}
+	
 	simplesearch_combo_entry_activated(bfwin->simplesearch_regex, bfwin);
 	gtk_widget_grab_focus(bfwin->simplesearch_combo);
+	gtk_editable_select_region(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))),0,-1);
 }
 
 void
@@ -781,7 +782,7 @@ bfwin_gotoline_search_bar_close(Tbfwin *bfwin)
 		snr3run_free(bfwin->simplesearch_snr3run);
 		bfwin->simplesearch_snr3run = NULL;
 	}
-	gtk_editable_delete_text(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))), 0, -1);
+	/*gtk_editable_delete_text(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))), 0, -1);*/
 	g_signal_handlers_block_matched(bfwin->gotoline_entry,
 									G_SIGNAL_MATCH_FUNC, 0, 0, NULL, gotoline_entry_changed, NULL);
 
