@@ -26,6 +26,14 @@
 		<group class="is_ASP-VBS">
 			<element pattern="#include" highlight="asp-keyword" case_insens="1" />
 		</group>
+		<group class="is_PHP">
+			<group class="php_short_open_tag">
+				<element idref="e.php.short.open" />
+			</group>
+			<group notclass="php_short_open_tag">
+				<element idref="e.php.open" />
+			</group>
+		</group>
 	</context>
 </element>
 
