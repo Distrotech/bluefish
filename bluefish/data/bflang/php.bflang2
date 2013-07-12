@@ -127,8 +127,6 @@
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-/" commentid_block="cm.htmlcomment" commentid_line="none">
 
-&all-html;
-
 <group class="php_short_open_tag">
 <element id="e.php.short.open" pattern="&lt;(\?|\?php)" is_regex="1" starts_block="1" block_name="PHP block" highlight="php-block-tag">
 <context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" commentid_block="cm.cblockcomment" commentid_line="cm.cpplinecomment" default_spellcheck="0">
@@ -309,6 +307,8 @@ for this pattern and both of them are a symbol. That's why we have a separate en
 <element pattern="?&gt;" ends_block="1" blockstartelement="e.php.open" highlight="php-block-tag" ends_context="1" />
 </context></element>
 </group>
+
+&all-html;
 
 </context>
 </definition>
