@@ -1113,7 +1113,7 @@ activate_simple_search(void *data) {
 	DEBUG_MSG("activate_simple_search, s3run=%p\n", s3run);
 	s3run->curdoc = NULL;
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
-	snr3_run_go(s3run, TRUE);
+	/*snr3_run_go(s3run, TRUE);*/
 }
 
 static void
