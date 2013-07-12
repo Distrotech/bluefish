@@ -781,7 +781,7 @@ bfwin_gotoline_search_bar_close(Tbfwin *bfwin)
 		snr3run_free(bfwin->simplesearch_snr3run);
 		bfwin->simplesearch_snr3run = NULL;
 	}
-
+	gtk_editable_delete_text(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))), 0, -1);
 	g_signal_handlers_block_matched(bfwin->gotoline_entry,
 									G_SIGNAL_MATCH_FUNC, 0, 0, NULL, gotoline_entry_changed, NULL);
 
