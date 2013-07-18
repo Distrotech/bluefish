@@ -1366,7 +1366,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 		NULL, *commentid_line = NULL;
 	gboolean autocomplete_case_insens = FALSE;
 	gint default_spellcheck = SPELLCHECK_INHERIT;
-	gint context;
+	gint context, depth;
 
 	Tattrib attribs[] = {{"id", &id, attribtype_string},
 					{"idref", &idref, attribtype_string},
@@ -1380,6 +1380,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 		DBG_PARSING("top level context, set default_spellcheck to %d\n", bfparser->default_spellcheck);
 		default_spellcheck = bfparser->default_spellcheck;
 	}
+	depth = xmlTextReaderDepth(reader);
 
 	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 7 : 6);
 	DBG_PARSING("found <context> with id=%s, idref=%s\n", id, idref);
@@ -1390,6 +1391,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 		return context;
 	}
 	if (!symbols) {
+		g_warning("language file has context without symbols, abort.");
 		return 0;
 	}
 	/* create context */
@@ -1427,10 +1429,15 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 			process_scanning_group(reader, bfparser, context, contextstack, NULL, NULL, NULL, NULL,
 								   UNDEFINED, UNDEFINED, 0, NULL);
 		} else if (xmlStrEqual(name, (xmlChar *) "context")) {
-			xmlFree(name);
-			DBG_PARSING("parsing context, end-of-context, return context %d\n", context);
-			g_queue_pop_head(contextstack);
-			return context;
+			if (depth == xmlTextReaderDepth(reader)) {
+				xmlFree(name);
+				DBG_PARSING("parsing context, end-of-context, return context %d\n", context);
+				g_queue_pop_head(contextstack);
+				return context;
+			} else {
+				/* a context inside a context is usually a context that is referred to by various other elements or tags */
+				process_scanning_context(reader, bfparser, contextstack);
+			}
 		} else {
 			DBG_PARSING("parsing context, found %s\n", name);
 		}
@@ -1515,7 +1522,7 @@ build_lang_thread(gpointer data)
 				if (xmlStrEqual(name2, (xmlChar *) "context")) {
 					GQueue *contextstack = g_queue_new();
 					process_scanning_context(reader, bfparser, contextstack);
-					/* TODO: free contextstack, memory leak ???? */
+					g_queue_free(contextstack);
 				} else if (xmlStrEqual(name2, (xmlChar *) "definition")) {
 					xmlFree(name2);
 					break;

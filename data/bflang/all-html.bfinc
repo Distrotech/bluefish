@@ -316,10 +316,116 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<tag name="ul" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,compact,type">
 		<reference>Defines an unordered list</reference>
 	</tag>
-	<tag name="var" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+	<!--<tag name="var" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines a variable part of a text</reference>
-	</tag>			
+	</tag>-->			
 </group>
+
+<context id="attribute.string" symbols="&quot;' ">
+	<element pattern="&quot;" highlight="string">
+		<context symbols="&quot; &lt;" highlight="string">
+			<element pattern="&quot;" ends_context="2" highlight="string" />
+			<group class="is_PHP">
+				<group class="php_short_open_tag">
+					<element idref="e.php.short.open" />
+				</group>
+				<group notclass="php_short_open_tag">
+					<element idref="e.php.open" />
+				</group>
+			</group>
+		</context>
+	</element>
+	<element pattern="'" highlight="string">
+		<context symbols="' &lt;" highlight="string">
+			<element pattern="'" ends_context="2" highlight="string" />
+			<group class="is_PHP">
+				<group class="php_short_open_tag">
+					<element idref="e.php.short.open" />
+				</group>
+				<group notclass="php_short_open_tag">
+					<element idref="e.php.open" />
+				</group>
+			</group>
+		</context>
+	</element>
+</context>
+
+<context id="attribute.string.style" symbols=" ;:'&quot;">
+	<element pattern='"' ends_context="1" />
+	<element pattern="'" ends_context="1" />
+	&css-rules;
+</context>
+
+<context id="attribute.string.dir" symbols=" ;:'&quot;">
+	<element pattern="ltr" ><autocomplete enable="1" /><reference>Left to right direction</reference></element>
+	<element pattern="rtl" ><autocomplete enable="1" /><reference>Right to left direction</reference></element>
+	<element pattern="auto" ><autocomplete enable="1" /><reference>Auto direction</reference></element>
+	<element pattern="&quot;" highlight="string">
+		<context symbols="&quot; &lt;" highlight="string">
+			<element pattern="ltr" ><autocomplete enable="1" /><reference>Left to right direction</reference></element>
+			<element pattern="rtl" ><autocomplete enable="1" /><reference>Right to left direction</reference></element>
+			<element pattern="auto" ><autocomplete enable="1" /><reference>Auto direction</reference></element>
+			<element pattern="&quot;" ends_context="2" highlight="string" />
+			<group class="is_PHP">
+				<group class="php_short_open_tag">
+					<element idref="e.php.short.open" />
+				</group>
+				<group notclass="php_short_open_tag">
+					<element idref="e.php.open" />
+				</group>
+			</group>
+		</context>
+	</element>
+	<element pattern="'" highlight="string">
+		<context symbols="' &lt;" highlight="string">
+			<element pattern="ltr" ><autocomplete enable="1" /><reference>Left to right direction</reference></element>
+			<element pattern="rtl" ><autocomplete enable="1" /><reference>Right to left direction</reference></element>
+			<element pattern="auto" ><autocomplete enable="1" /><reference>Auto direction</reference></element>
+			<element pattern="'" ends_context="2" highlight="string" />
+			<group class="is_PHP">
+				<group class="php_short_open_tag">
+					<element idref="e.php.short.open" />
+				</group>
+				<group notclass="php_short_open_tag">
+					<element idref="e.php.open" />
+				</group>
+			</group>
+		</context>
+	</element>
+</context>
+
+<element id="tag.var" pattern="&lt;var" highlight="html-tag" case_insens="1" starts_block="1">
+<reference>Defines a variable part of a text</reference>
+<context symbols=" &gt;'&quot;">
+	<element pattern="&gt;" ends_context="1" highlight="html-tag"/>
+	<element pattern="/&gt;" ends_context="1" highlight="html-tag" ends_block="1" blockstartelement="tag.var" />
+	<element pattern="style[ ]*=[ ]*['&quot;]" is_regex="1" highlight="html-attribute" case_insens="1">
+		<autocomplete string="style=&quot;&quot;" backup_cursor="1" />
+		<context idref="attribute.string.style" />
+	</element>
+	<element pattern="id[ ]*=" highlight="html-attribute" case_insens="1" is_regex="1">
+		<autocomplete string="id=&quot;&quot;" backup_cursor="1" />
+		<context idref="attribute.string" />
+	</element>
+	<element pattern="lang[ ]*=" highlight="html-attribute" case_insens="1" is_regex="1">
+		<autocomplete string="lang=&quot;&quot;" backup_cursor="1" />
+		<context idref="attribute.string" />
+	</element>
+	<element pattern="class[ ]*=" highlight="html-attribute" case_insens="1" is_regex="1">
+		<reference>specifies one or more classnames for an element (refers to a class in a style sheet)</reference>
+		<autocomplete string="class=&quot;&quot;" backup_cursor="1" />
+		<context idref="attribute.string" />
+	</element>
+	<element pattern="dir[ ]*=" highlight="html-attribute" case_insens="1" is_regex="1">
+		<reference>specifies the text direction of the element's content</reference>
+		<autocomplete string="dir=&quot;&quot;" backup_cursor="1" />
+		<context idref="attribute.string.dir" />
+	</element>
+</context>
+</element>
+<element pattern="&lt;/var&gt;" highlight="html-tag" ends_block="1" blockstartelement="tag.var" />
+
+
 
 <group highlight="html-deprecated-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<autocomplete enable="1" />
