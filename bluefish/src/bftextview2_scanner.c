@@ -1708,7 +1708,7 @@ reconstruct_scanning(BluefishTextView * btv, GtkTextIter * position, Tscanning *
 	guint offset = gtk_text_iter_get_offset(position);
 	DBG_SCANNING("reconstruct_scanning at position %d\n", offset);
 	found = get_foundcache_at_offset(btv, offset, &scanning->siter);
-	DBG_SCANCACHE("reconstruct_stack, got found %p to reconstruct stack at position %d\n", found, offset);
+	DBG_SCANCACHE("reconstruct_stack, got found %p at offset %d to reconstruct stack at position %d\n", found, found->charoffset_o, offset);
 	if (G_LIKELY(found && found->charoffset_o <= offset)) {
 		if (found->numcontextchange < 0) {
 			scanning->curfcontext = pop_contexts(found->numcontextchange, found->fcontext);
@@ -1801,6 +1801,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #endif /*HL_PROFILING*/
 		return FALSE;
 	}
+	DBG_SCANNING("bftextview2_find_region2scan returned region %d:%d\n",gtk_text_iter_get_offset(&scanning.start),gtk_text_iter_get_offset(&scanning.end));
 	/* start timer */
 	scanning.timer = g_timer_new();
 
@@ -1843,6 +1844,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 		if we previously found <b and now there is <bo and we reconstruct the stack between the b and the o and we would not
 		detect that the tag has changed. so we move scanning.start one position up. */
 		gtk_text_iter_backward_char(&iter);
+		mstart = scanning.start = iter;
 		DBG_SCANNING("moved scanning.start back to %d\n",gtk_text_iter_get_offset(&scanning.start));
 		/* reconstruct the context stack and the block stack */
 		reconstruction_o = reconstruct_scanning(btv, &iter, &scanning);
