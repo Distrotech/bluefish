@@ -173,10 +173,11 @@ bmark_filename(Tbfwin * bfwin, GFile * uri)
 		return g_strdup("Bug - please report");
 	}
 	if (g_file_has_uri_scheme(uri, "tmp")) {
-		DEBUG_MSG("bmark_filename, have untitled document with uri scheme %s and path %s\n",g_file_get_uri_scheme(uri), g_file_get_basename(uri));
+		DEBUG_MSG("bmark_filename, have untitled document with uri scheme %s and path %s\n",
+				  g_file_get_uri_scheme(uri), g_file_get_basename(uri));
 		return g_file_get_basename(uri);
 	}
-	
+
 	switch (bfwin->session->bookmarks_filename_mode) {
 	case BM_FMODE_PATH:
 		title = g_file_get_uri(uri);
@@ -193,7 +194,7 @@ bmark_filename(Tbfwin * bfwin, GFile * uri)
 }
 
 static GFile *
-bmark_uri_from_doc(Tdocument *doc)
+bmark_uri_from_doc(Tdocument * doc)
 {
 	GFile *uri;
 	if (!doc->uri) {
@@ -294,7 +295,7 @@ bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * pa
 }
 
 static void
-bmark_rename_uri(Tbfwin * bfwin, Tbmark * b, Tdocument *doc)
+bmark_rename_uri(Tbfwin * bfwin, Tbmark * b, Tdocument * doc)
 {
 	if (b->uri)
 		g_object_unref(b->uri);
@@ -314,8 +315,8 @@ bmark_doc_renamed(Tbfwin * bfwin, Tdocument * doc)
 	}
 	GtkTreeIter tmpiter;
 	gboolean cont;
-	gboolean parent_renamed=FALSE;
-	
+	gboolean parent_renamed = FALSE;
+
 	cont =
 		gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter,
 									 doc->bmark_parent);
@@ -323,23 +324,21 @@ bmark_doc_renamed(Tbfwin * bfwin, Tdocument * doc)
 		Tbmark *b;
 		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter,
 						   PTR_COLUMN, &b, -1);
-		cont =
-			gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),
-									 &tmpiter);
+		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter);
 		if (!b) {
 			continue;
 		}
 #ifdef DEVELOPMENT
 		if (b->doc != doc) {
-			g_warning("bmark_doc_renamed, bug, b->doc(%p)!=doc(%p)\n",b->doc,doc);
+			g_warning("bmark_doc_renamed, bug, b->doc(%p)!=doc(%p)\n", b->doc, doc);
 			g_assert_not_reached();
 		}
 #endif
-	
+
 		if (doc->uri == b->uri || (doc->uri && g_file_equal(doc->uri, b->uri))) {
 			return;
 		}
-		
+
 		if (!parent_renamed) {
 			/* first remove the old uri from the hash table, but keep the GtkTreeIter stored in a variable */
 			GtkTreeIter *newiter;
@@ -352,11 +351,11 @@ bmark_doc_renamed(Tbfwin * bfwin, Tdocument * doc)
 		if (!parent_renamed) {
 			/* now use the new b->uri as new name, and insert the new uri in the hash table */
 			gchar *name = bmark_filename(bfwin, b->uri);
-			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, doc->bmark_parent, NAME_COLUMN, name,
-					   -1);
+			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, doc->bmark_parent, NAME_COLUMN,
+							   name, -1);
 			g_object_ref(b->uri);
 			g_hash_table_insert(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, b->uri, doc->bmark_parent);
-			DEBUG_MSG("bmark_doc_renamed, renamed parent to %s\n",name);
+			DEBUG_MSG("bmark_doc_renamed, renamed parent to %s\n", name);
 			g_free(name);
 			parent_renamed = TRUE;
 		}
@@ -389,7 +388,7 @@ bmark_store(Tbfwin * bfwin, Tbmark * b)
 		DEBUG_MSG("bmark_store, cannot store bookmark for file without filename\n");
 		return;
 	}
-	if (g_file_has_uri_scheme(b->uri,"tmp")) {
+	if (g_file_has_uri_scheme(b->uri, "tmp")) {
 		DEBUG_MSG("bmark_store, cannot store bookmark for file without filename (tmp:// uri)\n");
 		if (b->strarr) {
 			bmark_unstore(bfwin, b);
@@ -661,7 +660,7 @@ static gboolean
 bmark_check_remove(Tbfwin * bfwin, Tbmark * b)
 {
 	GtkTreeIter parent;
-	/*GtkTextIter it;*/
+	/*GtkTextIter it; */
 
 	if (gtk_tree_model_iter_parent
 		(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &parent, &b->iter)) {
@@ -673,8 +672,8 @@ bmark_check_remove(Tbfwin * bfwin, Tbmark * b)
 
 		/* Olivier, 22 may 2013: what does the next line do ?????????? seems it can be removed */
 		/*if (b->doc) {
-			gtk_text_buffer_get_iter_at_mark(b->doc->buffer, &it, b->mark);
-		}*/
+		   gtk_text_buffer_get_iter_at_mark(b->doc->buffer, &it, b->mark);
+		   } */
 
 		if (numchild == 1) {
 			GtkTextIter *tmpiter;
@@ -1290,7 +1289,8 @@ bmark_gui(Tbfwin * bfwin)
 	/*gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(bfwin->bmark), TRUE); */
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scroll), GTK_WIDGET(bfwin->bmark));
+	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scroll), GTK_SHADOW_IN);
+	gtk_container_add(GTK_CONTAINER(scroll), GTK_WIDGET(bfwin->bmark));
 	gtk_box_pack_start(GTK_BOX(vbox), scroll, TRUE, TRUE, 0);
 	g_signal_connect(G_OBJECT(bfwin->bmark), "button-press-event", G_CALLBACK(bmark_event_mouseclick), bfwin);
 	g_signal_connect(G_OBJECT(bfwin->bmark), "row-activated", G_CALLBACK(bmark_row_activated), bfwin);
@@ -1720,7 +1720,7 @@ bmark_set_for_doc(Tdocument * doc, gboolean check_positions)
 				}
 			}
 			mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
-			DEBUG_MSG("bmark_set_for_doc, create GtkTextMark for bmark %p at %p\n",mark,mark->mark);
+			DEBUG_MSG("bmark_set_for_doc, create GtkTextMark for bmark %p at %p\n", mark, mark->mark);
 		}
 		cont2 =
 			gtk_tree_model_iter_next(GTK_TREE_MODEL
@@ -1809,7 +1809,7 @@ bmark_add_backend(Tdocument * doc, GtkTextIter * itoffset, gint offset, const gc
 	}
 
 	m->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
-	DEBUG_MSG("bmark_add_backend, mark=%p, create GtkTextMark %p\n",m,m->mark);
+	DEBUG_MSG("bmark_add_backend, mark=%p, create GtkTextMark %p\n", m, m->mark);
 	m->uri = bmark_uri_from_doc(doc);
 	m->is_temp = is_temp;
 	m->text = g_strdup(text);
