@@ -1328,8 +1328,7 @@ static void
 remove_from_quickbar_activate_lcb(GtkMenuItem *m, gpointer data)
 {
 	GList *tmplist;
-	DEBUG_MSG("remove_from_quickbar_activate_lcb, removing %s from quickbar_items\n", (gchar *)data);
-	htmlbar_v.quickbar_items = remove_from_stringlist(htmlbar_v.quickbar_items, data);
+
 	/* now loop over all the windows that have a htmlbar, and remove the item */
 	for (tmplist=g_list_first(main_v->bfwinlist);tmplist;tmplist=g_list_next(tmplist)) {
 		Thtmlbarwin * hbw;
@@ -1338,6 +1337,8 @@ remove_from_quickbar_activate_lcb(GtkMenuItem *m, gpointer data)
 			htmlbar_quickbar_remove_item(hbw, (const gchar *)data);
 		}
 	}
+	DEBUG_MSG("remove_from_quickbar_activate_lcb, removing %s from quickbar_items\n", (gchar *)data);
+	htmlbar_v.quickbar_items = remove_from_stringlist(htmlbar_v.quickbar_items, data);
 }
 
 static GtkWidget *
