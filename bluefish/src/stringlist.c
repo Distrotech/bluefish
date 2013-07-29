@@ -538,8 +538,8 @@ GList *remove_from_stringlist(GList *which_list, const gchar * string) {
 		while (tmplist) {
 			if (strcmp((gchar *) tmplist->data, string) == 0) {
 				DEBUG_MSG("remove_from_stringlist, removing '%s' (%p)\n", (gchar *)tmplist->data, tmplist->data);
-				which_list = g_list_remove(which_list, tmplist->data);
-				return which_list;
+				g_free(tmplist->data);
+				return g_list_delete_link(which_list, tmplist);
 			}
 			tmplist = g_list_next(tmplist);
 		}
