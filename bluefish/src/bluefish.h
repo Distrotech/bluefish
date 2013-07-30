@@ -336,6 +336,7 @@ typedef struct {
 	gint open_in_running_bluefish;	/* open commandline documents in already running process */
 	gint open_in_new_window;	/* open commandline files in a new window as opposed to an existing window */
 	gint register_recent_mode; /* 0=none,1=all,2=project only*/
+	gint recent_means_recently_closed;
 	GList *plugin_config;		/* array, 0=filename, 1=enabled, 2=name */
 	gint use_system_colors;
 	gchar *btv_color_str[BTV_COLOR_COUNT];	/* editor colors */

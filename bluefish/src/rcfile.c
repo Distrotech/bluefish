@@ -484,6 +484,7 @@ props_init_main(GHashTable * config_rc)
 					  TRUE);
 	init_prop_integer(&config_rc, &main_v->props.open_in_new_window, "open_in_new_window:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.register_recent_mode, "register_recent_mode:", 2, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.recent_means_recently_closed, "recent_means_recently_closed:", 1, TRUE);
 	init_prop_arraylist(&config_rc, &main_v->props.plugin_config, "plugin_config:", 3, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.use_system_colors, "use_system_colors:", 1, TRUE);
 	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_FG], "editor_fg:", "");
@@ -1101,7 +1102,11 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_stringlist(&configlist, &session->fontlist, "fontlist:", FALSE);
 	init_prop_arraylist(&configlist, &session->bmarks, "bmarks:", 6, FALSE);	/* what is the lenght for a bookmark array? */
 	init_prop_limitedstringlist(&configlist, &session->recent_files, "recent_files:",
-								main_v->props.max_recent_files, FALSE);
+								main_v->props.max_recent_files*2, FALSE);
+	/* because the recentlist probably contains both the files that will be opened in a project AND the 
+	files that were recently opened/closed, we store more than then number of files that are shown to the 
+	user. Otherwise the recent list might be empty if the user has a project list with more files than 
+	the length of the recent_files */
 	init_prop_limitedstringlist(&configlist, &session->recent_dirs, "recent_dirs:",
 								main_v->props.max_dir_history, FALSE);
 	init_prop_string_with_escape(&configlist, &session->opendir, "opendir:", NULL);
