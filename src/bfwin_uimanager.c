@@ -1112,7 +1112,7 @@ lang_mode_menu_create(Tbfwin * bfwin)
 	} else {
 		dynamic_menu_empty(bfwin->uimanager,bfwin->lang_mode_merge_id, bfwin->lang_mode_group);
 	}
-	
+
 	bfwin->lang_mode_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
 	for (list = g_list_first(freelist); list; list = list->next) {
 		Tbflang *bflang = (Tbflang *) list->data;
@@ -1856,6 +1856,15 @@ recent_menu_add_backend(Tbfwin *bfwin, const gchar *menupath, const gchar *curi)
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager,menupath);
 	menu = gtk_menu_item_get_submenu(GTK_MENU_ITEM(menuitem));
 
+	/* avoid duplicate entries,
+	if recent_means_recently_closed==1 this is not essential, because
+	removing from the menu is done when the file is opened, and adding only
+	during close.
+
+	if recent_means_recently_closed==0 this is essential because the file is
+	actually added to the menu during opening */
+	recent_menu_remove_backend(bfwin, menupath, curi);
+
 	recent_menu_add(bfwin, GTK_MENU(menu), curi);
 
 	list = gtk_container_get_children(GTK_CONTAINER(menu));
@@ -1905,7 +1914,7 @@ static void recent_create_backend(Tbfwin *bfwin, const gchar *menupath, GList *r
 	for (tmplist = g_list_last(recentlist); tmplist; tmplist = tmplist->prev) {
 		if (num > main_v->props.max_recent_files)
 			break;
-		/* recent_menu_add adds from the top, so the last item added will be on top */ 
+		/* recent_menu_add adds from the top, so the last item added will be on top */
 		recent_menu_add(bfwin, GTK_MENU(menu), (const gchar *)tmplist->data);
 		num++;
 	}

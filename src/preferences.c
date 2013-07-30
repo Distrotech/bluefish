@@ -93,6 +93,7 @@ enum {
 	open_in_new_window,
 #endif							/* ifndef WIN32 */
 	register_recent_mode,
+	recent_means_recently_closed,
 	autocomp_accel_string,
 	load_reference,
 	show_autocomp_reference,
@@ -1796,6 +1797,8 @@ preferences_apply(Tprefdialog * pd)
 	integer_apply(&main_v->props.open_in_new_window, pd->prefs[open_in_new_window], TRUE);
 #endif							/* ifndef WIN32 */
 	integer_apply(&main_v->props.show_long_line_warning, pd->prefs[show_long_line_warning], TRUE);
+	main_v->props.recent_means_recently_closed =
+		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[recent_means_recently_closed]));
 	main_v->props.register_recent_mode =
 		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[register_recent_mode]));
 	main_v->props.modified_check_type =
@@ -2091,6 +2094,7 @@ preferences_dialog_new(void)
 		{ N_("Nothing"), N_("Modified time and file size"), N_("Modified time"), N_("File size"), NULL };
 	const gchar *notebooktabpositions[] = { N_("left"), N_("right"), N_("top"), N_("bottom"), NULL };
 	const gchar *panellocations[] = { N_("right"), N_("left"), NULL };
+	const gchar *recentmeaningmode[] = {N_("Recently opened"), N_("Recently closed"), NULL};
 	const gchar *registerrecentmodes[] = { N_("Never"), N_("All files"), N_("Only project files"), NULL };
 	const gchar *thumbnail_filetype[] = { "jpeg", "png", NULL }; /* values should be lowercase, othewise image.c will not get them */
 	const gchar *visible_ws_modes[] =
@@ -2499,18 +2503,22 @@ preferences_dialog_new(void)
 	free_stringlist(poplist);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Recent Files</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(2, 4, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(3, 4, 0, vbox2);
+
+	pd->prefs[recent_means_recently_closed] =
+		dialog_combo_box_text_in_table(recentmeaningmode, main_v->props.recent_means_recently_closed, table, 1, 4,0, 1);
+	dialog_mnemonic_label_in_table(_("Recent files _shows:"),
+								   pd->prefs[recent_means_recently_closed], table, 0, 1, 0, 1);
 
 	pd->prefs[max_recent_files] =
-		dialog_spin_button_in_table(3, 25, main_v->props.max_recent_files, table, 1, 2, 0, 1);
+		dialog_spin_button_in_table(3, 25, main_v->props.max_recent_files, table, 1, 2, 1, 2);
 	dialog_mnemonic_label_in_table(_("_Number of files in 'Open recent' menu:"), pd->prefs[max_recent_files],
-								   table, 0, 1, 0, 1);
+								   table, 0, 1, 1, 2);
 #ifndef WIN32
 	pd->prefs[register_recent_mode] =
-		dialog_combo_box_text_in_table(registerrecentmodes, main_v->props.register_recent_mode, table, 1, 4,
-									   1, 2);
+		dialog_combo_box_text_in_table(registerrecentmodes, main_v->props.register_recent_mode, table, 1, 4,2,3);
 	dialog_mnemonic_label_in_table(_("_Register recent files with your desktop:"),
-								   pd->prefs[register_recent_mode], table, 0, 1, 1, 2);
+								   pd->prefs[register_recent_mode], table, 0, 1, 2,3);
 #endif
 
 
