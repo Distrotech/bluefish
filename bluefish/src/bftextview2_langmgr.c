@@ -1376,10 +1376,12 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 					{"commentid_line", &commentid_line, attribtype_string},
 					{"default_spellcheck", &default_spellcheck, attribtype_boolean},
 					{"autocomplete_case_insens", &autocomplete_case_insens, attribtype_boolean}};
+#ifdef HAVE_LIBENCHANT
 	if (g_queue_get_length(contextstack)==0) {
 		DBG_PARSING("top level context, set default_spellcheck to %d\n", bfparser->default_spellcheck);
 		default_spellcheck = bfparser->default_spellcheck;
 	}
+#endif
 	depth = xmlTextReaderDepth(reader);
 
 	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 7 : 6);
