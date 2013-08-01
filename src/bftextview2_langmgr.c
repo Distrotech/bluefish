@@ -948,6 +948,37 @@ add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringnam
 	return matchstring;
 }
 
+static inline void
+add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint contexttag, gchar * attribhighlight
+					, gchar *attrib_autocomplete_append, gint attrib_autocomplete_backup_cursor)
+{
+	guint16 attrmatch;
+	if (strchr(attrstring, '=')== NULL) {
+		attrmatch = add_pattern_to_scanning_table(bfparser->st, attrstring, FALSE, TRUE, contexttag);
+		pattern_set_runtime_properties(bfparser->st, attrmatch,attribhighlight, 0, FALSE, FALSE,0, FALSE, FALSE);
+		match_add_autocomp_item(bfparser->st, attrmatch, NULL,attrib_autocomplete_append,attrib_autocomplete_backup_cursor);
+		match_autocomplete_reference(bfparser->st, attrmatch, contexttag);
+	} else {
+		/* contains a =, so split the attribute, and the context */
+		gint16 startscontext;
+		gchar *tmp;
+		gchar **splitted = g_strsplit(attrstring, "=", -1);
+		
+		g_print("lookup context %s\n",splitted[1]);
+		startscontext = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, splitted[1]));
+		if (startscontext == 0) {
+			g_warning("attribute %s refers to context %s which does not (yet) exist\n",splitted[0],splitted[1]);
+		}
+		tmp = g_strdup_printf("%s[ \t]*=", splitted[0]);
+		attrmatch = add_pattern_to_scanning_table(bfparser->st, tmp, TRUE, TRUE, contexttag);
+		g_free(tmp);
+		pattern_set_runtime_properties(bfparser->st, attrmatch,attribhighlight,startscontext,FALSE,FALSE,0,FALSE,FALSE);
+		match_add_autocomp_item(bfparser->st, attrmatch, splitted[0],attrib_autocomplete_append,attrib_autocomplete_backup_cursor);
+		match_autocomplete_reference(bfparser->st, attrmatch, contexttag);
+		g_strfreev(splitted);
+	}
+}
+
 static guint16
 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16 context,
 					 GQueue * contextstack, gchar * ih_highlight,
@@ -1052,17 +1083,10 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 
 					tmp2 = attrib_arr;
 					while (*tmp2) {
-						guint16 attrmatch = add_pattern_to_scanning_table(bfparser->st, *tmp2, FALSE, TRUE, contexttag);
-						pattern_set_runtime_properties(bfparser->st, attrmatch,
-								attribhighlight ? attribhighlight : ih_attribhighlight,
-								0, FALSE, FALSE,0, FALSE, FALSE);
-						match_add_autocomp_item(bfparser->st, attrmatch, NULL,
-												attrib_autocomplete_append ? attrib_autocomplete_append :
-												ih_attrib_autocomplete_append,
-												attrib_autocomplete_backup_cursor ?
-												attrib_autocomplete_backup_cursor :
-												ih_attrib_autocomplete_backup_cursor);
-						match_autocomplete_reference(bfparser->st, attrmatch, contexttag);
+						add_attribute_to_tag(bfparser, *tmp2, contexttag
+									, attribhighlight ? attribhighlight : ih_attribhighlight
+									, attrib_autocomplete_append ? attrib_autocomplete_append:ih_attrib_autocomplete_append
+									, attrib_autocomplete_backup_cursor ? attrib_autocomplete_backup_cursor :ih_attrib_autocomplete_backup_cursor);
 						tmp2++;
 					}
 				}
