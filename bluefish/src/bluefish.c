@@ -21,7 +21,7 @@
 /*#define DEBUG */
 
 #include <gtk/gtk.h>
-#include <stdlib.h>				/* exit() on Solaris */
+#include <stdlib.h>				/* exit() on Solaris and unsetenv()  */
 #include <time.h>				/* nanosleep */
 
 #ifndef WIN32
@@ -295,7 +295,10 @@ int main(int argc, char *argv[])
 	GPollFunc orig_poll_func;
 	GPollFunc gdk_poll_func;
 #endif
-
+	/* the unity appmenu cannot handle an application with two menu's
+	for now I didn't find a way to make it honor the main menu and ignore the snippets menu, so
+	I'll ask to avoid the appmenu at all. */
+	unsetenv("UBUNTU_MENUPROXY");
 #ifdef WIN32
 	gchar *path;
 
