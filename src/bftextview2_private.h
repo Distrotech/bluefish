@@ -79,15 +79,9 @@ typedef struct {
 typedef struct {
 	GArray *table; /* a pointer to the DFA table for this context */
 	GCompletion *ac;			/* autocompletion items in this context */
-	/*GHashTable *reference; *//* reference help for each autocompletion item */
 	GHashTable *patternhash;	/* a hash table where the pattern and its autocompletion string are the keys, and an integer to the ID of the pattern is the value */
 	GtkTextTag *contexttag;		/* if the context area itself needs some kind of style (to implement a string context for example) */
 	gchar *contexthighlight;	/* the string that has the id for the highlight */
-	/*guint16 startstate;*/			/* refers to the row number in scantable->table that is the start state for this context */
-	/*guint16 identstate;*/			/* refers to the row number in scantable->table that is the identifier-state
-								   for this context. The identifier state is a state that refers to itself for all characters
-								   except the characters (symbols) thay may be the begin or end of an identifier such
-								   as whitespace, ();[]{}*+-/ etc. */
 	guint8 has_tagclose_from_blockstack;	/* this context has xml end patterns that need autoclosing for generix xml tags, based on the tag that is on top of the blockstack */
 	guint8 comment_block;		/* block comment index in array scantable->comments
 								   or COMMENT_INDEX_INHERIT (which means inherit)
@@ -100,7 +94,6 @@ typedef struct {
 typedef struct {
 	gchar *autocomplete_string;
 	guint8 autocomplete_backup_cursor;	/* number of characters to backup the cursor after autocompletion (max 256) */
-	/* guint8 autocomplete;whether or not this pattern should be added to the autocompletion; stored in the Tpattern so we can re-use it in another context */
 } Tpattern_autocomplete;
 
 typedef struct {
@@ -113,16 +106,15 @@ typedef struct {
 
 typedef struct {
 	GtkTextTag *selftag;		/* the tag used to highlight this pattern */
-	/*GtkTextTag *blocktag;*/		/* if this pattern ends a context or a block, we can highlight
-								   the region within the start and end pattern with this tag */
 	gchar *reference;			/* the reference data, or NULL. may be inserted in hash tables for multiple keys in multiple contexts */
 	gchar *pattern;				/* the pattern itself. stored in the Tpattern so we can re-use it in another context */
-	GSList *autocomp_items;
+	GSList *autocomp_items; /* a list of Tpattern_autocomplete - a pattern can autocomplete in multiple ways, for 
+										example with and without closing tag, or with and without function arguments.
+										to be able to recompile a pattern in multiple contexts we need this information in Tpattern */
 	gchar *selfhighlight;		/* a string with the highlight for this pattern. used when re-linking highlights and textstyles
 								   if the user changed any of these in the preferences */
-	/*gchar *blockhighlight;*/		/* a string for the highlight corresponding to the  blocktag */
-	guint16 block;			/* this is 0 for most blocks, only blocks that need a tag have this set */
-	gint16 blockstartpattern;	/* the number of the pattern that may start this block, or -1 to end the last started block */
+	guint16 block;			/* this is 0 for most blocks, only blocks that need a tag have this set, refers to a a position in an array of Tpattern_block*/
+	gint16 blockstartpattern;	/* the number of the pattern that may start this block, or -1 to end the last started block, also used for stretch block */
 	gint16 nextcontext;			/* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
 								   to pop a context of the stack */
 #ifdef IDENTSTORING
@@ -140,8 +132,8 @@ typedef struct {
 #endif							/* IDENTSTORING */
 } Tpattern;
 /*
-32bit size = 5*32 + 3*16 + 1*2 + 8*1 = 217 + 7 padding = 28 bytes
-64bit size = 5*64 + 3*16 + 1*2 + 8*1 = 361 + 7 padding = 48 bytes
+32bit size = 5*32 + 3*16 + 1*2 + 8*1 = 217 + 7 padding bits = 28 bytes
+64bit size = 5*64 + 3*16 + 1*2 + 8*1 = 361 + 7 padding bits = 48 bytes
 */
 
 typedef struct {
