@@ -36,6 +36,7 @@ extern void g_none(char *first, ...);
 #define BF_POSITION_UNDEFINED G_MAXINT32
 
 /*#define DUMP_SCANCACHE*/
+/*#define DUMP_SCANCACHE_UPDATE_OFFSET*/
 /*#define CHECK_CONSISTENCY*/
 
 #define DBG_MSG DBG_NONE
@@ -160,7 +161,7 @@ typedef struct {
 	guint32 end1_o;
 	guint32 start2_o;
 	guint32 end2_o;
-	gint16 patternum;			/* which pattern (number of the array element in scantable->matches) */
+	gint16 patternum;			/* which pattern (number of the array element in scantable->matches) started the block */
 	guint8 folded;
 	guint8 foldable;			/* FALSE on a single line */
 } Tfoundblock;					/* Once a start-of-block is found start1 and end1 are set
