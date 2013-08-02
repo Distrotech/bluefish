@@ -949,8 +949,8 @@ add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringnam
 }
 
 static inline void
-add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint contexttag, gchar * attribhighlight
-					, gchar *attrib_autocomplete_append, gint attrib_autocomplete_backup_cursor)
+add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint contexttag, const gchar * attribhighlight
+					, const gchar *attrib_autocomplete_append, gint attrib_autocomplete_backup_cursor)
 {
 	guint16 attrmatch;
 	if (strchr(attrstring, '=')== NULL) {
@@ -964,7 +964,7 @@ add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint co
 		gchar *tmp;
 		gchar **splitted = g_strsplit(attrstring, "=", -1);
 		
-		g_print("lookup context %s\n",splitted[1]);
+		/*g_print("tag attribute contains a '=', lookup context %s\n",splitted[1]);*/
 		startscontext = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, splitted[1]));
 		if (startscontext == 0) {
 			g_warning("attribute %s refers to context %s which does not (yet) exist\n",splitted[0],splitted[1]);
@@ -1388,7 +1388,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 {
 	gchar *symbols = NULL, *highlight = NULL, *id = NULL, *idref = NULL, *commentid_block =
 		NULL, *commentid_line = NULL;
-	gboolean autocomplete_case_insens = FALSE;
+	gboolean autocomplete_case_insens = FALSE, isempty;
 	gint default_spellcheck = SPELLCHECK_INHERIT;
 	gint context, depth;
 
@@ -1407,14 +1407,20 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	}
 #endif
 	depth = xmlTextReaderDepth(reader);
-
+	isempty = xmlTextReaderIsEmptyElement(reader);
+	
 	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 7 : 6);
 	DBG_PARSING("found <context> with id=%s, idref=%s\n", id, idref);
-	if (idref && idref[0] && !id && !symbols && !highlight && !autocomplete_case_insens) {
+	if (idref && idref[0]) {
 		DBG_PARSING("lookup context %s in hash table..\n", idref);
 		context = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, idref));
 		g_free(idref);
-		return context;
+		if (context != 0 || (!id && !symbols && !highlight && !autocomplete_case_insens)) {
+			/* if the tag is not empty, we have to forward to the end of the tag now */
+			if (!isempty)
+				skip_to_end_tag(reader, depth);
+			return context;
+		}
 	}
 	if (!symbols) {
 		g_warning("language file has context without symbols, abort.");

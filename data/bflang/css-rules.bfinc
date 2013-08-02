@@ -45,7 +45,7 @@
 <b>Values:</b> &lt;color&gt; | currentColor | transparent | inherit
 <b>Initial value:</b> transparent
 <b>Media group:</b> visual</reference>
-<context id="c.css.color" symbols=" &#9;&#10;&#13;{}.;:">
+<context id="c.css.color" idref="c.css.color" symbols=" &#9;&#10;&#13;{}.;:">
 <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
 <element pattern="(rgba|hsla)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *, *(0|1|0.[0-9]) *\)" highlight="css-value" is_regex="1" case_insens="1"/>
 <element pattern="(rgb|hsl)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *\)" highlight="css-value" is_regex="1" case_insens="1"/>
@@ -215,7 +215,7 @@
 <context symbols=" &#9;&#10;&#13;-{}.;:()">
 <element pattern="url"    highlight="css-value">
 	<autocomplete append="()" backup_cursor="1" />
-	<context id="c.css.uri" symbols="()" highlight="css-value">
+	<context id="c.css.uri" idref="c.css.uri" symbols="()" highlight="css-value">
 	<element pattern="("/>
 	<element pattern=")" ends_context="1" highlight="css-value"/>
 	</context>
@@ -342,7 +342,7 @@
 <b>Values:</b> [ thin | medium | thick | &lt;length&gt; ]{1,4} | inherit
 <b>Initial value:</b> see individual properties
 <b>Media groups:</b> visual</reference>
-<context id="c.css.border_width" symbols=" &#9;&#10;&#13;{}.;:">
+<context id="c.css.border_width" idref="c.css.border_width" symbols=" &#9;&#10;&#13;{}.;:">
 <group  highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="thin"/>
@@ -372,7 +372,7 @@
 <b>Initial value:</b> none
 <b>Media groups:</b> visual
 </reference>
-<context id="c.css.border_style" symbols=" &#9;&#10;&#13;{}.;:">
+<context id="c.css.border_style" idref="c.css.border_style" symbols=" &#9;&#10;&#13;{}.;:">
 <group  highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="inherit"/>
@@ -538,7 +538,7 @@
 <reference>A shorthand property for setting the properties border-width, border-style, and border-color for the four borders in one declaration<b>Values:</b> [ [ thin | medium | thick | &lt;length&gt; ] || &lt;border-style&gt; || 'border-top-color' ] | inherit
 <b>Initial value:</b> see individual properties
 <b>Media groups:</b> visual</reference>
-<context id="c.css.border" symbols=" &#9;&#10;&#13;{}.;:">
+<context id="c.css.border" idref="c.css.border" symbols=" &#9;&#10;&#13;{}.;:">
 <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
 <element pattern="(rgba|hsla)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *, *(0|1|0.[0-9]) *\)" highlight="css-value" is_regex="1" case_insens="1"/>
 <element pattern="(rgb|hsl)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *\)" highlight="css-value" is_regex="1" case_insens="1"/>
@@ -759,7 +759,7 @@
 <b>Percentages:</b> refer to height of containing block
 <b>Media groups:</b> visual
 </reference>
-<context id="c.css.box_offsets" symbols=" &#9;&#10;&#13;-{}.;:">
+<context id="c.css.box_offsets" idref="c.css.box_offsets" symbols=" &#9;&#10;&#13;-{}.;:">
 <element pattern="auto"  highlight="css-value" >
 	<autocomplete append=";" />
 </element>
@@ -1052,7 +1052,7 @@
 <b>Applies to:</b> all, but see 9.7
 <b>Media groups:</b> visual
 </reference>
-<context id="c.css.float" symbols=" &#9;&#10;&#13;-{}.:;">
+<context id="c.css.float" idref="c.css.float" symbols=" &#9;&#10;&#13;-{}.:;">
 <group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="left"/>
@@ -1408,7 +1408,7 @@
 <b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual</reference>
-<context id="c.css.width" symbols=" &#9;&#10;&#13;{}.;:">
+<context id="c.css.width" idref="c.css.width" symbols=" &#9;&#10;&#13;{}.;:">
 <element pattern="0" highlight="css-value" >
 	<autocomplete enable="1" />
 </element>
@@ -1549,7 +1549,7 @@
 <b>Percentages:</b> see prose
 <b>Media groups:</b> visual
 </reference>
-<context id="c.css.length_percentage" symbols=" &#9;&#10;&#13;{}.;:">
+<context id="c.css.length_percentage" idref="c.css.length_percentage" symbols=" &#9;&#10;&#13;{}.;:">
 <element pattern="0" highlight="css-value" >
 	<autocomplete enable="1" />
 </element>

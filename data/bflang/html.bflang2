@@ -21,7 +21,7 @@
 
 <!DOCTYPE bflang [
 	<!ENTITY i18n "dir,lang">
-	<!ENTITY univ "class,id,style,title">
+	<!ENTITY univ "class,id,style=c.html.attrib.style,title">
 	<!ENTITY evnt "onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup">
 	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
