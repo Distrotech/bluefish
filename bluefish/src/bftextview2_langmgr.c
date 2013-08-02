@@ -927,21 +927,20 @@ static guint16
 add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringname, const gchar *singlematch, const gchar *fullmatch)
 {
 	static const gchar *stringhighlight = "attribute-string";
-	guint16 matchstring;
+	guint16 strcontext, endmatch, matchstring;
 	const gchar *val = lookup_user_option(bfparser->bflang->name, "attribute_string_is_block");
-	if (val && val[0]=='1') {
-		guint16 strcontext, endmatch;
+	gchar *contextname = g_strconcat(stringname, ".context", NULL);
+	strcontext = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, contextname));
+	if (strcontext == 0) {
 		strcontext = new_context(bfparser->st, 4, bfparser->bflang->name, (gchar *)singlematch, stringhighlight, FALSE, FALSE);
-		matchstring = add_pattern_to_scanning_table(bfparser->st, singlematch, FALSE, FALSE, contexttag);
-		pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,strcontext,FALSE,FALSE,0,FALSE,FALSE);
-		pattern_set_blockmatch(bfparser->st, matchstring,TRUE,FALSE,0,NULL,NULL,FALSE);
 		endmatch = add_pattern_to_scanning_table(bfparser->st, singlematch, FALSE, FALSE, strcontext);
 		pattern_set_runtime_properties(bfparser->st, endmatch, stringhighlight,-1,FALSE,FALSE,0,FALSE,FALSE);
+	}
+	matchstring = add_pattern_to_scanning_table(bfparser->st, singlematch, FALSE, FALSE, contexttag);
+	pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,strcontext,FALSE,FALSE,0,FALSE,FALSE);
+	if (val && val[0]=='1') {
+		pattern_set_blockmatch(bfparser->st, matchstring,TRUE,FALSE,0,NULL,NULL,FALSE);
 		pattern_set_blockmatch(bfparser->st, endmatch,FALSE,TRUE,matchstring,NULL,NULL,FALSE);
-	} else {
-		matchstring = add_pattern_to_scanning_table(bfparser->st, fullmatch, TRUE, FALSE, contexttag);
-		pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,
-					0, FALSE, FALSE,0, FALSE, FALSE);
 	}
 	g_hash_table_insert(bfparser->patterns, g_strdup(stringname),
 						GINT_TO_POINTER((gint) matchstring));
@@ -1066,7 +1065,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 								contexttag, TRUE, FALSE,0, FALSE, FALSE);
 			DBG_PARSING("insert tag %s into hash table with matchnum %d\n", id ? id : tmp, matchnum);
 			if (g_hash_table_lookup(bfparser->patterns, id ? id : tmp) != NULL) {
-				g_print("Possible error in language file, id %s already exists\n", id ? id : tmp);
+				g_warning("Possible error in language file, pattern with id %s already exists\n", id ? id : tmp);
 			} else {
 				g_hash_table_insert(bfparser->patterns, g_strdup(id ? id : tmp),
 									GINT_TO_POINTER((gint) matchnum));
@@ -1074,8 +1073,8 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			g_free(tmp);
 
 			if (!contexttag) {
-				static const gchar *internal_tag_string_d = "__internal_tag_string_d__";
-				static const gchar *internal_tag_string_s = "__internal_tag_string_s__";
+				static const gchar *internal_tag_string_d = "__internal__.e.tag.attribute.string.d";
+				static const gchar *internal_tag_string_s = "__internal__.e.tag.attribute.string.s";
 				contexttag = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r<", NULL, FALSE, FALSE);
 				match_set_nextcontext(bfparser->st, matchnum, contexttag);
 				if (attrib_arr) {
