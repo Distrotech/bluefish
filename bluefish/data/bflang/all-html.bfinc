@@ -20,6 +20,23 @@
 -->
 <bfinc>
 
+<element id="e.html.lcomment" pattern="&lt;!--" highlight="html-comment" starts_block="1" block_name="HTML comment">
+	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
+		<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.lcomment" highlight="html-comment" mayfold="1" ends_context="1" />
+		<group class="is_ASP-VBS">
+			<element pattern="#include" highlight="asp-keyword" case_insens="1" />
+		</group>
+		<group class="is_PHP">
+			<group class="php_short_open_tag">
+				<element idref="e.php.short.open" />
+			</group>
+			<group notclass="php_short_open_tag">
+				<element idref="e.php.open" />
+			</group>
+		</group>
+	</context>
+</element>
+
 <tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;,media,title,type" attribhighlight="html-attribute"   attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<autocomplete append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" backup_cursor="9" />
 	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[]," commentid_block="cm.cblockcomment" commentid_line="none" default_spellcheck="0">
@@ -84,23 +101,6 @@ css-rules are defined in the inner context for <style>  -->
 		<context idref="c.html.attrib.style.inner"/>
 	</element>
 </context>
-
-<element id="e.html.lcomment" pattern="&lt;!--" highlight="html-comment" starts_block="1" block_name="HTML comment">
-	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
-		<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.lcomment" highlight="html-comment" mayfold="1" ends_context="1" />
-		<group class="is_ASP-VBS">
-			<element pattern="#include" highlight="asp-keyword" case_insens="1" />
-		</group>
-		<group class="is_PHP">
-			<group class="php_short_open_tag">
-				<element idref="e.php.short.open" />
-			</group>
-			<group notclass="php_short_open_tag">
-				<element idref="e.php.open" />
-			</group>
-		</group>
-	</context>
-</element>
 
 <element id="e.html.doctype" pattern="&lt;!DOCTYPE" highlight="html-tag">
 	<context symbols="&#34;&gt;&lt;" highlight="html-tag">
