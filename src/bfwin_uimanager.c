@@ -1519,7 +1519,7 @@ void
 bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
 {
 	GtkAction *action;
-	if (!bflang) {
+	if (!bflang || !bfwin->lang_mode_group) { /* At startup time doc is created faster that lang_mode_group*/
 		DEBUG_MSG("bfwin_lang_mode_set_wo_activate, bflang=%p ????? return\n",bflang);
 		return;
 	}
