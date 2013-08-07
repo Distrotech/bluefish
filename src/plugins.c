@@ -201,7 +201,7 @@ void bluefish_load_plugins(void) {
 						     PACKAGE,
 						     NULL);
 		bluefish_scan_dir_load_plugins(&oldlist,bluefish_plugin_dir);
-		g_warning("plugin_init_for_MacOSX, plugin path=%s\n", bluefish_plugin_dir);
+		DEBUG_MSG("plugin_init_for_MacOSX, plugin path=%s\n", bluefish_plugin_dir);
 		g_free(bluefish_plugin_dir);
 		g_free(bundle_resource_dir);
 	}
