@@ -231,11 +231,31 @@ add_filename_to_recentlist(Tbfwin * bfwin, GFile * uri)
 	} else {
 		bfwin_recent_menu_add(bfwin,FALSE, curi);
 	}
-
-	if (main_v->props.register_recent_mode == 0)
-		return;
 	if (main_v->props.register_recent_mode == 1) {
 		gtk_recent_manager_add_item(main_v->recentm, curi);
+	}
+	g_free(curi);
+}
+
+void
+remove_filename_from_recentlist(Tbfwin * bfwin, gboolean project, GFile * uri)
+{
+	gchar *curi = g_file_get_uri(uri);
+	if (!project) {
+		bfwin->session->recent_files =
+				remove_from_stringlist(bfwin->session->recent_files, curi);
+		bfwin_recent_menu_remove(bfwin, FALSE, curi);
+		if (main_v->props.register_recent_mode == 1) {
+			GError *gerror = NULL;
+			gtk_recent_manager_remove_item(main_v->recentm, curi, &gerror);
+		}
+	} else {
+		main_v->globses.recent_projects = remove_from_stringlist(main_v->globses.recent_projects, curi);
+		bfwin_recent_menu_remove(bfwin, TRUE, curi);
+		if (main_v->props.register_recent_mode != 0) {
+				GError *gerror = NULL;
+				gtk_recent_manager_remove_item(main_v->recentm, curi, &gerror);
+			}		   
 	}
 	g_free(curi);
 }
@@ -2211,6 +2231,8 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 
 	if (doc->status == DOC_STATUS_ERROR) {
 		bfwin_docs_not_complete(doc->bfwin, FALSE);
+		if (doc->uri && bfwin->session)
+			remove_filename_from_recentlist(bfwin, FALSE, doc->uri); /* Remove inaccesible files from OpenRecent list */
 	}
 
 	bfwin_gotoline_search_bar_close(doc->bfwin);
@@ -2221,7 +2243,7 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 
 	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n", doc);
 	bmark_clean_for_doc(doc);
-	if (doc->uri && bfwin->session && main_v->props.recent_means_recently_closed) {	/* in a special situation the bfwin does not have a session: if a project window is closing */
+	if (doc->uri && bfwin->session && doc->status != DOC_STATUS_ERROR && main_v->props.recent_means_recently_closed) {	/* in a special situation the bfwin does not have a session: if a project window is closing; documents with errors should not be added to the menu */
 		gchar *curi = g_file_get_uri(doc->uri);
 		bfwin_recent_menu_add(doc->bfwin,FALSE, curi);
 		g_free(curi);

@@ -43,6 +43,7 @@ void alldocs_foreach(foreachdocfunc func, gpointer data);
 gint have_modified_documents(GList * doclist);
 GList *return_urilist_from_doclist(GList * doclist);
 void add_filename_to_recentlist(Tbfwin * bfwin, GFile * uri);
+void remove_filename_from_recentlist(Tbfwin * bfwin, gboolean project, GFile * uri);
 
 gint documentlist_return_index_from_uri(GList * doclist, GFile * uri);
 void doc_set_uri(Tdocument *doc, GFile *uri, gboolean on_destroy);

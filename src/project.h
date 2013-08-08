@@ -24,7 +24,7 @@
 void project_edit(Tbfwin * bfwin);
 void project_new(Tbfwin * bfwin);
 void project_open(Tbfwin * bfwin);
-void project_open_from_file(Tbfwin * bfwin, GFile * fromuri);
+gint project_open_from_file(Tbfwin * bfwin, GFile * fromuri);
 
 gboolean project_save(Tbfwin * bfwin, gboolean save_as);
 void project_save_and_close(Tbfwin * bfwin);

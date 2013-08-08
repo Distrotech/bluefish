@@ -964,6 +964,21 @@ doc_modified_dialog(Tdocument * doc)
 	return retval;
 }
 
+gint
+project_not_found_dialog(Tbfwin * bfwin, GFile * uri)
+{
+	gchar *tmpstr;
+	gint retval;
+	const gchar *buttons[] = { GTK_STOCK_CANCEL, _("_Reopen"), NULL };
+	gchar *path = g_file_get_parse_name(uri);
+	tmpstr = g_strdup_printf(_("Project \"%s\" failed to load"), path);
+	retval =	message_dialog_new_multi(bfwin->main_window, GTK_MESSAGE_WARNING, buttons, tmpstr,
+										 _("Do you want to reopen project from another location?"));
+	g_free(tmpstr);
+	g_free(path);
+	return retval;
+}
+
 Tclose_mode
 multiple_files_modified_dialog(Tbfwin * bfwin)
 {
