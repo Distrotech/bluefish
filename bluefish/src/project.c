@@ -329,7 +329,8 @@ project_save(Tbfwin * bfwin, gboolean save_as)
 	return retval;
 }
 
-void
+/* Returns 0 on fail and 1 on success */
+gint
 project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 {
 	Tbfwin *prwin;
@@ -343,7 +344,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 	if (prwin != NULL) {
 		DEBUG_MSG("project_open_from_file, project is open in bfwin=%p\n", prwin);
 		gtk_window_present(GTK_WINDOW(prwin->main_window));
-		return;
+		return 1;
 	}
 
 	prj = g_new0(Tproject, 1);
@@ -359,7 +360,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 		   bookmark_data_cleanup(prj->bmarkdata);
 		   g_free(prj->session);
 		   g_free(prj); */
-		return;
+		return 0;
 	}
 	curi = g_file_get_uri(fromuri);
 	main_v->globses.recent_projects =
@@ -404,6 +405,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 	DEBUG_MSG("project_open_from_file, new window with files ready at prwin=%p\n", prwin);
 	setup_bfwin_for_project(prwin);
 	DEBUG_MSG("project_open_from_file, done\n");
+	return 1;
 }
 
 static void

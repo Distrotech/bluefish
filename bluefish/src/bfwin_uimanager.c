@@ -1399,7 +1399,7 @@ bfwin_action_groups_set_sensitive(Tbfwin * bfwin, gboolean sensitive)
 	GtkUIManager *manager = bfwin->uimanager;
 	GList *action_group_list = gtk_ui_manager_get_action_groups (manager);
 	for (tmplist = g_list_first(action_group_list); tmplist; tmplist = tmplist->next) {
-		gchar *group_name = gtk_action_group_get_name(GTK_ACTION_GROUP(tmplist->data));
+		const gchar *group_name = gtk_action_group_get_name(GTK_ACTION_GROUP(tmplist->data));
 		if (!sensitive) {
 			if (strcmp(group_name, "topLevelMenus") != 0
 		 		&& strcmp(group_name, "GlobalActions") !=0
@@ -1433,7 +1433,7 @@ bfwin_action_group_is_available(GtkUIManager * manager, gchar * action_group_nam
 	gboolean retval = FALSE;
 	GList *action_group_list = gtk_ui_manager_get_action_groups (manager);
 	for (tmplist = g_list_first(action_group_list); tmplist; tmplist = tmplist->next) {
-		gchar *group_name = gtk_action_group_get_name(GTK_ACTION_GROUP(tmplist->data));
+		const gchar *group_name = gtk_action_group_get_name(GTK_ACTION_GROUP(tmplist->data));
 		if (strcmp(group_name, action_group_name) == 0 ) {
 			retval = TRUE;
 			break;
@@ -1791,29 +1791,6 @@ bfwin_outputbox_menu_create(Tbfwin * bfwin)
 }
 
 static void
-recent_menu_activate(GtkMenuItem * menuitem, gpointer user_data)
-{
-	Tbfwin *bfwin = BFWIN(user_data);
-	const gchar *str = gtk_menu_item_get_label(menuitem);
-	gint len = strlen(str);
-	GFile *uri = g_file_new_for_uri(str);
-	if (g_strcmp0(str+len-10,".bfproject")==0) {
-		project_open_from_file(bfwin, uri);
-	} else {
-		doc_new_from_uri(bfwin, uri, NULL, FALSE,FALSE, -1, -1);
-	}
-	g_object_unref(uri);
-}
-
-static void recent_menu_add(Tbfwin *bfwin, GtkMenu *menu, const gchar *curi) {
-	GtkWidget *menuitem;
-	menuitem = gtk_menu_item_new_with_label(curi);
-	g_signal_connect(menuitem, "activate", G_CALLBACK(recent_menu_activate), bfwin);
-	gtk_menu_shell_insert(GTK_MENU_SHELL(menu), menuitem, 1);
-	gtk_widget_show(menuitem);
-}
-
-static void
 recent_menu_remove_backend(Tbfwin *bfwin, const gchar *menupath, const gchar *curi)
 {
 	GtkWidget *menuitem, *menu;
@@ -1845,6 +1822,41 @@ bfwin_recent_menu_remove(Tbfwin *bfwin, gboolean project, const gchar *curi)
 					project ? "/MainMenu/ProjectMenu/ProjectOpenRecent" :"/MainMenu/FileMenu/FileOpenRecent", curi);
 		}
 	}
+}
+
+static void
+recent_menu_activate(GtkMenuItem * menuitem, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+	const gchar *str = gtk_menu_item_get_label(menuitem);
+	gint len = strlen(str);
+	GFile *uri = g_file_new_for_uri(str);
+	if (g_strcmp0(str+len-10,".bfproject")==0) {
+		gint status = project_open_from_file(bfwin, uri);
+		if (status == 0) {
+			gint retval = project_not_found_dialog(bfwin, uri);
+			switch (retval) {
+				case 0:
+					remove_filename_from_recentlist(bfwin, TRUE, uri);
+					break;
+				case 1:
+					remove_filename_from_recentlist(bfwin, TRUE, uri);
+					project_open(bfwin);
+					break;
+			}
+		}
+	} else {
+		doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1);
+	}
+  	g_object_unref(uri);
+}
+
+static void recent_menu_add(Tbfwin *bfwin, GtkMenu *menu, const gchar *curi) {
+	GtkWidget *menuitem;
+	menuitem = gtk_menu_item_new_with_label(curi);
+	g_signal_connect(menuitem, "activate", G_CALLBACK(recent_menu_activate), bfwin);
+	gtk_menu_shell_insert(GTK_MENU_SHELL(menu), menuitem, 1);
+	gtk_widget_show(menuitem);
 }
 
 static void
