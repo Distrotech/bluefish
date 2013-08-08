@@ -365,7 +365,11 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 	curi = g_file_get_uri(fromuri);
 	main_v->globses.recent_projects =
 				add_to_history_stringlist(main_v->globses.recent_projects, curi, TRUE);
-	bfwin_recent_menu_remove(bfwin, TRUE, curi);
+	if (main_v->props.recent_means_recently_closed) {
+		bfwin_recent_menu_remove(bfwin, TRUE, curi);
+	} else {
+		bfwin_recent_menu_add(bfwin,TRUE, curi);
+	}
 	if (main_v->props.register_recent_mode != 0) {
 		gtk_recent_manager_add_item(main_v->recentm, curi);
 	}
@@ -437,7 +441,7 @@ project_save_and_mark_closed(Tbfwin * bfwin)
 	if (bfwin->project) {
 		project_save(bfwin, FALSE);
 
-		if (bfwin->project->uri) {
+		if (bfwin->project->uri && main_v->props.recent_means_recently_closed) { /* Add menu entry only if we use "recently_closed" logic otherwise it is already there*/
 			gchar *curi = g_file_get_uri(bfwin->project->uri);
 			bfwin_recent_menu_add(bfwin, TRUE, curi);
 			g_free(curi);
