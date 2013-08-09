@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.5\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2013-08-08 10:51+0200\n"
+"POT-Creation-Date: 2013-08-09 08:59+0200\n"
 "PO-Revision-Date: 2013-08-08 14:24+0200\n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
@@ -289,7 +289,7 @@ msgstr "Tout sélectionner"
 msgid "Add Boo_kmark"
 msgstr "Ajouter un _signet"
 
-#: ../src/bfwin_uimanager.c:855 ../src/document.c:1992
+#: ../src/bfwin_uimanager.c:855 ../src/document.c:2012
 msgid "Add bookmark"
 msgstr "Ajouter un signet"
 
@@ -617,7 +617,7 @@ msgstr "_Justifier"
 msgid "Wrap text"
 msgstr "Justifier"
 
-#: ../src/bfwin_uimanager.c:944 ../src/document.c:3085
+#: ../src/bfwin_uimanager.c:944 ../src/document.c:3107
 msgid "_Close"
 msgstr "Fermer le doc_ument "
 
@@ -634,7 +634,7 @@ msgid "Close all files"
 msgstr "Fermer tous les fichiers"
 
 #: ../src/bfwin_uimanager.c:948 ../src/bfwin_uimanager.c:1013
-#: ../src/file_dialogs.c:1468
+#: ../src/file_dialogs.c:1483
 msgid "_Save"
 msgstr "_Enregistrer"
 
@@ -1134,7 +1134,7 @@ msgstr "É_diter…"
 msgid "_Delete"
 msgstr "_Supprimer "
 
-#: ../src/bookmark.c:901 ../src/document.c:1988
+#: ../src/bookmark.c:901 ../src/document.c:2008
 msgid "Delete bookmark"
 msgstr "Supprimer le signet"
 
@@ -1208,11 +1208,11 @@ msgstr "Impossible d'ajouter un signet"
 msgid "You already have a bookmark here!"
 msgstr "Il existe déjà un signet à cet endroit !"
 
-#: ../src/document.c:437
+#: ../src/document.c:457
 msgid "Name: "
 msgstr "Nom : "
 
-#: ../src/document.c:440
+#: ../src/document.c:460
 msgid ""
 "\n"
 "Language mode: "
@@ -1220,7 +1220,7 @@ msgstr ""
 "\n"
 "Mode de langage : "
 
-#: ../src/document.c:444
+#: ../src/document.c:464
 msgid ""
 "\n"
 "Encoding: "
@@ -1228,7 +1228,7 @@ msgstr ""
 "\n"
 "Encodage : "
 
-#: ../src/document.c:456
+#: ../src/document.c:476
 msgid ""
 "\n"
 "Mime type: "
@@ -1236,7 +1236,7 @@ msgstr ""
 "\n"
 "Type Mime : "
 
-#: ../src/document.c:464
+#: ../src/document.c:484
 #, c-format
 msgid ""
 "\n"
@@ -1247,7 +1247,7 @@ msgstr ""
 "Permissions : %s\n"
 "Uid: %u Gid: %u"
 
-#: ../src/document.c:481
+#: ../src/document.c:501
 msgid ""
 "\n"
 "Size (on disk): "
@@ -1255,7 +1255,7 @@ msgstr ""
 "\n"
 "Taille (sur le disque) : "
 
-#: ../src/document.c:490
+#: ../src/document.c:510
 msgid ""
 "\n"
 "Last modified: "
@@ -1263,72 +1263,72 @@ msgstr ""
 "\n"
 "Dernière modification : "
 
-#: ../src/document.c:546
+#: ../src/document.c:566
 #, c-format
 msgid "Untitled %d"
 msgstr "Sans titre %d"
 
-#: ../src/document.c:727
+#: ../src/document.c:747
 #, c-format
 msgid "Changed tab width to %d"
 msgstr "Largeur de tabulation modifiée en %d"
 
-#: ../src/document.c:901
+#: ../src/document.c:921
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "Le document %s est déjà ouvert dans une autre fenêtre de Bluefish."
 
-#: ../src/document.c:903
+#: ../src/document.c:923
 msgid "Move to this window"
 msgstr "Déplacer dans cette fenêtre"
 
-#: ../src/document.c:903
+#: ../src/document.c:923
 msgid "Open readonly"
 msgstr "Ouvrir en lecture seule"
 
-#: ../src/document.c:904
+#: ../src/document.c:924
 msgid "Do not open"
 msgstr "Ne pas ouvrir"
 
-#: ../src/document.c:1216
+#: ../src/document.c:1236
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " Lig : %d, Col : %d, Car : %d"
 
-#: ../src/document.c:1219
+#: ../src/document.c:1239
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " Lig : %d, Col : %d"
 
-#: ../src/document.c:1242
+#: ../src/document.c:1262
 msgid " OVR"
 msgstr " OVR"
 
-#: ../src/document.c:1242
+#: ../src/document.c:1262
 msgid " INS"
 msgstr " INS"
 
-#: ../src/document.c:1244
+#: ../src/document.c:1264
 msgid " RO"
 msgstr " RO"
 
-#: ../src/document.c:1263
+#: ../src/document.c:1283
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: ../src/document.c:1727
+#: ../src/document.c:1747
 msgid "_No"
 msgstr "_Non"
 
-#: ../src/document.c:1727
+#: ../src/document.c:1747
 msgid "_Split"
 msgstr "_Scinder"
 
-#: ../src/document.c:1730
+#: ../src/document.c:1750
 msgid "File contains very long lines. Split these lines?"
 msgstr "Le fichier contient des lignes très longues. Scinder ces lignes?"
 
-#: ../src/document.c:1730
+#: ../src/document.c:1750
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1341,27 +1341,27 @@ msgstr ""
 "tabulations par des sauts de ligne à n'importe quel endroit,ou créer des "
 "retour à la ligne si aucun espace ou tabulation n'est trouvé."
 
-#: ../src/document.c:1806
+#: ../src/document.c:1826
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 "Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
 
-#: ../src/document.c:1998
+#: ../src/document.c:2018
 msgid "Exit fullscreen"
 msgstr "Quitter le plein écran"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2142 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2162 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "_Abandonner l'enregistrement"
 
-#: ../src/document.c:2142
+#: ../src/document.c:2162
 msgid "_Continue save in UTF-8"
 msgstr "_Continuer l'enregistrement en UTF-8"
 
-#: ../src/document.c:2155
+#: ../src/document.c:2175
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1374,15 +1374,15 @@ msgstr ""
 "\n"
 "Continuer l'enregistrement en UTF-8 ?"
 
-#: ../src/document.c:2160
+#: ../src/document.c:2180
 msgid "File encoding conversion failure"
 msgstr "Échec de la conversion d'encodage du fichier"
 
-#: ../src/document.c:2317
+#: ../src/document.c:2339
 msgid "Previously: "
 msgstr "Précédemment : "
 
-#: ../src/document.c:2872 ../src/file_dialogs.c:839
+#: ../src/document.c:2894 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1391,11 +1391,11 @@ msgstr ""
 "Votre version de glib (%d.%d.%d) ne permet pas la connection à des fichiers "
 "distants. Veuillez  mettre à jour, version 2.18.0 ou plus récente."
 
-#: ../src/document.c:3001
+#: ../src/document.c:3023
 msgid "Unable to open file"
 msgstr "Impossible d'ouvrir le fichier"
 
-#: ../src/document.c:3013
+#: ../src/document.c:3035
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1404,92 +1404,92 @@ msgstr ""
 "Si vous ramenez \"%s\" à la dernière copie sauvegardée, vous perdrez "
 "définitivement les modifications en cours."
 
-#: ../src/document.c:3017
+#: ../src/document.c:3039
 msgid "Revert changes to last saved copy?"
 msgstr "Supprimer les modifications et revenir à la dernière sauvegarde ?"
 
-#: ../src/document.c:3085
+#: ../src/document.c:3107
 msgid "_Retry"
 msgstr "_Réessayer"
 
-#: ../src/document.c:3085
+#: ../src/document.c:3107
 msgid "Retry _all failed"
 msgstr "Échec de _Tout réessayer"
 
-#: ../src/document.c:3085
+#: ../src/document.c:3107
 msgid "Close all _failed"
 msgstr "Échec de Tout _fermer"
 
-#: ../src/document.c:3090
+#: ../src/document.c:3112
 msgid "File "
 msgstr "Le fichier "
 
-#: ../src/document.c:3090
+#: ../src/document.c:3112
 msgid " failed to load."
 msgstr " n'a pas pu être chargé."
 
-#: ../src/document.c:3094
+#: ../src/document.c:3116
 msgid "File failed to load\n"
 msgstr "Le fichier n'a pas pu être chargé\n"
 
-#: ../src/document.c:3219
+#: ../src/document.c:3241
 msgid "Select file to insert"
 msgstr "Sélectionner le fichier à insérer"
 
-#: ../src/document.c:3228
+#: ../src/document.c:3250
 msgid "No file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:3308
+#: ../src/document.c:3330
 msgid "Save pasted image as"
 msgstr "Enregistrer l'image collée comme"
 
-#: ../src/document.c:3404
+#: ../src/document.c:3426
 msgid "Paste special"
 msgstr "Coller spécial"
 
-#: ../src/document.c:3410
+#: ../src/document.c:3432
 msgid "No compatible clipboard data found"
 msgstr "Pas de donnée utilisable dans le presse-papier"
 
-#: ../src/document.c:3414
+#: ../src/document.c:3436
 msgid "Paste as _HTML"
 msgstr "Coller comme _HTML"
 
-#: ../src/document.c:3419
+#: ../src/document.c:3441
 msgid "Paste as HTML with _JPG"
 msgstr "Coller comme HTML avec _JPG"
 
-#: ../src/document.c:3429
+#: ../src/document.c:3451
 msgid "Paste as plain text"
 msgstr "Coller comme texte brut"
 
-#: ../src/document.c:3523
+#: ../src/document.c:3545
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d ligne"
 msgstr[1] "%d lignes"
 
-#: ../src/document.c:3524
+#: ../src/document.c:3546
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d mot"
 msgstr[1] "%d mots"
 
-#: ../src/document.c:3525
+#: ../src/document.c:3547
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caractère"
 msgstr[1] "%d caractères"
 
-#: ../src/document.c:3527
+#: ../src/document.c:3549
 msgid "Selection statistics: "
 msgstr "Dans la sélection : "
 
-#: ../src/document.c:3527
+#: ../src/document.c:3549
 msgid "Statistics: "
 msgstr "Dans le document : "
 
@@ -1924,7 +1924,7 @@ msgstr "Choisir les fichiers"
 msgid "Open URL"
 msgstr "Ouvrir une URL"
 
-#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1374
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1389
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -1957,12 +1957,12 @@ msgstr "Échec de la sauvegarde"
 msgid "Could not save file "
 msgstr "Impossible d'enregistrer le fichier "
 
-#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1509
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1524
 msgid "File changed on disk\n"
 msgstr "Le fichier a été modifié sur le disque\n"
 
 #: ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
-#: ../src/file_dialogs.c:970 ../src/project.c:309
+#: ../src/file_dialogs.c:985 ../src/project.c:309
 msgid "_Cancel"
 msgstr "An_nuler"
 
@@ -2025,72 +2025,85 @@ msgstr ""
 "Voulez-vous enregistrer les modifications apportées à \"%s\" avant de le "
 "fermer ?"
 
-#: ../src/file_dialogs.c:962 ../src/file_dialogs.c:974
+#: ../src/file_dialogs.c:962 ../src/file_dialogs.c:989
 msgid "If you don't save your changes they will be lost."
 msgstr "Si vous n'enregistrez pas les modifications, elles seront perdues."
 
-#: ../src/file_dialogs.c:970
+#: ../src/file_dialogs.c:972
+msgid "_Reopen"
+msgstr "_Réouvrir"
+
+#: ../src/file_dialogs.c:974
+#, c-format
+msgid "Project \"%s\" failed to load"
+msgstr "Le Projet \"%s\" n'a pas pu être chargé."
+
+#: ../src/file_dialogs.c:976
+msgid "Do you want to reopen project from another location?"
+msgstr "Voulez-vous rouvrir le projet d'un autre emplacement ?"
+
+#: ../src/file_dialogs.c:985
 msgid "Choose per _File"
 msgstr "Choisir par _fichier"
 
-#: ../src/file_dialogs.c:970
+#: ../src/file_dialogs.c:985
 msgid "Close _All"
 msgstr "_Tout fermer"
 
-#: ../src/file_dialogs.c:970
+#: ../src/file_dialogs.c:985
 msgid "_Save All"
 msgstr "Tout enregi_strer"
 
-#: ../src/file_dialogs.c:973
+#: ../src/file_dialogs.c:988
 msgid "One or more open files have been changed."
 msgstr "Un ou plusieurs fichiers ont été modifiés."
 
-#: ../src/file_dialogs.c:1294
+#: ../src/file_dialogs.c:1309
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">%d echec</span>"
 msgstr[1] "<span color=\"red\">%d échecs</span>"
 
-#: ../src/file_dialogs.c:1303
+#: ../src/file_dialogs.c:1318
 msgid "incomplete finished"
 msgstr "terminé de façon incomplète"
 
-#: ../src/file_dialogs.c:1305
+#: ../src/file_dialogs.c:1320
 msgid "completed"
 msgstr "terminé"
 
-#: ../src/file_dialogs.c:1360
+#: ../src/file_dialogs.c:1375
 msgid "Upload / Download"
 msgstr "Envoyer / Télécharger"
 
-#: ../src/file_dialogs.c:1363
+#: ../src/file_dialogs.c:1378
 msgid "Upload"
 msgstr "Envoyer"
 
-#: ../src/file_dialogs.c:1363
+#: ../src/file_dialogs.c:1378
 msgid "Download"
 msgstr "Télécharger"
 
-#: ../src/file_dialogs.c:1386
+#: ../src/file_dialogs.c:1401
 msgid "Local directory"
 msgstr "Répertoire local"
 
-#: ../src/file_dialogs.c:1392
+#: ../src/file_dialogs.c:1407
 msgid "Remote directory"
 msgstr "Répertoire distant"
 
-#: ../src/file_dialogs.c:1397
+#: ../src/file_dialogs.c:1412
 msgid "Delete deprecated files"
 msgstr "Supprimer les fichiers obsolètes"
 
-#: ../src/file_dialogs.c:1401
+#: ../src/file_dialogs.c:1416
 msgid "Include hidden files"
 msgstr "Inclure les fichiers cachés"
 
 # c-format
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1445
+#: ../src/file_dialogs.c:1460
 #, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -2107,29 +2120,29 @@ msgstr ""
 "Taille originale : %s\n"
 "Nouvelle taille : %s"
 
-#: ../src/file_dialogs.c:1468
+#: ../src/file_dialogs.c:1483
 msgid "_Unset file name"
 msgstr "S_upprimer le nom de fichier"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1470
+#: ../src/file_dialogs.c:1485
 #, c-format
 msgid "File name: %s"
 msgstr "Nom du fichier : %s"
 
-#: ../src/file_dialogs.c:1473
+#: ../src/file_dialogs.c:1488
 msgid "File disappeared from disk\n"
 msgstr "Le fichier n'est plus sur le disque\n"
 
-#: ../src/file_dialogs.c:1492
+#: ../src/file_dialogs.c:1507
 msgid "_Ignore"
 msgstr "_Ignorer"
 
-#: ../src/file_dialogs.c:1492
+#: ../src/file_dialogs.c:1507
 msgid "_Reload"
 msgstr "_Recharger"
 
-#: ../src/file_dialogs.c:1492
+#: ../src/file_dialogs.c:1507
 msgid "Check and reload all documents"
 msgstr "Vérifier et recharger tous les documents"
 
@@ -3081,26 +3094,26 @@ msgstr "Languages"
 msgid "Enter Bluefish project filename"
 msgstr "Saisir le nom du projet Bluefish"
 
-#: ../src/project.c:426
+#: ../src/project.c:432
 msgid "Select Bluefish project filename"
 msgstr "Sélectionner le nom de fichier du projet Bluefish"
 
-#: ../src/project.c:588
+#: ../src/project.c:594
 msgid "Create New Project"
 msgstr "Créer un projet"
 
-#: ../src/project.c:591
+#: ../src/project.c:597
 msgid "Edit Project"
 msgstr "Éditer le projet"
 
-#: ../src/project.c:617
+#: ../src/project.c:623
 #, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
 msgstr[0] "Ce projet contient %d fichier"
 msgstr[1] "Ce projet contient %d fichiers"
 
-#: ../src/project.c:630
+#: ../src/project.c:636
 msgid "Project _Name:"
 msgstr "_Nom du projet :"
 
@@ -3109,23 +3122,23 @@ msgstr "_Nom du projet :"
 #. but = file_but_new(pred->entries[template], 1, NULL);
 #. gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
-#: ../src/project.c:638
+#: ../src/project.c:644
 msgid "<b>Project Defaults</b>"
 msgstr "<b>Paramètres par défaut</b>"
 
-#: ../src/project.c:652
+#: ../src/project.c:658
 msgid "Create _Project"
 msgstr "Créer un _projet"
 
-#: ../src/project.c:701
+#: ../src/project.c:707
 msgid "Create project"
 msgstr "Créer un projet"
 
-#: ../src/project.c:706
+#: ../src/project.c:712
 msgid "Create project with currently opened documents"
 msgstr "Créer un projet avec les documents ouverts"
 
-#: ../src/project.c:708
+#: ../src/project.c:714
 msgid "Create empty project"
 msgstr "Créer un projet vide"
 
