@@ -444,7 +444,7 @@ htmlbar_insert_font_minus_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
 						   main_v->props.xhtml ==
-						   1 ? cap("<SPAN STYLE=\"font-size: larger;\">") : cap("<FONT SIZE=\"+1\">")
+						   1 ? cap("<SPAN STYLE=\"font-size: smaller;\">") : cap("<FONT SIZE=\"-1\">")
 						   , main_v->props.xhtml == 1 ? cap("</SPAN>") : cap("</FONT>"));
 }
 
@@ -453,7 +453,7 @@ htmlbar_insert_font_plus_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
 						   main_v->props.xhtml ==
-						   1 ? cap("<SPAN STYLE=\"font-size: smaller;\">") : cap("<FONT SIZE=\"-1\">")
+						   1 ? cap("<SPAN STYLE=\"font-size: larger;\">") : cap("<FONT SIZE=\"+1\">")
 						   , main_v->props.xhtml == 1 ? cap("</SPAN>") : cap("</FONT>"));
 }
 
