@@ -813,6 +813,8 @@ file2doc_finished_idle_lcb(gpointer data)
 		f2d->doc->block_undo_reg = FALSE;
 		doc_unre_new_group(f2d->doc);
 		DEBUG_MSG("file2doc_finished_idle_lcb, inserted loaded file\n");
+		doc_reset_filetype(f2d->doc, f2d->doc->uri, f2d->buffer->data, f2d->buflen);
+		doc_set_tooltip(f2d->doc);
 		f2d->doc->autosave_uri = f2d->recover_uri;
 		f2d->doc->autosaved = register_autosave_journal(f2d->recover_uri, f2d->doc->uri, NULL);
 		doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
@@ -1069,7 +1071,7 @@ file_doc_from_uri(Tbfwin * bfwin, GFile * uri, GFile * recover_uri, GFileInfo * 
 {
 	Tfile2doc *f2d;
 	f2d = g_slice_new0(Tfile2doc);
-	DEBUG_MSG("file_doc_from_uri, open uri %p, f2d=%p\n", uri, f2d);
+	g_print("file_doc_from_uri, open uri %p, f2d=%p\n", uri, f2d);
 	f2d->bfwin = bfwin;
 	f2d->uri = g_object_ref(uri);
 	if (recover_uri) {
