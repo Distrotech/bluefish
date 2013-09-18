@@ -1276,6 +1276,8 @@ nextcache_valid(Tscanning * scanning)
 					  scanning->nextfound, scanning->nextfound->numblockchange, scanning->nextfound->fblock, scanning->curfblock);
 		return FALSE;
 	}
+	DBG_SCANCACHE("nextcache_valid, next found %p with numcontextchange=%d has fcontext=%p, current fcontext=%p\n",
+		scanning->nextfound, scanning->nextfound->numcontextchange, scanning->nextfound->fcontext, scanning->curfcontext);
 	if (G_UNLIKELY(scanning->nextfound->numcontextchange <= 0 && scanning->nextfound->fcontext != scanning->curfcontext)) {
 		DBG_SCANCACHE("nextcache_valid, next found %p with numcontextchange=%d has fcontext=%p, current fcontext=%p, return FALSE\n",
 					  scanning->nextfound, scanning->nextfound->numcontextchange, scanning->nextfound->fcontext, scanning->curfcontext);
@@ -1373,6 +1375,13 @@ remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tscanning * scan
 		if (ret > invalidoffset)
 			invalidoffset = ret;
 	} while (scanning->nextfound && (scanning->nextfound->charoffset_o <= match_end_o || !nextcache_valid(scanning)));
+	/* if there is no nextfound (so we removed the last items in the cache, we should return up to the end of the buffer as invalid */
+	if (!scanning->nextfound) {
+		GtkTextIter iter;
+		gtk_text_buffer_get_end_iter(btv->buffer, &iter);
+		invalidoffset = gtk_text_iter_get_offset(&iter);
+	}
+	
 	DBG_SCANNING("remove_invalid_cache, return invalidoffset %d\n", invalidoffset);
 	return invalidoffset;
 /*	guint invalidoffset;
@@ -1483,8 +1492,10 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	}
 
 	if G_LIKELY((!pat->starts_block && !pat->ends_block
-		&& (pat->nextcontext == 0 || pat->nextcontext == scanning->context)))
+		&& (pat->nextcontext == 0 || pat->nextcontext == scanning->context))) {
+		DBG_SCANNING("found_match, pattern does not start block or context, return\n");
 		return scanning->context;
+	}
 
 	/* There are three situations comparing the current scan to the cached results:
 	   1: the cache entry has an offset lower than the current offset or equal but a different patternum and
@@ -1542,6 +1553,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	/* TODO: in all cases: if we find a previously unknown match and there is no nextfound we
 	   have to scan to the end of the text */
 	if (!scanning->nextfound) {
+		DBG_SCANNING("no nextfound, so enlarge scanning region to end iter\n");
 		gtk_text_buffer_get_end_iter(btv->buffer, &iter);
 		enlarge_scanning_region_to_iter(btv, scanning, &iter);
 	}
@@ -1584,6 +1596,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 		DBG_SCANCACHE("found_match, found %p with offset %d will be removed\n", scanning->nextfound,
 						  scanning->nextfound->charoffset_o);
 		invalidoffset = remove_invalid_cache(btv, match_end_o, scanning);
+		DBG_SCANCACHE("found_match, now enlarge scanning region to %d\n", invalidoffset);
 		enlarge_scanning_region(btv, scanning, invalidoffset);
 	}
 
