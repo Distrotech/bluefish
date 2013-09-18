@@ -351,7 +351,8 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 
 	blockstackcount = MAX(0, tmpfound1->numblockchange);
 	contextstackcount = MAX(0, tmpfound1->numcontextchange);
-	/* remove the children */
+	/* 	if this found has pushed a block or a context on the stack, we will delete all further 
+	blocks until we find the block that pops this block or context again */
 	DBG_SCANCACHE
 		("remove_cache_entry, remove in loop all children of found %p (numblockchange=%d,numcontextchange=%d) with offset %d, next found in cache=%p\n",
 		 tmpfound1, tmpfound1->numblockchange, tmpfound1->numcontextchange, tmpfound1->charoffset_o, *found);
@@ -365,6 +366,14 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 		DBG_SCANCACHE
 			("in loop: remove Tfound %p with offset %d, fcontext=%p, numcontextchange=%d, fblock=%p, numblockchange=%d, from the cache and free, contextstackcount=%d, blockstackcount=%d, nextfound=%p\n",
 			 tmpfound2, tmpfound2->charoffset_o, tmpfound2->fcontext, tmpfound2->numcontextchange, tmpfound2->fblock, tmpfound2->numblockchange, contextstackcount, blockstackcount, *found);
+		if (tmpfound2->numblockchange < 0 && blockstackcount < 0) {
+			/* a blockstack < 0 probably means that this found pops a 
+			block that started before the found that we started to remove 
+			in this function, so let's set the end to undefined */
+			tmpfound2->fblock->start2_o = BF_POSITION_UNDEFINED;
+			tmpfound2->fblock->end2_o = BF_POSITION_UNDEFINED;
+		}
+		
 		invalidoffset = tmpfound2->charoffset_o;
 		g_sequence_remove(tmpsiter2);
 		found_free_lcb(tmpfound2, btv);
