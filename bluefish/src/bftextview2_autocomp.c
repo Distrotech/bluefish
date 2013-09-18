@@ -127,7 +127,7 @@ get_existing_end_len(BluefishTextView * btv, const gchar *string, gint prefix_by
 {
 	gchar *tmp;
 	GtkTextIter it1, it2;
-	gint i;
+	gint i,len;
 	gint string_len = g_utf8_strlen(string, -1);
 
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &it1, gtk_text_buffer_get_insert(btv->buffer));
@@ -137,9 +137,11 @@ get_existing_end_len(BluefishTextView * btv, const gchar *string, gint prefix_by
 	DBG_AUTOCOMP("get the text %d:%d\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2));
 	tmp = gtk_text_buffer_get_text(btv->buffer, &it1, &it2, TRUE);
 	g_print("got tmp='%s'\n",tmp);
-	i = strlen(tmp);
+	len = strlen(tmp);
+	i = len-1;
 	do {
-		if (strncmp(string+prefix_bytelen+i, tmp, i)==0) {
+		DBG_AUTOCOMP("get_existing_end_len, compare %d characters of %s and %s\n",i,string+prefix_bytelen+len-i,tmp);
+		if (strncmp(string+prefix_bytelen+len-i, tmp, i)==0) {
 			DBG_AUTOCOMP("get_existing_end_len, found %d existing characters\n",i);
 			g_free(tmp);
 			return i;
@@ -576,9 +578,6 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 			if (fblock && fblock->start2_o != BF_OFFSET_UNDEFINED) {
 				g_print("abort offering closing tag: block has an end already\n");
 				fblock = NULL;
-				DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n",
-						 fblock->patternum, g_array_index(master->bflang->st->matches, Tpattern,
-														  fblock->patternum).tagclose_from_blockstack);
 			}
 /*		if (g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).tagclose_from_blockstack) {
 				gchar *start;
