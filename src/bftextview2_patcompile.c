@@ -909,6 +909,9 @@ add_pattern_to_scanning_table(Tscantable * st, const gchar * pattern,
 		return 0;
 	}
 	matchnum = st->matches->len;
+	if (matchnum == G_MAXUINT16) {
+		g_warning("Language file has too many patterns, this will very likely result in a crash!\n");
+	}
 	g_array_set_size(st->matches, st->matches->len + 1);
 	g_array_index(st->matches, Tpattern, matchnum).pattern = g_strdup(pattern);
 	g_array_index(st->matches, Tpattern, matchnum).case_insens = case_insens;

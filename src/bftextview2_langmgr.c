@@ -927,7 +927,7 @@ static guint16
 add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringname, const gchar *singlematch, const gchar *fullmatch)
 {
 	static const gchar *stringhighlight = "attribute-string";
-	guint16 strcontext, endmatch, matchstring;
+	guint16 strcontext, endmatch=0, matchstring;
 	const gchar *val = lookup_user_option(bfparser->bflang->name, "attribute_string_is_block");
 	gchar *contextname = g_strconcat(stringname, ".context", NULL);
 	strcontext = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, contextname));
@@ -940,7 +940,9 @@ add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringnam
 	pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,strcontext,FALSE,FALSE,0,FALSE,FALSE);
 	if (val && val[0]=='1') {
 		pattern_set_blockmatch(bfparser->st, matchstring,TRUE,FALSE,0,NULL,NULL,FALSE);
-		pattern_set_blockmatch(bfparser->st, endmatch,FALSE,TRUE,matchstring,NULL,NULL,FALSE);
+		if (endmatch!=0) {
+			pattern_set_blockmatch(bfparser->st, endmatch,FALSE,TRUE,matchstring,NULL,NULL,FALSE);
+		}
 	}
 	g_hash_table_insert(bfparser->patterns, g_strdup(stringname),
 						GINT_TO_POINTER((gint) matchstring));
