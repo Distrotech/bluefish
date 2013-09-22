@@ -780,7 +780,7 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 		gchar *newfilename, *curi, *dialogtext;
 		const gchar *gui_name = gtk_label_get_text(GTK_LABEL(doc->tab_label));
 		DEBUG_MSG("doc_save_backend, no uri (doc->uri=%p), or saveas/copy/move (savemode=%d)\n", doc->uri, savemode);
-		curi = doc->uri ? g_file_get_uri(doc->uri) : NULL;
+		curi = doc->uri ? g_file_get_uri(doc->uri) : g_strdup(gui_name); /* SaveFile dialog shows weird behavior if NULL is passed as suggested filename */
 		if (savemode == docsave_normal) {
 			dialogtext = g_strdup(_("Save"));
 		} else if (savemode == docsave_saveas){
