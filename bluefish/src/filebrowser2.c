@@ -2003,6 +2003,9 @@ popup_menu_view_mode_changed(GtkRadioAction * action, GtkRadioAction * current, 
 
 	BFWIN(fb2->bfwin)->session->filebrowser_viewmode = view_mode;
 	fb2_set_viewmode_widgets(fb2, view_mode);
+	/* Focus to current document in order to update fb view  when viewmode changes*/
+	if (fb2->bfwin->current_document)
+		fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
 }
 
 static void
@@ -2138,9 +2141,13 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 		return;
 	}
 	fb2->last_popup_on_dir = is_directory;
-
-	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FB2FollowActiveDoc",
-										 fb2->bfwin->session->filebrowser_focus_follow);
+	/* We need to disconnect signals during toggling the action since this emits the signal and filebrowser follows to active documents on first activation of popup */
+	GtkToggleAction *follow_active_doc_action = gtk_ui_manager_get_action(bfwin->uimanager, "/FileBrowserMenu/FB2FollowActiveDoc");
+	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(follow_active_doc_action)) != fb2->bfwin->session->filebrowser_focus_follow) {
+		g_signal_handlers_disconnect_by_func(GTK_TOGGLE_ACTION(follow_active_doc_action), G_CALLBACK(popup_menu_follow_active_doc), fb2);
+		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(follow_active_doc_action), fb2->bfwin->session->filebrowser_focus_follow);
+		g_signal_connect(G_OBJECT(follow_active_doc_action), "toggled", G_CALLBACK(popup_menu_follow_active_doc), fb2);
+	}
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FB2ShowBackupFiles",
 										 fb2->filebrowser_show_backup_files);
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FB2ShowHiddenFiles",
@@ -2192,8 +2199,6 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 
 		if (fb2->curfilter == filter)
 			gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
-
-		value++;
 	}
 
 	gtk_widget_show(menu);
