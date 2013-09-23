@@ -394,19 +394,204 @@
 		<element pattern="statusbar"/>
 		<element pattern="toolbar"/>
 		<group class="javascript_document_object">
-			<element pattern="alinkColor"/>
-			<element pattern="bgColor"/>
-			<element pattern="charset"/>
-			<element pattern="cookie"/>
-			<element pattern="defaultCharset"/>
-			<element pattern="fgColor"/>
-			<element pattern="lastModified"/>
-			<element pattern="linkColor"/>
-			<element pattern="referrer"/>
-			<element pattern="title"/>
-			<element pattern="URL"/>
-			<element pattern="vlinkColor"/>
-			<element pattern="innerHTML" />
+	<element pattern="activeElement">
+				<reference><i>document.activeElement</i> Returns the currently focused element
+				<b>Return Type:</b> Element
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="anchors">
+				<reference><i>document.anchors</i> Returns a list of all of the anchors in the document.
+				<b>Return Type:</b> HTMLCollection
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
+			<element pattern="async">
+				<reference><i>document.async</i> Used with document.load to indicate an asynchronous request.
+				<b>Return Type:</b> n/a
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="body">
+				<reference><i>document.body</i> Returns the BODY node of the current document.
+				<b>Return Type:</b> HTMLBodyElement
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
+			<element pattern="characterSet">
+				<reference><i>document.characterSet</i> Returns the character set being used by the document.
+				<b>Return Type:</b> String
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="compatMode">
+				<reference><i>document.compatMode</i> Indicates whether the document is rendered in Quirks or Strict mode.
+				<b>Return Type:</b> String
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
+			<element pattern="contentType">
+				<reference><i>document.contentType</i> Returns the Content-Type from the MIME Header of the current document.
+				<b>Return Type:</b> String
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="cookie">
+				<reference><i>document.cookie</i> Returns a semicolon-separated list of the cookies for that document or sets a single cookie.
+				<b>Return Type:</b> String
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
+			<element pattern="defaultView">
+				<reference><i>document.defaultView</i> Returns a reference to the window object.
+				<b>Return Type:</b> Window
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="designMode">
+				<reference><i>document.designMode</i> Gets/sets WYSYWIG editing capability of Midas. It can only be used for HTML documents.
+				<b>Return Type:</b> String
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
+			<element pattern="dir">
+				<reference><i>document.dir</i> Gets/sets directionality (rtl/ltr) of the document
+				<b>Return Type:</b> String
+				<b>Availability:</b> ?
+				</reference>
+			</element>
+			<element pattern="doctype">
+				<reference><i>document.doctype</i> Returns the Document Type Definition (DTD) of the current document.
+				<b>Return Type:</b> DocumentType
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="documentElement">
+				<reference><i>document.documentElement</i> Returns the Element that is a direct child of document. For HTML documents, this is normally the HTML element.
+				<b>Return Type:</b> Element
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="documentURI">
+				<reference><i>document.documentURI</i> Returns the document location.
+				<b>Return Type:</b> String
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="domain">
+				<reference><i>document.domain</i> Returns the domain of the current document.
+				<b>Return Type:</b> String
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
+			<element pattern="forms">
+				<reference><i>document.forms</i> Returns a list of the FORM elements within the current document.
+				<b>Return Type:</b> HTMLCollection
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
+			<element pattern="head">
+				<reference><i>document.head</i> Returns the HEAD node of the current document.
+				<b>Return Type:</b> HTMLHeadElement
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
+			<element pattern="images">
+				<reference><i>document.images</i> Returns a list of the images in the current document.
+				<b>Return Type:</b> HTMLCollection
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
+			<element pattern="implementation">
+				<reference><i>document.implementation</i> Returns the DOM implementation associated with the current document.
+				<b>Return Type:</b> DOMImplementation
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="inputEncoding">
+				<reference><i>document.inputEncoding</i> Returns the encoding used when the document was parsed.
+				<b>Return Type:</b> String
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="lastModified">
+				<reference><i>document.lastModified</i> Returns the date on which the document was last modified.
+				<b>Return Type:</b> String
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="lastStyleSheetSet">
+				<reference><i>document.lastStyleSheetSet</i> Returns the name of the style sheet set that was last enabled. Has the value null until the style sheet is changed by setting the value of selectedStyleSheetSet.
+				<b>Return Type:</b> String
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="links">
+				<reference><i>document.links</i> Returns a list of all the hyperlinks in the document.
+				<b>Return Type:</b> HTMLCollection
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
+			<element pattern="location">
+				<reference><i>document.location</i> Returns the URI of the current document.
+				<b>Return Type:</b> Location
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="plugins">
+				<reference><i>document.plugins</i> Returns a list of the available plugins.
+				<b>Return Type:</b> HTMLCollection
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
+			<element pattern="preferredStyleSheetSet">
+				<reference><i>document.preferredStyleSheetSet</i> Returns the preferred style sheet set as specified by the page author.
+				<b>Return Type:</b> String
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="readyState">
+				<reference><i>document.readyState</i> Returns loading status of the document
+				<b>Return Type:</b> String
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="referrer">
+				<reference><i>document.referrer</i> Returns the URI of the page that linked to this page.
+				<b>Return Type:</b> String
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="scripts">
+				<reference><i>document.scripts</i> Returns all the &amp;lt;script&amp;gt; elements on the document.
+				<b>Return Type:</b> HTMLCollection
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
+			<element pattern="selectedStyleSheetSet">
+				<reference><i>document.selectedStyleSheetSet</i> Returns which style sheet set is currently in use.
+				<b>Return Type:</b> String
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="styleSheets">
+				<reference><i>document.styleSheets</i> Returns a list of the stylesheet objects on the current document.
+				<b>Return Type:</b> StyleSheetList
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="styleSheetSets">
+				<reference><i>document.styleSheetSets</i> Returns a list of the style sheet sets available on the document.
+				<b>Return Type:</b> StringList
+				<b>Availability:</b> All
+				</reference>
+			</element>
+			<element pattern="URL">
+				<reference><i>document.URL</i> Returns a string containing the URL of the current document.
+				<b>Return Type:</b> String
+				<b>Availability:</b> HTML
+				</reference>
+			</element>
 			<group class="javascript_anchors_object">
 <!-- 				<element pattern="name"/> -->
 				<element pattern="length"/>
@@ -416,17 +601,82 @@
 			</group>
 <!-- 			<element pattern="length" class="javascript_applets_object"/> -->
 			<group class="javascript_node_object">
-				<element pattern="attributes"/>
-				<element pattern="childNodes"/>
-				<element pattern="data"/>
-				<element pattern="firstChild"/>
-				<element pattern="lastChild"/>
-				<element pattern="nextSibling"/>
-				<element pattern="nodeName"/>
-				<element pattern="nodeType"/>
-				<element pattern="nodeValue"/>
-				<element pattern="parentNode"/>
-				<element pattern="previousSibling"/>
+				<element pattern="baseURI">
+					<reference><i>Node.baseURI</i>
+						Read only
+						Returns a DOMString representing the base URL. The concept of base URL changes from one language to another; in HTML, it corresponds to the protocol, the domain name and the directory structure, that is all until the last '/'.
+					</reference>
+				</element>
+				<element pattern="childNodes">
+					<reference><i>Node.childNodes</i>
+						Read only
+						Returns a live NodeList containing all the children of this node. NodeList being live means that if the children of the Node change, the NodeList object is automatically updated.
+					</reference>
+				</element>
+				<element pattern="firstChild">
+					<reference><i>Node.firstChild</i>
+						Read only
+						Returns a Node representing the first direct child node of the node, or null if the node has no child.
+					</reference>
+				</element>
+				<element pattern="lastChild">
+					<reference><i>Node.lastChild</i>
+						Read only
+						Returns a Node representing the last direct child node of the node, or null if the node has no child.
+					</reference>
+				</element>
+				<element pattern="nextSibling">
+					<reference><i>Node.nextSibling</i>
+						Read only
+						Returns a Node representing the next node in the tree, or null if there isn't such node.
+					</reference>
+				</element>
+				<element pattern="nodeName">
+					<reference><i>Node.nodeName</i>
+						Read only
+						Returns a DOMString containing the name of the Node. The structure of the name will differ with the name type. E.g. An HTMLElement will contain the name of the corresponding tag, like 'audio' for an HTMLAudioElement, a Text node will have the '#text' string, or a Document node will have the '#document' string.
+					</reference>
+				</element>
+				<element pattern="nodeType">
+					<reference><i>Node.nodeType</i>
+						Read only
+						Returns an unsigned short representing the type of the node. 
+					</reference>
+				</element>
+				<element pattern="nodeValue">
+					<reference><i>Node.nodeValue</i>
+						Is a DOMString representing the value of an object. For most Node type, this returns null and any set operation is ignored. For nodes of type TEXT_NODE (Text objects), COMMENT_NODE (Comment objects), and PROCESSING_INSTRUCTION_NODE (ProcessingInstruction objects), the value corresponds to the text data contained in the object.
+					</reference>
+				</element>
+				<element pattern="ownerDocument">
+					<reference><i>Node.ownerDocument</i>
+						Read only
+						Returns the Document that this node belongs to. If no document is associated with it, returns null.
+					</reference>
+				</element>
+				<element pattern="parentNode">
+					<reference><i>Node.parentNode</i>
+						Read only
+						Returns a Node that is the parent of this node. If there is no such node, like if this node is the top of the tree or if doesn't participate in a tree, this property returns null.
+					</reference>
+				</element>
+				<element pattern="parentElement">
+					<reference><i>Node.parentElement</i>
+						Read only
+						Returns an Element that is the parent of this node. If the node has no parent, or if that parent is not an Element, this property returns null.
+					</reference>
+				</element>
+				<element pattern="previousSibling">
+					<reference><i>Node.previousSibling</i>
+						Read only
+						Returns a Node representing the previous node in the tree, or null if there isn't such node.
+					</reference>
+				</element>
+				<element pattern="textContent">
+					<reference><i>Node.textContent</i>
+						Is a DOMString representing the textual content of an element and all its descendants.
+					</reference>
+				</element>
 			</group>
 		</group>
 		<group class="javascript_event_object">
