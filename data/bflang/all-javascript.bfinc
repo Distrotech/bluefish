@@ -309,39 +309,35 @@
 	</group>
 </group>
 	<!-- string -->
-<group class="javascript_string_object">
-	<group highlight="js-function" >
-		<autocomplete append="()" backup_cursor="1" />
-		<element pattern="anchor"/>
-		<element pattern="big"/>
-		<element pattern="blink"/>
-		<element pattern="bold"/>
-		<element pattern="charAt"/>
-		<element pattern="charCodeAt"/>
-		<element pattern="concat"/>
-		<element pattern="fixed"/>
-		<element pattern="fontcolor"/>
-		<element pattern="fontsize"/>
-		<element pattern="fromCharCode"/>
-		<element pattern="indexOf"/>
-		<element pattern="italics"/>
-		<element pattern="lastIndexOf"/>
-		<element pattern="link"/>
-<!-- 		<element pattern="match"/> -->
-<!-- 		<element pattern="search"/> -->
-		<element pattern="slice"/>
-		<element pattern="small"/>
-		<element pattern="split"/>
-		<element pattern="strike"/>
-		<element pattern="sub"/>
-		<element pattern="substr"/>
-		<element pattern="substring"/>
-		<element pattern="sup"/>
-		<element pattern="toLowerCase"/>
-		<element pattern="toUpperCase"/>
-	</group>
-	<!-- elements that may contain a regexp -->
-	<element pattern="replace" highlight="js-function" >
+<group class="javascript_string_object" highlight="js-function" >
+	<autocomplete append="()" backup_cursor="1" />
+	<element pattern="anchor"/>
+	<element pattern="big"/>
+	<element pattern="blink"/>
+	<element pattern="bold"/>
+	<element pattern="charAt"/>
+	<element pattern="charCodeAt"/>
+	<element pattern="concat"/>
+	<element pattern="fixed"/>
+	<element pattern="fontcolor"/>
+	<element pattern="fontsize"/>
+	<element pattern="fromCharCode"/>
+	<element pattern="indexOf"/>
+	<element pattern="italics"/>
+	<element pattern="lastIndexOf"/>
+	<element pattern="link"/>
+	<element pattern="slice"/>
+	<element pattern="small"/>
+	<element pattern="split"/>
+	<element pattern="strike"/>
+	<element pattern="sub"/>
+	<element pattern="substr"/>
+	<element pattern="substring"/>
+	<element pattern="sup"/>
+	<element pattern="toLowerCase"/>
+	<element pattern="toUpperCase"/>
+<!-- elements that may contain a regexp -->
+	<element pattern="replace" >
 		<autocomplete append="(,)" backup_cursor="2" />
 		<context id="c.js.regex" symbols="(" >
 			<element pattern="(" highlight="js-brackets" >
@@ -357,15 +353,14 @@
 			</element>
 		</context>
 	</element>
-		<element pattern="match">
-			<context idref="c.js.regex" />
-		</element>
-		<element pattern="search">
-			<context idref="c.js.regex" />
-		</element>
-	<!-- TODO highligt regex-string as js-value,  newstring as js-string  -->
+	<element pattern="match">
+		<context idref="c.js.regex" />
+	</element>
+	<element pattern="search">
+		<context idref="c.js.regex" />
+	</element>
+<!-- TODO highligt regex-string as js-value,  newstring as js-string  -->
 </group>
-<!-- regexp -->
 <group highlight="js-function" >
 	<autocomplete append="()" backup_cursor="1" />
 	<element pattern="exec" >
