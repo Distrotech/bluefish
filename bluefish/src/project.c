@@ -431,7 +431,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 			doc_destroy(prwin->current_document, TRUE); /*new window is created with empty doc, so we destroy it TODO move empty tab creation from bfwin_create_main() */
 	}
 	tmplist = g_list_last(prj->files);
-	gint doc_index = 0;
+	gint doc_index = -1;
 	gint i =0;
 	gint cursor_offset = -1;
 	gint goto_offset = -1; 
@@ -441,10 +441,11 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 		while (tmplist) {
 			GFile *uri;
 			gchar **tmparr = (gchar **) tmplist->data;
-			if (strstr(tmparr[0], "://") == NULL)
+			if (strstr(tmparr[0], "://") == NULL) {
 				uri = g_file_new_for_path(tmparr[0]);
-			else
+			} else {
 				uri = g_file_new_for_uri(tmparr[0]);
+			}
 			
 			if (tmparr[1] && tmparr[1]!='\0') {
 				cursor_offset = atoi(tmparr[1]);
@@ -466,7 +467,11 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 			i++;
 		}
 		/* Now switch to tab that holds last active document from previous session */
-		bfwin_switch_to_document_by_index(prwin, doc_index);
+		if (doc_index == -1) {
+			bfwin->focus_next_new_doc = TRUE;
+		} else {
+			bfwin_switch_to_document_by_index(prwin, doc_index);
+		}
 		bfwin_notebook_unblock_signals(prwin);  /* Unblock signals, doc will be activated in setup_bfwin_for_project*/
 	} else {
 		doc_new(prwin, FALSE);
