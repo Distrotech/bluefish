@@ -449,7 +449,7 @@ doc_checkNsave_lcb(TcheckNsave_status status, GError * gerror, gpointer data)
 	Tdocsavebackend *dsb = data;
 	Tdocument *doc = dsb->doc;
 	gchar *errmessage;
-	DEBUG_MSG("doc_checkNsave_lcb, doc=%p, status=%d, doc->uri=%p\n", doc, status, doc->uri);
+	DEBUG_MSG("doc_checkNsave_lcb, doc=%p, status=%d, doc->uri=%p, simplesearch_snr3run=%p\n", doc, status, doc->uri, BFWIN(doc->bfwin)->simplesearch_snr3run);
 	switch (status) {
 	case CHECKANDSAVE_ERROR_NOBACKUP:
 		if (main_v->props.backup_abort_action == 0) {
