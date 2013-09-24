@@ -123,20 +123,20 @@ project_is_open(GFile * uri)
 	}
 	return NULL;
 }
-
+/*
 static void
 update_project_filelist(Tbfwin * bfwin, Tproject * prj)
 {
 	GList *tmplist;
 	DEBUG_MSG("update_project_filelist, started, bfwin=%p, prj=%p\n", bfwin, prj);
-	free_stringlist(prj->files);
+	free_arraylist(prj->files);
 	DEBUG_MSG("update_project_filelist, old list free'd, creating new list from documentlist %p (len=%d)\n",
 			  bfwin->documentlist, g_list_length(bfwin->documentlist));
 	tmplist = return_urilist_from_doclist(bfwin->documentlist);
 	prj->files = urilist_to_stringlist(tmplist);
 	free_urilist(tmplist);
 	
-}
+}*/
 
 static void
 update_project_filearray_list(Tbfwin * bfwin, Tproject * prj)
@@ -226,7 +226,7 @@ project_destroy(Tproject * project)
 	DEBUG_MSG("project_destroy, project=%p, project->session=%p\n", project, project->session);
 	bookmark_data_cleanup(project->bmarkdata);
 	if (project->files)
-		free_stringlist(project->files);
+		free_arraylist(project->files);
 	if (project->session)
 		free_session(project->session);
 	if (project->uri)
@@ -247,7 +247,7 @@ create_new_project(Tbfwin * bfwin)
 	DEBUG_MSG("create_new_project, project=%p, bfwin=%p\n", prj, bfwin);
 	if (bfwin) {
 		DEBUG_MSG("create_new_project, new project for bfwin %p\n", bfwin);
-		update_project_filelist(bfwin, prj);
+		update_project_filearray_list(bfwin, prj);
 		bfwin->project = prj;
 	} else {
 		DEBUG_MSG("create_new_project, new project, no bfwin\n");
@@ -446,10 +446,14 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 			else
 				uri = g_file_new_for_uri(tmparr[0]);
 			
-			if (g_strv_length(tmparr) > 1) {
+			if (tmparr[1] && tmparr[1]!='\0') {
 				cursor_offset = atoi(tmparr[1]);
-				goto_offset = atoi(tmparr[2]);
-				is_active = atoi(tmparr[3]);
+				if (tmparr[2] && tmparr[2]!='\0') {
+					goto_offset = atoi(tmparr[2]);
+					if (tmparr[3] && tmparr[3]!='\0') {
+						is_active = atoi(tmparr[3]);
+					}
+				}
 			}
 			if (is_active) {
 				doc_index = i;
@@ -680,10 +684,11 @@ project_edit(Tbfwin * bfwin)
 	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 	{
 		gchar *message;
+		gint numdocs = g_list_length(pred->project->files);
 		message =
 			g_strdup_printf(ngettext
 							("This project contains %d file", "This project contains %d files",
-							 g_list_length(pred->project->files)), g_list_length(pred->project->files));
+							 numdocs), numdocs);
 		gtk_label_set_markup(GTK_LABEL(label), message);
 		g_free(message);
 	}
