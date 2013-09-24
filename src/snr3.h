@@ -171,7 +171,7 @@ typedef struct {
 void snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void *)); /* called from snr3_files.c */
 void snr3_run_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, gboolean update);
 void snr3_run_go(Tsnr3run *s3run, gboolean forward);
-void snr3run_free(Tsnr3run *s3run);
+void snr3run_free(Tsnr3run *s3run, gboolean remove_highlights);
 void snr3run_unrun(Tsnr3run *s3run);
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string, Tsnr3type type
 		, gboolean casesens, gboolean dotmatchall, gboolean unescape);

@@ -766,7 +766,7 @@ snr3run_resultcleanup(Tsnr3run *s3run)
 
 /* called from bfwin.c for simplesearch */
 void
-snr3run_free(Tsnr3run *s3run) {
+snr3run_free(Tsnr3run *s3run, gboolean remove_highlights) {
 	DEBUG_MSG("snr3run_free, started for %p\n",s3run);
 	snr3_cancel_run(s3run);
 	if (s3run->curbuf)
@@ -787,8 +787,10 @@ snr3run_free(Tsnr3run *s3run) {
 	DEBUG_MSG("snr3run_free, basedir\n");
 	if (s3run->basedir)
 		g_object_unref(s3run->basedir);
-	DEBUG_MSG("snr3run_free, remove all highlights\n");
-	remove_all_highlights_in_doc(s3run->bfwin->current_document);
+	if (remove_highlights) {
+		DEBUG_MSG("snr3run_free, remove all highlights\n");
+		remove_all_highlights_in_doc(s3run->bfwin->current_document);
+	}
 	DEBUG_MSG("snr3run_free, resultcleanup\n");
 	snr3run_resultcleanup(s3run);
 	g_slice_free(Tsnr3run, s3run);
@@ -1492,7 +1494,7 @@ snr3win_destroy_cb(GtkWidget *widget, gpointer user_data)
 {
 	TSNRWin *snrwin=user_data;
 	DEBUG_MSG("snr3win_destroy_cb, user_data=%p\n",user_data);
-	snr3run_free(snrwin->s3run);
+	snr3run_free(snrwin->s3run, TRUE);
 	g_slice_free(TSNRWin, snrwin);
 }
 
@@ -1825,6 +1827,6 @@ snr3_run_extern_replace(Tdocument * doc, const gchar * search_pattern, Tsnr3scop
 			g_warning("snr3_run_extern_replace does not support replace in files\n");
 		break;
 	}
-	snr3run_free(s3run);
+	snr3run_free(s3run, FALSE); /* We do not need to remove hightlights in current_document, so we pass FALSE */
 }
 
