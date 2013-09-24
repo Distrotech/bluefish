@@ -772,15 +772,17 @@ gotoline_entry_insert_text(GtkEditable * editable, gchar * text, gint length, gi
 }
 
 void
-bfwin_gotoline_search_bar_close(Tbfwin *bfwin)
+bfwin_gotoline_search_bar_close(Tbfwin *bfwin, gboolean clean_entry_only)
 {
-	DEBUG_MSG("bfwin_gotoline_search_bar_close, called!\n");
-	gtk_widget_hide(bfwin->gotoline_frame);
+	if (!clean_entry_only) {
+		DEBUG_MSG("bfwin_gotoline_search_bar_close, called!\n");
+		gtk_widget_hide(bfwin->gotoline_frame);
 
-	if (bfwin->simplesearch_snr3run) {
-		DEBUG_MSG("free simple search run %p\n", bfwin->simplesearch_snr3run);
-		snr3run_free(bfwin->simplesearch_snr3run);
-		bfwin->simplesearch_snr3run = NULL;
+		if (bfwin->simplesearch_snr3run) {
+			DEBUG_MSG("free simple search run %p\n", bfwin->simplesearch_snr3run);
+			snr3run_free(bfwin->simplesearch_snr3run);
+			bfwin->simplesearch_snr3run = NULL;
+		}
 	}
 	/*gtk_editable_delete_text(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))), 0, -1);*/
 	g_signal_handlers_block_matched(bfwin->gotoline_entry,
@@ -796,7 +798,7 @@ static void
 gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
 {
 	DEBUG_MSG("gotoline_close_button_clicked, called!\n");
-	bfwin_gotoline_search_bar_close(bfwin);
+	bfwin_gotoline_search_bar_close(bfwin, FALSE);
 	if (bfwin->current_document)
 		gtk_widget_grab_focus(bfwin->current_document->view);
 }

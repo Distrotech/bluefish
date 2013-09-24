@@ -2299,8 +2299,6 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 		if (doc->uri && bfwin->session)
 			remove_filename_from_recentlist(bfwin, FALSE, doc->uri); /* Remove inaccesible files from OpenRecent list */
 	}
-
-	bfwin_gotoline_search_bar_close(doc->bfwin);
 	for (tmpslist=bfwin->doc_destroy;tmpslist;tmpslist=g_slist_next(tmpslist)) {
 		Tcallback *cb = tmpslist->data;
 		((DocDestroyCallback)cb->func)(doc, cb->data);
@@ -2334,9 +2332,6 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 	doc->recentpos = NULL;
 	DEBUG_MSG("removed %p from documentlist, list %p length=%d\n", doc, bfwin->documentlist,
 			  g_list_length(bfwin->documentlist));
-	if (bfwin->current_document == doc) {
-		bfwin->current_document = NULL;
-	}
 	/* then we remove the page from the notebook */
 	DEBUG_MSG("about to remove widget from notebook (doc=%p, current_document=%p)\n", doc,
 			  bfwin->current_document);
@@ -2349,11 +2344,16 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 #ifdef IDENTSTORING
 	bftextview2_identifier_hash_remove_doc(doc->bfwin, doc);
 #endif
-	if (!delay_activation) {
-		gint newpage = -1;
-		if (switch_to_doc)
-			bfwin_switch_to_document_by_pointer(bfwin, switch_to_doc);
-		bfwin_notebook_changed(BFWIN(doc->bfwin), newpage);
+	if (bfwin->current_document == doc) {
+		bfwin_gotoline_search_bar_close(doc->bfwin, TRUE); /* Do not close search bar, just clean goto line entry */
+		bfwin->current_document = NULL;
+		/* We have to switch to another tab only if we destroying current_document */
+		if (!delay_activation) {
+			gint newpage = -1;
+			if (switch_to_doc)
+				bfwin_switch_to_document_by_pointer(bfwin, switch_to_doc);
+			bfwin_notebook_changed(BFWIN(doc->bfwin), newpage);
+		}
 	}
 	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed(), vsplit=%p\n", doc, doc->vsplit);
 	remove_autosave(doc);
