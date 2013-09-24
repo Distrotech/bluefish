@@ -246,6 +246,9 @@ typedef struct {
 	gpointer load;				/* during load */
 	gint goto_line;
 	gint goto_offset;
+	gboolean align_center; /* how to align textview after offseting it */
+	gint cursor_offset; /* cursor position in textview */
+	gboolean load_first; /*sets priority of async loading */
 	gushort close_doc;
 	gushort close_window;
 

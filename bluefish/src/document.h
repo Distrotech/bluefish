@@ -42,6 +42,7 @@ typedef void (*foreachdocfunc) (Tdocument * doc, gpointer data);
 void alldocs_foreach(foreachdocfunc func, gpointer data);
 gint have_modified_documents(GList * doclist);
 GList *return_urilist_from_doclist(GList * doclist);
+GList *return_arraylist_from_doclist(GList * doclist);
 void add_filename_to_recentlist(Tbfwin * bfwin, GFile * uri);
 void remove_filename_from_recentlist(Tbfwin * bfwin, gboolean project, GFile * uri);
 
@@ -74,15 +75,16 @@ gboolean test_only_empty_doc_left(GList * doclist);
 void doc_set_status(Tdocument * doc, gint status);
 void doc_set_modified(Tdocument * doc, gint value);
 void doc_select_and_scroll(Tdocument * doc, GtkTextIter * it1,
-						   GtkTextIter * it2, gboolean select_it1_line, gboolean do_scroll);
+						   GtkTextIter * it2, gboolean select_it1_line, gboolean do_scroll, gboolean align_center);
 void doc_scroll_to_cursor(Tdocument * doc);
 gchar *doc_get_chars(Tdocument * doc, gint start, gint end);
 gint doc_get_max_offset(Tdocument * doc);
 /*void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll);*/
 void doc_select_line(Tdocument * doc, gint line, gboolean do_scroll);
-void doc_select_line_by_offset(Tdocument * doc, gint offset, gboolean do_scroll);
+void doc_select_line_by_offset(Tdocument * doc, gint offset, gboolean do_scroll, gboolean align_center);
 gboolean doc_get_selection(Tdocument * doc, gint * start, gint * end);
 gint doc_get_cursor_position(Tdocument * doc);
+void doc_set_cursor_position(Tdocument * doc, gint cursor_offset);
 /*void doc_set_statusbar_mimetype_encoding(Tdocument *doc);*/
 
 /* the prototype for these functions is changed!! */
@@ -111,7 +113,7 @@ Tdocument *doc_new(Tbfwin * bfwin, gboolean delay_activate);
 Tdocument *doc_new_with_template(Tbfwin * bfwin, GFile * uri, gboolean force_new);
 Tdocument *doc_new_loading_in_background(Tbfwin * bfwin, GFile * uri, GFileInfo * finfo, gboolean readonly);
 void doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolean delay_activate,
-					  gboolean move_to_this_win, gint goto_line, gint goto_offset);
+					  gboolean move_to_this_win, gint goto_line, gint goto_offset, gint cursor_offset, gboolean align_center, gboolean load_first);
 void doc_new_from_input(Tbfwin * bfwin, gchar * input, gboolean delay_activate, gboolean move_to_this_win,
 						gint goto_line);
 void docs_new_from_files(Tbfwin * bfwin, GList * file_list, gboolean move_to_this_win);

@@ -1846,7 +1846,7 @@ recent_menu_activate(GtkMenuItem * menuitem, gpointer user_data)
 			}
 		}
 	} else {
-		doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1);
+		doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1, -1, TRUE, FALSE);
 	}
   	g_object_unref(uri);
 }

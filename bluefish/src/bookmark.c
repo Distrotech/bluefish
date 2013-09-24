@@ -623,9 +623,9 @@ bmark_activate(Tbfwin * bfwin, Tbmark * b, gboolean select_bmark)
 	DEBUG_MSG("bmark_activate, calling doc_new_from_uri with goto_offset %d\n", b->offset);
 	if (b->doc) {
 		bfwin_switch_to_document_by_pointer(BFWIN(b->doc->bfwin), b->doc);
-		doc_select_line_by_offset(b->doc, b->offset, TRUE);
+		doc_select_line_by_offset(b->doc, b->offset, TRUE, TRUE);
 	} else {
-		doc_new_from_uri(bfwin, b->uri, NULL, FALSE, FALSE, -1, b->offset);
+		doc_new_from_uri(bfwin, b->uri, NULL, FALSE, FALSE, -1, b->offset, -1, TRUE, FALSE);
 	}
 	/* remove selection */
 	if (b->doc) {

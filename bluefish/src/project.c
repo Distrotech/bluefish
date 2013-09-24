@@ -135,6 +135,17 @@ update_project_filelist(Tbfwin * bfwin, Tproject * prj)
 	tmplist = return_urilist_from_doclist(bfwin->documentlist);
 	prj->files = urilist_to_stringlist(tmplist);
 	free_urilist(tmplist);
+	
+}
+
+static void
+update_project_filearray_list(Tbfwin * bfwin, Tproject * prj)
+{
+	DEBUG_MSG("update_project_filearray_list, started, bfwin=%p, prj=%p\n", bfwin, prj);
+	free_arraylist(prj->files);
+	DEBUG_MSG("update_project_filearray_list, old list free'd, creating new list from documentlist %p (len=%d)\n",
+			  bfwin->documentlist, g_list_length(bfwin->documentlist));
+	prj->files = return_arraylist_from_doclist(bfwin->documentlist);
 }
 
 void
@@ -143,12 +154,37 @@ set_project_menu_actions(Tbfwin * bfwin, gboolean win_has_project)
 	gtk_action_group_set_sensitive(bfwin->projectGroup, win_has_project);
 }
 
+static gboolean
+project_grab_focus_lcb(gpointer data)
+{
+	Tdocument *doc = data;
+	gtk_widget_grab_focus(doc->view);
+	return FALSE;
+}
+
+static gboolean
+project_document_load_finished_lcb(gpointer data)
+{
+	Tdocument *doc = data;
+	if (doc->load) {
+		return TRUE;
+	}
+	DEBUG_MSG("Callback project_document_load_finished_lcb , document=%p load finished", doc);
+	gint doc_index = gtk_notebook_get_current_page (GTK_NOTEBOOK(BFWIN(doc->bfwin)->notebook));
+	bfwin_notebook_changed(BFWIN(doc->bfwin), doc_index);
+	/* get back focus once again, when all parts of bf are finally loaded; this forces cursor blinking; otherwise filebrowser hijacks focus and cursor disappears */
+	g_idle_add_full(G_PRIORITY_LOW+1, project_grab_focus_lcb, doc, NULL);
+	return FALSE;
+}
+
 static void
-setup_bfwin_for_project(Tbfwin * bfwin)
+setup_bfwin_for_project(Tbfwin * bfwin, Tdocument *active_doc)
 {
 	DEBUG_MSG("setup_bfwin_for_project, bfwin=%p, bfwin->project=%p, bfwin->session=%p\n", bfwin,
 			  bfwin->project, bfwin->session);
-	DEBUG_MSG("setup_bfwin_for_project, bfwin->project->session=%p\n", bfwin->project->session);
+	if (active_doc && active_doc->uri) {
+		g_idle_add_full(FILE2DOC_PRIORITY-1, project_document_load_finished_lcb, active_doc, NULL); 
+	}
 	bfwin->bmarkdata = bfwin->project->bmarkdata;
 	bmark_set_store(bfwin);
 	bmark_reload(bfwin);
@@ -248,7 +284,7 @@ create_new_project(Tbfwin * bfwin)
 	}
 	if (bfwin) {
 		bfwin->session = prj->session;
-		setup_bfwin_for_project(bfwin);
+		setup_bfwin_for_project(bfwin, NULL);
 	}
 	return prj;
 }
@@ -266,7 +302,8 @@ project_save(Tbfwin * bfwin, gboolean save_as)
 	}
 	DEBUG_MSG("project_save, project=%p, num files was %d\n", bfwin->project,
 			  g_list_length(bfwin->project->files));
-	update_project_filelist(bfwin, bfwin->project);
+	/*update_project_filelist(bfwin, bfwin->project); */
+	update_project_filearray_list(bfwin, bfwin->project);
 
 	/*bfwin->project->session->searchlist = limit_stringlist(bfwin->project->session->searchlist, 10, TRUE);
 	bfwin->project->session->replacelist = limit_stringlist(bfwin->project->session->replacelist, 10, TRUE);
@@ -384,30 +421,55 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 		prwin->session = prj->session;
 		DEBUG_MSG("project_open_from_file, project %p will be in existing prwin=%p\n", prj, bfwin);
 		/* destroy the current empty document, it should use settings from the new session */
-		if (bfwin->current_document)
-			doc_destroy(bfwin->current_document, TRUE);
+		if (prwin->current_document)
+			doc_destroy(prwin->current_document, TRUE);
 	} else {
 		/* we will open a new Bluefish window for this project */
 		DEBUG_MSG("project_open_from_file, we need a new window\n");
 		prwin = bfwin_window_new_with_project(prj);
+		if (prwin->current_document)
+			doc_destroy(prwin->current_document, TRUE); /*new window is created with empty doc, so we destroy it TODO move empty tab creation from bfwin_create_main() */
 	}
 	tmplist = g_list_last(prj->files);
+	gint doc_index = 0;
+	gint i =0;
+	gint cursor_offset = -1;
+	gint goto_offset = -1; 
+	gint is_active = 0;
 	if (tmplist) {
+		bfwin_notebook_block_signals(prwin); /* Block switch-page signal while we are creating doc backends */
 		while (tmplist) {
 			GFile *uri;
-			if (strstr((gchar *) tmplist->data, "://") == NULL)
-				uri = g_file_new_for_path((gchar *) tmplist->data);
+			gchar **tmparr = (gchar **) tmplist->data;
+			if (strstr(tmparr[0], "://") == NULL)
+				uri = g_file_new_for_path(tmparr[0]);
 			else
-				uri = g_file_new_for_uri((gchar *) tmplist->data);
-			doc_new_from_uri(prwin, uri, NULL, !(prj->files->prev == NULL), TRUE, -1, -1);
+				uri = g_file_new_for_uri(tmparr[0]);
+			
+			if (g_strv_length(tmparr) > 1) {
+				cursor_offset = atoi(tmparr[1]);
+				goto_offset = atoi(tmparr[2]);
+				is_active = atoi(tmparr[3]);
+			}
+			if (is_active) {
+				doc_index = i;
+				doc_new_from_uri(prwin, uri, NULL, TRUE, TRUE, -1, goto_offset, cursor_offset, FALSE, TRUE);
+			} else {
+				doc_new_from_uri(prwin, uri, NULL, TRUE, TRUE, -1, goto_offset, cursor_offset, FALSE, FALSE);
+			}
 			g_object_unref(uri);
 			tmplist = g_list_previous(tmplist);
+			i++;
 		}
+		/* Now switch to tab that holds last active document from previous session */
+		bfwin_switch_to_document_by_index(prwin, doc_index);
+		bfwin_notebook_unblock_signals(prwin);  /* Unblock signals, doc will be activated in setup_bfwin_for_project*/
 	} else {
-		doc_new(bfwin, FALSE);
+		doc_new(prwin, FALSE);
 	}
+	Tdocument * active_doc = documentlist_return_document_from_index(prwin->documentlist, doc_index);
 	DEBUG_MSG("project_open_from_file, new window with files ready at prwin=%p\n", prwin);
-	setup_bfwin_for_project(prwin);
+	setup_bfwin_for_project(prwin, active_doc);
 	DEBUG_MSG("project_open_from_file, done\n");
 	return 1;
 }
@@ -551,7 +613,7 @@ project_edit_ok_clicked_lcb(GtkWidget * widget, Tprojecteditor * pred)
 	if (pred->bfwin == NULL) {
 		pred->bfwin = bfwin_window_new_with_project(pred->project);
 		pred->bfwin->session = pred->project->session;
-		setup_bfwin_for_project(pred->bfwin);
+		setup_bfwin_for_project(pred->bfwin, NULL);
 	} else {
 #ifdef MAC_INTEGRATION
 	if (main_v->osx_status == 2){

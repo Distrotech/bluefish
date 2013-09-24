@@ -193,6 +193,57 @@ return_urilist_from_doclist(GList * doclist)
 	return newlist;
 }
 
+/**
+ * return_arraylist_from_doclist:
+ * @doclist: #GList*
+ *
+ * Returns a list of gchar arrays with filenames and document status information given a
+ * list with documents (#Tdocument*)
+ *
+ * Return value: #GList* arraylist with each array containing following data:
+ * [0] - filename
+ * [1] - cursor offset
+ * [2] - topleft corner of visible area offset (used to scroll textview to the same position)
+ * [3] - 1 if document is current
+ * [4] - NULL 
+ */
+GList *
+return_arraylist_from_doclist(GList * doclist)
+{
+	GList *newlist = NULL, *tmplist;
+	Tdocument *tmpdoc;
+	gchar **tmparr;
+	DEBUG_MSG("return_array_list_from_doclist, started for doclist %p, len=%d\n", doclist, g_list_length(doclist));
+	tmplist = g_list_last(doclist);
+	gint active_doc = g_list_length(doclist) - gtk_notebook_get_current_page (GTK_NOTEBOOK(BFWIN(DOCUMENT(tmplist->data)->bfwin)->notebook)) - 1;
+	gint i = 0;
+	while (tmplist) {
+		GtkTextIter iter;
+		GdkRectangle visible_area;
+		tmpdoc = DOCUMENT(tmplist->data);
+		if (tmpdoc->uri) {
+			gint cursor_offset = doc_get_cursor_position(tmpdoc); 
+			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(tmpdoc->view), &visible_area);
+			gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(tmpdoc->view), &iter, visible_area.x, visible_area.y);
+			gint visible_area_offset = gtk_text_iter_get_offset(&iter); 
+			tmparr = g_malloc0(sizeof(gchar *) * 5); 
+			tmparr[0] =g_file_get_parse_name(tmpdoc->uri);
+			tmparr[1] = g_strdup_printf("%d", cursor_offset);
+			tmparr[2] = g_strdup_printf("%d", visible_area_offset);
+			if (i == active_doc) {
+				tmparr[3] = g_strdup_printf("%d", 1);
+			} else {
+				tmparr[3] = g_strdup_printf("%d", 0);
+			}
+			newlist = g_list_prepend(newlist, tmparr);
+		}
+		i++;
+		tmplist = g_list_previous(tmplist);
+	}
+	return newlist;
+}
+
+
 /*
  * return_num_untitled_documents:
  * @doclist: #GList* with documents
@@ -898,7 +949,7 @@ doc_move_to_window_dialog_response_lcb(GtkDialog * dialog, gint response, gpoint
 		doc_move_to_window(dmwd->doc, dmwd->oldwin, dmwd->newwin);
 	} else if (response == 2) {
 		/* TODO: open readonly */
-		file_doc_from_uri(dmwd->newwin, dmwd->doc->uri, NULL, NULL, -1, -1, TRUE);
+		file_doc_from_uri(dmwd->newwin, dmwd->doc->uri, NULL, NULL, -1, -1, TRUE, -1, TRUE, FALSE);
 	} else {
 		/* TODO: do not open */
 	}
@@ -1074,7 +1125,7 @@ doc_get_chars(Tdocument * doc, gint start, gint end)
 
 void
 doc_select_and_scroll(Tdocument * doc, GtkTextIter * it1,
-					  GtkTextIter * it2, gboolean select_it1_line, gboolean do_scroll)
+					  GtkTextIter * it2, gboolean select_it1_line, gboolean do_scroll, gboolean align_center)
 {
 	GtkTextIter sit1 = *it1, sit2 = *it2;
 
@@ -1087,7 +1138,11 @@ doc_select_and_scroll(Tdocument * doc, GtkTextIter * it1,
 	if (do_scroll) {
 		/* in doc reload this works strange, there is no scrolling to the correct position...
 		   perhaps this should be done in an idle callback so that the iter positions can be calculated?? */
+		if (align_center) {
 		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view), &sit1, 0.25, FALSE, 0.5, 0.95);
+		} else {
+		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view), &sit1, 0.0, TRUE, 0.0, 0.0);
+		}
 		gtk_widget_grab_focus(doc->view);
 	}
 }
@@ -1128,7 +1183,7 @@ doc_select_line(Tdocument * doc, gint line, gboolean do_scroll)
 {
 	GtkTextIter itstart;
 	gtk_text_buffer_get_iter_at_line(doc->buffer, &itstart, line - 1);
-	doc_select_and_scroll(doc, &itstart, &itstart, TRUE, do_scroll);
+	doc_select_and_scroll(doc, &itstart, &itstart, TRUE, do_scroll, TRUE);
 }
 
 /**
@@ -1143,11 +1198,11 @@ doc_select_line(Tdocument * doc, gint line, gboolean do_scroll)
  * Return value: void
  **/
 void
-doc_select_line_by_offset(Tdocument * doc, gint offset, gboolean do_scroll)
+doc_select_line_by_offset(Tdocument * doc, gint offset, gboolean do_scroll, gboolean align_center)
 {
 	GtkTextIter itstart;
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, offset);
-	doc_select_and_scroll(doc, &itstart, &itstart, TRUE, do_scroll);
+	doc_select_and_scroll(doc, &itstart, &itstart, TRUE, do_scroll, align_center);
 }
 
 /**
@@ -1199,6 +1254,16 @@ doc_get_cursor_position(Tdocument * doc)
 	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, mark);
 	return gtk_text_iter_get_offset(&iter);
+}
+
+void
+doc_set_cursor_position(Tdocument * doc, gint cursor_offset)
+{
+	GtkTextIter iter;
+	if (doc->cursor_offset >= 0) {
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, cursor_offset);
+		gtk_text_buffer_place_cursor(doc->buffer, &iter);
+	}
 }
 
 /**
@@ -2834,15 +2899,18 @@ doc_new_with_template(Tbfwin * bfwin, GFile * uri, gboolean force_new)
 
 /**
  * doc_new_from_uri:
- *
- * uri should be set !
- * finfo may be NULL
- *
- * and goto_line and goto_offset should not BOTH be >= 0 (if so, offset is ignored)
+ * @bfwin: #Tbfwin* with the window to open the document in
+ * @opturi: uri of the document, uri should be set !
+ * @finfo: finfo may be NULL
+ * @delay_activate: Whether to perform GUI-calls and flush_queue(). Set to TRUE when loading several documents at once.
+ * @goto_line: scroll document to specified line. goto_offset and align_center values will be ignored.
+ * @cursor_offset: place cursor at specified posiion.
+ * @goto_offset: scrolls texview to offset. Alignment depends on align_center parameter
+ * @align_center: If set to True places specified offset in the center of the screen, if False- offset will be placed in topleft corner.
  */
 void
 doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolean delay_activate,
-				 gboolean move_to_this_win, gint goto_line, gint goto_offset)
+				 gboolean move_to_this_win, gint goto_line, gint goto_offset, gint cursor_offset, gboolean align_center, gboolean load_first)
 {
 	GList *alldocs;
 	Tdocument *tmpdoc;
@@ -2862,8 +2930,8 @@ doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolean del
 	g_list_free(alldocs);
 	if (tmpdoc) {				/* document is already open */
 		DEBUG_MSG
-			("doc_new_from_uri, doc %s is already open, delay_activate=%d, move_to_window=%d, goto_line=%d, goto_offset=%d\n",
-			 tmpcuri, delay_activate, move_to_this_win, goto_line, goto_offset);
+			("doc_new_from_uri, doc %s is already open, delay_activate=%d, move_to_window=%d, cursor_offset=%d, goto_offset=%d\n",
+			 tmpcuri, delay_activate, move_to_this_win, cursor_offset, goto_offset);
 		if (tmpdoc->bfwin != bfwin && move_to_this_win) {
 			/* we should aks the user if it is OK to move the document */
 			if (!delay_activate)
@@ -2875,17 +2943,19 @@ doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolean del
 			if (bfwin != tmpdoc->bfwin)
 				gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));
 		}
-		if (tmpdoc != NULL) {
-			if (goto_line >= 0)
-				doc_select_line(tmpdoc, goto_line, TRUE);
-			else if (goto_offset >= 0)
-				doc_select_line_by_offset(tmpdoc, goto_offset, TRUE);
+		if (goto_line >= 0) {
+			doc_select_line(tmpdoc, goto_line, TRUE);
+		} else {
+			if (goto_offset >= 0)
+				doc_select_line_by_offset(tmpdoc, goto_offset, TRUE, align_center);
+			if (cursor_offset >= 0)
+				doc_set_cursor_position(tmpdoc, cursor_offset);
 		}
 	} else {					/* document is not yet opened */
 		if (!delay_activate)
 			bfwin->focus_next_new_doc = TRUE;
-		DEBUG_MSG("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d\n", uri, delay_activate,
-				  bfwin->focus_next_new_doc);
+		DEBUG_MSG
+			("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d, goto_offset=%d, cursor_offset=%d, align_center=%d\n", uri, delay_activate, bfwin->focus_next_new_doc, goto_offset, cursor_offset, align_center);
 #if !GLIB_CHECK_VERSION(2, 18, 0)
 		/* check runtime glib version, check if remote file, and give warning if remote file on glib < 2.18 */
 		if (glib_major_version == 2 && glib_minor_version < 18 && !g_file_is_native(uri)) {
@@ -2897,7 +2967,7 @@ glib_major_version, glib_minor_version, glib_micro_version);
 			g_free(message);
 		}
 #endif
-		file_doc_from_uri(bfwin, uri, NULL, finfo, goto_line, goto_offset, open_readonly);
+		file_doc_from_uri(bfwin, uri, NULL, finfo, goto_line, goto_offset, open_readonly, cursor_offset, align_center, load_first);
 	}
 	session_set_opendir(bfwin, tmpcuri);
 	g_free(tmpcuri);
@@ -2925,7 +2995,7 @@ doc_new_from_input(Tbfwin * bfwin, gchar * input, gboolean delay_activate, gbool
 		uri = g_file_new_for_commandline_arg(input);
 	}
 	if (uri) {
-		doc_new_from_uri(bfwin, uri, NULL, delay_activate, move_to_this_win, goto_line, -1);
+		doc_new_from_uri(bfwin, uri, NULL, delay_activate, move_to_this_win, goto_line, -1, -1, TRUE, FALSE);
 		g_object_unref(uri);
 	}
 }
@@ -3793,7 +3863,7 @@ doc_jump_query_exists_lcb(GObject * source_object, GAsyncResult * res, gpointer 
 		g_error_free(gerror);
 	}
 	if (finfo) {
-		doc_new_from_uri(jcf->doc->bfwin, jcf->uri, finfo, FALSE, FALSE, -1, -1);
+		doc_new_from_uri(jcf->doc->bfwin, jcf->uri, finfo, FALSE, FALSE, -1, -1, -1, TRUE, FALSE);
 		g_object_unref(finfo);
 	}
 	g_object_unref(jcf->uri);
