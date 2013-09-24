@@ -831,6 +831,35 @@
 			</group>
 		</group>
 		<group class="javascript_event_object">
+<!-- reference: https://developer.mozilla.org/en-US/docs/Web/API/Event -->
+		  <element pattern="bubbles">
+				<reference><i>event.bubbles</i> A boolean indicating whether the event bubbles up through the DOM or not.</reference>
+			</element>
+		  <element pattern="cancelable">
+				<reference><i>event.cancelable</i> A boolean indicating whether the event is cancelable.</reference>
+			</element>
+		  <element pattern="currentTarget">
+				<reference><i>event.currentTarget</i> A reference to the currently registered target for the event.</reference>
+			</element>
+		  <element pattern="defaultPrevented">
+				<reference><i>event.defaultPrevented</i> Indicates whether or not event.preventDefault() has been called on the event.</reference>
+			</element>
+		  <element pattern="eventPhase">
+				<reference><i>event.eventPhase</i> Indicates which phase of the event flow is being processed.</reference>
+			</element>
+		  <element pattern="target">
+				<reference><i>event.target</i> A reference to the target to which the event was originally dispatched.</reference>
+			</element>
+		  <element pattern="timeStamp">
+				<reference><i>event.timeStamp</i> The time that the event was created.</reference>
+			</element>
+		  <element pattern="type">
+				<reference><i>event.type</i> The name of the event (case-insensitive).</reference>
+			</element>
+		  <element pattern="isTrusted">
+				<reference><i>event.isTrusted</i> Indicates whether or not the event was initiated by the browser (after a user click for instance) or by a script (using an event creation method, like >event.initEvent)</reference>
+			</element>
+<!--	not finished yet		-->
 			<element pattern="altKey"/>
 			<element pattern="ctrlKey"/>
 			<element pattern="shiftKey"/>
