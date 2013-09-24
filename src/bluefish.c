@@ -267,7 +267,8 @@ static gboolean startup_in_idle(gpointer data) {
 		break;
 		case 4:
 			main_v->recentm = gtk_recent_manager_get_default();
-			doc_scroll_to_cursor(BFWIN(startup->firstbfwin)->current_document);
+			if (BFWIN(startup->firstbfwin)->current_document)
+				doc_scroll_to_cursor(BFWIN(startup->firstbfwin)->current_document);
 			modified_on_disk_check_init();
 #ifndef WIN32
 			handle_signals();

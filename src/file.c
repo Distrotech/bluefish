@@ -771,17 +771,17 @@ static gboolean
 file2doc_goto_idle_cb(gpointer data)
 {
 	Tfile2doc *f2d = data;
-		DEBUG_MSG("file2doc_goto_idle_cb, goto_line=%d, goto_offset=%d, cursor_offset=%d\n", f2d->doc->goto_line,  f2d->doc->goto_offset,  f2d->doc->cursor_offset);
+	DEBUG_MSG("file2doc_goto_idle_cb, goto_line=%d, goto_offset=%d, cursor_offset=%d\n", f2d->doc->goto_line,  f2d->doc->goto_offset,  f2d->doc->cursor_offset);
 	if (f2d->doc->goto_line >= 0) {
-		DEBUG_MSG("file2doc_lcb, goto_line=%d\n", f2d->doc->goto_line);
+		DEBUG_MSG("file2doc_goto_idle_cb, goto_line=%d\n", f2d->doc->goto_line);
 		doc_select_line(f2d->doc, f2d->doc->goto_line, TRUE);
 	} else {
 		if (f2d->doc->goto_offset >= 0) {
-			DEBUG_MSG("file2doc_lcb, goto_offset=%d, align_center=%d\n", f2d->doc->goto_offset, f2d->doc->align_center);
+			DEBUG_MSG("file2doc_goto_idle_cb, goto_offset=%d, align_center=%d\n", f2d->doc->goto_offset, f2d->doc->align_center);
 			doc_select_line_by_offset(f2d->doc, f2d->doc->goto_offset, TRUE, f2d->doc->align_center);
 		}
 		if (f2d->doc->cursor_offset >= 0) {
-			DEBUG_MSG("file2doc_lcb, cursor_offset=%d\n", f2d->doc->cursor_offset);
+			DEBUG_MSG("file2doc_goto_idle_cb, cursor_offset=%d\n", f2d->doc->cursor_offset);
 			doc_set_cursor_position(f2d->doc, f2d->doc->cursor_offset);
 		} 
 	}
