@@ -344,7 +344,7 @@ autosave_recover(Tbfwin * bfwin, GFile * file)
 			if (arr[1] && arr[1][0] != '\0') {
 				GFile *uri = g_file_new_for_uri(arr[1]);
 				DEBUG_MSG("recover named document \n");
-				file_doc_from_uri(bfwin, uri, recover_uri, NULL, -1, -1, FALSE);
+				file_doc_from_uri(bfwin, uri, recover_uri, NULL, -1, -1, FALSE, -1, TRUE, FALSE);
 			} else {
 				Tdocument *doc = doc_new_loading_in_background(bfwin, NULL, NULL, FALSE);
 				DEBUG_MSG("recover unnamed document into %p\n", doc);

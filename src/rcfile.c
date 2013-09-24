@@ -1184,7 +1184,7 @@ return_project_configlist(Tproject * project)
 {
 	GHashTable *configlist = g_hash_table_new_full(g_str_hash, g_str_equal, NULL, free_config_list_item);
 	init_prop_string(&configlist, &project->name, "name:", _("Untitled Project"));
-	init_prop_stringlist(&configlist, &project->files, "files:", FALSE);
+	init_prop_arraylist(&configlist, &project->files, "files:", 0, FALSE); /* Zero allows any length of array, array lenght should be 5 after first save */
 /*	init_prop_stringlist(&configlist, &project->recentfiles, "recentfiles:", FALSE); / * should be changed to use the session->recent_files */
 	configlist = return_session_configlist(configlist, project->session);
 	return configlist;

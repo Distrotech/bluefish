@@ -768,17 +768,27 @@ file2doc_cancel(gpointer f2d)
 }
 
 static gboolean
-file2doc_goto_idle_cb(Tfile2doc * f2d)
+file2doc_goto_idle_cb(gpointer data)
 {
+	Tfile2doc *f2d = data;
+		DEBUG_MSG("file2doc_goto_idle_cb, goto_line=%d, goto_offset=%d, cursor_offset=%d\n", f2d->doc->goto_line,  f2d->doc->goto_offset,  f2d->doc->cursor_offset);
 	if (f2d->doc->goto_line >= 0) {
 		DEBUG_MSG("file2doc_lcb, goto_line=%d\n", f2d->doc->goto_line);
 		doc_select_line(f2d->doc, f2d->doc->goto_line, TRUE);
-	} else if (f2d->doc->goto_offset >= 0) {
-		DEBUG_MSG("file2doc_lcb, goto_offset=%d\n", f2d->doc->goto_offset);
-		doc_select_line_by_offset(f2d->doc, f2d->doc->goto_offset, TRUE);
+	} else {
+		if (f2d->doc->goto_offset >= 0) {
+			DEBUG_MSG("file2doc_lcb, goto_offset=%d, align_center=%d\n", f2d->doc->goto_offset, f2d->doc->align_center);
+			doc_select_line_by_offset(f2d->doc, f2d->doc->goto_offset, TRUE, f2d->doc->align_center);
+		}
+		if (f2d->doc->cursor_offset >= 0) {
+			DEBUG_MSG("file2doc_lcb, cursor_offset=%d\n", f2d->doc->cursor_offset);
+			doc_set_cursor_position(f2d->doc, f2d->doc->cursor_offset);
+		} 
 	}
 	f2d->doc->goto_line = -1;
+	f2d->doc->cursor_offset = -1;
 	f2d->doc->goto_offset = -1;
+	f2d->doc->align_center = TRUE;
 	f2d->doc->load = NULL;
 	file2doc_cleanup(f2d);
 	return FALSE;
@@ -856,11 +866,18 @@ file2doc_finished_idle_lcb(gpointer data)
 			g_free(utf8uri);
 		}
 		add_filename_to_recentlist(BFWIN(f2d->doc->bfwin), f2d->doc->uri);
-		if (f2d->doc->goto_line >= 0 || f2d->doc->goto_offset >= 0) {
-			g_idle_add(((GSourceFunc)file2doc_goto_idle_cb), f2d);
+		DEBUG_MSG("file2doc_finished_idle_lcb, goto_line=%d, goto_offset=%d, cursor_offset=%d\n", f2d->doc->goto_line,  f2d->doc->goto_offset,  f2d->doc->cursor_offset);
+		if (f2d->doc->goto_line > 0 || f2d->doc->goto_offset > 0 || f2d->doc->cursor_offset > 0) {
+			if (f2d->doc->load_first) {
+				g_idle_add_full(FILE2DOC_PRIORITY-2,file2doc_goto_idle_cb, f2d, NULL);
+			} else {
+				g_idle_add_full(FILE2DOC_PRIORITY-1,file2doc_goto_idle_cb, f2d, NULL);
+			}
 		} else {
 			f2d->doc->goto_line = -1;
+			f2d->doc->cursor_offset = -1;
 			f2d->doc->goto_offset = -1;
+			f2d->doc->align_center = TRUE;
 			f2d->doc->load = NULL;
 			file2doc_cleanup(data);
 		}
@@ -881,7 +898,11 @@ file2doc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, go
 		f2d->buffer = buffer;
 		f2d->buflen = buflen;
 		refcpointer_ref(buffer);
-		g_idle_add_full(FILE2DOC_PRIORITY, file2doc_finished_idle_lcb, f2d, NULL);
+		if (f2d->doc->load_first) {
+			g_idle_add_full(FILE2DOC_PRIORITY-1, file2doc_finished_idle_lcb, f2d, NULL);
+		} else {
+			g_idle_add_full(FILE2DOC_PRIORITY, file2doc_finished_idle_lcb, f2d, NULL);
+		}
 		break;
 	case OPENFILE_CHANNEL_OPENED:
 		/* do nothing */
@@ -1067,11 +1088,11 @@ file_doc_fill_from_uri(Tdocument * doc, GFile * uri, GFileInfo * finfo, gint got
 /* this funcion is usually used to load documents */
 void
 file_doc_from_uri(Tbfwin * bfwin, GFile * uri, GFile * recover_uri, GFileInfo * finfo, gint goto_line,
-				  gint goto_offset, gboolean readonly)
+				  gint goto_offset, gboolean readonly, gint cursor_offset, gboolean align_center, gboolean load_first)
 {
 	Tfile2doc *f2d;
 	f2d = g_slice_new0(Tfile2doc);
-	g_print("file_doc_from_uri, open uri %p, f2d=%p\n", uri, f2d);
+	DEBUG_MSG("file_doc_from_uri, open uri %p, f2d=%p\n", uri, f2d);
 	f2d->bfwin = bfwin;
 	f2d->uri = g_object_ref(uri);
 	if (recover_uri) {
@@ -1082,7 +1103,10 @@ file_doc_from_uri(Tbfwin * bfwin, GFile * uri, GFile * recover_uri, GFileInfo * 
 	f2d->doc = doc_new_loading_in_background(bfwin, uri, finfo, readonly);
 	f2d->doc->load = f2d;
 	f2d->doc->goto_line = goto_line;
+	f2d->doc->cursor_offset = cursor_offset;
 	f2d->doc->goto_offset = goto_offset;
+	f2d->doc->align_center = align_center;
+	f2d->doc->load_first = load_first;
 	DEBUG_MSG("file_doc_from_uri, got doc %p\n", f2d->doc);
 	if (finfo == NULL) {
 		/* get the fileinfo also async */
@@ -1463,7 +1487,7 @@ open_advanced_filematch_cb(Topenadvanced *oa, GFile *uri, GFileInfo *finfo) {
 	if (oa->content_filter) {	/* do we need content filtering */
 		openadv_content_filter_file(oa, uri, finfo);
 	} else {	/* open this file as document */
-		doc_new_from_uri(oa->bfwin, uri, finfo, TRUE, FALSE, -1, -1);
+		doc_new_from_uri(oa->bfwin, uri, finfo, TRUE, FALSE, -1, -1, -1, TRUE, FALSE);
 	}
 }
 
@@ -2129,7 +2153,7 @@ file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean external_inp
 			}
 		}
 	} else {
-		doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1);
+		doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1, -1, TRUE, FALSE);
 	}
 #ifdef WIN32
 	if (!mimetype)
