@@ -254,24 +254,24 @@
 	</group>
 	<!-- Math -->
 	<group class="javascript_math_object">
-		<element pattern="abs"/>
-		<element pattern="acos"/>
-		<element pattern="asin"/>
-		<element pattern="atan"/>
-		<element pattern="atan2"/>
-		<element pattern="ceil"/>
-		<element pattern="cos"/>
-		<element pattern="exp"/>
-		<element pattern="floor"/>
-		<element pattern="log"/>
-		<element pattern="max"/>
-		<element pattern="min"/>
-		<element pattern="pow"/>
-		<element pattern="random"/>
-		<element pattern="round"/>
-		<element pattern="sin"/>
-		<element pattern="sqrt"/>
-		<element pattern="tan"/>
+		<element pattern="Math.abs"/>
+		<element pattern="Math.acos"/>
+		<element pattern="Math.asin"/>
+		<element pattern="Math.atan"/>
+		<element pattern="Math.atan2"/>
+		<element pattern="Math.ceil"/>
+		<element pattern="Math.cos"/>
+		<element pattern="Math.exp"/>
+		<element pattern="Math.floor"/>
+		<element pattern="Math.max"/>
+		<element pattern="Math.min"/>
+		<element pattern="Math.log"/>
+		<element pattern="Math.pow"/>
+		<element pattern="Math.random"/>
+		<element pattern="Math.round"/>
+		<element pattern="Math.sin"/>
+		<element pattern="Math.sqrt"/>
+		<element pattern="Math.tan"/>
 	</group>
 	<!-- Node -->
 	<group class="javascript_node_object">
@@ -490,10 +490,16 @@
 			<reference><i>window.screen.width</i> Returns the width of the screen.</reference>
 		</element>
 		<element pattern="screenX">
-			<reference><i>window.screenX</i> Returns the horizontal distance of the left border of the user's browser from the left side of the screen.</reference>
+			<reference>
+			<i>window.screenX</i> Returns the horizontal distance of the left border of the user's browser from the left side of the screen.
+			<i>MouseEvent.screenX</i> Read only. long
+				 The X coordinate of the mouse pointer in global (screen) coordinates.</reference>
 		</element>
 		<element pattern="screenY">
-			<reference><i>window.screenY</i> Returns the vertical distance of the top border of the user's browser from the top side of the screen.</reference>
+			<reference>
+			<i>window.screenY</i> Returns the vertical distance of the top border of the user's browser from the top side of the screen.
+			<i>MouseEvent.screenY</i> Read only. long
+				 The Y coordinate of the mouse pointer in global (screen) coordinates.</reference>
 		</element>
 		<element pattern="scrollbars">
 			<reference><i>window.scrollbars</i> Returns the scrollbars object, whose visibility can be toggled in the window.</reference>
@@ -875,17 +881,17 @@
 				<reference>Read only
 					    <i>ProgressEvent.total</i> Is an unsigned long long representing the total amount of work that the underlying process is in the progress of performing. When downloading a resource using HTTP, this only represent the content itself, not headers and other overhead.</reference>
 			</element>
-			<element pattern="animationName">
-				<reference>Read only
-					    <i>TransitionEvent.animationName</i> Is a DOMString containing the name CSS property associated with the transition.</reference>
-			</element>
+<!-- see also animationName CSS property -->
+
 			<element pattern="elapsedTime">
 				<reference>Read only
-					    <i>TransitionEvent.elapsedTime</i> Is a float giving the amount of time the transtion has been running, in seconds, when this event fired. This value is not affected by the transition-delay property.</reference>
+					    <i>TransitionEvent.elapsedTime</i> Is a float giving the amount of time the transtion has been running, in seconds, when this event fired. This value is not affected by the transition-delay property.
+					    <i>AnimationEvent.elapsedTime</i> Is a float giving the amount of time the animation has been running, in seconds, when this event fired, excluding any time the animation was paused. For an "animationstart" event, elapsedTime is 0.0 unless there was a negative value for animation-delay, in which case the event will be fired with elapsedTime containing  (-1 * delay).</reference>
 			</element>
 			<element pattern="pseudoElement">
 				<reference>Read only
-					    <i>TransitionEvent.pseudoElement</i> Is a DOMString, starting with '::', containing the name of the pseudo-element the animation runs on. If the transition doesn't run on a pseudo-element but on the element, an empty string: ''.</reference>
+					    <i>TransitionEvent.pseudoElement</i> Is a DOMString, starting with '::', containing the name of the pseudo-element the animation runs on. If the transition doesn't run on a pseudo-element but on the element, an empty string: ''.
+					    <i>AnimationEvent.pseudoElement</i> (Gecko only yet) Is a DOMString, starting with '::', containing the name of the pseudo-element the animation runs on. If the animation doesn't run on a pseudo-element but on the element, an empty string: ''.</reference>
 			</element>
 			<element pattern="UserProximityEvent.near">
 				<reference><i></i>Indicates if the device has sensed a nearby physical object.</reference>
@@ -905,18 +911,6 @@
 			<element pattern="column">
 				<reference>Read only
 					    <i>ErrorEvent.column</i> Is an integer containing the column number of the script file on which the error occurred.</reference>
-			</element>
-			<element pattern="animationName">
-				<reference>Read only
-					    <i>AnimationEvent.animationName</i> Is a DOMString containing the value of the animation-name CSS property associated with the transition.</reference>
-			</element>
-			<element pattern="elapsedTime">
-				<reference>Read only
-					    <i>AnimationEvent.elapsedTime</i> Is a float giving the amount of time the animation has been running, in seconds, when this event fired, excluding any time the animation was paused. For an "animationstart" event, elapsedTime is 0.0 unless there was a negative value for animation-delay, in which case the event will be fired with elapsedTime containing  (-1 * delay).</reference>
-			</element>
-			<element pattern="pseudoElement">
-				<reference>Read only
-					    <i>AnimationEvent.pseudoElement</i> Is a DOMString, starting with '::', containing the name of the pseudo-element the animation runs on. If the animation doesn't run on a pseudo-element but on the element, an empty string: ''.</reference>
 			</element>
 			<element pattern="data">
 				<reference>Read only
@@ -971,30 +965,56 @@
 			</element>
 			<element pattern="relatedTarget">
 				<reference>Read only
-					    <i>FocusEvent.relatedTarget</i> Is an EventTarget representing a secondary target for this event. As in some cases (like when tabbing in or out a page), this property may be set to null for security reasons.</reference>
+					    <i>FocusEvent.relatedTarget</i> Is an EventTarget representing a secondary target for this event. As in some cases (like when tabbing in or out a page), this property may be set to null for security reasons.
+					    <i>MouseEvent.relatedTarget</i> Read only. EventTarget
+				 The secondary target for the event, if there is one.</reference>
 			</element>
+<!--MouseEvent  -->
+<!--see also window.screenX, window.screenY -->
+			<element pattern="clientX">
+				<reference>MouseEvent.clientX<i> Read only. long</i>
+				 The X coordinate of the mouse pointer in local (DOM content) coordinates.
+				</reference>
+			</element>
+			<element pattern="clientY">
+				<reference>MouseEvent.clientY<i> Read only. long</i>
+				 The Y coordinate of the mouse pointer in local (DOM content) coordinates.
+				</reference>
+			</element>
+			<element pattern="ctrlKey">
+				<reference>MouseEvent.ctrlKey<i> Read only. boolean</i>
+				 true if the control key was down when the mouse event was fired.
+				</reference>
+			</element>
+			<element pattern="shiftKey">
+				<reference>MouseEvent.shiftKey<i> Read only. boolean</i>
+				 true if the shift key was down when the mouse event was fired.
+				</reference>
+			</element>
+			<element pattern="altKey">
+				<reference>MouseEvent.altKey<i> Read only. boolean</i>
+				 true  if the alt key was down when the mouse event was fired.
+				</reference>
+			</element>
+			<element pattern="metaKey">
+				<reference>MouseEvent.metaKey<i> Read only. boolean</i>
+				 true if the meta key was down when the mouse event was fired.
+				</reference>
+			</element>
+			<element pattern="button">
+				<reference>MouseEvent.button<i> Read only. unsigned short</i>
+				 The button number that was pressed when the mouse event was fired. 
+		        Left button=0, middle button=1 (if present), right button=2. For mice configured for left handed use in which the button actions are reversed the values are instead read from right to left. 
+				</reference>
+			</element>
+			<element pattern="buttons">
+				<reference>MouseEvent.buttons<i> Read only. unsigned short</i>
+				 The buttons being pressed when the mouse event was fired. 
+				 Left button=1, Right button=2, Middle (wheel) button=4, 4th button (typically, "Browser Back" button)=8, 5th button (typically, "Browser Forward" button)=16. If two or more buttons are pressed, returns the logical sum of the values. E.g., if Left button and Right button are pressed, returns 3 (=1 | 2).    
+				</reference>
+			</element>
+<!--			<element pattern="relatedTarget"> -->
 
-<!--	not finished yet		-->
-			<element pattern="altKey"/>
-			<element pattern="ctrlKey"/>
-			<element pattern="shiftKey"/>
-			<element pattern="button"/>
-			<element pattern="clientX"/>
-			<element pattern="clientY"/>
-			<element pattern="keyCode"/>
-			<element pattern="layerX"/>
-			<element pattern="modifiers"/>
-			<element pattern="offsetX"/>
-			<element pattern="pageX"/>
-<!--			<element pattern="screenX"/>-->
-			<element pattern="which"/>
-			<element pattern="type"/>
-<!-- 			<element pattern="x"/> -->
-<!-- 			<element pattern="y"/> -->
-			<element pattern="layerY"/>
-			<element pattern="offsetY"/>
-			<element pattern="pageY"/>
-<!--			<element pattern="screenY"/>-->
 		</group>
 <!-- 		<element pattern="length" class="javascript_history_object"/> -->
 		<group class="javascript_location_object">
@@ -1035,7 +1055,6 @@
 		</group>
 		<group>
 <!-- 			<element pattern="description"/> -->
-			<element pattern="filename"/>
 <!-- 			<element pattern="length"/> -->
 <!-- 			<element pattern="name"/> -->
 		</group>
@@ -1107,7 +1126,11 @@
 		<element pattern="animationDuration" />
 		<element pattern="animationFillMode" />
 		<element pattern="animationIterationCount" />
-		<element pattern="animationName" />
+		<element pattern="animationName">
+			<reference>
+				<i>TransitionEvent.animationName</i> (Read only) Is a DOMString containing the name CSS property associated with the transition.
+				<i>AnimationEvent.animationName</i> (Read only) Is a DOMString containing the value of the animation-name CSS property associated with the transition.</reference>
+			</element>
 		<element pattern="animationPlayState" />
 		<element pattern="animationTimingFunction" />
 		<element pattern="azimuth" />
