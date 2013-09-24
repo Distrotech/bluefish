@@ -858,7 +858,122 @@
 			</element>
 		  <element pattern="isTrusted">
 				<reference><i>event.isTrusted</i> Indicates whether or not the event was initiated by the browser (after a user click for instance) or by a script (using an event creation method, like >event.initEvent)</reference>
+			</element>	
+			<element pattern="clipboardData">
+				<reference>Read only
+					    <i>ClipboardEvent.clipboardData</i> Is a DataTransfer object containing the data affected by the user-initialed cut, copy, or paste operation, along with its MIME type.</reference>
 			</element>
+			<element pattern="lengthComputable">
+				<reference>Read only
+					    <i>ProgressEvent.lengthComputable</i> Is a Boolean flag indicating if the total work to be done, and the amount of work already done, by the underlying process is calculable. In other words, it tells if the progress is measurable or not.</reference>
+			</element>
+			<element pattern="loaded">
+				<reference>Read only
+					    <i>ProgressEvent.loaded</i> Is an unsigned long long representing the amount of work already performed by the underlying process. The ratio of work done can be calculated with the property and ProgressEvent.total. When downloading a resource using HTTP, this only represent the part of the content itself, not headers and other overhead.</reference>
+			</element>
+			<element pattern="total">
+				<reference>Read only
+					    <i>ProgressEvent.total</i> Is an unsigned long long representing the total amount of work that the underlying process is in the progress of performing. When downloading a resource using HTTP, this only represent the content itself, not headers and other overhead.</reference>
+			</element>
+			<element pattern="animationName">
+				<reference>Read only
+					    <i>TransitionEvent.animationName</i> Is a DOMString containing the name CSS property associated with the transition.</reference>
+			</element>
+			<element pattern="elapsedTime">
+				<reference>Read only
+					    <i>TransitionEvent.elapsedTime</i> Is a float giving the amount of time the transtion has been running, in seconds, when this event fired. This value is not affected by the transition-delay property.</reference>
+			</element>
+			<element pattern="pseudoElement">
+				<reference>Read only
+					    <i>TransitionEvent.pseudoElement</i> Is a DOMString, starting with '::', containing the name of the pseudo-element the animation runs on. If the transition doesn't run on a pseudo-element but on the element, an empty string: ''.</reference>
+			</element>
+			<element pattern="UserProximityEvent.near">
+				<reference><i></i>Indicates if the device has sensed a nearby physical object.</reference>
+			</element>
+			<element pattern="message">
+				<reference>Read only
+					    <i>ErrorEvent.message</i> Is a DOMString containing a human-readable error message describing the problem.</reference>
+			</element>
+			<element pattern="filename">
+				<reference>Read only
+					    <i>ErrorEvent.filename</i> Is a DOMString containing the name of the script file in which the error occurred.</reference>
+			</element>
+			<element pattern="lineno">
+				<reference>Read only
+					    <i>ErrorEvent.lineno</i> Is an integer containing the line number of the script file on which the error occurred.</reference>
+			</element>
+			<element pattern="column">
+				<reference>Read only
+					    <i>ErrorEvent.column</i> Is an integer containing the column number of the script file on which the error occurred.</reference>
+			</element>
+			<element pattern="animationName">
+				<reference>Read only
+					    <i>AnimationEvent.animationName</i> Is a DOMString containing the value of the animation-name CSS property associated with the transition.</reference>
+			</element>
+			<element pattern="elapsedTime">
+				<reference>Read only
+					    <i>AnimationEvent.elapsedTime</i> Is a float giving the amount of time the animation has been running, in seconds, when this event fired, excluding any time the animation was paused. For an "animationstart" event, elapsedTime is 0.0 unless there was a negative value for animation-delay, in which case the event will be fired with elapsedTime containing  (-1 * delay).</reference>
+			</element>
+			<element pattern="pseudoElement">
+				<reference>Read only
+					    <i>AnimationEvent.pseudoElement</i> Is a DOMString, starting with '::', containing the name of the pseudo-element the animation runs on. If the animation doesn't run on a pseudo-element but on the element, an empty string: ''.</reference>
+			</element>
+			<element pattern="data">
+				<reference>Read only
+					    <i>BlobEvent.data</i> Is a Blob representing the data associated with the event. The event is fired on the EventTarget because of something happening on that specific Blob.</reference>
+			</element>
+			<element pattern="DeviceLightEvent.value">
+				<reference><i>DeviceLightEvent.value</i> The level of the ambient light in lux.</reference>
+			</element>
+			<element pattern="acceleration">
+				<reference>Read only
+					    <i>DeviceMotionEvent.acceleration</i> An object giving the acceleration of the device on the three axis X, Y and Z. Acceleration is expressed in m/s².</reference>
+			</element>
+			<element pattern="accelerationIncludingGravity">
+				<reference>Read only
+					    <i>DeviceMotionEvent.accelerationIncludingGravity</i> An object giving the acceleration of the device on the three axis X, Y and Z with the effect of gravity. Acceleration is expressed in m/s².</reference>
+			</element>
+			<element pattern="rotationRate">
+				<reference>Read only
+					    <i>DeviceMotionEvent.rotationRate</i> An object giving the rate of change of the device's orientation on the three orientation axis alpha, beta and gamma. Rotation rate is express in degrees per seconds.</reference>
+			</element>
+			<element pattern="interval">
+				<reference>Read only
+					    <i>DeviceMotionEvent.interval</i> A number representing the interval of time, in milliseconds, at which data are obtain from the device.</reference>
+			</element>
+			<element pattern="absolute">
+				<reference>Read only
+					    <i>DeviceOrientationEvent.absolute</i> A boolean that indicates whether or not the device is providing orientation data absolutely.</reference>
+			</element>
+			<element pattern="alpha">
+				<reference>Read only
+					    <i>DeviceOrientationEvent.alpha</i> A number representing the motion of the device around the z axis, express in degrees with values ranging from 0 to 360</reference>
+			</element>
+			<element pattern="beta">
+				<reference>Read only
+					    <i>DeviceOrientationEvent.beta</i> A number representing the motion of the device around the x axis, express in degrees with values ranging from -180 to 180. This represents a front to back motion of the device.</reference>
+			</element>
+			<element pattern="gamma">
+				<reference>Read only
+					    <i>DeviceOrientationEvent.gamma</i> A number representing the motion of the device around the y axis, express in degrees with values ranging from -90 to 90. This represents a left to right motion of the device.</reference>
+			</element>
+			<element pattern="max">
+				<reference>Read only
+					    <i>DeviceProximityEvent.max</i> The maximum sensing distance the sensor is able to report, in centimeters.</reference>
+			</element>
+			<element pattern="min">
+				<reference>Read only
+					    <i>DeviceProximityEvent.min</i> The minimum sensing distance the sensor is able to report, in centimeters. Ususally zero.</reference>
+			</element>
+			<element pattern="value">
+				<reference>Read only
+					    <i>DeviceProximityEvent.value</i> The current device proximity, in centimeters.</reference>
+			</element>
+			<element pattern="relatedTarget">
+				<reference>Read only
+					    <i>FocusEvent.relatedTarget</i> Is an EventTarget representing a secondary target for this event. As in some cases (like when tabbing in or out a page), this property may be set to null for security reasons.</reference>
+			</element>
+
 <!--	not finished yet		-->
 			<element pattern="altKey"/>
 			<element pattern="ctrlKey"/>
