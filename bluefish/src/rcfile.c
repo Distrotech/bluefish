@@ -1180,11 +1180,14 @@ setup_session_after_parse(Tsessionvars * session)
 }
 
 static GHashTable *
-return_project_configlist(Tproject * project)
+return_project_configlist(Tproject * project, GList **oldfiles)
 {
 	GHashTable *configlist = g_hash_table_new_full(g_str_hash, g_str_equal, NULL, free_config_list_item);
 	init_prop_string(&configlist, &project->name, "name:", _("Untitled Project"));
-	init_prop_arraylist(&configlist, &project->files, "files:", 0, FALSE); /* Zero allows any length of array, array lenght should be 5 after first save */
+	init_prop_arraylist(&configlist, &project->files, "openfiles:", 0, FALSE); /* Zero allows any length of array, array lenght should be 5 after first save */
+	if (oldfiles) {
+		init_prop_stringlist(&configlist, oldfiles, "files:", FALSE);
+	}
 /*	init_prop_stringlist(&configlist, &project->recentfiles, "recentfiles:", FALSE); / * should be changed to use the session->recent_files */
 	configlist = return_session_configlist(configlist, project->session);
 	return configlist;
@@ -1194,9 +1197,20 @@ gboolean
 rcfile_parse_project(Tproject * project, GFile * file)
 {
 	gboolean retval;
-	GHashTable *configlist = return_project_configlist(project);
+	GList *oldfiles=NULL;
+	GHashTable *configlist = return_project_configlist(project, &oldfiles);
 	retval = parse_config_file(configlist, file);
 	free_configlist(configlist);
+	if (project->files == NULL && oldfiles != NULL) {
+		/* convert old format to new format! */
+		GList *tmplist = g_list_first(oldfiles);
+		while (tmplist) {
+			project->files = g_list_prepend(project->files, array_from_arglist(tmplist->data, "0", "0", "0", NULL));
+			tmplist = g_list_next(tmplist);
+		}
+		free_stringlist(oldfiles);
+	} 
+	
 	setup_session_after_parse(project->session);
 	return retval;
 }
@@ -1205,7 +1219,7 @@ gboolean
 rcfile_save_project(Tproject * project, GFile * file)
 {
 	gboolean retval;
-	GHashTable *configlist = return_project_configlist(project);
+	GHashTable *configlist = return_project_configlist(project, NULL);
 	DEBUG_MSG("rcfile_save_project, project %p, name='%s'\n", project, project->name);
 	DEBUG_MSG("rcfile_save_project, bmarks=%p, list length=%d\n", project->session->bmarks,
 			  g_list_length(project->session->bmarks));
