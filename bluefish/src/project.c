@@ -171,6 +171,7 @@ project_document_load_finished_lcb(gpointer data)
 	}
 	DEBUG_MSG("Callback project_document_load_finished_lcb , document=%p load finished", doc);
 	gint doc_index = gtk_notebook_get_current_page (GTK_NOTEBOOK(BFWIN(doc->bfwin)->notebook));
+	BFWIN(doc->bfwin)->last_activated_doc = NULL; /* Force document scanning, sometimes first tab document gets the same pointer as destroyed one */
 	bfwin_notebook_changed(BFWIN(doc->bfwin), doc_index);
 	/* get back focus once again, when all parts of bf are finally loaded; this forces cursor blinking; otherwise filebrowser hijacks focus and cursor disappears */
 	g_idle_add_full(G_PRIORITY_LOW+1, project_grab_focus_lcb, doc, NULL);
@@ -180,8 +181,8 @@ project_document_load_finished_lcb(gpointer data)
 static void
 setup_bfwin_for_project(Tbfwin * bfwin, Tdocument *active_doc)
 {
-	DEBUG_MSG("setup_bfwin_for_project, bfwin=%p, bfwin->project=%p, bfwin->session=%p\n", bfwin,
-			  bfwin->project, bfwin->session);
+	DEBUG_MSG("setup_bfwin_for_project, bfwin=%p, bfwin->project=%p, bfwin->session=%p\n, current_document=%p, active_doc=%p", bfwin,
+			  bfwin->project, bfwin->session, bfwin->current_document, active_doc);
 	if (active_doc && active_doc->uri) {
 		if(active_doc->load_first) {
 			g_idle_add_full(FILE2DOC_PRIORITY-1, project_document_load_finished_lcb, active_doc, NULL); 
