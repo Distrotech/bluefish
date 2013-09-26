@@ -1203,10 +1203,10 @@ rcfile_parse_project(Tproject * project, GFile * file)
 	free_configlist(configlist);
 	if (project->files == NULL && oldfiles != NULL) {
 		/* convert old format to new format! */
-		GList *tmplist = g_list_first(oldfiles);
+		GList *tmplist = g_list_last(oldfiles);
 		while (tmplist) {
 			project->files = g_list_prepend(project->files, array_from_arglist(tmplist->data, "0", "0", "0", NULL));
-			tmplist = g_list_next(tmplist);
+			tmplist = g_list_previous(tmplist);
 		}
 		free_stringlist(oldfiles);
 	} 
