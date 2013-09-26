@@ -183,7 +183,11 @@ setup_bfwin_for_project(Tbfwin * bfwin, Tdocument *active_doc)
 	DEBUG_MSG("setup_bfwin_for_project, bfwin=%p, bfwin->project=%p, bfwin->session=%p\n", bfwin,
 			  bfwin->project, bfwin->session);
 	if (active_doc && active_doc->uri) {
-		g_idle_add_full(FILE2DOC_PRIORITY-1, project_document_load_finished_lcb, active_doc, NULL); 
+		if(active_doc->load_first) {
+			g_idle_add_full(FILE2DOC_PRIORITY-1, project_document_load_finished_lcb, active_doc, NULL); 
+		} else {
+			g_idle_add_full(FILE2DOC_PRIORITY, project_document_load_finished_lcb, active_doc, NULL); 
+		}
 	}
 	bfwin->bmarkdata = bfwin->project->bmarkdata;
 	bmark_set_store(bfwin);
@@ -431,7 +435,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 			doc_destroy(prwin->current_document, TRUE); /*new window is created with empty doc, so we destroy it TODO move empty tab creation from bfwin_create_main() */
 	}
 	tmplist = g_list_last(prj->files);
-	gint doc_index = -1;
+	gint doc_index = 0;
 	gint i =0;
 	gint cursor_offset = -1;
 	gint goto_offset = -1; 
@@ -467,11 +471,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 			i++;
 		}
 		/* Now switch to tab that holds last active document from previous session */
-		if (doc_index == -1) {
-			bfwin->focus_next_new_doc = TRUE;
-		} else {
-			bfwin_switch_to_document_by_index(prwin, doc_index);
-		}
+		bfwin_switch_to_document_by_index(prwin, doc_index);
 		bfwin_notebook_unblock_signals(prwin);  /* Unblock signals, doc will be activated in setup_bfwin_for_project*/
 	} else {
 		doc_new(prwin, FALSE);
