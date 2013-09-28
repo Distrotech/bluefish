@@ -205,73 +205,187 @@
 	</group>
 	<!-- Date -->
 	<group class="javascript_date_object">
-		<element pattern="getDate"/>
-		<element pattern="getDay"/>
-		<element pattern="getFullYear"/>
-		<element pattern="getHours"/>
-		<element pattern="getMilliseconds"/>
-		<element pattern="getMinutes"/>
-		<element pattern="getMonth"/>
-		<element pattern="getSeconds"/>
-		<element pattern="getTime"/>
-		<element pattern="getTimezoneOffset"/>
-		<element pattern="getUTCDate"/>
-		<element pattern="getUTCDay"/>
-		<element pattern="getUTCFullYear"/>
-		<element pattern="getUTCHours"/>
-		<element pattern="getUTCMilliseconds"/>
-		<element pattern="getUTCMinutes"/>
-		<element pattern="getUTCMonth"/>
-		<element pattern="getUTCSeconds"/>
-		<element pattern="getYear"/>
-		<element pattern="parse"/>
-		<element pattern="setDate"/>
-		<element pattern="setFullYear"/>
-		<element pattern="setHours"/>
-		<element pattern="setMilliseconds"/>
-		<element pattern="setMinutes"/>
-		<element pattern="setMonth"/>
-		<element pattern="setSeconds"/>
-		<element pattern="setTime"/>
-		<element pattern="setUTCDate"/>
-		<element pattern="setUTCFullYear"/>
-		<element pattern="setUTCHours"/>
-		<element pattern="setUTCMilliseconds"/>
-		<element pattern="setUTCMinutes"/>
-		<element pattern="setUTCMonth"/>
-		<element pattern="setUTCSeconds"/>
-		<element pattern="setYear"/>
-		<element pattern="toGMTString"/>
-		<element pattern="toDateString"/>
-		<element pattern="toLocaleDateString"/>
-		<element pattern="toLocaleLowerCase"/>
-		<element pattern="toLocaleString"/>
-		<element pattern="toLocaleTimeString"/>
-		<element pattern="toLocaleUpperCase"/>
-		<element pattern="toTimeString"/>
-		<element pattern="toUTCString"/>
-		<element pattern="UTC"/>
+		<element pattern="getDate">
+			<reference><b>Date.getDate</b> returns the day of the month (1-31) for the specified date according to local time</reference>
+		</element>
+		<element pattern="getDay">
+			<reference><b>Date.getDay</b> returns the day of the week (0-6) for the specified date according to local time</reference>
+		</element>
+		<element pattern="getFullYear">
+			<reference><b>Date.getFullYear</b> returns the year (4 digits for 4-digit years) of the specified date according to local time</reference>
+		</element>
+		<element pattern="getHours">
+			<reference><b>Date.getHours</b> returns the hour (0-23) in the specified date according to local time</reference>
+		</element>
+		<element pattern="getMilliseconds">
+			<reference><b>Date.getMilliseconds</b> returns the milliseconds (0-999) in the specified date according to local time</reference>
+		</element>
+		<element pattern="getMinutes">
+			<reference><b>Date.getMinutes</b> returns the minutes (0-59) in the specified date according to local time</reference>
+		</element>
+		<element pattern="getMonth">
+			<reference><b>Date.getMonth</b> returns the month (0-11) in the specified date according to local time</reference>
+		</element>
+		<element pattern="getSeconds">
+			<reference><b>Date.getSeconds</b> returns the seconds (0-59) in the specified date according to local time</reference>
+		</element>
+		<element pattern="getTime">
+			<reference><b>Date.getTime</b> returns the numeric value of the specified date as the number of milliseconds since January 1, 1970, 00:00:00 UTC (negative for prior times)</reference>
+		</element>
+		<element pattern="getTimezoneOffset">
+			<reference><b>Date.getTimezoneOffset</b> returns the time-zone offset in minutes for the current locale</reference>
+		</element>
+		<element pattern="getUTCDate">
+			<reference><b>Date.getUTCDate</b> returns the day (date) of the month (1-31) in the specified date according to universal time</reference>
+		</element>
+		<element pattern="getUTCDay">
+			<reference><b>Date.getUTCDay</b> returns the day of the week (0-6) in the specified date according to universal time</reference>
+		</element>
+		<element pattern="getUTCFullYear">
+			<reference><b>Date.getUTCFullYear</b> returns the year (4 digits for 4-digit years) in the specified date according to universal time</reference>
+		</element>
+		<element pattern="getUTCHours">
+			<reference><b>Date.getUTCHours</b> returns the hours (0-23) in the specified date according to universal time</reference>
+		</element>
+		<element pattern="getUTCMilliseconds">
+			<reference><b>Date.getUTCMilliseconds</b> returns the milliseconds (0-999) in the specified date according to universal time</reference>
+		</element>
+		<element pattern="getUTCMinutes">
+			<reference><b>Date.getUTCMinutes</b> returns the minutes (0-59) in the specified date according to universal time</reference>
+		</element>
+		<element pattern="getUTCMonth">
+			<reference><b>Date.getUTCMonth</b> returns the month (0-11) in the specified date according to universal time</reference>
+		</element>
+		<element pattern="getUTCSeconds">
+			<reference><b>Date.getUTCSeconds</b> returns the seconds (0-59) in the specified date according to universal time</reference>
+		</element>
+	
+		<element pattern="setDate">
+			<reference><b>Date.setDate</b> sets the day of the month (1-31) for a specified date according to local time</reference>
+		</element>
+		<element pattern="setFullYear">
+			<reference><b>Date.setFullYear</b> sets the full year (4 digits for 4-digit years) for a specified date according to local time</reference>
+		</element>
+		<element pattern="setHours">
+			<reference><b>Date.setHours</b> sets the hours (0-23) for a specified date according to local time</reference>
+		</element>
+		<element pattern="setMilliseconds">
+			<reference><b>Date.setMilliseconds</b> sets the milliseconds (0-999) for a specified date according to local time</reference>
+		</element>
+		<element pattern="setMinutes">
+			<reference><b>Date.setMinutes</b> sets the minutes (0-59) for a specified date according to local time</reference>
+		</element>
+		<element pattern="setMonth">
+			<reference><b>Date.setMonth</b> sets the month (0-11) for a specified date according to local time</reference>
+		</element>
+		<element pattern="setSeconds">
+			<reference><b>Date.setSeconds</b> sets the seconds (0-59) for a specified date according to local time</reference>
+		</element>
+		<element pattern="setTime">
+			<reference><b>Date.setTime</b> sets the Date object to the time represented by a number of milliseconds since January 1, 1970, 00:00:00 UTC, allowing for negative numbers for times prior</reference>
+		</element>
+		<element pattern="setUTCDate">
+			<reference><b>Date.setUTCDate</b> sets the day of the month (1-31) for a specified date according to universal time</reference>
+		</element>
+		<element pattern="setUTCFullYear">
+			<reference><b>Date.setUTCFullYear</b> sets the full year (4 digits for 4-digit years) for a specified date according to universal time</reference>
+		</element>
+		<element pattern="setUTCHours">
+			<reference><b>Date.setUTCHours</b> sets the hour (0-23) for a specified date according to universal time</reference>
+		</element>
+		<element pattern="setUTCMilliseconds">
+			<reference><b>Date.setUTCMilliseconds</b> sets the milliseconds (0-999) for a specified date according to universal time</reference>
+		</element>
+		<element pattern="setUTCMinutes">
+			<reference><b>Date.setUTCMinutes</b> sets the minutes (0-59) for a specified date according to universal time</reference>
+		</element>
+		<element pattern="setUTCMonth">
+			<reference><b>Date.setUTCMonth</b> sets the month (0-11) for a specified date according to universal time</reference>
+		</element>
+		<element pattern="setUTCSeconds">
+			<reference><b>Date.setUTCSeconds</b> sets the seconds (0-59) for a specified date according to universal time</reference>
+		</element>
+		<element pattern="toDateString">
+			<reference><b>Date.toDateString</b> returns the "date" portion of the Date as a human-readable string</reference>
+		</element>
+		<element pattern="toISOString">
+			<reference><b>Date.toISOString</b>Converts a date to a string following the ISO 8601 Extended Format</reference>
+		</element>
+		<element pattern="toLocaleString">
+			<reference><b>Date.toLocaleString</b> returns a string with a language sensitive representation of this date. Overrides the Object.toLocaleString method</reference>
+		</element>
+		<element pattern="toLocaleTimeString">
+			<reference><b>Date.toLocaleTimeString</b> returns a string with a language sensitive representation of the time portion of this date</reference>
+		</element>
+		<element pattern="Date.toString">
+			<reference><b>Date.toString</b> returns a string representing the specified Date object. Overrides the Object.prototype.toString method</reference>
+		</element>
+		<element pattern="toTimeString">
+			<reference><b>Date.toTimeString</b> returns the "time" portion of the Date as a human-readable string</reference>
+		</element>
+		<element pattern="toUTCString">
+			<reference><b>Date.toUTCString</b>Converts a date to a string, using the universal time convention</reference>
+		</element>
+		<element pattern="Date.valueOf">
+			<reference><b>Date.valueOf</b> returns the primitive value of a Date object. Overrides the Object.prototype.valueOf method</reference>
+		</element>
 	</group>
 	<!-- Math -->
 	<group class="javascript_math_object">
-		<element pattern="Math.abs"/>
-		<element pattern="Math.acos"/>
-		<element pattern="Math.asin"/>
-		<element pattern="Math.atan"/>
-		<element pattern="Math.atan2"/>
-		<element pattern="Math.ceil"/>
-		<element pattern="Math.cos"/>
-		<element pattern="Math.exp"/>
-		<element pattern="Math.floor"/>
-		<element pattern="Math.max"/>
-		<element pattern="Math.min"/>
-		<element pattern="Math.log"/>
-		<element pattern="Math.pow"/>
-		<element pattern="Math.random"/>
-		<element pattern="Math.round"/>
-		<element pattern="Math.sin"/>
-		<element pattern="Math.sqrt"/>
-		<element pattern="Math.tan"/>
+	<element pattern="Math.abs">
+		<reference>Returns the absolute value of a number.</reference>
+	</element>
+	<element pattern="Math.acos">
+		<reference>Returns the arccosine of a number (angles in radians).</reference>
+	</element>
+	<element pattern="Math.asin">
+		<reference>Returns the arcsine of a number (angles in radians).</reference>
+	</element>
+	<element pattern="Math.atan">
+		<reference>Returns the arctangent of a number (angles in radians).</reference>
+	</element>
+	<element pattern="Math.atan2">
+		<reference>Returns the arctangent of the quotient of its arguments (angles in radians).</reference>
+	</element>
+	<element pattern="Math.ceil">
+		<reference>Returns the smallest integer greater than or equal to a number.</reference>
+	</element>
+	<element pattern="Math.cos">
+		<reference>Returns the cosine of a number (angles in radians).</reference>
+	</element>
+	<element pattern="Math.exp">
+		<reference>Returns Enumber, where number is the argument, and E is Euler's constant (2.718...), the base of the natural logarithm.</reference>
+	</element>
+	<element pattern="Math.floor">
+		<reference>Returns the largest integer less than or equal to a number.</reference>
+	</element>
+	<element pattern="Math.log">
+		<reference>Returns the natural logarithm (loge, also ln) of a number.</reference>
+	</element>
+	<element pattern="Math.max">
+		<reference>Returns the largest of zero or more numbers.</reference>
+	</element>
+	<element pattern="Math.min">
+		<reference>Returns the smallest of zero or more numbers.</reference>
+	</element>
+	<element pattern="Math.pow">
+		<reference>Returns base to the exponent power, that is, baseexponent.</reference>
+	</element>
+	<element pattern="Math.random">
+		<reference>Returns a pseudo-random number between 0 and 1.</reference>
+	</element>
+	<element pattern="Math.round">
+		<reference>Returns the value of a number rounded to the nearest integer.</reference>
+	</element>
+	<element pattern="Math.sin">
+		<reference>Returns the sine of a number (angles in radians).</reference>
+	</element>
+	<element pattern="Math.sqrt">
+		<reference>Returns the positive square root of a number.</reference>
+	</element>
+	<element pattern="Math.tan">
+		<reference>Returns the tangent of a number (angles in radians).</reference>
+	</element>
 	</group>
 	<!-- Node -->
 	<group class="javascript_node_object">
