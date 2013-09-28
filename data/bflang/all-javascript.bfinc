@@ -123,7 +123,7 @@
 	<element pattern="decodeURIComponent"/>
 	<element pattern="encodeURI"/>
 	<element pattern="encodeURIComponent"/>
-	<element pattern="escape"/>
+<!--	<element pattern="escape"/> -->
 	<element pattern="eval"/>
 <!-- 	<element pattern="exec"/> -->
 	<element pattern="hasOwnProperty"/>
@@ -133,36 +133,125 @@
 	<element pattern="parseFloat"/>
 	<element pattern="parseInt"/>
 	<element pattern="propertyIsEnumerable"/>
-	<element pattern="unescape"/>
+<!--	<element pattern="unescape"/> -->
 	<group class="javascript_window_object">
-		<element pattern="alert"/>
-		<element pattern="back"/>
-		<element pattern="blur"/>
-		<element pattern="captureEvents"/>
-		<element pattern="clearInterval"/>
-		<element pattern="clearTimeout"/>
-		<element pattern="close"/>
-		<element pattern="confirm"/>
-		<element pattern="disableExternalCapture"/>
-		<element pattern="enableExternalCapture"/>
-		<element pattern="find"/>
-		<element pattern="focus"/>
-		<element pattern="forward"/>
-		<element pattern="handleEvent"/>
-		<element pattern="home"/>
-		<element pattern="moveBy"/>
-		<element pattern="open"/>
-		<element pattern="print"/>
-		<element pattern="prompt"/>
-		<element pattern="releaseEvents"/>
-		<element pattern="resizeBy"/>
-		<element pattern="resizeTo"/>
-		<element pattern="routeEvent"/>
-		<element pattern="scrollBy"/>
-		<element pattern="scrollTo"/>
-		<element pattern="setInterval"/>
-		<element pattern="setTimeout"/>
-		<element pattern="stop"/>
+<!-- reference: https://developer.mozilla.org/en-US/docs/Web/API/Window -->
+	<element pattern="addEventListener">
+		<reference><i>EventTarget.addEventListener(type, listener[, useCapture])</i> Registers the specified listener on the EventTarget it's called on. The event target may be an Element in a document, the Document itself, a Window, or any other object that supports events (such as XMLHttpRequest).</reference>
+	</element>
+	<element pattern="alert">
+		<reference><i>Window.alert(message)</i> Displays an alert dialog with the optional specified content and an OK button.</reference>
+	</element>
+	<element pattern="atob">
+		<reference><i>Window.atob(encodedData)</i> Decodes a string of data which has been encoded using base-64 encoding.</reference>
+	</element>
+	<element pattern="back">
+		<reference><i>Window.back()</i> Returns the window to the previous item in the history.</reference>
+	</element>
+	<element pattern="blur">
+		<reference><i>Window.blur()</i> Shifts focus away from the window.</reference>
+	</element>
+	<element pattern="btoa">
+		<reference><i>Window.btoa(stringToEncode)</i> Creates a base-64 encoded ASCII string from a string of binary data.</reference>
+	</element>
+	<element pattern="clearInterval">
+		<reference><i>Window.clearInterval(intervalID)</i> Cancels repeated action which was set up using setInterval.</reference>
+	</element>
+	<element pattern="clearTimeout">
+		<reference><i>Window.clearTimeout(timeoutID)</i> Clears the delay set by window.setTimeout().</reference>
+	</element>
+	<element pattern="close">
+		<reference><i>Window.close()</i> Closes the current window, or a referenced window.</reference>
+	</element>
+	<element pattern="confirm">
+		<reference><i>Window.confirm(message)</i> Displays a modal dialog with an optional message and two buttons, OK and Cancel.</reference>
+	</element>
+	<element pattern="dump">
+		<reference><i>Window.dump(message)</i> Prints messages to the (native) console.</reference>
+	</element>
+	<element pattern="escape">
+		<reference><i>Window.escape(regular string)</i> Encodes a string, replacing all characters except for ASCII digits, lower and upper case letters, and the characters * + - . / @ _ with a hexadecimal escape sequence.</reference>
+	</element>
+	<element pattern="focus">
+		<reference><i>Window.focus()</i> Makes a request to bring the window to the front. It may fail due to user settings and the window isn't guaranteed to be frontmost before this method returns.</reference>
+	</element>
+	<element pattern="forward">
+		<reference><i>Window.forward()</i> Moves the window one document forward in the history.</reference>
+	</element>
+	<element pattern="getComputedStyle">
+		<reference><i>Window.getComputedStyle(element[, pseudoElt])</i> getComputedStyle() gives the final used values of all the CSS properties of an element.</reference>
+	</element>
+	<element pattern="getSelection">
+		<reference><i>Window.getSelection()</i> Returns a selection object representing the range of text selected by the user.</reference>
+	</element>
+	<element pattern="matchMedia">
+		<reference><i>Window.matchMedia(mediaQueryString)</i> Returns a new MediaQueryList object representing the parsed results of the specified media query string.</reference>
+	</element>
+	<element pattern="moveBy">
+		<reference><i>Window.moveBy(deltaX, deltaY)</i> Moves the current window by a specified amount.</reference>
+	</element>
+	<element pattern="moveTo">
+		<reference><i>Window.moveTo(x, y)</i> Moves the window to the specified coordinates.</reference>
+	</element>
+	<element pattern="open">
+		<reference><i>Window.open(strUrl, strWindowName[, strWindowFeatures])</i> Loads a resource in a new browsing context or an existing one.</reference>
+	</element>
+	<element pattern="openDialog">
+		<reference><i>Window.openDialog(url, name, features, arg1, arg2, ...)</i> window.openDialog is an extension to window.open. It behaves the same, except that it can optionally take one or more parameters past windowFeatures, and windowFeatures itself is treated a little differently.</reference>
+	</element>
+	<element pattern="postMessage">
+		<reference><i>Window.postMessage(message, targetOrigin, [transfer])</i> The Window.postMessage method safely enable cross-origin communication. Normally, scripts on different pages are only allowed to access each other if and only if the pages which executed them are at locations with the same protocol (usually both http), port number (80 being the default for http), and host (modulo document.domain being set by both pages to the same value). window.postMessage provides a controlled mechanism to circumvent this restriction in a way which is secure when properly used.</reference>
+	</element>
+	<element pattern="print">
+		<reference><i>Window.print()</i> Opens the Print Dialog to print the current document.</reference>
+	</element>
+	<element pattern="prompt">
+		<reference><i>Window.prompt(text, value)</i> Displays a dialog with an optional message prompting the user to input some text.</reference>
+	</element>
+	<element pattern="resizeBy">
+		<reference><i>Window.resizeBy(xDelta, yDelta)</i> Resizes the current window by a certain amount.</reference>
+	</element>
+	<element pattern="resizeTo">
+		<reference><i>Window.resizeTo(iWidth, iHeight)</i> Dynamically resizes window.</reference>
+	</element>
+	<element pattern="scroll">
+		<reference><i>Window.scroll(x-coord,y-coord)</i> Scrolls the window to a particular place in the document.</reference>
+	</element>
+	<element pattern="scrollBy">
+		<reference><i>Window.scrollBy(X,Y)</i> Scrolls the document in the window by the given amount.</reference>
+	</element>
+	<element pattern="scrollByLines">
+		<reference><i>Window.scrollByLines(lines)</i> Scrolls the document by the given number of lines.</reference>
+	</element>
+	<element pattern="scrollByPages">
+		<reference><i>Window.scrollByPages(pages)</i> Scrolls the current document by the specified number of pages.</reference>
+	</element>
+	<element pattern="scrollTo">
+		<reference><i>Window.scrollTo(x-coord,y-coord)</i> Scrolls to a particular set of coordinates in the document.</reference>
+	</element>
+	<element pattern="setInterval">
+		<reference>
+		<i>window.setInterval(func, delay[, param1, param2, ...])</i>
+		<i>window.setInterval(code, delay);</i> Calls a function or executes a code snippet repeatedly, with a fixed time delay between each call to that function.</reference>
+	</element>
+	<element pattern="setTimeout">
+		<reference>
+		<i>Window.setTimeout(func, delay[, param1, param2, ...])</i>
+		<i>Window.setTimeout(code, delay)</i> Calls a function or executes a code snippet after a specified delay.</reference>
+	</element>
+	<element pattern="showModalDialog">
+		<reference><i>Window.showModalDialog(uri[, arguments])</i> Creates and displays a modal dialog box containing a specified HTML document.</reference>
+	</element>
+	<element pattern="sizeToContent">
+		<reference><i>Window.sizeToContent()</i> Sizes the window according to its content.</reference>
+	</element>
+	<element pattern="stop">
+		<reference><i>Window.stop()</i> This method stops window loading.</reference>
+	</element>
+	<element pattern="unescape">
+		<reference><i>Window.unescape(escaped)</i> Decodes a value that has been encoded in hexadecimal (e.g., a cookie) including characters not escaped by window.escape.</reference>
+	</element>
+
 		<group class="javascript_document_object">
 <!-- 			<element pattern="captureEvents"/> -->
 <!-- 			<element pattern="close"/> -->
@@ -173,7 +262,7 @@
 			<element pattern="getElementsByName"/>
 			<element pattern="getElementsByTagName" />
 			<element pattern="getElementsByClassName" />
-			<element pattern="getSelection"/>
+<!-- 			<element pattern="getSelection"/> -->
 <!-- 			<element pattern="handleEvent"/> -->
 <!-- 			<element pattern="open"/> -->
 <!-- 			<element pattern="releaseEvents"/> -->
@@ -1274,9 +1363,9 @@
 <group class="javascript_css_properties" >
 	<autocomplete enable="1" />
 	<element pattern="style" highlight="js-css-property"/>
-	<element pattern="getComputedStyle" highlight="js-function" >
+<!--	<element pattern="getComputedStyle" highlight="js-function" >
 		<autocomplete append="()" backup_cursor="1" />
-	</element>
+	</element> -->
 	<group highlight="js-css-property">
 		<element pattern="alignContent" />
 		<element pattern="alignItems" />
@@ -1465,7 +1554,6 @@
 		<element pattern="minHeight" />
 		<element pattern="minWidth" />
 		<element pattern="minZoom" />
-		<element pattern="moveTo" />
 		<element pattern="navDown" />
 		<element pattern="navIndex" />
 		<element pattern="navLeft" />
