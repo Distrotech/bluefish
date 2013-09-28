@@ -130,12 +130,10 @@
 	<element pattern="isFinite"/>
 	<element pattern="isNaN"/>
 	<element pattern="isPrototypeOf"/>
-	<element pattern="localeCompare"/>
 	<element pattern="parseFloat"/>
 	<element pattern="parseInt"/>
 	<element pattern="propertyIsEnumerable"/>
 	<element pattern="unescape"/>
-	<element pattern="valueOf"/>
 	<group class="javascript_window_object">
 		<element pattern="alert"/>
 		<element pattern="back"/>
@@ -206,128 +204,127 @@
 	<!-- Date -->
 	<group class="javascript_date_object">
 		<element pattern="getDate">
-			<reference><b>Date.getDate</b> returns the day of the month (1-31) for the specified date according to local time</reference>
+			<reference><i>DateObj.getDate()</i> returns the day of the month (1-31) for the specified date according to local time</reference>
 		</element>
 		<element pattern="getDay">
-			<reference><b>Date.getDay</b> returns the day of the week (0-6) for the specified date according to local time</reference>
+			<reference><i>DateObj.getDay()</i> returns the day of the week (0-6) for the specified date according to local time</reference>
 		</element>
 		<element pattern="getFullYear">
-			<reference><b>Date.getFullYear</b> returns the year (4 digits for 4-digit years) of the specified date according to local time</reference>
+			<reference><i>DateObj.getFullYear()</i> returns the year (4 digits for 4-digit years) of the specified date according to local time</reference>
 		</element>
 		<element pattern="getHours">
-			<reference><b>Date.getHours</b> returns the hour (0-23) in the specified date according to local time</reference>
+			<reference><i>DateObj.getHours()</i> returns the hour (0-23) in the specified date according to local time</reference>
 		</element>
 		<element pattern="getMilliseconds">
-			<reference><b>Date.getMilliseconds</b> returns the milliseconds (0-999) in the specified date according to local time</reference>
+			<reference><i>DateObj.getMilliseconds()</i> returns the milliseconds (0-999) in the specified date according to local time</reference>
 		</element>
 		<element pattern="getMinutes">
-			<reference><b>Date.getMinutes</b> returns the minutes (0-59) in the specified date according to local time</reference>
+			<reference><i>DateObj.getMinutes()</i> returns the minutes (0-59) in the specified date according to local time</reference>
 		</element>
 		<element pattern="getMonth">
-			<reference><b>Date.getMonth</b> returns the month (0-11) in the specified date according to local time</reference>
+			<reference><i>Date.getMonth()</i> returns the month (0-11) in the specified date according to local time</reference>
 		</element>
 		<element pattern="getSeconds">
-			<reference><b>Date.getSeconds</b> returns the seconds (0-59) in the specified date according to local time</reference>
+			<reference><i>Date.getSeconds()</i> returns the seconds (0-59) in the specified date according to local time</reference>
 		</element>
 		<element pattern="getTime">
-			<reference><b>Date.getTime</b> returns the numeric value of the specified date as the number of milliseconds since January 1, 1970, 00:00:00 UTC (negative for prior times)</reference>
+			<reference><i>DateObj.getTime()</i> returns the numeric value of the specified date as the number of milliseconds since January 1, 1970, 00:00:00 UTC (negative for prior times)</reference>
 		</element>
 		<element pattern="getTimezoneOffset">
-			<reference><b>Date.getTimezoneOffset</b> returns the time-zone offset in minutes for the current locale</reference>
+			<reference><i>DateObj.getTimezoneOffset</i> returns the time-zone offset in minutes for the current locale</reference>
 		</element>
 		<element pattern="getUTCDate">
-			<reference><b>Date.getUTCDate</b> returns the day (date) of the month (1-31) in the specified date according to universal time</reference>
+			<reference><i>DateObj.getUTCDate()</i> returns the day (date) of the month (1-31) in the specified date according to universal time</reference>
 		</element>
 		<element pattern="getUTCDay">
-			<reference><b>Date.getUTCDay</b> returns the day of the week (0-6) in the specified date according to universal time</reference>
+			<reference><i>Date.getUTCDay</i> returns the day of the week (0-6) in the specified date according to universal time</reference>
 		</element>
 		<element pattern="getUTCFullYear">
-			<reference><b>Date.getUTCFullYear</b> returns the year (4 digits for 4-digit years) in the specified date according to universal time</reference>
+			<reference><i>DateObj.getUTCFullYear()</i> returns the year (4 digits for 4-digit years) in the specified date according to universal time</reference>
 		</element>
 		<element pattern="getUTCHours">
-			<reference><b>Date.getUTCHours</b> returns the hours (0-23) in the specified date according to universal time</reference>
+			<reference><i>Date.getUTCHours()</i> returns the hours (0-23) in the specified date according to universal time</reference>
 		</element>
 		<element pattern="getUTCMilliseconds">
-			<reference><b>Date.getUTCMilliseconds</b> returns the milliseconds (0-999) in the specified date according to universal time</reference>
+			<reference><i>DateObj.getUTCMilliseconds</i> returns the milliseconds (0-999) in the specified date according to universal time</reference>
 		</element>
 		<element pattern="getUTCMinutes">
-			<reference><b>Date.getUTCMinutes</b> returns the minutes (0-59) in the specified date according to universal time</reference>
+			<reference><i>DateObj.getUTCMinutes()</i> returns the minutes (0-59) in the specified date according to universal time</reference>
 		</element>
 		<element pattern="getUTCMonth">
-			<reference><b>Date.getUTCMonth</b> returns the month (0-11) in the specified date according to universal time</reference>
+			<reference><i>DateObj.getUTCMonth()</i> returns the month (0-11) in the specified date according to universal time</reference>
 		</element>
 		<element pattern="getUTCSeconds">
-			<reference><b>Date.getUTCSeconds</b> returns the seconds (0-59) in the specified date according to universal time</reference>
+			<reference><i>DateObj.getUTCSeconds</i> returns the seconds (0-59) in the specified date according to universal time</reference>
 		</element>
-	
 		<element pattern="setDate">
-			<reference><b>Date.setDate</b> sets the day of the month (1-31) for a specified date according to local time</reference>
+			<reference><i>DateObj.setDate(dayValue)</i> sets the day of the month (1-31) for a specified date according to local time</reference>
 		</element>
 		<element pattern="setFullYear">
-			<reference><b>Date.setFullYear</b> sets the full year (4 digits for 4-digit years) for a specified date according to local time</reference>
+			<reference><i>DateObj.setFullYear(yearValue[, monthValue[, dayValue]]) </i> sets the full year (4 digits for 4-digit years) for a specified date according to local time</reference>
 		</element>
 		<element pattern="setHours">
-			<reference><b>Date.setHours</b> sets the hours (0-23) for a specified date according to local time</reference>
+			<reference><i>DateObj.setHours(hoursValue[, minutesValue[, secondsValue[, msValue]]])</i> sets the hours (0-23) for a specified date according to local time</reference>
 		</element>
 		<element pattern="setMilliseconds">
-			<reference><b>Date.setMilliseconds</b> sets the milliseconds (0-999) for a specified date according to local time</reference>
+			<reference><i>DateObj.setMilliseconds(millisecondsValue)</i> sets the milliseconds (0-999) for a specified date according to local time</reference>
 		</element>
 		<element pattern="setMinutes">
-			<reference><b>Date.setMinutes</b> sets the minutes (0-59) for a specified date according to local time</reference>
+			<reference><i>DateObj.setMinutes(minutesValue[, secondsValue[, msValue]]) </i> sets the minutes (0-59) for a specified date according to local time</reference>
 		</element>
 		<element pattern="setMonth">
-			<reference><b>Date.setMonth</b> sets the month (0-11) for a specified date according to local time</reference>
+			<reference><i>DateObj.setMonth(monthValue[, dayValue]) </i> sets the month (0-11) for a specified date according to local time</reference>
 		</element>
 		<element pattern="setSeconds">
-			<reference><b>Date.setSeconds</b> sets the seconds (0-59) for a specified date according to local time</reference>
+			<reference><i>DateObj.setSeconds(secondsValue[, msValue])</i> sets the seconds (0-59) for a specified date according to local time</reference>
 		</element>
 		<element pattern="setTime">
-			<reference><b>Date.setTime</b> sets the Date object to the time represented by a number of milliseconds since January 1, 1970, 00:00:00 UTC, allowing for negative numbers for times prior</reference>
+			<reference><i>DateObj.setTime(timeValue)</i> sets the Date object to the time represented by a number of milliseconds since January 1, 1970, 00:00:00 UTC, allowing for negative numbers for times prior</reference>
 		</element>
 		<element pattern="setUTCDate">
-			<reference><b>Date.setUTCDate</b> sets the day of the month (1-31) for a specified date according to universal time</reference>
+			<reference><i>DateObj.setUTCDate(dayValue)</i> sets the day of the month (1-31) for a specified date according to universal time</reference>
 		</element>
 		<element pattern="setUTCFullYear">
-			<reference><b>Date.setUTCFullYear</b> sets the full year (4 digits for 4-digit years) for a specified date according to universal time</reference>
+			<reference><i>DateObj.setUTCFullYear(yearValue[, monthValue[, dayValue]]) </i> sets the full year (4 digits for 4-digit years) for a specified date according to universal time</reference>
 		</element>
 		<element pattern="setUTCHours">
-			<reference><b>Date.setUTCHours</b> sets the hour (0-23) for a specified date according to universal time</reference>
+			<reference><i>DateObj.setUTCHours(hoursValue[, minutesValue[, secondsValue[, msValue]]])</i> sets the hour (0-23) for a specified date according to universal time</reference>
 		</element>
 		<element pattern="setUTCMilliseconds">
-			<reference><b>Date.setUTCMilliseconds</b> sets the milliseconds (0-999) for a specified date according to universal time</reference>
+			<reference><i>DateObj.setUTCMilliseconds(millisecondsValue)</i> sets the milliseconds (0-999) for a specified date according to universal time</reference>
 		</element>
 		<element pattern="setUTCMinutes">
-			<reference><b>Date.setUTCMinutes</b> sets the minutes (0-59) for a specified date according to universal time</reference>
+			<reference><i>DateObj.setUTCMinutes(minutesValue[, secondsValue[, msValue]])</i> sets the minutes (0-59) for a specified date according to universal time</reference>
 		</element>
 		<element pattern="setUTCMonth">
-			<reference><b>Date.setUTCMonth</b> sets the month (0-11) for a specified date according to universal time</reference>
+			<reference><i>DateObj.setUTCMonth(monthValue[, dayValue])</i> sets the month (0-11) for a specified date according to universal time</reference>
 		</element>
 		<element pattern="setUTCSeconds">
-			<reference><b>Date.setUTCSeconds</b> sets the seconds (0-59) for a specified date according to universal time</reference>
+			<reference><i>DateObj.setUTCSeconds(secondsValue[, msValue])</i> sets the seconds (0-59) for a specified date according to universal time</reference>
 		</element>
 		<element pattern="toDateString">
-			<reference><b>Date.toDateString</b> returns the "date" portion of the Date as a human-readable string</reference>
+			<reference><i>DateObj.toDateString()</i> returns the "date" portion of the Date as a human-readable string</reference>
 		</element>
 		<element pattern="toISOString">
-			<reference><b>Date.toISOString</b>Converts a date to a string following the ISO 8601 Extended Format</reference>
+			<reference><i>DateObj.toISOString()</i>Converts a date to a string following the ISO 8601 Extended Format</reference>
 		</element>
 		<element pattern="toLocaleString">
-			<reference><b>Date.toLocaleString</b> returns a string with a language sensitive representation of this date. Overrides the Object.toLocaleString method</reference>
+			<reference><i>DateObj.toLocaleString([locales [, options]])</i> returns a string with a language sensitive representation of this date. Overrides the Object.toLocaleString method</reference>
 		</element>
 		<element pattern="toLocaleTimeString">
-			<reference><b>Date.toLocaleTimeString</b> returns a string with a language sensitive representation of the time portion of this date</reference>
+			<reference><i>DateObj.toLocaleTimeString([locales [, options]])</i> returns a string with a language sensitive representation of the time portion of this date</reference>
 		</element>
 		<element pattern="Date.toString">
-			<reference><b>Date.toString</b> returns a string representing the specified Date object. Overrides the Object.prototype.toString method</reference>
+			<reference><i>DateObj.toString()</i> returns a string representing the specified Date object. Overrides the Object.prototype.toString method</reference>
 		</element>
 		<element pattern="toTimeString">
-			<reference><b>Date.toTimeString</b> returns the "time" portion of the Date as a human-readable string</reference>
+			<reference><i>DateObj.toTimeString()</i> returns the "time" portion of the Date as a human-readable string</reference>
 		</element>
 		<element pattern="toUTCString">
-			<reference><b>Date.toUTCString</b>Converts a date to a string, using the universal time convention</reference>
+			<reference><i>DateObj.toUTCString()</i>Converts a date to a string, using the universal time convention</reference>
 		</element>
 		<element pattern="Date.valueOf">
-			<reference><b>Date.valueOf</b> returns the primitive value of a Date object. Overrides the Object.prototype.valueOf method</reference>
+			<reference><i>DateObj.valueOf()</i> returns the primitive value of a Date object. Overrides the Object.prototype.valueOf method</reference>
 		</element>
 	</group>
 	<!-- Math -->
@@ -414,7 +411,6 @@
 		<element pattern="toExponential"/>
 		<element pattern="toFixed"/>
 		<element pattern="toPrecision"/>
-		<element pattern="toString"/>
 	</group>
 
 	<group class="javascript_location_object">
@@ -425,34 +421,81 @@
 	<!-- string -->
 <group class="javascript_string_object" highlight="js-function" >
 	<autocomplete append="()" backup_cursor="1" />
-	<element pattern="anchor"/>
-	<element pattern="big"/>
-	<element pattern="blink"/>
-	<element pattern="bold"/>
-	<element pattern="charAt"/>
-	<element pattern="charCodeAt"/>
-	<element pattern="concat"/>
-	<element pattern="fixed"/>
-	<element pattern="fontcolor"/>
-	<element pattern="fontsize"/>
-	<element pattern="fromCharCode"/>
-	<element pattern="indexOf"/>
-	<element pattern="italics"/>
-	<element pattern="lastIndexOf"/>
-	<element pattern="link"/>
-	<element pattern="slice"/>
-	<element pattern="small"/>
-	<element pattern="split"/>
-	<element pattern="strike"/>
-	<element pattern="sub"/>
-	<element pattern="substr"/>
-	<element pattern="substring"/>
-	<element pattern="sup"/>
-	<element pattern="toLowerCase"/>
-	<element pattern="toUpperCase"/>
+<!-- reference: https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String -->
+	<element pattern="charAt">
+		<reference><i>String.charAt(index)</i> Returns the character at the specified index.
+		</reference>
+	</element>
+	<element pattern="charCodeAt">
+		<reference><i>String.charCodeAt(index)</i> Returns a number indicating the Unicode value of the character at the given index.
+		</reference>
+	</element>
+	<element pattern="concat">
+		<reference><i>String.concat(string2, string3[, ..., stringN])</i> Combines the text of two strings and returns a new string.
+		<b>It is strongly recommended that the string concatenation operators (+, +=) be used instead of this method for perfomance reasons!</b>
+		</reference>
+	</element>
+	<element pattern="indexOf">
+		<reference><i>String.indexOf(searchValue[, fromIndex])</i> Returns the index within the calling String object of the first occurrence of the specified value, or -1 if not found.
+		</reference>
+	</element>
+	<element pattern="lastIndexOf">
+		<reference><i>String.lastIndexOf(searchValue[, fromIndex])</i> Returns the index within the calling String object of the last occurrence of the specified value, or -1 if not found.
+		</reference>
+	</element>
+	<element pattern="localeCompare">
+		<reference><i>string.localeCompare(compareString [, locales [, options]])</i> Returns a number indicating whether a reference string comes before or after or is the same as the given string in sort order.
+		</reference>
+	</element>
+	<element pattern="slice">
+		<reference><i>String.slice(beginslice[, endSlice])</i> Extracts a section of a string and returns a new string.
+		</reference>
+	</element>
+	<element pattern="split">
+		<reference><i>String.split([separator][, limit])</i> Splits a String object into an array of strings by separating the string into substrings.
+		</reference>
+	</element>
+	<element pattern="substr">
+		<reference><i>String.substr(start[, length])</i> Returns the characters in a string beginning at the specified location through the specified number of characters.
+		</reference>
+	</element>
+	<element pattern="substring">
+		<reference><i>String.substring(indexA[, indexB])</i> Returns the characters in a string between two indexes into the string.
+		</reference>
+	</element>
+	<element pattern="toLocaleLowerCase">
+		<reference><i>String.toLocaleLowerCase()</i> The characters within a string are converted to lower case while respecting the current locale. For most languages, this will return the same as toLowerCase.
+		</reference>
+	</element>
+	<element pattern="toLocaleUpperCase">
+		<reference><i>String.toLocaleUpperCase()</i> The characters within a string are converted to upper case while respecting the current locale. For most languages, this will return the same as toUpperCase.
+		</reference>
+	</element>
+	<element pattern="toLowerCase">
+		<reference><i>String.toLowerCase()</i> Returns the calling string value converted to lower case.
+		</reference>
+	</element>
+	<element pattern="toString">
+		<reference><i>String.toString()</i> Returns a string representing the specified object. Overrides the Object.prototype.toString method.
+		</reference>
+	</element>
+	<element pattern="toUpperCase">
+		<reference><i>String.toUpperCase()</i> Returns the calling string value converted to uppercase.
+		</reference>
+	</element>
+	<element pattern="trim">
+		<reference><i>String.trim()</i> Trims whitespace from the beginning and end of the string. trim does not affect the value of the string itself.
+		</reference>
+	</element>
+	<element pattern="valueOf">
+		<reference><i>String.valueOf</i> Returns the primitive value of the specified object. Overrides the Object.prototype.valueOf method.
+		</reference>
+	</element>
 <!-- elements that may contain a regexp -->
 	<element pattern="replace" >
 		<autocomplete append="(,)" backup_cursor="2" />
+		<reference><i>String.replace(regexp|substr, newSubStr|function)</i> Used to find a match between a regular expression and a string, and to replace the matched substring with a new substring.
+		</reference>
 		<context id="c.js.regex" symbols="(" >
 			<element pattern="(" highlight="js-brackets" >
 				<context symbols="()," highlight="js-string">
@@ -468,9 +511,13 @@
 		</context>
 	</element>
 	<element pattern="match">
+		<reference><i>String.match(regexp)</i> Used to match a regular expression against a string.
+		</reference>
 		<context idref="c.js.regex" />
 	</element>
 	<element pattern="search">
+		<reference><i>String.search(regexp)</i> Executes the search for a match between a regular expression and a specified string.
+		</reference>
 		<context idref="c.js.regex" />
 	</element>
 <!-- TODO highligt regex-string as js-value,  newstring as js-string  -->
