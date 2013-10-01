@@ -44,4 +44,5 @@ void fb2_cleanup(Tbfwin *bfwin);
 void fb2_unset_filter(Tbfwin *bfwin, Tfilter *filter);
 void fb2config_init(void);
 void fb2config_cleanup(void);
+GFile *find_common_path(GFile *file1, GFile *file2);
 #endif /* __FILEBROWSER2_H_ */
