@@ -2239,8 +2239,8 @@ refilter_dirlist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 static void
 refilter_filelist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 {
-	DEBUG_MSG("refilter_filelist, started for fb2=%p, file_lfilter=%p, viewmode=%d\n", fb2,
-			  fb2->file_lfilter, fb2->filebrowser_viewmode);
+	DEBUG_MSG("refilter_filelist, started for fb2=%p, file_lfilter=%p, viewmode=%d, newroot=%p\n", fb2,
+			  fb2->file_lfilter, fb2->filebrowser_viewmode, newroot);
 	if (fb2->filebrowser_viewmode == viewmode_dual) {
 		if (fb2->file_lfilter) {
 			GtkTreePath *curpath;
@@ -2278,6 +2278,25 @@ refilter_filelist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 		g_object_unref(fb2->file_lsort);
 		DEBUG_TREEMODELREFS("refilter_filelist, unreffed tree model sort at %p for fb2 %p, ref should be added by view %p\n",fb2->file_lsort, fb2, fb2->file_v);
 	}
+}
+
+static void 
+set_file_v_root(Tfilebrowser2 *fb2, GFile *dir_uri)
+{
+	GtkTreeIter *dir_iter;
+	GtkTreePath *dir_path;
+	if (fb2->filebrowser_viewmode != viewmode_dual) {
+		g_warning("set_file_v_root called but viewmode is not dual ????\n");
+		return;
+	}
+	dir_iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, dir_uri);
+	if (!dir_iter) {
+		DEBUG_MSG("weird, how can there be no dir_iter for uri %p???\n",dir_uri);
+		return;
+	}
+	dir_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), dir_iter);
+	refilter_filelist(fb2, dir_path);
+	gtk_tree_path_free(dir_path);
 }
 
 /**
@@ -2725,12 +2744,14 @@ dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 	} else { /* a directory */
 		if (fb2->filebrowser_viewmode == viewmode_flat) {
 			set_basedir_backend(fb2, uri);
+			fb2_refresh_dir_from_uri(uri);
 			fb2_set_dirmenu(fb2, uri);
 		} else {
 			if (gtk_tree_view_row_expanded(tree, path)) {
 				gtk_tree_view_collapse_row(tree, path);
 			} else {
 				gtk_tree_view_expand_row(tree, path, FALSE);
+				fb2_refresh_dir_from_uri(uri);
 			}
 		}
 	}
@@ -2768,6 +2789,8 @@ dir_v_selection_changed_lcb(GtkTreeSelection * treeselection, Tbfwin *bfwin)
 		DEBUG_GFILE(uri, TRUE);
 		if (uri && (mime_type && MIME_ISDIR(mime_type))) {
 			fb2_set_dirmenu(fb2, uri);
+			set_file_v_root(fb2, uri);
+			fb2_refresh_dir_from_uri(uri);
 			/*fb2_focus_dir(fb2, uri, TRUE);*/
 		}
 		g_free(mime_type);
