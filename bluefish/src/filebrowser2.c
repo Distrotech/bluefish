@@ -29,6 +29,7 @@ extern void g_none(char *first, ...);
 #endif
 
 #define DEBUG_TREEMODELREFS DBG_NONE
+#define DBG_FILTERSORT DBG_NONE
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files
@@ -276,22 +277,29 @@ treepath_for_uri(Tfilebrowser2 * fb2, GFile * uri)
 }
 
 static GtkTreePath *
-dir_sort_path_from_treestore_path(Tfilebrowser2 * fb2, GtkTreePath *treestorepath)
+sort_path_from_treestore_path(Tfilebrowser2 * fb2, GtkTreePath *treestorepath, GtkTreeModelFilter *filter, GtkTreeModelSort *sorter)
 {
 	GtkTreePath *filter_path =
 					gtk_tree_model_filter_convert_child_path_to_path(GTK_TREE_MODEL_FILTER
-																	 (fb2->dir_tfilter), treestorepath);
+																	 (filter), treestorepath);
 	if (filter_path) {
-		GtkTreePath *sort_path = gtk_tree_model_sort_convert_child_path_to_path(GTK_TREE_MODEL_SORT(fb2->dir_tsort),
+		GtkTreePath *sort_path = gtk_tree_model_sort_convert_child_path_to_path(GTK_TREE_MODEL_SORT(sorter),
 																	   filter_path);
 		gtk_tree_path_free(filter_path);
 		return sort_path;
+	} else {
+		DEBUG_MSG("sort_path_from_treestore_path, no filter_path?\n");
 	}
 	return NULL;
 }
 
+#define dir_v_sort_path_from_treestore_path(fb2, treestorepath) sort_path_from_treestore_path(fb2, treestorepath, GTK_TREE_MODEL_FILTER(fb2->dir_tfilter), GTK_TREE_MODEL_SORT(fb2->dir_tsort))
+#define file_v_sort_path_from_treestore_path(fb2, treestorepath) sort_path_from_treestore_path(fb2, treestorepath, GTK_TREE_MODEL_FILTER(fb2->file_lfilter), GTK_TREE_MODEL_SORT(fb2->file_lsort))
+
 /* Gets treepath from uri; treepath is required for scrolling to it or selecting 
- * It combines the logic of two functions above ( treepath_for_uri() and and dir_sort_path_from_treestore_path() ) and can be used for quick document treepath selection after we refresh directory and required iter is already in hash table 
+ * It combines the logic of two functions above ( treepath_for_uri() and and 
+ dir_sort_path_from_treestore_path() ) and can be used for quick document 
+ treepath selection after we refresh directory and required iter is already in hash table 
  */
  
 static GtkTreePath *doc_sort_path_from_uri(Tfilebrowser2 * fb2, GFile * uri)
@@ -340,6 +348,15 @@ need_to_scroll_to_dir(Tfilebrowser2 * fb2, GFile *diruri)
 	gtk_tree_path_free(start_path);
 	gtk_tree_path_free(end_path);
 	return retval;
+}
+
+static void
+expand_without_directory_refresh(Tfilebrowser2 * fb2, GtkTreePath *sort_path)
+{
+	g_signal_handler_block(fb2->dir_v, fb2->expand_signal);
+	DEBUG_MSG("expand_without_directory_refresh, sort+path=%p\n",sort_path);
+	gtk_tree_view_expand_to_path(GTK_TREE_VIEW(fb2->dir_v), sort_path);
+	g_signal_handler_unblock(fb2->dir_v, fb2->expand_signal);
 }
 
 /**
@@ -1067,16 +1084,16 @@ tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 	gint len;
 	GFile *uri=NULL;
 	gboolean retval = TRUE;
-	DEBUG_MSG("tree_model_filter_func, model=%p, fb2=%p\n",model,fb2);
+	DBG_FILTERSORT("tree_model_filter_func, model=%p, fb2=%p\n",model,fb2);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri,
 					   TYPE_COLUMN, &mime_type, -1);
 	if (!name || !uri) {
-		DEBUG_MSG
+		DBG_FILTERSORT
 			("tree_model_filter_func, model=%p, fb2=%p, item without name!!, uri=%p, mime_type=%s\n",
 			 model, fb2, uri, mime_type);
 		return TRUE;
 	}
-	DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s, mime=%s, and uri=", model, fb2,
+	DBG_FILTERSORT("tree_model_filter_func, model=%p and fb2=%p, name=%s, mime=%s, and uri=", model, fb2,
 			  name, mime_type);
 	DEBUG_GFILE(uri, TRUE);
 	if (!mime_type || !MIME_ISDIR(mime_type)) {	/* file */
@@ -1106,7 +1123,7 @@ tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 			if (retval && fb2->curfilter)
 				retval = file_visible_in_filter(fb2->curfilter, mime_type, name);
 		}
-		DEBUG_MSG("file %s with mime_type %s: returning %d\n", name, mime_type, retval);
+		DBG_FILTERSORT("file %s with mime_type %s: returning %d\n", name, mime_type, retval);
 	} else {					/* directory */
 		if (fb2->filebrowser_viewmode == viewmode_flat) {
 			if (fb2->basedir) {
@@ -1128,7 +1145,7 @@ tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 			if (name[0] == '.')
 				retval = FALSE;
 		}
-		DEBUG_MSG("dir %s: returning %d\n", name, retval);
+		DBG_FILTERSORT("dir %s: returning %d\n", name, retval);
 	}
 	g_free(name);
 	g_free(mime_type);
@@ -1147,7 +1164,7 @@ file_list_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 	gchar *name, *mime_type;
 	gint len;
 	gboolean retval = TRUE;
-	DEBUG_MSG("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);
+	DBG_FILTERSORT("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);
 	gtk_tree_model_get((GtkTreeModel *) model, iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &mime_type, -1);
 	if (!name)
 		return FALSE;
@@ -1168,7 +1185,7 @@ file_list_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 		retval = file_visible_in_filter(fb2->curfilter, mime_type, name);
 #ifdef DEBUG
 	if (retval == FALSE) {
-		g_print("file_list_filter_func, hiding %s (%s)\n", name, mime_type);
+		DBG_FILTERSORT("file_list_filter_func, hiding %s (%s)\n", name, mime_type);
 	}
 #endif
 	g_free(name);
@@ -1195,7 +1212,7 @@ filebrowser_sort_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter * b, gp
 	gtk_tree_model_get((GtkTreeModel *) model, b, FILENAME_COLUMN, &nameb, TYPE_COLUMN, &mimeb, -1);
 	isdira = (mimea && MIME_ISDIR(mimea));
 	isdirb = (mimeb && MIME_ISDIR(mimeb));
-	DEBUG_MSG("namea=%s, nameb=%s, isdira=%d, mimea=%s, isdirb=%d, mimeb=%s\n",namea,nameb,isdira,mimea,isdirb,mimeb);
+	DBG_FILTERSORT("namea=%s, nameb=%s, isdira=%d, mimea=%s, isdirb=%d, mimeb=%s\n",namea,nameb,isdira,mimea,isdirb,mimeb);
 	if (isdira == isdirb) {		/* both files, or both directories */
 		if (namea == nameb) {
 			retval = 0;			/* both NULL */
@@ -2307,14 +2324,26 @@ set_file_v_root(Tfilebrowser2 *fb2, GFile *dir_uri)
  *
 */
 static void
-scroll_to_iter(Tfilebrowser2 *fb2, GtkTreeIter *iter)
+scroll_to_iter(Tfilebrowser2 *fb2, GtkTreeIter *file_iter, GtkTreeIter *dir_iter)
 {
-	GtkTreePath *fs_path =
-			gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), iter);
-	GtkTreePath *sort_path = dir_sort_path_from_treestore_path(fb2, fs_path);
-	g_signal_handler_block(fb2->dir_v, fb2->expand_signal);
-	gtk_tree_view_expand_to_path(GTK_TREE_VIEW(fb2->dir_v), sort_path);
-	g_signal_handler_unblock(fb2->dir_v, fb2->expand_signal);
+	GtkTreePath *fs_path, *sort_path;
+	if (fb2->filebrowser_viewmode == viewmode_dual && file_iter) {
+		fs_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), file_iter);
+		sort_path = file_v_sort_path_from_treestore_path(fb2, fs_path);
+		if (sort_path) { /* possible the file was not yet created in the treestore */
+			gtk_tree_selection_select_path(gtk_tree_view_get_selection
+													   (GTK_TREE_VIEW(fb2->file_v)), sort_path);
+			gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(fb2->file_v), sort_path, 0, TRUE, 0.5, 0.5);
+			DEBUG_MSG("scroll_to_iter, selected/scrolled on file_v\n");
+		}
+		fs_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), dir_iter);
+	} else {
+		fs_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), file_iter ? file_iter : dir_iter);
+	}
+	
+	sort_path = dir_v_sort_path_from_treestore_path(fb2, fs_path);
+	DEBUG_MSG("scroll_to_iter, got sort_path=%p\n",sort_path);
+	expand_without_directory_refresh(fb2, sort_path);
 	gtk_tree_selection_select_path(gtk_tree_view_get_selection
 													   (GTK_TREE_VIEW(fb2->dir_v)), sort_path);
 	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(fb2->dir_v), sort_path, 0, TRUE, 0.5, 0.5);
@@ -2325,17 +2354,19 @@ scroll_to_iter(Tfilebrowser2 *fb2, GtkTreeIter *iter)
 /**
  * change_focus_to_file
  *
- * builds the directory tree (if the directory does not yet exist) 
- * and scrolls to this file.
+ * builds the directory tree (if the directory does not yet exist)
+ * in dual view changes the displayed directory for the file_v 
+ * and scrolls to this file (and in dual view also to the dir).
  *
- * no callbacks will be called for expand signals, the directory will not 
- * be re-read, the dirmenu will not reflect this change.
+ * no callbacks will be called for expand signals, 
+ * the directory will be re-read ONLY IF THE FILE DOES NOT YET EXIST IN THE TREESTORE
+ * the dirmenu will not reflect this change.
  *
 */
 static void
 change_focus_to_file(Tfilebrowser2 *fb2, GFile *uri)
 {
-	GtkTreeIter *dir_iter, *iter;
+	GtkTreeIter *dir_iter, *iter=NULL;
 	GFile *dir_uri;
 	
 	dir_uri = g_file_get_parent(uri);
@@ -2343,11 +2374,17 @@ change_focus_to_file(Tfilebrowser2 *fb2, GFile *uri)
 	if (!dir_iter) {
 		dir_iter = fb2_build_dir(dir_uri);
 		DEBUG_MSG("change_focus_to_dir, after building, fb2=%p, dir_iter=%p\n", fb2, dir_iter);
-		scroll_to_iter(fb2, dir_iter);
 	} else {
 		iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
-		scroll_to_iter(fb2, iter ? iter : dir_iter);
 	}
+	if (fb2->filebrowser_viewmode == viewmode_dual) {
+		set_file_v_root(fb2, dir_uri);
+	}
+	scroll_to_iter(fb2, iter, dir_iter);
+	if (!iter) {
+		fb2_refresh_dir(dir_uri, dir_iter);
+	}
+	g_object_unref(dir_uri);
 }
 
 /*
@@ -2750,7 +2787,7 @@ dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 			if (gtk_tree_view_row_expanded(tree, path)) {
 				gtk_tree_view_collapse_row(tree, path);
 			} else {
-				gtk_tree_view_expand_row(tree, path, FALSE);
+				expand_without_directory_refresh(fb2, path);
 				fb2_refresh_dir_from_uri(uri);
 			}
 		}
