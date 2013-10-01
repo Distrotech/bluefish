@@ -2585,7 +2585,7 @@ set_basedir_backend(Tfilebrowser2 *fb2, GFile *dir_uri)
 		g_object_unref(fb2->basedir);
 	if (dir_uri) {
 		fb2->basedir = dir_uri;
-		g_object_unref(fb2->basedir);
+		g_object_ref(fb2->basedir);
 	} else {
 		fb2->basedir = NULL;
 	}
