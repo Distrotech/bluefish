@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #if defined(__GNUC__) || (defined(__SUNPRO_C) && __SUNPRO_C > 0x580)
 #define DBG_NONE(args...)
@@ -264,6 +264,7 @@ treepath_for_uri(Tfilebrowser2 * fb2, GFile * uri)
 {
 	if (uri) {
 		GtkTreeIter *iter;
+		DEBUG_MSG("treepath_for_uri, lookup uri %p in hash table %p\n",uri, FB2CONFIG(main_v->fb2config)->filesystem_itable);
 		iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
 		if (!iter) {
 			fb2_build_dir(uri);
@@ -1386,7 +1387,7 @@ fb2config_init(void)
 		gtk_tree_store_new(N_COLUMNS, /*GDK_TYPE_PIXBUF,*/ G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
 						   G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_INT);
 	DEBUG_TREEMODELREFS("fb2config_init, created filesystem treestore at %p\n",fb2config->filesystem_tstore);
-	DEBUG_MSG("fb2config_init, finished\n");
+	DEBUG_MSG("fb2config_init, finished with hash table at %p and treestore at %p\n",fb2config->filesystem_itable,fb2config->filesystem_tstore);
 }
 
 #ifdef MEMORY_LEAK_DEBUG
@@ -2106,7 +2107,7 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 	}
 	fb2->last_popup_on_dir = is_directory;
 	/* We need to disconnect signals during toggling the action since this emits the signal and filebrowser follows to active documents on first activation of popup */
-	GtkToggleAction *follow_active_doc_action = gtk_ui_manager_get_action(bfwin->uimanager, "/FileBrowserMenu/FB2FollowActiveDoc");
+	GtkToggleAction *follow_active_doc_action = (GtkToggleAction *)gtk_ui_manager_get_action(bfwin->uimanager, "/FileBrowserMenu/FB2FollowActiveDoc");
 	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(follow_active_doc_action)) != fb2->bfwin->session->filebrowser_focus_follow) {
 		g_signal_handlers_disconnect_by_func(GTK_TOGGLE_ACTION(follow_active_doc_action), G_CALLBACK(popup_menu_follow_active_doc), fb2);
 		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(follow_active_doc_action), fb2->bfwin->session->filebrowser_focus_follow);
@@ -2318,8 +2319,6 @@ change_focus_to_file(Tfilebrowser2 *fb2, GFile *uri)
 	GtkTreeIter *dir_iter, *iter;
 	GFile *dir_uri;
 	
-	if (!dir_uri)
-		return;
 	dir_uri = g_file_get_parent(uri);
 	dir_iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, dir_uri);
 	if (!dir_iter) {
@@ -2344,7 +2343,7 @@ fb2_follow_document(Tbfwin *bfwin)
 {
 	if (bfwin && bfwin->current_document && bfwin->current_document->uri) {
 		Tfilebrowser2 *fb2 = bfwin->fb2;
-		
+		DEBUG_MSG("fb2_follow_document, started for doc=%p with uri %p\n",bfwin->current_document,bfwin->current_document->uri);
 		/* check if we have to change the basedir */
 		if (fb2->basedir) {
 			if (fb2->filebrowser_viewmode == viewmode_flat) {
@@ -2539,14 +2538,14 @@ fb2_set_dirmenu(Tfilebrowser2 *fb2, GFile *newcurdir)
  * fb2_set_dir_v_root
  *
  * refilters the directory view to have this uri as visual root
- 
- * returns TRUE if something changed, returns FALSE if this was the root already
+ *
+ *
 */
 static void
 set_dir_v_root(Tfilebrowser2 *fb2, GFile *dir_uri)
 {
 	GtkTreePath *basepath = NULL;
-
+	DEBUG_MSG("set_dir_v_root for uri %p\n",dir_uri);
 	/* disconnect the dir_v and file_v for higher performance */
 	gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->dir_v), NULL);
 	if (fb2->filebrowser_viewmode == viewmode_dual)
@@ -2581,7 +2580,7 @@ set_basedir_backend(Tfilebrowser2 *fb2, GFile *dir_uri)
 		DEBUG_MSG("set_basedir_backend, basedir did not change, do nothing\n");
 		return;
 	}
-	
+	DEBUG_MSG("set_basedir_backend, new basedir %p\n", dir_uri);
 	if (fb2->basedir)
 		g_object_unref(fb2->basedir);
 	if (dir_uri) {
@@ -2609,6 +2608,7 @@ set_basedir_backend(Tfilebrowser2 *fb2, GFile *dir_uri)
 static void 
 fb2_set_basedir(Tfilebrowser2 *fb2, GFile *dir_uri)
 {
+	DEBUG_MSG("fb2_set_basedir, dir_uri=%p\n",dir_uri);
 	set_basedir_backend(fb2, dir_uri);
 	if (dir_uri)
 		add_uri_to_recent_dirs(fb2, dir_uri);
@@ -3170,68 +3170,70 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	DEBUG_MSG("fb2_set_viewmode_widgets, new GUI finished\n");
 }
 
-
-
-
 void
 fb2_update_settings_from_session(Tbfwin * bfwin)
 {
-	if (bfwin->fb2) {
-		gboolean need_refilter = FALSE;
-		Tfilebrowser2 *fb2 = bfwin->fb2;
+	if (!bfwin->fb2) {
+		DEBUG_MSG("fb2_update_settings_from_session, no fb2, nothing to update... returning\n");
+		return;
+	}
+	gboolean need_refilter = FALSE;
+	Tfilebrowser2 *fb2 = bfwin->fb2;
 
-		DEBUG_MSG("fb2_update_settings_from_session, started, bfwin=%p, fb2=%p, viewmode=%d\n",
-				  bfwin, fb2, fb2->filebrowser_viewmode);
+	DEBUG_MSG("fb2_update_settings_from_session, started, bfwin=%p, fb2=%p, viewmode=%d\n",
+			  bfwin, fb2, fb2->filebrowser_viewmode);
 
-		if (!bfwin->filebrowserGroup)
-			popup_menu_action_group_init(bfwin);
+	if (!bfwin->filebrowserGroup)
+		popup_menu_action_group_init(bfwin);
 
-		fb2_set_viewmode_widgets(fb2, bfwin->session->filebrowser_viewmode);
+	fb2_set_viewmode_widgets(fb2, bfwin->session->filebrowser_viewmode);
 
-		if (bfwin->session->last_filefilter) {
-			Tfilter *newfilter = find_filter_by_name(bfwin->session->last_filefilter);
-			if (fb2->curfilter == NULL || newfilter == NULL
-				|| !(newfilter == fb2->curfilter || strcmp(newfilter->name, fb2->curfilter->name) == 0)) {
-				fb2->curfilter = newfilter;
-				need_refilter = TRUE;
-			}
-		}
-		if (fb2->filebrowser_show_hidden_files != bfwin->session->filebrowser_show_hidden_files) {
-			fb2->filebrowser_show_hidden_files = bfwin->session->filebrowser_show_hidden_files;
+	if (bfwin->session->last_filefilter) {
+		Tfilter *newfilter = find_filter_by_name(bfwin->session->last_filefilter);
+		if (fb2->curfilter == NULL || newfilter == NULL
+			|| !(newfilter == fb2->curfilter || strcmp(newfilter->name, fb2->curfilter->name) == 0)) {
+			fb2->curfilter = newfilter;
 			need_refilter = TRUE;
-		}
-		if (fb2->filebrowser_show_backup_files != bfwin->session->filebrowser_show_backup_files) {
-			fb2->filebrowser_show_backup_files = bfwin->session->filebrowser_show_backup_files;
-			need_refilter = TRUE;
-		}
-		if (bfwin->session->recent_dirs) {
-			const gchar *tmp = (gchar *) ((GList *) g_list_first(bfwin->session->recent_dirs))->data;
-			/* the set_basedir_backend function tests itself if  the basedir if changed, if not it does not refresh */
-			DEBUG_MSG("fb2_update_settings_from_session, set basedir %s\n", tmp);
-			if (tmp && tmp[0]) {
-				GFile *uri = g_file_new_for_uri(strip_trailing_slash((gchar *) tmp));
-				set_basedir_backend(fb2, uri);
-				g_object_unref(uri);
-			}
-		} else {
-			set_basedir_backend(fb2, NULL);
-		}
-		if (bfwin->session->webroot && bfwin->session->documentroot) {
-			GFile *uri = g_file_new_for_uri(bfwin->session->documentroot);
-			fb2_build_dir(uri);
-			fb2config_set_documentroot_icon(uri);
-			g_object_unref(uri);
-		}
-		/* TODO: set_basedir_backend already calls refilter in most cases (not if the
-		   requested basedir was already the active basedir), so
-		   we can optimise this and call refilter only when really needed. */
-		if (need_refilter) {
-			if (fb2->dir_tfilter)
-				gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
-			if (fb2->file_lfilter && fb2->filebrowser_viewmode == viewmode_dual)
-				gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
 		}
 	}
+	if (fb2->filebrowser_show_hidden_files != bfwin->session->filebrowser_show_hidden_files) {
+		fb2->filebrowser_show_hidden_files = bfwin->session->filebrowser_show_hidden_files;
+		need_refilter = TRUE;
+	}
+	if (fb2->filebrowser_show_backup_files != bfwin->session->filebrowser_show_backup_files) {
+		fb2->filebrowser_show_backup_files = bfwin->session->filebrowser_show_backup_files;
+		need_refilter = TRUE;
+	}
+	if (bfwin->session->recent_dirs) {
+		const gchar *tmp = (gchar *) ((GList *) g_list_first(bfwin->session->recent_dirs))->data;
+		/* the set_basedir_backend function tests itself if  the basedir if changed, if not it does not refresh */
+		DEBUG_MSG("fb2_update_settings_from_session, set basedir %s\n", tmp);
+		if (tmp && tmp[0]) {
+			GFile *uri = g_file_new_for_uri(strip_trailing_slash((gchar *) tmp));
+			DEBUG_MSG("fb2_update_settings_from_session, set basedir %p\n",uri);
+			set_basedir_backend(fb2, uri);
+			g_object_unref(uri);
+		}
+	} else {
+		DEBUG_MSG("fb2_update_settings_from_session, set basedir NULL\n");
+		set_basedir_backend(fb2, NULL);
+	}
+	if (bfwin->session->webroot && bfwin->session->documentroot) {
+		GFile *uri = g_file_new_for_uri(bfwin->session->documentroot);
+		fb2_build_dir(uri);
+		fb2config_set_documentroot_icon(uri);
+		g_object_unref(uri);
+	}
+	/* TODO: set_basedir_backend already calls refilter in most cases (not if the
+	   requested basedir was already the active basedir), so
+	   we can optimise this and call refilter only when really needed. */
+	if (need_refilter) {
+		if (fb2->dir_tfilter)
+			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
+		if (fb2->file_lfilter && fb2->filebrowser_viewmode == viewmode_dual)
+			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+	}
+	DEBUG_MSG("fb2_update_settings_from_session, done.\n");
 }
 
 GtkWidget *
