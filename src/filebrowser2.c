@@ -289,6 +289,34 @@ dir_sort_path_from_treestore_path(Tfilebrowser2 * fb2, GtkTreePath *treestorepat
 	return NULL;
 }
 
+/* Gets treepath from uri; treepath is required for scrolling to it or selecting 
+ * It combines the logic of two functions above ( treepath_for_uri() and and dir_sort_path_from_treestore_path() ) and can be used for quick document treepath selection after we refresh directory and required iter is already in hash table 
+ */
+ 
+static GtkTreePath *doc_sort_path_from_uri(Tfilebrowser2 * fb2, GFile * uri)
+{
+	GtkTreeIter *dociter;
+	if (uri) {
+		dociter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
+		DEBUG_MSG("doc_sort_path_from_uri,  looking for document=%p iter=%p\n", uri, dociter);
+		if (dociter) {
+			GtkTreePath *fs_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), dociter);
+			DEBUG_MSG("doc_sort_path_from_uri, treestore path=%p\n", fs_path);
+			if (fs_path) {
+				GtkTreePath *filter_path = gtk_tree_model_filter_convert_child_path_to_path(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter), fs_path);
+				DEBUG_MSG("doc_sort_path_from_uri, filtered treestore path=%p\n", filter_path);
+				gtk_tree_path_free(fs_path);
+				if (filter_path) {
+					GtkTreePath *sort_path = gtk_tree_model_sort_convert_child_path_to_path(GTK_TREE_MODEL_SORT(fb2->dir_tsort),														   filter_path);
+					gtk_tree_path_free(filter_path);
+					return sort_path;
+				}
+			}
+		}
+	}
+	return NULL;
+}
+
 static gboolean
 need_to_scroll_to_dir(Tfilebrowser2 * fb2, GFile *diruri)
 {
@@ -508,6 +536,47 @@ add_uri_to_recent_dirs(Tfilebrowser2 * fb2, GFile * uri)
 	fb2->bfwin->session->recent_dirs =
 		add_to_history_stringlist(fb2->bfwin->session->recent_dirs, tmp, TRUE);
 	g_free(tmp);
+}
+
+/* Return common uri part of two input uri's. Required for setting basedir when activating or opening file that is outside current basedir */
+
+GFile *find_common_path(GFile *file1, GFile *file2)
+{
+	gchar * filename1 = g_file_get_parse_name(file1);
+	gchar * filename2 = g_file_get_parse_name(file2);
+	DEBUG_MSG("find_common_path, filename1=%s, filename2=%s \n", filename1, filename2);
+	int  pos;
+	for (pos = 0; ; pos++) {
+		if (filename1[pos] != '\0' && filename1[pos] == filename2[pos])
+			continue;
+		if (filename1[pos] != G_DIR_SEPARATOR && filename2[pos] != G_DIR_SEPARATOR) {
+				/* scroll back */
+			while (pos > 0 && filename1[--pos] != G_DIR_SEPARATOR);
+		} else {
+			if (filename1[pos] == G_DIR_SEPARATOR)
+				--pos;
+		}
+		if (pos==0) {
+			DEBUG_MSG("find_common_path, sorry, common path is not found");
+			g_free(filename1);
+			g_free(filename2);
+			return NULL;
+		}
+		gchar *common_path = g_strndup (filename1, pos);
+		DEBUG_MSG("find_common_path, found commom path is %s, pos=%d \n", common_path, pos);
+		GFile *common_uri = g_file_parse_name(common_path);
+		g_free(filename1);
+		g_free(filename2);
+		g_free(common_path);
+		if (g_file_query_exists(common_uri,NULL)) {
+			return common_uri;
+		} else {
+			g_object_unref(common_uri);
+			g_warning("find_common_path, there is some error, common path does not exist");
+			return NULL;
+		}
+	}
+	return NULL;
 }
 
 
