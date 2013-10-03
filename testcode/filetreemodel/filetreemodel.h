@@ -9,8 +9,8 @@
 #define FILETREE_TYPE_LIST            (filetreemodel_get_type ())
 #define filetreemodel(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), FILETREE_TYPE_LIST, FileTreemodel))
 #define filetreemodel_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  FILETREE_TYPE_LIST, FileTreemodelClass))
-#define CUSTOM_IS_LIST(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FILETREE_TYPE_LIST))
-#define CUSTOM_IS_LIST_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  FILETREE_TYPE_LIST))
+#define IS_FILETREE_MODEL(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FILETREE_TYPE_LIST))
+#define IS_FILETREE_MODEL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  FILETREE_TYPE_LIST))
 #define filetreemodel_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  FILETREE_TYPE_LIST, FileTreemodelClass))
 
 /* The data columns that we export via the tree model interface */
@@ -47,11 +47,6 @@ struct _UriRecord {
 	guint pos;					/* pos within the array */
 };
 
-struct _DirRecord {
-
-};
-
-
 
 /* FileTreemodel: this structure contains everything we need for our
  *             model implementation. You can add extra fields to
@@ -70,6 +65,7 @@ struct _FileTreemodel {
 	/*   speed things up a bit in our get_value implementation    */
 	gint n_columns;
 	GType column_types[filetreemodel_N_COLUMNS];
+	GHashTable *alluri;
 
 	gint stamp;					/* Random integer to check whether an iter belongs to our model */
 };
@@ -87,6 +83,9 @@ GType filetreemodel_get_type(void);
 
 FileTreemodel *filetreemodel_new(void);
 
-void filetreemodel_append_record(FileTreemodel * filetreemodel, const gchar * name, guint year_born);
+void filetreemodel_append_record(FileTreemodel * filetreemodel, const gchar * name, const gchar *icon_name);
+
+#define DIR_MIME_TYPE "inode/directory"
+
 
 #endif							/* _filetreemodel_h_included_ */
