@@ -1098,7 +1098,7 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 	GtkTextIter iter;
 	gboolean allowfold=TRUE;
 	guint match_start_o, match_end_o;
-
+	
 	DBG_BLOCKMATCH("found_end_of_block(), found %d (%s), blockstartpattern %d, curfblock=%p\n",
 					match->patternum,
 					g_array_index(btv->bflang->st->matches, Tpattern, match->patternum).pattern,
@@ -1130,27 +1130,12 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 				   fblock, fblock->patternum, fblock->parentfblock, fblock->end2_o);
 	match_start_o = gtk_text_iter_get_offset(&match->start);
 	match_end_o = gtk_text_iter_get_offset(&match->end);
-	g_print("found_end_of_block, match_start_o=%d, match_end_o=%d\n",match_start_o, match_end_o);
 	if (G_UNLIKELY(fblock->end1_o > match_start_o)) {
 		/* possibly the block was stretched with stretch_block, undo the stretch */
-		GSequenceIter *bssiter=NULL;
-		Tfound *blockstartfound;
-		g_print("*****  possibly this block with end1_o=%d was stretched, see if we can find the original start position\n", fblock->end1_o);
-		blockstartfound = get_foundcache_at_offset(btv, fblock->start1_o, &bssiter);
-		/* this call results in the found before the found that pushes this block */
-		while (blockstartfound && blockstartfound->fblock != fblock && blockstartfound->charoffset_o < fblock->start2_o) {
-			blockstartfound = get_foundcache_next(btv, &bssiter);
-		}
-		if (blockstartfound && blockstartfound->fblock == fblock) {
-			fblock->end1_o = blockstartfound->charoffset_o;
-		} else {
-			/* if we cannot find the start ????? weird */
-			g_print("cannot find the original start for block at %d:%d-%d:%d\n",fblock->start1_o, fblock->end1_o ,fblock->start2_o ,fblock->end2_o);
-			fblock->end1_o = match_start_o;
-		}
+		fblock->end1_o = match_start_o;
 	}
-
-
+	
+	
 	if (G_UNLIKELY(fblock->start2_o != BF_POSITION_UNDEFINED)) {
 		Tfound *ifound;
 		GSequenceIter *isiter = NULL, *cursiter;
@@ -1489,19 +1474,19 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	/* the conditions when to apply stretch_blocktag:
 		- currently found pattern (pat) has stretch_blockstart set
 		- there must be a block on the stack
-		- the blockstartpattern for the current found pattern must refer to the block on the stack
-		- the block on the stack must not have an end that is before the current position. start2_o
+		- the blockstartpattern for the current found pattern must refer to the block on the stack 
+		- the block on the stack must not have an end that is before the current position. start2_o 
 		  could be equal to the current position if the end starts where the start ends as in  <p></p>
 		  or it could be undefined
 	*/
-	if (G_UNLIKELY(pat->stretch_blockstart
-				&& scanning->curfblock
+	if (G_UNLIKELY(pat->stretch_blockstart 
+				&& scanning->curfblock 
 				&& scanning->curfblock->patternum == pat->blockstartpattern
 				&& (scanning->curfblock->start2_o == BF_POSITION_UNDEFINED || scanning->curfblock->start2_o < match_end_o))) {
 		/* get the current block on the stack and stretch the end-of-blockstart to the end of the match */
-		DBG_SCANNING("found_match, pat->stretch_blockstart=%d, pat->blockstartpattern=%d, update curfblock(%d:%d-%d:%d) with patternum=%d from end1_o from %d to %d\n",
+		DBG_SCANNING("found_match, pat->stretch_blockstart=%d, pat->blockstartpattern=%d, update curfblock(%d:%d-%d:%d) with patternum=%d from end1_o from %d to %d\n", 
 						pat->stretch_blockstart,pat->blockstartpattern,
-						scanning->curfblock->start1_o, scanning->curfblock->end1_o, scanning->curfblock->start2_o, scanning->curfblock->end2_o,
+						scanning->curfblock->start1_o, scanning->curfblock->end1_o, scanning->curfblock->start2_o, scanning->curfblock->end2_o, 
 						scanning->curfblock->patternum, scanning->curfblock->end1_o, match_end_o);
 		scanning->curfblock->end1_o = match_end_o;
 	}
