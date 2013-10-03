@@ -1,3 +1,7 @@
+/* compile with
+gcc -o filetreemodel filetreemodel.c main.c `pkg-config --cflags --libs gtk+-3.0`
+*/
+
 #include "filetreemodel.h"
 #include <stdlib.h>
 

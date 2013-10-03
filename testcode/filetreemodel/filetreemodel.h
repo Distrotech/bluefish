@@ -18,7 +18,8 @@
 enum {
 	filetreemodel_COL_RECORD = 0,
 	filetreemodel_COL_NAME,
-	filetreemodel_COL_YEAR_BORN,
+	filetreemodel_COL_ICON_NAME,
+	filetreemodel_COL_WEIGHT,
 	filetreemodel_N_COLUMNS,
 };
 
@@ -31,21 +32,22 @@ typedef struct _FileTreemodelClass FileTreemodelClass;
 /* UriRecord: this structure represents a file */
 
 struct _UriRecord {
-	/* data - you can extend this */
+	/* visible columns */
 	gchar *name;
-	gchar *name_collate_key;
-	guint year_born;
+	gchar *icon_name;
+	gboolean weight;
 
-	DirRecord *dir;
+	/* internal data */
 	GFile *uri;
 	GFileInfo *finfo;
-	/* admin stuff used by the filetree model model */
+	gchar *name_collate_key;
+	guint num_rows;
+	UriRecord **rows;
+
 	guint pos;					/* pos within the array */
 };
 
 struct _DirRecord {
-	guint num_rows;
-	UriRecord **rows;
 
 };
 

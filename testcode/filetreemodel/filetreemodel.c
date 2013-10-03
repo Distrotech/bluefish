@@ -190,7 +190,7 @@ static GtkTreeModelFlags filetreemodel_get_flags(GtkTreeModel * tree_model)
 {
 	g_return_val_if_fail(CUSTOM_IS_LIST(tree_model), (GtkTreeModelFlags) 0);
 
-	return (GTK_TREE_MODEL_LIST_ONLY | GTK_TREE_MODEL_ITERS_PERSIST);
+	return (GTK_TREE_MODEL_ITERS_PERSIST);
 }
 
 
@@ -243,7 +243,7 @@ static gboolean filetreemodel_get_iter(GtkTreeModel * tree_model, GtkTreeIter * 
 
 	g_assert(CUSTOM_IS_LIST(tree_model));
 	g_assert(path != NULL);
-
+	g_print("filetreemodel_get_iter\n");
 	filetreemodel = filetreemodel(tree_model);
 
 	indices = gtk_tree_path_get_indices(path);
@@ -337,8 +337,12 @@ filetreemodel_get_value(GtkTreeModel * tree_model, GtkTreeIter * iter, gint colu
 		g_value_set_string(value, record->name);
 		break;
 
-	case filetreemodel_COL_YEAR_BORN:
-		g_value_set_uint(value, record->year_born);
+	case filetreemodel_COL_ICON_NAME:
+		g_value_set_uint(value, record->icon_name);
+		break;
+	}
+	case filetreemodel_COL_ICON_WEIGHT:
+		g_value_set_uint(value, record->weight);
 		break;
 	}
 }
@@ -357,7 +361,7 @@ static gboolean filetreemodel_iter_next(GtkTreeModel * tree_model, GtkTreeIter *
 	FileTreemodel *filetreemodel;
 
 	g_return_val_if_fail(CUSTOM_IS_LIST(tree_model), FALSE);
-
+	g_print("filetreemodel_iter_next\n");
 	if (iter == NULL || iter->user_data == NULL)
 		return FALSE;
 
@@ -482,7 +486,7 @@ filetreemodel_iter_nth_child(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkT
 	FileTreemodel *filetreemodel;
 
 	g_return_val_if_fail(CUSTOM_IS_LIST(tree_model), FALSE);
-
+	g_print("filetreemodel_iter_nth_child(%d)\n",n);
 	filetreemodel = filetreemodel(tree_model);
 
 	/* a list has only top-level rows */
