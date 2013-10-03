@@ -139,6 +139,7 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode);
 static GtkTreeIter *fb2_build_dir(GFile * uri);
 static void refilter_dirlist(Tfilebrowser2 * fb2, GtkTreePath * newroot);
 static void set_basedir_backend(Tfilebrowser2 *fb2, GFile *dir_uri);
+static void fb2_set_basedir(Tfilebrowser2 *fb2, GFile *dir_uri);
 
 
 /**************/
@@ -254,7 +255,7 @@ get_toplevel_name(GFile * uri)
 	return name;
 }
 
-/* 
+/*
 treepath_for_uri
 
 returns a GtkTreePath for the uri, and builds it (using fb2_build_dir()) if needed
@@ -296,12 +297,12 @@ sort_path_from_treestore_path(Tfilebrowser2 * fb2, GtkTreePath *treestorepath, G
 #define dir_v_sort_path_from_treestore_path(fb2, treestorepath) sort_path_from_treestore_path(fb2, treestorepath, GTK_TREE_MODEL_FILTER(fb2->dir_tfilter), GTK_TREE_MODEL_SORT(fb2->dir_tsort))
 #define file_v_sort_path_from_treestore_path(fb2, treestorepath) sort_path_from_treestore_path(fb2, treestorepath, GTK_TREE_MODEL_FILTER(fb2->file_lfilter), GTK_TREE_MODEL_SORT(fb2->file_lsort))
 
-/* Gets treepath from uri; treepath is required for scrolling to it or selecting 
- * It combines the logic of two functions above ( treepath_for_uri() and and 
- dir_sort_path_from_treestore_path() ) and can be used for quick document 
- treepath selection after we refresh directory and required iter is already in hash table 
+/* Gets treepath from uri; treepath is required for scrolling to it or selecting
+ * It combines the logic of two functions above ( treepath_for_uri() and and
+ dir_sort_path_from_treestore_path() ) and can be used for quick document
+ treepath selection after we refresh directory and required iter is already in hash table
  */
- 
+
 static GtkTreePath *doc_sort_path_from_uri(Tfilebrowser2 * fb2, GFile * uri)
 {
 	GtkTreeIter *dociter;
@@ -2211,7 +2212,7 @@ refilter_dirlist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 		/* to make it possible to select the root in treeview or dual-view, we move the filter-root one up */
 		useroot = gtk_tree_path_copy(newroot);
 		if (fb2->filebrowser_viewmode != viewmode_flat) {
-			if (!gtk_tree_path_get_depth(newroot) > 1 || !gtk_tree_path_up(useroot)) {	
+			if (!gtk_tree_path_get_depth(newroot) > 1 || !gtk_tree_path_up(useroot)) {
 				/* do not set the root as basedir, it is useless  */
 				DEBUG_MSG("refilter_dirlist, there is no parent for this path, so we will set the filter root to NULL\n");
 				gtk_tree_path_free(useroot);
@@ -2297,7 +2298,7 @@ refilter_filelist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 	}
 }
 
-static void 
+static void
 set_file_v_root(Tfilebrowser2 *fb2, GFile *dir_uri)
 {
 	GtkTreeIter *dir_iter;
@@ -2340,25 +2341,45 @@ scroll_to_iter(Tfilebrowser2 *fb2, GtkTreeIter *file_iter, GtkTreeIter *dir_iter
 	} else {
 		fs_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), file_iter ? file_iter : dir_iter);
 	}
-	
+
 	sort_path = dir_v_sort_path_from_treestore_path(fb2, fs_path);
 	DEBUG_MSG("scroll_to_iter, got sort_path=%p\n",sort_path);
 	expand_without_directory_refresh(fb2, sort_path);
 	gtk_tree_selection_select_path(gtk_tree_view_get_selection
 													   (GTK_TREE_VIEW(fb2->dir_v)), sort_path);
 	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(fb2->dir_v), sort_path, 0, TRUE, 0.5, 0.5);
-	
+
 }
 
+static void
+switch_to_directory(Tfilebrowser2 *fb2, GFile *dir_uri)
+{
+	GtkTreeIter *dir_iter;
+	/* check if the requested dir is within the basedir, or if we have viewmode flat */
+	if ((fb2->filebrowser_viewmode == viewmode_flat)
+				||  (fb2->basedir && (!gfile_uri_is_parent(fb2->basedir, dir_uri, TRUE) && !g_file_equal(fb2->basedir, dir_uri)))) {
+		set_basedir_backend(fb2, dir_uri);
+	}
+
+	dir_iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, dir_uri);
+	if (!dir_iter) {
+		dir_iter = fb2_build_dir(dir_uri);
+	}
+	if (fb2->filebrowser_viewmode == viewmode_dual) {
+		set_file_v_root(fb2, dir_uri);
+	}
+	scroll_to_iter(fb2, NULL, dir_iter);
+	fb2_refresh_dir(dir_uri, dir_iter);
+}
 
 /**
  * change_focus_to_file
  *
  * builds the directory tree (if the directory does not yet exist)
- * in dual view changes the displayed directory for the file_v 
+ * in dual view changes the displayed directory for the file_v
  * and scrolls to this file (and in dual view also to the dir).
  *
- * no callbacks will be called for expand signals, 
+ * no callbacks will be called for expand signals,
  * the directory will be re-read ONLY IF THE FILE DOES NOT YET EXIST IN THE TREESTORE
  * the dirmenu will not reflect this change.
  *
@@ -2368,7 +2389,7 @@ change_focus_to_file(Tfilebrowser2 *fb2, GFile *uri)
 {
 	GtkTreeIter *dir_iter, *iter=NULL;
 	GFile *dir_uri;
-	
+
 	dir_uri = g_file_get_parent(uri);
 	dir_iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, dir_uri);
 	if (!dir_iter) {
@@ -2384,12 +2405,13 @@ change_focus_to_file(Tfilebrowser2 *fb2, GFile *uri)
 	if (!iter) {
 		fb2_refresh_dir(dir_uri, dir_iter);
 	}
+	fb2_set_dirmenu(fb2, dir_uri);
 	g_object_unref(dir_uri);
 }
 
 /*
 
- * for viewmode dual and tree: if the dir is outside the basedir, this will 
+ * for viewmode dual and tree: if the dir is outside the basedir, this will
  * change the basedir
 
 */
@@ -2415,11 +2437,11 @@ fb2_follow_document(Tbfwin *bfwin)
 				}
 			}
 		}
-		
+
 		/* now build the directory and focus */
-		
+
 		change_focus_to_file(bfwin->fb2, bfwin->current_document->uri);
-		
+
 	}
 }
 
@@ -2454,9 +2476,9 @@ dirmenu_idle_cleanup_lcb(gpointer callback_data)
  * fb2_set_dirmenu
  *
  * sets the dirmenu to another directory
- * no callbacks will be called 
+ * no callbacks will be called
 */
-static void 
+static void
 fb2_set_dirmenu(Tfilebrowser2 *fb2, GFile *newcurdir)
 {
 	GtkTreeIter iter, setiter;
@@ -2587,7 +2609,7 @@ fb2_set_dirmenu(Tfilebrowser2 *fb2, GFile *newcurdir)
 	g_signal_handler_unblock(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 	DEBUG_MSG("fb2_set_dirmenu, activated!\n");
 	g_idle_add_full(G_PRIORITY_LOW+10, dirmenu_idle_cleanup_lcb, oldmodel, NULL);
-	
+
 }
 
 /**
@@ -2631,7 +2653,7 @@ set_dir_v_root(Tfilebrowser2 *fb2, GFile *dir_uri)
 static void
 set_basedir_backend(Tfilebrowser2 *fb2, GFile *dir_uri)
 {
-	
+
 	if (dir_uri && fb2->basedir && (fb2->basedir == dir_uri || g_file_equal(fb2->basedir, dir_uri))) {
 		DEBUG_MSG("set_basedir_backend, basedir did not change, do nothing\n");
 		return;
@@ -2659,16 +2681,16 @@ set_basedir_backend(Tfilebrowser2 *fb2, GFile *dir_uri)
  * sets fb2->basedir
  * makes it the visual root
  * DOES add it to the history
- * DOES expand and scroll to the current document 
+ * DOES expand and scroll to the current document
  */
-static void 
+static void
 fb2_set_basedir(Tfilebrowser2 *fb2, GFile *dir_uri)
 {
 	DEBUG_MSG("fb2_set_basedir, dir_uri=%p\n",dir_uri);
 	set_basedir_backend(fb2, dir_uri);
 	if (dir_uri)
 		add_uri_to_recent_dirs(fb2, dir_uri);
-	
+
 	fb2_follow_document(fb2->bfwin);
 }
 
@@ -2854,22 +2876,8 @@ dirmenu_changed_lcb(GtkComboBox * widget, gpointer data)
 		if (!uri)
 			return;
 		g_object_ref(uri);
-		g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
-		if (fb2->basedir || fb2->filebrowser_viewmode == viewmode_flat) {
-			if (fb2->filebrowser_viewmode != viewmode_flat && (gfile_uri_is_parent(fb2->basedir, uri, TRUE)
-															   || g_file_equal(fb2->basedir, uri))) {
-				/*fb2_focus_dir(FILEBROWSER2(fb2), uri, FALSE);*/
-			} else {
-				/* drop basedir or set as new basedir, for now we set it as new basedir */
-				fb2_set_basedir(fb2, uri);
-			}
-		} else {				/* no basedir, we can focus it */
-			DEBUG_MSG("dirmenu_changed_lcb, no basedir, call fb2_focus_dir\n");
-			
-			/*fb2_focus_dir(FILEBROWSER2(fb2), uri, FALSE);*/
-		}
+		switch_to_directory(fb2, uri);
 		g_object_unref(uri);
-		g_signal_handler_unblock(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 	}
 }
 
@@ -3497,7 +3505,7 @@ fb2_focus_document(Tbfwin * bfwin, Tdocument * doc)
 	DEBUG_MSG("fb2_focus_document,doc %s\n", gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 	if (bfwin->fb2 && doc->uri) {
 		fb2_follow_document(bfwin);
-		
+
 		/*GFile *dir_uri;*/
 		/* first we make sure we have the correct directory open, then
 		   we could select the document, but if the directory *was* open already, this
