@@ -41,9 +41,12 @@ struct _UriRecord {
 	GFile *uri;
 	GFileInfo *finfo;
 	gchar *name_collate_key;
+
 	guint num_rows;
 	UriRecord **rows;
 
+	gboolean possibly_deleted;
+	UriRecord *parent;
 	guint pos;					/* pos within the array */
 };
 
@@ -66,6 +69,7 @@ struct _FileTreemodel {
 	gint n_columns;
 	GType column_types[filetreemodel_N_COLUMNS];
 	GHashTable *alluri;
+	GList *uri_in_refresh;
 
 	gint stamp;					/* Random integer to check whether an iter belongs to our model */
 };
@@ -83,7 +87,8 @@ GType filetreemodel_get_type(void);
 
 FileTreemodel *filetreemodel_new(void);
 
-void filetreemodel_append_record(FileTreemodel * filetreemodel, const gchar * name, const gchar *icon_name);
+UriRecord *filetreemodel_build_dir(FileTreemodel * filetreemodel, GFile *uri);
+void filetreemodel_refresh_dir_async(FileTreemodel * filetreemodel, GFile *uri);
 
 #define DIR_MIME_TYPE "inode/directory"
 
