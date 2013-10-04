@@ -8,7 +8,7 @@ gcc -o filetreemodel filetreemodel.c main.c `pkg-config --cflags --libs gtk+-3.0
 void fill_model(FileTreemodel * ftm)
 {
 	gint i=0;
-	GFile *uri; 
+	GFile *uri;
 /*	const gchar *firstnames[] = { "Joe", "Jane", "William", "Hannibal", "Timothy", "Gargamel", NULL };
 	const gchar *surnames[] = { "Grokowich", "Twitch", "Borheimer", "Bork", NULL };
 	const gchar **fname, **sname;
@@ -30,9 +30,9 @@ void fill_model(FileTreemodel * ftm)
 		i++;
 	}
 	uri = g_file_new_for_path("/home/olivier/tmp");
-	/*fb2_fill_dir_async(ftm, NULL, uri);*/
+	fb2_fill_dir_async(ftm, NULL, uri);
 	g_object_unref(uri);
-	
+
 }
 
 GtkWidget *create_view_and_model(void)

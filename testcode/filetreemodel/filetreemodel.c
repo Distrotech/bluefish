@@ -45,6 +45,19 @@ static gboolean filetreemodel_iter_parent(GtkTreeModel * tree_model, GtkTreeIter
 
 static GObjectClass *parent_class = NULL;	/* GObject stuff - nothing to worry about */
 
+/*************************** debug functions ***************************/
+static void dump_record(UriRecord *record) {
+	gint i;
+	g_print("record %s at position %d has %d children\n",record->name,record->pos,record->num_rows);
+	for (i=0;i<record->num_rows;i++) {
+		g_print("     %d: %s\n",i,record->rows[i]->name);
+		if (record->rows[i]->pos != i) {
+			g_print("ABORT: this child at %d has pos %d ?????????????\n",i,record->rows[i]->pos);
+		}
+	}
+}
+
+
 
 /*****************************************************************************
  *
@@ -167,7 +180,7 @@ static void filetreemodel_init(FileTreemodel * filetreemodel)
 
 	filetreemodel->num_rows = 0;
 	filetreemodel->rows = NULL;
-	
+
 	filetreemodel->alluri = g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, uri_hash_destroy, iter_value_destroy);
 
 	filetreemodel->stamp = g_random_int();	/* Random int to check whether an iter belongs to our model */
@@ -280,7 +293,7 @@ static gboolean filetreemodel_get_iter(GtkTreeModel * tree_model, GtkTreeIter * 
 
 	indices = gtk_tree_path_get_indices(path);
 	depth = gtk_tree_path_get_depth(path);
-	
+
 	record=NULL;
 	for (i=0;i<depth;i++) {
 		record = get_nth_record(filetreemodel, record, indices[i]);
@@ -666,7 +679,7 @@ filetree_re_sort(FileTreemodel * filetreemodel, UriRecord *precord)
 	gint *neworder;
 	gint i;
 	GtkTreePath *path;
-	
+
 	/* do the sorting ! */
 	if (precord == NULL) {
 		/* toplevel */
@@ -675,9 +688,10 @@ filetree_re_sort(FileTreemodel * filetreemodel, UriRecord *precord)
 	} else {
 		arr = precord->rows;
 		num_rows = precord->num_rows;
+		dump_record(precord);
 	}
 	qsort(arr,num_rows,sizeof(UriRecord*),compare_records);
-	
+
 	/* let other objects know about the new order */
 	neworder = g_new0(gint, num_rows);
 
@@ -688,6 +702,7 @@ filetree_re_sort(FileTreemodel * filetreemodel, UriRecord *precord)
 		 * selections after row reordering. */
 		/* neworder[(custom_list->rows[i])->pos] = i; */
 		neworder[i] = (arr[i])->pos;
+		g_print("filetree_re_sort, moved '%s' from row %d to row %d \n",arr[i]->name,arr[i]->pos,i);
 		(arr[i])->pos = i;
     }
 	path = get_treepath_for_record(precord);
@@ -765,7 +780,7 @@ gchar *gfile_display_name(GFile *uri, GFileInfo *finfo) {
 	return retval;
 }
 
-static UriRecord * 
+static UriRecord *
 add_single_uri(FileTreemodel * filetreemodel, UriRecord *record, GFile * child_uri, GFileInfo * finfo)
 {
 	guint newsize, pos;
@@ -784,7 +799,7 @@ add_single_uri(FileTreemodel * filetreemodel, UriRecord *record, GFile * child_u
 	icon = g_file_info_get_icon(finfo);
 	newrecord->icon_name = icon_name_from_icon(icon);;
 	newrecord->weight = 0;
-	
+
 	/* actually add it to the array now */
 	if (record) {
 		pos = record->num_rows;
@@ -806,7 +821,7 @@ add_single_uri(FileTreemodel * filetreemodel, UriRecord *record, GFile * child_u
 	}
 	g_print("added record %p for uri %p to hash table\n",newrecord, child_uri);
 	g_hash_table_insert(filetreemodel->alluri, child_uri, newrecord);
-	
+
 	/* inform the tree view and other interested objects
 	 *  (e.g. tree row references) that we have inserted
 	 *  a new row, and where it was inserted */
@@ -869,7 +884,7 @@ fake_directory_fileinfo_for_uri(GFile * uri)
 UriRecord *filetreemodel_build_dir(FileTreemodel * filetreemodel, GFile *uri)
 {
 	UriRecord *record=NULL;
-	
+
 	GFile *tmp, *parent_uri = NULL;
 	tmp = uri;
 
@@ -997,40 +1012,47 @@ static void record_cleanup(UriRecord *record) {
 static void filetreemodel_remove(FileTreemodel * filetreemodel, UriRecord *record, gboolean dont_remove_from_parent) {
 	gint i;
 	GtkTreePath *path;
+	g_print("filetreemodel_remove, remove item with name %s, pos=%d, dontremovefromparent=%d\n",record->name,record->pos,dont_remove_from_parent);
 	/* if it has any children, remove them first */
 	if (record->num_rows) {
 		for (i=0;i<record->num_rows;i++) {
 			filetreemodel_remove(filetreemodel, record->rows[i], TRUE);
 		}
-	/* remove them all from their parent in one go */ 
+	/* remove them all from their parent in one go */
 		g_free(record->rows);
 		record->num_rows = 0;
 		record->rows = NULL;
 	}
-	
+
 	/* let the treeview know that this one is gone */
 	path = get_treepath_for_record(record);
 	gtk_tree_model_row_deleted(GTK_TREE_MODEL(filetreemodel),path);
 	gtk_tree_path_free(path);
-	
+
 	if (!dont_remove_from_parent) {
 		UriRecord ***arr;
 		gint *num_rows;
 		/*now remove it really from it's parent */
 		if (record->parent) {
+			g_print("filetreemodel_remove, remove record %p from parent %p\n",record,record->parent);
 			arr = &record->parent->rows;
 			num_rows = &record->parent->num_rows;
 		} else {
 			arr = &filetreemodel->rows;
 			num_rows = &filetreemodel->num_rows;
 		}
-		*arr = memmove(*arr[record->pos], *arr[record->pos+1], (*num_rows - record->pos - 1)*sizeof(UriRecord *));
+		if (record->pos+1 < *num_rows) {
+			g_print("filetreemodel_remove, move %d rows from pos=%d to pos=%d, total rows=%d\n",(*num_rows-record->pos-1),record->pos+1,record->pos, *num_rows);
+			*arr = memmove((*arr)[record->pos], (*arr)[record->pos+1], (*num_rows - record->pos - 1)*sizeof(UriRecord *));
+		}
 		*num_rows--;
 		if (*num_rows == 0) {
 			g_free(*arr);
 			*arr = NULL;
 		} else {
+			g_print("parent->rows=%p, *arr=%p\n",record->parent->rows,*arr);
 			*arr = g_realloc(*arr, *num_rows * sizeof(UriRecord *));
+			g_print("after realloc parent->rows=%p, *arr=%p\n",record->parent->rows,*arr);
 		}
 	}
 	record_cleanup(record);
@@ -1040,7 +1062,7 @@ static void
 filetreemodel_delete_children(FileTreemodel * filetreemodel, UriRecord *record, gboolean only_possibly_deleted)
 {
 	gint i;
-	
+	g_print("filetreemodel_delete_children from %s, num_rows=%d, rows=%p\n",record->name,record->num_rows,record->rows);
 	if (only_possibly_deleted) {
 		for (i=record->num_rows-1;i>=0;i--) {
 			if (record->rows[i]->possibly_deleted) {
@@ -1072,7 +1094,7 @@ fb2_enumerator_close_lcb(GObject * source_object, GAsyncResult * res, gpointer u
 	fb2_uri_in_refresh_cleanup(uir->filetreemodel, uir);
 }
 
-static void 
+static void
 add_multiple_uris(FileTreemodel * filetreemodel, UriRecord *precord, GList *finfolist)
 {
 	guint pos, alloced_num, listlen, old_num_rows;
@@ -1081,15 +1103,16 @@ add_multiple_uris(FileTreemodel * filetreemodel, UriRecord *precord, GList *finf
 	GtkTreePath *path;
 	guint *num_rows;
 	UriRecord ***rows;
-	
+
 	GList *tmplist = g_list_first(finfolist);
 	listlen = g_list_length(tmplist);
-
+	g_print("add_multiple_uris, adding %d entries to %s\n",listlen,precord?precord->name:"root");
 	newrecord = g_slice_new0(UriRecord);
-	
+
 	if (precord) {
 		num_rows = &precord->num_rows;
 		rows = &precord->rows;
+		dump_record(precord);
 	} else {
 		num_rows = &filetreemodel->num_rows;
 		rows = &filetreemodel->rows;
@@ -1097,8 +1120,9 @@ add_multiple_uris(FileTreemodel * filetreemodel, UriRecord *precord, GList *finf
 	alloced_num = *num_rows;
 	old_num_rows = *num_rows;
 	if (alloced_num < listlen) {
-		alloced_num = listlen;
+		alloced_num = listlen+1;/* often there is a single entry - a space - that will be removed after adding all items */
 		*rows = g_realloc(*rows, alloced_num * sizeof(UriRecord *));
+		g_print("add_multiple_uris, increase allocation to %d rows, num_rows is at %d, *rows=%p, precord->rows=%p\n",alloced_num, *num_rows,precord?precord->rows:NULL, *rows);
 	}
 
 
@@ -1124,30 +1148,39 @@ add_multiple_uris(FileTreemodel * filetreemodel, UriRecord *precord, GList *finf
 			icon = g_file_info_get_icon(finfo);
 			newrecord->icon_name = icon_name_from_icon(icon);
 			newrecord->weight = 0;
-			
+
 			pos = *num_rows;
+			g_print("add_multiple_uris, add %s at pos %d\n",newrecord->name,pos);
 			/* see if we have to alloc more space in the array */
 			if (pos >= alloced_num) {
 				alloced_num += 32;
 				g_print("alloc 32 more positions in array to %d\n",alloced_num);
 				*rows = g_realloc(*rows, alloced_num * sizeof(UriRecord *));
+				g_print("after realloc, precord->rows=%p, *rows=%p\n",precord?precord->rows:NULL, *rows);
 			}
 			(*rows)[pos] = newrecord;
 			newrecord->pos = pos;
 			(*num_rows)++;
 			newrecord->parent = precord;
 			g_hash_table_insert(filetreemodel->alluri, newrecord->uri, newrecord);
-			
+
 			path = get_treepath_for_record(newrecord);
 			filetreemodel_get_iter(GTK_TREE_MODEL(filetreemodel), &iter, path);
 			gtk_tree_model_row_inserted(GTK_TREE_MODEL(filetreemodel), path, &iter);
 			gtk_tree_path_free(path);
+
+			/* make a 'newrecord' ready for the next loop */
+			newrecord = g_slice_new0(UriRecord);
 		}
 		tmplist = tmplist->next;
 	}
+	g_slice_free(UriRecord, newrecord);
+/*	g_print("add_multiple_uris, done adding\n");
+	dump_record(precord);*/
 	/* now allocate the size that is actually used */
-	g_print("finalize allocation to %d rows\n",*num_rows);
+	g_print("precord=%p, finalize allocation to %d rows, precord->rows=%p, *rows=%p\n",precord,*num_rows,precord?precord->rows:NULL, *rows);
 	*rows = g_realloc(*rows, *num_rows * sizeof(UriRecord *));
+
 	filetree_re_sort(filetreemodel, precord);
 }
 
@@ -1170,7 +1203,7 @@ fb2_enumerate_next_files_lcb(GObject * source_object, GAsyncResult * res, gpoint
 		g_file_enumerator_close_async(uir->gfe, G_PRIORITY_LOW, uir->cancel, fb2_enumerator_close_lcb, uir);
 		return;
 	}
-	
+
 	add_multiple_uris(uir->filetreemodel, uir->precord, list);
 	g_list_free(list);
 
@@ -1228,11 +1261,11 @@ mark_children_refresh(FileTreemodel * filetreemodel, UriRecord *parent)
 		arr = filetreemodel->rows;
 		num_rows = filetreemodel->num_rows;
 	}
-	
+
 	for (i=0;i<num_rows;i++) {
 		arr[i]->possibly_deleted = 1;
 	}
-	
+
 }
 
 void
@@ -1255,9 +1288,9 @@ fb2_fill_dir_async(FileTreemodel * filetreemodel, GtkTreeIter * piter, GFile * u
 				precord = filetreemodel_build_dir(filetreemodel, uri);
 			}
 		}
-		mark_children_refresh(filetreemodel, (UriRecord *)piter->user_data);
+		mark_children_refresh(filetreemodel, precord);
 		uir = g_slice_new0(Turi_in_refresh);
-		uir->precord = piter->user_data;
+		uir->precord = precord;
 		uir->filetreemodel = filetreemodel;
 		uir->uri = g_object_ref(uri);
 		uir->cancel = g_cancellable_new();
