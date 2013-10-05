@@ -1045,9 +1045,11 @@ static void filetreemodel_remove(FileTreemodel * filetreemodel, UriRecord *recor
 		}
 		if (record->pos+1 < *num_rows) {
 			g_print("filetreemodel_remove, move %d rows from pos=%d (%p) to pos=%d (%p), total rows=%d\n",(*num_rows-record->pos-1),record->pos+1,(*arr)[record->pos],record->pos,(*arr)[record->pos+1], *num_rows);
+			g_print("current item at pos %d is '%s' (%p), record=%p\n",record->pos,(*arr)[record->pos]->name, (*arr)[record->pos],record);
 			memmove((*arr)[record->pos], (*arr)[record->pos+1], (*num_rows - record->pos - 1)*sizeof(UriRecord *));
 			/*memmove((*arr)+record->pos*sizeof(UriRecord *), (*arr)+(record->pos+1)*sizeof(UriRecord *), (*num_rows - record->pos - 1)*sizeof(UriRecord *));*/
 			g_print("after memmove, parent %p has rows %p, *arr=%p\n",record->parent,record->parent->rows,*arr);
+			g_print("new item at pos %d is '%s' (%p), record=%p\n",record->pos,(*arr)[record->pos]->name, (*arr)[record->pos], record);
 		}
 		*num_rows--;
 		if (*num_rows == 0) {
@@ -1057,7 +1059,16 @@ static void filetreemodel_remove(FileTreemodel * filetreemodel, UriRecord *recor
 			g_print("parent=%p, parent->rows=%p, *arr=%p\n",record->parent,record->parent->rows,*arr);
 			*arr = g_realloc(*arr, *num_rows * sizeof(UriRecord *));
 			g_print("after realloc parent->rows=%p, *arr=%p\n",record->parent->rows,*arr);
+			/* now adjust all positions */
+			for (i=record->pos;i<*num_rows;i++) {
+				g_print("changing position %d to %d\n",(*arr)[i]->pos,i);
+				(*arr)[i]->pos = i;
+			}
+
+
 		}
+
+
 	}
 	record_cleanup(record);
 }
