@@ -9,6 +9,7 @@ void fill_model(FileTreemodel * ftm)
 {
 	gint i=0;
 	GFile *uri;
+	GtkTreePath *path;
 /*	const gchar *firstnames[] = { "Joe", "Jane", "William", "Hannibal", "Timothy", "Gargamel", NULL };
 	const gchar *surnames[] = { "Grokowich", "Twitch", "Borheimer", "Bork", NULL };
 	const gchar **fname, **sname;
@@ -31,8 +32,13 @@ void fill_model(FileTreemodel * ftm)
 	}
 	uri = g_file_new_for_path("/home/olivier/tmp");
 	filetreemodel_refresh_dir_async(ftm, NULL, uri);
+	/*path = path_for_uri(ftm, uri);
+	g_print("expand to path %p\n",path);
+	if (path) {
+		gtk_tree_view_expand_to_path(view,path);
+		gtk_tree_path_free(path);
+	}*/
 	g_object_unref(uri);
-
 }
 
 static void

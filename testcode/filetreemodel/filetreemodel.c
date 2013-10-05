@@ -814,6 +814,7 @@ fill_uri(UriRecord *newrecord, GFile *uri, GFileInfo *finfo)
 	newrecord->icon_name = icon_name_from_icon(icon);
 	newrecord->weight = 0;
 	newrecord->isdir = (g_file_info_get_file_type(finfo)==G_FILE_TYPE_DIRECTORY);
+	/*g_print("fill_uri, isdir=%d for name='%s'\n",newrecord->isdir,newrecord->name);*/
 }
 
 static UriRecord *
@@ -1190,6 +1191,8 @@ add_multiple_uris(FileTreemodel * filetreemodel, UriRecord *precord, GList *finf
 			g_object_unref(finfo);
 			/* the memory was not allocated for ->name */
 			newrecord->name = NULL;
+			newrecord->isdir = 0;
+			newrecord->finfo=NULL;
 		} else {
 			g_print("%s does not yet exist\n",newrecord->name);
 			/* this file does not exist */
@@ -1354,3 +1357,16 @@ filetreemodel_refresh_dir_async(FileTreemodel * filetreemodel, GtkTreeIter * pit
 	}
 
 }
+
+GtkTreePath *
+path_for_uri(FileTreemodel * filetreemodel, GFile * uri)
+{
+	UriRecord *record;
+
+	record = g_hash_table_lookup(filetreemodel->alluri, uri);
+	if (record) {
+		return get_treepath_for_record(record);
+	}
+	return NULL;
+}
+
