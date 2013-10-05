@@ -88,7 +88,7 @@ GType filetreemodel_get_type(void);
 FileTreemodel *filetreemodel_new(void);
 
 UriRecord *filetreemodel_build_dir(FileTreemodel * filetreemodel, GFile *uri);
-void filetreemodel_refresh_dir_async(FileTreemodel * filetreemodel, GFile *uri);
+void filetreemodel_refresh_dir_async(FileTreemodel * filetreemodel, GtkTreeIter * piter, GFile * uri);
 
 #define DIR_MIME_TYPE "inode/directory"
 

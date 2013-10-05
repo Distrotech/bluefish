@@ -1293,7 +1293,7 @@ mark_children_refresh(FileTreemodel * filetreemodel, UriRecord *parent)
 }
 
 void
-fb2_fill_dir_async(FileTreemodel * filetreemodel, GtkTreeIter * piter, GFile * uri)
+filetreemodel_refresh_dir_async(FileTreemodel * filetreemodel, GtkTreeIter * piter, GFile * uri)
 {
 	if (!uri) {
 		g_print("fb2_fill_dir_async, abort, no uri\n");

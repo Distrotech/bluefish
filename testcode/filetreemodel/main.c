@@ -30,13 +30,13 @@ void fill_model(FileTreemodel * ftm)
 		i++;
 	}
 	uri = g_file_new_for_path("/home/olivier/tmp");
-	fb2_fill_dir_async(ftm, NULL, uri);
+	filetreemodel_refresh_dir_async(ftm, NULL, uri);
 	g_object_unref(uri);
 
 }
 
 static void
-view_selection_changed(GtkTreeSelection * treeselection, FileTreeModel *ftm)
+view_selection_changed(GtkTreeSelection * treeselection, FileTreemodel *ftm)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
@@ -45,7 +45,7 @@ view_selection_changed(GtkTreeSelection * treeselection, FileTreeModel *ftm)
 		UriRecord *record=NULL;
 		gtk_tree_model_get(model, &iter, filetreemodel_COL_RECORD, &record, -1);
 		if (record->uri) {
-			filetreemodel_refresh_dir_async(ftm, record->uri);
+			filetreemodel_refresh_dir_async(ftm, NULL, record->uri);
 		}
 	}
 }
