@@ -45,9 +45,11 @@ struct _UriRecord {
 	guint num_rows;
 	UriRecord **rows;
 
-	gboolean possibly_deleted;
 	UriRecord *parent;
-	guint pos;					/* pos within the array */
+	guint16 pos;					/* pos within the array */
+
+	guint8 isdir:1;
+	guint8 possibly_deleted:1;
 };
 
 

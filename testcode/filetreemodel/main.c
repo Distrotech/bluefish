@@ -36,6 +36,15 @@ void fill_model(FileTreemodel * ftm)
 }
 
 static void
+view_row_expanded(GtkTreeView * tree, GtkTreeIter * iter,
+					   GtkTreePath * path, FileTreemodel *ftm)
+{
+	UriRecord *record=NULL;
+	gtk_tree_model_get(GTK_TREE_MODEL(ftm), iter, filetreemodel_COL_RECORD, &record, -1);
+	filetreemodel_refresh_dir_async(ftm, NULL, record->uri);
+}
+
+static void
 view_selection_changed(GtkTreeSelection * treeselection, FileTreemodel *ftm)
 {
 	GtkTreeModel *model;
@@ -44,12 +53,11 @@ view_selection_changed(GtkTreeSelection * treeselection, FileTreemodel *ftm)
 	if (treeselection && gtk_tree_selection_get_selected(treeselection, &model, &iter)) {
 		UriRecord *record=NULL;
 		gtk_tree_model_get(model, &iter, filetreemodel_COL_RECORD, &record, -1);
-		if (record->uri) {
+		if (record->uri && (g_file_info_get_file_type(record->finfo)==G_FILE_TYPE_DIRECTORY)) {
 			filetreemodel_refresh_dir_async(ftm, NULL, record->uri);
 		}
 	}
 }
-
 
 GtkWidget *create_view_and_model(void)
 {
@@ -90,7 +98,7 @@ GtkWidget *create_view_and_model(void)
 
 	dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
 	g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(view_selection_changed), FileTreemodel);
-
+	g_signal_connect(G_OBJECT(view), "row-expanded", G_CALLBACK(view_row_expanded), FileTreemodel);
 
 	return view;
 }
