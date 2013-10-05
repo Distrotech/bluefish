@@ -35,12 +35,29 @@ void fill_model(FileTreemodel * ftm)
 
 }
 
+static void
+view_selection_changed(GtkTreeSelection * treeselection, FileTreeModel *ftm)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	/* Get the current selected row and the model. */
+	if (treeselection && gtk_tree_selection_get_selected(treeselection, &model, &iter)) {
+		UriRecord *record=NULL;
+		gtk_tree_model_get(model, &iter, filetreemodel_COL_RECORD, &record, -1);
+		if (record->uri) {
+			filetreemodel_refresh_dir_async(ftm, record->uri);
+		}
+	}
+}
+
+
 GtkWidget *create_view_and_model(void)
 {
 	GtkTreeViewColumn *col;
 	GtkCellRenderer *renderer;
 	FileTreemodel *FileTreemodel;
 	GtkWidget *view;
+	GtkTreeSelection *dirselection;
 
 	FileTreemodel = filetreemodel_new();
 	fill_model(FileTreemodel);
@@ -70,6 +87,10 @@ GtkWidget *create_view_and_model(void)
 	gtk_tree_view_column_add_attribute(col, renderer, "text", filetreemodel_COL_ICON_NAME);
 	gtk_tree_view_column_set_title(col, "Icon name");
 	gtk_tree_view_append_column(GTK_TREE_VIEW(view), col);*/
+
+	dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
+	g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(view_selection_changed), FileTreemodel);
+
 
 	return view;
 }
