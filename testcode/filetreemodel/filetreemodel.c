@@ -809,6 +809,7 @@ add_single_uri(FileTreemodel * filetreemodel, UriRecord *record, GFile * child_u
 		newsize = record->num_rows * sizeof(UriRecord *);
 		record->rows = g_realloc(record->rows, newsize);
 		record->rows[pos] = newrecord;
+		g_print("adding newrecord %p to pos %d of array %p\n",newrecord,pos,record->rows);
 		newrecord->pos = pos;
 		newrecord->parent = record;
 	} else {
@@ -1014,7 +1015,7 @@ static void record_cleanup(UriRecord *record) {
 static void filetreemodel_remove(FileTreemodel * filetreemodel, UriRecord *record, gboolean dont_remove_from_parent) {
 	gint i;
 	GtkTreePath *path;
-	g_print("filetreemodel_remove, remove item with name %s, pos=%d, dontremovefromparent=%d\n",record->name,record->pos,dont_remove_from_parent);
+	g_print("filetreemodel_remove, remove record %p with name %s, pos=%d, dontremovefromparent=%d\n",record,record->name,record->pos,dont_remove_from_parent);
 	/* if it has any children, remove them first */
 	if (record->num_rows) {
 		for (i=0;i<record->num_rows;i++) {
@@ -1037,31 +1038,32 @@ static void filetreemodel_remove(FileTreemodel * filetreemodel, UriRecord *recor
 		/*now remove it really from it's parent */
 		if (record->parent) {
 			g_print("filetreemodel_remove, remove record %p from parent %p which has rows=%p\n",record,record->parent,record->parent->rows);
-			arr = &record->parent->rows;
-			num_rows = &record->parent->num_rows;
+			arr = &(record->parent->rows);
+			num_rows = &(record->parent->num_rows);
 		} else {
-			arr = &filetreemodel->rows;
-			num_rows = &filetreemodel->num_rows;
+			arr = &(filetreemodel->rows);
+			num_rows = &(filetreemodel->num_rows);
 		}
+		g_print("*num_rows=%d\n",*num_rows);
 		if (record->pos+1 < *num_rows) {
 			g_print("filetreemodel_remove, move %d rows from pos=%d (%p) to pos=%d (%p), total rows=%d\n",(*num_rows-record->pos-1),record->pos+1,(*arr)[record->pos],record->pos,(*arr)[record->pos+1], *num_rows);
 			g_print("current item at pos %d is '%s' (%p), record=%p\n",record->pos,(*arr)[record->pos]->name, (*arr)[record->pos],record);
-			memmove((*arr)[record->pos], (*arr)[record->pos+1], (*num_rows - record->pos - 1)*sizeof(UriRecord *));
+			memmove(&(*arr)[record->pos], &(*arr)[record->pos+1], (*num_rows - record->pos - 1)*sizeof(UriRecord *));
 			/*memmove((*arr)+record->pos*sizeof(UriRecord *), (*arr)+(record->pos+1)*sizeof(UriRecord *), (*num_rows - record->pos - 1)*sizeof(UriRecord *));*/
 			g_print("after memmove, parent %p has rows %p, *arr=%p\n",record->parent,record->parent->rows,*arr);
-			g_print("new item at pos %d is '%s' (%p), record=%p\n",record->pos,(*arr)[record->pos]->name, (*arr)[record->pos], record);
+			g_print("new item at pos %d is '%s' (%p) with pos=%d, record=%p\n",record->pos,(*arr)[record->pos]->name, (*arr)[record->pos], (*arr)[record->pos]->pos, record);
 		}
-		*num_rows--;
+		(*num_rows)--;
 		if (*num_rows == 0) {
 			g_free(*arr);
 			*arr = NULL;
 		} else {
 			g_print("parent=%p, parent->rows=%p, *arr=%p\n",record->parent,record->parent->rows,*arr);
 			*arr = g_realloc(*arr, *num_rows * sizeof(UriRecord *));
-			g_print("after realloc parent->rows=%p, *arr=%p\n",record->parent->rows,*arr);
+			g_print("after realloc parent->rows=%p, *arr=%p, *num_rows=%d\n",record->parent->rows,*arr, *num_rows);
 			/* now adjust all positions */
 			for (i=record->pos;i<*num_rows;i++) {
-				g_print("changing position %d to %d\n",(*arr)[i]->pos,i);
+				g_print("changing from position %d to %d\n",(*arr)[i]->pos,i);
 				(*arr)[i]->pos = i;
 			}
 
@@ -1174,6 +1176,7 @@ add_multiple_uris(FileTreemodel * filetreemodel, UriRecord *precord, GList *finf
 				g_print("after realloc, precord->rows=%p, *rows=%p\n",precord?precord->rows:NULL, *rows);
 			}
 			(*rows)[pos] = newrecord;
+			g_print("adding newrecord %p to pos %d of array %p\n",newrecord,pos,(*rows));
 			newrecord->pos = pos;
 			(*num_rows)++;
 			newrecord->parent = precord;
