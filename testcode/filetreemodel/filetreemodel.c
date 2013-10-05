@@ -692,6 +692,8 @@ filetree_re_sort(FileTreemodel * filetreemodel, UriRecord *precord)
 	}
 	qsort(arr,num_rows,sizeof(UriRecord*),compare_records);
 
+	g_print("precord %p has rows=%p\n",precord,precord?precord->rows:NULL);
+
 	/* let other objects know about the new order */
 	neworder = g_new0(gint, num_rows);
 
@@ -1034,7 +1036,7 @@ static void filetreemodel_remove(FileTreemodel * filetreemodel, UriRecord *recor
 		gint *num_rows;
 		/*now remove it really from it's parent */
 		if (record->parent) {
-			g_print("filetreemodel_remove, remove record %p from parent %p\n",record,record->parent);
+			g_print("filetreemodel_remove, remove record %p from parent %p which has rows=%p\n",record,record->parent,record->parent->rows);
 			arr = &record->parent->rows;
 			num_rows = &record->parent->num_rows;
 		} else {
@@ -1042,15 +1044,17 @@ static void filetreemodel_remove(FileTreemodel * filetreemodel, UriRecord *recor
 			num_rows = &filetreemodel->num_rows;
 		}
 		if (record->pos+1 < *num_rows) {
-			g_print("filetreemodel_remove, move %d rows from pos=%d to pos=%d, total rows=%d\n",(*num_rows-record->pos-1),record->pos+1,record->pos, *num_rows);
-			*arr = memmove((*arr)[record->pos], (*arr)[record->pos+1], (*num_rows - record->pos - 1)*sizeof(UriRecord *));
+			g_print("filetreemodel_remove, move %d rows from pos=%d (%p) to pos=%d (%p), total rows=%d\n",(*num_rows-record->pos-1),record->pos+1,(*arr)[record->pos],record->pos,(*arr)[record->pos+1], *num_rows);
+			memmove((*arr)[record->pos], (*arr)[record->pos+1], (*num_rows - record->pos - 1)*sizeof(UriRecord *));
+			/*memmove((*arr)+record->pos*sizeof(UriRecord *), (*arr)+(record->pos+1)*sizeof(UriRecord *), (*num_rows - record->pos - 1)*sizeof(UriRecord *));*/
+			g_print("after memmove, parent %p has rows %p, *arr=%p\n",record->parent,record->parent->rows,*arr);
 		}
 		*num_rows--;
 		if (*num_rows == 0) {
 			g_free(*arr);
 			*arr = NULL;
 		} else {
-			g_print("parent->rows=%p, *arr=%p\n",record->parent->rows,*arr);
+			g_print("parent=%p, parent->rows=%p, *arr=%p\n",record->parent,record->parent->rows,*arr);
 			*arr = g_realloc(*arr, *num_rows * sizeof(UriRecord *));
 			g_print("after realloc parent->rows=%p, *arr=%p\n",record->parent->rows,*arr);
 		}
