@@ -49,20 +49,27 @@ GtkWidget *create_view_and_model(void)
 
 	g_object_unref(FileTreemodel);	/* destroy store automatically with view */
 
-	renderer = gtk_cell_renderer_text_new();
+	renderer = gtk_cell_renderer_pixbuf_new();
 	col = gtk_tree_view_column_new();
+	gtk_tree_view_column_pack_start(col, renderer, FALSE);
+	gtk_tree_view_column_set_attributes(col, renderer,
+										"icon-name", filetreemodel_COL_ICON_NAME,
+										/*"pixbuf_expander_closed", PIXMAP_COLUMN,
+										"pixbuf_expander_open", PIXMAP_COLUMN,*/ NULL);
 
+	renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute(col, renderer, "text", filetreemodel_COL_NAME);
-	gtk_tree_view_column_set_title(col, "Name");
+	gtk_tree_view_column_set_attributes(col, renderer, "text", filetreemodel_COL_NAME, "weight", filetreemodel_COL_WEIGHT, NULL);
+	g_object_set(G_OBJECT(renderer), "editable", FALSE, "weight-set", TRUE, NULL);	/* Not editable. */
+	/*gtk_tree_view_column_set_title(col, "Name");*/
 	gtk_tree_view_append_column(GTK_TREE_VIEW(view), col);
 
-	renderer = gtk_cell_renderer_text_new();
+	/*renderer = gtk_cell_renderer_text_new();
 	col = gtk_tree_view_column_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute(col, renderer, "text", filetreemodel_COL_ICON_NAME);
 	gtk_tree_view_column_set_title(col, "Icon name");
-	gtk_tree_view_append_column(GTK_TREE_VIEW(view), col);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(view), col);*/
 
 	return view;
 }

@@ -681,7 +681,7 @@ filetree_re_sort(FileTreemodel * filetreemodel, UriRecord *precord)
 	guint num_rows;
 	UriRecord ***arr;
 	gint *neworder;
-	gint i,j;
+	gint i;
 	GtkTreePath *path;
 	gboolean reordered=FALSE;
 
@@ -701,7 +701,6 @@ filetree_re_sort(FileTreemodel * filetreemodel, UriRecord *precord)
 
 	/* let other objects know about the new order */
 	neworder = g_new0(gint, num_rows);
-	j=0;
 	for (i = 0; i < num_rows; ++i) {
 		/* Note that the API reference might be wrong about
 		 * this, see bug number 124790 on bugs.gnome.org.
