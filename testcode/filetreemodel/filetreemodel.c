@@ -681,8 +681,9 @@ filetree_re_sort(FileTreemodel * filetreemodel, UriRecord *precord)
 	guint num_rows;
 	UriRecord ***arr;
 	gint *neworder;
-	gint i;
+	gint i,j;
 	GtkTreePath *path;
+	gboolean reordered=FALSE;
 
 	/* do the sorting ! */
 	if (precord == NULL) {
@@ -700,20 +701,24 @@ filetree_re_sort(FileTreemodel * filetreemodel, UriRecord *precord)
 
 	/* let other objects know about the new order */
 	neworder = g_new0(gint, num_rows);
-
+	j=0;
 	for (i = 0; i < num_rows; ++i) {
 		/* Note that the API reference might be wrong about
 		 * this, see bug number 124790 on bugs.gnome.org.
 		 * Both will work, but one will give you 'jumpy'
 		 * selections after row reordering. */
 		/* neworder[(custom_list->rows[i])->pos] = i; */
+		if (neworder[i] != ((*arr)[i])->pos)
+			reordered=TRUE;
 		neworder[i] = ((*arr)[i])->pos;
 		g_print("filetree_re_sort, moved '%s' from row %d to row %d \n",(*arr)[i]->name,(*arr)[i]->pos,i);
 		((*arr)[i])->pos = i;
     }
-	path = get_treepath_for_record(precord);
-	gtk_tree_model_rows_reordered(GTK_TREE_MODEL(filetreemodel), path, NULL, neworder);
-	gtk_tree_path_free(path);
+	if (reordered) {
+		path = get_treepath_for_record(precord);
+		gtk_tree_model_rows_reordered(GTK_TREE_MODEL(filetreemodel), path, NULL, neworder);
+		gtk_tree_path_free(path);
+	}
 	g_free(neworder);
 }
 
