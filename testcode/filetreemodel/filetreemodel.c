@@ -667,15 +667,19 @@ void filetreemodel_append_record(FileTreemodel * filetreemodel, const gchar * na
 /********************** sorting functions **************************************************************************************/
 int compare_records(const void *a, const void *b)
 {
-	g_assert ((a) && (b));
-	return g_utf8_collate(((UriRecord *)a)->name, ((UriRecord *)b)->name);
+	UriRecord *ra = *((UriRecord **)a);
+	UriRecord *rb = *((UriRecord **)b);
+	g_print("a=%p, b=%p, ra=%p, rb=%p\n",a,b,ra,rb);
+	g_print("compare %s and %s\n",ra->name,rb->name);
+	return g_utf8_collate(ra->name, rb->name);
+	/*return strcmp(((UriRecord *)a)->name, ((UriRecord *)b)->name);*/
 }
 
 static void
 filetree_re_sort(FileTreemodel * filetreemodel, UriRecord *precord)
 {
 	guint num_rows;
-	UriRecord **arr;
+	UriRecord ***arr;
 	gint *neworder;
 	gint i;
 	GtkTreePath *path;
@@ -683,14 +687,14 @@ filetree_re_sort(FileTreemodel * filetreemodel, UriRecord *precord)
 	/* do the sorting ! */
 	if (precord == NULL) {
 		/* toplevel */
-		arr = filetreemodel->rows;
+		arr = &filetreemodel->rows;
 		num_rows = filetreemodel->num_rows;
 	} else {
-		arr = precord->rows;
+		arr = &precord->rows;
 		num_rows = precord->num_rows;
 		dump_record(precord);
 	}
-	qsort(arr,num_rows,sizeof(UriRecord*),compare_records);
+	qsort(*arr,num_rows,sizeof(UriRecord*),compare_records);
 
 	g_print("precord %p has rows=%p\n",precord,precord?precord->rows:NULL);
 
@@ -703,9 +707,9 @@ filetree_re_sort(FileTreemodel * filetreemodel, UriRecord *precord)
 		 * Both will work, but one will give you 'jumpy'
 		 * selections after row reordering. */
 		/* neworder[(custom_list->rows[i])->pos] = i; */
-		neworder[i] = (arr[i])->pos;
-		g_print("filetree_re_sort, moved '%s' from row %d to row %d \n",arr[i]->name,arr[i]->pos,i);
-		(arr[i])->pos = i;
+		neworder[i] = ((*arr)[i])->pos;
+		g_print("filetree_re_sort, moved '%s' from row %d to row %d \n",(*arr)[i]->name,(*arr)[i]->pos,i);
+		((*arr)[i])->pos = i;
     }
 	path = get_treepath_for_record(precord);
 	gtk_tree_model_rows_reordered(GTK_TREE_MODEL(filetreemodel), path, NULL, neworder);
@@ -1066,8 +1070,6 @@ static void filetreemodel_remove(FileTreemodel * filetreemodel, UriRecord *recor
 				g_print("changing from position %d to %d\n",(*arr)[i]->pos,i);
 				(*arr)[i]->pos = i;
 			}
-
-
 		}
 
 
@@ -1148,7 +1150,7 @@ add_multiple_uris(FileTreemodel * filetreemodel, UriRecord *precord, GList *finf
 		GFileInfo *finfo = tmplist->data;
 		/* don't allocate new memory for 'name', if it already exists we don't need it */
 		newrecord->name = (gchar *)g_file_info_get_name(finfo);
-		tmp = bsearch(newrecord, *rows,old_num_rows,sizeof(UriRecord *),compare_records);
+		tmp = bsearch(&newrecord, *rows,old_num_rows,sizeof(UriRecord *),compare_records);
 		if (tmp) {
 			/* this file exists */
 			tmp->possibly_deleted = FALSE;
