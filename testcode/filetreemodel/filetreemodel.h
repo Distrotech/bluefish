@@ -25,7 +25,6 @@ enum {
 
 
 typedef struct _UriRecord UriRecord;
-typedef struct _DirRecord DirRecord;
 typedef struct _FileTreemodel FileTreemodel;
 typedef struct _FileTreemodelClass FileTreemodelClass;
 
@@ -40,17 +39,20 @@ struct _UriRecord {
 	/* internal data */
 	GFile *uri;
 	GFileInfo *finfo;
-	gchar *name_collate_key;
-
-	guint num_rows;
-	UriRecord **rows;
+	/*gchar *name_collate_key;*/
 
 	UriRecord *parent;
+	UriRecord **rows;
+	guint16 num_rows;
 	guint16 pos;					/* pos within the array */
 
-	guint8 isdir:1;
-	guint8 possibly_deleted:1;
+	guint8 isdir;
+	guint8 possibly_deleted;
 };
+/*
+on 64 bit systems: 7*8bytes + 2*2bytes + 2*1byte + 2padding = 64 bytes
+on 32 bit systems: 7*4bytes + 2*2bytes + 2*1byte + 2padding = 36 bytes
+*/
 
 
 /* FileTreemodel: this structure contains everything we need for our
@@ -63,7 +65,7 @@ struct _UriRecord {
 struct _FileTreemodel {
 	GObject parent;				/* this MUST be the first member */
 
-	guint num_rows;/* the toplevel */
+	guint16 num_rows;/* the toplevel */
 	UriRecord **rows;
 
 	/* These two fields are not absolutely necessary, but they    */

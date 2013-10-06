@@ -226,7 +226,7 @@ static void record_cleanup(UriRecord *record) {
 	g_object_unref(record->finfo);
 	g_free(record->name);
 	g_free(record->icon_name);
-	g_free(record->name_collate_key);
+	/*g_free(record->name_collate_key);*/
 	g_slice_free(UriRecord, record);
 }
 
@@ -732,10 +732,9 @@ int compare_records(const void *a, const void *b)
 	if (ra->name[0] != '.' && rb->name[0] == '.') {
 		return 1;
 	}
-	g_print("a=%p, b=%p, ra=%p, rb=%p\n",a,b,ra,rb);
-	g_print("compare %s and %s\n",ra->name,rb->name);
+	/*g_print("a=%p, b=%p, ra=%p, rb=%p\n",a,b,ra,rb);
+	g_print("compare %s and %s\n",ra->name,rb->name);*/
 	return g_utf8_collate(ra->name, rb->name);
-	/*return strcmp(((UriRecord *)a)->name, ((UriRecord *)b)->name);*/
 }
 
 static void
@@ -861,7 +860,7 @@ fill_uri(UriRecord *newrecord, GFile *uri, GFileInfo *finfo)
 {
 	GIcon *icon;
 	newrecord->name = gfile_display_name(uri, finfo);
-	newrecord->name_collate_key = g_utf8_collate_key(newrecord->name, -1);	/* for fast sorting, used later */
+	/*newrecord->name_collate_key = g_utf8_collate_key(newrecord->name, -1);*/	/* for fast sorting, used later */
 	newrecord->uri = uri;
 	g_print("fill_uri, newrecord=%p, uri=%p, name='%s'\n",newrecord,newrecord->uri,newrecord->name);
 	g_object_ref(uri);
@@ -1116,7 +1115,7 @@ static void filetreemodel_remove(FileTreemodel * filetreemodel, UriRecord *recor
 
 	if (!dont_remove_from_parent) {
 		UriRecord ***arr;
-		guint *num_rows;
+		guint16 *num_rows;
 		/*now remove it really from it's parent */
 		if (record->parent) {
 			g_print("filetreemodel_remove, remove record %p from parent %p which has rows=%p\n",record,record->parent,record->parent->rows);
@@ -1201,7 +1200,7 @@ add_multiple_uris(FileTreemodel * filetreemodel, UriRecord *precord, GList *finf
 	UriRecord *newrecord;
 	GtkTreeIter iter;
 	GtkTreePath *path;
-	guint *num_rows;
+	guint16 *num_rows;
 	UriRecord ***rows;
 
 	GList *tmplist = g_list_first(finfolist);
