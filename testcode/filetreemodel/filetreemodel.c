@@ -189,18 +189,6 @@ static void filetreemodel_tree_model_init(GtkTreeModelIface * iface)
  *
  *****************************************************************************/
 
-static void
-uri_hash_destroy(gpointer data)
-{
-	g_object_unref((GObject *) data);
-}
-
-static void
-iter_value_destroy(gpointer data)
-{
-	/*g_slice_free(GtkTreeIter, data);*/
-}
-
 static void filetreemodel_init(FileTreemodel * filetreemodel)
 {
 	filetreemodel->n_columns = filetreemodel_N_COLUMNS;
@@ -215,7 +203,7 @@ static void filetreemodel_init(FileTreemodel * filetreemodel)
 	filetreemodel->num_rows = 0;
 	filetreemodel->rows = NULL;
 
-	filetreemodel->alluri = g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, uri_hash_destroy, iter_value_destroy);
+	filetreemodel->alluri = g_hash_table_new(g_file_hash, (GEqualFunc) g_file_equal);
 
 	filetreemodel->stamp = g_random_int();	/* Random int to check whether an iter belongs to our model */
 
@@ -229,13 +217,39 @@ static void filetreemodel_init(FileTreemodel * filetreemodel)
  *
  *****************************************************************************/
 
+static void record_cleanup(UriRecord *record) {
+	if (record->num_rows > 0) {
+		g_critical("record_cleanup, record still has children ????\n");
+	}
+	g_print("record_cleanup %p name='%s', unref uri %p and finfo %p\n",record,record->name,record->uri,record->finfo);
+	g_object_unref(record->uri);
+	g_object_unref(record->finfo);
+	g_free(record->name);
+	g_free(record->icon_name);
+	g_free(record->name_collate_key);
+	g_slice_free(UriRecord, record);
+}
+
+static void record_recursive_cleanup(UriRecord *record) {
+	gint j;
+	for (j=0;j<record->num_rows;j++) {
+		record_recursive_cleanup(record->rows[j]);
+	}
+	g_free(record->rows);
+	record->num_rows = 0;
+	record_cleanup(record);
+}
+
 static void filetreemodel_finalize(GObject * object)
 {
-/*  FileTreemodel *filetreemodel = filetreemodel(object); */
-
+  FileTreemodel *filetreemodel = filetreemodel(object);
+	gint i;
 	/* free all records and free all memory used by the list */
-#warning IMPLEMENT
+	for (i=0;i<filetreemodel->num_rows;i++) {
+		record_recursive_cleanup(filetreemodel->rows[i]);
+	}
 
+	g_hash_table_destroy(filetreemodel->alluri);
 	/* must chain up - finalize parent */
 	(*parent_class->finalize) (object);
 }
@@ -1079,18 +1093,6 @@ fb2_uri_in_refresh_cleanup(FileTreemodel * filetreemodel, Turi_in_refresh * uir)
 	g_slice_free(Turi_in_refresh, uir);
 }
 
-static void record_cleanup(UriRecord *record) {
-	if (record->num_rows > 0) {
-		g_critical("record_cleanup, record still has children ????\n");
-	}
-	g_print("record_cleanup %p name='%s', unref uri %p and finfo %p\n",record,record->name,record->uri,record->finfo);
-	g_object_unref(record->uri);
-	g_object_unref(record->finfo);
-	g_free(record->name);
-	g_free(record->icon_name);
-	g_free(record->name_collate_key);
-	g_slice_free(UriRecord, record);
-}
 
 static void filetreemodel_remove(FileTreemodel * filetreemodel, UriRecord *record, gboolean dont_remove_from_parent) {
 	gint i;

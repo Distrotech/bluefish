@@ -1,5 +1,8 @@
 /* compile with
-gcc -o filetreemodel filetreemodel.c main.c `pkg-config --cflags --libs gtk+-3.0`
+gcc -g -Wall -o filetreemodel filetreemodel.c main.c `pkg-config --cflags --libs gtk+-3.0`
+
+G_SLICE=always-malloc G_DEBUG=gc-friendly valgrind --tool=memcheck --num-callers=32 ./filetreemodel
+
 */
 
 #include "filetreemodel.h"
