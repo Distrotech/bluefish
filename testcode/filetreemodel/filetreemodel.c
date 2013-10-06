@@ -519,7 +519,12 @@ static gboolean filetreemodel_iter_has_child(GtkTreeModel * tree_model, GtkTreeI
 	if (!iter)
 		return FALSE;
 	record = iter->user_data;
-	return (record->num_rows != 0);
+
+	if (record->num_rows > 0 && record->isdir != 1) {
+		g_assert_not_reached();
+	}
+
+	return (record->num_rows > 0);
 }
 
 
@@ -547,8 +552,12 @@ static gint filetreemodel_iter_n_children(GtkTreeModel * tree_model, GtkTreeIter
 	/* special case: if iter == NULL, return number of top-level rows */
 	if (!iter)
 		return filetreemodel->num_rows;
-
 	record = iter->user_data;
+
+	if (record->num_rows > 0 && record->isdir != 1) {
+		g_assert_not_reached();
+	}
+
 	return record->num_rows;
 }
 
@@ -708,6 +717,9 @@ int compare_records(const void *a, const void *b)
 	}
 	if (ra->name[0] == '.' && rb->name[0] != '.') {
 		return -1;
+	}
+	if (ra->name[0] != '.' && rb->name[0] == '.') {
+		return 1;
 	}
 	g_print("a=%p, b=%p, ra=%p, rb=%p\n",a,b,ra,rb);
 	g_print("compare %s and %s\n",ra->name,rb->name);
