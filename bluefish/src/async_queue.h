@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * async_queue.c - asynchronous function execution queue 
  *
- * Copyright (C) 2009-2011 Olivier Sessink
+ * Copyright (C) 2009-2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,11 @@ typedef struct {
 	GSList *threads;	/* currently active threads */
 	QueueFunc queuefunc;	
 	GQueue q;				/* data structures that are *not* being worked on */
+#if GLIB_CHECK_VERSION(2, 32, 0)
+	GMutex mutex;
+#else
 	GStaticMutex mutex;
+#endif
 	gboolean lockmutex; /* whether or not to lock the mutex (if used from threads) */
 	gboolean startinthread;
 	guint worknum;				/* number of elements that are being worked on */

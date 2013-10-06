@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * async_queue.c - asynchronous function execution queue 
  *
- * Copyright (C) 2009-2011 Olivier Sessink
+ * Copyright (C) 2009-2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,14 +36,22 @@ queue_init_full(Tasyncqueue * queue, guint max_worknum, gboolean lockmutex, gboo
 	queue->queuefunc = queuefunc;
 	queue->startinthread=startinthread;
 	if (lockmutex)
+#if GLIB_CHECK_VERSION(2, 32, 0)
+		g_mutex_init(&queue->mutex);
+#else
 		g_static_mutex_init(&queue->mutex);
+#endif
 }
 
 void
 queue_cleanup(Tasyncqueue * queue)
 {
 	if (queue->lockmutex)
+#if GLIB_CHECK_VERSION(2, 32, 0)
+		g_mutex_clear(&queue->mutex);
+#else
 		g_static_mutex_free(&queue->mutex);
+#endif
 }
 
 static gboolean
@@ -65,11 +73,19 @@ queue_run(Tasyncqueue * queue)
 			queue->threads = g_slist_append(queue->threads, thread);
 		} else {
 			if (queue->lockmutex)
+#if GLIB_CHECK_VERSION(2, 32, 0)
+				g_mutex_unlock(&queue->mutex);
+#else
 				g_static_mutex_unlock(&queue->mutex);
+#endif
 			DEBUG_MSG("queue_run %p, calling queuefunc(), worknum now is %d\n",queue,queue->worknum);
 			queue->queuefunc(item);
 			if (queue->lockmutex)
+#if GLIB_CHECK_VERSION(2, 32, 0)
+				g_mutex_lock(&queue->mutex);
+#else
 				g_static_mutex_lock(&queue->mutex);
+#endif
 		}
 		startednew=TRUE;
 	}
@@ -81,12 +97,20 @@ queue_worker_ready(Tasyncqueue * queue)
 {
 	gboolean startednew;
 	if (queue->lockmutex)
+#if GLIB_CHECK_VERSION(2, 32, 0)
+		g_mutex_lock(&queue->mutex);
+#else
 		g_static_mutex_lock(&queue->mutex);
+#endif
 	queue->worknum--;
 	DEBUG_MSG("queue_worker_ready %p, len=%d, worknum=%d\n",queue,queue->q.length, queue->worknum);
 	startednew = queue_run(queue);
 	if (queue->lockmutex)
+#if GLIB_CHECK_VERSION(2, 32, 0)
+		g_mutex_unlock(&queue->mutex);
+#else
 		g_static_mutex_unlock(&queue->mutex);
+#endif
 	return startednew;
 }
 
@@ -94,18 +118,31 @@ void
 queue_worker_ready_inthread(Tasyncqueue *queue)
 {
 	gpointer item;
+
+#if GLIB_CHECK_VERSION(2, 32, 0)
+	g_mutex_lock(&queue->mutex);
+#else
 	g_static_mutex_lock(&queue->mutex);
+#endif
 	
 	if (!queue->q.tail) {
 		queue->worknum--;
 		DEBUG_MSG("queue_worker_ready_inthread %p, queue length %d, just return (end thread, worknum=%d)\n",queue,g_queue_get_length(&queue->q),queue->worknum);
 		queue->threads = g_slist_remove(queue->threads, g_thread_self());
+#if GLIB_CHECK_VERSION(2, 32, 0)
+		g_mutex_unlock(&queue->mutex);
+#else
 		g_static_mutex_unlock(&queue->mutex);
+#endif
 		return;
 	}
 	item = g_queue_pop_tail(&queue->q);
 	DEBUG_MSG("queue_worker_ready_inthread %p, queue length=%d, worknum=%d\n",queue,g_queue_get_length(&queue->q), queue->worknum);
+#if GLIB_CHECK_VERSION(2, 32, 0)
+	g_mutex_unlock(&queue->mutex);
+#else
 	g_static_mutex_unlock(&queue->mutex);
+#endif
 	queue->queuefunc(item);
 }
 
@@ -113,12 +150,20 @@ void
 queue_push(Tasyncqueue * queue, gpointer item)
 {
 	if (queue->lockmutex)
+#if GLIB_CHECK_VERSION(2, 32, 0)
+		g_mutex_lock(&queue->mutex);
+#else
 		g_static_mutex_lock(&queue->mutex);
+#endif
 	g_queue_push_head(&queue->q, item);
 	DEBUG_MSG("queue_push %p, new queue length=%d, worknum=%d\n",queue,queue->q.length, queue->worknum);
 	queue_run(queue);
 	if (queue->lockmutex)
+#if GLIB_CHECK_VERSION(2, 32, 0)
+		g_mutex_unlock(&queue->mutex);
+#else
 		g_static_mutex_unlock(&queue->mutex);
+#endif
 }
 
 /* return TRUE if we found the item on the queue, FALSE if we did not find the item */
@@ -128,12 +173,20 @@ queue_remove(Tasyncqueue * queue, gpointer item)
 	gboolean retval;
 	gint len;
 	if (queue->lockmutex)
+#if GLIB_CHECK_VERSION(2, 32, 0)
+		g_mutex_lock(&queue->mutex);
+#else
 		g_static_mutex_lock(&queue->mutex);
+#endif
 	len = queue->q.length;
 	g_queue_remove(&queue->q, item);
 	retval = (len<queue->q.length);
 	if (queue->lockmutex)
+#if GLIB_CHECK_VERSION(2, 32, 0)
+		g_mutex_unlock(&queue->mutex);
+#else
 		g_static_mutex_unlock(&queue->mutex);
+#endif
 	return retval;
 }
 
@@ -141,11 +194,19 @@ void
 queue_cancel(Tasyncqueue *queue, GFunc freefunc, gpointer user_data)
 {
 	if (queue->lockmutex)
-		g_static_mutex_lock(&queue->mutex);	
+#if GLIB_CHECK_VERSION(2, 32, 0)
+		g_mutex_lock(&queue->mutex);
+#else
+		g_static_mutex_lock(&queue->mutex);
+#endif
 	g_queue_foreach(&queue->q, freefunc, user_data);
 	g_queue_clear(&queue->q);
 	if (queue->lockmutex)
+#if GLIB_CHECK_VERSION(2, 32, 0)
+		g_mutex_unlock(&queue->mutex);
+#else
 		g_static_mutex_unlock(&queue->mutex);
+#endif
 	if (queue->startinthread) {
 		GSList *tmpslist;
 		for (tmpslist = queue->threads;tmpslist;tmpslist=g_slist_next(tmpslist)) {
