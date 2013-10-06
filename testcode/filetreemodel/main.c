@@ -9,7 +9,6 @@ void fill_model(FileTreemodel * ftm)
 {
 	gint i=0;
 	GFile *uri;
-	GtkTreePath *path;
 /*	const gchar *firstnames[] = { "Joe", "Jane", "William", "Hannibal", "Timothy", "Gargamel", NULL };
 	const gchar *surnames[] = { "Grokowich", "Twitch", "Borheimer", "Bork", NULL };
 	const gchar **fname, **sname;
