@@ -57,6 +57,40 @@ static void dump_record(UriRecord *record) {
 	}
 }
 
+static void
+pindent(gint indent) {
+	gint i;
+	for(i=0;i<indent;i++) {
+		g_print("  ");
+	}
+}
+
+static void
+print_record(UriRecord *record, gint indent)
+{
+	gint i;
+	pindent(indent);
+	g_print("'%s' (%p), isdir=%d", record->name,record,record->isdir);
+	if (record->num_rows) {
+		g_print(" with %d children\n", record->num_rows);
+		for (i=0;i<record->num_rows;i++) {
+			print_record(record->rows[i],indent+1);
+		}
+	} else {
+		g_print("\n");
+	}
+}
+
+static void
+print_tree(FileTreemodel *ftm)
+{
+	gint i;
+	g_print("Dump filetreemodel %p with %d top-level records\n",ftm,ftm->num_rows);
+	for(i=0;i<ftm->num_rows;i++) {
+		print_record(ftm->rows[i],1);
+	}
+	g_print("--------------------------\n");
+}
 
 
 /*****************************************************************************
@@ -1140,6 +1174,9 @@ fb2_enumerator_close_lcb(GObject * source_object, GAsyncResult * res, gpointer u
 	g_file_enumerator_close_finish(uir->gfe, res, &gerror);
 	g_object_unref(uir->gfe);
 	filetreemodel_delete_children(uir->filetreemodel, uir->precord, TRUE);
+
+	print_tree(uir->filetreemodel);
+
 	fb2_uri_in_refresh_cleanup(uir->filetreemodel, uir);
 }
 
