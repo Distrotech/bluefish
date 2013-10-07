@@ -131,6 +131,6 @@ int main(int argc, char **argv)
 	gtk_widget_show_all(window);
 
 	gtk_main();
-
+	gtk_widget_destroy(window);
 	return 0;
 }

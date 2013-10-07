@@ -1238,16 +1238,18 @@ add_multiple_uris(FileTreemodel * filetreemodel, UriRecord *precord, GList *finf
 			/* this file exists */
 			g_print("mark %p '%s' as existing\n",*tmp,(*tmp)->name);
 			(*tmp)->possibly_deleted = FALSE;
-			g_object_unref(finfo);
+			
 			/* the memory was not allocated for ->name */
 			newrecord->name = NULL;
 			newrecord->isdir = 0;
 			newrecord->finfo=NULL;
 		} else {
+			GFile *child;
 			g_print("%s does not yet exist\n",newrecord->name);
 			/* this file does not exist */
-			fill_uri(newrecord, g_file_get_child(precord->uri, newrecord->name), finfo);
-
+			child = g_file_get_child(precord->uri, newrecord->name);
+			fill_uri(newrecord, child, finfo);
+			g_object_unref(child);
 			if (g_hash_table_lookup(filetreemodel->alluri, newrecord->uri)) {
 				 g_assert_not_reached();
 			}
@@ -1280,6 +1282,7 @@ add_multiple_uris(FileTreemodel * filetreemodel, UriRecord *precord, GList *finf
 			/* make a 'newrecord' ready for the next loop */
 			newrecord = g_slice_new0(UriRecord);
 		}
+		g_object_unref(finfo);
 		tmplist = tmplist->next;
 	}
 	g_slice_free(UriRecord, newrecord);
