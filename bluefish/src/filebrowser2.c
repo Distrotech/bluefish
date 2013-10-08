@@ -133,7 +133,7 @@ typedef struct {
 } Tfilebrowser2;
 
 #define FILEBROWSER2(var) ((Tfilebrowser2 *)(var))
-static void fb2_set_dirmenu(Tfilebrowser2 * fb2, GFile * newcurdir);
+static void fb2_set_dirmenu(Tfilebrowser2 * fb2, GFile * newcurdir, gboolean force_rebuild);
 static void refilter_filelist(Tfilebrowser2 * fb2, GtkTreePath * newroot);
 /*static GFile *fb2_uri_from_fspath(Tfilebrowser2 * fb2, GtkTreePath * fs_path);*/
 static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode);
@@ -141,6 +141,9 @@ static GtkTreeIter *fb2_build_dir(GFile * uri);
 static void refilter_dirlist(Tfilebrowser2 * fb2, GtkTreePath * newroot);
 static void set_basedir_backend(Tfilebrowser2 *fb2, GFile *dir_uri);
 static void fb2_set_basedir(Tfilebrowser2 *fb2, GFile *dir_uri);
+static gboolean fb2_build_doc_iter_table_lcb(gpointer data);
+static void change_focus_to_file(Tfilebrowser2 *fb2, Tdocument *doc);
+static void set_file_v_root(Tfilebrowser2 *fb2, GFile *dir_uri);
 
 
 /**************/
@@ -558,10 +561,25 @@ add_uri_to_recent_dirs(Tfilebrowser2 * fb2, GFile * uri)
 	g_free(tmp);
 }
 
+static void
+remove_uri_from_recent_dirs(Tfilebrowser2 * fb2, GFile * uri)
+{
+	gchar *tmp;
+
+	tmp = g_file_get_uri(uri);
+
+	fb2->bfwin->session->recent_dirs =
+		remove_from_stringlist(fb2->bfwin->session->recent_dirs, tmp);
+	g_free(tmp);
+}
+
+
 /* Return common uri part of two input uri's. Required for setting basedir when activating or opening file that is outside current basedir */
 
 GFile *find_common_path(GFile *file1, GFile *file2)
 {
+	if (!file1 || !file2)
+		return NULL;
 	gchar * filename1 = g_file_get_parse_name(file1);
 	gchar * filename2 = g_file_get_parse_name(file2);
 	DEBUG_MSG("find_common_path, filename1=%s, filename2=%s \n", filename1, filename2);
@@ -1920,17 +1938,20 @@ popup_menu_set_basedir(GtkAction * action, gpointer user_data)
 
 	fs_path = fb2_fspath_from_dir_selection(fb2);
 	DEBUG_MSG("fb2rpopup_rpopup_action_lcb, fs_path=%p\n", fs_path);
-	refilter_dirlist(fb2, fs_path);
+	GFile *new_basedir = fb2_uri_from_fspath(fb2, fs_path);
+	fb2_set_basedir(fb2, new_basedir);
 	gtk_tree_path_free(fs_path);
+	g_object_unref(new_basedir);
 	if (fb2->bfwin->session->filebrowser_focus_follow && fb2->bfwin->current_document) {
 		fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
+	} else {
+		gtk_tree_model_get_iter_first(fb2->dir_tsort, &iter);
+		fs_path = gtk_tree_model_get_path(fb2->dir_tsort, &iter);
+		if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(fb2->dir_v), fs_path)) {
+			gtk_tree_view_expand_row(GTK_TREE_VIEW(fb2->dir_v), fs_path, FALSE);
+		}
+		gtk_tree_path_free(fs_path); 
 	}
-	gtk_tree_model_get_iter_first(fb2->dir_tsort, &iter);
-	fs_path = gtk_tree_model_get_path(fb2->dir_tsort, &iter);
-	if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(fb2->dir_v), fs_path)) {
-		gtk_tree_view_expand_row(GTK_TREE_VIEW(fb2->dir_v), fs_path, FALSE);
-	}
-	gtk_tree_path_free(fs_path);
 }
 
 static void
@@ -1966,9 +1987,8 @@ static void
 popup_menu_show_full_tree(GtkAction * action, gpointer user_data)
 {
 	Tfilebrowser2 *fb2 = FILEBROWSER2(user_data);
-
-	refilter_dirlist(fb2, NULL);
-	if (fb2->bfwin->current_document)
+	set_basedir_backend(fb2, NULL);
+	if (fb2->bfwin->current_document && fb2->bfwin->session->filebrowser_focus_follow)
 		fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
 }
 
@@ -1985,10 +2005,11 @@ popup_menu_view_mode_changed(GtkRadioAction * action, GtkRadioAction * current, 
 	fb2 = FILEBROWSER2(bfwin->fb2);
 	view_mode = gtk_radio_action_get_current_value(action);
 
-	BFWIN(fb2->bfwin)->session->filebrowser_viewmode = view_mode;
+	fb2->bfwin->session->filebrowser_viewmode = view_mode;
 	fb2_set_viewmode_widgets(fb2, view_mode);
+	
 	/* Focus to current document in order to update fb view  when viewmode changes*/
-	if (fb2->bfwin->current_document)
+	if (fb2->bfwin->session->filebrowser_focus_follow && fb2->bfwin->current_document)
 		fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
 }
 
@@ -2221,7 +2242,7 @@ refilter_dirlist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 			}
 		}
 	}
-
+	
 	fb2->dir_tfilter =
 		gtk_tree_model_filter_new(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), useroot);
 	DEBUG_TREEMODELREFS("refilter_dirlist, created new tree model filter at %p for fb2 %p\n",fb2->dir_tfilter, fb2);
@@ -2380,7 +2401,28 @@ switch_to_directory(Tfilebrowser2 *fb2, GFile *dir_uri)
 	}
 	scroll_to_iter(fb2, NULL, dir_iter);
 	fb2_refresh_dir(dir_uri, dir_iter);
-	add_uri_to_recent_dirs(fb2, dir_uri);
+	/* last entry in recent_dirs is used as basedir of the project, so we can add entries this way only in flat mode, which does not have basedir
+	*  For other modes the right thing to do would be to add uri not to last postion, but one before last, so basedir will not change. 
+	*  Saved basedir should be changed only from popup menu
+	*/
+	if (fb2->filebrowser_viewmode == viewmode_flat)
+		add_uri_to_recent_dirs(fb2, dir_uri); 
+}
+
+static gboolean
+fb2_build_doc_iter_table_lcb(gpointer data)
+{
+	Tdocument *doc = data;
+	GFile *dir_uri;
+	dir_uri = g_file_get_parent(doc->uri);
+	if (fb2_get_uri_in_refresh(dir_uri) != NULL) {
+		g_object_unref(dir_uri);
+		return TRUE;
+	}
+	DEBUG_MSG("fb2_build_doc_iter_table_lcb, document=%p iter table build finished, now focusing\n", doc);
+	change_focus_to_file(FILEBROWSER2(BFWIN(doc->bfwin)->fb2), doc);
+	g_object_unref(dir_uri);
+	return FALSE;
 }
 
 /**
@@ -2396,27 +2438,30 @@ switch_to_directory(Tfilebrowser2 *fb2, GFile *dir_uri)
  *
 */
 static void
-change_focus_to_file(Tfilebrowser2 *fb2, GFile *uri)
+change_focus_to_file(Tfilebrowser2 *fb2, Tdocument *doc)
 {
 	GtkTreeIter *dir_iter, *iter=NULL;
 	GFile *dir_uri;
-
-	dir_uri = g_file_get_parent(uri);
-	dir_iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, dir_uri);
-	if (!dir_iter) {
-		dir_iter = fb2_build_dir(dir_uri);
-		DEBUG_MSG("change_focus_to_dir, after building, fb2=%p, dir_iter=%p\n", fb2, dir_iter);
-	} else {
-		iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
+	iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, doc->uri);
+	if (!iter) { /*if document iter does not exists we have first to build table*/
+		dir_uri = g_file_get_parent(doc->uri);
+		dir_iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, dir_uri);
+		if (!dir_iter) {
+			dir_iter = fb2_build_dir(dir_uri);
+			DEBUG_MSG("change_focus_to_dir, after building, fb2=%p, dir_iter=%p\n", fb2, dir_iter);
+		}
+		fb2_refresh_dir(dir_uri, dir_iter);
+		g_idle_add_full(G_PRIORITY_LOW, fb2_build_doc_iter_table_lcb, doc, NULL); 
+		g_object_unref(dir_uri);
+		return;
 	}
+	dir_uri = g_file_get_parent(doc->uri);
+	dir_iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, dir_uri);
 	if (fb2->filebrowser_viewmode == viewmode_dual) {
 		set_file_v_root(fb2, dir_uri);
 	}
 	scroll_to_iter(fb2, iter, dir_iter);
-	if (!iter) {
-		fb2_refresh_dir(dir_uri, dir_iter);
-	}
-	fb2_set_dirmenu(fb2, dir_uri);
+	fb2_set_dirmenu(fb2, dir_uri, FALSE);
 	g_object_unref(dir_uri);
 }
 
@@ -2428,31 +2473,30 @@ change_focus_to_file(Tfilebrowser2 *fb2, GFile *uri)
 */
 
 void
-fb2_follow_document(Tbfwin *bfwin)
+fb2_follow_document(Tbfwin *bfwin, Tdocument *doc)
 {
-	if (bfwin && bfwin->current_document && bfwin->current_document->uri) {
+	if (bfwin && doc && doc->uri) {
 		Tfilebrowser2 *fb2 = bfwin->fb2;
 		DEBUG_MSG("fb2_follow_document, started for doc=%p with uri %p\n",bfwin->current_document,bfwin->current_document->uri);
-		/* check if we have to change the basedir */
-		if (fb2->basedir) {
-			if (fb2->filebrowser_viewmode == viewmode_flat) {
-				if (!gfile_uri_is_parent(FILEBROWSER2(bfwin->fb2)->basedir, bfwin->current_document->uri, FALSE)) {
-					GFile *dir_uri = g_file_get_parent(bfwin->current_document->uri);
-					set_basedir_backend(bfwin->fb2, dir_uri);
-					g_object_unref(dir_uri);
-				}
-			} else {
-				if (!gfile_uri_is_parent(FILEBROWSER2(bfwin->fb2)->basedir, bfwin->current_document->uri, TRUE)) {
-					/* TODO: set basedir to common part in the uri */
-					set_basedir_backend(bfwin->fb2, NULL);
-				}
+		/* In flat mode we always have to change basedir */
+		if (fb2->filebrowser_viewmode == viewmode_flat) {
+			if (!gfile_uri_is_parent(fb2->basedir, doc->uri, FALSE)) {
+				GFile *dir_uri = g_file_get_parent(doc->uri);
+				set_basedir_backend(bfwin->fb2, dir_uri);
+				g_object_unref(dir_uri);
+			}
+		} else {
+			if (!gfile_uri_is_parent(fb2->basedir, doc->uri, TRUE)) {
+				GFile *dir_uri = g_file_get_parent(doc->uri);
+				GFile * new_basedir = find_common_path(dir_uri, fb2->basedir);
+				set_basedir_backend(bfwin->fb2, new_basedir);
+				g_object_unref(dir_uri);
+				if (new_basedir)
+					g_object_unref(new_basedir);
 			}
 		}
-
 		/* now build the directory and focus */
-
-		change_focus_to_file(bfwin->fb2, bfwin->current_document->uri);
-
+		change_focus_to_file(bfwin->fb2, doc);
 	}
 }
 
@@ -2490,7 +2534,7 @@ dirmenu_idle_cleanup_lcb(gpointer callback_data)
  * no callbacks will be called
 */
 static void
-fb2_set_dirmenu(Tfilebrowser2 *fb2, GFile *newcurdir)
+fb2_set_dirmenu(Tfilebrowser2 *fb2, GFile *newcurdir, gboolean force_rebuild)
 {
 	GtkTreeIter iter, setiter;
 	GHashTable *hasht;
@@ -2501,10 +2545,9 @@ fb2_set_dirmenu(Tfilebrowser2 *fb2, GFile *newcurdir)
 	gboolean cont, havesetiter = FALSE;
 	DEBUG_MSG("fb2_set_dirmenu(fb2=%p, newcurdir uri=%p)\n", fb2, newcurdir);
 	if (fb2->currentdir) {
-		if (newcurdir && (fb2->currentdir == newcurdir || g_file_equal(fb2->currentdir, newcurdir)))
+		if (newcurdir && !force_rebuild && (fb2->currentdir == newcurdir || g_file_equal(fb2->currentdir, newcurdir)))
 			return;
-		if (fb2->currentdir)
-			g_object_unref(fb2->currentdir);
+		g_object_unref(fb2->currentdir);
 	}
 	fb2->currentdir = g_object_ref(newcurdir);
 #ifdef DEBUG
@@ -2634,8 +2677,14 @@ static void
 set_dir_v_root(Tfilebrowser2 *fb2, GFile *dir_uri)
 {
 	GtkTreePath *basepath = NULL;
+	GtkTreeSelection *dirselection;
 	DEBUG_MSG("set_dir_v_root for uri %p\n",dir_uri);
 	/* disconnect the dir_v and file_v for higher performance */
+	
+	dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
+	if (fb2->dirselection_changed_id)
+		g_signal_handler_block(dirselection, fb2->dirselection_changed_id); /* block signal while we are reconfiguting tree model */
+	
 	gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->dir_v), NULL);
 	if (fb2->filebrowser_viewmode == viewmode_dual)
 		gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v), NULL);
@@ -2647,6 +2696,8 @@ set_dir_v_root(Tfilebrowser2 *fb2, GFile *dir_uri)
 	basepath = treepath_for_uri(fb2, dir_uri);
 	DEBUG_MSG("fb2_set_dir_v_root, refilter, basepath=%p\n", basepath);
 	refilter_dirlist(fb2, basepath);
+	if (fb2->dirselection_changed_id)
+		g_signal_handler_unblock(dirselection, fb2->dirselection_changed_id);
 	gtk_tree_path_free(basepath);
 }
 
@@ -2701,8 +2752,6 @@ fb2_set_basedir(Tfilebrowser2 *fb2, GFile *dir_uri)
 	set_basedir_backend(fb2, dir_uri);
 	if (dir_uri)
 		add_uri_to_recent_dirs(fb2, dir_uri);
-
-	fb2_follow_document(fb2->bfwin);
 }
 
 static void
@@ -2815,7 +2864,7 @@ dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 		if (fb2->filebrowser_viewmode == viewmode_flat) {
 			set_basedir_backend(fb2, uri);
 			fb2_refresh_dir_from_uri(uri);
-			fb2_set_dirmenu(fb2, uri);
+			fb2_set_dirmenu(fb2, uri, FALSE);
 		} else {
 			if (gtk_tree_view_row_expanded(tree, path)) {
 				gtk_tree_view_collapse_row(tree, path);
@@ -2858,8 +2907,9 @@ dir_v_selection_changed_lcb(GtkTreeSelection * treeselection, Tbfwin *bfwin)
 		DEBUG_MSG("dir_v_selection_changed_lcb, mime_type=%s and uri=", mime_type);
 		DEBUG_GFILE(uri, TRUE);
 		if (uri && (mime_type && MIME_ISDIR(mime_type))) {
-			fb2_set_dirmenu(fb2, uri);
-			set_file_v_root(fb2, uri);
+			fb2_set_dirmenu(fb2, uri, FALSE);
+			if (fb2->filebrowser_viewmode == viewmode_dual)
+				set_file_v_root(fb2, uri);
 			fb2_refresh_dir_from_uri(uri);
 			/*fb2_focus_dir(fb2, uri, TRUE);*/
 		}
@@ -2884,11 +2934,22 @@ dirmenu_changed_lcb(GtkComboBox * widget, gpointer data)
 		GFile *uri;
 		DEBUG_MSG("dirmenu_changed_lcb. we have an active iter\n");
 		gtk_tree_model_get(GTK_TREE_MODEL(fb2->dirmenu_m), &iter, DIR_URI_COLUMN, &uri, -1);
-		if (!uri)
+		if (!uri) {
+			DEBUG_MSG("dirmenu_changed_lcb. WEIRD, we do not have uri for this dirmenu entry\n");
 			return;
-		g_object_ref(uri);
-		switch_to_directory(fb2, uri);
+		}
+	/* TODO check the uri validity here before trying to display it. If  uri is not valid, display error message and remove it from recent_dirs 
+	*  Invalid uri will break many things downstream
+	*/
+		if (g_file_query_exists(uri,NULL)) {
+			g_object_ref(uri);
+			switch_to_directory(fb2, uri);
+			g_object_unref(uri);
+		} else {
+		remove_uri_from_recent_dirs(fb2, uri);
+		fb2_set_dirmenu(fb2, fb2->currentdir, TRUE);
 		g_object_unref(uri);
+		}
 	}
 }
 
@@ -3292,7 +3353,12 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 		if (tmp && tmp[0]) {
 			GFile *uri = g_file_new_for_uri(strip_trailing_slash((gchar *) tmp));
 			DEBUG_MSG("fb2_update_settings_from_session, set basedir %p\n",uri);
-			set_basedir_backend(fb2, uri);
+			fb2_set_basedir(fb2, uri);
+			fb2_set_dirmenu(fb2, uri, FALSE);
+			if (fb2->filebrowser_viewmode == viewmode_dual) {
+				set_file_v_root(fb2, uri);
+			}
+			fb2_refresh_dir_from_uri(uri);
 			g_object_unref(uri);
 		}
 	} else {
@@ -3516,8 +3582,8 @@ void
 fb2_focus_document(Tbfwin * bfwin, Tdocument * doc)
 {
 	DEBUG_MSG("fb2_focus_document,doc %s\n", gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
-	if (bfwin->fb2 && doc->uri) {
-		fb2_follow_document(bfwin);
+	if (bfwin->fb2 && doc && doc->uri) {
+		fb2_follow_document(bfwin, doc);
 
 		/*GFile *dir_uri;*/
 		/* first we make sure we have the correct directory open, then
