@@ -1441,6 +1441,11 @@ static GtkWidget *new_html_subtoolbar(Thtmlbarwin * hbw, GtkWidget *html_noteboo
 	
 	
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
+#ifdef MAC_INTEGRATION
+#if GTK_CHECK_VERSION(3,4,0)
+	gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar), GTK_ICON_SIZE_SMALL_TOOLBAR);
+#endif
+#endif
 	if (htmlbar_v.in_sidepanel) {
 		DEBUG_MSG("new_html_subtoolbar, setup vertical orientation\n");
 		gtk_orientable_set_orientation(GTK_ORIENTABLE(toolbar), GTK_ORIENTATION_VERTICAL);
