@@ -25,15 +25,16 @@ void fill_model(FileTreemodel * ftm)
 			g_free(name);
 		}
 	}*/
-	const gchar *paths[] = {"/home/olivier/svnbluefish", "/home2/olivier/", "/home/olivier/tmp", NULL};
+	const gchar *paths[] = {"/home/olivier/svnbluefish", "/home2/olivier/", "file://home/olivier/tmp", "sftp://olivier.sessink.nl/var/www", NULL};
 	while (paths[i]) {
-		uri = g_file_new_for_path(paths[i]);
+		uri = g_file_new_for_commandline_arg(paths[i]);
 		filetreemodel_build_dir(ftm, uri);
 		g_object_unref(uri);
 		i++;
 	}
-	uri = g_file_new_for_path("/home/olivier/tmp");
-	filetreemodel_refresh_dir_async(ftm, NULL, uri);
+	/*uri = g_file_new_for_path("/home/olivier/tmp");*/
+	uri = g_file_new_for_commandline_arg("/home/olivier/tmp");
+	/*filetreemodel_refresh_dir_async(ftm, NULL, uri);*/
 	/*path = path_for_uri(ftm, uri);
 	g_print("expand to path %p\n",path);
 	if (path) {

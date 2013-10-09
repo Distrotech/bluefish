@@ -358,6 +358,139 @@ static gboolean filetreemodel_get_iter(GtkTreeModel * tree_model, GtkTreeIter * 
 	return TRUE;
 }
 
+static gchar *get_toplevel_name_for_uri(gchar *curi) {
+	gchar *needle;
+	if (!curi)
+		return NULL;
+	
+	if (curi[0] == '/')
+		return g_strdup("/");
+	
+	if (strncmp(curi, "file:///", 8)==0)
+		return g_strdup("/");
+	
+	needle = strstr(curi, "://");
+	g_print("searching for toplevel, got non-local uri %s\n",needle);
+	if (!needle) {
+		g_warning("cannot handle uri %s\n",curi);
+		return NULL;
+	}
+	needle = strchr(needle+3, '/');
+	return g_strndup(curi, needle-curi+1);
+}
+
+static gchar **split_gfile(GFile *uri) {
+	gchar **arr;
+	gint i=0,n=8;
+	gchar *curi, *needle, *toplevel, *haystack;
+
+	arr = g_malloc0(n*sizeof(gchar *));
+	curi = g_file_get_uri(uri);
+	
+	/* find toplevel */
+	if (curi[0] == '/') {
+		haystack = curi+1;
+		toplevel = g_strdup("/");
+	} else if (strncmp(curi, "file://", 7)==0) {
+		haystack = curi+7;
+		toplevel = g_strdup("/");
+	} else {
+		toplevel = get_toplevel_name_for_uri(curi);
+		if (!toplevel) {
+			g_free(arr);
+			g_free(curi);
+			return NULL;
+		}
+		haystack = curi + strlen(toplevel)-1;
+	}
+
+	needle = strrchr(haystack, '/');
+	while (needle) {
+		gint nlen;
+		nlen = strlen(needle);
+		g_print("searched for / in '%s', got %s for i=%d\n",curi,needle,i);
+		if (nlen < 2) {
+			g_print("nlen=%d, needle=%s, break;\n",nlen,needle);
+			break;
+		}
+		if (*(needle+1)!='\0') { 
+			arr[i] = g_strdup(needle+1);
+			i++;
+			if (i > n+2) {
+				n += 8;
+				arr = g_realloc(arr, n*sizeof(gchar *));
+			}
+		*needle = '\0';
+		}
+		needle = strrchr(haystack, '/');
+	}
+	arr[i] = toplevel;
+	g_print("set arr[%d]=NULL\n",i+1);
+	arr[i+1] = NULL;
+	g_free(curi);
+	return arr;
+}
+
+int compare_records(const void *a, const void *b)
+{
+	UriRecord *ra = *((UriRecord **)a);
+	UriRecord *rb = *((UriRecord **)b);
+	if (ra->isdir != rb->isdir) {
+		return (rb->isdir - ra->isdir);
+	}
+	if (ra->name[0] == '.' && rb->name[0] != '.') {
+		return -1;
+	}
+	if (ra->name[0] != '.' && rb->name[0] == '.') {
+		return 1;
+	}
+	/*g_print("a=%p, b=%p, ra=%p, rb=%p\n",a,b,ra,rb);
+	g_print("compare %s and %s\n",ra->name,rb->name);*/
+	return g_utf8_collate(ra->name, rb->name);
+}
+
+static UriRecord *get_record_for_uri(FileTreemodel *filetreemodel, GFile *uri)
+{
+	gchar **arr;
+	UriRecord **rows;
+	guint16 num_rows;
+	gint i,arrlen;
+	UriRecord srecord, *psrecord, **tmp;
+	
+	arr = split_gfile(uri);
+	if (!arr)
+		return NULL;
+	arrlen = g_strv_length(arr);
+	if (arrlen ==0)
+		return NULL;
+	
+	psrecord = &srecord;
+	rows = filetreemodel->rows;
+	num_rows = filetreemodel->num_rows;
+	
+	for (i=arrlen-1;i>=0;i--) {
+		/* search this entry! */
+		srecord.name = arr[i];
+		srecord.isdir = 1;
+		g_print("bsearch for name %s in %d rows\n",srecord.name, num_rows);
+		tmp = bsearch(&psrecord, rows,num_rows,sizeof(UriRecord *),compare_records);
+		/* if it is not found, and i==0, it might have been a file, try the name as file */
+		if (!tmp && i==0) {
+			srecord.isdir = 0;
+			tmp = bsearch(&psrecord, rows,num_rows,sizeof(UriRecord *),compare_records);
+		}
+		if (!tmp) {
+			g_print("get_record_for_uri, did not find a record for arr[%d]=%s\n",i,arr[i]);
+			break;
+		}
+		g_print("get_record_for_uri, found record %s for arr[%d]=%s\n",(*tmp)->name,i,arr[i]);
+		rows = (*tmp)->rows;
+		num_rows = (*tmp)->num_rows;
+	}
+	g_strfreev(arr);
+	return (tmp? *tmp: NULL);
+}
+
 static GtkTreePath *
 get_treepath_for_record(UriRecord *record)
 {
@@ -719,23 +852,7 @@ void filetreemodel_append_record(FileTreemodel * filetreemodel, const gchar * na
 
 
 /********************** sorting functions **************************************************************************************/
-int compare_records(const void *a, const void *b)
-{
-	UriRecord *ra = *((UriRecord **)a);
-	UriRecord *rb = *((UriRecord **)b);
-	if (ra->isdir != rb->isdir) {
-		return (rb->isdir - ra->isdir);
-	}
-	if (ra->name[0] == '.' && rb->name[0] != '.') {
-		return -1;
-	}
-	if (ra->name[0] != '.' && rb->name[0] == '.') {
-		return 1;
-	}
-	/*g_print("a=%p, b=%p, ra=%p, rb=%p\n",a,b,ra,rb);
-	g_print("compare %s and %s\n",ra->name,rb->name);*/
-	return g_utf8_collate(ra->name, rb->name);
-}
+
 
 static void
 filetree_re_sort(FileTreemodel * filetreemodel, UriRecord *precord)
@@ -937,7 +1054,10 @@ get_toplevel_name(GFile * uri)
 		name = g_mount_get_name(gmnt);
 		g_object_unref(gmnt);
 	} else {
-		name = g_file_get_basename(uri);
+		gchar *curi = g_file_get_uri(uri);
+		g_print("get_toplevel_name, got error %s (%d), using uri string\n",gerror->message,gerror->code); 
+		name = get_toplevel_name_for_uri(curi);
+		g_free(curi);
 		if (gerror)
 			g_error_free(gerror);
 	}
@@ -993,7 +1113,7 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * filetreemodel, GFile *uri)
 
 	if (!uri)
 		return NULL;
-
+	get_record_for_uri(filetreemodel, uri);
 	/* first find if any directory part of this uri exists already in the treestore */
 	g_object_ref(tmp);
 
@@ -1139,9 +1259,7 @@ static void filetreemodel_remove(FileTreemodel * filetreemodel, UriRecord *recor
 			g_free(*arr);
 			*arr = NULL;
 		} else {
-			g_print("parent=%p, parent->rows=%p, *arr=%p\n",record->parent,record->parent->rows,*arr);
 			*arr = g_realloc(*arr, *num_rows * sizeof(UriRecord *));
-			g_print("after realloc parent->rows=%p, *arr=%p, *num_rows=%d\n",record->parent->rows,*arr, *num_rows);
 			/* now adjust all positions */
 			for (i=record->pos;i<*num_rows;i++) {
 				g_print("changing from position %d to %d\n",(*arr)[i]->pos,i);
