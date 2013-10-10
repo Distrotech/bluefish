@@ -554,7 +554,7 @@ typedef struct {
 	FileTreemodel *ftm;
 } Turi_in_refresh;
 
-static Turi_in_refresh *fb2_get_uri_in_refresh(FileTreemodel * ftm, GFile * uri)
+static Turi_in_refresh *get_uri_in_refresh(FileTreemodel * ftm, GFile * uri)
 {
 	GList *tmplist = g_list_first(ftm->uri_in_refresh);
 	while (tmplist) {
@@ -566,9 +566,9 @@ static Turi_in_refresh *fb2_get_uri_in_refresh(FileTreemodel * ftm, GFile * uri)
 	return NULL;
 }
 
-static void fb2_uri_in_refresh_cleanup(FileTreemodel * ftm, Turi_in_refresh * uir)
+static void uri_in_refresh_cleanup(FileTreemodel * ftm, Turi_in_refresh * uir)
 {
-	g_print("fb2_uri_in_refresh_cleanup, called for %p with uri %p\n", uir, uir->uri);
+	g_print("uri_in_refresh_cleanup, called for %p with uri %p\n", uir, uir->uri);
 	ftm->uri_in_refresh = g_list_remove(ftm->uri_in_refresh, uir);
 	g_object_unref(uir->uri);
 	/*g_object_unref(uir->p_uri); */
@@ -669,18 +669,18 @@ static void ftm_delete_children(FileTreemodel * ftm, UriRecord * record, gboolea
 	}
 }
 
-static void fb2_enumerator_close_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
+static void enumerator_close_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
 {
 	Turi_in_refresh *uir = user_data;
 	GError *gerror = NULL;
-	g_print("fb2_enumerator_close_lcb, close uir %p\n", uir);
+	g_print("enumerator_close_lcb, close uir %p\n", uir);
 	g_file_enumerator_close_finish(uir->gfe, res, &gerror);
 	g_object_unref(uir->gfe);
 	ftm_delete_children(uir->ftm, uir->precord, TRUE);
 
 	print_tree(uir->ftm);
 
-	fb2_uri_in_refresh_cleanup(uir->ftm, uir);
+	uri_in_refresh_cleanup(uir->ftm, uir);
 }
 
 static void add_multiple_uris(FileTreemodel * ftm, UriRecord * precord, GList * finfolist)
@@ -787,35 +787,35 @@ static void add_multiple_uris(FileTreemodel * ftm, UriRecord * precord, GList * 
 	filetree_re_sort(ftm, precord);
 }
 
-static void fb2_enumerate_next_files_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
+static void enumerate_next_files_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
 {
 	Turi_in_refresh *uir = user_data;
 	GError *gerror = NULL;
 	GList *list;
-	g_print("fb2_enumerate_next_files_lcb, started for uir %p which has uri %s\n", uir,
+	g_print("enumerate_next_files_lcb, started for uir %p which has uri %s\n", uir,
 			g_file_get_path(uir->uri));
 	list = g_file_enumerator_next_files_finish(uir->gfe, res, &gerror);
 	if (gerror) {
-		g_warning("ERROR: unhandled error %d in fb2_enumerate_next_files_lcb(): %s\n", gerror->code,
+		g_warning("ERROR: unhandled error %d in enumerate_next_files_lcb(): %s\n", gerror->code,
 				  gerror->message);
 		return;
 	}
-	g_print("fb2_enumerate_next_files_lcb, number of results=%d\n", g_list_length(list));
+	g_print("enumerate_next_files_lcb, number of results=%d\n", g_list_length(list));
 	if (list == NULL) {
 		/* done */
-		g_file_enumerator_close_async(uir->gfe, G_PRIORITY_LOW, uir->cancel, fb2_enumerator_close_lcb, uir);
+		g_file_enumerator_close_async(uir->gfe, G_PRIORITY_LOW, uir->cancel, enumerator_close_lcb, uir);
 		return;
 	}
 
 	add_multiple_uris(uir->ftm, uir->precord, list);
 	g_list_free(list);
 
-	g_print("fb2_enumerate_next_files_lcb, done\n");
+	g_print("enumerate_next_files_lcb, done\n");
 	g_file_enumerator_next_files_async(uir->gfe, 256, G_PRIORITY_LOW, uir->cancel,
-									   fb2_enumerate_next_files_lcb, uir);
+									   enumerate_next_files_lcb, uir);
 }
 
-static void fb2_enumerate_children_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
+static void enumerate_children_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
 {
 	Turi_in_refresh *uir = user_data;
 	GError *gerror = NULL;
@@ -829,25 +829,25 @@ static void fb2_enumerate_children_lcb(GObject * source_object, GAsyncResult * r
 		}
 		g_warning("failed to list directory in filebrowser: %s\n", gerror->message);
 		g_error_free(gerror);
-		fb2_uri_in_refresh_cleanup(uir->ftm, uir);
+		uri_in_refresh_cleanup(uir->ftm, uir);
 		return;
 	}
 	if (uir->gfe) {
 		/*g_print("opened the directory\n"); */
 		g_file_enumerator_next_files_async(uir->gfe, 256, G_PRIORITY_LOW, uir->cancel,
-										   fb2_enumerate_next_files_lcb, uir);
+										   enumerate_next_files_lcb, uir);
 	}
 }
 
-static gboolean fb2_fill_dir_async_low_priority(gpointer data)
+static gboolean fill_dir_async_low_priority(gpointer data)
 {
 	Turi_in_refresh *uir = data;
-	g_print("fb2_fill_dir_async_low_priority, start fill dir %s async low priority\n",
+	g_print("fill_dir_async_low_priority, start fill dir %s async low priority\n",
 			g_file_get_path(uir->uri));
 	g_file_enumerate_children_async(uir->uri,
 									"standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
 									G_FILE_QUERY_INFO_NONE, G_PRIORITY_LOW, uir->cancel,
-									fb2_enumerate_children_lcb, uir);
+									enumerate_children_lcb, uir);
 	return FALSE;
 }
 
@@ -892,12 +892,12 @@ static void refresh_dir_async(FileTreemodel * ftm, UriRecord * precord, GFile * 
 		return;
 	}
 
-	if (fb2_get_uri_in_refresh(ftm, uri)) {
+	if (get_uri_in_refresh(ftm, uri)) {
 		g_print("refresh_dir_async, uri is already in refresh, return\n");
 		return;
 	}
 
-	g_print("about to register a low priority callback for fb2_fill_dir_async_low_priority\n");
+	g_print("about to register a low priority callback for fill_dir_async_low_priority\n");
 	if (!precord) {
 		precord = filetreemodel_build_dir(ftm, uri);
 	} else {
@@ -909,7 +909,7 @@ static void refresh_dir_async(FileTreemodel * ftm, UriRecord * precord, GFile * 
 	uir->uri = g_object_ref(uri);
 	uir->cancel = g_cancellable_new();
 	ftm->uri_in_refresh = g_list_prepend(ftm->uri_in_refresh, uir);
-	g_idle_add_full(G_PRIORITY_LOW, fb2_fill_dir_async_low_priority, uir, NULL);
+	g_idle_add_full(G_PRIORITY_LOW, fill_dir_async_low_priority, uir, NULL);
 
 }
 
