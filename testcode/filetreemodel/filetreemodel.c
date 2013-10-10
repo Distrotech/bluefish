@@ -948,6 +948,28 @@ void filetreemodel_refresh_uri_async(FileTreemodel * ftm, GFile * uri)
 	record = g_hash_table_lookup(ftm->alluri, uri);
 	refresh_dir_async(ftm, record, uri);
 }
+/*****************************************************************************
+ *
+ *  filetree_get_iter_for_uri: sets iter for uri, and returns FALSE if no iter could be set.
+ *
+ *****************************************************************************/
+
+gboolean filetree_get_iter_for_uri(FileTreemodel * ftm, GFile * uri, GtkTreeIter *iter)
+{
+	UriRecord *record;
+	if (!uri) {
+		g_warning("filetree_get_iter_for_uri, uri == NULL?\n");
+		return FALSE;
+	}
+
+	record = g_hash_table_lookup(ftm->alluri, uri);
+	if (!record)
+		return FALSE;
+
+	iter->stamp = ftm->stamp;
+	iter->user_data = record;
+	return TRUE;
+}
 
 
 /*****************************************************************************
@@ -976,7 +998,7 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
 			name = get_toplevel_name(tmp);
 			/* there was no parent for this filesystem yet */
 			finfo = fake_directory_fileinfo(name);
-			g_print("adding parent %s with fake finfo\n", name);
+			g_print("filetreemodel_build_dir, adding parent %s with fake finfo\n", name);
 			record = add_single_uri(ftm, NULL, tmp, finfo);
 			g_object_unref(finfo);
 			g_free(name);
@@ -991,7 +1013,7 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
 
 #ifdef DEBUG
 	if (parent_uri == NULL) {
-		g_critical("parent_uri should not be NULL\n");
+		g_critical("filetreemodel_build_dir, parent_uri should not be NULL\n");
 		g_return_val_if_reached(NULL);
 	}
 #endif
@@ -1005,7 +1027,7 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
 		while (!gfile_uri_is_parent(parent_uri, tmp2, FALSE)) {
 			GFile *tmp3 = g_file_get_parent(tmp2);
 			if (!tmp3) {
-				g_critical("uh-oh: fb2_build_dir, tried to get parent for %s, parent_uri=%s, uri=%s\n",
+				g_critical("uh-oh: filetreemodel_build_dir, tried to get parent for %s, parent_uri=%s, uri=%s\n",
 						   g_file_get_uri(tmp2), g_file_get_uri(parent_uri), g_file_get_uri(uri));
 				g_return_val_if_reached(NULL);	/* TODO: must be g_return_val_if_reached() or handle the situation */
 			}
@@ -1030,6 +1052,29 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
 	g_object_unref(parent_uri);	/* no memory leaks in the uri's... (I hope) */
 	return record;
 }
+
+void filetreemodel_set_weight(FileTreemodel * ftm, GFile * uri, gboolean setbold) {
+	UriRecord *record;
+	if (!uri) {
+		g_warning("filetreemodel_set_weight, uri == NULL?\n");
+	}
+
+	record = g_hash_table_lookup(ftm->alluri, uri);
+	if (!record)
+		return;
+
+	if (record->weight != setbold) {
+		GtkTreePath *path;
+		GtkTreeIter iter;
+		record->weight = setbold;
+		iter.stamp = ftm->stamp;
+		iter.user_data = record;
+		path = get_treepath_for_record(record);
+		gtk_tree_model_row_changed(GTK_TREE_MODEL(ftm),path,&iter);
+		gtk_tree_path_free(path);
+	}
+}
+
 
 
 /*****************************************************************************
