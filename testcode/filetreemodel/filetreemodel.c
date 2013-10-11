@@ -104,7 +104,7 @@ static void record_cleanup(UriRecord * record)
 			record->finfo);
 	g_object_unref(record->uri);
 	g_object_unref(record->finfo);
-	g_free(record->name);
+	/*g_free(record->name); is now a const gchar copied from record->finfo*/
 	g_free(record->icon_name);
 	/*g_free(record->name_collate_key); */
 	g_slice_free(UriRecord, record);
@@ -339,8 +339,6 @@ static void filetree_re_sort(FileTreemodel * ftm, UriRecord * precord)
 
 
 
-
-
 gboolean gfile_uri_is_parent(GFile * parent, GFile * child, gboolean recursive)
 {
 	gboolean retval = FALSE;
@@ -394,7 +392,7 @@ static gchar *icon_name_from_icon(GIcon * icon)
 	return icon_name;
 }
 
-
+/*
 gchar *gfile_display_name(GFile * uri, GFileInfo * finfo)
 {
 	gchar *retval;
@@ -410,12 +408,12 @@ gchar *gfile_display_name(GFile * uri, GFileInfo * finfo)
 		g_object_unref(finfo2);
 	}
 	return retval;
-}
+}*/
 
 static void fill_uri(UriRecord * newrecord, GFile * uri, GFileInfo * finfo)
 {
 	GIcon *icon;
-	newrecord->name = gfile_display_name(uri, finfo);
+	newrecord->name = g_file_info_get_display_name(finfo);
 	/*newrecord->name_collate_key = g_utf8_collate_key(newrecord->name, -1); *//* for fast sorting, used later */
 	newrecord->uri = uri;
 	g_print("fill_uri, newrecord=%p, uri=%p, name='%s'\n", newrecord, newrecord->uri, newrecord->name);
@@ -516,7 +514,7 @@ static GFileInfo *fake_directory_fileinfo(const gchar * name)
 #endif
 	g_file_info_set_display_name(finfo, name);
 	g_file_info_set_name(finfo, name);
-	g_file_info_set_edit_name(finfo, name);
+	/*g_file_info_set_edit_name(finfo, name);*/
 	g_file_info_set_file_type(finfo, G_FILE_TYPE_DIRECTORY);
 	g_file_info_set_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE, DIR_MIME_TYPE);
 	return finfo;
@@ -823,11 +821,15 @@ static void enumerate_children_lcb(GObject * source_object, GAsyncResult * res, 
 	if (gerror) {
 		if (gerror->code == 14 /* 14 = permission denied, delete any children */ ) {
 			ftm_delete_children(uir->ftm, uir->precord, FALSE);
+		} else if (gerror->code == 4 /* 4 = not a directory */ ) {
+			if (uir->precord->isdir) {
+				ftm_remove(uir->ftm, uir->precord, FALSE);
+			}
 		} else {
 			/* delete the directory itself from the treestore */
 			ftm_remove(uir->ftm, uir->precord, FALSE);
 		}
-		g_warning("failed to list directory in filebrowser: %s\n", gerror->message);
+		g_warning("failed to list directory in filebrowser: %s (%d)\n", gerror->message, gerror->code);
 		g_error_free(gerror);
 		uri_in_refresh_cleanup(uir->ftm, uir);
 		return;
@@ -1087,9 +1089,10 @@ void filetreemodel_set_weight(FileTreemodel * ftm, GFile * uri, gboolean setbold
 static GtkTreePath *filetreemodel_get_path(GtkTreeModel * tree_model, GtkTreeIter * iter)
 {
 	g_return_val_if_fail(IS_FILETREE_MODEL(tree_model), NULL);
-	g_return_val_if_fail(iter != NULL, NULL);
-	g_return_val_if_fail(iter->user_data != NULL, NULL);
-
+	if (iter == NULL || iter->user_data == NULL || iter->stamp != filetreemodel(tree_model)->stamp) {
+		g_warning("filetreemodel_get_path, called with invalid iter %p\n",iter);
+		return NULL;
+	}
 	return get_treepath_for_record((UriRecord *) iter->user_data);
 }
 
@@ -1107,13 +1110,15 @@ filetreemodel_get_value(GtkTreeModel * tree_model, GtkTreeIter * iter, gint colu
 	UriRecord *record;
 
 	g_return_if_fail(IS_FILETREE_MODEL(tree_model));
-	g_return_if_fail(iter != NULL);
 	g_return_if_fail(column < filetreemodel(tree_model)->n_columns);
+	
+	if (iter == NULL || iter->user_data == NULL || iter->stamp != filetreemodel(tree_model)->stamp) {
+		g_warning("filetreemodel_get_value, called with invalid iter %p\n",iter);
+		return;
+	}
 
 	g_value_init(value, filetreemodel(tree_model)->column_types[column]);
 	record = (UriRecord *) iter->user_data;
-
-	g_return_if_fail(record != NULL);
 
 	switch (column) {
 	case filetreemodel_COL_RECORD:
@@ -1121,7 +1126,7 @@ filetreemodel_get_value(GtkTreeModel * tree_model, GtkTreeIter * iter, gint colu
 		break;
 
 	case filetreemodel_COL_NAME:
-		g_print("filetreemodel_get_value, return '%s'\n", record->name);
+		/*g_print("filetreemodel_get_value, return '%s'\n", record->name);*/
 		g_value_set_string(value, record->name);
 		break;
 
@@ -1149,10 +1154,11 @@ static gboolean filetreemodel_iter_next(GtkTreeModel * tree_model, GtkTreeIter *
 
 	g_return_val_if_fail(IS_FILETREE_MODEL(tree_model), FALSE);
 	/*g_print("filetreemodel_iter_next\n"); */
-	if (iter == NULL || iter->user_data == NULL)
-		return FALSE;
-
 	ftm = filetreemodel(tree_model);
+	if (iter == NULL || iter->user_data == NULL || iter->stamp != ftm->stamp) {
+		g_warning("filetreemodel_iter_next, called with invalid iter %p\n",iter);
+		return FALSE;
+	}
 
 	record = (UriRecord *) iter->user_data;
 
@@ -1197,6 +1203,11 @@ filetreemodel_iter_children(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkTr
 	g_return_val_if_fail(parent == NULL || parent->user_data != NULL, FALSE);
 	g_return_val_if_fail(IS_FILETREE_MODEL(tree_model), FALSE);
 	ftm = filetreemodel(tree_model);
+	
+	if (parent && parent->stamp != ftm->stamp) {
+		g_warning("filetreemodel_iter_children, called with invalid parent iter\n");
+		return FALSE;
+	}
 
 	/* parent == NULL is a special case; we need to return the first top-level row */
 	if (parent == NULL) {
@@ -1233,8 +1244,12 @@ filetreemodel_iter_children(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkTr
 static gboolean filetreemodel_iter_has_child(GtkTreeModel * tree_model, GtkTreeIter * iter)
 {
 	UriRecord *record;
-	if (!iter)
+
+	if (!iter || iter->stamp != filetreemodel(tree_model)->stamp) {
+		g_warning("filetreemodel_iter_has_child, called with invalid iter %p\n", iter);
 		return FALSE;
+	}
+
 	record = iter->user_data;
 
 	if (record->num_rows > 0 && record->isdir != 1) {
@@ -1265,6 +1280,11 @@ static gint filetreemodel_iter_n_children(GtkTreeModel * tree_model, GtkTreeIter
 	g_return_val_if_fail(IS_FILETREE_MODEL(tree_model), -1);
 	g_return_val_if_fail(iter == NULL || iter->user_data != NULL, FALSE);
 	ftm = filetreemodel(tree_model);
+	
+	if (iter && iter->stamp != ftm->stamp) {
+		g_warning("filetreemodel_iter_n_children, called with invalid iter\n");
+		return 0;
+	}
 
 	/* special case: if iter == NULL, return number of top-level rows */
 	if (!iter)
@@ -1297,8 +1317,12 @@ filetreemodel_iter_nth_child(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkT
 	FileTreemodel *ftm;
 
 	g_return_val_if_fail(IS_FILETREE_MODEL(tree_model), FALSE);
-
 	ftm = filetreemodel(tree_model);
+	
+	if (parent && parent->stamp != ftm->stamp) {
+		g_warning("filetreemodel_iter_nth_child called with invalid parent iter\n");
+		return FALSE;
+	}
 
 	/* a list has only top-level rows */
 	if (parent) {
@@ -1337,8 +1361,15 @@ filetreemodel_iter_nth_child(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkT
 
 static gboolean filetreemodel_iter_parent(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkTreeIter * child)
 {
-	UriRecord *record = child->user_data;
+	UriRecord *record;
 	FileTreemodel *ftm = filetreemodel(tree_model);
+	
+	if (!child || child->stamp != ftm->stamp) {
+		g_warning("filetreemodel_iter_parent, called with invalid child iter %p\n",child);
+		return FALSE;
+	}
+	
+	record = child->user_data;
 	if (record->parent == NULL) {
 		return FALSE;
 	}

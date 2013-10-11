@@ -32,7 +32,7 @@ typedef struct _FileTreemodelClass FileTreemodelClass;
 
 struct _UriRecord {
 	/* visible columns */
-	gchar *name;
+	const gchar *name;
 	gchar *icon_name;
 	gboolean weight;
 
