@@ -22,15 +22,12 @@
 
 #include "bluefish.h"
 #include "config.h"
-
+#include "file_treemodel.h"
 #define DIR_MIME_TYPE "inode/directory"
 #define MIME_ISDIR(string) (strcmp(string, "inode/directory")==0)
 
 typedef struct {
-	GtkTreeStore *filesystem_tstore;	/* the directory tree */
-	GHashTable *filesystem_itable;	/* iter to known files and directories */
-	GList *uri_in_refresh;		/* all uris currently in refresh are stored here, because 
-								   two refreshes on the same uri should not happen */
+	FileTreemodel *ftm;
 } Tfilebrowser2config;
 #define FB2CONFIG(var) ((Tfilebrowser2config *)(var))
 

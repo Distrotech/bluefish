@@ -568,7 +568,7 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 				parent2 = g_file_get_parent(dsb->fbrefresh_uri);
 				if (!g_file_equal(parent1, parent2)) {
 					/* if they are equal, the directory will be refreshed by the unlink callback */
-					fb2_refresh_dir_from_uri(parent2);
+					filetreemodel_refresh_uri_async(FB2CONFIG(main_v->fb2config)->ftm, parent2);
 				}
 				g_object_unref(parent1);
 				g_object_unref(parent2);
@@ -1099,7 +1099,7 @@ doc_save_all_close(Tbfwin * bfwin)
 		doc_close_single_backend(tmpdoc, TRUE, TRUE); }
 		else {
 		DEBUG_MSG("bfwin_osx_terminate_event, saving document\n");
-		doc_save_backend(tmpdoc, docsave_normal, TRUE, TRUE);	
+		doc_save_backend(tmpdoc, docsave_normal, TRUE, TRUE);
 		}
 #else
 		doc_save_backend(tmpdoc, docsave_normal, TRUE, TRUE);

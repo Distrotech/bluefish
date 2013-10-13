@@ -783,7 +783,7 @@ file2doc_goto_idle_cb(gpointer data)
 		if (f2d->doc->cursor_offset >= 0) {
 			DEBUG_MSG("file2doc_goto_idle_cb, cursor_offset=%d\n", f2d->doc->cursor_offset);
 			doc_set_cursor_position(f2d->doc, f2d->doc->cursor_offset);
-		} 
+		}
 	}
 	f2d->doc->goto_line = -1;
 	f2d->doc->cursor_offset = -1;
@@ -1582,7 +1582,7 @@ copy_async_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
 	g_object_unref(cf->curdest);
 
 	if (!copy_uris_process_queue(cf)) {
-		fb2_refresh_dir_from_uri(cf->destdir);
+		filetreemodel_refresh_uri_async(FB2CONFIG(main_v->fb2config)->ftm, cf->destdir);
 		g_object_unref(cf->destdir);
 		g_free(cf);
 	}

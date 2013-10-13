@@ -1,7 +1,8 @@
 #include <string.h>
 #include <stdlib.h>
+#include "bluefish.h"
 #include "file_treemodel.h"
-
+#include "bf_lib.h"
 
 
 /* boring declarations of local functions */
@@ -123,11 +124,15 @@ static void record_recursive_cleanup(UriRecord * record)
 static UriRecord *get_nth_record(FileTreemodel * ftm, UriRecord * precord, gint n)
 {
 	if (precord) {
-		if (n > precord->num_rows) {
+		if (n >= precord->num_rows) {
 			g_critical("requested a record beyond the end\n");
 			return NULL;
 		}
 		return precord->rows[n];
+	}
+	if (n >= ftm->num_rows) {
+		g_critical("requested a record beyond the end\n");
+		return NULL;
 	}
 	return ftm->rows[n];
 }
@@ -336,7 +341,7 @@ static void filetree_re_sort(FileTreemodel * ftm, UriRecord * precord)
 }
 
 
-
+/*
 gboolean gfile_uri_is_parent(GFile * parent, GFile * child, gboolean recursive)
 {
 	gboolean retval = FALSE;
@@ -363,7 +368,7 @@ gboolean gfile_uri_is_parent(GFile * parent, GFile * child, gboolean recursive)
 		g_object_unref(tmp);
 	}
 	return retval;
-}
+}*/
 
 static gchar *icon_name_from_icon(GIcon * icon)
 {
@@ -538,6 +543,11 @@ static Turi_in_refresh *get_uri_in_refresh(FileTreemodel * ftm, GFile * uri)
 		tmplist = g_list_next(tmplist);
 	}
 	return NULL;
+}
+
+gboolean uri_in_refresh(FileTreemodel * ftm, GFile * uri) {
+	return (get_uri_in_refresh(ftm, uri)!=NULL);
+
 }
 
 static void uri_in_refresh_cleanup(FileTreemodel * ftm, Turi_in_refresh * uir)
@@ -1554,6 +1564,7 @@ static void filetreemodel_init(FileTreemodel * ftm)
 
 static void filetreemodel_finalize(GObject * object)
 {
+	GList *tmplist;
 	FileTreemodel *ftm = filetreemodel(object);
 	gint i;
 	/* free all records and free all memory used by the list */
@@ -1562,6 +1573,18 @@ static void filetreemodel_finalize(GObject * object)
 	}
 
 	g_hash_table_destroy(ftm->alluri);
+
+	tmplist = g_list_first(ftm->uri_in_refresh);
+	DEBUG_MSG("fb2config_cleanup, stopping all async directory reads\n");
+	while (tmplist) {
+		Turi_in_refresh *uir = tmplist->data;
+		g_cancellable_cancel(uir->cancel);
+		g_object_unref(uir->uri);
+		g_slice_free(Turi_in_refresh, uir);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(ftm->uri_in_refresh);
+
 	/* must chain up - finalize parent */
 	(*parent_class->finalize) (object);
 }
