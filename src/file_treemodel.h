@@ -87,11 +87,13 @@ struct _FileTreemodelClass {
 GType filetreemodel_get_type(void);
 
 FileTreemodel *filetreemodel_new(void);
-
+gboolean uri_in_refresh(FileTreemodel * ftm, GFile * uri);
 UriRecord *filetreemodel_build_dir(FileTreemodel * filetreemodel, GFile *uri);
 void filetreemodel_refresh_iter_async(FileTreemodel * ftm, GtkTreeIter * iter);
 void filetreemodel_refresh_uri_async(FileTreemodel * ftm, GFile * uri);
 gboolean filetree_get_iter_for_uri(FileTreemodel * ftm, GFile * uri, GtkTreeIter *iter);
+void filetreemodel_set_weight(FileTreemodel * ftm, GFile * uri, guint16 weight);
+void filetreemodel_set_icon(FileTreemodel * ftm, GFile * uri, const gchar *icon_name);
 #define DIR_MIME_TYPE "inode/directory"
 
 
