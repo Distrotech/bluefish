@@ -1748,7 +1748,7 @@ fb2_set_dirmenu(Tfilebrowser2 *fb2, GFile *newcurdir, gboolean force_rebuild)
 	if (havesetiter)
 		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(fb2->dirmenu_v), &setiter);
 	g_signal_handler_unblock(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
-	DEBUG_MSG("fb2_set_dirmenu, activated!\n");
+	DEBUG_MSG("fb2_set_dirmenu, activated the new model!\n");
 	g_idle_add_full(G_PRIORITY_LOW+10, dirmenu_idle_cleanup_lcb, oldmodel, NULL);
 
 }
@@ -2432,8 +2432,11 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 		set_basedir_backend(fb2, NULL);
 	}
 	if (bfwin->session->webroot && bfwin->session->documentroot) {
+		GtkTreeIter iter;
 		GFile *uri = g_file_new_for_uri(bfwin->session->documentroot);
-		filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, uri);
+		if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, uri, &iter)) {
+			filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, uri);
+		}
 		fb2config_set_documentroot_icon(uri);
 		g_object_unref(uri);
 	}

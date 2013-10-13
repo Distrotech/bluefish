@@ -1,9 +1,11 @@
+
+#define DEBUG
+
 #include <string.h>
 #include <stdlib.h>
 #include "bluefish.h"
 #include "file_treemodel.h"
 #include "bf_lib.h"
-
 
 /* boring declarations of local functions */
 
@@ -125,13 +127,13 @@ static UriRecord *get_nth_record(FileTreemodel * ftm, UriRecord * precord, gint 
 {
 	if (precord) {
 		if (n >= precord->num_rows) {
-			g_critical("requested a record beyond the end\n");
+			g_critical("get_nth_record, requested a record (n=%d) beyond the end (precord->num_rows=%d)\n",n,precord->num_rows);
 			return NULL;
 		}
 		return precord->rows[n];
 	}
 	if (n >= ftm->num_rows) {
-		g_critical("requested a record beyond the end\n");
+		g_critical("requested a record (n=%d) beyond the end (ftm->num_rows=%d)\n",n,ftm->num_rows);
 		return NULL;
 	}
 	return ftm->rows[n];
@@ -333,8 +335,19 @@ static void filetree_re_sort(FileTreemodel * ftm, UriRecord * precord)
 		((*arr)[i])->pos = i;
 	}
 	if (reordered) {
-		path = get_treepath_for_record(precord);
-		gtk_tree_model_rows_reordered(GTK_TREE_MODEL(ftm), path, NULL, neworder);
+		GtkTreeIter iter;
+		if (precord) {
+			path = get_treepath_for_record(precord);
+			iter.user_data = precord;
+			iter.stamp = ftm->stamp;
+		} else {
+			path = gtk_tree_path_new_first();
+		}
+#ifdef DEBUG
+		DEBUG_MSG("call gtk_tree_model_rows_reordered(path=%s)\n",gtk_tree_path_to_string(path));
+#endif
+		gtk_tree_model_rows_reordered(GTK_TREE_MODEL(ftm), path, precord?&iter:NULL, neworder);
+		DEBUG_MSG("done re-ordering\n");
 		gtk_tree_path_free(path);
 	}
 	g_free(neworder);
@@ -424,7 +437,7 @@ static void fill_uri(UriRecord * newrecord, GFile * uri, GFileInfo * finfo)
 	g_object_ref(uri);
 	icon = g_file_info_get_icon(finfo);
 	newrecord->icon_name = icon_name_from_icon(icon);
-	newrecord->weight = 0;
+	newrecord->weight = PANGO_WEIGHT_NORMAL;
 	newrecord->isdir = (g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY);
 	if (newrecord->isdir
 		&&
@@ -451,7 +464,7 @@ static UriRecord *add_single_uri(FileTreemodel * ftm, UriRecord * record, GFile 
 	newrecord->uri = child_uri;
 	g_object_ref(child_uri);
 	newrecord->icon_name = g_strdup(icon_name);
-	newrecord->weight = 0;
+	newrecord->weight = PANGO_WEIGHT_NORMAL;
 	newrecord->isdir = isdir;
 
 	/* actually add it to the array now */
@@ -461,7 +474,7 @@ static UriRecord *add_single_uri(FileTreemodel * ftm, UriRecord * record, GFile 
 		newsize = record->num_rows * sizeof(UriRecord *);
 		record->rows = g_realloc(record->rows, newsize);
 		record->rows[pos] = newrecord;
-		g_print("adding newrecord %p to pos %d of array %p\n", newrecord, pos, record->rows);
+		g_print("adding newrecord %p (%s) to pos %d of array %p of parent %s\n", newrecord, newrecord->name, pos, record->rows,record->name);
 		newrecord->pos = pos;
 		newrecord->parent = record;
 	} else {
@@ -765,8 +778,9 @@ static void add_multiple_uris(FileTreemodel * ftm, UriRecord * precord, GList * 
 	g_print("precord=%p, finalize allocation to %d rows, precord->rows=%p, *rows=%p\n", precord, *num_rows,
 			precord ? precord->rows : NULL, *rows);
 	*rows = g_realloc(*rows, *num_rows * sizeof(UriRecord *));
-
+	g_print("add_multiple_uris, calling re_sort\n");
 	filetree_re_sort(ftm, precord);
+	g_print("add_multiple_uris, done\n");
 }
 
 static void enumerate_next_files_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
@@ -883,10 +897,12 @@ static void refresh_dir_async(FileTreemodel * ftm, UriRecord * precord, GFile * 
 		return;
 	}
 
-	g_print("about to register a low priority callback for fill_dir_async_low_priority\n");
+	g_print("about to register a low priority callback for fill_dir_async_low_priority, precord=%p\n",precord);
 	if (!precord) {
+		g_print("no precord, build dir\n");
 		precord = filetreemodel_build_dir(ftm, uri);
 	} else {
+		g_print("existing precord, mark children possible_deleted\n");
 		mark_children_refresh(ftm, precord);
 	}
 	uir = g_slice_new0(Turi_in_refresh);
@@ -896,7 +912,7 @@ static void refresh_dir_async(FileTreemodel * ftm, UriRecord * precord, GFile * 
 	uir->cancel = g_cancellable_new();
 	ftm->uri_in_refresh = g_list_prepend(ftm->uri_in_refresh, uir);
 	g_idle_add_full(G_PRIORITY_LOW, fill_dir_async_low_priority, uir, NULL);
-
+	g_print("refresh_dir_async, low priority callback is registered\n");
 }
 
 
@@ -932,6 +948,9 @@ void filetreemodel_refresh_uri_async(FileTreemodel * ftm, GFile * uri)
 	}
 
 	record = g_hash_table_lookup(ftm->alluri, uri);
+#ifdef DEBUG
+	DEBUG_MSG("filetreemodel_refresh_uri_async(uri=%p,%s), record=%p\n",uri,g_file_get_uri(uri),record);
+#endif
 	refresh_dir_async(ftm, record, uri);
 }
 /*****************************************************************************
@@ -966,16 +985,17 @@ gboolean filetree_get_iter_for_uri(FileTreemodel * ftm, GFile * uri, GtkTreeIter
 
 UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
 {
-	UriRecord *record = NULL;
-
+	UriRecord *record;
 	GFile *tmp, *parent_uri = NULL;
 	tmp = uri;
 
 	if (!uri)
 		return NULL;
+	
 	/* first find if any directory part of this uri exists already in the treestore */
 	g_object_ref(tmp);
 
+	record = g_hash_table_lookup(ftm->alluri, tmp);
 	while (record == NULL) {
 		GFile *tmp2 = g_file_get_parent(tmp);
 		if (tmp2 == NULL) {
@@ -1019,6 +1039,7 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
 		}						/* after this loop both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
 
 		name = g_file_get_basename(tmp2);
+		g_print("filetreemodel_build_dir, add folder %s, uri=%p\n", name, tmp2);
 		record = add_single_uri(ftm, record, tmp2, name, DIR_MIME_TYPE, "folder", TRUE);
 		g_free(name);
 		if (g_file_equal(tmp2, uri)) {
@@ -1026,7 +1047,7 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
 		}
 		g_object_unref(parent_uri);
 		parent_uri = tmp2;		/* here 'parent_uri'='tmp2' is newly allocated */
-		g_print("parent uri=%p, uri=%p\n", parent_uri, uri);
+		g_print("filetreemodel_build_dir, parent uri=%p, uri=%p\n", parent_uri, uri);
 		if (g_file_equal(parent_uri, uri)) {
 			done = TRUE;
 		}
