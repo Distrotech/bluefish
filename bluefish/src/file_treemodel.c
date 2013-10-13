@@ -405,6 +405,7 @@ static gchar *icon_name_from_icon(GIcon * icon)
 			g_strfreev(names);
 		}
 	} else {
+		DEBUG_MSG("icon %p is not themed, revert to default icon 'folder'\n",icon);
 		icon_name = g_strdup("folder");
 	}
 	return icon_name;
@@ -439,17 +440,20 @@ static void fill_uri(UriRecord * newrecord, GFile * uri, GFileInfo * finfo)
 	g_object_ref(uri);
 	icon = g_file_info_get_icon(finfo);
 	newrecord->icon_name = icon_name_from_icon(icon);
+	/*g_print("got icon name %s from finfo %p with icon %p, content_type=%s\n",newrecord->icon_name, finfo, icon, newrecord->fast_content_type);*/
 	newrecord->weight = PANGO_WEIGHT_NORMAL;
 	newrecord->isdir = (g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY);
+#ifdef DEVELOPMENT
 	if (newrecord->isdir
 		&&
 		strcmp(g_file_info_get_attribute_string
 			   (finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE), "inode/directory") != 0) {
-		DEBUG_MSG("%s: isdir=%d but mime type =%s ???????????\n", newrecord->name, newrecord->isdir,
+		g_print("%s: isdir=%d but mime type =%s ???????????\n", newrecord->name, newrecord->isdir,
 				g_file_info_get_attribute_string(finfo,
 												 G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE));
 		g_assert_not_reached();
 	}
+#endif
 	/*DEBUG_MSG("fill_uri, isdir=%d for name='%s'\n",newrecord->isdir,newrecord->name); */
 }
 
@@ -740,10 +744,11 @@ static void add_multiple_uris(FileTreemodel * ftm, UriRecord * precord, GList * 
 			child = g_file_get_child(precord->uri, newrecord->name);
 			fill_uri(newrecord, child, finfo);
 			g_object_unref(child);
+#ifdef DEVELOPMENT
 			if (g_hash_table_lookup(ftm->alluri, newrecord->uri)) {
 				g_assert_not_reached();
 			}
-
+#endif
 			pos = *num_rows;
 			DEBUG_MSG("add_multiple_uris, add %s at pos %d\n", newrecord->name, pos);
 			/* see if we have to alloc more space in the array */
@@ -849,7 +854,7 @@ static gboolean fill_dir_async_low_priority(gpointer data)
 	DEBUG_MSG("fill_dir_async_low_priority, start fill dir %s async low priority\n",
 			g_file_get_path(uir->uri));
 	g_file_enumerate_children_async(uir->uri,
-									"standard::name,standard::display-name,standard::fast-content-type,standard::icon_name,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
+									"standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
 									G_FILE_QUERY_INFO_NONE, G_PRIORITY_LOW, uir->cancel,
 									enumerate_children_lcb, uir);
 	return FALSE;
