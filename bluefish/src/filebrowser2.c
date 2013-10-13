@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #if defined(__GNUC__) || (defined(__SUNPRO_C) && __SUNPRO_C > 0x580)
 #define DBG_NONE(args...)
