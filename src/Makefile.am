@@ -81,6 +81,8 @@ bluefish_SOURCES = \
 	encodings_dialog.h \
 	external_commands.c \
 	external_commands.h \
+	file_treemodel.c \
+	file_treemodel.h \
 	filebrowser2.c \
 	filebrowser2.h \
 	file.c \

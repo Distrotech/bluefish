@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
-#include "filetreemodel.h"
+#include "file_treemodel.h"
 
 
 
@@ -70,8 +70,7 @@ static void print_record(UriRecord * record, gint indent)
 {
 	gint i;
 	pindent(indent);
-	g_print("'%s' (%p), isdir=%d, mime-type=%s", record->name, record, record->isdir,
-			g_file_info_get_attribute_string(record->finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE));
+	g_print("'%s' (%p), isdir=%d, mime-type=%s", record->name, record, record->isdir, record->fast_content_type);
 	if (record->num_rows) {
 		g_print(" with %d children\n", record->num_rows);
 		for (i = 0; i < record->num_rows; i++) {
@@ -100,11 +99,10 @@ static void record_cleanup(UriRecord * record)
 	if (record->num_rows > 0) {
 		g_critical("record_cleanup, record still has children ????\n");
 	}
-	g_print("record_cleanup %p name='%s', unref uri %p and finfo %p\n", record, record->name, record->uri,
-			record->finfo);
+	g_print("record_cleanup %p name='%s', unref uri %p\n", record, record->name, record->uri);
 	g_object_unref(record->uri);
-	g_object_unref(record->finfo);
-	/*g_free(record->name); is now a const gchar copied from record->finfo*/
+	g_free(record->name);
+	g_free(record->fast_content_type);
 	g_free(record->icon_name);
 	/*g_free(record->name_collate_key); */
 	g_slice_free(UriRecord, record);
@@ -413,13 +411,12 @@ gchar *gfile_display_name(GFile * uri, GFileInfo * finfo)
 static void fill_uri(UriRecord * newrecord, GFile * uri, GFileInfo * finfo)
 {
 	GIcon *icon;
-	newrecord->name = g_file_info_get_display_name(finfo);
+	newrecord->name = g_strdup(g_file_info_get_display_name(finfo));
+	newrecord->fast_content_type = g_strdup(g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE));
 	/*newrecord->name_collate_key = g_utf8_collate_key(newrecord->name, -1); *//* for fast sorting, used later */
 	newrecord->uri = uri;
 	g_print("fill_uri, newrecord=%p, uri=%p, name='%s'\n", newrecord, newrecord->uri, newrecord->name);
 	g_object_ref(uri);
-	newrecord->finfo = finfo;
-	g_object_ref(finfo);
 	icon = g_file_info_get_icon(finfo);
 	newrecord->icon_name = icon_name_from_icon(icon);
 	newrecord->weight = 0;
@@ -427,17 +424,16 @@ static void fill_uri(UriRecord * newrecord, GFile * uri, GFileInfo * finfo)
 	if (newrecord->isdir
 		&&
 		strcmp(g_file_info_get_attribute_string
-			   (newrecord->finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE), "inode/directory") != 0) {
+			   (finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE), "inode/directory") != 0) {
 		g_print("%s: isdir=%d but mime type =%s ???????????\n", newrecord->name, newrecord->isdir,
-				g_file_info_get_attribute_string(newrecord->finfo,
+				g_file_info_get_attribute_string(finfo,
 												 G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE));
 		g_assert_not_reached();
 	}
 	/*g_print("fill_uri, isdir=%d for name='%s'\n",newrecord->isdir,newrecord->name); */
 }
 
-static UriRecord *add_single_uri(FileTreemodel * ftm, UriRecord * record, GFile * child_uri,
-								 GFileInfo * finfo)
+static UriRecord *add_single_uri(FileTreemodel * ftm, UriRecord * record, GFile * child_uri, const gchar *name, const gchar *fast_content_type, const gchar *icon_name, gboolean isdir)
 {
 	guint newsize, pos;
 	UriRecord *newrecord;
@@ -445,7 +441,13 @@ static UriRecord *add_single_uri(FileTreemodel * ftm, UriRecord * record, GFile 
 	GtkTreePath *path;
 
 	newrecord = g_slice_new0(UriRecord);
-	fill_uri(newrecord, child_uri, finfo);
+	newrecord->name = g_strdup(name);
+	newrecord->fast_content_type = g_strdup(fast_content_type);
+	newrecord->uri = child_uri;
+	g_object_ref(child_uri);
+	newrecord->icon_name = g_strdup(icon_name);
+	newrecord->weight = 0;
+	newrecord->isdir = isdir;
 
 	/* actually add it to the array now */
 	if (record) {
@@ -505,42 +507,16 @@ static gchar *get_toplevel_name(GFile * uri)
 	return name;
 }
 
-static GFileInfo *fake_directory_fileinfo(const gchar * name)
-{
-	GFileInfo *finfo;
-	finfo = g_file_info_new();
-#ifdef DBG_FBREFCOUNT
-	fake_finfo_ref++;
-#endif
-	g_file_info_set_display_name(finfo, name);
-	g_file_info_set_name(finfo, name);
-	/*g_file_info_set_edit_name(finfo, name);*/
-	g_file_info_set_file_type(finfo, G_FILE_TYPE_DIRECTORY);
-	g_file_info_set_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE, DIR_MIME_TYPE);
-	return finfo;
-}
-
-static GFileInfo *fake_directory_fileinfo_for_uri(GFile * uri)
-{
-	GFileInfo *finfo;
-	gchar *name = g_file_get_basename(uri);
-	finfo = fake_directory_fileinfo(name);
-	g_free(name);
-	return finfo;
-}
-
 static void add_dummy_subdir(FileTreemodel * ftm, UriRecord * precord)
 {
 	GFile *dummy_uri;
-	GFileInfo *dummy_finfo;
+	const static gchar *space = " ";
 	/* add a dummy item so the expander will be shown */
-	dummy_uri = g_file_get_child(precord->uri, " ");
-	dummy_finfo = fake_directory_fileinfo(" ");
-	g_print("add_dummy_subdir, precord %p '%s', dummy_uri=%p, dummy_finfo=%p\n", precord, precord->name,
-			dummy_uri, dummy_finfo);
-	add_single_uri(ftm, precord, dummy_uri, dummy_finfo);
+	dummy_uri = g_file_get_child(precord->uri, space);
+	g_print("add_dummy_subdir, precord %p '%s', dummy_uri=%p\n", precord, precord->name,
+			dummy_uri);
+	add_single_uri(ftm, precord, dummy_uri, space, DIR_MIME_TYPE, "folder", TRUE);
 	g_object_unref(dummy_uri);
-	g_object_unref(dummy_finfo);
 }
 
 
@@ -719,7 +695,6 @@ static void add_multiple_uris(FileTreemodel * ftm, UriRecord * precord, GList * 
 		GFileInfo *finfo = tmplist->data;
 		/* don't allocate new memory for 'name', if it already exists we don't need it */
 		newrecord->name = (gchar *) g_file_info_get_name(finfo);
-		newrecord->finfo = finfo;
 		newrecord->isdir = (g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY);
 		g_print("bsearch for name %s\n", newrecord->name);
 		tmp = bsearch(&newrecord, *rows, old_num_rows, sizeof(UriRecord *), compare_records);
@@ -731,7 +706,6 @@ static void add_multiple_uris(FileTreemodel * ftm, UriRecord * precord, GList * 
 			/* the memory was not allocated for ->name */
 			newrecord->name = NULL;
 			newrecord->isdir = 0;
-			newrecord->finfo = NULL;
 		} else {
 			GFile *child;
 			g_print("%s does not yet exist\n", newrecord->name);
@@ -764,7 +738,7 @@ static void add_multiple_uris(FileTreemodel * ftm, UriRecord * precord, GList * 
 			gtk_tree_model_row_inserted(GTK_TREE_MODEL(ftm), path, &iter);
 			gtk_tree_path_free(path);
 
-			if (g_file_info_get_file_type(newrecord->finfo) == G_FILE_TYPE_DIRECTORY) {
+			if (newrecord->isdir) {
 				add_dummy_subdir(ftm, newrecord);
 			}
 
@@ -847,7 +821,7 @@ static gboolean fill_dir_async_low_priority(gpointer data)
 	g_print("fill_dir_async_low_priority, start fill dir %s async low priority\n",
 			g_file_get_path(uir->uri));
 	g_file_enumerate_children_async(uir->uri,
-									"standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
+									"standard::name,standard::display-name,standard::fast-content-type,standard::icon_name,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
 									G_FILE_QUERY_INFO_NONE, G_PRIORITY_LOW, uir->cancel,
 									enumerate_children_lcb, uir);
 	return FALSE;
@@ -995,14 +969,11 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
 	while (record == NULL) {
 		GFile *tmp2 = g_file_get_parent(tmp);
 		if (tmp2 == NULL) {
-			GFileInfo *finfo;
 			gchar *name;
 			name = get_toplevel_name(tmp);
 			/* there was no parent for this filesystem yet */
-			finfo = fake_directory_fileinfo(name);
-			g_print("filetreemodel_build_dir, adding parent %s with fake finfo\n", name);
-			record = add_single_uri(ftm, NULL, tmp, finfo);
-			g_object_unref(finfo);
+			g_print("filetreemodel_build_dir, adding parent %s as fake folder\n", name);
+			record = add_single_uri(ftm, NULL, tmp, name, DIR_MIME_TYPE, "folder", TRUE);
 			g_free(name);
 			break;
 		} else {
@@ -1023,7 +994,7 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
 	gboolean done = g_file_equal(parent_uri, uri);
 	while (!done) {
 		GFile *tmp2 = uri;
-		GFileInfo *finfo;
+		gchar *name;
 
 		g_object_ref(tmp2);		/* both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
 		while (!gfile_uri_is_parent(parent_uri, tmp2, FALSE)) {
@@ -1037,13 +1008,12 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
 			tmp2 = tmp3;
 		}						/* after this loop both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
 
-		finfo = fake_directory_fileinfo_for_uri(tmp2);
-		g_print("adding dir %s with fake finfo\n", g_file_info_get_name(finfo));
-		record = add_single_uri(ftm, record, tmp2, finfo);
+		name = g_file_get_basename(tmp2);
+		record = add_single_uri(ftm, record, tmp2, name, DIR_MIME_TYPE, "folder", TRUE);
+		g_free(name);
 		if (g_file_equal(tmp2, uri)) {
 			add_dummy_subdir(ftm, record);
 		}
-		g_object_unref(finfo);
 		g_object_unref(parent_uri);
 		parent_uri = tmp2;		/* here 'parent_uri'='tmp2' is newly allocated */
 		g_print("parent uri=%p, uri=%p\n", parent_uri, uri);
@@ -1055,7 +1025,17 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
 	return record;
 }
 
-void filetreemodel_set_weight(FileTreemodel * ftm, GFile * uri, gboolean setbold) {
+static void gtk_tree_model_record_changed(FileTreemodel * ftm, UriRecord *record) {
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	iter.stamp = ftm->stamp;
+	iter.user_data = record;
+	path = get_treepath_for_record(record);
+	gtk_tree_model_row_changed(GTK_TREE_MODEL(ftm),path,&iter);
+	gtk_tree_path_free(path);
+}
+
+void filetreemodel_set_weight(FileTreemodel * ftm, GFile * uri, guint16 weight) {
 	UriRecord *record;
 	if (!uri) {
 		g_warning("filetreemodel_set_weight, uri == NULL?\n");
@@ -1065,19 +1045,28 @@ void filetreemodel_set_weight(FileTreemodel * ftm, GFile * uri, gboolean setbold
 	if (!record)
 		return;
 
-	if (record->weight != setbold) {
-		GtkTreePath *path;
-		GtkTreeIter iter;
-		record->weight = setbold;
-		iter.stamp = ftm->stamp;
-		iter.user_data = record;
-		path = get_treepath_for_record(record);
-		gtk_tree_model_row_changed(GTK_TREE_MODEL(ftm),path,&iter);
-		gtk_tree_path_free(path);
+	if (record->weight != weight) {
+		record->weight = weight;
+		gtk_tree_model_record_changed(ftm, record);
 	}
 }
 
+void filetreemodel_set_icon(FileTreemodel * ftm, GFile * uri, const gchar *icon_name) {
+	UriRecord *record;
+	if (!uri) {
+		g_warning("filetreemodel_set_icon_name, uri == NULL?\n");
+	}
 
+	record = g_hash_table_lookup(ftm->alluri, uri);
+	if (!record)
+		return;
+
+	if (strcmp(record->icon_name,icon_name)!=0) {
+		g_free(record->icon_name);
+		record->icon_name = g_strdup(icon_name);
+		gtk_tree_model_record_changed(ftm, record);
+	}
+}
 
 /*****************************************************************************
  *
@@ -1111,7 +1100,7 @@ filetreemodel_get_value(GtkTreeModel * tree_model, GtkTreeIter * iter, gint colu
 
 	g_return_if_fail(IS_FILETREE_MODEL(tree_model));
 	g_return_if_fail(column < filetreemodel(tree_model)->n_columns);
-	
+
 	if (iter == NULL || iter->user_data == NULL || iter->stamp != filetreemodel(tree_model)->stamp) {
 		g_warning("filetreemodel_get_value, called with invalid iter %p\n",iter);
 		return;
@@ -1203,7 +1192,7 @@ filetreemodel_iter_children(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkTr
 	g_return_val_if_fail(parent == NULL || parent->user_data != NULL, FALSE);
 	g_return_val_if_fail(IS_FILETREE_MODEL(tree_model), FALSE);
 	ftm = filetreemodel(tree_model);
-	
+
 	if (parent && parent->stamp != ftm->stamp) {
 		g_warning("filetreemodel_iter_children, called with invalid parent iter\n");
 		return FALSE;
@@ -1280,7 +1269,7 @@ static gint filetreemodel_iter_n_children(GtkTreeModel * tree_model, GtkTreeIter
 	g_return_val_if_fail(IS_FILETREE_MODEL(tree_model), -1);
 	g_return_val_if_fail(iter == NULL || iter->user_data != NULL, FALSE);
 	ftm = filetreemodel(tree_model);
-	
+
 	if (iter && iter->stamp != ftm->stamp) {
 		g_warning("filetreemodel_iter_n_children, called with invalid iter\n");
 		return 0;
@@ -1318,7 +1307,7 @@ filetreemodel_iter_nth_child(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkT
 
 	g_return_val_if_fail(IS_FILETREE_MODEL(tree_model), FALSE);
 	ftm = filetreemodel(tree_model);
-	
+
 	if (parent && parent->stamp != ftm->stamp) {
 		g_warning("filetreemodel_iter_nth_child called with invalid parent iter\n");
 		return FALSE;
@@ -1363,12 +1352,12 @@ static gboolean filetreemodel_iter_parent(GtkTreeModel * tree_model, GtkTreeIter
 {
 	UriRecord *record;
 	FileTreemodel *ftm = filetreemodel(tree_model);
-	
+
 	if (!child || child->stamp != ftm->stamp) {
 		g_warning("filetreemodel_iter_parent, called with invalid child iter %p\n",child);
 		return FALSE;
 	}
-	
+
 	record = child->user_data;
 	if (record->parent == NULL) {
 		return FALSE;

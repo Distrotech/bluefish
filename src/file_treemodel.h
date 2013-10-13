@@ -31,27 +31,24 @@ typedef struct _FileTreemodelClass FileTreemodelClass;
 /* UriRecord: this structure represents a file */
 
 struct _UriRecord {
-	/* visible columns */
-	const gchar *name;
+	gchar *name;
 	gchar *icon_name;
-	gboolean weight;
-
+	gchar *fast_content_type; /* copied from GFileInfo */
 	/* internal data */
 	GFile *uri;
 	GFileInfo *finfo;
-	/*gchar *name_collate_key;*/
-
 	UriRecord *parent;
 	UriRecord **rows;
 	guint16 num_rows;
 	guint16 pos;					/* pos within the array */
+	guint16 weight; /* An enumeration specifying the weight (boldness) of a font. This is a numerical value ranging from 100 to 900,*/
 
 	guint8 isdir;
 	guint8 possibly_deleted;
 };
 /*
-on 64 bit systems: 7*8bytes + 2*2bytes + 2*1byte + 2padding = 64 bytes
-on 32 bit systems: 7*4bytes + 2*2bytes + 2*1byte + 2padding = 36 bytes
+on 64 bit systems: 7*8bytes + 3*2bytes + 2*1byte = 64 bytes
+on 32 bit systems: 7*4bytes + 3*2bytes + 2*1byte = 36 bytes
 */
 
 
