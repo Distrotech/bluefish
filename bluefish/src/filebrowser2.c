@@ -1946,7 +1946,7 @@ dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 	UriRecord *record=NULL;
 
 	if (gtk_tree_model_get_iter(fb2->dir_filter, &iter, path)) {
-		gtk_tree_model_get(fb2->file_filter, &iter, filetreemodel_COL_RECORD, &record, -1);
+		gtk_tree_model_get(fb2->dir_filter, &iter, filetreemodel_COL_RECORD, &record, -1);
 	}
 
 	if (!record)
