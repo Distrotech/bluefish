@@ -196,7 +196,7 @@ setup_bfwin_for_project(Tbfwin * bfwin, Tdocument *active_doc)
 #ifdef HAVE_LIBENCHANT
 	reload_spell_dictionary(bfwin);
 #endif
-	bfwin_apply_session(bfwin);
+	bfwin_apply_session(bfwin, active_doc);
 	set_project_menu_actions(bfwin, TRUE);
 #ifdef MAC_INTEGRATION
 /*	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(doc->bfwin)->menubar));*/
@@ -217,7 +217,7 @@ setup_bfwin_for_nonproject(Tbfwin * bfwin)
 	if (bfwin->current_document)
 		bfwin_set_title(bfwin, bfwin->current_document, 0);
 
-	bfwin_apply_session(bfwin);
+	bfwin_apply_session(bfwin, bfwin->current_document);
 	set_project_menu_actions(bfwin, FALSE);
 #ifdef MAC_INTEGRATION
 /*	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));*/

@@ -65,7 +65,7 @@ void bfwin_side_panel_rebuild(Tbfwin * bfwin);
 
 void bfwin_statusbar_show(Tbfwin * bfwin, gboolean active);
 
-void bfwin_apply_session(Tbfwin * bfwin);
+void bfwin_apply_session(Tbfwin * bfwin, Tdocument *active_doc);
 void bfwin_apply_settings(Tbfwin * bfwin);
 void bfwin_destroy_and_cleanup(Tbfwin *bfwin);
 gboolean bfwin_delete_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin);

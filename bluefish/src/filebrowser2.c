@@ -174,8 +174,7 @@ treepath_for_uri(Tfilebrowser2 * fb2, GFile * uri)
 		return NULL;
 
 	if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, uri, &iter)) {
-		filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, uri);
-		filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, uri, &iter);
+		filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, uri, &iter);
 	}
 	return gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->ftm), &iter);
 }
@@ -187,7 +186,7 @@ treepath_for_uri(Tfilebrowser2 * fb2, GFile * uri)
  treepath selection after we refresh directory and required iter is already in hash table
  */
 
-static GtkTreePath *dir_sort_path_from_uri(Tfilebrowser2 * fb2, GFile * uri)
+/*static GtkTreePath *dir_sort_path_from_uri(Tfilebrowser2 * fb2, GFile * uri)
 {
 	GtkTreePath *fs_path, *sort_path;
 
@@ -198,9 +197,9 @@ static GtkTreePath *dir_sort_path_from_uri(Tfilebrowser2 * fb2, GFile * uri)
 	sort_path = dir_v_filter_path_from_treestore_path(fb2, fs_path);
 	gtk_tree_path_free(fs_path);
 	return sort_path;
-}
+}*/
 
-static gboolean
+/*static gboolean
 need_to_scroll_to_dir(Tfilebrowser2 * fb2, GFile *diruri)
 {
 	GtkTreePath *start_path=NULL, *end_path=NULL;
@@ -215,14 +214,14 @@ need_to_scroll_to_dir(Tfilebrowser2 * fb2, GFile *diruri)
 		gtk_tree_model_get(fb2->dir_filter, &it1, filetreemodel_COL_RECORD, &record, -1);
 
 		if (record) {
-			/* now see if diruri is the parent of uri */
+			/ * now see if diruri is the parent of uri * /
 			retval = !gfile_uri_is_parent(diruri,record->uri,TRUE);
 		}
 	}
 	gtk_tree_path_free(start_path);
 	gtk_tree_path_free(end_path);
 	return retval;
-}
+}*/
 
 static void
 expand_without_directory_refresh(Tfilebrowser2 * fb2, GtkTreePath *sort_path)
@@ -238,7 +237,7 @@ expand_without_directory_refresh(Tfilebrowser2 * fb2, GtkTreePath *sort_path)
  *
  * return a newly allocated treepath for the filesystem_tstore based on 'uri'
  */
-static GtkTreePath *
+/*static GtkTreePath *
 fb2_fspath_from_uri(Tfilebrowser2 * fb2, GFile * uri)
 {
 	GtkTreeIter iter;
@@ -246,7 +245,7 @@ fb2_fspath_from_uri(Tfilebrowser2 * fb2, GFile * uri)
 		return gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->ftm), &iter);
 	}
 	return NULL;
-}
+}*/
 
 /**
  * fb2_uri_from_fspath:
@@ -1500,8 +1499,7 @@ switch_to_directory(Tfilebrowser2 *fb2, GFile *dir_uri)
 	}
 
 	if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, dir_uri, &dir_iter)) {
-		filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, dir_uri);
-		filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, dir_uri, &dir_iter);
+		filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, dir_uri, &dir_iter);
 	}
 	if (fb2->filebrowser_viewmode == viewmode_dual) {
 		set_file_v_root(fb2, dir_uri);
@@ -1552,8 +1550,7 @@ change_focus_to_file(Tfilebrowser2 *fb2, Tdocument *doc)
 	dir_uri = g_file_get_parent(doc->uri);
 	if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, doc->uri, &iter)) {
 		if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, dir_uri, &dir_iter)) {
-			filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, dir_uri);
-			filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, dir_uri, &dir_iter);
+			filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, dir_uri, &dir_iter);
 			filetreemodel_refresh_iter_async(FB2CONFIG(main_v->fb2config)->ftm, &dir_iter);
 		}
 		g_idle_add_full(G_PRIORITY_LOW, fb2_build_doc_iter_table_lcb, doc, NULL);
@@ -2379,7 +2376,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 }
 
 void
-fb2_update_settings_from_session(Tbfwin * bfwin)
+fb2_update_settings_from_session(Tbfwin * bfwin, Tdocument *active_doc)
 {
 	if (!bfwin->fb2) {
 		DEBUG_MSG("fb2_update_settings_from_session, no fb2, nothing to update... returning\n");
@@ -2388,8 +2385,8 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 	gboolean need_refilter = FALSE;
 	Tfilebrowser2 *fb2 = bfwin->fb2;
 
-	DEBUG_MSG("fb2_update_settings_from_session, started, bfwin=%p, fb2=%p, viewmode=%d\n",
-			  bfwin, fb2, fb2->filebrowser_viewmode);
+	DEBUG_MSG("fb2_update_settings_from_session, started, bfwin=%p, fb2=%p, viewmode=%d, active_doc=%p\n",
+			  bfwin, fb2, fb2->filebrowser_viewmode, active_doc);
 
 	if (!bfwin->filebrowserGroup)
 		popup_menu_action_group_init(bfwin);
@@ -2417,6 +2414,7 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 		/* the set_basedir_backend function tests itself if  the basedir if changed, if not it does not refresh */
 		DEBUG_MSG("fb2_update_settings_from_session, set basedir %s\n", tmp);
 		if (tmp && tmp[0]) {
+			GtkTreePath *fs_path, *sort_path;
 			GFile *uri = g_file_new_for_uri(strip_trailing_slash((gchar *) tmp));
 			DEBUG_MSG("fb2_update_settings_from_session, set basedir %p\n",uri);
 			fb2_set_basedir(fb2, uri);
@@ -2425,6 +2423,14 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 				set_file_v_root(fb2, uri);
 			}
 			filetreemodel_refresh_uri_async(FB2CONFIG(main_v->fb2config)->ftm, uri);
+			/* on an empty window / empty project, expand the basedir, because there will be no call for follow document */
+			if (!active_doc) {
+				fs_path = treepath_for_uri(fb2, uri);
+				sort_path = dir_v_filter_path_from_treestore_path(fb2, fs_path);
+				expand_without_directory_refresh(fb2, sort_path);
+				gtk_tree_path_free(fs_path);
+				gtk_tree_path_free(sort_path);
+			}
 			g_object_unref(uri);
 		}
 	} else {
@@ -2435,11 +2441,11 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 		GtkTreeIter iter;
 		GFile *uri = g_file_new_for_uri(bfwin->session->documentroot);
 		if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, uri, &iter)) {
-			filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, uri);
+			filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, uri, NULL);
 		}
 		fb2config_set_documentroot_icon(uri);
 		g_object_unref(uri);
-	}
+	} 
 	/* TODO: set_basedir_backend already calls refilter in most cases (not if the
 	   requested basedir was already the active basedir), so
 	   we can optimise this and call refilter only when really needed. */
@@ -2492,7 +2498,7 @@ fb2_init(Tbfwin * bfwin)
 	fb2->dirmenu_changed_signal =
 		g_signal_connect(fb2->dirmenu_v, "changed", G_CALLBACK(dirmenu_changed_lcb), bfwin);
 
-	fb2_update_settings_from_session(bfwin);
+	/* already called from bfwin.c fb2_update_settings_from_session(bfwin, NULL);*/
 
 	gtk_widget_show_all(fb2->vbox);
 

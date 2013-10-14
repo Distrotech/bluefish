@@ -223,6 +223,7 @@ side_panel_build(Tbfwin * bfwin)
 	DEBUG_MSG("side_panel_build, building side panel for bfwin %p\n", bfwin);
 	bmarks = bmark_gui(bfwin);
 	fb2g = fb2_init(bfwin);
+	fb2_update_settings_from_session(bfwin, NULL);
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook), fb2g, new_pixmap(105),
 								  gtk_label_new(_("Filebrowser")));
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook), bmarks, new_pixmap(104),
@@ -367,7 +368,7 @@ bfwin_statusbar_show(Tbfwin * bfwin, gboolean active)
 }
 
 void
-bfwin_apply_session(Tbfwin * bfwin)
+bfwin_apply_session(Tbfwin * bfwin, Tdocument *active_doc)
 {
 	bfwin_set_main_toolbar_visible(bfwin, bfwin->session->view_main_toolbar, TRUE);
 
@@ -380,7 +381,7 @@ bfwin_apply_session(Tbfwin * bfwin)
 
 	bfwin_statusbar_show_hide_toggle(bfwin, bfwin->session->view_statusbar, TRUE);
 
-	fb2_update_settings_from_session(bfwin);
+	fb2_update_settings_from_session(bfwin, active_doc);
 	bfwin_recent_menu_create(bfwin, TRUE);
 
 	if (bfwin->simplesearch_combo) {

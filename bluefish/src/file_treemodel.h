@@ -88,7 +88,7 @@ GType filetreemodel_get_type(void);
 
 FileTreemodel *filetreemodel_new(void);
 gboolean uri_in_refresh(FileTreemodel * ftm, GFile * uri);
-UriRecord *filetreemodel_build_dir(FileTreemodel * filetreemodel, GFile *uri);
+UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri, GtkTreeIter *iter);
 void filetreemodel_refresh_iter_async(FileTreemodel * ftm, GtkTreeIter * iter);
 void filetreemodel_refresh_uri_async(FileTreemodel * ftm, GFile * uri);
 gboolean filetree_get_iter_for_uri(FileTreemodel * ftm, GFile * uri, GtkTreeIter *iter);
