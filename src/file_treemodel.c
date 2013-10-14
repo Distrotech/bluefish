@@ -909,7 +909,7 @@ static void refresh_dir_async(FileTreemodel * ftm, UriRecord * precord, GFile * 
 	DEBUG_MSG("about to register a low priority callback for fill_dir_async_low_priority, precord=%p\n",precord);
 	if (!precord) {
 		DEBUG_MSG("no precord, build dir\n");
-		precord = filetreemodel_build_dir(ftm, uri);
+		precord = filetreemodel_build_dir(ftm, uri, NULL);
 	} else {
 		DEBUG_MSG("existing precord, mark children possible_deleted\n");
 		mark_children_refresh(ftm, precord);
@@ -992,7 +992,7 @@ gboolean filetree_get_iter_for_uri(FileTreemodel * ftm, GFile * uri, GtkTreeIter
  *
  *****************************************************************************/
 
-UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
+UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri, GtkTreeIter *iter)
 {
 	UriRecord *record;
 	GFile *tmp, *parent_uri = NULL;
@@ -1062,6 +1062,10 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri)
 		}
 	}
 	g_object_unref(parent_uri);	/* no memory leaks in the uri's... (I hope) */
+	if (iter) {
+		iter->stamp = ftm->stamp;
+		iter->user_data = record;
+	}
 	return record;
 }
 
