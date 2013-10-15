@@ -435,6 +435,7 @@ static void
 register_delayed_refresh(GFile *uri) {
 	if (!uri)
 		return;
+	DEBUG_MSG("register_delayed_refresh, called for %s\n",g_file_get_path(uri));
 	if (uri_in_refresh(FB2CONFIG(main_v->fb2config)->ftm, uri)) {
 		if (FB2CONFIG(main_v->fb2config)->uri_to_refresh && g_file_equal(FB2CONFIG(main_v->fb2config)->uri_to_refresh,uri)) {
 			g_object_unref(FB2CONFIG(main_v->fb2config)->uri_to_refresh);
@@ -2054,7 +2055,7 @@ dir_v_selection_changed_lcb(GtkTreeSelection * treeselection, Tbfwin *bfwin)
 			fb2_set_dirmenu(fb2, record->uri, FALSE);
 			if (fb2->filebrowser_viewmode == viewmode_dual)
 				set_file_v_root(fb2, record->uri);
-			filetreemodel_refresh_uri_async(FB2CONFIG(main_v->fb2config)->ftm, record->uri);
+			register_delayed_refresh(record->uri);
 		}
 	} else {
 		DEBUG_MSG("dir_v_selection_changed_lcb, could not get any selection, returning..\n");
