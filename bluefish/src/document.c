@@ -352,14 +352,20 @@ doc_set_uri(Tdocument *doc, GFile *uri, gboolean on_destroy)
 
 	if (doc->uri) {
 		g_hash_table_remove(main_v->alldochash, doc->uri);
-		fb2_set_uri_state(doc->uri, FALSE);
+		fb2_file_is_closed(doc->uri);
 		g_object_unref(doc->uri);
 	}
 	doc->uri = uri;
 	if (doc->uri) {
+		const gchar *mime=NULL;
 		g_object_ref(doc->uri);
 		g_hash_table_insert(main_v->alldochash, doc->uri, doc);
-		fb2_set_uri_state(doc->uri, TRUE);
+		if (doc->fileinfo) {
+			mime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+			if (!mime)
+				mime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+		}
+		fb2_file_is_opened(doc->uri, mime);
 	}
 	if (!on_destroy) {
 		DEBUG_MSG("doc_set_uri, call bmark_doc_renamed for doc %p (new uri %p)\n",doc,uri);

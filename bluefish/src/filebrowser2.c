@@ -415,6 +415,50 @@ GFile *find_common_path(GFile *file1, GFile *file2)
 /*  END OF UTILITY FUNCTIONS - START OF DIRECTORY RE-READ FUNCTIONS*/
 /*****************************************************************************************************************************/
 
+gboolean delayed_refresh_cb(gpointer data)
+{
+	if (FB2CONFIG(main_v->fb2config)->uri_to_refresh) {
+		DEBUG_MSG("delayed_refresh_cb, refresh uri %s\n",g_file_get_path(FB2CONFIG(main_v->fb2config)->uri_to_refresh));
+		filetreemodel_refresh_uri_async(FB2CONFIG(main_v->fb2config)->ftm, FB2CONFIG(main_v->fb2config)->uri_to_refresh);
+		g_object_unref(FB2CONFIG(main_v->fb2config)->uri_to_refresh);
+	}
+	FB2CONFIG(main_v->fb2config)->uri_to_refresh = NULL;
+	FB2CONFIG(main_v->fb2config)->delayed_refresh_id = 0;
+	return FALSE;	
+}
+
+/* 
+by delaying the refresh, if quickly change multiple tabs, you won't call a directory refresh for every document, only 
+a dir for a document where you stay more than 200ms will be refreshed
+*/
+static void
+register_delayed_refresh(GFile *uri) {
+	if (!uri)
+		return;
+	if (uri_in_refresh(FB2CONFIG(main_v->fb2config)->ftm, uri)) {
+		if (FB2CONFIG(main_v->fb2config)->uri_to_refresh && g_file_equal(FB2CONFIG(main_v->fb2config)->uri_to_refresh,uri)) {
+			g_object_unref(FB2CONFIG(main_v->fb2config)->uri_to_refresh);
+			FB2CONFIG(main_v->fb2config)->uri_to_refresh = NULL;
+			if (FB2CONFIG(main_v->fb2config)->delayed_refresh_id) {
+				g_source_remove(FB2CONFIG(main_v->fb2config)->delayed_refresh_id);
+			}
+		}
+		return;
+	}
+	
+	if (FB2CONFIG(main_v->fb2config)->uri_to_refresh && g_file_equal(FB2CONFIG(main_v->fb2config)->uri_to_refresh,uri)) {
+		return;
+	}
+	if (FB2CONFIG(main_v->fb2config)->uri_to_refresh)
+		g_object_unref(FB2CONFIG(main_v->fb2config)->uri_to_refresh);
+	FB2CONFIG(main_v->fb2config)->uri_to_refresh = uri;
+	g_object_ref(FB2CONFIG(main_v->fb2config)->uri_to_refresh);
+	if (FB2CONFIG(main_v->fb2config)->delayed_refresh_id) {
+		g_source_remove(FB2CONFIG(main_v->fb2config)->delayed_refresh_id);
+	}
+	FB2CONFIG(main_v->fb2config)->delayed_refresh_id = g_timeout_add_full( G_PRIORITY_LOW,200,delayed_refresh_cb,NULL,NULL);
+}
+
 /**
  * fb2_refresh_parent_of_uri:
  *
@@ -562,10 +606,21 @@ fb2_refilter(Tfilebrowser2 * fb2)
 /*  END OF FILTERING FUNCTIONS, START OF DATA MODEL FUNCTIONS */
 /*****************************************************************************************************************************/
 
-void
-fb2_set_uri_state(GFile *uri, gboolean opened)
+void 
+fb2_file_is_opened(GFile *uri, const gchar *mimetype)
 {
-	filetreemodel_set_weight(FB2CONFIG(main_v->fb2config)->ftm, uri, opened?PANGO_WEIGHT_BOLD:PANGO_WEIGHT_NORMAL);
+	GtkTreeIter iter;
+	if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, uri, &iter)) {
+		/* add entry */
+		filetreemodel_add_file(FB2CONFIG(main_v->fb2config)->ftm, uri, mimetype, PANGO_WEIGHT_BOLD);
+	} else {
+		filetreemodel_set_weight(FB2CONFIG(main_v->fb2config)->ftm, uri, PANGO_WEIGHT_BOLD);
+	}
+}
+
+void fb2_file_is_closed(GFile *uri)
+{
+	filetreemodel_set_weight(FB2CONFIG(main_v->fb2config)->ftm, uri, PANGO_WEIGHT_NORMAL);
 }
 
 static void
@@ -1582,26 +1637,25 @@ fb2_follow_document(Tbfwin *bfwin, Tdocument *doc)
 {
 	if (bfwin && doc && doc->uri) {
 		Tfilebrowser2 *fb2 = bfwin->fb2;
+		GFile *dir_uri = g_file_get_parent(doc->uri);
 		DEBUG_MSG("fb2_follow_document, started for doc=%p with uri %p\n",bfwin->current_document,bfwin->current_document->uri);
 		/* In flat mode we always have to change basedir */
 		if (fb2->filebrowser_viewmode == viewmode_flat) {
 			if (!gfile_uri_is_parent(fb2->basedir, doc->uri, FALSE)) {
-				GFile *dir_uri = g_file_get_parent(doc->uri);
 				set_basedir_backend(bfwin->fb2, dir_uri);
-				g_object_unref(dir_uri);
 			}
 		} else {
 			if (!gfile_uri_is_parent(fb2->basedir, doc->uri, TRUE)) {
-				GFile *dir_uri = g_file_get_parent(doc->uri);
-				GFile * new_basedir = find_common_path(dir_uri, fb2->basedir);
+				GFile *new_basedir = find_common_path(dir_uri, fb2->basedir);
 				set_basedir_backend(bfwin->fb2, new_basedir);
-				g_object_unref(dir_uri);
 				if (new_basedir)
 					g_object_unref(new_basedir);
 			}
 		}
 		/* now build the directory and focus */
 		change_focus_to_file(bfwin->fb2, doc);
+		register_delayed_refresh(dir_uri);
+		g_object_unref(dir_uri);
 	}
 }
 

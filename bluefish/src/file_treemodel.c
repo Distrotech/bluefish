@@ -457,7 +457,7 @@ static void fill_uri(UriRecord * newrecord, GFile * uri, GFileInfo * finfo)
 	/*DEBUG_MSG("fill_uri, isdir=%d for name='%s'\n",newrecord->isdir,newrecord->name); */
 }
 
-static UriRecord *add_single_uri(FileTreemodel * ftm, UriRecord * record, GFile * child_uri, const gchar *name, const gchar *fast_content_type, const gchar *icon_name, gboolean isdir)
+static UriRecord *add_single_uri(FileTreemodel * ftm, UriRecord * record, GFile * child_uri, const gchar *name, const gchar *fast_content_type, const gchar *icon_name, gboolean isdir, guint16 weight)
 {
 	guint newsize, pos;
 	UriRecord *newrecord;
@@ -470,7 +470,7 @@ static UriRecord *add_single_uri(FileTreemodel * ftm, UriRecord * record, GFile 
 	newrecord->uri = child_uri;
 	g_object_ref(child_uri);
 	newrecord->icon_name = g_strdup(icon_name);
-	newrecord->weight = PANGO_WEIGHT_NORMAL;
+	newrecord->weight = weight;
 	newrecord->isdir = isdir;
 
 	/* actually add it to the array now */
@@ -539,7 +539,7 @@ static void add_dummy_subdir(FileTreemodel * ftm, UriRecord * precord)
 	dummy_uri = g_file_get_child(precord->uri, space);
 	DEBUG_MSG("add_dummy_subdir, precord %p '%s', dummy_uri=%p\n", precord, precord->name,
 			dummy_uri);
-	add_single_uri(ftm, precord, dummy_uri, space, DIR_MIME_TYPE, "folder", TRUE);
+	add_single_uri(ftm, precord, dummy_uri, space, DIR_MIME_TYPE, "folder", TRUE, PANGO_WEIGHT_NORMAL);
 	g_object_unref(dummy_uri);
 }
 
@@ -1012,7 +1012,7 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri, GtkTreeIter
 			name = get_toplevel_name(tmp);
 			/* there was no parent for this filesystem yet */
 			DEBUG_MSG("filetreemodel_build_dir, adding parent %s as fake folder\n", name);
-			record = add_single_uri(ftm, NULL, tmp, name, DIR_MIME_TYPE, "folder", TRUE);
+			record = add_single_uri(ftm, NULL, tmp, name, DIR_MIME_TYPE, "folder", TRUE, PANGO_WEIGHT_NORMAL);
 			g_free(name);
 			break;
 		} else {
@@ -1049,7 +1049,7 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri, GtkTreeIter
 
 		name = g_file_get_basename(tmp2);
 		DEBUG_MSG("filetreemodel_build_dir, add folder %s, uri=%p\n", name, tmp2);
-		record = add_single_uri(ftm, record, tmp2, name, DIR_MIME_TYPE, "folder", TRUE);
+		record = add_single_uri(ftm, record, tmp2, name, DIR_MIME_TYPE, "folder", TRUE, PANGO_WEIGHT_NORMAL);
 		g_free(name);
 		if (g_file_equal(tmp2, uri)) {
 			add_dummy_subdir(ftm, record);
@@ -1078,6 +1078,34 @@ static void gtk_tree_model_record_changed(FileTreemodel * ftm, UriRecord *record
 	gtk_tree_model_row_changed(GTK_TREE_MODEL(ftm),path,&iter);
 	gtk_tree_path_free(path);
 }
+
+void filetreemodel_add_file(FileTreemodel * ftm, GFile * uri, const gchar *content_type, guint16 weight)
+{
+	GFile *puri;
+	gchar *bname, *icon_name=NULL, *guesstype;
+	UriRecord *precord;
+	
+	puri = g_file_get_parent(uri);
+	precord = g_hash_table_lookup(ftm->alluri, puri);
+	if (!precord) {
+		precord = filetreemodel_build_dir(ftm, puri, NULL);
+	}
+	bname = g_file_get_basename(uri);
+	if (!content_type) {
+		guesstype = g_content_type_guess(bname, NULL, 0, NULL);
+	}
+	if (content_type || guesstype) {
+		GIcon *icon;
+		icon = g_content_type_get_icon(content_type?content_type:guesstype);
+		icon_name = icon_name_from_icon(icon);
+		g_object_unref(icon);
+	}
+	add_single_uri(ftm, precord, uri, bname, content_type, icon_name, FALSE, weight);
+	g_free(bname);
+	g_free(icon_name);	
+	g_object_unref(puri);
+}
+
 
 void filetreemodel_set_weight(FileTreemodel * ftm, GFile * uri, guint16 weight) {
 	UriRecord *record;
