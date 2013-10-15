@@ -28,13 +28,16 @@
 
 typedef struct {
 	FileTreemodel *ftm;
+	GFile *uri_to_refresh;
+	guint delayed_refresh_id;
 } Tfilebrowser2config;
 #define FB2CONFIG(var) ((Tfilebrowser2config *)(var))
 
 void fb2_refresh_dir_from_uri(GFile *dir);
 void fb2_refresh_parent_of_uri(GFile *child_uri);
 void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc);
-void fb2_set_uri_state(GFile *uri, gboolean opened);
+void fb2_file_is_opened(GFile *uri, const gchar *mimetype);
+void fb2_file_is_closed(GFile *uri);
 void fb2_update_settings_from_session(Tbfwin *bfwin, Tdocument *active_doc);
 GtkWidget *fb2_init(Tbfwin *bfwin);
 void fb2_cleanup(Tbfwin *bfwin);
