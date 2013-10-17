@@ -1127,7 +1127,7 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 	csd->returnval = setcolor ? g_strdup(setcolor) : g_strdup("");
 	
 	DEBUG_MSG("colsel_dialog, malloced at %p, setcolor=%s\n", csd, setcolor);
-	csd->win = window_full2(_("Bluefish: Select color"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(colsel_destroy_lcb), csd, TRUE, NULL);
+	csd->win = window_full2(_("Bluefish: Select color"), GTK_WIN_POS_CENTER, 12, G_CALLBACK(colsel_destroy_lcb), csd, TRUE, bfwin->main_window);
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(csd->win), vbox);
 	csd->csel = gtk_color_selection_new();

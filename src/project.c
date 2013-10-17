@@ -645,7 +645,7 @@ if NULL is passed as bfwin, a new window will be created for this project once O
 void
 project_edit(Tbfwin * bfwin)
 {
-	GtkWidget *vbox, *but, *hbox, *label, *table;
+	GtkWidget *vbox, *but, *hbox, *label, *table, *parent_window=NULL;
 	gchar *wintitle = NULL;
 	Tprojecteditor *pred;
 
@@ -660,6 +660,7 @@ project_edit(Tbfwin * bfwin)
 		pred->project = create_new_project(bfwin);
 		if (bfwin) {
 			bfwin->project = pred->project;
+			parent_window = bfwin->main_window;
 		}
 		/* id the user does not press OK, we destroy the project */
 		pred->destroy_project_on_close = TRUE;
@@ -667,17 +668,15 @@ project_edit(Tbfwin * bfwin)
 	} else {
 		pred->destroy_project_on_close = FALSE;
 		wintitle = g_strdup(_("Edit Project"));
-		if (bfwin) {
-			pred->project = bfwin->project;
-		}
+		pred->project = bfwin->project;
+		parent_window = bfwin->main_window;
 	}
 	DEBUG_MSG("project_edit, Tproject at %p\n", pred->project);
 	pred->bfwin = bfwin;
 	pred->project->editor = pred;
-
 	pred->win =
-		window_full2(wintitle, GTK_WIN_POS_CENTER_ALWAYS, 5, G_CALLBACK(project_edit_destroy_lcb), pred, TRUE,
-					 NULL);
+		window_full2(wintitle, GTK_WIN_POS_CENTER, 5, G_CALLBACK(project_edit_destroy_lcb), pred, TRUE,
+					parent_window);
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(pred->win), vbox);
 
@@ -777,8 +776,8 @@ project_create_gui(Tbfwin * bfwin)
 	pc = g_new(Tpc, 1);
 	pc->bfwin = bfwin;
 	pc->win =
-		window_full2(_("Create project"), GTK_WIN_POS_NONE, 5, G_CALLBACK(project_create_destroy_lcb), pc,
-					 TRUE, NULL);
+		window_full2(_("Create project"), GTK_WIN_POS_CENTER, 5, G_CALLBACK(project_create_destroy_lcb), pc,
+					 TRUE, bfwin->main_window);
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(pc->win), vbox);
 	pc->rad[0] =
