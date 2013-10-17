@@ -36,7 +36,6 @@ struct _UriRecord {
 	gchar *fast_content_type; /* copied from GFileInfo */
 	/* internal data */
 	GFile *uri;
-	GFileInfo *finfo;
 	UriRecord *parent;
 	UriRecord **rows;
 	guint16 num_rows;
@@ -47,8 +46,8 @@ struct _UriRecord {
 	guint8 possibly_deleted;
 };
 /*
-on 64 bit systems: 7*8bytes + 3*2bytes + 2*1byte = 64 bytes
-on 32 bit systems: 7*4bytes + 3*2bytes + 2*1byte = 36 bytes
+on 64 bit systems: 6*8bytes + 3*2bytes + 2*1byte = 56 bytes
+on 32 bit systems: 6*4bytes + 3*2bytes + 2*1byte = 32 bytes
 */
 
 
