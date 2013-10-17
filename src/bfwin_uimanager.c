@@ -1311,6 +1311,8 @@ bfwin_set_cutcopypaste_actions(Tbfwin * bfwin, gboolean enabled)
 	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/Cut", enabled);
 	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/Copy", enabled);
 	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/Paste", enabled);
+	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/PasteSpecial", enabled);
+	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/EditSelectAll", enabled);
 }
 
 
