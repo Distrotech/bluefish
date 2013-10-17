@@ -611,6 +611,9 @@ void
 fb2_file_is_opened(GFile *uri, const gchar *mimetype)
 {
 	GtkTreeIter iter;
+	if (!uri)
+		return;
+	
 	if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, uri, &iter)) {
 		/* add entry */
 		filetreemodel_add_file(FB2CONFIG(main_v->fb2config)->ftm, uri, mimetype, PANGO_WEIGHT_BOLD);
@@ -621,12 +624,16 @@ fb2_file_is_opened(GFile *uri, const gchar *mimetype)
 
 void fb2_file_is_closed(GFile *uri)
 {
+	if (!uri)
+		return;
 	filetreemodel_set_weight(FB2CONFIG(main_v->fb2config)->ftm, uri, PANGO_WEIGHT_NORMAL);
 }
 
 static void
 fb2config_set_documentroot_icon(GFile *uri)
 {
+	if (!uri)
+		return;
 	filetreemodel_set_icon(FB2CONFIG(main_v->fb2config)->ftm, uri,BF_STOCK_BROWSER_PREVIEW);
 }
 
