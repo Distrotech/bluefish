@@ -2075,7 +2075,7 @@ static void reset_menu_accelerators(GObject *object, gpointer data)
 }
 
 void
-preferences_dialog_new(void)
+preferences_dialog_new(Tbfwin *bfwin)
 {
 	Tprefdialog *pd;
 	gint index;
@@ -2112,8 +2112,8 @@ preferences_dialog_new(void)
 
 	main_v->prefdialog = pd = g_new0(Tprefdialog, 1);
 	pd->win =
-		window_full(_("Edit preferences"), GTK_WIN_POS_CENTER, 6, G_CALLBACK(preferences_destroy_lcb), pd,
-					TRUE);
+		window_full2(_("Edit preferences"), GTK_WIN_POS_CENTER, 6, G_CALLBACK(preferences_destroy_lcb), pd,
+					TRUE, bfwin->main_window);
 
 	dvbox = gtk_vbox_new(FALSE, 5);
 	dhbox = gtk_hbox_new(FALSE, 5);
@@ -2798,11 +2798,10 @@ preferences_dialog_new(void)
 		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 6);
 		gtk_window_set_default(GTK_WINDOW(pd->win), but);
 	}
-
-	gtk_widget_show_all(pd->win);
 	gtk_tree_view_expand_all(GTK_TREE_VIEW(pd->noteb));
 	g_signal_connect(G_OBJECT(pd->noteb), "cursor-changed", G_CALLBACK(preftree_cursor_changed_cb), pd);
 	path = gtk_tree_path_new_first();
 	gtk_tree_view_set_cursor(GTK_TREE_VIEW(pd->noteb), path, NULL, FALSE);
 	gtk_tree_path_free(path);
+	gtk_widget_show_all(pd->win);
 }

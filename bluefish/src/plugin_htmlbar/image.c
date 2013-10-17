@@ -1050,8 +1050,8 @@ multi_thumbnail_dialog(Tbfwin * bfwin)
 	mtd->bfwin = bfwin;
 	mtd->document = bfwin->current_document;
 	mtd->win =
-		window_full2(_("Multi thumbnail"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(mt_dialog_destroy), mtd, TRUE,
-					 NULL);
+		window_full2(_("Multi thumbnail"), GTK_WIN_POS_CENTER, 5, G_CALLBACK(mt_dialog_destroy), mtd, TRUE,
+					 bfwin->main_window);
 	vbox = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(mtd->win), vbox);
 

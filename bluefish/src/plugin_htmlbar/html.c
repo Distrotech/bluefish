@@ -399,8 +399,8 @@ insert_time_dialog(Tbfwin * bfwin)
 	time_var = time(NULL);
 	time_struct = localtime(&time_var);
 	DEBUG_MSG("insert_time_cb, timeinsert=%p\n", timeinsert);
-	timeinsert->dialog = window_full(_("Insert Time"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(insert_time_destroy_lcb), timeinsert,
-					TRUE);
+	timeinsert->dialog = window_full2(_("Insert Time"), GTK_WIN_POS_CENTER, 12, G_CALLBACK(insert_time_destroy_lcb), timeinsert,
+					TRUE, bfwin->main_window);
 	vbox = gtk_vbox_new(FALSE, 1);
 	gtk_container_add(GTK_CONTAINER(timeinsert->dialog), vbox);
 

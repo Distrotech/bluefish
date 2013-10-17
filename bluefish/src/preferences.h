@@ -61,6 +61,6 @@ enum {
 typedef void (*PrefInitguiCallback) (GtkTreeStore *nstore, GtkTreeIter *pit, GSList **widgetfreelist);
 typedef void (*PrefApplyCallback) (void);
 
-void preferences_dialog_new(void);
+void preferences_dialog_new(Tbfwin *bfwin);
 
 #endif							/* __PREFERENCES_H_ */

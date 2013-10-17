@@ -374,7 +374,8 @@ ui_unindent(GtkAction * action, gpointer user_data)
 static void
 ui_preferences(GtkAction * action, gpointer user_data)
 {
-	preferences_dialog_new();
+	Tbfwin *bfwin = BFWIN(user_data);
+	preferences_dialog_new(bfwin);
 }
 
 static void
