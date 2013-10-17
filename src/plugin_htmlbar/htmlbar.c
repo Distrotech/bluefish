@@ -186,6 +186,7 @@ htmlbar_enforce_session(Tbfwin * bfwin)
 	}
 	if (!htmlbar_v.in_sidepanel) {
 		htmlbar_toolbar_show(hbw, hbs, hbs->view_htmlbar);
+		bfwin_set_menu_toggle_item(hbw->actiongroup, "ViewHTMLToolbar", hbs->view_htmlbar);
 	}
 }
 
