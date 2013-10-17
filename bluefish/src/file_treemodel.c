@@ -264,7 +264,10 @@ static UriRecord *get_record_for_uri(FileTreemodel * ftm, GFile * uri)
 
 static GtkTreePath *get_treepath_for_record(UriRecord * record)
 {
-	GtkTreePath *path = gtk_tree_path_new();
+	GtkTreePath *path;
+	if (!record)
+		return NULL;
+	path = gtk_tree_path_new();
 	while (record) {
 		gtk_tree_path_prepend_index(path, record->pos);
 		record = record->parent;
@@ -601,7 +604,7 @@ static void ftm_remove(FileTreemodel * ftm, UriRecord * record, gboolean dont_re
 	path = get_treepath_for_record(record);
 	gtk_tree_model_row_deleted(GTK_TREE_MODEL(ftm), path);
 	gtk_tree_path_free(path);
-
+	g_hash_table_remove(ftm->alluri, record->uri);
 	if (!dont_remove_from_parent) {
 		UriRecord ***arr;
 		guint16 *num_rows;
@@ -667,9 +670,10 @@ static void ftm_delete_children(FileTreemodel * ftm, UriRecord * record, gboolea
 		record->rows = NULL;
 		record->num_rows = 0;
 	}
+	/* deleting doesn't change the order !!!
 	if (only_possibly_deleted && record->num_rows > 0) {
 		filetree_re_sort(ftm, record);
-	}
+	}*/
 }
 
 static void enumerator_close_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
@@ -1000,7 +1004,7 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri, GtkTreeIter
 
 	if (!uri)
 		return NULL;
-	
+
 	/* first find if any directory part of this uri exists already in the treestore */
 	g_object_ref(tmp);
 
@@ -1069,7 +1073,7 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri, GtkTreeIter
 	return record;
 }
 
-static void gtk_tree_model_record_changed(FileTreemodel * ftm, UriRecord *record) {
+static void file_treemodel_record_changed(FileTreemodel * ftm, UriRecord *record) {
 	GtkTreePath *path;
 	GtkTreeIter iter;
 	iter.stamp = ftm->stamp;
@@ -1084,10 +1088,10 @@ void filetreemodel_add_file(FileTreemodel * ftm, GFile * uri, const gchar *conte
 	GFile *puri;
 	gchar *bname, *icon_name=NULL, *guesstype=NULL;
 	UriRecord *precord;
-	
+
 	if (!uri)
 		return;
-	
+
 	puri = g_file_get_parent(uri);
 	precord = g_hash_table_lookup(ftm->alluri, puri);
 	if (!precord) {
@@ -1105,7 +1109,7 @@ void filetreemodel_add_file(FileTreemodel * ftm, GFile * uri, const gchar *conte
 	}
 	add_single_uri(ftm, precord, uri, bname, content_type, icon_name, FALSE, weight);
 	g_free(bname);
-	g_free(icon_name);	
+	g_free(icon_name);
 	g_object_unref(puri);
 }
 
@@ -1122,7 +1126,7 @@ void filetreemodel_set_weight(FileTreemodel * ftm, GFile * uri, guint16 weight) 
 
 	if (record->weight != weight) {
 		record->weight = weight;
-		gtk_tree_model_record_changed(ftm, record);
+		file_treemodel_record_changed(ftm, record);
 	}
 }
 
@@ -1139,7 +1143,7 @@ void filetreemodel_set_icon(FileTreemodel * ftm, GFile * uri, const gchar *icon_
 	if (strcmp(record->icon_name,icon_name)!=0) {
 		g_free(record->icon_name);
 		record->icon_name = g_strdup(icon_name);
-		gtk_tree_model_record_changed(ftm, record);
+		file_treemodel_record_changed(ftm, record);
 	}
 }
 
