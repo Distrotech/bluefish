@@ -1082,8 +1082,11 @@ static void gtk_tree_model_record_changed(FileTreemodel * ftm, UriRecord *record
 void filetreemodel_add_file(FileTreemodel * ftm, GFile * uri, const gchar *content_type, guint16 weight)
 {
 	GFile *puri;
-	gchar *bname, *icon_name=NULL, *guesstype;
+	gchar *bname, *icon_name=NULL, *guesstype=NULL;
 	UriRecord *precord;
+	
+	if (!uri)
+		return;
 	
 	puri = g_file_get_parent(uri);
 	precord = g_hash_table_lookup(ftm->alluri, puri);
