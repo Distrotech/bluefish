@@ -836,7 +836,7 @@ static const GtkActionEntry snippets_actions[] = {
 static const GtkToggleActionEntry snippets_toggle_actions[] = {
 	{"ShowAsMenu", NULL, N_("_Show as menu"), NULL, N_("Show snippets menu"),
 	 G_CALLBACK(popup_menu_show_as_menu)},
-	{"ViewSnippetsMenu", NULL, N_("S_nippets Menu"), NULL, NULL, G_CALLBACK(popup_menu_show_as_menu), TRUE},
+	{"ViewSnippetsMenu", NULL, N_("S_nippets Menu"), NULL, NULL, G_CALLBACK(popup_menu_show_as_menu), FALSE},
 };
 
 void
