@@ -371,6 +371,7 @@ lingua_build_hasht (void) {
 GList *
 lingua_list_sorted (void) {
 	GList *list = NULL;
+#ifndef MAC_INTEGRATION /* In MacOSX language is always selected automatically */
 	gint i;
 
 	for (i=0; i<G_N_ELEMENTS(linguas); i++)
@@ -381,6 +382,7 @@ lingua_list_sorted (void) {
 	}
 	
 	list = g_list_sort(list, (GCompareFunc) g_strcmp0);
+#endif
 	list = g_list_prepend(list, (gpointer) g_strdup(_("Auto")));
 	return list;
 }
