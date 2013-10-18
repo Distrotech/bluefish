@@ -127,13 +127,14 @@ static UriRecord *get_nth_record(FileTreemodel * ftm, UriRecord * precord, gint 
 {
 	if (precord) {
 		if (n >= precord->num_rows) {
-			g_critical("get_nth_record, requested a record (n=%d) beyond the end (precord->num_rows=%d)\n",n,precord->num_rows);
+			g_warning("get_nth_record, requested a record (n=%d) beyond the end (precord->num_rows=%d)\n",n,precord->num_rows);
 			return NULL;
 		}
 		return precord->rows[n];
 	}
 	if (n >= ftm->num_rows) {
-		g_critical("requested a record (n=%d) beyond the end (ftm->num_rows=%d)\n",n,ftm->num_rows);
+		if (n != 0)
+			g_warning("requested a record (n=%d) beyond the end (ftm->num_rows=%d)\n",n,ftm->num_rows);
 		return NULL;
 	}
 	return ftm->rows[n];
