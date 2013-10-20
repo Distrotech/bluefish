@@ -47,6 +47,8 @@ static gboolean filetreemodel_iter_parent(GtkTreeModel * tree_model, GtkTreeIter
 
 static GObjectClass *parent_class = NULL;	/* GObject stuff  */
 
+/*#define FILETREE_FILEINFO_ATTRIBUTES "standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type"*/
+#define FILETREE_FILEINFO_ATTRIBUTES "standard::name,standard::display-name,standard::fast-content-type,standard::icon"
 /*************************** debug functions ***************************/
 #ifdef DUMP_TREE
 static void dump_record(UriRecord * record)
@@ -554,6 +556,7 @@ typedef struct {
 	GFileEnumerator *gfe;
 	UriRecord *precord;
 	FileTreemodel *ftm;
+	guint old_num_rows;
 } Turi_in_refresh;
 
 static Turi_in_refresh *get_uri_in_refresh(FileTreemodel * ftm, GFile * uri)
@@ -859,7 +862,7 @@ static gboolean fill_dir_async_low_priority(gpointer data)
 	DEBUG_MSG("fill_dir_async_low_priority, start fill dir %s async low priority\n",
 			g_file_get_path(uir->uri));
 	g_file_enumerate_children_async(uir->uri,
-									"standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
+									FILETREE_FILEINFO_ATTRIBUTES,
 									G_FILE_QUERY_INFO_NONE, G_PRIORITY_LOW, uir->cancel,
 									enumerate_children_lcb, uir);
 	return FALSE;
