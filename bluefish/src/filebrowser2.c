@@ -444,6 +444,7 @@ register_delayed_refresh(GFile *uri) {
 				g_source_remove(FB2CONFIG(main_v->fb2config)->delayed_refresh_id);
 			}
 		}
+		DEBUG_MSG("register_delayed_refresh, uri=%s is already in refresh, returning\n",g_file_get_path(uri));
 		return;
 	}
 	
@@ -1603,7 +1604,7 @@ fb2_build_doc_iter_table_lcb(gpointer data)
  * no callbacks will be called for expand signals,
  * the directory will be re-read ONLY IF THE FILE DOES NOT YET EXIST IN THE TREESTORE
  * the dirmenu will not reflect this change.
- *
+ * Force file directory refresh if doc is first one in the project (doc->load_first=TRUE)
 */
 static void
 change_focus_to_file(Tfilebrowser2 *fb2, Tdocument *doc)
@@ -1611,19 +1612,15 @@ change_focus_to_file(Tfilebrowser2 *fb2, Tdocument *doc)
 	GtkTreeIter dir_iter, iter;
 	GFile *dir_uri;
 	dir_uri = g_file_get_parent(doc->uri);
-	if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, doc->uri, &iter)) {
-		if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, dir_uri, &dir_iter)) {
-			filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, dir_uri, &dir_iter);
-			filetreemodel_refresh_iter_async(FB2CONFIG(main_v->fb2config)->ftm, &dir_iter);
-		}
+	if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, doc->uri, &iter) || !filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, dir_uri, &dir_iter) || doc->load_first) {
+		DEBUG_MSG("change_focus_to_file, need to refresh directory for doc_uri=%p and/or dir_uri=%p\n", doc->uri, dir_uri);
+		filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, dir_uri, &dir_iter);
+		filetreemodel_refresh_iter_async(FB2CONFIG(main_v->fb2config)->ftm, &dir_iter);
 		g_idle_add_full(G_PRIORITY_LOW, fb2_build_doc_iter_table_lcb, doc, NULL);
+		if (doc->load_first)
+			doc->load_first = FALSE;
 		g_object_unref(dir_uri);
 		return;
-	}
-
-	if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, dir_uri, &dir_iter)) {
-		/* weird ?? file exists, but parent directory not ? */
-		g_assert_not_reached();
 	}
 	if (fb2->filebrowser_viewmode == viewmode_dual) {
 		set_file_v_root(fb2, dir_uri);
