@@ -2245,7 +2245,7 @@ dir_changed_lcb(FileTreemodel * ftm, GFile *dir_uri, gpointer user_data)
 	Tfilebrowser2 *fb2 = user_data;
 	if (fb2->bfwin->session->filebrowser_focus_follow && fb2->bfwin->current_document && fb2->bfwin->current_document->uri) {
 		if (gfile_uri_is_parent(dir_uri, fb2->bfwin->current_document->uri, FALSE)) {
-			fb2_follow_uri(fb2->bfwin, fb2->bfwin->current_document->uri);
+			change_focus_to_uri(fb2, fb2->bfwin->current_document->uri);
 		}
 	}
 }

@@ -1682,7 +1682,12 @@ static void filetreemodel_finalize(GObject * object)
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(ftm->uri_in_refresh);
-
+	tmplist = g_list_first(ftm->uri_in_refresh);
+	while (tmplist) {
+		g_slice_free(Tdirchangedlistener, tmplist->data);
+		tmplist = g_list_next(tmplist);
+	}
+	
 	/* must chain up - finalize parent */
 	(*parent_class->finalize) (object);
 }
