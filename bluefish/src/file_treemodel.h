@@ -50,6 +50,13 @@ on 64 bit systems: 6*8bytes + 3*2bytes + 2*1byte = 56 bytes
 on 32 bit systems: 6*4bytes + 3*2bytes + 2*1byte = 32 bytes
 */
 
+typedef void (*DirChangedCallback) (FileTreemodel * ftm, GFile *dir_uri, gpointer data);
+
+typedef struct {
+	DirChangedCallback func;
+	gpointer user_data;
+} Tdirchangedlistener; 
+
 
 /* FileTreemodel: this structure contains everything we need for our
  *             model implementation. You can add extra fields to
@@ -70,7 +77,7 @@ struct _FileTreemodel {
 	GType column_types[filetreemodel_N_COLUMNS];
 	GHashTable *alluri;
 	GList *uri_in_refresh;
-
+	GList *dirchangedlisteners;
 	gint stamp;					/* Random integer to check whether an iter belongs to our model */
 };
 
@@ -94,6 +101,8 @@ gboolean filetree_get_iter_for_uri(FileTreemodel * ftm, GFile * uri, GtkTreeIter
 void filetreemodel_add_file(FileTreemodel * ftm, GFile * uri, const gchar *content_type, guint16 weight);
 void filetreemodel_set_weight(FileTreemodel * ftm, GFile * uri, guint16 weight);
 void filetreemodel_set_icon(FileTreemodel * ftm, GFile * uri, const gchar *icon_name);
+void filetreemodel_dirchange_register(FileTreemodel * ftm, DirChangedCallback func, gpointer user_data);
+
 #define DIR_MIME_TYPE "inode/directory"
 
 

@@ -557,6 +557,7 @@ typedef struct {
 	UriRecord *precord;
 	FileTreemodel *ftm;
 	guint old_num_rows;
+	gboolean dir_changed;
 } Turi_in_refresh;
 
 static Turi_in_refresh *get_uri_in_refresh(FileTreemodel * ftm, GFile * uri)
@@ -655,20 +656,24 @@ static void ftm_remove(FileTreemodel * ftm, UriRecord * record, gboolean dont_re
 	record_cleanup(record);
 }
 
-static void ftm_delete_children(FileTreemodel * ftm, UriRecord * record, gboolean only_possibly_deleted)
+/* returns true if there are children actually deleted, false oif nothing changed */
+static gboolean ftm_delete_children(FileTreemodel * ftm, UriRecord * record, gboolean only_possibly_deleted)
 {
 	gint i;
+	gboolean retval=FALSE;
 	DEBUG_MSG("ftm_delete_children from %s, num_rows=%d, rows=%p\n", record->name, record->num_rows,
 			record->rows);
 	if (only_possibly_deleted) {
 		for (i = record->num_rows - 1; i >= 0; i--) {
 			if (record->rows[i]->possibly_deleted) {
 				ftm_remove(ftm, record->rows[i], FALSE);
+				retval=TRUE;
 			}
 		}
 	} else {
 		for (i = record->num_rows - 1; i >= 0; i--) {
 			ftm_remove(ftm, record->rows[i], FALSE);
+			retval=TRUE;
 		}
 		g_free(record->rows);
 		record->rows = NULL;
@@ -678,6 +683,7 @@ static void ftm_delete_children(FileTreemodel * ftm, UriRecord * record, gboolea
 	if (only_possibly_deleted && record->num_rows > 0) {
 		filetree_re_sort(ftm, record);
 	}*/
+	return retval;
 }
 
 static void enumerator_close_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
@@ -687,14 +693,24 @@ static void enumerator_close_lcb(GObject * source_object, GAsyncResult * res, gp
 	DEBUG_MSG("enumerator_close_lcb, close uir %p\n", uir);
 	g_file_enumerator_close_finish(uir->gfe, res, &gerror);
 	g_object_unref(uir->gfe);
-	ftm_delete_children(uir->ftm, uir->precord, TRUE);
+	if (ftm_delete_children(uir->ftm, uir->precord, TRUE)) {
+		uir->dir_changed = TRUE;
+	}
 #ifdef DUMP_TREE
 	print_tree(uir->ftm);
 #endif
+	if (uir->dir_changed) {
+		GList *tmplist = g_list_first(uir->ftm->dirchangedlisteners);
+		while(tmplist) {
+			Tdirchangedlistener *dcl = tmplist->data;
+			((DirChangedCallback)dcl->func)(uir->ftm, uir->uri, dcl->user_data);
+			tmplist = g_list_next(tmplist);
+		}
+	}
 	uri_in_refresh_cleanup(uir->ftm, uir);
 }
 
-static void add_multiple_uris(FileTreemodel * ftm, UriRecord * precord, GList * finfolist)
+static void add_multiple_uris(Turi_in_refresh *uir, GList * finfolist)
 {
 	guint pos, alloced_num, listlen, old_num_rows;
 	UriRecord *newrecord;
@@ -702,6 +718,8 @@ static void add_multiple_uris(FileTreemodel * ftm, UriRecord * precord, GList * 
 	GtkTreePath *path;
 	guint16 *num_rows;
 	UriRecord ***rows;
+	FileTreemodel * ftm = uir->ftm;
+	UriRecord * precord = uir->precord;
 
 	GList *tmplist = g_list_first(finfolist);
 	listlen = g_list_length(tmplist);
@@ -749,6 +767,7 @@ static void add_multiple_uris(FileTreemodel * ftm, UriRecord * precord, GList * 
 			GFile *child;
 			DEBUG_MSG("%s does not yet exist\n", newrecord->name);
 			/* this file does not exist */
+			uir->dir_changed = TRUE;
 			child = g_file_get_child(precord->uri, newrecord->name);
 			fill_uri(newrecord, child, finfo);
 			g_object_unref(child);
@@ -794,9 +813,11 @@ static void add_multiple_uris(FileTreemodel * ftm, UriRecord * precord, GList * 
 	/* now allocate the size that is actually used */
 	DEBUG_MSG("precord=%p, finalize allocation to %d rows, precord->rows=%p, *rows=%p\n", precord, *num_rows,
 			precord ? precord->rows : NULL, *rows);
-	*rows = g_realloc(*rows, *num_rows * sizeof(UriRecord *));
-	DEBUG_MSG("add_multiple_uris, calling re_sort\n");
-	filetree_re_sort(ftm, precord);
+	*rows = g_realloc(*rows, *num_rows * sizeof(UriRecord *));	
+	if (uir->dir_changed) {
+		DEBUG_MSG("add_multiple_uris, calling re_sort\n");
+		filetree_re_sort(ftm, precord);
+	}
 	DEBUG_MSG("add_multiple_uris, done\n");
 }
 
@@ -820,7 +841,7 @@ static void enumerate_next_files_lcb(GObject * source_object, GAsyncResult * res
 		return;
 	}
 
-	add_multiple_uris(uir->ftm, uir->precord, list);
+	add_multiple_uris(uir, list);
 	g_list_free(list);
 
 	DEBUG_MSG("enumerate_next_files_lcb, done\n");
@@ -836,13 +857,16 @@ static void enumerate_children_lcb(GObject * source_object, GAsyncResult * res, 
 	if (gerror) {
 		if (gerror->code == 14 /* 14 = permission denied, delete any children */ ) {
 			ftm_delete_children(uir->ftm, uir->precord, FALSE);
+			uir->dir_changed = TRUE;
 		} else if (gerror->code == 4 /* 4 = not a directory */ ) {
 			if (uir->precord->isdir) {
 				ftm_remove(uir->ftm, uir->precord, FALSE);
+				uir->dir_changed = TRUE;
 			}
 		} else {
 			/* delete the directory itself from the treestore */
 			ftm_remove(uir->ftm, uir->precord, FALSE);
+			uir->dir_changed = TRUE;
 		}
 		g_warning("failed to list directory in filebrowser: %s (%d)\n", gerror->message, gerror->code);
 		g_error_free(gerror);
@@ -927,6 +951,7 @@ static void refresh_dir_async(FileTreemodel * ftm, UriRecord * precord, GFile * 
 	uir->ftm = ftm;
 	uir->uri = g_object_ref(uri);
 	uir->cancel = g_cancellable_new();
+	uir->dir_changed = FALSE;
 	ftm->uri_in_refresh = g_list_prepend(ftm->uri_in_refresh, uir);
 	g_idle_add_full(G_PRIORITY_LOW, fill_dir_async_low_priority, uir, NULL);
 	DEBUG_MSG("refresh_dir_async, low priority callback is registered\n");
@@ -1709,4 +1734,13 @@ static GType filetreemodel_get_column_type(GtkTreeModel * tree_model, gint index
 	g_return_val_if_fail(index < filetreemodel(tree_model)->n_columns && index >= 0, G_TYPE_INVALID);
 
 	return filetreemodel(tree_model)->column_types[index];
+}
+
+void filetreemodel_dirchange_register(FileTreemodel * ftm, DirChangedCallback func, gpointer user_data)
+{
+	Tdirchangedlistener *dcl;
+	dcl = g_slice_new(Tdirchangedlistener);
+	dcl->func = func;
+	dcl->user_data = user_data;
+	ftm->dirchangedlisteners = g_list_prepend(ftm->dirchangedlisteners, dcl);
 }
