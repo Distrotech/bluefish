@@ -126,6 +126,7 @@ join_lines(Tdocument * doc)
 	doc_unre_new_group(doc);
 }
 
+#define WS_POS_UNDEFINED G_MAXINT
 static void
 split_lines_backend(Tdocument * doc, gint start, gint end)
 {
@@ -146,11 +147,14 @@ split_lines_backend(Tdocument * doc, gint start, gint end)
 	DEBUG_MSG("split_lines_backend, from %d:%d on right margin %d\n",start,end, requested_size);
 	c = g_utf8_get_char(p);
 	while (c != '\0') {
+#ifdef DEBUGSPLIT
+		g_print("%d '%c'\n",charpos,c<128?c:'Q');
+#endif
 		if (count > requested_size) {
 			gchar *new_indenting, *tmp1, *tmp2;
-			if (startws >= endws)
+			if (startws != WS_POS_UNDEFINED && startws >= endws)
 				endws = charpos;
-			DEBUG_MSG("split_lines, count=%d, startws=%d, endws=%d, coffset=%d c='%c'\n", count, startws,
+			DEBUG_MSG("split_lines, count=%d(>%d), startws=%d, endws=%d, coffset=%d c='%c'\n", count,requested_size, startws,
 					  endws, coffset, c);
 			if (starti == endi || endi==-1) {
 				new_indenting = g_strdup("\n");
@@ -163,25 +167,35 @@ split_lines_backend(Tdocument * doc, gint start, gint end)
 				DEBUG_MSG("split_lines_backend, starti=%d,endi=%d, len=%d, bytes=%d, new_indenting='%s'\n", starti, endi, endi-starti, (gint) (tmp2 - tmp1),
 						  new_indenting);
 			}
+			if (startws == WS_POS_UNDEFINED) {
+				/* TODO: there is a section without any white-space that is longer than requested_size, what to do now ??? 
+				currently very crude: just insert a newline at charpos */
+				startws=endws=charpos;
+			}
 			DEBUG_MSG("split_lines_backend, replace from startws=%d to endws=%d with offset %d with new indenting\n", startws, endws, coffset);
 			count = charpos - endws;
+#ifdef DEBUGSPLIT
+			tmp1 = doc_get_chars(doc, startws + coffset, endws + coffset);
+			g_print("replace '%s' with newline + identing\n",tmp1);
+			g_free(tmp1);
+#endif
 			doc_replace_text_backend(doc, new_indenting, startws + coffset, endws + coffset);
 			coffset += (g_utf8_strlen(new_indenting, -1) - (endws - startws));
-			DEBUG_MSG("split_lines_backend, new coffset=%d, new count=%d\n", coffset, count);
-			startws = charpos;
-			endws = charpos;
+			DEBUG_MSG("split_lines_backend, new coffset=%d, new count=%d, set startws=%d and endws=%d\n", coffset, count, 0,charpos);
+			startws = WS_POS_UNDEFINED;
+			endws = WS_POS_UNDEFINED;
 			g_free(new_indenting);
 		}
 		if (c == '\t') {
 			count += tabsize;
-			if (startws < endws) {
+			if (startws < endws || startws==WS_POS_UNDEFINED) {
 				startws = charpos;
 				endws = charpos;
 				DEBUG_MSG("split_lines_backend, tab, set startws to %d\n", startws);
 			}
 		} else if (c == ' ') {
 			count++;
-			if (startws < endws) {
+			if (startws < endws || startws==WS_POS_UNDEFINED) {
 				startws = charpos;
 				endws = charpos;
 				DEBUG_MSG("split_lines_backend, space, set startws to %d\n", startws);
@@ -195,10 +209,10 @@ split_lines_backend(Tdocument * doc, gint start, gint end)
 			count++;
 			if (starti > endi) {
 				endi = charpos;
-				DEBUG_MSG("split_lines_backend, non-whitespace, set endi to %d, starti=%d\n", endi, starti);
-			} else if (startws >= endws) {
+				DEBUG_MSG("split_lines_backend, non-whitespace (%c) and no valid endi, set endi to %d, starti=%d\n", c<128?c:'Q',endi, starti);
+			} else if (startws >= endws && startws!=WS_POS_UNDEFINED) {
 				endws = charpos;
-				DEBUG_MSG("split_lines_backend, non-whitespace, set endws to %d\n", endws);
+				DEBUG_MSG("split_lines_backend, non-whitespace (%c) and no valid endws, set endws to %d\n", c<128?c:'Q', endws);
 			}
 		}
 		p = g_utf8_next_char(p);
