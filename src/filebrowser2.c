@@ -1520,7 +1520,7 @@ set_file_v_root(Tfilebrowser2 *fb2, GFile *dir_uri)
 static void
 scroll_to_iter(Tfilebrowser2 *fb2, GtkTreeIter *file_iter, GtkTreeIter *dir_iter)
 {
-	GtkTreePath *fs_path, *sort_path;
+	GtkTreePath *fs_path, *filter_path;
 	GtkTreeSelection *dirselection;
 	if (fb2->filebrowser_viewmode == viewmode_dual && file_iter) {
 		fs_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->ftm), file_iter);
@@ -1528,11 +1528,11 @@ scroll_to_iter(Tfilebrowser2 *fb2, GtkTreeIter *file_iter, GtkTreeIter *dir_iter
 			DEBUG_MSG("scroll_to_iter, for file_v fs_path==NULL !?!?!?!\n");
 			return;
 		}
-		sort_path = file_v_filter_path_from_treestore_path(fb2, fs_path);
-		if (sort_path) { /* possible the file was not yet created in the treestore */
+		filter_path = file_v_filter_path_from_treestore_path(fb2, fs_path);
+		if (filter_path) { /* possible the file was not yet created in the treestore, or outside the filter */
 			gtk_tree_selection_select_path(gtk_tree_view_get_selection
-													   (GTK_TREE_VIEW(fb2->file_v)), sort_path);
-			gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(fb2->file_v), sort_path, 0, TRUE, 0.5, 0.5);
+													   (GTK_TREE_VIEW(fb2->file_v)), filter_path);
+			gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(fb2->file_v), filter_path, 0, TRUE, 0.5, 0.5);
 			DEBUG_MSG("scroll_to_iter, selected/scrolled on file_v\n");
 		}
 		fs_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->ftm), dir_iter);
@@ -1544,18 +1544,24 @@ scroll_to_iter(Tfilebrowser2 *fb2, GtkTreeIter *file_iter, GtkTreeIter *dir_iter
 		return;
 	}
 
-	sort_path = dir_v_filter_path_from_treestore_path(fb2, fs_path);
-	DEBUG_MSG("scroll_to_iter, got sort_path=%p\n",sort_path);
-	expand_without_directory_refresh(fb2, sort_path);
+	filter_path = dir_v_filter_path_from_treestore_path(fb2, fs_path);
+	if (!filter_path) {
+		gtk_tree_path_free(fs_path);
+		DEBUG_MSG("scroll_to_iter, no filter_path, return\n");
+		return;
+	}
+	DEBUG_MSG("scroll_to_iter, got filter_path=%p\n",filter_path);
+	expand_without_directory_refresh(fb2, filter_path);
 	dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
 	if (fb2->dirselection_changed_id)
 		g_signal_handler_block(dirselection, fb2->dirselection_changed_id);
 	gtk_tree_selection_select_path(gtk_tree_view_get_selection
-													   (GTK_TREE_VIEW(fb2->dir_v)), sort_path);
+													   (GTK_TREE_VIEW(fb2->dir_v)), filter_path);
 	if (fb2->dirselection_changed_id)
 		g_signal_handler_unblock(dirselection, fb2->dirselection_changed_id);
-	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(fb2->dir_v), sort_path, 0, TRUE, 0.5, 0.5);
-
+	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(fb2->dir_v), filter_path, 0, TRUE, 0.5, 0.5);
+	gtk_tree_path_free(fs_path);
+	gtk_tree_path_free(filter_path);
 }
 
 static void
