@@ -2546,7 +2546,7 @@ fb2_init(Tbfwin * bfwin)
 
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;
-	DEBUG_MSG("fb2_init, started for bfwin=%p, fb2=%p, fb2->filebrowser_viewmode=%d\n", bfwin, fb2,
+	g_print("fb2_init, started for bfwin=%p, fb2=%p, fb2->filebrowser_viewmode=%d\n", bfwin, fb2,
 			  fb2->filebrowser_viewmode);
 
 	fb2->vbox = gtk_vbox_new(FALSE, 0);
@@ -2583,7 +2583,9 @@ fb2_cleanup(Tbfwin * bfwin)
 	if (bfwin->fb2) {
 		Tfilebrowser2 *fb2 = FILEBROWSER2(bfwin->fb2);
 		GList *actions, *list;
-		DEBUG_MSG("fb2_cleanup, fb2->vbox=%p\n",fb2->vbox);
+		DEBUG_MSG("fb2_cleanup, fb2=%p, fb2->bfwin=%p, fb2->vbox=%p\n",fb2,fb2->bfwin,fb2->vbox);
+		
+		filetreemodel_dirchange_unregister_by_data(FB2CONFIG(main_v->fb2config)->ftm, fb2);
 		if (fb2->vbox) {
 			DEBUG_MSG("fb2_cleanup, we still have a vbox, destroy vbox\n");
 			gtk_widget_destroy(fb2->vbox);
