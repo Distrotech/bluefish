@@ -1749,3 +1749,17 @@ void filetreemodel_dirchange_register(FileTreemodel * ftm, DirChangedCallback fu
 	dcl->user_data = user_data;
 	ftm->dirchangedlisteners = g_list_prepend(ftm->dirchangedlisteners, dcl);
 }
+
+void filetreemodel_dirchange_unregister_by_data(FileTreemodel * ftm, gpointer user_data)
+{
+	GList *tmplist = g_list_first(ftm->dirchangedlisteners);
+	while(tmplist) {
+		Tdirchangedlistener *dcl = tmplist->data;
+		if (dcl->user_data == user_data) {
+			ftm->dirchangedlisteners = g_list_delete_link(ftm->dirchangedlisteners, tmplist);
+			g_slice_free(Tdirchangedlistener, dcl);
+			break;
+		}
+		tmplist=g_list_next(tmplist);
+	}
+}

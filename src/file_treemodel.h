@@ -102,7 +102,7 @@ void filetreemodel_add_file(FileTreemodel * ftm, GFile * uri, const gchar *conte
 void filetreemodel_set_weight(FileTreemodel * ftm, GFile * uri, guint16 weight);
 void filetreemodel_set_icon(FileTreemodel * ftm, GFile * uri, const gchar *icon_name);
 void filetreemodel_dirchange_register(FileTreemodel * ftm, DirChangedCallback func, gpointer user_data);
-
+void filetreemodel_dirchange_unregister_by_data(FileTreemodel * ftm, gpointer user_data);
 #define DIR_MIME_TYPE "inode/directory"
 
 
