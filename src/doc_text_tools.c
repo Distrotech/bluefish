@@ -150,9 +150,9 @@ split_lines_backend(Tdocument * doc, gint start, gint end)
 #ifdef DEBUGSPLIT
 		g_print("%d '%c'\n",charpos,c<128?c:'Q');
 #endif
-		if (count > requested_size) {
+		if (count > requested_size && startws!=WS_POS_UNDEFINED) {
 			gchar *new_indenting, *tmp1, *tmp2;
-			if (startws != WS_POS_UNDEFINED && startws >= endws)
+			if (startws >= endws)
 				endws = charpos;
 			DEBUG_MSG("split_lines, count=%d(>%d), startws=%d, endws=%d, coffset=%d c='%c'\n", count,requested_size, startws,
 					  endws, coffset, c);
@@ -166,11 +166,6 @@ split_lines_backend(Tdocument * doc, gint start, gint end)
 				new_indenting = g_strndup(tmp1, (tmp2 - tmp1));
 				DEBUG_MSG("split_lines_backend, starti=%d,endi=%d, len=%d, bytes=%d, new_indenting='%s'\n", starti, endi, endi-starti, (gint) (tmp2 - tmp1),
 						  new_indenting);
-			}
-			if (startws == WS_POS_UNDEFINED) {
-				/* TODO: there is a section without any white-space that is longer than requested_size, what to do now ??? 
-				currently very crude: just insert a newline at charpos */
-				startws=endws=charpos;
 			}
 			DEBUG_MSG("split_lines_backend, replace from startws=%d to endws=%d with offset %d with new indenting\n", startws, endws, coffset);
 			count = charpos - endws;
