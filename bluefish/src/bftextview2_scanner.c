@@ -540,7 +540,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 						  tmpfblock->start1_o, tmpfblock->end1_o,tmpfblock->start2_o, tmpfblock->end2_o);
 			/* there is a special situation for a block: it might be a tretched block, in which 
 			case end1_o possibly needs updating too */
-			g_print("comparepos=%d, end1_o=%d for pattern %d (%s)\n",comparepos,tmpfblock->end1_o,tmpfblock->patternum,g_array_index(btv->bflang->st->matches, Tpattern, tmpfblock->patternum).pattern);
+			DBG_SCANCACHE("comparepos=%d, end1_o=%d for pattern %d (%s)\n",comparepos,tmpfblock->end1_o,tmpfblock->patternum,g_array_index(btv->bflang->st->matches, Tpattern, tmpfblock->patternum).pattern);
 			if (G_UNLIKELY(tmpfblock->end1_o >= comparepos && tmpfblock == sou->found->fblock && tmpfblock->end1_o > sou->found->charoffset_o)) {
 				tmpfblock->end1_o += offset;
 			}
