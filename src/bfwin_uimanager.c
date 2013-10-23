@@ -1903,7 +1903,7 @@ bfwin_recent_menu_add(Tbfwin *bfwin, gboolean project, const gchar *curi)
 	}
 	for (tmplist=g_list_first(main_v->bfwinlist);tmplist;tmplist=g_list_next(tmplist)) {
 		if (project || BFWIN(tmplist->data)->session == main_v->session) {
-			recent_menu_add_backend(bfwin,
+			recent_menu_add_backend(tmplist->data,
 					project ? "/MainMenu/ProjectMenu/ProjectOpenRecent" :"/MainMenu/FileMenu/FileOpenRecent", curi);
 		}
 	}
