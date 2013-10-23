@@ -177,7 +177,8 @@ treepath_for_uri(Tfilebrowser2 * fb2, GFile * uri)
 		return NULL;
 
 	if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, uri, &iter)) {
-		filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, uri, &iter);
+		if (!filetreemodel_build_dir(FB2CONFIG(main_v->fb2config)->ftm, uri, &iter))
+			return NULL;
 	}
 	return gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->ftm), &iter);
 }
@@ -1844,10 +1845,12 @@ set_dir_v_root(Tfilebrowser2 *fb2, GFile *dir_uri)
 	/* treepath_for_uri returns a GtkTreePath for the uri, and builds it (using fb2_build_dir()) if needed */
 	basepath = treepath_for_uri(fb2, dir_uri);
 	DEBUG_MSG("fb2_set_dir_v_root, refilter, basepath=%p\n", basepath);
-	refilter_dirlist(fb2, basepath);
+	if (basepath) {
+		refilter_dirlist(fb2, basepath);
+		gtk_tree_path_free(basepath);
+	}
 	if (fb2->dirselection_changed_id)
-		g_signal_handler_unblock(dirselection, fb2->dirselection_changed_id);
-	gtk_tree_path_free(basepath);
+		g_signal_handler_unblock(dirselection, fb2->dirselection_changed_id);	
 }
 
 
@@ -1872,13 +1875,10 @@ set_basedir_backend(Tfilebrowser2 *fb2, GFile *dir_uri)
 	DEBUG_MSG("set_basedir_backend, new basedir %p\n", dir_uri);
 	if (fb2->basedir)
 		g_object_unref(fb2->basedir);
+	fb2->basedir = dir_uri;
 	if (dir_uri) {
-		fb2->basedir = dir_uri;
 		g_object_ref(fb2->basedir);
-	} else {
-		fb2->basedir = NULL;
 	}
-
 	set_dir_v_root(fb2, dir_uri);
 }
 
@@ -1891,8 +1891,8 @@ set_basedir_backend(Tfilebrowser2 *fb2, GFile *dir_uri)
  *
  * sets fb2->basedir
  * makes it the visual root
- * DOES add it to the history
- * DOES expand and scroll to the current document
+ * DOES add it to the history - TODO
+ * DOES expand and scroll to the current document - TODO
  */
 static void
 fb2_set_basedir(Tfilebrowser2 *fb2, GFile *dir_uri)
@@ -2336,7 +2336,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	DEBUG_MSG("fb2_set_viewmode_widgets, building new GUI\n");
 	if (fb2->basedir) {
 		basepath = treepath_for_uri(fb2, fb2->basedir);
-		if (fb2->filebrowser_viewmode != viewmode_flat) {
+		if (basepath && fb2->filebrowser_viewmode != viewmode_flat) {
 			gtk_tree_path_up(basepath);
 		}
 	}
@@ -2489,7 +2489,7 @@ fb2_update_settings_from_session(Tbfwin * bfwin, Tdocument *active_doc)
 		/* the set_basedir_backend function tests itself if  the basedir if changed, if not it does not refresh */
 		DEBUG_MSG("fb2_update_settings_from_session, set basedir %s\n", tmp);
 		if (tmp && tmp[0]) {
-			GtkTreePath *fs_path, *sort_path;
+			GtkTreePath *fs_path, *filter_path;
 			GFile *uri = g_file_new_for_uri(strip_trailing_slash((gchar *) tmp));
 			DEBUG_MSG("fb2_update_settings_from_session, set basedir %p\n",uri);
 			fb2_set_basedir(fb2, uri);
@@ -2501,10 +2501,15 @@ fb2_update_settings_from_session(Tbfwin * bfwin, Tdocument *active_doc)
 			/* on an empty window / empty project, expand the basedir, because there will be no call for follow document */
 			if (!active_doc) {
 				fs_path = treepath_for_uri(fb2, uri);
-				sort_path = dir_v_filter_path_from_treestore_path(fb2, fs_path);
-				expand_without_directory_refresh(fb2, sort_path);
-				gtk_tree_path_free(fs_path);
-				gtk_tree_path_free(sort_path);
+				if (fs_path) {
+					filter_path = dir_v_filter_path_from_treestore_path(fb2, fs_path);
+					if (filter_path) {
+						expand_without_directory_refresh(fb2, filter_path);
+						gtk_tree_path_free(filter_path);
+					}
+					gtk_tree_path_free(fs_path);
+				}
+				
 			}
 			g_object_unref(uri);
 		}
