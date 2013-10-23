@@ -16,6 +16,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * use G_DEBUG=fatal-warnings 
+ * gdb src/bluefish
+ * to get backtraces what causes a warning
  */
 
 /*#define DEBUG*/
@@ -1430,7 +1434,7 @@ refilter_dirlist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 		/* to make it possible to select the root in treeview or dual-view, we move the filter-root one up */
 		useroot = gtk_tree_path_copy(newroot);
 		if (fb2->filebrowser_viewmode != viewmode_flat) {
-			if (!gtk_tree_path_get_depth(newroot) > 1 || !gtk_tree_path_up(useroot)) {
+			if (!(gtk_tree_path_get_depth(newroot) > 1) || !gtk_tree_path_up(useroot)) {
 				/* do not set the root as basedir, it is useless  */
 				DEBUG_MSG("refilter_dirlist, there is no parent for this path, so we will set the filter root to NULL\n");
 				gtk_tree_path_free(useroot);
@@ -1438,7 +1442,6 @@ refilter_dirlist(Tfilebrowser2 * fb2, GtkTreePath * newroot)
 			}
 		}
 	}
-
 	fb2->dir_filter =
 		gtk_tree_model_filter_new(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->ftm), useroot);
 	DEBUG_TREEMODELREFS("refilter_dirlist, created new tree model filter at %p for fb2 %p\n",fb2->dir_filter, fb2);
