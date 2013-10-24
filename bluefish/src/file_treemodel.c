@@ -970,6 +970,10 @@ void filetreemodel_refresh_iter_async(FileTreemodel * ftm, GtkTreeIter * iter)
 		g_warning("filetreemodel_refresh_iter_async, iter == NULL?\n");
 		return;
 	}
+	if (iter->stamp != ftm->stamp) {
+		g_warning("filetreemodel_refresh_iter_async, invalid iter %p\n",iter);
+		return;
+	}
 	record = iter->user_data;
 
 	refresh_dir_async(ftm, record, record->uri);
@@ -1005,13 +1009,15 @@ gboolean filetree_get_iter_for_uri(FileTreemodel * ftm, GFile * uri, GtkTreeIter
 {
 	UriRecord *record;
 	if (!uri) {
-		g_warning("filetree_get_iter_for_uri, uri == NULL?\n");
+		g_warning("filetree_get_iter_for_uri, uri == NULL? return FALSE and don't set iter %p\n",iter);
 		return FALSE;
 	}
 
 	record = g_hash_table_lookup(ftm->alluri, uri);
-	if (!record)
+	if (!record) {
+		DEBUG_MSG("filetree_get_iter_for_uri, got no record for uri, return FALSE and don't set iter %p\n",iter);
 		return FALSE;
+	}
 
 	iter->stamp = ftm->stamp;
 	iter->user_data = record;
@@ -1031,8 +1037,10 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri, GtkTreeIter
 	GFile *tmp, *parent_uri = NULL;
 	tmp = uri;
 
-	if (!uri)
+	if (!uri) {
+		g_warning("filetreemodel_build_dir, uri == NULL, return NULL and don't set iter %p\n",iter);
 		return NULL;
+	}
 
 	/* first find if any directory part of this uri exists already in the treestore */
 	g_object_ref(tmp);
@@ -1302,7 +1310,7 @@ filetreemodel_iter_children(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkTr
 	ftm = filetreemodel(tree_model);
 
 	if (parent && parent->stamp != ftm->stamp) {
-		g_warning("filetreemodel_iter_children, called with invalid parent iter\n");
+		g_warning("filetreemodel_iter_children, called with invalid parent iter %p\n",parent);
 		return FALSE;
 	}
 
@@ -1375,11 +1383,11 @@ static gint filetreemodel_iter_n_children(GtkTreeModel * tree_model, GtkTreeIter
 	UriRecord *record;
 
 	g_return_val_if_fail(IS_FILETREE_MODEL(tree_model), -1);
-	g_return_val_if_fail(iter == NULL || iter->user_data != NULL, FALSE);
+	/*g_return_val_if_fail(iter == NULL || iter->user_data != NULL, FALSE);*/
 	ftm = filetreemodel(tree_model);
 
 	if (iter && iter->stamp != ftm->stamp) {
-		g_warning("filetreemodel_iter_n_children, called with invalid iter\n");
+		g_warning("filetreemodel_iter_n_children, called with invalid iter %p\n",iter);
 		return 0;
 	}
 
@@ -1417,7 +1425,7 @@ filetreemodel_iter_nth_child(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkT
 	ftm = filetreemodel(tree_model);
 
 	if (parent && parent->stamp != ftm->stamp) {
-		g_warning("filetreemodel_iter_nth_child called with invalid parent iter\n");
+		g_warning("filetreemodel_iter_nth_child called with invalid parent iter %p\n",parent);
 		return FALSE;
 	}
 
@@ -1468,6 +1476,7 @@ static gboolean filetreemodel_iter_parent(GtkTreeModel * tree_model, GtkTreeIter
 
 	record = child->user_data;
 	if (record->parent == NULL) {
+		DEBUG_MSG("filetreemodel_iter_parent, no parent record, return FALSE and don't set iter %p\n",iter);
 		return FALSE;
 	}
 
@@ -1523,16 +1532,15 @@ static gboolean filetreemodel_get_iter(GtkTreeModel * tree_model, GtkTreeIter * 
 	record = NULL;
 	for (i = 0; i < depth; i++) {
 		record = get_nth_record(ftm, record, indices[i]);
-		if (!record)
+		if (!record) {
+			DEBUG_MSG("filetreemodel_get_iter, no record for path %p, return FALSE and don't set iter %p\n",path,iter);
 			return FALSE;
+		}
 	}
 
 	/* We simply store a pointer to our custom record in the iter */
 	iter->stamp = ftm->stamp;
 	iter->user_data = record;
-	iter->user_data2 = NULL;	/* unused */
-	iter->user_data3 = NULL;	/* unused */
-
 	return TRUE;
 }
 
