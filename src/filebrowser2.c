@@ -1842,12 +1842,16 @@ set_dir_v_root(Tfilebrowser2 *fb2, GFile *dir_uri)
 	DEBUG_MSG("fb2_set_dir_v_root, disconnected current filter/sort models, lfilter=%p\n",
 			  fb2->file_filter);
 
-	/* treepath_for_uri returns a GtkTreePath for the uri, and builds it (using fb2_build_dir()) if needed */
-	basepath = treepath_for_uri(fb2, dir_uri);
-	DEBUG_MSG("fb2_set_dir_v_root, refilter, basepath=%p\n", basepath);
-	if (basepath) {
-		refilter_dirlist(fb2, basepath);
-		gtk_tree_path_free(basepath);
+	if (dir_uri) {
+		/* treepath_for_uri returns a GtkTreePath for the uri, and builds it (using fb2_build_dir()) if needed */
+		basepath = treepath_for_uri(fb2, dir_uri);
+		DEBUG_MSG("fb2_set_dir_v_root, refilter, basepath=%p\n", basepath);
+		if (basepath) {
+			refilter_dirlist(fb2, basepath);
+			gtk_tree_path_free(basepath);
+		}
+	} else {
+		refilter_dirlist(fb2, NULL);
 	}
 	if (fb2->dirselection_changed_id)
 		g_signal_handler_unblock(dirselection, fb2->dirselection_changed_id);	
@@ -2310,13 +2314,16 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		{"STRING", 0, TARGET_STRING},
 	};
 
-	DEBUG_MSG("fb2_set_viewmode_widgets, destroying old widgets (if any)\n");
+	
 	if (fb2->filebrowser_viewmode == viewmode) {
 		/* the current viewmode is the same as the requested viewmode
 		   we can return if all the widgets exist */
-		if (fb2->dir_filter != NULL)
+		if (fb2->dir_filter != NULL) {
+			DEBUG_MSG("fb2_set_viewmode_widgets, keep existing widgets and return\n");
 			return;
+		}
 	} else {
+		DEBUG_MSG("fb2_set_viewmode_widgets, destroying old widgets (if any)\n");
 		if (fb2->vpaned) {
 			DEBUG_MSG("remove fb2->vpaned, ");
 			gtk_container_remove(GTK_CONTAINER(fb2->vbox), fb2->vpaned);
@@ -2350,7 +2357,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	fb2->dir_v = gtk_tree_view_new_with_model(fb2->dir_filter);
 	/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
 	g_object_unref(G_OBJECT(fb2->dir_filter));
-	DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, unreffed tree model filter at %p for fb2 %p, ref is added to sort model %p which is added to view %p\n",fb2->dir_filter, fb2, fb2->dir_tsort, fb2->dir_v);
+	DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, unreffed tree model filter at %p for fb2 %p, ref is added to view %p\n",fb2->dir_filter, fb2, fb2->dir_v);
 
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fb2->dir_v), FALSE);
 	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW(fb2->dir_v),file_search_func,fb2,NULL);
@@ -2407,7 +2414,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		fb2->file_v = gtk_tree_view_new_with_model(fb2->file_filter);
 		/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
 		g_object_unref(G_OBJECT(fb2->file_filter));
-		DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, unreffed tree model filter at %p for fb2 %p, ref should have been added by sort model %p\n",fb2->file_filter, fb2, fb2->file_lsort);
+		DEBUG_TREEMODELREFS("fb2_set_viewmode_widgets, unreffed tree model filter at %p for fb2 %p, ref should have been added by view %p\n",fb2->file_filter, fb2, fb2->file_v);
 
 		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fb2->file_v), FALSE);
 		gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW(fb2->file_v),file_search_func,fb2,NULL);
@@ -2530,6 +2537,7 @@ fb2_update_settings_from_session(Tbfwin * bfwin, Tdocument *active_doc)
 	   requested basedir was already the active basedir), so
 	   we can optimise this and call refilter only when really needed. */
 	if (need_refilter) {
+		DEBUG_MSG("fb2_update_settings_from_session, need_refilter=%d, dir_filter=%p, file_filter=%p\n",need_refilter,fb2->file_filter,fb2->dir_filter);
 		if (fb2->dir_filter)
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_filter));
 		if (fb2->file_filter && fb2->filebrowser_viewmode == viewmode_dual)
