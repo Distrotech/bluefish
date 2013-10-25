@@ -189,6 +189,9 @@ setup_bfwin_for_project(Tbfwin * bfwin, Tdocument *active_doc)
 		} else {
 			g_idle_add_full(FILE2DOC_PRIORITY, project_document_load_finished_lcb, active_doc, NULL); 
 		}
+	} else {
+		/* if there is no document, the project title will not be shown in the window title unless we call this directly */
+		bfwin_set_title(bfwin, bfwin->current_document, 0);
 	}
 	bfwin->bmarkdata = bfwin->project->bmarkdata;
 	bmark_set_store(bfwin);
