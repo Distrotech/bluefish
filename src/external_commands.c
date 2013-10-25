@@ -732,8 +732,15 @@ filter_custom_lcb(const gchar *str_return, gpointer bfwin, gpointer data)
 	}
 	doc_replace_text(BFWIN(bfwin)->current_document, str_return, ep->begin, end);
 	if (line != -1) {
-		gtk_text_buffer_get_iter_at_line_offset(buffer, &iter, line, offset);
-		gtk_text_buffer_place_cursor(buffer, &iter);
+		if (gtk_text_buffer_get_line_count(buffer) >= line) {
+			gtk_text_buffer_get_iter_at_line(buffer,&iter,line);
+			gtk_text_iter_forward_to_line_end(&iter);
+			if (gtk_text_iter_get_line_offset(&iter) >= offset) {
+         	/* the offset MUST EXIST, so first check if it actually does */
+				gtk_text_buffer_get_iter_at_line_offset(buffer, &iter, line, offset);
+			}
+			gtk_text_buffer_place_cursor(buffer, &iter);
+		}
 	}
 }
 
