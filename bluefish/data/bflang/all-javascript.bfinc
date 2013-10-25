@@ -134,7 +134,7 @@
 	<element pattern="parseInt"/>
 	<element pattern="propertyIsEnumerable"/>
 <!--	<element pattern="unescape"/> -->
-	<group class="javascript_window_object">
+	<group javascript_object_methods>
 <!-- reference: https://developer.mozilla.org/en-US/docs/Web/API/Window -->
 	<element pattern="addEventListener">
 		<reference><i>EventTarget.addEventListener(type, listener[, useCapture])</i> Registers the specified listener on the EventTarget it's called on. The event target may be an Element in a document, the Document itself, a Window, or any other object that supports events (such as XMLHttpRequest).</reference>
@@ -252,7 +252,7 @@
 		<reference><i>Window.unescape(escaped)</i> Decodes a value that has been encoded in hexadecimal (e.g., a cookie) including characters not escaped by window.escape.</reference>
 	</element>
 
-		<group class="javascript_document_object">
+		<group javascript_object_methods>
 <!-- 			<element pattern="captureEvents"/> -->
 <!-- 			<element pattern="close"/> -->
 			<element pattern="createAttribute"/>
@@ -270,7 +270,7 @@
 			<element pattern="write"/>
 			<element pattern="writeln"/>
 		</group>
-		<group class="javascript_history_object">
+		<group javascript_object_methods>
 <!-- 			<element pattern="back"/> -->
 <!-- 			<element pattern="forward"/> -->
 			<element pattern="go"/>
@@ -291,7 +291,7 @@
 		<element pattern="unshift"/>
 	</group>
 	<!-- Date -->
-	<group class="javascript_date_object">
+	<group javascript_object_methods>
 		<element pattern="getDate">
 			<reference><i>DateObj.getDate()</i> returns the day of the month (1-31) for the specified date according to local time</reference>
 		</element>
@@ -417,7 +417,7 @@
 		</element>
 	</group>
 	<!-- Math -->
-	<group class="javascript_math_object">
+	<group javascript_object_methods>
 	<element pattern="Math.abs">
 		<reference>Returns the absolute value of a number.</reference>
 	</element>
@@ -474,7 +474,7 @@
 	</element>
 	</group>
 	<!-- Node -->
-	<group class="javascript_node_object">
+	<group javascript_object_methods>
 		<element pattern="appendChild"/>
 		<element pattern="appendData"/>
 		<element pattern="cloneNode"/>
@@ -494,7 +494,7 @@
 		<element pattern="setAttributeNode"/>
 	</group>
 	<!-- navigator -->
-	<element pattern="javaEnabled" class="javascript_navigator_object"/>
+	<element pattern="javaEnabled" javascript_object_methods/>
 	<!-- number -->
 	<group>
 		<element pattern="toExponential"/>
@@ -502,13 +502,13 @@
 		<element pattern="toPrecision"/>
 	</group>
 
-	<group class="javascript_location_object">
+	<group javascript_object_methods>
 		<element pattern="reload" />
 <!-- 		<element pattern="replace" /> -->
 	</group>
 </group>
 	<!-- string -->
-<group class="javascript_string_object" highlight="js-function" >
+<group javascript_object_methods highlight="js-function" >
 	<autocomplete append="()" backup_cursor="1" />
 <!-- reference: https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String -->
 	<element pattern="charAt">
@@ -626,7 +626,7 @@
 
 <group highlight="js-property" >
 	<autocomplete enable="1" />
-	<group class="javascript_window_object">
+	<group javascript_object_methods>
 <!-- reference: https://developer.mozilla.org/en-US/docs/Web/API/Window -->
 		<element pattern="applicationCache">
 			<reference><i>window.applicationCache</i> An OfflineResourceList object providing access to the offline resources for the window.</reference>
@@ -798,7 +798,7 @@
 			<reference><i>window[]</i> Returns a reference to the window object in the frames. See window.frames for more details.</reference>
 		</element>
 
-		<group class="javascript_document_object">
+		<group javascript_object_methods>
 <!-- reference: https://developer.mozilla.org/en-US/docs/Web/API/Document -->
 	<element pattern="activeElement">
 				<reference><i>document.activeElement</i> Returns the currently focused element
@@ -998,15 +998,15 @@
 				<b>Availability:</b> HTML
 				</reference>
 			</element>
-			<group class="javascript_anchors_object">
+			<group javascript_object_methods>
 <!-- 				<element pattern="name"/> -->
 				<element pattern="length"/>
 				<element pattern="text"/>
 				<element pattern="x"/>
 				<element pattern="y"/>
 			</group>
-<!-- 			<element pattern="length" class="javascript_applets_object"/> -->
-			<group class="javascript_node_object">
+<!-- 			<element pattern="length" javascript_object_methods/> -->
+			<group javascript_object_methods>
 <!-- reference: https://developer.mozilla.org/en-US/docs/Web/API/Node -->
 				<element pattern="baseURI">
 					<reference><i>Node.baseURI</i>
@@ -1086,7 +1086,7 @@
 				</element>
 			</group>
 		</group>
-		<group class="javascript_event_object">
+		<group javascript_object_methods>
 <!-- reference: https://developer.mozilla.org/en-US/docs/Web/API/Event -->
 		  <element pattern="bubbles">
 				<reference><i>event.bubbles</i> A boolean indicating whether the event bubbles up through the DOM or not.</reference>
@@ -1266,8 +1266,8 @@
 <!--			<element pattern="relatedTarget"> -->
 
 		</group>
-<!-- 		<element pattern="length" class="javascript_history_object"/> -->
-		<group class="javascript_location_object">
+<!-- 		<element pattern="length" javascript_object_methods/> -->
+		<group javascript_object_methods>
 			<element pattern="hash"/>
 			<element pattern="host"/>
 			<element pattern="hostname"/>
@@ -1278,7 +1278,7 @@
 <!-- 			<element pattern="search"/> -->
 		</group>
 	</group>
-	<group class="javascript_math_object">
+	<group javascript_object_methods>
 		<element pattern="E"/>
 		<element pattern="LN2"/>
 		<element pattern="LN10"/>
@@ -1288,7 +1288,7 @@
 		<element pattern="SQRT1_2"/>
 		<element pattern="SQRT2"/>
 	</group>
-	<group class="javascript_navigator_object">
+	<group javascript_object_methods>
 		<element pattern="appCodeName"/>
 		<element pattern="appName"/>
 		<element pattern="appVersion"/>
@@ -1309,7 +1309,7 @@
 <!-- 			<element pattern="name"/> -->
 		</group>
 	</group>
-	<group class="javascript_screen_object">
+	<group javascript_object_methods>
 		<element pattern="availHeight"/>
 		<element pattern="availWidth"/>
 		<element pattern="colorDepth"/>
@@ -1317,7 +1317,7 @@
 		<element pattern="pixelDepth"/>
 		<element pattern="width"/>
 	</group>
-<!-- 	<element pattern="length" class="javascript_string_object"/> -->
+<!-- 	<element pattern="length" javascript_object_methods/> -->
 </group>
 <!-- JavaScript Objects -->
 <group highlight="js-type" >
@@ -1341,23 +1341,23 @@
 <group highlight="js-variable" >
 	<autocomplete enable="1" />
 	<element pattern="global"/>
-	<group class="javascript_navigator_object">
+	<group javascript_object_methods>
 		<element pattern="navigator"/>
 		<element pattern="mimeTypes"/>
 		<element pattern="plugins"/>
 	</group>
-	<element pattern="screen" class="javascript_screen_object"/>
-	<group class="javascript_window_object">
+	<element pattern="screen" javascript_object_methods/>
+	<group javascript_object_methods>
 		<element pattern="window"/>
-		<group class="javascript_document_object">
+		<group javascript_object_methods>
 			<element pattern="document"/>
-			<element pattern="anchors" class="javascript_anchors_object"/>
-			<element pattern="applets" class="javascript_applets_object"/>
-			<element pattern="node" class="javascript_node_object"/>
+			<element pattern="anchors" javascript_object_methods/>
+			<element pattern="applets" javascript_object_methods/>
+			<element pattern="node" javascript_object_methods/>
 		</group>
-		<element pattern="event" class="javascript_event_object"/>
-		<element pattern="history" class="javascript_history_object"/>
-		<element pattern="location" class="javascript_location_object"/>
+		<element pattern="event" javascript_object_methods/>
+		<element pattern="history" javascript_object_methods/>
+		<element pattern="location" javascript_object_methods/>
 	</group>
 </group>
 <group class="javascript_css_properties" >
