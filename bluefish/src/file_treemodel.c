@@ -48,7 +48,7 @@ static gboolean filetreemodel_iter_parent(GtkTreeModel * tree_model, GtkTreeIter
 static GObjectClass *parent_class = NULL;	/* GObject stuff  */
 
 /*#define FILETREE_FILEINFO_ATTRIBUTES "standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type"*/
-#define FILETREE_FILEINFO_ATTRIBUTES "standard::name,standard::display-name,standard::fast-content-type,standard::icon"
+#define FILETREE_FILEINFO_ATTRIBUTES "standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::type"
 /*************************** debug functions ***************************/
 #ifdef DUMP_TREE
 static void dump_record(UriRecord * record)
@@ -463,6 +463,27 @@ static void fill_uri(UriRecord * newrecord, GFile * uri, GFileInfo * finfo)
 	/*DEBUG_MSG("fill_uri, isdir=%d for name='%s'\n",newrecord->isdir,newrecord->name); */
 }
 
+static void file_treemodel_record_changed(FileTreemodel * ftm, UriRecord *record) {
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	iter.stamp = ftm->stamp;
+	iter.user_data = record;
+	path = get_treepath_for_record(record);
+	gtk_tree_model_row_changed(GTK_TREE_MODEL(ftm),path,&iter);
+	gtk_tree_path_free(path);
+}
+
+static void convert_record_to_directory(FileTreemodel * ftm, UriRecord *record) {
+	if (!record)
+		return;
+	record->isdir = 1;
+	g_free(record->fast_content_type);
+	record->fast_content_type = g_strdup(DIR_MIME_TYPE);
+	file_treemodel_record_changed(ftm, record);
+	filetree_re_sort(ftm, record->parent);	
+}
+
+
 static UriRecord *add_single_uri(FileTreemodel * ftm, UriRecord * record, GFile * child_uri, const gchar *name, const gchar *fast_content_type, const gchar *icon_name, gboolean isdir, guint16 weight)
 {
 	guint newsize, pos;
@@ -489,6 +510,10 @@ static UriRecord *add_single_uri(FileTreemodel * ftm, UriRecord * record, GFile 
 		DEBUG_MSG("adding newrecord %p (%s) to pos %d of array %p of parent %s\n", newrecord, newrecord->name, pos, record->rows,record->name);
 		newrecord->pos = pos;
 		newrecord->parent = record;
+		if (!record->isdir) {
+			g_warning("add_single_uri, adding child '%s' to file '%s' (as opposed to directory), changing it to directory\n",name,record->name);
+			convert_record_to_directory(ftm,record);
+		}
 	} else {
 		/* add to toplevel */
 		pos = ftm->num_rows;
@@ -511,7 +536,7 @@ static UriRecord *add_single_uri(FileTreemodel * ftm, UriRecord * record, GFile 
 	gtk_tree_model_row_inserted(GTK_TREE_MODEL(ftm), path, &iter);
 	gtk_tree_path_free(path);
 
-	/* qsort it !?!? */
+	/* qsort it */
 	filetree_re_sort(ftm, record);
 
 	return newrecord;
@@ -728,6 +753,10 @@ static void add_multiple_uris(Turi_in_refresh *uir, GList * finfolist)
 	if (precord) {
 		num_rows = &precord->num_rows;
 		rows = &precord->rows;
+		if (!precord->isdir) {
+			g_warning("add_multiple_uris, adding children to file '%s' (as opposed to directory), changing it to directory\n",precord->name);
+			convert_record_to_directory(ftm, precord);
+		}
 #ifdef DUMP_TREE
 		dump_record(precord);
 #endif
@@ -1107,16 +1136,6 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri, GtkTreeIter
 		iter->user_data = record;
 	}
 	return record;
-}
-
-static void file_treemodel_record_changed(FileTreemodel * ftm, UriRecord *record) {
-	GtkTreePath *path;
-	GtkTreeIter iter;
-	iter.stamp = ftm->stamp;
-	iter.user_data = record;
-	path = get_treepath_for_record(record);
-	gtk_tree_model_row_changed(GTK_TREE_MODEL(ftm),path,&iter);
-	gtk_tree_path_free(path);
 }
 
 void filetreemodel_add_file(FileTreemodel * ftm, GFile * uri, const gchar *content_type, guint16 weight)
