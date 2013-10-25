@@ -604,12 +604,7 @@ static void ftm_remove(FileTreemodel * ftm, UriRecord * record, gboolean dont_re
 		record->num_rows = 0;
 		record->rows = NULL;
 	}
-
-	/* let the treeview know that this one is gone */
 	path = get_treepath_for_record(record);
-	gtk_tree_model_row_deleted(GTK_TREE_MODEL(ftm), path);
-	gtk_tree_path_free(path);
-	g_hash_table_remove(ftm->alluri, record->uri);
 	if (!dont_remove_from_parent) {
 		UriRecord ***arr;
 		guint16 *num_rows;
@@ -650,9 +645,13 @@ static void ftm_remove(FileTreemodel * ftm, UriRecord * record, gboolean dont_re
 				(*arr)[i]->pos = i;
 			}
 		}
-
-
 	}
+	g_hash_table_remove(ftm->alluri, record->uri);
+
+	/* let the treeview know that this one is gone */
+	gtk_tree_model_row_deleted(GTK_TREE_MODEL(ftm), path);
+
+	gtk_tree_path_free(path);
 	record_cleanup(record);
 }
 
@@ -1433,9 +1432,10 @@ filetreemodel_iter_nth_child(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkT
 	if (parent) {
 		UriRecord *precord;
 		precord = parent->user_data;
-		DEBUG_MSG("filetreemodel_iter_nth_child(%d) for '%s'\n", n, precord->name);
-		if (n >= precord->num_rows)
+		if (n >= precord->num_rows) {
+			DEBUG_MSG("filetreemodel_iter_nth_child, parent '%s' n(%d) > precord->num_rows(%d), return FALSE and don't set iter %p\n",precord->name,n,precord->num_rows,iter);
 			return FALSE;
+		}
 		record = precord->rows[n];
 	} else {
 		/* special case: if parent == NULL, set iter to n-th top-level row */
@@ -1448,7 +1448,7 @@ filetreemodel_iter_nth_child(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkT
 
 	g_assert(record != NULL);
 	g_assert(record->pos == n);
-
+	DEBUG_MSG("filetreemodel_iter_nth_child(%d) for parent '%s' results in '%s', set iter %p\n", n, precord->name, record->name, iter);
 	iter->stamp = ftm->stamp;
 	iter->user_data = record;
 
@@ -1523,7 +1523,6 @@ static gboolean filetreemodel_get_iter(GtkTreeModel * tree_model, GtkTreeIter * 
 
 	g_assert(IS_FILETREE_MODEL(tree_model));
 	g_assert(path != NULL);
-	DEBUG_MSG("filetreemodel_get_iter\n");
 	ftm = filetreemodel(tree_model);
 
 	indices = gtk_tree_path_get_indices(path);
@@ -1537,7 +1536,7 @@ static gboolean filetreemodel_get_iter(GtkTreeModel * tree_model, GtkTreeIter * 
 			return FALSE;
 		}
 	}
-
+	DEBUG_MSG("filetreemodel_get_iter, return iter %p for record '%s'\n",iter,record->name);
 	/* We simply store a pointer to our custom record in the iter */
 	iter->stamp = ftm->stamp;
 	iter->user_data = record;
