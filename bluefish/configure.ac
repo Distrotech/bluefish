@@ -66,6 +66,7 @@ dnl ************************
 
 #AC_ARG_PROGRAM
 AC_PROG_CC
+AM_PROG_AR
 m4_ifdef(
 	[LT_INIT],
 	[
