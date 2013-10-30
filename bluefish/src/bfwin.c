@@ -61,7 +61,6 @@ enum {
 	TARGET_STRING
 } Tdnd_types;
 
-
 void
 bfwin_fullscreen_toggle(Tbfwin * bfwin, gboolean active)
 {
@@ -193,6 +192,11 @@ side_panel_notify_position(GObject * object, GParamSpec * pspec, gpointer data)
 			main_v->globses.left_panel_width = w - position;
 		}
 		DEBUG_MSG("side_panel_notify_position, side_panel_width=%d\n", main_v->globses.left_panel_width);
+	}
+	if (main_v->props.wrap_on_right_margin) {
+		/* all docs need to recalculate the amount of whitespace on the right */
+		g_print("side_panel_notify_position, recalc right margin\n");
+		bfwin_alldoc_recalc_right_margin(bfwin);
 	}
 }
 
@@ -412,32 +416,28 @@ bfwin_apply_settings(Tbfwin * bfwin)
 		}
 	}
 }
-static gboolean
-bfwin_configure_event(GtkWidget * widget, GdkEvent * revent, Tbfwin * bfwin)
+
+static gboolean bfwin_window_state_event_idle_cb(gpointer data) {
+	bfwin_alldoc_recalc_right_margin(data);
+	return FALSE;
+}
+
+static gboolean bfwin_window_state_event(GtkWidget * widget, GdkEvent * revent, Tbfwin * bfwin)
 {
 	if (main_v->props.restore_dimensions) {
-		if (revent->type == GDK_CONFIGURE) {
-			GdkEventConfigure *event = (GdkEventConfigure *) revent;
-			DEBUG_MSG("bfwin_configure_event, configure event\n");
-			if (main_v->globses.main_window_w > 0) {
-				main_v->globses.main_window_w = event->width;
-				main_v->globses.main_window_h = event->height;
-				DEBUG_MSG("bfwin_configure_event, not maximized, setting width=%d, height=%d\n",
-						  main_v->globses.main_window_w, main_v->globses.main_window_h);
-			}
-		} else if (revent->type == GDK_WINDOW_STATE && gtk_widget_get_visible(bfwin->main_window)) {
+		if (gtk_widget_get_visible(bfwin->main_window)) {
 			GdkEventWindowState *event = (GdkEventWindowState *) revent;
 			DEBUG_MSG
-				("bfwin_configure_event, window state event, state=%d, globses_main_window_w=%d\n",
+				("bfwin_window_state_event, window state event, state=%d, globses_main_window_w=%d\n",
 				 event->new_window_state, main_v->globses.main_window_w);
 			if ((event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED) && main_v->globses.main_window_w > 0) {
 				main_v->globses.main_window_w = -1 * main_v->globses.main_window_w;	/* negative means it is maximized !! */
-				DEBUG_MSG("bfwin_configure_event, maximized!! setting width=%d\n",
+				DEBUG_MSG("bfwin_window_state_event, maximized!! storing width=%d\n",
 						  main_v->globses.main_window_w);
 			} else if (!(event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED)
 					   && main_v->globses.main_window_w < 0) {
 				main_v->globses.main_window_w = -1 * main_v->globses.main_window_w;	/* make it positive again */
-				DEBUG_MSG("bfwin_configure_event, NOT-maximized, setting width=%d\n",
+				DEBUG_MSG("bfwin_window_state_event, NOT-maximized, storing width=%d\n",
 						  main_v->globses.main_window_w);
 			}
 			if (event->changed_mask & GDK_WINDOW_STATE_FULLSCREEN) {
@@ -451,11 +451,31 @@ bfwin_configure_event(GtkWidget * widget, GdkEvent * revent, Tbfwin * bfwin)
 		}
 	}
 
-	if (revent->type == GDK_CONFIGURE && main_v->props.wrap_on_right_margin) {
-		/* all docs need to recalculate the amount of whitespace on the right */
-		g_list_foreach(bfwin->documentlist, doc_recalculate_right_margin, bfwin);
+	if (main_v->props.wrap_on_right_margin && ((revent->type == GDK_WINDOW_STATE && ((GdkEventWindowState *)revent)->changed_mask & (GDK_WINDOW_STATE_FULLSCREEN | GDK_WINDOW_STATE_MAXIMIZED)))) {
+		/* all docs need to recalculate the amount of whitespace on the right, but the width is not yet set,
+		so do this in an idle callback */
+		g_idle_add(bfwin_window_state_event_idle_cb, bfwin);
 	}
+	return FALSE;
+}
 
+static gboolean
+bfwin_configure_event(GtkWidget * widget, GdkEvent * revent, Tbfwin * bfwin)
+{
+	if (main_v->props.restore_dimensions) {
+		GdkEventConfigure *event = (GdkEventConfigure *) revent;
+		DEBUG_MSG("bfwin_configure_event, configure event, got event->width=%d, event->height=%d\n",event->width,event->height);
+		if (main_v->globses.main_window_w > 0) {
+			main_v->globses.main_window_w = event->width;
+			main_v->globses.main_window_h = event->height;
+			DEBUG_MSG("bfwin_configure_event, not maximized, storing width=%d, height=%d\n",
+					  main_v->globses.main_window_w, main_v->globses.main_window_h);
+		}
+	}
+	if (main_v->props.wrap_on_right_margin) {
+		/* all docs need to recalculate the amount of whitespace on the right */
+		bfwin_alldoc_recalc_right_margin(bfwin);
+	}
 	return FALSE;
 }
 
@@ -611,11 +631,11 @@ gboolean
 bfwin_osx_terminate_event(GtkWidget * widget, GdkEvent * event, Tbfwin * bfwin)
 {
 	/*
-	   On OSX we need this simplified function since showing dialog window on NSApplicationBlockTermination callback 
+	   On OSX we need this simplified function since showing dialog window on NSApplicationBlockTermination callback
 	   causes bluefish to crash. Probably this is bug in gtk-mac-integration. So, we save all modified documents
 	   by default without asking if user really wants to do it.
 	 */
-	
+
 	DEBUG_MSG("bfwin_osx_terminate_event, started for bfwin %p\n", bfwin);
 	if (!bfwin->documentlist) {
 		g_print("bfwin_osx_terminate_event, document list is empty\n");
@@ -685,7 +705,7 @@ bfwin_simplesearch_show(Tbfwin *bfwin)
 			/* TODO: mark the current selection as the 'current' search result */
 		}
 	}
-	
+
 	simplesearch_combo_entry_activated(bfwin->simplesearch_regex, bfwin);
 	gtk_widget_grab_focus(bfwin->simplesearch_combo);
 	gtk_editable_select_region(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(bfwin->simplesearch_combo))),0,-1);
@@ -1016,7 +1036,7 @@ bfwin_destroy_event(GtkWidget * widget, Tbfwin * bfwin)
 			main_v->osx_status = 2;
 			bfwin_window_new();
 			return;
-		} 
+		}
 		if (main_v->osx_status == 1 ) {
 			rcfile_save_global_session();
 			gtk_main_quit();
@@ -1431,7 +1451,7 @@ bfwin_create_main(Tbfwin * bfwin)
 	g_signal_connect(G_OBJECT(bfwin->main_window), "configure-event",
 					 G_CALLBACK(bfwin_configure_event), bfwin);
 	g_signal_connect(G_OBJECT(bfwin->main_window), "window-state-event",
-					 G_CALLBACK(bfwin_configure_event), bfwin);
+					 G_CALLBACK(bfwin_window_state_event), bfwin);
 	g_signal_connect(G_OBJECT(bfwin->main_window), "key-press-event", G_CALLBACK(bfwin_key_press_event), bfwin);
 	g_signal_connect(G_OBJECT(bfwin->main_window), "key-release-event", G_CALLBACK(bfwin_key_release_event), bfwin);
 
@@ -1439,9 +1459,9 @@ bfwin_create_main(Tbfwin * bfwin)
 	gtk_container_add(GTK_CONTAINER(bfwin->main_window), vbox);
 	gtk_widget_show(vbox);
 #if GTK_CHECK_VERSION(3,4,0)
-	bfwin->toolbarbox = gtk_grid_new(); 
+	bfwin->toolbarbox = gtk_grid_new();
 	gtk_orientable_set_orientation(GTK_ORIENTABLE(bfwin->toolbarbox), GTK_ORIENTATION_VERTICAL);
-	gtk_box_pack_start(GTK_BOX(vbox), bfwin->toolbarbox, FALSE, FALSE, 0); 
+	gtk_box_pack_start(GTK_BOX(vbox), bfwin->toolbarbox, FALSE, FALSE, 0);
 	gtk_widget_show(bfwin->toolbarbox);
 #else
 	bfwin->toolbarbox = gtk_vbox_new(FALSE, 0);
@@ -1604,7 +1624,7 @@ bfwin_show_main(Tbfwin * bfwin)
 	gtk_widget_hide(bfwin->menubar);
 	gtkosx_application_set_menu_bar(theApp, GTK_MENU_SHELL(bfwin->menubar));
 	g_print("hide gtk menubar, set gtkosxapplication menubar\n");
-/*This arrangement gives more mackish ordering of menu. TODO Window menu does not track opened toplevels correctly; see bug #701571  */	
+/*This arrangement gives more mackish ordering of menu. TODO Window menu does not track opened toplevels correctly; see bug #701571  */
 	gint menupos = 0;
 	if (bfwin_action_group_is_available(bfwin->uimanager, "AboutActions")) { /*Since it is plugin, user can disable it, and this leads to bf crash */
 		menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/HelpMenu");
@@ -1615,15 +1635,15 @@ bfwin_show_main(Tbfwin * bfwin)
 		menupos = 2;
 	}
 	gtkosx_application_set_window_menu (theApp, NULL);
-	
+
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/EditMenu/EditPreferences");
 	gtkosx_application_insert_app_menu_item(theApp, menuitem, menupos);
 
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/FileMenu/FileQuit");
 	gtk_widget_hide(menuitem);
-	
+
 	gtkosx_application_set_use_quartz_accelerators (theApp, FALSE);
-	
+
 	if (main_v->osx_status == 0 && g_list_length(main_v->bfwinlist) == 1) { /* Accelarators should be moved just once, at the startup */
 		DEBUG_MSG("bfwin_show_main, configuring accelerators for OSX\n");
 		gtk_accel_map_foreach_unfiltered(NULL, osx_accel_map_foreach_controltometa_lcb);
@@ -1650,12 +1670,12 @@ IgeMacMenuGroup *group;
 
 	/* MACTODO: add focus in and focus out event so we can sync the menu
 	   when we switch to a different bluefish window */
-	   
+
 	   if (main_v->osx_status == 2) {
-	   	
+
 	   	bfwin_action_groups_set_sensitive(bfwin, FALSE);
-		
-		return;	   
+
+		return;
 	   }
 #endif
 	DEBUG_MSG("bfwin_show_main, before show\n");
