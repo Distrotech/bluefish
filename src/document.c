@@ -205,7 +205,7 @@ return_urilist_from_doclist(GList * doclist)
  * [1] - cursor offset
  * [2] - topleft corner of visible area offset (used to scroll textview to the same position)
  * [3] - 1 if document is current
- * [4] - NULL 
+ * [4] - NULL
  */
 GList *
 return_arraylist_from_doclist(GList * doclist)
@@ -222,11 +222,11 @@ return_arraylist_from_doclist(GList * doclist)
 		GdkRectangle visible_area;
 		tmpdoc = DOCUMENT(tmplist->data);
 		if (tmpdoc->uri) {
-			gint cursor_offset = doc_get_cursor_position(tmpdoc); 
+			gint cursor_offset = doc_get_cursor_position(tmpdoc);
 			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(tmpdoc->view), &visible_area);
 			gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(tmpdoc->view), &iter, visible_area.x, visible_area.y);
-			gint visible_area_offset = gtk_text_iter_get_offset(&iter); 
-			tmparr = g_malloc0(sizeof(gchar *) * 5); 
+			gint visible_area_offset = gtk_text_iter_get_offset(&iter);
+			tmparr = g_malloc0(sizeof(gchar *) * 5);
 			tmparr[0] =g_file_get_parse_name(tmpdoc->uri);
 			tmparr[1] = g_strdup_printf("%d", cursor_offset);
 			tmparr[2] = g_strdup_printf("%d", visible_area_offset);
@@ -306,7 +306,7 @@ remove_filename_from_recentlist(Tbfwin * bfwin, gboolean project, GFile * uri)
 		if (main_v->props.register_recent_mode != 0) {
 				GError *gerror = NULL;
 				gtk_recent_manager_remove_item(main_v->recentm, curi, &gerror);
-			}		   
+			}
 	}
 	g_free(curi);
 }
@@ -493,6 +493,7 @@ doc_set_wrap(Tdocument * doc, gboolean enabled)
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view), wmode);
 	if (doc->slave)
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->slave), wmode);
+	doc_recalculate_right_margin(doc);
 }
 
 /**
@@ -2583,39 +2584,43 @@ doc_view_style_updated_lcb(GtkWidget *widget, gpointer user_data)
 }
 #endif
 
-static gint
-calc_right_margin_pixels_to_border(Tdocument *doc)
-{
-	gint width, retval, borderleft;
-	GdkWindow *gwin;
-
-	if (!main_v->props.wrap_on_right_margin) {
-		return main_v->props.adv_textview_right_margin;
-	}
-	gwin = gtk_text_view_get_window(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_TEXT);
-	if (!gwin)
-		return main_v->props.adv_textview_right_margin;
-#if GTK_CHECK_VERSION(2,24,0)
-	width = gdk_window_get_width(gwin);
-#else
-	gdk_drawable_get_size((GdkDrawable *)gwin, &width, &retval);
-#endif
-	borderleft = gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_LEFT);
-	retval = width - BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char * main_v->props.right_margin_pos /*- borderleft*/;
-	DEBUG_MSG("calc_right_margin_pixels_to_border, width=%d, borderleft=%d, margin*pixel=%d, retval=%d\n",width, borderleft, BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char * main_v->props.right_margin_pos, retval);
-	if (retval <= 0) {
-		return 0;
-	}
-	return retval;
-}
-
 /* called from g_list_foreach() in bfwin.c on a window configure event */
 void
-doc_recalculate_right_margin(gpointer data,gpointer user_data)
+doc_recalculate_right_margin(Tdocument *doc)
 {
-	gtk_text_view_set_right_margin(GTK_TEXT_VIEW(DOCUMENT(data)->view), calc_right_margin_pixels_to_border(DOCUMENT(data)));
+	GdkWindow *gwin;
+	gint width=-1,height;
+
+	if (main_v->props.wrap_on_right_margin) {
+		gwin = gtk_text_view_get_window(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_TEXT);
+		if (gwin) {
+#if GTK_CHECK_VERSION(2,24,0)
+			width = gdk_window_get_width(gwin);
+#else
+			gdk_drawable_get_size((GdkDrawable *)gwin, &width, &retval);
+#endif
+		}
+	}
+
+	if (width >= 0 && gtk_text_view_get_wrap_mode(GTK_TEXT_VIEW(doc->view))!=GTK_WRAP_NONE) {
+		gtk_text_view_set_right_margin(GTK_TEXT_VIEW(doc->view), width - BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char * main_v->props.right_margin_pos);
+		if (doc->slave)
+			gtk_text_view_set_right_margin(GTK_TEXT_VIEW(doc->slave), width - BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char * main_v->props.right_margin_pos);
+	} else {
+		gtk_text_view_set_right_margin(GTK_TEXT_VIEW(doc->view), main_v->props.adv_textview_right_margin);
+		if (doc->slave)
+			gtk_text_view_set_right_margin(GTK_TEXT_VIEW(doc->slave), main_v->props.adv_textview_right_margin);
+	}
 }
 
+void
+bfwin_alldoc_recalc_right_margin(Tbfwin *bfwin) {
+	GList *tmplist = g_list_first(bfwin->documentlist);
+	while (tmplist) {
+		doc_recalculate_right_margin(tmplist->data);
+		tmplist = g_list_next(tmplist);
+	}
+}
 
 Tdocument *
 doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean init_fileinfo)
@@ -2624,7 +2629,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	Tdocument *newdoc;
 	GtkWidget *hbox, *button;
 	GList *tmplist;
-	
+
 #ifdef MAC_INTEGRATION
 	if (main_v->osx_status == 2 && g_list_length(main_v->bfwinlist) == 1){
 		gtk_widget_show(bfwin->main_window);
@@ -2632,7 +2637,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 		force_new = FALSE;
 		main_v->osx_status = 0;
 	}
-#endif	
+#endif
 	/* test if the current document is empty and nameless, if so we return that */
 	if (!force_new && bfwin->current_document && g_list_length(bfwin->documentlist) == 1
 		&& doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
@@ -2649,7 +2654,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 	newdoc->buffer = gtk_text_buffer_new(langmgr_get_tagtable());
 	newdoc->view = bftextview2_new_with_buffer(newdoc->buffer);
 	gtk_text_view_set_left_margin(GTK_TEXT_VIEW(newdoc->view), main_v->props.adv_textview_left_margin);
-	gtk_text_view_set_right_margin(GTK_TEXT_VIEW(newdoc->view), calc_right_margin_pixels_to_border(newdoc));
+	doc_recalculate_right_margin(newdoc);
 
 	bluefish_text_view_multiset(BLUEFISH_TEXT_VIEW(newdoc->view), newdoc,
 								BFWIN(bfwin)->session->view_line_numbers, BFWIN(bfwin)->session->view_blocks,
@@ -3594,7 +3599,7 @@ all_documents_apply_settings()
 		const gchar *tmpstr;
 		bluefish_text_view_set_font(BLUEFISH_TEXT_VIEW(doc->view), font_desc);
 		bluefish_text_view_set_colors(BLUEFISH_TEXT_VIEW(doc->view), main_v->props.btv_color_str);
-		gtk_text_view_set_right_margin(GTK_TEXT_VIEW(DOCUMENT(doc)->view), calc_right_margin_pixels_to_border(DOCUMENT(doc)));
+		doc_recalculate_right_margin(doc);
 		if (gtk_text_view_get_wrap_mode(GTK_TEXT_VIEW(doc->view))!=GTK_WRAP_NONE) {
 			doc_set_wrap(doc, TRUE);
 		}
