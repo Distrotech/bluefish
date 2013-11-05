@@ -146,7 +146,8 @@ typedef struct {
 } Ttablerow;					/* a row in the DFA, right now exactly 256 bytes */
 
 
-#define character_is_symbol(st,context,c) (g_array_index((GArray *)g_array_index(st->contexts, Tcontext, context).table, Ttablerow, 1).row[c] != 1)
+/*#define character_is_symbol(st,context,c) (g_array_index((GArray *)g_array_index(st->contexts, Tcontext, context).table, Ttablerow, 1).row[c] != 1)*/
+gboolean character_is_symbol(Tscantable *st,guint16 context, gunichar uc);
 
 #define get_table(scantable, context) ((GArray *)g_array_index(scantable->contexts, Tcontext, context).table)
 

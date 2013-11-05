@@ -64,6 +64,18 @@ static GdkColor st_whitespace_color, st_cline_color, st_cursor_highlight_color;
 
 /****************************** utility functions ******************************/
 
+gboolean character_is_symbol(Tscantable *st,guint16 context, gunichar uc) {
+	if (uc > 127)
+		return FALSE;
+	if (!st) {
+		return FALSE;
+	}
+	if (context > st->contexts->len) {
+		return FALSE;
+	}
+	return (g_array_index((GArray *)g_array_index(st->contexts, Tcontext, context).table, Ttablerow, 1).row[uc] != 1);
+}
+
 static inline gboolean
 is_symbol(BluefishTextView * btv, gint contextnum, gunichar uc)
 {
