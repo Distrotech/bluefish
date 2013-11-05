@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define ENABLE_PRINT_DFA
+/*#define ENABLE_PRINT_DFA*/
 
 /* for the design docs see bftextview2.h */
 #include <string.h>
@@ -203,8 +203,8 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 	gint newstate = -1;			/* if all characters can follow existing states we don't need any newstate
 								   and thus newstate==-1 but if one or more characters in one or more states need a new state
 								   it will be >0 */
-	DBG_PATCOMPILE("create_state_tables started with get_length(positions)=%d states, pointtoself=%d\n",
-				   g_queue_get_length(positions), pointtoself);
+	DBG_PATCOMPILE("create_state_tables, context=%d, started with get_length(positions)=%d states, pointtoself=%d, end_is_symbol=%d\n",
+				   (gint)context,g_queue_get_length(positions), pointtoself,end_is_symbol);
 	while (g_queue_get_length(positions)) {
 		pos = GPOINTER_TO_INT(g_queue_pop_head(positions));
 		/*DBG_PATCOMPILE("working on position %d, identstate=%d\n", pos, identstate);*/
@@ -517,7 +517,7 @@ process_regex_part(Tscantable * st, gchar * regexpart, gint16 context, gboolean 
 					/* check if the last character of the regex is a symbol, if so the last state should not
 					   refer to the identstate for all non-symbols */
 					gint j;
-					for (j = 0; j <= NUMSCANCHARS; j++) {
+					for (j = NUMSCANCHARS; j >=0 ; j--) {
 						if (characters[j] == 1
 							&& !character_is_symbol(st, context, j)) {
 							only_symbols = FALSE;
