@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define ENABLE_PRINT_DFA*/
+#define ENABLE_PRINT_DFA
 
 /* for the design docs see bftextview2.h */
 #include <string.h>
@@ -53,6 +53,10 @@ the zero-or-more *
 the character list [a-z]
 
 */
+
+#ifdef ENABLE_PRINT_DFA
+void print_DFA_subset(Tscantable * st, gint16 context, char *chars);
+#endif
 
 static gint
 pointersort_compare(gconstpointer a, gconstpointer b)
@@ -206,7 +210,7 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 		/*DBG_PATCOMPILE("working on position %d, identstate=%d\n", pos, identstate);*/
 		for (c = 0; c < NUMSCANCHARS; c++) {
 			if (characters[c] == 1) {
-				DBG_PATCOMPILE("running for position %d char %c\n",pos,c);
+				DBG_PATCOMPILE("running for position %d char %c (=%d)\n",pos,c,c);
 				/* there is a bug in the pattern compiler that may compile a buggy language file without a warning:
 				if a new keyword is added, and all characters already exist there are no new states created: this function
 				will simply follow the existing states. BUT IT DOES NOT CHECK IF THERE ARE MULTIPLE WAYS TO GET TO THESE
@@ -605,6 +609,12 @@ compile_limitedregex_to_DFA(Tscantable * st, gchar * input, gboolean caseinsensi
 	g_queue_free(positions);
 	g_queue_free(newpositions);
 	g_free(lregex);
+	
+#ifdef ENABLE_PRINT_DFA
+	if (context == 3) {
+		print_DFA_subset(st, context, "#a \n\r");
+	}
+#endif
 }
 
 /* this function cannot do any regex style patterns
@@ -633,7 +643,7 @@ compile_keyword_to_DFA(Tscantable * st, const gchar * keyword, guint16 matchnum,
 		pattern = g_strdup(keyword);
 	}
 
-	DBG_PATCOMPILE("in context %d we start with position %d\n", context, (gint) g_queue_peek_head(positions));
+	DBG_PATCOMPILE("in context %d we start with position %d\n", (gint)context, GPOINTER_TO_INT(g_queue_peek_head(positions)));
 	len = strlen(pattern);
 
 	end_is_symbol =
@@ -989,9 +999,16 @@ print_DFA_subset(Tscantable * st, gint16 context, char *chars)
 {
 	gint i, j, len;
 	len = strlen(chars);
-	g_print("     ");
+	g_print("***************** print subset of DFA table for context %d\n",(gint)context);
+	g_print("       ");
 	for (j = 0; j <= len; j++) {
-		g_print("  %c  ", chars[j]);
+		if (chars[j] == '\n') {
+			g_print(" \\n   ");
+		} else if (chars[j] == '\r') {
+			g_print(" \\r   ");
+		} else {
+			g_print(" '%c' ", chars[j]);
+		}
 	}
 	g_print(": match\n");
 	for (i = 0; i < g_array_index(st->contexts, Tcontext, context).table->len; i++) {
@@ -1019,7 +1036,7 @@ print_DFA_subset(Tscantable * st, gint16 context, char *chars)
 		}
 		g_print("\n");
 	}
-
+	g_print("*****************\n");
 }
 
 void

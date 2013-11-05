@@ -1772,7 +1772,6 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 {
 	GtkTextIter iter;
 	GtkTextIter mstart;
-	/*GArray *matchstack; */
 	Tscanning scanning;
 	guint pos = 0, newpos, reconstruction_o, endoffset;
 	gboolean end_of_region = FALSE, last_character_run = FALSE, continue_loop = TRUE, finished;
@@ -1918,6 +1917,17 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #ifdef IDENTSTORING
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &itcursor, gtk_text_buffer_get_insert(btv->buffer));
 #endif
+/* ******************************************************************************
+in the following loop we do the actual scanning. At the current offset (iter) we get a character (uc) 
+
+every loop, we lookup the next position in the table (newpos), using the character (uc), context (scanning.context), and previous position (pos)  
+
+if newpos==0 we have a symbol (see bftextview2.h for an explanation of symbols and identifiers)
+   a symbol can be the start or the end of a match, and may be part of the match. so whenever we hit a symbol, we 
+   set the match start (mstart) to the current offset
+   if we find a symbol again, and we have a match, we have the start of the match (mstart) and the end of the match at the current position (iter) 
+
+****************************************************************************** */
 	do {
 		gunichar uc;
 		loop++;
@@ -1935,9 +1945,9 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 				uc = 1;
 			}
 		}
-		DBG_SCANNING("scanning offset %d pos %d %c ", gtk_text_iter_get_offset(&iter), pos, uc);
+		DBG_SCANNING("scanning offset %d pos %d '%c'=%d ", gtk_text_iter_get_offset(&iter), pos, uc, uc);
 		newpos = get_tablerow(btv->bflang->st,scanning.context,pos).row[uc];
-		DBG_SCANNING("(context=%d).. got newpos %d\n", scanning.context, newpos);
+		DBG_SCANNING("(context=%d).. got newpos %d %s\n", scanning.context, newpos, (newpos==0?" -> symbol or pattern itself ends on symbol":""));
 		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
 			if (G_UNLIKELY(get_tablerow(btv->bflang->st,scanning.context,pos).match)) {
 				Tmatch match;
@@ -1976,6 +1986,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 					}
 				}
 #endif							/* IDENTSTORING */
+				DBG_SCANNING("no match, but do set mstart to offset %d and set newpos=0\n",gtk_text_iter_get_offset(&iter));
 			}
 			if (G_UNLIKELY(last_character_run && scanning.nextfound && !nextcache_valid(&scanning))) {
 				guint invalidoffset;
@@ -1993,6 +2004,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #endif
 			}
 			mstart = iter;
+			/*DBG_SCANNING("mstart is set to offset %d, newpos=0\n",gtk_text_iter_get_offset(&mstart));*/
 			newpos = 0;
 		} else if (G_LIKELY(!last_character_run)) {
 			gtk_text_iter_forward_char(&iter);

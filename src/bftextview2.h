@@ -157,15 +157,16 @@ see that the occurences of 'char' that should be highlighted are all in between 
 
 The Tcontext structure has a startstate for each context and an identifier-state (identstate).
 In the next example state 0 is the startstate and state 1 the identstate:
-
-|state|| space| a | c | h | r | * | ( | ) | _ | have match ?
-|  0  ||   0  | 1 | 2 | 1 | 1 | 0 | 0 | 0 | 1 | no
-|  1  ||   0  | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 1 | no
-|  2  ||   0  | 1 | 1 | 3 | 1 | 0 | 0 | 0 | 1 | no
-|  3  ||   0  | 4 | 1 | 1 | 1 | 0 | 0 | 0 | 1 | no
-|  4  ||   0  | 1 | 1 | 1 | 5 | 0 | 0 | 0 | 1 | no
-|  5  ||   0  | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 1 | yes! we have: char
-
+-----------------------------------------------------------------------
+|state|| space| a | c | h | r | * | ( | ) | _ | have match ?          |
+-----------------------------------------------------------------------
+|  0  ||   0  | 1 | 2 | 1 | 1 | 0 | 0 | 0 | 1 | no                    |
+|  1  ||   0  | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 1 | no                    |
+|  2  ||   0  | 1 | 1 | 3 | 1 | 0 | 0 | 0 | 1 | no                    |
+|  3  ||   0  | 4 | 1 | 1 | 1 | 0 | 0 | 0 | 1 | no                    |
+|  4  ||   0  | 1 | 1 | 1 | 5 | 0 | 0 | 0 | 1 | no                    |
+|  5  ||   0  | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 1 | yes! we have: char    |
+-----------------------------------------------------------------------
 now try to parse the bit '(char*' starting at state 0 (the startstate)
 ( -> state 0 if we find state 0 we check if there is a match.. no
 c -> state 2

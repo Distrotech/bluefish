@@ -42,14 +42,6 @@
 
 <definition>
 <context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
-<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
-<element pattern="\$+[!@?*#\$a-zA-Z0-9_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="variable"/>
-<element pattern="\${[!@?*#\$a-zA-Z0-9_][a-zA-Z0-9_]*" is_regex="1" highlight="variable">
-<context symbols="&quot;}:-+=?">
-<element pattern=":?[-+=?]" is_regex="1" highlight="keyword"/>
-<element pattern="}" highlight="variable" ends_context="1"/>
-</context>
-</element>
 <group highlight="keyword" >
 	<autocomplete enable="1" />
 	<element pattern="do" />
@@ -418,6 +410,15 @@
 <element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
 <element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" block_name="Parentheses block" />
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+
+<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+<element pattern="\$+[!@?*#\$a-zA-Z0-9_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="variable"/>
+<element pattern="\${[!@?*#\$a-zA-Z0-9_][a-zA-Z0-9_]*" is_regex="1" highlight="variable">
+<context symbols="&quot;}:-+=?">
+<element pattern=":?[-+=?]" is_regex="1" highlight="keyword"/>
+<element pattern="}" highlight="variable" ends_context="1"/>
+</context>
+</element>
 
 <element pattern="#" highlight="comment">
 <context symbols="&#10;&#13;" highlight="comment">
