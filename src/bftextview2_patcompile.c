@@ -517,7 +517,7 @@ process_regex_part(Tscantable * st, gchar * regexpart, gint16 context, gboolean 
 					/* check if the last character of the regex is a symbol, if so the last state should not
 					   refer to the identstate for all non-symbols */
 					gint j;
-					for (j = NUMSCANCHARS-1; j >=0 ; j--) {
+					for (j = 0; j < NUMSCANCHARS; j++) {
 						if (characters[j] == 1
 							&& !character_is_symbol(st, context, j)) {
 							only_symbols = FALSE;
