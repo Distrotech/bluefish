@@ -1467,7 +1467,7 @@ filetreemodel_iter_nth_child(GtkTreeModel * tree_model, GtkTreeIter * iter, GtkT
 
 	g_assert(record != NULL);
 	g_assert(record->pos == n);
-	DEBUG_MSG("filetreemodel_iter_nth_child(%d) for parent '%s' results in '%s', set iter %p\n", n, precord->name, record->name, iter);
+	DEBUG_MSG("filetreemodel_iter_nth_child(%d) results in '%s', set iter %p\n", n, record->name, iter);
 	iter->stamp = ftm->stamp;
 	iter->user_data = record;
 
