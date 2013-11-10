@@ -1642,7 +1642,7 @@ bfwin_show_main(Tbfwin * bfwin)
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/FileMenu/FileQuit");
 	gtk_widget_hide(menuitem);
 
-	gtkosx_application_set_use_quartz_accelerators (theApp, FALSE);
+	gtkosx_application_set_use_quartz_accelerators (theApp, TRUE);
 
 	if (main_v->osx_status == 0 && g_list_length(main_v->bfwinlist) == 1) { /* Accelarators should be moved just once, at the startup */
 		DEBUG_MSG("bfwin_show_main, configuring accelerators for OSX\n");
