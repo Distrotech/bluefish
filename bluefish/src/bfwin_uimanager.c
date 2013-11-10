@@ -986,8 +986,13 @@ static const GtkActionEntry document_actions[] = {
 	 N_("Goto line number in clipboard or selection"), G_CALLBACK(ui_goto_line_selection)},
 	{"JumpToReference", NULL, N_("_Jump to Reference"), "<control>J", N_("Jump to reference"),
 	 G_CALLBACK(ui_jump_to_reference)},
+#ifdef MAC_INTEGRATION /* On Mac Cmd+m is reserved for Minimise Window shortcut */	 
+	{"JumpToMatchingBlockBoundary", NULL, N_("Jump to Matching Block Boundary"), "<shift><control>M", N_("Jump to Matching Block Boundary"),
+	 G_CALLBACK(ui_jump_to_matching_block_boundary)}
+#else
 	{"JumpToMatchingBlockBoundary", NULL, N_("Jump to Matching Block Boundary"), "<control>m", N_("Jump to Matching Block Boundary"),
 	 G_CALLBACK(ui_jump_to_matching_block_boundary)}
+#endif
 };
 
 static const GtkActionEntry edit_actions[] = {
@@ -1002,8 +1007,14 @@ static const GtkActionEntry find_replace_actions[] = {
 	{"FindAgain", NULL, N_("Find A_gain"), "<control>G", N_("Find again"), G_CALLBACK(ui_find_again)},
 	{"FindSelection", NULL, N_("Find from Clip_board"), "<shift><control>F", N_("Find from clipboard or selection"),
 	 G_CALLBACK(ui_find_from_clipboard)},
+#ifdef MAC_INTEGRATION /* On Mac Cmd+H is reserved for Hide Application shortcut */
+	{"Replace", GTK_STOCK_FIND_AND_REPLACE, N_("Ad_vanced Find & Replace..."), "<shift><control>H", N_("Advanced Find and Replace"),
+	 G_CALLBACK(ui_replace)}
+#else
 	{"Replace", GTK_STOCK_FIND_AND_REPLACE, N_("Ad_vanced Find & Replace..."), "<control>H", N_("Advanced Find and Replace"),
-	 G_CALLBACK(ui_replace)}/*,
+	 G_CALLBACK(ui_replace)}
+#endif
+/*,
 	{"ReplaceAgain", NULL, N_("Replace Agai_n"), "<shift><control>H", N_("Replace again"),
 	 G_CALLBACK(ui_replace_again)}*/
 };
