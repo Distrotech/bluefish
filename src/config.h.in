@@ -1,0 +1,331 @@
+/* src/config.h.in.  Generated from configure.ac by autoheader.  */
+
+/* The configure options used to compile bluefish. */
+#undef CONFIGURE_OPTIONS
+
+/* Define to 1 if you want to have a massive amount of debug output. */
+#undef DEBUG
+
+/* Define to 1 if you want to have development checks. Recommended when
+   compiling from svn. */
+#undef DEVELOPMENT
+
+/* always defined to indicate that i18n is enabled */
+#undef ENABLE_NLS
+
+/* gettext domain */
+#undef GETTEXT_PACKAGE
+
+/* Define to 1 if you have the `accept' function. */
+#undef HAVE_ACCEPT
+
+/* Define to 1 if you have the <arpa/inet.h> header file. */
+#undef HAVE_ARPA_INET_H
+
+/* Define to 1 if you have the `asctime' function. */
+#undef HAVE_ASCTIME
+
+/* Define to 1 if you have the `asctime_r' function. */
+#undef HAVE_ASCTIME_R
+
+/* Define to 1 if you have the `bind' function. */
+#undef HAVE_BIND
+
+/* Define to 1 if you have the `bind_textdomain_codeset' function. */
+#undef HAVE_BIND_TEXTDOMAIN_CODESET
+
+/* Define to 1 if you have the `ctime' function. */
+#undef HAVE_CTIME
+
+/* Define to 1 if you have the `ctime_r' function. */
+#undef HAVE_CTIME_R
+
+/* Define to 1 if you have the <ctype.h> header file. */
+#undef HAVE_CTYPE_H
+
+/* Define to 1 if you have the `dcgettext' function. */
+#undef HAVE_DCGETTEXT
+
+/* Define to 1 if you have the <dirent.h> header file. */
+#undef HAVE_DIRENT_H
+
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* Define to 1 if you have the <enchant/enchant.h> header file. */
+#undef HAVE_ENCHANT_ENCHANT_H
+
+/* Define to 1 if you have the <enchant.h> header file. */
+#undef HAVE_ENCHANT_H
+
+/* Define to 1 if you have the <errno.h> header file. */
+#undef HAVE_ERRNO_H
+
+/* Define to 1 if you have the <fcntl.h> header file. */
+#undef HAVE_FCNTL_H
+
+/* Define to 1 if you have the <getopt.h> header file. */
+#undef HAVE_GETOPT_H
+
+/* Define if the GNU gettext() function is already present or preinstalled. */
+#undef HAVE_GETTEXT
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define if your <locale.h> file defines LC_MESSAGES. */
+#undef HAVE_LC_MESSAGES
+
+/* Define to 1 if you have the 'enchant' library (-lenchant). */
+#undef HAVE_LIBENCHANT
+
+/* Define to 1 if you have the 'enchant' library (-lenchant) >= 1.4. */
+#undef HAVE_LIBENCHANT_1_4
+
+/* Define to 1 if you have the 'gucharmap' library (-lgucharmap). */
+#undef HAVE_LIBGUCHARMAP
+
+/* Define to 1 if you have the 'gucharmap-2' library (-lgucharmap). */
+#undef HAVE_LIBGUCHARMAP_2
+
+/* Define to 1 for bg lingua support. */
+#undef HAVE_LINGUA_BG
+
+/* Define to 1 for ca lingua support. */
+#undef HAVE_LINGUA_CA
+
+/* Define to 1 for cs lingua support. */
+#undef HAVE_LINGUA_CS
+
+/* Define to 1 for da lingua support. */
+#undef HAVE_LINGUA_DA
+
+/* Define to 1 for de lingua support. */
+#undef HAVE_LINGUA_DE
+
+/* Define to 1 for el lingua support. */
+#undef HAVE_LINGUA_EL
+
+/* Define to 1 for en lingua support. */
+#undef HAVE_LINGUA_EN
+
+/* Define to 1 for es lingua support. */
+#undef HAVE_LINGUA_ES
+
+/* Define to 1 for eu lingua support. */
+#undef HAVE_LINGUA_EU
+
+/* Define to 1 for fi lingua support. */
+#undef HAVE_LINGUA_FI
+
+/* Define to 1 for fr lingua support. */
+#undef HAVE_LINGUA_FR
+
+/* Define to 1 for gl lingua support. */
+#undef HAVE_LINGUA_GL
+
+/* Define to 1 for hu lingua support. */
+#undef HAVE_LINGUA_HU
+
+/* Define to 1 for it lingua support. */
+#undef HAVE_LINGUA_IT
+
+/* Define to 1 for ja lingua support. */
+#undef HAVE_LINGUA_JA
+
+/* Define to 1 for ko lingua support. */
+#undef HAVE_LINGUA_KO
+
+/* Define to 1 for nb lingua support. */
+#undef HAVE_LINGUA_NB
+
+/* Define to 1 for nl lingua support. */
+#undef HAVE_LINGUA_NL
+
+/* Define to 1 for nn lingua support. */
+#undef HAVE_LINGUA_NN
+
+/* Define to 1 for pl lingua support. */
+#undef HAVE_LINGUA_PL
+
+/* Define to 1 for pt lingua support. */
+#undef HAVE_LINGUA_PT
+
+/* Define to 1 for pt_BR lingua support. */
+#undef HAVE_LINGUA_PT_BR
+
+/* Define to 1 for ro lingua support. */
+#undef HAVE_LINGUA_RO
+
+/* Define to 1 for ru lingua support. */
+#undef HAVE_LINGUA_RU
+
+/* Define to 1 for sk lingua support. */
+#undef HAVE_LINGUA_SK
+
+/* Define to 1 for sr lingua support. */
+#undef HAVE_LINGUA_SR
+
+/* Define to 1 for sv lingua support. */
+#undef HAVE_LINGUA_SV
+
+/* Define to 1 for ta lingua support. */
+#undef HAVE_LINGUA_TA
+
+/* Define to 1 for tr lingua support. */
+#undef HAVE_LINGUA_TR
+
+/* Define to 1 for uk lingua support. */
+#undef HAVE_LINGUA_UK
+
+/* Define to 1 for zh_CN lingua support. */
+#undef HAVE_LINGUA_ZH_CN
+
+/* Define to 1 for zh_TW lingua support. */
+#undef HAVE_LINGUA_ZH_TW
+
+/* Define to 1 if you have the <locale.h> header file. */
+#undef HAVE_LOCALE_H
+
+/* Define to 1 if you have the `localtime' function. */
+#undef HAVE_LOCALTIME
+
+/* Define to 1 if you have the <math.h> header file. */
+#undef HAVE_MATH_H
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the `msgrcv' function. */
+#undef HAVE_MSGRCV
+
+/* Define to 1 if you have the `msgsnd' function. */
+#undef HAVE_MSGSND
+
+/* Define to 1 if you have the <netdb.h> header file. */
+#undef HAVE_NETDB_H
+
+/* Define to 1 if you have the <netinet/in.h> header file. */
+#undef HAVE_NETINET_IN_H
+
+/* Define to 1 if you have python installed. */
+#undef HAVE_PYTHON
+
+/* Define to 1 if you have the `socket' function. */
+#undef HAVE_SOCKET
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdio.h> header file. */
+#undef HAVE_STDIO_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the `strcasestr' function. */
+#undef HAVE_STRCASESTR
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the <sys/ipc.h> header file. */
+#undef HAVE_SYS_IPC_H
+
+/* Define to 1 if you have the <sys/msg.h> header file. */
+#undef HAVE_SYS_MSG_H
+
+/* Define to 1 if you have the <sys/select.h> header file. */
+#undef HAVE_SYS_SELECT_H
+
+/* Define to 1 if you have the <sys/socket.h> header file. */
+#undef HAVE_SYS_SOCKET_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <time.h> header file. */
+#undef HAVE_TIME_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to 1 if you want to have profiling information about highlighting
+   patterns. */
+#undef HL_PROFILING
+
+/* Define to the sub-directory in which libtool stores uninstalled libraries.
+   */
+#undef LT_OBJDIR
+
+/* Define to 1 for gtk Mac OSX integration. */
+#undef MAC_INTEGRATION
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define to 1 if you have a Darwin host. */
+#undef PLATFORM_DARWIN
+
+/* Define to 1 if you have a Solaris OS. */
+#undef PLATFORM_SOLARIS
+
+/* Define to the type of arg 1 for `select'. */
+#undef SELECT_TYPE_ARG1
+
+/* Define to the type of args 2, 3 and 4 for `select'. */
+#undef SELECT_TYPE_ARG234
+
+/* Define to the type of arg 5 for `select'. */
+#undef SELECT_TYPE_ARG5
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
+#undef TIME_WITH_SYS_TIME
+
+/* Version number of package */
+#undef VERSION
+
+/* Define to 1 if you have a Cygwin/Windows OS. */
+#undef WIN32
+
+/* Don't define to 1 if you want to build without spell-checker. */
+#undef WITH_SPC
+
+/* Define to `__inline__' or `__inline' if that's what the C compiler
+   calls it, or to nothing if 'inline' is not supported under any name.  */
+#ifndef __cplusplus
+#undef inline
+#endif
+
+/* type to use in place of socklen_t if not defined */
+#undef socklen_t
