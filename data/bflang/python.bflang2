@@ -25,6 +25,7 @@
 	<mime type="text/x-python" />
 	<mime type="text/plain?py"/>
 	<option name="show_in_menu" default="1"/>
+	<option name="string_is_block" default="0" description="Show a string as a block"/>
 	<option name="Parentheses block_foldable" default="0" description="Allow folding of the Parentheses block" />
 	<highlight name="string" style="string"  />
 	<highlight name="brackets" style="brackets"  />
@@ -2053,26 +2054,26 @@
 <element pattern="xml.sax.parse" />
 <element pattern="xml.sax.parseString" />
 </group>
-<element pattern="&#34;" highlight="string">
+<element id="e.dquote" pattern="&#34;" highlight="string" starts_block="option:string_is_block">
 	<context symbols="\&#34;" highlight="string">
 		<element pattern="\\." is_regex="1"/>
-		<element pattern="&#34;" highlight="string" ends_context="1" />
+		<element pattern="&#34;" highlight="string" ends_context="1" ends_block="option:string_is_block" blockstartelement="e.dquote"/>
 	</context>
 </element>
-<element pattern="&#34;&#34;&#34;" highlight="string">
+<element id="e.3dquote" pattern="&#34;&#34;&#34;" highlight="string" starts_block="option:string_is_block">
 	<context symbols="&#34;" highlight="string">
-		<element pattern="&#34;&#34;&#34;" highlight="string" ends_context="1" />
+		<element pattern="&#34;&#34;&#34;" highlight="string" ends_context="1" ends_block="option:string_is_block" blockstartelement="e.3dquote" />
 	</context>
 </element>
-<element pattern="'" highlight="string">
+<element id="e.squote" pattern="'" highlight="string" starts_block="option:string_is_block">
 	<context symbols="\'" highlight="string">
 		<element pattern="\\." is_regex="1"/>
-		<element pattern="'" highlight="string" ends_context="1" />
+		<element pattern="'" highlight="string" ends_context="1" ends_block="option:string_is_block" blockstartelement="e.squote" />
 	</context>
 </element>
-<element pattern="'''" highlight="string">
+<element id="e.3squote" pattern="'''" highlight="string" starts_block="option:string_is_block">
 	<context symbols="'" highlight="string">
-		<element pattern="'''" highlight="string" ends_context="1" />
+		<element pattern="'''" highlight="string" ends_context="1" ends_block="option:string_is_block" blockstartelement="e.3squote" />
 	</context>
 </element>
 <group  highlight="value">
