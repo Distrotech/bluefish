@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		all-html.bfinc $Revision$
- 
+
 		Copyright (C) 2008-2013 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <bfinc>
 
@@ -112,8 +112,8 @@
 	</context>
 </tag>
 
-<!-- the following context can only be defined *after* the <style> tag, because 
-certain elements that are referred to in 
+<!-- the following context can only be defined *after* the <style> tag, because
+certain elements that are referred to in
 css-rules are defined in the inner context for <style>  -->
 <context id="c.html.attrib.style" symbols=" ;:'&quot;">
 	<element pattern="'" highlight="string">
@@ -150,7 +150,7 @@ css-rules are defined in the inner context for <style>  -->
 	<reference>Defines a default address or a default target for all links on a page</reference>
 </tag>
 <tag name="meta" highlight="html-tag" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&i18n;,content,http-equiv,name,scheme" attribhighlight="html-attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
-	<autocomplete append=" &gt;" />
+	<autocomplete append=" /&gt;" backup_cursor="2"/>
 	<reference>Defines metadata about an HTML document</reference>
 </tag>
 <tag name="title" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;" attribhighlight="html-attribute">
@@ -184,7 +184,7 @@ css-rules are defined in the inner context for <style>  -->
 </tag>
 
 <tag name="link" highlight="html-tag" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;&evnt;,charset,href,hreflang,media,rel,rev,target,type" attribhighlight="html-attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
-	<autocomplete enable="1" />
+	<autocomplete append=" /&gt;" backup_cursor="2"/>
 	<reference>Defines the relationship between a document and an external resource </reference>
 </tag>
 
@@ -203,7 +203,7 @@ css-rules are defined in the inner context for <style>  -->
 </reference>
 	</tag>
 	<tag name="img" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width" >
-		<autocomplete append=" src=&#34;&#34; alt=&#34;&#34; &gt;" />
+		<autocomplete append=" src=&#34;&#34; alt=&#34;&#34; /&gt;" backup_cursor="11" />
 		<reference>The img tag inserts an image into a document.
 It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; height=&quot;100&quot; alt=&quot;text to show when image isnot loaded&quot;/&gt;
 		</reference>
@@ -243,7 +243,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 		<reference>Defines a long quotation</reference>
 	</tag>
 	<tag name="br" case_insens="1" sgml_shorttag="1" no_close="1"  attributes="&univ;,clear">
-		<autocomplete append="&gt;" />
+		<autocomplete append="/&gt;" />
 		<reference>Defines a single line break</reference>
 	</tag>
 	<tag name="button" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,disabled,name,onblur,onfocus,tabindex,type,value">
@@ -301,7 +301,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 		<reference>Defines a HTML heading</reference>
 	</tag>
 	<tag name="hr" case_insens="1" sgml_shorttag="1" no_close="1"  attributes="&univ;,align,noshade,size,width" >
-		<autocomplete append="&gt;" />
+		<autocomplete append="/&gt;" />
 		<reference>Defines a horizontal line</reference>
 	</tag>
 	<tag name="i" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
@@ -360,7 +360,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	</tag>
 	<!--<tag name="var" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines a variable part of a text</reference>
-	</tag>-->			
+	</tag>-->
 </group>
 
 <context id="attribute.string" symbols="&quot;' ">
@@ -528,11 +528,11 @@ A simple example is:
 First name: &lt;input type=&quot;text&quot; name=&quot;fname&quot; /&gt;&lt;br /&gt;
 Last name: &lt;input type=&quot;text&quot; name=&quot;lname&quot; /&gt;&lt;br /&gt;
 &lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&gt;
-&lt;/form&gt;		
+&lt;/form&gt;
 		</reference>
 	</tag>
 	<tag name="input" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,accept,accesskey,align,alt,checked,disabled,ismap,maxlength,name,onblur,onchange,onfocus,onselect,readonly,size,src,tabindex,type,usemap,value" >
-		<autocomplete append="&gt;" backup_cursor="1" />
+		<autocomplete append=" /&gt;" backup_cursor="2" />
 		<reference>Defines an input control for a form. The input field has many forms depending on the type attribute.
 &lt;input type=&quot;button&quot; name=&quot;foo&quot; value=&quot;title&quot; /&gt;
 &lt;input type=&quot;checkbox&quot; name=&quot;foo&quot; value=&quot;title&quot; checked=&quot;checked&quot; /&gt;
