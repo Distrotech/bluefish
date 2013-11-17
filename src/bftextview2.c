@@ -259,8 +259,11 @@ bftextview2_scanner_idle(gpointer data)
 #ifdef HAVE_LIBENCHANT
 			&& !BLUEFISH_TEXT_VIEW(data)->spell_check
 #endif
-			)
+			) {
+		btv->scanner_idle = 0;
+		btv->scanner_immediate = 0;
 		return FALSE;
+	}
 	return bftextview2_scanner_scan((BluefishTextView *) data, TRUE);
 }
 
