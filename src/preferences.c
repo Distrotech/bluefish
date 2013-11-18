@@ -1604,6 +1604,7 @@ fill_bflang_gui(Tprefdialog * pd)
 	GList *tmplist = g_list_first(g_list_sort(pd->lists[bflang_options], sort_array2_lcb));
 	while (tmplist) {
 		gchar **strarr = (gchar **) tmplist->data;
+		GList *invalid=tmplist;
 		if (g_strv_length(strarr) == 3) {
 			GtkTreeIter iter;
 			gchar *tmp;
@@ -1612,9 +1613,14 @@ fill_bflang_gui(Tprefdialog * pd)
 				gtk_list_store_append(GTK_LIST_STORE(pd->bld.lstore), &iter);
 				gtk_list_store_set(GTK_LIST_STORE(pd->bld.lstore), &iter, 0, strarr[0], 1,
 								tmp, 2, strarr[2][0] == '1', 3, strarr, -1);
+				invalid = NULL;
 			}
 		}
 		tmplist = g_list_next(tmplist);
+		if (invalid) {
+			g_strfreev(invalid->data);
+			pd->lists[bflang_options] = g_list_delete_link(pd->lists[bflang_options], invalid);
+		}
 	}
 
 	tmplist = g_list_first(g_list_sort(pd->lists[highlight_styles], sort_array2_lcb));
