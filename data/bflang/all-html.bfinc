@@ -203,7 +203,8 @@ css-rules are defined in the inner context for <style>  -->
 </reference>
 	</tag>
 	<tag name="img" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width" >
-		<autocomplete append=" src=&#34;&#34; alt=&#34;&#34; /&gt;" backup_cursor="11" />
+		<autocomplete append=" src=&#34;&#34; alt=&#34;&#34; /&gt;" backup_cursor="11"  class="self_close_singleton_tags" />
+		<autocomplete append=" src=&#34;&#34; alt=&#34;&#34;&gt;" backup_cursor="9" notclass="self_close_singleton_tags" />
 		<reference>The img tag inserts an image into a document.
 It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; height=&quot;100&quot; alt=&quot;text to show when image isnot loaded&quot;/&gt;
 		</reference>
@@ -243,7 +244,8 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 		<reference>Defines a long quotation</reference>
 	</tag>
 	<tag name="br" case_insens="1" sgml_shorttag="1" no_close="1"  attributes="&univ;,clear">
-		<autocomplete append="/&gt;" />
+		<autocomplete append=" /&gt;" class="self_close_singleton_tags" />
+		<autocomplete append="&gt;" notclass="self_close_singleton_tags" />
 		<reference>Defines a single line break</reference>
 	</tag>
 	<tag name="button" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,disabled,name,onblur,onfocus,tabindex,type,value">
@@ -301,7 +303,8 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 		<reference>Defines a HTML heading</reference>
 	</tag>
 	<tag name="hr" case_insens="1" sgml_shorttag="1" no_close="1"  attributes="&univ;,align,noshade,size,width" >
-		<autocomplete append="/&gt;" />
+		<autocomplete append=" /&gt;" class="self_close_singleton_tags" />
+		<autocomplete append="&gt;" notclass="self_close_singleton_tags" />
 		<reference>Defines a horizontal line</reference>
 	</tag>
 	<tag name="i" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
