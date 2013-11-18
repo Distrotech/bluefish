@@ -64,6 +64,16 @@ static GdkColor st_whitespace_color, st_cline_color, st_cursor_highlight_color;
 
 /****************************** utility functions ******************************/
 
+const gchar *
+bluefish_text_view_get_lang_name(BluefishTextView *btv)
+{
+	if (!btv)
+		return NULL;
+	if (!btv->bflang)
+		return NULL;
+	return btv->bflang->name;
+}
+
 gboolean character_is_symbol(Tscantable *st,guint16 context, gunichar uc) {
 	if (uc > 127)
 		return FALSE;

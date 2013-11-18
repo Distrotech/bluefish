@@ -295,7 +295,7 @@ langmgr_insert_user_option(gchar * lang, gchar * option, gchar * val)
 	}
 }
 
-static const gchar *
+const gchar *
 lookup_user_option(const gchar * lang, const gchar * option)
 {
 	if (lang && option) {

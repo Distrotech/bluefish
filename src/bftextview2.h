@@ -55,7 +55,7 @@ nextcontext -1), we revert to the previous context
 
 ============ The scanned syntax cache ============
 - to find where to resume scanning it simply searches for the first position
-  that is marked with the needscanning tag 
+  that is marked with the needscanning tag
  - to know which patterns to use we have to know in which context we are. we therefore keep
    a cache of the (context)stack. on each position where the contextstack changes, we make a copy
    of the current state and store it in a sorted balanced tree (a GSequence), sorted by the
@@ -66,24 +66,24 @@ nextcontext -1), we revert to the previous context
  - same holds for the blocks. we keep a blockstack, and we keep a cache of the blockstack in the
    same foundcache as where we keep the contextstack. The member of the Tfound structure that
    describes the state for blocks is the Tfoundblock structure.
-   
-- when a new block is found, a Tfound structure has a member fblock of type Tfoundblock 
-  that points to the new block, and member numblockchange is 1. That Tfoundblock has a 
+
+- when a new block is found, a Tfound structure has a member fblock of type Tfoundblock
+  that points to the new block, and member numblockchange is 1. That Tfoundblock has a
   pointer to it's parent block.
 - when an end-of-block is found, the Tfound structure has again a member fblock that
   points to the popped block, and numblockchange is -1. So to get the active block *after*
   a popped block, you have to look at the parent of the fblock member!!!!
-- the Tfound member charoffset_o has the character offset of the end-of-the-end-of-context-match 
+- the Tfound member charoffset_o has the character offset of the end-of-the-end-of-context-match
   (Tfoundcontext->end_o) or the end-of-the-end-of-block-match (Tfoundblock->end2_o).
 
 The next ascii art shows how blocks are stored in the scancache. This is a special situation
-in which a second block starts but does not have an end, so both blocks are popped at 'f'. A 
-Tfound structure is saved at offset B, D and F.  
+in which a second block starts but does not have an end, so both blocks are popped at 'f'. A
+Tfound structure is saved at offset B, D and F.
 
      --------------------Block-1-with-valid-end--------------------
      |  |                                                      |  |
      |  |                        ------Block-without-end-------|--|
-     |  |                        |   |                         |  | 
+     |  |                        |   |                         |  |
 -----a--B------------------------c---D-------------------------e--F---------
      |  |                        |   |                         |  |
      |  |Tfound numblockchange=1 |   |Tfound numblockchange=1  |  |Tfound nublockchange=-2
@@ -93,7 +93,7 @@ Tfound structure is saved at offset B, D and F.
 
 
 - to paint the margin and detect if we can expand/collapse blocks, we can use this same
-  scancache. Along with walking the lines to draw the line numbers we walk the GSequence 
+  scancache. Along with walking the lines to draw the line numbers we walk the GSequence
   and see in the Tfound structures if there are new blocks that can be folded.
 
 
@@ -101,18 +101,18 @@ Tfound structure is saved at offset B, D and F.
 - the current scanning is based on Deterministic Finite Automata (DFA) just like the 1.1.6
 unstable engine (see wikipedia for more info). The 1.1.6 engine alloc's each state in a
 separate memory block. This new engine alloc's a large array for all states at once, so you can
-simply move trough the array instead of following pointers. 
-The array is the array 'table' in structure Tcontext. So each context has it's own 
-DFA table. Following the DFA is then as simple as state = table[state][character]; 
-where state is just an integer position in the array, and character is the current character 
-you're scanning. The array will help to speed up the scanner. I used guint16 because I 
-suspect that we never hit the 65500 states for a single context (largest patterns set right 
-now is php, 4500 functions use 32000 states). 
+simply move trough the array instead of following pointers.
+The array is the array 'table' in structure Tcontext. So each context has it's own
+DFA table. Following the DFA is then as simple as state = table[state][character];
+where state is just an integer position in the array, and character is the current character
+you're scanning. The array will help to speed up the scanner. I used guint16 because I
+suspect that we never hit the 65500 states for a single context (largest patterns set right
+now is php, 4500 functions use 32000 states).
 When a state has a positive result (it matches something) it has an index number to
 an array 'matches' in structure Tscantable which is an array of type Tpattern structure
 that has the information for the matched pattern.
 
-- each context has it's own DFA table. The startcontext for each context is always 
+- each context has it's own DFA table. The startcontext for each context is always
 position 0 and the identstate is always position 1 in that array
 
 - Compared to the engine in the 1.0 series the main advantage is that we do only a single scanning
@@ -139,8 +139,8 @@ added to the DFA when option "foo" is enabled. This way we can have gtk function
 in the C patterns for those of us that do GTK programming in Bluefish. All
 others will have a much smaller DFA table for the C language.
 
-Language file loading is done in bftextview2_langmgr.c, the found patterns are added 
-to the Tscantable structure and it's members (and compiled into a DFA table) 
+Language file loading is done in bftextview2_langmgr.c, the found patterns are added
+to the Tscantable structure and it's members (and compiled into a DFA table)
 in bftextview2_patcompile.c.
 
 ========== Symbols and identifiers in the DFA table ==========
@@ -199,24 +199,24 @@ as you see, the scanner is stuck in state 1 (the identstate) if
 either on the start or on the end there is no symbol.
 
 ======== Autocompleting patterns =============
-for autocompletion we keep a GCompletion in each context (member 'ac' of structure Tcontext). 
+for autocompletion we keep a GCompletion in each context (member 'ac' of structure Tcontext).
 This is filled with all the patterns during XML load.
 
-we use a similar scanning engine as above that can tell us where the string that 
+we use a similar scanning engine as above that can tell us where the string that
 the user is typing started, and in which context the curor position is. Once
-we know the context we know which GCompletion structure to use, so we can get 
+we know the context we know which GCompletion structure to use, so we can get
 a list of possible completion strings.
 
 The scanning for the context is done in bftextview2_scanner.c, the rest of the autocompletion
 code is in bftextview2_autocomp.c
 
 ======== Reference information ==========
-reference information can be shown in a tooltip above the text and in a side window 
+reference information can be shown in a tooltip above the text and in a side window
 during autocompletion. The reference information is stored in a member of the Tpattern
-structure. Each Tcontext structure has a member patternhash that is a hashtable with the 
+structure. Each Tcontext structure has a member patternhash that is a hashtable with the
 match as key and the index to the pattern in array Tscantable->matches as value.
 
-For the tooltip we do a short scanning run to find the context and  which pattern is 
+For the tooltip we do a short scanning run to find the context and  which pattern is
 actually under the cursor and we do a hash table lookup to find the corresponding
 reference information.
 
@@ -224,7 +224,7 @@ reference information.
 the spell checker is in bftextview2_spell.c
 
 after the syntax scanning is finished the spell checker is started. Similar to the syntax
-scanner it runs in short timeslices such that it won't block the GUI. It scans only in 
+scanner it runs in short timeslices such that it won't block the GUI. It scans only in
 certain GtkTextTag's (for example in the GtktextTag for comments and for strings).
 
 ======= Storing found function names and such for jump and autocompletion ======
@@ -232,28 +232,28 @@ certain GtkTextTag's (for example in the GtktextTag for comments and for strings
 identifiers, such as function names or variable names can be stored for jump and for
 autocompletion. Code is in bftextview2_identifier.c
 
-for jump: found functions names are stored in a hashtable 
+for jump: found functions names are stored in a hashtable
 bfwin->identifier_jump as
 key Tbflang-context-name -> value Tdocument-linenumber
 
 for autocompletion they are added to a GCompletion
 the GCompletion can be found in hashtable
-bfwin->identifier_ac with 
+bfwin->identifier_ac with
 key Tbflang-context -> value GCompletion
 
-identifier_mode="1" means that the following the *following* identifier is to be stored. For example in 
+identifier_mode="1" means that the following the *following* identifier is to be stored. For example in
 php 'function', and in python 'def' and 'class' (implemented in bluefish 2.0.3).
 identifier_mode="2" means that the match itself is to be stored as an identifier, for example in php
 the variable '$[a-zA-Z_][a-zA-Z0-9_]*' (implemented in 2.0.4)
 
 ======= Split view / slave widget =======
 
-a slave widget is a widget that does not do scanning itself, it doesn't 
+a slave widget is a widget that does not do scanning itself, it doesn't
 have a scanning table, it doesn't have any settings. It relies for all
 of these things on the master widget. On a master widget btv->master will
 point to itself, on a slave widget btv->master will point to the master.
 
-The slave widget should always be destroyed before the master. 
+The slave widget should always be destroyed before the master.
 */
 
 #ifndef _BFTEXTVIEW2_H_
@@ -315,7 +315,7 @@ typedef struct {
 typedef struct {
 	gchar *name;
 	GList *mimetypes;
-	GList *tags;				/* all tags used for highlighting in this language. we use this list when 
+	GList *tags;				/* all tags used for highlighting in this language. we use this list when
 								   we want to remove all tags and want to re-highlight */
 	gchar *filename;			/* the .bflang2 file */
 	Tscantable *st;				/* NULL or complete */
@@ -327,7 +327,7 @@ typedef struct {
 #endif
 	gboolean no_st;				/* no scantable, for Text, don't try to load the scantable if st=NULL */
 	gboolean parsing;			/* set to TRUE when a thread is parsing the scantable already */
-	gboolean in_menu; /* set to TRUE to show this language in the menu */ 
+	gboolean in_menu; /* set to TRUE to show this language in the menu */
 	gint size_table;
 	gint size_contexts;
 	gint size_matches;
@@ -367,7 +367,7 @@ typedef struct _BluefishTextViewClass BluefishTextViewClass;
 
 struct _BluefishTextView {
 	GtkTextView parent;
-	gpointer master;			/* points usually to self, but in the case of a slave widget 
+	gpointer master;			/* points usually to self, but in the case of a slave widget
 								   (two widgets showing the same buffer it will point to the master widget) */
 	gpointer slave;				/* usually NULL, but might point to a slave widget */
 	Tbflang *bflang;			/* Tbflang */
@@ -393,7 +393,7 @@ struct _BluefishTextView {
 	guint scanner_delayed;		/* event ID for the timeout function that handles the delayed scanning. 0 if no timeout function is running */
 	GTimer *user_idle_timer;
 	guint user_idle;			/* event ID for the timed function that handles user idle events such as autocompletion popups */
-	guint mark_set_idle;		/* event ID for the mark_set idle function that avoids showing matching block bounds while 
+	guint mark_set_idle;		/* event ID for the mark_set idle function that avoids showing matching block bounds while
 								   you hold the arrow key to scroll quickly */
 	gulong insert_text_id;
 	gulong insert_text_after_id;
@@ -408,9 +408,9 @@ struct _BluefishTextView {
 	gdouble button_press_line; /* line location of the button press, used in the release */
 	/*gboolean key_press_was_autocomplete;  a state of the widget, if the last keypress was handled by the autocomplete popup window */
 	gboolean showing_blockmatch;	/* a state of the widget if we are currently showing a blockmatch */
-	gboolean insert_was_auto_indent;	/* a state of the widget if the last keypress (enter) caused 
+	gboolean insert_was_auto_indent;	/* a state of the widget if the last keypress (enter) caused
 										   autoindent (so we should unindent on a closing bracket */
-	guint needremovetags;	/* after we have removed all old highlighting, we set this to G_MAXUINT32, or to the 
+	guint needremovetags;	/* after we have removed all old highlighting, we set this to G_MAXUINT32, or to the
 									offset up to the point where we removed the old highlighting. but after a change that
 									needs highlighting we set this to the offset of the change. */
 	/* next three are used for margin painting */
@@ -439,7 +439,7 @@ struct _BluefishTextViewClass {
 };
 
 GType bluefish_text_view_get_type(void);
-
+const gchar *bluefish_text_view_get_lang_name(BluefishTextView *btv);
 gboolean bluefish_text_view_get_active_block_boundaries(BluefishTextView *btv, guint location, gboolean innerblock, GtkTextIter *so, GtkTextIter *eo);
 gpointer bftextview2_get_block_at_boundary_location(BluefishTextView *btv, guint offset, GtkTextIter *it1, GtkTextIter *it2, GtkTextIter *it3, GtkTextIter *it4);
 gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);

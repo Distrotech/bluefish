@@ -21,6 +21,7 @@
 #define _BFTEXTVIEW2_LANGMGR_H_
 
 #include "bftextview2.h"
+const gchar *lookup_user_option(const gchar * lang, const gchar * option);
 void langmgr_add_custom_mime(Tbflang *bflang, const gchar *mime);
 void langmgr_reload_user_options(void);
 void langmgr_reload_user_styles(void);

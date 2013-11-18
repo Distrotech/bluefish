@@ -32,7 +32,8 @@
 #include "../document.h"		/* doc_save_selection */
 #include "../gtk_easy.h"		/* window_full() */
 #include "../stringlist.h"		/* add_to_stringlist */
-
+#include "../bftextview2.h"
+#include "../bftextview2_langmgr.h"
 Trecent_attribs recent_attribs;
 /*****************************************/
 /********** DIALOG FUNCTIONS *************/
@@ -232,7 +233,7 @@ fill_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[]
 		count++;
 	}
 
-	/* when there is NO sending_widget, but there is data, the function 
+	/* when there is NO sending_widget, but there is data, the function
 	 * is called by the right-click-opup, so data will contain info about
 	 * the position of the tag */
 
@@ -504,3 +505,39 @@ generic_class_id_style_section(Thtml_diag * dg, gint firstattrwidget, GtkWidget 
 	gtk_table_attach(GTK_TABLE(dgtable), but, 2, 3, firstrowintable + 2, firstrowintable + 3, GTK_SHRINK,
 					 GTK_SHRINK, 0, 0);
 }
+
+gboolean
+get_curlang_option_value(Tbfwin *bfwin, gint option)
+{
+	const gchar *userval;
+	const gchar *name;
+	const gchar *optionname;
+	gint retval;
+
+	switch(option) {
+		case 0:
+			optionname = "self_close_singleton_tags";
+			retval = 0;
+			break;
+		default:
+			optionname = "none";
+			retval = 0;
+			break;
+	}
+
+	if (!bfwin)
+		return retval;
+	if (!bfwin->current_document)
+		return retval;
+
+	name = bluefish_text_view_get_lang_name(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+	if (!name)
+		return retval;
+
+	userval = lookup_user_option(name, optionname);
+	if (userval && userval[0] != '\0') {
+		retval = (userval[0] == '1');
+	}
+	return retval;
+}
+
