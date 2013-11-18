@@ -247,24 +247,25 @@ bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
 static gboolean
 bftextview2_scanner_idle(gpointer data)
 {
+	BluefishTextView *btv = data;
 #ifdef DEBUG_SIGNALS
-	if (((BluefishTextView *)data)->scanner_immediate) {
+	if (btv->scanner_immediate) {
 		g_print("bftextview2_scanner_idle, immediate, priority=%d\n",SCANNING_IDLE_PRIORITY);
 	} else {
 		g_print("bftextview2_scanner_idle, idle, priority=%d\n",SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY);
 	}
 #endif
 	DBG_DELAYSCANNING("bftextview2_scanner_idle callback started\n");
-	if (!BLUEFISH_TEXT_VIEW(data)->enable_scanner
+	if (!btv->enable_scanner
 #ifdef HAVE_LIBENCHANT
-			&& !BLUEFISH_TEXT_VIEW(data)->spell_check
+			&& !btv->spell_check
 #endif
 			) {
 		btv->scanner_idle = 0;
 		btv->scanner_immediate = 0;
 		return FALSE;
 	}
-	return bftextview2_scanner_scan((BluefishTextView *) data, TRUE);
+	return bftextview2_scanner_scan(btv, TRUE);
 }
 
 void
