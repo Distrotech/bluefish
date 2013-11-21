@@ -1338,6 +1338,37 @@ notebook_reordered(GtkNotebook * notebook, GtkWidget * child, guint page_num, gp
 	DEBUG_MSG("notebook_reordered, done\n");
 }
 
+/* Restores tab scrolling feature for gtk+3 builds */
+#if GTK_CHECK_VERSION (3, 0, 0)
+static gboolean
+notebook_scroll_event_lcb (GtkNotebook * notebook, GdkEventScroll *event, gpointer user_data)
+{
+	DEBUG_MSG("notebook_scroll_event, started for notebook=%p\n", notebook);
+
+	/* Some sanity check, which is required when document does not have scroll bar and scroll-events are not consumed by textview*/
+	GtkWidget *child, *event_widget;
+	child = gtk_notebook_get_nth_page (notebook, gtk_notebook_get_current_page (notebook));
+	if (child == NULL)
+		return FALSE;
+	event_widget = gtk_get_event_widget ((GdkEvent *) event);
+	if (event_widget == NULL || event_widget == child || gtk_widget_is_ancestor (event_widget, child))
+		return FALSE; 
+
+	switch (event->direction) {
+		case GDK_SCROLL_RIGHT:
+		case GDK_SCROLL_DOWN:
+			gtk_notebook_next_page (notebook);
+			break;
+		case GDK_SCROLL_LEFT:
+		case GDK_SCROLL_UP:
+			gtk_notebook_prev_page (notebook);
+			break;
+	}
+
+	return TRUE;
+}
+#endif
+
 static void
 notebook_switch_page(GtkWidget * notebook, gpointer * page, gint page_num, Tbfwin * bfwin)
 {
@@ -1557,6 +1588,10 @@ bfwin_create_main(Tbfwin * bfwin)
 	}
 	notebook_connect_signals(bfwin);
 	g_signal_connect(G_OBJECT(bfwin->notebook), "page-reordered", G_CALLBACK(notebook_reordered), bfwin);
+#if GTK_CHECK_VERSION (3, 0, 0) /* Restores tab scrolling feature for gtk+3 builds */
+	gtk_widget_add_events (bfwin->notebook, GDK_SCROLL_MASK);
+	g_signal_connect (G_OBJECT(bfwin->notebook), "scroll-event", G_CALLBACK (notebook_scroll_event_lcb), bfwin);
+#endif
 
 	if (main_v->props.switch_tabs_by_altx) {
 		notebook_set_tab_accels(bfwin);

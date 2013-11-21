@@ -2687,6 +2687,9 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 		apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
 	newdoc->tab_menu = gtk_label_new(NULL);
 	newdoc->tab_eventbox = gtk_event_box_new();
+#if GTK_CHECK_VERSION(3,0,0) /* Restores tab scrolling feature for gtk+3 builds */
+	gtk_widget_add_events (newdoc->tab_eventbox, GDK_SCROLL_MASK);
+#endif
 	gtk_event_box_set_visible_window(GTK_EVENT_BOX(newdoc->tab_eventbox), FALSE);
 	gtk_misc_set_alignment(GTK_MISC(newdoc->tab_menu), 0, 0);
 
@@ -2735,6 +2738,10 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly, gboolean 
 
 	hbox = gtk_hbox_new(FALSE, 4);
 	button = bluefish_small_close_button_new();
+#if GTK_CHECK_VERSION(3,0,0) /* Restores tab scrolling feature for gtk+3 builds */
+	gtk_widget_add_events(hbox, GDK_SCROLL_MASK);
+	gtk_widget_add_events(button, GDK_SCROLL_MASK);
+#endif
 	g_signal_connect(button, "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
 	gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
 	gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_eventbox, TRUE, TRUE, 0);
