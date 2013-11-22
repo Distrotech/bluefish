@@ -123,7 +123,7 @@ frame_wizard_ok_lcb(GtkWidget * widget, Thtml_diag * dg)
 		size = gtk_editable_get_chars(GTK_EDITABLE(dg->entry[i]), 0, -1);
 		name = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(dg->combo[i]))), 0, -1);
 		source = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(dg->combo[i + 5]))), 0, -1);
-		if (main_v->props.xhtml == 1) {
+		if (get_curlang_option_value(dg->bfwin, self_close_singleton_tags)) {
 			tmpstr =
 				g_strconcat(frames, cap("<FRAME NAME=\""), name, cap("\" SRC=\""), source, "\" />\n", NULL);
 		} else {

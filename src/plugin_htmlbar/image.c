@@ -212,7 +212,7 @@ image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag * imdg)
 			insert_string_if_combobox(GTK_COMBO_BOX(imdg->dg->combo[0]), cap("ALIGN"), thestring, NULL);
 		thestring = insert_string_if_entry(GTK_ENTRY(imdg->dg->entry[4]), NULL, thestring, NULL);
 
-		finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
+		finalstring = g_strconcat(thestring, get_curlang_option_value(imdg->dg->bfwin, self_close_singleton_tags) ? " />" : ">", NULL);
 		g_free(thestring);
 
 		if (imdg->dg->range.end == -1) {

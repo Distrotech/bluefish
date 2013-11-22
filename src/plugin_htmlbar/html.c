@@ -76,7 +76,7 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 		break;
 	case 6:
 		doc_insert_two_strings(bfwin->current_document,
-							   main_v->props.xhtml == 1 ? cap("<br />") : cap("<br>"), NULL);
+							   get_curlang_option_value(bfwin, self_close_singleton_tags) ? cap("<br />") : cap("<br>"), NULL);
 		break;
 	case 7:
 		doc_insert_two_strings(bfwin->current_document, "&nbsp;", NULL);
@@ -157,14 +157,14 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 		break;
 	case 30:
 		doc_insert_two_strings(bfwin->current_document,
-							   main_v->props.xhtml == 1 ? cap("<FRAME />") : cap("<FRAME>"), NULL);
+							   get_curlang_option_value(bfwin, self_close_singleton_tags) ? cap("<FRAME />") : cap("<FRAME>"), NULL);
 		break;
 	case 31:
 		doc_insert_two_strings(bfwin->current_document, cap("<NOFRAMES>"), cap("</NOFRAMES>"));
 		break;
 	case 32:
 		doc_insert_two_strings(bfwin->current_document,
-							   main_v->props.xhtml == 					   1 ? cap("<BASE TARGET=\"\" />") : cap("<BASE TARGET=\"\">"), NULL);
+							   get_curlang_option_value(bfwin, self_close_singleton_tags) ? cap("<BASE TARGET=\"\" />") : cap("<BASE TARGET=\"\">"), NULL);
 		break;
 	case 33:
 		doc_insert_two_strings(bfwin->current_document, cap("<UL>"), cap("</UL>"));
@@ -194,7 +194,7 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 		break;
 	case 41:
 		doc_insert_two_strings(bfwin->current_document,
-							   main_v->props.xhtml == 					   1 ? cap("<BR CLEAR=\"ALL\" />") : cap("<BR CLEAR=\"ALL\">"), NULL);
+							   get_curlang_option_value(bfwin, self_close_singleton_tags) ? cap("<BR CLEAR=\"ALL\" />") : cap("<BR CLEAR=\"ALL\">"), NULL);
 		break;
 	case 42:
 		/* the text/css should be always lowercase! */
@@ -224,7 +224,7 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 	case 47:
 		tmp = g_strconcat(cap("<META NAME=\"Generator\" CONTENT=\"")
 						  , "Bluefish ", VERSION, " http://bluefish.openoffice.nl/",
-						  main_v->props.xhtml == 1 ? "\" />\n" : "\">\n", NULL);
+						  get_curlang_option_value(bfwin, self_close_singleton_tags) ? "\" />\n" : "\">\n", NULL);
 		doc_insert_two_strings(bfwin->current_document, tmp, NULL);
 		g_free(tmp);
 		break;
@@ -269,7 +269,7 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 		break;
 	case 61:
 		doc_insert_two_strings(bfwin->current_document,
-							   main_v->props.xhtml == 1 ? cap("<LINK />") : cap("<LINK>"), NULL);
+							   get_curlang_option_value(bfwin, self_close_singleton_tags) ? cap("<LINK />") : cap("<LINK>"), NULL);
 		break;
 	case 62:
 		doc_insert_two_strings(bfwin->current_document, cap("<DIV>"), cap("</DIV>"));
@@ -279,11 +279,11 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 		break;
 	case 64:
 		doc_insert_two_strings(bfwin->current_document,
-							   main_v->props.xhtml == 1 ? cap("<IMG />") : cap("<IMG>"), NULL);
+							   get_curlang_option_value(bfwin, self_close_singleton_tags) ? cap("<IMG />") : cap("<IMG>"), NULL);
 		break;
 	case 65:
 		doc_insert_two_strings(bfwin->current_document,
-							   main_v->props.xhtml == 1 ? cap("<INPUT />") : cap("<INPUT>"), NULL);
+							   get_curlang_option_value(bfwin, self_close_singleton_tags) ? cap("<INPUT />") : cap("<INPUT>"), NULL);
 		break;
 	case 66:
 		doc_insert_two_strings(bfwin->current_document, cap("<TEXTAREA>"), cap("</TEXTAREA>"));
@@ -1040,7 +1040,7 @@ quickruleok_lcb(GtkWidget * widget, Thtml_diag * dg)
 							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[1])) ? 100 : 0);
 	thestring = insert_attr_if_checkbox(dg->check[2], main_v->props.xhtml == 1 ? cap("NOSHADE=\"noshade\"") : cap("NOSHADE"), thestring);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
-	finalstring = g_strdup_printf(main_v->props.xhtml == 1 ? "%s />" : "%s>", thestring);
+	finalstring = g_strdup_printf(get_curlang_option_value(dg->bfwin, self_close_singleton_tags) ? "%s />" : "%s>", thestring);
 	g_free(thestring);
 
 	if (dg->range.end == -1) {
@@ -1289,7 +1289,7 @@ metaok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	}
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[3]), cap("SCHEME"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[4]), NULL, thestring, NULL);
-	finalstring = g_strconcat(thestring, main_v->props.xhtml == 1 ? " />" : ">", NULL);
+	finalstring = g_strconcat(thestring, get_curlang_option_value(dg->bfwin, self_close_singleton_tags) ? " />" : ">", NULL);
 	g_free(thestring);
 
 	if (dg->range.end == -1) {
@@ -1668,7 +1668,7 @@ framesetdialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 
 		framecount = colcount * rowcount;
 
-		if (main_v->props.xhtml == 1) {
+		if (get_curlang_option_value(dg->bfwin, self_close_singleton_tags) == 1) {
 			framestring = bf_str_repeat(cap("\n<FRAME />"), framecount);
 		} else {
 			framestring = bf_str_repeat(cap("\n<FRAME>"), framecount);
@@ -1760,7 +1760,7 @@ framedialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[2]))));
 	bfwin->session->urllist = add_entry_to_stringlist(bfwin->session->urllist, GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[1]))));
 
-	if (main_v->props.xhtml == 1) {
+	if (get_curlang_option_value(bfwin, self_close_singleton_tags)) {
 		finalstring = g_strconcat(thestring, " />", NULL);
 	} else {
 		finalstring = g_strconcat(thestring, ">", NULL);
@@ -2647,7 +2647,7 @@ linkdialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->attrwidget[6]), cap("MEDIA"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->attrwidget[7]), cap("LANG"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->attrwidget[8]), NULL, thestring, NULL);
-	finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
+	finalstring = g_strconcat(thestring, get_curlang_option_value(dg->bfwin, self_close_singleton_tags) ? " />" : ">", NULL);
 	g_free(thestring);
 
 	if (dg->range.end == -1) {

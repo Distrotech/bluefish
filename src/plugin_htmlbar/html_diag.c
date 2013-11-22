@@ -507,7 +507,7 @@ generic_class_id_style_section(Thtml_diag * dg, gint firstattrwidget, GtkWidget 
 }
 
 gboolean
-get_curlang_option_value(Tbfwin *bfwin, gint option)
+get_curlang_option_value(Tbfwin *bfwin, Tlangoptions option)
 {
 	const gchar *userval;
 	const gchar *name;
@@ -515,12 +515,8 @@ get_curlang_option_value(Tbfwin *bfwin, gint option)
 	gint retval;
 
 	switch(option) {
-		case 0:
+		case self_close_singleton_tags:
 			optionname = "self_close_singleton_tags";
-			retval = 0;
-			break;
-		default:
-			optionname = "none";
 			retval = 0;
 			break;
 	}

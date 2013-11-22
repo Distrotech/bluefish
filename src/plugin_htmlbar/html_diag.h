@@ -22,6 +22,12 @@
 
 #include "../bluefish.h"
 
+/*to be used in the function get_curlang_option_value() */
+typedef enum {
+	self_close_singleton_tags
+} Tlangoptions;
+gboolean get_curlang_option_value(Tbfwin *bfwin, Tlangoptions option);
+
 /* these will slowly be replaced by vars in bfwin->session */
 typedef struct {
 /*        GList *classlist;

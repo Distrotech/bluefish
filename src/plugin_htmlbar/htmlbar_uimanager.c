@@ -364,7 +364,7 @@ static void
 htmlbar_insert_break_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml == 1 ? cap("<br />") : cap("<br>"), NULL);
+						   get_curlang_option_value(BFWIN(user_data), self_close_singleton_tags) ? cap("<br />") : cap("<br>"), NULL);
 }
 
 static void
@@ -386,7 +386,7 @@ static void
 htmlbar_insert_clearall_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml == 1 ? cap("<BR CLEAR=\"ALL\" />") : cap("<BR CLEAR=\"ALL\">"),
+						   get_curlang_option_value(BFWIN(user_data), self_close_singleton_tags) ? cap("<BR CLEAR=\"ALL\" />") : cap("<BR CLEAR=\"ALL\">"),
 						   NULL);
 }
 
@@ -485,7 +485,7 @@ static void
 htmlbar_insert_form_input_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml == 1 ? cap("<INPUT />") : cap("<INPUT>"), NULL);
+						   get_curlang_option_value(BFWIN(user_data), self_close_singleton_tags) ? cap("<INPUT />") : cap("<INPUT>"), NULL);
 }
 
 static void
@@ -528,7 +528,7 @@ static void
 htmlbar_insert_form_keygen_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml == 1 ? cap("<KEYGEN />") : cap("<KEYGEN>"), NULL);
+						   get_curlang_option_value(BFWIN(user_data), self_close_singleton_tags) ? cap("<KEYGEN />") : cap("<KEYGEN>"), NULL);
 }
 
 static void
@@ -553,7 +553,7 @@ static void
 htmlbar_insert_frame_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml == 1 ? cap("<FRAME />") : cap("<FRAME>"), NULL);
+						   get_curlang_option_value(BFWIN(user_data), self_close_singleton_tags) ? cap("<FRAME />") : cap("<FRAME>"), NULL);
 }
 
 static void
@@ -567,7 +567,7 @@ htmlbar_insert_generator_meta_tag(GtkAction * action, gpointer user_data)
 {
 	gchar *tmp = g_strconcat(cap("<META NAME=\"Generator\" CONTENT=\""), "Bluefish ", VERSION,
 							 " http://bluefish.openoffice.nl/",
-							 main_v->props.xhtml == 1 ? "\" />\n" : "\">\n", NULL);
+							 get_curlang_option_value(BFWIN(user_data), self_close_singleton_tags) ? "\" />\n" : "\">\n", NULL);
 	doc_insert_two_strings(BFWIN(user_data)->current_document, tmp, NULL);
 	g_free(tmp);
 }
@@ -612,7 +612,7 @@ static void
 htmlbar_insert_image_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml == 1 ? cap("<IMG />") : cap("<IMG>"), NULL);
+						   get_curlang_option_value(BFWIN(user_data), self_close_singleton_tags) ? cap("<IMG />") : cap("<IMG>"), NULL);
 }
 
 static void
@@ -637,7 +637,7 @@ static void
 htmlbar_insert_link_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml == 1 ? cap("<LINK />") : cap("<LINK>"), NULL);
+						   get_curlang_option_value(BFWIN(user_data), self_close_singleton_tags) ? cap("<LINK />") : cap("<LINK>"), NULL);
 }
 
 static void
@@ -770,8 +770,7 @@ static void
 htmlbar_insert_target_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml ==
-						   1 ? cap("<BASE TARGET=\"\" />") : cap("<BASE TARGET=\"\">"), NULL);
+						   get_curlang_option_value(BFWIN(user_data), self_close_singleton_tags) ? cap("<BASE TARGET=\"\" />") : cap("<BASE TARGET=\"\">"), NULL);
 }
 
 static void

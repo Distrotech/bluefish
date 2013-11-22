@@ -1168,7 +1168,7 @@ image_dialog_ok_clicked(BluefishImageDialog * dialog)
 			g_string_append_printf(tag, " %s=\"%d\"", cap("VSPACE"), intvalue);
 	}
 
-	g_string_append_printf(tag, (main_v->props.xhtml == 1) ? " />" : ">");
+	g_string_append_printf(tag, get_curlang_option_value(dialog->priv->bfwin, self_close_singleton_tags) ? " />" : ">");
 	DEBUG_MSG("image_dialog_ok_clicked, tagStart=%d\n", dialog->priv->tagStart);
 	if (dialog->priv->tagStart >= 0) {
 		doc_replace_text(dialog->priv->doc, tag->str, dialog->priv->tagStart, dialog->priv->tagEnd);
