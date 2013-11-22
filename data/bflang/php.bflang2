@@ -26,7 +26,19 @@
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 	<!ENTITY all-html SYSTEM "all-html.bfinc">
+	<!ENTITY all-html5 SYSTEM "all-html5.bfinc">
 	<!ENTITY all-php SYSTEM "all-php.bfinc">
+
+	<!ENTITY globals "accesskey,class,contenteditable,contextmenu,dir,draggable,dropzone,hidden,id,lang,spellcheck,style,tabindex,title,translate,onabort,onblur,oncancel,oncanplay,oncanplaythrough,onchange,onclick,onclose,oncontextmenu,oncuechange,ondblclick,ondrag,ondragend,ondragenter,ondragleave,ondragover,ondragstart,ondrop,ondurationchange,onemptied,onended,onerror,onfocus,oninput,oninvalid,onkeydown,onkeypress,onkeyup,onload,onloadeddata,onloadedmetadata,onloadstart,onmousedown,onmousemove,onmouseout,onmouseover,onmouseup,onmousewheel,onpause,onplay,onplaying,onprogress,onratechange,onreset,onscroll,onseeked,onseeking,onselect,onshow,onstalled,onsubmit,onsuspend,ontimeupdate,onvolumechange,onwaiting">
+	<!ENTITY svguniv "id,xml:base,xml:lang,xml:space">
+	<!ENTITY svgevent "onactivate,onclick,onfocusin,onfocusout,onload,onmousedown,onmousemove,onmouseout,onmouseover,onmouseup">
+	<!ENTITY svgshapetext "fill,fill-opacity,fill-rule,stroke,stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,stroke-opacity,stroke-width">
+	<!ENTITY svgtext "direction,dominant-baseline,font,font-family,font-size,font-size-adjust,font-stretch,font-style,font-variant,font-weight,glyph-orientation-horizontal,glyph-orientation-vertical,kerning,letter-spacing,text-anchor,text-decoration,unicode-bidi,word-spacing">
+	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
+	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
+	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
+	<!ENTITY svg SYSTEM "svg.bfinc">
+	<!ENTITY JQuery SYSTEM "JQuery.bfinc">
 ]>
 
 <bflang name="PHP" version="2.0" table="51704" contexts="192" matches="8171">
@@ -59,6 +71,8 @@
 	<option name="javascript_css_properties" default="1"  />
 	<option name="sql-in-php-string" default="1" description="Scan for sql in strings" />
 	<option name="autocomplete-html-entities" default="0" />
+	<option name="self_close_singleton_tags" default="0" description="Self-close tags such as br, hr, and img with /&gt;" />
+	<option name="use_html5" default="1" description="Syntax outside PHP blocks is HTML5" />
 	<highlight name="attribute-string" style="string-no-spell-check" />
 	<highlight name="php-block-tag" style="special-value"  />
 	<highlight name="string" style="string"   />
@@ -70,7 +84,7 @@
 	<highlight name="php-comment" style="comment"  />
 	<highlight name="php-variable" style="variable"  />
 	<highlight name="php-string-sql-keyword" style="special-keyword"  />
-
+	<highlight name="html-not-supported-tag" style="warning" />
 	<highlight name="html-tag" style="tag"  />
 	<highlight name="html-comment" style="comment"  />
 	<highlight name="html-entity" style="value"  />
@@ -296,7 +310,12 @@ for this pattern and both of them are a symbol. That's why we have a separate en
 </context></element>
 </group>
 
+<group class="use_html5">
+&all-html5;
+</group>
+<group notclass="use_html5">
 &all-html;
+</group>
 
 </context>
 </definition>
