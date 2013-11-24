@@ -451,7 +451,7 @@ static gboolean bfwin_window_state_event(GtkWidget * widget, GdkEvent * revent, 
 		}
 	}
 
-	if (main_v->props.wrap_on_right_margin && ((revent->type == GDK_WINDOW_STATE && ((GdkEventWindowState *)revent)->changed_mask & (GDK_WINDOW_STATE_FULLSCREEN | GDK_WINDOW_STATE_MAXIMIZED)))) {
+	if (main_v->props.wrap_on_right_margin && ((revent->type == GDK_WINDOW_STATE && (((GdkEventWindowState *)revent)->changed_mask & (GDK_WINDOW_STATE_FULLSCREEN | GDK_WINDOW_STATE_MAXIMIZED))))) {
 		/* all docs need to recalculate the amount of whitespace on the right, but the width is not yet set,
 		so do this in an idle callback */
 		g_idle_add(bfwin_window_state_event_idle_cb, bfwin);
@@ -1362,6 +1362,8 @@ notebook_scroll_event_lcb (GtkNotebook * notebook, GdkEventScroll *event, gpoint
 		case GDK_SCROLL_LEFT:
 		case GDK_SCROLL_UP:
 			gtk_notebook_prev_page (notebook);
+			break;
+		default:
 			break;
 	}
 
