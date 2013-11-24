@@ -1205,7 +1205,7 @@ rcfile_parse_project(Tproject * project, GFile * file)
 		/* convert old format to new format! */
 		GList *tmplist = g_list_last(oldfiles);
 		while (tmplist) {
-		        g_print("convert old format project file to new, for file %s\n",tmplist->data);
+		    DEBUG_MSG("convert old format project file to new, for file %s\n", (char *) tmplist->data);
 			project->files = g_list_prepend(project->files, array_from_arglist(tmplist->data, "0", "0", "0", NULL));
 			tmplist = g_list_previous(tmplist);
 		}
