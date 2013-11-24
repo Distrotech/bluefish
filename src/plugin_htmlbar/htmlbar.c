@@ -24,6 +24,7 @@
 #include <gmodule.h>
 #include "../plugins.h"
 #include "../rcfile.h"
+#include "../bfwin_uimanager.h" /* bfwin_set_menu_toggle_item() */
 #include "../document.h"
 #include "../gtk_easy.h"
 #include "../stringlist.h"
