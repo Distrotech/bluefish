@@ -26,6 +26,7 @@
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 	<!ENTITY all-html SYSTEM "all-html.bfinc">
+	<!ENTITY JQuery SYSTEM "JQuery.bfinc">
 	<!ENTITY all-vbscript SYSTEM "all-vbscript.bfinc">
 ]>
 <bflang name="ASP-VBS" version="2.0" table="14086" contexts="143" matches="2905">
@@ -37,6 +38,7 @@
 	<option name="javascript_object_methods" default="1" description="Autocomplete Javascript object methods" />
 	<option name="javascript_css_properties" default="1" description="CSS properties" />
 	<option name="autocomplete-html-entities" default="0" description="HTML entities" />
+	<option name="JQuery" default="0" description="include JQuery syntax" />
 	<!--
 	<option name="load_asp_functions" default="1" description="All asp functions" />
 	-->

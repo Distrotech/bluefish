@@ -26,6 +26,7 @@
 	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
+	<!ENTITY JQuery SYSTEM "JQuery.bfinc">
 	<!ENTITY all-html SYSTEM "all-html.bfinc">
 	<!ENTITY all-php SYSTEM "all-php.bfinc">
 	<!ENTITY all-wordpress SYSTEM "wordpress.bfinc">
@@ -48,6 +49,7 @@
 	<option name="sql-in-php-string" default="1" description="scan for sql in php strings" />
 	<option name="javascript_css_properties" default="1" description="CSS properties" />
 	<option name="autocomplete-html-entities" default="0" description="HTML entities" />
+	<option name="JQuery" default="0" description="include JQuery syntax" />
 	<highlight name="attribute-string" style="string-no-spell-check" />
 	<highlight name="php-block-tag" style="special-value"  />
 	<highlight name="string" style="string"   />

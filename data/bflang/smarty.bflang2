@@ -27,6 +27,7 @@
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 	<!ENTITY all-html SYSTEM "all-html.bfinc">
+	<!ENTITY JQuery SYSTEM "JQuery.bfinc">
 	<!ENTITY all-php SYSTEM "all-php.bfinc">
 	<!ENTITY s-univ '<element pattern="&quot;" highlight="string">
 			<context symbols="\&quot;" highlight="string">
@@ -62,6 +63,7 @@
 	<option name="Parentheses block_foldable" default="0" description="Allow folding of the Parentheses block" />
 	<option name="autocomplete_PHP_variable" default="1" description="Auto-complete PHP variables" />
 	<option name="autocomplete_PHP_function" default="1" description="Auto-complete PHP functions" />
+	<option name="JQuery" default="0" description="include JQuery syntax" />
 	<highlight name="attribute-string" style="string-no-spell-check" />
 	<highlight name="html-tag" style="tag" />
 	<highlight name="html-reference-external-tag" style="special-tag" />

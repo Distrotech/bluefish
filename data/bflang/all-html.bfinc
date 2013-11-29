@@ -167,6 +167,9 @@ css-rules are defined in the inner context for <style>  -->
 		<element pattern="[" id="e.html.js.lbracket" starts_block="1" highlight="js-brackets" block_name="Javascript Square brackets block" />
 		<element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbracket" />
 		&all-javascript;
+		<group class="JQuery">
+			&JQuery;
+		</group>
 		<element pattern="//" highlight="js-comment">
 			<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
 				<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="js-comment" ends_context="1" />

@@ -26,6 +26,7 @@
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 	<!ENTITY all-html SYSTEM "all-html.bfinc">
+	<!ENTITY JQuery SYSTEM "JQuery.bfinc">
 ]>
 <bflang name="CFML" version="2.0" table="13765" contexts="136" matches="2797">
 <header>
@@ -39,6 +40,7 @@
 	<option name="javascript_object_methods" default="1" description="Autocomplete Javascript object methods" />
 	<option name="javascript_css_properties" default="1" description="CSS properties" />
 	<option name="autocomplete-html-entities" default="0" description="HTML entities" />
+	<option name="JQuery" default="0" description="include JQuery syntax" />
 	<highlight name="attribute-string" style="string-no-spell-check" />
 	<highlight name="brackets" style="brackets" />
 	<highlight name="cfml-attribute" style="special-keyword" />

@@ -27,6 +27,7 @@
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 	<!ENTITY all-html SYSTEM "all-html.bfinc">
+	<!ENTITY JQuery SYSTEM "JQuery.bfinc">
 ]>
 
 <bflang name="Generic HTML" version="2.0" table="21947" contexts="249" matches="3862">
@@ -48,6 +49,7 @@
 	<option name="Javascript Parentheses block_foldable" default="0" description="Allow folding of Javascript Parentheses block"/>
 	<option name="Javascript Square brackets block_foldable" default="0" description="Allow folding of Javascript Square brackets block"/>
 	<option name="Javascript Curly brackets block_foldable" default="1" description="Allow folding of Javascript Curly brackets block"/>
+	<option name="JQuery" default="0" description="include JQuery syntax" />
 	<highlight name="attribute-string" style="string-no-spell-check" />
 	<highlight name="html-tag" style="tag" />
 	<highlight name="html-reference-external-tag" style="special-tag" />
