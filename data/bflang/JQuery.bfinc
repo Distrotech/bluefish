@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		JQuery.bfinc $Revision$
- 
+
 		Copyright (C) 2008-2011 Olivier Sessink
 		This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@
 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 		GNU General Public License for more details.
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <!-- http://api.jquery.com/ -->
 
@@ -52,12 +52,12 @@ Load data from the server using a HTTP POST request.</reference></element>
 Encode a set of form elements as a string for submission.</reference></element>
 <element pattern="serializeArray"><reference> JQuery Ajax
 Encode a set of form elements as an array of names and values.</reference></element>
-<element pattern="addClass"><reference> JQuery Attributes
-Adds the specified class(es) to each of the set of matched elements.</reference></element>
+<element pattern="addClass"><reference> JQuery Attributes: Adds the specified class(es) to each of the set of matched elements.
+JQuery CSS: Adds the specified class(es)</reference></element>
 <element pattern="attr"><reference> JQuery Attributes
 Get the value of an attribute for the first element in the set of matched elements.</reference></element>
-<element pattern="hasClass"><reference> JQuery Attributes
-Determine whether any of the matched elements are assigned the given class.</reference></element>
+<element pattern="hasClass"><reference>JQuery Attributes: Determine whether any of the matched elements are assigned the given class.
+JQuery CSS: Determine whether any of the matched elements are assigned the given class.</reference></element>
 <element pattern="html"><reference> JQuery Attributes
 Get the HTML contents of the first element in the set of matched elements.</reference></element>
 <element pattern="removeAttr"><reference> JQuery Attributes
@@ -72,26 +72,28 @@ Get the current value of the first element in the set of matched elements.</refe
 Accepts a string containing a CSS selector which is then used to match a set of elements.</reference></element>
 <element pattern="jQuery.noConflict"><reference> JQuery Core
 Relinquish jQuery's control of the $ variable.</reference></element>
-<element pattern="addClass"><reference> JQuery CSS
-Adds the specified class(es)</reference></element>  
 <element pattern="css"><reference> JQuery CSS
 Get the value of a style property for the first element in the set of matched elements.</reference></element>
-<element pattern="hasClass"><reference> JQuery CSS
-Determine whether any of the matched elements are assigned the given class.</reference></element>
-<element pattern="height"><reference> JQuery CSS
-Get the current computed height for the first element in the set of matched elements.</reference></element>
-<element pattern="innerHeight"><reference> JQuery CSS
-Get the current computed height for the first element in the set of matched elements, including padding but not border.</reference></element>
-<element pattern="innerWidth"><reference> JQuery CSS
-Get the current computed width for the first element in the set of matched elements, including padding but not border.</reference></element>
+<element pattern="height"><reference> JQuery CSS: Get the current computed height for the first element in the set of matched elements.
+JQuery Dimensions: Get the current computed height for the first element in the set of matched elements.
+JQuery Manipulation: Get the current computed height for the first element in the set of matched elements.</reference></element>
+<element pattern="innerHeight"><reference>JQuery CSS: Get the current computed height for the first element in the set of matched elements, including padding but not border.
+JQuery Dimensions: Get the current computed height for the first element in the set of matched elements, including padding but not border.
+JQuery Manipulation: Get the current computed height for the first element in the set of matched elements, including padding but not border.</reference></element>
+<element pattern="innerWidth"><reference>JQuery CSS: Get the current computed width for the first element in the set of matched elements, including padding but not border.
+JQuery Dimensions: Get the current computed width for the first element in the set of matched elements, including padding but not border.
+JQuery Manipulation: Get the current computed width for the first element in the set of matched elements, including padding but not border.</reference></element>
 <element pattern="offset"><reference> JQuery CSS
 Get the current coordinates of the first element in the set of matched elements, relative to the document.</reference></element>
-<element pattern="outerHeight"><reference> JQuery CSS
-Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin.</reference></element>
-<element pattern="outerWidth"><reference> JQuery CSS
-Get the current computed width for the first element in the set of matched elements, including padding and border.</reference></element>
-<element pattern="position"><reference> JQuery CSS
-Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.</reference></element>
+<element pattern="outerHeight"><reference> JQuery CSS: Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin.
+JQuery Dimensions: Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin.
+JQuery Manipulation: Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin.</reference></element>
+<element pattern="outerWidth"><reference>JQuery CSS: Get the current computed width for the first element in the set of matched elements, including padding and border.
+JQuery Dimensions: Get the current computed width for the first element in the set of matched elements, including padding and border.
+JQuery Manipulation: Get the current computed width for the first element in the set of matched elements, including padding and border.</reference></element>
+<element pattern="position"><reference>JQuery CSS: Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
+JQuery Manipulation: Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
+JQuery Offset: Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.</reference></element>
 <element pattern="removeClass"><reference> JQuery CSS
 Remove a single class, multiple classes, or all classes from each element in the set of matched elements.</reference></element>
 <element pattern="scrollLeft"><reference> JQuery CSS
@@ -114,16 +116,6 @@ Execute the next function on the queue for the matched elements.</reference></el
 Execute the next function on the queue for the matched element.</reference></element>
 <element pattern="queue"><reference> JQuery Data
 Show the queue of functions to be executed on the matched elements.</reference></element>
-<element pattern="height"><reference> JQuery Dimensions
-Get the current computed height for the first element in the set of matched elements.</reference></element>
-<element pattern="innerHeight"><reference> JQuery Dimensions
-Get the current computed height for the first element in the set of matched elements, including padding but not border.</reference></element>
-<element pattern="innerWidth"><reference> JQuery Dimensions
-Get the current computed width for the first element in the set of matched elements, including padding but not border.</reference></element>
-<element pattern="outerHeight"><reference> JQuery Dimensions
-Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin.</reference></element>
-<element pattern="outerWidth"><reference> JQuery Dimensions
-Get the current computed width for the first element in the set of matched elements, including padding and border.</reference></element>
 <element pattern="width"><reference> JQuery Dimensions
 Get the current computed width for the first element in the set of matched elements.</reference></element>
 <element pattern="animate"><reference> JQuery Effects
@@ -280,26 +272,14 @@ Remove the set of matched elements from the DOM.</reference></element>
 Remove all child nodes of the set of matched elements from the DOM.</reference></element>
 <element pattern="hasClass"><reference> JQuery Manipulation
 Determine whether any of the matched elements are assigned the given class.</reference></element>
-<element pattern="height"><reference> JQuery Manipulation
-Get the current computed height for the first element in the set of matched elements.</reference></element>
 <element pattern="html"><reference> JQuery Manipulation
 Get the HTML contents of the first element in the set of matched elements.</reference></element>
-<element pattern="innerHeight"><reference> JQuery Manipulation
-Get the current computed height for the first element in the set of matched elements, including padding but not border.</reference></element>
-<element pattern="innerWidth"><reference> JQuery Manipulation
-Get the current computed width for the first element in the set of matched elements, including padding but not border.</reference></element>
 <element pattern="insertAfter"><reference> JQuery Manipulation
 Insert every element in the set of matched elements after the target.</reference></element>
 <element pattern="insertBefore"><reference> JQuery Manipulation
 Insert every element in the set of matched elements before the target.</reference></element>
 <element pattern="offset"><reference> JQuery Manipulation
 Get the current coordinates of the first element in the set of matched elements, relative to the document.</reference></element>
-<element pattern="outerHeight"><reference> JQuery Manipulation
-Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin.</reference></element>
-<element pattern="outerWidth"><reference> JQuery Manipulation
-Get the current computed width for the first element in the set of matched elements, including padding and border.</reference></element>
-<element pattern="position"><reference> JQuery Manipulation
-Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.</reference></element>
 <element pattern="prepend"><reference> JQuery Manipulation
 Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.</reference></element>
 <element pattern="prependTo"><reference> JQuery Manipulation
@@ -356,8 +336,6 @@ Retrieve all the DOM elements contained in the jQuery set, as an array.</referen
 Get the current coordinates of the first element in the set of matched elements, relative to the document.</reference></element>
 <element pattern="offsetParent"><reference> JQuery Offset
 Get the closest ancestor element that is positioned.</reference></element>
-<element pattern="position"><reference> JQuery Offset
-Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.</reference></element>
 <element pattern="scrollLeft"><reference> JQuery Offset
 Get the current horizontal position of the scroll bar for the first element in the set of matched elements.</reference></element>
 <element pattern="scrollTop"><reference> JQuery Offset
