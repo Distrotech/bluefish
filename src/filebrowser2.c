@@ -1591,7 +1591,7 @@ switch_to_directory(Tfilebrowser2 *fb2, GFile *dir_uri)
 	*  For other modes the right thing to do would be to add uri not to last postion, but one before last, so basedir will not change.
 	*  Saved basedir should be changed only from popup menu
 	*/
-	if (fb2->filebrowser_viewmode == viewmode_flat)
+	if ((fb2->filebrowser_viewmode == viewmode_flat) || !fb2->bfwin->project)
 		add_uri_to_recent_dirs(fb2, dir_uri);
 }
 
@@ -2506,7 +2506,7 @@ fb2_update_settings_from_session(Tbfwin * bfwin, Tdocument *active_doc)
 			}
 			filetreemodel_refresh_uri_async(FB2CONFIG(main_v->fb2config)->ftm, uri);
 			/* on an empty window / empty project, expand the basedir, because there will be no call for follow document */
-			if (!active_doc) {
+			if (!active_doc || !bfwin->session->filebrowser_focus_follow) {
 				fs_path = treepath_for_uri(fb2, uri);
 				if (fs_path) {
 					filter_path = dir_v_filter_path_from_treestore_path(fb2, fs_path);

@@ -250,48 +250,56 @@ create_new_project(Tbfwin * bfwin)
 {
 	Tproject *prj;
 	prj = g_new0(Tproject, 1);
+	DEBUG_MSG("create_new_project, project=%p, bfwin=%p\n", prj, bfwin);
 	prj->name = g_strdup(_("New project"));
 	prj->bmarkdata = bookmark_data_new();
-	DEBUG_MSG("create_new_project, project=%p, bfwin=%p\n", prj, bfwin);
+	prj->session = g_new0(Tsessionvars, 1);
+	project_setup_initial_session(prj->session, FALSE);
+	/*Project MUST have recent_dirs*/
+	if (bfwin && bfwin->current_document && bfwin->current_document->uri) {/* We have document with uri */
+		GFile *dir_uri = g_file_get_parent(bfwin->current_document->uri);
+		prj->session->recent_dirs = g_list_append(prj->session->recent_dirs, g_file_get_uri(dir_uri));
+		g_object_unref(dir_uri);
+	} 
+		
+	if (prj->session->recent_dirs == NULL) { /* If still no recent_dirs, then set $HOME */
+		GFile *uri = g_file_new_for_path(g_get_home_dir());
+		prj->session->recent_dirs = g_list_append(prj->session->recent_dirs, g_file_get_uri(uri));
+		g_object_unref(uri);
+	}
+	
 	if (bfwin) {
 		DEBUG_MSG("create_new_project, new project for bfwin %p\n", bfwin);
 		update_project_filearray_list(bfwin, prj);
-		bfwin->project = prj;
-	} else {
-		DEBUG_MSG("create_new_project, new project, no bfwin\n");
-	}
-	prj->session = g_new0(Tsessionvars, 1);
-	project_setup_initial_session(prj->session, FALSE);
-
-	if (bfwin && prj->files) {
-		GList *tmplist;
-		tmplist = g_list_first(bfwin->documentlist);
-		while (tmplist) {
-			bmark_clean_for_doc(DOCUMENT(tmplist->data));
-			tmplist = g_list_next(tmplist);
-		}
-
-		tmplist = g_list_first(bfwin->session->bmarks);
-		while (tmplist) {
-			gchar **entry = (gchar **) tmplist->data;
-			if (g_strv_length(entry) > 2) {
-				GList *tmplist2 = g_list_first(prj->files);
-				while (tmplist2) {
-					if (strcmp(tmplist2->data, entry[2]) == 0) {
-						/* move it out of the default session into this session */
-						bfwin->session->bmarks = g_list_remove_link(bfwin->session->bmarks, tmplist);
-						prj->session->bmarks = g_list_concat(prj->session->bmarks, tmplist);
-						/* no further filenames to check */
-						tmplist2 = g_list_last(tmplist2);
-					}
-					tmplist2 = g_list_next(tmplist2);
-				}
+		if (prj->files) {
+			GList *tmplist;
+			tmplist = g_list_first(bfwin->documentlist);
+			while (tmplist) {
+				bmark_clean_for_doc(DOCUMENT(tmplist->data));
+				tmplist = g_list_next(tmplist);
 			}
-			tmplist = g_list_next(tmplist);
+
+			tmplist = g_list_first(bfwin->session->bmarks);
+			while (tmplist) {
+				gchar **entry = (gchar **) tmplist->data;
+				if (g_strv_length(entry) > 2) {
+					GList *tmplist2 = g_list_first(prj->files);
+					while (tmplist2) {
+						if (strcmp(tmplist2->data, entry[2]) == 0) {
+							/* move it out of the default session into this session */
+							bfwin->session->bmarks = g_list_remove_link(bfwin->session->bmarks, tmplist);
+							prj->session->bmarks = g_list_concat(prj->session->bmarks, tmplist);
+							/* no further filenames to check */
+							tmplist2 = g_list_last(tmplist2);
+						}
+						tmplist2 = g_list_next(tmplist2);
+					}
+				}
+				tmplist = g_list_next(tmplist);
+			}
 		}
-	}
-	if (bfwin) {
-		bfwin->session = prj->session;
+		bfwin->project = prj;
+		bfwin->session = prj->session; 
 		setup_bfwin_for_project(bfwin, NULL);
 	}
 	return prj;
