@@ -62,10 +62,6 @@ JQuery CSS: Determine whether any of the matched elements are assigned the given
 Get the HTML contents of the first element in the set of matched elements.</reference></element>
 <element pattern="removeAttr"><reference> JQuery Attributes
 Remove an attribute from each element in the set of matched elements.</reference></element>
-<element pattern="removeClass"><reference> JQuery Attributes
-Remove a single class, multiple classes, or all classes from each element in the set of matched elements.</reference></element>
-<element pattern="toggleClass"><reference> JQuery Attributes
-Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.</reference></element>
 <element pattern="val"><reference> JQuery Attributes
 Get the current value of the first element in the set of matched elements.</reference></element>
 <element pattern="jQuery"><reference> JQuery Core
@@ -94,14 +90,16 @@ JQuery Manipulation: Get the current computed width for the first element in the
 <element pattern="position"><reference>JQuery CSS: Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
 JQuery Manipulation: Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
 JQuery Offset: Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.</reference></element>
-<element pattern="removeClass"><reference> JQuery CSS
-Remove a single class, multiple classes, or all classes from each element in the set of matched elements.</reference></element>
+<element pattern="removeClass"><reference>JQuery CSS: Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
+JQuery Manipulation: Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
+JQuery Attributes: Remove a single class, multiple classes, or all classes from each element in the set of matched elements.</reference></element>
 <element pattern="scrollLeft"><reference> JQuery CSS
 Get the current horizontal position of the scroll bar for the first element in the set of matched elements.</reference></element>
 <element pattern="scrollTop"><reference> JQuery CSS
 Get the current vertical position of the scroll bar for the first element in the set of matched elements.</reference></element>
-<element pattern="toggleClass"><reference> JQuery CSS
-Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.</reference></element>
+<element pattern="toggleClass"><reference>JQuery CSS: Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.
+JQuery Manipulation: Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.
+JQuery Attributes: Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.</reference></element>
 <element pattern="width"><reference> JQuery CSS
 Get the current computed width for the first element in the set of matched elements.</reference></element>
 <element pattern="clearQueue"><reference> JQuery Data
@@ -288,8 +286,6 @@ Insert every element in the set of matched elements to the beginning of the targ
 Remove the set of matched elements from the DOM.</reference></element>
 <element pattern="removeAttr"><reference> JQuery Manipulation
 Remove an attribute from each element in the set of matched elements.</reference></element>
-<element pattern="removeClass"><reference> JQuery Manipulation
-Remove a single class, multiple classes, or all classes from each element in the set of matched elements.</reference></element>
 <element pattern="replaceAll"><reference> JQuery Manipulation
 A selector expression indicating which element(s) to replace.</reference></element>
 <element pattern="replaceWith"><reference> JQuery Manipulation
@@ -300,8 +296,6 @@ Get the current horizontal position of the scroll bar for the first element in t
 Get the current vertical position of the scroll bar for the first element in the set of matched elements.</reference></element>
 <element pattern="text"><reference> JQuery Manipulation
 Get the combined text contents of each element in the set of matched elements, including their descendants.</reference></element>
-<element pattern="toggleClass"><reference> JQuery Manipulation
-Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.</reference></element>
 <element pattern="unwrap"><reference> JQuery Manipulation
 Remove the parents of the set of matched elements from the DOM, leaving the matched elements in their place.</reference></element>
 <element pattern="val"><reference> JQuery Manipulation
