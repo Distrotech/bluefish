@@ -2589,7 +2589,7 @@ void
 doc_recalculate_right_margin(Tdocument *doc)
 {
 	GdkWindow *gwin;
-	gint width=-1,height;
+	gint width=-1;
 
 	if (main_v->props.wrap_on_right_margin) {
 		gwin = gtk_text_view_get_window(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_TEXT);
