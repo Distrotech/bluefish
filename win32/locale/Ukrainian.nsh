@@ -10,6 +10,7 @@
 
 ; Section Names
 !define SECT_BLUEFISH "Редактор Bluefish"
+!define SECT_DEPENDS "Залежності"
 !define SECT_PLUGINS "Додатки"
 !define SECT_SHORTCUT "Піктограма на стільниці"
 !define SECT_DICT "Файли перевірки правопису (для звантаження потрібне з’єднання з мережею інтернет)"
@@ -35,6 +36,12 @@
 !define GTK_INSTALL "Встановлення GTK+..."
 !define GTK_UNINSTALL "Вилучення GTK+..."
 !define GTK_REQUIRED "Будь ласка, встановіть GTK+ ${GTK_MIN_VERSION} або новішу версію і переконайтеся, що відповідні каталоги вказано у змінній PATH, перш ніж запускати Bluefish."
+
+; Python Strings
+!define PYTHON_DOWNLOAD "Отримуємо пакунок Python..."
+!define PYTHON_FAILED "Спроба отримання Python зазнала невдачі:"
+!define PYTHON_INSTALL "Встановлюємо Python..."
+!define PYTHON_REQUIRED "Будь ласка, встановіть Python ${PYTHON_MIN_VERSION} або новішу версію, перш ніж запускати Bluefish.$\nPython потрібен для роботи додатка Zencoding та інших можливостей."
 
 ; Plugin Names
 !define PLUG_CHARMAP "Таблиця символів"
