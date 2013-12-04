@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rcfile.c - loading and parsing of the configfiles
  *
- * Copyright (C) 2000-2012 Olivier Sessink
+ * Copyright (C) 2000-2013 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -264,7 +264,7 @@ save_config_file(GHashTable * config_list, GFile * file)
 					max--;
 #ifdef DEBUG
 					if (max == 0 && tmplist2 != NULL)
-						g_print("save_config_file, limit reached!, next item would have been %s\n",
+						DEBUG_MSG("save_config_file, limit reached!, next item would have been %s\n",
 								(gchar *) tmplist2->data);
 #endif
 				}
@@ -404,7 +404,9 @@ parse_config_file(GHashTable * config_list, GFile * file)
 static GHashTable *
 props_init_main(GHashTable * config_rc)
 {
-	init_prop_string(&config_rc, &main_v->props.config_version, "config_version:", "2.2.5");
+	/* if there is no config version set, assume it is a config file from a version before the config version was introduced
+	this was introduced in revision r7372 in april 2012, which was released in june 2012 in the 2.2.3 release */
+	init_prop_string(&config_rc, &main_v->props.config_version, "config_version:", "2.2.2");
 	init_prop_integer(&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
 #ifdef MAC_INTEGRATION
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "Lucida Grande 13");
@@ -523,7 +525,7 @@ props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.adv_textview_right_margin, "adv_textview_right_margin:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.adv_textview_left_margin, "adv_textview_left_margin:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.wrap_on_right_margin, "wrap_on_right_margin:", 0, TRUE);
-	
+
 	/*init_prop_arraylist(&config_rc, &main_v->props.templates, "templates:", 2, TRUE);*/
 	return config_rc;
 }
@@ -628,9 +630,11 @@ static GList *update_externals(GList *current, GList *defaults, gboolean overwri
 {
 	GList *tmplist;
 	GHashTable *ht=NULL;
-
-	if (current == NULL)
+	DEBUG_MSG("update_externals, started\n");
+	if (current == NULL) {
 		overwrite = TRUE;
+		DEBUG_MSG("update_externals, current == NULL, set overwrite=TRUE\n");
+	}
 
 	if (overwrite) {
 		free_arraylist(current);
@@ -649,7 +653,7 @@ static GList *update_externals(GList *current, GList *defaults, gboolean overwri
 
 			if (len == (newlen-1)) { /* convert the old (2.2.2 or older) format into the new format */
 				gchar **oldarr = arr;
-				/*g_print("prepend %s in front of %s\n",USER_DEFINED_ENABLED,arr[0]);*/
+				/*DEBUG_MSG("prepend %s in front of %s\n",USER_DEFINED_ENABLED,arr[0]);*/
 				cur->data = arr = prepend_array(USER_DEFINED_ENABLED,arr);
 				g_strfreev(oldarr);
 				/* arr[2] contains the commandstring. now replace %I and %O (previously fifo in and
@@ -659,7 +663,7 @@ static GList *update_externals(GList *current, GList *defaults, gboolean overwri
 			}
 			if (len == newlen && arr[0][0]!='0' && arr[0][0]!='1') {
 				/* keep all the user defined options */
-				/*g_print("update_externals, insert into hash: %s\n",arr[1]);*/
+				DEBUG_MSG("update_externals, insert into hash: %s\n",arr[1]);
 				g_hash_table_insert(ht, arr[1], arr);
 			} else {
 				/* remove all others */
@@ -672,7 +676,7 @@ static GList *update_externals(GList *current, GList *defaults, gboolean overwri
 	for (tmplist=g_list_first(defaults);tmplist;tmplist = g_list_next(tmplist)) {
 		gchar **arr=tmplist->data;
 		if (overwrite || g_hash_table_lookup(ht, arr[0])==NULL) {
-			/*g_print("update_externals, prepend a missing or removed-default value %s\n",arr[0]);*/
+			DEBUG_MSG("update_externals, prepend a missing or removed-default value %s\n",arr[0]);
 			current = g_list_prepend(current, prepend_array(BLUEFISH_DEFINED_ENABLED, arr));
 		}
 	}
@@ -902,6 +906,7 @@ rcfile_parse_main(void)
 		main_v->props.encoding_search_Nbytes = 2048;
 
 	/* do some default configuration for the lists */
+	DEBUG_MSG("config_version=%s\n",main_v->props.config_version);
 	if (!main_v->props.config_version || strlen(main_v->props.config_version)<5 ||main_v->props.config_version[0] < '2' || main_v->props.config_version[2] < '2' || main_v->props.config_version[4] < '4') {
 		main_v->props.rcfile_from_old_version = 1;
 		main_v->props.external_command = update_commands(main_v->props.external_command, FALSE);
@@ -1103,9 +1108,9 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_arraylist(&configlist, &session->bmarks, "bmarks:", 6, FALSE);	/* what is the lenght for a bookmark array? */
 	init_prop_limitedstringlist(&configlist, &session->recent_files, "recent_files:",
 								main_v->props.max_recent_files*2, FALSE);
-	/* because the recentlist probably contains both the files that will be opened in a project AND the 
-	files that were recently opened/closed, we store more than then number of files that are shown to the 
-	user. Otherwise the recent list might be empty if the user has a project list with more files than 
+	/* because the recentlist probably contains both the files that will be opened in a project AND the
+	files that were recently opened/closed, we store more than then number of files that are shown to the
+	user. Otherwise the recent list might be empty if the user has a project list with more files than
 	the length of the recent_files */
 	init_prop_limitedstringlist(&configlist, &session->recent_dirs, "recent_dirs:",
 								main_v->props.max_dir_history, FALSE);
@@ -1205,13 +1210,13 @@ rcfile_parse_project(Tproject * project, GFile * file)
 		/* convert old format to new format! */
 		GList *tmplist = g_list_last(oldfiles);
 		while (tmplist) {
-		    DEBUG_MSG("convert old format project file to new, for file %s\n", (char *) tmplist->data);
+			g_print("convert old format project file to new, for file %s\n",(char *)tmplist->data);
 			project->files = g_list_prepend(project->files, array_from_arglist(tmplist->data, "0", "0", "0", NULL));
 			tmplist = g_list_previous(tmplist);
 		}
 		free_stringlist(oldfiles);
-	} 
-	
+	}
+
 	setup_session_after_parse(project->session);
 	return retval;
 }
@@ -1355,13 +1360,13 @@ load_templates_from_dir(GFile *uri, gboolean create_ifnexist)
 	while(finfo) {
 		gchar *tmp, **arr;
 		child = g_file_get_child(uri, g_file_info_get_name(finfo));
-    	arr = g_malloc(sizeof(char *)* 3);
-    	arr[0] = g_strdup(g_file_info_get_name(finfo));
+		arr = g_malloc(sizeof(char *)* 3);
+		arr[0] = g_strdup(g_file_info_get_name(finfo));
 		arr[1] = g_file_get_path(child);
 		arr[2] = NULL;
 		while ((tmp = strchr(arr[0], '_')) != NULL) {
-    		*tmp = ' ';
-    	}
+			*tmp = ' ';
+		}
 		retlist = g_list_prepend(retlist, arr);
 		g_object_unref(child);
 		g_object_unref(finfo);
