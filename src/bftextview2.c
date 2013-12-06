@@ -1938,25 +1938,21 @@ bluefish_text_view_button_release_event(GtkWidget * widget, GdkEventButton * eve
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->button_release_event(widget, event);
 }
 
-gchar *get_line_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * lastchar) {
+gchar *get_line_indenting(GtkTextBuffer * buffer, GtkTextIter * iter, gboolean prevline) {
 	gchar *string;
 	gchar *indenting;
-	gint stringlen;
+	GtkTextIter itstart, itend;
 
-	GtkTextIter itstart;
-
-	itstart = *itend;
-	gtk_text_iter_forward_to_line_end(itend);
+	itstart = itend = *iter;
+	if (prevline) {
+		gtk_text_iter_backward_line(&itend);
+	}
 	/* set to the beginning of the line */
 	gtk_text_iter_set_line_index(&itstart, 0);
-	string = gtk_text_buffer_get_text(buffer, &itstart, itend, TRUE);
+	string = gtk_text_buffer_get_text(buffer, &itstart, &itend, TRUE);
 	if (!string)
 		return NULL;
-	/*g_print("get_line_indenting, got line '%s' len %d\n",string,strlen(string));*/
-	stringlen = strlen(string);
-	if (stringlen > 1 && lastchar) {
-		*lastchar = string[stringlen - 2];
-	}
+	g_print("get_line_indenting, got line '%s' len %d\n",string,strlen(string));
 	/* now count the indenting in this string */
 	indenting = string;
 	while (*indenting == '\t' || *indenting == ' ') {
@@ -1967,12 +1963,10 @@ gchar *get_line_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * l
 	return string;
 }
 
-gchar *
-get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * lastchar)
-{
-	gtk_text_iter_backward_line(iter);
-	return get_line_indenting(buffer, iter, lastchar);
-}
+/* 
+adds the (smart) indenting after an enter key is released
+iter is set to the cursor position
+*/
 
 static inline void
 auto_add_indenting(BluefishTextView * btv, GtkTextIter *iter)
@@ -1980,12 +1974,16 @@ auto_add_indenting(BluefishTextView * btv, GtkTextIter *iter)
 	gchar *string;
 	gchar lastchar = '\0';
 	gboolean next_is_outdent=FALSE, prev_is_outdent=FALSE, prev_is_indent=FALSE;
-
-	string = get_prevline_indenting(btv->buffer, iter, &lastchar);
+	GtkTextIter iter2 = *iter;
+	string = get_line_indenting(btv->buffer, iter, TRUE);
 	if (!string)
 		return;
 
-	if (main_v->props.smartindent) {
+	if (main_v->props.smartindent) {	
+		gtk_text_iter_backward_chars(&iter2,2);
+		gunichar uc = gtk_text_iter_get_char(&iter2);
+		lastchar = (uc < 255)? uc : 127; /* 127 = DEL is a not used character */
+		g_print("lastchar='%c'\n",lastchar); 
 		if (BLUEFISH_TEXT_VIEW(btv->master)->bflang && lastchar != '\0') {
 			if (BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartoutdentchars) {
 				next_is_outdent = (strchr(BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartoutdentchars, (char)gtk_text_iter_get_char(iter)) != NULL);

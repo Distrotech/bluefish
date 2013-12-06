@@ -129,7 +129,7 @@ string_maintain_indenting(BluefishTextView * btv, gchar *string, gint *backward_
 		return string;
 	}
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, gtk_text_buffer_get_insert(btv->buffer));
-	indentstring = get_line_indenting(btv->buffer, &iter, NULL);
+	indentstring = get_line_indenting(btv->buffer, &iter, FALSE);
 	/*g_print("indentstring='%s' with len %d\n",indentstring,strlen(indentstring));*/
 	if (!indentstring || indentstring[0]=='\0') {
 		return string;
