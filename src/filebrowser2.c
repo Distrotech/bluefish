@@ -618,7 +618,7 @@ fb2_file_is_opened(GFile *uri, const gchar *mimetype)
 	GtkTreeIter iter;
 	if (!uri)
 		return;
-	g_print("fb2_file_is_opened, called for %s with mimetype %s\n",g_file_get_path(uri),mimetype);
+	DEBUG_MSG("fb2_file_is_opened, called for %s with mimetype %s\n",g_file_get_path(uri),mimetype);
 	if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, uri, &iter)) {
 		/* add entry */
 		filetreemodel_add_file(FB2CONFIG(main_v->fb2config)->ftm, uri, mimetype, PANGO_WEIGHT_BOLD);
@@ -1614,7 +1614,7 @@ change_focus_to_uri(Tfilebrowser2 *fb2, GFile *uri)
 	if (!uri) {
 		return;
 	}
-	g_print("change_focus_to_uri, called for %s\n",g_file_get_path(uri));
+	DEBUG_MSG("change_focus_to_uri, called for %s\n",g_file_get_path(uri));
 	dir_uri = g_file_get_parent(uri);
 	if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, uri, &iter)) {
 		if (!filetree_get_iter_for_uri(FB2CONFIG(main_v->fb2config)->ftm, dir_uri, &dir_iter)) {
@@ -2562,7 +2562,7 @@ fb2_init(Tbfwin * bfwin)
 
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;
-	g_print("fb2_init, started for bfwin=%p, fb2=%p, fb2->filebrowser_viewmode=%d\n", bfwin, fb2,
+	DEBUG_MSG("fb2_init, started for bfwin=%p, fb2=%p, fb2->filebrowser_viewmode=%d\n", bfwin, fb2,
 			  fb2->filebrowser_viewmode);
 
 	fb2->vbox = gtk_vbox_new(FALSE, 0);
@@ -2746,7 +2746,7 @@ fb2_focus_dir(Tfilebrowser2 * fb2, GFile * uri, gboolean noselect)
 void
 fb2_focus_document(Tbfwin * bfwin, Tdocument * doc)
 {
-	g_print("fb2_focus_document,doc %s\n", gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
+	DEBUG_MSG("fb2_focus_document,doc %s\n", gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 	if (bfwin->fb2 && doc && doc->uri) {
 		fb2_follow_uri(bfwin, doc->uri);
 

@@ -1992,9 +1992,9 @@ auto_add_indenting(BluefishTextView * btv, GtkTextIter *iter)
 				prev_is_indent = (strchr(BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartindentchars, lastchar) != NULL);
 			}
 		}
-		g_print("auto_add_indenting, previous indenting '%s' strlen=%d\n",string,(int)strlen(string));
+		/*g_print("auto_add_indenting, previous indenting '%s' strlen=%d\n",string,(int)strlen(string));
 		g_print("auto_add_indenting, lastchar=%c, smartindentchars=%s\n",lastchar, btv->bflang->smartindentchars);
-		g_print("next_is_outdent=%d, prev_is_indent=%d, prev_is_outdent=%d\n",next_is_outdent, prev_is_indent, prev_is_outdent);
+		g_print("next_is_outdent=%d, prev_is_indent=%d, prev_is_outdent=%d\n",next_is_outdent, prev_is_indent, prev_is_outdent);*/
 		if (!next_is_outdent && prev_is_indent) {
 			gchar *tmp, *tmp2;
 			if (BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_indent_wspaces)

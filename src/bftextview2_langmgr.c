@@ -1956,7 +1956,7 @@ bflang2scan_finished_lcb(gpointer data)
 	DBG_MSG("bflang2scan_finished_lcb\n");
 	for (tmplist = g_list_first(main_v->bfwinlist); tmplist; tmplist = g_list_next(tmplist)) {
 		GList *tmplist2;
-		g_print("bflang2scan_finished, call lang_mode_menu_create() for bfwin %p\n", tmplist->data);
+		DBG_MSG("bflang2scan_finished, call lang_mode_menu_create() for bfwin %p\n", tmplist->data);
 		lang_mode_menu_create(BFWIN(tmplist->data));
 		for (tmplist2 = g_list_first(BFWIN(tmplist->data)->documentlist); tmplist2; tmplist2 = g_list_next(tmplist2)) {
 			DBG_MSG("bflang2scan_finished, request bflang for document %p\n", tmplist2->data);

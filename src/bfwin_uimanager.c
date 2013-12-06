@@ -1266,7 +1266,7 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 
 	bfwin_templates_menu_create(bfwin);
 	bfwin_encodings_menu_create(bfwin);
-	g_print("bfwin_main_ui_init, call lang_mode_menu_create(bfwin=%p)\n",bfwin);
+	DEBUG_MSG("bfwin_main_ui_init, call lang_mode_menu_create(bfwin=%p)\n",bfwin);
 	lang_mode_menu_create(bfwin);
 	bfwin_commands_menu_create(bfwin);
 	bfwin_filters_menu_create(bfwin);
