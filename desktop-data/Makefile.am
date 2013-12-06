@@ -12,7 +12,7 @@ MAINTAINERCLEANFILES = Makefile.in
 
 fdomenu_in_files  = bluefish.desktop.in
 fdomime_in_files  = bluefish.xml.in
-
+fdoappdata_in_files  = bluefish.appdata.xml
 
 if INSTALL_FDOMENU
 fdomenudir = $(fdomenupath)
@@ -24,6 +24,10 @@ fdomimedir = $(fdomimepath)/packages
 fdomime_DATA = $(fdomime_in_files:.xml.in=.xml)
 endif
 
+if INSTALL_FDOAPPDATA
+fdoappdatadir = $(fdoappdatapath)
+fdoappdata_DATA = $(fdoappdata_in_files:.xml.in=.xml)
+endif
 
 @INTLTOOL_DESKTOP_RULE@
 @INTLTOOL_XML_RULE@

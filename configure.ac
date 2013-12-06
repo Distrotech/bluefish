@@ -333,6 +333,16 @@ AC_ARG_WITH(
 )
 
 AC_ARG_WITH(
+	[freedesktop_org-appdata],
+	AC_HELP_STRING(
+		[--with-freedesktop_org-appdata=@<:@DIR@:>@],
+		[install freedesktop.org appdata support files in directory DIR (if supplied) or suppress installation @<:@default=${datadir}/appdata@:>@]
+	),
+	[fdoappdatapath="$withval"],
+	[fdoappdatapath="${datadir}/appdata"]
+)
+
+AC_ARG_WITH(
 	[theme-path],
 	AC_HELP_STRING(
 		[--with-theme-path=@<:@DIR@:>@],
@@ -369,6 +379,8 @@ AC_SUBST([fdomenupath])
 AM_CONDITIONAL(INSTALL_FDOMENU, [test "x$fdomenupath" != "xno"])
 AC_SUBST([fdomimepath])
 AM_CONDITIONAL(INSTALL_FDOMIME, [test "x$fdomimepath" != "xno"])
+AC_SUBST([fdoappdatapath])
+AM_CONDITIONAL(INSTALL_FDOAPPDATA, [test "x$fdoappdatapath" != "xno"])
 AC_SUBST([iconthemepath])
 AM_CONDITIONAL(INSTALL_THEMEICONS, [test "x$iconthemepath" != "xno"])
 AC_SUBST([iconpath])
