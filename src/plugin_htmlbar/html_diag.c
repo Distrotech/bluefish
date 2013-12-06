@@ -519,6 +519,9 @@ get_curlang_option_value(Tbfwin *bfwin, Tlangoptions option)
 			optionname = "self_close_singleton_tags";
 			retval = 0;
 			break;
+		case lang_is_XHTML:
+			optionname = "is_XHTML";
+			retval = 0;
 	}
 
 	if (!bfwin)

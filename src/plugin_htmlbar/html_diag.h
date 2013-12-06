@@ -24,7 +24,8 @@
 
 /*to be used in the function get_curlang_option_value() */
 typedef enum {
-	self_close_singleton_tags
+	self_close_singleton_tags,
+	lang_is_XHTML
 } Tlangoptions;
 gboolean get_curlang_option_value(Tbfwin *bfwin, Tlangoptions option);
 

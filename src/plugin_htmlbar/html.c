@@ -1284,7 +1284,7 @@ metaok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), cap("CONTENT"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("LANG"), thestring, NULL);
-	if (main_v->props.xhtml == 1) {
+	if (get_curlang_option_value(dg->bfwin, lang_is_XHTML)) {
 		thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("XML:LANG"), thestring, NULL);
 	}
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[3]), cap("SCHEME"), thestring, NULL);
