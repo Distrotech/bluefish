@@ -525,7 +525,7 @@ props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.adv_textview_right_margin, "adv_textview_right_margin:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.adv_textview_left_margin, "adv_textview_left_margin:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.wrap_on_right_margin, "wrap_on_right_margin:", 0, TRUE);
-
+	init_prop_integer(&config_rc, &main_v->props.adv_smart_indent_mode, "adv_smart_indent_mode:", 1, TRUE);
 	/*init_prop_arraylist(&config_rc, &main_v->props.templates, "templates:", 2, TRUE);*/
 	return config_rc;
 }

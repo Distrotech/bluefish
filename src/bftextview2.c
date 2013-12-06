@@ -1952,7 +1952,7 @@ gchar *get_line_indenting(GtkTextBuffer * buffer, GtkTextIter * iter, gboolean p
 	string = gtk_text_buffer_get_text(buffer, &itstart, &itend, TRUE);
 	if (!string)
 		return NULL;
-	g_print("get_line_indenting, got line '%s' len %d\n",string,strlen(string));
+	/*g_print("get_line_indenting, got line '%s' len %d\n",string,strlen(string));*/
 	/* now count the indenting in this string */
 	indenting = string;
 	while (*indenting == '\t' || *indenting == ' ') {
@@ -1983,7 +1983,6 @@ auto_add_indenting(BluefishTextView * btv, GtkTextIter *iter)
 		gtk_text_iter_backward_chars(&iter2,2);
 		gunichar uc = gtk_text_iter_get_char(&iter2);
 		lastchar = (uc < 255)? uc : 127; /* 127 = DEL is a not used character */
-		g_print("lastchar='%c'\n",lastchar); 
 		if (BLUEFISH_TEXT_VIEW(btv->master)->bflang && lastchar != '\0') {
 			if (BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartoutdentchars) {
 				next_is_outdent = (strchr(BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartoutdentchars, (char)gtk_text_iter_get_char(iter)) != NULL);
@@ -1993,8 +1992,9 @@ auto_add_indenting(BluefishTextView * btv, GtkTextIter *iter)
 				prev_is_indent = (strchr(BLUEFISH_TEXT_VIEW(btv->master)->bflang->smartindentchars, lastchar) != NULL);
 			}
 		}
-		/*g_print("auto_add_indenting, previous indenting '%s'\n",string);
-		g_print("auto_add_indenting, lastchar=%c, smartindentchars=%s\n",lastchar, btv->bflang->smartindentchars);*/
+		g_print("auto_add_indenting, previous indenting '%s' strlen=%d\n",string,(int)strlen(string));
+		g_print("auto_add_indenting, lastchar=%c, smartindentchars=%s\n",lastchar, btv->bflang->smartindentchars);
+		g_print("next_is_outdent=%d, prev_is_indent=%d, prev_is_outdent=%d\n",next_is_outdent, prev_is_indent, prev_is_outdent);
 		if (!next_is_outdent && prev_is_indent) {
 			gchar *tmp, *tmp2;
 			if (BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_indent_wspaces)
@@ -2008,7 +2008,10 @@ auto_add_indenting(BluefishTextView * btv, GtkTextIter *iter)
 			g_free(string);
 			g_free(tmp2);
 			string = tmp;
-		} else if (prev_is_outdent) {
+		} else if (main_v->props.adv_smart_indent_mode == 2 && prev_is_outdent) {
+			/* if main_v->props.adv_smart_indent_mode is set to 2 bluefish will unindent if you
+			hit enter after a closing bracket like }
+			*/
 			gint len;
 			/* reduce the indenting in 'string' by one level */
 			len = strlen(string);
