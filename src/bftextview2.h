@@ -464,6 +464,9 @@ void bluefish_text_view_set_show_mbhl(BluefishTextView * btv, gboolean show);
 #ifdef HAVE_LIBENCHANT
 void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check);
 #endif
+/* this functions is used in the widget in _autocomp.c */
+gchar *get_line_indenting(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * lastchar);
+gchar *get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * lastchar);
 void bluefish_text_view_scan_cleanup(BluefishTextView * btv);
 void bluefish_text_view_rescan(BluefishTextView * btv);
 void bftextview2_schedule_scanning(BluefishTextView * btv);

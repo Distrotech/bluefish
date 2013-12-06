@@ -1938,9 +1938,7 @@ bluefish_text_view_button_release_event(GtkWidget * widget, GdkEventButton * eve
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->button_release_event(widget, event);
 }
 
-static gchar *
-get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * lastchar)
-{
+gchar *get_line_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * lastchar) {
 	gchar *string;
 	gchar *indenting;
 	gint stringlen;
@@ -1948,15 +1946,15 @@ get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * last
 	GtkTextIter itstart;
 
 	itstart = *itend;
-	/* set to the beginning of the previous line */
-	gtk_text_iter_backward_line(&itstart);
+	gtk_text_iter_forward_to_line_end(itend);
+	/* set to the beginning of the line */
 	gtk_text_iter_set_line_index(&itstart, 0);
 	string = gtk_text_buffer_get_text(buffer, &itstart, itend, TRUE);
 	if (!string)
 		return NULL;
-
+	g_print("get_line_indenting, got line '%s' len %d\n",string,strlen(string));
 	stringlen = strlen(string);
-	if (stringlen > 1) {
+	if (stringlen > 1 && lastchar) {
 		*lastchar = string[stringlen - 2];
 	}
 	/* now count the indenting in this string */
@@ -1967,6 +1965,13 @@ get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * last
 	/* ending search, non-whitespace found, so terminate at this position */
 	*indenting = '\0';
 	return string;
+}
+
+gchar *
+get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * lastchar)
+{
+	gtk_text_iter_backward_line(iter);
+	return get_line_indenting(buffer, iter, lastchar);
 }
 
 static inline void

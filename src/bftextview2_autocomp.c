@@ -116,6 +116,43 @@ acwin_move_selection(BluefishTextView * btv, gint keyval)
 	return FALSE;
 }
 
+static gchar *
+string_maintain_indenting(BluefishTextView * btv, gchar *string, gint *backward_cursor)
+{
+	gchar *indentstring;
+	gint i=0, len;
+	GtkTextIter iter;
+	GString *gstr;
+	g_print("string_maintain_indenting, check %s for newlines\n",string);
+	/* check if there are newlines in the string*/
+	if (!string || string[0]=='\0' || !strchr(string, '\n')) {
+		return string;
+	}
+	gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, gtk_text_buffer_get_insert(btv->buffer));
+	indentstring = get_line_indenting(btv->buffer, &iter, NULL);
+	g_print("indentstring='%s' with len %d\n",indentstring,strlen(indentstring));
+	if (!indentstring || indentstring[0]=='\0') {
+		return string;
+	}
+	/* now do the replace of \n with \n+indentstring */
+	len = strlen(string);
+	gstr = g_string_new("");
+	while(string[i] != '\0') {
+		g_string_append_c(gstr, string[i]);
+		if (string[i] == '\n') {
+			g_string_append(gstr, indentstring);
+			if (i>=(len-*backward_cursor)) {
+				*backward_cursor += strlen(indentstring);
+			}
+		}
+		i++;
+	}
+	g_free(string);
+	string = gstr->str;
+	g_string_free(gstr, FALSE);
+	return string;
+}
+
 /* returns the number of bytes
 that are already present in the text.
 
@@ -206,6 +243,8 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 				DBG_AUTOCOMP("acwin_check_keypress: ENTER: insert %s\n",
 							 string + prefix_len);
 				string[stringlen - existing_len] = '\0';
+				/* see if there are any \n characters in the autocompletion string, and add the current indenting to them */
+				string = string_maintain_indenting(btv, string, &backup_chars);
 				gtk_text_buffer_insert_at_cursor(btv->buffer, string + prefix_len, -1);
 				if (backup_chars != 0) {
 					GtkTextIter iter;
