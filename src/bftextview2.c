@@ -1952,7 +1952,7 @@ gchar *get_line_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * l
 	string = gtk_text_buffer_get_text(buffer, &itstart, itend, TRUE);
 	if (!string)
 		return NULL;
-	g_print("get_line_indenting, got line '%s' len %d\n",string,strlen(string));
+	/*g_print("get_line_indenting, got line '%s' len %d\n",string,strlen(string));*/
 	stringlen = strlen(string);
 	if (stringlen > 1 && lastchar) {
 		*lastchar = string[stringlen - 2];

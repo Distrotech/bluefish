@@ -123,14 +123,14 @@ string_maintain_indenting(BluefishTextView * btv, gchar *string, gint *backward_
 	gint i=0, len;
 	GtkTextIter iter;
 	GString *gstr;
-	g_print("string_maintain_indenting, check %s for newlines\n",string);
+	/*g_print("string_maintain_indenting, check %s for newlines\n",string);*/
 	/* check if there are newlines in the string*/
 	if (!string || string[0]=='\0' || !strchr(string, '\n')) {
 		return string;
 	}
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, gtk_text_buffer_get_insert(btv->buffer));
 	indentstring = get_line_indenting(btv->buffer, &iter, NULL);
-	g_print("indentstring='%s' with len %d\n",indentstring,strlen(indentstring));
+	/*g_print("indentstring='%s' with len %d\n",indentstring,strlen(indentstring));*/
 	if (!indentstring || indentstring[0]=='\0') {
 		return string;
 	}
@@ -173,7 +173,7 @@ get_existing_end_len(BluefishTextView * btv, const gchar *string, gint prefix_by
 	gtk_text_iter_forward_chars(&it2,string_len - prefix_bytelen);
 	DBG_AUTOCOMP("get the text %d:%d\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2));
 	tmp = gtk_text_buffer_get_text(btv->buffer, &it1, &it2, TRUE);
-	g_print("got tmp='%s'\n",tmp);
+	/*g_print("got tmp='%s'\n",tmp);*/
 	len = strlen(tmp);
 	i = len-1;
 	do {
