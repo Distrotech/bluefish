@@ -511,7 +511,7 @@ get_curlang_option_value(Tbfwin *bfwin, Tlangoptions option)
 {
 	const gchar *userval;
 	const gchar *name;
-	const gchar *optionname;
+	const gchar *optionname = NULL;
 	gint retval;
 
 	switch(option) {
