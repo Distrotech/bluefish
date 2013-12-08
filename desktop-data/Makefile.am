@@ -1,11 +1,13 @@
 
 EXTRA_DIST = \
 	$(fdomenu_in_files) \
-	$(fdomime_in_files)
+	$(fdomime_in_files) \
+	$(fdoappdata_in_files)
 
 CLEANFILES = \
 	$(fdomenu_DATA) \
-	$(fdomime_DATA)
+	$(fdomime_DATA) \
+	$(fdoappdata_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 
