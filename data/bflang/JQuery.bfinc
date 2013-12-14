@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		JQuery.bfinc $Revision$
 
-		Copyright (C) 2008-2011 Olivier Sessink
+		Copyright (C) 2008-2013 Olivier Sessink
 		This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
 		the Free Software Foundation, either version 3 of the License, or
@@ -20,477 +20,449 @@
 <bfinc>
 <group highlight="js-function" >
 	<autocomplete append="()" backup_cursor="1" />
-<element pattern="jQuery.ajax"><reference> JQuery Ajax
-Perform an asynchronous HTTP (Ajax) request.</reference></element>
-<element pattern="ajaxComplete"><reference> JQuery Ajax
-Register a handler to be called when Ajax requests complete. This is an Ajax Event.</reference></element>
-<element pattern="ajaxError"><reference> JQuery Ajax
-Register a handler to be called when Ajax requests complete with an error. This is an Ajax Event.</reference></element>
-<element pattern="ajaxSend"><reference> JQuery Ajax
-Show a message before an Ajax request is sent.</reference></element>
-<element pattern="jQuery.ajaxSetup"><reference> JQuery Ajax
-Set default values for future Ajax requests.</reference></element>
-<element pattern="ajaxStart"><reference> JQuery Ajax
-Register a handler to be called when the first Ajax request begins. This is an Ajax Event.</reference></element>
+<element pattern="event.pageY"><reference> JQuery Events
+The mouse position relative to the top edge of the document.</reference></element>
+<element pattern="jQuery.map"><reference> JQuery Utilities
+Translate all items in an array or array-like object to another array of items.</reference></element>
+<element pattern="jQuery.fx.off"><reference> JQuery Properties
+Globally disable all animations.
+ JQuery Effects
+Globally disable all animations.</reference></element>
+<element pattern="show"><reference> JQuery Effects
+Display the matched elements.</reference></element>
+<element pattern="text"><reference> JQuery Manipulation
+Get the combined text contents of each element in the set of matched elements, including their descendants.</reference></element>
+<element pattern="focus"><reference> JQuery Forms, Events
+Bind an event handler to the "focus" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="event.isDefaultPrevented"><reference> JQuery Events
+Returns whether event.preventDefault()</reference></element>
+<element pattern="jQuery.isPlainObject"><reference> JQuery Utilities
+Check to see if an object is a plain object (created using {} or new Object().</reference></element>
+<element pattern="jQuery.noConflict"><reference> JQuery Core
+Relinquish jQuery's control of the $ variable.
+ JQuery Miscellaneous
+Relinquish jQuery's control of the $ variable.</reference></element>
 <element pattern="ajaxStop"><reference> JQuery Ajax
 Register a handler to be called when all Ajax requests have completed. This is an Ajax Event.</reference></element>
-<element pattern="ajaxSuccess"><reference> JQuery Ajax
-Show a message when an Ajax request completes successfully.</reference></element>
-<element pattern="jQuery.get"><reference> JQuery Ajax
-Load data from the server using a HTTP GET request.</reference></element>
-<element pattern="jQuery.getJSON"><reference> JQuery Ajax
-Load JSON-encoded data from the server using a GET HTTP request.</reference></element>
-<element pattern="jQuery.getScript"><reference> JQuery Ajax
-Load a JavaScript file from the server using a GET HTTP request, then execute it.</reference></element>
-<element pattern="load"><reference> JQuery Ajax
-Load data from the server and place the returned HTML into the matched element.</reference></element>
-<element pattern="jQuery.param"><reference> JQuery Ajax
-Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.</reference></element>
-<element pattern="jQuery.post"><reference> JQuery Ajax
-Load data from the server using a HTTP POST request.</reference></element>
-<element pattern="serialize"><reference> JQuery Ajax
-Encode a set of form elements as a string for submission.</reference></element>
-<element pattern="serializeArray"><reference> JQuery Ajax
-Encode a set of form elements as an array of names and values.</reference></element>
-<element pattern="addClass"><reference> JQuery Attributes: Adds the specified class(es) to each of the set of matched elements.
-JQuery CSS: Adds the specified class(es)</reference></element>
-<element pattern="attr"><reference> JQuery Attributes
-Get the value of an attribute for the first element in the set of matched elements.</reference></element>
-<element pattern="hasClass"><reference>JQuery Attributes: Determine whether any of the matched elements are assigned the given class.
-JQuery CSS: Determine whether any of the matched elements are assigned the given class.</reference></element>
-<element pattern="html"><reference> JQuery Attributes
-Get the HTML contents of the first element in the set of matched elements.</reference></element>
-<element pattern="removeAttr"><reference> JQuery Attributes
-Remove an attribute from each element in the set of matched elements.</reference></element>
-<element pattern="val"><reference> JQuery Attributes
-Get the current value of the first element in the set of matched elements.</reference></element>
-<element pattern="jQuery"><reference> JQuery Core
-Accepts a string containing a CSS selector which is then used to match a set of elements.</reference></element>
-<element pattern="jQuery.noConflict"><reference> JQuery Core
-Relinquish jQuery's control of the $ variable.</reference></element>
-<element pattern="css"><reference> JQuery CSS
-Get the value of a style property for the first element in the set of matched elements.</reference></element>
-<element pattern="height"><reference> JQuery CSS: Get the current computed height for the first element in the set of matched elements.
-JQuery Dimensions: Get the current computed height for the first element in the set of matched elements.
-JQuery Manipulation: Get the current computed height for the first element in the set of matched elements.</reference></element>
-<element pattern="innerHeight"><reference>JQuery CSS: Get the current computed height for the first element in the set of matched elements, including padding but not border.
-JQuery Dimensions: Get the current computed height for the first element in the set of matched elements, including padding but not border.
-JQuery Manipulation: Get the current computed height for the first element in the set of matched elements, including padding but not border.</reference></element>
-<element pattern="innerWidth"><reference>JQuery CSS: Get the current computed width for the first element in the set of matched elements, including padding but not border.
-JQuery Dimensions: Get the current computed width for the first element in the set of matched elements, including padding but not border.
-JQuery Manipulation: Get the current computed width for the first element in the set of matched elements, including padding but not border.</reference></element>
-<element pattern="offset"><reference> JQuery CSS
-Get the current coordinates of the first element in the set of matched elements, relative to the document.</reference></element>
-<element pattern="outerHeight"><reference> JQuery CSS: Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin.
-JQuery Dimensions: Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin.
-JQuery Manipulation: Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin.</reference></element>
+<element pattern="jQuery.merge"><reference> JQuery Utilities
+Merge the contents of two arrays together into the first array.</reference></element>
+<element pattern="children"><reference> JQuery Traversing
+Get the children of each element in the set of matched elements, optionally filtered by a selector.</reference></element>
+<element pattern="before"><reference> JQuery Manipulation
+Insert content, specified by the parameter, before each element in the set of matched elements.</reference></element>
+<element pattern="one"><reference> JQuery Events
+Attach a handler to an event for the elements. The handler is executed at most once per element.</reference></element>
+<element pattern="jQuery.isEmptyObject"><reference> JQuery Utilities
+Check to see if an object is empty (contains no properties).</reference></element>
+<element pattern="detach"><reference> JQuery Manipulation
+Remove the set of matched elements from the DOM.</reference></element>
+<element pattern="jQuery.removeData"><reference> JQuery Utilities
+Remove a previously-stored piece of data.</reference></element>
+<element pattern="andSelf"><reference> JQuery Traversing
+Add the previous set of elements on the stack to the current set.</reference></element>
+<element pattern="slideUp"><reference> JQuery Effects
+Hide the matched elements with a sliding motion.</reference></element>
 <element pattern="outerWidth"><reference>JQuery CSS: Get the current computed width for the first element in the set of matched elements, including padding and border.
 JQuery Dimensions: Get the current computed width for the first element in the set of matched elements, including padding and border.
 JQuery Manipulation: Get the current computed width for the first element in the set of matched elements, including padding and border.</reference></element>
-<element pattern="position"><reference>JQuery CSS: Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
-JQuery Manipulation: Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
-JQuery Offset: Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.</reference></element>
+<element pattern="fadeTo"><reference> JQuery Effects
+Adjust the opacity of the matched elements.</reference></element>
+<element pattern="innerHeight"><reference>JQuery CSS: Get the current computed height for the first element in the set of matched elements, including padding but not border.
+JQuery Dimensions: Get the current computed height for the first element in the set of matched elements, including padding but not border.
+JQuery Manipulation: Get the current computed height for the first element in the set of matched elements, including padding but not border.</reference></element>
+<element pattern="appendTo"><reference> JQuery Manipulation
+Insert every element in the set of matched elements to the end of the target.</reference></element>
+<element pattern="parents"><reference> JQuery Traversing
+Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.</reference></element>
+<element pattern="mouseout"><reference> JQuery Events
+Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="siblings"><reference> JQuery Traversing
+Get the siblings of each element in the set of matched elements, optionally filtered by a selector.</reference></element>
+<element pattern="has"><reference> JQuery Traversing
+Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.</reference></element>
+<element pattern="addClass"><reference> JQuery Attributes: Adds the specified class(es) to each of the set of matched elements.
+JQuery CSS: Adds the specified class(es)
+ JQuery Manipulation
+Adds the specified class(es) to each of the set of matched elements.</reference></element>
+<element pattern="hover"><reference> JQuery Events
+Bind two handlers to the matched elements, to be executed when the mouse pointer enters and leaves the elements.</reference></element>
+<element pattern="prevUntil"><reference> JQuery Traversing
+Get all preceding siblings of each element up to but not including the element matched by the selector.</reference></element>
+<element pattern="get"><reference> JQuery Miscellaneous
+Retrieve the DOM elements matched by the jQuery object.</reference></element>
+<element pattern="fadeOut"><reference> JQuery Effects
+Hide the matched elements by fading them to transparent.</reference></element>
 <element pattern="removeClass"><reference>JQuery CSS: Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
 JQuery Manipulation: Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
 JQuery Attributes: Remove a single class, multiple classes, or all classes from each element in the set of matched elements.</reference></element>
-<element pattern="scrollLeft"><reference> JQuery CSS
-Get the current horizontal position of the scroll bar for the first element in the set of matched elements.</reference></element>
+<element pattern="stop"><reference> JQuery Effects
+Stop the currently-running animation on the matched elements.</reference></element>
+<element pattern="keydown"><reference> JQuery Events
+Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="mousemove"><reference> JQuery Events
+Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="event.isImmediatePropagationStopped"><reference> JQuery Events
+Returns whether event.stopImmediatePropagation() was ever called on this event event.isImmediatePropagationStopped()object.</reference></element>
+<element pattern="not"><reference> JQuery Traversing
+Remove elements from the set of matched elements.</reference></element>
+<element pattern="outerHeight"><reference> JQuery CSS: Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin.
+JQuery Dimensions: Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin.
+JQuery Manipulation: Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin.</reference></element>
+<element pattern="die"><reference> JQuery Events
+Remove all event handlers previously attached using .live() from the elements.</reference></element>
+<element pattern="toggle"><reference> JQuery Effects
+Bind two or more handlers to the matched elements, to be executed on alternate clicks.
+ JQuery Events
+Bind two or more handlers to the matched elements, to be executed on alternate clicks.</reference></element>
+<element pattern="remove"><reference> JQuery Manipulation
+Remove the set of matched elements from the DOM.</reference></element>
+<element pattern="triggerHandler"><reference> JQuery Events
+Execute all handlers attached to an element for an event.</reference></element>
+<element pattern="delegate"><reference> JQuery Events
+Attach a handler to one or more events for all elements that match the selector, now or in the future, based on a specific set of root elements.</reference></element>
+<element pattern="jQuery.ajax"><reference> JQuery Ajax
+Perform an asynchronous HTTP (Ajax) request.</reference></element>
+<element pattern="jQuery.parseJSON"><reference> JQuery Utilities
+Takes a well-formed JSON string and returns the resulting JavaScript object.</reference></element>
+<element pattern="ajaxComplete"><reference> JQuery Ajax
+Register a handler to be called when Ajax requests complete. This is an Ajax Event.</reference></element>
+<element pattern="jQuery"><reference> JQuery Core
+Accepts a string containing a CSS selector which is then used to match a set of elements.</reference></element>
+<element pattern="event.currentTarget"><reference> JQuery Events
+The current DOM element within the event bubbling phase.</reference></element>
+<element pattern="event.which"><reference> JQuery Events
+For key or button events, this attribute indicates the specific button or key that was pressed.</reference></element>
+<element pattern="jQuery.pushStack"><reference> JQuery  tooltip="Plugin Authoring
+Add a collection of DOM elements onto the jQuery stack.</reference></element>
+<element pattern="removeData"><reference> JQuery Miscellaneous
+Remove a previously-stored piece of data.</reference></element>
+<element pattern="each"><reference> JQuery Miscellaneous
+Iterate over a jQuery object, executing a function for each matched element.
+ JQuery Traversing
+Iterate over a jQuery object, executing a function for each matched element.</reference></element>
+<element pattern="event.result"><reference> JQuery Events
+This attribute contains the last value returned by an event handler that was triggered by this event, unless the value was undefined.</reference></element>
+<element pattern="animate"><reference> JQuery Effects
+Perform a custom animation of a set of CSS properties.</reference></element>
+<element pattern="eq"><reference> JQuery Traversing
+Reduce the set of matched elements to the one at the specified index.</reference></element>
+<element pattern="click"><reference> JQuery Events
+Bind an event handler to the "click" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="append"><reference> JQuery Manipulation
+Insert content, specified by the parameter, to the end of each element in the set of matched elements.</reference></element>
+<element pattern="index"><reference> JQuery Miscellaneous
+Search for a given element from among the matched elements.</reference></element>
+<element pattern="slice"><reference> JQuery Traversing
+Reduce the set of matched elements to a subset specified by a range of indices.</reference></element>
+<element pattern="hide"><reference> JQuery Effects
+Hide the matched elements.</reference></element>
+<element pattern="closest"><reference> JQuery Traversing
+Get the first ancestor element that matches the selector, beginning at the current element and progressing up through the DOM tree.</reference></element>
+<element pattern="ajaxSend"><reference> JQuery Ajax
+Show a message before an Ajax request is sent.</reference></element>
+<element pattern="keypress"><reference> JQuery Events
+Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="innerWidth"><reference>JQuery CSS: Get the current computed width for the first element in the set of matched elements, including padding but not border.
+JQuery Dimensions: Get the current computed width for the first element in the set of matched elements, including padding but not border.
+JQuery Manipulation: Get the current computed width for the first element in the set of matched elements, including padding but not border.</reference></element>
+<element pattern="find"><reference> JQuery Traversing
+Get the descendants of each element in the current set of matched elements, filtered by a selector.</reference></element>
+<element pattern="event.timeStamp"><reference> JQuery Events
+This attribute returns the number of milliseconds since January 1, 1970, when the event is triggered.</reference></element>
+<element pattern="blur"><reference> JQuery Events, Forms
+Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="ajaxSuccess"><reference> JQuery Ajax
+Show a message when an Ajax request completes successfully.</reference></element>
+<element pattern="jQuery.isXMLDoc"><reference> JQuery Utilities
+Check to see if a DOM node is within an XML document (or is an XML document).</reference></element>
+<element pattern="removeAttr"><reference> JQuery Attributes
+Remove an attribute from each element in the set of matched elements.
+ JQuery Manipulation
+Remove an attribute from each element in the set of matched elements.</reference></element>
+<element pattern="parent"><reference> JQuery Traversing
+Get the parent of each element in the current set of matched elements, optionally filtered by a selector.</reference></element>
+<element pattern="jQuery.support"><reference> JQuery Properties
+A collection of properties that represent the presence of different browser features or bugs.
+ JQuery Utilities
+A collection of properties that represent the presence of different browser features or bugs.</reference></element>
+<element pattern="jQuery.extend"><reference> JQuery Utilities
+Merge the contents of two or more objects together into the first object.</reference></element>
+<element pattern="replaceWith"><reference> JQuery Manipulation
+Replace each element in the set of matched elements with the provided new content.</reference></element>
+<element pattern="event.stopPropagation"><reference> JQuery Events
+Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.</reference></element>
+<element pattern="jQuery.queue"><reference> JQuery Utilities
+Show the queue of functions to be executed on the matched element.</reference></element>
+<element pattern="offset"><reference> JQuery CSS
+Get the current coordinates of the first element in the set of matched elements, relative to the document.
+ JQuery Manipulation
+Get the current coordinates of the first element in the set of matched elements, relative to the document.
+ JQuery Offset
+Get the current coordinates of the first element in the set of matched elements, relative to the document.</reference></element>
+<element pattern="jQuery.browser"><reference> JQuery Properties
+We recommend against using this property.
+ JQuery Utilities
+We recommend against using this property, please try to use feature detection instead (see jQuery.support). Contains flags for the useragent, read from navigator.userAgent. While jQuery.browser will not be removed from future versions of jQuery, every effort to use jQuery.support and proper feature detection should be made.</reference></element>
+<element pattern="event.relatedTarget"><reference> JQuery Events
+The other DOM element involved in the event, if any.</reference></element>
+<element pattern="change"><reference> JQuery Events
+Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
+ JQuery Forms
+Bind an event handler to the "change" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="toArray"><reference> JQuery Miscellaneous
+Retrieve all the DOM elements contained in the jQuery set, as an array.</reference></element>
+<element pattern="prevAll"><reference> JQuery Traversing
+Get all preceding siblings of each element in the set of matched elements, optionally filtered by a selector.</reference></element>
+<element pattern="last"><reference> JQuery Traversing
+Reduce the set of matched elements to the final one in the set.</reference></element>
+<element pattern="parentsUntil"><reference> JQuery Traversing
+Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector.</reference></element>
+<element pattern="nextUntil"><reference> JQuery Traversing
+Get all following siblings of each element up to but not including the element matched by the selector.</reference></element>
+<element pattern="queue"><reference> JQuery Data, Effects, Utilities:
+Show the queue of functions to be executed on the matched elements.</reference></element>
+<element pattern="jQuery.globalEval"><reference> JQuery Utilities
+Execute some JavaScript code globally.</reference></element>
+<element pattern="context"><reference> JQuery Plugin Authoring
+The DOM node context originally passed to jQuery(); if none was passed then context will likely be the document.
+ JQuery Properties
+The DOM node context originally passed to jQuery(); if none was passed then context will likely be the document.</reference></element>
 <element pattern="scrollTop"><reference> JQuery CSS
+Get the current vertical position of the scroll bar for the first element in the set of matched elements.
+ JQuery Manipulation
+Get the current vertical position of the scroll bar for the first element in the set of matched elements.
+ JQuery Offset
 Get the current vertical position of the scroll bar for the first element in the set of matched elements.</reference></element>
+<element pattern="first"><reference> JQuery Traversing
+Reduce the set of matched elements to the first in the set.</reference></element>
+<element pattern="load"><reference> JQuery Ajax:
+Load data from the server and place the returned HTML into the matched element.
+JQuery Events:
+Bind an event handler to the "load" JavaScript event.</reference></element>
+<element pattern="offsetParent"><reference> JQuery Offset
+Get the closest ancestor element that is positioned.
+ JQuery Traversing
+Get the closest ancestor element that is positioned.</reference></element>
+<element pattern="event.preventDefault"><reference> JQuery Events
+If this method is called, the default action of the event will not be triggered.</reference></element>
+<element pattern="jQuery.error"><reference> JQuery Plugin Authoring
+Takes a string and throws an exception containing it.</reference></element>
+<element pattern="serialize"><reference> JQuery Ajax
+Encode a set of form elements as a string for submission.
+ JQuery Forms
+Encode a set of form elements as a string for submission.</reference></element>
+<element pattern="height"><reference> JQuery CSS: Get the current computed height for the first element in the set of matched elements.
+JQuery Dimensions: Get the current computed height for the first element in the set of matched elements.
+JQuery Manipulation: Get the current computed height for the first element in the set of matched elements.</reference></element>
+<element pattern="jQuery.ajaxSetup"><reference> JQuery Ajax
+Set default values for future Ajax requests.</reference></element>
+<element pattern="wrap"><reference> JQuery Manipulation
+Wrap an HTML structure around each element in the set of matched elements.</reference></element>
+<element pattern="nextAll"><reference> JQuery Traversing
+Get all following siblings of each element in the set of matched elements, optionally filtered by a selector.</reference></element>
+<element pattern="select"><reference> JQuery Events
+Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
+ JQuery Forms
+Bind an event handler to the "select" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="size"><reference> JQuery Miscellaneous
+Return the number of DOM elements matched by the jQuery object.</reference></element>
+<element pattern="val"><reference> JQuery Attributes
+Get the current value of the first element in the set of matched elements.
+ JQuery Forms
+Get the current value of the first element in the set of matched elements.
+ JQuery Manipulation
+Get the current value of the first element in the set of matched elements.</reference></element>
+<element pattern="add"><reference> JQuery Traversing
+Add elements to the set of matched elements.</reference></element>
+<element pattern="submit"><reference> JQuery Events
+Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.
+ JQuery Forms
+Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="next"><reference> JQuery Traversing
+Get the immediately following sibling of each element in the set of matched elements, optionally filtered by a selector.</reference></element>
+<element pattern="width"><reference> JQuery CSS, Dimensions, Manipulations:
+Get the current computed width for the first element in the set of matched elements.</reference></element>
+<element pattern="live"><reference> JQuery Events
+Attach a handler to the event for all elements which match the current selector, now or in the future.</reference></element>
+<element pattern="trigger"><reference> JQuery Events
+Execute all handlers and behaviors attached to the matched elements for the given event type.</reference></element>
+<element pattern="slideDown"><reference> JQuery Effects
+Display the matched elements with a sliding motion.</reference></element>
 <element pattern="toggleClass"><reference>JQuery CSS: Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.
 JQuery Manipulation: Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.
 JQuery Attributes: Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.</reference></element>
-<element pattern="width"><reference> JQuery CSS
-Get the current computed width for the first element in the set of matched elements.</reference></element>
-<element pattern="clearQueue"><reference> JQuery Data
-Remove from the queue all items that have not yet been run.</reference></element>
-<element pattern="data"><reference> JQuery Data
-Store arbitrary data associated with the matched elements.</reference></element>
-<element pattern="jQuery.data"><reference> JQuery Data
-Store arbitrary data associated with the specified element.</reference></element>
-<element pattern="dequeue"><reference> JQuery Data
-Execute the next function on the queue for the matched elements.</reference></element>
-<element pattern="jQuery.dequeue"><reference> JQuery Data
-Execute the next function on the queue for the matched element.</reference></element>
-<element pattern="queue"><reference> JQuery Data
-Show the queue of functions to be executed on the matched elements.</reference></element>
-<element pattern="width"><reference> JQuery Dimensions
-Get the current computed width for the first element in the set of matched elements.</reference></element>
-<element pattern="animate"><reference> JQuery Effects
-Perform a custom animation of a set of CSS properties.</reference></element>
-<element pattern="clearQueue"><reference> JQuery Effects
-Remove from the queue all items that have not yet been run.</reference></element>
-<element pattern="delay"><reference> JQuery Effects
-Set a timer to delay execution of subsequent items in the queue.</reference></element>
-<element pattern="dequeue"><reference> JQuery Effects
-Execute the next function on the queue for the matched elements.</reference></element>
-<element pattern="fadeIn"><reference> JQuery Effects
-Display the matched elements by fading them to opaque.</reference></element>
-<element pattern="fadeOut"><reference> JQuery Effects
-Hide the matched elements by fading them to transparent.</reference></element>
-<element pattern="fadeTo"><reference> JQuery Effects
-Adjust the opacity of the matched elements.</reference></element>
-<element pattern="hide"><reference> JQuery Effects
-Hide the matched elements.</reference></element>
-<element pattern="queue"><reference> JQuery Effects
-Show the queue of functions to be executed on the matched elements.</reference></element>
-<element pattern="show"><reference> JQuery Effects
-Display the matched elements.</reference></element>
-<element pattern="slideDown"><reference> JQuery Effects
-Display the matched elements with a sliding motion.</reference></element>
-<element pattern="slideToggle"><reference> JQuery Effects
-Display or hide the matched elements with a sliding motion.</reference></element>
-<element pattern="slideUp"><reference> JQuery Effects
-Hide the matched elements with a sliding motion.</reference></element>
-<element pattern="stop"><reference> JQuery Effects
-Stop the currently-running animation on the matched elements.</reference></element>
-<element pattern="toggle"><reference> JQuery Effects
-Bind two or more handlers to the matched elements, to be executed on alternate clicks.</reference></element>
-<element pattern="bind"><reference> JQuery Events
-Attach a handler to an event for the elements.</reference></element>
-<element pattern="blur"><reference> JQuery Events
-Bind an event handler to the “blur“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="change"><reference> JQuery Events
-Bind an event handler to the “change“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="click"><reference> JQuery Events
-Bind an event handler to the “click“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="dblclick"><reference> JQuery Events
-Bind an event handler to the “dblclick“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="delegate"><reference> JQuery Events
-Attach a handler to one or more events for all elements that match the selector, now or in the future, based on a specific set of root elements.</reference></element>
-<element pattern="die"><reference> JQuery Events
-Remove all event handlers previously attached using .live() from the elements.</reference></element>
-<element pattern="error"><reference> JQuery Events
-Bind an event handler to the “error“ JavaScript event.</reference></element>
-<element pattern="event.isDefaultPrevented"><reference> JQuery Events
-Returns whether event.preventDefault()</reference></element>
-<element pattern="event.isImmediatePropagationStopped"><reference> JQuery Events
-Returns whether event.stopImmediatePropagation() was ever called on this event event.isImmediatePropagationStopped()object.</reference></element>
-<element pattern="event.preventDefault"><reference> JQuery Events
-If this method is called, the default action of the event will not be triggered.</reference></element>
-<element pattern="event.stopImmediatePropagation"><reference> JQuery Events
-Prevents other event handlers from being called.</reference></element>
-<element pattern="event.stopPropagation"><reference> JQuery Events
-Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.</reference></element>
-<element pattern="focus"><reference> JQuery Events
-Bind an event handler to the “focus“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="focusin"><reference> JQuery Events
-Bind an event handler to the “focusin“ JavaScript event.</reference></element>
-<element pattern="focusout"><reference> JQuery Events
-Bind an event handler to the “focusout“ JavaScript event.</reference></element>
-<element pattern="hover"><reference> JQuery Events
-Bind two handlers to the matched elements, to be executed when the mouse pointer enters and leaves the elements.</reference></element>
-<element pattern="keydown"><reference> JQuery Events
-Bind an event handler to the “keydown“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="keypress"><reference> JQuery Events
-Bind an event handler to the “keypress“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="keyup"><reference> JQuery Events
-Bind an event handler to the “keyup“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="live"><reference> JQuery Events
-Attach a handler to the event for all elements which match the current selector, now or in the future.</reference></element>
-<element pattern="load"><reference> JQuery Events
-Bind an event handler to the “load“ JavaScript event.</reference></element>
-<element pattern="mousedown"><reference> JQuery Events
-Bind an event handler to the “mousedown“ JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="insertAfter"><reference> JQuery Manipulation
+Insert every element in the set of matched elements after the target.</reference></element>
+<element pattern="prev"><reference> JQuery Traversing
+Get the immediately preceding sibling of each element in the set of matched elements, optionally filtered by a selector.</reference></element>
+<element pattern="empty"><reference> JQuery Manipulation
+Remove all child nodes of the set of matched elements from the DOM.</reference></element>
 <element pattern="mouseenter"><reference> JQuery Events
 Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.</reference></element>
 <element pattern="mouseleave"><reference> JQuery Events
 Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.</reference></element>
-<element pattern="mousemove"><reference> JQuery Events
-Bind an event handler to the “mousemove“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="mouseout"><reference> JQuery Events
-Bind an event handler to the “mouseout“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="mouseover"><reference> JQuery Events
-Bind an event handler to the “mouseover“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="mouseup"><reference> JQuery Events
-Bind an event handler to the “mouseup“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="one"><reference> JQuery Events
-Attach a handler to an event for the elements. The handler is executed at most once per element.</reference></element>
-<element pattern="jQuery.proxy"><reference> JQuery Events
-Takes a function and returns a new one that will always have a particular context.</reference></element>
-<element pattern="ready"><reference> JQuery Events
-Specify a function to execute when the DOM is fully loaded.</reference></element>
-<element pattern="resize"><reference> JQuery Events
-Bind an event handler to the “resize“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="scroll"><reference> JQuery Events
-Bind an event handler to the “scroll“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="select"><reference> JQuery Events
-Bind an event handler to the “select“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="submit"><reference> JQuery Events
-Bind an event handler to the “submit“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="toggle"><reference> JQuery Events
-Bind two or more handlers to the matched elements, to be executed on alternate clicks.</reference></element>
-<element pattern="trigger"><reference> JQuery Events
-Execute all handlers and behaviors attached to the matched elements for the given event type.</reference></element>
-<element pattern="triggerHandler"><reference> JQuery Events
-Execute all handlers attached to an element for an event.</reference></element>
-<element pattern="unbind"><reference> JQuery Events
-Remove a previously-attached event handler from the elements.</reference></element>
-<element pattern="undelegate"><reference> JQuery Events
-Remove a handler from the event for all elements which match the current selector, now or in the future, based upon a specific set of root elements.</reference></element>
-<element pattern="unload"><reference> JQuery Events
-Bind an event handler to the “unload“ JavaScript event.</reference></element>
-<element pattern="blur"><reference> JQuery Forms
-Bind an event handler to the “blur“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="change"><reference> JQuery Forms
-Bind an event handler to the “change“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="focus"><reference> JQuery Forms
-Bind an event handler to the “focus“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="jQuery.param"><reference> JQuery Forms
-Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.</reference></element>
-<element pattern="select"><reference> JQuery Forms
-Bind an event handler to the “select“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="serialize"><reference> JQuery Forms
-Encode a set of form elements as a string for submission.</reference></element>
-<element pattern="serializeArray"><reference> JQuery Forms
-Encode a set of form elements as an array of names and values.</reference></element>
-<element pattern="submit"><reference> JQuery Forms
-Bind an event handler to the “submit“ JavaScript event, or trigger that event on an element.</reference></element>
-<element pattern="val"><reference> JQuery Forms
-Get the current value of the first element in the set of matched elements.</reference></element>
-<element pattern="addClass"><reference> JQuery Manipulation
-Adds the specified class(es) to each of the set of matched elements.</reference></element>
-<element pattern="after"><reference> JQuery Manipulation
-Insert content, specified by the parameter, after each element in the set of matched elements.</reference></element>
-<element pattern="append"><reference> JQuery Manipulation
-Insert content, specified by the parameter, to the end of each element in the set of matched elements.</reference></element>
-<element pattern="appendTo"><reference> JQuery Manipulation
-Insert every element in the set of matched elements to the end of the target.</reference></element>
-<element pattern="attr"><reference> JQuery Manipulation
-Get the value of an attribute for the first element in the set of matched elements.</reference></element>
-<element pattern="before"><reference> JQuery Manipulation
-Insert content, specified by the parameter, before each element in the set of matched elements.</reference></element>
-<element pattern="clone"><reference> JQuery Manipulation
-Create a copy of the set of matched elements.</reference></element>
-<element pattern="css"><reference> JQuery Manipulation
-Get the value of a style property for the first element in the set of matched elements.</reference></element>
-<element pattern="detach"><reference> JQuery Manipulation
-Remove the set of matched elements from the DOM.</reference></element>
-<element pattern="empty"><reference> JQuery Manipulation
-Remove all child nodes of the set of matched elements from the DOM.</reference></element>
-<element pattern="hasClass"><reference> JQuery Manipulation
-Determine whether any of the matched elements are assigned the given class.</reference></element>
-<element pattern="html"><reference> JQuery Manipulation
-Get the HTML contents of the first element in the set of matched elements.</reference></element>
-<element pattern="insertAfter"><reference> JQuery Manipulation
-Insert every element in the set of matched elements after the target.</reference></element>
-<element pattern="insertBefore"><reference> JQuery Manipulation
-Insert every element in the set of matched elements before the target.</reference></element>
-<element pattern="offset"><reference> JQuery Manipulation
-Get the current coordinates of the first element in the set of matched elements, relative to the document.</reference></element>
-<element pattern="prepend"><reference> JQuery Manipulation
-Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.</reference></element>
-<element pattern="prependTo"><reference> JQuery Manipulation
-Insert every element in the set of matched elements to the beginning of the target.</reference></element>
-<element pattern="remove"><reference> JQuery Manipulation
-Remove the set of matched elements from the DOM.</reference></element>
-<element pattern="removeAttr"><reference> JQuery Manipulation
-Remove an attribute from each element in the set of matched elements.</reference></element>
-<element pattern="replaceAll"><reference> JQuery Manipulation
-A selector expression indicating which element(s) to replace.</reference></element>
-<element pattern="replaceWith"><reference> JQuery Manipulation
-Replace each element in the set of matched elements with the provided new content.</reference></element>
-<element pattern="scrollLeft"><reference> JQuery Manipulation
-Get the current horizontal position of the scroll bar for the first element in the set of matched elements.</reference></element>
-<element pattern="scrollTop"><reference> JQuery Manipulation
-Get the current vertical position of the scroll bar for the first element in the set of matched elements.</reference></element>
-<element pattern="text"><reference> JQuery Manipulation
-Get the combined text contents of each element in the set of matched elements, including their descendants.</reference></element>
 <element pattern="unwrap"><reference> JQuery Manipulation
 Remove the parents of the set of matched elements from the DOM, leaving the matched elements in their place.</reference></element>
-<element pattern="val"><reference> JQuery Manipulation
-Get the current value of the first element in the set of matched elements.</reference></element>
-<element pattern="width"><reference> JQuery Manipulation
-Get the current computed width for the first element in the set of matched elements.</reference></element>
-<element pattern="wrap"><reference> JQuery Manipulation
-Wrap an HTML structure around each element in the set of matched elements.</reference></element>
-<element pattern="wrapAll"><reference> JQuery Manipulation
-Wrap an HTML structure around all elements in the set of matched elements.</reference></element>
-<element pattern="wrapInner"><reference> JQuery Manipulation
-Wrap an HTML structure around the content of each element in the set of matched elements.</reference></element>
-<element pattern="data"><reference> JQuery Miscellaneous
-Store arbitrary data associated with the matched elements.</reference></element>
-<element pattern="each"><reference> JQuery Miscellaneous
-Iterate over a jQuery object, executing a function for each matched element.</reference></element>
-<element pattern="get"><reference> JQuery Miscellaneous
-Retrieve the DOM elements matched by the jQuery object.</reference></element>
-<element pattern="index"><reference> JQuery Miscellaneous
-Search for a given element from among the matched elements.</reference></element>
-<element pattern="jQuery.noConflict"><reference> JQuery Miscellaneous
-Relinquish jQuery's control of the $ variable.</reference></element>
-<element pattern="jQuery.param"><reference> JQuery Miscellaneous
-Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.</reference></element>
-<element pattern="removeData"><reference> JQuery Miscellaneous
-Remove a previously-stored piece of data.</reference></element>
-<element pattern="size"><reference> JQuery Miscellaneous
-Return the number of DOM elements matched by the jQuery object.</reference></element>
-<element pattern="toArray"><reference> JQuery Miscellaneous
-Retrieve all the DOM elements contained in the jQuery set, as an array.</reference></element>
-<element pattern="offset"><reference> JQuery Offset
-Get the current coordinates of the first element in the set of matched elements, relative to the document.</reference></element>
-<element pattern="offsetParent"><reference> JQuery Offset
-Get the closest ancestor element that is positioned.</reference></element>
-<element pattern="scrollLeft"><reference> JQuery Offset
-Get the current horizontal position of the scroll bar for the first element in the set of matched elements.</reference></element>
-<element pattern="scrollTop"><reference> JQuery Offset
-Get the current vertical position of the scroll bar for the first element in the set of matched elements.</reference></element>
-<element pattern="add"><reference> JQuery Traversing
-Add elements to the set of matched elements.</reference></element>
-<element pattern="andSelf"><reference> JQuery Traversing
-Add the previous set of elements on the stack to the current set.</reference></element>
-<element pattern="children"><reference> JQuery Traversing
-Get the children of each element in the set of matched elements, optionally filtered by a selector.</reference></element>
-<element pattern="closest"><reference> JQuery Traversing
-Get the first ancestor element that matches the selector, beginning at the current element and progressing up through the DOM tree.</reference></element>
-<element pattern="contents"><reference> JQuery Traversing
-Get the children of each element in the set of matched elements, including text nodes.</reference></element>
-<element pattern="each"><reference> JQuery Traversing
-Iterate over a jQuery object, executing a function for each matched element.</reference></element>
-<element pattern="end"><reference> JQuery Traversing
-End the most recent filtering operation in the current chain and return the set of matched elements to its previous state.</reference></element>
-<element pattern="eq"><reference> JQuery Traversing
-Reduce the set of matched elements to the one at the specified index.</reference></element>
-<element pattern="filter"><reference> JQuery Traversing
-Reduce the set of matched elements to those that match the selector or pass the function's test.</reference></element>
-<element pattern="find"><reference> JQuery Traversing
-Get the descendants of each element in the current set of matched elements, filtered by a selector.</reference></element>
-<element pattern="first"><reference> JQuery Traversing
-Reduce the set of matched elements to the first in the set.</reference></element>
-<element pattern="has"><reference> JQuery Traversing
-Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.</reference></element>
-<element pattern="is"><reference> JQuery Traversing
-Check the current matched set of elements against a selector and return true if at least one of these elements matches the selector.</reference></element>
-<element pattern="last"><reference> JQuery Traversing
-Reduce the set of matched elements to the final one in the set.</reference></element>
-<element pattern="map"><reference> JQuery Traversing
-Pass each element in the current matched set through a function, producing a new jQuery object containing the return values.</reference></element>
-<element pattern="next"><reference> JQuery Traversing
-Get the immediately following sibling of each element in the set of matched elements, optionally filtered by a selector.</reference></element>
-<element pattern="nextAll"><reference> JQuery Traversing
-Get all following siblings of each element in the set of matched elements, optionally filtered by a selector.</reference></element>
-<element pattern="nextUntil"><reference> JQuery Traversing
-Get all following siblings of each element up to but not including the element matched by the selector.</reference></element>
-<element pattern="not"><reference> JQuery Traversing
-Remove elements from the set of matched elements.</reference></element>
-<element pattern="offsetParent"><reference> JQuery Traversing
-Get the closest ancestor element that is positioned.</reference></element>
-<element pattern="parent"><reference> JQuery Traversing
-Get the parent of each element in the current set of matched elements, optionally filtered by a selector.</reference></element>
-<element pattern="parents"><reference> JQuery Traversing
-Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.</reference></element>
-<element pattern="parentsUntil"><reference> JQuery Traversing
-Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector.</reference></element>
-<element pattern="prev"><reference> JQuery Traversing
-Get the immediately preceding sibling of each element in the set of matched elements, optionally filtered by a selector.</reference></element>
-<element pattern="prevAll"><reference> JQuery Traversing
-Get all preceding siblings of each element in the set of matched elements, optionally filtered by a selector.</reference></element>
-<element pattern="prevUntil"><reference> JQuery Traversing
-Get all preceding siblings of each element up to but not including the element matched by the selector.</reference></element>
-<element pattern="siblings"><reference> JQuery Traversing
-Get the siblings of each element in the set of matched elements, optionally filtered by a selector.</reference></element>
-<element pattern="slice"><reference> JQuery Traversing
-Reduce the set of matched elements to a subset specified by a range of indices.</reference></element>
-<element pattern="clearQueue"><reference> JQuery Utilities
-Remove from the queue all items that have not yet been run.</reference></element>
-<element pattern="jQuery.contains"><reference> JQuery Utilities
-Check to see if a DOM node is within another DOM node.</reference></element>
-<element pattern="jQuery.data"><reference> JQuery Utilities
-Store arbitrary data associated with the specified element.</reference></element>
-<element pattern="dequeue"><reference> JQuery Utilities
-Execute the next function on the queue for the matched elements.</reference></element>
-<element pattern="jQuery.dequeue"><reference> JQuery Utilities
-Execute the next function on the queue for the matched element.</reference></element>
-<element pattern="jQuery.each"><reference> JQuery Utilities
-Iterates through the array displaying each number as both a word and numeral</reference></element>
-<element pattern="jQuery.extend"><reference> JQuery Utilities
-Merge the contents of two or more objects together into the first object.</reference></element>
-<element pattern="jQuery.globalEval"><reference> JQuery Utilities
-Execute some JavaScript code globally.</reference></element>
 <element pattern="jQuery.grep"><reference> JQuery Utilities
 Finds the elements of an array which satisfy a filter function. The original array is not affected.</reference></element>
-<element pattern="jQuery.inArray"><reference> JQuery Utilities
-Search for a specified value within an array and return its index (or -1 if not found).</reference></element>
-<element pattern="jQuery.isArray"><reference> JQuery Utilities
-Determine whether the argument is an array.</reference></element>
-<element pattern="jQuery.isEmptyObject"><reference> JQuery Utilities
-Check to see if an object is empty (contains no properties).</reference></element>
-<element pattern="jQuery.isFunction"><reference> JQuery Utilities
-Determine if the argument passed is a Javascript function object.</reference></element>
-<element pattern="jQuery.isPlainObject"><reference> JQuery Utilities
-Check to see if an object is a plain object (created using {} or new Object().</reference></element>
-<element pattern="jQuery.isXMLDoc"><reference> JQuery Utilities
-Check to see if a DOM node is within an XML document (or is an XML document).</reference></element>
-<element pattern="jQuery.makeArray"><reference> JQuery Utilities
-Convert an array-like object into a true JavaScript array.</reference></element>
-<element pattern="jQuery.map"><reference> JQuery Utilities
-Translate all items in an array or array-like object to another array of items.</reference></element>
-<element pattern="jQuery.merge"><reference> JQuery Utilities
-Merge the contents of two arrays together into the first array.</reference></element>
-<element pattern="jQuery.noop"><reference> JQuery Utilities
-An empty function.</reference></element>
-<element pattern="jQuery.proxy"><reference> JQuery Utilities
-Takes a function and returns a new one that will always have a particular context.</reference></element>
-<element pattern="queue"><reference> JQuery Utilities
-Show the queue of functions to be executed on the matched elements.</reference></element>
-<element pattern="jQuery.queue"><reference> JQuery Utilities
-Show the queue of functions to be executed on the matched element.</reference></element>
-<element pattern="jQuery.removeData"><reference> JQuery Utilities
-Remove a previously-stored piece of data.</reference></element>
-<element pattern="jQuery.trim"><reference> JQuery Utilities
-Remove the whitespace from the beginning and end of a string.</reference></element>
+<element pattern="scrollLeft"><reference> JQuery CSS
+Get the current horizontal position of the scroll bar for the first element in the set of matched elements.
+ JQuery Manipulation
+Get the current horizontal position of the scroll bar for the first element in the set of matched elements.
+ JQuery Offset
+Get the current horizontal position of the scroll bar for the first element in the set of matched elements.</reference></element>
+<element pattern="selector"><reference> JQuery Plugin Authoring
+A selector representing selector originally passed to jQuery().
+ JQuery Properties
+A selector representing selector originally passed to jQuery().</reference></element>
 <element pattern="jQuery.unique"><reference> JQuery Utilities
 Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on arrays of DOM elements, not strings or numbers.</reference></element>
-</group>
-
-<group highlight="js-function" >
-	<autocomplete enable="1" />
-<element pattern="context"><reference> JQuery Plugin Authoring
-The DOM node context originally passed to jQuery(); if none was passed then context will likely be the document.</reference></element>
-<element pattern="jQuery.error"><reference> JQuery Plugin Authoring
-Takes a string and throws an exception containing it.</reference></element>
-<element pattern="jQuery.pushStack"><reference> JQuery  tooltip="Plugin Authoring
-Add a collection of DOM elements onto the jQuery stack.</reference></element>
-<element pattern="selector"><reference> JQuery Plugin Authoring
-A selector representing selector originally passed to jQuery().</reference></element>
-<element pattern="jQuery.browser"><reference> JQuery Properties
-We recommend against using this property.</reference></element>
-<element pattern="context"><reference> JQuery Properties
-The DOM node context originally passed to jQuery(); if none was passed then context will likely be the document.</reference></element>
-<element pattern="jQuery.fx.off"><reference> JQuery Properties
-Globally disable all animations.</reference></element>
-<element pattern="length"><reference> JQuery Properties
-The number of elements in the jQuery object.</reference></element>
-<element pattern="selector"><reference> JQuery Properties
-A selector representing selector originally passed to jQuery().</reference></element>
-<element pattern="jQuery.support"><reference> JQuery Properties
-A collection of properties that represent the presence of different browser features or bugs.</reference></element>
-<element pattern="jQuery.boxModel"><reference> JQuery Utilities
-Deprecated in jQuery 1.3 (see jQuery.support). States if the current page, in the user's browser, is being rendered using the W3C CSS Box Model.</reference></element>
-<element pattern="jQuery.browser"><reference> JQuery Utilities
-We recommend against using this property, please try to use feature detection instead (see jQuery.support). Contains flags for the useragent, read from navigator.userAgent. While jQuery.browser will not be removed from future versions of jQuery, every effort to use jQuery.support and proper feature detection should be made.</reference></element>
-<element pattern="jQuery.parseJSON"><reference> JQuery Utilities
-Takes a well-formed JSON string and returns the resulting JavaScript object.</reference></element>
-<element pattern="jQuery.support"><reference> JQuery Utilities
-A collection of properties that represent the presence of different browser features or bugs.</reference></element>
-<element pattern="jQuery.fx.off"><reference> JQuery Effects
-Globally disable all animations.</reference></element>
-<element pattern="event.currentTarget"><reference> JQuery Events
-The current DOM element within the event bubbling phase.</reference></element>
-<element pattern="event.data"><reference> JQuery Events
-Contains the optional data passed to jQuery.fn.bind when the current executing handler was bound.</reference></element>
-<element pattern="event.pageY"><reference> JQuery Events
-The mouse position relative to the top edge of the document.</reference></element>
-<element pattern="event.relatedTarget"><reference> JQuery Events
-The other DOM element involved in the event, if any.</reference></element>
-<element pattern="event.result"><reference> JQuery Events
-This attribute contains the last value returned by an event handler that was triggered by this event, unless the value was undefined.</reference></element>
-<element pattern="event.target"><reference> JQuery Events
-The DOM element that initiated the event.</reference></element>
-<element pattern="event.timeStamp"><reference> JQuery Events
-This attribute returns the number of milliseconds since January 1, 1970, when the event is triggered.</reference></element>
+<element pattern="jQuery.param"><reference> JQuery Ajax
+Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.
+ JQuery Forms
+Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.
+ JQuery Miscellaneous
+Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.</reference></element>
+<element pattern="resize"><reference> JQuery Events
+Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="jQuery.noop"><reference> JQuery Utilities
+An empty function.</reference></element>
 <element pattern="event.type"><reference> JQuery Events
 Describes the nature of the event.</reference></element>
-<element pattern="event.which"><reference> JQuery Events
-For key or button events, this attribute indicates the specific button or key that was pressed.</reference></element>
+<element pattern="prependTo"><reference> JQuery Manipulation
+Insert every element in the set of matched elements to the beginning of the target.</reference></element>
+<element pattern="attr"><reference> JQuery Attributes
+Get the value of an attribute for the first element in the set of matched elements.
+ JQuery Manipulation
+Get the value of an attribute for the first element in the set of matched elements.</reference></element>
+<element pattern="jQuery.get"><reference> JQuery Ajax
+Load data from the server using a HTTP GET request.</reference></element>
+<element pattern="undelegate"><reference> JQuery Events
+Remove a handler from the event for all elements which match the current selector, now or in the future, based upon a specific set of root elements.</reference></element>
+<element pattern="error"><reference> JQuery Events
+Bind an event handler to the "error" JavaScript event.</reference></element>
+<element pattern="jQuery.isArray"><reference> JQuery Utilities
+Determine whether the argument is an array.</reference></element>
+<element pattern="is"><reference> JQuery Traversing
+Check the current matched set of elements against a selector and return true if at least one of these elements matches the selector.</reference></element>
+<element pattern="focusout"><reference> JQuery Events
+Bind an event handler to the "focusout" JavaScript event.</reference></element>
+<element pattern="mouseup"><reference> JQuery Events
+Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="ready"><reference> JQuery Events
+Specify a function to execute when the DOM is fully loaded.</reference></element>
+<element pattern="wrapAll"><reference> JQuery Manipulation
+Wrap an HTML structure around all elements in the set of matched elements.</reference></element>
+<element pattern="event.stopImmediatePropagation"><reference> JQuery Events
+Prevents other event handlers from being called.</reference></element>
+<element pattern="jQuery.getJSON"><reference> JQuery Ajax
+Load JSON-encoded data from the server using a GET HTTP request.</reference></element>
+<element pattern="clearQueue"><reference> JQuery Data, Effects and Utilities:
+Remove from the queue all items that have not yet been run.</reference></element>
+<element pattern="jQuery.isFunction"><reference> JQuery Utilities
+Determine if the argument passed is a Javascript function object.</reference></element>
+<element pattern="contents"><reference> JQuery Traversing
+Get the children of each element in the set of matched elements, including text nodes.</reference></element>
+<element pattern="filter"><reference> JQuery Traversing
+Reduce the set of matched elements to those that match the selector or pass the function's test.</reference></element>
+<element pattern="jQuery.trim"><reference> JQuery Utilities
+Remove the whitespace from the beginning and end of a string.</reference></element>
+<element pattern="end"><reference> JQuery Traversing
+End the most recent filtering operation in the current chain and return the set of matched elements to its previous state.</reference></element>
+<element pattern="jQuery.each"><reference> JQuery Utilities
+Iterates through the array displaying each number as both a word and numeral</reference></element>
+<element pattern="keyup"><reference> JQuery Events
+Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="length"><reference> JQuery Properties
+The number of elements in the jQuery object.</reference></element>
+<element pattern="prepend"><reference> JQuery Manipulation
+Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.</reference></element>
+<element pattern="delay"><reference> JQuery Effects
+Set a timer to delay execution of subsequent items in the queue.</reference></element>
+<element pattern="jQuery.getScript"><reference> JQuery Ajax
+Load a JavaScript file from the server using a GET HTTP request, then execute it.</reference></element>
+<element pattern="html"><reference> JQuery Attributes
+Get the HTML contents of the first element in the set of matched elements.
+ JQuery Manipulation
+Get the HTML contents of the first element in the set of matched elements.</reference></element>
+<element pattern="fadeIn"><reference> JQuery Effects
+Display the matched elements by fading them to opaque.</reference></element>
+<element pattern="jQuery.dequeue"><reference> JQuery Utilities
+Execute the next function on the queue for the matched element.</reference></element>
+<element pattern="css"><reference> JQuery CSS
+Get the value of a style property for the first element in the set of matched elements.
+ JQuery Manipulation
+Get the value of a style property for the first element in the set of matched elements.</reference></element>
+<element pattern="jQuery.data"><reference> JQuery Data
+Store arbitrary data associated with the specified element.
+ JQuery Utilities
+Store arbitrary data associated with the specified element.</reference></element>
+<element pattern="map"><reference> JQuery Traversing
+Pass each element in the current matched set through a function, producing a new jQuery object containing the return values.</reference></element>
+<element pattern="wrapInner"><reference> JQuery Manipulation
+Wrap an HTML structure around the content of each element in the set of matched elements.</reference></element>
+<element pattern="insertBefore"><reference> JQuery Manipulation
+Insert every element in the set of matched elements before the target.</reference></element>
+<element pattern="dequeue"><reference> JQuery Utilities, Effects, Data
+Execute the next function on the queue for the matched elements.</reference></element>
+<element pattern="clone"><reference> JQuery Manipulation
+Create a copy of the set of matched elements.</reference></element>
+<element pattern="after"><reference> JQuery Manipulation
+Insert content, specified by the parameter, after each element in the set of matched elements.</reference></element>
+<element pattern="slideToggle"><reference> JQuery Effects
+Display or hide the matched elements with a sliding motion.</reference></element>
+<element pattern="jQuery.contains"><reference> JQuery Utilities
+Check to see if a DOM node is within another DOM node.</reference></element>
+<element pattern="mousedown"><reference> JQuery Events
+Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="ajaxError"><reference> JQuery Ajax
+Register a handler to be called when Ajax requests complete with an error. This is an Ajax Event.</reference></element>
+<element pattern="data"><reference> JQuery Miscellaneous
+Store arbitrary data associated with the matched elements.</reference></element>
+<element pattern="focusin"><reference> JQuery Events
+Bind an event handler to the "focusin" JavaScript event.</reference></element>
+<element pattern="jQuery.inArray"><reference> JQuery Utilities
+Search for a specified value within an array and return its index (or -1 if not found).</reference></element>
+<element pattern="jQuery.proxy"><reference> JQuery Events
+Takes a function and returns a new one that will always have a particular context.
+ JQuery Utilities
+Takes a function and returns a new one that will always have a particular context.</reference></element>
+<element pattern="jQuery.makeArray"><reference> JQuery Utilities
+Convert an array-like object into a true JavaScript array.</reference></element>
+<element pattern="unbind"><reference> JQuery Events
+Remove a previously-attached event handler from the elements.</reference></element>
+<element pattern="unload"><reference> JQuery Events
+Bind an event handler to the "unload" JavaScript event.</reference></element>
+<element pattern="bind"><reference> JQuery Events
+Attach a handler to an event for the elements.</reference></element>
+<element pattern="serializeArray"><reference> JQuery Ajax
+Encode a set of form elements as an array of names and values.
+ JQuery Forms
+Encode a set of form elements as an array of names and values.</reference></element>
+<element pattern="jQuery.boxModel"><reference> JQuery Utilities
+Deprecated in jQuery 1.3 (see jQuery.support). States if the current page, in the user's browser, is being rendered using the W3C CSS Box Model.</reference></element>
+<element pattern="event.target"><reference> JQuery Events
+The DOM element that initiated the event.</reference></element>
+<element pattern="jQuery.post"><reference> JQuery Ajax
+Load data from the server using a HTTP POST request.</reference></element>
+<element pattern="replaceAll"><reference> JQuery Manipulation
+A selector expression indicating which element(s) to replace.</reference></element>
+<element pattern="ajaxStart"><reference> JQuery Ajax
+Register a handler to be called when the first Ajax request begins. This is an Ajax Event.</reference></element>
+<element pattern="hasClass"><reference>JQuery Attributes: Determine whether any of the matched elements are assigned the given class.
+JQuery CSS: Determine whether any of the matched elements are assigned the given class.
+ JQuery Manipulation
+Determine whether any of the matched elements are assigned the given class.</reference></element>
+<element pattern="position"><reference>JQuery CSS: Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
+JQuery Manipulation: Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
+JQuery Offset: Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.</reference></element>
+<element pattern="mouseover"><reference> JQuery Events
+Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="event.data"><reference> JQuery Events
+Contains the optional data passed to jQuery.fn.bind when the current executing handler was bound.</reference></element>
+<element pattern="scroll"><reference> JQuery Events
+Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.</reference></element>
+<element pattern="dblclick"><reference> JQuery Events
+Bind an event handler to the "dblclick" JavaScript event, or trigger that event on an element.</reference></element>
 </group>
 </bfinc>
