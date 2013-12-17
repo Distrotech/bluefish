@@ -299,12 +299,12 @@ s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, GMatchInfo *matchinfo)
 		doc_replace_text_backend(s3result->doc, tmp2, s3result->so, s3result->eo);
 		g_free(tmp1);
 		g_free(tmp2);
-	} else if (s3run->replacetype == snr3replace_string) {
+	} else {
 		if (s3run->type == snr3type_string) {
 			DEBUG_MSG("s3result_replace, replace %d:%d with %s\n", s3result->so, s3result->eo, s3run->replacereal);
 			doc_replace_text_backend(s3result->doc, s3run->replacereal, s3result->so, s3result->eo);
 			offsetupdate.offset = g_utf8_strlen(s3run->replacereal, -1)-(s3result->eo - s3result->so);
-		} else if (s3run->type == snr3type_pcre) {
+		} else if (s3run->type == snr3type_pcre && s3run->replacetype == snr3replace_string) {
 			gchar *newstr = retrieve_pcre_replace_string(s3run, s3result, matchinfo);
 			if (newstr) {
 				DEBUG_MSG("s3result_replace, replace from  %d:%d\n",s3result->so,s3result->eo);
