@@ -2,138 +2,138 @@
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # Rasmus Toftdahl Olesen <rto@pohldata.dk>, 2003.
 # Finn Gruwier Larsen <finngruwierlarsen@gmail.com>, 2010.
-# flemming christensen <fc@stromata.dk>, 2011.
+# flemming christensen <fc@stromata.dk>, 2011, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2013-02-05 21:19+0100\n"
-"PO-Revision-Date: 2011-12-10 12:48+0100\n"
+"POT-Creation-Date: 2013-11-17 21:18+0100\n"
+"PO-Revision-Date: 2013-12-10 12:48+0100\n"
 "Last-Translator: flemming christensen <fc@stromata.dk>\n"
 "Language-Team: Dansk <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: src/plugin_snippets/snippets_gui.c:416
+#: src/plugin_snippets/snippets_gui.c:425
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr ""
 "Klik med højre musetast for at tilføje, redigere eller slette tekststumper."
 
-#: src/plugin_snippets/snippets_gui.c:417
+#: src/plugin_snippets/snippets_gui.c:426
 msgid "Use drag and drop to re-order snippets"
 msgstr "Brug træk-og-slip for at omarrangere tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:418
+#: src/plugin_snippets/snippets_gui.c:427
 msgid "To exchange snippets with others use import or export"
 msgstr "Brug import og eksport til at udveksle tekststumper med andre brugere"
 
-#: src/plugin_snippets/snippets_gui.c:638
+#: src/plugin_snippets/snippets_gui.c:647
 msgid "snippets"
 msgstr "tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:701
+#: src/plugin_snippets/snippets_gui.c:710
 msgid "Snippet export filename"
 msgstr "Filnavn for eksport af tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:739
+#: src/plugin_snippets/snippets_gui.c:748
 msgid "Snippet import filename"
 msgstr "Filnavn for import af tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:757
+#: src/plugin_snippets/snippets_gui.c:766
 msgid "Set accelerator key"
 msgstr "Angiv genvejstast"
 
-#: src/plugin_snippets/snippets_gui.c:813
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "Snippets menu"
 msgstr "Menu for tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_gui.c:824
 msgid "_New Snippet"
 msgstr "_Ny tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_gui.c:824
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
 msgstr "Ny tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_gui.c:825
 msgid "_Edit Snippet"
 msgstr "_Redigér tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_gui.c:825
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
 msgstr "Redigér tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:826
 msgid "_Delete Snippet"
 msgstr "_Slet tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:826
 msgid "Delete snippet"
 msgstr "Slet tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Delete _Branch"
 msgstr "Slet _gren"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Delete branch"
 msgstr "Slet gren"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:828
 msgid "Set Snippet _Accelerator"
 msgstr "Angiv _genvejstast for tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:828
 msgid "Set snippet accelerator"
 msgstr "Sæt genvejstast for tekststump"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:830
 msgid "Ex_pand All"
 msgstr "Ud_vid alle"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:830
 msgid "Expand all"
 msgstr "Udvid alle"
 
-#: src/plugin_snippets/snippets_gui.c:821
+#: src/plugin_snippets/snippets_gui.c:831
 msgid "_Collapse All"
 msgstr "Sammen_fold alle"
 
-#: src/plugin_snippets/snippets_gui.c:821
+#: src/plugin_snippets/snippets_gui.c:831
 msgid "Collapse all"
 msgstr "Sammenfold alle"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:832
 msgid "E_xport"
 msgstr "E_ksportér"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:832
 msgid "Export snippets"
 msgstr "Eksportér tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:833
 msgid "I_mport"
 msgstr "I_mportér"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:833
 msgid "Import snippets"
 msgstr "Importér tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:837
 msgid "_Show as menu"
 msgstr "Vi_s som menu"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:837
 msgid "Show snippets menu"
 msgstr "Vis menuen tekststumper"
 
-#: src/plugin_snippets/snippets_gui.c:829
+#: src/plugin_snippets/snippets_gui.c:839
 msgid "S_nippets Menu"
 msgstr "Me_nuen tekststumper"
 
@@ -180,8 +180,8 @@ msgid ""
 "placeholders an appropriate name on the right. (Please use %% if you need "
 "literal % in your string!)"
 msgstr ""
-"Specifér et mønster for søg og erstat. Du kan bruge pladsholdere %0, %1, ...%"
-"5 til at bede om værdier, når du aktiverer dette punkt. Giv disse "
+"Specifér et mønster for søg og erstat. Du kan bruge pladsholdere %0, %1, ..."
+"%5 til at bede om værdier, når du aktiverer dette punkt. Giv disse "
 "pladsholdere passende navne til højre. (Brug %% hvis du har brug for "
 "bogstaveligt % i strengen!)"
 
@@ -229,8 +229,8 @@ msgid ""
 msgstr ""
 "Teksten i <i>før</i> vil blive indsat før markørpositionen eller den "
 "aktuelle markering. Teksten i <i>efter</i> vil blive indsat efter "
-"markørpositionen eller den aktuelle markering. Du kan bruge pladsholderne %"
-"0, %1, ...%9 til at spørge efter værdier, når du aktiverer dette punkt. Giv "
+"markørpositionen eller den aktuelle markering. Du kan bruge pladsholderne "
+"%0, %1, ...%9 til at spørge efter værdier, når du aktiverer dette punkt. Giv "
 "disse pladsholdere passende navne til højre. (Brug %% hvis du har brug for "
 "bogstavelig % i din streng!)"
 
