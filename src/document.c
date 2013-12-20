@@ -2597,7 +2597,8 @@ doc_recalculate_right_margin(Tdocument *doc)
 #if GTK_CHECK_VERSION(2,24,0)
 			width = gdk_window_get_width(gwin);
 #else
-			gdk_drawable_get_size((GdkDrawable *)gwin, &width, &retval);
+			gint height;
+			gdk_drawable_get_size((GdkDrawable *)gwin, &width, &height);
 #endif
 		}
 	}
