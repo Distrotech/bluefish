@@ -3,7 +3,7 @@
 	Bluefish HTML Editor
 	css-rules.bfinc $Revision$
 
-	Copyright (C) 2008-20012 Olivier Sessink
+	Copyright (C) 2008-2013 Olivier Sessink
 
 		This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -12,39 +12,416 @@
 
 	This program is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+	along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <bfinc>
-<element pattern="background-attachment"  highlight="css-property" >
+<element pattern="align-content" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>Sets whether a background image is fixed or scrolls with the rest of the page
-<b>Values:</b> scroll | fixed | inherit
-<b>Initial value:</b> scroll
-<b>Media group:</b> visual</reference>
+<reference><b>WARNING:</b> this property is not supported by Chrome, Firefox, Internet Explorer and Safari
+Aligns a flex container's lines within the flex container when there is extra space in the cross-axis.
+<b>Values:</b> flex-start | flex-end | center | space-between | space-around | stretch
+<b>Initial:</b> stretch
+<b>Applies to:</b> multi-line flex containers
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> specified value
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-flexbox/#align-content">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="scroll"  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
-</element>
-<element pattern="fixed"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element pattern="inherit"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
+	<element pattern="flex-start"/>
+	<element pattern="flex-end"/>
+	<element pattern="center"/>
+	<element pattern="space-between"/>
+	<element pattern="space-around"/>
+	<element pattern="stretch"/>
+</group>
 <element id="e.css.end" pattern=";" ends_context="1"/>
+<element idref="e.css.lcomment"/>
 <element id="e.css.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
 </context>
 </element>
-<element pattern="background-color"  highlight="css-property" >
+<element pattern="align-items" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>Sets the background color of an element
-<b>Values:</b> &lt;color&gt; | currentColor | transparent | inherit
-<b>Initial value:</b> transparent
-<b>Media group:</b> visual</reference>
+<reference><b>WARNING:</b> this property is not supported by Chrome and Safari
+Flex items can be aligned in the cross axis of the current line of the flex container, similar to ‘justify-content’ but in the perpendicular direction.
+<b>Values:</b> flex-start | flex-end | center | baseline | stretch
+<b>Initial:</b> stretch
+<b>Applies to:</b> flex containers
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> specified value
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-flexbox/#align-items">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="flex-start"/>
+	<element pattern="flex-end"/>
+	<element pattern="center"/>
+	<element pattern="baseline"/>
+	<element pattern="stretch"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="align-self" highlight="css-property" >
+	<autocomplete append=": " />
+<reference><b>WARNING:</b> this property is not supported by Chrome, Internet Explorer and Safari
+Flex items can be aligned in the cross axis of the current line of the flex container, similar to ‘justify-content’ but in the perpendicular direction.
+<b>Values:</b> auto | flex-start | flex-end | center | baseline | stretch
+<b>Initial:</b> auto
+<b>Applies to:</b> flex items
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> ‘auto’ computes to parent's ‘align-items’; otherwise as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-flexbox/#align-self">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="auto"/>
+	<element pattern="flex-start"/>
+	<element pattern="flex-end"/>
+	<element pattern="center"/>
+	<element pattern="baseline"/>
+	<element pattern="stretch"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="animation" highlight="css-property" >
+	<autocomplete append=": " />
+<reference><b>WARNING:</b> this property is not supported by Chrome and Safari
+Shorthand property combines six of the animation properties into a single property.
+<b>Values:</b> &lt;single-animation&gt; [ ‘,’ &lt;single-animation&gt; ]*
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements, ::before and ::after pseudo-elements
+<b>Inherited:</b> see individual properties
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-animations/#animation-shorthand-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="animation-delay" highlight="css-property" >
+	<autocomplete append=": " />
+<reference><b>WARNING:</b> this property is not supported by Chrome and Safari
+Defines what values are applied by the animation outside the time it is executing.
+<b>Values:</b> &lt;time&gt; [, &lt;time&gt;]*
+<b>Initial:</b> 0s
+<b>Applies to:</b> all elements, ::before and ::after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-animations/#animation-delay-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="animation-direction" highlight="css-property" >
+	<autocomplete append=": " />
+<reference><b>WARNING:</b> this property is not supported by Chrome, Opera and Safari
+Defines whether or not the animation should play in reverse on alternate cycles.
+<b>Values:</b> normal | reverse | alternate | alternate-reverse
+<b>Initial:</b> normal
+<b>Applies to:</b> all elements, ::before and ::after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-animations/#animation-direction-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="normal"/>
+	<element pattern="reverse"/>
+	<element pattern="alternate"/>
+	<element pattern="alternate-reverse"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="animation-duration" highlight="css-property" >
+	<autocomplete append=": " />
+<reference><b>WARNING:</b> this property is not supported by Chrome and Safari
+Defines the length of time that an animation takes to complete one cycle.
+<b>Values:</b> &lt;time&gt; [, &lt;time&gt;]*
+<b>Initial:</b> 0s
+<b>Applies to:</b> all elements, ::before and ::after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-animations/#animation-duration-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="animation-fill-mode" highlight="css-property" >
+	<autocomplete append=": " />
+<reference><b>WARNING:</b> this property is not supported by Chrome and Safari
+Defines what values are applied by the animation outside the time it is executing.
+<b>Values:</b> none | forwards | backwards | both
+<b>Initial:</b> none
+<b>Applies to:</b> all elements, ::before and ::after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-animations/#animation-fill-mode-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="none"/>
+	<element pattern="forwards"/>
+	<element pattern="backwards"/>
+	<element pattern="both"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="animation-iteration-count" highlight="css-property" >
+	<autocomplete append=": " />
+<reference><b>WARNING:</b> this property is not supported by Chrome and Safari
+Specifies the number of times an animation cycle is played. The initial value is ‘1’, meaning the animation will play from beginning to end once.
+<b>Values:</b> infinite | &lt;number&gt;
+<b>Initial:</b> 1
+<b>Applies to:</b> all elements, ::before and ::after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-animations/#animation-iteration-count-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="infinite"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="animation-name" highlight="css-property" >
+	<autocomplete append=": " />
+<reference><b>WARNING:</b> this property is not supported by Chrome and Safari
+Defines a list of animations that apply. Each name is used to select the keyframe at-rule that provides the property values for the animation.
+<b>Values:</b> none | &lt;IDENT&gt;
+<b>Initial:</b> none
+<b>Applies to:</b> all elements, ::before and ::after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-animations/#animation-name-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="none"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="animation-play-state" highlight="css-property" >
+	<autocomplete append=": " />
+<reference><b>WARNING:</b> this property is not supported by Chrome and Safari
+Defines whether the animation is running or paused.
+<b>Values:</b> running | paused
+<b>Initial:</b> running
+<b>Applies to:</b> all elements, ::before and ::after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-animations/#animation-play-state-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="running"/>
+	<element pattern="paused"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="animation-timing-function" highlight="css-property" >
+	<autocomplete append=": " />
+<reference><b>WARNING:</b> this property is not supported by Chrome and Safari
+Describes how the animation will progress over one cycle of its duration.
+<b>Values:</b> ease | linear | ease-in | ease-out | ease-in-out | step-start | step-end | steps(&lt;integer&gt;[, [ start | end ] ]?) | cubic-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)
+<b>Initial:</b> ease
+<b>Applies to:</b> all elements, ::before and ::after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-animations/#animation-timing-function-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="ease"/>
+	<element pattern="linear"/>
+	<element pattern="ease-in"/>
+	<element pattern="ease-out"/>
+	<element pattern="ease-in-out"/>
+	<element pattern="step-start"/>
+	<element pattern="step-end"/>
+</group>
+<element pattern="steps" highlight="css-value">
+	<autocomplete append="();" backup_cursor="2" />
+	<context symbols="()" highlight="css-value">
+	<element pattern="("/>
+	<element pattern=")" ends_context="1" highlight="css-value"/>
+	</context>
+</element>
+<element pattern="cubic-bezier" highlight="css-value">
+	<autocomplete append="();" backup_cursor="2" />
+	<context symbols="()" highlight="css-value">
+	<element pattern="("/>
+	<element pattern=")" ends_context="1" highlight="css-value"/>
+	</context>
+</element>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="azimuth" highlight="css-property" >
+	<autocomplete append=": " />
+<reference><b>WARNING:</b> this property is not supported by famous browsers yet
+Spatial audio is an important stylistic property for aural presentation.
+<b>Values:</b> &lt;angle&gt; | [[ left-side | far-left | left | center-left | center | center-right | right | far-right | right-side ] || behind ] | leftwards | rightwards | inherit
+<b>Initial:</b> center
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> aural
+<b>Computed value:</b> normalized angle
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/2007/CR-CSS21-20070719/aural.html#spatial-props">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="left-side"/>
+	<element pattern="far-left"/>
+	<element pattern="left"/>
+	<element pattern="center-left"/>
+	<element pattern="center"/>
+	<element pattern="center-right"/>
+	<element pattern="right"/>
+	<element pattern="far-right"/>
+	<element pattern="right-side"/>
+	<element pattern="behind"/>
+	<element pattern="leftwards"/>
+	<element pattern="rightwards"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="backface-visibility" highlight="css-property" >
+	<autocomplete append=": " />
+<reference><b>WARNING:</b> this property is not supported by Chrome and Safari
+determines whether or not the ‘back’ side of a transformed element is visible when facing the viewer.
+<b>Values:</b> visible | hidden
+<b>Initial:</b> visible
+<b>Applies to:</b> transformable elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> same as specified value
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-transforms/#backface-visibility-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="visible"/>
+	<element pattern="hidden"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="background" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>A shorthand property for setting all background properties in one declaration.
+<b>Values:</b> &lt;bg-image&gt; || &lt;position&gt; [ / &lt;bg-size&gt; ]? || &lt;repeat-style&gt; || &lt;attachment&gt; || &lt;box&gt;{1,2} || &lt;'background-color'&gt;
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> see individual properties
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> see individual properties
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-background">www.w3.org</a></reference>
 <context id="c.css.color" idref="c.css.color" symbols=" &#9;&#10;&#13;{}.;:">
 <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
 <element pattern="(rgba|hsla)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *, *(0|1|0.[0-9]) *\)" highlight="css-value" is_regex="1" case_insens="1"/>
@@ -200,103 +577,14 @@
 	<element pattern="yellowgreen"/>
 	<element pattern="currentColor"/>
 	<element pattern="transparent"/>
-	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
 </context>
-</element>
-<element pattern="background-image"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>Sets an image as the background
-<b>Values:</b> &lt;uri&gt; | none | inherit
-<b>Initial value:</b> none
-<b>Media groups:</b> visual</reference>
 <context symbols=" &#9;&#10;&#13;-{}.;:()">
-<element pattern="url"    highlight="css-value">
-	<autocomplete append="()" backup_cursor="1" />
-	<context id="c.css.uri" idref="c.css.uri" symbols="()" highlight="css-value">
-	<element pattern="("/>
-	<element pattern=")" ends_context="1" highlight="css-value"/>
-	</context>
-</element>
 <group highlight="css-value" >
 	<autocomplete append=";" />
-<element pattern="none"/>
-<element pattern="inherit"/>
-</group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
-</element>
-<element pattern="background-position"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>Sets the starting position of a background image
-<b>Values:</b> [ [ &lt;percentage&gt; | &lt;length&gt; | left | center | right ]            [ &lt;percentage&gt; | &lt;length&gt; | top | center | bottom ]? ] |          [ [ left | center | right ] || [ top | center | bottom ] ] |          inherit
-<b>Initial value:</b> 0% 0%
-<b>Percentages:</b> refer to the size of the box itself
-<b>Media groups:</b> visual</reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
-	<autocomplete append=";" />
-	<element pattern="top left"/>
-	<element pattern="top center"/>
-	<element pattern="top right"/>
-	<element pattern="center left"/>
-	<element pattern="center center"/>
-	<element pattern="center right"/>
-	<element pattern="bottom left"/>
-	<element pattern="bottom center"/>
-	<element pattern="bottom right"/>
-	<element pattern="left top"/>
-	<element pattern="left center"/>
-	<element pattern="left bottom"/>
-	<element pattern="center top"/>
-	<element pattern="center bottom"/>
-	<element pattern="right top"/>
-	<element pattern="right center"/>
-	<element pattern="right bottom"/>
-	<element pattern="inherit"/>
-	<element pattern="0"/>	
-</group>
-	<element id="e.css.percent" pattern="[0-9]+\.?[0-9]*%" is_regex="1" highlight="css-value"/>
-<element id="e.css.length" pattern="[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px)" is_regex="1" highlight="css-value"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
-</element>
-<element pattern="background-repeat"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>If a background image is specified, this property specifies whether the image is repeated (tiled), and how.
-<b>background-repeat</b> specifies whether the image is repeated (tiled), and how.
-<b>Values:</b> repeat | repeat-x | repeat-y | no-repeat | inherit
-<b>Initial value:</b> repeat
-<b>Media groups:</b> visual</reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
-	<autocomplete append=";" />
-	<element pattern="repeat"/>
-	<element pattern="repeat-x"/>
-	<element pattern="repeat-y"/>
-	<element pattern="no-repeat"/>
-	<element pattern="inherit"/>
-</group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
-</element>
-<element pattern="background"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>A shorthand property for setting all background properties in one declaration.
-<b>Values:</b> ['background-color' || 'background-image' || 'background-repeat' || 'background-attachment' || 'background-position'] | inherit
-<b>Initial value:</b> see individual properties
-<b>Percentages:</b> allowed on 'background-position'
-<b>Media group:</b> visual</reference>
-<context idref="c.css.color" />
-<context symbols=" &#9;&#10;&#13;-{}.;:()">
-<group  highlight="css-value" >
-	<autocomplete append=";" />
-
+	<element pattern="auto"/>
+	<element pattern="cover"/>
+	<element pattern="contain"/>
 	<element pattern="repeat"/>
 	<element pattern="repeat-x"/>
 	<element pattern="repeat-y"/>
@@ -321,62 +609,376 @@
 	<element pattern="right center"/>
 	<element pattern="right bottom"/>
 	<element pattern="none"/>
-	<element pattern="0"/>	
-	<element pattern="inherit"/>
+	<element pattern="0"/>
 </group>
-<element pattern="url"    highlight="css-value">
+<element pattern="url" highlight="css-value">
 	<autocomplete append="()" backup_cursor="1" />
-	<context idref="c.css.uri"/>
+	<context id="c.css.uri" idref="c.css.uri" symbols="()" highlight="css-value">
+	<element pattern="("/>
+	<element pattern=")" ends_context="1" highlight="css-value"/>
+	</context>
 </element>
 <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
 <element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
-<element idref="e.css.percent"/>
-<element idref="e.css.length"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/> 
-</context>
-</element>
-<element pattern="border-width"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>Sets the width of the top, right, bottom, and left border of a box. 
-<b>Values:</b> [ thin | medium | thick | &lt;length&gt; ]{1,4} | inherit
-<b>Initial value:</b> see individual properties
-<b>Media groups:</b> visual</reference>
-<context id="c.css.border_width" idref="c.css.border_width" symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
-	<autocomplete append=";" />
-	<element pattern="thin"/>
-	<element pattern="medium"/>
-	<element pattern="thick"/>
-	<element pattern="inherit"/>
-	<element pattern="0"/>
-</group>
-<element idref="e.css.length"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element id="e.css.percent" pattern="[0-9]+\.?[0-9]*%" is_regex="1" highlight="css-value"/>
+<element id="e.css.length" pattern="[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px)" is_regex="1" highlight="css-value"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="border-bottom-color"  highlight="css-property" >
+<element pattern="background-attachment" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>The border color properties specify the color of a box's border.
-<b>Values:</b> &lt;color&gt; | transparent | inherit
-<b>Initial value:</b> the value of the 'color' property
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.color"/>
-</element>
-<element pattern="border-bottom-style"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;border-style&gt; | inherit
-<b>Initial value:</b> none
-<b>Media groups:</b> visual
-</reference>
-<context id="c.css.border_style" idref="c.css.border_style" symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<reference>Sets whether a background image is fixed or scrolls with the rest of the page.
+<b>Values:</b> scroll | fixed | local
+<b>Initial:</b> scroll
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-background-attachment">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
 	<autocomplete append=";" />
-	<element pattern="inherit"/>
-	<element pattern="none"/>	
+	<element pattern="scroll"/>
+	<element pattern="fixed"/>
+	<element pattern="local"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="background-clip" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Determines the area within which the background is painted.
+<b>Values:</b> border-box | padding-box | content-box
+<b>Initial:</b> border-box
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-background-clip">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="border-box"/>
+	<element pattern="padding-box"/>
+	<element pattern="content-box"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="background-color" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the background color of an element.
+<b>Values:</b> &lt;color&gt;
+<b>Initial:</b> transparent
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> the computed color(s)
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-background-color">www.w3.org</a></reference>
+<context idref="c.css.color"/>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="inherit" highlight="css-value" >
+	<autocomplete append=";" />
+</element>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="background-image" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the background image of an element.
+<b>Values:</b> none | &lt;image&gt;
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified, but with URIs made absolute
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-background-image">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;-{}.;:()">
+<element pattern="url" highlight="css-value">
+	<autocomplete append="();" backup_cursor="2" />
+	<context idref="c.css.uri"/>
+</element>
+<group highlight="css-value" >
+	<autocomplete append=";" />
+<element pattern="none"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="background-origin" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies the background positioning area
+<b>Values:</b> border-box | padding-box | content-box
+<b>Initial:</b> padding-box
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-background-origin">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="border-box"/>
+	<element pattern="padding-box"/>
+	<element pattern="content-box"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="background-position" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies the background image initial position
+<b>Values:</b>
+[
+ [ left | center | right | top | bottom | &lt;percentage&gt; | &lt;length&gt; ]
+|
+ [ left | center | right | &lt;percentage&gt; | &lt;length&gt; ]
+ [ top | center | bottom | &lt;percentage&gt; | &lt;length&gt; ]
+|
+ [ center | [ left | right ] [ &lt;percentage&gt; | &lt;length&gt; ]? ] &amp;&amp;
+ [ center | [ top | bottom ] [ &lt;percentage&gt; | &lt;length&gt; ]? ]
+]
+<b>Initial:</b> 0% 0%
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to size of background positioning area minus size of background image
+<b>Media:</b> visual
+<b>Computed value:</b> A list, each item consisting of: two keywords representing the origin and two offsets from that origin, each given as an absolute length (if given a &lt;length&gt;), otherwise as a percentage
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-background-position">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="left"/>
+	<element pattern="center"/>
+	<element pattern="right"/>
+	<element pattern="top"/>
+	<element pattern="bottom"/>
+	<element pattern="top left"/>
+	<element pattern="top center"/>
+	<element pattern="top right"/>
+	<element pattern="center left"/>
+	<element pattern="center center"/>
+	<element pattern="center right"/>
+	<element pattern="bottom left"/>
+	<element pattern="bottom center"/>
+	<element pattern="bottom right"/>
+	<element pattern="left top"/>
+	<element pattern="left center"/>
+	<element pattern="left bottom"/>
+	<element pattern="center top"/>
+	<element pattern="center bottom"/>
+	<element pattern="right top"/>
+	<element pattern="right center"/>
+	<element pattern="right bottom"/>
+	<element pattern="0"/>
+</group>
+<element idref="e.css.percent"/>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="background-repeat" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies how background images are tiled after they have been sized and positioned
+<b>Values:</b> repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2}
+<b>Initial:</b> repeat
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> A list, each item consisting of: two keywords, one per dimension
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-background-repeat">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="no-repeat"/>
+	<element pattern="repeat"/>
+	<element pattern="repeat-x"/>
+	<element pattern="repeat-y"/>
+	<element pattern="round"/>
+	<element pattern="space"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="background-size" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies how background images are tiled after they have been sized and positioned
+<b>Values:</b> [ &lt;length&gt; | &lt;percentage&gt; | auto ]{1,2} | cover | contain
+<b>Initial:</b> auto
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified, but with lengths made absolute
+<b>Animatable:</b> yes except keyword values
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-background-size">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="auto"/>
+	<element pattern="cover"/>
+	<element pattern="contain"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Shorthand property for setting the same width, style and color for all four borders of a box.
+<b>Values:</b> &lt;border-width&gt; || &lt;border-style&gt; || &lt;color&gt;
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> see individual properties
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-shorthands">www.w3.org</a></reference>
+<context id="c.css.border" idref="c.css.border" symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="(rgba|hsla)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *, *(0|1|0.[0-9]) *\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="(rgb|hsl)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-bottom" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Shorthand property for setting the width, style and color of the bottom border of a box.
+<b>Values:</b> &lt;border-width&gt; || &lt;border-style&gt; || &lt;color&gt;
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> see individual properties
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-shorthands">www.w3.org</a></reference>
+<context idref="c.css.border"/>
+</element>
+<element pattern="border-bottom-color" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the foreground color of the bottom border specified by the border-style properties.
+<b>Values:</b> &lt;color&gt;
+<b>Initial:</b> currentColor
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> the computed color
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-color">www.w3.org</a></reference>
+<context idref="c.css.color"/>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="inherit" highlight="css-value" >
+	<autocomplete append=";" />
+</element>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-bottom-left-radius" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Defines the radii of a quarter ellipse that defines the shape of the corner of the outer border edge.
+<b>Values:</b> [ &lt;length&gt; | &lt;percentage&gt; ]{1,2}
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements (but see prose)
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to corresponding dimension of the border box
+<b>Media:</b> visual
+<b>Computed value:</b> two absolute &lt;length&gt; or percentages
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-radius">www.w3.org</a></reference>
+<context idref="c.css.length_percentage"/>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-bottom-right-radius" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Defines the radii of a quarter ellipse that defines the shape of the corner of the outer border edge.
+<b>Values:</b> [ &lt;length&gt; | &lt;percentage&gt; ]{1,2}
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements (but see prose)
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to corresponding dimension of the border box
+<b>Media:</b> visual
+<b>Computed value:</b> two absolute &lt;length&gt; or percentages
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-radius">www.w3.org</a></reference>
+<context idref="c.css.length_percentage"/>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-bottom-style" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the style of the bottom border, unless there is a border image.
+<b>Values:</b> none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> specified value
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-style">www.w3.org</a></reference>
+<context id="c.css.border_style" idref="c.css.border_style" symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="none"/>
 	<element pattern="hidden"/>
 	<element pattern="dotted"/>
 	<element pattern="dashed"/>
@@ -387,326 +989,393 @@
 	<element pattern="inset"/>
 	<element pattern="outset"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>	
+</context>
 </element>
-<element pattern="border-bottom-width"  highlight="css-property" >
+<element pattern="border-bottom-width" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>set the width of the bottom border of a box. 
-<b>Values:</b> [ thin | medium | thick | &lt;length&gt; ] | inherit
-<b>Initial value:</b> medium
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.border_width"/>
-</element>
-<element pattern="border-collapse"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference><b>Initial value:</b> separate
-<b>Applies to:</b> 'table' and 'inline-table' elements </reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
-	<autocomplete append=";" />
-	<element pattern="collapse"/>
-	<element pattern="separate"/>
-	<element pattern="inherit"/>
-</group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>	
-</element>
-<element pattern="border-color"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>The border color properties specify the color of a box's border.
-<b>Values:</b> [ &lt;color&gt; | transparent ]{1,4} | inherit
-<b>Initial value:</b> see individual properties
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.color"/>
-</element>
-<element pattern="border-left-color"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>The border color properties specify the color of a box's border.
-<b>Values:</b> &lt;color&gt; | transparent | inherit
-<b>Initial value:</b> the value of the 'color' property
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.color"/>
-</element>
-<element pattern="border-left-style"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;border-style&gt; | inherit
-<b>Initial value:</b> none
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.border_style"/>
-</element>
-<element pattern="border-left-width"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>Sets the width of the left border of a box. 
-<b>Values:</b> [ thin | medium | thick | &lt;length&gt; ] | inherit
-<b>Initial value:</b> medium
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.border_width"/>
-</element>
-<element pattern="border-right-color"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;color&gt; | transparent | inherit
-<b>Initial value:</b> the value of the 'color' property
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.color"/>
-</element>
-<element pattern="border-right-style"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;border-style&gt; | inherit
-<b>Initial value:</b> none
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.border_style"/>
-</element>
-<element pattern="border-right-width"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>Sets the width of the right border of a box. 
-<b>Values:</b> [ thin | medium | thick | &lt;length&gt; ] | inherit
-<b>Initial value:</b> medium
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.border_width"/>
-</element>
-<element pattern="border-spacing"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>The lengths specify the distance that separates adjoining cell borders. If one length is specified, it gives both the horizontal and vertical spacing.
-<b>Values:</b> &lt;length&gt; &lt;length&gt;? | inherit
-<b>Initial value:</b> 0
-<b>Applies to:</b> 'table' and 'inline-table' elements
-<b>Media groups:</b> visual</reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="inherit"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element pattern="0"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element idref="e.css.length"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>	
-</element>
-<element pattern="border-style"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;border-style&gt;{1,4} | inherit
-<b>Initial value:</b> see individual properties
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.border_style"/>
-</element>
-<element pattern="border-top-color"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>The border color properties specify the color of a box's border.
-<b>Values:</b> &lt;color&gt; | transparent | inherit
-<b>Initial value:</b> the value of the 'color' property
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.color"/>
-</element>
-<element pattern="border-top-style"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;border-style&gt; | inherit
-<b>Initial value:</b> none
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.border_style"/>
-</element>
-<element pattern="border-top-width"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>Sets the width of the top border of a box. 
-<b>Values:</b> [ thin | medium | thick | &lt;length&gt; ] | inherit
-<b>Initial value:</b> medium
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.border_width"/>
-</element>
-<element pattern="border"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>A shorthand property for setting the properties border-width, border-style, and border-color for the four borders in one declaration<b>Values:</b> [ [ thin | medium | thick | &lt;length&gt; ] || &lt;border-style&gt; || 'border-top-color' ] | inherit
-<b>Initial value:</b> see individual properties
-<b>Media groups:</b> visual</reference>
-<context id="c.css.border" idref="c.css.border" symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-<element pattern="(rgba|hsla)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *, *(0|1|0.[0-9]) *\)" highlight="css-value" is_regex="1" case_insens="1"/>
-<element pattern="(rgb|hsl)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<reference>Sets the thickness of the bottom border.
+<b>Values:</b> &lt;length&gt; | thin | medium | thick
+<b>Initial:</b> medium
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> absolute length; ‘0’ if the border style is ‘none’ or ‘hidden’
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-style">www.w3.org</a></reference>
+<context id="c.css.border_width" idref="c.css.border_width" symbols=" &#9;&#10;&#13;{}.;:">
 <group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="thin"/>
 	<element pattern="medium"/>
 	<element pattern="thick"/>
-	<element pattern="0"/>  
-	<element pattern="none"/>	
-	<element pattern="hidden"/>
-	<element pattern="dotted"/>
-	<element pattern="dashed"/>
-	<element pattern="solid"/>
-	<element pattern="double"/>
-	<element pattern="groove"/>
-	<element pattern="ridge"/>
-	<element pattern="inset"/>
-	<element pattern="outset"/>   
-	<element pattern="aliceblue"/>
-	<element pattern="antiquewhite"/>
-	<element pattern="aqua"/>
-	<element pattern="aquamarine"/>
-	<element pattern="azure"/>
-	<element pattern="beige"/>
-	<element pattern="bisque"/>
-	<element pattern="black"/>
-	<element pattern="blanchedalmond"/>
-	<element pattern="blue"/>
-	<element pattern="blueviolet"/>
-	<element pattern="brown"/>
-	<element pattern="burlywood"/>
-	<element pattern="cadetblue"/>
-	<element pattern="chartreuse"/>
-	<element pattern="chocolate"/>
-	<element pattern="coral"/>
-	<element pattern="cornflowerblue"/>
-	<element pattern="cornsilk"/>
-	<element pattern="crimson"/>
-	<element pattern="cyan"/>
-	<element pattern="darkblue"/>
-	<element pattern="darkcyan"/>
-	<element pattern="darkgoldenrod"/>
-	<element pattern="darkgray"/>
-	<element pattern="darkgreen"/>
-	<element pattern="darkgrey"/>
-	<element pattern="darkkhaki"/>
-	<element pattern="darkmagenta"/>
-	<element pattern="darkolivegreen"/>
-	<element pattern="darkorange"/>
-	<element pattern="darkorchid"/>
-	<element pattern="darkred"/>
-	<element pattern="darksalmon"/>
-	<element pattern="darkseagreen"/>
-	<element pattern="darkslateblue"/>
-	<element pattern="darkslategray"/>
-	<element pattern="darkslategrey"/>
-	<element pattern="darkturquoise"/>
-	<element pattern="darkviolet"/>
-	<element pattern="deeppink"/>
-	<element pattern="deepskyblue"/>
-	<element pattern="dimgray"/>
-	<element pattern="dimgrey"/>
-	<element pattern="dodgerblue"/>
-	<element pattern="firebrick"/>
-	<element pattern="floralwhite"/>
-	<element pattern="forestgreen"/>
-	<element pattern="fuchsia"/>
-	<element pattern="gainsboro"/>
-	<element pattern="ghostwhite"/>
-	<element pattern="gold"/>
-	<element pattern="goldenrod"/>
-	<element pattern="gray"/>
-	<element pattern="green"/>
-	<element pattern="greenyellow"/>
-	<element pattern="grey"/>
-	<element pattern="honeydew"/>
-	<element pattern="hotpink"/>
-	<element pattern="indianred"/>
-	<element pattern="indigo"/>
-	<element pattern="ivory"/>
-	<element pattern="khaki"/>
-	<element pattern="lavender"/>
-	<element pattern="lavenderblush"/>
-	<element pattern="lawngreen"/>
-	<element pattern="lemonchiffon"/>
-	<element pattern="lightblue"/>
-	<element pattern="lightcoral"/>
-	<element pattern="lightcyan"/>
-	<element pattern="lightgoldenrodyellow"/>
-	<element pattern="lightgray"/>
-	<element pattern="lightgreen"/>
-	<element pattern="lightgrey"/>
-	<element pattern="lightpink"/>
-	<element pattern="lightsalmon"/>
-	<element pattern="lightseagreen"/>
-	<element pattern="lightskyblue"/>
-	<element pattern="lightslategray"/>
-	<element pattern="lightslategrey"/>
-	<element pattern="lightsteelblue"/>
-	<element pattern="lightyellow"/>
-	<element pattern="lime"/>
-	<element pattern="limegreen"/>
-	<element pattern="linen"/>
-	<element pattern="magenta"/>
-	<element pattern="maroon"/>
-	<element pattern="mediumaquamarine"/>
-	<element pattern="mediumblue"/>
-	<element pattern="mediumorchid"/>
-	<element pattern="mediumpurple"/>
-	<element pattern="mediumseagreen"/>
-	<element pattern="mediumslateblue"/>
-	<element pattern="mediumspringgreen"/>
-	<element pattern="mediumturquoise"/>
-	<element pattern="mediumvioletred"/>
-	<element pattern="midnightblue"/>
-	<element pattern="mintcream"/>
-	<element pattern="mistyrose"/>
-	<element pattern="moccasin"/>
-	<element pattern="navajowhite"/>
-	<element pattern="navy"/>
-	<element pattern="oldlace"/>
-	<element pattern="olive"/>
-	<element pattern="olivedrab"/>
-	<element pattern="orange"/>
-	<element pattern="orangered"/>
-	<element pattern="orchid"/>
-	<element pattern="palegoldenrod"/>
-	<element pattern="palegreen"/>
-	<element pattern="paleturquoise"/>
-	<element pattern="palevioletred"/>
-	<element pattern="papayawhip"/>
-	<element pattern="peachpuff"/>
-	<element pattern="peru"/>
-	<element pattern="pink"/>
-	<element pattern="plum"/>
-	<element pattern="powderblue"/>
-	<element pattern="purple"/>
-	<element pattern="red"/>
-	<element pattern="rosybrown"/>
-	<element pattern="royalblue"/>
-	<element pattern="saddlebrown"/>
-	<element pattern="salmon"/>
-	<element pattern="sandybrown"/>
-	<element pattern="seagreen"/>
-	<element pattern="seashell"/>
-	<element pattern="sienna"/>
-	<element pattern="silver"/>
-	<element pattern="skyblue"/>
-	<element pattern="slateblue"/>
-	<element pattern="slategray"/>
-	<element pattern="slategrey"/>
-	<element pattern="snow"/>
-	<element pattern="springgreen"/>
-	<element pattern="steelblue"/>
-	<element pattern="tan"/>
-	<element pattern="teal"/>
-	<element pattern="thistle"/>
-	<element pattern="tomato"/>
-	<element pattern="turquoise"/>
-	<element pattern="violet"/>
-	<element pattern="wheat"/>
-	<element pattern="white"/>
-	<element pattern="whitesmoke"/>
-	<element pattern="yellow"/>
-	<element pattern="yellowgreen"/>
-	<element pattern="currentColor"/>
-	<element pattern="transparent"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-collapse" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Selects a table's border model.
+<b>Values:</b> collapse | separate | inherit
+<b>Initial:</b> separate
+<b>Applies to:</b> ‘table’ and ‘inline-table’ elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/tables.html#borders">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="collapse"/>
+	<element pattern="separate"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-color" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the foreground color of the border specified by the border-style properties.
+<b>Values:</b> &lt;color&gt;{1,4}
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> see individual properties
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-color">www.w3.org</a></reference>
+<context idref="c.css.color"/>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="inherit" highlight="css-value" >
+	<autocomplete append=";" />
+</element>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-image" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Shorthand property for setting ‘border-image-source’, ‘border-image-slice’, ‘border-image-width’, ‘border-image-outset’ and ‘border-image-repeat’.
+<b>Values:</b> &lt;border-image-source&gt; || &lt;border-image-slice&gt; [ / &lt;border-image-width&gt; | / &lt;border-image-width&gt;? / &lt;border-image-outset&gt; ]? || &lt;border-image-repeat&gt;
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> see individual properties
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> see individual properties
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-image">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-image-outset" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies the amount by which the border image area extends beyond the border box.
+<b>Values:</b> [ &lt;length&gt; | &lt;number&gt; ]{1,4}
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements, except internal table elements when ‘border-collapse’ is ‘collapse’
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> all &lt;length&gt;s made absolute, otherwise as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-image-outset">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.length"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-image-repeat" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies how the images for the sides and the middle part of the border image are scaled and tiled.
+<b>Values:</b> [ stretch | repeat | round | space ]{1,2}
+<b>Initial:</b> stretch
+<b>Applies to:</b> all elements, except internal table elements when ‘border-collapse’ is ‘collapse’
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-image-repeat">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="stretch"/>
+	<element pattern="repeat"/>
+	<element pattern="round"/>
+	<element pattern="space"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-image-slice" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies inward offsets from the top, right, bottom, and left edges of the image, dividing it into nine regions: four corners, four edges and a middle.
+<b>Values:</b> [ &lt;number&gt; | &lt;percentage&gt; ]{1,4} &amp;&amp; fill?
+<b>Initial:</b> 100%
+<b>Applies to:</b> all elements, except internal table elements when ‘border-collapse’ is ‘collapse’
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to size of the border image
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-image-slice">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="fill"/>
+</group>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-image-source" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies an image to use instead of the border styles given by the ‘border-style’ properties and as an additional background layer for the element.
+<b>Values:</b> none | &lt;image&gt;
+<b>Initial:</b> none
+<b>Applies to:</b> all elements, except internal table elements when ‘border-collapse’ is ‘collapse’
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> ‘none’ or the image with its URI made absolute
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-image-source">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;-{}.;:()">
+<element pattern="url" highlight="css-value">
+	<autocomplete append="();" backup_cursor="2" />
+	<context idref="c.css.uri"/>
+</element>
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="none"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-image-width" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies the offsets that are used to divide the border image area into nine parts.
+<b>Values:</b> [ &lt;length&gt; | &lt;percentage&gt; | &lt;number&gt; | auto ]{1,4}
+<b>Initial:</b> 1
+<b>Applies to:</b> all elements, except table elements when ‘border-collapse’ is ‘collapse’
+<b>Inherited:</b> no
+<b>Percentages:</b> relative to width/height of the border image area
+<b>Media:</b> visual
+<b>Computed value:</b> all &lt;length&gt;s made absolute, otherwise as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-image-width">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="auto"/>
+</group>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-left" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Shorthand property for setting the width, style and color of the left border of a box.
+<b>Values:</b> &lt;border-width&gt; || &lt;border-style&gt; || &lt;color&gt;
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> see individual properties
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-shorthands">www.w3.org</a></reference>
+<context idref="c.css.border"/>
+</element>
+<element pattern="border-left-color" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the foreground color of the left border specified by the border-style properties.
+<b>Values:</b> &lt;color&gt;
+<b>Initial:</b> currentColor
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> the computed color
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-color">www.w3.org</a></reference>
+<context idref="c.css.color"/>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="inherit" highlight="css-value" >
+	<autocomplete append=";" />
+</element>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-left-style" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the style of the left border, unless there is a border image.
+<b>Values:</b> none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> specified value
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-style">www.w3.org</a></reference>
+<context idref="c.css.border_style"/>
+</element>
+<element pattern="border-left-width" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the thickness of the left border.
+<b>Values:</b> &lt;length&gt; | thin | medium | thick
+<b>Initial:</b> medium
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> absolute length; ‘0’ if the border style is ‘none’ or ‘hidden’
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-style">www.w3.org</a></reference>
+<context idref="c.css.border_width"/>
+</element>
+<element pattern="border-radius" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Defines the radii of a quarter ellipse that defines the shape of the corner of the outer border edge.
+<b>Values:</b> [ &lt;length&gt; | &lt;percentage&gt; ]{1,4} [ / [ &lt;length&gt; | &lt;percentage&gt; ]{1,4} ]?
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements (but see prose)
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to corresponding dimension of the border box
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> see individual properties
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-radius">www.w3.org</a></reference>
+<context idref="c.css.length_percentage"/>
+</element>
+<element pattern="border-right" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Shorthand property for setting the width, style and color of the right border of a box.
+<b>Values:</b> &lt;border-width&gt; || &lt;border-style&gt; || &lt;color&gt;
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> see individual properties
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-shorthands">www.w3.org</a></reference>
+<context idref="c.css.border"/>
+</element>
+<element pattern="border-right-color" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the foreground color of the right border specified by the border-style properties.
+<b>Values:</b> &lt;color&gt;
+<b>Initial:</b> currentColor
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> the computed color
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-color">www.w3.org</a></reference>
+<context idref="c.css.color"/>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="inherit" highlight="css-value" >
+	<autocomplete append=";" />
+</element>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="border-right-style" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the style of the right border, unless there is a border image.
+<b>Values:</b> none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> specified value
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-style">www.w3.org</a></reference>
+<context idref="c.css.border_style"/>
+</element>
+<element pattern="border-right-width" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the thickness of the right border.
+<b>Values:</b> &lt;length&gt; | thin | medium | thick
+<b>Initial:</b> medium
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> absolute length; ‘0’ if the border style is ‘none’ or ‘hidden’
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-style">www.w3.org</a></reference>
+<context idref="c.css.border_width"/>
+</element>
+<element pattern="border-spacing" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies the distance that separates adjoining cell borders.
+<b>Values:</b> &lt;length&gt; &lt;length&gt;? | inherit
+<b>Initial:</b> 0
+<b>Applies to:</b> ‘table’ and ‘inline-table’ elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> two absolute lengths
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/tables.html#borders">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
 	<element pattern="inherit"/>
 </group>
 <element idref="e.css.length"/>
@@ -714,75 +1383,172 @@
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="border-bottom"  highlight="css-property" >
+<element pattern="border-style" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
-<b>Values:</b> [ [ thin | medium | thick | &lt;length&gt; ] || &lt;border-style&gt; || 'border-top-color' ] | inherit
-<b>Initial value:</b> see individual properties
-<b>Media groups:</b> visual
-</reference>
+<reference>Sets the style of the border, unless there is a border image.
+<b>Values:</b> &lt;border-style&gt;{1,4}
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> see individual properties
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-style">www.w3.org</a></reference>
+<context idref="c.css.border_style"/>
+</element>
+<element pattern="border-top" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Shorthand property for setting the width, style and color of the top border of a box.
+<b>Values:</b> &lt;border-width&gt; || &lt;border-style&gt; || &lt;color&gt;
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> see individual properties
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-shorthands">www.w3.org</a></reference>
 <context idref="c.css.border"/>
 </element>
-<element pattern="border-top"  highlight="css-property" >
+<element pattern="border-top-color" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
-<b>Values:</b> [ [ thin | medium | thick | &lt;length&gt; ] || &lt;border-style&gt; || 'border-top-color' ] | inherit
-<b>Initial value:</b> see individual properties
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.border"/>
-</element>
-<element pattern="border-right"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> [ [ thin | medium | thick | &lt;length&gt; ] || &lt;border-style&gt; || 'border-top-color' ] | inherit
-<b>Initial value:</b> see individual properties
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.border"/>
-</element>
-<element pattern="border-left"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> [ [ thin | medium | thick | &lt;length&gt; ] || &lt;border-style&gt; || 'border-top-color' ] | inherit
-<b>Initial value:</b> see individual properties
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.border"/>
-</element>
-<element pattern="bottom"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
-<b>Initial value:</b> auto
-<b>Applies to:</b> positioned elements
-<b>Percentages:</b> refer to height of containing block
-<b>Media groups:</b> visual
-</reference>
-<context id="c.css.box_offsets" idref="c.css.box_offsets" symbols=" &#9;&#10;&#13;-{}.;:">
-<element pattern="auto"  highlight="css-value" >
+<reference>Sets the foreground color of the top border specified by the border-style properties.
+<b>Values:</b> &lt;color&gt;
+<b>Initial:</b> currentColor
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> the computed color
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-color">www.w3.org</a></reference>
+<context idref="c.css.color"/>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="inherit" highlight="css-value" >
 	<autocomplete append=";" />
 </element>
-<element pattern="inherit"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element pattern="0"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element id="e.css.length.neg" pattern="-?[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px|%)" is_regex="1" highlight="css-value"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
-
 </element>
-<element pattern="caption-side"  highlight="css-property" >
+<element pattern="border-top-left-radius" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Defines the radii of a quarter ellipse that defines the shape of the corner of the outer border edge.
+<b>Values:</b> [ &lt;length&gt; | &lt;percentage&gt; ]{1,2}
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements (but see prose)
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to corresponding dimension of the border box
+<b>Media:</b> visual
+<b>Computed value:</b> two absolute &lt;length&gt; or percentages
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-radius">www.w3.org</a></reference>
+<context idref="c.css.length_percentage"/>
+</element>
+<element pattern="border-top-right-radius" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Defines the radii of a quarter ellipse that defines the shape of the corner of the outer border edge.
+<b>Values:</b> [ &lt;length&gt; | &lt;percentage&gt; ]{1,2}
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements (but see prose)
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to corresponding dimension of the border box
+<b>Media:</b> visual
+<b>Computed value:</b> two absolute &lt;length&gt; or percentages
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-radius">www.w3.org</a></reference>
+<context idref="c.css.length_percentage"/>
+</element>
+<element pattern="border-top-style" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the style of the top border, unless there is a border image.
+<b>Values:</b> none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> specified value
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-style">www.w3.org</a></reference>
+<context idref="c.css.border_style"/>
+</element>
+<element pattern="border-top-width" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the thickness of the top border.
+<b>Values:</b> &lt;length&gt; | thin | medium | thick
+<b>Initial:</b> medium
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> absolute length; ‘0’ if the border style is ‘none’ or ‘hidden’
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-style">www.w3.org</a></reference>
+<context idref="c.css.border_width"/>
+</element>
+<element pattern="border-width" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the thickness of the top border.
+<b>Values:</b> [ &lt;length&gt; | thin | medium | thick ]{1,4}
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> see individual properties
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> see individual properties
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-border-width">www.w3.org</a></reference>
+<context idref="c.css.border_width"/>
+</element>
+<element pattern="bottom" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies how far a box's bottom margin edge is offset above the bottom of the box's containing block.
+<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
+<b>Initial:</b> auto
+<b>Applies to:</b> positioned elements
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to height of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> if specified as a length, the corresponding absolute length; if specified as a percentage, the specified value; otherwise, auto.
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/visuren.html#position-props">www.w3.org</a></reference>
+<context id="c.css.box_offsets" idref="c.css.box_offsets" symbols=" &#9;&#10;&#13;-{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="auto"/>
+	<element pattern="inherit"/>
+</group>
+<element id="e.css.length.neg" pattern="-?[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px|%)" is_regex="1" highlight="css-value"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="caption-side" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies the position of the caption box with respect to the table box.
 <b>Values:</b> top | bottom | inherit
-<b>Initial value:</b> top
+<b>Initial:</b> top
 <b>Applies to:</b> 'table-caption' elements
-<b>Media groups:</b> visual
-</reference>
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/tables.html#propdef-caption-side">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
 <group highlight="css-value" >
 	<autocomplete append=";" />
@@ -790,18 +1556,24 @@
 	<element pattern="bottom"/>
 	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="clear"  highlight="css-property" >
+<element pattern="clear" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Indicates which sides of an element's box(es) may not be adjacent to an earlier floating box.
 <b>Values:</b> none | left | right | both | inherit
-<b>Initial value:</b> none
+<b>Initial:</b> none
 <b>Applies to:</b> block-level elements
-<b>Media groups:</b> visual
-</reference>
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/visuren.html#flow-control">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
 <group highlight="css-value" >
 	<autocomplete append=";" />
@@ -811,21 +1583,31 @@
 	<element pattern="none"/>
 	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="clip"  highlight="css-property" >
+<element pattern="clip" highlight="css-property" >
 	<autocomplete append=": " />
-<reference><b>Initial value:</b> auto 
-<b>Applies to:</b> absolutely positioned elements</reference>
+<reference>Defines what portion of an element's border box is visible.
+<b>Values:</b> &lt;shape&gt; | auto | inherit
+<b>Initial:</b> auto
+<b>Applies to:</b> absolutely positioned elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> 'auto' if specified as 'auto', otherwise a rectangle with four values, each of which is 'auto' if specified as 'auto' and the computed length otherwise
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visufx.html#clipping">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;-{}.;:,()">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="inherit"/>
 	<element pattern="auto"/>
 </group>
-<element pattern="rect"    highlight="css-value">
+<element pattern="rect" highlight="css-value">
 	<autocomplete append="()" backup_cursor="1" />
 	<context symbols="()" highlight="css-value">
 	<element pattern="(">
@@ -838,27 +1620,39 @@
 	</element>
 	</context>
 </element>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>	
+</context>
 </element>
-<element pattern="color"  highlight="css-property" >
+<element pattern="color" highlight="css-property" >
 	<autocomplete append=": " />
-<reference><b>color</b> describes the foreground color of an element's text content.
+<reference>Describes the foreground color of an element's text content.
 <b>Values:</b> &lt;color&gt; | inherit
-<b>Initial value:</b> depends on user agent
-<b>Media groups:</b> visual</reference>
+<b>Initial:</b> depends on user agent
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-color/#color">www.w3.org</a></reference>
 <context idref="c.css.color"/>
-
 </element>
-<element pattern="content"  highlight="css-property" >
+<element pattern="content" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>This property is used with the :before and :after pseudo-elements to generate content in a document.
 <b>Values:</b> normal | none | [ &lt;string&gt; | &lt;uri&gt; | &lt;counter&gt; | attr(&lt;identifier&gt;) | open-quote | close-quote | no-open-quote | no-close-quote ]+ | inherit
-<b>Initial value:</b> normal
+<b>Initial:</b> normal
 <b>Applies to:</b> :before and :after pseudo-elements
-<b>Media groups:</b> all
-</reference>
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> all
+<b>Computed value:</b> On elements, always computes to 'normal'. On :before and :after, if 'normal' is specified, computes to 'none'. Otherwise, for URI values, the absolute URI; for attr() values, the resulting string; for other keywords, as specified.
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/generate.html#content">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;-{}.;()'&#34;">
 <element pattern="'" highlight="css-string">
 <context symbols="\'" highlight="css-string">
@@ -881,32 +1675,39 @@
 <element pattern="close-quote"/>
 <element pattern="no-open-quote"/>
 <element pattern="no-close-quote"/>
-<element pattern="attr"    highlight="css-value">
+<element pattern="attr" highlight="css-value">
 	<autocomplete append="()" backup_cursor="1" />
 	<context idref="c.css.uri"/>
 </element>
-<element pattern="url"    highlight="css-value">
+<element pattern="url" highlight="css-value">
 	<autocomplete append="()" backup_cursor="1" />
 	<context idref="c.css.uri"/>
 </element>
-<element pattern="counter"    highlight="css-value">
+<element pattern="counter" highlight="css-value">
 	<autocomplete append="()" backup_cursor="1" />
 	<context idref="c.css.uri"/>
 </element>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="counter-increment"  highlight="css-property" >
+<element pattern="counter-increment" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Automatic numbering. Accepts one or more names of counters (identifiers), each one optionally followed by an integer.
 <b>Values:</b> [ &lt;identifier&gt; &lt;integer&gt;? ]+ | none | inherit
-<b>Initial value:</b> none
-<b>Media groups:</b> all
-</reference>
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> all
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-content/#counters">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="none"/>
 	<element pattern="inherit"/>
@@ -914,19 +1715,26 @@
 <element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
 <element pattern="[a-z_][a-z0-9._-]+" is_regex="1" case_insens="1" highlight="css-value"/>
 <element pattern="[-][^0-9][a-z0-9._-]+" is_regex="1" case_insens="1" highlight="css-value"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="counter-reset"  highlight="css-property" >
+<element pattern="counter-reset" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Automatic numbering. Contains a list of one or more names of counters, each one optionally followed by an integer.
 <b>Values:</b> [ &lt;identifier&gt; &lt;integer&gt;? ]+ | none | inherit
-<b>Initial value:</b> none
-<b>Media groups:</b> all
-</reference>
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> all
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-content/#counters">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="none"/>
 	<element pattern="inherit"/>
@@ -934,79 +1742,172 @@
 <element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
 <element pattern="[a-z_][a-z0-9._-]+" is_regex="1" case_insens="1" highlight="css-value"/>
 <element pattern="[-][^0-9][a-z0-9._-]+" is_regex="1" case_insens="1" highlight="css-value"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="cursor"  highlight="css-property" >
+<element pattern="cue" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
-<b>Values:</b> [ [&lt;uri&gt; ,]* [ auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize | text | wait | help | progress ] ] | inherit
-<b>Initial value:</b> auto
-<b>Media groups:</b> visual, interactive
-</reference>
+<reference>A shorthand for 'cue-before' and 'cue-after'. If two values are given the first value is 'cue-before' and the second is 'cue-after'. If only one value is given, it applies to both properties.
+<b>Values:</b> &lt;‘cue-before’&gt; &lt;‘cue-after’&gt;?
+<b>Initial:</b> N/A (see individual properties)
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> speech
+<b>Computed value:</b> N/A (see individual properties)
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-speech/#cue-props-cue">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="cue-after" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies auditory icons (i.e. pre-recorded / pre-generated sound clips) to be played before (or after) the selected element within the aural box model.
+<b>Values:</b> &lt;uri&gt; &lt;decibel&gt;? | none
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> speech
+<b>Computed value:</b> specified value
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-speech/#cue-props-cue-before-after">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="cue-before" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies auditory icons (i.e. pre-recorded / pre-generated sound clips) to be played before (or after) the selected element within the aural box model.
+<b>Values:</b> &lt;uri&gt; &lt;decibel&gt;? | none
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> speech
+<b>Computed value:</b> specified value
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-speech/#cue-props-cue-before-after">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="cursor" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies the type of cursor to be displayed for the pointing device.
+<b>Values:</b> [ [&lt;uri&gt; [&lt;x&gt; &lt;y&gt;]?,]* [ auto | default | none | context-menu | help | pointer | progress | wait | cell | crosshair | text | vertical-text | alias | copy | move | no-drop | not-allowed | e-resize | n-resize | ne-resize | nw-resize | s-resize | se-resize | sw-resize | w-resize | ew-resize | ns-resize | nesw-resize | nwse-resize | col-resize | row-resize | all-scroll | zoom-in | zoom-out ] ] | inherit 
+<b>Initial:</b> auto
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual, interactive
+<b>Computed value:</b> as specified, except with any relative URLs converted to absolute
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-ui/#cursor">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;-{}.;:()">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="auto"/>
-	<element pattern="crosshair"/>
 	<element pattern="default"/>
+	<element pattern="none"/>
+	<element pattern="context-menu"/>
+	<element pattern="help"/>
 	<element pattern="pointer"/>
+	<element pattern="progress"/>
+	<element pattern="wait"/>
+	<element pattern="cell"/>
+	<element pattern="crosshair"/>
+	<element pattern="text"/>
+	<element pattern="vertical-text"/>
+	<element pattern="alias"/>
+	<element pattern="copy"/>
 	<element pattern="move"/>
+	<element pattern="no-drop"/>
+	<element pattern="not-allowed"/>
 	<element pattern="e-resize"/>
+	<element pattern="n-resize"/>
 	<element pattern="ne-resize"/>
 	<element pattern="nw-resize"/>
-	<element pattern="n-resize"/>
+	<element pattern="s-resize"/>
 	<element pattern="se-resize"/>
 	<element pattern="sw-resize"/>
-	<element pattern="s-resize"/>
 	<element pattern="w-resize"/>
-	<element pattern="text"/>
-	<element pattern="wait"/>
-	<element pattern="help"/>
-	<element pattern="progress"/>
-	<element pattern="inherit"/>	
+	<element pattern="ew-resize"/>
+	<element pattern="ns-resize"/>
+	<element pattern="nesw-resize"/>
+	<element pattern="col-resize"/>
+	<element pattern="row-resize"/>
+	<element pattern="all-scroll"/>
+	<element pattern="zoom-in"/>
+	<element pattern="zoom-out"/>
+	<element pattern="inherit"/>
 </group>
-<element pattern="url"    highlight="css-value">
+<element pattern="url" highlight="css-value">
 	<autocomplete append="()" backup_cursor="1" />
 	<context idref="c.css.uri"/>
 </element>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>		
+</context>
 </element>
-<element pattern="direction"  highlight="css-property" >
+<element pattern="direction" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Specifies the base writing direction of blocks and the direction of embeddings and overrides (see 'unicode-bidi') for the Unicode bidirectional algorithm.
 <b>Values:</b> ltr | rtl | inherit
-<b>Initial value:</b> ltr
+<b>Initial:</b> ltr
 <b>Applies to:</b> all elements, but see prose
-<b>Media groups:</b> visual
-</reference>
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/visuren.html#propdef-direction">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="ltr"/>
 	<element pattern="rtl"/>
 	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>  
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="display"  highlight="css-property" >
+<element pattern="display" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>Conforming HTML user agents may ignore the 'display' property. 
-<b>Values:</b> inline | block | list-item | run-in | inline-block | table | inline-table | table-row-group | table-header-group | table-footer-group | table-row | table-column-group | table-column | table-cell | table-caption | none | inherit
-<b>Initial value:</b> inline
-<b>Media groups:</b> all</reference>
+<reference>Specifies how the element should be displayed.
+<b>Values:</b> inline | block | list-item | inline-block | table | inline-table | table-row-group | table-header-group | table-footer-group | table-row | table-column-group | table-column | table-cell | table-caption | none | inherit
+<b>Initial:</b> inline
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> all
+<b>Computed value:</b> see text
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visuren.html#display-prop">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
 <group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="inline"/>
 	<element pattern="block"/>
 	<element pattern="list-item"/>
-	<element pattern="run-in"/>
 	<element pattern="inline-block"/>
 	<element pattern="table"/>
 	<element pattern="inline-table"/>
@@ -1021,37 +1922,49 @@
 	<element pattern="none"/>
 	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="empty-cells"  highlight="css-property" >
+<element pattern="empty-cells" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Controls the rendering of borders and backgrounds around cells that have no visible content.
 <b>Values:</b> show | hide | inherit
-<b>Initial value:</b> show
-<b>Applies to:</b> 'table-cell' elements
-<b>Media groups:</b> visual
-</reference>
+<b>Initial:</b> show
+<b>Applies to:</b> table-cell elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/tables.html#propdef-empty-cells">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
 <group highlight="css-value" >
 	<autocomplete append=";" />
-<element pattern="show"/>
-<element pattern="hide"/>
+	<element pattern="show"/>
+	<element pattern="hide"/>
 	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>					
+</context>
 </element>
-<element pattern="float"  highlight="css-property" >
+<element pattern="float" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Specifies whether a box should float to the left, right, or not at all.
 <b>Values:</b> left | right | none | inherit
-<b>Initial value:</b> none
-<b>Applies to:</b> all, but see 9.7
-<b>Media groups:</b> visual
-</reference>
+<b>Initial:</b> none
+<b>Applies to:</b> all
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/visuren.html#float-position">www.w3.org</a></reference>
 <context id="c.css.float" idref="c.css.float" symbols=" &#9;&#10;&#13;-{}.:;">
 <group highlight="css-value" >
 	<autocomplete append=";" />
@@ -1060,25 +1973,27 @@
 	<element pattern="none"/>
 	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="font"  highlight="css-property" >
+<element pattern="font" highlight="css-property" >
 	<autocomplete append=": " />
-<reference><b>font</b> is a convenience option to set font-style, font-variant, font-weight, and font-size
+<reference><b>font</b> is a convenience option to set font-style, font-variant, font-weight, and font-size.
 <b>Values:</b> [ [ 'font-style' || 'font-variant' || 'font-weight' ]? 'font-size' [ / 'line-height' ]? 'font-family' ] | caption | icon | menu | message-box | small-caption | status-bar | inherit
-<b>Initial value:</b> see individual properties
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
 <b>Percentages:</b> see individual properties
-<b>Media groups:</b> visual</reference>
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/fonts.html#font-shorthand">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
-	<element pattern=""/>
-	<element pattern=""/>
-	<element pattern=""/>
-	<element pattern=""/>
-	<element pattern=""/>
 	<element pattern="normal"/>
 	<element pattern="italic"/>
 	<element pattern="oblique"/>
@@ -1094,7 +2009,7 @@
 	<element pattern="x-large"/>
 	<element pattern="xx-large"/>
 	<element pattern="larger"/>
-	<element pattern="smaller"/>   
+	<element pattern="smaller"/>
 	<element pattern="serif"/>
 	<element pattern="Times"/>
 	<element pattern="sans-serif"/>
@@ -1111,24 +2026,31 @@
 	<element pattern="status-bar"/>
 	<element pattern="inherit"/>
 </group>
-<element pattern="(100|200|300|400|500|600|700|800|900)" is_regex="1"  highlight="css-value"/>
+<element pattern="(100|200|300|400|500|600|700|800|900)" is_regex="1" highlight="css-value"/>
 <element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
 <element pattern="/"/>
 <element idref="e.css.length"/>
-<element idref="e.css.percent"/>  
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/> 
-</context> 
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
-<element pattern="font-family"  highlight="css-property" >
+<element pattern="font-family" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>The property value is a prioritized list of font family names and/or generic family names.
 <b>Values:</b> [[ &lt;family-name&gt; | &lt;generic-family&gt; ] [, &lt;family-name&gt;| &lt;generic-family&gt;]* ] | inherit
-<b>Initial value:</b> depends on user agent
-<b>Media groups:</b> visual
-</reference>
+<b>Initial:</b> depends on user agent
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/fonts.html#font-family-prop">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="serif"/>
 	<element pattern="Times"/>
@@ -1138,19 +2060,26 @@
 	<element pattern="Zapf-Chancery"/>
 	<element pattern="monospace"/>
 	<element pattern="Courier"/>
-	<element pattern="inherit"/>	
+	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>		
+</context>
 </element>
-<element pattern="font-size"  highlight="css-property" >
+<element pattern="font-size" highlight="css-property" >
 	<autocomplete append=": " />
-<reference><b>font-size</b> describes the size of the font when set solid.
+<reference>Describes the size of the font when set solid.
 <b>Values:</b> &lt;absolute-size&gt; | &lt;relative-size&gt; | &lt;length&gt; | &lt;percentage&gt; | inherit
-<b>Initial value:</b> medium
+<b>Initial:</b> medium
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
 <b>Percentages:</b> refer to inherited font size
-<b>Media groups:</b> visual</reference>
+<b>Media:</b> visual
+<b>Computed value:</b> absolute length
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/fonts.html#font-size-props">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
 <group highlight="css-value" >
 	<autocomplete append=";" />
@@ -1168,17 +2097,24 @@
 </group>
 <element idref="e.css.length"/>
 <element idref="e.css.percent"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="font-style"  highlight="css-property" >
+<element pattern="font-style" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Selects between normal (sometimes referred to as `roman` or `upright`), italic and oblique faces within a font family.
 <b>Values:</b> normal | italic | oblique | inherit
-<b>Initial value:</b> normal
-<b>Media groups:</b> visual
-</reference>
+<b>Initial:</b> normal
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/fonts.html#font-styling">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
 <group highlight="css-value" >
 	<autocomplete append=";" />
@@ -1187,38 +2123,49 @@
 	<element pattern="oblique"/>
 	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="font-variant"  highlight="css-property" >
+<element pattern="font-variant" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Another type of variation within a font family is the small-caps.
 <b>Values:</b> normal | small-caps | inherit
-<b>Initial value:</b> normal
-<b>Media groups:</b> visual
-</reference>
+<b>Initial:</b> normal
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/fonts.html#small-caps">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="normal"  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
-</element>
-<element pattern="small-caps"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-	<element pattern="inherit"  highlight="css-value" >
-		<autocomplete append=";" />
-	</element>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+	<element pattern="normal"/>
+	<element pattern="small-caps"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
-</element>	
-<element pattern="font-weight"  highlight="css-property" >
+</element>
+<element pattern="font-weight" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Selects the weight of the font.
 <b>Values:</b> normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | inherit
-<b>Initial value:</b> normal
-<b>Media groups:</b> visual
-</reference>
+<b>Initial:</b> normal
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> see text
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/fonts.html#font-boldness">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
 <group highlight="css-value" >
 	<autocomplete append=";" />
@@ -1228,73 +2175,117 @@
 	<element pattern="lighter"/>
 	<element pattern="inherit"/>
 </group>
-<element pattern="(100|200|300|400|500|600|700|800|900)" is_regex="1"  highlight="css-value"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element pattern="(100|200|300|400|500|600|700|800|900)" is_regex="1" highlight="css-value"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="left"  highlight="css-property" >
+<element pattern="height" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Specifies the content height of boxes.
 <b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
-<b>Initial value:</b> auto
+<b>Initial:</b> auto
+<b>Applies to:</b> all elements but non-replaced inline elements, table rows, and row groups
+<b>Inherited:</b> no
+<b>Percentages:</b> see prose
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage or 'auto' or the absolute length
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visudet.html#the-height-property">www.w3.org</a></reference>
+<context idref="c.css.width"/>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.percent"/>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="left" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies how far a box's left margin edge is offset to the right of the left edge of the box's containing block.
+<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
+<b>Initial:</b> auto
 <b>Applies to:</b> positioned elements
+<b>Inherited:</b> no
 <b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual
-</reference>
+<b>Media:</b> visual
+<b>Computed value:</b> if specified as a length, the corresponding absolute length; if specified as a percentage, the specified value; otherwise, `auto`.
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/visuren.html#position-props">www.w3.org</a></reference>
 <context idref="c.css.box_offsets"/>
 </element>
-<element pattern="letter-spacing"  highlight="css-property" >
+<element pattern="letter-spacing" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Specifies spacing behavior between text characters.
 <b>Values:</b> normal | &lt;length&gt; | inherit
-<b>Initial value:</b> normal
-<b>Media groups:</b> visual
-</reference>
+<b>Initial:</b> normal
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> `normal` or absolute length
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/text.html#spacing-props">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;-{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="normal"/>
 	<element pattern="inherit"/>
-	<element pattern="0"/>	
+	<element pattern="0"/>
 </group>
 <element pattern="-?[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px)" is_regex="1" highlight="css-value"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>		
+</context>
 </element>
-<element pattern="line-height"  highlight="css-property" >
+<element pattern="line-height" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Specifies the minimal height of line boxes within the element.
 <b>Values:</b> normal | &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt; | inherit
-<b>Initial value:</b> normal
+<b>Initial:</b> normal
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
 <b>Percentages:</b> refer to the font size of the element itself
-<b>Media groups:</b> visual
-</reference>
+<b>Media:</b> visual
+<b>Computed value:</b> for &lt;length&gt; and &lt;percentage&gt; the absolute value; otherwise as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/visudet.html#propdef-line-height">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="normal"  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
-</element>
-<element pattern="inherit"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
+	<element pattern="normal"/>
+	<element pattern="inherit"/>
+</group>
 <element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
 <element idref="e.css.length"/>
 <element idref="e.css.percent"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>		
+</context>
 </element>
-<element pattern="list-style"  highlight="css-property" >
+<element pattern="list-style" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
-<b>Values:</b> [ 'list-style-type' || 'list-style-position' || 'list-style-image' ] | inherit
-<b>Initial value:</b> see individual properties
-<b>Applies to:</b> elements with 'display: list-item'
-<b>Media groups:</b> visual
-</reference>
+<reference>A shorthand notation for setting the three properties `list-style-type`, `list-style-image`, and `list-style-position`.
+<b>Values:</b> [ &lt;list-style-type&gt; || &lt;list-style-position&gt; || &lt;list-style-image&gt; ] | inherit
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> elements with `display: list-item`
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/generate.html#propdef-list-style">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;-{}.;:()">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="disc"/>
 	<element pattern="circle"/>
@@ -1315,285 +2306,382 @@
 	<element pattern="outside"/>
 	<element pattern="inherit"/>
 </group>
-<element pattern="url"    highlight="css-value">
+<element pattern="url" highlight="css-value">
 	<autocomplete append="()" backup_cursor="1" />
 	<context idref="c.css.uri"/>
 </element>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/> 
-</context>	
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
-<element pattern="list-style-image"  highlight="css-property" >
+<element pattern="list-style-image" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Sets the image that will be used as the list item marker.
 <b>Values:</b> &lt;uri&gt; | none | inherit
-<b>Initial value:</b> none
-<b>Applies to:</b> elements with 'display: list-item'
-<b>Media groups:</b> visual
-</reference>
-<reference></reference>
+<b>Initial:</b> none
+<b>Applies to:</b> elements with `display: list-item`
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> absolute URI or `none`
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/generate.html#propdef-list-style-image">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;-{}.;:()">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="none"/>
 	<element pattern="inherit"/>
 </group>
-	<element pattern="url"    highlight="css-value">
-		<autocomplete append="()" backup_cursor="1" />
+<element pattern="url" highlight="css-value">
+	<autocomplete append="()" backup_cursor="1" />
 	<context idref="c.css.uri"/>
 </element>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>		
+</context>
 </element>
-<element pattern="list-style-position"  highlight="css-property" >
+<element pattern="list-style-position" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Specifies the position of the marker box with respect to the principal block box.
 <b>Values:</b> inside | outside | inherit
-<b>Initial value:</b> outside
-<b>Applies to:</b> elements with 'display: list-item'
-<b>Media groups:</b> visual
-</reference>
+<b>Initial:</b> outside
+<b>Applies to:</b> elements with `display: list-item`
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/generate.html#propdef-list-style-position">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="inside"  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
-</element>
-<element pattern="outside"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element pattern="inherit"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
-</element>
-<element pattern="list-style-type"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> disc | circle | square | decimal | decimal-leading-zero | lower-roman | upper-roman | lower-greek | lower-latin | upper-latin | armenian | georgian | lower-alpha | upper-alpha | none | inherit
-<b>Initial value:</b> disc
-<b>Applies to:</b> elements with 'display: list-item'
-<b>Media groups:</b> visual
-</reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
-	<autocomplete append=";" />
-<element pattern="disc"/>
-<element pattern="circle"/>
-<element pattern="square"/>
-<element pattern="decimal"/>
-<element pattern="decimal-leading-zero"/>
-<element pattern="lower-roman"/>
-<element pattern="upper-roman"/>
-<element pattern="lower-greek"/>
-<element pattern="lower-latin"/>
-<element pattern="upper-latin"/>
-<element pattern="armenian"/>
-<element pattern="georgian"/>
-<element pattern="lower-alpha"/>
-<element pattern="upper-alpha"/>
-<element pattern="none"/>
-<element pattern="inherit"/>
+	<element pattern="inside"/>
+	<element pattern="outside"/>
+	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
-</element>
-<element pattern="margin"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>If there is only one value, it applies to all sides. If there are two values, the top and bottom margins are set to the first value and the right and left margins are set to the second. If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom is set to the third. If there are four values, they apply to the top, right, bottom, and left, respectively. 
-<b>Values:</b> &lt;length&gt; &lt;percentage&gt; auto | inherit
-<b>Initial value:</b> 0
-<b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
-<b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual</reference>
-<context id="c.css.width" idref="c.css.width" symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="0" highlight="css-value" >
-	<autocomplete enable="1" />
-</element>
-<element pattern="auto" highlight="css-value" >
-	<autocomplete enable="1" />
-</element>
-<element pattern="inherit" highlight="css-value" >
-	<autocomplete enable="1" />
-</element>
-</context>
-<context symbols=" &#9;&#10;&#13;-{}.;:">
-<element idref="e.css.length.neg"/>
 <element idref="e.css.end"/>
 <element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="margin-bottom"  highlight="css-property" >
+<element pattern="list-style-type" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; &lt;percentage&gt; auto | inherit
-<b>Initial value:</b> 0
-<b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
-<b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual</reference>
-<context idref="c.css.width"/>
-<context symbols=" &#9;&#10;&#13;-{}.;:">
-<element idref="e.css.length.neg"/>
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
-</element>
-<element pattern="margin-left"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; &lt;percentage&gt; auto | inherit
-<b>Initial value:</b> 0
-<b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
-<b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual</reference>
-<context idref="c.css.width"/>
-<context symbols=" &#9;&#10;&#13;-{}.;:">
-<element idref="e.css.length.neg"/>
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
-</element>
-<element pattern="margin-right"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; &lt;percentage&gt; auto | inherit
-<b>Initial value:</b> 0
-<b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
-<b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual</reference>
-<context idref="c.css.width"/>
-<context symbols=" &#9;&#10;&#13;-{}.;:">
-<element idref="e.css.length.neg"/>
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
-</element>
-<element pattern="margin-top"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; &lt;percentage&gt; auto | inherit
-<b>Initial value:</b> 0
-<b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
-<b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual</reference>
-<context idref="c.css.width"/>
-<context symbols=" &#9;&#10;&#13;-{}.;:">
-<element idref="e.css.length.neg"/>
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
-</element>
-<element pattern="max-height"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | none | inherit
-<b>Initial value:</b> none
-<b>Applies to:</b> all elements but non-replaced inline elements, table columns, and column groups
-<b>Percentages:</b> see prose
-<b>Media groups:</b> visual
-</reference>
+<reference>Specifies appearance of the list item marker if `list-style-image` has the value `none` or if the image pointed to by the URI cannot be displayed.
+<b>Values:</b> disc | circle | square | decimal | decimal-leading-zero | lower-roman | upper-roman | lower-greek | lower-latin | upper-latin | armenian | georgian | lower-alpha | upper-alpha | none | inherit
+<b>Initial:</b> disk
+<b>Applies to:</b> elements with `display: list-item`
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/generate.html#propdef-list-style-type">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="0" highlight="css-value" >
-	<autocomplete enable="1" />
-</element>
-<element pattern="none" highlight="css-value" >
-	<autocomplete enable="1" />
-</element>
-<element pattern="inherit" highlight="css-value" >
-	<autocomplete enable="1" />
-</element>
-<element idref="e.css.length"/>
-<element idref="e.css.percent"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="disc"/>
+	<element pattern="circle"/>
+	<element pattern="square"/>
+	<element pattern="decimal"/>
+	<element pattern="decimal-leading-zero"/>
+	<element pattern="lower-roman"/>
+	<element pattern="upper-roman"/>
+	<element pattern="lower-greek"/>
+	<element pattern="lower-latin"/>
+	<element pattern="upper-latin"/>
+	<element pattern="armenian"/>
+	<element pattern="georgian"/>
+	<element pattern="lower-alpha"/>
+	<element pattern="upper-alpha"/>
+	<element pattern="none"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="max-width"  highlight="css-property" >
+<element pattern="margin" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Sets the margin for all four sides while the other margin properties only set their respective side.
+<b>Values:</b> &lt;margin-width&gt;{1,4} | inherit
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to width of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/box.html#propdef-margin">www.w3.org</a></reference>
+<context idref="c.css.width"/>
+<context symbols=" &#9;&#10;&#13;-{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="0"/>
+	<element pattern="auto"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.length.neg"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="margin-bottom" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specify the width of the margin area of a box.
+<b>Values:</b> &lt;margin-width&gt; | inherit
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to width of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-bottom">www.w3.org</a></reference>
+<context idref="c.css.width"/>
+<context symbols=" &#9;&#10;&#13;-{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="0"/>
+	<element pattern="auto"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.length.neg"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="margin-left" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specify the width of the margin area of a box.
+<b>Values:</b> &lt;margin-width&gt; | inherit
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to width of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-left">www.w3.org</a></reference>
+<context idref="c.css.width"/>
+<context symbols=" &#9;&#10;&#13;-{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="0"/>
+	<element pattern="auto"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.length.neg"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="margin-right" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specify the width of the margin area of a box.
+<b>Values:</b> &lt;margin-width&gt; | inherit
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to width of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-right">www.w3.org</a></reference>
+<context idref="c.css.width"/>
+<context symbols=" &#9;&#10;&#13;-{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="0"/>
+	<element pattern="auto"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.length.neg"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="margin-top" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specify the width of the margin area of a box.
+<b>Values:</b> &lt;margin-width&gt; | inherit
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to width of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/box.html#propdef-margin-top">www.w3.org</a></reference>
+<context idref="c.css.width"/>
+<context symbols=" &#9;&#10;&#13;-{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="0"/>
+	<element pattern="auto"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.length.neg"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="max-height" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Allow authors to constrain box heights to a certain range.
 <b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | none | inherit
-<b>Initial value:</b> none
-<b>Applies to:</b> all elements but non-replaced inline elements, table rows, and row groups
-<b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual
-</reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="0" highlight="css-value" >
-	<autocomplete enable="1" />
-</element>
-<element pattern="none" highlight="css-value" >
-	<autocomplete enable="1" />
-</element>
-<element pattern="inherit" highlight="css-value" >
-	<autocomplete enable="1" />
-</element>
-<element idref="e.css.length"/>
-<element idref="e.css.percent"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
-</element>
-<element pattern="min-height"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | inherit
-<b>Initial value:</b> 0
+<b>Initial:</b> none
 <b>Applies to:</b> all elements but non-replaced inline elements, table columns, and column groups
+<b>Inherited:</b> no
 <b>Percentages:</b> see prose
-<b>Media groups:</b> visual
-</reference>
-<context id="c.css.length_percentage" idref="c.css.length_percentage" symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="0" highlight="css-value" >
-	<autocomplete enable="1" />
-</element>
-<element pattern="inherit" highlight="css-value" >
-	<autocomplete enable="1" />
-</element>
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length or `none`
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visudet.html#propdef-max-height">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="0"/>
+	<element pattern="none"/>
+	<element pattern="inherit"/>
+</group>
 <element idref="e.css.length"/>
 <element idref="e.css.percent"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="min-width"  highlight="css-property" >
+<element pattern="max-width" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | inherit
-<b>Initial value:</b> 0
-<b>Applies to:</b> all elements but non-replaced inline elements, table rows, and row groups
-<b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.length_percentage"/>
+<reference>Allow authors to constrain content widths to a certain range.
+<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | none | inherit
+<b>Initial:</b> none
+<b>Applies to:</b> all elements but non-replaced inline elements, table columns, and column groups
+<b>Inherited:</b> no
+<b>Percentages:</b> see prose
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length or `none`
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visudet.html#propdef-max-width">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="0"/>
+	<element pattern="none"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
-<element pattern="opacity"  highlight="css-property" >
+<element pattern="min-height" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
-<b>Values:</b> range [0.0,1.0] | inherit 
-<b>Initial value:</b> 1
-<b>Media groups:</b> visual
-</reference>
+<reference>Allow authors to constrain box heights to a certain range.
+<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | none | inherit
+<b>Initial:</b> none
+<b>Applies to:</b> all elements but non-replaced inline elements, table columns, and column groups
+<b>Inherited:</b> no
+<b>Percentages:</b> see prose
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visudet.html#propdef-min-height">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="0"/>
+	<element pattern="none"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="min-width" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Allow authors to constrain content widths to a certain range.
+<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | none | inherit
+<b>Initial:</b> none
+<b>Applies to:</b> all elements but non-replaced inline elements, table columns, and column groups
+<b>Inherited:</b> no
+<b>Percentages:</b> see prose
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visudet.html#propdef-min-width">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="0"/>
+	<element pattern="none"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="opacity" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Opacity can be thought of as a postprocessing operation.
+<b>Values:</b> &lt;alphavalue&gt; | inherit
+<b>Initial:</b> 1
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> the same as the specified value after clipping the &lt;alphavalue&gt; to the range [0.0,1.0]
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-color/#transparency">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
 <element pattern="0|1|0.[0-9]" highlight="css-value" is_regex="1" />
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/> 
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
 </context>
 </element>
-
-<element pattern="outline"  highlight="css-property" >
+<element pattern="outline" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
-<b>Values:</b> [ 'outline-color' || 'outline-style' || 'outline-width' ] | inherit
-<b>Initial value:</b> see individual properties
-<b>Media groups:</b> visual, interactive
-</reference>
+<reference>Controls the style of these dynamic outlines.
+<b>Values:</b> [ &lt;outline-color&gt; || &lt;outline-style&gt; || &lt;outline-width&gt; ] | inherit
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual, interactive
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/ui.html#propdef-outline">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
 <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
 <element pattern="(rgba|hsla)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *, *(0|1|0.[0-9]) *\)" highlight="css-value" is_regex="1" case_insens="1"/>
@@ -1766,28 +2854,48 @@
 	<element pattern="inherit"/>
 </group>
 <element idref="e.css.length"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/> 
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="outline-color"  highlight="css-property" >
+<element pattern="outline-color" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Controls the style of these dynamic outlines.
 <b>Values:</b> &lt;color&gt; | invert | inherit
-<b>Initial value:</b> invert
-<b>Media groups:</b> visual, interactive
-</reference>
+<b>Initial:</b> invert
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual, interactive
+<b>Computed value:</b> as specified
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/ui.html#propdef-outline-color">www.w3.org</a></reference>
 <context idref="c.css.color"/>
-</element>
-<element pattern="outline-style"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;border-style&gt; | inherit
-<b>Initial value:</b> none
-<b>Media groups:</b> visual, interactive
-</reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="invert"/>
+	<element pattern="inherit"/>
+</group>
+</context>
+</element>
+<element pattern="outline-style" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Controls the style of these dynamic outlines.
+<b>Values:</b> &lt;border-style&gt; | inherit
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual, interactive
+<b>Computed value:</b> as specified
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/ui.html#propdef-outline-style">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="none"/>
 	<element pattern="hidden"/>
@@ -1799,203 +2907,250 @@
 	<element pattern="ridge"/>
 	<element pattern="inset"/>
 	<element pattern="outset"/>
-	<element pattern="inherit"/>	
+	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>		
+</context>
 </element>
-<element pattern="outline-width"  highlight="css-property" >
+<element pattern="outline-width" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
-<b>Values:</b> [ thin | medium | thick | &lt;length&gt; ] | inherit
-<b>Initial value:</b> medium
-<b>Media groups:</b> visual, interactive
-</reference>
+<reference>Controls the style of these dynamic outlines.
+<b>Values:</b> &lt;border-width&gt; | inherit
+<b>Initial:</b> medium
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual, interactive
+<b>Computed value:</b> absolute length; `0` if the outline style is `none`
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/ui.html#propdef-outline-width">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="thin"/>
 	<element pattern="medium"/>
 	<element pattern="inherit"/>
-	<element pattern="0"/>	
+	<element pattern="0"/>
 </group>
 <element idref="e.css.length"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>		
+</context>
 </element>
-<element pattern="overflow"  highlight="css-property" >
+<element pattern="overflow" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Specifies whether content of a block container element is clipped when it overflows the element's box.
 <b>Values:</b> visible | hidden | scroll | auto | inherit
-<b>Initial value:</b> visible
-<b>Applies to:</b> non-replaced block-level elements, table cells, inline-table, and inline-block elements
-<b>Media groups:</b> visual
-</reference>
+<b>Initial:</b> visible
+<b>Applies to:</b> block containers
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visufx.html#overflow">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="visible" highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
+	<element pattern="visible"/>
+	<element pattern="hidden"/>
+	<element pattern="scroll"/>
+	<element pattern="auto"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
-<element pattern="hidden" highlight="css-value" >
+<element pattern="overflow-x" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies whether content of a block container element is clipped when it overflows the element's box.
+<b>Values:</b> visible | hidden | scroll | auto | inherit
+<b>Initial:</b> visible
+<b>Applies to:</b> block containers
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visufx.html#overflow">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
 	<autocomplete append=";" />
+	<element pattern="visible"/>
+	<element pattern="hidden"/>
+	<element pattern="scroll"/>
+	<element pattern="auto"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
-<element pattern="scroll" highlight="css-value" >
+<element pattern="overflow-y" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies whether content of a block container element is clipped when it overflows the element's box.
+<b>Values:</b> visible | hidden | scroll | auto | inherit
+<b>Initial:</b> visible
+<b>Applies to:</b> block containers
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visufx.html#overflow">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
 	<autocomplete append=";" />
+	<element pattern="visible"/>
+	<element pattern="hidden"/>
+	<element pattern="scroll"/>
+	<element pattern="auto"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
-<element pattern="auto" highlight="css-value" >
+<element pattern="padding" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>A shorthand property for setting `padding-top`, `padding-right`, `padding-bottom`, and `padding-left` at the same place in the style sheet.
+<b>Values:</b> &lt;padding-width&gt;{1,4} | inherit
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to width of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/box.html#propdef-padding">www.w3.org</a></reference>
+<context idref="c.css.length_percentage"/>
+</element>
+<element pattern="padding-bottom" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the bottom padding of a box.
+<b>Values:</b> &lt;padding-width&gt; | inherit
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to width of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/box.html#propdef-padding-bottom">www.w3.org</a></reference>
+<context idref="c.css.length_percentage"/>
+</element>
+<element pattern="padding-left" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the left padding of a box.
+<b>Values:</b> &lt;padding-width&gt; | inherit
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to width of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/box.html#propdef-padding-left">www.w3.org</a></reference>
+<context idref="c.css.length_percentage"/>
+</element>
+<element pattern="padding-right" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the right padding of a box.
+<b>Values:</b> &lt;padding-width&gt; | inherit
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to width of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/box.html#propdef-padding-right">www.w3.org</a></reference>
+<context idref="c.css.length_percentage"/>
+</element>
+<element pattern="padding-top" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Sets the top padding of a box.
+<b>Values:</b> &lt;padding-width&gt; | inherit
+<b>Initial:</b> 0
+<b>Applies to:</b> all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to width of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/box.html#propdef-padding-top">www.w3.org</a></reference>
+<context idref="c.css.length_percentage"/>
+</element>
+<element pattern="position" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Determines which of the positioning algorithms is used to calculate the position of a box.
+<b>Values:</b> static | relative | absolute | fixed | inherit
+<b>Initial:</b> static
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visuren.html#choose-position">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="static" highlight="css-value" >
 	<autocomplete append=";" />
+<reference><b>static</b>: The box is a normal box, laid out according to the normal flow. The 'left' and 'top' properties do not apply.
+relative </reference>
+</element>
+<element pattern="relative" highlight="css-value" >
+	<autocomplete append=";" />
+<reference><b>relative</b>: The box's position is calculated according to the normal flow (this is called the position in normal flow). Then the box is offset relative to its normal position. When a box B is relatively positioned, the position of the following box is calculated as though B were not offset. </reference>
+</element>
+<element pattern="absolute" highlight="css-value" >
+	<autocomplete append=";" />
+<reference><b>absolute</b>: The box's position (and possibly size) is specified with the 'left', 'right', 'top', and 'bottom' properties. These properties specify offsets with respect to the box's containing block. Absolutely positioned boxes are taken out of the normal flow. This means they have no impact on the layout of later siblings. Also, though absolutely positioned boxes have margins, they do not collapse with any other margins. </reference>
+</element>
+<element pattern="fixed" highlight="css-value" >
+	<autocomplete append=";" />
+<reference><b>fixed</b>: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. In the case of continuous media, the box is fixed with respect to the viewport (and doesn't move when scrolled). In the case of paged media, the box is fixed with respect to the page, even if that page is seen through a viewport (in the case of a print-preview, for example). Authors may wish to specify 'fixed' in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page.</reference>
 </element>
 <element pattern="inherit" highlight="css-value" >
 	<autocomplete append=";" />
 </element>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="padding"  highlight="css-property" >
+<element pattern="quotes" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>If there is only one value, it applies to all sides. If there are two values, the top and bottom paddings are set to the first value and the right and left paddings are set to the second. If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom is set to the third. If there are four values, they apply to the top, right, bottom, and left, respectively.
-<b>Values:</b> [&lt;length&gt; | &lt;percentage&gt;]{1,4} | inherit
-<b>Initial value:</b> see individual properties
-<b>Applies to:</b> all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column
-<b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual</reference>
-<context idref="c.css.length_percentage"/>
-</element>
-<element pattern="overflow-x"  highlight="css-property" >
-	<autocomplete append=": " />
-	<reference>
-<b>Values:</b> visible | hidden | scroll | auto | inherit
-<b>Initial value:</b> visible
-<b>Applies to:</b> non-replaced block-level elements, table cells, inline-table, and inline-block elements
-<b>Media groups:</b> visual
-	</reference>
-	<context symbols=" &#9;&#10;&#13;{}.;:">
-		<element pattern="visible" highlight="css-value" >
-			<autocomplete append=";" />
-		</element>
-		<element pattern="hidden" highlight="css-value" >
-			<autocomplete append=";" />
-		</element>
-		<element pattern="scroll" highlight="css-value" >
-			<autocomplete append=";" />
-		</element>
-		<element pattern="auto" highlight="css-value" >
-			<autocomplete append=";" />
-		</element>
-		<element pattern="inherit" highlight="css-value" >
-			<autocomplete append=";" />
-		</element>
-		<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-		<element idref="e.css.rbrace"/>
-	</context>
-</element>
-<element pattern="overflow-y"  highlight="css-property" >
-	<autocomplete append=": " />
-	<reference>
-<b>Values:</b> visible | hidden | scroll | auto | inherit
-<b>Initial value:</b> visible
-<b>Applies to:</b> non-replaced block-level elements, table cells, inline-table, and inline-block elements
-<b>Media groups:</b> visual
-	</reference>
-	<context symbols=" &#9;&#10;&#13;{}.;:">
-		<element pattern="visible" highlight="css-value" >
-			<autocomplete append=";" />
-		</element>
-		<element pattern="hidden" highlight="css-value" >
-			<autocomplete append=";" />
-		</element>
-		<element pattern="scroll" highlight="css-value" >
-			<autocomplete append=";" />
-		</element>
-		<element pattern="auto" highlight="css-value" >
-			<autocomplete append=";" />
-		</element>
-		<element pattern="inherit" highlight="css-value" >
-			<autocomplete append=";" />
-		</element>
-		<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-		<element idref="e.css.rbrace"/>
-	</context>
-</element>
-<element pattern="padding-bottom"  highlight="css-property" >
-	<autocomplete append=": " />
-<context idref="c.css.length_percentage"/>
-</element>
-<element pattern="padding-left"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | inherit
-<b>Initial value:</b> 0
-<b>Applies to:</b> all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column
-<b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.length_percentage"/>
-</element>
-<element pattern="padding-right"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | inherit
-<b>Initial value:</b> 0
-<b>Applies to:</b> all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column
-<b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.length_percentage"/>
-</element>
-<element pattern="padding-top"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | inherit
-<b>Initial value:</b> 0
-<b>Applies to:</b> all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column
-<b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.length_percentage"/>
-</element>
-<element pattern="position"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference><b>position</b>: The 'position' and 'float' properties determine which of the CSS2 positioning algorithms is used to calculate the position of a box
-<b>Values:</b> static | relative | absolute | fixed | inherit
-<b>Initial value:</b> static
-<b>Media groups:</b> visual</reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="static"  highlight="css-value" >
-	<autocomplete append=";" />
-<reference><b>static</b>: The box is a normal box, laid out according to the normal flow. The 'left' and 'top' properties do not apply. 
-relative </reference>
-</element>
-<element pattern="relative"  highlight="css-value" >
-	<autocomplete append=";" />
-<reference><b>relative</b>: The box's position is calculated according to the normal flow (this is called the position in normal flow). Then the box is offset relative to its normal position. When a box B is relatively positioned, the position of the following box is calculated as though B were not offset. </reference>
-</element>
-<element pattern="absolute"  highlight="css-value" >
-	<autocomplete append=";" />
-<reference><b>absolute</b>: The box's position (and possibly size) is specified with the 'left', 'right', 'top', and 'bottom' properties. These properties specify offsets with respect to the box's containing block. Absolutely positioned boxes are taken out of the normal flow. This means they have no impact on the layout of later siblings. Also, though absolutely positioned boxes have margins, they do not collapse with any other margins. </reference>
-</element>
-<element pattern="fixed"  highlight="css-value" >
-	<autocomplete append=";" />
-<reference><b>fixed</b>: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. In the case of continuous media, the box is fixed with respect to the viewport (and doesn't move when scrolled). In the case of paged media, the box is fixed with respect to the page, even if that page is seen through a viewport (in the case of a print-preview, for example). Authors may wish to specify 'fixed' in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page.</reference>
-</element>
-<element pattern="inherit"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
-</element>
-<element pattern="quotes"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
+<reference>Specifies quotation marks for any number of embedded quotations.
 <b>Values:</b> [&lt;string&gt; &lt;string&gt;]+ | none | inherit
-<b>Initial value:</b> depends on user agent
-<b>Media groups:</b> visual
-</reference>
+<b>Initial:</b> depends on user agent
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/generate.html#quotes-specify">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;-{}.;:'&#34;">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="none"/>
 	<element pattern="inherit"/>
@@ -2012,49 +3167,94 @@ relative </reference>
 	<element pattern="&quot;" highlight="css-string" ends_context="1"/>
 </context>
 </element>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>		
-</element>
-<element pattern="right"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
-<b>Initial value:</b> auto
-<b>Applies to:</b> positioned elements
-<b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.box_offsets"/>
-</element>
-<element pattern="table-layout"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> auto | fixed | inherit
-<b>Initial value:</b> auto
-<b>Applies to:</b> 'table' and 'inline-table' elements
-<b>Media groups:</b> visual
-</reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
-<group highlight="css-value" >
-	<autocomplete append=";" />
-<element pattern="fixed"/>
-<element pattern="auto"/>
-<element pattern="inherit"/>
-</group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="text-align"  highlight="css-property" >
+<element pattern="resize" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>describes how inline content of a block is aligned.
-<b>Values:</b> left | right | center | justify | inherit
-<b>Initial value:</b> a nameless value that acts as 'left' if 'direction' is 'ltr',   'right' if 'direction' is 'rtl'
-<b>Applies to:</b> block containers
-<b>Media groups:</b> visual</reference>
+<reference><b>WARNING:</b> this property is not supported by Internet Explorer and Opera
+Allows the author to specify whether or not an element is resizable by the user, and if so, along which axis/axes.
+<b>Values:</b> none | both | horizontal | vertical | inherit
+<b>Initial:</b> none
+<b>Applies to:</b> elements with 'overflow' other than visible
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> specified value
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-ui/#resize">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="none"/>
+	<element pattern="both"/>
+	<element pattern="horizontal"/>
+	<element pattern="vertical"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="right" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies how far a box's left margin edge is offset to the right of the left edge of the box's containing block.
+<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
+<b>Initial:</b> auto
+<b>Applies to:</b> positioned elements
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to width of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> if specified as a length, the corresponding absolute length; if specified as a percentage, the specified value; otherwise, auto.
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/visuren.html#position-props">www.w3.org</a></reference>
+<context idref="c.css.box_offsets"/>
+</element>
+<element pattern="table-layout" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Controls the algorithm used to lay out the table cells, rows, and columns.
+<b>Values:</b> auto | fixed | inherit
+<b>Initial:</b> auto
+<b>Applies to:</b> `table` and `inline-table` elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/tables.html#width-layout">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="fixed"/>
+	<element pattern="auto"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
+</element>
+<element pattern="text-align" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Describes how inline-level content of a block container is aligned.
+<b>Values:</b> left | right | center | justify | inherit
+<b>Initial:</b> a nameless value that acts as `left` if `direction` is `ltr`, `right` if `direction` is `rtl`
+<b>Applies to:</b> block containers
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> the initial value or as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/text.html#alignment-prop">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="left"/>
 	<element pattern="right"/>
@@ -2062,19 +3262,26 @@ relative </reference>
 	<element pattern="justify"/>
 	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="text-decoration"  highlight="css-property" >
+<element pattern="text-decoration" highlight="css-property" >
 	<autocomplete append=": " />
-<reference><b>text-decoration</b> describes decorations that are added to the text of an element. If the property is specified for a block-level element, it affects all inline-level descendants of the element. If it is specified for (or affects) an inline-level element, it affects all boxes generated by the element. If the element has no content or no text content (e.g., the IMG element in HTML), user agents must ignore this property
+<reference>Describes decorations that are added to the text of an element using the element's color.
 <b>Values:</b> none | [ underline || overline || line-through || blink ] | inherit
-<b>Initial value:</b> none
-<b>Initial value :</b> (see prose)
-<b>Media groups:</b> visual</reference>
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no (see prose)
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/text.html#lining-striking-props">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="none"/>
 	<element pattern="underline"/>
@@ -2085,19 +3292,25 @@ relative </reference>
 	</element>
 	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="text-indent"  highlight="css-property" >
+<element pattern="text-indent" highlight="css-property" >
 	<autocomplete append=": " />
-<reference><b>text-indent</b> specifies the indentation of the first line of text in a block. More precisely, it specifies the indentation of the first box that flows into the block's first line box. The box is indented with respect to the left (or right, for right-to-left layout) edge of the line box. User agents should render this indentation as blank space. 
+<reference>Specifies the indentation of the first line of text in a block container.
 <b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | inherit
-<b>Initial value:</b> 0
+<b>Initial:</b> 0
 <b>Applies to:</b> block containers
+<b>Inherited:</b> yes
 <b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual</reference>
-<context symbols=" &#9;&#10;&#13;{}.;:"> 
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage as specified or the absolute length
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/text.html#indentation-prop">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
 <element pattern="0" highlight="css-value" >
 	<autocomplete enable="1" />
 </element>
@@ -2106,20 +3319,26 @@ relative </reference>
 </element>
 <element idref="e.css.length"/>
 <element idref="e.css.percent"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context> 
+</context>
 </element>
-<element pattern="text-transform"  highlight="css-property" >
+<element pattern="text-transform" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Controls capitalization effects of an element's text.
 <b>Values:</b> capitalize | uppercase | lowercase | none | inherit
-<b>Initial value:</b> none
-<b>Media groups:</b> visual
-</reference>
-<reference><b>text-transform</b> controls capitalization effects of an element's text.</reference>
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/text.html#caps-prop">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="none"/>
 	<element pattern="capitalize"/>
@@ -2127,52 +3346,67 @@ relative </reference>
 	<element pattern="lowercase"/>
 	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>	
+</context>
 </element>
-<element pattern="top"  highlight="css-property" >
+<element pattern="top" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Specifies how far an absolutely positioned box's top margin edge is offset below the top edge of the box's containing block.
 <b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
-<b>Initial value:</b> auto
+<b>Initial:</b> auto
 <b>Applies to:</b> positioned elements
-<b>Percentages:</b> refer to height of containing block
-<b>Media groups:</b> visual
-</reference>
+<b>Inherited:</b> no
+<b>Percentages:</b> refer to width of containing block
+<b>Media:</b> visual
+<b>Computed value:</b> if specified as a length, the corresponding absolute length; if specified as a percentage, the specified value; otherwise, auto.
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS2/visuren.html#position-props">www.w3.org</a></reference>
 <context idref="c.css.box_offsets"/>
 </element>
-<element pattern="unicode-bidi"  highlight="css-property" >
+<element pattern="unicode-bidi" highlight="css-property" >
 	<autocomplete append=": " />
 <reference>
 <b>Values:</b> normal | embed | bidi-override | inherit
-<b>Initial value:</b> normal
+<b>Initial:</b> normal
 <b>Applies to:</b> all elements, but see prose
-<b>Media groups:</b> visual
-</reference> 
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visuren.html#propdef-unicode-bidi">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="normal"/>
 	<element pattern="embed"/>
 	<element pattern="bidi-override"/>
 	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>  
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="vertical-align"  highlight="css-property" >
+<element pattern="vertical-align" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Affects the vertical positioning inside a line box of the boxes generated by an inline-level element.
 <b>Values:</b> baseline | sub | super | top | text-top | middle | bottom | text-bottom | &lt;percentage&gt; | &lt;length&gt; | inherit
-<b>Initial value:</b> baseline
+<b>Initial:</b> baseline
 <b>Applies to:</b> inline-level and 'table-cell' elements
+<b>Inherited:</b> no
 <b>Percentages:</b> refer to the 'line-height' of the element itself
-<b>Media groups:</b> visual
-</reference>
+<b>Media:</b> visual
+<b>Computed value:</b> for &lt;percentage&gt; and &lt;length&gt; the absolute length, otherwise as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visudet.html#propdef-vertical-align">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;-{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="baseline"/>
 	<element pattern="sub"/>
@@ -2191,63 +3425,73 @@ relative </reference>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="visibility"  highlight="css-property" >
+<element pattern="visibility" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Specifies whether the boxes generated by an element are rendered.
 <b>Values:</b> visible | hidden | collapse | inherit
-<b>Initial value:</b> visible
-<b>Media groups:</b> visual
-</reference>
+<b>Initial:</b> visible
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visufx.html#visibility">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="visible"/>
 	<element pattern="hidden"/>
 	<element pattern="collapse"/>
 	<element pattern="inherit"/>
 </group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>
 </element>
-<element pattern="white-space"  highlight="css-property" >
+<element pattern="white-space" highlight="css-property" >
 	<autocomplete append=": " />
-<reference><b>white-space</b> declares how whitespace inside the element is handled. Conforming user agents may ignore the 'white-space' property in author and user style sheets but must specify a value for it in the default style sheet
+<reference>Declares how white space inside the element is handled.
 <b>Values:</b> normal | pre | nowrap | pre-wrap | pre-line | inherit
-<b>Initial value:</b> normal
-<b>Media groups:</b> visual.</reference>
+<b>Initial:</b> normal
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/text.html#white-space-prop">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="normal"  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
-</element>
-<element pattern="pre"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element pattern="nowrap"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element pattern="pre-wrap"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element pattern="pre-line"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element pattern="inherit"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+	<element pattern="normal"/>
+	<element pattern="pre"/>
+	<element pattern="nowrap"/>
+	<element pattern="pre-wrap"/>
+	<element pattern="pre-line"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>		
+</context>
 </element>
-<element pattern="width"  highlight="css-property" >
+<element pattern="width" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Specifies the content width of boxes.
 <b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
-<b>Initial value:</b> auto
+<b>Initial:</b> auto
 <b>Applies to:</b> all elements but non-replaced inline elements, table rows, and row groups
+<b>Inherited:</b> no
 <b>Percentages:</b> refer to width of containing block
-<b>Media groups:</b> visual
-</reference>
+<b>Media:</b> visual
+<b>Computed value:</b> the percentage or 'auto' as specified or the absolute length
+<b>Animatable:</b> yes
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visudet.html#the-width-property">www.w3.org</a></reference>
 <context idref="c.css.width"/>
 <context symbols=" &#9;&#10;&#13;{}.;:">
 <element idref="e.css.percent"/>
@@ -2255,80 +3499,82 @@ relative </reference>
 <element idref="e.css.end"/>
 <element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>	
-</element>	
-<element pattern="height"  highlight="css-property" >
-	<autocomplete append=": " />
-<reference>
-<b>Values:</b> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
-<b>Initial value:</b> auto
-<b>Applies to:</b> all elements but non-replaced inline elements, table columns, and column groups
-<b>Percentages:</b> see prose
-<b>Media groups:</b> visual
-</reference>
-<context idref="c.css.width"/>
-<context symbols=" &#9;&#10;&#13;{}.;:">
-<element idref="e.css.percent"/>
-<element idref="e.css.length"/>
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>		
+</context>
 </element>
-<element pattern="word-spacing"  highlight="css-property" >
+<element pattern="word-spacing" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Specifies spacing behavior between words.
 <b>Values:</b> normal | &lt;length&gt; | inherit
-<b>Initial value:</b> normal
-<b>Media groups:</b> visual
-</reference>
+<b>Initial:</b> normal
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> for 'normal' the value '0'; otherwise the absolute length
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/text.html#propdef-word-spacing">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;-{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="normal"/>
 	<element pattern="inherit"/>
-	<element pattern="0"/>	
+	<element pattern="0"/>
 </group>
 <element pattern="-?[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px)" is_regex="1" highlight="css-value"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>		
+</context>
 </element>
-<element pattern="word-wrap"  highlight="css-draft-property" >
+<element pattern="word-wrap" highlight="css-draft-property" >
 	<autocomplete append=": " />
-<reference><span foreground="red">Draft</span> The word-wrap CSS property is used to to specify whether or not the browser is allowed to break lines within words in order to prevent overflow when an otherwise unbreakable string is too long to fit.
+<reference>Specifies whether the UA may arbitrarily break within a word to prevent overflow when an otherwise-unbreakable string is too long to fit within the line box.
 <b>Values:</b> normal | break-word
-<b>Initial value:</b> normal
-<b>Media groups:</b> visual.</reference>
+<b>Initial:</b> normal
+<b>Applies to:</b> all elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> specified value
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-text/#overflow-wrap-property">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="normal"  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
-</element>
-<element pattern="break-word"  highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+	<element pattern="normal"/>
+	<element pattern="break-word"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>		
+</context>
 </element>
-<element pattern="z-index"  highlight="css-property" >
+<element pattern="z-index" highlight="css-property" >
 	<autocomplete append=": " />
-<reference>
+<reference>Specifies whether the UA may arbitrarily break within a word to prevent overflow when an otherwise-unbreakable string is too long to fit within the line box.
 <b>Values:</b> auto | &lt;integer&gt; | inherit
-<b>Initial value:</b> auto
+<b>Initial:</b> auto
 <b>Applies to:</b> positioned elements
-<b>Media groups:</b> visual
-</reference>
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/CSS21/visuren.html#z-index">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group  highlight="css-value" >
+<group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="auto"/>
 	<element pattern="inherit"/>
 </group>
 <element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
 <element idref="e.css.length"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
-</context>		
+</context>
 </element>
 </bfinc>

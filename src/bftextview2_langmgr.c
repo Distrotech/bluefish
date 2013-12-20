@@ -1420,6 +1420,11 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 			/* if the tag is not empty, we have to forward to the end of the tag now */
 			if (!isempty)
 				skip_to_end_tag(reader, depth);
+			g_free(id);
+			g_free(symbols);
+			g_free(highlight);
+			g_free(commentid_block);
+			g_free(commentid_line);
 			return context;
 		}
 	}
@@ -1434,7 +1439,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	if (id) {
 		DBG_PARSING("insert context %s into hash table as %d\n", id, context);
 		if (g_hash_table_lookup(bfparser->contexts, id) != NULL) {
-			g_print("Error in language file, context id %s already exists\n", id);
+			g_print("Error in language file, context id %s already exists. Set both id and idref if this is caused by a bfinc file that is included more than once\n", id);
 		} else {
 			g_hash_table_insert(bfparser->contexts, g_strdup(id), GINT_TO_POINTER(context));
 		}
