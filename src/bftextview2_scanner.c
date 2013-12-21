@@ -42,10 +42,10 @@
 #include "bftextview2_markregion.h"
 #endif
 
-/*#undef DBG_SCANNING
-#define DBG_SCANNING g_print*/
-/*#undef DBG_SCANCACHE
-#define DBG_SCANCACHE g_print*/
+#undef DBG_SCANNING
+#define DBG_SCANNING g_print
+#undef DBG_SCANCACHE
+#define DBG_SCANCACHE g_print
 
 /* use
 G_SLICE=always-malloc G_DEBUG=gc-friendly valgrind --tool=memcheck --num-callers=32 src/bluefish
@@ -439,24 +439,26 @@ mark_needscanning(BluefishTextView * btv, gint startpos, gint endpos)
 
 typedef struct {
 	BF_ELIST_HEAD;
-	guint32 prevpos;
-	gint32 prevoffset;
-	GSequenceIter *siter;
-	Tfound *found;
+	guint32 prevpos; /* the last location where the accumulated offset was changed */
+	gint32 prevoffset; /* the accumulated offset from all previous processed offset updates */
+	GSequenceIter *siter; /* the last position in the scancache that had it's offset updated */
+	Tfound *found; /* the Tfound at that same position in the scancache */
 } Tscancache_offset_update;
 
 /*
- * scancache_update_single_offset updates the offset in the scancache
+ * scancache_update_single_offset updates the offset in the scancache, it (is|might be) called
+ * multiple times if there have been multiple changes to the offsets (multiple inserts or deletes)
+ * it is called from foundcache_process_offsetupdates() which loops over all changes that can be 
+ * combined:
  *
- * if there have been multiple changes to the offsets (multiple inserts or deletes)
- * these can be combined:
+ * if it will be called a second time, nextpos will be set to indicate the position where 
+ * the offset will change. 
  *
- * nextpos is the next position where the next new offset is recorded. This function may return
+ * This function may thus return
  * for a found > nextpos because the it will be called again for the next new offset.
  *
  * when it is called again for a second change, for any Tfound with charoffset_o > sou->prevpos the new
  * offset will be offset + prevoffset;
- *
  */
 static void
 scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update *sou, guint32 startpos, gint32 offset, guint32 nextpos)
@@ -472,6 +474,15 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 	DBG_SCANCACHE
 		("scancache_update_single_offset, update with offset %d starting at startpos %u, cache length=%u, comparepos=%d, prevpos=%u, prevoffset=%d, nextpos=%u\n",
 		 offset, startpos, g_sequence_get_length(btv->scancache.foundcaches), comparepos, sou->prevpos, sou->prevoffset, nextpos);
+	
+	/* the first thing to do is to initialize sou->found with the next Tfound that we have to change.
+	
+	if this is the first call to scancache_update_single_offset() we will simply get the Tfound at offset 
+	
+	if it is a later call, we can use sou->found (which is always beyond the last position that was handled), but we have to
+	check if sou->found is beyond nextpos, in which case it also needs to be updated for the next change in the scancache, handled
+	by the next call to this function */
+	
 	if (sou->found == NULL) {
 		DBG_SCANCACHE("scancache_update_single_offset, no found, get new found for startpos %u\n",startpos);
 		sou->found = get_foundcache_at_offset(btv, startpos, &sou->siter);
@@ -496,6 +507,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 	}
 
 	/*
+	We have sou->found now set.
 	either found is returned by get_foundcache_at_offset() and prevpos and prevoffset are 0
 	or found is defined in the previous call to scancache_update_single_offset()
 			if it was defined, and it has a position before startpos, this position should equal prevpos
@@ -582,6 +594,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		*/
 		if (sou->found->charoffset_o > startpos) {
 			/* no need to go the next item, the current items needs to be deleted too */
+			DBG_SCANCACHE("sou->found(%d) is beyond startpos(%d), set found and siter to NULL\n",(gint)sou->found->charoffset_o, (gint)startpos);
 			sou->found = NULL;
 			sou->siter = NULL;
 		} else {
@@ -596,10 +609,10 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 
 		/* we should have a tmpfound now that has offset > startpos and thus it should be beyond prevpos as well */
 		if (tmpfound && ((gint)(tmpfound->charoffset_o+sou->prevoffset)) < startpos) {
-			g_print("ABORT: tmpfound->charoffset_o(%u)+sou->prevoffset(%d)=%u < startpos(%u) (prevpos=%u)\n",
+			g_print("ABORT: tmpfound->charoffset_o(%u)+sou->prevoffset(%d)=%u < startpos(%u) (sou->prevpos=%u, offset=%d, nextpos=%d)\n",
 								(gint)tmpfound->charoffset_o, (gint)sou->prevoffset,
 								(gint)tmpfound->charoffset_o+sou->prevoffset,
-								(gint)startpos, (gint)sou->prevpos);
+								(gint)startpos, (gint)sou->prevpos, (gint)offset, (gint)nextpos);
 			g_assert_not_reached();
 		}
 #endif
