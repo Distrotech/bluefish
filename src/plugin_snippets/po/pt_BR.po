@@ -7,130 +7,131 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2013-02-05 21:19+0100\n"
-"PO-Revision-Date: 2012-01-07 08:30-0300\n"
-"Last-Translator: Esfinge Metal <esfingemetal@gmail.com>\n"
+"POT-Creation-Date: 2013-11-17 21:18+0100\n"
+"PO-Revision-Date: 2013-12-30 17:32-0300\n"
+"Last-Translator: Matheus Cunha Motta <esfingemetal@gmail.com>\n"
 "Language-Team: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: src/plugin_snippets/snippets_gui.c:416
+#: src/plugin_snippets/snippets_gui.c:425
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr "Clique com o botão direito do mouse para, editar ou apagar snippets."
 
-#: src/plugin_snippets/snippets_gui.c:417
+#: src/plugin_snippets/snippets_gui.c:426
 msgid "Use drag and drop to re-order snippets"
 msgstr "Use arrastar e soltar para reordenar os snippets"
 
-#: src/plugin_snippets/snippets_gui.c:418
+#: src/plugin_snippets/snippets_gui.c:427
 msgid "To exchange snippets with others use import or export"
 msgstr "Para trocar snippets com outros, use importar ou exportar"
 
-#: src/plugin_snippets/snippets_gui.c:638
+#: src/plugin_snippets/snippets_gui.c:647
 msgid "snippets"
 msgstr "snippets"
 
-#: src/plugin_snippets/snippets_gui.c:701
+#: src/plugin_snippets/snippets_gui.c:710
 msgid "Snippet export filename"
 msgstr "Nome de arquivo de Snippet a exportar"
 
-#: src/plugin_snippets/snippets_gui.c:739
+#: src/plugin_snippets/snippets_gui.c:748
 msgid "Snippet import filename"
 msgstr "Nome de arquivo de Snippet a importar"
 
-#: src/plugin_snippets/snippets_gui.c:757
+#: src/plugin_snippets/snippets_gui.c:766
 msgid "Set accelerator key"
 msgstr "Definir tecla aceleradora"
 
-#: src/plugin_snippets/snippets_gui.c:813
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "Snippets menu"
 msgstr "Menu de snippets"
 
-#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_gui.c:824
 msgid "_New Snippet"
 msgstr "_Novo Snippet"
 
-#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_gui.c:824
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
 msgstr "Novo snippet"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_gui.c:825
 msgid "_Edit Snippet"
 msgstr "_Editar Snippet"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_gui.c:825
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
 msgstr "Editar snippet"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:826
 msgid "_Delete Snippet"
 msgstr "_Deletar Snippet"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:826
 msgid "Delete snippet"
 msgstr "Deletar snippet"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Delete _Branch"
 msgstr "Deletar _Galho"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Delete branch"
 msgstr "Apagar galho"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:828
 msgid "Set Snippet _Accelerator"
 msgstr "Definir _Atalho de Snippet"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:828
 msgid "Set snippet accelerator"
 msgstr "Definir atalho de snippet"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:830
 msgid "Ex_pand All"
 msgstr "Ex_pandir tudo"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:830
 msgid "Expand all"
 msgstr "Expandir tudo"
 
-#: src/plugin_snippets/snippets_gui.c:821
+#: src/plugin_snippets/snippets_gui.c:831
 msgid "_Collapse All"
 msgstr "Re_colher tudo"
 
-#: src/plugin_snippets/snippets_gui.c:821
+#: src/plugin_snippets/snippets_gui.c:831
 msgid "Collapse all"
 msgstr "Recolher tudo"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:832
 msgid "E_xport"
 msgstr "E_xportar"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:832
 msgid "Export snippets"
 msgstr "Exportar snippets"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:833
 msgid "I_mport"
 msgstr "I_mportar"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:833
 msgid "Import snippets"
 msgstr "Importar snippets"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:837
 msgid "_Show as menu"
 msgstr "_Exibir como menu"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:837
 msgid "Show snippets menu"
 msgstr "Exibir menu de snippets"
 
-#: src/plugin_snippets/snippets_gui.c:829
+#: src/plugin_snippets/snippets_gui.c:839
 msgid "S_nippets Menu"
 msgstr "Menu de S_nippets"
 
