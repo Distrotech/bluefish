@@ -42,10 +42,10 @@
 #include "bftextview2_markregion.h"
 #endif
 
-#undef DBG_SCANNING
-#define DBG_SCANNING g_print
-#undef DBG_SCANCACHE
-#define DBG_SCANCACHE g_print
+/*#undef DBG_SCANNING
+#define DBG_SCANNING g_print*/
+/*#undef DBG_SCANCACHE
+#define DBG_SCANCACHE g_print*/
 
 /* use
 G_SLICE=always-malloc G_DEBUG=gc-friendly valgrind --tool=memcheck --num-callers=32 src/bluefish
@@ -1749,7 +1749,7 @@ reconstruct_scanning(BluefishTextView * btv, GtkTextIter * position, Tscanning *
 	guint offset = gtk_text_iter_get_offset(position);
 	DBG_SCANNING("reconstruct_scanning at position %d\n", offset);
 	found = get_foundcache_at_offset(btv, offset, &scanning->siter);
-	DBG_SCANCACHE("reconstruct_stack, got found %p at offset %d to reconstruct stack at position %d\n", found, found->charoffset_o, offset);
+	DBG_SCANCACHE("reconstruct_stack, got found %p at offset %d to reconstruct stack at position %d\n", found, found?found->charoffset_o:-1, offset);
 	if (G_LIKELY(found && found->charoffset_o <= offset)) {
 		if (found->numcontextchange < 0) {
 			scanning->curfcontext = pop_contexts(found->numcontextchange, found->fcontext);
