@@ -48,6 +48,14 @@ bluefish_url_show(const gchar * url)
 		g_warning("Failed trying to launch URL in about dialog");
 	}
 #else
+#ifdef MAC_INTEGRATION
+	GString *string;
+	string = g_string_new("open ");
+	string = g_string_append(string, url);
+	g_print("bluefish_url_show, launching uri=%s\n", string->str);
+	system(string->str);
+	g_string_free(string, TRUE);
+#else
 	GError *error = NULL;
 
 	g_app_info_launch_default_for_uri(url, NULL, &error);
@@ -55,6 +63,7 @@ bluefish_url_show(const gchar * url)
 		g_warning("bluefish_url_show, %s", error->message);
 		g_error_free(error);
 	}
+#endif
 #endif
 }
 
@@ -162,6 +171,17 @@ about_activate_url(GtkAboutDialog * about, const gchar * url, gpointer data)
 }
 #endif
 
+#ifdef MAC_INTEGRATION
+static gboolean
+activate_link_lcb (GtkWidget   *dialog,
+               const gchar *url,
+               gpointer     data)
+{
+  bluefish_url_show(url);
+  return TRUE;
+}
+#endif
+
 static void
 about_dialog_create(GtkAction * action, gpointer user_data)
 {
@@ -234,7 +254,7 @@ about_dialog_create(GtkAction * action, gpointer user_data)
 		"GNU General Public License for more details.\n"
 		"\n"
 		"You should have received a copy of the GNU General Public License "
-		"along with this program.  If not, see <http://www.gnu.org/licenses/>.";
+		"along with this program.  If not, see http://www.gnu.org/licenses/ .";
 
 	const gchar *comments =
 		_
@@ -285,10 +305,11 @@ about_dialog_create(GtkAction * action, gpointer user_data)
 #else
 /* gtk_show_about_dialog hides window when it is closed (no other choices). On OSX this hidden dead window can be accessed from WIndow menu, so we have 
 to construct about dialog manually and destroy it after use */
-	GtkAboutDialog *dialog;
+	GtkWidget *dialog;
 	dialog = gtk_about_dialog_new();
 	gtk_window_set_transient_for(GTK_WINDOW( dialog ), GTK_WINDOW(bfwin->main_window));
 	gtk_window_set_destroy_with_parent (GTK_WINDOW(dialog), TRUE);
+	g_signal_connect (dialog, "activate-link", G_CALLBACK (activate_link_lcb), NULL);
          /* Set it's properties */
 	gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), "Bluefish" );
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), 
@@ -311,7 +332,7 @@ to construct about dialog manually and destroy it after use */
 	g_object_unref(logo), logo=NULL;
     /* Run dialog and destroy it after it returns. */
     gtk_dialog_run( GTK_DIALOG(dialog) );
-    gtk_widget_destroy( dialog );
+    gtk_widget_destroy(GTK_WIDGET(dialog));
 #endif /* MAC_INTEGRATION */
 }
 
