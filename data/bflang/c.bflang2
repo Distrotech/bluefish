@@ -2561,8 +2561,6 @@
 <element pattern="GCacheNewFunc" />
 <element pattern="g_allocator_new" />
 <element pattern="g_allocator_free" />
-<element pattern="TRUE"  highlight="value" />
-<element pattern="FALSE"  highlight="value" />
 </group>
 	<group highlight="glib-type" >
 		<autocomplete enable="1" />
@@ -2592,6 +2590,8 @@
 		<element pattern="gsize" />
 		<element pattern="gssize" />
 		<element pattern="goffset" />
+		<element pattern="TRUE"  highlight="value" />
+		<element pattern="FALSE"  highlight="value" />
 	</group>
 	<group highlight="glib-gio-data-type" >
 		<autocomplete enable="1" />
