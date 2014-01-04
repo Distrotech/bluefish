@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.2.3\n"
+"Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2013-02-05 21:18+0100\n"
-"PO-Revision-Date: 2014-01-04 13:55+0900\n"
+"PO-Revision-Date: 2014-01-04 21:35+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -702,7 +702,7 @@ msgstr "_Meta..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1108
 msgid "Embe_d..."
-msgstr "Embe_d..."
+msgstr "埋め込み(Embe_d)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1109
 msgid "Select _Color..."
@@ -1008,15 +1008,15 @@ msgstr "フッタ(_F)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1185
 msgid "Footer"
-msgstr "Footer"
+msgstr "フッタ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1186
 msgid "_Header"
-msgstr "_Header"
+msgstr "ヘッダ(_Header)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1186
 msgid "Header"
-msgstr "Header"
+msgstr "ヘッダ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1187
 msgid "H_group"
@@ -1076,7 +1076,7 @@ msgstr "セクション"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1195
 msgid "Au_dio..."
-msgstr "Au_dio..."
+msgstr "オーディオ(Au_dio)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1195
 msgid "Audio..."
@@ -1084,7 +1084,7 @@ msgstr "オーディオ..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1196
 msgid "_Video..."
-msgstr "_Video..."
+msgstr "ビデオ(_Video)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1196
 msgid "Video..."
@@ -1092,7 +1092,7 @@ msgstr "ビデオ..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1197
 msgid "_Canvas..."
-msgstr "_Canvas..."
+msgstr "キャンバス(_Canvas)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1197
 msgid "Canvas..."
@@ -1100,7 +1100,7 @@ msgstr "キャンバス"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1198
 msgid "_Time..."
-msgstr "_Time..."
+msgstr "日時(_Time)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1198
 msgid "Time..."
@@ -1108,7 +1108,7 @@ msgstr "時間..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
 msgid "Insert _Color"
-msgstr "色を挿入(_C)"
+msgstr "色を挿入する(_C)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
 msgid "Insert Color"
@@ -1365,7 +1365,7 @@ msgstr "配置(_G):"
 #: src/plugin_htmlbar/html_table.c:268 src/plugin_htmlbar/html_table.c:392
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Cl_ass:"
-msgstr "Cl_ass:"
+msgstr "クラス(Cl_ass):"
 
 #: src/plugin_htmlbar/html.c:928 src/plugin_htmlbar/html.c:1186
 #: src/plugin_htmlbar/html_diag.c:484 src/plugin_htmlbar/html_table.c:131
@@ -1462,7 +1462,7 @@ msgstr "_HTTP-EQUIV:"
 
 #: src/plugin_htmlbar/html.c:1339
 msgid "Con_tent:"
-msgstr "Con_tent:"
+msgstr "内容(Con_tent):"
 
 #: src/plugin_htmlbar/html.c:1345
 msgid "_Scheme:"
@@ -1652,7 +1652,8 @@ msgstr ""
 "hh - 時(24時間制) (例 10.00pm なら 22)\n"
 "mm - 分 (例 55)\n"
 "ss -　秒 (例 03)\n"
-"TZD - タイムゾーン (Z denotes Zulu, also known as Greenwich Mean Time)\n"
+"TZD - タイムゾーン (Z は ズールー時間, より一般的には グリニッジ標準時 として"
+"知られている時間帯を表します)\n"
 
 #: src/plugin_htmlbar/html.c:2193
 msgid "_Datetime:"
