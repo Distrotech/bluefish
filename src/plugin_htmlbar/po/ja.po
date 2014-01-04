@@ -3,14 +3,14 @@
 # Iwasa Kazmi <kzmi@ca2.so-net.ne.jp>, 2000.
 # Ryoichi INAGAKI <ryo1@bc.wakwak.com>, 2003.
 # Timothy Joko-Veltman <tim-oss@indigopixel.com>, 2004
-# Takeshi HAMASAKI <hmatrjp@users.sourceforge.jp>, 2005-2012
+# Takeshi HAMASAKI <hmatrjp@users.sourceforge.jp>, 2005-2014
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2013-02-05 21:18+0100\n"
-"PO-Revision-Date: 2012-06-26 07:47+0900\n"
+"PO-Revision-Date: 2014-01-04 13:55+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "X-Poedit-Basepath: /factory/ja-po/bluefish/bluefish\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: src/plugin_htmlbar/html2.c:634
 msgid "Cascading Style Sheet Builder"
@@ -77,14 +78,12 @@ msgid "Edit tag"
 msgstr "タグの編集"
 
 #: src/plugin_htmlbar/htmlbar.c:98
-#, fuzzy
 msgid "Htmlbar"
-msgstr "%s を畳む"
+msgstr "HTMLバー"
 
 #: src/plugin_htmlbar/htmlbar.c:261 src/plugin_htmlbar/prefs.c:63
-#, fuzzy
 msgid "HTML Features"
-msgstr "HTML ファイル (*.html)|*.html"
+msgstr "HTML 機能"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:960
 msgid "T_ags"
@@ -143,9 +142,8 @@ msgid "Insert H6 tag"
 msgstr "H6 タグを挿入"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:974
-#, fuzzy
 msgid "_Entities"
-msgstr "文字から実体参照へ"
+msgstr "実体参照(_Entities)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:975
 msgid "_Non-breaking space"
@@ -516,12 +514,11 @@ msgstr "フォーム"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1060
 msgid "_Fieldset"
-msgstr ""
+msgstr "フィールドセット(_Fieldset)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1061
-#, fuzzy
 msgid "_Legend"
-msgstr "凡例"
+msgstr "凡例(_Legend)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1062
 msgid "L_abel"
@@ -536,9 +533,8 @@ msgid "_Button"
 msgstr "ボタン(_B)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1065
-#, fuzzy
 msgid "_Select"
-msgstr "選択(_S)"
+msgstr "選択(_Select)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1066
 msgid "_Datalist"
@@ -558,22 +554,19 @@ msgstr "複数行テキスト入力(_T)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1070
 msgid "_Keygen"
-msgstr ""
+msgstr "鍵ペア生成(_Keygen)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1071
-#, fuzzy
 msgid "O_utput"
-msgstr "出力 LPI(_U):"
+msgstr "出力(O_utput):"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1072
-#, fuzzy
 msgid "_Progress"
-msgstr "進度"
+msgstr "進度(_Progress)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1073
-#, fuzzy
 msgid "_Meter"
-msgstr "メータ"
+msgstr "メータ(_Meter)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1074
 msgid "_Misc"
@@ -1114,14 +1107,12 @@ msgid "Time..."
 msgstr "時間..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert _Color"
-msgstr "背景色"
+msgstr "色を挿入(_C)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1199
-#, fuzzy
 msgid "Insert Color"
-msgstr "背景色"
+msgstr "色を挿入"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "_HTML Toolbar"
@@ -1137,7 +1128,7 @@ msgstr "クイックバーから削除"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1377
 msgid "Right click any html toolbar button to add it to the Quickbar."
-msgstr ""
+msgstr "HTMLバーのボタンは、右クリックするとクイックバーに追加されます"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1451
 msgid "Quickbar"
@@ -1152,9 +1143,8 @@ msgid "HTML 5"
 msgstr "HTML 5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1460
-#, fuzzy
 msgid "Formatting"
-msgstr " 書式指定 "
+msgstr "書式指定"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1463
 msgid "Tables"
@@ -1603,7 +1593,7 @@ msgstr "ループ(_L):"
 
 #: src/plugin_htmlbar/html.c:1918 src/plugin_htmlbar/html.c:2099
 msgid "M_ute:"
-msgstr ""
+msgstr "消音(M_ute):"
 
 #: src/plugin_htmlbar/html.c:1923 src/plugin_htmlbar/html.c:2123
 msgid "_Preload:"
@@ -1653,6 +1643,16 @@ msgid ""
 "TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean "
 "Time)\n"
 msgstr ""
+"日時の書式 (例 YYYY-MM-DDThh:mm:ssTZD) :\n"
+"\n"
+"YYYY - 西暦 (例 2009)\n"
+"MM - 月 (例 01 for January)\n"
+"DD - 日 (例 08)\n"
+"T - 必要な区切り\n"
+"hh - 時(24時間制) (例 10.00pm なら 22)\n"
+"mm - 分 (例 55)\n"
+"ss -　秒 (例 03)\n"
+"TZD - タイムゾーン (Z denotes Zulu, also known as Greenwich Mean Time)\n"
 
 #: src/plugin_htmlbar/html.c:2193
 msgid "_Datetime:"
@@ -1687,13 +1687,12 @@ msgid "(HTML5)"
 msgstr "(HTML5)"
 
 #: src/plugin_htmlbar/html.c:2360
-#, fuzzy
 msgid "_Async:"
-msgstr "非同期の実行の許可"
+msgstr "非同期(_Async):"
 
 #: src/plugin_htmlbar/html.c:2364
 msgid "_Defer:"
-msgstr ""
+msgstr "遅延評価(_Defer):"
 
 #.
 #. todo check buttons:
@@ -1702,30 +1701,27 @@ msgstr ""
 #.
 #: src/plugin_htmlbar/html.c:2536
 msgid "CSS3 multi-column layout"
-msgstr ""
+msgstr "CSS3 複数段組みレイアウト"
 
 #: src/plugin_htmlbar/html.c:2543
 msgid "Auto (default) or number of columns"
-msgstr ""
+msgstr "自動（デフォルト）または段組みの数"
 
 #: src/plugin_htmlbar/html.c:2552
-#, fuzzy
 msgid "Auto (default) or width"
-msgstr "  <AF>='-6|-4'または'-A <af>'または'--<af>'を利用; 標準: %s\n"
+msgstr "自動（デフォルト）または 幅を指定"
 
 #: src/plugin_htmlbar/html.c:2564
 msgid "Normal (default) or width of the gap between columns"
-msgstr ""
+msgstr "通常（デフォルト）または 列の間隔を指定"
 
 #: src/plugin_htmlbar/html.c:2582
-#, fuzzy
 msgid "None (default) or style"
-msgstr "  <AF>='-6|-4'または'-A <af>'または'--<af>'を利用; 標準: %s\n"
+msgstr "なし(デフォルト) または スタイル指定"
 
 #: src/plugin_htmlbar/html.c:2588
-#, fuzzy
 msgid "Medium (default) or width"
-msgstr "  <AF>='-6|-4'または'-A <af>'または'--<af>'を利用; 標準: %s\n"
+msgstr "中 (デフォルト) または 幅を指定"
 
 #: src/plugin_htmlbar/html.c:2601
 msgid "Use vendor-prefixed CSS property:"
@@ -1736,9 +1732,8 @@ msgid "styles_heet"
 msgstr "スタイルシート(_H)"
 
 #: src/plugin_htmlbar/html.c:2610
-#, fuzzy
 msgid "Add selector(s) to create a new rule"
-msgstr "新しいレイヤーを画像に追加します"
+msgstr "セレクタを追加して、新しい内罫線を生成します"
 
 #: src/plugin_htmlbar/html.c:2612
 msgid "style a_ttribute"
@@ -1749,22 +1744,20 @@ msgid "Add a style attribute in tag"
 msgstr "タグにスタイル属性を追加"
 
 #: src/plugin_htmlbar/html.c:2615
-#, fuzzy
 msgid "style _values"
-msgstr "返り値"
+msgstr "スタイル属性の値(_V)"
 
 #: src/plugin_htmlbar/html.c:2616
 msgid "Add values in a style attribute"
 msgstr "スタイル属性に値を追加"
 
 #: src/plugin_htmlbar/html.c:2626
-#, fuzzy
 msgid "Selecto_rs:"
-msgstr "描画色/背景色(_R)"
+msgstr "セレクタ(Selecto_rs):"
 
 #: src/plugin_htmlbar/html.c:2627
 msgid "Leave empty to insert declarations into an existing rule."
-msgstr ""
+msgstr "空にすると宣言を既存のルールに挿入します。"
 
 #: src/plugin_htmlbar/html.c:2687
 msgid "Link"
@@ -1889,70 +1882,61 @@ msgstr "ボタン"
 
 #: src/plugin_htmlbar/html_table.c:108
 msgid "<span color=\"#006000\">Cell _Padding:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">セルのパディング(Cell _Padding):</span>"
 
 #: src/plugin_htmlbar/html_table.c:117
 msgid "<span color=\"#006000\">C_ell Spacing:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">セルの間隔(C_ell Spacing):</span>"
 
 #: src/plugin_htmlbar/html_table.c:144 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:377
-#, fuzzy
 msgid "<span color=\"#006000\">_Align:</span>"
-msgstr "<span color=\"red\">%d 失敗</span>"
+msgstr "<span color=\"#006000\">配置(_Align):</span>"
 
 #: src/plugin_htmlbar/html_table.c:149 src/plugin_htmlbar/html_table.c:273
 #: src/plugin_htmlbar/html_table.c:449
-#, fuzzy
 msgid "<span color=\"red\">_bgcolor:</span>"
-msgstr "<span color=\"red\">%d 失敗</span>"
+msgstr "<span color=\"red\">背景色(_bgcolor):</span>"
 
 #: src/plugin_htmlbar/html_table.c:155
-#, fuzzy
 msgid "<span color=\"#006000\">_Width:</span>"
-msgstr "<span color=\"red\">%d 失敗</span>"
+msgstr "<span color=\"#006000\">幅(_Width):</span>"
 
 #: src/plugin_htmlbar/html_table.c:162
 msgid "<span color=\"#006000\">Bo_rder:</span>"
-msgstr ""
+msgstr "<span color=\"#006000\">罫線(Bo_rder):</span>"
 
 #: src/plugin_htmlbar/html_table.c:168
-#, fuzzy
 msgid "<span color=\"#A36A00\">_Border:</span>"
-msgstr "<span color=\"red\">%d 失敗</span>"
+msgstr "<span color=\"#A36A00\">罫線(_Border):</span>"
 
 #: src/plugin_htmlbar/html_table.c:183
-#, fuzzy
 msgid "<span color=\"#006000\">_Frame:</span>"
-msgstr "<span color=\"red\">%d 失敗</span>"
+msgstr "<span color=\"#006000\">フレーム(_Frame):</span>"
 
 #: src/plugin_htmlbar/html_table.c:194
-#, fuzzy
 msgid "<span color=\"#006000\">R_ules:</span>"
-msgstr "<span color=\"red\">%d 失敗</span>"
+msgstr "<span color=\"#006000\">内罫線(R_ules):</span>"
 
 #: src/plugin_htmlbar/html_table.c:264 src/plugin_htmlbar/html_table.c:388
-#, fuzzy
 msgid "<span color=\"#006000\">_Valign:</span>"
-msgstr "<span color=\"red\">%d 失敗</span>"
+msgstr "<span color=\"#006000\">縦方向の配置(_Valign):</span>"
 
 #: src/plugin_htmlbar/html_table.c:396
-#, fuzzy
 msgid "<span color=\"#A36A00\">_Headers:</span>"
-msgstr "<span color=\"red\">%d 失敗</span>"
+msgstr "<span color=\"#A36A00\">ヘッダ(_Headers):</span>"
 
 #: src/plugin_htmlbar/html_table.c:397
 msgid "Set of space-separated IDs of th elements."
-msgstr ""
+msgstr "空白で区切られた要素IDの集合。"
 
 #: src/plugin_htmlbar/html_table.c:408
-#, fuzzy
 msgid "<span color=\"#A36A00\">_Scope:</span>"
-msgstr "<span color=\"red\">%d 失敗</span>"
+msgstr "<span color=\"#A36A00\">適用範囲(_Scope):</span>"
 
 #: src/plugin_htmlbar/html_table.c:410
 msgid "the header cell applies to cells in the same:"
-msgstr ""
+msgstr "ヘッダセルの適用方向:"
 
 #: src/plugin_htmlbar/html_table.c:422
 msgid "Co_l Span:"
@@ -1963,21 +1947,16 @@ msgid "_Row Span:"
 msgstr "縦にセルを結合(_R):"
 
 #: src/plugin_htmlbar/html_table.c:431
-#, fuzzy
 msgid "<span color=\"red\">No _Wrap:</span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">何も選択されていません。検索を中断し"
-"ます。</span>"
+msgstr "<span color=\"red\">折り返さない(No _Wrap):</span>"
 
 #: src/plugin_htmlbar/html_table.c:437
-#, fuzzy
 msgid "<span color=\"red\">_Width:</span>"
-msgstr "<span color=\"red\">%d 失敗</span>"
+msgstr "<span color=\"red\">幅(_Width):</span>"
 
 #: src/plugin_htmlbar/html_table.c:444
-#, fuzzy
 msgid "<span color=\"red\">_Height:</span>"
-msgstr "<span color=\"red\">%d 失敗</span>"
+msgstr "<span color=\"red\">高さ(_Height):</span>"
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:334
@@ -2074,9 +2053,8 @@ msgstr ""
 "%b: 元のファイルサイズ (バイト)"
 
 #: src/plugin_htmlbar/image_dialog.c:385
-#, fuzzy
 msgid "Keep aspect ratio"
-msgstr "幅を指定して縦横比を保持する"
+msgstr "縦横比を保持"
 
 #: src/plugin_htmlbar/image_dialog.c:388
 msgid "_Reset Dimensions"

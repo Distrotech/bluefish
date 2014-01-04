@@ -3,14 +3,14 @@
 # Iwasa Kazmi <kzmi@ca2.so-net.ne.jp>, 2000.
 # Ryoichi INAGAKI <ryo1@bc.wakwak.com>, 2003.
 # Timothy Joko-Veltman <tim-oss@indigopixel.com>, 2004
-# Takeshi HAMASAKI <hmatrjp@users.sourceforge.jp>, 2005-2012
+# Takeshi HAMASAKI <hmatrjp@users.sourceforge.jp>, 2005-2014
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2012-12-14 09:05+0100\n"
-"PO-Revision-Date: 2012-12-17 23:46+0900\n"
+"PO-Revision-Date: 2014-01-04 14:40+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -192,9 +192,8 @@ msgid "_Outputbox"
 msgstr "_Outputbox"
 
 #: ../src/bfwin_uimanager.c:819
-#, fuzzy
 msgid "For_mat"
-msgstr "-- カーネルのバイナリパッケージ:"
+msgstr "書式(_M)"
 
 #: ../src/bfwin_uimanager.c:820
 msgid "_Insert"
@@ -500,7 +499,7 @@ msgstr "末尾の空白文字を取り除く"
 
 #: ../src/bfwin_uimanager.c:894
 msgid "Javascript beautifier"
-msgstr ""
+msgstr "Javascript 整形ツール"
 
 #: ../src/bfwin_uimanager.c:895
 msgid "Preview in browser"
@@ -676,14 +675,12 @@ msgid "Reload current file"
 msgstr "現在編集しているファイルをもう一度読み込む"
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a cop_y..."
-msgstr "別名で保存(_A)..."
+msgstr "コピーを保存(_Y)..."
 
 #: ../src/bfwin_uimanager.c:940
-#, fuzzy
 msgid "Save a copy"
-msgstr "保存して閉じる(_C)"
+msgstr "コピーを保存"
 
 #: ../src/bfwin_uimanager.c:941
 msgid "Rena_me..."
@@ -758,14 +755,12 @@ msgid "Move current tab right"
 msgstr "現在編集しているタブを右へ移動する"
 
 #: ../src/bfwin_uimanager.c:957
-#, fuzzy
 msgid "_Recent Document"
-msgstr "ドキュメントのフレーム"
+msgstr "最近編集した文書(_R)"
 
 #: ../src/bfwin_uimanager.c:957
-#, fuzzy
 msgid "Goto most recent document"
-msgstr "最後の文書へ移動する"
+msgstr "最近編集した文書へ移動する"
 
 #: ../src/bfwin_uimanager.c:959
 msgid "_First Document"
@@ -845,11 +840,11 @@ msgstr "貼り付け"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Paste Specia_l"
-msgstr ""
+msgstr "特殊な貼り付け(_I)"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Paste Special"
-msgstr ""
+msgstr "特殊な貼り付け"
 
 #: ../src/bfwin_uimanager.c:982
 msgid "_Find"
@@ -965,7 +960,7 @@ msgstr "選択した部分のみ"
 
 #: ../src/bfwin_uimanager.c:1575
 msgid "Never ask again"
-msgstr ""
+msgstr "今後この質問を表示しない"
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -1072,13 +1067,12 @@ msgid "_Description:"
 msgstr "説明(_D):"
 
 #: ../src/bookmark.c:586
-#, fuzzy
 msgid "_Temporary"
-msgstr "臨時ブックマーク"
+msgstr "一時的なもの(_T)"
 
 #: ../src/bookmark.c:603
 msgid "Temporary"
-msgstr "臨時ブックマーク"
+msgstr "一時的なブックマーク"
 
 #: ../src/bookmark.c:767
 #, c-format
@@ -1321,17 +1315,16 @@ msgid "Unknown"
 msgstr "未知の言語"
 
 #: ../src/document.c:1654
-#, fuzzy
 msgid "_No"
-msgstr "いいえ"
+msgstr "いいえ(_N)"
 
 #: ../src/document.c:1654
 msgid "_Split"
-msgstr ""
+msgstr "分割(_S)"
 
 #: ../src/document.c:1657
 msgid "File contains very long lines. Split these lines?"
-msgstr ""
+msgstr "ファイルにとても長い行が含まれます。長い行を分割しますか？"
 
 #: ../src/document.c:1657
 msgid ""
@@ -1340,6 +1333,10 @@ msgid ""
 "syntax, and may replace spaces or tabs with newlines in any location, or "
 "insert newlines if no spaces or tabs are found."
 msgstr ""
+"このファイルには Bluefish が適正な性能を保ちながら取り扱うことのできる長さよ"
+"りも長い行が含まれています。この分割機能は、文法を考慮せず、空白およびタブを"
+"改行に置き換えることがあります。また、空白、タブのない所に改行を挿入すること"
+"があります。"
 
 #: ../src/document.c:1733
 msgid "Cannot display file, unknown characters found."
@@ -1440,26 +1437,24 @@ msgid "No file to insert"
 msgstr "挿入するファイルがありません"
 
 #: ../src/document.c:3188
-#, fuzzy
 msgid "Save pasted image as"
-msgstr "ファイルを別名で保存する"
+msgstr "貼り付けた画像を別名で保存"
 
 #: ../src/document.c:3295
 msgid "Paste special"
-msgstr ""
+msgstr "特殊な貼り付け"
 
 #: ../src/document.c:3302
-#, fuzzy
 msgid "Paste as _HTML"
-msgstr "  --fatal-warnings        警告をエラーとして取り扱う\n"
+msgstr "HTMLとして貼り付け"
 
 #: ../src/document.c:3306
 msgid "Paste as HTML with _JPG"
-msgstr ""
+msgstr "HTML と _JPG　として貼り付け"
 
 #: ../src/document.c:3308
 msgid "Paste as HTML _PNG"
-msgstr ""
+msgstr "HTML _PNG　として貼り付け"
 
 #: ../src/document.c:3388
 #, c-format
@@ -1511,14 +1506,12 @@ msgid "Fill empty entries:"
 msgstr "空のカラムを埋めるもの:"
 
 #: ../src/doc_extern_tools.c:63
-#, fuzzy
 msgid "Number of _paragraphs:"
-msgstr "アンカーの数"
+msgstr "段落の数(_P):"
 
 #: ../src/doc_extern_tools.c:68
-#, fuzzy
 msgid "Number of _sentences:"
-msgstr "アンカーの数"
+msgstr "文の数(_S):"
 
 #: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert plain text"
@@ -1542,38 +1535,35 @@ msgstr "文の数"
 
 #: ../src/doc_extern_tools.c:134
 msgid "Javascript Beautify"
-msgstr ""
+msgstr "Javascript 整形"
 
 #: ../src/doc_extern_tools.c:148
-#, fuzzy
 msgid "_Indent size:"
-msgstr "現在のサイズ:"
+msgstr "インデントの深さ(_I):"
 
 #: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
 msgid "Use _tabs to indent, not spaces"
-msgstr ""
+msgstr "インデントに空白ではなく、タブを使用する(_T)"
 
 #: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
 msgid "Do not _preserve existing line breaks"
-msgstr ""
+msgstr "既存の改行を保持しない(_P)"
 
 #: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
 msgid "More _jslint-compatible output"
-msgstr ""
+msgstr "さらに _jslint　互換性の高い出力"
 
 #: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
 msgid "_Decode printable chars encoded in \\\\xNN notation"
-msgstr ""
+msgstr "\\\\xNN の形式にエンコードされた表示可能な文字をデコードする(_D)"
 
 #: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
-#, fuzzy
 msgid "Beautify only in _selection"
-msgstr "_Tab キーで選択範囲をインデントする"
+msgstr "選択範囲のみ整形する(_S)"
 
 #: ../src/doc_extern_tools.c:179
-#, fuzzy
 msgid "_Indent size"
-msgstr "現在のサイズ:"
+msgstr "インデントの深さ(_I)"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1598,15 +1588,16 @@ msgstr "削除する"
 #: ../src/external_commands.c:167
 #, c-format
 msgid "The command %s exited with error code %d. %s"
-msgstr ""
+msgstr "コマンド %s が終了しました。エラーコードは %d です。%s"
 
 #: ../src/external_commands.c:167
 msgid "Probably this application is not installed on your system."
 msgstr ""
+"おそらくこのアプリケーションはあなたのシステムにインストールされていません。"
 
 #: ../src/external_commands.c:169
 msgid "Command returned error code"
-msgstr ""
+msgstr "コマンドがエラーコード返しました"
 
 #: ../src/external_commands.c:419
 msgid "Supply extra arguments"
@@ -1620,12 +1611,11 @@ msgstr "'%s' の中にある %%a を定義するために追加引数を入力�
 #: ../src/external_commands.c:673
 #, c-format
 msgid "Failed to create a command for %s."
-msgstr ""
+msgstr "コマンド行の生成に失敗しました: %s"
 
 #: ../src/external_commands.c:675
-#, fuzzy
 msgid "Failed to create a command"
-msgstr "  COMMAND   対象のコマンド (任意)\n"
+msgstr "コマンド行の生成に失敗しました"
 
 #: ../src/filebrowser2.c:277
 msgid "Set documentroot and webroot"
@@ -2006,9 +1996,9 @@ msgid "Save %s as"
 msgstr "文書 %s を別名で保存"
 
 #: ../src/file_dialogs.c:791
-#, fuzzy, c-format
+#, c-format
 msgid "Save copy of %s"
-msgstr "プロジェクトを別名で保存する"
+msgstr "%s のコピーを保存する"
 
 #: ../src/file_dialogs.c:973
 msgid "Close _Without Saving"
@@ -2084,7 +2074,7 @@ msgstr "隠しファイルを表示する"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1436
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -2097,8 +2087,8 @@ msgstr ""
 "\n"
 "  元の更新日時: %s\n"
 "新しい更新日時: %s\n"
-"　元のサイズは %lu\n"
-"新しいサイズは %lu"
+"　元のサイズは %s バイト\n"
+"新しいサイズは %s バイト"
 
 #: ../src/file_dialogs.c:1459
 msgid "_Unset file name"
@@ -2598,11 +2588,11 @@ msgstr "行頭のスペースを除くすべて"
 
 #: ../src/preferences.c:2096
 msgid "Always"
-msgstr ""
+msgstr "常に"
 
 #: ../src/preferences.c:2096
 msgid "Smart"
-msgstr ""
+msgstr "自動的に判断"
 
 #: ../src/preferences.c:2107
 msgid "Edit preferences"
@@ -3126,7 +3116,7 @@ msgstr "PHP codesniffer コーディング規約チェック"
 
 #: ../src/rcfile.c:724
 msgid "pylint"
-msgstr ""
+msgstr "pylint"
 
 #: ../src/rcfile.c:737
 msgid "Sort"
@@ -3166,19 +3156,19 @@ msgstr "HTMLをテキストに変換する"
 
 #: ../src/rcfile.c:762
 msgid "PHP Beautifier"
-msgstr ""
+msgstr "PHP 整形ツール"
 
 #: ../src/rcfile.c:766 ../src/rcfile.c:773
 msgid "Javascript Minify with jsmin"
-msgstr ""
+msgstr "Javascript を圧縮する(jsmin)"
 
 #: ../src/rcfile.c:769 ../src/rcfile.c:776
 msgid "CSS Minify with cssmin"
-msgstr ""
+msgstr "CSS を最小化(cssmin)"
 
 #: ../src/rcfile.c:780
 msgid "CSS tidy"
-msgstr ""
+msgstr "CSS整形 (CSS tidy)"
 
 #: ../src/rcfile.c:792
 msgid "Windows XP Firefox"
@@ -3266,11 +3256,11 @@ msgstr "PHP"
 
 #: ../src/rcfile.c:920
 msgid "LaTex Book"
-msgstr ""
+msgstr "LaTeX 本"
 
 #: ../src/rcfile.c:923
 msgid "LaTex Presentation"
-msgstr ""
+msgstr "LaTex プレゼンテーション"
 
 #: ../src/rcfile.c:1171
 msgid "Untitled Project"
