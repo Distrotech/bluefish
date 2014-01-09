@@ -1236,7 +1236,7 @@ filetreemodel_get_value(GtkTreeModel * tree_model, GtkTreeIter * iter, gint colu
 	g_return_if_fail(column < filetreemodel(tree_model)->n_columns);
 
 	if (iter == NULL || iter->user_data == NULL || iter->stamp != filetreemodel(tree_model)->stamp) {
-		g_warning("filetreemodel_get_value, called with invalid iter %p\n",iter);
+		g_warning("filetreemodel_get_value, requested column %d, called with invalid iter %p, iter->userdata=%p,iter->stamp=%d\n",column,iter,iter?iter->user_data:NULL,iter?iter->stamp:0);
 		return;
 	}
 

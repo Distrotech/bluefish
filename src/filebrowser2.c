@@ -500,8 +500,7 @@ tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 	DBG_FILTERSORT("tree_model_filter_func, model=%p, fb2=%p, model,fb2, iter %p with iter->user_data=%p\n",model,fb2,iter,iter?iter->user_data:NULL);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, filetreemodel_COL_RECORD, &record, -1);
 	if (!record) {
-		DBG_FILTERSORT
-			("tree_model_filter_func, model=%p, fb2=%p, item without record!!\n",model, fb2);
+		g_warning("tree_model_filter_func, model=%p, fb2=%p, iter=%p, iter->user_data=%p, item without record!!\n",model, fb2, iter, iter?iter->user_data:NULL);
 		return TRUE;
 	}
 
