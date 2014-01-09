@@ -497,7 +497,7 @@ tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 	gint len;
 	gboolean retval = TRUE;
 	UriRecord *record=NULL;
-	DBG_FILTERSORT("tree_model_filter_func, model=%p, fb2=%p\n",model,fb2);
+	DBG_FILTERSORT("tree_model_filter_func, model=%p, fb2=%p, model,fb2, iter %p with iter->user_data=%p\n",model,fb2,iter,iter?iter->user_data:NULL);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, filetreemodel_COL_RECORD, &record, -1);
 	if (!record) {
 		DBG_FILTERSORT
@@ -571,7 +571,7 @@ file_list_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 	gint len;
 	gboolean retval = TRUE;
 	UriRecord *record=NULL;
-	DBG_FILTERSORT("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);
+	DBG_FILTERSORT("file_list_filter_func, called for model=%p and fb2=%p, iter %p with iter->user_data=%p\n",model,fb2,iter,iter?iter->user_data:NULL);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, filetreemodel_COL_RECORD, &record, -1);
 
 	if (!record)
