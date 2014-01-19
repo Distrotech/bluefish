@@ -158,7 +158,8 @@ static gboolean
 project_grab_focus_lcb(gpointer data)
 {
 	Tdocument *doc = data;
-	gtk_widget_grab_focus(doc->view);
+	if (doc && doc->view)
+		gtk_widget_grab_focus(doc->view);
 	return FALSE;
 }
 
