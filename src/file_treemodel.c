@@ -394,6 +394,7 @@ gboolean gfile_uri_is_parent(GFile * parent, GFile * child, gboolean recursive)
 static gchar *icon_name_from_icon(GIcon * icon)
 {
 	gchar *icon_name = NULL;
+
 	if (icon && G_IS_THEMED_ICON(icon)) {
 		GStrv names;
 
@@ -403,6 +404,7 @@ static gchar *icon_name_from_icon(GIcon * icon)
 			int i;
 			icon_theme = gtk_icon_theme_get_default();
 			for (i = 0; i < g_strv_length(names); i++) {
+				/*g_print("try %s\n",names[i]);*/
 				if (gtk_icon_theme_has_icon(icon_theme, names[i])) {
 					icon_name = g_strdup(names[i]);
 					break;
@@ -414,6 +416,7 @@ static gchar *icon_name_from_icon(GIcon * icon)
 		DEBUG_MSG("icon %p is not themed, revert to default icon 'folder'\n",icon);
 		icon_name = g_strdup("folder");
 	}
+	/*g_print("return icon '%s'\n",icon_name);*/
 	return icon_name;
 }
 
@@ -480,7 +483,7 @@ static void convert_record_to_directory(FileTreemodel * ftm, UriRecord *record) 
 	g_free(record->fast_content_type);
 	record->fast_content_type = g_strdup(DIR_MIME_TYPE);
 	file_treemodel_record_changed(ftm, record);
-	filetree_re_sort(ftm, record->parent);	
+	filetree_re_sort(ftm, record->parent);
 }
 
 
@@ -841,7 +844,7 @@ static void add_multiple_uris(Turi_in_refresh *uir, GList * finfolist)
 	/* now allocate the size that is actually used */
 	DEBUG_MSG("precord=%p, finalize allocation to %d rows, precord->rows=%p, *rows=%p\n", precord, *num_rows,
 			precord ? precord->rows : NULL, *rows);
-	*rows = g_realloc(*rows, *num_rows * sizeof(UriRecord *));	
+	*rows = g_realloc(*rows, *num_rows * sizeof(UriRecord *));
 	if (uir->dir_changed) {
 		DEBUG_MSG("add_multiple_uris, calling re_sort\n");
 		filetree_re_sort(ftm, precord);
@@ -1254,7 +1257,11 @@ filetreemodel_get_value(GtkTreeModel * tree_model, GtkTreeIter * iter, gint colu
 		break;
 
 	case filetreemodel_COL_ICON_NAME:
-		g_value_set_string(value, record->icon_name);
+		if (record->icon_name) {
+			g_value_set_string(value, record->icon_name);
+		} else {
+			g_value_set_string(value, "gtk-file");
+		}
 		break;
 	case filetreemodel_COL_WEIGHT:
 		g_value_set_uint(value, record->weight);
@@ -1713,7 +1720,7 @@ static void filetreemodel_finalize(GObject * object)
 		g_slice_free(Tdirchangedlistener, tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
-	
+
 	/* must chain up - finalize parent */
 	(*parent_class->finalize) (object);
 }
