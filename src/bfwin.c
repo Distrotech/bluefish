@@ -1660,8 +1660,8 @@ bfwin_show_main(Tbfwin * bfwin)
 	GtkosxApplication *theApp = g_object_new(GTKOSX_TYPE_APPLICATION, NULL);
 	gtk_widget_hide(bfwin->menubar);
 	gtkosx_application_set_menu_bar(theApp, GTK_MENU_SHELL(bfwin->menubar));
-	g_print("hide gtk menubar, set gtkosxapplication menubar\n");
-/*This arrangement gives more mackish ordering of menu. TODO Window menu does not track opened toplevels correctly; see bug #701571  */
+	DEBUG_MSG("hide gtk menubar, set gtkosxapplication menubar\n");
+/*This arrangement gives more mackish ordering of menu. TODO Window menu does not track opened toplevels correctly; see bug #701571; for 2.2.5 temporal hack applied to the gdk/quartz/gdkeventloop-quartz.c  */
 	gint menupos = 0;
 	if (bfwin_action_group_is_available(bfwin->uimanager, "AboutActions")) { /*Since it is plugin, user can disable it, and this leads to bf crash */
 		menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/HelpMenu");
@@ -1679,7 +1679,7 @@ bfwin_show_main(Tbfwin * bfwin)
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/FileMenu/FileQuit");
 	gtk_widget_hide(menuitem);
 
-	gtkosx_application_set_use_quartz_accelerators (theApp, TRUE);
+	gtkosx_application_set_use_quartz_accelerators (theApp, FALSE); /* If set to TRUE then widgets does not respond to bindings like Cmd+X|C|V TODO: find the way to make MacOSX shortcuts Cmd+M and Cmd+H work; for 2.2.5 hack applied to gdk/quartz/gdkkeys-quartz.c see bug #711019*/
 
 	if (main_v->osx_status == 0 && g_list_length(main_v->bfwinlist) == 1) { /* Accelarators should be moved just once, at the startup */
 		DEBUG_MSG("bfwin_show_main, configuring accelerators for OSX\n");
