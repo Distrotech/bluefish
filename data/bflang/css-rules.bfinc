@@ -423,6 +423,7 @@ href="http://www.w3.org/TR/css3-transforms/#backface-visibility-property">www.w3
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/css3-background/#the-background">www.w3.org</a></reference>
 <context id="c.css.color" idref="c.css.color" symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern=";" ends_context="1" />
 <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
 <element pattern="(rgba|hsla)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *, *(0|1|0.[0-9]) *\)" highlight="css-value" is_regex="1" case_insens="1"/>
 <element pattern="(rgb|hsl)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *\)" highlight="css-value" is_regex="1" case_insens="1"/>
@@ -1807,7 +1808,7 @@ href="http://www.w3.org/TR/css3-speech/#cue-props-cue-before-after">www.w3.org</
 <element pattern="cursor" highlight="css-property" >
 	<autocomplete append=": " />
 <reference>Specifies the type of cursor to be displayed for the pointing device.
-<b>Values:</b> [ [&lt;uri&gt; [&lt;x&gt; &lt;y&gt;]?,]* [ auto | default | none | context-menu | help | pointer | progress | wait | cell | crosshair | text | vertical-text | alias | copy | move | no-drop | not-allowed | e-resize | n-resize | ne-resize | nw-resize | s-resize | se-resize | sw-resize | w-resize | ew-resize | ns-resize | nesw-resize | nwse-resize | col-resize | row-resize | all-scroll | zoom-in | zoom-out ] ] | inherit 
+<b>Values:</b> [ [&lt;uri&gt; [&lt;x&gt; &lt;y&gt;]?,]* [ auto | default | none | context-menu | help | pointer | progress | wait | cell | crosshair | text | vertical-text | alias | copy | move | no-drop | not-allowed | e-resize | n-resize | ne-resize | nw-resize | s-resize | se-resize | sw-resize | w-resize | ew-resize | ns-resize | nesw-resize | nwse-resize | col-resize | row-resize | all-scroll | zoom-in | zoom-out ] ] | inherit
 <b>Initial:</b> auto
 <b>Applies to:</b> all elements
 <b>Inherited:</b> yes
