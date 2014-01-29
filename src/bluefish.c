@@ -296,10 +296,14 @@ int main(int argc, char *argv[])
 	GPollFunc orig_poll_func;
 	GPollFunc gdk_poll_func;
 #endif
+
+#ifndef WIN32
 	/* the unity appmenu cannot handle an application with two menu's
 	for now I didn't find a way to make it honor the main menu and ignore the snippets menu, so
 	I'll ask to avoid the appmenu at all. */
 	unsetenv("UBUNTU_MENUPROXY");
+#endif
+
 #ifdef WIN32
 	gchar *path;
 
