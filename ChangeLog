@@ -2,6 +2,37 @@ The file changelog can be obtained from subversion using the `svn2cl' utility.
 The release changelogs are also available from our homepage: 
 http://bluefish.openoffice.nl
 
+* 2.2.5 *
+
+Bluefish 2.2.5 is a minor bug fix release but has also quite some new features.
+The syntax scanning engine is faster after small changes to the text. The
+filebrowser is also much faster with less memory usage, with various fixes and
+new features. Projects now store the active document and active line numbers.
+Indenting is improved in auto-completion and the smart indenting. Bookmarks and
+paste special also have been improved. On OSX there are many improvements, such
+as Mavericks support, Retina display support, working system hotkeys, native
+input methods (Japanese, Chinese, etc.), opening files from the finder and
+Widget bindings on MacOSX are moved to Cmd+C|V|X|A and working. Furthermore
+almost all syntax highlighting has been improved, most notable jquery in
+javascript, HTML5, and HTML5 in PHP files. There are also many bug fixes, such
+as in wrap text on right margin, in the replace engine, the jsmin licence, the
+split lines feature, the auto-recovery and many obscure bugs. Last bluefish now
+has an appdata file. 
+
+* 2.2.4 *
+
+Bluefish 2.2.4 is mostly a minor bugfix release, but it carries many small
+improvements. It has various fixes for the tab-width on gtk 3.6, the blocksync
+feature, scrollwheel-zoom, language syntax detection and character encoding
+detection, toggle comment, split view, better ui language detection on OSX and
+Windows, and several more. The performance of Bluefish has been improved in a
+couple of ways, most notably the auto-completion popup speed. New features
+include more simple search options, paste special (to paste for example images
+from Libreoffice), control-tab to switch to the most recent document, save as
+copy, and pylint, cssmin, jsmin, csstidy and php_beautifier integration. Various
+language syntax definition files have also been improved. With this release the
+minimum required gtk version is bumped to 2.20.
+
 * 2.2.3 *
 
 Bluefish 2.2.3 has mostly many minor bugfixes and many minor enhancements. There

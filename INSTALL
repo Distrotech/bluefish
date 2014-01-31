@@ -21,12 +21,11 @@ svn co https://bluefish.svn.sourceforge.net/svnroot/bluefish/trunk/bluefish
    lib, e.g. libgtk2.0-dev)
 
      - Glib 2.0 (>= 2.16)
-     - Gtk 2.0 (>= 2.12)
+     - Gtk 2 (2.20 or newer) or 3 (3.2.2) or newer
      - gvfs
      - libxml2
-     - PCRE
      - enchant (optional for spell checking)
-     - gucharmap (optional for character map plugin. Version 2.x is recommended)
+     - libgucharmap (optional for character map plugin. Version 2.x is recommended)
      - Python (optional)
      
 2) Configure the sources:
