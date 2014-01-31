@@ -8,130 +8,130 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2013-02-05 21:19+0100\n"
+"POT-Creation-Date: 2014-01-31 22:52+0100\n"
 "PO-Revision-Date: 2011-12-07 22:41+0800\n"
 "Last-Translator: william9527 <mzf9527@gmail.com>\n"
 "Language-Team: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 
-#: src/plugin_snippets/snippets_gui.c:416
+#: src/plugin_snippets/snippets_gui.c:425
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr "点击鼠标右键可以添加，编辑或删除代码片段"
 
-#: src/plugin_snippets/snippets_gui.c:417
+#: src/plugin_snippets/snippets_gui.c:426
 msgid "Use drag and drop to re-order snippets"
 msgstr "使用拖放对代码片段重新排序"
 
-#: src/plugin_snippets/snippets_gui.c:418
+#: src/plugin_snippets/snippets_gui.c:427
 msgid "To exchange snippets with others use import or export"
 msgstr "使用导入或导出功能与别人交换代码片段"
 
-#: src/plugin_snippets/snippets_gui.c:638
+#: src/plugin_snippets/snippets_gui.c:647
 msgid "snippets"
 msgstr "代码片段"
 
-#: src/plugin_snippets/snippets_gui.c:701
+#: src/plugin_snippets/snippets_gui.c:710
 msgid "Snippet export filename"
 msgstr "代码片段导出文件名"
 
-#: src/plugin_snippets/snippets_gui.c:739
+#: src/plugin_snippets/snippets_gui.c:748
 msgid "Snippet import filename"
 msgstr "代码片段导入文件名"
 
-#: src/plugin_snippets/snippets_gui.c:757
+#: src/plugin_snippets/snippets_gui.c:766
 msgid "Set accelerator key"
 msgstr "设置快捷键"
 
-#: src/plugin_snippets/snippets_gui.c:813
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "Snippets menu"
 msgstr "代码片段菜单"
 
-#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_gui.c:824
 msgid "_New Snippet"
 msgstr "新建代码片段(_N)"
 
-#: src/plugin_snippets/snippets_gui.c:814
+#: src/plugin_snippets/snippets_gui.c:824
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
 msgstr "新建代码片段"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_gui.c:825
 msgid "_Edit Snippet"
 msgstr "编辑代码片段(_E)"
 
-#: src/plugin_snippets/snippets_gui.c:815
+#: src/plugin_snippets/snippets_gui.c:825
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
 msgstr "编辑代码片段"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:826
 msgid "_Delete Snippet"
 msgstr "删除代码片段(_D)"
 
-#: src/plugin_snippets/snippets_gui.c:816
+#: src/plugin_snippets/snippets_gui.c:826
 msgid "Delete snippet"
 msgstr "删除代码片段"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Delete _Branch"
 msgstr "删除分支(_B)"
 
-#: src/plugin_snippets/snippets_gui.c:817
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Delete branch"
 msgstr "删除分支"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:828
 msgid "Set Snippet _Accelerator"
 msgstr "设置代码片段快捷键"
 
-#: src/plugin_snippets/snippets_gui.c:818
+#: src/plugin_snippets/snippets_gui.c:828
 msgid "Set snippet accelerator"
 msgstr "设置代码片段快捷键"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:830
 msgid "Ex_pand All"
 msgstr "全部展开(_p)"
 
-#: src/plugin_snippets/snippets_gui.c:820
+#: src/plugin_snippets/snippets_gui.c:830
 msgid "Expand all"
 msgstr "全部展开"
 
-#: src/plugin_snippets/snippets_gui.c:821
+#: src/plugin_snippets/snippets_gui.c:831
 msgid "_Collapse All"
 msgstr "全部收起(_C)"
 
-#: src/plugin_snippets/snippets_gui.c:821
+#: src/plugin_snippets/snippets_gui.c:831
 msgid "Collapse all"
 msgstr "全部收起"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:832
 msgid "E_xport"
 msgstr "导出(_x)"
 
-#: src/plugin_snippets/snippets_gui.c:822
+#: src/plugin_snippets/snippets_gui.c:832
 msgid "Export snippets"
 msgstr "导出代码片段"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:833
 msgid "I_mport"
 msgstr "导入(_m)"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:833
 msgid "Import snippets"
 msgstr "导入代码片段"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:837
 msgid "_Show as menu"
 msgstr "作为菜单显示(_S)"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:837
 msgid "Show snippets menu"
 msgstr "显示代码片段菜单"
 
-#: src/plugin_snippets/snippets_gui.c:829
+#: src/plugin_snippets/snippets_gui.c:839
 msgid "S_nippets Menu"
 msgstr "代码片段菜单(_n)"
 
