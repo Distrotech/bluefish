@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2013-12-01 21:31+0100\n"
+"POT-Creation-Date: 2014-02-01 12:16-0800\n"
 "PO-Revision-Date: 2013-12-02 07:30+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -17,6 +17,71 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.5\n"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:1
+msgid ""
+"Bluefish is a powerful editor targeted towards programmers and web "
+"developers, with many options to write websites, scripts and programming "
+"code. Bluefish supports many programming and markup languages and has many "
+"features, but is still a very fast and lightweight application."
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:2
+msgid "A selection of the features:"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:3
+msgid ""
+"Well done syntax highlighting which for example supports languages inside "
+"languages (e.g. Javascript inside HTML inside PHP)"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:4
+msgid ""
+"All kind of powerful editor features like auto indenting and auto completion "
+"for many functions and libraries in many programming languages"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:5
+#, fuzzy
+msgid "Project support"
+msgstr "Пр_оект"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:6
+msgid "Support for remote files over ftp, sftp, webdav, etc"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:7
+msgid "Powerful search and replace engine"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:8
+msgid "Customizable integration of external programs such as lint, make, etc"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:9
+msgid "Snippets plugin to automate often used code"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:10
+msgid "Code-aware in-line spell checking"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:11
+msgid "Zencoding or Emmet support"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:12
+#, fuzzy
+msgid "Bookmarks panel"
+msgstr "Закладки"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:13
+msgid ""
+"If you are an occasional coder who is in need for a simple to learn editor, "
+"or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
+"is your editor of choice!"
+msgstr ""
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -205,8 +270,8 @@ msgstr "_Перетворити"
 msgid "_New"
 msgstr "_Створити"
 
-#: ../src/bfwin_uimanager.c:842 ../src/filebrowser2.c:887
-#: ../src/filebrowser2.c:889 ../src/filebrowser2.c:1277
+#: ../src/bfwin_uimanager.c:842 ../src/filebrowser2.c:886
+#: ../src/filebrowser2.c:888 ../src/filebrowser2.c:1276
 msgid "New file"
 msgstr "Новий файл"
 
@@ -238,7 +303,7 @@ msgstr "Відкрити файл"
 msgid "Open Ad_vanced..."
 msgstr "Відкрити з _додатковими можливостями…"
 
-#: ../src/bfwin_uimanager.c:847 ../src/filebrowser2.c:1273
+#: ../src/bfwin_uimanager.c:847 ../src/filebrowser2.c:1272
 msgid "Open advanced"
 msgstr "Відкрити з додатковими параметрами"
 
@@ -358,7 +423,7 @@ msgstr "Повтори_ти перевірку синтаксису"
 msgid "_New Project..."
 msgstr "С_творити проект…"
 
-#: ../src/bfwin_uimanager.c:881 ../src/project.c:254
+#: ../src/bfwin_uimanager.c:881 ../src/project.c:255
 msgid "New project"
 msgstr "Новий проект"
 
@@ -615,7 +680,7 @@ msgstr "П_ереносити рядки"
 msgid "Wrap text"
 msgstr "Переносити рядки"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3195
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3196
 msgid "_Close"
 msgstr "_Закрити"
 
@@ -1041,23 +1106,23 @@ msgstr ""
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr "Відвідайте нашу сторінку: http://bluefish.openoffice.nl"
 
-#: ../src/bluefish.c:356
+#: ../src/bluefish.c:360
 msgid "Open in existing window."
 msgstr "Відкрити у наявному вікні."
 
-#: ../src/bluefish.c:358
+#: ../src/bluefish.c:362
 msgid "Open in new window."
 msgstr "Відкрити у новому вікні."
 
-#: ../src/bluefish.c:360
+#: ../src/bluefish.c:364
 msgid "Print version information."
 msgstr "Вивести дані щодо версії програми."
 
-#: ../src/bluefish.c:387
+#: ../src/bluefish.c:391
 msgid " [FILE(S)]"
 msgstr " [ФАЙЛИ]"
 
-#: ../src/bluefish.c:398
+#: ../src/bluefish.c:402
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
@@ -1128,7 +1193,7 @@ msgstr "Меню пошуку у закладках"
 msgid "_Edit..."
 msgstr "З_мінити…"
 
-#: ../src/bookmark.c:901 ../src/filebrowser2.c:1276
+#: ../src/bookmark.c:901 ../src/filebrowser2.c:1275
 msgid "_Delete"
 msgstr "В_илучити"
 
@@ -1380,7 +1445,7 @@ msgstr "Помилка під час зміни кодування файла"
 msgid "Previously: "
 msgstr "Раніше: "
 
-#: ../src/document.c:2982 ../src/file_dialogs.c:839
+#: ../src/document.c:2983 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1389,11 +1454,11 @@ msgstr ""
 "Ваша версія glib (%d.%d.%d) містить помилки у роботі з віддаленими файлами. "
 "Будь ласка, оновіть бібліотеку до версії 2.18.0 або новішої."
 
-#: ../src/document.c:3111
+#: ../src/document.c:3112
 msgid "Unable to open file"
 msgstr "Не вдалося відкрити файл"
 
-#: ../src/document.c:3123
+#: ../src/document.c:3124
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1402,67 +1467,67 @@ msgstr ""
 "Якщо ви відновите останню збережену копію «%s», ваші поточні зміни буде "
 "назавжди втрачено."
 
-#: ../src/document.c:3127
+#: ../src/document.c:3128
 msgid "Revert changes to last saved copy?"
 msgstr "Повернутися до останньої збереженої копії?"
 
-#: ../src/document.c:3195
+#: ../src/document.c:3196
 msgid "_Retry"
 msgstr "П_овторити спробу"
 
-#: ../src/document.c:3195
+#: ../src/document.c:3196
 msgid "Retry _all failed"
 msgstr "Повторити для _всіх з помилками"
 
-#: ../src/document.c:3195
+#: ../src/document.c:3196
 msgid "Close all _failed"
 msgstr "Закрити всі з по_милками"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3201
 msgid "File "
 msgstr "Файл "
 
-#: ../src/document.c:3200
+#: ../src/document.c:3201
 msgid " failed to load."
 msgstr " не вдалося завантажити."
 
-#: ../src/document.c:3204
+#: ../src/document.c:3205
 msgid "File failed to load\n"
 msgstr "Не вдалося завантажити файл\n"
 
-#: ../src/document.c:3329
+#: ../src/document.c:3330
 msgid "Select file to insert"
 msgstr "Виберіть файл для вставки"
 
-#: ../src/document.c:3338
+#: ../src/document.c:3339
 msgid "No file to insert"
 msgstr "Не вказано файла для вставки"
 
-#: ../src/document.c:3418
+#: ../src/document.c:3419
 msgid "Save pasted image as"
 msgstr "Зберегти вставлене зображення як"
 
-#: ../src/document.c:3514
+#: ../src/document.c:3515
 msgid "Paste special"
 msgstr "Спеціальне вставлення"
 
-#: ../src/document.c:3520
+#: ../src/document.c:3521
 msgid "No compatible clipboard data found"
 msgstr "У буфері обміну даними не знайдено відповідних даних"
 
-#: ../src/document.c:3524
+#: ../src/document.c:3525
 msgid "Paste as _HTML"
 msgstr "Встави_ти як HTML"
 
-#: ../src/document.c:3529
+#: ../src/document.c:3530
 msgid "Paste as HTML with _JPG"
 msgstr "Вставити _як HTML з JPG"
 
-#: ../src/document.c:3539
+#: ../src/document.c:3540
 msgid "Paste as plain text"
 msgstr "Вставити як звичайний текст"
 
-#: ../src/document.c:3633
+#: ../src/document.c:3634
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
@@ -1470,7 +1535,7 @@ msgstr[0] "%d рядок"
 msgstr[1] "%d рядки"
 msgstr[2] "%d рядків"
 
-#: ../src/document.c:3634
+#: ../src/document.c:3635
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
@@ -1478,7 +1543,7 @@ msgstr[0] "%d слово"
 msgstr[1] "%d слова"
 msgstr[2] "%d слів"
 
-#: ../src/document.c:3635
+#: ../src/document.c:3636
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
@@ -1486,11 +1551,11 @@ msgstr[0] "%d символ"
 msgstr[1] "%d символи"
 msgstr[2] "%d символів"
 
-#: ../src/document.c:3637
+#: ../src/document.c:3638
 msgid "Selection statistics: "
 msgstr "Статистика позначеного: "
 
-#: ../src/document.c:3637
+#: ../src/document.c:3638
 msgid "Statistics: "
 msgstr "Статистика: "
 
@@ -1625,11 +1690,11 @@ msgstr "Ймовірно, цю програму у вашій системі н�
 msgid "Command returned error code"
 msgstr "Програма повернула повідомлення про помилку"
 
-#: ../src/filebrowser2.c:737
+#: ../src/filebrowser2.c:736
 msgid "Set documentroot and webroot"
 msgstr "Встановлення теки документів або веб-теки"
 
-#: ../src/filebrowser2.c:746
+#: ../src/filebrowser2.c:745
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
@@ -1638,24 +1703,24 @@ msgstr ""
 "<i>Тека документів</i> — це місце, у якому Bluefish шукатиме файл,\n"
 "<i>веб-тека</i> — адреса, за якою ці файли можна переглядати на веб-сервері."
 
-#: ../src/filebrowser2.c:753
+#: ../src/filebrowser2.c:752
 msgid "Documentroot"
 msgstr "Тека документів"
 
-#: ../src/filebrowser2.c:764
+#: ../src/filebrowser2.c:763
 msgid "Webroot"
 msgstr "Веб-тека"
 
-#: ../src/filebrowser2.c:777 ../src/file_dialogs.c:789
+#: ../src/filebrowser2.c:776 ../src/file_dialogs.c:789
 #, c-format
 msgid "Move/rename %s to"
 msgstr "Пересунути або перейменувати %s до"
 
-#: ../src/filebrowser2.c:788
+#: ../src/filebrowser2.c:787
 msgid "Could not rename\n"
 msgstr "Не вдалося перейменувати\n"
 
-#: ../src/filebrowser2.c:862 ../src/filebrowser2.c:1278
+#: ../src/filebrowser2.c:861 ../src/filebrowser2.c:1277
 msgid "New directory"
 msgstr "Новий каталог"
 
@@ -1667,7 +1732,7 @@ msgstr "Новий каталог"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:972
+#: ../src/filebrowser2.c:971
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -1676,144 +1741,144 @@ msgstr ""
 "Ви справді бажаєте вилучити\n"
 "«%s»?"
 
-#: ../src/filebrowser2.c:973
+#: ../src/filebrowser2.c:972
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "Якщо ви вилучите %s, дані з нього буде назавжди втрачено."
 
-#: ../src/filebrowser2.c:1271
+#: ../src/filebrowser2.c:1270
 msgid "File Browser menu"
 msgstr "Меню навігації файлами"
 
-#: ../src/filebrowser2.c:1272
+#: ../src/filebrowser2.c:1271
 msgid "_Open"
 msgstr "_Відкрити"
 
-#: ../src/filebrowser2.c:1272
+#: ../src/filebrowser2.c:1271
 msgid "Open"
 msgstr "Відкрити"
 
-#: ../src/filebrowser2.c:1273
+#: ../src/filebrowser2.c:1272
 msgid "Open _Advanced..."
 msgstr "Відкрити з _додатковими параметрами…"
 
-#: ../src/filebrowser2.c:1275
+#: ../src/filebrowser2.c:1274
 msgid "Rena_me"
 msgstr "Пере_йменувати"
 
-#: ../src/filebrowser2.c:1275
+#: ../src/filebrowser2.c:1274
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: ../src/filebrowser2.c:1276
+#: ../src/filebrowser2.c:1275
 msgid "Delete"
 msgstr "Вилучити"
 
-#: ../src/filebrowser2.c:1277
+#: ../src/filebrowser2.c:1276
 msgid "New _File"
 msgstr "Створити _файл"
 
-#: ../src/filebrowser2.c:1278
+#: ../src/filebrowser2.c:1277
 msgid "_New Directory"
 msgstr "_Створити каталог"
 
-#: ../src/filebrowser2.c:1280
+#: ../src/filebrowser2.c:1279
 msgid "_Refresh"
 msgstr "_Оновити"
 
-#: ../src/filebrowser2.c:1280
+#: ../src/filebrowser2.c:1279
 msgid "Refresh"
 msgstr "Оновити"
 
-#: ../src/filebrowser2.c:1281
+#: ../src/filebrowser2.c:1280
 msgid "_Set as base dir"
 msgstr "_Зробити базовою текою"
 
-#: ../src/filebrowser2.c:1281
+#: ../src/filebrowser2.c:1280
 msgid "Set as base directory"
 msgstr "Зробити базовою текою"
 
-#: ../src/filebrowser2.c:1283
+#: ../src/filebrowser2.c:1282
 msgid "Set as document root"
 msgstr "Зробити кореневою текою документів"
 
-#: ../src/filebrowser2.c:1285
+#: ../src/filebrowser2.c:1284
 msgid "Show Full _Tree"
 msgstr "Показувати все _дерево"
 
-#: ../src/filebrowser2.c:1285
+#: ../src/filebrowser2.c:1284
 msgid "Show full tree"
 msgstr "Показувати все дерево"
 
-#: ../src/filebrowser2.c:1287
+#: ../src/filebrowser2.c:1286
 msgid "View Mode"
 msgstr "Режим перегляду"
 
-#: ../src/filebrowser2.c:1288
+#: ../src/filebrowser2.c:1287
 msgid "Filter"
 msgstr "Фільтр"
 
-#: ../src/filebrowser2.c:1289
+#: ../src/filebrowser2.c:1288
 msgid "New Filter"
 msgstr "Створити фільтр"
 
-#: ../src/filebrowser2.c:1289 ../src/filefilter.c:549
+#: ../src/filebrowser2.c:1288 ../src/filefilter.c:549
 msgid "New filter"
 msgstr "Створити фільтр"
 
-#: ../src/filebrowser2.c:1290
+#: ../src/filebrowser2.c:1289
 msgid "Edit Filter"
 msgstr "Змінити фільтр"
 
-#: ../src/filebrowser2.c:1290 ../src/filefilter.c:554
+#: ../src/filebrowser2.c:1289 ../src/filefilter.c:554
 msgid "Edit filter"
 msgstr "Редагувати фільтр"
 
-#: ../src/filebrowser2.c:1291
+#: ../src/filebrowser2.c:1290
 msgid "Delete Filter"
 msgstr "Вилучити фільтр"
 
-#: ../src/filebrowser2.c:1291
+#: ../src/filebrowser2.c:1290
 msgid "Delete filter"
 msgstr "Вилучити фільтр"
 
-#: ../src/filebrowser2.c:1295
+#: ../src/filebrowser2.c:1294
 msgid "Follow Active Document"
 msgstr "Слідувати за активним документом"
 
-#: ../src/filebrowser2.c:1295
+#: ../src/filebrowser2.c:1294
 msgid "Follow active document"
 msgstr "Слідувати за активним документом"
 
-#: ../src/filebrowser2.c:1297
+#: ../src/filebrowser2.c:1296
 msgid "Show Backup Files"
 msgstr "Показувати файли резервних копій"
 
-#: ../src/filebrowser2.c:1297 ../src/gtk_easy.c:1341
+#: ../src/filebrowser2.c:1296 ../src/gtk_easy.c:1341
 msgid "Show backup files"
 msgstr "Показувати файли резервних копій"
 
-#: ../src/filebrowser2.c:1299
+#: ../src/filebrowser2.c:1298
 msgid "Show Hidden Files"
 msgstr "Показувати приховані файли"
 
-#: ../src/filebrowser2.c:1299
+#: ../src/filebrowser2.c:1298
 msgid "Show hidden files"
 msgstr "Показувати приховані файли"
 
-#: ../src/filebrowser2.c:1304
+#: ../src/filebrowser2.c:1303
 msgid "Dual"
 msgstr "Дві панелі"
 
-#: ../src/filebrowser2.c:1305
+#: ../src/filebrowser2.c:1304
 msgid "Flat"
 msgstr "Плоский"
 
-#: ../src/filebrowser2.c:1306
+#: ../src/filebrowser2.c:1305
 msgid "Tree"
 msgstr "Дерево"
 
-#: ../src/filebrowser2.c:2287
+#: ../src/filebrowser2.c:2286
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1856,7 +1921,7 @@ msgid "_Skip"
 msgstr "Пр_опустити"
 
 #: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
-#: ../src/project.c:362
+#: ../src/project.c:363
 msgid "_Overwrite"
 msgstr "П_ерезаписати"
 
@@ -1966,7 +2031,7 @@ msgid "File changed on disk\n"
 msgstr "Файл змінено на диску.\n"
 
 #: ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
-#: ../src/file_dialogs.c:985 ../src/project.c:362
+#: ../src/file_dialogs.c:985 ../src/project.c:363
 msgid "_Cancel"
 msgstr "_Скасувати"
 
@@ -1979,12 +2044,12 @@ msgstr "Файл з назвою %s вже існує, його відкрито
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Файл, який ви позначили вже редагується у Bluefish."
 
-#: ../src/file_dialogs.c:660 ../src/project.c:364
+#: ../src/file_dialogs.c:660 ../src/project.c:365
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Файл з назвою «%s» вже існує."
 
-#: ../src/file_dialogs.c:663 ../src/project.c:368
+#: ../src/file_dialogs.c:663 ../src/project.c:369
 msgid "Do you want to replace the existing file?"
 msgstr "Бажаєте замінити наявний файл?"
 
@@ -3044,7 +3109,7 @@ msgstr "Колір вкладки документа зі з_мінами:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2667 ../src/rcfile.c:1301
+#: ../src/preferences.c:2667 ../src/rcfile.c:1306
 msgid "Images"
 msgstr "Зображення"
 
@@ -3096,23 +3161,23 @@ msgstr "<b>Додатки</b>"
 msgid "Language support"
 msgstr "Підтримка мов"
 
-#: ../src/project.c:334
+#: ../src/project.c:335
 msgid "Enter Bluefish project filename"
 msgstr "Введіть назву файла проекту Bluefish"
 
-#: ../src/project.c:515
+#: ../src/project.c:516
 msgid "Select Bluefish project filename"
 msgstr "Виберіть назву файла проекту Bluefish"
 
-#: ../src/project.c:678
+#: ../src/project.c:679
 msgid "Create New Project"
 msgstr "Створити проект"
 
-#: ../src/project.c:681
+#: ../src/project.c:682
 msgid "Edit Project"
 msgstr "Змінити проект"
 
-#: ../src/project.c:706
+#: ../src/project.c:707
 #, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
@@ -3120,7 +3185,7 @@ msgstr[0] "Цей проект містить %d файл"
 msgstr[1] "Цей проект містить %d файли"
 msgstr[2] "Цей проект містить %d файлів"
 
-#: ../src/project.c:719
+#: ../src/project.c:720
 msgid "Project _Name:"
 msgstr "_Назва проекту:"
 
@@ -3129,223 +3194,223 @@ msgstr "_Назва проекту:"
 #. but = file_but_new(pred->entries[template], 1, NULL);
 #. gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
-#: ../src/project.c:727
+#: ../src/project.c:728
 msgid "<b>Project Defaults</b>"
 msgstr "<b>Типові параметри проекту</b>"
 
-#: ../src/project.c:741
+#: ../src/project.c:742
 msgid "Create _Project"
 msgstr "Створити _проект"
 
-#: ../src/project.c:790
+#: ../src/project.c:791
 msgid "Create project"
 msgstr "&Створити проект"
 
-#: ../src/project.c:795
+#: ../src/project.c:796
 msgid "Create project with currently opened documents"
 msgstr "Створити проект з відкритими зараз документами"
 
-#: ../src/project.c:797
+#: ../src/project.c:798
 msgid "Create empty project"
 msgstr "Створити порожній проект"
 
-#: ../src/rcfile.c:690 ../src/rcfile.c:718
+#: ../src/rcfile.c:694 ../src/rcfile.c:722
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:696
+#: ../src/rcfile.c:700
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:700
+#: ../src/rcfile.c:704
 msgid "weblint HTML checker"
 msgstr "перевірка weblint HTML"
 
-#: ../src/rcfile.c:705
+#: ../src/rcfile.c:709
 msgid "tidy HTML validator"
 msgstr "перевірка tidy HTML"
 
-#: ../src/rcfile.c:709
+#: ../src/rcfile.c:713
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:713
+#: ../src/rcfile.c:717
 msgid "xmllint XML checker"
 msgstr "перевірка xmllint XML"
 
-#: ../src/rcfile.c:722
+#: ../src/rcfile.c:726
 msgid "php syntax check"
 msgstr "перевірка синтаксису php"
 
-#: ../src/rcfile.c:726
+#: ../src/rcfile.c:730
 msgid "perl syntax check"
 msgstr "перевірка синтаксису perl"
 
-#: ../src/rcfile.c:730
+#: ../src/rcfile.c:734
 msgid "php codesniffer"
 msgstr "аналізатор коду php"
 
-#: ../src/rcfile.c:734
+#: ../src/rcfile.c:738
 msgid "pylint"
 msgstr "pylint"
 
-#: ../src/rcfile.c:747
+#: ../src/rcfile.c:751
 msgid "Sort"
 msgstr "Впорядкувати"
 
-#: ../src/rcfile.c:750
+#: ../src/rcfile.c:754
 msgid "Sort / Uniq"
 msgstr "Вилучити повтори"
 
-#: ../src/rcfile.c:753
+#: ../src/rcfile.c:757
 msgid "Reverse lines"
 msgstr "Зворотний порядок рядків"
 
-#: ../src/rcfile.c:756
+#: ../src/rcfile.c:760
 msgid "Dos2unix"
 msgstr "Dos2unix"
 
-#: ../src/rcfile.c:758
+#: ../src/rcfile.c:762
 msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
-#: ../src/rcfile.c:760
+#: ../src/rcfile.c:764
 msgid "Tidy convert to XHTML"
 msgstr "Перетворення tidy у XHTML"
 
-#: ../src/rcfile.c:763
+#: ../src/rcfile.c:767
 msgid "Tidy HTML (perltidy)"
 msgstr "Tidy HTML (perltidy)"
 
-#: ../src/rcfile.c:766
+#: ../src/rcfile.c:770
 msgid "Strip empty lines"
 msgstr "Вилучити порожні рядки"
 
-#: ../src/rcfile.c:769
+#: ../src/rcfile.c:773
 msgid "Render HTML to text"
 msgstr "Показати HTML як текст"
 
-#: ../src/rcfile.c:772
+#: ../src/rcfile.c:776
 msgid "PHP Beautifier"
 msgstr "Форматувальник PHP"
 
-#: ../src/rcfile.c:776 ../src/rcfile.c:783
+#: ../src/rcfile.c:780 ../src/rcfile.c:787
 msgid "Javascript Minify with jsmin"
 msgstr "Мініфікація Javascript за допомогою jsmin"
 
-#: ../src/rcfile.c:779 ../src/rcfile.c:786
+#: ../src/rcfile.c:783 ../src/rcfile.c:790
 msgid "CSS Minify with cssmin"
 msgstr "Мініфікація CSS за допомогою cssmin"
 
-#: ../src/rcfile.c:790
+#: ../src/rcfile.c:794
 msgid "CSS tidy"
 msgstr "CSS tidy"
 
-#: ../src/rcfile.c:802
+#: ../src/rcfile.c:806
 msgid "Windows XP Firefox"
 msgstr "Windows XP, Firefox"
 
-#: ../src/rcfile.c:807
+#: ../src/rcfile.c:811
 msgid "Windows XP Internet Explorer"
 msgstr "Windows XP, Internet Explorer"
 
-#: ../src/rcfile.c:812
+#: ../src/rcfile.c:816
 msgid "Windows XP Opera"
 msgstr "Windows XP, Opera"
 
-#: ../src/rcfile.c:816
+#: ../src/rcfile.c:820
 msgid "Windows XP Safari"
 msgstr "Windows XP Safari"
 
-#: ../src/rcfile.c:820
+#: ../src/rcfile.c:824
 msgid "Windows 7 Firefox 32-bit"
 msgstr "Windows 7, Firefox, 32-бітовий"
 
-#: ../src/rcfile.c:825
+#: ../src/rcfile.c:829
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr "Windows 7, Internet Explorer, 32-бітовий"
 
-#: ../src/rcfile.c:830
+#: ../src/rcfile.c:834
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr "Windows 7, Internet Explorer, 64-бітовий"
 
-#: ../src/rcfile.c:836
+#: ../src/rcfile.c:840
 msgid "Safari"
 msgstr "Safari"
 
-#: ../src/rcfile.c:839 ../src/rcfile.c:849
+#: ../src/rcfile.c:843 ../src/rcfile.c:853
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:842 ../src/rcfile.c:853
+#: ../src/rcfile.c:846 ../src/rcfile.c:857
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:845 ../src/rcfile.c:872
+#: ../src/rcfile.c:849 ../src/rcfile.c:876
 msgid "chmod a+x"
 msgstr "chmod a+x"
 
-#: ../src/rcfile.c:857
+#: ../src/rcfile.c:861
 msgid "Chromium"
 msgstr "Chromium"
 
-#: ../src/rcfile.c:860
+#: ../src/rcfile.c:864
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:863
+#: ../src/rcfile.c:867
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:866
+#: ../src/rcfile.c:870
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:869
+#: ../src/rcfile.c:873
 msgid "Links2 (graphics)"
 msgstr "Links2 (графічний)"
 
-#: ../src/rcfile.c:915
+#: ../src/rcfile.c:920
 msgid "C Header"
 msgstr "Заголовок C"
 
-#: ../src/rcfile.c:918
+#: ../src/rcfile.c:923
 msgid "C Header GPL"
 msgstr "Заголовок C (GPL)"
 
-#: ../src/rcfile.c:921
+#: ../src/rcfile.c:926
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:924
+#: ../src/rcfile.c:929
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: ../src/rcfile.c:927
+#: ../src/rcfile.c:932
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:930
+#: ../src/rcfile.c:935
 msgid "LaTex Book"
 msgstr "Книга у LaTeX"
 
-#: ../src/rcfile.c:933
+#: ../src/rcfile.c:938
 msgid "LaTex Presentation"
 msgstr "Презентація у LaTeX"
 
-#: ../src/rcfile.c:1186
+#: ../src/rcfile.c:1191
 msgid "Untitled Project"
 msgstr "Проект без назви"
 
-#: ../src/rcfile.c:1293
+#: ../src/rcfile.c:1298
 msgid "C programming"
 msgstr "Програмування на C"
 
-#: ../src/rcfile.c:1297
+#: ../src/rcfile.c:1302
 msgid "Web files"
 msgstr "Веб-файли"
 
-#: ../src/rcfile.c:1304
+#: ../src/rcfile.c:1309
 msgid "Hide objectfiles"
 msgstr "Приховати об’єктні файли"
 

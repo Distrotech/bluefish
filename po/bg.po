@@ -7,16 +7,81 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 22:07+0200\n"
+"POT-Creation-Date: 2014-02-01 12:16-0800\n"
 "PO-Revision-Date: 2003-12-09 11:07+0200\n"
 "Last-Translator: Peio Popov <peio@peio.org>\n"
 "Language-Team: Not a member <bg@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 
-#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
+#: ../desktop-data/bluefish.appdata.xml.in.h:1
+msgid ""
+"Bluefish is a powerful editor targeted towards programmers and web "
+"developers, with many options to write websites, scripts and programming "
+"code. Bluefish supports many programming and markup languages and has many "
+"features, but is still a very fast and lightweight application."
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:2
+msgid "A selection of the features:"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:3
+msgid ""
+"Well done syntax highlighting which for example supports languages inside "
+"languages (e.g. Javascript inside HTML inside PHP)"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:4
+msgid ""
+"All kind of powerful editor features like auto indenting and auto completion "
+"for many functions and libraries in many programming languages"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:5
+#, fuzzy
+msgid "Project support"
+msgstr "/Проект/sep1"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:6
+msgid "Support for remote files over ftp, sftp, webdav, etc"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:7
+msgid "Powerful search and replace engine"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:8
+msgid "Customizable integration of external programs such as lint, make, etc"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:9
+msgid "Snippets plugin to automate often used code"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:10
+msgid "Code-aware in-line spell checking"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:11
+msgid "Zencoding or Emmet support"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:12
+#, fuzzy
+msgid "Bookmarks panel"
+msgstr "Отметки"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:13
+msgid ""
+"If you are an occasional coder who is in need for a simple to learn editor, "
+"or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
+"is your editor of choice!"
+msgstr ""
+
+#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 #, fuzzy
 msgid "Bluefish Editor"
 msgstr "Съвет от Bluefish:"
@@ -31,1058 +96,1126 @@ msgstr ""
 
 #: ../desktop-data/bluefish.xml.in.h:1
 #, fuzzy
-msgid "Bluefish language definition file"
-msgstr "Дефиниция"
-
-#: ../desktop-data/bluefish.xml.in.h:2
-#, fuzzy
 msgid "Bluefish project file"
 msgstr "Въведете име за проекта"
 
-#: ../src/bftextview2.c:1581
+#: ../desktop-data/bluefish.xml.in.h:2
+#, fuzzy
+msgid "Bluefish language definition file"
+msgstr "Дефиниция"
+
+#: ../src/bftextview2.c:1765
 #, fuzzy
 msgid "Collapse all"
 msgstr "Затваряне на _всички"
 
-#: ../src/bftextview2.c:1584
+#: ../src/bftextview2.c:1768
 msgid "Expand all"
 msgstr ""
 
-#: ../src/bftextview2.c:1591
+#: ../src/bftextview2.c:1777
 #, fuzzy, c-format
 msgid "Collapse %s"
 msgstr "Затваряне на _всички"
 
-#: ../src/bftextview2.c:1598
+#: ../src/bftextview2.c:1787
 #, c-format
 msgid "Expand %s"
 msgstr ""
 
-#: ../src/bftextview2_spell.c:690
+#: ../src/bftextview2_spell.c:821
 #, fuzzy
 msgid "Spell check language"
 msgstr "Провека на правописа..."
 
-#: ../src/bftextview2_spell.c:723
+#: ../src/bftextview2_spell.c:854
 #, fuzzy
 msgid "Add to dictionary"
 msgstr "Добави към менюто за бърз достъп"
 
-#: ../src/bftextview2_spell.c:726
+#: ../src/bftextview2_spell.c:857
 #, fuzzy
 msgid "Ignore spelling"
 msgstr "Проверка на правописа"
 
-#: ../src/bftextview2_spell.c:741
+#: ../src/bftextview2_spell.c:872
 msgid "Insert special characters as entities"
 msgstr ""
 
-#: ../src/bfwin.c:224
+#: ../src/bfwin.c:232
 msgid "Filebrowser"
 msgstr "Файлов браузър"
 
-#: ../src/bfwin.c:226
+#: ../src/bfwin.c:234
 msgid "Bookmarks"
 msgstr "Отметки"
 
-#: ../src/bfwin.c:814
+#: ../src/bfwin.c:966
 #, fuzzy
 msgid "Goto Line:"
 msgstr "Отиди на ред..."
 
-#: ../src/bfwin.c:825
+#: ../src/bfwin.c:977
 #, fuzzy
 msgid "Find:"
 msgstr "Търсене"
 
-#: ../src/bfwin.c:835
+#: ../src/bfwin.c:988 ../src/snr3.c:1520
+#, fuzzy
+msgid "Regular expression (pcre)"
+msgstr "Регулярен израз:"
+
+#: ../src/bfwin.c:991
+#, fuzzy
+msgid "Case sensitive"
+msgstr "Чувствително към малки и големи букви"
+
+#: ../src/bfwin.c:994
+#, fuzzy
+msgid "Dot character matches newlines"
+msgstr "Предпочитана кодова таблица"
+
+#: ../src/bfwin.c:997
+#, fuzzy
+msgid "Pattern contains backslash escaped sequences"
+msgstr "Patterns contain backslash escape sequences (\\n, \\t)"
+
+#: ../src/bfwin.c:1009
 #, fuzzy
 msgid "Advanced"
 msgstr "/Отваряне за напреднали"
 
-#: ../src/bfwin.c:1162
+#: ../src/bfwin.c:1467
 msgid "New Bluefish Window"
 msgstr "Нов прозорец на Bluefish"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1217
+#: ../src/bfwin.c:1533
 msgid "Stand by..."
 msgstr "Изчаквай..."
 
-#: ../src/bfwin_uimanager.c:722
+#: ../src/bfwin_uimanager.c:761
 msgid "Leave Fullscreen"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:722
+#: ../src/bfwin_uimanager.c:761
 msgid "Fullscreen"
-msgstr ""
-
-#: ../src/bfwin_uimanager.c:773
-#, fuzzy
-msgid "_File"
-msgstr "/_Файл"
-
-#: ../src/bfwin_uimanager.c:774
-#, fuzzy
-msgid "New From Template"
-msgstr "/Файл/Отваряне _от избор"
-
-#: ../src/bfwin_uimanager.c:775 ../src/bfwin_uimanager.c:785
-#, fuzzy
-msgid "Open _Recent"
-msgstr "/Файл/Отваряне на скорошен"
-
-#: ../src/bfwin_uimanager.c:776
-#, fuzzy
-msgid "_Edit"
-msgstr "/_Редактиране"
-
-#: ../src/bfwin_uimanager.c:777
-#, fuzzy
-msgid "_View"
-msgstr "/_Изглед"
-
-#: ../src/bfwin_uimanager.c:778
-#, fuzzy
-msgid "_Document"
-msgstr "/_Документ"
-
-#: ../src/bfwin_uimanager.c:779
-#, fuzzy
-msgid "_Tab Size"
-msgstr "/Документ/Увеличи размера на табулациите"
-
-#: ../src/bfwin_uimanager.c:780
-#, fuzzy
-msgid "_Font Size"
-msgstr "Шрифт размер +1"
-
-#: ../src/bfwin_uimanager.c:781
-#, fuzzy
-msgid "Language M_ode"
-msgstr "Език:"
-
-#: ../src/bfwin_uimanager.c:782
-#, fuzzy
-msgid "Character _Encoding"
-msgstr "/Документ/Кодиране на символите"
-
-#: ../src/bfwin_uimanager.c:783
-#, fuzzy
-msgid "_Go"
-msgstr "/_Придвижване"
-
-#: ../src/bfwin_uimanager.c:784
-#, fuzzy
-msgid "_Project"
-msgstr "/_Проект"
-
-#: ../src/bfwin_uimanager.c:786
-#, fuzzy
-msgid "_Tools"
-msgstr "/_Външни"
-
-#: ../src/bfwin_uimanager.c:787
-#, fuzzy
-msgid "_Commands"
-msgstr "Команда"
-
-#: ../src/bfwin_uimanager.c:788
-#, fuzzy
-msgid "_Filters"
-msgstr "Филтър"
-
-#: ../src/bfwin_uimanager.c:789
-#, fuzzy
-msgid "_Outputbox"
-msgstr "Outputbox"
-
-#: ../src/bfwin_uimanager.c:790
-#, fuzzy
-msgid "Fo_rmat"
-msgstr "Form"
-
-#: ../src/bfwin_uimanager.c:791
-#, fuzzy
-msgid "_Insert"
-msgstr "Вкарване"
-
-#: ../src/bfwin_uimanager.c:792
-#, fuzzy
-msgid "Co_nvert"
-msgstr "Con_tent:"
-
-#: ../src/bfwin_uimanager.c:796
-msgid "_New"
-msgstr ""
-
-#: ../src/bfwin_uimanager.c:796 ../src/filebrowser2.c:1645
-#: ../src/filebrowser2.c:1647 ../src/filebrowser2.c:2041
-#, fuzzy
-msgid "New file"
-msgstr "/Нов _файл"
-
-#: ../src/bfwin_uimanager.c:797
-#, fuzzy
-msgid "New _Window"
-msgstr "/Файл/Нов прозорец"
-
-#: ../src/bfwin_uimanager.c:797
-#, fuzzy
-msgid "New window"
-msgstr "/Файл/Нов прозорец"
-
-#: ../src/bfwin_uimanager.c:799
-#, fuzzy
-msgid "Close Win_dow"
-msgstr "/Файл/Затваряне на прозорец"
-
-#: ../src/bfwin_uimanager.c:799
-#, fuzzy
-msgid "Close window"
-msgstr "/Файл/Затваряне на прозорец"
-
-#: ../src/bfwin_uimanager.c:800
-#, fuzzy
-msgid "_Open..."
-msgstr "Отваряне"
-
-#: ../src/bfwin_uimanager.c:800
-#, fuzzy
-msgid "Open file"
-msgstr "Отваря файл "
-
-#: ../src/bfwin_uimanager.c:801
-#, fuzzy
-msgid "Open Ad_vanced..."
-msgstr "/Отваряне за напреднали"
-
-#: ../src/bfwin_uimanager.c:801 ../src/filebrowser2.c:2037
-#, fuzzy
-msgid "Open advanced"
-msgstr "/Отваряне за напреднали"
-
-#: ../src/bfwin_uimanager.c:803
-#, fuzzy
-msgid "Open _from Selection"
-msgstr "/Файл/Отваряне _от избор"
-
-#: ../src/bfwin_uimanager.c:803
-#, fuzzy
-msgid "Open from Selection"
-msgstr "/Файл/Отваряне _от избор"
-
-#: ../src/bfwin_uimanager.c:805
-#, fuzzy
-msgid "_Insert..."
-msgstr "/Файл/_Добави"
-
-#: ../src/bfwin_uimanager.c:805
-#, fuzzy
-msgid "Insert file"
-msgstr "Добави време"
-
-#: ../src/bfwin_uimanager.c:806
-#, fuzzy
-msgid "_Print"
-msgstr "Parentmatch"
-
-#: ../src/bfwin_uimanager.c:806
-#, fuzzy
-msgid "Print"
-msgstr "Parentmatch"
-
-#: ../src/bfwin_uimanager.c:807
-msgid "U_pload / Download..."
-msgstr ""
-
-#: ../src/bfwin_uimanager.c:809
-#, fuzzy
-msgid "_Quit"
-msgstr "/Файл/_Изход"
-
-#: ../src/bfwin_uimanager.c:809
-#, fuzzy
-msgid "Quit Bluefish"
-msgstr "За Bluefish"
-
-#: ../src/bfwin_uimanager.c:810
-#, fuzzy
-msgid "Preference_s..."
-msgstr "Настройки..."
-
-#: ../src/bfwin_uimanager.c:810
-#, fuzzy
-msgid "Edit Preferences"
-msgstr "Редактиране предпочитанията"
-
-#: ../src/bfwin_uimanager.c:812
-#, fuzzy
-msgid "Select _All"
-msgstr "/Редактиране/Избира всичко"
-
-#: ../src/bfwin_uimanager.c:812
-#, fuzzy
-msgid "Select all"
-msgstr "Избери файл"
-
-#: ../src/bfwin_uimanager.c:813
-#, fuzzy
-msgid "Add Boo_kmark"
-msgstr "Добавяне на отбелязка"
-
-#: ../src/bfwin_uimanager.c:813 ../src/document.c:1852
-msgid "Add bookmark"
-msgstr "Добавяне на отбелязка"
-
-#: ../src/bfwin_uimanager.c:815
-msgid "_Add or Remove..."
-msgstr ""
-
-#: ../src/bfwin_uimanager.c:815
-#, fuzzy
-msgid "Add or remove character encoding"
-msgstr "/Документ/Кодиране на символите"
-
-#: ../src/bfwin_uimanager.c:817
-#, fuzzy
-msgid "Floati_ng Window"
-msgstr "/Документ/Плаващ прозорец"
-
-#: ../src/bfwin_uimanager.c:817
-#, fuzzy
-msgid "Open current document in floating window"
-msgstr "в настоящия документ"
-
-#: ../src/bfwin_uimanager.c:819 ../src/bfwin_uimanager.c:825
-msgid "_Increase"
 msgstr ""
 
 #: ../src/bfwin_uimanager.c:819
 #, fuzzy
+msgid "_File"
+msgstr "/_Файл"
+
+#: ../src/bfwin_uimanager.c:820
+#, fuzzy
+msgid "New From Template"
+msgstr "/Файл/Отваряне _от избор"
+
+#: ../src/bfwin_uimanager.c:821 ../src/bfwin_uimanager.c:831
+#, fuzzy
+msgid "Open _Recent"
+msgstr "/Файл/Отваряне на скорошен"
+
+#: ../src/bfwin_uimanager.c:822
+#, fuzzy
+msgid "_Edit"
+msgstr "/_Редактиране"
+
+#: ../src/bfwin_uimanager.c:823
+#, fuzzy
+msgid "_View"
+msgstr "/_Изглед"
+
+#: ../src/bfwin_uimanager.c:824
+#, fuzzy
+msgid "_Document"
+msgstr "/_Документ"
+
+#: ../src/bfwin_uimanager.c:825
+#, fuzzy
+msgid "_Tab Size"
+msgstr "/Документ/Увеличи размера на табулациите"
+
+#: ../src/bfwin_uimanager.c:826
+#, fuzzy
+msgid "_Font Size"
+msgstr "Шрифт размер +1"
+
+#: ../src/bfwin_uimanager.c:827
+#, fuzzy
+msgid "Language M_ode"
+msgstr "Език:"
+
+#: ../src/bfwin_uimanager.c:828
+#, fuzzy
+msgid "Character _Encoding"
+msgstr "/Документ/Кодиране на символите"
+
+#: ../src/bfwin_uimanager.c:829
+#, fuzzy
+msgid "_Go"
+msgstr "/_Придвижване"
+
+#: ../src/bfwin_uimanager.c:830
+#, fuzzy
+msgid "_Project"
+msgstr "/_Проект"
+
+#: ../src/bfwin_uimanager.c:832
+#, fuzzy
+msgid "_Tools"
+msgstr "/_Външни"
+
+#: ../src/bfwin_uimanager.c:833
+#, fuzzy
+msgid "_Commands"
+msgstr "Команда"
+
+#: ../src/bfwin_uimanager.c:834
+#, fuzzy
+msgid "_Filters"
+msgstr "Филтър"
+
+#: ../src/bfwin_uimanager.c:835
+#, fuzzy
+msgid "_Outputbox"
+msgstr "Outputbox"
+
+#: ../src/bfwin_uimanager.c:836
+msgid "For_mat"
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:837
+#, fuzzy
+msgid "_Insert"
+msgstr "Вкарване"
+
+#: ../src/bfwin_uimanager.c:838
+#, fuzzy
+msgid "Con_vert"
+msgstr "Con_tent:"
+
+#: ../src/bfwin_uimanager.c:842
+msgid "_New"
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:842 ../src/filebrowser2.c:886
+#: ../src/filebrowser2.c:888 ../src/filebrowser2.c:1276
+#, fuzzy
+msgid "New file"
+msgstr "/Нов _файл"
+
+#: ../src/bfwin_uimanager.c:843
+#, fuzzy
+msgid "New _Window"
+msgstr "/Файл/Нов прозорец"
+
+#: ../src/bfwin_uimanager.c:843
+#, fuzzy
+msgid "New window"
+msgstr "/Файл/Нов прозорец"
+
+#: ../src/bfwin_uimanager.c:845
+#, fuzzy
+msgid "Close Win_dow"
+msgstr "/Файл/Затваряне на прозорец"
+
+#: ../src/bfwin_uimanager.c:845
+#, fuzzy
+msgid "Close window"
+msgstr "/Файл/Затваряне на прозорец"
+
+#: ../src/bfwin_uimanager.c:846
+#, fuzzy
+msgid "_Open..."
+msgstr "Отваряне"
+
+#: ../src/bfwin_uimanager.c:846
+#, fuzzy
+msgid "Open file"
+msgstr "Отваря файл "
+
+#: ../src/bfwin_uimanager.c:847
+#, fuzzy
+msgid "Open Ad_vanced..."
+msgstr "/Отваряне за напреднали"
+
+#: ../src/bfwin_uimanager.c:847 ../src/filebrowser2.c:1272
+#, fuzzy
+msgid "Open advanced"
+msgstr "/Отваряне за напреднали"
+
+#: ../src/bfwin_uimanager.c:849
+#, fuzzy
+msgid "Open _from Selection"
+msgstr "/Файл/Отваряне _от избор"
+
+#: ../src/bfwin_uimanager.c:849
+#, fuzzy
+msgid "Open from Selection"
+msgstr "/Файл/Отваряне _от избор"
+
+#: ../src/bfwin_uimanager.c:851
+#, fuzzy
+msgid "_Print..."
+msgstr "Parentmatch"
+
+#: ../src/bfwin_uimanager.c:851
+#, fuzzy
+msgid "Print"
+msgstr "Parentmatch"
+
+#: ../src/bfwin_uimanager.c:852
+#, fuzzy
+msgid "_Quit"
+msgstr "/Файл/_Изход"
+
+#: ../src/bfwin_uimanager.c:852
+#, fuzzy
+msgid "Quit Bluefish"
+msgstr "За Bluefish"
+
+#: ../src/bfwin_uimanager.c:853
+#, fuzzy
+msgid "Preference_s..."
+msgstr "Настройки..."
+
+#: ../src/bfwin_uimanager.c:853
+#, fuzzy
+msgid "Edit Preferences"
+msgstr "Редактиране предпочитанията"
+
+#: ../src/bfwin_uimanager.c:855
+#, fuzzy
+msgid "Select _All"
+msgstr "/Редактиране/Избира всичко"
+
+#: ../src/bfwin_uimanager.c:855
+#, fuzzy
+msgid "Select all"
+msgstr "Избери файл"
+
+#: ../src/bfwin_uimanager.c:856
+#, fuzzy
+msgid "Add Boo_kmark"
+msgstr "Добавяне на отбелязка"
+
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2084
+msgid "Add bookmark"
+msgstr "Добавяне на отбелязка"
+
+#: ../src/bfwin_uimanager.c:858
+msgid "_Add or Remove..."
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:858
+#, fuzzy
+msgid "Add or remove character encoding"
+msgstr "/Документ/Кодиране на символите"
+
+#: ../src/bfwin_uimanager.c:860
+#, fuzzy
+msgid "Floati_ng Window"
+msgstr "/Документ/Плаващ прозорец"
+
+#: ../src/bfwin_uimanager.c:860
+#, fuzzy
+msgid "Open current document in floating window"
+msgstr "в настоящия документ"
+
+#: ../src/bfwin_uimanager.c:862 ../src/bfwin_uimanager.c:868
+msgid "_Increase"
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:862
+#, fuzzy
 msgid "Increase document font size"
 msgstr "Запази като"
 
-#: ../src/bfwin_uimanager.c:821 ../src/bfwin_uimanager.c:827
+#: ../src/bfwin_uimanager.c:864 ../src/bfwin_uimanager.c:870
 msgid "_Decrease"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:821
+#: ../src/bfwin_uimanager.c:864
 #, fuzzy
 msgid "Decrease document font size"
 msgstr "/Документ/Тип документ"
 
-#: ../src/bfwin_uimanager.c:823 ../src/bfwin_uimanager.c:829
+#: ../src/bfwin_uimanager.c:866 ../src/bfwin_uimanager.c:872
 #, fuzzy
 msgid "_Reset"
 msgstr "Набор от рамки"
 
-#: ../src/bfwin_uimanager.c:823
+#: ../src/bfwin_uimanager.c:866
 #, fuzzy
 msgid "Reset document font size"
 msgstr "/Документ/Тип документ"
 
-#: ../src/bfwin_uimanager.c:825
+#: ../src/bfwin_uimanager.c:868
 #, fuzzy
 msgid "Increase document tab size"
 msgstr "Запази като"
 
-#: ../src/bfwin_uimanager.c:827
+#: ../src/bfwin_uimanager.c:870
 #, fuzzy
 msgid "Decrease document tab size"
 msgstr "Запази като"
 
-#: ../src/bfwin_uimanager.c:829
+#: ../src/bfwin_uimanager.c:872
 #, fuzzy
 msgid "Reset document tab size"
 msgstr "Запази като"
 
-#: ../src/bfwin_uimanager.c:832
+#: ../src/bfwin_uimanager.c:875
 #, fuzzy
 msgid "Rescan Synta_x & Spelling"
 msgstr "/Документ/Оцветяване на кода"
 
-#: ../src/bfwin_uimanager.c:832 ../src/bfwin_uimanager.c:835
+#: ../src/bfwin_uimanager.c:875 ../src/bfwin_uimanager.c:878
 #, fuzzy
 msgid "Rescan document highlighting"
 msgstr "/Документ/Обнови оцветяването"
 
-#: ../src/bfwin_uimanager.c:835
+#: ../src/bfwin_uimanager.c:878
 #, fuzzy
 msgid "Rescan Synta_x"
 msgstr "/Документ/Оцветяване на кода"
 
-#: ../src/bfwin_uimanager.c:838
+#: ../src/bfwin_uimanager.c:881
 #, fuzzy
 msgid "_New Project..."
 msgstr "Нов проект"
 
-#: ../src/bfwin_uimanager.c:838 ../src/project.c:208
+#: ../src/bfwin_uimanager.c:881 ../src/project.c:255
 msgid "New project"
 msgstr "Нов проект"
 
-#: ../src/bfwin_uimanager.c:839
+#: ../src/bfwin_uimanager.c:882
 #, fuzzy
 msgid "_Open Project..."
 msgstr "/Проект/_Отваряне проект..."
 
-#: ../src/bfwin_uimanager.c:839
+#: ../src/bfwin_uimanager.c:882
 #, fuzzy
 msgid "Open project"
 msgstr "Нов проект"
 
-#: ../src/bfwin_uimanager.c:840
+#: ../src/bfwin_uimanager.c:883
 msgid "_Synchronize Text Block"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:840 ../src/blocksync.c:296
+#: ../src/bfwin_uimanager.c:883 ../src/blocksync.c:295
 msgid "Synchronize text block"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:842
+#: ../src/bfwin_uimanager.c:885
 #, fuzzy
-msgid "To_ggle Comment"
+msgid "_Toggle Comment"
 msgstr "/Документ/Брой думи"
 
-#: ../src/bfwin_uimanager.c:842
+#: ../src/bfwin_uimanager.c:885
 #, fuzzy
 msgid "Toggle comment"
 msgstr "/Документ/Брой думи"
 
-#: ../src/bfwin_uimanager.c:844
+#: ../src/bfwin_uimanager.c:887
 #, fuzzy
 msgid "Select _Block"
 msgstr "Избери файл"
 
-#: ../src/bfwin_uimanager.c:844
+#: ../src/bfwin_uimanager.c:887
 msgid "Select block, use multiple times to select parent blocks "
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:846
-msgid "Duplica_te Line"
-msgstr ""
+#: ../src/bfwin_uimanager.c:889
+#, fuzzy
+msgid "D_uplicate Line"
+msgstr "Избери файл"
 
-#: ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:889
 #, fuzzy
 msgid "Duplicate the current line"
 msgstr "Оцветяване на кода"
 
-#: ../src/bfwin_uimanager.c:848
+#: ../src/bfwin_uimanager.c:891
 #, fuzzy
-msgid "Delete Line"
+msgid "_Delete Line"
 msgstr "Избери файл"
 
-#: ../src/bfwin_uimanager.c:848
+#: ../src/bfwin_uimanager.c:891
 #, fuzzy
 msgid "Delete the current line"
 msgstr "Оцветяване на кода"
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:893
 #, fuzzy
-msgid "Word Cou_nt"
+msgid "_Word Count"
 msgstr "/Документ/Брой думи"
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:893
 #, fuzzy
 msgid "Word count"
 msgstr "/Документ/Брой думи"
 
-#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
+#: ../src/bfwin_uimanager.c:894 ../src/doc_extern_tools.c:47
 msgid "Lorem Ipsum generator"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:852
+#: ../src/bfwin_uimanager.c:895
 #, fuzzy
 msgid "Insert Relative Filename"
 msgstr "име на файла"
 
-#: ../src/bfwin_uimanager.c:853
+#: ../src/bfwin_uimanager.c:896
 #, fuzzy
 msgid "Insert Absolute Filename"
 msgstr "име на файла"
 
-#: ../src/bfwin_uimanager.c:854
+#: ../src/bfwin_uimanager.c:897
 msgid "Indenting to S_paces"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:854
+#: ../src/bfwin_uimanager.c:897
 msgid "Indenting to spaces"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:856
+#: ../src/bfwin_uimanager.c:899
 msgid "Indenting to T_abs"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:856
+#: ../src/bfwin_uimanager.c:899
 msgid "Indenting to tabs"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:858
+#: ../src/bfwin_uimanager.c:901
 #, fuzzy
 msgid "_Join Lines Together"
 msgstr "/Външни/tearoff1"
 
-#: ../src/bfwin_uimanager.c:858
+#: ../src/bfwin_uimanager.c:901
 #, fuzzy
 msgid "Join lines together"
 msgstr "/Външни/tearoff1"
 
-#: ../src/bfwin_uimanager.c:860
+#: ../src/bfwin_uimanager.c:903
 #, fuzzy
 msgid "Split Lines on Right _Margin"
 msgstr "/Външни/tearoff1"
 
-#: ../src/bfwin_uimanager.c:860
+#: ../src/bfwin_uimanager.c:903
 #, fuzzy
 msgid "Split lines on right margin"
 msgstr "/Външни/tearoff1"
 
-#: ../src/bfwin_uimanager.c:862
+#: ../src/bfwin_uimanager.c:905
 msgid "Merge Lines Into Col_umns"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:862
+#: ../src/bfwin_uimanager.c:905
 msgid "Merge lines into columns"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:864
+#: ../src/bfwin_uimanager.c:907
 #, fuzzy
 msgid "Rewrap _Lines"
 msgstr "/Външни/tearoff1"
 
-#: ../src/bfwin_uimanager.c:864
+#: ../src/bfwin_uimanager.c:907
 #, fuzzy
 msgid "Rewrap lines"
 msgstr "/Външни/tearoff1"
 
-#: ../src/bfwin_uimanager.c:865
+#: ../src/bfwin_uimanager.c:908
 msgid "Strip T_railing Whitespace"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:865
+#: ../src/bfwin_uimanager.c:908
 msgid "Strip trailing whitespace"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:867
+#: ../src/bfwin_uimanager.c:910
+msgid "Javascript beautifier"
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:911
 #, fuzzy
 msgid "Preview in browser"
 msgstr "Преглед в браузъра"
 
-#: ../src/bfwin_uimanager.c:872
+#: ../src/bfwin_uimanager.c:916
 msgid "_Full Screen"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:872
+#: ../src/bfwin_uimanager.c:916
 msgid "Full screen"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:874
+#: ../src/bfwin_uimanager.c:918
 #, fuzzy
 msgid "_Main Toolbar"
 msgstr "/Изглед/Виж _Главния набор от инструменти"
 
-#: ../src/bfwin_uimanager.c:874
+#: ../src/bfwin_uimanager.c:918
 #, fuzzy
 msgid "Show main toolbar"
 msgstr "Показване на главното меню с инструменти"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:920
 #, fuzzy
 msgid "_Side Pane"
 msgstr "/Изглед/Виж левия панел"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:920
 #, fuzzy
 msgid "Show side pane"
 msgstr "Показване на скрити файлове"
 
-#: ../src/bfwin_uimanager.c:877
+#: ../src/bfwin_uimanager.c:921
 #, fuzzy
 msgid "_Output Pane"
 msgstr "/Изглед/Виж _левия панел"
 
-#: ../src/bfwin_uimanager.c:877
+#: ../src/bfwin_uimanager.c:921
 #, fuzzy
 msgid "Show output pane"
 msgstr "Покажи целия изход"
 
-#: ../src/bfwin_uimanager.c:879
+#: ../src/bfwin_uimanager.c:923
 #, fuzzy
 msgid "Status_bar"
 msgstr "/Изглед/tearoff1"
 
-#: ../src/bfwin_uimanager.c:879
+#: ../src/bfwin_uimanager.c:923
 #, fuzzy
 msgid "Show statusbar"
 msgstr "/Изглед/tearoff1"
 
-#: ../src/bfwin_uimanager.c:881
+#: ../src/bfwin_uimanager.c:925
 #, fuzzy
 msgid "Auto _Completion Popup"
 msgstr "/Документ/Авто подравняване"
 
-#: ../src/bfwin_uimanager.c:881
+#: ../src/bfwin_uimanager.c:925
 #, fuzzy
 msgid "Show auto completion popup"
 msgstr "/Документ/Авто подравняване"
 
-#: ../src/bfwin_uimanager.c:883
+#: ../src/bfwin_uimanager.c:927
 #, fuzzy
 msgid "_Auto Indent"
 msgstr "/Документ/Авто подравняване"
 
-#: ../src/bfwin_uimanager.c:883
+#: ../src/bfwin_uimanager.c:927
 #, fuzzy
 msgid "Auto indent"
 msgstr "Премести няляво"
 
-#: ../src/bfwin_uimanager.c:884
+#: ../src/bfwin_uimanager.c:928
 #, fuzzy
 msgid "Highlight Block _Delimiters"
 msgstr "Автомачино пренасяне"
 
-#: ../src/bfwin_uimanager.c:885
+#: ../src/bfwin_uimanager.c:929
 #, fuzzy
 msgid "Highlight block delimiters"
 msgstr "Автомачино пренасяне"
 
-#: ../src/bfwin_uimanager.c:886
+#: ../src/bfwin_uimanager.c:930
 #, fuzzy
 msgid "_Highlight Syntax"
 msgstr "Оцветяване # редове"
 
-#: ../src/bfwin_uimanager.c:886
+#: ../src/bfwin_uimanager.c:930
 #, fuzzy
 msgid "Highlight syntax"
 msgstr "Оцветяване # редове"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:932
 #, fuzzy
 msgid "Show _Blocks"
 msgstr "/Документ/Брой думи"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:932
 #, fuzzy
 msgid "Show blocks"
 msgstr "Показване на резервни копия на файлове"
 
-#: ../src/bfwin_uimanager.c:889
+#: ../src/bfwin_uimanager.c:933
 #, fuzzy
 msgid "Show Line N_umbers"
 msgstr "Сортиране по номер на ред"
 
-#: ../src/bfwin_uimanager.c:889
+#: ../src/bfwin_uimanager.c:933
 #, fuzzy
 msgid "Show line numbers"
 msgstr "Сортиране по номер на ред"
 
-#: ../src/bfwin_uimanager.c:891
+#: ../src/bfwin_uimanager.c:935
 #, fuzzy
 msgid "Show Right _Margin"
 msgstr "/Документ/sep1"
 
-#: ../src/bfwin_uimanager.c:891
+#: ../src/bfwin_uimanager.c:935
 #, fuzzy
 msgid "Show right margin"
 msgstr "/Документ/sep1"
 
-#: ../src/bfwin_uimanager.c:893
+#: ../src/bfwin_uimanager.c:937
 msgid "Show Split _View"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:893
+#: ../src/bfwin_uimanager.c:937
 msgid "Show split view"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:895
+#: ../src/bfwin_uimanager.c:939
 #, fuzzy
 msgid "Show V_isible Spacing"
 msgstr "/Документ/sep1"
 
-#: ../src/bfwin_uimanager.c:895
+#: ../src/bfwin_uimanager.c:939
 #, fuzzy
 msgid "Show visible spacing"
 msgstr "/Документ/sep1"
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:941
 msgid "_Wrap Text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:941
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3196
 #, fuzzy
 msgid "_Close"
 msgstr "Затваряне"
 
-#: ../src/bfwin_uimanager.c:901
+#: ../src/bfwin_uimanager.c:945
 #, fuzzy
 msgid "Close current file"
 msgstr "%s = настоящ файл"
 
-#: ../src/bfwin_uimanager.c:903
+#: ../src/bfwin_uimanager.c:947
 #, fuzzy
 msgid "Close A_ll"
 msgstr "Затваряне на _всички"
 
-#: ../src/bfwin_uimanager.c:903
+#: ../src/bfwin_uimanager.c:947
 #, fuzzy
 msgid "Close all files"
 msgstr "Запазването на файла прекратено.\n"
 
-#: ../src/bfwin_uimanager.c:905 ../src/bfwin_uimanager.c:963
-#: ../src/file_dialogs.c:1430
+#: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
+#: ../src/file_dialogs.c:1483
 #, fuzzy
 msgid "_Save"
 msgstr "Запазване"
 
-#: ../src/bfwin_uimanager.c:905
+#: ../src/bfwin_uimanager.c:949
 #, fuzzy
 msgid "Save current file"
 msgstr "Не успя да запази настоящия проект"
 
-#: ../src/bfwin_uimanager.c:907 ../src/bfwin_uimanager.c:964
+#: ../src/bfwin_uimanager.c:951 ../src/bfwin_uimanager.c:1026
 #, fuzzy
 msgid "Save _as..."
 msgstr "Запазване като ..."
 
-#: ../src/bfwin_uimanager.c:907
+#: ../src/bfwin_uimanager.c:951
 #, fuzzy
 msgid "Save file as"
 msgstr "Запазване като ..."
 
-#: ../src/bfwin_uimanager.c:909
+#: ../src/bfwin_uimanager.c:953
 #, fuzzy
 msgid "Sav_e All"
 msgstr "Запазване на всички"
 
-#: ../src/bfwin_uimanager.c:909
+#: ../src/bfwin_uimanager.c:953
 #, fuzzy
 msgid "Save all files"
 msgstr "Всички"
 
-#: ../src/bfwin_uimanager.c:910
+#: ../src/bfwin_uimanager.c:954
 #, fuzzy
 msgid "Rever_t to Saved"
 msgstr "/Файл/_Върни се към запазеното"
 
-#: ../src/bfwin_uimanager.c:910
+#: ../src/bfwin_uimanager.c:954
 #, fuzzy
 msgid "Reload current file"
 msgstr "%s = настоящ файл"
 
-#: ../src/bfwin_uimanager.c:912
+#: ../src/bfwin_uimanager.c:956
+#, fuzzy
+msgid "Save a cop_y..."
+msgstr "Запазване като ..."
+
+#: ../src/bfwin_uimanager.c:956
+#, fuzzy
+msgid "Save a copy"
+msgstr "/Проект/Запазване и затваряне"
+
+#: ../src/bfwin_uimanager.c:957
+#, fuzzy
+msgid "_Insert..."
+msgstr "/Файл/_Добави"
+
+#: ../src/bfwin_uimanager.c:957
+#, fuzzy
+msgid "Insert file"
+msgstr "Добави време"
+
+#. Required to move here to disable sensitivity on OSX
+#: ../src/bfwin_uimanager.c:958
 #, fuzzy
 msgid "Rena_me..."
 msgstr "/Преименува"
 
-#: ../src/bfwin_uimanager.c:912
+#: ../src/bfwin_uimanager.c:958
 #, fuzzy
 msgid "Rename file"
 msgstr "/Нов _файл"
 
-#: ../src/bfwin_uimanager.c:913
+#: ../src/bfwin_uimanager.c:959
 #, fuzzy
 msgid "_Indent"
 msgstr "Премести надясно"
 
-#: ../src/bfwin_uimanager.c:913
+#: ../src/bfwin_uimanager.c:959
 msgid "Indent"
 msgstr "Премести надясно"
 
-#: ../src/bfwin_uimanager.c:914
+#: ../src/bfwin_uimanager.c:960
 #, fuzzy
 msgid "Unin_dent"
 msgstr "Премести няляво"
 
-#: ../src/bfwin_uimanager.c:914
+#: ../src/bfwin_uimanager.c:960
 msgid "Unindent"
 msgstr "Премести няляво"
 
-#: ../src/bfwin_uimanager.c:916
+#: ../src/bfwin_uimanager.c:962
 #, fuzzy
 msgid "F_irst Bookmark"
 msgstr "Редакция на отбелязка"
 
-#: ../src/bfwin_uimanager.c:916
+#: ../src/bfwin_uimanager.c:962
 #, fuzzy
 msgid "Goto first bookmark"
 msgstr "Редакция на отбелязка"
 
-#: ../src/bfwin_uimanager.c:918
+#: ../src/bfwin_uimanager.c:964
 #, fuzzy
 msgid "L_ast Bookmark"
 msgstr "Редакция на отбелязка"
 
-#: ../src/bfwin_uimanager.c:918
+#: ../src/bfwin_uimanager.c:964
 #, fuzzy
 msgid "Goto last bookmark"
 msgstr "Редакция на отбелязка"
 
-#: ../src/bfwin_uimanager.c:920
+#: ../src/bfwin_uimanager.c:966
 #, fuzzy
 msgid "N_ext Bookmark"
 msgstr "Изтриване на постоянна отбелязка."
 
-#: ../src/bfwin_uimanager.c:920
+#: ../src/bfwin_uimanager.c:966
 #, fuzzy
 msgid "Goto next bookmark"
 msgstr "Изтриване на постоянна отбелязка."
 
-#: ../src/bfwin_uimanager.c:922
+#: ../src/bfwin_uimanager.c:968
 #, fuzzy
 msgid "P_revious Bookmark"
 msgstr "Редакция на отбелязка"
 
-#: ../src/bfwin_uimanager.c:923 ../src/bfwin_uimanager.c:934
+#: ../src/bfwin_uimanager.c:969 ../src/bfwin_uimanager.c:982
 #, fuzzy
 msgid "Goto previous document"
 msgstr "/Придвижване/Предишен документ"
 
-#: ../src/bfwin_uimanager.c:924
+#: ../src/bfwin_uimanager.c:970
 #, fuzzy
 msgid "Move Tab _Left"
 msgstr "Височина"
 
-#: ../src/bfwin_uimanager.c:924
+#: ../src/bfwin_uimanager.c:970
 #, fuzzy
 msgid "Move current tab left"
 msgstr "Selector"
 
-#: ../src/bfwin_uimanager.c:926
+#: ../src/bfwin_uimanager.c:972
 #, fuzzy
 msgid "Move Tab _Right"
 msgstr "Височина"
 
-#: ../src/bfwin_uimanager.c:926
+#: ../src/bfwin_uimanager.c:972
 #, fuzzy
 msgid "Move current tab right"
 msgstr "Не успя да запази настоящия проект"
 
-#: ../src/bfwin_uimanager.c:928
+#: ../src/bfwin_uimanager.c:974
+#, fuzzy
+msgid "_Recent Document"
+msgstr "/Придвижване/Следващ документ"
+
+#: ../src/bfwin_uimanager.c:974
+#, fuzzy
+msgid "Goto most recent document"
+msgstr "/Придвижване/Последен документ"
+
+#: ../src/bfwin_uimanager.c:976
 #, fuzzy
 msgid "_First Document"
 msgstr "/Придвижване/Първи документ"
 
-#: ../src/bfwin_uimanager.c:928
+#: ../src/bfwin_uimanager.c:976
 #, fuzzy
 msgid "Goto first document"
 msgstr "/Придвижване/Първи документ"
 
-#: ../src/bfwin_uimanager.c:930
+#: ../src/bfwin_uimanager.c:978
 #, fuzzy
 msgid "_Last Document"
 msgstr "/Придвижване/Последен документ"
 
-#: ../src/bfwin_uimanager.c:930
+#: ../src/bfwin_uimanager.c:978
 #, fuzzy
 msgid "Goto last document"
 msgstr "/Придвижване/Последен документ"
 
-#: ../src/bfwin_uimanager.c:932
+#: ../src/bfwin_uimanager.c:980
 #, fuzzy
 msgid "_Next Document"
 msgstr "/Придвижване/Следващ документ"
 
-#: ../src/bfwin_uimanager.c:932
+#: ../src/bfwin_uimanager.c:980
 #, fuzzy
 msgid "Goto next document"
 msgstr "/Придвижване/Следващ документ"
 
-#: ../src/bfwin_uimanager.c:934
+#: ../src/bfwin_uimanager.c:982
 #, fuzzy
 msgid "_Previous Document"
 msgstr "/Придвижване/Предишен документ"
 
-#: ../src/bfwin_uimanager.c:936
+#: ../src/bfwin_uimanager.c:984
 #, fuzzy
-msgid "Goto _Line"
+msgid "_Goto Line"
 msgstr "Отиди на ред..."
 
-#: ../src/bfwin_uimanager.c:936
+#: ../src/bfwin_uimanager.c:984
 #, fuzzy
 msgid "Goto line"
 msgstr "Отиди на ред..."
 
-#: ../src/bfwin_uimanager.c:937
+#: ../src/bfwin_uimanager.c:985
 #, fuzzy
 msgid "Goto Line Number from _Clipboard"
 msgstr "/Придвижване/Към _избрания текст"
 
-#: ../src/bfwin_uimanager.c:938
+#: ../src/bfwin_uimanager.c:986
 #, fuzzy
 msgid "Goto line number in clipboard or selection"
 msgstr "/Придвижване/Към _избрания текст"
 
-#: ../src/bfwin_uimanager.c:939
+#: ../src/bfwin_uimanager.c:987
 #, fuzzy
 msgid "_Jump to Reference"
 msgstr "Документация за функциите"
 
-#: ../src/bfwin_uimanager.c:939
+#: ../src/bfwin_uimanager.c:987
 #, fuzzy
 msgid "Jump to reference"
 msgstr "Документация за функциите"
 
-#: ../src/bfwin_uimanager.c:944
+#: ../src/bfwin_uimanager.c:990 ../src/bfwin_uimanager.c:993
+msgid "Jump to Matching Block Boundary"
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:999
 msgid "Cu_t"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:944
+#: ../src/bfwin_uimanager.c:999
 msgid "Cut"
 msgstr "Отрежи"
 
-#: ../src/bfwin_uimanager.c:945
+#: ../src/bfwin_uimanager.c:1000
 #, fuzzy
 msgid "_Copy"
 msgstr "Копиране"
 
-#: ../src/bfwin_uimanager.c:945
+#: ../src/bfwin_uimanager.c:1000
 msgid "Copy"
 msgstr "Копиране"
 
-#: ../src/bfwin_uimanager.c:946
+#: ../src/bfwin_uimanager.c:1001
 #, fuzzy
 msgid "_Paste"
 msgstr "Добави"
 
-#: ../src/bfwin_uimanager.c:946
+#: ../src/bfwin_uimanager.c:1001
 msgid "Paste"
 msgstr "Добави"
 
-#: ../src/bfwin_uimanager.c:950
+#: ../src/bfwin_uimanager.c:1002
+#, fuzzy
+msgid "Paste Specia_l"
+msgstr "/Тагове/_Специални"
+
+#: ../src/bfwin_uimanager.c:1002
+#, fuzzy
+msgid "Paste Special"
+msgstr "/Тагове/_Специални"
+
+#: ../src/bfwin_uimanager.c:1006
 #, fuzzy
 msgid "_Find"
 msgstr "Търсене"
 
-#: ../src/bfwin_uimanager.c:950
+#: ../src/bfwin_uimanager.c:1006
 #, fuzzy
 msgid "Show find bar"
 msgstr "Показване на главното меню с инструменти"
 
-#: ../src/bfwin_uimanager.c:951
+#: ../src/bfwin_uimanager.c:1007
 #, fuzzy
 msgid "Find A_gain"
 msgstr "/Редактиране/Повторно търсене"
 
-#: ../src/bfwin_uimanager.c:951
+#: ../src/bfwin_uimanager.c:1007
 #, fuzzy
 msgid "Find again"
 msgstr "/Редактиране/Повторно търсене"
 
-#: ../src/bfwin_uimanager.c:952
+#: ../src/bfwin_uimanager.c:1008
 #, fuzzy
 msgid "Find from Clip_board"
 msgstr "От избрания текст"
 
-#: ../src/bfwin_uimanager.c:952
+#: ../src/bfwin_uimanager.c:1008
 #, fuzzy
 msgid "Find from clipboard or selection"
 msgstr "От избрания текст"
 
-#: ../src/bfwin_uimanager.c:954
+#: ../src/bfwin_uimanager.c:1011 ../src/bfwin_uimanager.c:1014
 #, fuzzy
-msgid "Advanced Find & Re_place..."
+msgid "Ad_vanced Find & Replace..."
 msgstr "Търсене и заменяне"
 
-#: ../src/bfwin_uimanager.c:954
+#: ../src/bfwin_uimanager.c:1011 ../src/bfwin_uimanager.c:1014
 #, fuzzy
 msgid "Advanced Find and Replace"
 msgstr "Търсене и заменяне"
 
-#: ../src/bfwin_uimanager.c:961
+#: ../src/bfwin_uimanager.c:1023
 #, fuzzy
 msgid "Save & _close"
 msgstr "/Проект/Запазване и затваряне"
 
-#: ../src/bfwin_uimanager.c:961
+#: ../src/bfwin_uimanager.c:1023
 #, fuzzy
 msgid "Save & close project"
 msgstr "Не успя да запази настоящия проект"
 
-#: ../src/bfwin_uimanager.c:963
+#: ../src/bfwin_uimanager.c:1025
 #, fuzzy
 msgid "Save project"
 msgstr "Нов проект"
 
-#: ../src/bfwin_uimanager.c:964
+#: ../src/bfwin_uimanager.c:1026
 #, fuzzy
 msgid "Save project as"
 msgstr "Запази като"
 
-#: ../src/bfwin_uimanager.c:965
+#: ../src/bfwin_uimanager.c:1027
 #, fuzzy
 msgid "_Edit Project Options..."
 msgstr "/Проект/Редакция на настройките..."
 
-#: ../src/bfwin_uimanager.c:965
+#: ../src/bfwin_uimanager.c:1027
 #, fuzzy
 msgid "Edit project options"
 msgstr "/Проект/Редакция на опциите на проекта"
 
-#: ../src/bfwin_uimanager.c:970
+#: ../src/bfwin_uimanager.c:1032
 #, fuzzy
 msgid "_Undo"
 msgstr "Възстанови"
 
-#: ../src/bfwin_uimanager.c:970
+#: ../src/bfwin_uimanager.c:1032
 msgid "Undo"
 msgstr "Възстанови"
 
-#: ../src/bfwin_uimanager.c:971
+#: ../src/bfwin_uimanager.c:1033
 #, fuzzy
 msgid "U_ndo All"
 msgstr "/Редакиране/Възстанови всичко"
 
-#: ../src/bfwin_uimanager.c:971
+#: ../src/bfwin_uimanager.c:1033
 #, fuzzy
 msgid "Undo All"
 msgstr "/Редакиране/Възстанови всичко"
 
-#: ../src/bfwin_uimanager.c:972
+#: ../src/bfwin_uimanager.c:1034
 #, fuzzy
 msgid "_Redo"
 msgstr "Повтори"
 
-#: ../src/bfwin_uimanager.c:972
+#: ../src/bfwin_uimanager.c:1034
 msgid "Redo"
 msgstr "Повтори"
 
-#: ../src/bfwin_uimanager.c:973
+#: ../src/bfwin_uimanager.c:1035
 #, fuzzy
 msgid "R_edo All"
 msgstr "/Редактиране/Направи всичко отново"
 
-#: ../src/bfwin_uimanager.c:973
+#: ../src/bfwin_uimanager.c:1035
 #, fuzzy
 msgid "Redo All"
 msgstr "/Редактиране/Направи всичко отново"
 
-#: ../src/bfwin_uimanager.c:1114
+#: ../src/bfwin_uimanager.c:1060
+#, c-format
+msgid "Always use this syntax for files of type %s ?"
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:1225
 #, fuzzy
 msgid "Open _URL..."
 msgstr "/Файл/Отваряне на _URL..."
 
-#: ../src/bfwin_uimanager.c:1127
+#: ../src/bfwin_uimanager.c:1235
+msgid "Upload _/ Download..."
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:1248
 #, fuzzy
 msgid "_Spell Check"
 msgstr "Провека на правописа..."
 
-#: ../src/bfwin_uimanager.c:1508
+#: ../src/bfwin_uimanager.c:1715
 #, fuzzy
 msgid "Text area to filter"
 msgstr "Text area"
 
-#: ../src/bfwin_uimanager.c:1509
+#: ../src/bfwin_uimanager.c:1716
 msgid "All text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:1510
+#: ../src/bfwin_uimanager.c:1717
 #, fuzzy
 msgid "Selected text only"
 msgstr "Избери шрифт"
+
+#: ../src/bfwin_uimanager.c:1719
+msgid "Never ask again"
+msgstr ""
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -1136,214 +1269,209 @@ msgid ""
 "of the block.</span>"
 msgstr ""
 
-#: ../src/bluefish.c:94
+#: ../src/bluefish.c:91
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr ""
 
-#: ../src/bluefish.c:267
+#: ../src/bluefish.c:360
 msgid "Open in existing window."
 msgstr ""
 
-#: ../src/bluefish.c:269
+#: ../src/bluefish.c:362
 msgid "Open in new window."
 msgstr ""
 
-#: ../src/bluefish.c:271
+#: ../src/bluefish.c:364
 msgid "Print version information."
 msgstr ""
 
-#: ../src/bluefish.c:293
+#: ../src/bluefish.c:391
 msgid " [FILE(S)]"
 msgstr ""
 
-#: ../src/bluefish.c:304
+#: ../src/bluefish.c:402
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
 "Please run: %s -?\n"
 msgstr ""
 
-#: ../src/bookmark.c:558
+#: ../src/bookmark.c:548 ../src/bookmark.c:569
 msgid "_Name:"
 msgstr "_Име:"
 
-#: ../src/bookmark.c:562
+#: ../src/bookmark.c:555 ../src/bookmark.c:573
 msgid "_Description:"
 msgstr "_Описание:"
 
-#: ../src/bookmark.c:564
+#: ../src/bookmark.c:558
+#, fuzzy
+msgid "_Temporary"
+msgstr "Временен"
+
+#: ../src/bookmark.c:575
 msgid "Temporary"
 msgstr "Временен"
 
-#: ../src/bookmark.c:725
+#: ../src/bookmark.c:748
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Наистина ли искате да изтрие %s?"
 
-#: ../src/bookmark.c:728
+#: ../src/bookmark.c:751
 msgid "Delete permanent bookmark."
 msgstr "Изтриване на постоянна отбелязка."
 
-#: ../src/bookmark.c:754
+#: ../src/bookmark.c:777
 #, fuzzy
 msgid "Delete all bookmarks."
 msgstr "Изтриване на постоянна отбелязка."
 
-#: ../src/bookmark.c:792
+#: ../src/bookmark.c:815
 #, fuzzy, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "Наистина ли искате да изтрие %s?"
 
-#: ../src/bookmark.c:794
+#: ../src/bookmark.c:817
 #, fuzzy
 msgid "Delete bookmarks?"
 msgstr "Изтриване на постоянна отбелязка."
 
-#: ../src/bookmark.c:815 ../src/bookmark.c:876
+#: ../src/bookmark.c:838 ../src/bookmark.c:899
 msgid "Edit bookmark"
 msgstr "Редакция на отбелязка"
 
-#: ../src/bookmark.c:872
+#: ../src/bookmark.c:895
 #, fuzzy
 msgid "Bookmark menu"
 msgstr "Отметки"
 
-#: ../src/bookmark.c:873
+#: ../src/bookmark.c:896
 #, fuzzy
 msgid "Show Bookmark"
 msgstr "Отиване до отбелязка"
 
-#: ../src/bookmark.c:874
+#: ../src/bookmark.c:897
 #, fuzzy
 msgid "Show File"
 msgstr "Липсва име на файла"
 
-#: ../src/bookmark.c:875
+#: ../src/bookmark.c:898
 #, fuzzy
 msgid "Bookmark search menu"
 msgstr "Отметки"
 
-#: ../src/bookmark.c:876
+#: ../src/bookmark.c:899
 #, fuzzy
 msgid "_Edit..."
 msgstr "/_Редактиране"
 
-#: ../src/bookmark.c:878 ../src/filebrowser2.c:2040
+#: ../src/bookmark.c:901 ../src/filebrowser2.c:1275
 #, fuzzy
 msgid "_Delete"
 msgstr "/_Изтриване"
 
-#: ../src/bookmark.c:878 ../src/document.c:1848
+#: ../src/bookmark.c:901 ../src/document.c:2080
 #, fuzzy
 msgid "Delete bookmark"
 msgstr "Изтриване на постоянна отбелязка."
 
-#: ../src/bookmark.c:879
+#: ../src/bookmark.c:902
 #, fuzzy
 msgid "Delete All"
 msgstr " Изтриване "
 
-#: ../src/bookmark.c:879
+#: ../src/bookmark.c:902
 #, fuzzy
 msgid "Delete all bookmarks"
 msgstr "Изтриване на постоянна отбелязка."
 
-#: ../src/bookmark.c:881
+#: ../src/bookmark.c:904
 #, fuzzy
 msgid "Delete All in Document"
 msgstr "във всички отворени документи"
 
-#: ../src/bookmark.c:881
+#: ../src/bookmark.c:905
 #, fuzzy
 msgid "Delete all bookmarks in document"
 msgstr "във всички отворени документи"
 
-#: ../src/bookmark.c:886
+#: ../src/bookmark.c:910
 #, fuzzy
 msgid "Permanent by default"
 msgstr "Постоянни по подразбиране"
 
-#: ../src/bookmark.c:891
+#: ../src/bookmark.c:915
 #, fuzzy
 msgid "By Name"
 msgstr "Име"
 
-#: ../src/bookmark.c:892
+#: ../src/bookmark.c:916
 #, fuzzy
 msgid "By Full Path"
 msgstr "абсолютен път"
 
-#: ../src/bookmark.c:893
+#: ../src/bookmark.c:917
 msgid "By Full URI"
 msgstr ""
 
-#: ../src/bookmark.c:897 ../src/bookmark.c:903
+#: ../src/bookmark.c:921 ../src/bookmark.c:927
 #, fuzzy
 msgid "Content"
 msgstr "Con_tent:"
 
-#: ../src/bookmark.c:898 ../src/bookmark.c:904 ../src/preferences.c:596
-#: ../src/preferences.c:1362 ../src/preferences.c:1364
-#: ../src/preferences.c:1465
+#: ../src/bookmark.c:922 ../src/bookmark.c:928 ../src/preferences.c:607
+#: ../src/preferences.c:1369 ../src/preferences.c:1371
+#: ../src/preferences.c:1472
 msgid "Name"
 msgstr "Име"
 
-#: ../src/bookmark.c:899 ../src/bookmark.c:905
+#: ../src/bookmark.c:923 ../src/bookmark.c:929
 #, fuzzy
 msgid "Name & Content"
 msgstr "Con_tent:"
 
-#: ../src/bookmark.c:1246
+#: ../src/bookmark.c:1261
 #, fuzzy
 msgid "First bookmark"
 msgstr "Редакция на отбелязка"
 
-#: ../src/bookmark.c:1250
+#: ../src/bookmark.c:1265
 #, fuzzy
 msgid "Previous bookmark"
 msgstr "Редакция на отбелязка"
 
-#: ../src/bookmark.c:1254
+#: ../src/bookmark.c:1269
 #, fuzzy
 msgid "Next bookmark"
 msgstr "Изтриване на постоянна отбелязка."
 
-#: ../src/bookmark.c:1258
+#: ../src/bookmark.c:1273
 #, fuzzy
 msgid "Last bookmark"
 msgstr "Редакция на отбелязка"
 
-#: ../src/bookmark.c:1961 ../src/bookmark.c:2108
-#, fuzzy
-msgid "Error adding bookmark"
-msgstr "Редакция на отбелязка"
-
-#: ../src/bookmark.c:1961 ../src/bookmark.c:2108
-#, fuzzy
-msgid "Cannot add bookmarks to unsaved files."
-msgstr "Не може да добави отбелязка в файл без име"
-
-#: ../src/bookmark.c:2042
+#: ../src/bookmark.c:2037
 #, fuzzy
 msgid "Can't add bookmark"
 msgstr "Добавяне на отбелязка"
 
-#: ../src/bookmark.c:2042
+#: ../src/bookmark.c:2037
 msgid "You already have a bookmark here!"
 msgstr "Вие вече имате отбелязка тук!"
 
-#: ../src/document.c:411
+#: ../src/document.c:515
 msgid "Name: "
 msgstr "Име:"
 
-#: ../src/document.c:414
+#: ../src/document.c:518
 #, fuzzy
 msgid ""
 "\n"
 "Language mode: "
 msgstr "Език:"
 
-#: ../src/document.c:418
+#: ../src/document.c:522
 msgid ""
 "\n"
 "Encoding: "
@@ -1351,14 +1479,14 @@ msgstr ""
 "\n"
 "Кодиране"
 
-#: ../src/document.c:430
+#: ../src/document.c:534
 #, fuzzy
 msgid ""
 "\n"
 "Mime type: "
 msgstr "Типове файлове"
 
-#: ../src/document.c:438
+#: ../src/document.c:542
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -1368,7 +1496,7 @@ msgstr ""
 "\n"
 "Разрешения: "
 
-#: ../src/document.c:455
+#: ../src/document.c:559
 msgid ""
 "\n"
 "Size (on disk): "
@@ -1376,7 +1504,7 @@ msgstr ""
 "\n"
 "Размер (на диска): "
 
-#: ../src/document.c:464
+#: ../src/document.c:568
 msgid ""
 "\n"
 "Last modified: "
@@ -1384,82 +1512,103 @@ msgstr ""
 "\n"
 "Последно променян на: "
 
-#: ../src/document.c:502
+#: ../src/document.c:624
 #, c-format
 msgid "Untitled %d"
 msgstr "Без име %d"
 
-#: ../src/document.c:687
+#: ../src/document.c:805
 #, c-format
 msgid "Changed tab width to %d"
 msgstr ""
 
-#: ../src/document.c:861
+#: ../src/document.c:979
 #, fuzzy, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "Отваряне във вече съществуващ прозорец на bluefish"
 
-#: ../src/document.c:863
+#: ../src/document.c:981
 msgid "Move to this window"
 msgstr ""
 
-#: ../src/document.c:863
+#: ../src/document.c:981
 msgid "Open readonly"
 msgstr ""
 
-#: ../src/document.c:864
+#: ../src/document.c:982
 #, fuzzy
 msgid "Do not open"
 msgstr "Не успя да отвори:\n"
 
-#: ../src/document.c:1176
+#: ../src/document.c:1308
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " Ред %d, Колона %d"
 
-#: ../src/document.c:1179
+#: ../src/document.c:1311
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " Ред %d, Колона %d"
 
-#: ../src/document.c:1202
+#: ../src/document.c:1334
 msgid " OVR"
 msgstr ""
 
-#: ../src/document.c:1202
+#: ../src/document.c:1334
 msgid " INS"
 msgstr ""
 
-#: ../src/document.c:1204
+#: ../src/document.c:1336
 msgid " RO"
 msgstr ""
 
-#: ../src/document.c:1223
+#: ../src/document.c:1355
 #, fuzzy
 msgid "Unknown"
 msgstr "Непозната икона"
 
-#: ../src/document.c:1671
+#: ../src/document.c:1819
+#, fuzzy
+msgid "_No"
+msgstr "/_Придвижване"
+
+#: ../src/document.c:1819
+msgid "_Split"
+msgstr ""
+
+#: ../src/document.c:1822
+msgid "File contains very long lines. Split these lines?"
+msgstr ""
+
+#: ../src/document.c:1822
+msgid ""
+"The lines in this file are longer than Bluefish can handle with reasonable "
+"performance. This split function, however, is unaware of any language "
+"syntax, and may replace spaces or tabs with newlines in any location, or "
+"insert newlines if no spaces or tabs are found."
+msgstr ""
+
+#: ../src/document.c:1898
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 "Намерени са непознати символи в този файл и не може да бъде визуализиран."
 
-#: ../src/document.c:1858
+#: ../src/document.c:2090
 msgid "Exit fullscreen"
 msgstr ""
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2002 ../src/file_dialogs.c:474 ../src/file_dialogs.c:512
+#: ../src/document.c:2234 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "_Прекъсни запазването"
 
-#: ../src/document.c:2002
+#: ../src/document.c:2234
 msgid "_Continue save in UTF-8"
 msgstr "_Възобнови запазването в UTF-8"
 
-#: ../src/document.c:2015
+#: ../src/document.c:2247
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1472,148 +1621,219 @@ msgstr ""
 "\n"
 "Да продължи ли запазването в UTF-8 кодировка?"
 
-#: ../src/document.c:2020
+#: ../src/document.c:2252
 msgid "File encoding conversion failure"
 msgstr "Неуспех при преобразуването на кодировката"
 
-#: ../src/document.c:2174
+#: ../src/document.c:2411
 msgid "Previously: "
 msgstr "Предишно: "
 
-#: ../src/document.c:2646 ../src/file_dialogs.c:819
+#: ../src/document.c:2983 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
 
-#: ../src/document.c:2775
+#: ../src/document.c:3112
 msgid "Unable to open file"
 msgstr "Не може да отвори"
 
-#: ../src/document.c:2787
+#: ../src/document.c:3124
 #, fuzzy, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "Файлът ще бъде изтрит завинаги."
 
-#: ../src/document.c:2791
+#: ../src/document.c:3128
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "Искате ли да запазите промените направени в този файл?"
 
-#: ../src/document.c:2859
+#: ../src/document.c:3196
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:2859
+#: ../src/document.c:3196
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:2859
+#: ../src/document.c:3196
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Запазването на файла прекратено.\n"
 
-#: ../src/document.c:2864
+#: ../src/document.c:3201
 #, fuzzy
 msgid "File "
 msgstr "Файл #"
 
-#: ../src/document.c:2864
+#: ../src/document.c:3201
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:2868
+#: ../src/document.c:3205
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:2985
+#: ../src/document.c:3330
 msgid "Select file to insert"
 msgstr "Изберете файл да включите"
 
-#: ../src/document.c:2994
+#: ../src/document.c:3339
 msgid "No file to insert"
 msgstr "Липсва файл за вмъкване"
 
-#: ../src/document.c:3101
+#: ../src/document.c:3419
+#, fuzzy
+msgid "Save pasted image as"
+msgstr "Запазване като ..."
+
+#: ../src/document.c:3515
+msgid "Paste special"
+msgstr ""
+
+#: ../src/document.c:3521
+msgid "No compatible clipboard data found"
+msgstr ""
+
+#: ../src/document.c:3525
+msgid "Paste as _HTML"
+msgstr ""
+
+#: ../src/document.c:3530
+msgid "Paste as HTML with _JPG"
+msgstr ""
+
+#: ../src/document.c:3540
+#, fuzzy
+msgid "Paste as plain text"
+msgstr "Вмъкване на изображение"
+
+#: ../src/document.c:3634
 #, fuzzy, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "Отиди на ред..."
 msgstr[1] "Отиди на ред..."
 
-#: ../src/document.c:3102
+#: ../src/document.c:3635
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d от %d"
 msgstr[1] "%d от %d"
 
-#: ../src/document.c:3103
+#: ../src/document.c:3636
 #, fuzzy, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "Предпочитана кодова таблица"
 msgstr[1] "Предпочитана кодова таблица"
 
-#: ../src/document.c:3105
+#: ../src/document.c:3638
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "Започва на:"
 
-#: ../src/document.c:3105
+#: ../src/document.c:3638
 #, fuzzy
 msgid "Statistics: "
 msgstr "Започва на:"
 
-#: ../src/doc_text_tools.c:391
+#: ../src/doc_text_tools.c:400
 #, fuzzy
 msgid "Lines into columns"
 msgstr "Брой колони:"
 
-#: ../src/doc_text_tools.c:403
+#: ../src/doc_text_tools.c:412
 #, fuzzy
 msgid "Number of columns:"
 msgstr "Брой колони:"
 
-#: ../src/doc_text_tools.c:407
+#: ../src/doc_text_tools.c:416
 msgid "Spread lines horizontally"
 msgstr ""
 
-#: ../src/doc_text_tools.c:414
+#: ../src/doc_text_tools.c:423
 msgid "Column separator:"
 msgstr ""
 
-#: ../src/doc_text_tools.c:418
+#: ../src/doc_text_tools.c:427
 msgid "Fill empty entries:"
 msgstr ""
 
-#: ../src/doc_extern_tools.c:49
+#: ../src/doc_extern_tools.c:63
 #, fuzzy
-msgid "Number of paragraphs"
+msgid "Number of _paragraphs:"
 msgstr "Брой рамки:"
 
-#: ../src/doc_extern_tools.c:51
+#: ../src/doc_extern_tools.c:68
 #, fuzzy
-msgid "Number of sentences"
+msgid "Number of _sentences:"
 msgstr "Брой колони:"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 #, fuzzy
 msgid "Insert plain text"
 msgstr "Вмъкване на изображение"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 #, fuzzy
 msgid "Insert in <li>"
 msgstr "Добави време"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 #, fuzzy
 msgid "Insert in <p>"
 msgstr "Добави време"
+
+#: ../src/doc_extern_tools.c:81
+#, fuzzy
+msgid "Number of paragraphs"
+msgstr "Брой рамки:"
+
+#: ../src/doc_extern_tools.c:84
+#, fuzzy
+msgid "Number of sentences"
+msgstr "Брой колони:"
+
+#: ../src/doc_extern_tools.c:134
+msgid "Javascript Beautify"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:148
+#, fuzzy
+msgid "_Indent size:"
+msgstr "Премести надясно"
+
+#: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
+msgid "Use _tabs to indent, not spaces"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
+msgid "Do not _preserve existing line breaks"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
+msgid "More _jslint-compatible output"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
+msgid "_Decode printable chars encoded in \\\\xNN notation"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
+#, fuzzy
+msgid "Beautify only in _selection"
+msgstr "в избрания текст"
+
+#: ../src/doc_extern_tools.c:179
+#, fuzzy
+msgid "_Indent size"
+msgstr "Премести надясно"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1638,40 +1858,67 @@ msgstr ""
 msgid "Add or remove document encodings"
 msgstr ""
 
-#: ../src/external_commands.c:405
+#: ../src/external_commands.c:414
 msgid "Supply extra arguments"
 msgstr ""
 
-#: ../src/external_commands.c:410
+#: ../src/external_commands.c:419
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr ""
 
-#: ../src/filebrowser2.c:277
+#: ../src/external_commands.c:671
+#, c-format
+msgid "Failed to create a command for %s."
+msgstr ""
+
+#: ../src/external_commands.c:673
+msgid "Failed to create a command"
+msgstr ""
+
+#: ../src/external_commands.c:692 ../src/external_commands.c:704
+#, c-format
+msgid "The command %s exited with error code %d. %s"
+msgstr ""
+
+#: ../src/external_commands.c:692 ../src/external_commands.c:708
+msgid "Probably this application is not installed on your system."
+msgstr ""
+
+#: ../src/external_commands.c:694
+msgid "Command returned error code"
+msgstr ""
+
+#: ../src/filebrowser2.c:736
 msgid "Set documentroot and webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:286
+#: ../src/filebrowser2.c:745
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
 "the webserver"
 msgstr ""
 
-#: ../src/filebrowser2.c:293
+#: ../src/filebrowser2.c:752
 #, fuzzy
 msgid "Documentroot"
 msgstr "/_Документ"
 
-#: ../src/filebrowser2.c:304
+#: ../src/filebrowser2.c:763
 msgid "Webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:1549
+#: ../src/filebrowser2.c:776 ../src/file_dialogs.c:789
+#, fuzzy, c-format
+msgid "Move/rename %s to"
+msgstr "Премести/Преименувай документа на"
+
+#: ../src/filebrowser2.c:787
 msgid "Could not rename\n"
 msgstr "Не успя да преименува\n"
 
-#: ../src/filebrowser2.c:1622 ../src/filebrowser2.c:2042
+#: ../src/filebrowser2.c:861 ../src/filebrowser2.c:1277
 #, fuzzy
 msgid "New directory"
 msgstr "/_Нова директория"
@@ -1684,7 +1931,7 @@ msgstr "/_Нова директория"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1739
+#: ../src/filebrowser2.c:971
 #, fuzzy, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -1693,172 +1940,172 @@ msgstr ""
 "Сигурни ли сте, че искате да\n"
 "изтриете \"%s\" ?"
 
-#: ../src/filebrowser2.c:1740
+#: ../src/filebrowser2.c:972
 #, fuzzy, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "Файлът ще бъде изтрит завинаги."
 
-#: ../src/filebrowser2.c:2035
+#: ../src/filebrowser2.c:1270
 #, fuzzy
 msgid "File Browser menu"
 msgstr "Файлов браузър"
 
-#: ../src/filebrowser2.c:2036
+#: ../src/filebrowser2.c:1271
 #, fuzzy
 msgid "_Open"
 msgstr "/_Отваря"
 
-#: ../src/filebrowser2.c:2036
+#: ../src/filebrowser2.c:1271
 #, fuzzy
 msgid "Open"
 msgstr "/_Отваря"
 
-#: ../src/filebrowser2.c:2037
+#: ../src/filebrowser2.c:1272
 #, fuzzy
 msgid "Open _Advanced..."
 msgstr "/Отваряне за напреднали"
 
-#: ../src/filebrowser2.c:2039
+#: ../src/filebrowser2.c:1274
 #, fuzzy
 msgid "Rena_me"
 msgstr "/Преименува"
 
-#: ../src/filebrowser2.c:2039
+#: ../src/filebrowser2.c:1274
 #, fuzzy
 msgid "Rename"
 msgstr "/Преименува"
 
-#: ../src/filebrowser2.c:2040
+#: ../src/filebrowser2.c:1275
 #, fuzzy
 msgid "Delete"
 msgstr "/_Изтриване"
 
-#: ../src/filebrowser2.c:2041
+#: ../src/filebrowser2.c:1276
 #, fuzzy
 msgid "New _File"
 msgstr "/Нов _файл"
 
-#: ../src/filebrowser2.c:2042
+#: ../src/filebrowser2.c:1277
 #, fuzzy
 msgid "_New Directory"
 msgstr "/_Нова директория"
 
-#: ../src/filebrowser2.c:2044
+#: ../src/filebrowser2.c:1279
 #, fuzzy
 msgid "_Refresh"
 msgstr "/_Презареждане"
 
-#: ../src/filebrowser2.c:2044
+#: ../src/filebrowser2.c:1279
 #, fuzzy
 msgid "Refresh"
 msgstr "/_Презареждане"
 
-#: ../src/filebrowser2.c:2045
+#: ../src/filebrowser2.c:1280
 #, fuzzy
 msgid "_Set as base dir"
 msgstr "/Определи за базова директория"
 
-#: ../src/filebrowser2.c:2045
+#: ../src/filebrowser2.c:1280
 #, fuzzy
 msgid "Set as base directory"
 msgstr "/Определи за базова директория"
 
-#: ../src/filebrowser2.c:2047
+#: ../src/filebrowser2.c:1282
 #, fuzzy
 msgid "Set as document root"
 msgstr "/Придвижване/Следващ документ"
 
-#: ../src/filebrowser2.c:2049
+#: ../src/filebrowser2.c:1284
 #, fuzzy
 msgid "Show Full _Tree"
 msgstr "Показване на пълното дърво"
 
-#: ../src/filebrowser2.c:2049
+#: ../src/filebrowser2.c:1284
 #, fuzzy
 msgid "Show full tree"
 msgstr "Показване на пълното дърво"
 
-#: ../src/filebrowser2.c:2051
+#: ../src/filebrowser2.c:1286
 #, fuzzy
 msgid "View Mode"
 msgstr "/_Изглед"
 
-#: ../src/filebrowser2.c:2052
+#: ../src/filebrowser2.c:1287
 msgid "Filter"
 msgstr "Филтър"
 
-#: ../src/filebrowser2.c:2053
+#: ../src/filebrowser2.c:1288
 #, fuzzy
 msgid "New Filter"
 msgstr "/Нов _файл"
 
-#: ../src/filebrowser2.c:2053 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:1288 ../src/filefilter.c:549
 #, fuzzy
 msgid "New filter"
 msgstr "/Нов _файл"
 
-#: ../src/filebrowser2.c:2054
+#: ../src/filebrowser2.c:1289
 #, fuzzy
 msgid "Edit Filter"
 msgstr "html филтър"
 
-#: ../src/filebrowser2.c:2054 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:1289 ../src/filefilter.c:554
 #, fuzzy
 msgid "Edit filter"
 msgstr "html филтър"
 
-#: ../src/filebrowser2.c:2055
+#: ../src/filebrowser2.c:1290
 #, fuzzy
 msgid "Delete Filter"
 msgstr "Избери файл"
 
-#: ../src/filebrowser2.c:2055
+#: ../src/filebrowser2.c:1290
 #, fuzzy
 msgid "Delete filter"
 msgstr "Избери файл"
 
-#: ../src/filebrowser2.c:2059
+#: ../src/filebrowser2.c:1294
 #, fuzzy
 msgid "Follow Active Document"
 msgstr "/Придвижване/Последен документ"
 
-#: ../src/filebrowser2.c:2059
+#: ../src/filebrowser2.c:1294
 #, fuzzy
 msgid "Follow active document"
 msgstr "/Придвижване/Последен документ"
 
-#: ../src/filebrowser2.c:2061
+#: ../src/filebrowser2.c:1296
 #, fuzzy
 msgid "Show Backup Files"
 msgstr "Показване на резервни копия на файлове"
 
-#: ../src/filebrowser2.c:2061 ../src/gtk_easy.c:1288
+#: ../src/filebrowser2.c:1296 ../src/gtk_easy.c:1341
 msgid "Show backup files"
 msgstr "Показване на резервни копия на файлове"
 
-#: ../src/filebrowser2.c:2063
+#: ../src/filebrowser2.c:1298
 #, fuzzy
 msgid "Show Hidden Files"
 msgstr "Показване на скрити файлове"
 
-#: ../src/filebrowser2.c:2063
+#: ../src/filebrowser2.c:1298
 #, fuzzy
 msgid "Show hidden files"
 msgstr "Показване на скрити файлове"
 
-#: ../src/filebrowser2.c:2068
+#: ../src/filebrowser2.c:1303
 msgid "Dual"
 msgstr ""
 
-#: ../src/filebrowser2.c:2069
+#: ../src/filebrowser2.c:1304
 msgid "Flat"
 msgstr ""
 
-#: ../src/filebrowser2.c:2070
+#: ../src/filebrowser2.c:1305
 msgid "Tree"
 msgstr ""
 
-#: ../src/filebrowser2.c:2734
+#: ../src/filebrowser2.c:2286
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1866,107 +2113,112 @@ msgid ""
 "<b>%s%s</b>"
 msgstr ""
 
-#: ../src/file.c:830
+#: ../src/file.c:856
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file.c:835
+#: ../src/file.c:862
 #, c-format
-msgid "All files loaded, finished %s"
-msgstr ""
+msgid "All files loaded, finished %s, %d document open"
+msgid_plural "All files loaded, finished %s, %d documents open"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/file.c:1343
-msgid "Finished advanced open"
-msgstr ""
+#: ../src/file.c:1389
+#, c-format
+msgid "Finished advanced open, %d document open."
+msgid_plural "Finished advanced open, %d documents open."
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/file.c:1517
+#: ../src/file.c:1565
 msgid "_Skip"
 msgstr "Пропускане"
 
-#: ../src/file.c:1517 ../src/file_dialogs.c:647 ../src/file_dialogs.c:668
-#: ../src/project.c:308
+#: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/project.c:363
 msgid "_Overwrite"
 msgstr "_Презапис"
 
-#: ../src/file.c:1521
+#: ../src/file.c:1569
 #, fuzzy, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "Файлът %s съществува и е отворен. Желаете ли да бъде презаписан?"
 
-#: ../src/file.c:1523
+#: ../src/file.c:1571
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "_Презапис"
 
-#: ../src/file_autosave.c:285
+#: ../src/file_autosave.c:291
 msgid "Autosave in progress..."
 msgstr ""
 
-#: ../src/file_dialogs.c:108
+#: ../src/file_dialogs.c:109
 #, fuzzy
 msgid "Started open advanced..."
 msgstr "/Отваряне за напреднали"
 
-#: ../src/file_dialogs.c:119
+#: ../src/file_dialogs.c:120
 msgid "Select basedir"
 msgstr "Изберете основна директория"
 
-#: ../src/file_dialogs.c:141
+#: ../src/file_dialogs.c:142
 msgid "Advanced open file selector"
 msgstr "Отваряне на файлове за напреднали"
 
-#: ../src/file_dialogs.c:158
+#: ../src/file_dialogs.c:159
 #, fuzzy
 msgid "<b>Files</b>"
 msgstr "Атрибути"
 
-#: ../src/file_dialogs.c:167
+#: ../src/file_dialogs.c:168
 #, fuzzy
 msgid "Base _Dir:"
 msgstr "Базова_директория"
 
-#: ../src/file_dialogs.c:183
+#: ../src/file_dialogs.c:184
 #, fuzzy
 msgid "_Pattern:"
 msgstr "Шаблон"
 
-#: ../src/file_dialogs.c:191
+#: ../src/file_dialogs.c:192
 msgid "Pattern matches _full path:"
 msgstr ""
 
-#: ../src/file_dialogs.c:195
+#: ../src/file_dialogs.c:196
 msgid "_Recursive:"
 msgstr "_Рекурсивно:"
 
-#: ../src/file_dialogs.c:199
+#: ../src/file_dialogs.c:200
 #, fuzzy
 msgid "Ma_x recursion:"
 msgstr "_Рекурсивно:"
 
-#: ../src/file_dialogs.c:208
+#: ../src/file_dialogs.c:209
 msgid "<b>Contains</b>"
 msgstr "<b>Съдържа</b>"
 
-#: ../src/file_dialogs.c:213
+#: ../src/file_dialogs.c:214
 msgid "Pa_ttern:"
 msgstr "Шаблон"
 
-#: ../src/file_dialogs.c:217
+#: ../src/file_dialogs.c:218
 msgid "Is rege_x:"
 msgstr "Шаблон?"
 
-#: ../src/file_dialogs.c:298 ../src/file_dialogs.c:318
+#: ../src/file_dialogs.c:287 ../src/file_dialogs.c:307
 msgid "Select files"
 msgstr "Избери файлове"
 
-#: ../src/file_dialogs.c:378
+#: ../src/file_dialogs.c:367
 msgid "Open URL"
 msgstr "Отваряне на URL"
 
-#: ../src/file_dialogs.c:388 ../src/file_dialogs.c:1341
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1389
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -1974,11 +2226,11 @@ msgid ""
 "if you rely on remote file support.</b>"
 msgstr ""
 
-#: ../src/file_dialogs.c:474 ../src/file_dialogs.c:512
+#: ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Continue save"
 msgstr "_Възобнови запазването"
 
-#: ../src/file_dialogs.c:478
+#: ../src/file_dialogs.c:468
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -1987,243 +2239,263 @@ msgstr ""
 "Не може да бъде създадено резервно копие на файла. Ако продължите файлът ще "
 "бъде презаписан."
 
-#: ../src/file_dialogs.c:482
+#: ../src/file_dialogs.c:472
 msgid "File backup failure"
 msgstr "Неуспешно създаване на резервно копие"
 
-#: ../src/file_dialogs.c:498
+#: ../src/file_dialogs.c:488
 #, fuzzy
 msgid "Could not save file "
 msgstr ""
 "Не може да пише във файл:\n"
 "\""
 
-#: ../src/file_dialogs.c:533 ../src/file_dialogs.c:1471
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1524
 #, fuzzy
 msgid "File changed on disk\n"
 msgstr ""
 "Броят на символите е променен в\n"
 " %s."
 
-#: ../src/file_dialogs.c:620
-#, fuzzy, c-format
-msgid "Move/rename %s to"
-msgstr "Премести/Преименувай документа на"
-
-#: ../src/file_dialogs.c:620
-#, fuzzy, c-format
-msgid "Save %s as"
-msgstr "Запазване като ..."
-
-#: ../src/file_dialogs.c:647 ../src/file_dialogs.c:668
-#: ../src/file_dialogs.c:963 ../src/project.c:308
+#: ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/file_dialogs.c:985 ../src/project.c:363
 msgid "_Cancel"
 msgstr "_Отмяна"
 
-#: ../src/file_dialogs.c:648
+#: ../src/file_dialogs.c:639
 #, fuzzy, c-format
 msgid "File %s exists and is open, overwrite?"
 msgstr "Файлът %s съществува и е отворен. Желаете ли да бъде презаписан?"
 
-#: ../src/file_dialogs.c:651
+#: ../src/file_dialogs.c:642
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Файлът, който сте избрали се редактира от Bluefish"
 
-#: ../src/file_dialogs.c:669 ../src/project.c:310
+#: ../src/file_dialogs.c:660 ../src/project.c:365
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Файл с име \"%s\" вече съществува."
 
-#: ../src/file_dialogs.c:672 ../src/project.c:314
+#: ../src/file_dialogs.c:663 ../src/project.c:369
 msgid "Do you want to replace the existing file?"
 msgstr "Искате ли да замените съществуващия файл?"
 
-#: ../src/file_dialogs.c:765
+#: ../src/file_dialogs.c:769
 #, fuzzy
 msgid ""
 "File:\n"
 "\""
 msgstr "Филтър:"
 
-#: ../src/file_dialogs.c:766
+#: ../src/file_dialogs.c:770
 msgid "\" save is in progress"
 msgstr ""
 
-#: ../src/file_dialogs.c:768
+#: ../src/file_dialogs.c:772
 msgid "Save in progress!"
 msgstr ""
 
-#: ../src/file_dialogs.c:949
+#: ../src/file_dialogs.c:785
+msgid "Save"
+msgstr "Запазване"
+
+#: ../src/file_dialogs.c:787
+#, fuzzy, c-format
+msgid "Save %s as"
+msgstr "Запазване като ..."
+
+#: ../src/file_dialogs.c:791
+#, fuzzy, c-format
+msgid "Save copy of %s"
+msgstr "Запази като"
+
+#: ../src/file_dialogs.c:956
 msgid "Close _Without Saving"
 msgstr ""
 
-#: ../src/file_dialogs.c:952
+#: ../src/file_dialogs.c:959
 #, fuzzy, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr "Искате ли да запазите промените направени в този файл?"
 
-#: ../src/file_dialogs.c:955 ../src/file_dialogs.c:967
+#: ../src/file_dialogs.c:962 ../src/file_dialogs.c:989
 msgid "If you don't save your changes they will be lost."
 msgstr ""
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:972
+msgid "_Reopen"
+msgstr ""
+
+#: ../src/file_dialogs.c:974
+#, c-format
+msgid "Project \"%s\" failed to load"
+msgstr ""
+
+#: ../src/file_dialogs.c:976
+#, fuzzy
+msgid "Do you want to reopen project from another location?"
+msgstr ""
+"Искате ли да запазите промените направени в\n"
+"\"%s\"?."
+
+#: ../src/file_dialogs.c:985
 msgid "Choose per _File"
 msgstr "Избери за _Файл"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:985
 msgid "Close _All"
 msgstr "Затваряне на _всички"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:985
 msgid "_Save All"
 msgstr "Запазване на всички"
 
-#: ../src/file_dialogs.c:966
+#: ../src/file_dialogs.c:988
 #, fuzzy
 msgid "One or more open files have been changed."
 msgstr "Повече от един отворени файла са променени."
 
-#: ../src/file_dialogs.c:1261
+#: ../src/file_dialogs.c:1309
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file_dialogs.c:1270
+#: ../src/file_dialogs.c:1318
 msgid "incomplete finished"
 msgstr ""
 
-#: ../src/file_dialogs.c:1272
+#: ../src/file_dialogs.c:1320
 msgid "completed"
 msgstr ""
 
-#: ../src/file_dialogs.c:1327
+#: ../src/file_dialogs.c:1375
 msgid "Upload / Download"
 msgstr ""
 
-#: ../src/file_dialogs.c:1330
+#: ../src/file_dialogs.c:1378
 #, fuzzy
 msgid "Upload"
 msgstr "_Презарежда"
 
-#: ../src/file_dialogs.c:1330
+#: ../src/file_dialogs.c:1378
 msgid "Download"
 msgstr ""
 
-#: ../src/file_dialogs.c:1353
+#: ../src/file_dialogs.c:1401
 #, fuzzy
 msgid "Local directory"
 msgstr "/_Нова директория"
 
-#: ../src/file_dialogs.c:1359
+#: ../src/file_dialogs.c:1407
 #, fuzzy
 msgid "Remote directory"
 msgstr "/_Нова директория"
 
-#: ../src/file_dialogs.c:1364
+#: ../src/file_dialogs.c:1412
 #, fuzzy
 msgid "Delete deprecated files"
 msgstr "Избери файлове"
 
-#: ../src/file_dialogs.c:1368
+#: ../src/file_dialogs.c:1416
 #, fuzzy
 msgid "Include hidden files"
 msgstr "Показване на скрити файлове"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1409
+#: ../src/file_dialogs.c:1460
 #, fuzzy, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
 "Original modification time was %s\n"
 "New modification time is %s\n"
-"Original size was %lu\n"
-"New size is %lu"
+"Original size was %s bytes\n"
+"New size is %s bytes"
 msgstr ""
 "Име на файл: %s\n"
 "\n"
 "Променен на: %s\n"
 "Предишна промяна: %s"
 
-#: ../src/file_dialogs.c:1430
+#: ../src/file_dialogs.c:1483
 #, fuzzy
 msgid "_Unset file name"
 msgstr "име на файла"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1432
+#: ../src/file_dialogs.c:1485
 #, fuzzy, c-format
 msgid "File name: %s"
 msgstr "Име на файла"
 
-#: ../src/file_dialogs.c:1435
+#: ../src/file_dialogs.c:1488
 #, fuzzy
 msgid "File disappeared from disk\n"
 msgstr "Файлът променен при проверка на диска"
 
-#: ../src/file_dialogs.c:1454
+#: ../src/file_dialogs.c:1507
 msgid "_Ignore"
 msgstr "_Игнорира"
 
-#: ../src/file_dialogs.c:1454
+#: ../src/file_dialogs.c:1507
 msgid "_Reload"
 msgstr "_Презарежда"
 
-#: ../src/file_dialogs.c:1454
+#: ../src/file_dialogs.c:1507
 #, fuzzy
 msgid "Check and reload all documents"
 msgstr "във всички отворени документи"
 
 #. build a list of filters
-#: ../src/filefilter.c:241 ../src/gtk_easy.c:1299 ../src/preferences.c:2077
+#: ../src/filefilter.c:250 ../src/gtk_easy.c:1352 ../src/preferences.c:2105
 msgid "All files"
 msgstr "Всички"
 
-#: ../src/filefilter.c:627
+#: ../src/filefilter.c:639
 msgid "Hide files that match the filter"
 msgstr ""
 
-#: ../src/filefilter.c:631
+#: ../src/filefilter.c:643
 #, fuzzy
 msgid "Add pattern"
 msgstr "Край на шаблон"
 
-#: ../src/filefilter.c:637 ../src/filefilter.c:649
+#: ../src/filefilter.c:649 ../src/filefilter.c:661
 #, fuzzy
 msgid "Mime type"
 msgstr "Типове файлове"
 
-#: ../src/filefilter.c:640 ../src/filefilter.c:652
+#: ../src/filefilter.c:652 ../src/filefilter.c:664
 msgid "Icon"
 msgstr "Икона"
 
-#: ../src/gtk_easy.c:928
+#: ../src/gtk_easy.c:971
 #, c-format
 msgid "%d of %d"
 msgstr "%d от %d"
 
-#: ../src/gtk_easy.c:1009
+#: ../src/gtk_easy.c:1052
 #, fuzzy
 msgid "Select File"
 msgstr "Избери файл"
 
-#: ../src/gtk_easy.c:1349
+#: ../src/gtk_easy.c:1402
 #, fuzzy
 msgid "Character _Encoding:"
 msgstr "/Документ/Кодиране на символите"
 
-#: ../src/gtk_easy.c:1369
+#: ../src/gtk_easy.c:1422
 #, fuzzy
 msgid "Automatic detection"
 msgstr "Автоматично обновяване на мета-информацията за автора"
 
-#: ../src/gtk_easy.c:1454
+#: ../src/gtk_easy.c:1507
 msgid "<b>Keystroke choice</b>"
 msgstr ""
 
-#: ../src/gtk_easy.c:1462
+#: ../src/gtk_easy.c:1515
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2231,47 +2503,8 @@ msgid ""
 "<i>Esc to cancel, Delete to remove the accelerator.</i>"
 msgstr ""
 
-#: ../src/gtk_easy.c:1487
+#: ../src/gtk_easy.c:1540
 msgid "Press shortcut key combination"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:449
-msgid "Co_nnect"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:516
-msgid "Connect _anonymously"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:525
-msgid "Connect as u_ser:"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:563
-#, fuzzy
-msgid "_Username:"
-msgstr "Потребителско име:"
-
-#: ../src/gtkmountoperation.c:568
-#, fuzzy
-msgid "_Domain:"
-msgstr "_Valign:"
-
-#: ../src/gtkmountoperation.c:574
-#, fuzzy
-msgid "_Password:"
-msgstr "Парола:"
-
-#: ../src/gtkmountoperation.c:592
-msgid "Forget password _immediately"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:602
-msgid "Remember password until you _logout"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:612
-msgid "Remember _forever"
 msgstr ""
 
 #: ../src/outputbox.c:247
@@ -2289,181 +2522,186 @@ msgstr "Ред #"
 msgid "Output"
 msgstr "Изход #"
 
-#: ../src/outputbox.c:473
+#: ../src/outputbox.c:478
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr ""
 
-#: ../src/preferences.c:299
+#: ../src/preferences.c:307
 #, fuzzy
 msgid "Untitled"
 msgstr "Без име %d"
 
-#: ../src/preferences.c:500
+#: ../src/preferences.c:509
 #, fuzzy
 msgid "_Mime type:"
 msgstr "Типове файлове"
 
-#: ../src/preferences.c:512 ../src/preferences.c:514
+#: ../src/preferences.c:521 ../src/preferences.c:523
 #, fuzzy
 msgid "None"
 msgstr "Бележки"
 
-#: ../src/preferences.c:516
+#: ../src/preferences.c:525
 #, fuzzy
 msgid "_Template:"
 msgstr "Шаблон"
 
-#: ../src/preferences.c:519 ../src/snr3.c:1526
+#: ../src/preferences.c:528 ../src/snr3.c:1580
 #, fuzzy
 msgid "<b>Options</b>"
 msgstr "<b>Съдържа</b>"
 
-#: ../src/preferences.c:523
+#: ../src/preferences.c:532
 #, fuzzy
 msgid "Enable a_uto-completion"
 msgstr "Заглавие на таблицата"
 
-#: ../src/preferences.c:525
+#: ../src/preferences.c:534
 msgid "Enable _block folding"
 msgstr ""
 
-#: ../src/preferences.c:527
+#: ../src/preferences.c:536
 msgid "Display block stack in statusbar"
 msgstr ""
 
-#: ../src/preferences.c:529
+#: ../src/preferences.c:538
 #, fuzzy
 msgid "Highlight block _delimiters"
 msgstr "Автомачино пренасяне"
 
-#: ../src/preferences.c:531
+#: ../src/preferences.c:540
 #, fuzzy
 msgid "_Highlight current line"
 msgstr "Оцветяване на кода"
 
-#: ../src/preferences.c:533
+#: ../src/preferences.c:542
 #, fuzzy
 msgid "Show line _numbers"
 msgstr "Сортиране по номер на ред"
 
-#: ../src/preferences.c:537
+#: ../src/preferences.c:546
 msgid "Show _right margin indicator"
 msgstr ""
 
-#: ../src/preferences.c:539 ../src/preferences.c:2139
+#: ../src/preferences.c:548 ../src/preferences.c:2168
 msgid "Smart auto indentin_g"
 msgstr ""
 
-#: ../src/preferences.c:541
+#: ../src/preferences.c:550
 msgid "Wra_p lines"
 msgstr ""
 
-#: ../src/preferences.c:544
+#: ../src/preferences.c:552
 #, fuzzy
 msgid "Enable syntax scanning"
 msgstr "Чрез оразмеряване"
 
-#: ../src/preferences.c:547
+#: ../src/preferences.c:554
+#, fuzzy
+msgid "Show _visible spacing"
+msgstr "/Документ/sep1"
+
+#: ../src/preferences.c:558
 #, fuzzy
 msgid "_Enable spell check"
 msgstr "Провека на правописа..."
 
-#: ../src/preferences.c:552
+#: ../src/preferences.c:563
 #, fuzzy
 msgid "<b>Tab Stops</b>"
 msgstr "<b>Съдържа</b>"
 
-#: ../src/preferences.c:557
+#: ../src/preferences.c:568
 #, fuzzy
 msgid "Tab _width:"
 msgstr "Ширина на табулацията"
 
-#: ../src/preferences.c:560
+#: ../src/preferences.c:571
 #, fuzzy
 msgid "Insert _spaces instead of tabs"
 msgstr "Използване на интервали за подравняване"
 
-#: ../src/preferences.c:597 ../src/preferences.c:1015
-#: ../src/preferences.c:1175
+#: ../src/preferences.c:608 ../src/preferences.c:1024
+#: ../src/preferences.c:1183
 #, fuzzy
 msgid "Enabled"
 msgstr "Editable"
 
-#: ../src/preferences.c:599
+#: ../src/preferences.c:610
 msgid "Path to plugin"
 msgstr ""
 
-#: ../src/preferences.c:804
+#: ../src/preferences.c:814
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
 "applied to the same text, the top-most style in this list has the highest "
 "priority. Use drag and drop to re-order the text styles.</small>"
 msgstr ""
 
-#: ../src/preferences.c:815 ../src/preferences.c:1016
-#: ../src/preferences.c:1177
+#: ../src/preferences.c:825 ../src/preferences.c:1025
+#: ../src/preferences.c:1185
 msgid "Label"
 msgstr "Етикет"
 
-#: ../src/preferences.c:831 ../src/preferences.c:2244
+#: ../src/preferences.c:840 ../src/preferences.c:2282
 msgid "Foreground color"
 msgstr "Лицев цвят"
 
-#: ../src/preferences.c:832 ../src/preferences.c:2245
+#: ../src/preferences.c:841 ../src/preferences.c:2283
 #, fuzzy
 msgid "_Foreground color:"
 msgstr "Лицев цвят"
 
-#: ../src/preferences.c:833 ../src/preferences.c:2248
+#: ../src/preferences.c:842 ../src/preferences.c:2286
 msgid "Background color"
 msgstr "Цвят на фона"
 
-#: ../src/preferences.c:834 ../src/preferences.c:2249
+#: ../src/preferences.c:843 ../src/preferences.c:2287
 #, fuzzy
 msgid "_Background color:"
 msgstr "Цвят на фона"
 
-#: ../src/preferences.c:838
+#: ../src/preferences.c:847
 #, fuzzy
 msgid "_Normal weight"
 msgstr "използване на удебелен шрифт"
 
-#: ../src/preferences.c:840
+#: ../src/preferences.c:849
 #, fuzzy
 msgid "Bold _weight"
 msgstr "използване на удебелен шрифт"
 
-#: ../src/preferences.c:842
+#: ../src/preferences.c:851
 #, fuzzy
 msgid "Normal st_yle"
 msgstr "нормално"
 
-#: ../src/preferences.c:845
+#: ../src/preferences.c:854
 #, fuzzy
 msgid "_Italic style"
 msgstr "използване на наклонен шрифт"
 
-#: ../src/preferences.c:847
+#: ../src/preferences.c:856
 #, fuzzy
 msgid "_Spell check"
 msgstr "Провека на правописа..."
 
-#: ../src/preferences.c:889 ../src/preferences.c:1054
-#: ../src/preferences.c:1208 ../src/preferences.c:1401
-#: ../src/preferences.c:1496
+#: ../src/preferences.c:898 ../src/preferences.c:1062
+#: ../src/preferences.c:1215 ../src/preferences.c:1407
+#: ../src/preferences.c:1503
 #, fuzzy
 msgid "Add entry"
 msgstr "Property"
 
-#: ../src/preferences.c:891 ../src/preferences.c:1056
-#: ../src/preferences.c:1210 ../src/preferences.c:1403
-#: ../src/preferences.c:1498
+#: ../src/preferences.c:900 ../src/preferences.c:1064
+#: ../src/preferences.c:1217 ../src/preferences.c:1409
+#: ../src/preferences.c:1505
 #, fuzzy
 msgid "Delete entry"
 msgstr "Изтриване на елемент от менюто"
 
-#: ../src/preferences.c:992
+#: ../src/preferences.c:1001
 #, c-format
 msgid ""
 "<small><b>Input options</b>\n"
@@ -2480,29 +2718,29 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1018 ../src/preferences.c:1179
-#: ../src/preferences.c:1374
+#: ../src/preferences.c:1027 ../src/preferences.c:1187
+#: ../src/preferences.c:1381
 msgid "Command"
 msgstr "Команда"
 
-#: ../src/preferences.c:1021
+#: ../src/preferences.c:1030
 #, fuzzy
 msgid "Default browser"
 msgstr "Основна директория"
 
-#: ../src/preferences.c:1058 ../src/preferences.c:1212
-#: ../src/preferences.c:1405
+#: ../src/preferences.c:1066 ../src/preferences.c:1219
+#: ../src/preferences.c:1411
 #, fuzzy
 msgid "Update defaults"
 msgstr "Направи по подразбиране"
 
-#: ../src/preferences.c:1060 ../src/preferences.c:1214
-#: ../src/preferences.c:1407
+#: ../src/preferences.c:1068 ../src/preferences.c:1221
+#: ../src/preferences.c:1413
 #, fuzzy
 msgid "Reset all"
 msgstr "Избери файл"
 
-#: ../src/preferences.c:1150
+#: ../src/preferences.c:1158
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2522,7 +2760,7 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1336
+#: ../src/preferences.c:1343
 #, c-format
 msgid ""
 "<small><b>Input options</b>\n"
@@ -2542,662 +2780,703 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1366
+#: ../src/preferences.c:1373
 msgid "Pattern"
 msgstr "Шаблон"
 
-#: ../src/preferences.c:1368
+#: ../src/preferences.c:1375
 msgid "File #"
 msgstr "Файл #"
 
-#: ../src/preferences.c:1370
+#: ../src/preferences.c:1377
 msgid "Line #"
 msgstr "Ред #"
 
-#: ../src/preferences.c:1372
+#: ../src/preferences.c:1379
 msgid "Output #"
 msgstr "Изход #"
 
-#: ../src/preferences.c:1467
+#: ../src/preferences.c:1474
 #, fuzzy
 msgid "File"
 msgstr "Файл #"
 
-#: ../src/preferences.c:1637
+#: ../src/preferences.c:1652
 msgid "A restart is needed to see the effect of these options"
 msgstr ""
 
 #. 1=text
-#: ../src/preferences.c:1649
+#: ../src/preferences.c:1664
 #, fuzzy
 msgid "Option name"
 msgstr "Option"
 
 #. 2=boolean
-#: ../src/preferences.c:1651
+#: ../src/preferences.c:1666
 #, fuzzy
 msgid "value"
 msgstr "Стойност"
 
 #. 1=text
-#: ../src/preferences.c:1668
+#: ../src/preferences.c:1683
 #, fuzzy
 msgid "Highlight name"
 msgstr "Оцветяване # редове"
 
-#: ../src/preferences.c:1673
+#: ../src/preferences.c:1688
 #, fuzzy
 msgid "Textstyle"
 msgstr "Text area"
 
-#: ../src/preferences.c:1821 ../src/preferences.c:2455
+#: ../src/preferences.c:1845 ../src/preferences.c:2509
 #, fuzzy
 msgid "Auto"
 msgstr "Автори"
 
-#: ../src/preferences.c:2071
+#: ../src/preferences.c:2098
 #, fuzzy
 msgid "Delayed"
 msgstr "Изтриване"
 
-#: ../src/preferences.c:2071
+#: ../src/preferences.c:2098
 msgid "Immediately"
 msgstr ""
 
-#: ../src/preferences.c:2072
+#: ../src/preferences.c:2099
 #, fuzzy
 msgid "Continue save"
 msgstr "_Възобнови запазването"
 
-#: ../src/preferences.c:2072
+#: ../src/preferences.c:2099
 #, fuzzy
 msgid "Abort save"
 msgstr "_Прекъсни запазването"
 
-#: ../src/preferences.c:2072
+#: ../src/preferences.c:2099
 msgid "Ask what to do"
 msgstr ""
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2101
 #, fuzzy
 msgid "Nothing"
 msgstr "Без сянка"
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2101
 #, fuzzy
 msgid "Modified time and file size"
 msgstr "проверка на време и размер"
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2101
 msgid "Modified time"
 msgstr ""
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2101
 #, fuzzy
 msgid "File size"
 msgstr "Файл #"
 
-#: ../src/preferences.c:2075 ../src/preferences.c:2076
+#: ../src/preferences.c:2102 ../src/preferences.c:2103
 msgid "left"
 msgstr "ляво"
 
-#: ../src/preferences.c:2075 ../src/preferences.c:2076
+#: ../src/preferences.c:2102 ../src/preferences.c:2103
 msgid "right"
 msgstr "дясно"
 
-#: ../src/preferences.c:2075
+#: ../src/preferences.c:2102
 msgid "top"
 msgstr "горе"
 
-#: ../src/preferences.c:2075
+#: ../src/preferences.c:2102
 msgid "bottom"
 msgstr "долу"
 
-#: ../src/preferences.c:2077
+#: ../src/preferences.c:2104
+msgid "Recently opened"
+msgstr ""
+
+#: ../src/preferences.c:2104
+msgid "Recently closed"
+msgstr ""
+
+#: ../src/preferences.c:2105 ../src/preferences.c:2111
 #, fuzzy
 msgid "Never"
 msgstr "Сървъри"
 
-#: ../src/preferences.c:2077
+#: ../src/preferences.c:2105
 #, fuzzy
 msgid "Only project files"
 msgstr "Въведете име за проекта"
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2108
 msgid "All"
 msgstr ""
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2108
 msgid "All except spaces"
 msgstr ""
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2108
 msgid "All trailing"
 msgstr ""
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2108
 msgid "All except non-trailing spaces"
 msgstr ""
 
-#: ../src/preferences.c:2093
+#: ../src/preferences.c:2111
+msgid "Always"
+msgstr ""
+
+#: ../src/preferences.c:2111
+msgid "Smart"
+msgstr ""
+
+#: ../src/preferences.c:2122
 msgid "Edit preferences"
 msgstr "Редактиране предпочитанията"
 
 #.
 #. *  Initial document settings
 #.
-#: ../src/preferences.c:2117
+#: ../src/preferences.c:2146
 msgid "<b>Non Project Defaults</b>"
 msgstr ""
 
-#: ../src/preferences.c:2119
+#: ../src/preferences.c:2148
 #, fuzzy
 msgid "Initial document settings"
 msgstr "Начална височина на прозореца"
 
-#: ../src/preferences.c:2131
+#: ../src/preferences.c:2160
 #, fuzzy
 msgid "Editor settings"
 msgstr "Настройки на редактора"
 
-#: ../src/preferences.c:2134
+#: ../src/preferences.c:2163
 #, fuzzy
 msgid "<b>Editor settings</b>"
 msgstr "Настройки на редактора"
 
-#: ../src/preferences.c:2142
+#: ../src/preferences.c:2171
 msgid "Smart Home/_End cursor positioning"
 msgstr ""
 
-#: ../src/preferences.c:2146
+#: ../src/preferences.c:2175
 #, fuzzy
 msgid "_Tab key indents selection"
 msgstr "в избрания текст"
 
-#: ../src/preferences.c:2150
+#: ../src/preferences.c:2181
 #, fuzzy
 msgid "Automatically insert closing brackets"
 msgstr "Режим на автоматично затваряне на таговете"
 
-#: ../src/preferences.c:2157
+#: ../src/preferences.c:2188
 msgid "Right _margin/split line end position:"
 msgstr ""
 
-#: ../src/preferences.c:2162
+#: ../src/preferences.c:2191
+#, fuzzy
+msgid "Wrap lines on right margin indicator"
+msgstr "/Външни/tearoff1"
+
+#: ../src/preferences.c:2197
 #, fuzzy
 msgid "Visible _whitespace mode:"
 msgstr "Цвят на посетените връзки"
 
-#: ../src/preferences.c:2165
+#: ../src/preferences.c:2200
 #, fuzzy
 msgid "<b>Undo</b>"
 msgstr "<b>Главно</b>"
 
-#: ../src/preferences.c:2170
+#: ../src/preferences.c:2205
 msgid "_Number of actions in history:"
 msgstr ""
 
-#: ../src/preferences.c:2173
+#: ../src/preferences.c:2208
 #, fuzzy
 msgid "Clear _history on save"
 msgstr "Изтрий историята на промените при запазване"
 
-#: ../src/preferences.c:2178
+#: ../src/preferences.c:2213
 #, fuzzy
 msgid "Auto-completion & Reference"
 msgstr "Документация за функциите"
 
-#: ../src/preferences.c:2184
+#: ../src/preferences.c:2219
 #, fuzzy
 msgid "<b>Auto-completion</b>"
 msgstr "<b>Съдържа</b>"
 
-#: ../src/preferences.c:2190
+#: ../src/preferences.c:2225
 msgid "Show _pop-up window:"
 msgstr ""
 
-#: ../src/preferences.c:2196
+#: ../src/preferences.c:2229
+msgid "Minimum matching length for auto-completion:"
+msgstr ""
+
+#: ../src/preferences.c:2234
 msgid "Shortcut _key combination:"
 msgstr ""
 
-#: ../src/preferences.c:2199
+#: ../src/preferences.c:2237
 #, fuzzy
 msgid "<b>Reference Information</b>"
 msgstr "Няма резултат"
 
-#: ../src/preferences.c:2202
+#: ../src/preferences.c:2240
 #, fuzzy
 msgid "_Load reference data from language files"
 msgstr "Език:"
 
-#: ../src/preferences.c:2205
+#: ../src/preferences.c:2243
 #, fuzzy
 msgid "Show references in auto-completion _pop-up window"
 msgstr "/Документ/Авто подравняване"
 
-#: ../src/preferences.c:2208
+#: ../src/preferences.c:2246
 msgid "Show references if mouse is over text editor"
 msgstr ""
 
-#: ../src/preferences.c:2217 ../src/preferences.c:2552
+#: ../src/preferences.c:2255 ../src/preferences.c:2610
 msgid "Font & Colors"
 msgstr ""
 
-#: ../src/preferences.c:2223
+#: ../src/preferences.c:2261
 #, fuzzy
 msgid "<b>Font &amp; Cursor</b>"
 msgstr "<b>Съдържа</b>"
 
-#: ../src/preferences.c:2227
+#: ../src/preferences.c:2265
 #, fuzzy
 msgid "_Editor font:"
 msgstr "Редактор"
 
-#: ../src/preferences.c:2235
+#: ../src/preferences.c:2273
 msgid "Cursor / font size ratio (%):"
 msgstr ""
 
-#: ../src/preferences.c:2237 ../src/preferences.c:2578
+#: ../src/preferences.c:2275 ../src/preferences.c:2636
 #, fuzzy
 msgid "<b>Colors</b>"
 msgstr "Атрибути"
 
-#: ../src/preferences.c:2241
+#: ../src/preferences.c:2279
 msgid "Use system wide color settings"
-msgstr ""
-
-#: ../src/preferences.c:2252
-#, fuzzy
-msgid "Cursor color"
-msgstr "Selector"
-
-#: ../src/preferences.c:2253
-#, fuzzy
-msgid "C_ursor color:"
-msgstr "Selector"
-
-#: ../src/preferences.c:2256
-#, fuzzy
-msgid "Selection background color"
-msgstr "Цвят на фона"
-
-#: ../src/preferences.c:2257
-#, fuzzy
-msgid "_Selection background color:"
-msgstr "Цвят на фона"
-
-#: ../src/preferences.c:2262
-#, fuzzy
-msgid "Highlight cursor position"
-msgstr "Оцветяване на кода"
-
-#: ../src/preferences.c:2264
-#, fuzzy
-msgid "Cursor highlight color"
-msgstr "Selector"
-
-#: ../src/preferences.c:2265
-#, fuzzy
-msgid "_Cursor highlight color:"
-msgstr "Selector"
-
-#: ../src/preferences.c:2270
-#, fuzzy
-msgid "Current line color"
-msgstr "Selector"
-
-#: ../src/preferences.c:2271
-#, fuzzy
-msgid "Cu_rrent line color:"
-msgstr "Selector"
-
-#: ../src/preferences.c:2274
-msgid "Visible whitespace color"
-msgstr ""
-
-#: ../src/preferences.c:2275
-#, fuzzy
-msgid "_Visible whitespace color:"
-msgstr "Цвят на посетените връзки"
-
-#: ../src/preferences.c:2287
-msgid "Text styles"
 msgstr ""
 
 #: ../src/preferences.c:2290
 #, fuzzy
+msgid "Cursor color"
+msgstr "Selector"
+
+#: ../src/preferences.c:2291
+#, fuzzy
+msgid "C_ursor color:"
+msgstr "Selector"
+
+#: ../src/preferences.c:2294
+#, fuzzy
+msgid "Selection background color"
+msgstr "Цвят на фона"
+
+#: ../src/preferences.c:2295
+#, fuzzy
+msgid "_Selection background color:"
+msgstr "Цвят на фона"
+
+#: ../src/preferences.c:2300
+#, fuzzy
+msgid "Highlight cursor position"
+msgstr "Оцветяване на кода"
+
+#: ../src/preferences.c:2302
+#, fuzzy
+msgid "Cursor highlight color"
+msgstr "Selector"
+
+#: ../src/preferences.c:2303
+#, fuzzy
+msgid "_Cursor highlight color:"
+msgstr "Selector"
+
+#: ../src/preferences.c:2308
+#, fuzzy
+msgid "Current line color"
+msgstr "Selector"
+
+#: ../src/preferences.c:2309
+#, fuzzy
+msgid "Cu_rrent line color:"
+msgstr "Selector"
+
+#: ../src/preferences.c:2312
+msgid "Visible whitespace color"
+msgstr ""
+
+#: ../src/preferences.c:2313
+#, fuzzy
+msgid "_Visible whitespace color:"
+msgstr "Цвят на посетените връзки"
+
+#: ../src/preferences.c:2325
+msgid "Text styles"
+msgstr ""
+
+#: ../src/preferences.c:2327
+#, fuzzy
 msgid "<b>Text Styles</b>"
 msgstr "<b>Съдържа</b>"
 
-#: ../src/preferences.c:2304
+#: ../src/preferences.c:2340
 msgid "Files"
 msgstr "Файлове"
 
-#: ../src/preferences.c:2307
+#: ../src/preferences.c:2343
 #, fuzzy
 msgid "<b>Encoding</b>"
 msgstr "Кодиране"
 
-#: ../src/preferences.c:2323
+#: ../src/preferences.c:2359
 #, fuzzy
 msgid "_Default character set for new files:"
 msgstr "Предпочитана кодова таблица"
 
-#: ../src/preferences.c:2329
+#: ../src/preferences.c:2365
 #, fuzzy
 msgid "Auto set <meta> _HTML tag on encoding change"
 msgstr "Автоматична промяна на <meta> кодировката"
 
-#: ../src/preferences.c:2333 ../src/preferences.c:2444
+#: ../src/preferences.c:2369 ../src/preferences.c:2498
 #, fuzzy
 msgid "<b>Misc</b>"
 msgstr "Атрибути"
 
-#: ../src/preferences.c:2337
+#: ../src/preferences.c:2372
+msgid "Strip trailing spaces on save"
+msgstr ""
+
+#: ../src/preferences.c:2378
 #, fuzzy
 msgid "Open co_mmandline files in running bluefish process"
 msgstr "Отваряне във вече съществуващ прозорец на bluefish"
 
-#: ../src/preferences.c:2342
+#: ../src/preferences.c:2383
 #, fuzzy
 msgid "Open commandline files in new _window"
 msgstr "Отваряне във вече съществуващ прозорец на bluefish"
 
-#: ../src/preferences.c:2347
+#: ../src/preferences.c:2388
 #, fuzzy
 msgid "_Periodically check if file is modified on disk"
 msgstr "Файлът променен при проверка на диска"
 
-#: ../src/preferences.c:2353
+#: ../src/preferences.c:2394
 msgid "File properties to check on dis_k for modifications:"
 msgstr ""
 
-#: ../src/preferences.c:2363
+#: ../src/preferences.c:2398
+msgid "Show warning for files with very long lines"
+msgstr ""
+
+#: ../src/preferences.c:2408
 msgid "Backup & Recovery"
 msgstr ""
 
-#: ../src/preferences.c:2366
+#: ../src/preferences.c:2411
 #, fuzzy
 msgid "<b>Backup</b>"
 msgstr "Резервно копие"
 
-#: ../src/preferences.c:2368
+#: ../src/preferences.c:2413
 #, fuzzy
 msgid "Create _backup file during file save"
 msgstr "Създаване на резервно копие при запазване"
 
-#: ../src/preferences.c:2373
+#: ../src/preferences.c:2418
 #, fuzzy
 msgid "_Remove backup file on close"
 msgstr "Премахване на резервното копие при излизане"
 
-#: ../src/preferences.c:2378
+#: ../src/preferences.c:2423
 #, fuzzy
 msgid "If back_up fails:"
 msgstr "Показване на резервни копия на файлове"
 
-#: ../src/preferences.c:2385
+#: ../src/preferences.c:2430
 msgid "<b>Document Recovery</b>"
 msgstr ""
 
-#: ../src/preferences.c:2387
+#: ../src/preferences.c:2432
 msgid "_Enable recovery of modified documents"
 msgstr ""
 
-#: ../src/preferences.c:2391
+#: ../src/preferences.c:2436
 msgid "_Frequency to store changes (seconds):"
 msgstr ""
 
-#: ../src/preferences.c:2408
+#: ../src/preferences.c:2454
 #, fuzzy
 msgid "Templates"
 msgstr "Шаблон"
 
-#: ../src/preferences.c:2411
+#: ../src/preferences.c:2457
 #, fuzzy
 msgid "<b>Templates</b>"
 msgstr "Шаблон"
 
-#: ../src/preferences.c:2424
+#: ../src/preferences.c:2470
 msgid "User interface"
 msgstr "Потребителски изглед"
 
-#: ../src/preferences.c:2427
+#: ../src/preferences.c:2473
 #, fuzzy
 msgid "<b>Layout</b>"
 msgstr "<b>Съдържа</b>"
 
-#: ../src/preferences.c:2433
+#: ../src/preferences.c:2479
 #, fuzzy
 msgid "Document _tab position:"
 msgstr "Selector"
 
-#: ../src/preferences.c:2437
+#: ../src/preferences.c:2484
+msgid "Maximum filename length shown in tab (0 is no limit)"
+msgstr ""
+
+#: ../src/preferences.c:2490
 #, fuzzy
 msgid "_Sidebar position:"
 msgstr "Местонахохождение на изображението:"
 
-#: ../src/preferences.c:2442
+#: ../src/preferences.c:2496
 #, fuzzy
 msgid "Sidebar tab _position:"
 msgstr "Left panel notebook tab position"
 
-#: ../src/preferences.c:2446
+#: ../src/preferences.c:2500
 msgid "Hide toolbars on full-screen"
 msgstr ""
 
-#: ../src/preferences.c:2455
+#: ../src/preferences.c:2509
 #, fuzzy
 msgid "_Language:"
 msgstr "_Език"
 
-#: ../src/preferences.c:2458
+#: ../src/preferences.c:2512
 #, fuzzy
 msgid "<b>Recent Files</b>"
 msgstr "Атрибути"
 
-#: ../src/preferences.c:2463
+#: ../src/preferences.c:2517
+msgid "Recent files _shows:"
+msgstr ""
+
+#: ../src/preferences.c:2522
 #, fuzzy
 msgid "_Number of files in 'Open recent' menu:"
 msgstr "Брой файлове в 'Последно отваряни'"
 
-#: ../src/preferences.c:2469
+#: ../src/preferences.c:2527
 msgid "_Register recent files with your desktop:"
 msgstr ""
 
-#: ../src/preferences.c:2480
+#: ../src/preferences.c:2538
 #, fuzzy
 msgid "Shortcut keys"
 msgstr "/Редактиране/Запазване клавишните комбинации"
 
-#: ../src/preferences.c:2485
+#: ../src/preferences.c:2543
 #, fuzzy
 msgid "<b>Shortcut keys</b>"
 msgstr "<b>Съдържа</b>"
 
-#: ../src/preferences.c:2488
+#: ../src/preferences.c:2546
 msgid "_Switch between tabs with <Alt>+0..9"
 msgstr ""
 
-#: ../src/preferences.c:2492
+#: ../src/preferences.c:2550
 msgid "Save menu accelerators on exit"
 msgstr ""
 
-#: ../src/preferences.c:2495
+#: ../src/preferences.c:2553
 msgid "Save user customised menu accelerators now"
 msgstr ""
 
-#: ../src/preferences.c:2499
+#: ../src/preferences.c:2557
 msgid "Reset menu accelerators to application defaults"
 msgstr ""
 
-#: ../src/preferences.c:2511
+#: ../src/preferences.c:2569
 msgid "Dimensions"
 msgstr "Размери"
 
-#: ../src/preferences.c:2514
+#: ../src/preferences.c:2572
 #, fuzzy
 msgid "<b>Dimensions</b>"
 msgstr "Размери"
 
-#: ../src/preferences.c:2516
+#: ../src/preferences.c:2574
 msgid "_Leave dimensions to window manager"
 msgstr ""
 
-#: ../src/preferences.c:2523
+#: ../src/preferences.c:2581
 #, fuzzy
 msgid "_Restore last used dimensions"
 msgstr "Възтановяване последно използваните размери"
 
-#: ../src/preferences.c:2531
+#: ../src/preferences.c:2589
 #, fuzzy
 msgid "Initial _sidebar width:"
 msgstr "Начална ширина на прозореца"
 
-#: ../src/preferences.c:2535
+#: ../src/preferences.c:2593
 #, fuzzy
 msgid "Initial window _height:"
 msgstr "Начална височина на прозореца"
 
-#: ../src/preferences.c:2538
+#: ../src/preferences.c:2596
 #, fuzzy
 msgid "Initial window _width:"
 msgstr "Начална ширина на прозореца"
 
-#: ../src/preferences.c:2545
+#: ../src/preferences.c:2603
 msgid "_Limit window title length"
 msgstr ""
 
-#: ../src/preferences.c:2558
+#: ../src/preferences.c:2616
 #, fuzzy
-msgid "<b>Font</b>"
+msgid "<b>Document tab</b>"
 msgstr "<b>Съдържа</b>"
 
-#: ../src/preferences.c:2563
+#: ../src/preferences.c:2621
 msgid "_Use system document tab font"
 msgstr ""
 
-#: ../src/preferences.c:2568
+#: ../src/preferences.c:2626
 #, fuzzy
 msgid "_Document tab font:"
 msgstr "Selector"
 
-#: ../src/preferences.c:2582
+#: ../src/preferences.c:2640
 #, fuzzy
 msgid "Document error tab color"
 msgstr "Document notebook tab position"
 
-#: ../src/preferences.c:2584
+#: ../src/preferences.c:2642
 msgid "Document tab _error color:"
 msgstr ""
 
-#: ../src/preferences.c:2588
+#: ../src/preferences.c:2646
 #, fuzzy
 msgid "Document loading tab color"
 msgstr "Selector"
 
-#: ../src/preferences.c:2590
+#: ../src/preferences.c:2648
 #, fuzzy
 msgid "Document tab loadin_g color:"
 msgstr "Selector"
 
-#: ../src/preferences.c:2594
+#: ../src/preferences.c:2652
 #, fuzzy
 msgid "Document modified tab color"
 msgstr "Document notebook tab position"
 
-#: ../src/preferences.c:2596
+#: ../src/preferences.c:2654
 msgid "Document tab _modified color:"
 msgstr ""
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2609 ../src/rcfile.c:1193
+#: ../src/preferences.c:2667 ../src/rcfile.c:1306
 msgid "Images"
 msgstr "Изображения"
 
-#: ../src/preferences.c:2612
+#: ../src/preferences.c:2670
 #, fuzzy
 msgid "<b>Thumbnails</b>"
 msgstr "Thumbnails"
 
-#: ../src/preferences.c:2618
+#: ../src/preferences.c:2676
 #, fuzzy
 msgid "Thumbnail _filetype:"
 msgstr "Thumbnail filetype"
 
-#: ../src/preferences.c:2622
+#: ../src/preferences.c:2680
 #, fuzzy
 msgid "Thumbnail _suffix:"
 msgstr "Thumbnail suffix"
 
-#: ../src/preferences.c:2635
+#: ../src/preferences.c:2693
 #, fuzzy
 msgid "External commands"
 msgstr "/Външни/Команди"
 
-#: ../src/preferences.c:2638
+#: ../src/preferences.c:2695
 #, fuzzy
 msgid "<b>External Commands</b>"
 msgstr "/Външни/Команди"
 
-#: ../src/preferences.c:2651
+#: ../src/preferences.c:2708
 #, fuzzy
 msgid "External filters"
 msgstr "Външни програми"
 
-#: ../src/preferences.c:2654
+#: ../src/preferences.c:2711
 #, fuzzy
 msgid "<b>External Filters</b>"
 msgstr "Външни програми"
 
-#: ../src/preferences.c:2667
+#: ../src/preferences.c:2724
 msgid "Output parsers"
 msgstr "Output parsers"
 
-#: ../src/preferences.c:2670
+#: ../src/preferences.c:2726
 #, fuzzy
 msgid "<b>Output Parsers</b>"
 msgstr "Output parsers"
 
-#: ../src/preferences.c:2683
+#: ../src/preferences.c:2739
 msgid "Plugins"
 msgstr ""
 
-#: ../src/preferences.c:2686
+#: ../src/preferences.c:2741
 #, fuzzy
 msgid "<b>Plugins</b>"
 msgstr "Атрибути"
 
-#: ../src/preferences.c:2708
+#: ../src/preferences.c:2763
 #, fuzzy
 msgid "Language support"
 msgstr "Език:"
 
-#: ../src/project.c:280
+#: ../src/project.c:335
 msgid "Enter Bluefish project filename"
 msgstr "Въведете име за проекта"
 
-#: ../src/project.c:425
+#: ../src/project.c:516
 msgid "Select Bluefish project filename"
 msgstr "Избор на име на проекта"
 
-#: ../src/project.c:580
+#: ../src/project.c:679
 msgid "Create New Project"
 msgstr "Създаване на нов проект"
 
-#: ../src/project.c:583
+#: ../src/project.c:682
 msgid "Edit Project"
 msgstr "Редакция на проект"
 
-#: ../src/project.c:609
+#: ../src/project.c:707
 #, fuzzy, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
 msgstr[0] "Този проект съдържа %d файла"
 msgstr[1] "Този проект съдържа %d файла"
 
-#: ../src/project.c:622
+#: ../src/project.c:720
 msgid "Project _Name:"
 msgstr "Име на проекта"
 
@@ -3206,203 +3485,238 @@ msgstr "Име на проекта"
 #. but = file_but_new(pred->entries[template], 1, NULL);
 #. gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
-#: ../src/project.c:630
+#: ../src/project.c:728
 msgid "<b>Project Defaults</b>"
 msgstr ""
 
-#: ../src/project.c:644
+#: ../src/project.c:742
 msgid "Create _Project"
 msgstr "Създаване на проект"
 
-#: ../src/project.c:693
+#: ../src/project.c:791
 msgid "Create project"
 msgstr "Създаване на проект"
 
-#: ../src/project.c:698
+#: ../src/project.c:796
 msgid "Create project with currently opened documents"
 msgstr "Създаване на проект със сега отворените документи"
 
-#: ../src/project.c:700
+#: ../src/project.c:798
 msgid "Create empty project"
 msgstr "Създаване на празен проект"
 
-#: ../src/rcfile.c:675 ../src/rcfile.c:704
+#: ../src/rcfile.c:694 ../src/rcfile.c:722
 msgid "php"
 msgstr ""
 
-#: ../src/rcfile.c:682
+#: ../src/rcfile.c:700
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:686
+#: ../src/rcfile.c:704
 msgid "weblint HTML checker"
 msgstr "weblint HTML checker"
 
-#: ../src/rcfile.c:691
+#: ../src/rcfile.c:709
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:695
+#: ../src/rcfile.c:713
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:699
+#: ../src/rcfile.c:717
 #, fuzzy
 msgid "xmllint XML checker"
 msgstr "weblint HTML checker"
 
-#: ../src/rcfile.c:708
+#: ../src/rcfile.c:726
 msgid "php syntax check"
 msgstr ""
 
-#: ../src/rcfile.c:712
+#: ../src/rcfile.c:730
 #, fuzzy
 msgid "perl syntax check"
 msgstr "Провека на правописа..."
 
-#: ../src/rcfile.c:716
+#: ../src/rcfile.c:734
 msgid "php codesniffer"
 msgstr ""
 
-#: ../src/rcfile.c:729
+#: ../src/rcfile.c:738
+msgid "pylint"
+msgstr ""
+
+#: ../src/rcfile.c:751
 #, fuzzy
 msgid "Sort"
 msgstr " Сортиране "
 
-#: ../src/rcfile.c:732
+#: ../src/rcfile.c:754
 msgid "Sort / Uniq"
 msgstr ""
 
-#: ../src/rcfile.c:735
+#: ../src/rcfile.c:757
 #, fuzzy
 msgid "Reverse lines"
 msgstr "_Reverse Relation:"
 
-#: ../src/rcfile.c:738
+#: ../src/rcfile.c:760
 #, fuzzy
 msgid "Dos2unix"
 msgstr "Dos2Unix филтър"
 
-#: ../src/rcfile.c:740
+#: ../src/rcfile.c:762
 #, fuzzy
 msgid "Tidy HTML"
 msgstr "HTML"
 
-#: ../src/rcfile.c:743
+#: ../src/rcfile.c:764
+#, fuzzy
+msgid "Tidy convert to XHTML"
+msgstr "HTML"
+
+#: ../src/rcfile.c:767
 #, fuzzy
 msgid "Tidy HTML (perltidy)"
 msgstr "HTML"
 
-#: ../src/rcfile.c:746
+#: ../src/rcfile.c:770
 msgid "Strip empty lines"
 msgstr ""
 
-#: ../src/rcfile.c:749
+#: ../src/rcfile.c:773
 #, fuzzy
 msgid "Render HTML to text"
 msgstr "Добави време"
 
-#: ../src/rcfile.c:762
+#: ../src/rcfile.c:776
+msgid "PHP Beautifier"
+msgstr ""
+
+#: ../src/rcfile.c:780 ../src/rcfile.c:787
+msgid "Javascript Minify with jsmin"
+msgstr ""
+
+#: ../src/rcfile.c:783 ../src/rcfile.c:790
+msgid "CSS Minify with cssmin"
+msgstr ""
+
+#: ../src/rcfile.c:794
+#, fuzzy
+msgid "CSS tidy"
+msgstr " CSS "
+
+#: ../src/rcfile.c:806
 msgid "Windows XP Firefox"
 msgstr ""
 
-#: ../src/rcfile.c:767
+#: ../src/rcfile.c:811
 msgid "Windows XP Internet Explorer"
 msgstr ""
 
-#: ../src/rcfile.c:772
+#: ../src/rcfile.c:816
 msgid "Windows XP Opera"
 msgstr ""
 
-#: ../src/rcfile.c:776
+#: ../src/rcfile.c:820
 msgid "Windows XP Safari"
 msgstr ""
 
-#: ../src/rcfile.c:780
+#: ../src/rcfile.c:824
 msgid "Windows 7 Firefox 32-bit"
 msgstr ""
 
-#: ../src/rcfile.c:785
+#: ../src/rcfile.c:829
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr ""
 
-#: ../src/rcfile.c:790
+#: ../src/rcfile.c:834
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr ""
 
-#: ../src/rcfile.c:796
+#: ../src/rcfile.c:840
 msgid "Safari"
 msgstr ""
 
-#: ../src/rcfile.c:799 ../src/rcfile.c:809
+#: ../src/rcfile.c:843 ../src/rcfile.c:853
 msgid "Firefox"
 msgstr ""
 
-#: ../src/rcfile.c:802 ../src/rcfile.c:813
+#: ../src/rcfile.c:846 ../src/rcfile.c:857
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:805 ../src/rcfile.c:832
+#: ../src/rcfile.c:849 ../src/rcfile.c:876
 msgid "chmod a+x"
 msgstr ""
 
-#: ../src/rcfile.c:817
+#: ../src/rcfile.c:861
 msgid "Chromium"
 msgstr ""
 
-#: ../src/rcfile.c:820
+#: ../src/rcfile.c:864
 msgid "Konqueror"
 msgstr ""
 
-#: ../src/rcfile.c:823
+#: ../src/rcfile.c:867
 msgid "Epiphany"
 msgstr ""
 
-#: ../src/rcfile.c:826
+#: ../src/rcfile.c:870
 msgid "Kazehakase"
 msgstr ""
 
-#: ../src/rcfile.c:829
+#: ../src/rcfile.c:873
 msgid "Links2 (graphics)"
 msgstr ""
 
-#: ../src/rcfile.c:874
+#: ../src/rcfile.c:920
 #, fuzzy
 msgid "C Header"
 msgstr "Заглавие на таблица"
 
-#: ../src/rcfile.c:877
+#: ../src/rcfile.c:923
 msgid "C Header GPL"
 msgstr ""
 
-#: ../src/rcfile.c:880
+#: ../src/rcfile.c:926
 #, fuzzy
 msgid "XHTML 1.0"
 msgstr "HTML"
 
-#: ../src/rcfile.c:883
+#: ../src/rcfile.c:929
 #, fuzzy
 msgid "HTML 5"
 msgstr "HTML"
 
-#: ../src/rcfile.c:886
+#: ../src/rcfile.c:932
 msgid "PHP"
 msgstr ""
 
-#: ../src/rcfile.c:1118
+#: ../src/rcfile.c:935
+msgid "LaTex Book"
+msgstr ""
+
+#: ../src/rcfile.c:938
+#, fuzzy
+msgid "LaTex Presentation"
+msgstr "Ориентация:"
+
+#: ../src/rcfile.c:1191
 msgid "Untitled Project"
 msgstr "Проект без име"
 
-#: ../src/rcfile.c:1185
+#: ../src/rcfile.c:1298
 msgid "C programming"
 msgstr "C програмиране"
 
-#: ../src/rcfile.c:1189
+#: ../src/rcfile.c:1302
 #, fuzzy
 msgid "Web files"
 msgstr "Всички уеб файлове"
 
-#: ../src/rcfile.c:1196
+#: ../src/rcfile.c:1309
 msgid "Hide objectfiles"
 msgstr "Скриване на обектните файлове"
 
@@ -3425,197 +3739,224 @@ msgid ""
 "span>"
 msgstr ""
 
-#: ../src/snr3.c:890
+#: ../src/snr3.c:844
+msgid "<span foreground=\"red\">Empty search string</span>"
+msgstr ""
+
+#: ../src/snr3.c:893
 #, fuzzy, c-format
 msgid "<i>Replaced %d entry</i>"
 msgid_plural "<i>Replaced %d entries</i>"
 msgstr[0] "Атрибути"
 msgstr[1] "Атрибути"
 
-#: ../src/snr3.c:893
+#: ../src/snr3.c:896
 #, fuzzy, c-format
 msgid "<i>Found %d entry</i>"
 msgid_plural "<i>Found %d entries</i>"
 msgstr[0] "Атрибути"
 msgstr[1] "Атрибути"
 
-#: ../src/snr3.c:1131
+#: ../src/snr3.c:1184
 #, c-format
 msgid "<i>Found %d result in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/snr3.c:1135
+#: ../src/snr3.c:1188
 #, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/snr3.c:1138
+#: ../src/snr3.c:1191
 #, fuzzy, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
 msgstr[0] "Атрибути"
 msgstr[1] "Атрибути"
 
-#: ../src/snr3.c:1359
+#: ../src/snr3.c:1413
 msgid "No (more) results"
 msgstr ""
 
-#: ../src/snr3.c:1457
+#: ../src/snr3.c:1511
 #, fuzzy
 msgid "Active document"
 msgstr "В _документ"
 
-#: ../src/snr3.c:1458
+#: ../src/snr3.c:1512
 msgid "Forward from cursor position"
 msgstr ""
 
-#: ../src/snr3.c:1459
+#: ../src/snr3.c:1513
 #, fuzzy
 msgid "Current selection"
 msgstr "В избран текст"
 
-#: ../src/snr3.c:1460
+#: ../src/snr3.c:1514
 #, fuzzy
 msgid "All open documents"
 msgstr "във всички отворени документи"
 
-#: ../src/snr3.c:1461
+#: ../src/snr3.c:1515
 #, fuzzy
 msgid "Files on disk"
 msgstr ""
 "Броят на символите е променен в\n"
 " %s."
 
-#: ../src/snr3.c:1465 ../src/snr3.c:1470
+#: ../src/snr3.c:1519 ../src/snr3.c:1524
 msgid "Normal"
 msgstr "Нормален"
 
-#: ../src/snr3.c:1466
-#, fuzzy
-msgid "Regular expression (pcre)"
-msgstr "Регулярен израз:"
-
-#: ../src/snr3.c:1471
+#: ../src/snr3.c:1525
 msgid "Uppercase"
 msgstr "Горен регистър"
 
-#: ../src/snr3.c:1472
+#: ../src/snr3.c:1526
 msgid "Lowercase"
 msgstr "Долен регистър"
 
-#: ../src/snr3.c:1479
+#: ../src/snr3.c:1533
 #, fuzzy
 msgid "Find and Replace"
 msgstr "Търсене и заменяне"
 
-#: ../src/snr3.c:1498
+#: ../src/snr3.c:1552
 #, fuzzy
 msgid "<b>_Search for</b>"
 msgstr "Търсене за: "
 
-#: ../src/snr3.c:1521
+#: ../src/snr3.c:1575
 #, fuzzy
 msgid "<b>Replace _with</b>"
 msgstr "Замяна с: "
 
-#: ../src/snr3.c:1536
+#: ../src/snr3.c:1590
 #, fuzzy
 msgid "Match Patter_n: "
 msgstr "Шаблон за търсене"
 
-#: ../src/snr3.c:1548
+#: ../src/snr3.c:1602
 #, fuzzy
 msgid "Replace T_ype: "
 msgstr "Тип замяна:"
 
-#: ../src/snr3.c:1561
+#: ../src/snr3.c:1615
 msgid "Sco_pe: "
 msgstr ""
 
-#: ../src/snr3.c:1571
+#: ../src/snr3.c:1625
 #, fuzzy
 msgid "Filename pattern: "
 msgstr "Шаблон за файл #"
 
-#: ../src/snr3.c:1577
+#: ../src/snr3.c:1631
 #, fuzzy
 msgid "Recursion level: "
 msgstr "_Рекурсивно:"
 
-#: ../src/snr3.c:1583
+#: ../src/snr3.c:1637
 #, fuzzy
 msgid "Basedir: "
 msgstr "Базова_директория"
 
-#: ../src/snr3.c:1602
+#: ../src/snr3.c:1656
 #, fuzzy
 msgid "Case sensitive _matching"
 msgstr "Съвпадение отчитащо големи/малки букви"
 
-#: ../src/snr3.c:1604
+#: ../src/snr3.c:1658
 msgid "Only match if case (upper/lower) is identical."
 msgstr ""
 
-#: ../src/snr3.c:1608
+#: ../src/snr3.c:1662
 #, fuzzy
 msgid "Pattern contains escape-se_quences"
 msgstr "Patterns contain backslash escape sequences (\\n, \\t)"
 
-#: ../src/snr3.c:1611
+#: ../src/snr3.c:1665
 #, fuzzy
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr "Patterns contain backslash escape sequences (\\n, \\t)"
 
-#: ../src/snr3.c:1615
+#: ../src/snr3.c:1669
 msgid "Dot character in regex pattern matches newlines"
 msgstr ""
 
-#: ../src/snr3.c:1618
+#: ../src/snr3.c:1672
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
 
-#: ../src/snr3.c:1640
+#: ../src/snr3.c:1694
 #, fuzzy
 msgid "Replace _All"
 msgstr "Замяна на всички"
 
-#: ../src/snr3.c:1642
+#: ../src/snr3.c:1696
 msgid "_Replace"
 msgstr "_Замяна"
 
-#: ../src/snr3.c:1646
+#: ../src/snr3.c:1700
 #, fuzzy
 msgid "_Find All"
 msgstr "Търсене"
 
-#: ../src/snr3.c:1648
+#: ../src/snr3.c:1702
 #, fuzzy
 msgid "B_ookmark All"
 msgstr "Отметки"
 
-#: ../src/undo_redo.c:543 ../src/undo_redo.c:685
+#: ../src/undo_redo.c:552 ../src/undo_redo.c:694
 #, fuzzy
 msgid "Undo in _all documents"
 msgstr "във всички отворени документи"
 
-#: ../src/undo_redo.c:543 ../src/undo_redo.c:685
+#: ../src/undo_redo.c:552 ../src/undo_redo.c:694
 #, fuzzy
 msgid "Undo only _this document"
 msgstr "В _документ"
 
-#: ../src/undo_redo.c:546 ../src/undo_redo.c:688
+#: ../src/undo_redo.c:555 ../src/undo_redo.c:697
 msgid "Undo this change in all documents?"
 msgstr ""
 
-#: ../src/undo_redo.c:547 ../src/undo_redo.c:689
+#: ../src/undo_redo.c:556 ../src/undo_redo.c:698
 msgid "This change concerns multiple documents."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Fo_rmat"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Goto _Line"
+#~ msgstr "Отиди на ред..."
+
+#, fuzzy
+#~ msgid "Error adding bookmark"
+#~ msgstr "Редакция на отбелязка"
+
+#, fuzzy
+#~ msgid "Cannot add bookmarks to unsaved files."
+#~ msgstr "Не може да добави отбелязка в файл без име"
+
+#, fuzzy
+#~ msgid "_Username:"
+#~ msgstr "Потребителско име:"
+
+#, fuzzy
+#~ msgid "_Domain:"
+#~ msgstr "_Valign:"
+
+#, fuzzy
+#~ msgid "_Password:"
+#~ msgstr "Парола:"
 
 #, fuzzy
 #~ msgid "Save _As..."
@@ -3811,9 +4152,6 @@ msgstr ""
 
 #~ msgid "New"
 #~ msgstr "Нов"
-
-#~ msgid "Save"
-#~ msgstr "Запазване"
 
 #~ msgid "Close"
 #~ msgstr "Затваряне"
@@ -4758,9 +5096,6 @@ msgstr ""
 #~ msgid "posix regular expressions"
 #~ msgstr "posix регулярни изрази"
 
-#~ msgid "Case Se_nsitive"
-#~ msgstr "Чувствително към малки и големи букви"
-
 #~ msgid "Extensions"
 #~ msgstr "Разширения"
 
@@ -5029,9 +5364,6 @@ msgstr ""
 
 #~ msgid "/Project/Open recent/tearoff1"
 #~ msgstr "/Проект/Отваряне скорошен/tearoff1"
-
-#~ msgid "/Project/sep1"
-#~ msgstr "/Проект/sep1"
 
 #~ msgid "/Project/sep2"
 #~ msgstr "/Проект/sep2"
@@ -5419,9 +5751,6 @@ msgstr ""
 
 #~ msgid " List "
 #~ msgstr " Лист "
-
-#~ msgid " CSS "
-#~ msgstr " CSS "
 
 #~ msgid "Cascading StyleSheet dialog"
 #~ msgstr "Диалог за създаване на CSS"
@@ -5880,9 +6209,6 @@ msgstr ""
 
 #~ msgid "/Tags/Headings/H_6"
 #~ msgstr "/Тагове/Заглавия/H_6"
-
-#~ msgid "/Tags/_Special"
-#~ msgstr "/Тагове/_Специални"
 
 #~ msgid "/Tags/Special/tearoff1"
 #~ msgstr "/Тагове/Специални/tearoff1"
@@ -6754,9 +7080,6 @@ msgstr ""
 #~ msgid "Use _DTD:"
 #~ msgstr "Използвай DTD:"
 
-#~ msgid "Orientation:"
-#~ msgstr "Ориентация:"
-
 #~ msgid "_Horizontal"
 #~ msgstr "Хоризонтална:"
 
@@ -6856,12 +7179,6 @@ msgstr ""
 
 #~ msgid "Show custom menu by default"
 #~ msgstr "Показване на личните менюта"
-
-#, fuzzy
-#~ msgid "Do you want to save the project?"
-#~ msgstr ""
-#~ "Искате ли да запазите промените направени в\n"
-#~ "\"%s\"?."
 
 #~ msgid "Search..."
 #~ msgstr "Търсене..."

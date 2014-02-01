@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2013-12-06 10:16+0100\n"
+"POT-Creation-Date: 2014-02-01 12:16-0800\n"
 "PO-Revision-Date: 2013-12-06 10:28+0100\n"
 "Last-Translator: Olivier <olivier@bluefish.openoffice.nl>\n"
 "Language-Team: Dutch; Flemish <>\n"
@@ -20,6 +20,71 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:1
+msgid ""
+"Bluefish is a powerful editor targeted towards programmers and web "
+"developers, with many options to write websites, scripts and programming "
+"code. Bluefish supports many programming and markup languages and has many "
+"features, but is still a very fast and lightweight application."
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:2
+msgid "A selection of the features:"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:3
+msgid ""
+"Well done syntax highlighting which for example supports languages inside "
+"languages (e.g. Javascript inside HTML inside PHP)"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:4
+msgid ""
+"All kind of powerful editor features like auto indenting and auto completion "
+"for many functions and libraries in many programming languages"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:5
+#, fuzzy
+msgid "Project support"
+msgstr "_Project"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:6
+msgid "Support for remote files over ftp, sftp, webdav, etc"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:7
+msgid "Powerful search and replace engine"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:8
+msgid "Customizable integration of external programs such as lint, make, etc"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:9
+msgid "Snippets plugin to automate often used code"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:10
+msgid "Code-aware in-line spell checking"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:11
+msgid "Zencoding or Emmet support"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:12
+#, fuzzy
+msgid "Bookmarks panel"
+msgstr "Bladwĳzers"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:13
+msgid ""
+"If you are an occasional coder who is in need for a simple to learn editor, "
+"or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
+"is your editor of choice!"
+msgstr ""
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -210,8 +275,8 @@ msgstr "Omzetten"
 msgid "_New"
 msgstr "_Nieuw"
 
-#: ../src/bfwin_uimanager.c:842 ../src/filebrowser2.c:887
-#: ../src/filebrowser2.c:889 ../src/filebrowser2.c:1277
+#: ../src/bfwin_uimanager.c:842 ../src/filebrowser2.c:886
+#: ../src/filebrowser2.c:888 ../src/filebrowser2.c:1276
 msgid "New file"
 msgstr "Nieuw bestand"
 
@@ -243,7 +308,7 @@ msgstr "Open bestand"
 msgid "Open Ad_vanced..."
 msgstr "_Geavanceerd Openen..."
 
-#: ../src/bfwin_uimanager.c:847 ../src/filebrowser2.c:1273
+#: ../src/bfwin_uimanager.c:847 ../src/filebrowser2.c:1272
 msgid "Open advanced"
 msgstr "Geavanceerd Openen"
 
@@ -363,7 +428,7 @@ msgstr "Synta_x verversen"
 msgid "_New Project..."
 msgstr "_Nieuw Project..."
 
-#: ../src/bfwin_uimanager.c:881 ../src/project.c:254
+#: ../src/bfwin_uimanager.c:881 ../src/project.c:255
 msgid "New project"
 msgstr "Nieuw project"
 
@@ -619,7 +684,7 @@ msgstr "Regel _Omloop"
 msgid "Wrap text"
 msgstr "Regel omloop inschakelen"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3195
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3196
 msgid "_Close"
 msgstr "Sluiten"
 
@@ -1045,23 +1110,23 @@ msgstr ""
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr "Bezoek ons op http://bluefish.openoffice.nl"
 
-#: ../src/bluefish.c:356
+#: ../src/bluefish.c:360
 msgid "Open in existing window."
 msgstr "Open in bestaand venster."
 
-#: ../src/bluefish.c:358
+#: ../src/bluefish.c:362
 msgid "Open in new window."
 msgstr "Open in nieuw venster."
 
-#: ../src/bluefish.c:360
+#: ../src/bluefish.c:364
 msgid "Print version information."
 msgstr "Print versie informatie."
 
-#: ../src/bluefish.c:387
+#: ../src/bluefish.c:391
 msgid " [FILE(S)]"
 msgstr " [FILE(S)]"
 
-#: ../src/bluefish.c:398
+#: ../src/bluefish.c:402
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
@@ -1132,7 +1197,7 @@ msgstr "Bladwĳzer zoek menu"
 msgid "_Edit..."
 msgstr "Be_werken"
 
-#: ../src/bookmark.c:901 ../src/filebrowser2.c:1276
+#: ../src/bookmark.c:901 ../src/filebrowser2.c:1275
 msgid "_Delete"
 msgstr "Verwĳderen"
 
@@ -1382,7 +1447,7 @@ msgstr "Bestands codering conversie fout"
 msgid "Previously: "
 msgstr "Voorheen: "
 
-#: ../src/document.c:2982 ../src/file_dialogs.c:839
+#: ../src/document.c:2983 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1391,12 +1456,12 @@ msgstr ""
 "Uw glib versie  (%d.%d.%d) werkt onbetrouwbaar met netwerk bestanden. "
 "Gebruik 2.18.0 of nieuwer."
 
-#: ../src/document.c:3111
+#: ../src/document.c:3112
 msgid "Unable to open file"
 msgstr "Kan bestand niet openen"
 
 # c-format
-#: ../src/document.c:3123
+#: ../src/document.c:3124
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1405,92 +1470,92 @@ msgstr ""
 "Als u \"%s\" terugdraait naar de laast opgeslagen versie gaan uwhuidige "
 "wijzigingen verloren."
 
-#: ../src/document.c:3127
+#: ../src/document.c:3128
 msgid "Revert changes to last saved copy?"
 msgstr "Veranderingen terugdraaien tot laatst opgeslagen versie?"
 
-#: ../src/document.c:3195
+#: ../src/document.c:3196
 msgid "_Retry"
 msgstr "Opnieuw"
 
-#: ../src/document.c:3195
+#: ../src/document.c:3196
 msgid "Retry _all failed"
 msgstr "Alle gefaalde opnieuw"
 
-#: ../src/document.c:3195
+#: ../src/document.c:3196
 msgid "Close all _failed"
 msgstr "Alle gefaalde sluiten"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3201
 msgid "File "
 msgstr "Bestand "
 
-#: ../src/document.c:3200
+#: ../src/document.c:3201
 msgid " failed to load."
 msgstr " laden mislukt."
 
-#: ../src/document.c:3204
+#: ../src/document.c:3205
 msgid "File failed to load\n"
 msgstr "Bestand laden mislukt\n"
 
-#: ../src/document.c:3329
+#: ../src/document.c:3330
 msgid "Select file to insert"
 msgstr "Selecteer bestand om in te voegen"
 
-#: ../src/document.c:3338
+#: ../src/document.c:3339
 msgid "No file to insert"
 msgstr "Geen bestand om in te voegen"
 
-#: ../src/document.c:3418
+#: ../src/document.c:3419
 msgid "Save pasted image as"
 msgstr "Geplakte bestand opslaan als"
 
-#: ../src/document.c:3514
+#: ../src/document.c:3515
 msgid "Paste special"
 msgstr "Plakken speciaal"
 
-#: ../src/document.c:3520
+#: ../src/document.c:3521
 msgid "No compatible clipboard data found"
 msgstr "Geen compatibele klembord inhoud"
 
-#: ../src/document.c:3524
+#: ../src/document.c:3525
 msgid "Paste as _HTML"
 msgstr "Plak als _HTML"
 
-#: ../src/document.c:3529
+#: ../src/document.c:3530
 msgid "Paste as HTML with _JPG"
 msgstr "Plakken als HTML met _JPG"
 
-#: ../src/document.c:3539
+#: ../src/document.c:3540
 msgid "Paste as plain text"
 msgstr "Invoegen zonder opmaak"
 
-#: ../src/document.c:3633
+#: ../src/document.c:3634
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d regel"
 msgstr[1] "%d regels"
 
-#: ../src/document.c:3634
+#: ../src/document.c:3635
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d woord"
 msgstr[1] "%d woorden"
 
-#: ../src/document.c:3635
+#: ../src/document.c:3636
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d karakter"
 msgstr[1] "%d karakters"
 
-#: ../src/document.c:3637
+#: ../src/document.c:3638
 msgid "Selection statistics: "
 msgstr "Selectie statistieken: "
 
-#: ../src/document.c:3637
+#: ../src/document.c:3638
 msgid "Statistics: "
 msgstr "Statistieken: "
 
@@ -1625,11 +1690,11 @@ msgstr "Waarschijnlijk is deze applicatie niet geinstaleerd op uw systeem."
 msgid "Command returned error code"
 msgstr "Het commando heeft een foutcode teruggegeven"
 
-#: ../src/filebrowser2.c:737
+#: ../src/filebrowser2.c:736
 msgid "Set documentroot and webroot"
 msgstr "Zet documentroot en webroot"
 
-#: ../src/filebrowser2.c:746
+#: ../src/filebrowser2.c:745
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
@@ -1639,24 +1704,24 @@ msgstr ""
 "de <i>webroot</i> is de locatie waar de zelfde files te bekijken zijn via de "
 "webserver"
 
-#: ../src/filebrowser2.c:753
+#: ../src/filebrowser2.c:752
 msgid "Documentroot"
 msgstr "Documentroot"
 
-#: ../src/filebrowser2.c:764
+#: ../src/filebrowser2.c:763
 msgid "Webroot"
 msgstr "Webroot"
 
-#: ../src/filebrowser2.c:777 ../src/file_dialogs.c:789
+#: ../src/filebrowser2.c:776 ../src/file_dialogs.c:789
 #, c-format
 msgid "Move/rename %s to"
 msgstr "hernoem %s naar"
 
-#: ../src/filebrowser2.c:788
+#: ../src/filebrowser2.c:787
 msgid "Could not rename\n"
 msgstr "Kon niet hernoemen\n"
 
-#: ../src/filebrowser2.c:862 ../src/filebrowser2.c:1278
+#: ../src/filebrowser2.c:861 ../src/filebrowser2.c:1277
 msgid "New directory"
 msgstr "Nieuwe directory"
 
@@ -1668,7 +1733,7 @@ msgstr "Nieuwe directory"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:972
+#: ../src/filebrowser2.c:971
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -1677,144 +1742,144 @@ msgstr ""
 "Weet u zeker dat u\n"
 "\"%s\" wilt verwĳderen?"
 
-#: ../src/filebrowser2.c:973
+#: ../src/filebrowser2.c:972
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "Als u %s verwĳderd dan zal het permanent zĳn."
 
-#: ../src/filebrowser2.c:1271
+#: ../src/filebrowser2.c:1270
 msgid "File Browser menu"
 msgstr "Bestands beheer menu"
 
-#: ../src/filebrowser2.c:1272
+#: ../src/filebrowser2.c:1271
 msgid "_Open"
 msgstr "Open"
 
-#: ../src/filebrowser2.c:1272
+#: ../src/filebrowser2.c:1271
 msgid "Open"
 msgstr "Open"
 
-#: ../src/filebrowser2.c:1273
+#: ../src/filebrowser2.c:1272
 msgid "Open _Advanced..."
 msgstr "Open geavanceerd..."
 
-#: ../src/filebrowser2.c:1275
+#: ../src/filebrowser2.c:1274
 msgid "Rena_me"
 msgstr "Hernoemen"
 
-#: ../src/filebrowser2.c:1275
+#: ../src/filebrowser2.c:1274
 msgid "Rename"
 msgstr "Hernoemen"
 
-#: ../src/filebrowser2.c:1276
+#: ../src/filebrowser2.c:1275
 msgid "Delete"
 msgstr "Delete"
 
-#: ../src/filebrowser2.c:1277
+#: ../src/filebrowser2.c:1276
 msgid "New _File"
 msgstr "Nieuw bestand"
 
-#: ../src/filebrowser2.c:1278
+#: ../src/filebrowser2.c:1277
 msgid "_New Directory"
 msgstr "Nieuwe directory"
 
-#: ../src/filebrowser2.c:1280
+#: ../src/filebrowser2.c:1279
 msgid "_Refresh"
 msgstr "Verversen"
 
-#: ../src/filebrowser2.c:1280
+#: ../src/filebrowser2.c:1279
 msgid "Refresh"
 msgstr "Verversen"
 
-#: ../src/filebrowser2.c:1281
+#: ../src/filebrowser2.c:1280
 msgid "_Set as base dir"
 msgstr "Gebruik als basismap"
 
-#: ../src/filebrowser2.c:1281
+#: ../src/filebrowser2.c:1280
 msgid "Set as base directory"
 msgstr "Gebruik als basismap"
 
-#: ../src/filebrowser2.c:1283
+#: ../src/filebrowser2.c:1282
 msgid "Set as document root"
 msgstr "Gebruik als documentroot"
 
-#: ../src/filebrowser2.c:1285
+#: ../src/filebrowser2.c:1284
 msgid "Show Full _Tree"
 msgstr "Toon volledige boom"
 
-#: ../src/filebrowser2.c:1285
+#: ../src/filebrowser2.c:1284
 msgid "Show full tree"
 msgstr "Toon volledige boom"
 
-#: ../src/filebrowser2.c:1287
+#: ../src/filebrowser2.c:1286
 msgid "View Mode"
 msgstr "Weergave mode"
 
-#: ../src/filebrowser2.c:1288
+#: ../src/filebrowser2.c:1287
 msgid "Filter"
 msgstr "Filter"
 
-#: ../src/filebrowser2.c:1289
+#: ../src/filebrowser2.c:1288
 msgid "New Filter"
 msgstr "Nieuw filter"
 
-#: ../src/filebrowser2.c:1289 ../src/filefilter.c:549
+#: ../src/filebrowser2.c:1288 ../src/filefilter.c:549
 msgid "New filter"
 msgstr "Nieuw filter"
 
-#: ../src/filebrowser2.c:1290
+#: ../src/filebrowser2.c:1289
 msgid "Edit Filter"
 msgstr "Filter bewerken"
 
-#: ../src/filebrowser2.c:1290 ../src/filefilter.c:554
+#: ../src/filebrowser2.c:1289 ../src/filefilter.c:554
 msgid "Edit filter"
 msgstr "Filter bewerken"
 
-#: ../src/filebrowser2.c:1291
+#: ../src/filebrowser2.c:1290
 msgid "Delete Filter"
 msgstr "Fileter verwĳderen"
 
-#: ../src/filebrowser2.c:1291
+#: ../src/filebrowser2.c:1290
 msgid "Delete filter"
 msgstr "Fileter verwĳderen"
 
-#: ../src/filebrowser2.c:1295
+#: ../src/filebrowser2.c:1294
 msgid "Follow Active Document"
 msgstr "Volg aktief document"
 
-#: ../src/filebrowser2.c:1295
+#: ../src/filebrowser2.c:1294
 msgid "Follow active document"
 msgstr "Volg aktief document"
 
-#: ../src/filebrowser2.c:1297
+#: ../src/filebrowser2.c:1296
 msgid "Show Backup Files"
 msgstr "Laat reserve bestanden zien"
 
-#: ../src/filebrowser2.c:1297 ../src/gtk_easy.c:1341
+#: ../src/filebrowser2.c:1296 ../src/gtk_easy.c:1341
 msgid "Show backup files"
 msgstr "Laat reserve bestanden zien"
 
-#: ../src/filebrowser2.c:1299
+#: ../src/filebrowser2.c:1298
 msgid "Show Hidden Files"
 msgstr "Toon verborgen bestanden"
 
-#: ../src/filebrowser2.c:1299
+#: ../src/filebrowser2.c:1298
 msgid "Show hidden files"
 msgstr "Toon verborgen bestanden"
 
-#: ../src/filebrowser2.c:1304
+#: ../src/filebrowser2.c:1303
 msgid "Dual"
 msgstr "Gesplitst"
 
-#: ../src/filebrowser2.c:1305
+#: ../src/filebrowser2.c:1304
 msgid "Flat"
 msgstr "Plat"
 
-#: ../src/filebrowser2.c:1306
+#: ../src/filebrowser2.c:1305
 msgid "Tree"
 msgstr "Boom"
 
-#: ../src/filebrowser2.c:2287
+#: ../src/filebrowser2.c:2286
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1851,7 +1916,7 @@ msgid "_Skip"
 msgstr "Overslaan"
 
 #: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
-#: ../src/project.c:362
+#: ../src/project.c:363
 msgid "_Overwrite"
 msgstr "Overschrĳven"
 
@@ -1961,7 +2026,7 @@ msgid "File changed on disk\n"
 msgstr "Bestand gewĳzigd op disk\n"
 
 #: ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
-#: ../src/file_dialogs.c:985 ../src/project.c:362
+#: ../src/file_dialogs.c:985 ../src/project.c:363
 msgid "_Cancel"
 msgstr "_Annuleren"
 
@@ -1974,12 +2039,12 @@ msgstr "Bestand %s bestaat en is geopend; Overschrĳven ?"
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Het bestand wat u heeft geselecteerd is geopend in Bluefish."
 
-#: ../src/file_dialogs.c:660 ../src/project.c:364
+#: ../src/file_dialogs.c:660 ../src/project.c:365
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Een bestand genaamd \"%s\" bestaat al."
 
-#: ../src/file_dialogs.c:663 ../src/project.c:368
+#: ../src/file_dialogs.c:663 ../src/project.c:369
 msgid "Do you want to replace the existing file?"
 msgstr "Wilt u het bestaande bestand vervangen?"
 
@@ -3078,31 +3143,31 @@ msgstr "<b>Plugins</b>"
 msgid "Language support"
 msgstr "Taal ondersteuning"
 
-#: ../src/project.c:334
+#: ../src/project.c:335
 msgid "Enter Bluefish project filename"
 msgstr "Voer naam in van Bluefish project bestand"
 
-#: ../src/project.c:515
+#: ../src/project.c:516
 msgid "Select Bluefish project filename"
 msgstr "Selecteer Bluefish project bestands naam"
 
-#: ../src/project.c:678
+#: ../src/project.c:679
 msgid "Create New Project"
 msgstr "Nieuw project aanmaken"
 
-#: ../src/project.c:681
+#: ../src/project.c:682
 msgid "Edit Project"
 msgstr "Project bewerken"
 
 # c-format
-#: ../src/project.c:706
+#: ../src/project.c:707
 #, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
 msgstr[0] "Dit project bevat %d bestand"
 msgstr[1] "Dit project bevat %d bestanden"
 
-#: ../src/project.c:719
+#: ../src/project.c:720
 msgid "Project _Name:"
 msgstr "Project Naam:"
 
@@ -3111,23 +3176,23 @@ msgstr "Project Naam:"
 #. but = file_but_new(pred->entries[template], 1, NULL);
 #. gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
-#: ../src/project.c:727
+#: ../src/project.c:728
 msgid "<b>Project Defaults</b>"
 msgstr "<b>Project standaard instellingen</b>"
 
-#: ../src/project.c:741
+#: ../src/project.c:742
 msgid "Create _Project"
 msgstr "Project Aanmaken"
 
-#: ../src/project.c:790
+#: ../src/project.c:791
 msgid "Create project"
 msgstr "Project aanmaken"
 
-#: ../src/project.c:795
+#: ../src/project.c:796
 msgid "Create project with currently opened documents"
 msgstr "Project aanmaken met huidige geopende bestanden"
 
-#: ../src/project.c:797
+#: ../src/project.c:798
 msgid "Create empty project"
 msgstr "Leeg project aanmaken"
 

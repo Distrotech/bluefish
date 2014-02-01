@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2013-12-01 21:31+0100\n"
+"POT-Creation-Date: 2014-02-01 12:16-0800\n"
 "PO-Revision-Date: 2013-12-13 21:33+0100\n"
 "Last-Translator: Mònica Ramírez Arceda <monica@probeta.net>\n"
 "Language-Team: Catalan\n"
@@ -16,6 +16,71 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.4\n"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:1
+msgid ""
+"Bluefish is a powerful editor targeted towards programmers and web "
+"developers, with many options to write websites, scripts and programming "
+"code. Bluefish supports many programming and markup languages and has many "
+"features, but is still a very fast and lightweight application."
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:2
+msgid "A selection of the features:"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:3
+msgid ""
+"Well done syntax highlighting which for example supports languages inside "
+"languages (e.g. Javascript inside HTML inside PHP)"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:4
+msgid ""
+"All kind of powerful editor features like auto indenting and auto completion "
+"for many functions and libraries in many programming languages"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:5
+#, fuzzy
+msgid "Project support"
+msgstr "_Projecte"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:6
+msgid "Support for remote files over ftp, sftp, webdav, etc"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:7
+msgid "Powerful search and replace engine"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:8
+msgid "Customizable integration of external programs such as lint, make, etc"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:9
+msgid "Snippets plugin to automate often used code"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:10
+msgid "Code-aware in-line spell checking"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:11
+msgid "Zencoding or Emmet support"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:12
+#, fuzzy
+msgid "Bookmarks panel"
+msgstr "Marcadors"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:13
+msgid ""
+"If you are an occasional coder who is in need for a simple to learn editor, "
+"or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
+"is your editor of choice!"
+msgstr ""
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -206,8 +271,8 @@ msgstr "Con_verteix"
 msgid "_New"
 msgstr "_Nou"
 
-#: ../src/bfwin_uimanager.c:842 ../src/filebrowser2.c:887
-#: ../src/filebrowser2.c:889 ../src/filebrowser2.c:1277
+#: ../src/bfwin_uimanager.c:842 ../src/filebrowser2.c:886
+#: ../src/filebrowser2.c:888 ../src/filebrowser2.c:1276
 msgid "New file"
 msgstr "Fitxer nou"
 
@@ -239,7 +304,7 @@ msgstr "Obre un fitxer"
 msgid "Open Ad_vanced..."
 msgstr "Obre a_vançat..."
 
-#: ../src/bfwin_uimanager.c:847 ../src/filebrowser2.c:1273
+#: ../src/bfwin_uimanager.c:847 ../src/filebrowser2.c:1272
 msgid "Open advanced"
 msgstr "Obre avançat"
 
@@ -359,7 +424,7 @@ msgstr "Revisa de nou la sinta_xi"
 msgid "_New Project..."
 msgstr "Projecte _nou..."
 
-#: ../src/bfwin_uimanager.c:881 ../src/project.c:254
+#: ../src/bfwin_uimanager.c:881 ../src/project.c:255
 msgid "New project"
 msgstr "Projecte nou"
 
@@ -617,7 +682,7 @@ msgstr "A_justa el text"
 msgid "Wrap text"
 msgstr "Ajusta el text"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3195
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3196
 msgid "_Close"
 msgstr "Tan_ca"
 
@@ -1043,23 +1108,23 @@ msgstr ""
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr "Visiteu-nos a http://bluefish.openoffice.nl"
 
-#: ../src/bluefish.c:356
+#: ../src/bluefish.c:360
 msgid "Open in existing window."
 msgstr "Obre en una finestra que existeixi."
 
-#: ../src/bluefish.c:358
+#: ../src/bluefish.c:362
 msgid "Open in new window."
 msgstr "Obre en una finestra nova."
 
-#: ../src/bluefish.c:360
+#: ../src/bluefish.c:364
 msgid "Print version information."
 msgstr "Imprimeix la informació de la versió."
 
-#: ../src/bluefish.c:387
+#: ../src/bluefish.c:391
 msgid " [FILE(S)]"
 msgstr " [FITXER(S)]"
 
-#: ../src/bluefish.c:398
+#: ../src/bluefish.c:402
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
@@ -1130,7 +1195,7 @@ msgstr "Menú de cerca de marcadors"
 msgid "_Edit..."
 msgstr "_Edita..."
 
-#: ../src/bookmark.c:901 ../src/filebrowser2.c:1276
+#: ../src/bookmark.c:901 ../src/filebrowser2.c:1275
 msgid "_Delete"
 msgstr "_Suprimeix"
 
@@ -1381,7 +1446,7 @@ msgstr "S'ha produït un error en la conversió de la codificació"
 msgid "Previously: "
 msgstr "Anteriorment:"
 
-#: ../src/document.c:2982 ../src/file_dialogs.c:839
+#: ../src/document.c:2983 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1390,11 +1455,11 @@ msgstr ""
 "La versió (%d.%d.%d) de glib no és fiable per a fitxers remots. Actualitzeu "
 "a la versió 2.18.0 o superior."
 
-#: ../src/document.c:3111
+#: ../src/document.c:3112
 msgid "Unable to open file"
 msgstr "No es pot obrir el fitxer"
 
-#: ../src/document.c:3123
+#: ../src/document.c:3124
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1403,92 +1468,92 @@ msgstr ""
 "Si torneu \"%s\" a l'última còpia desada, els canvis actuals es perdran "
 "definitivament."
 
-#: ../src/document.c:3127
+#: ../src/document.c:3128
 msgid "Revert changes to last saved copy?"
 msgstr "Voleu tornar el fitxer a l'última versió desada?"
 
-#: ../src/document.c:3195
+#: ../src/document.c:3196
 msgid "_Retry"
 msgstr "_Reintenta"
 
-#: ../src/document.c:3195
+#: ../src/document.c:3196
 msgid "Retry _all failed"
 msgstr "Reintent_a tots els que han fallat"
 
-#: ../src/document.c:3195
+#: ../src/document.c:3196
 msgid "Close all _failed"
 msgstr "Tanca tots els que han _fallat"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3201
 msgid "File "
 msgstr "_Fitxer"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3201
 msgid " failed to load."
 msgstr " ha fallat en carregar."
 
-#: ../src/document.c:3204
+#: ../src/document.c:3205
 msgid "File failed to load\n"
 msgstr "No s'ha pogut carregar el fitxer\n"
 
-#: ../src/document.c:3329
+#: ../src/document.c:3330
 msgid "Select file to insert"
 msgstr "Selecciona el fitxer a inserir"
 
-#: ../src/document.c:3338
+#: ../src/document.c:3339
 msgid "No file to insert"
 msgstr "No hi ha cap fitxer per inserir"
 
-#: ../src/document.c:3418
+#: ../src/document.c:3419
 msgid "Save pasted image as"
 msgstr "Desa la imatge enganxada com a"
 
-#: ../src/document.c:3514
+#: ../src/document.c:3515
 msgid "Paste special"
 msgstr "Enganxament especial"
 
-#: ../src/document.c:3520
+#: ../src/document.c:3521
 msgid "No compatible clipboard data found"
 msgstr "No s'ha trobat cap porta-retalls compatible"
 
-#: ../src/document.c:3524
+#: ../src/document.c:3525
 msgid "Paste as _HTML"
 msgstr "Enganxa com a _HTML"
 
-#: ../src/document.c:3529
+#: ../src/document.c:3530
 msgid "Paste as HTML with _JPG"
 msgstr "Enganxa com a HTML amb _JPG"
 
-#: ../src/document.c:3539
+#: ../src/document.c:3540
 msgid "Paste as plain text"
 msgstr "Enganxa com a text net"
 
-#: ../src/document.c:3633
+#: ../src/document.c:3634
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d línia"
 msgstr[1] "%d línies"
 
-#: ../src/document.c:3634
+#: ../src/document.c:3635
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d paraula"
 msgstr[1] "%d paraules"
 
-#: ../src/document.c:3635
+#: ../src/document.c:3636
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caràcter"
 msgstr[1] "%d caràcters"
 
-#: ../src/document.c:3637
+#: ../src/document.c:3638
 msgid "Selection statistics: "
 msgstr "Estadístiques de selecció:"
 
-#: ../src/document.c:3637
+#: ../src/document.c:3638
 msgid "Statistics: "
 msgstr "Estadístiques:"
 
@@ -1625,11 +1690,11 @@ msgstr ""
 msgid "Command returned error code"
 msgstr "Codi d'error de retorn de l'ordre"
 
-#: ../src/filebrowser2.c:737
+#: ../src/filebrowser2.c:736
 msgid "Set documentroot and webroot"
 msgstr "Estableix el document arrel i el web arrel"
 
-#: ../src/filebrowser2.c:746
+#: ../src/filebrowser2.c:745
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
@@ -1638,24 +1703,24 @@ msgstr ""
 "El <i>document arrel</i> és on el Bluefish troba el fitxer,\n"
 "el <i>web arrel</i> és la ubicació d'aquests fitxers en el servidor web."
 
-#: ../src/filebrowser2.c:753
+#: ../src/filebrowser2.c:752
 msgid "Documentroot"
 msgstr "Document arrel"
 
-#: ../src/filebrowser2.c:764
+#: ../src/filebrowser2.c:763
 msgid "Webroot"
 msgstr "Web arrel"
 
-#: ../src/filebrowser2.c:777 ../src/file_dialogs.c:789
+#: ../src/filebrowser2.c:776 ../src/file_dialogs.c:789
 #, c-format
 msgid "Move/rename %s to"
 msgstr "Mou/canvia el nom %s» a"
 
-#: ../src/filebrowser2.c:788
+#: ../src/filebrowser2.c:787
 msgid "Could not rename\n"
 msgstr "No s'ha pogut canviar el nom\n"
 
-#: ../src/filebrowser2.c:862 ../src/filebrowser2.c:1278
+#: ../src/filebrowser2.c:861 ../src/filebrowser2.c:1277
 msgid "New directory"
 msgstr "Directori nou"
 
@@ -1667,7 +1732,7 @@ msgstr "Directori nou"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:972
+#: ../src/filebrowser2.c:971
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -1676,144 +1741,144 @@ msgstr ""
 "Esteu segur que voleu suprimir\n"
 "\"%s\"?"
 
-#: ../src/filebrowser2.c:973
+#: ../src/filebrowser2.c:972
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "Si suprimiu %s, es perdrà definitivament."
 
-#: ../src/filebrowser2.c:1271
+#: ../src/filebrowser2.c:1270
 msgid "File Browser menu"
 msgstr "Menú del navegador de fitxers"
 
-#: ../src/filebrowser2.c:1272
+#: ../src/filebrowser2.c:1271
 msgid "_Open"
 msgstr "_Obre"
 
-#: ../src/filebrowser2.c:1272
+#: ../src/filebrowser2.c:1271
 msgid "Open"
 msgstr "Obre"
 
-#: ../src/filebrowser2.c:1273
+#: ../src/filebrowser2.c:1272
 msgid "Open _Advanced..."
 msgstr "Obre _avançat..."
 
-#: ../src/filebrowser2.c:1275
+#: ../src/filebrowser2.c:1274
 msgid "Rena_me"
 msgstr "Canvia el no_m"
 
-#: ../src/filebrowser2.c:1275
+#: ../src/filebrowser2.c:1274
 msgid "Rename"
 msgstr "Canvia el nom"
 
-#: ../src/filebrowser2.c:1276
+#: ../src/filebrowser2.c:1275
 msgid "Delete"
 msgstr "Suprimeix"
 
-#: ../src/filebrowser2.c:1277
+#: ../src/filebrowser2.c:1276
 msgid "New _File"
 msgstr "_Fitxer nou"
 
-#: ../src/filebrowser2.c:1278
+#: ../src/filebrowser2.c:1277
 msgid "_New Directory"
 msgstr "Directori _nou"
 
-#: ../src/filebrowser2.c:1280
+#: ../src/filebrowser2.c:1279
 msgid "_Refresh"
 msgstr "_Actualitza"
 
-#: ../src/filebrowser2.c:1280
+#: ../src/filebrowser2.c:1279
 msgid "Refresh"
 msgstr "Actualitza"
 
-#: ../src/filebrowser2.c:1281
+#: ../src/filebrowser2.c:1280
 msgid "_Set as base dir"
 msgstr "E_stableix com a directori base"
 
-#: ../src/filebrowser2.c:1281
+#: ../src/filebrowser2.c:1280
 msgid "Set as base directory"
 msgstr "Estableix com a directori base"
 
-#: ../src/filebrowser2.c:1283
+#: ../src/filebrowser2.c:1282
 msgid "Set as document root"
 msgstr "Estableix com a document arrel"
 
-#: ../src/filebrowser2.c:1285
+#: ../src/filebrowser2.c:1284
 msgid "Show Full _Tree"
 msgstr "Mostra l'arbre comple_t"
 
-#: ../src/filebrowser2.c:1285
+#: ../src/filebrowser2.c:1284
 msgid "Show full tree"
 msgstr "Mostra l'arbre complet"
 
-#: ../src/filebrowser2.c:1287
+#: ../src/filebrowser2.c:1286
 msgid "View Mode"
 msgstr "Mode de visualització"
 
-#: ../src/filebrowser2.c:1288
+#: ../src/filebrowser2.c:1287
 msgid "Filter"
 msgstr "Filtre"
 
-#: ../src/filebrowser2.c:1289
+#: ../src/filebrowser2.c:1288
 msgid "New Filter"
 msgstr "Filtre nou"
 
-#: ../src/filebrowser2.c:1289 ../src/filefilter.c:549
+#: ../src/filebrowser2.c:1288 ../src/filefilter.c:549
 msgid "New filter"
 msgstr "Filtre nou"
 
-#: ../src/filebrowser2.c:1290
+#: ../src/filebrowser2.c:1289
 msgid "Edit Filter"
 msgstr "Edita el filtre"
 
-#: ../src/filebrowser2.c:1290 ../src/filefilter.c:554
+#: ../src/filebrowser2.c:1289 ../src/filefilter.c:554
 msgid "Edit filter"
 msgstr "Edita el filtre"
 
-#: ../src/filebrowser2.c:1291
+#: ../src/filebrowser2.c:1290
 msgid "Delete Filter"
 msgstr "Suprimeix el filtre"
 
-#: ../src/filebrowser2.c:1291
+#: ../src/filebrowser2.c:1290
 msgid "Delete filter"
 msgstr "Suprimeix el filtre"
 
-#: ../src/filebrowser2.c:1295
+#: ../src/filebrowser2.c:1294
 msgid "Follow Active Document"
 msgstr "Segueix el document actiu"
 
-#: ../src/filebrowser2.c:1295
+#: ../src/filebrowser2.c:1294
 msgid "Follow active document"
 msgstr "Segueix el document actiu"
 
-#: ../src/filebrowser2.c:1297
+#: ../src/filebrowser2.c:1296
 msgid "Show Backup Files"
 msgstr "Mostra les còpies de seguretat"
 
-#: ../src/filebrowser2.c:1297 ../src/gtk_easy.c:1341
+#: ../src/filebrowser2.c:1296 ../src/gtk_easy.c:1341
 msgid "Show backup files"
 msgstr "Mostra les còpies de seguretat"
 
-#: ../src/filebrowser2.c:1299
+#: ../src/filebrowser2.c:1298
 msgid "Show Hidden Files"
 msgstr "Mostra els fitxers ocults"
 
-#: ../src/filebrowser2.c:1299
+#: ../src/filebrowser2.c:1298
 msgid "Show hidden files"
 msgstr "Mostra els fitxers ocults"
 
-#: ../src/filebrowser2.c:1304
+#: ../src/filebrowser2.c:1303
 msgid "Dual"
 msgstr "Dual"
 
-#: ../src/filebrowser2.c:1305
+#: ../src/filebrowser2.c:1304
 msgid "Flat"
 msgstr "Pla"
 
-#: ../src/filebrowser2.c:1306
+#: ../src/filebrowser2.c:1305
 msgid "Tree"
 msgstr "Arbre"
 
-#: ../src/filebrowser2.c:2287
+#: ../src/filebrowser2.c:2286
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1852,7 +1917,7 @@ msgid "_Skip"
 msgstr "_Omet"
 
 #: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
-#: ../src/project.c:362
+#: ../src/project.c:363
 msgid "_Overwrite"
 msgstr "_Sobreescriu"
 
@@ -1962,7 +2027,7 @@ msgid "File changed on disk\n"
 msgstr "El fitxer ha canviat al disc\n"
 
 #: ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
-#: ../src/file_dialogs.c:985 ../src/project.c:362
+#: ../src/file_dialogs.c:985 ../src/project.c:363
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
@@ -1975,12 +2040,12 @@ msgstr "El fitxer %s existeix i està obert, el voleu sobreescriure?"
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "El fitxer seleccionat s'està editant a Bluefish."
 
-#: ../src/file_dialogs.c:660 ../src/project.c:364
+#: ../src/file_dialogs.c:660 ../src/project.c:365
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Ja existeix un fitxer anomenat  \"%s\"."
 
-#: ../src/file_dialogs.c:663 ../src/project.c:368
+#: ../src/file_dialogs.c:663 ../src/project.c:369
 msgid "Do you want to replace the existing file?"
 msgstr "Voleu reemplaçar el fitxer existent?"
 
@@ -3037,7 +3102,7 @@ msgstr "Color de les pestanyes de documents _modificats:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2667 ../src/rcfile.c:1301
+#: ../src/preferences.c:2667 ../src/rcfile.c:1306
 msgid "Images"
 msgstr "Imatges"
 
@@ -3089,30 +3154,30 @@ msgstr "<b>Connectors</b>"
 msgid "Language support"
 msgstr "Llenguatges"
 
-#: ../src/project.c:334
+#: ../src/project.c:335
 msgid "Enter Bluefish project filename"
 msgstr "Introdueix el nom de fitxer del projecte Bluefish"
 
-#: ../src/project.c:515
+#: ../src/project.c:516
 msgid "Select Bluefish project filename"
 msgstr "Seleccioneu el nom de fitxer del projecte Bluefish"
 
-#: ../src/project.c:678
+#: ../src/project.c:679
 msgid "Create New Project"
 msgstr "Crea un projecte nou"
 
-#: ../src/project.c:681
+#: ../src/project.c:682
 msgid "Edit Project"
 msgstr "Edita el projecte"
 
-#: ../src/project.c:706
+#: ../src/project.c:707
 #, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
 msgstr[0] "Aquest projecte conté \"%d\" fitxer"
 msgstr[1] "Aquest projecte conté \"%d\" fitxers"
 
-#: ../src/project.c:719
+#: ../src/project.c:720
 msgid "Project _Name:"
 msgstr "Nom del projecte:"
 
@@ -3121,223 +3186,223 @@ msgstr "Nom del projecte:"
 #. but = file_but_new(pred->entries[template], 1, NULL);
 #. gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
-#: ../src/project.c:727
+#: ../src/project.c:728
 msgid "<b>Project Defaults</b>"
 msgstr "<b>Valors predeterminats del projecte</b>"
 
-#: ../src/project.c:741
+#: ../src/project.c:742
 msgid "Create _Project"
 msgstr "Crea un _projecte"
 
-#: ../src/project.c:790
+#: ../src/project.c:791
 msgid "Create project"
 msgstr "Crea un projecte"
 
-#: ../src/project.c:795
+#: ../src/project.c:796
 msgid "Create project with currently opened documents"
 msgstr "Crea un projecte amb els documents oberts actualment"
 
-#: ../src/project.c:797
+#: ../src/project.c:798
 msgid "Create empty project"
 msgstr "Crea un projecte buit"
 
-#: ../src/rcfile.c:690 ../src/rcfile.c:718
+#: ../src/rcfile.c:694 ../src/rcfile.c:722
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:696
+#: ../src/rcfile.c:700
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:700
+#: ../src/rcfile.c:704
 msgid "weblint HTML checker"
 msgstr "Verificador HTML weblint"
 
-#: ../src/rcfile.c:705
+#: ../src/rcfile.c:709
 msgid "tidy HTML validator"
 msgstr "Validador HTML tidy"
 
-#: ../src/rcfile.c:709
+#: ../src/rcfile.c:713
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:713
+#: ../src/rcfile.c:717
 msgid "xmllint XML checker"
 msgstr "Verificador XML xmllint"
 
-#: ../src/rcfile.c:722
+#: ../src/rcfile.c:726
 msgid "php syntax check"
 msgstr "Verificador de sintaxi php"
 
-#: ../src/rcfile.c:726
+#: ../src/rcfile.c:730
 msgid "perl syntax check"
 msgstr "Verificador de sintaxi perl"
 
-#: ../src/rcfile.c:730
+#: ../src/rcfile.c:734
 msgid "php codesniffer"
 msgstr "Analitzador de codi php"
 
-#: ../src/rcfile.c:734
+#: ../src/rcfile.c:738
 msgid "pylint"
 msgstr "pylint"
 
-#: ../src/rcfile.c:747
+#: ../src/rcfile.c:751
 msgid "Sort"
 msgstr "Ordena"
 
-#: ../src/rcfile.c:750
+#: ../src/rcfile.c:754
 msgid "Sort / Uniq"
 msgstr "Ordena i elimina els duplicats"
 
-#: ../src/rcfile.c:753
+#: ../src/rcfile.c:757
 msgid "Reverse lines"
 msgstr "Inverteix les línies"
 
-#: ../src/rcfile.c:756
+#: ../src/rcfile.c:760
 msgid "Dos2unix"
 msgstr "Dos2unix"
 
-#: ../src/rcfile.c:758
+#: ../src/rcfile.c:762
 msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
-#: ../src/rcfile.c:760
+#: ../src/rcfile.c:764
 msgid "Tidy convert to XHTML"
 msgstr "Converteix a XHTML amb Tidy"
 
-#: ../src/rcfile.c:763
+#: ../src/rcfile.c:767
 msgid "Tidy HTML (perltidy)"
 msgstr "Tidy HTML (perltidy)"
 
-#: ../src/rcfile.c:766
+#: ../src/rcfile.c:770
 msgid "Strip empty lines"
 msgstr "Suprimeix les línies buides"
 
-#: ../src/rcfile.c:769
+#: ../src/rcfile.c:773
 msgid "Render HTML to text"
 msgstr "Renderitza l'HTML a text"
 
-#: ../src/rcfile.c:772
+#: ../src/rcfile.c:776
 msgid "PHP Beautifier"
 msgstr "Embellidor PHP"
 
-#: ../src/rcfile.c:776 ../src/rcfile.c:783
+#: ../src/rcfile.c:780 ../src/rcfile.c:787
 msgid "Javascript Minify with jsmin"
 msgstr "Minimitza el Javascript amb jsmin"
 
-#: ../src/rcfile.c:779 ../src/rcfile.c:786
+#: ../src/rcfile.c:783 ../src/rcfile.c:790
 msgid "CSS Minify with cssmin"
 msgstr "Minimitza el CSS amb cssmin"
 
-#: ../src/rcfile.c:790
+#: ../src/rcfile.c:794
 msgid "CSS tidy"
 msgstr "Tidy CSS"
 
-#: ../src/rcfile.c:802
+#: ../src/rcfile.c:806
 msgid "Windows XP Firefox"
 msgstr "Firefox per a Windows XP"
 
-#: ../src/rcfile.c:807
+#: ../src/rcfile.c:811
 msgid "Windows XP Internet Explorer"
 msgstr "Internet Explorer per a Windows XP"
 
-#: ../src/rcfile.c:812
+#: ../src/rcfile.c:816
 msgid "Windows XP Opera"
 msgstr "Opera per a Windows XP"
 
-#: ../src/rcfile.c:816
+#: ../src/rcfile.c:820
 msgid "Windows XP Safari"
 msgstr "Safari per a Windows XP"
 
-#: ../src/rcfile.c:820
+#: ../src/rcfile.c:824
 msgid "Windows 7 Firefox 32-bit"
 msgstr "Firefox 32-bit per a Windows 7"
 
-#: ../src/rcfile.c:825
+#: ../src/rcfile.c:829
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr "Windows 7 Internet Explorer 32-bit"
 
-#: ../src/rcfile.c:830
+#: ../src/rcfile.c:834
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr "Windows 7 Internet Explorer 64-bit"
 
-#: ../src/rcfile.c:836
+#: ../src/rcfile.c:840
 msgid "Safari"
 msgstr "Safari"
 
-#: ../src/rcfile.c:839 ../src/rcfile.c:849
+#: ../src/rcfile.c:843 ../src/rcfile.c:853
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:842 ../src/rcfile.c:853
+#: ../src/rcfile.c:846 ../src/rcfile.c:857
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:845 ../src/rcfile.c:872
+#: ../src/rcfile.c:849 ../src/rcfile.c:876
 msgid "chmod a+x"
 msgstr "chmod a+x"
 
-#: ../src/rcfile.c:857
+#: ../src/rcfile.c:861
 msgid "Chromium"
 msgstr "Chromium"
 
-#: ../src/rcfile.c:860
+#: ../src/rcfile.c:864
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:863
+#: ../src/rcfile.c:867
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:866
+#: ../src/rcfile.c:870
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:869
+#: ../src/rcfile.c:873
 msgid "Links2 (graphics)"
 msgstr "Links2 (gràfics)"
 
-#: ../src/rcfile.c:915
+#: ../src/rcfile.c:920
 msgid "C Header"
 msgstr "Capçalera de C"
 
-#: ../src/rcfile.c:918
+#: ../src/rcfile.c:923
 msgid "C Header GPL"
 msgstr "Capçalera de C amb GPL"
 
-#: ../src/rcfile.c:921
+#: ../src/rcfile.c:926
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:924
+#: ../src/rcfile.c:929
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: ../src/rcfile.c:927
+#: ../src/rcfile.c:932
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:930
+#: ../src/rcfile.c:935
 msgid "LaTex Book"
 msgstr "Llibre LaTex"
 
-#: ../src/rcfile.c:933
+#: ../src/rcfile.c:938
 msgid "LaTex Presentation"
 msgstr "Presentació LaTex"
 
-#: ../src/rcfile.c:1186
+#: ../src/rcfile.c:1191
 msgid "Untitled Project"
 msgstr "Projecte sense títol"
 
-#: ../src/rcfile.c:1293
+#: ../src/rcfile.c:1298
 msgid "C programming"
 msgstr "Programació en C"
 
-#: ../src/rcfile.c:1297
+#: ../src/rcfile.c:1302
 msgid "Web files"
 msgstr "Fitxers web"
 
-#: ../src/rcfile.c:1304
+#: ../src/rcfile.c:1309
 msgid "Hide objectfiles"
 msgstr "Amaga els fitxers objecte"
 

@@ -3,16 +3,81 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2012-06-05 22:07+0200\n"
+"POT-Creation-Date: 2014-02-01 12:16-0800\n"
 "PO-Revision-Date: 2005-01-19 11:34+0800\n"
 "Last-Translator: OLS3 <ols3@lxer.idv.tw>\n"
 "Language-Team: zh_TW <i18n-translation@b2d.org.tw>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 
-#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
+#: ../desktop-data/bluefish.appdata.xml.in.h:1
+msgid ""
+"Bluefish is a powerful editor targeted towards programmers and web "
+"developers, with many options to write websites, scripts and programming "
+"code. Bluefish supports many programming and markup languages and has many "
+"features, but is still a very fast and lightweight application."
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:2
+msgid "A selection of the features:"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:3
+msgid ""
+"Well done syntax highlighting which for example supports languages inside "
+"languages (e.g. Javascript inside HTML inside PHP)"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:4
+msgid ""
+"All kind of powerful editor features like auto indenting and auto completion "
+"for many functions and libraries in many programming languages"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:5
+#, fuzzy
+msgid "Project support"
+msgstr "/專案(P)/sep1"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:6
+msgid "Support for remote files over ftp, sftp, webdav, etc"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:7
+msgid "Powerful search and replace engine"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:8
+msgid "Customizable integration of external programs such as lint, make, etc"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:9
+msgid "Snippets plugin to automate often used code"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:10
+msgid "Code-aware in-line spell checking"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:11
+msgid "Zencoding or Emmet support"
+msgstr ""
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:12
+#, fuzzy
+msgid "Bookmarks panel"
+msgstr "書籤"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:13
+msgid ""
+"If you are an occasional coder who is in need for a simple to learn editor, "
+"or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
+"is your editor of choice!"
+msgstr ""
+
+#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 #, fuzzy
 msgid "Bluefish Editor"
 msgstr "Bluefish 技巧:"
@@ -27,1062 +92,1130 @@ msgstr ""
 
 #: ../desktop-data/bluefish.xml.in.h:1
 #, fuzzy
-msgid "Bluefish language definition file"
-msgstr "定義"
-
-#: ../desktop-data/bluefish.xml.in.h:2
-#, fuzzy
 msgid "Bluefish project file"
 msgstr "輸入 Bluefish 專案檔名"
 
-#: ../src/bftextview2.c:1581
+#: ../desktop-data/bluefish.xml.in.h:2
+#, fuzzy
+msgid "Bluefish language definition file"
+msgstr "定義"
+
+#: ../src/bftextview2.c:1765
 #, fuzzy
 msgid "Collapse all"
 msgstr "全部關閉(_A)"
 
-#: ../src/bftextview2.c:1584
+#: ../src/bftextview2.c:1768
 msgid "Expand all"
 msgstr ""
 
-#: ../src/bftextview2.c:1591
+#: ../src/bftextview2.c:1777
 #, fuzzy, c-format
 msgid "Collapse %s"
 msgstr "全部關閉(_A)"
 
-#: ../src/bftextview2.c:1598
+#: ../src/bftextview2.c:1787
 #, c-format
 msgid "Expand %s"
 msgstr ""
 
-#: ../src/bftextview2_spell.c:690
+#: ../src/bftextview2_spell.c:821
 #, fuzzy
 msgid "Spell check language"
 msgstr "拼字檢查..."
 
-#: ../src/bftextview2_spell.c:723
+#: ../src/bftextview2_spell.c:854
 #, fuzzy
 msgid "Add to dictionary"
 msgstr "新增到快捷列"
 
-#: ../src/bftextview2_spell.c:726
+#: ../src/bftextview2_spell.c:857
 #, fuzzy
 msgid "Ignore spelling"
 msgstr "拼字檢查"
 
-#: ../src/bftextview2_spell.c:741
+#: ../src/bftextview2_spell.c:872
 msgid "Insert special characters as entities"
 msgstr ""
 
-#: ../src/bfwin.c:224
+#: ../src/bfwin.c:232
 msgid "Filebrowser"
 msgstr "檔案瀏覽器"
 
-#: ../src/bfwin.c:226
+#: ../src/bfwin.c:234
 msgid "Bookmarks"
 msgstr "書籤"
 
-#: ../src/bfwin.c:814
+#: ../src/bfwin.c:966
 #, fuzzy
 msgid "Goto Line:"
 msgstr "跳至列"
 
-#: ../src/bfwin.c:825
+#: ../src/bfwin.c:977
 #, fuzzy
 msgid "Find:"
 msgstr "尋找"
 
-#: ../src/bfwin.c:835
+#: ../src/bfwin.c:988 ../src/snr3.c:1520
+#, fuzzy
+msgid "Regular expression (pcre)"
+msgstr "正規式:"
+
+#: ../src/bfwin.c:991
+#, fuzzy
+msgid "Case sensitive"
+msgstr "區分大小寫(_N)"
+
+#: ../src/bfwin.c:994
+#, fuzzy
+msgid "Dot character matches newlines"
+msgstr "預設字元集"
+
+#: ../src/bfwin.c:997
+#, fuzzy
+msgid "Pattern contains backslash escaped sequences"
+msgstr "樣式包含反斜線跳脫字元 (\\n、\\t)"
+
+#: ../src/bfwin.c:1009
 #, fuzzy
 msgid "Advanced"
 msgstr "/進階開啟(_A)..."
 
-#: ../src/bfwin.c:1162
+#: ../src/bfwin.c:1467
 msgid "New Bluefish Window"
 msgstr "新增 Bluefish 視窗"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1217
+#: ../src/bfwin.c:1533
 msgid "Stand by..."
 msgstr "稍待..."
 
-#: ../src/bfwin_uimanager.c:722
+#: ../src/bfwin_uimanager.c:761
 msgid "Leave Fullscreen"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:722
+#: ../src/bfwin_uimanager.c:761
 msgid "Fullscreen"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:773
+#: ../src/bfwin_uimanager.c:819
 #, fuzzy
 msgid "_File"
 msgstr "/檔案(F)"
 
-#: ../src/bfwin_uimanager.c:774
+#: ../src/bfwin_uimanager.c:820
 #, fuzzy
 msgid "New From Template"
 msgstr "/檔案(F)/根據選擇開啟(_F)"
 
-#: ../src/bfwin_uimanager.c:775 ../src/bfwin_uimanager.c:785
+#: ../src/bfwin_uimanager.c:821 ../src/bfwin_uimanager.c:831
 #, fuzzy
 msgid "Open _Recent"
 msgstr "/檔案(F)/開啟最近的(_R)"
 
-#: ../src/bfwin_uimanager.c:776
+#: ../src/bfwin_uimanager.c:822
 #, fuzzy
 msgid "_Edit"
 msgstr "/編輯(_E)"
 
-#: ../src/bfwin_uimanager.c:777
+#: ../src/bfwin_uimanager.c:823
 #, fuzzy
 msgid "_View"
 msgstr "/檢視(_V)"
 
-#: ../src/bfwin_uimanager.c:778
+#: ../src/bfwin_uimanager.c:824
 #, fuzzy
 msgid "_Document"
 msgstr "/文件(_D)"
 
-#: ../src/bfwin_uimanager.c:779
+#: ../src/bfwin_uimanager.c:825
 #, fuzzy
 msgid "_Tab Size"
 msgstr "/文件(D)/增加 Tab 大小(_I)"
 
-#: ../src/bfwin_uimanager.c:780
+#: ../src/bfwin_uimanager.c:826
 #, fuzzy
 msgid "_Font Size"
 msgstr "字型大小 +1"
 
-#: ../src/bfwin_uimanager.c:781
+#: ../src/bfwin_uimanager.c:827
 #, fuzzy
 msgid "Language M_ode"
 msgstr "語言:"
 
-#: ../src/bfwin_uimanager.c:782
+#: ../src/bfwin_uimanager.c:828
 #, fuzzy
 msgid "Character _Encoding"
 msgstr "/文件(D)/字元編碼(_E)"
 
-#: ../src/bfwin_uimanager.c:783
+#: ../src/bfwin_uimanager.c:829
 #, fuzzy
 msgid "_Go"
 msgstr "/衝(_G)"
 
-#: ../src/bfwin_uimanager.c:784
+#: ../src/bfwin_uimanager.c:830
 #, fuzzy
 msgid "_Project"
 msgstr "/專案(_P)"
 
-#: ../src/bfwin_uimanager.c:786
+#: ../src/bfwin_uimanager.c:832
 #, fuzzy
 msgid "_Tools"
 msgstr "/外部(_X)"
 
-#: ../src/bfwin_uimanager.c:787
+#: ../src/bfwin_uimanager.c:833
 #, fuzzy
 msgid "_Commands"
 msgstr "命令"
 
-#: ../src/bfwin_uimanager.c:788
+#: ../src/bfwin_uimanager.c:834
 #, fuzzy
 msgid "_Filters"
 msgstr "過濾器"
 
-#: ../src/bfwin_uimanager.c:789
+#: ../src/bfwin_uimanager.c:835
 #, fuzzy
 msgid "_Outputbox"
 msgstr "輸出盒"
 
-#: ../src/bfwin_uimanager.c:790
-#, fuzzy
-msgid "Fo_rmat"
-msgstr "表單"
+#: ../src/bfwin_uimanager.c:836
+msgid "For_mat"
+msgstr ""
 
-#: ../src/bfwin_uimanager.c:791
+#: ../src/bfwin_uimanager.c:837
 #, fuzzy
 msgid "_Insert"
 msgstr "插入"
 
-#: ../src/bfwin_uimanager.c:792
+#: ../src/bfwin_uimanager.c:838
 #, fuzzy
-msgid "Co_nvert"
+msgid "Con_vert"
 msgstr "Con_tent:"
 
-#: ../src/bfwin_uimanager.c:796
+#: ../src/bfwin_uimanager.c:842
 msgid "_New"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:796 ../src/filebrowser2.c:1645
-#: ../src/filebrowser2.c:1647 ../src/filebrowser2.c:2041
+#: ../src/bfwin_uimanager.c:842 ../src/filebrowser2.c:886
+#: ../src/filebrowser2.c:888 ../src/filebrowser2.c:1276
 #, fuzzy
 msgid "New file"
 msgstr "/新增檔案(_F)"
 
-#: ../src/bfwin_uimanager.c:797
+#: ../src/bfwin_uimanager.c:843
 #, fuzzy
 msgid "New _Window"
 msgstr "/檔案(F)/新增視窗(_W)"
 
-#: ../src/bfwin_uimanager.c:797
+#: ../src/bfwin_uimanager.c:843
 #, fuzzy
 msgid "New window"
 msgstr "/檔案(F)/新增視窗(_W)"
 
-#: ../src/bfwin_uimanager.c:799
+#: ../src/bfwin_uimanager.c:845
 #, fuzzy
 msgid "Close Win_dow"
 msgstr "/檔案(F)/關閉視窗(_D)"
 
-#: ../src/bfwin_uimanager.c:799
+#: ../src/bfwin_uimanager.c:845
 #, fuzzy
 msgid "Close window"
 msgstr "/檔案(F)/關閉視窗(_D)"
 
-#: ../src/bfwin_uimanager.c:800
+#: ../src/bfwin_uimanager.c:846
 #, fuzzy
 msgid "_Open..."
 msgstr "開啟.."
 
-#: ../src/bfwin_uimanager.c:800
+#: ../src/bfwin_uimanager.c:846
 #, fuzzy
 msgid "Open file"
 msgstr "開啟檔案 "
 
-#: ../src/bfwin_uimanager.c:801
+#: ../src/bfwin_uimanager.c:847
 #, fuzzy
 msgid "Open Ad_vanced..."
 msgstr "/進階開啟(_A)..."
 
-#: ../src/bfwin_uimanager.c:801 ../src/filebrowser2.c:2037
+#: ../src/bfwin_uimanager.c:847 ../src/filebrowser2.c:1272
 #, fuzzy
 msgid "Open advanced"
 msgstr "/進階開啟(_A)..."
 
-#: ../src/bfwin_uimanager.c:803
+#: ../src/bfwin_uimanager.c:849
 #, fuzzy
 msgid "Open _from Selection"
 msgstr "/檔案(F)/根據選擇開啟(_F)"
 
-#: ../src/bfwin_uimanager.c:803
+#: ../src/bfwin_uimanager.c:849
 #, fuzzy
 msgid "Open from Selection"
 msgstr "/檔案(F)/根據選擇開啟(_F)"
 
-#: ../src/bfwin_uimanager.c:805
+#: ../src/bfwin_uimanager.c:851
 #, fuzzy
-msgid "_Insert..."
-msgstr "/檔案(F)/插入(_I)..."
-
-#: ../src/bfwin_uimanager.c:805
-#, fuzzy
-msgid "Insert file"
-msgstr "插入時間"
-
-#: ../src/bfwin_uimanager.c:806
-#, fuzzy
-msgid "_Print"
+msgid "_Print..."
 msgstr "比對上層"
 
-#: ../src/bfwin_uimanager.c:806
+#: ../src/bfwin_uimanager.c:851
 #, fuzzy
 msgid "Print"
 msgstr "比對上層"
 
-#: ../src/bfwin_uimanager.c:807
-msgid "U_pload / Download..."
-msgstr ""
-
-#: ../src/bfwin_uimanager.c:809
+#: ../src/bfwin_uimanager.c:852
 #, fuzzy
 msgid "_Quit"
 msgstr "/檔案(F)/離開(_Q)"
 
-#: ../src/bfwin_uimanager.c:809
+#: ../src/bfwin_uimanager.c:852
 #, fuzzy
 msgid "Quit Bluefish"
 msgstr "關於 Bluefish"
 
-#: ../src/bfwin_uimanager.c:810
+#: ../src/bfwin_uimanager.c:853
 #, fuzzy
 msgid "Preference_s..."
 msgstr "偏好設定..."
 
-#: ../src/bfwin_uimanager.c:810
+#: ../src/bfwin_uimanager.c:853
 #, fuzzy
 msgid "Edit Preferences"
 msgstr "編輯偏好設定"
 
-#: ../src/bfwin_uimanager.c:812
+#: ../src/bfwin_uimanager.c:855
 #, fuzzy
 msgid "Select _All"
 msgstr "/編輯(E)/全選(_A)"
 
-#: ../src/bfwin_uimanager.c:812
+#: ../src/bfwin_uimanager.c:855
 #, fuzzy
 msgid "Select all"
 msgstr "選擇檔案"
 
-#: ../src/bfwin_uimanager.c:813
+#: ../src/bfwin_uimanager.c:856
 #, fuzzy
 msgid "Add Boo_kmark"
 msgstr "新增書籤"
 
-#: ../src/bfwin_uimanager.c:813 ../src/document.c:1852
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2084
 msgid "Add bookmark"
 msgstr "新增書籤"
 
-#: ../src/bfwin_uimanager.c:815
+#: ../src/bfwin_uimanager.c:858
 msgid "_Add or Remove..."
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:815
+#: ../src/bfwin_uimanager.c:858
 #, fuzzy
 msgid "Add or remove character encoding"
 msgstr "/檔案(D)/字元編碼"
 
-#: ../src/bfwin_uimanager.c:817
+#: ../src/bfwin_uimanager.c:860
 #, fuzzy
 msgid "Floati_ng Window"
 msgstr "/文件(D)/浮動視窗(_F)"
 
-#: ../src/bfwin_uimanager.c:817
+#: ../src/bfwin_uimanager.c:860
 #, fuzzy
 msgid "Open current document in floating window"
 msgstr "在目前文件"
 
-#: ../src/bfwin_uimanager.c:819 ../src/bfwin_uimanager.c:825
+#: ../src/bfwin_uimanager.c:862 ../src/bfwin_uimanager.c:868
 msgid "_Increase"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:819
+#: ../src/bfwin_uimanager.c:862
 msgid "Increase document font size"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:821 ../src/bfwin_uimanager.c:827
+#: ../src/bfwin_uimanager.c:864 ../src/bfwin_uimanager.c:870
 msgid "_Decrease"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:821
+#: ../src/bfwin_uimanager.c:864
 #, fuzzy
 msgid "Decrease document font size"
 msgstr "/檔案(D)/檔案類型"
 
-#: ../src/bfwin_uimanager.c:823 ../src/bfwin_uimanager.c:829
+#: ../src/bfwin_uimanager.c:866 ../src/bfwin_uimanager.c:872
 #, fuzzy
 msgid "_Reset"
 msgstr "重置"
 
-#: ../src/bfwin_uimanager.c:823
+#: ../src/bfwin_uimanager.c:866
 #, fuzzy
 msgid "Reset document font size"
 msgstr "/檔案(D)/檔案類型"
 
-#: ../src/bfwin_uimanager.c:825
+#: ../src/bfwin_uimanager.c:868
 msgid "Increase document tab size"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:827
+#: ../src/bfwin_uimanager.c:870
 #, fuzzy
 msgid "Decrease document tab size"
 msgstr "/文件(D)/增加 Tab 大小(_I)"
 
-#: ../src/bfwin_uimanager.c:829
+#: ../src/bfwin_uimanager.c:872
 #, fuzzy
 msgid "Reset document tab size"
 msgstr "/文件(D)/增加 Tab 大小(_I)"
 
-#: ../src/bfwin_uimanager.c:832
+#: ../src/bfwin_uimanager.c:875
 #, fuzzy
 msgid "Rescan Synta_x & Spelling"
 msgstr "/文件(D)/語法識別(_H)"
 
-#: ../src/bfwin_uimanager.c:832 ../src/bfwin_uimanager.c:835
+#: ../src/bfwin_uimanager.c:875 ../src/bfwin_uimanager.c:878
 #, fuzzy
 msgid "Rescan document highlighting"
 msgstr "/文件(D)/更新語法識別(_U)"
 
-#: ../src/bfwin_uimanager.c:835
+#: ../src/bfwin_uimanager.c:878
 #, fuzzy
 msgid "Rescan Synta_x"
 msgstr "/文件(D)/語法識別(_H)"
 
-#: ../src/bfwin_uimanager.c:838
+#: ../src/bfwin_uimanager.c:881
 #, fuzzy
 msgid "_New Project..."
 msgstr "新增專案"
 
-#: ../src/bfwin_uimanager.c:838 ../src/project.c:208
+#: ../src/bfwin_uimanager.c:881 ../src/project.c:255
 msgid "New project"
 msgstr "新增專案"
 
-#: ../src/bfwin_uimanager.c:839
+#: ../src/bfwin_uimanager.c:882
 #, fuzzy
 msgid "_Open Project..."
 msgstr "/專案(P)/開啟專案(_O)..."
 
-#: ../src/bfwin_uimanager.c:839
+#: ../src/bfwin_uimanager.c:882
 #, fuzzy
 msgid "Open project"
 msgstr "新增專案"
 
-#: ../src/bfwin_uimanager.c:840
+#: ../src/bfwin_uimanager.c:883
 msgid "_Synchronize Text Block"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:840 ../src/blocksync.c:296
+#: ../src/bfwin_uimanager.c:883 ../src/blocksync.c:295
 msgid "Synchronize text block"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:842
+#: ../src/bfwin_uimanager.c:885
 #, fuzzy
-msgid "To_ggle Comment"
+msgid "_Toggle Comment"
 msgstr "/文件(D)/字數統計(_C)"
 
-#: ../src/bfwin_uimanager.c:842
+#: ../src/bfwin_uimanager.c:885
 #, fuzzy
 msgid "Toggle comment"
 msgstr "/文件(D)/字數統計(_C)"
 
-#: ../src/bfwin_uimanager.c:844
+#: ../src/bfwin_uimanager.c:887
 #, fuzzy
 msgid "Select _Block"
 msgstr "選擇檔案"
 
-#: ../src/bfwin_uimanager.c:844
+#: ../src/bfwin_uimanager.c:887
 msgid "Select block, use multiple times to select parent blocks "
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:846
-msgid "Duplica_te Line"
-msgstr ""
+#: ../src/bfwin_uimanager.c:889
+#, fuzzy
+msgid "D_uplicate Line"
+msgstr "選擇檔案"
 
-#: ../src/bfwin_uimanager.c:846
+#: ../src/bfwin_uimanager.c:889
 #, fuzzy
 msgid "Duplicate the current line"
 msgstr "預設使用語法識別"
 
-#: ../src/bfwin_uimanager.c:848
+#: ../src/bfwin_uimanager.c:891
 #, fuzzy
-msgid "Delete Line"
+msgid "_Delete Line"
 msgstr "選擇檔案"
 
-#: ../src/bfwin_uimanager.c:848
+#: ../src/bfwin_uimanager.c:891
 #, fuzzy
 msgid "Delete the current line"
 msgstr "預設使用語法識別"
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:893
 #, fuzzy
-msgid "Word Cou_nt"
+msgid "_Word Count"
 msgstr "/文件(D)/字數統計(_C)"
 
-#: ../src/bfwin_uimanager.c:850
+#: ../src/bfwin_uimanager.c:893
 #, fuzzy
 msgid "Word count"
 msgstr "/文件(D)/字數統計(_C)"
 
-#: ../src/bfwin_uimanager.c:851 ../src/doc_extern_tools.c:42
+#: ../src/bfwin_uimanager.c:894 ../src/doc_extern_tools.c:47
 msgid "Lorem Ipsum generator"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:852
+#: ../src/bfwin_uimanager.c:895
 #, fuzzy
 msgid "Insert Relative Filename"
 msgstr "檔名"
 
-#: ../src/bfwin_uimanager.c:853
+#: ../src/bfwin_uimanager.c:896
 #, fuzzy
 msgid "Insert Absolute Filename"
 msgstr "檔名"
 
-#: ../src/bfwin_uimanager.c:854
+#: ../src/bfwin_uimanager.c:897
 #, fuzzy
 msgid "Indenting to S_paces"
 msgstr "/編輯(E)/特殊取代/取代 _ASCII 為 HTML 實體"
 
-#: ../src/bfwin_uimanager.c:854
+#: ../src/bfwin_uimanager.c:897
 #, fuzzy
 msgid "Indenting to spaces"
 msgstr "/編輯(E)/特殊取代/取代 _ASCII 為 HTML 實體"
 
-#: ../src/bfwin_uimanager.c:856
+#: ../src/bfwin_uimanager.c:899
 #, fuzzy
 msgid "Indenting to T_abs"
 msgstr "/編輯(E)/特殊取代/兩者都取代為 HTML 實體(_B)"
 
-#: ../src/bfwin_uimanager.c:856
+#: ../src/bfwin_uimanager.c:899
 #, fuzzy
 msgid "Indenting to tabs"
 msgstr "/編輯(E)/特殊取代/兩者都取代為 HTML 實體(_B)"
 
-#: ../src/bfwin_uimanager.c:858
+#: ../src/bfwin_uimanager.c:901
 #, fuzzy
 msgid "_Join Lines Together"
 msgstr "/外部(X)/tearoff1"
 
-#: ../src/bfwin_uimanager.c:858
+#: ../src/bfwin_uimanager.c:901
 #, fuzzy
 msgid "Join lines together"
 msgstr "/外部(X)/tearoff1"
 
-#: ../src/bfwin_uimanager.c:860
+#: ../src/bfwin_uimanager.c:903
 #, fuzzy
 msgid "Split Lines on Right _Margin"
 msgstr "/外部(X)/tearoff1"
 
-#: ../src/bfwin_uimanager.c:860
+#: ../src/bfwin_uimanager.c:903
 #, fuzzy
 msgid "Split lines on right margin"
 msgstr "/外部(X)/tearoff1"
 
-#: ../src/bfwin_uimanager.c:862
+#: ../src/bfwin_uimanager.c:905
 msgid "Merge Lines Into Col_umns"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:862
+#: ../src/bfwin_uimanager.c:905
 msgid "Merge lines into columns"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:864
+#: ../src/bfwin_uimanager.c:907
 #, fuzzy
 msgid "Rewrap _Lines"
 msgstr "/外部(X)/tearoff1"
 
-#: ../src/bfwin_uimanager.c:864
+#: ../src/bfwin_uimanager.c:907
 #, fuzzy
 msgid "Rewrap lines"
 msgstr "/外部(X)/tearoff1"
 
-#: ../src/bfwin_uimanager.c:865
+#: ../src/bfwin_uimanager.c:908
 #, fuzzy
 msgid "Strip T_railing Whitespace"
 msgstr "/編輯(E)/特殊取代/轉成大寫(_U)"
 
-#: ../src/bfwin_uimanager.c:865
+#: ../src/bfwin_uimanager.c:908
 #, fuzzy
 msgid "Strip trailing whitespace"
 msgstr "/編輯(E)/特殊取代/轉成大寫(_U)"
 
-#: ../src/bfwin_uimanager.c:867
+#: ../src/bfwin_uimanager.c:910
+msgid "Javascript beautifier"
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:911
 #, fuzzy
 msgid "Preview in browser"
 msgstr "在瀏覽器中觀看"
 
-#: ../src/bfwin_uimanager.c:872
+#: ../src/bfwin_uimanager.c:916
 msgid "_Full Screen"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:872
+#: ../src/bfwin_uimanager.c:916
 msgid "Full screen"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:874
+#: ../src/bfwin_uimanager.c:918
 #, fuzzy
 msgid "_Main Toolbar"
 msgstr "/檢視(V)/檢視主工作列(_M)"
 
-#: ../src/bfwin_uimanager.c:874
+#: ../src/bfwin_uimanager.c:918
 #, fuzzy
 msgid "Show main toolbar"
 msgstr "預設顯示主要工作列"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:920
 #, fuzzy
 msgid "_Side Pane"
 msgstr "/檢視(V)/檢視邊列(_S)"
 
-#: ../src/bfwin_uimanager.c:876
+#: ../src/bfwin_uimanager.c:920
 #, fuzzy
 msgid "Show side pane"
 msgstr "顯示隱藏檔案"
 
-#: ../src/bfwin_uimanager.c:877
+#: ../src/bfwin_uimanager.c:921
 #, fuzzy
 msgid "_Output Pane"
 msgstr "輸出 #"
 
-#: ../src/bfwin_uimanager.c:877
+#: ../src/bfwin_uimanager.c:921
 #, fuzzy
 msgid "Show output pane"
 msgstr "顯示所有輸出"
 
-#: ../src/bfwin_uimanager.c:879
+#: ../src/bfwin_uimanager.c:923
 #, fuzzy
 msgid "Status_bar"
 msgstr "/檢視(V)/檢視邊列(_S)"
 
-#: ../src/bfwin_uimanager.c:879
+#: ../src/bfwin_uimanager.c:923
 #, fuzzy
 msgid "Show statusbar"
 msgstr "/檢視(V)/檢視邊列(_S)"
 
-#: ../src/bfwin_uimanager.c:881
+#: ../src/bfwin_uimanager.c:925
 #, fuzzy
 msgid "Auto _Completion Popup"
 msgstr "/文件(D)/自動縮排(_A)"
 
-#: ../src/bfwin_uimanager.c:881
+#: ../src/bfwin_uimanager.c:925
 #, fuzzy
 msgid "Show auto completion popup"
 msgstr "/文件(D)/自動縮排(_A)"
 
-#: ../src/bfwin_uimanager.c:883
+#: ../src/bfwin_uimanager.c:927
 #, fuzzy
 msgid "_Auto Indent"
 msgstr "/文件(D)/自動縮排(_A)"
 
-#: ../src/bfwin_uimanager.c:883
+#: ../src/bfwin_uimanager.c:927
 #, fuzzy
 msgid "Auto indent"
 msgstr "左移"
 
-#: ../src/bfwin_uimanager.c:884
+#: ../src/bfwin_uimanager.c:928
 #, fuzzy
 msgid "Highlight Block _Delimiters"
 msgstr "反白 # 列"
 
-#: ../src/bfwin_uimanager.c:885
+#: ../src/bfwin_uimanager.c:929
 #, fuzzy
 msgid "Highlight block delimiters"
 msgstr "反白 # 列"
 
-#: ../src/bfwin_uimanager.c:886
+#: ../src/bfwin_uimanager.c:930
 #, fuzzy
 msgid "_Highlight Syntax"
 msgstr "預設使用語法識別"
 
-#: ../src/bfwin_uimanager.c:886
+#: ../src/bfwin_uimanager.c:930
 #, fuzzy
 msgid "Highlight syntax"
 msgstr "預設使用語法識別"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:932
 #, fuzzy
 msgid "Show _Blocks"
 msgstr "/文件(D)/字數統計(_C)"
 
-#: ../src/bfwin_uimanager.c:888
+#: ../src/bfwin_uimanager.c:932
 #, fuzzy
 msgid "Show blocks"
 msgstr "顯示備份檔案"
 
-#: ../src/bfwin_uimanager.c:889
+#: ../src/bfwin_uimanager.c:933
 #, fuzzy
 msgid "Show Line N_umbers"
 msgstr "列號(_L):"
 
-#: ../src/bfwin_uimanager.c:889
+#: ../src/bfwin_uimanager.c:933
 #, fuzzy
 msgid "Show line numbers"
 msgstr "列號(_L):"
 
-#: ../src/bfwin_uimanager.c:891
+#: ../src/bfwin_uimanager.c:935
 #, fuzzy
 msgid "Show Right _Margin"
 msgstr "/文件(D)/sep1"
 
-#: ../src/bfwin_uimanager.c:891
+#: ../src/bfwin_uimanager.c:935
 #, fuzzy
 msgid "Show right margin"
 msgstr "預設顯示自定選單"
 
-#: ../src/bfwin_uimanager.c:893
+#: ../src/bfwin_uimanager.c:937
 msgid "Show Split _View"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:893
+#: ../src/bfwin_uimanager.c:937
 msgid "Show split view"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:895
+#: ../src/bfwin_uimanager.c:939
 #, fuzzy
 msgid "Show V_isible Spacing"
 msgstr "/文件(D)/sep1"
 
-#: ../src/bfwin_uimanager.c:895
+#: ../src/bfwin_uimanager.c:939
 #, fuzzy
 msgid "Show visible spacing"
 msgstr "/文件(D)/sep1"
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:941
 msgid "_Wrap Text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:897
+#: ../src/bfwin_uimanager.c:941
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:901 ../src/document.c:2859
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3196
 #, fuzzy
 msgid "_Close"
 msgstr "關閉"
 
-#: ../src/bfwin_uimanager.c:901
+#: ../src/bfwin_uimanager.c:945
 #, fuzzy
 msgid "Close current file"
 msgstr "檔案儲存中斷.\n"
 
-#: ../src/bfwin_uimanager.c:903
+#: ../src/bfwin_uimanager.c:947
 #, fuzzy
 msgid "Close A_ll"
 msgstr "全部關閉(_A)"
 
-#: ../src/bfwin_uimanager.c:903
+#: ../src/bfwin_uimanager.c:947
 #, fuzzy
 msgid "Close all files"
 msgstr "檔案儲存中斷.\n"
 
-#: ../src/bfwin_uimanager.c:905 ../src/bfwin_uimanager.c:963
-#: ../src/file_dialogs.c:1430
+#: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
+#: ../src/file_dialogs.c:1483
 #, fuzzy
 msgid "_Save"
 msgstr "儲存"
 
-#: ../src/bfwin_uimanager.c:905
+#: ../src/bfwin_uimanager.c:949
 #, fuzzy
 msgid "Save current file"
 msgstr "建立空專案"
 
-#: ../src/bfwin_uimanager.c:907 ../src/bfwin_uimanager.c:964
+#: ../src/bfwin_uimanager.c:951 ../src/bfwin_uimanager.c:1026
 #, fuzzy
 msgid "Save _as..."
 msgstr "另存為..."
 
 # c-format
-#: ../src/bfwin_uimanager.c:907
+#: ../src/bfwin_uimanager.c:951
 #, fuzzy
 msgid "Save file as"
 msgstr " %s 另存為"
 
-#: ../src/bfwin_uimanager.c:909
+#: ../src/bfwin_uimanager.c:953
 #, fuzzy
 msgid "Sav_e All"
 msgstr "全部儲存(_S)"
 
-#: ../src/bfwin_uimanager.c:909
+#: ../src/bfwin_uimanager.c:953
 #, fuzzy
 msgid "Save all files"
 msgstr "所有檔案"
 
-#: ../src/bfwin_uimanager.c:910
+#: ../src/bfwin_uimanager.c:954
 #, fuzzy
 msgid "Rever_t to Saved"
 msgstr "/檔案(F)/回復到已儲存的(_T)"
 
-#: ../src/bfwin_uimanager.c:910
+#: ../src/bfwin_uimanager.c:954
 msgid "Reload current file"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:912
+#: ../src/bfwin_uimanager.c:956
+#, fuzzy
+msgid "Save a cop_y..."
+msgstr "另存為..."
+
+#: ../src/bfwin_uimanager.c:956
+#, fuzzy
+msgid "Save a copy"
+msgstr "/專案(P)/儲存並關閉(_C)..."
+
+#: ../src/bfwin_uimanager.c:957
+#, fuzzy
+msgid "_Insert..."
+msgstr "/檔案(F)/插入(_I)..."
+
+#: ../src/bfwin_uimanager.c:957
+#, fuzzy
+msgid "Insert file"
+msgstr "插入時間"
+
+#. Required to move here to disable sensitivity on OSX
+#: ../src/bfwin_uimanager.c:958
 #, fuzzy
 msgid "Rena_me..."
 msgstr "/重新命名(_M)"
 
-#: ../src/bfwin_uimanager.c:912
+#: ../src/bfwin_uimanager.c:958
 #, fuzzy
 msgid "Rename file"
 msgstr "/新增檔案(_F)"
 
-#: ../src/bfwin_uimanager.c:913
+#: ../src/bfwin_uimanager.c:959
 #, fuzzy
 msgid "_Indent"
 msgstr "右移"
 
-#: ../src/bfwin_uimanager.c:913
+#: ../src/bfwin_uimanager.c:959
 msgid "Indent"
 msgstr "右移"
 
-#: ../src/bfwin_uimanager.c:914
+#: ../src/bfwin_uimanager.c:960
 #, fuzzy
 msgid "Unin_dent"
 msgstr "左移"
 
-#: ../src/bfwin_uimanager.c:914
+#: ../src/bfwin_uimanager.c:960
 msgid "Unindent"
 msgstr "左移"
 
-#: ../src/bfwin_uimanager.c:916
+#: ../src/bfwin_uimanager.c:962
 #, fuzzy
 msgid "F_irst Bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bfwin_uimanager.c:916
+#: ../src/bfwin_uimanager.c:962
 #, fuzzy
 msgid "Goto first bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bfwin_uimanager.c:918
+#: ../src/bfwin_uimanager.c:964
 #, fuzzy
 msgid "L_ast Bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bfwin_uimanager.c:918
+#: ../src/bfwin_uimanager.c:964
 #, fuzzy
 msgid "Goto last bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bfwin_uimanager.c:920
+#: ../src/bfwin_uimanager.c:966
 #, fuzzy
 msgid "N_ext Bookmark"
 msgstr "刪除書籤"
 
-#: ../src/bfwin_uimanager.c:920
+#: ../src/bfwin_uimanager.c:966
 #, fuzzy
 msgid "Goto next bookmark"
 msgstr "刪除書籤"
 
-#: ../src/bfwin_uimanager.c:922
+#: ../src/bfwin_uimanager.c:968
 #, fuzzy
 msgid "P_revious Bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bfwin_uimanager.c:923 ../src/bfwin_uimanager.c:934
+#: ../src/bfwin_uimanager.c:969 ../src/bfwin_uimanager.c:982
 #, fuzzy
 msgid "Goto previous document"
 msgstr "/衝(G)/前一文件(_P)"
 
-#: ../src/bfwin_uimanager.c:924
+#: ../src/bfwin_uimanager.c:970
 #, fuzzy
 msgid "Move Tab _Left"
 msgstr "左移"
 
-#: ../src/bfwin_uimanager.c:924
+#: ../src/bfwin_uimanager.c:970
 #, fuzzy
 msgid "Move current tab left"
 msgstr "選擇器"
 
-#: ../src/bfwin_uimanager.c:926
+#: ../src/bfwin_uimanager.c:972
 #, fuzzy
 msgid "Move Tab _Right"
 msgstr "右移"
 
-#: ../src/bfwin_uimanager.c:926
+#: ../src/bfwin_uimanager.c:972
 #, fuzzy
 msgid "Move current tab right"
 msgstr "建立空專案"
 
-#: ../src/bfwin_uimanager.c:928
+#: ../src/bfwin_uimanager.c:974
+#, fuzzy
+msgid "_Recent Document"
+msgstr "/衝(G)/下一文件(_N)"
+
+#: ../src/bfwin_uimanager.c:974
+#, fuzzy
+msgid "Goto most recent document"
+msgstr "/衝(G)/最後一個文件(_A)"
+
+#: ../src/bfwin_uimanager.c:976
 #, fuzzy
 msgid "_First Document"
 msgstr "/衝(G)/第一個文件(_F)"
 
-#: ../src/bfwin_uimanager.c:928
+#: ../src/bfwin_uimanager.c:976
 #, fuzzy
 msgid "Goto first document"
 msgstr "/衝(G)/第一個文件(_F)"
 
-#: ../src/bfwin_uimanager.c:930
+#: ../src/bfwin_uimanager.c:978
 #, fuzzy
 msgid "_Last Document"
 msgstr "/衝(G)/最後一個文件(_A)"
 
-#: ../src/bfwin_uimanager.c:930
+#: ../src/bfwin_uimanager.c:978
 #, fuzzy
 msgid "Goto last document"
 msgstr "/衝(G)/最後一個文件(_A)"
 
-#: ../src/bfwin_uimanager.c:932
+#: ../src/bfwin_uimanager.c:980
 #, fuzzy
 msgid "_Next Document"
 msgstr "/衝(G)/下一文件(_N)"
 
-#: ../src/bfwin_uimanager.c:932
+#: ../src/bfwin_uimanager.c:980
 #, fuzzy
 msgid "Goto next document"
 msgstr "/衝(G)/下一文件(_N)"
 
-#: ../src/bfwin_uimanager.c:934
+#: ../src/bfwin_uimanager.c:982
 #, fuzzy
 msgid "_Previous Document"
 msgstr "/衝(G)/前一文件(_P)"
 
-#: ../src/bfwin_uimanager.c:936
+#: ../src/bfwin_uimanager.c:984
 #, fuzzy
-msgid "Goto _Line"
+msgid "_Goto Line"
 msgstr "跳至列"
 
-#: ../src/bfwin_uimanager.c:936
+#: ../src/bfwin_uimanager.c:984
 #, fuzzy
 msgid "Goto line"
 msgstr "跳至列"
 
-#: ../src/bfwin_uimanager.c:937
+#: ../src/bfwin_uimanager.c:985
 #, fuzzy
 msgid "Goto Line Number from _Clipboard"
 msgstr "/衝(G)/跳到選擇(_S)"
 
-#: ../src/bfwin_uimanager.c:938
+#: ../src/bfwin_uimanager.c:986
 #, fuzzy
 msgid "Goto line number in clipboard or selection"
 msgstr "/衝(G)/跳到選擇(_S)"
 
-#: ../src/bfwin_uimanager.c:939
+#: ../src/bfwin_uimanager.c:987
 #, fuzzy
 msgid "_Jump to Reference"
 msgstr "函式參考"
 
-#: ../src/bfwin_uimanager.c:939
+#: ../src/bfwin_uimanager.c:987
 #, fuzzy
 msgid "Jump to reference"
 msgstr "函式參考"
 
-#: ../src/bfwin_uimanager.c:944
+#: ../src/bfwin_uimanager.c:990 ../src/bfwin_uimanager.c:993
+msgid "Jump to Matching Block Boundary"
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:999
 msgid "Cu_t"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:944
+#: ../src/bfwin_uimanager.c:999
 msgid "Cut"
 msgstr "剪下"
 
-#: ../src/bfwin_uimanager.c:945
+#: ../src/bfwin_uimanager.c:1000
 #, fuzzy
 msgid "_Copy"
 msgstr "複製"
 
-#: ../src/bfwin_uimanager.c:945
+#: ../src/bfwin_uimanager.c:1000
 msgid "Copy"
 msgstr "複製"
 
-#: ../src/bfwin_uimanager.c:946
+#: ../src/bfwin_uimanager.c:1001
 #, fuzzy
 msgid "_Paste"
 msgstr "貼上"
 
-#: ../src/bfwin_uimanager.c:946
+#: ../src/bfwin_uimanager.c:1001
 msgid "Paste"
 msgstr "貼上"
 
-#: ../src/bfwin_uimanager.c:950
+#: ../src/bfwin_uimanager.c:1002
+#, fuzzy
+msgid "Paste Specia_l"
+msgstr "/標記(T)/特殊(_S)"
+
+#: ../src/bfwin_uimanager.c:1002
+#, fuzzy
+msgid "Paste Special"
+msgstr "/標記(T)/特殊(_S)"
+
+#: ../src/bfwin_uimanager.c:1006
 #, fuzzy
 msgid "_Find"
 msgstr "尋找"
 
-#: ../src/bfwin_uimanager.c:950
+#: ../src/bfwin_uimanager.c:1006
 #, fuzzy
 msgid "Show find bar"
 msgstr "預設顯示主要工作列"
 
-#: ../src/bfwin_uimanager.c:951
+#: ../src/bfwin_uimanager.c:1007
 #, fuzzy
 msgid "Find A_gain"
 msgstr "/編輯(E)/尋找下一個(_G)"
 
-#: ../src/bfwin_uimanager.c:951
+#: ../src/bfwin_uimanager.c:1007
 #, fuzzy
 msgid "Find again"
 msgstr "/編輯(E)/尋找下一個(_G)"
 
-#: ../src/bfwin_uimanager.c:952
+#: ../src/bfwin_uimanager.c:1008
 #, fuzzy
 msgid "Find from Clip_board"
 msgstr "由選擇中(_S)"
 
-#: ../src/bfwin_uimanager.c:952
+#: ../src/bfwin_uimanager.c:1008
 #, fuzzy
 msgid "Find from clipboard or selection"
 msgstr "由選擇中(_S)"
 
-#: ../src/bfwin_uimanager.c:954
+#: ../src/bfwin_uimanager.c:1011 ../src/bfwin_uimanager.c:1014
 #, fuzzy
-msgid "Advanced Find & Re_place..."
+msgid "Ad_vanced Find & Replace..."
 msgstr "取代"
 
-#: ../src/bfwin_uimanager.c:954
+#: ../src/bfwin_uimanager.c:1011 ../src/bfwin_uimanager.c:1014
 #, fuzzy
 msgid "Advanced Find and Replace"
 msgstr "取代"
 
-#: ../src/bfwin_uimanager.c:961
+#: ../src/bfwin_uimanager.c:1023
 #, fuzzy
 msgid "Save & _close"
 msgstr "/專案(P)/儲存並關閉(_C)..."
 
-#: ../src/bfwin_uimanager.c:961
+#: ../src/bfwin_uimanager.c:1023
 #, fuzzy
 msgid "Save & close project"
 msgstr "建立空專案"
 
-#: ../src/bfwin_uimanager.c:963
+#: ../src/bfwin_uimanager.c:1025
 #, fuzzy
 msgid "Save project"
 msgstr "新增專案"
 
-#: ../src/bfwin_uimanager.c:964
+#: ../src/bfwin_uimanager.c:1026
 #, fuzzy
 msgid "Save project as"
 msgstr "新增專案"
 
-#: ../src/bfwin_uimanager.c:965
+#: ../src/bfwin_uimanager.c:1027
 #, fuzzy
 msgid "_Edit Project Options..."
 msgstr "/專案(P)/編輯專案選項(_D)..."
 
-#: ../src/bfwin_uimanager.c:965
+#: ../src/bfwin_uimanager.c:1027
 #, fuzzy
 msgid "Edit project options"
 msgstr "編輯專案"
 
-#: ../src/bfwin_uimanager.c:970
+#: ../src/bfwin_uimanager.c:1032
 #, fuzzy
 msgid "_Undo"
 msgstr "復原"
 
-#: ../src/bfwin_uimanager.c:970
+#: ../src/bfwin_uimanager.c:1032
 msgid "Undo"
 msgstr "復原"
 
-#: ../src/bfwin_uimanager.c:971
+#: ../src/bfwin_uimanager.c:1033
 #, fuzzy
 msgid "U_ndo All"
 msgstr "/編輯(E)/復原所有"
 
-#: ../src/bfwin_uimanager.c:971
+#: ../src/bfwin_uimanager.c:1033
 #, fuzzy
 msgid "Undo All"
 msgstr "/編輯(E)/復原所有"
 
-#: ../src/bfwin_uimanager.c:972
+#: ../src/bfwin_uimanager.c:1034
 #, fuzzy
 msgid "_Redo"
 msgstr "重做"
 
-#: ../src/bfwin_uimanager.c:972
+#: ../src/bfwin_uimanager.c:1034
 msgid "Redo"
 msgstr "重做"
 
-#: ../src/bfwin_uimanager.c:973
+#: ../src/bfwin_uimanager.c:1035
 #, fuzzy
 msgid "R_edo All"
 msgstr "/編輯(E)/重做所有"
 
-#: ../src/bfwin_uimanager.c:973
+#: ../src/bfwin_uimanager.c:1035
 #, fuzzy
 msgid "Redo All"
 msgstr "/編輯(E)/重做所有"
 
-#: ../src/bfwin_uimanager.c:1114
+#: ../src/bfwin_uimanager.c:1060
+#, c-format
+msgid "Always use this syntax for files of type %s ?"
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:1225
 #, fuzzy
 msgid "Open _URL..."
 msgstr "/檔案(F)/開啟 _URL..."
 
-#: ../src/bfwin_uimanager.c:1127
+#: ../src/bfwin_uimanager.c:1235
+msgid "Upload _/ Download..."
+msgstr ""
+
+#: ../src/bfwin_uimanager.c:1248
 #, fuzzy
 msgid "_Spell Check"
 msgstr "拼字檢查..."
 
-#: ../src/bfwin_uimanager.c:1508
+#: ../src/bfwin_uimanager.c:1715
 #, fuzzy
 msgid "Text area to filter"
 msgstr "文字區"
 
-#: ../src/bfwin_uimanager.c:1509
+#: ../src/bfwin_uimanager.c:1716
 msgid "All text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:1510
+#: ../src/bfwin_uimanager.c:1717
 #, fuzzy
 msgid "Selected text only"
 msgstr "選擇字型"
+
+#: ../src/bfwin_uimanager.c:1719
+msgid "Never ask again"
+msgstr ""
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -1136,213 +1269,208 @@ msgid ""
 "of the block.</span>"
 msgstr ""
 
-#: ../src/bluefish.c:94
+#: ../src/bluefish.c:91
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr ""
 
-#: ../src/bluefish.c:267
+#: ../src/bluefish.c:360
 #, fuzzy
 msgid "Open in existing window."
 msgstr "在目前文件"
 
-#: ../src/bluefish.c:269
+#: ../src/bluefish.c:362
 #, fuzzy
 msgid "Open in new window."
 msgstr "在目前文件"
 
-#: ../src/bluefish.c:271
+#: ../src/bluefish.c:364
 msgid "Print version information."
 msgstr ""
 
-#: ../src/bluefish.c:293
+#: ../src/bluefish.c:391
 msgid " [FILE(S)]"
 msgstr ""
 
-#: ../src/bluefish.c:304
+#: ../src/bluefish.c:402
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
 "Please run: %s -?\n"
 msgstr ""
 
-#: ../src/bookmark.c:558
+#: ../src/bookmark.c:548 ../src/bookmark.c:569
 msgid "_Name:"
 msgstr "名稱(_N):"
 
-#: ../src/bookmark.c:562
+#: ../src/bookmark.c:555 ../src/bookmark.c:573
 msgid "_Description:"
 msgstr "描述(_D):"
 
-#: ../src/bookmark.c:564
+#: ../src/bookmark.c:558
+#, fuzzy
+msgid "_Temporary"
+msgstr "暫時"
+
+#: ../src/bookmark.c:575
 msgid "Temporary"
 msgstr "暫時"
 
-#: ../src/bookmark.c:725
+#: ../src/bookmark.c:748
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "您真的要刪除 %s 嗎?"
 
-#: ../src/bookmark.c:728
+#: ../src/bookmark.c:751
 msgid "Delete permanent bookmark."
 msgstr "永久刪除書籤."
 
-#: ../src/bookmark.c:754
+#: ../src/bookmark.c:777
 msgid "Delete all bookmarks."
 msgstr "刪除所有書籤."
 
-#: ../src/bookmark.c:792
+#: ../src/bookmark.c:815
 #, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "您真的要刪除 %s 的所有書籤嗎?"
 
-#: ../src/bookmark.c:794
+#: ../src/bookmark.c:817
 msgid "Delete bookmarks?"
 msgstr "刪除書籤?"
 
-#: ../src/bookmark.c:815 ../src/bookmark.c:876
+#: ../src/bookmark.c:838 ../src/bookmark.c:899
 msgid "Edit bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bookmark.c:872
+#: ../src/bookmark.c:895
 #, fuzzy
 msgid "Bookmark menu"
 msgstr "結果存入書籤"
 
-#: ../src/bookmark.c:873
+#: ../src/bookmark.c:896
 #, fuzzy
 msgid "Show Bookmark"
 msgstr "跳到書籤"
 
-#: ../src/bookmark.c:874
+#: ../src/bookmark.c:897
 #, fuzzy
 msgid "Show File"
 msgstr "沒有檔案名稱"
 
-#: ../src/bookmark.c:875
+#: ../src/bookmark.c:898
 #, fuzzy
 msgid "Bookmark search menu"
 msgstr "書籤"
 
-#: ../src/bookmark.c:876
+#: ../src/bookmark.c:899
 #, fuzzy
 msgid "_Edit..."
 msgstr "/編輯(_E)"
 
-#: ../src/bookmark.c:878 ../src/filebrowser2.c:2040
+#: ../src/bookmark.c:901 ../src/filebrowser2.c:1275
 #, fuzzy
 msgid "_Delete"
 msgstr "/刪除(_D)"
 
-#: ../src/bookmark.c:878 ../src/document.c:1848
+#: ../src/bookmark.c:901 ../src/document.c:2080
 msgid "Delete bookmark"
 msgstr "刪除書籤"
 
-#: ../src/bookmark.c:879
+#: ../src/bookmark.c:902
 #, fuzzy
 msgid "Delete All"
 msgstr " 刪除全部 "
 
-#: ../src/bookmark.c:879
+#: ../src/bookmark.c:902
 #, fuzzy
 msgid "Delete all bookmarks"
 msgstr "刪除所有書籤."
 
-#: ../src/bookmark.c:881
+#: ../src/bookmark.c:904
 #, fuzzy
 msgid "Delete All in Document"
 msgstr "刪除在檔案中的全部"
 
-#: ../src/bookmark.c:881
+#: ../src/bookmark.c:905
 #, fuzzy
 msgid "Delete all bookmarks in document"
 msgstr "刪除在檔案中的全部"
 
-#: ../src/bookmark.c:886
+#: ../src/bookmark.c:910
 #, fuzzy
 msgid "Permanent by default"
 msgstr "預設為永久"
 
-#: ../src/bookmark.c:891
+#: ../src/bookmark.c:915
 #, fuzzy
 msgid "By Name"
 msgstr "名稱"
 
-#: ../src/bookmark.c:892
+#: ../src/bookmark.c:916
 #, fuzzy
 msgid "By Full Path"
 msgstr "完整路徑"
 
-#: ../src/bookmark.c:893
+#: ../src/bookmark.c:917
 msgid "By Full URI"
 msgstr ""
 
-#: ../src/bookmark.c:897 ../src/bookmark.c:903
+#: ../src/bookmark.c:921 ../src/bookmark.c:927
 #, fuzzy
 msgid "Content"
 msgstr "Con_tent:"
 
-#: ../src/bookmark.c:898 ../src/bookmark.c:904 ../src/preferences.c:596
-#: ../src/preferences.c:1362 ../src/preferences.c:1364
-#: ../src/preferences.c:1465
+#: ../src/bookmark.c:922 ../src/bookmark.c:928 ../src/preferences.c:607
+#: ../src/preferences.c:1369 ../src/preferences.c:1371
+#: ../src/preferences.c:1472
 msgid "Name"
 msgstr "名稱"
 
-#: ../src/bookmark.c:899 ../src/bookmark.c:905
+#: ../src/bookmark.c:923 ../src/bookmark.c:929
 #, fuzzy
 msgid "Name & Content"
 msgstr "Con_tent:"
 
-#: ../src/bookmark.c:1246
+#: ../src/bookmark.c:1261
 #, fuzzy
 msgid "First bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bookmark.c:1250
+#: ../src/bookmark.c:1265
 #, fuzzy
 msgid "Previous bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bookmark.c:1254
+#: ../src/bookmark.c:1269
 #, fuzzy
 msgid "Next bookmark"
 msgstr "刪除書籤"
 
-#: ../src/bookmark.c:1258
+#: ../src/bookmark.c:1273
 #, fuzzy
 msgid "Last bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bookmark.c:1961 ../src/bookmark.c:2108
-#, fuzzy
-msgid "Error adding bookmark"
-msgstr "編輯書籤"
-
-#: ../src/bookmark.c:1961 ../src/bookmark.c:2108
-#, fuzzy
-msgid "Cannot add bookmarks to unsaved files."
-msgstr "無法在未命名的檔案中新增書籤."
-
-#: ../src/bookmark.c:2042
+#: ../src/bookmark.c:2037
 #, fuzzy
 msgid "Can't add bookmark"
 msgstr "新增書籤"
 
-#: ../src/bookmark.c:2042
+#: ../src/bookmark.c:2037
 msgid "You already have a bookmark here!"
 msgstr "您目前在這裡頭已經有書籤了!"
 
-#: ../src/document.c:411
+#: ../src/document.c:515
 msgid "Name: "
 msgstr "名稱:"
 
-#: ../src/document.c:414
+#: ../src/document.c:518
 #, fuzzy
 msgid ""
 "\n"
 "Language mode: "
 msgstr "語言:"
 
-#: ../src/document.c:418
+#: ../src/document.c:522
 msgid ""
 "\n"
 "Encoding: "
@@ -1350,14 +1478,14 @@ msgstr ""
 "\n"
 "編碼:"
 
-#: ../src/document.c:430
+#: ../src/document.c:534
 #, fuzzy
 msgid ""
 "\n"
 "Mime type: "
 msgstr "檔案類型"
 
-#: ../src/document.c:438
+#: ../src/document.c:542
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -1367,7 +1495,7 @@ msgstr ""
 "\n"
 "權限:"
 
-#: ../src/document.c:455
+#: ../src/document.c:559
 msgid ""
 "\n"
 "Size (on disk): "
@@ -1375,7 +1503,7 @@ msgstr ""
 "\n"
 "大小(磁碟上):"
 
-#: ../src/document.c:464
+#: ../src/document.c:568
 msgid ""
 "\n"
 "Last modified: "
@@ -1383,81 +1511,102 @@ msgstr ""
 "\n"
 "上次修改時間:"
 
-#: ../src/document.c:502
+#: ../src/document.c:624
 #, c-format
 msgid "Untitled %d"
 msgstr "無標題 %d"
 
-#: ../src/document.c:687
+#: ../src/document.c:805
 #, c-format
 msgid "Changed tab width to %d"
 msgstr ""
 
-#: ../src/document.c:861
+#: ../src/document.c:979
 #, fuzzy, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "在已執行的 bluefish 視窗中開啟檔案"
 
-#: ../src/document.c:863
+#: ../src/document.c:981
 msgid "Move to this window"
 msgstr ""
 
-#: ../src/document.c:863
+#: ../src/document.c:981
 msgid "Open readonly"
 msgstr ""
 
-#: ../src/document.c:864
+#: ../src/document.c:982
 #, fuzzy
 msgid "Do not open"
 msgstr "無法開啟檔案\n"
 
-#: ../src/document.c:1176
+#: ../src/document.c:1308
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr "列 %d, 欄 %d"
 
-#: ../src/document.c:1179
+#: ../src/document.c:1311
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d"
 msgstr "列 %d, 欄 %d"
 
-#: ../src/document.c:1202
+#: ../src/document.c:1334
 msgid " OVR"
 msgstr ""
 
-#: ../src/document.c:1202
+#: ../src/document.c:1334
 msgid " INS"
 msgstr ""
 
-#: ../src/document.c:1204
+#: ../src/document.c:1336
 msgid " RO"
 msgstr ""
 
-#: ../src/document.c:1223
+#: ../src/document.c:1355
 #, fuzzy
 msgid "Unknown"
 msgstr "不明的圖示"
 
-#: ../src/document.c:1671
+#: ../src/document.c:1819
+#, fuzzy
+msgid "_No"
+msgstr "/衝(_G)"
+
+#: ../src/document.c:1819
+msgid "_Split"
+msgstr ""
+
+#: ../src/document.c:1822
+msgid "File contains very long lines. Split these lines?"
+msgstr ""
+
+#: ../src/document.c:1822
+msgid ""
+"The lines in this file are longer than Bluefish can handle with reasonable "
+"performance. This split function, however, is unaware of any language "
+"syntax, and may replace spaces or tabs with newlines in any location, or "
+"insert newlines if no spaces or tabs are found."
+msgstr ""
+
+#: ../src/document.c:1898
 msgid "Cannot display file, unknown characters found."
 msgstr "無法顯示檔案, 發現不明的字元集."
 
-#: ../src/document.c:1858
+#: ../src/document.c:2090
 msgid "Exit fullscreen"
 msgstr ""
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2002 ../src/file_dialogs.c:474 ../src/file_dialogs.c:512
+#: ../src/document.c:2234 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "中斷儲存(_A)"
 
-#: ../src/document.c:2002
+#: ../src/document.c:2234
 msgid "_Continue save in UTF-8"
 msgstr "繼續以 UTF-8 儲存(_C)"
 
-#: ../src/document.c:2015
+#: ../src/document.c:2247
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1469,148 +1618,220 @@ msgstr ""
 "\n"
 "要繼續以 UTF-8 編碼儲存嗎?"
 
-#: ../src/document.c:2020
+#: ../src/document.c:2252
 msgid "File encoding conversion failure"
 msgstr "檔案編碼轉換失敗"
 
-#: ../src/document.c:2174
+#: ../src/document.c:2411
 msgid "Previously: "
 msgstr "前一個: "
 
-#: ../src/document.c:2646 ../src/file_dialogs.c:819
+#: ../src/document.c:2983 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
 
-#: ../src/document.c:2775
+#: ../src/document.c:3112
 msgid "Unable to open file"
 msgstr "無法開啟檔案"
 
-#: ../src/document.c:2787
+#: ../src/document.c:3124
 #, fuzzy, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "如果您刪除這個檔案, 它將會永久消失."
 
-#: ../src/document.c:2791
+#: ../src/document.c:3128
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "關閉前要儲存 \"%s\" 嗎?."
 
-#: ../src/document.c:2859
+#: ../src/document.c:3196
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:2859
+#: ../src/document.c:3196
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:2859
+#: ../src/document.c:3196
 #, fuzzy
 msgid "Close all _failed"
 msgstr "檔案儲存中斷.\n"
 
-#: ../src/document.c:2864
+#: ../src/document.c:3201
 #, fuzzy
 msgid "File "
 msgstr "檔案 #"
 
-#: ../src/document.c:2864
+#: ../src/document.c:3201
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:2868
+#: ../src/document.c:3205
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:2985
+#: ../src/document.c:3330
 msgid "Select file to insert"
 msgstr "選擇要插入的檔案"
 
-#: ../src/document.c:2994
+#: ../src/document.c:3339
 msgid "No file to insert"
 msgstr "沒有要插入的檔案"
 
-#: ../src/document.c:3101
+# c-format
+#: ../src/document.c:3419
+#, fuzzy
+msgid "Save pasted image as"
+msgstr " %s 另存為"
+
+#: ../src/document.c:3515
+msgid "Paste special"
+msgstr ""
+
+#: ../src/document.c:3521
+msgid "No compatible clipboard data found"
+msgstr ""
+
+#: ../src/document.c:3525
+msgid "Paste as _HTML"
+msgstr ""
+
+#: ../src/document.c:3530
+msgid "Paste as HTML with _JPG"
+msgstr ""
+
+#: ../src/document.c:3540
+#, fuzzy
+msgid "Paste as plain text"
+msgstr "插入圖像"
+
+#: ../src/document.c:3634
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/document.c:3102
+#: ../src/document.c:3635
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d 的 %d"
 msgstr[1] "%d 的 %d"
 
-#: ../src/document.c:3103
+#: ../src/document.c:3636
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/document.c:3105
+#: ../src/document.c:3638
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "開始於:"
 
-#: ../src/document.c:3105
+#: ../src/document.c:3638
 #, fuzzy
 msgid "Statistics: "
 msgstr "開始於:"
 
-#: ../src/doc_text_tools.c:391
+#: ../src/doc_text_tools.c:400
 #, fuzzy
 msgid "Lines into columns"
 msgstr "欄數(_M):"
 
-#: ../src/doc_text_tools.c:403
+#: ../src/doc_text_tools.c:412
 #, fuzzy
 msgid "Number of columns:"
 msgstr "欄數(_M):"
 
-#: ../src/doc_text_tools.c:407
+#: ../src/doc_text_tools.c:416
 msgid "Spread lines horizontally"
 msgstr ""
 
-#: ../src/doc_text_tools.c:414
+#: ../src/doc_text_tools.c:423
 msgid "Column separator:"
 msgstr ""
 
-#: ../src/doc_text_tools.c:418
+#: ../src/doc_text_tools.c:427
 msgid "Fill empty entries:"
 msgstr ""
 
-#: ../src/doc_extern_tools.c:49
+#: ../src/doc_extern_tools.c:63
 #, fuzzy
-msgid "Number of paragraphs"
+msgid "Number of _paragraphs:"
 msgstr "變數個數(_V):"
 
-#: ../src/doc_extern_tools.c:51
+#: ../src/doc_extern_tools.c:68
 #, fuzzy
-msgid "Number of sentences"
+msgid "Number of _sentences:"
 msgstr "欄數(_M):"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 #, fuzzy
 msgid "Insert plain text"
 msgstr "插入圖像"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 #, fuzzy
 msgid "Insert in <li>"
 msgstr "插入時間"
 
-#: ../src/doc_extern_tools.c:52
+#: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 #, fuzzy
 msgid "Insert in <p>"
 msgstr "插入時間"
+
+#: ../src/doc_extern_tools.c:81
+#, fuzzy
+msgid "Number of paragraphs"
+msgstr "變數個數(_V):"
+
+#: ../src/doc_extern_tools.c:84
+#, fuzzy
+msgid "Number of sentences"
+msgstr "欄數(_M):"
+
+#: ../src/doc_extern_tools.c:134
+msgid "Javascript Beautify"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:148
+#, fuzzy
+msgid "_Indent size:"
+msgstr "右移"
+
+#: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
+msgid "Use _tabs to indent, not spaces"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
+msgid "Do not _preserve existing line breaks"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
+msgid "More _jslint-compatible output"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
+msgid "_Decode printable chars encoded in \\\\xNN notation"
+msgstr ""
+
+#: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
+#, fuzzy
+msgid "Beautify only in _selection"
+msgstr "在選中內容"
+
+#: ../src/doc_extern_tools.c:179
+#, fuzzy
+msgid "_Indent size"
+msgstr "右移"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
@@ -1635,40 +1856,68 @@ msgstr ""
 msgid "Add or remove document encodings"
 msgstr ""
 
-#: ../src/external_commands.c:405
+#: ../src/external_commands.c:414
 msgid "Supply extra arguments"
 msgstr ""
 
-#: ../src/external_commands.c:410
+#: ../src/external_commands.c:419
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr ""
 
-#: ../src/filebrowser2.c:277
+#: ../src/external_commands.c:671
+#, c-format
+msgid "Failed to create a command for %s."
+msgstr ""
+
+#: ../src/external_commands.c:673
+msgid "Failed to create a command"
+msgstr ""
+
+#: ../src/external_commands.c:692 ../src/external_commands.c:704
+#, c-format
+msgid "The command %s exited with error code %d. %s"
+msgstr ""
+
+#: ../src/external_commands.c:692 ../src/external_commands.c:708
+msgid "Probably this application is not installed on your system."
+msgstr ""
+
+#: ../src/external_commands.c:694
+msgid "Command returned error code"
+msgstr ""
+
+#: ../src/filebrowser2.c:736
 msgid "Set documentroot and webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:286
+#: ../src/filebrowser2.c:745
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
 "the webserver"
 msgstr ""
 
-#: ../src/filebrowser2.c:293
+#: ../src/filebrowser2.c:752
 #, fuzzy
 msgid "Documentroot"
 msgstr "/文件(_D)"
 
-#: ../src/filebrowser2.c:304
+#: ../src/filebrowser2.c:763
 msgid "Webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:1549
+# c-format
+#: ../src/filebrowser2.c:776 ../src/file_dialogs.c:789
+#, c-format
+msgid "Move/rename %s to"
+msgstr "搬移/重新命名 %s 為"
+
+#: ../src/filebrowser2.c:787
 msgid "Could not rename\n"
 msgstr "無法重新命名\n"
 
-#: ../src/filebrowser2.c:1622 ../src/filebrowser2.c:2042
+#: ../src/filebrowser2.c:861 ../src/filebrowser2.c:1277
 #, fuzzy
 msgid "New directory"
 msgstr "/新增目錄(_N)"
@@ -1681,179 +1930,179 @@ msgstr "/新增目錄(_N)"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1739
+#: ../src/filebrowser2.c:971
 #, fuzzy, c-format
 msgid ""
 "Are you sure you want to delete\n"
 "\"%s\"?"
 msgstr "您確定要刪除 \" %s \" 嗎?"
 
-#: ../src/filebrowser2.c:1740
+#: ../src/filebrowser2.c:972
 #, fuzzy, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "如果您刪除這個檔案, 它將會永久消失."
 
-#: ../src/filebrowser2.c:2035
+#: ../src/filebrowser2.c:1270
 #, fuzzy
 msgid "File Browser menu"
 msgstr "檔案瀏覽器"
 
-#: ../src/filebrowser2.c:2036
+#: ../src/filebrowser2.c:1271
 #, fuzzy
 msgid "_Open"
 msgstr "/開啟(_O)"
 
-#: ../src/filebrowser2.c:2036
+#: ../src/filebrowser2.c:1271
 #, fuzzy
 msgid "Open"
 msgstr "/開啟(_O)"
 
-#: ../src/filebrowser2.c:2037
+#: ../src/filebrowser2.c:1272
 #, fuzzy
 msgid "Open _Advanced..."
 msgstr "/進階開啟(_A)..."
 
-#: ../src/filebrowser2.c:2039
+#: ../src/filebrowser2.c:1274
 #, fuzzy
 msgid "Rena_me"
 msgstr "/重新命名(_M)"
 
-#: ../src/filebrowser2.c:2039
+#: ../src/filebrowser2.c:1274
 #, fuzzy
 msgid "Rename"
 msgstr "/重新命名(_M)"
 
-#: ../src/filebrowser2.c:2040
+#: ../src/filebrowser2.c:1275
 #, fuzzy
 msgid "Delete"
 msgstr "/刪除(_D)"
 
-#: ../src/filebrowser2.c:2041
+#: ../src/filebrowser2.c:1276
 #, fuzzy
 msgid "New _File"
 msgstr "/新增檔案(_F)"
 
-#: ../src/filebrowser2.c:2042
+#: ../src/filebrowser2.c:1277
 #, fuzzy
 msgid "_New Directory"
 msgstr "/新增目錄(_N)"
 
-#: ../src/filebrowser2.c:2044
+#: ../src/filebrowser2.c:1279
 #, fuzzy
 msgid "_Refresh"
 msgstr "/重新整理(_R)"
 
-#: ../src/filebrowser2.c:2044
+#: ../src/filebrowser2.c:1279
 #, fuzzy
 msgid "Refresh"
 msgstr "/重新整理(_R)"
 
-#: ../src/filebrowser2.c:2045
+#: ../src/filebrowser2.c:1280
 #, fuzzy
 msgid "_Set as base dir"
 msgstr "/設為基本目錄(_S)"
 
-#: ../src/filebrowser2.c:2045
+#: ../src/filebrowser2.c:1280
 #, fuzzy
 msgid "Set as base directory"
 msgstr "/設為基本目錄(_S)"
 
-#: ../src/filebrowser2.c:2047
+#: ../src/filebrowser2.c:1282
 #, fuzzy
 msgid "Set as document root"
 msgstr "/衝(G)/下一文件(_N)"
 
-#: ../src/filebrowser2.c:2049
+#: ../src/filebrowser2.c:1284
 #, fuzzy
 msgid "Show Full _Tree"
 msgstr "顯示全部目錄樹"
 
-#: ../src/filebrowser2.c:2049
+#: ../src/filebrowser2.c:1284
 #, fuzzy
 msgid "Show full tree"
 msgstr "顯示全部目錄樹"
 
-#: ../src/filebrowser2.c:2051
+#: ../src/filebrowser2.c:1286
 #, fuzzy
 msgid "View Mode"
 msgstr "/檢視(_V)"
 
-#: ../src/filebrowser2.c:2052
+#: ../src/filebrowser2.c:1287
 msgid "Filter"
 msgstr "過濾器"
 
-#: ../src/filebrowser2.c:2053
+#: ../src/filebrowser2.c:1288
 #, fuzzy
 msgid "New Filter"
 msgstr "/新增檔案(_F)"
 
-#: ../src/filebrowser2.c:2053 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:1288 ../src/filefilter.c:549
 #, fuzzy
 msgid "New filter"
 msgstr "/新增檔案(_F)"
 
-#: ../src/filebrowser2.c:2054
+#: ../src/filebrowser2.c:1289
 #, fuzzy
 msgid "Edit Filter"
 msgstr "html 過濾器"
 
-#: ../src/filebrowser2.c:2054 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:1289 ../src/filefilter.c:554
 #, fuzzy
 msgid "Edit filter"
 msgstr "html 過濾器"
 
-#: ../src/filebrowser2.c:2055
+#: ../src/filebrowser2.c:1290
 #, fuzzy
 msgid "Delete Filter"
 msgstr "選擇檔案"
 
-#: ../src/filebrowser2.c:2055
+#: ../src/filebrowser2.c:1290
 #, fuzzy
 msgid "Delete filter"
 msgstr "選擇檔案"
 
-#: ../src/filebrowser2.c:2059
+#: ../src/filebrowser2.c:1294
 #, fuzzy
 msgid "Follow Active Document"
 msgstr "/衝(G)/最後一個文件(_A)"
 
-#: ../src/filebrowser2.c:2059
+#: ../src/filebrowser2.c:1294
 #, fuzzy
 msgid "Follow active document"
 msgstr "/衝(G)/最後一個文件(_A)"
 
-#: ../src/filebrowser2.c:2061
+#: ../src/filebrowser2.c:1296
 #, fuzzy
 msgid "Show Backup Files"
 msgstr "顯示備份檔案"
 
-#: ../src/filebrowser2.c:2061 ../src/gtk_easy.c:1288
+#: ../src/filebrowser2.c:1296 ../src/gtk_easy.c:1341
 msgid "Show backup files"
 msgstr "顯示備份檔案"
 
-#: ../src/filebrowser2.c:2063
+#: ../src/filebrowser2.c:1298
 #, fuzzy
 msgid "Show Hidden Files"
 msgstr "顯示隱藏檔案"
 
-#: ../src/filebrowser2.c:2063
+#: ../src/filebrowser2.c:1298
 #, fuzzy
 msgid "Show hidden files"
 msgstr "顯示隱藏檔案"
 
-#: ../src/filebrowser2.c:2068
+#: ../src/filebrowser2.c:1303
 msgid "Dual"
 msgstr ""
 
-#: ../src/filebrowser2.c:2069
+#: ../src/filebrowser2.c:1304
 msgid "Flat"
 msgstr ""
 
-#: ../src/filebrowser2.c:2070
+#: ../src/filebrowser2.c:1305
 msgid "Tree"
 msgstr ""
 
-#: ../src/filebrowser2.c:2734
+#: ../src/filebrowser2.c:2286
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1861,107 +2110,112 @@ msgid ""
 "<b>%s%s</b>"
 msgstr ""
 
-#: ../src/file.c:830
+#: ../src/file.c:856
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file.c:835
+#: ../src/file.c:862
 #, c-format
-msgid "All files loaded, finished %s"
-msgstr ""
+msgid "All files loaded, finished %s, %d document open"
+msgid_plural "All files loaded, finished %s, %d documents open"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/file.c:1343
-msgid "Finished advanced open"
-msgstr ""
+#: ../src/file.c:1389
+#, c-format
+msgid "Finished advanced open, %d document open."
+msgid_plural "Finished advanced open, %d documents open."
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/file.c:1517
+#: ../src/file.c:1565
 msgid "_Skip"
 msgstr "跳過(_S)"
 
-#: ../src/file.c:1517 ../src/file_dialogs.c:647 ../src/file_dialogs.c:668
-#: ../src/project.c:308
+#: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/project.c:363
 msgid "_Overwrite"
 msgstr "覆蓋(_O)"
 
-#: ../src/file.c:1521
+#: ../src/file.c:1569
 #, fuzzy, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "檔案 %s 已存在且已被開啟, 要覆蓋嗎?"
 
-#: ../src/file.c:1523
+#: ../src/file.c:1571
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "覆蓋(_O)"
 
-#: ../src/file_autosave.c:285
+#: ../src/file_autosave.c:291
 msgid "Autosave in progress..."
 msgstr ""
 
-#: ../src/file_dialogs.c:108
+#: ../src/file_dialogs.c:109
 #, fuzzy
 msgid "Started open advanced..."
 msgstr "/進階開啟(_A)..."
 
-#: ../src/file_dialogs.c:119
+#: ../src/file_dialogs.c:120
 msgid "Select basedir"
 msgstr "選擇基本目錄"
 
-#: ../src/file_dialogs.c:141
+#: ../src/file_dialogs.c:142
 msgid "Advanced open file selector"
 msgstr "進階開啟檔案選擇器"
 
-#: ../src/file_dialogs.c:158
+#: ../src/file_dialogs.c:159
 #, fuzzy
 msgid "<b>Files</b>"
 msgstr "屬性"
 
-#: ../src/file_dialogs.c:167
+#: ../src/file_dialogs.c:168
 #, fuzzy
 msgid "Base _Dir:"
 msgstr "基本目錄(_D):"
 
-#: ../src/file_dialogs.c:183
+#: ../src/file_dialogs.c:184
 #, fuzzy
 msgid "_Pattern:"
 msgstr "樣式(_T):"
 
-#: ../src/file_dialogs.c:191
+#: ../src/file_dialogs.c:192
 msgid "Pattern matches _full path:"
 msgstr ""
 
-#: ../src/file_dialogs.c:195
+#: ../src/file_dialogs.c:196
 msgid "_Recursive:"
 msgstr "遞迴包含下層(_R):"
 
-#: ../src/file_dialogs.c:199
+#: ../src/file_dialogs.c:200
 #, fuzzy
 msgid "Ma_x recursion:"
 msgstr "遞迴包含下層(_R):"
 
-#: ../src/file_dialogs.c:208
+#: ../src/file_dialogs.c:209
 msgid "<b>Contains</b>"
 msgstr "<b>包含</b>"
 
-#: ../src/file_dialogs.c:213
+#: ../src/file_dialogs.c:214
 msgid "Pa_ttern:"
 msgstr "樣式(_T):"
 
-#: ../src/file_dialogs.c:217
+#: ../src/file_dialogs.c:218
 msgid "Is rege_x:"
 msgstr "是正規式(_X):"
 
-#: ../src/file_dialogs.c:298 ../src/file_dialogs.c:318
+#: ../src/file_dialogs.c:287 ../src/file_dialogs.c:307
 msgid "Select files"
 msgstr "選擇檔案"
 
-#: ../src/file_dialogs.c:378
+#: ../src/file_dialogs.c:367
 msgid "Open URL"
 msgstr "開啟 URL"
 
-#: ../src/file_dialogs.c:388 ../src/file_dialogs.c:1341
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1389
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -1969,253 +2223,270 @@ msgid ""
 "if you rely on remote file support.</b>"
 msgstr ""
 
-#: ../src/file_dialogs.c:474 ../src/file_dialogs.c:512
+#: ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Continue save"
 msgstr "繼續儲存(_C)"
 
-#: ../src/file_dialogs.c:478
+#: ../src/file_dialogs.c:468
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr "%s 的備份檔案無法建立. 如果您繼續操作, 此檔案將會被覆蓋."
 
-#: ../src/file_dialogs.c:482
+#: ../src/file_dialogs.c:472
 msgid "File backup failure"
 msgstr "檔案備份失敗"
 
-#: ../src/file_dialogs.c:498
+#: ../src/file_dialogs.c:488
 #, fuzzy
 msgid "Could not save file "
 msgstr ""
 "無法寫入檔案:\n"
 "\""
 
-#: ../src/file_dialogs.c:533 ../src/file_dialogs.c:1471
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1524
 #, fuzzy
 msgid "File changed on disk\n"
 msgstr "檔案大小已改變\n"
 
-# c-format
-#: ../src/file_dialogs.c:620
-#, c-format
-msgid "Move/rename %s to"
-msgstr "搬移/重新命名 %s 為"
-
-# c-format
-#: ../src/file_dialogs.c:620
-#, c-format
-msgid "Save %s as"
-msgstr " %s 另存為"
-
-#: ../src/file_dialogs.c:647 ../src/file_dialogs.c:668
-#: ../src/file_dialogs.c:963 ../src/project.c:308
+#: ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/file_dialogs.c:985 ../src/project.c:363
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: ../src/file_dialogs.c:648
+#: ../src/file_dialogs.c:639
 #, fuzzy, c-format
 msgid "File %s exists and is open, overwrite?"
 msgstr "檔案 %s 已存在且已被開啟, 要覆蓋嗎?"
 
-#: ../src/file_dialogs.c:651
+#: ../src/file_dialogs.c:642
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "您選擇的檔案已在 Bluefish 中編輯了."
 
-#: ../src/file_dialogs.c:669 ../src/project.c:310
+#: ../src/file_dialogs.c:660 ../src/project.c:365
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "檔案“%s” 已存在."
 
-#: ../src/file_dialogs.c:672 ../src/project.c:314
+#: ../src/file_dialogs.c:663 ../src/project.c:369
 msgid "Do you want to replace the existing file?"
 msgstr "您要取代已存在的檔案嗎?"
 
-#: ../src/file_dialogs.c:765
+#: ../src/file_dialogs.c:769
 #, fuzzy
 msgid ""
 "File:\n"
 "\""
 msgstr "過濾器:"
 
-#: ../src/file_dialogs.c:766
+#: ../src/file_dialogs.c:770
 msgid "\" save is in progress"
 msgstr ""
 
-#: ../src/file_dialogs.c:768
+#: ../src/file_dialogs.c:772
 msgid "Save in progress!"
 msgstr ""
 
-#: ../src/file_dialogs.c:949
+#: ../src/file_dialogs.c:785
+msgid "Save"
+msgstr "儲存"
+
+# c-format
+#: ../src/file_dialogs.c:787
+#, c-format
+msgid "Save %s as"
+msgstr " %s 另存為"
+
+#: ../src/file_dialogs.c:791
+#, fuzzy, c-format
+msgid "Save copy of %s"
+msgstr "新增專案"
+
+#: ../src/file_dialogs.c:956
 msgid "Close _Without Saving"
 msgstr ""
 
-#: ../src/file_dialogs.c:952
+#: ../src/file_dialogs.c:959
 #, fuzzy, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr "關閉前要儲存 \"%s\" 嗎?."
 
-#: ../src/file_dialogs.c:955 ../src/file_dialogs.c:967
+#: ../src/file_dialogs.c:962 ../src/file_dialogs.c:989
 msgid "If you don't save your changes they will be lost."
 msgstr "若您不儲存, 則所有的更改將會消失."
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:972
+msgid "_Reopen"
+msgstr ""
+
+#: ../src/file_dialogs.c:974
+#, c-format
+msgid "Project \"%s\" failed to load"
+msgstr ""
+
+#: ../src/file_dialogs.c:976
+#, fuzzy
+msgid "Do you want to reopen project from another location?"
+msgstr "您要儲存專案嗎?"
+
+#: ../src/file_dialogs.c:985
 msgid "Choose per _File"
 msgstr "選擇每個檔案(_F)"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:985
 msgid "Close _All"
 msgstr "全部關閉(_A)"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:985
 msgid "_Save All"
 msgstr "全部儲存(_S)"
 
-#: ../src/file_dialogs.c:966
+#: ../src/file_dialogs.c:988
 #, fuzzy
 msgid "One or more open files have been changed."
 msgstr "多重開啟的檔案已更改."
 
-#: ../src/file_dialogs.c:1261
+#: ../src/file_dialogs.c:1309
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file_dialogs.c:1270
+#: ../src/file_dialogs.c:1318
 msgid "incomplete finished"
 msgstr ""
 
-#: ../src/file_dialogs.c:1272
+#: ../src/file_dialogs.c:1320
 msgid "completed"
 msgstr ""
 
-#: ../src/file_dialogs.c:1327
+#: ../src/file_dialogs.c:1375
 msgid "Upload / Download"
 msgstr ""
 
-#: ../src/file_dialogs.c:1330
+#: ../src/file_dialogs.c:1378
 #, fuzzy
 msgid "Upload"
 msgstr "重新載入(_R)"
 
-#: ../src/file_dialogs.c:1330
+#: ../src/file_dialogs.c:1378
 msgid "Download"
 msgstr ""
 
-#: ../src/file_dialogs.c:1353
+#: ../src/file_dialogs.c:1401
 #, fuzzy
 msgid "Local directory"
 msgstr "/新增目錄(_N)"
 
-#: ../src/file_dialogs.c:1359
+#: ../src/file_dialogs.c:1407
 #, fuzzy
 msgid "Remote directory"
 msgstr "/新增目錄(_N)"
 
-#: ../src/file_dialogs.c:1364
+#: ../src/file_dialogs.c:1412
 #, fuzzy
 msgid "Delete deprecated files"
 msgstr "選擇檔案"
 
-#: ../src/file_dialogs.c:1368
+#: ../src/file_dialogs.c:1416
 #, fuzzy
 msgid "Include hidden files"
 msgstr "顯示隱藏檔案"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1409
+#: ../src/file_dialogs.c:1460
 #, fuzzy, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
 "Original modification time was %s\n"
 "New modification time is %s\n"
-"Original size was %lu\n"
-"New size is %lu"
+"Original size was %s bytes\n"
+"New size is %s bytes"
 msgstr ""
 "檔名:%s\n"
 "\n"
 "新的修改時間:%s\n"
 "舊的修改時間:%s"
 
-#: ../src/file_dialogs.c:1430
+#: ../src/file_dialogs.c:1483
 #, fuzzy
 msgid "_Unset file name"
 msgstr "檔名"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1432
+#: ../src/file_dialogs.c:1485
 #, fuzzy, c-format
 msgid "File name: %s"
 msgstr "檔案名稱"
 
-#: ../src/file_dialogs.c:1435
+#: ../src/file_dialogs.c:1488
 #, fuzzy
 msgid "File disappeared from disk\n"
 msgstr "磁碟檢查時修改檔案"
 
-#: ../src/file_dialogs.c:1454
+#: ../src/file_dialogs.c:1507
 msgid "_Ignore"
 msgstr "忽略(_I)"
 
-#: ../src/file_dialogs.c:1454
+#: ../src/file_dialogs.c:1507
 msgid "_Reload"
 msgstr "重新載入(_R)"
 
-#: ../src/file_dialogs.c:1454
+#: ../src/file_dialogs.c:1507
 #, fuzzy
 msgid "Check and reload all documents"
 msgstr "在所有開啟的文件中"
 
 #. build a list of filters
-#: ../src/filefilter.c:241 ../src/gtk_easy.c:1299 ../src/preferences.c:2077
+#: ../src/filefilter.c:250 ../src/gtk_easy.c:1352 ../src/preferences.c:2105
 msgid "All files"
 msgstr "所有檔案"
 
-#: ../src/filefilter.c:627
+#: ../src/filefilter.c:639
 msgid "Hide files that match the filter"
 msgstr ""
 
-#: ../src/filefilter.c:631
+#: ../src/filefilter.c:643
 #, fuzzy
 msgid "Add pattern"
 msgstr "結束樣式"
 
-#: ../src/filefilter.c:637 ../src/filefilter.c:649
+#: ../src/filefilter.c:649 ../src/filefilter.c:661
 #, fuzzy
 msgid "Mime type"
 msgstr "檔案類型"
 
-#: ../src/filefilter.c:640 ../src/filefilter.c:652
+#: ../src/filefilter.c:652 ../src/filefilter.c:664
 msgid "Icon"
 msgstr "圖示"
 
-#: ../src/gtk_easy.c:928
+#: ../src/gtk_easy.c:971
 #, c-format
 msgid "%d of %d"
 msgstr "%d 的 %d"
 
-#: ../src/gtk_easy.c:1009
+#: ../src/gtk_easy.c:1052
 msgid "Select File"
 msgstr "選擇檔案"
 
-#: ../src/gtk_easy.c:1349
+#: ../src/gtk_easy.c:1402
 #, fuzzy
 msgid "Character _Encoding:"
 msgstr "/文件(D)/字元編碼(_E)"
 
-#: ../src/gtk_easy.c:1369
+#: ../src/gtk_easy.c:1422
 #, fuzzy
 msgid "Automatic detection"
 msgstr "自動更新作者 meta 標記"
 
-#: ../src/gtk_easy.c:1454
+#: ../src/gtk_easy.c:1507
 msgid "<b>Keystroke choice</b>"
 msgstr ""
 
-#: ../src/gtk_easy.c:1462
+#: ../src/gtk_easy.c:1515
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2223,47 +2494,8 @@ msgid ""
 "<i>Esc to cancel, Delete to remove the accelerator.</i>"
 msgstr ""
 
-#: ../src/gtk_easy.c:1487
+#: ../src/gtk_easy.c:1540
 msgid "Press shortcut key combination"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:449
-msgid "Co_nnect"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:516
-msgid "Connect _anonymously"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:525
-msgid "Connect as u_ser:"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:563
-#, fuzzy
-msgid "_Username:"
-msgstr "使用者名稱:"
-
-#: ../src/gtkmountoperation.c:568
-#, fuzzy
-msgid "_Domain:"
-msgstr "垂直對齊(_V):"
-
-#: ../src/gtkmountoperation.c:574
-#, fuzzy
-msgid "_Password:"
-msgstr "密碼:"
-
-#: ../src/gtkmountoperation.c:592
-msgid "Forget password _immediately"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:602
-msgid "Remember password until you _logout"
-msgstr ""
-
-#: ../src/gtkmountoperation.c:612
-msgid "Remember _forever"
 msgstr ""
 
 #: ../src/outputbox.c:247
@@ -2281,181 +2513,186 @@ msgstr "列 #"
 msgid "Output"
 msgstr "輸出 #"
 
-#: ../src/outputbox.c:473
+#: ../src/outputbox.c:478
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr ""
 
-#: ../src/preferences.c:299
+#: ../src/preferences.c:307
 msgid "Untitled"
 msgstr "無標題"
 
-#: ../src/preferences.c:500
+#: ../src/preferences.c:509
 #, fuzzy
 msgid "_Mime type:"
 msgstr "檔案類型"
 
-#: ../src/preferences.c:512 ../src/preferences.c:514
+#: ../src/preferences.c:521 ../src/preferences.c:523
 #, fuzzy
 msgid "None"
 msgstr "筆記"
 
-#: ../src/preferences.c:516
+#: ../src/preferences.c:525
 #, fuzzy
 msgid "_Template:"
 msgstr "樣板(_T):"
 
-#: ../src/preferences.c:519 ../src/snr3.c:1526
+#: ../src/preferences.c:528 ../src/snr3.c:1580
 #, fuzzy
 msgid "<b>Options</b>"
 msgstr "<b>包含</b>"
 
-#: ../src/preferences.c:523
+#: ../src/preferences.c:532
 #, fuzzy
 msgid "Enable a_uto-completion"
 msgstr "表格標題"
 
-#: ../src/preferences.c:525
+#: ../src/preferences.c:534
 msgid "Enable _block folding"
 msgstr ""
 
-#: ../src/preferences.c:527
+#: ../src/preferences.c:536
 msgid "Display block stack in statusbar"
 msgstr ""
 
-#: ../src/preferences.c:529
+#: ../src/preferences.c:538
 #, fuzzy
 msgid "Highlight block _delimiters"
 msgstr "反白 # 列"
 
-#: ../src/preferences.c:531
+#: ../src/preferences.c:540
 #, fuzzy
 msgid "_Highlight current line"
 msgstr "預設使用語法識別"
 
-#: ../src/preferences.c:533
+#: ../src/preferences.c:542
 #, fuzzy
 msgid "Show line _numbers"
 msgstr "列號(_L):"
 
-#: ../src/preferences.c:537
+#: ../src/preferences.c:546
 #, fuzzy
 msgid "Show _right margin indicator"
 msgstr "預設顯示自定選單"
 
-#: ../src/preferences.c:539 ../src/preferences.c:2139
+#: ../src/preferences.c:548 ../src/preferences.c:2168
 msgid "Smart auto indentin_g"
 msgstr ""
 
-#: ../src/preferences.c:541
+#: ../src/preferences.c:550
 msgid "Wra_p lines"
 msgstr ""
 
-#: ../src/preferences.c:544
+#: ../src/preferences.c:552
 #, fuzzy
 msgid "Enable syntax scanning"
 msgstr "根據比例"
 
-#: ../src/preferences.c:547
+#: ../src/preferences.c:554
+#, fuzzy
+msgid "Show _visible spacing"
+msgstr "/文件(D)/sep1"
+
+#: ../src/preferences.c:558
 #, fuzzy
 msgid "_Enable spell check"
 msgstr "拼字檢查..."
 
-#: ../src/preferences.c:552
+#: ../src/preferences.c:563
 #, fuzzy
 msgid "<b>Tab Stops</b>"
 msgstr "<b>包含</b>"
 
-#: ../src/preferences.c:557
+#: ../src/preferences.c:568
 #, fuzzy
 msgid "Tab _width:"
 msgstr "Tab 鍵寬度"
 
-#: ../src/preferences.c:560
+#: ../src/preferences.c:571
 #, fuzzy
 msgid "Insert _spaces instead of tabs"
 msgstr "用空格縮排, 不用 tab 鍵"
 
-#: ../src/preferences.c:597 ../src/preferences.c:1015
-#: ../src/preferences.c:1175
+#: ../src/preferences.c:608 ../src/preferences.c:1024
+#: ../src/preferences.c:1183
 #, fuzzy
 msgid "Enabled"
 msgstr "可編輯的"
 
-#: ../src/preferences.c:599
+#: ../src/preferences.c:610
 msgid "Path to plugin"
 msgstr ""
 
-#: ../src/preferences.c:804
+#: ../src/preferences.c:814
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
 "applied to the same text, the top-most style in this list has the highest "
 "priority. Use drag and drop to re-order the text styles.</small>"
 msgstr ""
 
-#: ../src/preferences.c:815 ../src/preferences.c:1016
-#: ../src/preferences.c:1177
+#: ../src/preferences.c:825 ../src/preferences.c:1025
+#: ../src/preferences.c:1185
 msgid "Label"
 msgstr "標記"
 
-#: ../src/preferences.c:831 ../src/preferences.c:2244
+#: ../src/preferences.c:840 ../src/preferences.c:2282
 msgid "Foreground color"
 msgstr "前景顏色"
 
-#: ../src/preferences.c:832 ../src/preferences.c:2245
+#: ../src/preferences.c:841 ../src/preferences.c:2283
 #, fuzzy
 msgid "_Foreground color:"
 msgstr "前景顏色"
 
-#: ../src/preferences.c:833 ../src/preferences.c:2248
+#: ../src/preferences.c:842 ../src/preferences.c:2286
 msgid "Background color"
 msgstr "背景顏色"
 
-#: ../src/preferences.c:834 ../src/preferences.c:2249
+#: ../src/preferences.c:843 ../src/preferences.c:2287
 #, fuzzy
 msgid "_Background color:"
 msgstr "背景顏色"
 
-#: ../src/preferences.c:838
+#: ../src/preferences.c:847
 #, fuzzy
 msgid "_Normal weight"
 msgstr "使用粗體"
 
-#: ../src/preferences.c:840
+#: ../src/preferences.c:849
 #, fuzzy
 msgid "Bold _weight"
 msgstr "使用粗體"
 
-#: ../src/preferences.c:842
+#: ../src/preferences.c:851
 #, fuzzy
 msgid "Normal st_yle"
 msgstr "使用斜體"
 
-#: ../src/preferences.c:845
+#: ../src/preferences.c:854
 #, fuzzy
 msgid "_Italic style"
 msgstr "使用斜體"
 
-#: ../src/preferences.c:847
+#: ../src/preferences.c:856
 #, fuzzy
 msgid "_Spell check"
 msgstr "拼字檢查..."
 
-#: ../src/preferences.c:889 ../src/preferences.c:1054
-#: ../src/preferences.c:1208 ../src/preferences.c:1401
-#: ../src/preferences.c:1496
+#: ../src/preferences.c:898 ../src/preferences.c:1062
+#: ../src/preferences.c:1215 ../src/preferences.c:1407
+#: ../src/preferences.c:1503
 #, fuzzy
 msgid "Add entry"
 msgstr "屬性"
 
-#: ../src/preferences.c:891 ../src/preferences.c:1056
-#: ../src/preferences.c:1210 ../src/preferences.c:1403
-#: ../src/preferences.c:1498
+#: ../src/preferences.c:900 ../src/preferences.c:1064
+#: ../src/preferences.c:1217 ../src/preferences.c:1409
+#: ../src/preferences.c:1505
 #, fuzzy
 msgid "Delete entry"
 msgstr "刪除選單項"
 
-#: ../src/preferences.c:992
+#: ../src/preferences.c:1001
 #, c-format
 msgid ""
 "<small><b>Input options</b>\n"
@@ -2472,29 +2709,29 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1018 ../src/preferences.c:1179
-#: ../src/preferences.c:1374
+#: ../src/preferences.c:1027 ../src/preferences.c:1187
+#: ../src/preferences.c:1381
 msgid "Command"
 msgstr "命令"
 
-#: ../src/preferences.c:1021
+#: ../src/preferences.c:1030
 #, fuzzy
 msgid "Default browser"
 msgstr "預設的基本目錄"
 
-#: ../src/preferences.c:1058 ../src/preferences.c:1212
-#: ../src/preferences.c:1405
+#: ../src/preferences.c:1066 ../src/preferences.c:1219
+#: ../src/preferences.c:1411
 #, fuzzy
 msgid "Update defaults"
 msgstr "設為預設(_U)"
 
-#: ../src/preferences.c:1060 ../src/preferences.c:1214
-#: ../src/preferences.c:1407
+#: ../src/preferences.c:1068 ../src/preferences.c:1221
+#: ../src/preferences.c:1413
 #, fuzzy
 msgid "Reset all"
 msgstr "選擇檔案"
 
-#: ../src/preferences.c:1150
+#: ../src/preferences.c:1158
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2514,7 +2751,7 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1336
+#: ../src/preferences.c:1343
 #, c-format
 msgid ""
 "<small><b>Input options</b>\n"
@@ -2534,662 +2771,704 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1366
+#: ../src/preferences.c:1373
 msgid "Pattern"
 msgstr "樣式"
 
-#: ../src/preferences.c:1368
+#: ../src/preferences.c:1375
 msgid "File #"
 msgstr "檔案 #"
 
-#: ../src/preferences.c:1370
+#: ../src/preferences.c:1377
 msgid "Line #"
 msgstr "列 #"
 
-#: ../src/preferences.c:1372
+#: ../src/preferences.c:1379
 msgid "Output #"
 msgstr "輸出 #"
 
-#: ../src/preferences.c:1467
+#: ../src/preferences.c:1474
 #, fuzzy
 msgid "File"
 msgstr "檔案 #"
 
-#: ../src/preferences.c:1637
+#: ../src/preferences.c:1652
 msgid "A restart is needed to see the effect of these options"
 msgstr ""
 
 #. 1=text
-#: ../src/preferences.c:1649
+#: ../src/preferences.c:1664
 #, fuzzy
 msgid "Option name"
 msgstr "選項"
 
 #. 2=boolean
-#: ../src/preferences.c:1651
+#: ../src/preferences.c:1666
 #, fuzzy
 msgid "value"
 msgstr "值"
 
 #. 1=text
-#: ../src/preferences.c:1668
+#: ../src/preferences.c:1683
 #, fuzzy
 msgid "Highlight name"
 msgstr "預設使用語法識別"
 
-#: ../src/preferences.c:1673
+#: ../src/preferences.c:1688
 #, fuzzy
 msgid "Textstyle"
 msgstr "文字區"
 
-#: ../src/preferences.c:1821 ../src/preferences.c:2455
+#: ../src/preferences.c:1845 ../src/preferences.c:2509
 #, fuzzy
 msgid "Auto"
 msgstr "作者"
 
-#: ../src/preferences.c:2071
+#: ../src/preferences.c:2098
 #, fuzzy
 msgid "Delayed"
 msgstr "刪除"
 
-#: ../src/preferences.c:2071
+#: ../src/preferences.c:2098
 msgid "Immediately"
 msgstr ""
 
-#: ../src/preferences.c:2072
+#: ../src/preferences.c:2099
 #, fuzzy
 msgid "Continue save"
 msgstr "繼續儲存(_C)"
 
-#: ../src/preferences.c:2072
+#: ../src/preferences.c:2099
 #, fuzzy
 msgid "Abort save"
 msgstr "中斷儲存(_A)"
 
-#: ../src/preferences.c:2072
+#: ../src/preferences.c:2099
 msgid "Ask what to do"
 msgstr ""
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2101
 #, fuzzy
 msgid "Nothing"
 msgstr "無陰影(_S)"
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2101
 #, fuzzy
 msgid "Modified time and file size"
 msgstr "檢查 mtime 時間和大小"
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2101
 msgid "Modified time"
 msgstr ""
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2101
 #, fuzzy
 msgid "File size"
 msgstr "檔案 #"
 
-#: ../src/preferences.c:2075 ../src/preferences.c:2076
+#: ../src/preferences.c:2102 ../src/preferences.c:2103
 msgid "left"
 msgstr "左"
 
-#: ../src/preferences.c:2075 ../src/preferences.c:2076
+#: ../src/preferences.c:2102 ../src/preferences.c:2103
 msgid "right"
 msgstr "右"
 
-#: ../src/preferences.c:2075
+#: ../src/preferences.c:2102
 msgid "top"
 msgstr "上"
 
-#: ../src/preferences.c:2075
+#: ../src/preferences.c:2102
 msgid "bottom"
 msgstr "下"
 
-#: ../src/preferences.c:2077
+#: ../src/preferences.c:2104
+msgid "Recently opened"
+msgstr ""
+
+#: ../src/preferences.c:2104
+msgid "Recently closed"
+msgstr ""
+
+#: ../src/preferences.c:2105 ../src/preferences.c:2111
 #, fuzzy
 msgid "Never"
 msgstr "伺服器"
 
-#: ../src/preferences.c:2077
+#: ../src/preferences.c:2105
 #, fuzzy
 msgid "Only project files"
 msgstr "輸入 Bluefish 專案檔名"
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2108
 msgid "All"
 msgstr ""
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2108
 msgid "All except spaces"
 msgstr ""
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2108
 msgid "All trailing"
 msgstr ""
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2108
 msgid "All except non-trailing spaces"
 msgstr ""
 
-#: ../src/preferences.c:2093
+#: ../src/preferences.c:2111
+msgid "Always"
+msgstr ""
+
+#: ../src/preferences.c:2111
+msgid "Smart"
+msgstr ""
+
+#: ../src/preferences.c:2122
 msgid "Edit preferences"
 msgstr "編輯偏好設定"
 
 #.
 #. *  Initial document settings
 #.
-#: ../src/preferences.c:2117
+#: ../src/preferences.c:2146
 msgid "<b>Non Project Defaults</b>"
 msgstr ""
 
-#: ../src/preferences.c:2119
+#: ../src/preferences.c:2148
 #, fuzzy
 msgid "Initial document settings"
 msgstr "初始化視窗高度"
 
-#: ../src/preferences.c:2131
+#: ../src/preferences.c:2160
 #, fuzzy
 msgid "Editor settings"
 msgstr "編輯器選項"
 
-#: ../src/preferences.c:2134
+#: ../src/preferences.c:2163
 #, fuzzy
 msgid "<b>Editor settings</b>"
 msgstr "編輯器選項"
 
-#: ../src/preferences.c:2142
+#: ../src/preferences.c:2171
 msgid "Smart Home/_End cursor positioning"
 msgstr ""
 
-#: ../src/preferences.c:2146
+#: ../src/preferences.c:2175
 #, fuzzy
 msgid "_Tab key indents selection"
 msgstr "在選中內容"
 
-#: ../src/preferences.c:2150
+#: ../src/preferences.c:2181
 #, fuzzy
 msgid "Automatically insert closing brackets"
 msgstr "自動關閉標記模式"
 
-#: ../src/preferences.c:2157
+#: ../src/preferences.c:2188
 msgid "Right _margin/split line end position:"
 msgstr ""
 
-#: ../src/preferences.c:2162
+#: ../src/preferences.c:2191
+#, fuzzy
+msgid "Wrap lines on right margin indicator"
+msgstr "預設顯示自定選單"
+
+#: ../src/preferences.c:2197
 #, fuzzy
 msgid "Visible _whitespace mode:"
 msgstr "已點按連結顏色(_V):"
 
-#: ../src/preferences.c:2165
+#: ../src/preferences.c:2200
 #, fuzzy
 msgid "<b>Undo</b>"
 msgstr "<b>一般的</b>"
 
-#: ../src/preferences.c:2170
+#: ../src/preferences.c:2205
 msgid "_Number of actions in history:"
 msgstr ""
 
-#: ../src/preferences.c:2173
+#: ../src/preferences.c:2208
 #, fuzzy
 msgid "Clear _history on save"
 msgstr "儲存後清除復原歷史"
 
-#: ../src/preferences.c:2178
+#: ../src/preferences.c:2213
 #, fuzzy
 msgid "Auto-completion & Reference"
 msgstr "函式參考"
 
-#: ../src/preferences.c:2184
+#: ../src/preferences.c:2219
 #, fuzzy
 msgid "<b>Auto-completion</b>"
 msgstr "<b>包含</b>"
 
-#: ../src/preferences.c:2190
+#: ../src/preferences.c:2225
 msgid "Show _pop-up window:"
 msgstr ""
 
-#: ../src/preferences.c:2196
+#: ../src/preferences.c:2229
+msgid "Minimum matching length for auto-completion:"
+msgstr ""
+
+#: ../src/preferences.c:2234
 msgid "Shortcut _key combination:"
 msgstr ""
 
-#: ../src/preferences.c:2199
+#: ../src/preferences.c:2237
 #, fuzzy
 msgid "<b>Reference Information</b>"
 msgstr "找不到參考"
 
-#: ../src/preferences.c:2202
+#: ../src/preferences.c:2240
 #, fuzzy
 msgid "_Load reference data from language files"
 msgstr "語言:"
 
-#: ../src/preferences.c:2205
+#: ../src/preferences.c:2243
 #, fuzzy
 msgid "Show references in auto-completion _pop-up window"
 msgstr "/文件(D)/自動縮排(_A)"
 
-#: ../src/preferences.c:2208
+#: ../src/preferences.c:2246
 msgid "Show references if mouse is over text editor"
 msgstr ""
 
-#: ../src/preferences.c:2217 ../src/preferences.c:2552
+#: ../src/preferences.c:2255 ../src/preferences.c:2610
 msgid "Font & Colors"
 msgstr ""
 
-#: ../src/preferences.c:2223
+#: ../src/preferences.c:2261
 #, fuzzy
 msgid "<b>Font &amp; Cursor</b>"
 msgstr "<b>包含</b>"
 
-#: ../src/preferences.c:2227
+#: ../src/preferences.c:2265
 #, fuzzy
 msgid "_Editor font:"
 msgstr "設為預設(_U)"
 
-#: ../src/preferences.c:2235
+#: ../src/preferences.c:2273
 msgid "Cursor / font size ratio (%):"
 msgstr ""
 
-#: ../src/preferences.c:2237 ../src/preferences.c:2578
+#: ../src/preferences.c:2275 ../src/preferences.c:2636
 #, fuzzy
 msgid "<b>Colors</b>"
 msgstr "屬性"
 
-#: ../src/preferences.c:2241
+#: ../src/preferences.c:2279
 msgid "Use system wide color settings"
-msgstr ""
-
-#: ../src/preferences.c:2252
-#, fuzzy
-msgid "Cursor color"
-msgstr "選擇器"
-
-#: ../src/preferences.c:2253
-#, fuzzy
-msgid "C_ursor color:"
-msgstr "選擇器"
-
-#: ../src/preferences.c:2256
-#, fuzzy
-msgid "Selection background color"
-msgstr "背景顏色"
-
-#: ../src/preferences.c:2257
-#, fuzzy
-msgid "_Selection background color:"
-msgstr "背景顏色"
-
-#: ../src/preferences.c:2262
-#, fuzzy
-msgid "Highlight cursor position"
-msgstr "預設使用語法識別"
-
-#: ../src/preferences.c:2264
-#, fuzzy
-msgid "Cursor highlight color"
-msgstr "選擇器"
-
-#: ../src/preferences.c:2265
-#, fuzzy
-msgid "_Cursor highlight color:"
-msgstr "選擇器"
-
-#: ../src/preferences.c:2270
-#, fuzzy
-msgid "Current line color"
-msgstr "選擇器"
-
-#: ../src/preferences.c:2271
-#, fuzzy
-msgid "Cu_rrent line color:"
-msgstr "選擇器"
-
-#: ../src/preferences.c:2274
-msgid "Visible whitespace color"
-msgstr ""
-
-#: ../src/preferences.c:2275
-#, fuzzy
-msgid "_Visible whitespace color:"
-msgstr "已點按連結顏色(_V):"
-
-#: ../src/preferences.c:2287
-msgid "Text styles"
 msgstr ""
 
 #: ../src/preferences.c:2290
 #, fuzzy
+msgid "Cursor color"
+msgstr "選擇器"
+
+#: ../src/preferences.c:2291
+#, fuzzy
+msgid "C_ursor color:"
+msgstr "選擇器"
+
+#: ../src/preferences.c:2294
+#, fuzzy
+msgid "Selection background color"
+msgstr "背景顏色"
+
+#: ../src/preferences.c:2295
+#, fuzzy
+msgid "_Selection background color:"
+msgstr "背景顏色"
+
+#: ../src/preferences.c:2300
+#, fuzzy
+msgid "Highlight cursor position"
+msgstr "預設使用語法識別"
+
+#: ../src/preferences.c:2302
+#, fuzzy
+msgid "Cursor highlight color"
+msgstr "選擇器"
+
+#: ../src/preferences.c:2303
+#, fuzzy
+msgid "_Cursor highlight color:"
+msgstr "選擇器"
+
+#: ../src/preferences.c:2308
+#, fuzzy
+msgid "Current line color"
+msgstr "選擇器"
+
+#: ../src/preferences.c:2309
+#, fuzzy
+msgid "Cu_rrent line color:"
+msgstr "選擇器"
+
+#: ../src/preferences.c:2312
+msgid "Visible whitespace color"
+msgstr ""
+
+#: ../src/preferences.c:2313
+#, fuzzy
+msgid "_Visible whitespace color:"
+msgstr "已點按連結顏色(_V):"
+
+#: ../src/preferences.c:2325
+msgid "Text styles"
+msgstr ""
+
+#: ../src/preferences.c:2327
+#, fuzzy
 msgid "<b>Text Styles</b>"
 msgstr "<b>包含</b>"
 
-#: ../src/preferences.c:2304
+#: ../src/preferences.c:2340
 msgid "Files"
 msgstr "檔案"
 
-#: ../src/preferences.c:2307
+#: ../src/preferences.c:2343
 #, fuzzy
 msgid "<b>Encoding</b>"
 msgstr "編碼"
 
-#: ../src/preferences.c:2323
+#: ../src/preferences.c:2359
 #, fuzzy
 msgid "_Default character set for new files:"
 msgstr "預設字元集"
 
-#: ../src/preferences.c:2329
+#: ../src/preferences.c:2365
 #, fuzzy
 msgid "Auto set <meta> _HTML tag on encoding change"
 msgstr "在改變時自動設定 <meta> 編碼標記"
 
-#: ../src/preferences.c:2333 ../src/preferences.c:2444
+#: ../src/preferences.c:2369 ../src/preferences.c:2498
 #, fuzzy
 msgid "<b>Misc</b>"
 msgstr "屬性"
 
-#: ../src/preferences.c:2337
+#: ../src/preferences.c:2372
+#, fuzzy
+msgid "Strip trailing spaces on save"
+msgstr "/編輯(E)/特殊取代/轉成大寫(_U)"
+
+#: ../src/preferences.c:2378
 #, fuzzy
 msgid "Open co_mmandline files in running bluefish process"
 msgstr "在已執行的 bluefish 視窗中開啟檔案"
 
-#: ../src/preferences.c:2342
+#: ../src/preferences.c:2383
 #, fuzzy
 msgid "Open commandline files in new _window"
 msgstr "在已執行的 bluefish 視窗中開啟檔案"
 
-#: ../src/preferences.c:2347
+#: ../src/preferences.c:2388
 #, fuzzy
 msgid "_Periodically check if file is modified on disk"
 msgstr "磁碟檢查時修改檔案"
 
-#: ../src/preferences.c:2353
+#: ../src/preferences.c:2394
 msgid "File properties to check on dis_k for modifications:"
 msgstr ""
 
-#: ../src/preferences.c:2363
+#: ../src/preferences.c:2398
+msgid "Show warning for files with very long lines"
+msgstr ""
+
+#: ../src/preferences.c:2408
 msgid "Backup & Recovery"
 msgstr ""
 
-#: ../src/preferences.c:2366
+#: ../src/preferences.c:2411
 #, fuzzy
 msgid "<b>Backup</b>"
 msgstr "備份"
 
-#: ../src/preferences.c:2368
+#: ../src/preferences.c:2413
 #, fuzzy
 msgid "Create _backup file during file save"
 msgstr "儲存時建立備份"
 
-#: ../src/preferences.c:2373
+#: ../src/preferences.c:2418
 #, fuzzy
 msgid "_Remove backup file on close"
 msgstr "關閉時刪除備份檔案"
 
-#: ../src/preferences.c:2378
+#: ../src/preferences.c:2423
 #, fuzzy
 msgid "If back_up fails:"
 msgstr "顯示備份檔案"
 
-#: ../src/preferences.c:2385
+#: ../src/preferences.c:2430
 msgid "<b>Document Recovery</b>"
 msgstr ""
 
-#: ../src/preferences.c:2387
+#: ../src/preferences.c:2432
 msgid "_Enable recovery of modified documents"
 msgstr ""
 
-#: ../src/preferences.c:2391
+#: ../src/preferences.c:2436
 msgid "_Frequency to store changes (seconds):"
 msgstr ""
 
-#: ../src/preferences.c:2408
+#: ../src/preferences.c:2454
 #, fuzzy
 msgid "Templates"
 msgstr "樣板(_T):"
 
-#: ../src/preferences.c:2411
+#: ../src/preferences.c:2457
 #, fuzzy
 msgid "<b>Templates</b>"
 msgstr "樣板(_T):"
 
-#: ../src/preferences.c:2424
+#: ../src/preferences.c:2470
 msgid "User interface"
 msgstr "使用者介面"
 
-#: ../src/preferences.c:2427
+#: ../src/preferences.c:2473
 #, fuzzy
 msgid "<b>Layout</b>"
 msgstr "<b>包含</b>"
 
-#: ../src/preferences.c:2433
+#: ../src/preferences.c:2479
 #, fuzzy
 msgid "Document _tab position:"
 msgstr "選擇器"
 
-#: ../src/preferences.c:2437
+#: ../src/preferences.c:2484
+msgid "Maximum filename length shown in tab (0 is no limit)"
+msgstr ""
+
+#: ../src/preferences.c:2490
 #, fuzzy
 msgid "_Sidebar position:"
 msgstr "邊列位置"
 
-#: ../src/preferences.c:2442
+#: ../src/preferences.c:2496
 #, fuzzy
 msgid "Sidebar tab _position:"
 msgstr "邊列筆記 tab 位置"
 
-#: ../src/preferences.c:2446
+#: ../src/preferences.c:2500
 msgid "Hide toolbars on full-screen"
 msgstr ""
 
-#: ../src/preferences.c:2455
+#: ../src/preferences.c:2509
 #, fuzzy
 msgid "_Language:"
 msgstr "語言(_L):"
 
-#: ../src/preferences.c:2458
+#: ../src/preferences.c:2512
 #, fuzzy
 msgid "<b>Recent Files</b>"
 msgstr "屬性"
 
-#: ../src/preferences.c:2463
+#: ../src/preferences.c:2517
+msgid "Recent files _shows:"
+msgstr ""
+
+#: ../src/preferences.c:2522
 #, fuzzy
 msgid "_Number of files in 'Open recent' menu:"
 msgstr "最近開啟的檔案數"
 
-#: ../src/preferences.c:2469
+#: ../src/preferences.c:2527
 msgid "_Register recent files with your desktop:"
 msgstr ""
 
-#: ../src/preferences.c:2480
+#: ../src/preferences.c:2538
 #, fuzzy
 msgid "Shortcut keys"
 msgstr "/編輯(E)/儲存快捷鍵(_K)"
 
-#: ../src/preferences.c:2485
+#: ../src/preferences.c:2543
 #, fuzzy
 msgid "<b>Shortcut keys</b>"
 msgstr "<b>包含</b>"
 
-#: ../src/preferences.c:2488
+#: ../src/preferences.c:2546
 msgid "_Switch between tabs with <Alt>+0..9"
 msgstr ""
 
-#: ../src/preferences.c:2492
+#: ../src/preferences.c:2550
 msgid "Save menu accelerators on exit"
 msgstr ""
 
-#: ../src/preferences.c:2495
+#: ../src/preferences.c:2553
 msgid "Save user customised menu accelerators now"
 msgstr ""
 
-#: ../src/preferences.c:2499
+#: ../src/preferences.c:2557
 msgid "Reset menu accelerators to application defaults"
 msgstr ""
 
-#: ../src/preferences.c:2511
+#: ../src/preferences.c:2569
 msgid "Dimensions"
 msgstr "大小"
 
-#: ../src/preferences.c:2514
+#: ../src/preferences.c:2572
 #, fuzzy
 msgid "<b>Dimensions</b>"
 msgstr "大小"
 
-#: ../src/preferences.c:2516
+#: ../src/preferences.c:2574
 msgid "_Leave dimensions to window manager"
 msgstr ""
 
-#: ../src/preferences.c:2523
+#: ../src/preferences.c:2581
 #, fuzzy
 msgid "_Restore last used dimensions"
 msgstr "回存上次使用的大小"
 
-#: ../src/preferences.c:2531
+#: ../src/preferences.c:2589
 #, fuzzy
 msgid "Initial _sidebar width:"
 msgstr "初始化邊列寬度"
 
-#: ../src/preferences.c:2535
+#: ../src/preferences.c:2593
 #, fuzzy
 msgid "Initial window _height:"
 msgstr "初始化視窗高度"
 
-#: ../src/preferences.c:2538
+#: ../src/preferences.c:2596
 #, fuzzy
 msgid "Initial window _width:"
 msgstr "初始化視窗寬度"
 
-#: ../src/preferences.c:2545
+#: ../src/preferences.c:2603
 msgid "_Limit window title length"
 msgstr ""
 
-#: ../src/preferences.c:2558
+#: ../src/preferences.c:2616
 #, fuzzy
-msgid "<b>Font</b>"
+msgid "<b>Document tab</b>"
 msgstr "<b>包含</b>"
 
-#: ../src/preferences.c:2563
+#: ../src/preferences.c:2621
 msgid "_Use system document tab font"
 msgstr ""
 
-#: ../src/preferences.c:2568
+#: ../src/preferences.c:2626
 #, fuzzy
 msgid "_Document tab font:"
 msgstr "選擇器"
 
-#: ../src/preferences.c:2582
+#: ../src/preferences.c:2640
 #, fuzzy
 msgid "Document error tab color"
 msgstr "文件筆記 tab 位置"
 
-#: ../src/preferences.c:2584
+#: ../src/preferences.c:2642
 msgid "Document tab _error color:"
 msgstr ""
 
-#: ../src/preferences.c:2588
+#: ../src/preferences.c:2646
 #, fuzzy
 msgid "Document loading tab color"
 msgstr "選擇器"
 
-#: ../src/preferences.c:2590
+#: ../src/preferences.c:2648
 #, fuzzy
 msgid "Document tab loadin_g color:"
 msgstr "選擇器"
 
-#: ../src/preferences.c:2594
+#: ../src/preferences.c:2652
 #, fuzzy
 msgid "Document modified tab color"
 msgstr "文件筆記 tab 位置"
 
-#: ../src/preferences.c:2596
+#: ../src/preferences.c:2654
 msgid "Document tab _modified color:"
 msgstr ""
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2609 ../src/rcfile.c:1193
+#: ../src/preferences.c:2667 ../src/rcfile.c:1306
 msgid "Images"
 msgstr "圖像"
 
-#: ../src/preferences.c:2612
+#: ../src/preferences.c:2670
 #, fuzzy
 msgid "<b>Thumbnails</b>"
 msgstr "略圖"
 
-#: ../src/preferences.c:2618
+#: ../src/preferences.c:2676
 #, fuzzy
 msgid "Thumbnail _filetype:"
 msgstr "略圖檔案類型"
 
-#: ../src/preferences.c:2622
+#: ../src/preferences.c:2680
 #, fuzzy
 msgid "Thumbnail _suffix:"
 msgstr "略圖副檔名"
 
-#: ../src/preferences.c:2635
+#: ../src/preferences.c:2693
 #, fuzzy
 msgid "External commands"
 msgstr "/外部(X)/命令"
 
-#: ../src/preferences.c:2638
+#: ../src/preferences.c:2695
 #, fuzzy
 msgid "<b>External Commands</b>"
 msgstr "/外部(X)/命令"
 
-#: ../src/preferences.c:2651
+#: ../src/preferences.c:2708
 #, fuzzy
 msgid "External filters"
 msgstr "外部程式"
 
-#: ../src/preferences.c:2654
+#: ../src/preferences.c:2711
 #, fuzzy
 msgid "<b>External Filters</b>"
 msgstr "外部程式"
 
-#: ../src/preferences.c:2667
+#: ../src/preferences.c:2724
 msgid "Output parsers"
 msgstr "輸出語法解析器"
 
-#: ../src/preferences.c:2670
+#: ../src/preferences.c:2726
 #, fuzzy
 msgid "<b>Output Parsers</b>"
 msgstr "輸出語法解析器"
 
-#: ../src/preferences.c:2683
+#: ../src/preferences.c:2739
 msgid "Plugins"
 msgstr ""
 
-#: ../src/preferences.c:2686
+#: ../src/preferences.c:2741
 #, fuzzy
 msgid "<b>Plugins</b>"
 msgstr "屬性"
 
-#: ../src/preferences.c:2708
+#: ../src/preferences.c:2763
 #, fuzzy
 msgid "Language support"
 msgstr "語言:"
 
-#: ../src/project.c:280
+#: ../src/project.c:335
 msgid "Enter Bluefish project filename"
 msgstr "輸入 Bluefish 專案檔名"
 
-#: ../src/project.c:425
+#: ../src/project.c:516
 msgid "Select Bluefish project filename"
 msgstr "選擇 Bluefish 專案檔名"
 
-#: ../src/project.c:580
+#: ../src/project.c:679
 msgid "Create New Project"
 msgstr "建立新專案"
 
-#: ../src/project.c:583
+#: ../src/project.c:682
 msgid "Edit Project"
 msgstr "編輯專案"
 
-#: ../src/project.c:609
+#: ../src/project.c:707
 #, fuzzy, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
 msgstr[0] "這個專案包含 %d 個檔案"
 msgstr[1] "這個專案包含 %d 個檔案"
 
-#: ../src/project.c:622
+#: ../src/project.c:720
 msgid "Project _Name:"
 msgstr "專案名稱(_N):"
 
@@ -3198,202 +3477,236 @@ msgstr "專案名稱(_N):"
 #. but = file_but_new(pred->entries[template], 1, NULL);
 #. gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
-#: ../src/project.c:630
+#: ../src/project.c:728
 msgid "<b>Project Defaults</b>"
 msgstr ""
 
-#: ../src/project.c:644
+#: ../src/project.c:742
 msgid "Create _Project"
 msgstr "建立專案(_P)"
 
-#: ../src/project.c:693
+#: ../src/project.c:791
 msgid "Create project"
 msgstr "建立專案"
 
-#: ../src/project.c:698
+#: ../src/project.c:796
 msgid "Create project with currently opened documents"
 msgstr "用目前開啟的文件建立專案"
 
-#: ../src/project.c:700
+#: ../src/project.c:798
 msgid "Create empty project"
 msgstr "建立空專案"
 
-#: ../src/rcfile.c:675 ../src/rcfile.c:704
+#: ../src/rcfile.c:694 ../src/rcfile.c:722
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:682
+#: ../src/rcfile.c:700
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:686
+#: ../src/rcfile.c:704
 msgid "weblint HTML checker"
 msgstr "weblint HTML checker"
 
-#: ../src/rcfile.c:691
+#: ../src/rcfile.c:709
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:695
+#: ../src/rcfile.c:713
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:699
+#: ../src/rcfile.c:717
 msgid "xmllint XML checker"
 msgstr "xmllint XML checker"
 
-#: ../src/rcfile.c:708
+#: ../src/rcfile.c:726
 msgid "php syntax check"
 msgstr ""
 
-#: ../src/rcfile.c:712
+#: ../src/rcfile.c:730
 #, fuzzy
 msgid "perl syntax check"
 msgstr "拼字檢查..."
 
-#: ../src/rcfile.c:716
+#: ../src/rcfile.c:734
 msgid "php codesniffer"
 msgstr ""
 
-#: ../src/rcfile.c:729
+#: ../src/rcfile.c:738
+msgid "pylint"
+msgstr ""
+
+#: ../src/rcfile.c:751
 #, fuzzy
 msgid "Sort"
 msgstr " 排序 "
 
-#: ../src/rcfile.c:732
+#: ../src/rcfile.c:754
 msgid "Sort / Uniq"
 msgstr ""
 
-#: ../src/rcfile.c:735
+#: ../src/rcfile.c:757
 #, fuzzy
 msgid "Reverse lines"
 msgstr "往後關係(_R):"
 
-#: ../src/rcfile.c:738
+#: ../src/rcfile.c:760
 #, fuzzy
 msgid "Dos2unix"
 msgstr "Dos2Unix filter"
 
-#: ../src/rcfile.c:740
+#: ../src/rcfile.c:762
 #, fuzzy
 msgid "Tidy HTML"
 msgstr "HTML"
 
-#: ../src/rcfile.c:743
+#: ../src/rcfile.c:764
+#, fuzzy
+msgid "Tidy convert to XHTML"
+msgstr "HTML"
+
+#: ../src/rcfile.c:767
 #, fuzzy
 msgid "Tidy HTML (perltidy)"
 msgstr "HTML"
 
-#: ../src/rcfile.c:746
+#: ../src/rcfile.c:770
 msgid "Strip empty lines"
 msgstr ""
 
-#: ../src/rcfile.c:749
+#: ../src/rcfile.c:773
 #, fuzzy
 msgid "Render HTML to text"
 msgstr "插入時間"
 
-#: ../src/rcfile.c:762
+#: ../src/rcfile.c:776
+msgid "PHP Beautifier"
+msgstr ""
+
+#: ../src/rcfile.c:780 ../src/rcfile.c:787
+msgid "Javascript Minify with jsmin"
+msgstr ""
+
+#: ../src/rcfile.c:783 ../src/rcfile.c:790
+msgid "CSS Minify with cssmin"
+msgstr ""
+
+#: ../src/rcfile.c:794
+#, fuzzy
+msgid "CSS tidy"
+msgstr " CSS "
+
+#: ../src/rcfile.c:806
 msgid "Windows XP Firefox"
 msgstr ""
 
-#: ../src/rcfile.c:767
+#: ../src/rcfile.c:811
 msgid "Windows XP Internet Explorer"
 msgstr ""
 
-#: ../src/rcfile.c:772
+#: ../src/rcfile.c:816
 msgid "Windows XP Opera"
 msgstr ""
 
-#: ../src/rcfile.c:776
+#: ../src/rcfile.c:820
 msgid "Windows XP Safari"
 msgstr ""
 
-#: ../src/rcfile.c:780
+#: ../src/rcfile.c:824
 msgid "Windows 7 Firefox 32-bit"
 msgstr ""
 
-#: ../src/rcfile.c:785
+#: ../src/rcfile.c:829
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr ""
 
-#: ../src/rcfile.c:790
+#: ../src/rcfile.c:834
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr ""
 
-#: ../src/rcfile.c:796
+#: ../src/rcfile.c:840
 msgid "Safari"
 msgstr ""
 
-#: ../src/rcfile.c:799 ../src/rcfile.c:809
+#: ../src/rcfile.c:843 ../src/rcfile.c:853
 msgid "Firefox"
 msgstr ""
 
-#: ../src/rcfile.c:802 ../src/rcfile.c:813
+#: ../src/rcfile.c:846 ../src/rcfile.c:857
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:805 ../src/rcfile.c:832
+#: ../src/rcfile.c:849 ../src/rcfile.c:876
 msgid "chmod a+x"
 msgstr ""
 
-#: ../src/rcfile.c:817
+#: ../src/rcfile.c:861
 msgid "Chromium"
 msgstr ""
 
-#: ../src/rcfile.c:820
+#: ../src/rcfile.c:864
 msgid "Konqueror"
 msgstr ""
 
-#: ../src/rcfile.c:823
+#: ../src/rcfile.c:867
 msgid "Epiphany"
 msgstr ""
 
-#: ../src/rcfile.c:826
+#: ../src/rcfile.c:870
 msgid "Kazehakase"
 msgstr ""
 
-#: ../src/rcfile.c:829
+#: ../src/rcfile.c:873
 msgid "Links2 (graphics)"
 msgstr ""
 
-#: ../src/rcfile.c:874
+#: ../src/rcfile.c:920
 #, fuzzy
 msgid "C Header"
 msgstr "表頭"
 
-#: ../src/rcfile.c:877
+#: ../src/rcfile.c:923
 msgid "C Header GPL"
 msgstr ""
 
-#: ../src/rcfile.c:880
+#: ../src/rcfile.c:926
 #, fuzzy
 msgid "XHTML 1.0"
 msgstr "HTML"
 
-#: ../src/rcfile.c:883
+#: ../src/rcfile.c:929
 #, fuzzy
 msgid "HTML 5"
 msgstr "HTML"
 
-#: ../src/rcfile.c:886
+#: ../src/rcfile.c:932
 msgid "PHP"
 msgstr ""
 
-#: ../src/rcfile.c:1118
+#: ../src/rcfile.c:935
+msgid "LaTex Book"
+msgstr ""
+
+#: ../src/rcfile.c:938
+msgid "LaTex Presentation"
+msgstr ""
+
+#: ../src/rcfile.c:1191
 msgid "Untitled Project"
 msgstr "無標題專案"
 
-#: ../src/rcfile.c:1185
+#: ../src/rcfile.c:1298
 msgid "C programming"
 msgstr "C 程式設計"
 
-#: ../src/rcfile.c:1189
+#: ../src/rcfile.c:1302
 #, fuzzy
 msgid "Web files"
 msgstr "所有的 Web 檔案"
 
-#: ../src/rcfile.c:1196
+#: ../src/rcfile.c:1309
 msgid "Hide objectfiles"
 msgstr "隱藏目標檔案"
 
@@ -3416,195 +3729,222 @@ msgid ""
 "span>"
 msgstr ""
 
-#: ../src/snr3.c:890
+#: ../src/snr3.c:844
+msgid "<span foreground=\"red\">Empty search string</span>"
+msgstr ""
+
+#: ../src/snr3.c:893
 #, fuzzy, c-format
 msgid "<i>Replaced %d entry</i>"
 msgid_plural "<i>Replaced %d entries</i>"
 msgstr[0] "屬性"
 msgstr[1] "屬性"
 
-#: ../src/snr3.c:893
+#: ../src/snr3.c:896
 #, fuzzy, c-format
 msgid "<i>Found %d entry</i>"
 msgid_plural "<i>Found %d entries</i>"
 msgstr[0] "屬性"
 msgstr[1] "屬性"
 
-#: ../src/snr3.c:1131
+#: ../src/snr3.c:1184
 #, c-format
 msgid "<i>Found %d result in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/snr3.c:1135
+#: ../src/snr3.c:1188
 #, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/snr3.c:1138
+#: ../src/snr3.c:1191
 #, fuzzy, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
 msgstr[0] "屬性"
 msgstr[1] "屬性"
 
-#: ../src/snr3.c:1359
+#: ../src/snr3.c:1413
 msgid "No (more) results"
 msgstr ""
 
-#: ../src/snr3.c:1457
+#: ../src/snr3.c:1511
 #, fuzzy
 msgid "Active document"
 msgstr "在文件中(_D)"
 
-#: ../src/snr3.c:1458
+#: ../src/snr3.c:1512
 msgid "Forward from cursor position"
 msgstr ""
 
-#: ../src/snr3.c:1459
+#: ../src/snr3.c:1513
 #, fuzzy
 msgid "Current selection"
 msgstr "在選擇中(_N)"
 
-#: ../src/snr3.c:1460
+#: ../src/snr3.c:1514
 #, fuzzy
 msgid "All open documents"
 msgstr "在所有開啟的文件中"
 
-#: ../src/snr3.c:1461
+#: ../src/snr3.c:1515
 #, fuzzy
 msgid "Files on disk"
 msgstr "檔案大小已改變\n"
 
-#: ../src/snr3.c:1465 ../src/snr3.c:1470
+#: ../src/snr3.c:1519 ../src/snr3.c:1524
 msgid "Normal"
 msgstr "一般"
 
-#: ../src/snr3.c:1466
-#, fuzzy
-msgid "Regular expression (pcre)"
-msgstr "正規式:"
-
-#: ../src/snr3.c:1471
+#: ../src/snr3.c:1525
 msgid "Uppercase"
 msgstr "大寫"
 
-#: ../src/snr3.c:1472
+#: ../src/snr3.c:1526
 msgid "Lowercase"
 msgstr "小寫"
 
-#: ../src/snr3.c:1479
+#: ../src/snr3.c:1533
 #, fuzzy
 msgid "Find and Replace"
 msgstr "取代"
 
-#: ../src/snr3.c:1498
+#: ../src/snr3.c:1552
 #, fuzzy
 msgid "<b>_Search for</b>"
 msgstr "搜尋(_S):"
 
-#: ../src/snr3.c:1521
+#: ../src/snr3.c:1575
 #, fuzzy
 msgid "<b>Replace _with</b>"
 msgstr "取代以(_R):"
 
-#: ../src/snr3.c:1536
+#: ../src/snr3.c:1590
 #, fuzzy
 msgid "Match Patter_n: "
 msgstr "搜尋樣式"
 
-#: ../src/snr3.c:1548
+#: ../src/snr3.c:1602
 #, fuzzy
 msgid "Replace T_ype: "
 msgstr "取代類型:"
 
-#: ../src/snr3.c:1561
+#: ../src/snr3.c:1615
 msgid "Sco_pe: "
 msgstr ""
 
-#: ../src/snr3.c:1571
+#: ../src/snr3.c:1625
 #, fuzzy
 msgid "Filename pattern: "
 msgstr "檔案名稱"
 
-#: ../src/snr3.c:1577
+#: ../src/snr3.c:1631
 #, fuzzy
 msgid "Recursion level: "
 msgstr "遞迴包含下層(_R):"
 
-#: ../src/snr3.c:1583
+#: ../src/snr3.c:1637
 #, fuzzy
 msgid "Basedir: "
 msgstr "基本目錄(_D):"
 
-#: ../src/snr3.c:1602
+#: ../src/snr3.c:1656
 #, fuzzy
 msgid "Case sensitive _matching"
 msgstr "區分大小寫地比對"
 
-#: ../src/snr3.c:1604
+#: ../src/snr3.c:1658
 msgid "Only match if case (upper/lower) is identical."
 msgstr ""
 
-#: ../src/snr3.c:1608
+#: ../src/snr3.c:1662
 #, fuzzy
 msgid "Pattern contains escape-se_quences"
 msgstr "樣式包含反斜線跳脫字元 (\\n、\\t)"
 
-#: ../src/snr3.c:1611
+#: ../src/snr3.c:1665
 #, fuzzy
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr "樣式包含反斜線跳脫字元 (\\n、\\t)"
 
-#: ../src/snr3.c:1615
+#: ../src/snr3.c:1669
 msgid "Dot character in regex pattern matches newlines"
 msgstr ""
 
-#: ../src/snr3.c:1618
+#: ../src/snr3.c:1672
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
 
-#: ../src/snr3.c:1640
+#: ../src/snr3.c:1694
 #, fuzzy
 msgid "Replace _All"
 msgstr "全部取代(_A)"
 
-#: ../src/snr3.c:1642
+#: ../src/snr3.c:1696
 msgid "_Replace"
 msgstr "取代(_R)"
 
-#: ../src/snr3.c:1646
+#: ../src/snr3.c:1700
 #, fuzzy
 msgid "_Find All"
 msgstr "尋找"
 
-#: ../src/snr3.c:1648
+#: ../src/snr3.c:1702
 #, fuzzy
 msgid "B_ookmark All"
 msgstr "書籤"
 
-#: ../src/undo_redo.c:543 ../src/undo_redo.c:685
+#: ../src/undo_redo.c:552 ../src/undo_redo.c:694
 #, fuzzy
 msgid "Undo in _all documents"
 msgstr "在所有開啟的文件中"
 
-#: ../src/undo_redo.c:543 ../src/undo_redo.c:685
+#: ../src/undo_redo.c:552 ../src/undo_redo.c:694
 #, fuzzy
 msgid "Undo only _this document"
 msgstr "在文件中(_D)"
 
-#: ../src/undo_redo.c:546 ../src/undo_redo.c:688
+#: ../src/undo_redo.c:555 ../src/undo_redo.c:697
 msgid "Undo this change in all documents?"
 msgstr ""
 
-#: ../src/undo_redo.c:547 ../src/undo_redo.c:689
+#: ../src/undo_redo.c:556 ../src/undo_redo.c:698
 msgid "This change concerns multiple documents."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Fo_rmat"
+#~ msgstr "表單"
+
+#, fuzzy
+#~ msgid "Goto _Line"
+#~ msgstr "跳至列"
+
+#, fuzzy
+#~ msgid "Error adding bookmark"
+#~ msgstr "編輯書籤"
+
+#, fuzzy
+#~ msgid "Cannot add bookmarks to unsaved files."
+#~ msgstr "無法在未命名的檔案中新增書籤."
+
+#, fuzzy
+#~ msgid "_Username:"
+#~ msgstr "使用者名稱:"
+
+#, fuzzy
+#~ msgid "_Domain:"
+#~ msgstr "垂直對齊(_V):"
+
+#, fuzzy
+#~ msgid "_Password:"
+#~ msgstr "密碼:"
 
 #, fuzzy
 #~ msgid "Save _As..."
@@ -3799,9 +4139,6 @@ msgstr ""
 
 #~ msgid "New"
 #~ msgstr "新增"
-
-#~ msgid "Save"
-#~ msgstr "儲存"
 
 #~ msgid "Close"
 #~ msgstr "關閉"
@@ -4610,9 +4947,6 @@ msgstr ""
 #~ msgid "posix regular expressions"
 #~ msgstr "posix 正規式"
 
-#~ msgid "Case Se_nsitive"
-#~ msgstr "區分大小寫(_N)"
-
 #, fuzzy
 #~ msgid "Reference library"
 #~ msgstr "搜尋參考"
@@ -5099,9 +5433,6 @@ msgstr ""
 #~ msgid "/Project/Open recent/tearoff1"
 #~ msgstr "/專案(P)/開啟最近的(E)/tearoff1"
 
-#~ msgid "/Project/sep1"
-#~ msgstr "/專案(P)/sep1"
-
 #~ msgid "/Project/sep2"
 #~ msgstr "/專案(P)/sep2"
 
@@ -5486,9 +5817,6 @@ msgstr ""
 
 #~ msgid " List "
 #~ msgstr " 列表 "
-
-#~ msgid " CSS "
-#~ msgstr " CSS "
 
 #~ msgid "Cascading StyleSheet dialog"
 #~ msgstr "串列樣式表對話盒"
@@ -5944,9 +6272,6 @@ msgstr ""
 
 #~ msgid "/Tags/Headings/H_6"
 #~ msgstr "/標記(T)/標題(H)/H_6"
-
-#~ msgid "/Tags/_Special"
-#~ msgstr "/標記(T)/特殊(_S)"
 
 #~ msgid "/Tags/Special/tearoff1"
 #~ msgstr "/標記(T)/特殊(S)/tearoff1"
@@ -6833,6 +7158,3 @@ msgstr ""
 
 #~ msgid "These files were not opened:\n"
 #~ msgstr "這些檔案沒有被開啟:\n"
-
-#~ msgid "Do you want to save the project?"
-#~ msgstr "您要儲存專案嗎?"
