@@ -190,7 +190,7 @@ AC_ARG_ENABLE(
 		fi
 	]
 )
-if test "x$BF_want_development" != "no" ; then
+if test "x$BF_want_development" != "xno" ; then
 	AC_DEFINE([DEVELOPMENT], [1], [Define to 1 if you want to have development checks. Recommended when compiling from svn.])
 fi
 
