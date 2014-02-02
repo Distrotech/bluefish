@@ -2,7 +2,7 @@
  * about.c - the About dialog
  *
  * Copyright (C) 2004 Eugene Morenko(More) more@irpin.com
- * Copyright (C) 2008-2011 Olivier Sessink
+ * Copyright (C) 2008-2014 Olivier Sessink
  * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
@@ -195,9 +195,11 @@ about_dialog_create(GtkAction * action, gpointer user_data)
 
 	const gchar *authors[] = {
 		"Olivier Sessink <olivier@bluefish.openoffice.nl> (Project leader)",
+		"Andrius <andriusr@yahoo.com>",
 		"Jim Hayward <jimhayward@linuxexperience.net>",
 		"Daniel Leidert <daniel.leidert@wgdd.de>",
 		"Shawn Novak <kernel86@gmail.com>",
+		"Frédéric Falsetti <falsetti@clansco.org>",
 		_("\nDevelopers of previous releases:"),
 		"Alastair Porter <alastair@porter.net.nz>",
 		"Antti-Juhani Kaijanaho",
@@ -221,8 +223,9 @@ about_dialog_create(GtkAction * action, gpointer user_data)
 		"Mandrake: Todd Lyons <todd@mrball.net>",
 		"Redhat: Matthias Haase <matthias_haase@bennewitz.com>",
 		"Windows: Shawn Novak <kernel86@gmail.com>, Daniel Leidert <daniel.leidert@wgdd.de>",
-		_("\nIf you know of anyone missing from this list,\nplease let us know via <bluefish@bluefish.openoffice.nl>."),
-		_("\nThanks to all who helped making this software available."),
+		_("\nIf you know of anyone missing from this list,\nplease let us know at:"),
+		_("bluefish@bluefish.openoffice.nl <bluefish@bluefish.openoffice.nl>"),
+		_("\nThanks to all who helped make this software available.\n"),
 		NULL
 	};
 
