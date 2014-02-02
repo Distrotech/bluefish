@@ -410,7 +410,7 @@ documentlist_return_document_from_uri(GList * doclist, GFile * uri)
 	DEBUG_MSG("documentlist_return_document_from_filename, not found, returning NULL\n");
 	return NULL;
 #else
-	return g_hash_table_lookup(main_v.alldochash, uri);
+	return g_hash_table_lookup(main_v->alldochash, uri);
 #endif
 }
 
