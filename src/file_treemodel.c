@@ -1260,7 +1260,11 @@ filetreemodel_get_value(GtkTreeModel * tree_model, GtkTreeIter * iter, gint colu
 		if (record->icon_name) {
 			g_value_set_string(value, record->icon_name);
 		} else {
+#ifndef MAC_INTEGRATION
 			g_value_set_string(value, "gtk-file");
+#else
+			g_value_set_string(value, "text-x-generic");
+#endif
 		}
 		break;
 	case filetreemodel_COL_WEIGHT:
