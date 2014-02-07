@@ -853,7 +853,7 @@ doc_is_empty_non_modified_and_nameless(Tdocument * doc)
 	if (!doc) {
 		return FALSE;
 	}
-	if (doc->modified || doc->uri || doc->autosave_uri || doc->status == DOC_STATUS_LOADING) {
+	if (doc->modified || doc->uri || doc->autosave_uri || doc->status != DOC_STATUS_COMPLETE) {
 		return FALSE;
 	}
 	if (gtk_text_buffer_get_char_count(doc->buffer) > 0) {
@@ -1018,12 +1018,15 @@ doc_set_status(Tdocument * doc, gint status)
 	doc->status = status;
 	switch (status) {
 	case DOC_STATUS_COMPLETE:
+		g_object_set(G_OBJECT(doc->view), "editable", TRUE, NULL);
 		doc->modified = FALSE;
 		break;
 	case DOC_STATUS_ERROR:
+		g_object_set(G_OBJECT(doc->view), "editable", TRUE, NULL);
 		color = main_v->props.tab_color_error;
 		break;
 	case DOC_STATUS_LOADING:
+		g_object_set(G_OBJECT(doc->view), "editable", FALSE, NULL);
 		color = main_v->props.tab_color_loading;
 		break;
 	}
@@ -2295,14 +2298,15 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 	Tdocument *switch_to_doc=NULL;
 	GSList *tmpslist;
 	GList *tmplist;
-	DEBUG_MSG("doc_destroy(%p,%d);\n", doc, delay_activation);
+	DEBUG_MSG("doc_destroy(%p,%d), doc->status=%d\n", doc, delay_activation, doc->status);
 
 	tmplist = g_list_next(doc->recentpos);
 	if (tmplist)
 		switch_to_doc = tmplist->data;
-
-	if (doc->status == DOC_STATUS_ERROR) {
+	if (doc->status == DOC_STATUS_LOADING) {
 		bfwin_docs_not_complete(doc->bfwin, FALSE);
+		DEBUG_MSG("doc_destroy, called bfwin_docs_not_complete(), bfwin->num_docs_not_completed=%d\n",BFWIN(doc->bfwin)->num_docs_not_completed);
+	} else if (doc->status == DOC_STATUS_ERROR) {
 		if (doc->uri && bfwin->session)
 			remove_filename_from_recentlist(bfwin, FALSE, doc->uri); /* Remove inaccesible files from OpenRecent list */
 	}

@@ -1058,6 +1058,7 @@ doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean clos
 		if (close_window) {
 			bfwin_destroy_and_cleanup(BFWIN(doc->bfwin));
 		}
+		DEBUG_MSG("doc_close_single_backend, doc_is_empty_non_modified_and_nameless returned TRUE, return TRUE\n");
 		return TRUE;
 	}
 	if (doc->modified) {

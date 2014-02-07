@@ -224,6 +224,7 @@ static gboolean startup_in_idle(gpointer data) {
 				msg_queue_check_server(FALSE);
 			}
 #endif							/* WITH_MSG_QUEUE */
+			file_static_queues_init(); /* if a template is used, the first untiled document will already load a file */
 		break;
 		case 1:
 			bfwin_create_main(startup->firstbfwin);
@@ -235,7 +236,6 @@ static gboolean startup_in_idle(gpointer data) {
 #endif
 		break;
 		case 2:
-			file_static_queues_init();
 			if (startup->filenames) {
 				GList *tmplist = g_list_first(startup->filenames);
 				DEBUG_MSG("startup_in_idle, we have filenames, load them\n");
@@ -274,9 +274,9 @@ static gboolean startup_in_idle(gpointer data) {
 			handle_signals();
 #endif
 #ifndef MAC_INTEGRATION /*We need startup to stop the startup_main_loop running*/
-			g_free(startup); 
+			g_free(startup);
 #endif
-			
+
 			return FALSE;
 		break;
 	}
@@ -437,7 +437,7 @@ int main(int argc, char *argv[])
 	}
 
 	/* Dynamically create paths for Win32 *after* we have converted the relative
-	filenames from the commandline to GFile objects */	
+	filenames from the commandline to GFile objects */
 #ifdef WIN32
  	path = g_malloc0(MAX_PATH+1);
 	if (GetModuleFileName(NULL, path, MAX_PATH)) {
@@ -453,7 +453,7 @@ int main(int argc, char *argv[])
 	else {
 		g_print("Configuration file(s) could not be found.\nExiting now.\n");
 		g_free(path);
-		bluefish_exit_request();	
+		bluefish_exit_request();
 	}
 	g_free(path);
 #endif
@@ -502,7 +502,7 @@ int main(int argc, char *argv[])
 	g_signal_connect (theApp,
 	                  "NSApplicationBlockTermination",
 	                  G_CALLBACK (osx_block_termination_cb),
-	                  NULL); 
+	                  NULL);
 	gdk_poll_func = g_main_context_get_poll_func (NULL);
 	g_main_context_set_poll_func (NULL, orig_poll_func); /* use virgin polling funtion for startup loop */
 	startup->startup_main_loop = g_main_loop_new (NULL, FALSE);

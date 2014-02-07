@@ -53,6 +53,8 @@
 
 #ifdef REFP_DEBUG
 void refcpointer_ref(Trefcpointer *rp) {
+	if (!rp)
+		return;
 	rp->count++;
 	g_print("refcpointer_ref, %p refcount=%d\n",rp, rp->count);
 }
@@ -72,6 +74,8 @@ Trefcpointer *refcpointer_new(gpointer data) {
 }
 
 void refcpointer_unref(Trefcpointer *rp) {
+	if (!rp)
+		return;
 	rp->count--;
 #ifdef REFP_DEBUG
 	g_print("refcpointer_unref, %p refcount=%d %s\n",rp, rp->count, (rp->count ==0 ? "freeing data" : ""));

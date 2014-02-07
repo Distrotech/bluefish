@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file.c - file operations based on GIO
  *
- * Copyright (C) 2002-2012 Olivier Sessink
+ * Copyright (C) 2002-2014 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,6 +76,7 @@ static Tasyncqueue ffdqueue;
 void
 file_static_queues_init(void)
 {
+	DEBUG_MSG("file_static_queues_init, started\n");
 	queue_init(&ofqueue, 8, openfile_run);
 	queue_init(&ffdqueue, 8, findfiles_rundir);
 	queue_init(&fiqueue, 8, fill_fileinfo_run);
@@ -555,7 +556,7 @@ openfile_async_lcb(GObject * source_object, GAsyncResult * res, gpointer user_da
 	gchar *buffer = NULL;
 	gchar *etag = NULL;
 	gsize size = 0;
-
+	DEBUG_MSG("openfile_async_lcb, of=%p with uri=%p\n",of,of->uri);
 	g_file_load_contents_finish(of->uri, res, &buffer, &size, &etag, &error);
 	if (error) {
 		DEBUG_MSG("openfile_async_lcb, finished, received error code %d: %s\n", error->code, error->message);
@@ -590,6 +591,7 @@ static void
 openfile_run(gpointer data)
 {
 	Topenfile *of = data;
+	DEBUG_MSG("openfile_run, start async load for of=%p with uri=%p\n",of,of->uri);
 	g_file_load_contents_async(of->uri, of->cancel, openfile_async_lcb, of);
 }
 
@@ -599,6 +601,7 @@ file_openfile_uri_async(GFile * uri, Tbfwin * bfwin, OpenfileAsyncCallback callb
 {
 	Topenfile *of;
 	of = g_slice_new(Topenfile);
+	DEBUG_MSG("file_openfile_uri_async, of=%p, called for uri=%p\n",of,uri);
 	of->callback_data = callback_data;
 	of->callback_func = callback_func;
 	of->uri = uri;
@@ -634,9 +637,11 @@ fileintodoc_finished_idle_lcb(gpointer data)
 	DEBUG_SIG("file2doc_finished_idle_lcb, started, priority %d\n",FILEINTODOC_PRIORITY);
 	DEBUG_MSG("fileintodoc_finished_idle_lcb, loading the data for doc %p\n",fid->doc);
 	if (fid->isTemplate || fid->untiledRecovery) {
-		doc_buffer_to_textbox(fid->doc, fid->buffer->data, fid->buflen, FALSE, TRUE);
-		/*          DEBUG_MSG("fileintodoc_lcb, fid->doc->hl=%p, %s, first=%p\n",fid->doc->hl,fid->doc->hl->type,((GList *)g_list_first(main_v->filetypelist))->data); */
-		doc_reset_filetype(fid->doc, fid->doc->uri, fid->buffer->data, fid->buflen);
+		if (fid->buffer) {
+			doc_buffer_to_textbox(fid->doc, fid->buffer->data, fid->buflen, FALSE, TRUE);
+			/*          DEBUG_MSG("fileintodoc_lcb, fid->doc->hl=%p, %s, first=%p\n",fid->doc->hl,fid->doc->hl->type,((GList *)g_list_first(main_v->filetypelist))->data); */
+			doc_reset_filetype(fid->doc, fid->doc->uri, fid->buffer->data, fid->buflen);
+		}
 		doc_set_tooltip(fid->doc);
 		doc_set_status(fid->doc, DOC_STATUS_COMPLETE);
 		bfwin_docs_not_complete(fid->doc->bfwin, FALSE);
@@ -666,7 +671,9 @@ fileintodoc_finished_idle_lcb(gpointer data)
 	if (fid->bfwin->current_document == fid->doc) {
 		doc_force_activate(fid->doc);
 	}
-	refcpointer_unref(fid->buffer);
+	if (fid->buffer) {
+		refcpointer_unref(fid->buffer);
+	}
 	fileintodoc_cleanup(data);
 	return FALSE;
 }
@@ -675,6 +682,7 @@ static void
 fileintodoc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, goffset buflen, gpointer data)
 {
 	Tfileintodoc *fid = data;
+	DEBUG_MSG("fileintodoc_lcb, fid=%p,status=%d\n",fid,status);
 	switch (status) {
 	case OPENFILE_FINISHED:
 		/* a GtkTextView with lots of data displays incredibly slow. So during
@@ -710,8 +718,13 @@ fileintodoc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer,
 	case OPENFILE_ERROR_NOCHANNEL:
 	case OPENFILE_ERROR_NOREAD:
 		/* TODO: use gerror information to notify the user, for example in the statusbar */
-		DEBUG_MSG("fileitodoc_lcb, ERROR status=%d, cleanup!!!!!\n", status);
+		DEBUG_MSG("fileitodoc_lcb, ERROR for %s status=%d, cleanup!!!!!\n", g_file_get_uri(fid->uri), status);
+		if (fid->isTemplate) {
+			g_idle_add_full(FILEINTODOC_PRIORITY,fileintodoc_finished_idle_lcb,fid,NULL);
+			break;
+		}
 		fid->doc->load = NULL;
+		bfwin_docs_not_complete(fid->doc->bfwin, FALSE);
 		fileintodoc_cleanup(data);
 		break;
 	}
@@ -723,6 +736,7 @@ file_into_doc(Tdocument * doc, GFile * uri, gboolean isTemplate, gboolean untile
 {
 	Tfileintodoc *fid;
 	fid = g_slice_new(Tfileintodoc);
+	DEBUG_MSG("file_into_doc, fid=%p, called for doc=%p, uri=%p,isTemplate=%d,untiledRecovery=%d\n",fid,doc,uri,isTemplate,untiledRecovery);
 	fid->bfwin = doc->bfwin;
 	fid->doc = doc;
 	fid->isTemplate = isTemplate;
@@ -809,7 +823,7 @@ file2doc_finished_idle_lcb(gpointer data)
 
 		f2d->recovery_status = 2;
 		doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
-		g_print("file2doc_finished_idle_lcb, recovery of existing file, inserted original file\n");
+		DEBUG_MSG("file2doc_finished_idle_lcb, recovery of existing file, inserted original file\n");
 		f2d->doc->block_undo_reg = TRUE;
 		doc_unre_new_group(f2d->doc);
 		doc_unre_add(f2d->doc, f2d->buffer->data, 0, g_utf8_strlen(f2d->buffer->data, f2d->buflen), UndoDelete);
