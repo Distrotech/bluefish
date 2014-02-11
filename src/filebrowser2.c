@@ -1053,7 +1053,7 @@ popup_menu_open(GtkAction * action, gpointer user_data)
 	uri = fb2_uri_from_file_selection(fb2, &mime);
 	if (uri) {
 		DEBUG_MSG("calling file_handle for popup menu\n");
-		file_handle(uri, fb2->bfwin, mime, FALSE);
+		file_handle(uri, fb2->bfwin, mime, TRUE);
 	}
 }
 
