@@ -1089,7 +1089,7 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri, GtkTreeIter
 			name = get_toplevel_name(tmp);
 			/* there was no parent for this filesystem yet */
 			DEBUG_MSG("filetreemodel_build_dir, adding parent %s as fake folder\n", name);
-			record = add_single_uri(ftm, NULL, tmp, name, DIR_MIME_TYPE, "folder", TRUE, PANGO_WEIGHT_NORMAL);
+			record = add_single_uri(ftm, NULL, tmp, name?name:"?", DIR_MIME_TYPE, "folder", TRUE, PANGO_WEIGHT_NORMAL);
 			g_free(name);
 			break;
 		} else {
