@@ -1437,7 +1437,11 @@ file_chooser_dialog(Tbfwin * bfwin, const gchar * title, GtkFileChooserAction ac
 		g_object_set_data(G_OBJECT(dialog), "encodings", combo);
 	}
 	gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog), vbox);
-	gtk_widget_show_all(vbox);
+	gtk_widget_show(vbox);
+#ifdef MAC_INTEGRATION
+	gtk_widget_show(dialog);
+	gtk_window_resize(GTK_WINDOW(dialog), -1, -1);
+#endif 
 	return dialog;
 }
 
