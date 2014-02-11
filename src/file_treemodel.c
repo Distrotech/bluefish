@@ -145,22 +145,27 @@ static UriRecord *get_nth_record(FileTreemodel * ftm, UriRecord * precord, gint 
 static gchar *get_toplevel_name_for_uri(gchar * curi)
 {
 	gchar *needle;
+	const gchar *slash = "/";
 	if (!curi)
 		return NULL;
 
 	if (curi[0] == '/')
-		return g_strdup("/");
+		return g_strdup(slash);
 
 	if (strncmp(curi, "file:///", 8) == 0)
-		return g_strdup("/");
+		return g_strdup(slash);
 
 	needle = strstr(curi, "://");
 	DEBUG_MSG("searching for toplevel, got non-local uri %s\n", needle);
-	if (!needle) {
+	if (!needle || *(needle+3) == '\0') {
 		g_warning("cannot handle uri %s\n", curi);
 		return NULL;
 	}
 	needle = strchr(needle + 3, '/');
+	if (needle == NULL) {
+		/* we have a string like sftp://server.com */
+		return g_strconcat(curi, slash, NULL);
+	}
 	return g_strndup(curi, needle - curi + 1);
 }
 
