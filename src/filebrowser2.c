@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * use G_DEBUG=fatal-warnings 
+ * use G_DEBUG=fatal-warnings
  * gdb src/bluefish
  * to get backtraces what causes a warning
  */
@@ -428,11 +428,11 @@ gboolean delayed_refresh_cb(gpointer data)
 	}
 	FB2CONFIG(main_v->fb2config)->uri_to_refresh = NULL;
 	FB2CONFIG(main_v->fb2config)->delayed_refresh_id = 0;
-	return FALSE;	
+	return FALSE;
 }
 
-/* 
-by delaying the refresh, if quickly change multiple tabs, you won't call a directory refresh for every document, only 
+/*
+by delaying the refresh, if quickly change multiple tabs, you won't call a directory refresh for every document, only
 a dir for a document where you stay more than 200ms will be refreshed
 */
 static void
@@ -451,7 +451,7 @@ register_delayed_refresh(GFile *uri) {
 		DEBUG_MSG("register_delayed_refresh, uri=%s is already in refresh, returning\n",g_file_get_path(uri));
 		return;
 	}
-	
+
 	if (FB2CONFIG(main_v->fb2config)->uri_to_refresh && g_file_equal(FB2CONFIG(main_v->fb2config)->uri_to_refresh,uri)) {
 		return;
 	}
@@ -611,7 +611,7 @@ fb2_refilter(Tfilebrowser2 * fb2)
 /*  END OF FILTERING FUNCTIONS, START OF DATA MODEL FUNCTIONS */
 /*****************************************************************************************************************************/
 
-void 
+void
 fb2_file_is_opened(GFile *uri, const gchar *mimetype)
 {
 	GtkTreeIter iter;
@@ -1853,7 +1853,7 @@ set_dir_v_root(Tfilebrowser2 *fb2, GFile *dir_uri)
 		refilter_dirlist(fb2, NULL);
 	}
 	if (fb2->dirselection_changed_id)
-		g_signal_handler_unblock(dirselection, fb2->dirselection_changed_id);	
+		g_signal_handler_unblock(dirselection, fb2->dirselection_changed_id);
 }
 
 
@@ -2004,6 +2004,14 @@ file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser
 }
 
 static void
+add_parent_uri_to_recent_dirs(Tfilebrowser2 * fb2, GFile *uri)
+{
+	GFile *dir_uri = g_file_get_parent(uri);
+	add_uri_to_recent_dirs(fb2, dir_uri);
+	g_object_unref(dir_uri);
+}
+
+static void
 dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 						GtkTreeViewColumn * column, Tfilebrowser2 * fb2)
 {
@@ -2020,6 +2028,7 @@ dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 	if (!record->isdir) {
 		DEBUG_MSG("calling file_handle for row_activated\n");
 		file_handle(record->uri, fb2->bfwin, record->fast_content_type, FALSE);
+		add_parent_uri_to_recent_dirs(fb2, record->uri);
 	} else { /* a directory */
 		add_uri_to_recent_dirs(fb2, record->uri);
 		if (fb2->filebrowser_viewmode == viewmode_flat) {
@@ -2044,13 +2053,10 @@ file_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 	GtkTreeIter iter;
 	if (gtk_tree_model_get_iter(fb2->file_filter, &iter, path)) {
 		UriRecord *record;
-		GFile *dir_uri;
 		gtk_tree_model_get(fb2->file_filter, &iter, filetreemodel_COL_RECORD, &record, -1);
 		DEBUG_MSG("calling file_handle for file_v row activat\n");
 		file_handle(record->uri, fb2->bfwin, record->fast_content_type, FALSE);
-		dir_uri = g_file_get_parent(record->uri);
-		add_uri_to_recent_dirs(fb2, dir_uri);
-		g_object_unref(dir_uri);
+		add_parent_uri_to_recent_dirs(fb2, record->uri);
 	}
 }
 
@@ -2317,7 +2323,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		{"STRING", 0, TARGET_STRING},
 	};
 
-	
+
 	if (fb2->filebrowser_viewmode == viewmode) {
 		/* the current viewmode is the same as the requested viewmode
 		   we can return if all the widgets exist */
@@ -2519,7 +2525,7 @@ fb2_update_settings_from_session(Tbfwin * bfwin, Tdocument *active_doc)
 					}
 					gtk_tree_path_free(fs_path);
 				}
-				
+
 			}
 			g_object_unref(uri);
 		}
@@ -2535,7 +2541,7 @@ fb2_update_settings_from_session(Tbfwin * bfwin, Tdocument *active_doc)
 		}
 		fb2config_set_documentroot_icon(uri);
 		g_object_unref(uri);
-	} 
+	}
 	/* TODO: set_basedir_backend already calls refilter in most cases (not if the
 	   requested basedir was already the active basedir), so
 	   we can optimise this and call refilter only when really needed. */
@@ -2603,7 +2609,7 @@ fb2_cleanup(Tbfwin * bfwin)
 		Tfilebrowser2 *fb2 = FILEBROWSER2(bfwin->fb2);
 		GList *actions, *list;
 		DEBUG_MSG("fb2_cleanup, fb2=%p, fb2->bfwin=%p, fb2->vbox=%p\n",fb2,fb2->bfwin,fb2->vbox);
-		
+
 		filetreemodel_dirchange_unregister_by_data(FB2CONFIG(main_v->fb2config)->ftm, fb2);
 		if (fb2->vbox) {
 			DEBUG_MSG("fb2_cleanup, we still have a vbox, destroy vbox\n");
