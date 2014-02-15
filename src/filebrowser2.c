@@ -352,7 +352,7 @@ add_uri_to_recent_dirs(Tfilebrowser2 * fb2, GFile * uri)
 	gchar *tmp;
 
 	tmp = g_file_get_uri(uri);
-
+	DEBUG_MSG("add_uri_to_recent_dirs, add %s to history stringlist\n",tmp);
 	fb2->bfwin->session->recent_dirs =
 		add_to_history_stringlist(fb2->bfwin->session->recent_dirs, tmp, TRUE);
 	g_free(tmp);
@@ -2021,6 +2021,7 @@ dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 		DEBUG_MSG("calling file_handle for row_activated\n");
 		file_handle(record->uri, fb2->bfwin, record->fast_content_type, FALSE);
 	} else { /* a directory */
+		add_uri_to_recent_dirs(fb2, record->uri);
 		if (fb2->filebrowser_viewmode == viewmode_flat) {
 			set_basedir_backend(fb2, record->uri);
 			filetreemodel_refresh_uri_async(FB2CONFIG(main_v->fb2config)->ftm, record->uri);
@@ -2043,11 +2044,14 @@ file_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 	GtkTreeIter iter;
 	if (gtk_tree_model_get_iter(fb2->file_filter, &iter, path)) {
 		UriRecord *record;
+		GFile *dir_uri;
 		gtk_tree_model_get(fb2->file_filter, &iter, filetreemodel_COL_RECORD, &record, -1);
 		DEBUG_MSG("calling file_handle for file_v row activat\n");
 		file_handle(record->uri, fb2->bfwin, record->fast_content_type, FALSE);
+		dir_uri = g_file_get_parent(record->uri);
+		add_uri_to_recent_dirs(fb2, dir_uri);
+		g_object_unref(dir_uri);
 	}
-
 }
 
 static void
@@ -2496,7 +2500,7 @@ fb2_update_settings_from_session(Tbfwin * bfwin, Tdocument *active_doc)
 		DEBUG_MSG("fb2_update_settings_from_session, set basedir %s\n", tmp);
 		if (tmp && tmp[0]) {
 			GtkTreePath *fs_path, *filter_path;
-			GFile *uri = g_file_new_for_uri(strip_trailing_slash((gchar *) tmp));
+			GFile *uri = g_file_new_for_uri(strcmp(tmp,"file:///")==0?tmp:strip_trailing_slash((gchar *) tmp));
 			DEBUG_MSG("fb2_update_settings_from_session, set basedir %p\n",uri);
 			fb2_set_basedir(fb2, uri);
 			fb2_set_dirmenu(fb2, uri, FALSE);
