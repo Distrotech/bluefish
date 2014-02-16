@@ -1,0 +1,17 @@
+Bluefish 2.2.5 - Released 2/10/2014
+
+Bluefish 2.2.5 is a minor bug fix release, but also has some new features.
+
+ - The syntax scanning engine is faster after small changes to the text.
+ - The filebrowser is also much faster with less memory usage, with various fixes and new features.
+ - Projects now store the active document and active line numbers.
+ - Indenting is improved in auto-completion and the smart indenting.
+ - Bookmarks and paste special also have been improved.
+ - Almost all syntax highlighting has been improved, most notable jquery in javascript, HTML5, and HTML5 in PHP files.
+ - On OSX there are many improvements, such as Mavericks support, Retina display support,
+   working system hotkeys, native input methods (Japanese, Chinese, etc.),
+   opening files from the finder and Widget bindings on MacOSX are moved to Cmd+C|V|X|A and working.
+ - There are also many bug fixes, such as in wrap text on right margin, in the replace engine,
+   the split lines feature, the auto-recovery and many obscure bugs.
+ - The previous version of jsmin has been replaced with a version that has an MIT license.
+ - Bluefish now has an appdata file.
