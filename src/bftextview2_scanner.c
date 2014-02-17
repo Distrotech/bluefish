@@ -837,15 +837,34 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 	}
 #endif
 
-	/* check if the current offsetupdate has an offset greater than the last one */
+	/* check if the current offsetupdate has an offset greater than the last one, if not, first process the previous offsetupdates */
 	if (btv->scancache.offsetupdates && OFFSETUPDATE(btv->scancache.offsetupdates)->startpos > startpos) {
-		DBG_SCANCACHE("foundcache_update_offsets, offset=%d, tail offset=%d, call process_offsetupdates()\n", startpos, OFFSETUPDATE(btv->scancache.offsetupdates)->startpos);
+		DBG_SCANCACHE("foundcache_update_offsets, startpos=%d, tail startpos=%d, call process_offsetupdates()\n", startpos, OFFSETUPDATE(btv->scancache.offsetupdates)->startpos);
 		/* handle all the offsets */
 		foundcache_process_offsetupdates(btv);
 	} else if (btv->scancache.offsetupdates && OFFSETUPDATE(btv->scancache.offsetupdates)->startpos == startpos) {
-		/* merge them together if they are on the same position */
-		OFFSETUPDATE(btv->scancache.offsetupdates)->offset += offset;
-		return;
+ 		/* merging can only be done in certain circumstances, for example: if a region is deleted, and 
+ 		another region is inserted at that same position (a very common thing during replace, or filter), the now 
+		outdated region of the scancache should be cleared, so you cannot merge!!!!
+		*/
+		if ((OFFSETUPDATE(btv->scancache.offsetupdates)->offset < 0 && offset < 0) 
+				|| (OFFSETUPDATE(btv->scancache.offsetupdates)->offset > 0 && offset > 0)) {
+			DBG_SCANCACHE("foundcache_update_offsets, last offset was also on position %d, merge old offset %d and new offset %d together\n",startpos, OFFSETUPDATE(btv->scancache.offsetupdates)->offset, offset);
+			OFFSETUPDATE(btv->scancache.offsetupdates)->offset += offset;
+			return;
+		} else if (OFFSETUPDATE(btv->scancache.offsetupdates)->offset < 0 && offset > 0) {
+			/* a replace 
+		we therefore do a neat little trick: suppose we replace 50 chars with 100 chars at position 200
+		we insert -50 at position 200 AND then we insert +100 at position 250 (since all characters between 
+		200 and 250 where deleted, there is no scancache anymore between 200 and 250, so it doesn't matter 
+		if we change the offsets starting from 250 or starting from 200). that way we do not have to run 
+		foundcache_process_offsetupdates(btv) */
+			startpos -= OFFSETUPDATE(btv->scancache.offsetupdates)->offset;
+		} else {
+			/* not a normal replace, first an insert and then the delete ?? process old cache first */
+			DBG_SCANCACHE("foundcache_update_offsets, startpos=%d|offset=%d, tail startpos=%d|offset=%d, call process_offsetupdates()\n", startpos,offset, OFFSETUPDATE(btv->scancache.offsetupdates)->startpos, OFFSETUPDATE(btv->scancache.offsetupdates)->offset);
+			foundcache_process_offsetupdates(btv);
+		}
 	}
 	ou = g_slice_new(Toffsetupdate);
 	ou->startpos = (guint32)startpos;
