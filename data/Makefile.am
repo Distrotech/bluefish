@@ -15,6 +15,7 @@ nobase_bfdata_DATA = \
 	lipsum/data/sample.txt \
 	lipsum/data/lipsum.xml \
 	jsbeautifier/__init__.py \
+	jsbeautifier/__version__.py \
 	jsbeautifier/unpackers/packer.py \
 	jsbeautifier/unpackers/javascriptobfuscator.py \
 	jsbeautifier/unpackers/myobfuscate.py \
