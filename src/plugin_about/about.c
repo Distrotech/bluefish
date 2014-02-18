@@ -48,10 +48,11 @@ bluefish_url_show(const gchar * url)
 		g_warning("Failed trying to launch URL in about dialog");
 	}
 #else
-#ifdef MAC_INTEGRATION
+#ifdef PLATFORM_DARWIN
 	GString *string;
-	string = g_string_new("open ");
+	string = g_string_new("open \"");
 	string = g_string_append(string, url);
+	string = g_string_append(string, "\"");
 	g_print("bluefish_url_show, launching uri=%s\n", string->str);
 	system(string->str);
 	g_string_free(string, TRUE);
@@ -135,18 +136,19 @@ about_report_bug(GtkAction * action, gpointer user_data)
 	string = g_string_new("http://bugzilla.gnome.org/enter_bug.cgi?product=bluefish");
 #ifdef WIN32
 	string = g_string_append(string, ";op_sys=Windows");
+#elif PLATFORM_DARWIN
+	string = g_string_append(string, ";op_sys=Mac%20OS");
 #endif	/* WIN32 */
 	string = g_string_append(string, ";version=");
 #ifdef SVN_REVISION
-	string = g_string_append(string, "development (SVN TRUNK)");
+	string = g_string_append_uri_escaped(string, "development (SVN TRUNK)",NULL,FALSE);
 #else	/* SVN_REVISION */
 	string = g_string_append(string, PACKAGE_VERSION);
 #endif	/* SVN_REVISION */
 	string = g_string_append(string, ";comment=");
-
 	options = g_strconcat(
 #ifdef SVN_REVISION
-						  "SVN revision ", SVN_REVISION, "\n\n"
+						  "SVN revision ", SVN_REVISION, "\n",
 #endif	/* SVN_REVISION */
 						  "Bluefish was configured with: ", CONFIGURE_OPTIONS, "\n", NULL);
 
