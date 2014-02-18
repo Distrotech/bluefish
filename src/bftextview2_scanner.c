@@ -395,9 +395,10 @@ mark_needscanning(BluefishTextView * btv, gint startpos, gint endpos)
 	/* if text is deleted, mark_needscanning could be called for a Tfound that is in the deleted region.
 	Sometimes after applying the offset to a deleted Tfound, the final region is negative. Correct for that
 	situation */
+	/*DBG_SCANCACHE("mark_needscanning, called for %d:%d\n",startpos,endpos);*/
 	if (startpos < 0) startpos = 0;
 	if (endpos <= 0) return;
-
+	/*DBG_SCANCACHE("mark_needscanning, marking %d:%d\n",startpos,endpos);*/
 #ifdef NEEDSCANNING
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, startpos);
 	if (endpos == -1) {
@@ -625,15 +626,19 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 			if (G_LIKELY(((gint)tmpfound->charoffset_o+sou->prevoffset) > ((gint)startpos))) {
 				gint numblockchange = tmpfound->numblockchange;
 				DBG_SCANCACHE("scancache_update_single_offset, remove found %p at %d from the cache\n",tmpfound, tmpfound->charoffset_o);
-				if (numblockchange > 0) {
-					/* we have to enlarge needscanning to the place where this was popped */
+				if (numblockchange > 0 && tmpfound->fblock->end2_o+sou->prevoffset > startpos - offset) {
+					/* we have to enlarge needscanning to the place where this was popped, unless the complete block was within the deleted region */
 					DBG_SCANCACHE("scancache_update_single_offset, found pushed a block, mark obsolete block %u:%u as needscanning\n",tmpfound->fblock->start1_o, tmpfound->fblock->end2_o);
-					mark_needscanning(btv, tmpfound->fblock->start1_o+sou->prevoffset+offset, tmpfound->fblock->end2_o==BF_OFFSET_UNDEFINED ? BF_OFFSET_UNDEFINED : tmpfound->fblock->end2_o+sou->prevoffset+offset);
+					mark_needscanning(btv 
+							, tmpfound->fblock->start1_o+sou->prevoffset<=startpos ? tmpfound->fblock->start1_o+sou->prevoffset : tmpfound->fblock->start1_o+sou->prevoffset+offset
+							, tmpfound->fblock->end2_o==BF_OFFSET_UNDEFINED ? BF_OFFSET_UNDEFINED : tmpfound->fblock->end2_o+sou->prevoffset+offset);
 				}
-				if (tmpfound->numcontextchange > 0) {
-					/* we have to enlarge needscanning to the place where this was popped */
+				if (tmpfound->numcontextchange > 0 && tmpfound->fcontext->end_o+sou->prevoffset > startpos - offset) {
+					/* we have to enlarge needscanning to the place where this was popped, unless the complete context was within the deleted region */
 					DBG_SCANCACHE("scancache_update_single_offset, found pushed a context, mark obsolete context %u:%u as needscanning\n",tmpfound->fcontext->start_o, tmpfound->fcontext->end_o);
-					mark_needscanning(btv, tmpfound->fcontext->start_o+sou->prevoffset+offset, tmpfound->fcontext->end_o==BF_OFFSET_UNDEFINED ? BF_OFFSET_UNDEFINED : tmpfound->fcontext->end_o+sou->prevoffset+offset);
+					mark_needscanning(btv
+							, tmpfound->fcontext->start_o+sou->prevoffset<=startpos ? tmpfound->fcontext->start_o+sou->prevoffset : tmpfound->fcontext->start_o+sou->prevoffset+offset
+							, tmpfound->fcontext->end_o==BF_OFFSET_UNDEFINED ? BF_OFFSET_UNDEFINED : tmpfound->fcontext->end_o+sou->prevoffset+offset);
 				}
 				remove_cache_entry(btv, &tmpfound, &tmpsiter, NULL, NULL);
 				if (!tmpfound && (numblockchange < 0)) {
@@ -853,13 +858,7 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 			OFFSETUPDATE(btv->scancache.offsetupdates)->offset += offset;
 			return;
 		} else if (OFFSETUPDATE(btv->scancache.offsetupdates)->offset < 0 && offset > 0) {
-			/* a replace 
-		we therefore do a neat little trick: suppose we replace 50 chars with 100 chars at position 200
-		we insert -50 at position 200 AND then we insert +100 at position 250 (since all characters between 
-		200 and 250 where deleted, there is no scancache anymore between 200 and 250, so it doesn't matter 
-		if we change the offsets starting from 250 or starting from 200). that way we do not have to run 
-		foundcache_process_offsetupdates(btv) */
-			startpos -= OFFSETUPDATE(btv->scancache.offsetupdates)->offset;
+			DEBUG_MSG("foundcache_update_offsets, last startpos equals current startpos (%d) - this is the insert from a replace action\n",startpos);
 		} else {
 			/* not a normal replace, first an insert and then the delete ?? process old cache first */
 			DBG_SCANCACHE("foundcache_update_offsets, startpos=%d|offset=%d, tail startpos=%d|offset=%d, call process_offsetupdates()\n", startpos,offset, OFFSETUPDATE(btv->scancache.offsetupdates)->startpos, OFFSETUPDATE(btv->scancache.offsetupdates)->offset);
@@ -974,7 +973,7 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 					mark_needscanning(btv, found->fblock->start1_o, found->fblock->end2_o);
 				}
 				if (found->numcontextchange > 0) {
-					/* we have to enlarge needscanning to the place where this was popped */
+					/* we have to enlarge needscanning to the place where this was popped minus the delete offset */
 					DBG_SCANCACHE("foundcache_update_offsets, found pushed a context, mark obsolete context %d:%d as needscanning\n",found->fcontext->start_o, found->fcontext->end_o);
 					mark_needscanning(btv, found->fcontext->start_o, found->fcontext->end_o);
 				}
