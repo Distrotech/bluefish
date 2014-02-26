@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_patcompile.h
  *
- * Copyright (C) 2008,2009,2010,2013 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2013,2014 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ void match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * au
 							 const gchar * autocomplete_append, guint8 autocomplete_backup_cursor);
 void match_set_reference(Tscantable * st, guint16 matchnum, const gchar * reference);
 void compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context);
-
+void pattern_set_condition(Tscantable * st, guint16 matchnum, guint16 refpattern, guint16 refcontext, gint relation, gint mode);
 void
 pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
 							gboolean starts_block,

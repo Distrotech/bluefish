@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_private.h
  *
- * Copyright (C) 2012 Olivier Sessink
+ * Copyright (C) 2012,2013,2014 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 #ifndef _BFTEXTVIEW2_PRIVATE_H_
 #define _BFTEXTVIEW2_PRIVATE_H_
 
+#define CONDITIONALPATTERN
 
 #if defined(__GNUC__) || (defined(__SUNPRO_C) && __SUNPRO_C > 0x580)
 #define DBG_NONE(args...)
@@ -97,6 +98,19 @@ typedef struct {
 	guint8 autocomplete_backup_cursor;	/* number of characters to backup the cursor after autocompletion (max 256) */
 } Tpattern_autocomplete;
 
+#ifdef CONDITIONALPATTERN
+typedef struct {
+	guint16 ref; 			/* if the reference was a context, the ID of that context, if the reference 
+									was a pattern, the ID of that pattern, otherwise 0 */
+	gint8 parentrelation; /* -1 means any parent, 0 = direct parent, 1= grandparent, etc. */
+	guint8 relationtype; /* 1 = valid if relation with context matches, 
+									2 = invalid if relation with context matches,
+									3 = valid if relation with block matches
+									4 = invalid if relation with block matches
+									*/
+} Tpattern_condition;
+#endif /* CONDITIONALPATTERN */
+
 typedef struct {
 	gchar *name;
 	GtkTextTag *tag;		/* if this pattern ends a context or a block, we can highlight
@@ -114,6 +128,9 @@ typedef struct {
 										to be able to recompile a pattern in multiple contexts we need this information in Tpattern */
 	gchar *selfhighlight;		/* a string with the highlight for this pattern. used when re-linking highlights and textstyles
 								   if the user changed any of these in the preferences */
+#ifdef CONDITIONALPATTERN
+	guint16 condition; /* 0 for most patterns, only blocks that are (in)valid in a certain condition have this set */
+#endif
 	guint16 block;			/* this is 0 for most blocks, only blocks that need a tag have this set, refers to a a position in an array of Tpattern_block*/
 	gint16 blockstartpattern;	/* the number of the pattern that may start this block, or -1 to end the last started block, also used for stretch block */
 	gint16 nextcontext;			/* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
@@ -133,8 +150,8 @@ typedef struct {
 #endif							/* IDENTSTORING */
 } Tpattern;
 /*
-32bit size = 5*32 + 3*16 + 1*2 + 8*1 = 217 + 7 padding bits = 28 bytes
-64bit size = 5*64 + 3*16 + 1*2 + 8*1 = 361 + 7 padding bits = 48 bytes
+32bit size = 5*32 + 4*16 + 1*2 + 8*1 = 233 + 23 padding bits = 32 bytes
+64bit size = 5*64 + 4*16 + 1*2 + 8*1 = 394 + 54 padding bits = 56 bytes
 */
 
 typedef struct {

@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2.h
  *
- * Copyright (C) 2008,2009,2010,2011,2012,2013 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2011,2012,2013,2014 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -299,6 +299,7 @@ typedef struct {
 	GArray *matches;			/* dynamic sized array of Tpattern */
 	GArray *comments;			/* array of Tcomment, has max. 256 entries, we use a guint8 as index */
 	GArray *blocks; 			/* array of Tpattern_block with a guint16 as index */
+	GArray *conditions;	/* array of Tpattern_condition with a guint16 as index */
 } Tscantable;
 
 typedef struct {

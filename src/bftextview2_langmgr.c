@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_langmgr.c
  *
- * Copyright (C) 2008,2009,2010,2011,2012,2013 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2011,2012,2013,2014 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -750,11 +750,11 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 	guint16 matchnum = 0;
 	gboolean add_element;
 	gchar *pattern = NULL, *idref = NULL, *highlight = NULL, *blockstartelement = NULL, *blockhighlight =
-		NULL, *block_name = NULL, *class = NULL, *notclass = NULL, *id =	NULL;
+		NULL, *block_name = NULL, *class = NULL, *notclass = NULL, *id =	NULL, *condition_idref=NULL, *condition_contextref=NULL;
 	gboolean starts_block = FALSE, ends_block = FALSE, is_empty, tagclose_from_blockstack = FALSE, stretch_blockstart=FALSE;
 	gint case_insens = UNDEFINED, is_regex = UNDEFINED;
 	gint ends_context = 0;
-	gint identifier_mode=0, identifier_jump=0, identifier_autocomp=0;
+	gint identifier_mode=0, identifier_jump=0, identifier_autocomp=0,condition_mode=0,condition_relation=0;
 	GSList *autocomplete=NULL;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 
@@ -776,7 +776,11 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 					{"stretch_blockstart", &stretch_blockstart, attribtype_int},
 					{"identifier_mode", &identifier_mode, attribtype_int},
 					{"identifier_jump", &identifier_jump, attribtype_int},
-					{"identifier_autocomp", &identifier_autocomp, attribtype_int}
+					{"identifier_autocomp", &identifier_autocomp, attribtype_int},
+					{"condition_blockstartidref", &condition_idref, attribtype_string},
+					{"condition_contextref", &condition_contextref, attribtype_string},
+					{"condition_mode", &condition_mode, attribtype_int},
+					{"condition_relation", &condition_relation, attribtype_int},
 					};
 	parse_attributes(bfparser->bflang,reader, attribs, 19);
 	if (stretch_blockstart && ends_block) {
@@ -852,6 +856,13 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 								 identifier_mode,
 								 identifier_jump,
 								 identifier_autocomp);
+			if (condition_mode!= 0) {
+				guint idref, contextref;
+				contextref = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, condition_contextref));
+				idref = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, condition_idref));
+				pattern_set_condition(bfparser->st, matchnum, idref, contextref, condition_relation, condition_mode);
+			}
+			
 			DBG_PARSING("add matchnum %d to hash table for key %s, starts_block=%d\n", matchnum, pattern,
 						starts_block);
 			g_hash_table_insert(bfparser->patterns, g_strdup(id ? id : pattern),

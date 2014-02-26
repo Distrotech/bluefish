@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_patcompile.c
  *
- * Copyright (C) 2008,2009,2011,2013 Olivier Sessink
+ * Copyright (C) 2008,2009,2011,2013,2014 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -851,7 +851,33 @@ compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context)
 	}
 	match_autocomplete_reference(st, matchnum, context);
 }
-
+#ifdef CONDITIONALPATTERN
+void
+pattern_set_condition(Tscantable * st, guint16 matchnum, guint16 refpattern, guint16 refcontext, gint relation, gint mode)
+{
+	guint16 condnum = st->conditions->len;
+	
+	g_array_set_size(st->conditions, st->conditions->len + 1);
+	if (mode == 1 || mode == 2) {
+		g_array_index(st->conditions, Tpattern_condition, condnum).ref = refcontext;
+		if (!refcontext) {
+			g_warning("Error in language file: mode %d needs to refer to valid context",mode);
+		}
+	} else if (mode == 3 || mode == 4) {
+		g_array_index(st->conditions, Tpattern_condition, condnum).ref = refpattern;
+		if (!refpattern) {
+			g_warning("Error in language file: mode %d needs to refer to valid pattern",mode);
+		}
+	} else {
+		g_warning("Error in language file: condition mode %d is not defined\n",mode);
+		return;
+	}
+	g_array_index(st->conditions, Tpattern_condition, condnum).parentrelation = relation;
+	g_array_index(st->conditions, Tpattern_condition, condnum).relationtype = mode;
+	
+	g_array_index(st->matches, Tpattern, matchnum).condition = condnum;	
+}
+#endif /*CONDITIONALPATTERN*/
 void
 pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
 							gboolean starts_block,

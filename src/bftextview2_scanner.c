@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_scanner.c
  *
- * Copyright (C) 2008,2009,2010,2011,2012,2013 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2011,2012,2013,2014 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1473,6 +1473,64 @@ enlarge_scanning_region(BluefishTextView * btv, Tscanning * scanning, guint offs
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, offset);
 	return enlarge_scanning_region_to_iter(btv, scanning, &iter);
 }
+#ifdef CONDITIONALPATTERN
+static gboolean
+match_conditions_satisfied(BluefishTextView * btv, Tscanning *scanning, Tpattern *pat) {
+	Tpattern_condition *pcond;
+	gint i;
+	gboolean compare_context = (pcond->relationtype == 1 || pcond->relationtype == 2);
+	pcond = &g_array_index(btv->bflang->st->conditions, Tpattern_condition, pat->condition);
+	if (pcond->relationtype == 1 || pcond->relationtype == 2) { /* context */
+		Tfoundcontext *fcontext = scanning->curfcontext;
+		if (pcond->parentrelation == -1) {
+			while (fcontext) {
+				if (compare_context) {
+					if (pcond->ref == fcontext->context) {
+						return (pcond->relationtype == 1);
+					}
+				} else {
+					if (pcond->ref == fcontext->context) {
+						return (pcond->relationtype == 1);
+					}
+				}
+				fcontext = fcontext->parentfcontext;
+			}
+		} else {
+			for (i=0;i<pcond->parentrelation;i++) {
+				fcontext = fcontext->parentfcontext;
+				if (!fcontext)
+					return (pcond->relationtype == 2);
+			}
+			if (pcond->ref == fcontext->context) {
+				return (pcond->relationtype == 1);
+			}
+		}
+		return (pcond->relationtype == 2);		
+	} else if (pcond->relationtype == 3 || pcond->relationtype == 4) { /* pattern */
+		Tfoundblock *fblock = scanning->curfblock;
+		if (pcond->parentrelation == -1) {
+			while (fblock) {
+				if (pcond->ref == fblock->patternum) {
+					return (pcond->relationtype == 3);
+				}
+				fblock = fblock->parentfblock;
+			}
+		} else {
+			for (i=0;i<pcond->parentrelation;i++) {
+				fblock = fblock->parentfblock;
+				if (!fblock)
+					return (pcond->relationtype == 4);
+			}
+			if (pcond->ref == fblock->patternum) {
+				return (pcond->relationtype == 3);
+			}
+		}
+		return (pcond->relationtype == 4);
+	}
+	
+	return TRUE;
+}
+#endif /* CONDITIONALPATTERN */
 
 static inline int
 found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
@@ -1485,6 +1543,15 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	Tfound *found;
 	GtkTextIter iter;
 	Tpattern *pat = &g_array_index(btv->bflang->st->matches, Tpattern, match->patternum);
+
+#ifdef CONDITIONALPATTERN
+	if (pat->condition) {
+		/* lookup the condition, and see if it matches */
+		if (!match_conditions_satisfied(btv, scanning, pat)) {
+			return scanning->context;
+		}
+	}
+#endif /* CONDITIONALPATTERN */
 	DBG_SCANNING
 		("found_match for pattern %d %s at charoffset %d, starts_block=%d,ends_block=%d, nextcontext=%d (current=%d)\n",
 		 match->patternum, pat->pattern, gtk_text_iter_get_offset(&match->start), pat->starts_block,
