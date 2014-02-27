@@ -1097,9 +1097,11 @@ scantable_new(guint size_table, guint size_matches, guint size_contexts)
 	st->matches = g_array_sized_new(TRUE, TRUE, sizeof(Tpattern), size_matches);
 	st->comments = g_array_sized_new(TRUE, FALSE, sizeof(Tcomment), 8);
 	st->blocks = g_array_sized_new(TRUE, FALSE, sizeof(Tpattern_block), 8);
+	st->conditions = g_array_sized_new(TRUE, FALSE, sizeof(Tpattern_block), 8);
 	st->matches->len = 1;		/* match 0 means no match */
 	st->contexts->len = 1;		/* a match with nextcontext 0 means no context change, so we cannot use context 0 */
 	st->blocks->len = 1;			/* block 0 means no block */
+	st->conditions->len = 1;
 	return st;
 }
 

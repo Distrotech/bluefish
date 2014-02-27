@@ -487,6 +487,9 @@ parse_attributes(Tbflang *bflang,xmlTextReaderPtr reader, Tattrib *attribs, gint
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		gint i;
 		xmlChar *aname = xmlTextReaderName(reader);
+/*#ifdef DEVELOPMENT
+		g_print("parse_attributes, name=%s\n",aname);
+#endif*/
 		for (i=0;i<num_attribs;i++) {
 			if (xmlStrEqual(aname, (xmlChar *)attribs[i].name)) {
 				gchar *value = (gchar *)xmlTextReaderValue(reader);
@@ -782,7 +785,13 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 					{"condition_mode", &condition_mode, attribtype_int},
 					{"condition_relation", &condition_relation, attribtype_int},
 					};
-	parse_attributes(bfparser->bflang,reader, attribs, 19);
+	parse_attributes(bfparser->bflang,reader, attribs, 23);
+#ifdef DEVELOPMENT
+	if (g_strcmp0(id,"e.css.in_style_attribute.dquote")==0) {
+		g_print("e.css.in_style_attribute.dquote has condition_mode=%d and contextref=%s\n",condition_mode,condition_contextref);
+	}
+#endif
+
 	if (stretch_blockstart && ends_block) {
 		g_print("Error in language file, id %s / pattern %s has mutually exclusive options stretch_blockstart and ends_block both enabled\n", id?id:"-", pattern?pattern:"null");
 		stretch_blockstart = FALSE;
@@ -857,9 +866,14 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 								 identifier_jump,
 								 identifier_autocomp);
 			if (condition_mode!= 0) {
-				guint idref, contextref;
-				contextref = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, condition_contextref));
-				idref = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, condition_idref));
+				guint idref=0, contextref=0;
+				g_print("condition_mode=%d, call pattern_set_condition, contextref=%s\n",condition_mode,condition_contextref);
+				if (contextref) {
+					contextref = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, condition_contextref));
+					g_print("lookup for %s returned %d\n",condition_contextref, contextref);
+				}
+				if (idref) 
+					idref = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, condition_idref));
 				pattern_set_condition(bfparser->st, matchnum, idref, contextref, condition_relation, condition_mode);
 			}
 			
@@ -1560,6 +1574,7 @@ build_lang_thread(gpointer data)
 				g_array_free(bfparser->st->contexts, TRUE);
 				g_array_free(bfparser->st->comments, TRUE);
 				g_array_free(bfparser->st->blocks, TRUE);
+				g_array_free(bfparser->st->conditions, TRUE);
 				g_slice_free(Tscantable, bfparser->st);
 				bfparser->st = NULL;
 				xmlFree(name);
@@ -1639,6 +1654,8 @@ build_lang_thread(gpointer data)
 			g_realloc(bfparser->st->comments->data, (bfparser->st->comments->len + 1) * sizeof(Tcomment));
 		bfparser->st->blocks->data =
 			g_realloc(bfparser->st->blocks->data, (bfparser->st->blocks->len + 1) * sizeof(Tpattern_block));
+		bfparser->st->conditions->data =
+			g_realloc(bfparser->st->conditions->data, (bfparser->st->conditions->len + 1) * sizeof(Tpattern_condition));
 		/* now optimise the DFA tables for each context */
 		for (i = 1; i < bfparser->st->contexts->len; i++) {
 			g_array_index(bfparser->st->contexts, Tcontext, i).table->data = g_realloc(g_array_index(bfparser->st->contexts, Tcontext, i).table->data, (g_array_index(bfparser->st->contexts, Tcontext, i).table->len + 1) * sizeof(Ttablerow));
@@ -1854,6 +1871,7 @@ bflang_cleanup_scantable(Tbflang * bflang)
 	g_array_free(bflang->st->contexts, TRUE);
 	g_array_free(bflang->st->comments, TRUE);
 	g_array_free(bflang->st->blocks, TRUE);
+	g_array_free(bflang->st->conditions, TRUE);
 	g_slice_free(Tscantable, bflang->st);
 	bflang->st = NULL;
 }

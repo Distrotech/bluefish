@@ -1478,29 +1478,26 @@ static gboolean
 match_conditions_satisfied(BluefishTextView * btv, Tscanning *scanning, Tpattern *pat) {
 	Tpattern_condition *pcond;
 	gint i;
-	gboolean compare_context = (pcond->relationtype == 1 || pcond->relationtype == 2);
 	pcond = &g_array_index(btv->bflang->st->conditions, Tpattern_condition, pat->condition);
+	g_print("match_conditions_satisfied, called for pcond %d with mode=%d, ref=%d and type=%d\n",pat->condition, pcond->relationtype, pcond->ref, pcond->parentrelation);
 	if (pcond->relationtype == 1 || pcond->relationtype == 2) { /* context */
 		Tfoundcontext *fcontext = scanning->curfcontext;
 		if (pcond->parentrelation == -1) {
 			while (fcontext) {
-				if (compare_context) {
-					if (pcond->ref == fcontext->context) {
-						return (pcond->relationtype == 1);
-					}
-				} else {
-					if (pcond->ref == fcontext->context) {
-						return (pcond->relationtype == 1);
-					}
+				g_print("compare context %d\n",fcontext->context);
+				if (pcond->ref == fcontext->context) {
+					return (pcond->relationtype == 1);
 				}
 				fcontext = fcontext->parentfcontext;
 			}
 		} else {
 			for (i=0;i<pcond->parentrelation;i++) {
+				g_print("pop context %d before comparing\n",fcontext->context);
 				fcontext = fcontext->parentfcontext;
 				if (!fcontext)
 					return (pcond->relationtype == 2);
 			}
+			g_print("compare context %d\n",fcontext?fcontext->context:0);
 			if (pcond->ref == fcontext->context) {
 				return (pcond->relationtype == 1);
 			}
