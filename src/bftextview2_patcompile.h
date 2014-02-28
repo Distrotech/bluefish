@@ -31,7 +31,7 @@ void match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * au
 							 const gchar * autocomplete_append, guint8 autocomplete_backup_cursor);
 void match_set_reference(Tscantable * st, guint16 matchnum, const gchar * reference);
 void compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context);
-void pattern_set_condition(Tscantable * st, guint16 matchnum, guint16 refpattern, guint16 refcontext, gint relation, gint mode);
+void pattern_set_condition(Tscantable * st, guint16 matchnum, gchar *refname, gint relation, gint mode);
 void
 pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
 							gboolean starts_block,

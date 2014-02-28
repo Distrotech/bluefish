@@ -852,29 +852,21 @@ compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context)
 	match_autocomplete_reference(st, matchnum, context);
 }
 #ifdef CONDITIONALPATTERN
+
 void
-pattern_set_condition(Tscantable * st, guint16 matchnum, guint16 refpattern, guint16 refcontext, gint relation, gint mode)
+pattern_set_condition(Tscantable * st, guint16 matchnum, gchar *refname, gint relation, gint mode)
 {
 	guint16 condnum = st->conditions->len;
-	
+	g_print("pattern_set_condition, condnum=%d, called with refname %s for matchnum %d\n",condnum,refname,matchnum);
 	g_array_set_size(st->conditions, st->conditions->len + 1);
-	if (mode == 1 || mode == 2) {
-		g_array_index(st->conditions, Tpattern_condition, condnum).ref = refcontext;
-		if (!refcontext) {
-			g_warning("Error in language file: mode %d needs to refer to valid context",mode);
-		}
-	} else if (mode == 3 || mode == 4) {
-		g_array_index(st->conditions, Tpattern_condition, condnum).ref = refpattern;
-		if (!refpattern) {
-			g_warning("Error in language file: mode %d needs to refer to valid pattern",mode);
-		}
-	} else {
+	if (mode < 1 || mode > 4) {
 		g_warning("Error in language file: condition mode %d is not defined\n",mode);
 		return;
 	}
+	g_array_index(st->conditions, Tpattern_condition, condnum).refname = g_strdup(refname);
 	g_array_index(st->conditions, Tpattern_condition, condnum).parentrelation = relation;
 	g_array_index(st->conditions, Tpattern_condition, condnum).relationtype = mode;
-	
+	g_print("pattern %d (%s) now has condition %d\n",matchnum,g_array_index(st->matches, Tpattern, matchnum).pattern,condnum);
 	g_array_index(st->matches, Tpattern, matchnum).condition = condnum;	
 }
 #endif /*CONDITIONALPATTERN*/

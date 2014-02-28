@@ -100,6 +100,7 @@ typedef struct {
 
 #ifdef CONDITIONALPATTERN
 typedef struct {
+	gchar *refname; 	/* because we can match the name only after all contexts are loaded, we store it in the structure */
 	guint16 ref; 			/* if the reference was a context, the ID of that context, if the reference 
 									was a pattern, the ID of that pattern, otherwise 0 */
 	gint8 parentrelation; /* -1 means any parent, 0 = direct parent, 1= grandparent, etc. */

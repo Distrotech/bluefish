@@ -866,15 +866,14 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 								 identifier_jump,
 								 identifier_autocomp);
 			if (condition_mode!= 0) {
-				guint idref=0, contextref=0;
-				g_print("condition_mode=%d, call pattern_set_condition, contextref=%s\n",condition_mode,condition_contextref);
-				if (contextref) {
-					contextref = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, condition_contextref));
-					g_print("lookup for %s returned %d\n",condition_contextref, contextref);
+				gchar *refname=NULL;
+				if (condition_mode ==1 || condition_mode == 2) {
+					refname = condition_contextref;
+				} else if (condition_mode ==1 || condition_mode == 2) {
+					refname = condition_idref;
 				}
-				if (idref) 
-					idref = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, condition_idref));
-				pattern_set_condition(bfparser->st, matchnum, idref, contextref, condition_relation, condition_mode);
+				g_print("condition_mode=%d, call pattern_set_condition, refname %s, contextref=%s\n",condition_mode,refname,condition_contextref);
+				pattern_set_condition(bfparser->st, matchnum, refname, condition_relation, condition_mode);
 			}
 			
 			DBG_PARSING("add matchnum %d to hash table for key %s, starts_block=%d\n", matchnum, pattern,
@@ -1512,6 +1511,26 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	return context;
 }
 
+static void
+bftextview2_match_conditions(Tbflangparsing * bfparser) {
+	gint i;
+	GHashTable *ht;
+	g_print("bftextview2_match_conditions, have %d conditions\n",bfparser->st->conditions->len);
+	for (i = 1; i < bfparser->st->conditions->len; i++) {
+		g_print("bftextview2_match_conditions,running condition %d with refname %s\n",i,g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname);
+		if (!g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname) {
+			g_warning("Error in language file, condition refers to non existing id %s",g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname);
+			continue;
+		}
+		if (g_array_index(bfparser->st->conditions, Tpattern_condition, i).relationtype == 1 || g_array_index(bfparser->st->conditions, Tpattern_condition, i).relationtype == 2) {
+			 ht = bfparser->contexts;
+		} else {
+			 ht = bfparser->patterns;
+		}
+		g_array_index(bfparser->st->conditions, Tpattern_condition, i).ref = GPOINTER_TO_INT(g_hash_table_lookup(ht, g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname));
+	}
+}
+
 static gpointer
 build_lang_thread(gpointer data)
 {
@@ -1646,6 +1665,9 @@ build_lang_thread(gpointer data)
 	/* do some final memory management */
 	if (bfparser->st) {
 		gint i, tablenum=0, largest_table=0;
+		
+		bftextview2_match_conditions(bfparser);
+		
 		bfparser->st->contexts->data =
 			g_realloc(bfparser->st->contexts->data, (bfparser->st->contexts->len + 1) * sizeof(Tcontext));
 		bfparser->st->matches->data =
