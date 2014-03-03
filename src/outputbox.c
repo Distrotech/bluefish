@@ -332,13 +332,16 @@ fill_output_box(gpointer data, gchar * string)
 {
 	GtkTreeIter iter;
 	/*int ovector[30]; */
-	int nummatches;
+	int nummatches=0;
 	Toutputbox *ob = data;
-	gboolean match;
+	gboolean match=NULL;
 	GMatchInfo *match_info = NULL;
-
-	match = g_regex_match(ob->def->reg, string, 0, &match_info);
-	nummatches = g_match_info_get_match_count(match_info);
+	if (ob->def->file_subpat != -1 && ob->def->line_subpat != -1 && ob->def->output_subpat!= -1) {
+		match = g_regex_match(ob->def->reg, string, 0, &match_info);
+		nummatches = g_match_info_get_match_count(match_info);
+	} else {
+		ob->bfwin->session->outputb_show_all_output = 1;
+	}
 	if (match && nummatches > 0) {
 		/* we have a valid line */
 		gchar *filename = NULL, *line = NULL, *output = NULL;
