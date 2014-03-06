@@ -176,14 +176,20 @@ child_watch_lcb(GPid pid, gint status, gpointer data)
 	Texternalp *ep = data;
 	GError *gerror = NULL;
 	DEBUG_MSG("child_watch_lcb, child exited with status=%d\n", status);
+
+	if (ep->start_command_idle_id) {
+		g_source_remove(ep->start_command_idle_id);
+		ep->start_command_idle_id = 0;
+		externalp_unref(ep);
+	}
+	
 	if (ep->statuscode_cb) {
 		ep->statuscode_cb(status, BFWIN(ep->bfwin), ep->data);
 	}
+
 	if (ep->pipe_in && !ep->buffer_out) {
 		DEBUG_MSG("child_watch_lcb, the child has exited before we actually started\n");
 		/* the child has exited before we actually started to write data to the child, just abort now */
-		g_source_remove(ep->start_command_idle_id);
-		externalp_unref(ep);	/* unref twice, once for the start_command_idle, once for child_watch_lcb */
 		externalp_unref(ep);
 		return;
 	}
@@ -254,7 +260,7 @@ start_command_idle(gpointer data)
 					   ep->channel_out_data);
 	}
 	externalp_unref(ep);
-
+	ep->start_command_idle_id = 0;
 	return FALSE;				/* don't call me again */
 }
 
