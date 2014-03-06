@@ -673,6 +673,12 @@ message_dialog_set_text(GtkWidget * dialog, const gchar * primaryText, const gch
 	gtk_window_set_title(GTK_WINDOW(dialog), "");
 }
 
+static void
+dialog_close(gpointer widget, gpointer data)
+{
+	gtk_widget_destroy(widget);
+}
+
 /**
  * message_dialog_new:
  * 	@parent:		#GtkWidget * Transient parent, or NULL for none
@@ -694,9 +700,8 @@ message_dialog_new(GtkWidget * parent, GtkMessageType type, GtkButtonsType butto
 	dialog = gtk_message_dialog_new(GTK_WINDOW(parent), GTK_DIALOG_DESTROY_WITH_PARENT, type, button, NULL);
 
 	message_dialog_set_text(dialog, primaryText, secondaryText);
-
-	gtk_dialog_run(GTK_DIALOG(dialog));
-	gtk_widget_destroy(dialog);
+	g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(dialog_close), NULL);
+	gtk_widget_show_all(GTK_WIDGET(dialog));
 }
 
 /**
