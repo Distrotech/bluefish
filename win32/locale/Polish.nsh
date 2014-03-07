@@ -12,7 +12,7 @@
 !define SECT_BLUEFISH "Edytor Bluefish"
 !define SECT_PLUGINS "Wtyczki"
 !define SECT_SHORTCUT "Skrót na pulpicie"
-!define SECT_DICT "Sprawdzanie pisowni języków (Wymagane aktywne połączenie z Internetem aby je pobrać)"
+!define SECT_DICT "Sprawdzanie pisowni języków (Wymagane jest aktywne połączenie z Internetem aby ich pbranie było możliwe)"
 
 ; License Page
 !define LICENSEPAGE_BUTTON "Dalej"
@@ -24,8 +24,8 @@
 !define DOWN_CHKSUM_ERROR "Suma kontrolna nie zgadza się..."
 
 ; Aspell Strings
-!define DICT_INSTALLED "Ostatnia wersja tego słownika jest już zainstalowana, pobieranie anulowane:"
-!define DICT_DOWNLOAD "Pobierania słownika do sprawdzania pisowni..."
+!define DICT_INSTALLED "Ostatnia wersja tego słownika jest już zainstalowana, pobieranie zostało anulowane:"
+!define DICT_DOWNLOAD "Pobieranie słownika do sprawdzania pisowni..."
 !define DICT_FAILED "Pobieranie słownika nie powiodło się:"
 !define DICT_EXTRACT "Rozpakowywanie słownika..."
 
@@ -34,7 +34,7 @@
 !define GTK_FAILED "Pobieranie GTK+ nie powiodło się:"
 !define GTK_INSTALL "Instalowanie GTK+..."
 !define GTK_UNINSTALL "Usuwanie GTK+..."
-!define GTK_REQUIRED "Zainstaluję proszę GTK+ w wersji ${GTK_MIN_VERSION} lub wyższej i upewnij się, że znajduje się w odpowiedniej lokalizacji zanim uruchomisz Bluefish."
+!define GTK_REQUIRED "Zainstaluj proszę GTK+ w wersji ${GTK_MIN_VERSION} lub wyższej i upewnij się, że znajduje się w odpowiedniej lokalizacji zanim uruchomisz Bluefish."
 
 ; Plugin Names
 !define PLUG_CHARMAP "Mapa znaków"
@@ -53,7 +53,7 @@
 ; Misc
 !define FINISHPAGE_LINK "Odwiedź stronę domową Bluefish"
 !define UNINSTALL_SHORTCUT "Usuń ${PRODUCT}"
-!define FILETYPE_REGISTER "Rejestrowanie rodzaju plików:"
+!define FILETYPE_REGISTER "Rejestrowanie plików:"
 !define UNSTABLE_UPGRADE "Wersja rozwojowa ${PRODUCT} jest zainstalowana.$\nCzy mam usunąć poprzednie wersje przed instalacją bieżącej (Zalecane) ?"
 
 ; InetC Plugin Translations
@@ -69,7 +69,7 @@
 
 ; Content Types
 !define CT_ADA	"Plik źródłowy Ada"
-!define CT_ASP "Strona skryptowe ActiveServer"
+!define CT_ASP "Strona skryptowa ActiveServer"
 !define CT_SH	"Skrypt Bash Shell"
 !define CT_BFPROJECT	"Projekt Bluefish"
 !define CT_BFLANG2	"Plik definicji języka Bluefish wersja 2"

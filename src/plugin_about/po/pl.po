@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-02-01 08:58-0800\n"
+"POT-Creation-Date: 2014-03-07 10:34+0100\n"
 "PO-Revision-Date: 2011-12-14 19:11+0100\n"
 "Last-Translator: Quick-Master SI <dawajpoczte@gmail.com>\n"
 "Language-Team: None\n"
@@ -15,12 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/plugin_about/about.c:84
+#: src/plugin_about/about.c:85
 msgid "This version of Bluefish was built with:\n"
 msgstr ""
 "Ta wersja Bluefish została zbudowana przy użyciu następujących opcji:\n"
 
-#: src/plugin_about/about.c:201
+#: src/plugin_about/about.c:205
 msgid ""
 "\n"
 "Developers of previous releases:"
@@ -28,7 +28,7 @@ msgstr ""
 "\n"
 "Deweloperzy poprzednich wydań:"
 
-#: src/plugin_about/about.c:217
+#: src/plugin_about/about.c:221
 msgid ""
 "\n"
 "Package maintainers:"
@@ -36,25 +36,31 @@ msgstr ""
 "\n"
 "Opiekunowie paczki:"
 
-#: src/plugin_about/about.c:224
+#: src/plugin_about/about.c:228
+#, fuzzy
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
-"please let us know via <bluefish@bluefish.openoffice.nl>."
+"please let us know at:"
 msgstr ""
 "\n"
 "Jeśli ktoś na tej liście został pominięty,\n"
 "proszę powiadom nas: <bluefish@bluefish.openoffice.nl>."
 
-#: src/plugin_about/about.c:225
+#: src/plugin_about/about.c:229
+msgid "bluefish@bluefish.openoffice.nl <bluefish@bluefish.openoffice.nl>"
+msgstr ""
+
+#: src/plugin_about/about.c:230
+#, fuzzy
 msgid ""
 "\n"
-"Thanks to all who helped making this software available."
+"Thanks to all who helped make this software available.\n"
 msgstr ""
 "\n"
 "Dziękujemy wszystkim, którzy przyczynili się do rozwoju tego oprogramowania."
 
-#: src/plugin_about/about.c:261
+#: src/plugin_about/about.c:266
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
@@ -72,7 +78,7 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:271
+#: src/plugin_about/about.c:276
 msgid "translator-credits"
 msgstr ""
 "Infrmacje o tłumaczeniu:\n"
@@ -80,38 +86,38 @@ msgstr ""
 "QUICK-MASTER SI, Paweł Worobiak <dawajpoczte@gmail.com>,2011\n"
 "Bazuje na tłumaczeniu: Oskar Świda <swida@aragorn.pb.bialystok.pl>, 2004"
 
-#: src/plugin_about/about.c:369
+#: src/plugin_about/about.c:374
 msgid "_Help"
 msgstr "_Pomoc"
 
-#: src/plugin_about/about.c:370
+#: src/plugin_about/about.c:375
 msgid "Bluefish _Homepage"
 msgstr "Strona domowa Bluefish"
 
-#: src/plugin_about/about.c:370
+#: src/plugin_about/about.c:375
 msgid "Bluefish homepage"
 msgstr "Strona domowa Bluefish"
 
-#: src/plugin_about/about.c:372
+#: src/plugin_about/about.c:377
 msgid "Report a _Bug"
 msgstr "Zgłoś _Błąd"
 
-#: src/plugin_about/about.c:372
+#: src/plugin_about/about.c:377
 msgid "Report a bug"
 msgstr "Zgłoś Błąd"
 
-#: src/plugin_about/about.c:373
+#: src/plugin_about/about.c:378
 msgid "_About"
 msgstr "O programie"
 
-#: src/plugin_about/about.c:373
+#: src/plugin_about/about.c:378
 msgid "About Bluefish"
 msgstr "O Bluefish"
 
-#: src/plugin_about/about.c:375
+#: src/plugin_about/about.c:380
 msgid "Build _Info"
 msgstr "Informacje o wersji"
 
-#: src/plugin_about/about.c:375
+#: src/plugin_about/about.c:380
 msgid "Build info"
 msgstr "Informacje o wersji"
