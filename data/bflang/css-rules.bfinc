@@ -34,7 +34,7 @@ Aligns a flex container's lines within the flex container when there is extra sp
 <b>Canonical order:</b> per grammar
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/css3-flexbox/#align-content">www.w3.org</a></reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
+<context symbols=" &#9;&#10;&#13;{}.;:&quot;'">
 <group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="flex-start"/>
@@ -45,6 +45,8 @@ href="http://www.w3.org/TR/css3-flexbox/#align-content">www.w3.org</a></referenc
 	<element pattern="stretch"/>
 </group>
 <element id="e.css.end" pattern=";" ends_context="1"/>
+<element id="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
 <element idref="e.css.lcomment"/>
 <element id="e.css.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
 </context>
