@@ -351,7 +351,7 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 
 	blockstackcount = MAX(0, tmpfound1->numblockchange);
 	contextstackcount = MAX(0, tmpfound1->numcontextchange);
-	/* 	if this found has pushed a block or a context on the stack, we will delete all further 
+	/* 	if this found has pushed a block or a context on the stack, we will delete all further
 	blocks until we find the block that pops this block or context again */
 	DBG_SCANCACHE
 		("remove_cache_entry, remove in loop all children of found %p (numblockchange=%d,numcontextchange=%d) with offset %d, next found in cache=%p\n",
@@ -367,13 +367,13 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 			("in loop: remove Tfound %p with offset %d, fcontext=%p, numcontextchange=%d, fblock=%p, numblockchange=%d, from the cache and free, contextstackcount=%d, blockstackcount=%d, nextfound=%p\n",
 			 tmpfound2, tmpfound2->charoffset_o, tmpfound2->fcontext, tmpfound2->numcontextchange, tmpfound2->fblock, tmpfound2->numblockchange, contextstackcount, blockstackcount, *found);
 		if (tmpfound2->numblockchange < 0 && blockstackcount < 0) {
-			/* a blockstack < 0 probably means that this found pops a 
-			block that started before the found that we started to remove 
+			/* a blockstack < 0 probably means that this found pops a
+			block that started before the found that we started to remove
 			in this function, so let's set the end to undefined */
 			tmpfound2->fblock->start2_o = BF_POSITION_UNDEFINED;
 			tmpfound2->fblock->end2_o = BF_POSITION_UNDEFINED;
 		}
-		
+
 		invalidoffset = tmpfound2->charoffset_o;
 		g_sequence_remove(tmpsiter2);
 		found_free_lcb(tmpfound2, btv);
@@ -449,11 +449,11 @@ typedef struct {
 /*
  * scancache_update_single_offset updates the offset in the scancache, it (is|might be) called
  * multiple times if there have been multiple changes to the offsets (multiple inserts or deletes)
- * it is called from foundcache_process_offsetupdates() which loops over all changes that can be 
+ * it is called from foundcache_process_offsetupdates() which loops over all changes that can be
  * combined:
  *
- * if it will be called a second time, nextpos will be set to indicate the position where 
- * the offset will change. 
+ * if it will be called a second time, nextpos will be set to indicate the position where
+ * the offset will change.
  *
  * This function may thus return
  * for a found > nextpos because the it will be called again for the next new offset.
@@ -475,15 +475,15 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 	DBG_SCANCACHE
 		("scancache_update_single_offset, update with offset %d starting at startpos %u, cache length=%u, comparepos=%d, prevpos=%u, prevoffset=%d, nextpos=%u\n",
 		 offset, startpos, g_sequence_get_length(btv->scancache.foundcaches), comparepos, sou->prevpos, sou->prevoffset, nextpos);
-	
+
 	/* the first thing to do is to initialize sou->found with the next Tfound that we have to change.
-	
-	if this is the first call to scancache_update_single_offset() we will simply get the Tfound at offset 
-	
+
+	if this is the first call to scancache_update_single_offset() we will simply get the Tfound at offset
+
 	if it is a later call, we can use sou->found (which is always beyond the last position that was handled), but we have to
 	check if sou->found is beyond nextpos, in which case it also needs to be updated for the next change in the scancache, handled
 	by the next call to this function */
-	
+
 	if (sou->found == NULL) {
 		DBG_SCANCACHE("scancache_update_single_offset, no found, get new found for startpos %u\n",startpos);
 		sou->found = get_foundcache_at_offset(btv, startpos, &sou->siter);
@@ -551,7 +551,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		while (tmpfblock) {
 			DBG_SCANCACHE("scancache_update_single_offset, fblock on stack=%p, %u:%u-%u:%u\n", tmpfblock,
 						  tmpfblock->start1_o, tmpfblock->end1_o,tmpfblock->start2_o, tmpfblock->end2_o);
-			/* there is a special situation for a block: it might be a tretched block, in which 
+			/* there is a special situation for a block: it might be a tretched block, in which
 			case end1_o possibly needs updating too */
 			DBG_SCANCACHE("comparepos=%d, end1_o=%d for pattern %d (%s)\n",comparepos,tmpfblock->end1_o,tmpfblock->patternum,g_array_index(btv->bflang->st->matches, Tpattern, tmpfblock->patternum).pattern);
 			if (G_UNLIKELY(tmpfblock->end1_o >= comparepos && tmpfblock == sou->found->fblock && tmpfblock->end1_o > sou->found->charoffset_o)) {
@@ -629,7 +629,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 				if (numblockchange > 0 && tmpfound->fblock->end2_o+sou->prevoffset > startpos - offset) {
 					/* we have to enlarge needscanning to the place where this was popped, unless the complete block was within the deleted region */
 					DBG_SCANCACHE("scancache_update_single_offset, found pushed a block, mark obsolete block %u:%u as needscanning\n",tmpfound->fblock->start1_o, tmpfound->fblock->end2_o);
-					mark_needscanning(btv 
+					mark_needscanning(btv
 							, tmpfound->fblock->start1_o+sou->prevoffset<=startpos ? tmpfound->fblock->start1_o+sou->prevoffset : tmpfound->fblock->start1_o+sou->prevoffset+offset
 							, tmpfound->fblock->end2_o==BF_OFFSET_UNDEFINED ? BF_OFFSET_UNDEFINED : tmpfound->fblock->end2_o+sou->prevoffset+offset);
 				}
@@ -849,11 +849,11 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 		/* handle all the offsets */
 		foundcache_process_offsetupdates(btv);
 	} else if (btv->scancache.offsetupdates && OFFSETUPDATE(btv->scancache.offsetupdates)->startpos == startpos) {
- 		/* merging can only be done in certain circumstances, for example: if a region is deleted, and 
- 		another region is inserted at that same position (a very common thing during replace, or filter), the now 
+ 		/* merging can only be done in certain circumstances, for example: if a region is deleted, and
+ 		another region is inserted at that same position (a very common thing during replace, or filter), the now
 		outdated region of the scancache should be cleared, so you cannot merge!!!!
 		*/
-		if ((OFFSETUPDATE(btv->scancache.offsetupdates)->offset < 0 && offset < 0) 
+		if ((OFFSETUPDATE(btv->scancache.offsetupdates)->offset < 0 && offset < 0)
 				|| (OFFSETUPDATE(btv->scancache.offsetupdates)->offset > 0 && offset > 0)) {
 			DBG_SCANCACHE("foundcache_update_offsets, last offset was also on position %d, merge old offset %d and new offset %d together\n",startpos, OFFSETUPDATE(btv->scancache.offsetupdates)->offset, offset);
 			OFFSETUPDATE(btv->scancache.offsetupdates)->offset += offset;
@@ -1130,7 +1130,7 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 	GtkTextIter iter;
 	gboolean allowfold=TRUE;
 	guint match_start_o, match_end_o;
-	
+
 	DBG_BLOCKMATCH("found_end_of_block(), found %d (%s), blockstartpattern %d, curfblock=%p\n",
 					match->patternum,
 					g_array_index(btv->bflang->st->matches, Tpattern, match->patternum).pattern,
@@ -1166,8 +1166,8 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 		/* possibly the block was stretched with stretch_block, undo the stretch */
 		fblock->end1_o = match_start_o;
 	}
-	
-	
+
+
 	if (G_UNLIKELY(fblock->start2_o != BF_POSITION_UNDEFINED)) {
 		Tfound *ifound;
 		GSequenceIter *isiter = NULL, *cursiter;
@@ -1413,7 +1413,7 @@ remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tscanning * scan
 		gtk_text_buffer_get_end_iter(btv->buffer, &iter);
 		invalidoffset = gtk_text_iter_get_offset(&iter);
 	}
-	
+
 	DBG_SCANNING("remove_invalid_cache, return invalidoffset %d\n", invalidoffset);
 	return invalidoffset;
 /*	guint invalidoffset;
@@ -1480,12 +1480,12 @@ match_conditions_satisfied(BluefishTextView * btv, Tscanning *scanning, Tpattern
 	Tpattern_condition *pcond;
 	gint i;
 	pcond = &g_array_index(btv->bflang->st->conditions, Tpattern_condition, pat->condition);
-	g_print("match_conditions_satisfied, called for pcond %d with mode=%d, ref=%d and type=%d\n",pat->condition, pcond->relationtype, pcond->ref, pcond->parentrelation);
+	g_print("match_conditions_satisfied, called for pattern %s pcond %d with mode=%d, ref=%d and type=%d\n",pat->pattern,pat->condition, pcond->relationtype, pcond->ref, pcond->parentrelation);
 	if (pcond->relationtype == 1 || pcond->relationtype == 2) { /* context */
 		Tfoundcontext *fcontext = scanning->curfcontext;
 		if (pcond->parentrelation == -1) {
 			while (fcontext) {
-				g_print("compare context %d\n",fcontext->context);
+				g_print("compare context %d with ref %d\n",fcontext->context,pcond->ref);
 				if (pcond->ref == fcontext->context) {
 					return (pcond->relationtype == 1);
 				}
@@ -1498,12 +1498,12 @@ match_conditions_satisfied(BluefishTextView * btv, Tscanning *scanning, Tpattern
 				if (!fcontext)
 					return (pcond->relationtype == 2);
 			}
-			g_print("compare context %d\n",fcontext?fcontext->context:0);
+			g_print("compare context %d with ref %d\n",fcontext?fcontext->context:0,pcond->ref);
 			if (pcond->ref == fcontext->context) {
 				return (pcond->relationtype == 1);
 			}
 		}
-		return (pcond->relationtype == 2);		
+		return (pcond->relationtype == 2);
 	} else if (pcond->relationtype == 3 || pcond->relationtype == 4) { /* pattern */
 		Tfoundblock *fblock = scanning->curfblock;
 		if (pcond->parentrelation == -1) {
@@ -1525,7 +1525,7 @@ match_conditions_satisfied(BluefishTextView * btv, Tscanning *scanning, Tpattern
 		}
 		return (pcond->relationtype == 4);
 	}
-	
+
 	return TRUE;
 }
 #endif /* CONDITIONALPATTERN */
@@ -1541,7 +1541,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	Tfound *found;
 	GtkTextIter iter;
 	Tpattern *pat = &g_array_index(btv->bflang->st->matches, Tpattern, match->patternum);
-	
+
 #ifdef CONDITIONALPATTERN
 	if (pat->condition) {
 		g_print("test for condition: pat %d has condition=%d\n",match->patternum,pat->condition );
@@ -1571,19 +1571,19 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	/* the conditions when to apply stretch_blocktag:
 		- currently found pattern (pat) has stretch_blockstart set
 		- there must be a block on the stack
-		- the blockstartpattern for the current found pattern must refer to the block on the stack 
-		- the block on the stack must not have an end that is before the current position. start2_o 
+		- the blockstartpattern for the current found pattern must refer to the block on the stack
+		- the block on the stack must not have an end that is before the current position. start2_o
 		  could be equal to the current position if the end starts where the start ends as in  <p></p>
 		  or it could be undefined
 	*/
-	if (G_UNLIKELY(pat->stretch_blockstart 
-				&& scanning->curfblock 
+	if (G_UNLIKELY(pat->stretch_blockstart
+				&& scanning->curfblock
 				&& scanning->curfblock->patternum == pat->blockstartpattern
 				&& (scanning->curfblock->start2_o == BF_POSITION_UNDEFINED || scanning->curfblock->start2_o < match_end_o))) {
 		/* get the current block on the stack and stretch the end-of-blockstart to the end of the match */
-		DBG_SCANNING("found_match, pat->stretch_blockstart=%d, pat->blockstartpattern=%d, update curfblock(%d:%d-%d:%d) with patternum=%d from end1_o from %d to %d\n", 
+		DBG_SCANNING("found_match, pat->stretch_blockstart=%d, pat->blockstartpattern=%d, update curfblock(%d:%d-%d:%d) with patternum=%d from end1_o from %d to %d\n",
 						pat->stretch_blockstart,pat->blockstartpattern,
-						scanning->curfblock->start1_o, scanning->curfblock->end1_o, scanning->curfblock->start2_o, scanning->curfblock->end2_o, 
+						scanning->curfblock->start1_o, scanning->curfblock->end1_o, scanning->curfblock->start2_o, scanning->curfblock->end2_o,
 						scanning->curfblock->patternum, scanning->curfblock->end1_o, match_end_o);
 		scanning->curfblock->end1_o = match_end_o;
 	}
@@ -2015,14 +2015,14 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &itcursor, gtk_text_buffer_get_insert(btv->buffer));
 #endif
 /* ******************************************************************************
-in the following loop we do the actual scanning. At the current offset (iter) we get a character (uc) 
+in the following loop we do the actual scanning. At the current offset (iter) we get a character (uc)
 
-every loop, we lookup the next position in the table (newpos), using the character (uc), context (scanning.context), and previous position (pos)  
+every loop, we lookup the next position in the table (newpos), using the character (uc), context (scanning.context), and previous position (pos)
 
 if newpos==0 we have a symbol (see bftextview2.h for an explanation of symbols and identifiers)
-   a symbol can be the start or the end of a match, and may be part of the match. so whenever we hit a symbol, we 
+   a symbol can be the start or the end of a match, and may be part of the match. so whenever we hit a symbol, we
    set the match start (mstart) to the current offset
-   if we find a symbol again, and we have a match, we have the start of the match (mstart) and the end of the match at the current position (iter) 
+   if we find a symbol again, and we have a match, we have the start of the match (mstart) and the end of the match at the current position (iter)
 
 ****************************************************************************** */
 	do {

@@ -787,9 +787,9 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 					};
 	parse_attributes(bfparser->bflang,reader, attribs, 23);
 #ifdef DEVELOPMENT
-	if (g_strcmp0(id,"e.css.in_style_attribute.dquote")==0) {
+/*	if (g_strcmp0(id,"e.css.in_style_attribute.dquote")==0) {
 		g_print("e.css.in_style_attribute.dquote has condition_mode=%d and contextref=%s\n",condition_mode,condition_contextref);
-	}
+	}*/
 #endif
 
 	if (stretch_blockstart && ends_block) {
@@ -805,9 +805,9 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 		if (idref && idref[0]) {
 			guint16 matchnum;
 			matchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, idref));
-			if (!matchnum) {
+			if (!matchnum && !pattern) {
 				g_print("Error in language file, element with id %s does not exist\n", idref);
-			} else {
+			} else if (matchnum) {
 				compile_existing_match(bfparser->st, matchnum, context);
 				used_idref=TRUE;
 				if (g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext < 0
@@ -874,7 +874,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 				} else if (condition_mode ==1 || condition_mode == 2) {
 					refname = condition_idref;
 				}
-				g_print("condition_mode=%d, call pattern_set_condition, refname %s, contextref=%s\n",condition_mode,refname,condition_contextref);
+				DBG_PARSING("condition_mode=%d, call pattern_set_condition, refname %s, contextref=%s\n",condition_mode,refname,condition_contextref);
 				pattern_set_condition(bfparser->st, matchnum, refname, condition_relation, condition_mode);
 			}
 
@@ -1441,6 +1441,9 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	if (idref && idref[0]) {
 		DBG_PARSING("lookup context %s in hash table..\n", idref);
 		context = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, idref));
+		if (context == 0 && isempty) {
+			g_print("Error in language file: context with id %s does not exist\n",idref);
+		}
 		g_free(idref);
 		if (context != 0 || (!id && !symbols && !highlight && !autocomplete_case_insens)) {
 			/* if the tag is not empty, we have to forward to the end of the tag now */
@@ -1530,6 +1533,7 @@ bftextview2_match_conditions(Tbflangparsing * bfparser) {
 			 ht = bfparser->patterns;
 		}
 		g_array_index(bfparser->st->conditions, Tpattern_condition, i).ref = GPOINTER_TO_INT(g_hash_table_lookup(ht, g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname));
+		g_print("bftextview2_match_conditions, set ref %d for %s\n",g_array_index(bfparser->st->conditions, Tpattern_condition, i).ref, g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname);
 	}
 }
 
