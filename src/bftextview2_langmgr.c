@@ -884,6 +884,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 								GINT_TO_POINTER((gint) matchnum));
 			/* now check if there is a deeper context */
 			if (!is_empty) {
+				gboolean processed_context=FALSE;
 				while (xmlTextReaderRead(reader) == 1) {
 					xmlChar *name;
 					int nodetype = xmlTextReaderNodeType(reader);
@@ -892,9 +893,13 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 					}
 					name = xmlTextReaderName(reader);
 					if (xmlStrEqual(name, (xmlChar *) "context")) {
+						if (processed_context) {
+							g_print("Error in language file: element %s / %s has multiple inner contexts\n",id,pattern);
+						}
 						DBG_PARSING("in pattern, found countext\n");
 						nextcontext = process_scanning_context(reader, bfparser, contextstack);
 						match_set_nextcontext(bfparser->st, matchnum, nextcontext);
+						processed_context=TRUE;
 					} else if (xmlStrEqual(name, (xmlChar *) "reference")) {
 						DBG_PARSING("in pattern, found reference\n");
 						if (!xmlTextReaderIsEmptyElement(reader)) {
@@ -1441,9 +1446,14 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	if (idref && idref[0]) {
 		DBG_PARSING("lookup context %s in hash table..\n", idref);
 		context = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, idref));
-		if (context == 0 && isempty) {
+		if (context == 0 && (!id || isempty)) {
 			g_print("Error in language file: context with id %s does not exist\n",idref);
 		}
+#ifdef DEVELOPMENT
+		if (context == 0) {
+			g_print("Context has idref=%s which does not exist, isempty=%d, id=%s\n",idref,isempty,id);
+		}
+#endif
 		g_free(idref);
 		if (context != 0 || (!id && !symbols && !highlight && !autocomplete_case_insens)) {
 			/* if the tag is not empty, we have to forward to the end of the tag now */
