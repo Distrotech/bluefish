@@ -751,7 +751,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 						 gint ih_case_insens, gint ih_is_regex, GSList *ih_autocomplete)
 {
 	guint16 matchnum = 0;
-	gboolean add_element;
+	gboolean add_element, used_idref=FALSE;
 	gchar *pattern = NULL, *idref = NULL, *highlight = NULL, *blockstartelement = NULL, *blockhighlight =
 		NULL, *block_name = NULL, *class = NULL, *notclass = NULL, *id =	NULL, *condition_idref=NULL, *condition_contextref=NULL;
 	gboolean starts_block = FALSE, ends_block = FALSE, is_empty, tagclose_from_blockstack = FALSE, stretch_blockstart=FALSE;
@@ -802,13 +802,14 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 	add_element = do_parse(bfparser, class, notclass);
 /*	g_print("add_element=%d for class=%s and notclass=%s\n",add_element, class, notclass);*/
 	if (add_element) {
-		if (idref && idref[0] && !id && !pattern) {
+		if (idref && idref[0]) {
 			guint16 matchnum;
 			matchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, idref));
 			if (!matchnum) {
 				g_print("Error in language file, element with id %s does not exist\n", idref);
 			} else {
 				compile_existing_match(bfparser->st, matchnum, context);
+				used_idref=TRUE;
 				if (g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext < 0
 					&& (-1 * g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext) >=
 					g_queue_get_length(contextstack)) {
@@ -818,7 +819,8 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 				}
 
 			}
-		} else if (pattern && pattern[0]) {
+		}
+		if (!used_idref && pattern && pattern[0]) {
 			gchar *reference = NULL;
 			gboolean foldable=TRUE;
 			guint16 blockstartelementum = 0, nextcontext = 0;
@@ -875,7 +877,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 				g_print("condition_mode=%d, call pattern_set_condition, refname %s, contextref=%s\n",condition_mode,refname,condition_contextref);
 				pattern_set_condition(bfparser->st, matchnum, refname, condition_relation, condition_mode);
 			}
-			
+
 			DBG_PARSING("add matchnum %d to hash table for key %s, starts_block=%d\n", matchnum, pattern,
 						starts_block);
 			g_hash_table_insert(bfparser->patterns, g_strdup(id ? id : pattern),
@@ -988,7 +990,7 @@ add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint co
 		gint16 startscontext;
 		gchar *tmp;
 		gchar **splitted = g_strsplit(attrstring, "=", -1);
-		
+
 		/*g_print("tag attribute contains a '=', lookup context %s\n",splitted[1]);*/
 		startscontext = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, splitted[1]));
 		if (startscontext == 0) {
@@ -1433,7 +1435,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 #endif
 	depth = xmlTextReaderDepth(reader);
 	isempty = xmlTextReaderIsEmptyElement(reader);
-	
+
 	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 7 : 6);
 	DBG_PARSING("found <context> with id=%s, idref=%s\n", id, idref);
 	if (idref && idref[0]) {
@@ -1665,9 +1667,9 @@ build_lang_thread(gpointer data)
 	/* do some final memory management */
 	if (bfparser->st) {
 		gint i, tablenum=0, largest_table=0;
-		
+
 		bftextview2_match_conditions(bfparser);
-		
+
 		bfparser->st->contexts->data =
 			g_realloc(bfparser->st->contexts->data, (bfparser->st->contexts->len + 1) * sizeof(Tcontext));
 		bfparser->st->matches->data =
