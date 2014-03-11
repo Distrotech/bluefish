@@ -3648,6 +3648,232 @@ href="http://www.w3.org/TR/CSS21/text.html#caps-prop">www.w3.org</a></reference>
 href="http://www.w3.org/TR/CSS2/visuren.html#position-props">www.w3.org</a></reference>
 <context idref="c.css.box_offsets"/>
 </element>
+<element pattern="transition" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Shorthand property combines transition properties into a single property.
+<b>Values:</b> &lt;single-transition&gt; [ ‘,’ &lt;single-transition&gt; ]*
+<b>Initial:</b> see individual properties
+<b>Applies to:</b> all elements, :before and :after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> interactive
+<b>Computed value:</b> see individual properties
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-transitions/#transition-shorthand-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
+</context>
+</element>
+<element pattern="transition-delay" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Defines when the transition will start.
+<b>Values:</b> &lt;time&gt; [, &lt;time&gt;]*
+<b>Initial:</b> 0s
+<b>Applies to:</b> all elements, :before and :after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> interactive
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-transitions/#transition-delay-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
+</context>
+</element>
+<element pattern="transition-duration" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Defines the length of time that a transition takes.
+<b>Values:</b> &lt;time&gt; [, &lt;time&gt;]*
+<b>Initial:</b> 0s
+<b>Applies to:</b> all elements, :before and :after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> interactive
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-transitions/#transition-duration-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
+</context>
+</element>
+<element pattern="transition-property" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies the name of the CSS property to which the transition is applied.
+<b>Values:</b> none | &lt;single-transition-property&gt; [ ‘,’ &lt;single-transition-property&gt; ]*
+<b>Initial:</b> all
+<b>Applies to:</b> all elements, :before and :after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-transitions/#transition-property-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<!--
+list of animatable properties:
+https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties
+Updated: 2014-03-10
+-->
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="all"/>
+	<element pattern="background"/>
+	<element pattern="background-color"/>
+	<element pattern="background-position"/>
+	<element pattern="background-size"/>
+	<element pattern="border"/>
+	<element pattern="border-bottom"/>
+	<element pattern="border-bottom-color"/>
+	<element pattern="border-bottom-left-radius"/>
+	<element pattern="border-bottom-right-radius"/>
+	<element pattern="border-bottom-width"/>
+	<element pattern="border-color"/>
+	<element pattern="border-left"/>
+	<element pattern="border-left-color"/>
+	<element pattern="border-left-width"/>
+	<element pattern="border-radius"/>
+	<element pattern="border-right"/>
+	<element pattern="border-right-color"/>
+	<element pattern="border-right-width"/>
+	<element pattern="border-top"/>
+	<element pattern="border-top-color"/>
+	<element pattern="border-top-left-radius"/>
+	<element pattern="border-top-right-radius"/>
+	<element pattern="border-top-width"/>
+	<element pattern="border-width"/>
+	<element pattern="bottom"/>
+	<element pattern="box-shadow"/>
+	<element pattern="clip"/>
+	<element pattern="color"/>
+	<element pattern="column-count"/>
+	<element pattern="column-gap"/>
+	<element pattern="column-rule"/>
+	<element pattern="column-rule-color"/>
+	<element pattern="column-rule-width"/>
+	<element pattern="column-width"/>
+	<element pattern="columns"/>
+	<element pattern="flex"/>
+	<element pattern="flex-basis"/>
+	<element pattern="flex-grow"/>
+	<element pattern="flex-shrink"/>
+	<element pattern="font"/>
+	<element pattern="font-size"/>
+	<element pattern="font-size-adjust"/>
+	<element pattern="font-stretch"/>
+	<element pattern="font-weight"/>
+	<element pattern="height"/>
+	<element pattern="left"/>
+	<element pattern="letter-spacing"/>
+	<element pattern="line-height"/>
+	<element pattern="margin"/>
+	<element pattern="margin-bottom"/>
+	<element pattern="margin-left"/>
+	<element pattern="margin-right"/>
+	<element pattern="margin-top"/>
+	<element pattern="max-height"/>
+	<element pattern="max-width"/>
+	<element pattern="min-height"/>
+	<element pattern="min-width"/>
+	<element pattern="opacity"/>
+	<element pattern="order"/>
+	<element pattern="outline"/>
+	<element pattern="outline-color"/>
+	<element pattern="outline-offset"/>
+	<element pattern="outline-width"/>
+	<element pattern="padding"/>
+	<element pattern="padding-bottom"/>
+	<element pattern="padding-left"/>
+	<element pattern="padding-right"/>
+	<element pattern="padding-top"/>
+	<element pattern="perspective"/>
+	<element pattern="perspective-origin"/>
+	<element pattern="right"/>
+	<element pattern="text-decoration"/>
+	<element pattern="text-decoration-color"/>
+	<element pattern="text-indent"/>
+	<element pattern="text-shadow"/>
+	<element pattern="top"/>
+	<element pattern="transform"/>
+	<element pattern="transform-origin"/>
+	<element pattern="vertical-align"/>
+	<element pattern="visibility"/>
+	<element pattern="width"/>
+	<element pattern="word-spacing"/>
+	<element pattern="z-index"/>
+</group>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
+</context>
+</element>
+<element pattern="transition-timing-function" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Describes how the intermediate values used during a transition will be calculated.
+<b>Values:</b> ease | linear | ease-in | ease-out | ease-in-out | step-start | step-end | steps(&lt;integer&gt;[, [ start | end ] ]?) | cubic-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)
+<b>Initial:</b> ease
+<b>Applies to:</b> all elements, :before and :after pseudo-elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> interactive
+<b>Computed value:</b> as specified
+<b>Animatable:</b> no
+<b>Canonical order:</b> per grammar
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-transitions/#transition-timing-function-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="ease"/>
+	<element pattern="linear"/>
+	<element pattern="ease-in"/>
+	<element pattern="ease-out"/>
+	<element pattern="ease-in-out"/>
+	<element pattern="step-start"/>
+	<element pattern="step-end"/>
+</group>
+<element pattern="steps" highlight="css-value">
+	<autocomplete append="();" backup_cursor="2" />
+	<context symbols="()" highlight="css-value">
+	<element pattern="("/>
+	<element pattern=")" ends_context="1" highlight="css-value"/>
+	</context>
+</element>
+<element pattern="cubic-bezier" highlight="css-value">
+	<autocomplete append="();" backup_cursor="2" />
+	<context symbols="()" highlight="css-value">
+	<element pattern="("/>
+	<element pattern=")" ends_context="1" highlight="css-value"/>
+	</context>
+</element>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
+</context>
+</element>
 <element pattern="unicode-bidi" highlight="css-property" >
 	<autocomplete append=": " />
 <reference>
