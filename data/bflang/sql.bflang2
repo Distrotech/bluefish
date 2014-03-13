@@ -19,11 +19,12 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="SQL" version="2.0" table="1084" contexts="5" matches="276">
+<bflang name="SQL" version="2.0" table="1090" contexts="5" matches="273">
 <header>
 	<mime type="application/x-sqlite2"/>
 	<mime type="application/x-sqlite3"/>
 	<mime type="text/x-sql" />
+	<mime type="application/sql" />
 	<option name="show_in_menu" default="0"/>
 	<option name="Parentheses block_foldable" default="0" description="Allow folding of the Parentheses block" />
 	<highlight name="authorization" style="warning" />
