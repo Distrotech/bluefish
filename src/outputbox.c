@@ -334,7 +334,7 @@ fill_output_box(gpointer data, gchar * string)
 	/*int ovector[30]; */
 	int nummatches=0;
 	Toutputbox *ob = data;
-	gboolean match=NULL;
+	gboolean match = FALSE;
 	GMatchInfo *match_info = NULL;
 	if (ob->def->file_subpat != -1 && ob->def->line_subpat != -1 && ob->def->output_subpat!= -1) {
 		match = g_regex_match(ob->def->reg, string, 0, &match_info);
