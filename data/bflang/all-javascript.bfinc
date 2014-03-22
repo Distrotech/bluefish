@@ -21,6 +21,21 @@
 
 <!-- JavaScript Keywords -->
 <bfinc>
+
+<element pattern="&#34;" id="e.jscript.dquot" highlight="js-string">
+	<context symbols="\&#34;" highlight="js-string">
+		<element pattern="\\." is_regex="1" highlight="js-string" />
+		<element pattern="&#34;" highlight="js-string" ends_context="1" />
+	</context>
+</element>
+<element pattern="'" id="e.jscript.squot" highlight="js-string">
+	<context symbols="\'" highlight="js-string">
+		<element pattern="\\." is_regex="1" highlight="js-string" />
+		<element pattern="'" highlight="js-string" ends_context="1" />
+	</context>
+</element>
+
+
 <group highlight="js-keyword" >
 	<autocomplete enable="1" />
 	<element pattern="break" />
@@ -581,24 +596,44 @@
 		</reference>
 	</element>
 <!-- elements that may contain a regexp -->
-	<element pattern="replace" >
+	<element pattern="replace" id="e.js.replace">
 		<autocomplete append="(,)" backup_cursor="2" />
 		<reference><i>String.replace(regexp|substr, newSubStr|function)</i> Used to find a match between a regular expression and a string, and to replace the matched substring with a new substring.
 		</reference>
-		<context id="c.js.regex" symbols="(" >
-			<element pattern="(" highlight="js-brackets" >
-				<context symbols="()," highlight="js-string">
-					<element pattern="," highlight="js-brackets" />
+
+	<context symbols="( #&#9;&#10;&#13;"  id="c.js.regex">
+	<element pattern="[^ #&#9;&#10;&#13;(]" is_regex="1" ends_context="1" />
+	<element pattern="(" starts_block="1" id="e.js.replaceopen" highlight="js-brackets">
+<!--
+regex syntax is tricky to detect correctly
+
+var str = "Mr Blue has a blue " house and a blue car";
+var res = str.replace(/blue/gi, "red");
+var res2 = str.replace(/"/gi,"'");
+foo = bar.replace( ")" , "" );
+
+-->		
+		<context symbols="(),&#34;'/\">
+			<element pattern="/" id="e.js.regex_start" highlight="js-brackets">
+				<context symbols="/,\" highlight="js-value">
+					<element pattern="\\." is_regex="1" highlight="js-value" />
+					<element pattern="/[gim]+" is_regex="1" ends_context="1" highlight="js-brackets" />
+				</context>
+			</element>
+			<element idref="e.jscript.dquot" />
+			<element idref="e.jscript.squot" />
+					<!--<element pattern="," highlight="js-brackets" />
 					<element pattern="(" highlight="js-string" >
 						<context symbols=")" highlight="js-string">
 							<element pattern=")" highlight="js-string" ends_context="1" />
 						</context>
-					</element>
-					<element pattern=")" highlight="js-brackets" ends_context="2" />
-				</context>
-			</element>
+					</element>-->
+			<element pattern=")" highlight="js-brackets" ends_context="2" ends_block="e.js.replaceopen" />
 		</context>
 	</element>
+	</context>
+	</element>
+	
 	<element pattern="match">
 		<reference><i>String.match(regexp)</i> Used to match a regular expression against a string.
 		</reference>
@@ -609,7 +644,7 @@
 		</reference>
 		<context idref="c.js.regex" />
 	</element>
-<!-- TODO highligt regex-string as js-value,  newstring as js-string  -->
+<!-- end of regex functions  -->
 </group>
 <group highlight="js-function" >
 	<autocomplete append="()" backup_cursor="1" />
@@ -1715,16 +1750,4 @@
 <element pattern="-[0-9]+" is_regex="1" highlight="js-value" />
 
 
-<element pattern="&#34;" highlight="js-string">
-	<context symbols="\&#34;" highlight="js-string">
-		<element pattern="\\." is_regex="1" highlight="js-string" />
-		<element pattern="&#34;" highlight="js-string" ends_context="1" />
-	</context>
-</element>
-<element pattern="'" highlight="js-string">
-	<context symbols="\'" highlight="js-string">
-		<element pattern="\\." is_regex="1" highlight="js-string" />
-		<element pattern="'" highlight="js-string" ends_context="1" />
-	</context>
-</element>
 </bfinc>
