@@ -8,6 +8,8 @@ IMPORTS
 	bluefish.exe.bf_str_repeat
 	bluefish.exe.bfwin_set_menu_toggle_item
 	bluefish.exe.bfwin_switch_to_document_by_pointer
+	bluefish.exe.bluefish_text_view_get_lang_name
+	bluefish.exe.bluefish_text_view_get_type
 	bluefish.exe.boxed_combobox_with_popdown
 	bluefish.exe.boxed_entry_with_text
 	bluefish.exe.dialog_check_button_in_table
@@ -46,6 +48,7 @@ IMPORTS
 	bluefish.exe.list_from_arglist
 	bluefish.exe.list_relative_document_filenames
 	bluefish.exe.list_switch_order
+	bluefish.exe.lookup_user_option
 	bluefish.exe.main_v
 	bluefish.exe.make_config_list_item
 	bluefish.exe.message_dialog_new_multi
