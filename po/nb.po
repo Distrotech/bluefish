@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-02-01 12:16-0800\n"
+"POT-Creation-Date: 2014-03-24 22:20-0700\n"
 "PO-Revision-Date: 2013-11-10 21:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -350,7 +350,7 @@ msgstr "Velg alle"
 msgid "Add Boo_kmark"
 msgstr "_Legg til bokmerke"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2084
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
 msgid "Add bookmark"
 msgstr "Legg til bokmerke"
 
@@ -678,7 +678,7 @@ msgstr "_Brekk tekst"
 msgid "Wrap text"
 msgstr "Brekk tekst"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3196
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
 msgid "_Close"
 msgstr "Lukk"
 
@@ -695,7 +695,7 @@ msgid "Close all files"
 msgstr "Lukk alle filer"
 
 #: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 msgid "_Save"
 msgstr "_Lagre"
 
@@ -1195,7 +1195,7 @@ msgstr "_Rediger"
 msgid "_Delete"
 msgstr "_Slett"
 
-#: ../src/bookmark.c:901 ../src/document.c:2080
+#: ../src/bookmark.c:901 ../src/document.c:2083
 msgid "Delete bookmark"
 msgstr "Slett bokmerke"
 
@@ -1351,45 +1351,45 @@ msgstr "Åpne skrivebeskyttet"
 msgid "Do not open"
 msgstr "Avbryt"
 
-#: ../src/document.c:1308
+#: ../src/document.c:1311
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " Linje %d, Kol %d "
 
-#: ../src/document.c:1311
+#: ../src/document.c:1314
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " Linje %d, Kol %d "
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " OVR"
 msgstr " OVR"
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " INS"
 msgstr " INS"
 
-#: ../src/document.c:1336
+#: ../src/document.c:1339
 msgid " RO"
 msgstr " RO"
 
-#: ../src/document.c:1355
+#: ../src/document.c:1358
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 msgid "_No"
 msgstr "_Nei"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 msgid "_Split"
 msgstr "_Del"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid "File contains very long lines. Split these lines?"
 msgstr "Filen inneholder veldig lange linjer. Del opp linjene?"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1397,26 +1397,26 @@ msgid ""
 "insert newlines if no spaces or tabs are found."
 msgstr "Linjene i denne fila er lengre enn Bluefish kan håndtere."
 
-#: ../src/document.c:1898
+#: ../src/document.c:1901
 msgid "Cannot display file, unknown characters found."
 msgstr "Filen kan ikke vises, ukjente tegn funnet"
 
-#: ../src/document.c:2090
+#: ../src/document.c:2093
 msgid "Exit fullscreen"
 msgstr "Avslutt fullskjermsvisning"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2234 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "_Avbryt lagring"
 
-#: ../src/document.c:2234
+#: ../src/document.c:2237
 msgid "_Continue save in UTF-8"
 msgstr "Fortsett lagring som UTF-8"
 
-#: ../src/document.c:2247
+#: ../src/document.c:2250
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1429,15 +1429,15 @@ msgstr ""
 "\n"
 "Fortsett lagring med UTF-8 som tegnsett?"
 
-#: ../src/document.c:2252
+#: ../src/document.c:2255
 msgid "File encoding conversion failure"
 msgstr "Feil ved konvertering av tegnsett"
 
-#: ../src/document.c:2411
+#: ../src/document.c:2415
 msgid "Previously: "
 msgstr "Tidligere: "
 
-#: ../src/document.c:2983 ../src/file_dialogs.c:839
+#: ../src/document.c:2987 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1446,11 +1446,11 @@ msgstr ""
 "Din glib-versjon (%d.%d.%d) har kjente problemer ved åpning av eksterne "
 "filer Du bør oppgradere til versjon 2.18.0 eller nyere."
 
-#: ../src/document.c:3112
+#: ../src/document.c:3116
 msgid "Unable to open file"
 msgstr "Kunne ikke åpne filen"
 
-#: ../src/document.c:3124
+#: ../src/document.c:3128
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1459,92 +1459,92 @@ msgstr ""
 "Dette tilbakestiller \"%s\" til den sist lagrade versjonen.Du vil miste alle "
 "endringer gjort etter forrige gang du lagret filen."
 
-#: ../src/document.c:3128
+#: ../src/document.c:3132
 msgid "Revert changes to last saved copy?"
 msgstr "Tilbakestill filen til siste lagrede versjon?"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "_Retry"
 msgstr "P_røv på nytt"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "Retry _all failed"
 msgstr "Prøv _alle feilede på nytt"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "Close all _failed"
 msgstr "Lukk alle feilede"
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid "File "
 msgstr "Fil "
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid " failed to load."
 msgstr " kunne ikke lastes."
 
-#: ../src/document.c:3205
+#: ../src/document.c:3209
 msgid "File failed to load\n"
 msgstr "Filen kunne ikke lastes inn\n"
 
-#: ../src/document.c:3330
+#: ../src/document.c:3334
 msgid "Select file to insert"
 msgstr "Velg en fil"
 
-#: ../src/document.c:3339
+#: ../src/document.c:3343
 msgid "No file to insert"
 msgstr "Du må velge en fil"
 
-#: ../src/document.c:3419
+#: ../src/document.c:3423
 msgid "Save pasted image as"
 msgstr "Lagre bilde som"
 
-#: ../src/document.c:3515
+#: ../src/document.c:3519
 msgid "Paste special"
 msgstr "Lim inn spesial"
 
-#: ../src/document.c:3521
+#: ../src/document.c:3525
 msgid "No compatible clipboard data found"
 msgstr "Informasjonen på utklippstablen kan ikke limes inn"
 
-#: ../src/document.c:3525
+#: ../src/document.c:3529
 msgid "Paste as _HTML"
 msgstr "Lim inn som _HTML"
 
-#: ../src/document.c:3530
+#: ../src/document.c:3534
 msgid "Paste as HTML with _JPG"
 msgstr "Lim inn som HTML med _JPG"
 
-#: ../src/document.c:3540
+#: ../src/document.c:3544
 msgid "Paste as plain text"
 msgstr "Sett inn som tekst"
 
-#: ../src/document.c:3634
+#: ../src/document.c:3638
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d linje"
 msgstr[1] "%d linjer"
 
-#: ../src/document.c:3635
+#: ../src/document.c:3639
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d ord"
 msgstr[1] "%d ord"
 
-#: ../src/document.c:3636
+#: ../src/document.c:3640
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d tegn"
 msgstr[1] "%d tegn"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 msgid "Selection statistics: "
 msgstr "Statistikk: "
 
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 msgid "Statistics: "
 msgstr "Statistikk: "
 
@@ -1648,34 +1648,34 @@ msgstr "Tegnsett i _menyen:"
 msgid "Add or remove document encodings"
 msgstr "Legg til eller fjern tegnsett"
 
-#: ../src/external_commands.c:414
+#: ../src/external_commands.c:446
 msgid "Supply extra arguments"
 msgstr "Sett inn ekstra parametre"
 
-#: ../src/external_commands.c:419
+#: ../src/external_commands.c:451
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr "Oppgi parametre for å definere %%a i '%s'"
 
-#: ../src/external_commands.c:671
+#: ../src/external_commands.c:721
 #, c-format
 msgid "Failed to create a command for %s."
 msgstr "Kunne ikke opprette en kommando for %s."
 
-#: ../src/external_commands.c:673
+#: ../src/external_commands.c:723
 msgid "Failed to create a command"
 msgstr "Kunne ikke opprette en kommando"
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:704
+#: ../src/external_commands.c:744 ../src/external_commands.c:761
 #, c-format
 msgid "The command %s exited with error code %d. %s"
 msgstr "Kommandoen %s avsluttet med feilkode %d. %s"
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:708
+#: ../src/external_commands.c:747 ../src/external_commands.c:765
 msgid "Probably this application is not installed on your system."
 msgstr "Dette programmet er trolig ikke installert."
 
-#: ../src/external_commands.c:694
+#: ../src/external_commands.c:750
 msgid "Command returned error code"
 msgstr "Kommandoen returnerte en feilkode"
 
@@ -1868,7 +1868,7 @@ msgstr "Flat"
 msgid "Tree"
 msgstr "Tre"
 
-#: ../src/filebrowser2.c:2286
+#: ../src/filebrowser2.c:2296
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1879,42 +1879,42 @@ msgstr ""
 "hvilken er ekvivalent til\n"
 "<b>%s%s</b>"
 
-#: ../src/file.c:856
+#: ../src/file.c:870
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "Laster %d fil, ferdig med %s"
 msgstr[1] "Laster %d filer, ferdig med %s"
 
-#: ../src/file.c:862
+#: ../src/file.c:876
 #, c-format
 msgid "All files loaded, finished %s, %d document open"
 msgid_plural "All files loaded, finished %s, %d documents open"
 msgstr[0] "Alle filer lastet, totalt %s, %d dokument åpne"
 msgstr[1] "Alle filer lastet, totalt %s, %d dokumenter åpne"
 
-#: ../src/file.c:1389
+#: ../src/file.c:1403
 #, c-format
 msgid "Finished advanced open, %d document open."
 msgid_plural "Finished advanced open, %d documents open."
 msgstr[0] "Fullført avansert åpne, %d dokument åpent"
 msgstr[1] "Fullført avansert åpne, %d dokumenter åpne"
 
-#: ../src/file.c:1565
+#: ../src/file.c:1579
 msgid "_Skip"
 msgstr "_Hopp over"
 
-#: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/file.c:1579 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
 #: ../src/project.c:363
 msgid "_Overwrite"
 msgstr "Over_skriv"
 
-#: ../src/file.c:1569
+#: ../src/file.c:1583
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s kan ikke kopieres, den eksisterer allerede. Skriv over?"
 
-#: ../src/file.c:1571
+#: ../src/file.c:1585
 msgid "Overwrite file?"
 msgstr "Overskriv filen?"
 
@@ -1978,7 +1978,7 @@ msgstr "Velg filer"
 msgid "Open URL"
 msgstr "Åpne URL"
 
-#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1389
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1390
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -2010,7 +2010,7 @@ msgstr "Backupfeil"
 msgid "Could not save file "
 msgstr "Kunne ikke lagre filen "
 
-#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1524
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1525
 msgid "File changed on disk\n"
 msgstr "Filen har blitt endret av et annet program\n"
 
@@ -2109,51 +2109,51 @@ msgstr "_Lagre alle"
 msgid "One or more open files have been changed."
 msgstr "En eller flere fil(er) har blitt endret"
 
-#: ../src/file_dialogs.c:1309
+#: ../src/file_dialogs.c:1310
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">%d feil</span>"
 msgstr[1] "<span color=\"red\">%d feil</span>"
 
-#: ../src/file_dialogs.c:1318
+#: ../src/file_dialogs.c:1319
 msgid "incomplete finished"
 msgstr "ikke ferdig"
 
-#: ../src/file_dialogs.c:1320
+#: ../src/file_dialogs.c:1321
 msgid "completed"
 msgstr "ferdig"
 
-#: ../src/file_dialogs.c:1375
+#: ../src/file_dialogs.c:1376
 msgid "Upload / Download"
 msgstr "Last opp / Last ned"
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 msgid "Upload"
 msgstr "Last opp"
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 msgid "Download"
 msgstr "Last ned"
 
-#: ../src/file_dialogs.c:1401
+#: ../src/file_dialogs.c:1402
 msgid "Local directory"
 msgstr "Lokal katalog"
 
-#: ../src/file_dialogs.c:1407
+#: ../src/file_dialogs.c:1408
 msgid "Remote directory"
 msgstr "Ekstern katalog"
 
-#: ../src/file_dialogs.c:1412
+#: ../src/file_dialogs.c:1413
 msgid "Delete deprecated files"
 msgstr "Slett utdaterte filer"
 
-#: ../src/file_dialogs.c:1416
+#: ../src/file_dialogs.c:1417
 msgid "Include hidden files"
 msgstr "Vis skjulte filer"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1460
+#: ../src/file_dialogs.c:1461
 #, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -2170,29 +2170,29 @@ msgstr ""
 "Original størrelse var %s byte\n"
 "Ny størrelse er %s byte"
 
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 msgid "_Unset file name"
 msgstr "Fjern filnavn"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1485
+#: ../src/file_dialogs.c:1486
 #, c-format
 msgid "File name: %s"
 msgstr "Filnavn: %s"
 
-#: ../src/file_dialogs.c:1488
+#: ../src/file_dialogs.c:1489
 msgid "File disappeared from disk\n"
 msgstr "Filen forsvant fra filsystemet\n"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "_Ignore"
 msgstr "_Ignorer"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "_Reload"
 msgstr "Les på nytt"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "Check and reload all documents"
 msgstr "Sjekk og last alle dokumenter på nytt"
 
@@ -2234,11 +2234,11 @@ msgstr "T_egnsett:"
 msgid "Automatic detection"
 msgstr "Oppdag automatisk"
 
-#: ../src/gtk_easy.c:1507
+#: ../src/gtk_easy.c:1511
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>Snarveitast</b>"
 
-#: ../src/gtk_easy.c:1515
+#: ../src/gtk_easy.c:1519
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2250,7 +2250,7 @@ msgstr ""
 "Vennligst bruk Ctrl, Skift, og Alt med en annen tast.\n"
 "<i>Esc for å avbryte, Delete for å starte på nytt.</i>"
 
-#: ../src/gtk_easy.c:1540
+#: ../src/gtk_easy.c:1544
 msgid "Press shortcut key combination"
 msgstr "Trykk ønsket tastekombinasjon"
 
@@ -2266,7 +2266,7 @@ msgstr "Linje"
 msgid "Output"
 msgstr "Output"
 
-#: ../src/outputbox.c:478
+#: ../src/outputbox.c:481
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "Kunne ikke kompilere outputboks-filter %s: %s"

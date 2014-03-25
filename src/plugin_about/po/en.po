@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-02-01 08:58-0800\n"
+"POT-Creation-Date: 2014-03-24 22:20-0700\n"
 "PO-Revision-Date: 2012-08-30 08:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/plugin_about/about.c:84
+#: src/plugin_about/about.c:85
 msgid "This version of Bluefish was built with:\n"
 msgstr "This version of Bluefish was built with:\n"
 
-#: src/plugin_about/about.c:201
+#: src/plugin_about/about.c:205
 msgid ""
 "\n"
 "Developers of previous releases:"
@@ -29,7 +29,7 @@ msgstr ""
 "\n"
 "Developers of previous releases:"
 
-#: src/plugin_about/about.c:217
+#: src/plugin_about/about.c:221
 msgid ""
 "\n"
 "Package maintainers:"
@@ -37,25 +37,31 @@ msgstr ""
 "\n"
 "Package maintainers:"
 
-#: src/plugin_about/about.c:224
+#: src/plugin_about/about.c:228
+#, fuzzy
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
-"please let us know via <bluefish@bluefish.openoffice.nl>."
+"please let us know at:"
 msgstr ""
 "\n"
 "If you know of anyone missing from this list,\n"
 "please let us know via <bluefish@bluefish.openoffice.nl>."
 
-#: src/plugin_about/about.c:225
+#: src/plugin_about/about.c:229
+msgid "bluefish@bluefish.openoffice.nl <bluefish@bluefish.openoffice.nl>"
+msgstr ""
+
+#: src/plugin_about/about.c:230
+#, fuzzy
 msgid ""
 "\n"
-"Thanks to all who helped making this software available."
+"Thanks to all who helped make this software available.\n"
 msgstr ""
 "\n"
 "Thanks to all who helped making this software available."
 
-#: src/plugin_about/about.c:261
+#: src/plugin_about/about.c:266
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
@@ -73,42 +79,42 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:271
+#: src/plugin_about/about.c:276
 msgid "translator-credits"
 msgstr "translator-credits"
 
-#: src/plugin_about/about.c:369
+#: src/plugin_about/about.c:374
 msgid "_Help"
 msgstr "_Help"
 
-#: src/plugin_about/about.c:370
+#: src/plugin_about/about.c:375
 msgid "Bluefish _Homepage"
 msgstr "Bluefish _Homepage"
 
-#: src/plugin_about/about.c:370
+#: src/plugin_about/about.c:375
 msgid "Bluefish homepage"
 msgstr "Bluefish homepage"
 
-#: src/plugin_about/about.c:372
+#: src/plugin_about/about.c:377
 msgid "Report a _Bug"
 msgstr "Report a _Bug"
 
-#: src/plugin_about/about.c:372
+#: src/plugin_about/about.c:377
 msgid "Report a bug"
 msgstr "Report a bug"
 
-#: src/plugin_about/about.c:373
+#: src/plugin_about/about.c:378
 msgid "_About"
 msgstr "_About"
 
-#: src/plugin_about/about.c:373
+#: src/plugin_about/about.c:378
 msgid "About Bluefish"
 msgstr "About Bluefish"
 
-#: src/plugin_about/about.c:375
+#: src/plugin_about/about.c:380
 msgid "Build _Info"
 msgstr "Build _Info"
 
-#: src/plugin_about/about.c:375
+#: src/plugin_about/about.c:380
 msgid "Build info"
 msgstr "Build info"

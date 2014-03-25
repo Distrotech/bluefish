@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.5\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-02-12 02:12+0800\n"
+"POT-Creation-Date: 2014-03-24 22:20-0700\n"
 "PO-Revision-Date: 2014-02-12 02:47+0600\n"
 "Last-Translator:  ZhiFeng Ma <mzf9527@gmail.com>>\n"
 "Language-Team: \n"
@@ -1654,34 +1654,34 @@ msgstr "菜单中所列的编码(_m)"
 msgid "Add or remove document encodings"
 msgstr "添加或删除文档编码"
 
-#: ../src/external_commands.c:414
+#: ../src/external_commands.c:446
 msgid "Supply extra arguments"
 msgstr "提供额外的参数"
 
-#: ../src/external_commands.c:419
+#: ../src/external_commands.c:451
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr "提供参数用来定义 %%a  在  '%s' 当中"
 
-#: ../src/external_commands.c:671
+#: ../src/external_commands.c:721
 #, c-format
 msgid "Failed to create a command for %s."
 msgstr "建立命令 %s 时出错。"
 
-#: ../src/external_commands.c:673
+#: ../src/external_commands.c:723
 msgid "Failed to create a command"
 msgstr "建立命令时出错"
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:704
+#: ../src/external_commands.c:744 ../src/external_commands.c:761
 #, c-format
 msgid "The command %s exited with error code %d. %s"
 msgstr "命令 %s 退出时的错误代码 %d. %s"
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:708
+#: ../src/external_commands.c:747 ../src/external_commands.c:765
 msgid "Probably this application is not installed on your system."
 msgstr "可能你的系统中并未安装该应用程序。"
 
-#: ../src/external_commands.c:694
+#: ../src/external_commands.c:750
 msgid "Command returned error code"
 msgstr "命令返回错误代码"
 
@@ -1874,7 +1874,7 @@ msgstr "平面"
 msgid "Tree"
 msgstr "树状"
 
-#: ../src/filebrowser2.c:2286
+#: ../src/filebrowser2.c:2296
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -2238,11 +2238,11 @@ msgstr "字符编码(_E)："
 msgid "Automatic detection"
 msgstr "自动侦测"
 
-#: ../src/gtk_easy.c:1507
+#: ../src/gtk_easy.c:1511
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>按键选择</b>"
 
-#: ../src/gtk_easy.c:1515
+#: ../src/gtk_easy.c:1519
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2254,7 +2254,7 @@ msgstr ""
 "请按下Ctrl, Shift, Alt与其他任意键。\n"
 "<i>按 ESC 取消, 按 Delete 删除快捷键。</i>"
 
-#: ../src/gtk_easy.c:1540
+#: ../src/gtk_easy.c:1544
 msgid "Press shortcut key combination"
 msgstr "按下快捷键组合"
 
@@ -2270,7 +2270,7 @@ msgstr "行"
 msgid "Output"
 msgstr "输出"
 
-#: ../src/outputbox.c:478
+#: ../src/outputbox.c:481
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "编译输出窗口模式失败 %s: %s"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-02-01 12:16-0800\n"
+"POT-Creation-Date: 2014-03-24 22:20-0700\n"
 "PO-Revision-Date: 2012-12-30 22:39+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Euskara <itzulpena@euskalgnu.org>\n"
@@ -353,7 +353,7 @@ msgstr "Hautatu denak"
 msgid "Add Boo_kmark"
 msgstr "Gehitu _laster-marka"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2084
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
 msgid "Add bookmark"
 msgstr "Gehitu laster-marka"
 
@@ -681,7 +681,7 @@ msgstr "_Itzulbiratu testua"
 msgid "Wrap text"
 msgstr "Itzulbiratu testua"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3196
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
 msgid "_Close"
 msgstr "It_xi"
 
@@ -698,7 +698,7 @@ msgid "Close all files"
 msgstr "Itxi fitxategi guztiak"
 
 #: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 msgid "_Save"
 msgstr "_Gorde"
 
@@ -1198,7 +1198,7 @@ msgstr "_Editatu..."
 msgid "_Delete"
 msgstr "E_zabatu"
 
-#: ../src/bookmark.c:901 ../src/document.c:2080
+#: ../src/bookmark.c:901 ../src/document.c:2083
 msgid "Delete bookmark"
 msgstr "Ezabatu laster-markak"
 
@@ -1354,45 +1354,45 @@ msgstr "Ireki irakurtzeko soilik"
 msgid "Do not open"
 msgstr "Ez ireki"
 
-#: ../src/document.c:1308
+#: ../src/document.c:1311
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " %d ler., %d zut., %d karak."
 
-#: ../src/document.c:1311
+#: ../src/document.c:1314
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " %d ler., %d zut."
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " OVR"
 msgstr " GAIN"
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " INS"
 msgstr " TXER"
 
-#: ../src/document.c:1336
+#: ../src/document.c:1339
 msgid " RO"
 msgstr " IS"
 
-#: ../src/document.c:1355
+#: ../src/document.c:1358
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 msgid "_No"
 msgstr "_Ez"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 msgid "_Split"
 msgstr "_Zatitu"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid "File contains very long lines. Split these lines?"
 msgstr "Fitxategiak lerro oso luzeak ditu. Zatitu lerro horiek?"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1406,26 +1406,26 @@ msgstr ""
 "ditzake edozein lekutan, edo lerro berriak txerta ditzake zuriune edo "
 "tabulaziorik ez bada aurkitzen."
 
-#: ../src/document.c:1898
+#: ../src/document.c:1901
 msgid "Cannot display file, unknown characters found."
 msgstr "Ezin da bistaratu fitxategia, karaktere ezezagunak aurkitu direlako."
 
-#: ../src/document.c:2090
+#: ../src/document.c:2093
 msgid "Exit fullscreen"
 msgstr "Irten pantaila osotik"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2234 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "_Abortatu gordetzea"
 
-#: ../src/document.c:2234
+#: ../src/document.c:2237
 msgid "_Continue save in UTF-8"
 msgstr "_Jarraitu gordetzen UTF-8 kodeketan"
 
-#: ../src/document.c:2247
+#: ../src/document.c:2250
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1438,15 +1438,15 @@ msgstr ""
 "\n"
 "UTF-8 kodeketan gordetzen jarraitu nahi duzu?"
 
-#: ../src/document.c:2252
+#: ../src/document.c:2255
 msgid "File encoding conversion failure"
 msgstr "Huts egin du fitxategiaren kodeketa bihurtzean"
 
-#: ../src/document.c:2411
+#: ../src/document.c:2415
 msgid "Previously: "
 msgstr "Lehen: "
 
-#: ../src/document.c:2983 ../src/file_dialogs.c:839
+#: ../src/document.c:2987 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1455,11 +1455,11 @@ msgstr ""
 "Sistemako glib bertsioa (%d.%d.%d) ez da fidagarria urruneko fitxategiekin. "
 "Eguneratu ezazu 2.18.0 edo berriagora."
 
-#: ../src/document.c:3112
+#: ../src/document.c:3116
 msgid "Unable to open file"
 msgstr "Fitxategia ezin da ireki"
 
-#: ../src/document.c:3124
+#: ../src/document.c:3128
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1468,93 +1468,93 @@ msgstr ""
 "Zuk gordetako azken kopiara %s leheneratzen baduzu, uneko aldaketak betiko "
 "galduko dira."
 
-#: ../src/document.c:3128
+#: ../src/document.c:3132
 msgid "Revert changes to last saved copy?"
 msgstr "Leheneratu aldaketak gordetako azken kopiara?"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "_Retry"
 msgstr "_Saiatu berriro"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "Retry _all failed"
 msgstr "Saiatu berriro huts egindako _guztiak"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "Close all _failed"
 msgstr "Itxi _huts egindako guztiak"
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid "File "
 msgstr " "
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid " failed to load."
 msgstr " fitxategiak huts egin du kargatzean."
 
-#: ../src/document.c:3205
+#: ../src/document.c:3209
 msgid "File failed to load\n"
 msgstr "Fitxategiak huts egin du kargatzean\n"
 
-#: ../src/document.c:3330
+#: ../src/document.c:3334
 msgid "Select file to insert"
 msgstr "Hautatu fitxategia txertatzeko"
 
-#: ../src/document.c:3339
+#: ../src/document.c:3343
 msgid "No file to insert"
 msgstr "Ez dago fitxategirik txertatzeko"
 
-#: ../src/document.c:3419
+#: ../src/document.c:3423
 msgid "Save pasted image as"
 msgstr "Gorde itsatsitako irudia honela"
 
-#: ../src/document.c:3515
+#: ../src/document.c:3519
 msgid "Paste special"
 msgstr "Itsatsi berezia"
 
-#: ../src/document.c:3521
+#: ../src/document.c:3525
 msgid "No compatible clipboard data found"
 msgstr ""
 
-#: ../src/document.c:3525
+#: ../src/document.c:3529
 msgid "Paste as _HTML"
 msgstr "Itsatsi _HTML gisa"
 
-#: ../src/document.c:3530
+#: ../src/document.c:3534
 msgid "Paste as HTML with _JPG"
 msgstr "Itsatsi HTML _JPEG-rekin bezala"
 
-#: ../src/document.c:3540
+#: ../src/document.c:3544
 #, fuzzy
 msgid "Paste as plain text"
 msgstr "Txertatu testu soila"
 
-#: ../src/document.c:3634
+#: ../src/document.c:3638
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "lerro %d"
 msgstr[1] "%d lerro"
 
-#: ../src/document.c:3635
+#: ../src/document.c:3639
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "hitz %d"
 msgstr[1] "%d hitz"
 
-#: ../src/document.c:3636
+#: ../src/document.c:3640
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "karaktere %d"
 msgstr[1] "%d karaktere"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 msgid "Selection statistics: "
 msgstr "Hautapenaren estatistikak: "
 
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 msgid "Statistics: "
 msgstr "Estatistikak:"
 
@@ -1658,34 +1658,34 @@ msgstr "_Menuko kodeketak:"
 msgid "Add or remove document encodings"
 msgstr "Gehitu edo kendu dokumentuen kodeketak"
 
-#: ../src/external_commands.c:414
+#: ../src/external_commands.c:446
 msgid "Supply extra arguments"
 msgstr "Eman argumentu gehiago"
 
-#: ../src/external_commands.c:419
+#: ../src/external_commands.c:451
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr "Eman argumentuak %%a definitzeko '%s'(e)n"
 
-#: ../src/external_commands.c:671
+#: ../src/external_commands.c:721
 #, c-format
 msgid "Failed to create a command for %s."
 msgstr "Huts egin du %s(r)en komandoa sortzean."
 
-#: ../src/external_commands.c:673
+#: ../src/external_commands.c:723
 msgid "Failed to create a command"
 msgstr "Huts egin du komandoa sortzean"
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:704
+#: ../src/external_commands.c:744 ../src/external_commands.c:761
 #, c-format
 msgid "The command %s exited with error code %d. %s"
 msgstr "%s komandoa %d errore-kodearekin amaitu da. %s"
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:708
+#: ../src/external_commands.c:747 ../src/external_commands.c:765
 msgid "Probably this application is not installed on your system."
 msgstr "Baliteke aplikazio hau sisteman instalatu gabe egotea."
 
-#: ../src/external_commands.c:694
+#: ../src/external_commands.c:750
 msgid "Command returned error code"
 msgstr "Komandoak errore-kodea itzuli du"
 
@@ -1877,7 +1877,7 @@ msgstr "Soila"
 msgid "Tree"
 msgstr "Zuhaitza"
 
-#: ../src/filebrowser2.c:2286
+#: ../src/filebrowser2.c:2296
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1888,42 +1888,42 @@ msgstr ""
 "honen baliokidea da\n"
 "<b>%s%s</b>"
 
-#: ../src/file.c:856
+#: ../src/file.c:870
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "Oraindik fitxategi %d kargatzen, %s amaituta"
 msgstr[1] "Oraindik %d fitxategi kargatzen, %s amaituta"
 
-#: ../src/file.c:862
+#: ../src/file.c:876
 #, fuzzy, c-format
 msgid "All files loaded, finished %s, %d document open"
 msgid_plural "All files loaded, finished %s, %d documents open"
 msgstr[0] "Fitxategi guztiak kargatuta, %s amaituta"
 msgstr[1] "Fitxategi guztiak kargatuta, %s amaituta"
 
-#: ../src/file.c:1389
+#: ../src/file.c:1403
 #, fuzzy, c-format
 msgid "Finished advanced open, %d document open."
 msgid_plural "Finished advanced open, %d documents open."
 msgstr[0] "Irekitze aurreratua amaituta"
 msgstr[1] "Irekitze aurreratua amaituta"
 
-#: ../src/file.c:1565
+#: ../src/file.c:1579
 msgid "_Skip"
 msgstr "_Saltatu"
 
-#: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/file.c:1579 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
 #: ../src/project.c:363
 msgid "_Overwrite"
 msgstr "_Gainidatzi"
 
-#: ../src/file.c:1569
+#: ../src/file.c:1583
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s ezin da kopiatu, badago lehendik ere, gainidatzi?"
 
-#: ../src/file.c:1571
+#: ../src/file.c:1585
 msgid "Overwrite file?"
 msgstr "Gainidatzi fitxategia?"
 
@@ -1987,7 +1987,7 @@ msgstr "Hautatu fitxategiak"
 msgid "Open URL"
 msgstr "Ireki URLa"
 
-#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1389
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1390
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -2019,7 +2019,7 @@ msgstr "Huts egin du fitxategiaren babeskopia egitean"
 msgid "Could not save file "
 msgstr "Ezin izan da fitxategia gorde "
 
-#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1524
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1525
 msgid "File changed on disk\n"
 msgstr "Fitxategia diskoan aldatuta\n"
 
@@ -2119,51 +2119,51 @@ msgstr "G_orde dena"
 msgid "One or more open files have been changed."
 msgstr "Irekitako hainbat fitxategi bat edo gehiago aldatu egin dira."
 
-#: ../src/file_dialogs.c:1309
+#: ../src/file_dialogs.c:1310
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">Hutsegite %d</span>"
 msgstr[1] "<span color=\"red\">%d hutsegite</span>"
 
-#: ../src/file_dialogs.c:1318
+#: ../src/file_dialogs.c:1319
 msgid "incomplete finished"
 msgstr "osatugabe burututa"
 
-#: ../src/file_dialogs.c:1320
+#: ../src/file_dialogs.c:1321
 msgid "completed"
 msgstr "osatuta"
 
-#: ../src/file_dialogs.c:1375
+#: ../src/file_dialogs.c:1376
 msgid "Upload / Download"
 msgstr "Igo / Deskargatu"
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 msgid "Upload"
 msgstr "Igo"
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 msgid "Download"
 msgstr "Deskargatu"
 
-#: ../src/file_dialogs.c:1401
+#: ../src/file_dialogs.c:1402
 msgid "Local directory"
 msgstr "Direktorio lokala"
 
-#: ../src/file_dialogs.c:1407
+#: ../src/file_dialogs.c:1408
 msgid "Remote directory"
 msgstr "Urruneko direktorioa"
 
-#: ../src/file_dialogs.c:1412
+#: ../src/file_dialogs.c:1413
 msgid "Delete deprecated files"
 msgstr "Ezabatu zaharkitutako fitxategiak"
 
-#: ../src/file_dialogs.c:1416
+#: ../src/file_dialogs.c:1417
 msgid "Include hidden files"
 msgstr "Sartu ezkutuko fitxategiak"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1460
+#: ../src/file_dialogs.c:1461
 #, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -2180,29 +2180,29 @@ msgstr ""
 "Jatorriko tamaina: %s byte\n"
 "Tamaina berria: %s byte"
 
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 msgid "_Unset file name"
 msgstr "_Kendu fitxategi-izenaren ezarpena"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1485
+#: ../src/file_dialogs.c:1486
 #, c-format
 msgid "File name: %s"
 msgstr "Fitxategi-izena: %s"
 
-#: ../src/file_dialogs.c:1488
+#: ../src/file_dialogs.c:1489
 msgid "File disappeared from disk\n"
 msgstr "Fitxategia diskotik desagertuta.\n"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "_Ignore"
 msgstr "_Ez ikusi egin"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "_Reload"
 msgstr "_Birkargatu"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "Check and reload all documents"
 msgstr "Egiaztatu eta birkargatu dokumentu guztiak"
 
@@ -2244,11 +2244,11 @@ msgstr "_Karaktere-kodeketa:"
 msgid "Automatic detection"
 msgstr "Detekzio automatikoa"
 
-#: ../src/gtk_easy.c:1507
+#: ../src/gtk_easy.c:1511
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>Teklen aukera</b>"
 
-#: ../src/gtk_easy.c:1515
+#: ../src/gtk_easy.c:1519
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2261,7 +2261,7 @@ msgstr ""
 "<i>Sakatu Ihes bertan behera uzteko, Ezabatu tekla bizkortzailea kentzeko.</"
 "i>"
 
-#: ../src/gtk_easy.c:1540
+#: ../src/gtk_easy.c:1544
 msgid "Press shortcut key combination"
 msgstr "Sakatu lasterbidearen konbinazioa"
 
@@ -2277,7 +2277,7 @@ msgstr "Lerroa"
 msgid "Output"
 msgstr "Irteera"
 
-#: ../src/outputbox.c:478
+#: ../src/outputbox.c:481
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "Huts egin du %s ereduaren irteerako kutxa konpilatzean: %s"

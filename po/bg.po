@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-02-01 12:16-0800\n"
+"POT-Creation-Date: 2014-03-24 22:20-0700\n"
 "PO-Revision-Date: 2003-12-09 11:07+0200\n"
 "Last-Translator: Peio Popov <peio@peio.org>\n"
 "Language-Team: Not a member <bg@li.org>\n"
@@ -401,7 +401,7 @@ msgstr "Избери файл"
 msgid "Add Boo_kmark"
 msgstr "Добавяне на отбелязка"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2084
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
 msgid "Add bookmark"
 msgstr "Добавяне на отбелязка"
 
@@ -787,7 +787,7 @@ msgstr ""
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3196
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
 #, fuzzy
 msgid "_Close"
 msgstr "Затваряне"
@@ -808,7 +808,7 @@ msgid "Close all files"
 msgstr "Запазването на файла прекратено.\n"
 
 #: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 #, fuzzy
 msgid "_Save"
 msgstr "Запазване"
@@ -1371,7 +1371,7 @@ msgstr "/_Редактиране"
 msgid "_Delete"
 msgstr "/_Изтриване"
 
-#: ../src/bookmark.c:901 ../src/document.c:2080
+#: ../src/bookmark.c:901 ../src/document.c:2083
 #, fuzzy
 msgid "Delete bookmark"
 msgstr "Изтриване на постоянна отбелязка."
@@ -1540,47 +1540,47 @@ msgstr ""
 msgid "Do not open"
 msgstr "Не успя да отвори:\n"
 
-#: ../src/document.c:1308
+#: ../src/document.c:1311
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " Ред %d, Колона %d"
 
-#: ../src/document.c:1311
+#: ../src/document.c:1314
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " Ред %d, Колона %d"
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " OVR"
 msgstr ""
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " INS"
 msgstr ""
 
-#: ../src/document.c:1336
+#: ../src/document.c:1339
 msgid " RO"
 msgstr ""
 
-#: ../src/document.c:1355
+#: ../src/document.c:1358
 #, fuzzy
 msgid "Unknown"
 msgstr "Непозната икона"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 #, fuzzy
 msgid "_No"
 msgstr "/_Придвижване"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 msgid "_Split"
 msgstr ""
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid "File contains very long lines. Split these lines?"
 msgstr ""
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1588,27 +1588,27 @@ msgid ""
 "insert newlines if no spaces or tabs are found."
 msgstr ""
 
-#: ../src/document.c:1898
+#: ../src/document.c:1901
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 "Намерени са непознати символи в този файл и не може да бъде визуализиран."
 
-#: ../src/document.c:2090
+#: ../src/document.c:2093
 msgid "Exit fullscreen"
 msgstr ""
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2234 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "_Прекъсни запазването"
 
-#: ../src/document.c:2234
+#: ../src/document.c:2237
 msgid "_Continue save in UTF-8"
 msgstr "_Възобнови запазването в UTF-8"
 
-#: ../src/document.c:2247
+#: ../src/document.c:2250
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1621,124 +1621,124 @@ msgstr ""
 "\n"
 "Да продължи ли запазването в UTF-8 кодировка?"
 
-#: ../src/document.c:2252
+#: ../src/document.c:2255
 msgid "File encoding conversion failure"
 msgstr "Неуспех при преобразуването на кодировката"
 
-#: ../src/document.c:2411
+#: ../src/document.c:2415
 msgid "Previously: "
 msgstr "Предишно: "
 
-#: ../src/document.c:2983 ../src/file_dialogs.c:839
+#: ../src/document.c:2987 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
 
-#: ../src/document.c:3112
+#: ../src/document.c:3116
 msgid "Unable to open file"
 msgstr "Не може да отвори"
 
-#: ../src/document.c:3124
+#: ../src/document.c:3128
 #, fuzzy, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "Файлът ще бъде изтрит завинаги."
 
-#: ../src/document.c:3128
+#: ../src/document.c:3132
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "Искате ли да запазите промените направени в този файл?"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Запазването на файла прекратено.\n"
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 #, fuzzy
 msgid "File "
 msgstr "Файл #"
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:3205
+#: ../src/document.c:3209
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:3330
+#: ../src/document.c:3334
 msgid "Select file to insert"
 msgstr "Изберете файл да включите"
 
-#: ../src/document.c:3339
+#: ../src/document.c:3343
 msgid "No file to insert"
 msgstr "Липсва файл за вмъкване"
 
-#: ../src/document.c:3419
+#: ../src/document.c:3423
 #, fuzzy
 msgid "Save pasted image as"
 msgstr "Запазване като ..."
 
-#: ../src/document.c:3515
+#: ../src/document.c:3519
 msgid "Paste special"
 msgstr ""
 
-#: ../src/document.c:3521
+#: ../src/document.c:3525
 msgid "No compatible clipboard data found"
 msgstr ""
 
-#: ../src/document.c:3525
+#: ../src/document.c:3529
 msgid "Paste as _HTML"
 msgstr ""
 
-#: ../src/document.c:3530
+#: ../src/document.c:3534
 msgid "Paste as HTML with _JPG"
 msgstr ""
 
-#: ../src/document.c:3540
+#: ../src/document.c:3544
 #, fuzzy
 msgid "Paste as plain text"
 msgstr "Вмъкване на изображение"
 
-#: ../src/document.c:3634
+#: ../src/document.c:3638
 #, fuzzy, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "Отиди на ред..."
 msgstr[1] "Отиди на ред..."
 
-#: ../src/document.c:3635
+#: ../src/document.c:3639
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d от %d"
 msgstr[1] "%d от %d"
 
-#: ../src/document.c:3636
+#: ../src/document.c:3640
 #, fuzzy, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "Предпочитана кодова таблица"
 msgstr[1] "Предпочитана кодова таблица"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "Започва на:"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 #, fuzzy
 msgid "Statistics: "
 msgstr "Започва на:"
@@ -1858,34 +1858,34 @@ msgstr ""
 msgid "Add or remove document encodings"
 msgstr ""
 
-#: ../src/external_commands.c:414
+#: ../src/external_commands.c:446
 msgid "Supply extra arguments"
 msgstr ""
 
-#: ../src/external_commands.c:419
+#: ../src/external_commands.c:451
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr ""
 
-#: ../src/external_commands.c:671
+#: ../src/external_commands.c:721
 #, c-format
 msgid "Failed to create a command for %s."
 msgstr ""
 
-#: ../src/external_commands.c:673
+#: ../src/external_commands.c:723
 msgid "Failed to create a command"
 msgstr ""
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:704
+#: ../src/external_commands.c:744 ../src/external_commands.c:761
 #, c-format
 msgid "The command %s exited with error code %d. %s"
 msgstr ""
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:708
+#: ../src/external_commands.c:747 ../src/external_commands.c:765
 msgid "Probably this application is not installed on your system."
 msgstr ""
 
-#: ../src/external_commands.c:694
+#: ../src/external_commands.c:750
 msgid "Command returned error code"
 msgstr ""
 
@@ -2105,7 +2105,7 @@ msgstr ""
 msgid "Tree"
 msgstr ""
 
-#: ../src/filebrowser2.c:2286
+#: ../src/filebrowser2.c:2296
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -2113,42 +2113,42 @@ msgid ""
 "<b>%s%s</b>"
 msgstr ""
 
-#: ../src/file.c:856
+#: ../src/file.c:870
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file.c:862
+#: ../src/file.c:876
 #, c-format
 msgid "All files loaded, finished %s, %d document open"
 msgid_plural "All files loaded, finished %s, %d documents open"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file.c:1389
+#: ../src/file.c:1403
 #, c-format
 msgid "Finished advanced open, %d document open."
 msgid_plural "Finished advanced open, %d documents open."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file.c:1565
+#: ../src/file.c:1579
 msgid "_Skip"
 msgstr "Пропускане"
 
-#: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/file.c:1579 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
 #: ../src/project.c:363
 msgid "_Overwrite"
 msgstr "_Презапис"
 
-#: ../src/file.c:1569
+#: ../src/file.c:1583
 #, fuzzy, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "Файлът %s съществува и е отворен. Желаете ли да бъде презаписан?"
 
-#: ../src/file.c:1571
+#: ../src/file.c:1585
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "_Презапис"
@@ -2218,7 +2218,7 @@ msgstr "Избери файлове"
 msgid "Open URL"
 msgstr "Отваряне на URL"
 
-#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1389
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1390
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -2250,7 +2250,7 @@ msgstr ""
 "Не може да пише във файл:\n"
 "\""
 
-#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1524
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1525
 #, fuzzy
 msgid "File changed on disk\n"
 msgstr ""
@@ -2355,56 +2355,56 @@ msgstr "Запазване на всички"
 msgid "One or more open files have been changed."
 msgstr "Повече от един отворени файла са променени."
 
-#: ../src/file_dialogs.c:1309
+#: ../src/file_dialogs.c:1310
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file_dialogs.c:1318
+#: ../src/file_dialogs.c:1319
 msgid "incomplete finished"
 msgstr ""
 
-#: ../src/file_dialogs.c:1320
+#: ../src/file_dialogs.c:1321
 msgid "completed"
 msgstr ""
 
-#: ../src/file_dialogs.c:1375
+#: ../src/file_dialogs.c:1376
 msgid "Upload / Download"
 msgstr ""
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 #, fuzzy
 msgid "Upload"
 msgstr "_Презарежда"
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 msgid "Download"
 msgstr ""
 
-#: ../src/file_dialogs.c:1401
+#: ../src/file_dialogs.c:1402
 #, fuzzy
 msgid "Local directory"
 msgstr "/_Нова директория"
 
-#: ../src/file_dialogs.c:1407
+#: ../src/file_dialogs.c:1408
 #, fuzzy
 msgid "Remote directory"
 msgstr "/_Нова директория"
 
-#: ../src/file_dialogs.c:1412
+#: ../src/file_dialogs.c:1413
 #, fuzzy
 msgid "Delete deprecated files"
 msgstr "Избери файлове"
 
-#: ../src/file_dialogs.c:1416
+#: ../src/file_dialogs.c:1417
 #, fuzzy
 msgid "Include hidden files"
 msgstr "Показване на скрити файлове"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1460
+#: ../src/file_dialogs.c:1461
 #, fuzzy, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -2419,31 +2419,31 @@ msgstr ""
 "Променен на: %s\n"
 "Предишна промяна: %s"
 
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 #, fuzzy
 msgid "_Unset file name"
 msgstr "име на файла"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1485
+#: ../src/file_dialogs.c:1486
 #, fuzzy, c-format
 msgid "File name: %s"
 msgstr "Име на файла"
 
-#: ../src/file_dialogs.c:1488
+#: ../src/file_dialogs.c:1489
 #, fuzzy
 msgid "File disappeared from disk\n"
 msgstr "Файлът променен при проверка на диска"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "_Ignore"
 msgstr "_Игнорира"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "_Reload"
 msgstr "_Презарежда"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 #, fuzzy
 msgid "Check and reload all documents"
 msgstr "във всички отворени документи"
@@ -2491,11 +2491,11 @@ msgstr "/Документ/Кодиране на символите"
 msgid "Automatic detection"
 msgstr "Автоматично обновяване на мета-информацията за автора"
 
-#: ../src/gtk_easy.c:1507
+#: ../src/gtk_easy.c:1511
 msgid "<b>Keystroke choice</b>"
 msgstr ""
 
-#: ../src/gtk_easy.c:1515
+#: ../src/gtk_easy.c:1519
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2503,7 +2503,7 @@ msgid ""
 "<i>Esc to cancel, Delete to remove the accelerator.</i>"
 msgstr ""
 
-#: ../src/gtk_easy.c:1540
+#: ../src/gtk_easy.c:1544
 msgid "Press shortcut key combination"
 msgstr ""
 
@@ -2522,7 +2522,7 @@ msgstr "Ред #"
 msgid "Output"
 msgstr "Изход #"
 
-#: ../src/outputbox.c:478
+#: ../src/outputbox.c:481
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr ""

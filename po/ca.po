@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-02-01 12:16-0800\n"
+"POT-Creation-Date: 2014-03-24 22:20-0700\n"
 "PO-Revision-Date: 2013-12-13 21:33+0100\n"
 "Last-Translator: Mònica Ramírez Arceda <monica@probeta.net>\n"
 "Language-Team: Catalan\n"
@@ -352,7 +352,7 @@ msgstr "Selecciona-ho tot"
 msgid "Add Boo_kmark"
 msgstr "Afegeix un mar_cador"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2084
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
 msgid "Add bookmark"
 msgstr "Afegeix un marcador"
 
@@ -682,7 +682,7 @@ msgstr "A_justa el text"
 msgid "Wrap text"
 msgstr "Ajusta el text"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3196
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
 msgid "_Close"
 msgstr "Tan_ca"
 
@@ -699,7 +699,7 @@ msgid "Close all files"
 msgstr "Tanca tots els fitxers"
 
 #: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 msgid "_Save"
 msgstr "De_sa"
 
@@ -1199,7 +1199,7 @@ msgstr "_Edita..."
 msgid "_Delete"
 msgstr "_Suprimeix"
 
-#: ../src/bookmark.c:901 ../src/document.c:2080
+#: ../src/bookmark.c:901 ../src/document.c:2083
 msgid "Delete bookmark"
 msgstr "Suprimeix el marcador"
 
@@ -1355,45 +1355,45 @@ msgstr "Obre en mode només de lectura"
 msgid "Do not open"
 msgstr "No ho obris"
 
-#: ../src/document.c:1308
+#: ../src/document.c:1311
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr "Ln: %d, Col: %d, Car: %d"
 
-#: ../src/document.c:1311
+#: ../src/document.c:1314
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " Ln: %d, Col: %d"
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " OVR"
 msgstr " OVR"
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " INS"
 msgstr "Inser"
 
-#: ../src/document.c:1336
+#: ../src/document.c:1339
 msgid " RO"
 msgstr " RO"
 
-#: ../src/document.c:1355
+#: ../src/document.c:1358
 msgid "Unknown"
 msgstr "Desconegut"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 msgid "_No"
 msgstr "_No"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 msgid "_Split"
 msgstr "_Divideix"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid "File contains very long lines. Split these lines?"
 msgstr "El fitxer conté línies molt llargues. Voleu dividir aquestes línies?"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1406,26 +1406,26 @@ msgstr ""
 "salts de línia a qualsevol lloc o inserir salts de línia si no es troben "
 "espais o tabuladors."
 
-#: ../src/document.c:1898
+#: ../src/document.c:1901
 msgid "Cannot display file, unknown characters found."
 msgstr "No es pot mostrar el fitxer, s'han trobat caràcters desconeguts."
 
-#: ../src/document.c:2090
+#: ../src/document.c:2093
 msgid "Exit fullscreen"
 msgstr "Surt de la pantalla completa"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2234 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "Interromp l'acció de des_ar"
 
-#: ../src/document.c:2234
+#: ../src/document.c:2237
 msgid "_Continue save in UTF-8"
 msgstr "_Desa en UTF-8"
 
-#: ../src/document.c:2247
+#: ../src/document.c:2250
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1438,15 +1438,15 @@ msgstr ""
 "\n"
 "Voleu desar amb la codificació UTF-8?"
 
-#: ../src/document.c:2252
+#: ../src/document.c:2255
 msgid "File encoding conversion failure"
 msgstr "S'ha produït un error en la conversió de la codificació"
 
-#: ../src/document.c:2411
+#: ../src/document.c:2415
 msgid "Previously: "
 msgstr "Anteriorment:"
 
-#: ../src/document.c:2983 ../src/file_dialogs.c:839
+#: ../src/document.c:2987 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1455,11 +1455,11 @@ msgstr ""
 "La versió (%d.%d.%d) de glib no és fiable per a fitxers remots. Actualitzeu "
 "a la versió 2.18.0 o superior."
 
-#: ../src/document.c:3112
+#: ../src/document.c:3116
 msgid "Unable to open file"
 msgstr "No es pot obrir el fitxer"
 
-#: ../src/document.c:3124
+#: ../src/document.c:3128
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1468,92 +1468,92 @@ msgstr ""
 "Si torneu \"%s\" a l'última còpia desada, els canvis actuals es perdran "
 "definitivament."
 
-#: ../src/document.c:3128
+#: ../src/document.c:3132
 msgid "Revert changes to last saved copy?"
 msgstr "Voleu tornar el fitxer a l'última versió desada?"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "_Retry"
 msgstr "_Reintenta"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "Retry _all failed"
 msgstr "Reintent_a tots els que han fallat"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "Close all _failed"
 msgstr "Tanca tots els que han _fallat"
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid "File "
 msgstr "_Fitxer"
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid " failed to load."
 msgstr " ha fallat en carregar."
 
-#: ../src/document.c:3205
+#: ../src/document.c:3209
 msgid "File failed to load\n"
 msgstr "No s'ha pogut carregar el fitxer\n"
 
-#: ../src/document.c:3330
+#: ../src/document.c:3334
 msgid "Select file to insert"
 msgstr "Selecciona el fitxer a inserir"
 
-#: ../src/document.c:3339
+#: ../src/document.c:3343
 msgid "No file to insert"
 msgstr "No hi ha cap fitxer per inserir"
 
-#: ../src/document.c:3419
+#: ../src/document.c:3423
 msgid "Save pasted image as"
 msgstr "Desa la imatge enganxada com a"
 
-#: ../src/document.c:3515
+#: ../src/document.c:3519
 msgid "Paste special"
 msgstr "Enganxament especial"
 
-#: ../src/document.c:3521
+#: ../src/document.c:3525
 msgid "No compatible clipboard data found"
 msgstr "No s'ha trobat cap porta-retalls compatible"
 
-#: ../src/document.c:3525
+#: ../src/document.c:3529
 msgid "Paste as _HTML"
 msgstr "Enganxa com a _HTML"
 
-#: ../src/document.c:3530
+#: ../src/document.c:3534
 msgid "Paste as HTML with _JPG"
 msgstr "Enganxa com a HTML amb _JPG"
 
-#: ../src/document.c:3540
+#: ../src/document.c:3544
 msgid "Paste as plain text"
 msgstr "Enganxa com a text net"
 
-#: ../src/document.c:3634
+#: ../src/document.c:3638
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d línia"
 msgstr[1] "%d línies"
 
-#: ../src/document.c:3635
+#: ../src/document.c:3639
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d paraula"
 msgstr[1] "%d paraules"
 
-#: ../src/document.c:3636
+#: ../src/document.c:3640
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caràcter"
 msgstr[1] "%d caràcters"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 msgid "Selection statistics: "
 msgstr "Estadístiques de selecció:"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 msgid "Statistics: "
 msgstr "Estadístiques:"
 
@@ -1658,35 +1658,35 @@ msgstr "Codificacions en el _menú:"
 msgid "Add or remove document encodings"
 msgstr "Afegeix o suprimeix codificacions del document"
 
-#: ../src/external_commands.c:414
+#: ../src/external_commands.c:446
 msgid "Supply extra arguments"
 msgstr "Doneu arguments extra"
 
-#: ../src/external_commands.c:419
+#: ../src/external_commands.c:451
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr "Doneu els arguments per definir %%a a '%s'"
 
-#: ../src/external_commands.c:671
+#: ../src/external_commands.c:721
 #, c-format
 msgid "Failed to create a command for %s."
 msgstr "Error en crear una ordre per a %s."
 
-#: ../src/external_commands.c:673
+#: ../src/external_commands.c:723
 msgid "Failed to create a command"
 msgstr "Error en crear una ordre"
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:704
+#: ../src/external_commands.c:744 ../src/external_commands.c:761
 #, c-format
 msgid "The command %s exited with error code %d. %s"
 msgstr "L'ordre %s ha acabat amb un codi d'error %d. %s"
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:708
+#: ../src/external_commands.c:747 ../src/external_commands.c:765
 msgid "Probably this application is not installed on your system."
 msgstr ""
 "És possible que aquesta aplicació no estigui instal·lada en el sistema."
 
-#: ../src/external_commands.c:694
+#: ../src/external_commands.c:750
 msgid "Command returned error code"
 msgstr "Codi d'error de retorn de l'ordre"
 
@@ -1878,7 +1878,7 @@ msgstr "Pla"
 msgid "Tree"
 msgstr "Arbre"
 
-#: ../src/filebrowser2.c:2286
+#: ../src/filebrowser2.c:2296
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1889,14 +1889,14 @@ msgstr ""
 "que és l'equivalent de\n"
 "<b>%s%s</b>"
 
-#: ../src/file.c:856
+#: ../src/file.c:870
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "S'està carregant %d fitxer, s'ha finalitzat %s"
 msgstr[1] "S'està carregant %d fitxers, s'han finalitzat %s"
 
-#: ../src/file.c:862
+#: ../src/file.c:876
 #, c-format
 msgid "All files loaded, finished %s, %d document open"
 msgid_plural "All files loaded, finished %s, %d documents open"
@@ -1905,28 +1905,28 @@ msgstr[0] ""
 msgstr[1] ""
 "S'han carregat tots els fitxers, %s finalitzat, s'han obert %d documents"
 
-#: ../src/file.c:1389
+#: ../src/file.c:1403
 #, c-format
 msgid "Finished advanced open, %d document open."
 msgid_plural "Finished advanced open, %d documents open."
 msgstr[0] "L'obertura avançada ha finalitzat, s'ha obert % document."
 msgstr[1] "L'obertura avançada ha finalitzat, s'han obert % documents."
 
-#: ../src/file.c:1565
+#: ../src/file.c:1579
 msgid "_Skip"
 msgstr "_Omet"
 
-#: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/file.c:1579 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
 #: ../src/project.c:363
 msgid "_Overwrite"
 msgstr "_Sobreescriu"
 
-#: ../src/file.c:1569
+#: ../src/file.c:1583
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s no es pot copiar perquè ja existeix, el voleu sobreescriure?"
 
-#: ../src/file.c:1571
+#: ../src/file.c:1585
 msgid "Overwrite file?"
 msgstr "Voleu sobreescriure el fitxer?"
 
@@ -1990,7 +1990,7 @@ msgstr "Selecciona fitxers"
 msgid "Open URL"
 msgstr "Obre un URL"
 
-#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1389
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1390
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -2022,7 +2022,7 @@ msgstr "S'ha produït un error en la còpia de seguretat del fitxer."
 msgid "Could not save file "
 msgstr "No s'ha pogut desar el fitxer"
 
-#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1524
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1525
 msgid "File changed on disk\n"
 msgstr "El fitxer ha canviat al disc\n"
 
@@ -2121,51 +2121,51 @@ msgstr "De_sa-ho tot"
 msgid "One or more open files have been changed."
 msgstr "Hi ha hagut canvis en un o més dels fitxers oberts."
 
-#: ../src/file_dialogs.c:1309
+#: ../src/file_dialogs.c:1310
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">%d error</span>"
 msgstr[1] "<span color=\"red\">%d errors</span>"
 
-#: ../src/file_dialogs.c:1318
+#: ../src/file_dialogs.c:1319
 msgid "incomplete finished"
 msgstr "finalització incompleta"
 
-#: ../src/file_dialogs.c:1320
+#: ../src/file_dialogs.c:1321
 msgid "completed"
 msgstr "complet"
 
-#: ../src/file_dialogs.c:1375
+#: ../src/file_dialogs.c:1376
 msgid "Upload / Download"
 msgstr "Penja / Baixa"
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 msgid "Upload"
 msgstr "Penja"
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 msgid "Download"
 msgstr "Baixa"
 
-#: ../src/file_dialogs.c:1401
+#: ../src/file_dialogs.c:1402
 msgid "Local directory"
 msgstr "Directori local"
 
-#: ../src/file_dialogs.c:1407
+#: ../src/file_dialogs.c:1408
 msgid "Remote directory"
 msgstr "Directori remot"
 
-#: ../src/file_dialogs.c:1412
+#: ../src/file_dialogs.c:1413
 msgid "Delete deprecated files"
 msgstr "Suprimeix els fitxers desfasats"
 
-#: ../src/file_dialogs.c:1416
+#: ../src/file_dialogs.c:1417
 msgid "Include hidden files"
 msgstr "Inclou els fitxers ocults"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1460
+#: ../src/file_dialogs.c:1461
 #, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -2182,29 +2182,29 @@ msgstr ""
 "La mida original era %s bytes\n"
 "La nova mida és %s bytes"
 
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 msgid "_Unset file name"
 msgstr "An_ul·la el nom del fitxer"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1485
+#: ../src/file_dialogs.c:1486
 #, c-format
 msgid "File name: %s"
 msgstr "Nom del fitxer: %s"
 
-#: ../src/file_dialogs.c:1488
+#: ../src/file_dialogs.c:1489
 msgid "File disappeared from disk\n"
 msgstr "El fitxer ha desaparegut del disc\n"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "_Ignore"
 msgstr "_Ignora"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "_Reload"
 msgstr "To_rna a carregar"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "Check and reload all documents"
 msgstr "Comproveu i torneu a carregar tots els documents"
 
@@ -2246,11 +2246,11 @@ msgstr "Codificació dels caràct_ers:"
 msgid "Automatic detection"
 msgstr "Reconeixement automàtic"
 
-#: ../src/gtk_easy.c:1507
+#: ../src/gtk_easy.c:1511
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>Elecció de pulsació de tecla</b>"
 
-#: ../src/gtk_easy.c:1515
+#: ../src/gtk_easy.c:1519
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2262,7 +2262,7 @@ msgstr ""
 "Useu les tecles Ctrl, Maj, Alt amb una altra tecla.\n"
 "<i>Per cancel·lar premeu Esc, per eliminar la drecera  premeu Supr.</i>"
 
-#: ../src/gtk_easy.c:1540
+#: ../src/gtk_easy.c:1544
 msgid "Press shortcut key combination"
 msgstr "Premeu la combinació de tecles de drecera"
 
@@ -2278,7 +2278,7 @@ msgstr "Línia"
 msgid "Output"
 msgstr "Sortida"
 
-#: ../src/outputbox.c:478
+#: ../src/outputbox.c:481
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "No s'ha pogut compilar el patró del quadre de sortida %s: %s "

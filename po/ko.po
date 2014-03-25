@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-02-01 12:16-0800\n"
+"POT-Creation-Date: 2014-03-24 22:20-0700\n"
 "PO-Revision-Date: 2009-05-26 08:48+0900\n"
 "Last-Translator: Taehun Kang 강태헌 <u4800330@anu.edu.au>\n"
 "Language-Team: \n"
@@ -359,7 +359,7 @@ msgstr "전체 선택"
 msgid "Add Boo_kmark"
 msgstr "북마크 추가(_K)"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2084
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
 msgid "Add bookmark"
 msgstr "북마크 추가"
 
@@ -709,7 +709,7 @@ msgstr "텍스트 둘러싸기(_W)"
 msgid "Wrap text"
 msgstr "텍스트 둘러싸기"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3196
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
 msgid "_Close"
 msgstr "닫기(_C)"
 
@@ -726,7 +726,7 @@ msgid "Close all files"
 msgstr "전체 파일 닫기"
 
 #: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 msgid "_Save"
 msgstr "저장하기(_S)"
 
@@ -1250,7 +1250,7 @@ msgstr "편집(_E)"
 msgid "_Delete"
 msgstr "삭제(_D)"
 
-#: ../src/bookmark.c:901 ../src/document.c:2080
+#: ../src/bookmark.c:901 ../src/document.c:2083
 msgid "Delete bookmark"
 msgstr "북마크 삭제"
 
@@ -1407,46 +1407,46 @@ msgstr "읽기 전용으로 열기"
 msgid "Do not open"
 msgstr "열지 마세요"
 
-#: ../src/document.c:1308
+#: ../src/document.c:1311
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " 행: %d, 열: %d, 문자: %d"
 
-#: ../src/document.c:1311
+#: ../src/document.c:1314
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " %d 행, %d 열"
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " OVR"
 msgstr " OVR"
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " INS"
 msgstr " 삽입"
 
-#: ../src/document.c:1336
+#: ../src/document.c:1339
 msgid " RO"
 msgstr " RO"
 
-#: ../src/document.c:1355
+#: ../src/document.c:1358
 msgid "Unknown"
 msgstr "알려지지 않음"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 #, fuzzy
 msgid "_No"
 msgstr "이동(_G)"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 msgid "_Split"
 msgstr ""
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid "File contains very long lines. Split these lines?"
 msgstr ""
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1454,11 +1454,11 @@ msgid ""
 "insert newlines if no spaces or tabs are found."
 msgstr ""
 
-#: ../src/document.c:1898
+#: ../src/document.c:1901
 msgid "Cannot display file, unknown characters found."
 msgstr "알려지지 않은 문자가 발견되었습니다. 파일을 보여줄 수 없습니다."
 
-#: ../src/document.c:2090
+#: ../src/document.c:2093
 #, fuzzy
 msgid "Exit fullscreen"
 msgstr "전체화면"
@@ -1466,15 +1466,15 @@ msgstr "전체화면"
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2234 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "저장 취소(_A)"
 
-#: ../src/document.c:2234
+#: ../src/document.c:2237
 msgid "_Continue save in UTF-8"
 msgstr "UTF-8 로 계속 저장(_C)"
 
-#: ../src/document.c:2247
+#: ../src/document.c:2250
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1487,15 +1487,15 @@ msgstr ""
 "\n"
 "UTF-8로 계속 저장할까요?"
 
-#: ../src/document.c:2252
+#: ../src/document.c:2255
 msgid "File encoding conversion failure"
 msgstr "파일 인코딩 변환 실패"
 
-#: ../src/document.c:2411
+#: ../src/document.c:2415
 msgid "Previously: "
 msgstr "이전: "
 
-#: ../src/document.c:2983 ../src/file_dialogs.c:839
+#: ../src/document.c:2987 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1504,11 +1504,11 @@ msgstr ""
 "현재 깔려있는  glib 버젼 (%d.%d.%d) 은 원격 경로 파일들과 충돌을 일으킬 수 있"
 "습니다.2.18.0 또는 그 이상의 버전으로 업그레이드 하세요."
 
-#: ../src/document.c:3112
+#: ../src/document.c:3116
 msgid "Unable to open file"
 msgstr "파일을 열 수 없습니다"
 
-#: ../src/document.c:3124
+#: ../src/document.c:3128
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1517,95 +1517,95 @@ msgstr ""
 "\"%s\"를(을) 마지막에 저장된 복사본으로 되돌리면, 현재 변경 사항을 잃게 됩니"
 "다."
 
-#: ../src/document.c:3128
+#: ../src/document.c:3132
 msgid "Revert changes to last saved copy?"
 msgstr "최종 복사본으로 되돌릴까요?"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "_Retry"
 msgstr "재시도(_R)"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "Retry _all failed"
 msgstr "실패한 전체를 재시도(_A)"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "Close all _failed"
 msgstr "실패한 전체 닫기(_F)"
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid "File "
 msgstr "파일"
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid " failed to load."
 msgstr " 읽어오기 실패"
 
-#: ../src/document.c:3205
+#: ../src/document.c:3209
 msgid "File failed to load\n"
 msgstr "읽어오기 실패한 파일\n"
 
-#: ../src/document.c:3330
+#: ../src/document.c:3334
 msgid "Select file to insert"
 msgstr "삽일할 파일 선택"
 
-#: ../src/document.c:3339
+#: ../src/document.c:3343
 msgid "No file to insert"
 msgstr "삽일할 파일 없음"
 
-#: ../src/document.c:3419
+#: ../src/document.c:3423
 #, fuzzy
 msgid "Save pasted image as"
 msgstr "다른 이름으로 저장"
 
-#: ../src/document.c:3515
+#: ../src/document.c:3519
 msgid "Paste special"
 msgstr ""
 
-#: ../src/document.c:3521
+#: ../src/document.c:3525
 msgid "No compatible clipboard data found"
 msgstr ""
 
-#: ../src/document.c:3525
+#: ../src/document.c:3529
 msgid "Paste as _HTML"
 msgstr ""
 
-#: ../src/document.c:3530
+#: ../src/document.c:3534
 msgid "Paste as HTML with _JPG"
 msgstr ""
 
-#: ../src/document.c:3540
+#: ../src/document.c:3544
 #, fuzzy
 msgid "Paste as plain text"
 msgstr "파일 삽입"
 
-#: ../src/document.c:3634
+#: ../src/document.c:3638
 #, fuzzy, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d 행"
 msgstr[1] "%d 행"
 
-#: ../src/document.c:3635
+#: ../src/document.c:3639
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d of %d"
 msgstr[1] "%d of %d"
 
-#: ../src/document.c:3636
+#: ../src/document.c:3640
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d 문자"
 msgstr[1] "%d 문자"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "선택 통계"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 msgid "Statistics: "
 msgstr "통계: "
 
@@ -1721,34 +1721,34 @@ msgstr "메뉴에서 인코딩(_M)."
 msgid "Add or remove document encodings"
 msgstr "문서 인코딩 추가 또는 제거"
 
-#: ../src/external_commands.c:414
+#: ../src/external_commands.c:446
 msgid "Supply extra arguments"
 msgstr ""
 
-#: ../src/external_commands.c:419
+#: ../src/external_commands.c:451
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr ""
 
-#: ../src/external_commands.c:671
+#: ../src/external_commands.c:721
 #, c-format
 msgid "Failed to create a command for %s."
 msgstr ""
 
-#: ../src/external_commands.c:673
+#: ../src/external_commands.c:723
 msgid "Failed to create a command"
 msgstr ""
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:704
+#: ../src/external_commands.c:744 ../src/external_commands.c:761
 #, c-format
 msgid "The command %s exited with error code %d. %s"
 msgstr ""
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:708
+#: ../src/external_commands.c:747 ../src/external_commands.c:765
 msgid "Probably this application is not installed on your system."
 msgstr ""
 
-#: ../src/external_commands.c:694
+#: ../src/external_commands.c:750
 msgid "Command returned error code"
 msgstr ""
 
@@ -1944,7 +1944,7 @@ msgstr "플랫"
 msgid "Tree"
 msgstr "트리"
 
-#: ../src/filebrowser2.c:2286
+#: ../src/filebrowser2.c:2296
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1952,40 +1952,40 @@ msgid ""
 "<b>%s%s</b>"
 msgstr ""
 
-#: ../src/file.c:856
+#: ../src/file.c:870
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "%d 파일 읽어오는 중,  %s 완료"
 msgstr[1] "%d 파일 읽어오는 중,  %s 완료"
 
-#: ../src/file.c:862
+#: ../src/file.c:876
 #, fuzzy, c-format
 msgid "All files loaded, finished %s, %d document open"
 msgid_plural "All files loaded, finished %s, %d documents open"
 msgstr[0] "모든 파일 읽음 , %s 완료"
 
-#: ../src/file.c:1389
+#: ../src/file.c:1403
 #, c-format
 msgid "Finished advanced open, %d document open."
 msgid_plural "Finished advanced open, %d documents open."
 msgstr[0] ""
 
-#: ../src/file.c:1565
+#: ../src/file.c:1579
 msgid "_Skip"
 msgstr "건너뛰기(_S)"
 
-#: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/file.c:1579 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
 #: ../src/project.c:363
 msgid "_Overwrite"
 msgstr "겹쳐쓰기(_O)"
 
-#: ../src/file.c:1569
+#: ../src/file.c:1583
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "이미 존재하는 %s 를(을) 복사할 수 없습니다. 겹쳐쓸까요?"
 
-#: ../src/file.c:1571
+#: ../src/file.c:1585
 msgid "Overwrite file?"
 msgstr "파일을 겹쳐쓸까요?"
 
@@ -2052,7 +2052,7 @@ msgstr "파일선택"
 msgid "Open URL"
 msgstr "URL 열기"
 
-#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1389
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1390
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -2083,7 +2083,7 @@ msgstr "파일 백업 실패"
 msgid "Could not save file "
 msgstr "파일을 저장할수 없음 "
 
-#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1524
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1525
 msgid "File changed on disk\n"
 msgstr "디스크에서 바뀐 파일\n"
 
@@ -2183,52 +2183,52 @@ msgstr "전체 저장(_A)"
 msgid "One or more open files have been changed."
 msgstr "하나 또는 여러개의 파일이 변경되었습니다"
 
-#: ../src/file_dialogs.c:1309
+#: ../src/file_dialogs.c:1310
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">%d 실패</span>"
 msgstr[1] "<span color=\"red\">%d 실패</span>"
 
-#: ../src/file_dialogs.c:1318
+#: ../src/file_dialogs.c:1319
 #, fuzzy
 msgid "incomplete finished"
 msgstr "불완전한 완료"
 
-#: ../src/file_dialogs.c:1320
+#: ../src/file_dialogs.c:1321
 msgid "completed"
 msgstr "완료"
 
-#: ../src/file_dialogs.c:1375
+#: ../src/file_dialogs.c:1376
 msgid "Upload / Download"
 msgstr "업로드 / 다운로드"
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 msgid "Upload"
 msgstr "업로드"
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 msgid "Download"
 msgstr "다운로드"
 
-#: ../src/file_dialogs.c:1401
+#: ../src/file_dialogs.c:1402
 msgid "Local directory"
 msgstr "로컬 경로"
 
-#: ../src/file_dialogs.c:1407
+#: ../src/file_dialogs.c:1408
 msgid "Remote directory"
 msgstr "원격 경로"
 
-#: ../src/file_dialogs.c:1412
+#: ../src/file_dialogs.c:1413
 msgid "Delete deprecated files"
 msgstr "불필요한 파일 삭제"
 
-#: ../src/file_dialogs.c:1416
+#: ../src/file_dialogs.c:1417
 msgid "Include hidden files"
 msgstr "숨김 파일 포함"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1460
+#: ../src/file_dialogs.c:1461
 #, fuzzy, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -2245,29 +2245,29 @@ msgstr ""
 "이전 크기: %lu\n"
 "새 크기: %lu"
 
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 msgid "_Unset file name"
 msgstr "파일명을 설정할 수 없음(_U)"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1485
+#: ../src/file_dialogs.c:1486
 #, c-format
 msgid "File name: %s"
 msgstr "파일명: %s"
 
-#: ../src/file_dialogs.c:1488
+#: ../src/file_dialogs.c:1489
 msgid "File disappeared from disk\n"
 msgstr "디스크의 숨김 파일\n"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "_Ignore"
 msgstr "무시(_I)"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "_Reload"
 msgstr "다시 읽어오기(_R)"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "Check and reload all documents"
 msgstr "전체 문서 검사 및 다시 읽어오기"
 
@@ -2309,11 +2309,11 @@ msgstr "문자 인코딩(_E):"
 msgid "Automatic detection"
 msgstr "자동 탐지"
 
-#: ../src/gtk_easy.c:1507
+#: ../src/gtk_easy.c:1511
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>키누름 선택</b>"
 
-#: ../src/gtk_easy.c:1515
+#: ../src/gtk_easy.c:1519
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2325,7 +2325,7 @@ msgstr ""
 "특정키를 Ctrl, Shift, Alt키와 함께 눌러주세요.\n"
 "<i>취소는 Esc 키, 지우기는 Delete 키를 눌러주세요.</i>"
 
-#: ../src/gtk_easy.c:1540
+#: ../src/gtk_easy.c:1544
 msgid "Press shortcut key combination"
 msgstr "단축키 조합을 눌러주세요."
 
@@ -2341,7 +2341,7 @@ msgstr "행"
 msgid "Output"
 msgstr "출력"
 
-#: ../src/outputbox.c:478
+#: ../src/outputbox.c:481
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "출력상자 패턴 %s 컴파일 실패: %s"

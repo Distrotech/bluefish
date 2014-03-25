@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-02-01 12:16-0800\n"
+"POT-Creation-Date: 2014-03-24 22:20-0700\n"
 "PO-Revision-Date: 2012-06-20 23:45+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
@@ -398,7 +398,7 @@ msgstr "Selecionar tudo"
 msgid "Add Boo_kmark"
 msgstr "Adicionar _Marcador"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2084
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
 msgid "Add bookmark"
 msgstr "Adicionar marcador"
 
@@ -784,7 +784,7 @@ msgid "Wrap text"
 msgstr "Quebrar o texto"
 
 # src/callbacks.c:320 src/document.c:1419 src/rpopup.c:302 src/toolbars.c:102
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3196
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
 msgid "_Close"
 msgstr "_Fechar"
 
@@ -805,7 +805,7 @@ msgstr "Fechar todos os ficheiros"
 
 # src/document.c:1419 src/rpopup.c:293 src/toolbars.c:98
 #: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 msgid "_Save"
 msgstr "_Gravar"
 
@@ -1378,7 +1378,7 @@ msgstr "_Editar..."
 msgid "_Delete"
 msgstr "_Apagar"
 
-#: ../src/bookmark.c:901 ../src/document.c:2080
+#: ../src/bookmark.c:901 ../src/document.c:2083
 msgid "Delete bookmark"
 msgstr "Apagar marcador"
 
@@ -1561,47 +1561,47 @@ msgstr "Abrir apenas para leitura"
 msgid "Do not open"
 msgstr "Não abrir"
 
-#: ../src/document.c:1308
+#: ../src/document.c:1311
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " Ln: %d, Col: %d, Car: %d"
 
-#: ../src/document.c:1311
+#: ../src/document.c:1314
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " Ln: %d, Col: %d"
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " OVR"
 msgstr " SBR"
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " INS"
 msgstr " INS"
 
-#: ../src/document.c:1336
+#: ../src/document.c:1339
 msgid " RO"
 msgstr " AL"
 
 # src/callbacks.c:195
-#: ../src/document.c:1355
+#: ../src/document.c:1358
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 #, fuzzy
 msgid "_No"
 msgstr "_Ir"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 msgid "_Split"
 msgstr ""
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid "File contains very long lines. Split these lines?"
 msgstr ""
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1609,27 +1609,27 @@ msgid ""
 "insert newlines if no spaces or tabs are found."
 msgstr ""
 
-#: ../src/document.c:1898
+#: ../src/document.c:1901
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 "Incapaz de apresentar o ficheiro, foram encontrados caracteres desconhecidos."
 
-#: ../src/document.c:2090
+#: ../src/document.c:2093
 msgid "Exit fullscreen"
 msgstr "Sair do modo ecrã completo"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2234 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "_Abortar gravação"
 
-#: ../src/document.c:2234
+#: ../src/document.c:2237
 msgid "_Continue save in UTF-8"
 msgstr "_Continuar gravação em UTF-8"
 
-#: ../src/document.c:2247
+#: ../src/document.c:2250
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1642,16 +1642,16 @@ msgstr ""
 "\n"
 "Continuar a gravação com a codificação UTF-8?"
 
-#: ../src/document.c:2252
+#: ../src/document.c:2255
 msgid "File encoding conversion failure"
 msgstr "Falha na conversão da codificação do ficheiro"
 
 # src/document.c:1337
-#: ../src/document.c:2411
+#: ../src/document.c:2415
 msgid "Previously: "
 msgstr "Previamente: "
 
-#: ../src/document.c:2983 ../src/file_dialogs.c:839
+#: ../src/document.c:2987 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1661,11 +1661,11 @@ msgstr ""
 "Actualize para a versão 2.18.0 ou superior."
 
 # src/document.c:1374
-#: ../src/document.c:3112
+#: ../src/document.c:3116
 msgid "Unable to open file"
 msgstr "Incapaz de abrir o ficheiro"
 
-#: ../src/document.c:3124
+#: ../src/document.c:3128
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1674,89 +1674,89 @@ msgstr ""
 "Se reverter \"%s\" para a sua última cópia gravada, as suas alterações "
 "actuais serão definitivamente perdidas."
 
-#: ../src/document.c:3128
+#: ../src/document.c:3132
 msgid "Revert changes to last saved copy?"
 msgstr "Reverter as alterações para a última cópia gravada?"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "_Retry"
 msgstr "_Tentar Novamente"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "Retry _all failed"
 msgstr "Tentar novamente _todas as falhadas"
 
 # src/document.c:1103
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "Close all _failed"
 msgstr "Fechar todas as _falhadas"
 
 # src/rpopup.c:288
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid "File "
 msgstr "Ficheiro "
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid " failed to load."
 msgstr " falhou ao ser lido."
 
-#: ../src/document.c:3205
+#: ../src/document.c:3209
 msgid "File failed to load\n"
 msgstr "Falha ao ler o ficheiro\n"
 
 # src/document.c:1347 src/document.c:1547
-#: ../src/document.c:3330
+#: ../src/document.c:3334
 msgid "Select file to insert"
 msgstr "Selecione o ficheiro a inserir"
 
 # src/document.c:1347 src/document.c:1547
-#: ../src/document.c:3339
+#: ../src/document.c:3343
 msgid "No file to insert"
 msgstr "Nenhum ficheiro para inserir"
 
 # src/document.c:1304
-#: ../src/document.c:3419
+#: ../src/document.c:3423
 #, fuzzy
 msgid "Save pasted image as"
 msgstr "Gravar o ficheiro como"
 
-#: ../src/document.c:3515
+#: ../src/document.c:3519
 msgid "Paste special"
 msgstr ""
 
-#: ../src/document.c:3521
+#: ../src/document.c:3525
 msgid "No compatible clipboard data found"
 msgstr ""
 
-#: ../src/document.c:3525
+#: ../src/document.c:3529
 msgid "Paste as _HTML"
 msgstr ""
 
-#: ../src/document.c:3530
+#: ../src/document.c:3534
 msgid "Paste as HTML with _JPG"
 msgstr ""
 
 # src/images.c:182
-#: ../src/document.c:3540
+#: ../src/document.c:3544
 #, fuzzy
 msgid "Paste as plain text"
 msgstr "Inserir texto simples"
 
-#: ../src/document.c:3634
+#: ../src/document.c:3638
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d linha"
 msgstr[1] "%d linhas"
 
-#: ../src/document.c:3635
+#: ../src/document.c:3639
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d palavra"
 msgstr[1] "%d palavras"
 
-#: ../src/document.c:3636
+#: ../src/document.c:3640
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
@@ -1764,12 +1764,12 @@ msgstr[0] "%d caracter"
 msgstr[1] "%d caracteres"
 
 # src/snr2.c:654 src/toolbars.c:111
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 msgid "Selection statistics: "
 msgstr "Estatísticas de selecção: "
 
 # src/snr2.c:654 src/toolbars.c:111
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 msgid "Statistics: "
 msgstr "Estatísticas: "
 
@@ -1891,34 +1891,34 @@ msgstr "Codificações no _menu:"
 msgid "Add or remove document encodings"
 msgstr "Adicionar ou remover codificações de documentos"
 
-#: ../src/external_commands.c:414
+#: ../src/external_commands.c:446
 msgid "Supply extra arguments"
 msgstr "Indicar argumentos adicionais"
 
-#: ../src/external_commands.c:419
+#: ../src/external_commands.c:451
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr "Indicar argumentos para definir %%a em '%s'"
 
-#: ../src/external_commands.c:671
+#: ../src/external_commands.c:721
 #, c-format
 msgid "Failed to create a command for %s."
 msgstr ""
 
-#: ../src/external_commands.c:673
+#: ../src/external_commands.c:723
 msgid "Failed to create a command"
 msgstr ""
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:704
+#: ../src/external_commands.c:744 ../src/external_commands.c:761
 #, c-format
 msgid "The command %s exited with error code %d. %s"
 msgstr ""
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:708
+#: ../src/external_commands.c:747 ../src/external_commands.c:765
 msgid "Probably this application is not installed on your system."
 msgstr ""
 
-#: ../src/external_commands.c:694
+#: ../src/external_commands.c:750
 msgid "Command returned error code"
 msgstr ""
 
@@ -2140,7 +2140,7 @@ msgstr "Simples"
 msgid "Tree"
 msgstr "Árvore"
 
-#: ../src/filebrowser2.c:2286
+#: ../src/filebrowser2.c:2296
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -2151,45 +2151,45 @@ msgstr ""
 "que é o equivalente de\n"
 "<b>%s%s</b>"
 
-#: ../src/file.c:856
+#: ../src/file.c:870
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "Ainda a ler %d ficheiro, %s terminados"
 msgstr[1] "Ainda a ler %d ficheiros, %s terminados"
 
-#: ../src/file.c:862
+#: ../src/file.c:876
 #, fuzzy, c-format
 msgid "All files loaded, finished %s, %d document open"
 msgid_plural "All files loaded, finished %s, %d documents open"
 msgstr[0] "Todos os ficheiros lidos, %s terminados"
 msgstr[1] "Todos os ficheiros lidos, %s terminados"
 
-#: ../src/file.c:1389
+#: ../src/file.c:1403
 #, fuzzy, c-format
 msgid "Finished advanced open, %d document open."
 msgid_plural "Finished advanced open, %d documents open."
 msgstr[0] "Terminada a abertura avançada"
 msgstr[1] "Terminada a abertura avançada"
 
-#: ../src/file.c:1565
+#: ../src/file.c:1579
 msgid "_Skip"
 msgstr "_Saltar"
 
 # src/document.c:1318
-#: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/file.c:1579 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
 #: ../src/project.c:363
 msgid "_Overwrite"
 msgstr "S_obrepor"
 
 # src/document.c:1319
-#: ../src/file.c:1569
+#: ../src/file.c:1583
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "Incapaz de copiar %s, já existe, sobrepor?"
 
 # src/document.c:1318
-#: ../src/file.c:1571
+#: ../src/file.c:1585
 msgid "Overwrite file?"
 msgstr "Sobrepor o ficheiro?"
 
@@ -2262,7 +2262,7 @@ msgstr "Selecionar ficheiros"
 msgid "Open URL"
 msgstr "Abrir URL"
 
-#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1389
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1390
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -2296,7 +2296,7 @@ msgstr "Falha ao criar cópia de segurança do ficheiro"
 msgid "Could not save file "
 msgstr "Incapaz de gravar o ficheiro "
 
-#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1524
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1525
 msgid "File changed on disk\n"
 msgstr "O ficheiro foi alterado no disco\n"
 
@@ -2409,56 +2409,56 @@ msgstr "_Gravar Todos"
 msgid "One or more open files have been changed."
 msgstr "Um ou mais ficheiros abertos foram alterados."
 
-#: ../src/file_dialogs.c:1309
+#: ../src/file_dialogs.c:1310
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">%d falha</span>"
 msgstr[1] "<span color=\"red\">%d falhas</span>"
 
-#: ../src/file_dialogs.c:1318
+#: ../src/file_dialogs.c:1319
 msgid "incomplete finished"
 msgstr "incompleto terminado"
 
-#: ../src/file_dialogs.c:1320
+#: ../src/file_dialogs.c:1321
 msgid "completed"
 msgstr "terminado"
 
-#: ../src/file_dialogs.c:1375
+#: ../src/file_dialogs.c:1376
 msgid "Upload / Download"
 msgstr "Upload / Download"
 
 # src/snr2.c:651 src/snr2.c:688
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 msgid "Upload"
 msgstr "Upload"
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 msgid "Download"
 msgstr "Download"
 
 # src/document.c:1798
-#: ../src/file_dialogs.c:1401
+#: ../src/file_dialogs.c:1402
 msgid "Local directory"
 msgstr "Directório local"
 
 # src/document.c:1798
-#: ../src/file_dialogs.c:1407
+#: ../src/file_dialogs.c:1408
 msgid "Remote directory"
 msgstr "Directório remoto"
 
 # src/bluefish.c:617
-#: ../src/file_dialogs.c:1412
+#: ../src/file_dialogs.c:1413
 msgid "Delete deprecated files"
 msgstr "Apagar ficheiros obsoletos"
 
-#: ../src/file_dialogs.c:1416
+#: ../src/file_dialogs.c:1417
 msgid "Include hidden files"
 msgstr "Incluir ficheiros escondidos"
 
 # src/document.c:1319
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1460
+#: ../src/file_dialogs.c:1461
 #, fuzzy, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -2476,33 +2476,33 @@ msgstr ""
 "O novo tamanho é %lu"
 
 # src/document.c:1347 src/document.c:1547
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 msgid "_Unset file name"
 msgstr "_Desmarcar nome do ficheiro"
 
 # src/interface.c:731
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1485
+#: ../src/file_dialogs.c:1486
 #, c-format
 msgid "File name: %s"
 msgstr "Nome do ficheiro: %s"
 
-#: ../src/file_dialogs.c:1488
+#: ../src/file_dialogs.c:1489
 msgid "File disappeared from disk\n"
 msgstr "O ficheiro desapareceu do disco\n"
 
 # src/html.c:1315
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "_Ignore"
 msgstr "_Ignorar"
 
 # src/snr2.c:651 src/snr2.c:688
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "_Reload"
 msgstr "_Reler"
 
 # src/menu.c:134
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 msgid "Check and reload all documents"
 msgstr "Verificar e reler todos os documentos"
 
@@ -2549,11 +2549,11 @@ msgstr "Codificação de Caract_eres:"
 msgid "Automatic detection"
 msgstr "Detecção automática"
 
-#: ../src/gtk_easy.c:1507
+#: ../src/gtk_easy.c:1511
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>Escolha de combinação de teclas</b>"
 
-#: ../src/gtk_easy.c:1515
+#: ../src/gtk_easy.c:1519
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2565,7 +2565,7 @@ msgstr ""
 "Utilize a tecla Ctrl, Shift ou Alt com qualquer outra tecla.\n"
 "<i>Esc para cancelar, Delete para remover o atalho.</i>"
 
-#: ../src/gtk_easy.c:1540
+#: ../src/gtk_easy.c:1544
 msgid "Press shortcut key combination"
 msgstr "Prima a combinação de teclas de atalho"
 
@@ -2584,7 +2584,7 @@ msgstr "Linha"
 msgid "Output"
 msgstr "Saída"
 
-#: ../src/outputbox.c:478
+#: ../src/outputbox.c:481
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "Falha ao compilar o padrão de caixa de saída %s: %s"

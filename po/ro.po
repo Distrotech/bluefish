@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-02-01 12:16-0800\n"
+"POT-Creation-Date: 2014-03-24 22:20-0700\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Alex Negulescu <alecs@altlinux.org>\n"
 "Language-Team: <ro@li.org>\n"
@@ -400,7 +400,7 @@ msgstr "Selecteaza fisierul"
 msgid "Add Boo_kmark"
 msgstr "Adauga bookmark"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2084
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
 msgid "Add bookmark"
 msgstr "Adauga bookmark"
 
@@ -785,7 +785,7 @@ msgstr "Text"
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3196
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
 msgid "_Close"
 msgstr "In_chide"
 
@@ -805,7 +805,7 @@ msgid "Close all files"
 msgstr "Inchide toate esuate"
 
 #: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 #, fuzzy
 msgid "_Save"
 msgstr "_Salveaza"
@@ -1369,7 +1369,7 @@ msgstr "Editor"
 msgid "_Delete"
 msgstr " /_Sterge "
 
-#: ../src/bookmark.c:901 ../src/document.c:2080
+#: ../src/bookmark.c:901 ../src/document.c:2083
 msgid "Delete bookmark"
 msgstr "Sterge bookmark"
 
@@ -1534,46 +1534,46 @@ msgstr "Deschide in mod citire"
 msgid "Do not open"
 msgstr "Nu deschide"
 
-#: ../src/document.c:1308
+#: ../src/document.c:1311
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " Ln: %d, Col: %d, Char: %d"
 
-#: ../src/document.c:1311
+#: ../src/document.c:1314
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " Ln: %d, Col: %d"
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " OVR"
 msgstr ""
 
-#: ../src/document.c:1334
+#: ../src/document.c:1337
 msgid " INS"
 msgstr ""
 
-#: ../src/document.c:1336
+#: ../src/document.c:1339
 msgid " RO"
 msgstr ""
 
-#: ../src/document.c:1355
+#: ../src/document.c:1358
 #, fuzzy
 msgid "Unknown"
 msgstr "Eroare necunoscuta"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 msgid "_No"
 msgstr ""
 
-#: ../src/document.c:1819
+#: ../src/document.c:1822
 msgid "_Split"
 msgstr ""
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid "File contains very long lines. Split these lines?"
 msgstr ""
 
-#: ../src/document.c:1822
+#: ../src/document.c:1825
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1581,26 +1581,26 @@ msgid ""
 "insert newlines if no spaces or tabs are found."
 msgstr ""
 
-#: ../src/document.c:1898
+#: ../src/document.c:1901
 msgid "Cannot display file, unknown characters found."
 msgstr "Nu pot afisa fisierul, au fost gasite caractere necunoscute."
 
-#: ../src/document.c:2090
+#: ../src/document.c:2093
 msgid "Exit fullscreen"
 msgstr ""
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2234 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "_Anulare"
 
-#: ../src/document.c:2234
+#: ../src/document.c:2237
 msgid "_Continue save in UTF-8"
 msgstr "_Continua salvarea in UTF-8"
 
-#: ../src/document.c:2247
+#: ../src/document.c:2250
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1613,26 +1613,26 @@ msgstr ""
 "\n"
 "Continui salvarea ca UTF-8 ?"
 
-#: ../src/document.c:2252
+#: ../src/document.c:2255
 msgid "File encoding conversion failure"
 msgstr "Setare encoding nou esuata"
 
-#: ../src/document.c:2411
+#: ../src/document.c:2415
 msgid "Previously: "
 msgstr "Inainte: "
 
-#: ../src/document.c:2983 ../src/file_dialogs.c:839
+#: ../src/document.c:2987 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
 
-#: ../src/document.c:3112
+#: ../src/document.c:3116
 msgid "Unable to open file"
 msgstr "Fisierul nu poate fi deschis"
 
-#: ../src/document.c:3124
+#: ../src/document.c:3128
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1641,99 +1641,99 @@ msgstr ""
 "Daca restituiti \"%s\" la ultima versiune salvata, modificarile dvs vor fi "
 "pierdute definitiv."
 
-#: ../src/document.c:3128
+#: ../src/document.c:3132
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "Reveniti la ultima versiune salvata?"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 msgid "_Retry"
 msgstr "_Reincearca"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 #, fuzzy
 msgid "Retry _all failed"
 msgstr "Reince_arca toate esuate"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3200
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Inchide toate esuate"
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid "File "
 msgstr "Fisier "
 
-#: ../src/document.c:3201
+#: ../src/document.c:3205
 msgid " failed to load."
 msgstr " nu a putut fi incarcat."
 
-#: ../src/document.c:3205
+#: ../src/document.c:3209
 msgid "File failed to load\n"
 msgstr "Fisierul nu a putut fi incarcat\n"
 
-#: ../src/document.c:3330
+#: ../src/document.c:3334
 msgid "Select file to insert"
 msgstr "Selectati fisierul spre inserare"
 
-#: ../src/document.c:3339
+#: ../src/document.c:3343
 #, fuzzy
 msgid "No file to insert"
 msgstr "Nu ati ales fisier spre inserare"
 
-#: ../src/document.c:3419
+#: ../src/document.c:3423
 #, fuzzy
 msgid "Save pasted image as"
 msgstr "Salveaza ca"
 
-#: ../src/document.c:3515
+#: ../src/document.c:3519
 msgid "Paste special"
 msgstr ""
 
-#: ../src/document.c:3521
+#: ../src/document.c:3525
 msgid "No compatible clipboard data found"
 msgstr ""
 
-#: ../src/document.c:3525
+#: ../src/document.c:3529
 msgid "Paste as _HTML"
 msgstr ""
 
-#: ../src/document.c:3530
+#: ../src/document.c:3534
 msgid "Paste as HTML with _JPG"
 msgstr ""
 
-#: ../src/document.c:3540
+#: ../src/document.c:3544
 #, fuzzy
 msgid "Paste as plain text"
 msgstr "Introdu imagine"
 
-#: ../src/document.c:3634
+#: ../src/document.c:3638
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d linie"
 msgstr[1] "%d linii"
 
-#: ../src/document.c:3635
+#: ../src/document.c:3639
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d cuvant"
 msgstr[1] "%d cuvinte"
 
-#: ../src/document.c:3636
+#: ../src/document.c:3640
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caracter"
 msgstr[1] "%d caractere"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "Statistici: "
 
-#: ../src/document.c:3638
+#: ../src/document.c:3642
 msgid "Statistics: "
 msgstr "Statistici: "
 
@@ -1851,34 +1851,34 @@ msgstr "Encodari in _meniu:"
 msgid "Add or remove document encodings"
 msgstr "Adauga sau sterge encodari la document"
 
-#: ../src/external_commands.c:414
+#: ../src/external_commands.c:446
 msgid "Supply extra arguments"
 msgstr ""
 
-#: ../src/external_commands.c:419
+#: ../src/external_commands.c:451
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
 msgstr ""
 
-#: ../src/external_commands.c:671
+#: ../src/external_commands.c:721
 #, c-format
 msgid "Failed to create a command for %s."
 msgstr ""
 
-#: ../src/external_commands.c:673
+#: ../src/external_commands.c:723
 msgid "Failed to create a command"
 msgstr ""
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:704
+#: ../src/external_commands.c:744 ../src/external_commands.c:761
 #, c-format
 msgid "The command %s exited with error code %d. %s"
 msgstr ""
 
-#: ../src/external_commands.c:692 ../src/external_commands.c:708
+#: ../src/external_commands.c:747 ../src/external_commands.c:765
 msgid "Probably this application is not installed on your system."
 msgstr ""
 
-#: ../src/external_commands.c:694
+#: ../src/external_commands.c:750
 msgid "Command returned error code"
 msgstr ""
 
@@ -2102,7 +2102,7 @@ msgstr ""
 msgid "Tree"
 msgstr ""
 
-#: ../src/filebrowser2.c:2286
+#: ../src/filebrowser2.c:2296
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -2110,42 +2110,42 @@ msgid ""
 "<b>%s%s</b>"
 msgstr ""
 
-#: ../src/file.c:856
+#: ../src/file.c:870
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file.c:862
+#: ../src/file.c:876
 #, c-format
 msgid "All files loaded, finished %s, %d document open"
 msgid_plural "All files loaded, finished %s, %d documents open"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file.c:1389
+#: ../src/file.c:1403
 #, c-format
 msgid "Finished advanced open, %d document open."
 msgid_plural "Finished advanced open, %d documents open."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file.c:1565
+#: ../src/file.c:1579
 msgid "_Skip"
 msgstr ""
 
-#: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/file.c:1579 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
 #: ../src/project.c:363
 msgid "_Overwrite"
 msgstr ""
 
-#: ../src/file.c:1569
+#: ../src/file.c:1583
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr ""
 
-#: ../src/file.c:1571
+#: ../src/file.c:1585
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "Selecteaza fisierul"
@@ -2218,7 +2218,7 @@ msgstr "Selecteaza fisierul"
 msgid "Open URL"
 msgstr ""
 
-#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1389
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1390
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
@@ -2247,7 +2247,7 @@ msgstr "Numele serverului nu a fost gasit"
 msgid "Could not save file "
 msgstr "Fisierul nu a putut fi deschis :\n"
 
-#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1524
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1525
 #, fuzzy
 msgid "File changed on disk\n"
 msgstr "Eroare Bluefish"
@@ -2351,56 +2351,56 @@ msgstr "/Fisier/Salveaza tot"
 msgid "One or more open files have been changed."
 msgstr ""
 
-#: ../src/file_dialogs.c:1309
+#: ../src/file_dialogs.c:1310
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file_dialogs.c:1318
+#: ../src/file_dialogs.c:1319
 msgid "incomplete finished"
 msgstr ""
 
-#: ../src/file_dialogs.c:1320
+#: ../src/file_dialogs.c:1321
 msgid "completed"
 msgstr ""
 
-#: ../src/file_dialogs.c:1375
+#: ../src/file_dialogs.c:1376
 msgid "Upload / Download"
 msgstr ""
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 #, fuzzy
 msgid "Upload"
 msgstr "Inlocuieste:"
 
-#: ../src/file_dialogs.c:1378
+#: ../src/file_dialogs.c:1379
 msgid "Download"
 msgstr ""
 
-#: ../src/file_dialogs.c:1401
+#: ../src/file_dialogs.c:1402
 #, fuzzy
 msgid "Local directory"
 msgstr "Deschid fisierul"
 
-#: ../src/file_dialogs.c:1407
+#: ../src/file_dialogs.c:1408
 #, fuzzy
 msgid "Remote directory"
 msgstr "Deschid fisierul"
 
-#: ../src/file_dialogs.c:1412
+#: ../src/file_dialogs.c:1413
 #, fuzzy
 msgid "Delete deprecated files"
 msgstr "Selecteaza fisierul"
 
-#: ../src/file_dialogs.c:1416
+#: ../src/file_dialogs.c:1417
 #, fuzzy
 msgid "Include hidden files"
 msgstr "Numele serverului nu a fost gasit"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1460
+#: ../src/file_dialogs.c:1461
 #, fuzzy, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -2415,32 +2415,32 @@ msgstr ""
 "Noua data a modificarilor: %s\n"
 "Vechea data a modificarilor: %s"
 
-#: ../src/file_dialogs.c:1483
+#: ../src/file_dialogs.c:1484
 #, fuzzy
 msgid "_Unset file name"
 msgstr "Reseteaza n_umele fisierului"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1485
+#: ../src/file_dialogs.c:1486
 #, c-format
 msgid "File name: %s"
 msgstr "Nume fisier: %s"
 
-#: ../src/file_dialogs.c:1488
+#: ../src/file_dialogs.c:1489
 msgid "File disappeared from disk\n"
 msgstr "Fisierul a disparut de pe disk\n"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 #, fuzzy
 msgid "_Ignore"
 msgstr "_Ignora"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 #, fuzzy
 msgid "_Reload"
 msgstr "_Reincarca"
 
-#: ../src/file_dialogs.c:1507
+#: ../src/file_dialogs.c:1508
 #, fuzzy
 msgid "Check and reload all documents"
 msgstr "Verifica si reincarca toate documentele"
@@ -2488,11 +2488,11 @@ msgstr "Optiuni editor"
 msgid "Automatic detection"
 msgstr ""
 
-#: ../src/gtk_easy.c:1507
+#: ../src/gtk_easy.c:1511
 msgid "<b>Keystroke choice</b>"
 msgstr ""
 
-#: ../src/gtk_easy.c:1515
+#: ../src/gtk_easy.c:1519
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2500,7 +2500,7 @@ msgid ""
 "<i>Esc to cancel, Delete to remove the accelerator.</i>"
 msgstr ""
 
-#: ../src/gtk_easy.c:1540
+#: ../src/gtk_easy.c:1544
 msgid "Press shortcut key combination"
 msgstr ""
 
@@ -2518,7 +2518,7 @@ msgstr "Numar linie"
 msgid "Output"
 msgstr ""
 
-#: ../src/outputbox.c:478
+#: ../src/outputbox.c:481
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr ""
