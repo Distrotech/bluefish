@@ -2,7 +2,7 @@
 ; Bluefish Windows NSIS Macros Header
 ; [Macros.nsh]
 ; 
-;  Copyright (C) 2009-2013 The Bluefish Developers
+;  Copyright (C) 2009-2014 The Bluefish Developers
 ;   Shawn Novak <Kernel86@gmail.com>
 ;   Daniel Leidert <daniel.leidert@wgdd.de>
 ;----------------------------------------------
@@ -92,6 +92,8 @@
 !define SelectIfRegisteredHTML `!insertmacro SelectIfRegisteredHTML`
 
 !macro RegisterFileType HWND EXT TYPE PROG DESC ICON
+	StrCpy $PROG "${PROG}"
+
 	${If} $HKEY == "HKLM"
 	${OrIf} $HKEY == "Classic"
 		ReadRegStr $R1 HKCR ".${EXT}" "Content Type" ; Read the current mimetype
@@ -102,25 +104,30 @@
 			WriteRegStr HKCR ".${EXT}" "Content Type" "${TYPE}"
 		${EndIf} ; Proper mimetype has been set
 		${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
-		${If} ${PROG} != "0" ; If set to 0 this denotes a special case such as for HTML and we need to skip this section
+		${If} $PROG != "0" ; If set to 0 this denotes a special case such as for HTML and we need to skip this section
 			${If} $R0 == ${BST_CHECKED} ; The user has selected to associate this file type with Bluefish
 ;				DetailPrint "$(FILETYPE_REGISTERING)${DESC}..." ; Let the user know we're registering this file type
-				${If} $R2 != "${PROG}" ; If the current class is different that ours set it for Bluefish
-					WriteRegStr HKCR ".${EXT}" "" "${PROG}"
-				${EndIf} ; Else the class is already set for Bluefish so we needn't change it
 				; The following should only be needed once and could be in the above IF block with some more checks
-				WriteRegStr HKCR "${PROG}" "" "${DESC}"
-				WriteRegStr HKCR "${PROG}\DefaultIcon" "" "$INSTDIR\${PROGRAM_EXE},${ICON}"
-				WriteRegStr HKCR "${PROG}\shell" "" "open"
-				WriteRegStr HKCR "${PROG}\shell\open" "" "Open"
-				WriteRegStr HKCR "${PROG}\shell\open\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
-				${If} ${EXT} == "VBS" ; VBS needs a registered Script Handler
-					WriteRegStr HKCR ".${EXT}\ScriptEngine" "" "VBScript"
-				${ElseIf} ${EXT} == "JS" ; JS needs a registered Script Handler
-					WriteRegStr HKCR ".${EXT}\ScriptEngine" "" "JScript"
+				${If} $PROG == "bfvbsfile"
+					StrCpy $PROG "VBSFile"
+					StrCpy $SHELLCMD "Edit"
+				${ElseIf} $PROG == "bfjsfile"
+					StrCpy $PROG "JSFile"
+					StrCpy $SHELLCMD "Edit"
+				${Else}
+					StrCpy $SHELLCMD "Open"
+					${If} $R2 != "$PROG" ; If the current class is different that ours set it for Bluefish
+						WriteRegStr HKCR ".${EXT}" "" "$PROG"
+					${EndIf} ; Else the class is already set for Bluefish so we needn't change it
+					WriteRegStr HKCR "$PROG" "" "${DESC}"
+					WriteRegStr HKCR "$PROG\DefaultIcon" "" "$INSTDIR\${PROGRAM_EXE},${ICON}"
+					WriteRegStr HKCR "$PROG\shell" "" "$SHELLCMD"
 				${EndIf}
+				WriteRegStr HKCR "$PROG\shell\$SHELLCMD" "" "$SHELLCMD"
+				WriteRegStr HKCR "$PROG\shell\$SHELLCMD\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+
 				; This is just so the un.UnRegisterFileTypes function removes all the bf*file entries
-				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\${PROG}" "" ""
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\$PROG" "" ""
 			${EndIf} ; Bluefish will not be associated with this file type
 		${EndIf}
 	${Else}
@@ -132,25 +139,30 @@
 			WriteRegStr HKCU "${REG_CLASS_SET}\.${EXT}" "Content Type" "${TYPE}"
 		${EndIf} ; Proper mimetype has been set
 		${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
-		${If} ${PROG} != "0" ; If set to 0 this denotes a special case such as for HTML and we need to skip this section
+		${If} $PROG != "0" ; If set to 0 this denotes a special case such as for HTML and we need to skip this section
 			${If} $R0 == ${BST_CHECKED} ; The user has selected to associate this file type with Bluefish
 ;				DetailPrint "$(FILETYPE_REGISTERING)${DESC}..." ; Let the user know we're registering this file type
-				${If} $R2 != "${PROG}" ; If the current class is different that ours set it for Bluefish
-					WriteRegStr HKCU "${REG_CLASS_SET}\.${EXT}" "" "${PROG}"
-				${EndIf} ; Else the class is already set for Bluefish so we needn't change it
 				; The following should only be needed once and could be in the above IF block with some more checks
-				WriteRegStr HKCU "${REG_CLASS_SET}\${PROG}" "" "${DESC}"
-				WriteRegStr HKCU "${REG_CLASS_SET}\${PROG}\DefaultIcon" "" "$INSTDIR\${PROGRAM_EXE},${ICON}"
-				WriteRegStr HKCU "${REG_CLASS_SET}\${PROG}\shell" "" "open"
-				WriteRegStr HKCU "${REG_CLASS_SET}\${PROG}\shell\open" "" "Open"
-				WriteRegStr HKCU "${REG_CLASS_SET}\${PROG}\shell\open\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
-				${If} ${EXT} == "VBS" ; VBS needs a registered Script Handler
-					WriteRegStr HKCU "${REG_CLASS_SET}\.${EXT}\ScriptEngine" "" "VBScript"
-				${ElseIf} ${EXT} == "JS" ; JS needs a registered Script Handler
-					WriteRegStr HKCU "${REG_CLASS_SET}\.${EXT}\ScriptEngine" "" "JScript"
+				${If} $PROG == "bfvbsfile"
+					StrCpy $PROG "VBSFile"
+					StrCpy $SHELLCMD "Edit"
+				${ElseIf} $PROG == "bfjsfile"
+					StrCpy $PROG "JSFile"
+					StrCpy $SHELLCMD "Edit"
+				${Else}
+					StrCpy $SHELLCMD "Open"
+					${If} $R2 != "${PROG}" ; If the current class is different that ours set it for Bluefish
+						WriteRegStr HKCU "${REG_CLASS_SET}\.${EXT}" "" "$PROG"
+					${EndIf} ; Else the class is already set for Bluefish so we needn't change it
+					WriteRegStr HKCU "${REG_CLASS_SET}\$PROG" "" "${DESC}"
+					WriteRegStr HKCU "${REG_CLASS_SET}\$PROG\DefaultIcon" "" "$INSTDIR\${PROGRAM_EXE},${ICON}"
+					WriteRegStr HKCU "${REG_CLASS_SET}\$PROG\shell" "" "$SHELLCMD"
 				${EndIf}
+				WriteRegStr HKCU "${REG_CLASS_SET}\$PROG\shell\$SHELLCMD" "" "$SHELLCMD"
+				WriteRegStr HKCU "${REG_CLASS_SET}\$PROG\shell\$SHELLCMD\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+
 				; This is just so the un.UnRegisterFileTypes function removes all the bf*file entries
-				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\${PROG}" "" ""
+				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\$PROG" "" ""
 			${EndIf} ; Bluefish will not be associated with this file type
 		${EndIf}
 	${EndIf}

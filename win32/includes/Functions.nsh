@@ -2,7 +2,7 @@
 ; Bluefish Windows NSIS Macros Header
 ; [Functions.nsh]
 ; 
-;  Copyright (C) 2009-2013 The Bluefish Developers
+;  Copyright (C) 2009-2014 The Bluefish Developers
 ;   Shawn Novak <Kernel86@gmail.com>
 ;   Daniel Leidert <daniel.leidert@wgdd.de>
 ;----------------------------------------------
@@ -132,7 +132,6 @@ Function SetFileAssociations
 	${RegisterFileType} $FA_Diff 	"patch" 	"text/x-patch" 			"bfdifffile" "$(CT_DIFF)" 100
 	${RegisterFileType} $FA_Po  	"po" 		"text/x-gettext-translation" 	"bfpofile" "$(CT_PO)" 9
 	${RegisterFileType} $FA_Java 	"java" 	"text/x-java" 			"bfjavafile" "$(CT_JAVA)" 13
-	${RegisterFileType} $FA_Js  	"js" 		"application/javascript" 		"bfjsfile" "$(CT_JS)" 14
 	${RegisterFileType} $FA_Jsp 	"jsp" 	"application/x-jsp" 		"bfjspfile" "$(CT_JSP)" 15
 	${RegisterFileType} $FA_Mw  	"mw" 		"text/x-mediawiki" 		"bfmwfile" "$(CT_MW)" 100
 	${RegisterFileType} $FA_Nsi 	"nsi" 	"text/x-nsi" 			"bfnsifile" "$(CT_NSI)" 17
@@ -144,8 +143,7 @@ Function SetFileAssociations
 	${RegisterFileType} $FA_Py  	"py" 		"text/x-python" 		"bfpyfile" "$(CT_PY)" 20
 	${RegisterFileType} $FA_Rb  	"rb" 		"text/x-ruby" 			"bfrbfile" "$(CT_RB)" 21
 	${RegisterFileType} $FA_Smarty 	"tpl" 	"application/x-smarty" 		"bfsmartyfile" "$(CT_SMARTY)" 23
-	${RegisterFileType} $FA_Vbs 	"vbs" 	"application/x-vbscript" 		"bfvbsfile" "$(CT_VBS)" 25
-	${RegisterFileType} $FA_Vbs 	"vb" 		"application/x-vbscript" 		"bfvbsfile" "$(CT_VBS)" 25
+	${RegisterFileType} $FA_Vbs 	"vb" 	"application/x-vbscript" 		"bfvbsfile" "$(CT_VBS)" 25
 	${RegisterFileType} $FA_Xhtml 	"xhtml" 	"application/xhtml+xml" 		"bfxhtmlfile" "$(CT_XHTML)" 26
 	${RegisterFileType} $FA_Xml 	"xml" 	"text/xml" 			"bfxmlfile" "$(CT_XML)" 27
 	${RegisterFileType} $FA_Xml 	"xsl" 	"application/xslt+xml" 		"bfxslfile" "$(CT_XSL)" 28
@@ -155,6 +153,10 @@ Function SetFileAssociations
 	${RegisterHTMLType} $FA_Html
 	${RegisterFileType} $FA_Html	"htm" 	"text/html" 		"0"	"0"	"0"
 	${RegisterFileType} $FA_Html	"html" 	"text/html" 		"0"	"0"	"0"
+
+	; Extra special cases
+	${RegisterFileType} $FA_Js  	"js" 		"application/javascript" 		"bfjsfile" "$(CT_JS)" 14
+	${RegisterFileType} $FA_Vbs 	"vbs" 		"application/x-vbscript" 		"bfvbsfile" "$(CT_VBS)" 25
 FunctionEnd
 
 Function FileAssociations_SelectAll

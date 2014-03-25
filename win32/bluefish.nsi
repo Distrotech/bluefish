@@ -2,7 +2,7 @@
 ; Bluefish Windows NSIS Install Script
 ; [bluefish.nsi]
 ; 
-;  Copyright (C) 2009-2013 The Bluefish Developers
+;  Copyright (C) 2009-2014 The Bluefish Developers
 ;   Shawn Novak <Kernel86@gmail.com>
 ;   Daniel Leidert <daniel.leidert@wgdd.de>
 ;----------------------------------------------
@@ -112,6 +112,8 @@ Var FA_Vbs
 Var FA_Xhtml
 Var FA_Xml
 Var FA_SelectAll
+Var PROG
+Var SHELLCMD
 
 
 ; Installer configuration settings
@@ -785,7 +787,7 @@ Function .onInit
 		ReadRegStr $R1 HKLM ${REG_USER_SET} "Version"
 	${EndIf}
 
-; Fix would be uninstall problems prior to 2.0.0-1
+; Fix would be uninstall problems
 	${If} $R1 == "1.3.7"
 	${OrIf} $R1 == "1.3.8"
 	${OrIf} $R1 == "1.3.9"
@@ -795,26 +797,31 @@ Function .onInit
 	${OrIf} $R1 == "2.0.0-rc3-1"
 	${OrIf} $R1 == "2.0.0"
 	${OrIf} $R1 == "2.0.0-1"
+	${OrIf} $R1 == "2.0.1"
+	${OrIf} $R1 == "2.0.2"
+	${OrIf} $R1 == "2.0.3"
+	${OrIf} $R1 == "2.2.0"
+	${OrIf} $R1 == "2.2.1"
+	${OrIf} $R1 == "2.2.2"
+	${OrIf} $R1 == "2.2.3"
+	${OrIf} $R1 == "2.2.4"
+	${OrIf} $R1 == "2.2.5"
 		ReadRegStr $R0 HKCU "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" ; Read stored class
 		ReadRegStr $R2 HKCR ".vbs" "" ; Read current class
 		${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
-			WriteRegStr HKCR ".vbs" "" "VBScript"
-		${ElseIf} $R2 == "bfvbsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
-		WriteRegStr HKCR ".vbs\ScriptEngine" "" "VBScript"
+			WriteRegStr HKCR ".vbs" "" "VBSFile"
 		${EndIf}
 		${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
-			WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" "VBScript"
+			WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" "VBSFile"
 		${EndIf}
 
 		ReadRegStr $R0 HKCU "${REG_UNINSTALL}\Backup\HKCR\.js" "" ; Read stored class
 		ReadRegStr $R2 HKCR ".js" "" ; Read current class
 		${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
-			WriteRegStr HKCR ".js" "" "JScript"
-		${ElseIf} $R2 == "bfjsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
-			WriteRegStr HKCR ".js\ScriptEngine" "" "JScript"
+			WriteRegStr HKCR ".js" "" "JSFile"
 		${EndIf}
 		${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
-			WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.js" "" "JScript"
+			WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.js" "" "JSFile"
 		${EndIf}
 	${EndIf}
 
