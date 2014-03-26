@@ -219,6 +219,11 @@ spellcheck_word(BluefishTextView * btv, GtkTextBuffer * buffer, GtkTextIter * st
 	tocheck = gtk_text_buffer_get_text(buffer, start, end, FALSE);
 	if (!tocheck)
 		return;
+	
+	if (strlen(tocheck)==0) {
+		g_free(tocheck);
+		return;
+	}
 
 	DBG_SPELL("spellcheck_word, check word %s in dictionary %p\n", tocheck,
 			  BFWIN(DOCUMENT(btv->doc)->bfwin)->ed);
