@@ -1440,7 +1440,7 @@ file_chooser_dialog(Tbfwin * bfwin, const gchar * title, GtkFileChooserAction ac
 	gtk_widget_show(vbox);
 #ifdef MAC_INTEGRATION
 	gtk_widget_show(dialog);
-	gtk_window_resize(GTK_WINDOW(dialog), -1, -1);
+	gtk_window_set_default_size(GTK_WINDOW(dialog), -1, -1);
 #endif 
 	return dialog;
 }
