@@ -1642,6 +1642,27 @@ encoding_by_regex(const gchar * buffer, const gchar * pattern, guint subpat)
 	return retstring;
 }
 
+gboolean
+utf8_validate_accept_trailing_nul(gchar *buffer, gsize buflen)
+{
+	gboolean ret;
+	gchar *end=NULL;
+	gint i;
+	ret = g_utf8_validate(buffer, buflen, &end);
+	if (ret)
+		return TRUE;
+
+	if (end<=buffer)
+		return FALSE;
+
+	/* if all characters that are not valid are NUL characters, we accept the conversion */
+	for (i=(end-buffer);i<buflen;i++) {
+		if (buffer[i]!=0)
+			return FALSE;
+	}
+	return TRUE;
+}
+
 /**
  * buffer_find_encoding:
  * @buffer: gchar* with \- terminated string
@@ -1703,7 +1724,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 	/* because UTF-8 validation is very critical (very little texts in other encodings actually validate as UTF-8)
 	we do this early in the detection */
 	DEBUG_MSG("doc_buffer_to_textbox, file NOT is converted yet, trying UTF-8 encoding\n");
-	if (g_utf8_validate(buffer, buflen, &end)) {
+	if (/*g_utf8_validate(buffer, buflen, &end)*/ utf8_validate_accept_trailing_nul(buffer, buflen)) {
 		*encoding = g_strdup("UTF-8");
 		return g_strdup(buffer);
 	} else {
@@ -1721,7 +1742,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 			g_error_free(error);
 			error=NULL;
 		}
-		if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
+		if (newbuf && /*g_utf8_validate(newbuf, wsize, NULL)*/utf8_validate_accept_trailing_nul(newbuf, wsize)) {
 			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s, newbuf=%p, wsize=%"G_GSIZE_FORMAT", strlen(newbuf)=%zd\n", sessionencoding, newbuf, wsize, strlen(newbuf));
 			*encoding = g_strdup(sessionencoding);
 			return newbuf;
@@ -1732,7 +1753,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 		("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, not session encoding, not UTF8, trying newfile default encoding %s\n",
 		 main_v->props.newfile_default_encoding);
 	newbuf = g_convert(buffer, buflen, "UTF-8", main_v->props.newfile_default_encoding, NULL, &wsize, NULL);
-	if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
+	if (newbuf && /*g_utf8_validate(newbuf, wsize, NULL)*/utf8_validate_accept_trailing_nul(newbuf, wsize)) {
 		DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n",
 				  main_v->props.newfile_default_encoding);
 		*encoding = g_strdup(main_v->props.newfile_default_encoding);
@@ -1742,7 +1763,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 
 	DEBUG_MSG("doc_buffer_to_textbox, file is not in UTF-8, trying encoding from locale\n");
 	newbuf = g_locale_to_utf8(buffer, buflen, NULL, &wsize, NULL);
-	if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
+	if (newbuf && /*g_utf8_validate(newbuf, wsize, NULL)*/utf8_validate_accept_trailing_nul(newbuf, wsize)) {
 		const gchar *tmpencoding = NULL;
 		g_get_charset(&tmpencoding);
 		DEBUG_MSG("doc_buffer_to_textbox, file is in locale encoding: %s\n", tmpencoding);
@@ -1763,7 +1784,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 				g_error_free(error);
 				error = NULL;
 			}
-			if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
+			if (newbuf && /*g_utf8_validate(newbuf, wsize, NULL)*/utf8_validate_accept_trailing_nul(newbuf, wsize)) {
 				*encoding = g_strdup(enc[1]);
 				return newbuf;
 			}
@@ -1781,7 +1802,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 				g_error_free(error);
 				error = NULL;
 			}
-			if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
+			if (newbuf && /*g_utf8_validate(newbuf, wsize, NULL)*/utf8_validate_accept_trailing_nul(newbuf, wsize)) {
 				*encoding = g_strdup(enc[1]);
 				return newbuf;
 			}
