@@ -492,6 +492,13 @@ int main(int argc, char *argv[])
 #endif /* WITH_MSG_QUEUE */
 	}
 #ifdef MAC_INTEGRATION
+/* Fix incorrect font on Mavericks. Mavericks returns system font as .Lucida Grande UI 12, and Pango does not understand this format */
+/* We override default font detection of gdk-quartz here */
+	GtkSettings *gtksettings = gtk_settings_get_default();
+	gchar *font_name;
+	font_name = g_strdup("Lucida Grande 12");
+	g_object_set(G_OBJECT(gtksettings), "gtk-font-name", font_name, NULL);
+	g_free(font_name); /* End of font fix */
 	main_v->osx_status = 0; /*normal operation */
 	GtkosxApplication *theApp = g_object_new(GTKOSX_TYPE_APPLICATION, NULL);
 	g_signal_connect(theApp, "NSApplicationOpenFile", G_CALLBACK (osx_open_file_cb), NULL);
