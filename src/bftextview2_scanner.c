@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*#define DEVELOPMENT*/
-#define HL_PROFILING
+/*#define HL_PROFILING*/
 /*#define VALGRIND_PROFILING*/
 
 /*#define DUMP_SCANCACHE*/

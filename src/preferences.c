@@ -88,10 +88,8 @@ enum {
 	switch_tabs_by_altx,		/* switch tabs using Alt+X (#385860) */
 	/* not yet in use */
 	smartindent,
-#ifndef WIN32
 	open_in_running_bluefish,	/* open commandline documents in already running session */
 	open_in_new_window,
-#endif							/* ifndef WIN32 */
 	register_recent_mode,
 	recent_means_recently_closed,
 	autocomp_accel_string,
@@ -1799,10 +1797,10 @@ preferences_apply(Tprefdialog * pd)
 
 	integer_apply(&main_v->props.num_undo_levels, pd->prefs[num_undo_levels], FALSE);
 	integer_apply(&main_v->props.clear_undo_on_save, pd->prefs[clear_undo_on_save], TRUE);
-#ifndef WIN32
+
 	integer_apply(&main_v->props.open_in_running_bluefish, pd->prefs[open_in_running_bluefish], TRUE);
 	integer_apply(&main_v->props.open_in_new_window, pd->prefs[open_in_new_window], TRUE);
-#endif							/* ifndef WIN32 */
+
 	integer_apply(&main_v->props.show_long_line_warning, pd->prefs[show_long_line_warning], TRUE);
 	main_v->props.recent_means_recently_closed =
 		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[recent_means_recently_closed]));
@@ -2027,14 +2025,14 @@ preftree_cursor_changed_cb(GtkTreeView * treeview, gpointer user_data)
 	}
 }
 
-#ifndef WIN32
+
 static void
 open_in_running_bluefish_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
 {
 	gtk_widget_set_sensitive(pd->prefs[open_in_new_window],
 							 gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
 }
-#endif							/* ifndef WIN32 */
+
 
 static void
 use_system_colors_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
@@ -2102,7 +2100,9 @@ preferences_dialog_new(Tbfwin *bfwin)
 	const gchar *notebooktabpositions[] = { N_("left"), N_("right"), N_("top"), N_("bottom"), NULL };
 	const gchar *panellocations[] = { N_("right"), N_("left"), NULL };
 	const gchar *recentmeaningmode[] = {N_("Recently opened"), N_("Recently closed"), NULL};
+#ifndef WIN32
 	const gchar *registerrecentmodes[] = { N_("Never"), N_("All files"), N_("Only project files"), NULL };
+#endif
 	const gchar *thumbnail_filetype[] = { "jpeg", "png", NULL }; /* values should be lowercase, othewise image.c will not get them */
 	const gchar *visible_ws_modes[] =
 		{ N_("All"), N_("All except spaces"), N_("All trailing"), N_("All except non-trailing spaces"),
@@ -2373,7 +2373,7 @@ preferences_dialog_new(Tbfwin *bfwin)
 								main_v->props.strip_trailing_spaces_on_save);
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[strip_trailing_spaces_on_save], FALSE, FALSE, 0);
 
-#ifndef WIN32
+
 	pd->prefs[open_in_running_bluefish] =
 		boxed_checkbut_with_value(_("Open co_mmandline files in running bluefish process"),
 								  main_v->props.open_in_running_bluefish, vbox2);
@@ -2383,7 +2383,7 @@ preferences_dialog_new(Tbfwin *bfwin)
 		boxed_checkbut_with_value(_("Open commandline files in new _window"),
 								  main_v->props.open_in_new_window, vbox2);
 	gtk_widget_set_sensitive(pd->prefs[open_in_new_window], main_v->props.open_in_running_bluefish);
-#endif							/* ifndef WIN32 */
+
 	pd->prefs[do_periodic_check] =
 		boxed_checkbut_with_value(_("_Periodically check if file is modified on disk"),
 								  main_v->props.do_periodic_check, vbox2);

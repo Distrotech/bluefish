@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -106,12 +107,19 @@ socket_data_in_lcb(GIOChannel * source, GIOCondition condition, gpointer data)
 
 	DEBUG_MSG("socket_data_in_lcb, called\n");
 	if (data == NULL) {
-		socklen_t tmp = 0;
-
 		client = g_slice_new(Tconnection);
 		DEBUG_MSG("socket_data_in_lcb, accept new connection, new client=%p\n", client);
+#ifdef WIN32
+		client->fd = SOCKET_ERROR;
+		while (client->fd == SOCKET_ERROR)
+			client->fd = accept(ibf.fd, NULL, NULL);
+		client->chan = g_io_channel_win32_new_socket(client->fd);
+#else
+		socklen_t tmp = 0;
+
 		client->fd = accept(ibf.fd, NULL, &tmp);
 		client->chan = g_io_channel_unix_new(client->fd);
+#endif
 		g_io_channel_set_line_term(client->chan, "\n", 1);
 		client->iochan_id = g_io_add_watch(client->chan, G_IO_IN, socket_data_in_lcb, client);
 		return TRUE;
@@ -133,7 +141,11 @@ socket_data_in_lcb(GIOChannel * source, GIOCondition condition, gpointer data)
 		DEBUG_MSG("socket_data_in_lcb, EOF, shutdown channel\n");
 		g_io_channel_shutdown(client->chan, FALSE, NULL);
 		g_io_channel_unref(client->chan);
+#ifdef WIN32
+		closesocket(client->fd);
+#else
 		close(client->fd);
+#endif
 /*		client->chan_id = 0;
 		client->chan = NULL;
 */
@@ -147,20 +159,20 @@ socket_data_in_lcb(GIOChannel * source, GIOCondition condition, gpointer data)
 static gboolean
 socket_is_valid(const char *path)
 {
+#ifndef WIN32 /* Just return true for windows */
 	struct stat sbuf;
 
 	if (stat(path, &sbuf) == -1)
 		return FALSE;
-#ifndef WIN32
 	if (sbuf.st_uid != geteuid())
 		return FALSE;
-#endif
 #ifdef S_IFSOCK
 	if ((sbuf.st_mode & S_IFSOCK) != S_IFSOCK)
 		return FALSE;
 #endif
 	/* check permissions ? */
 	DEBUG_MSG("socket %s is valid\n", path);
+#endif
 	return TRUE;
 }
 
@@ -168,7 +180,7 @@ static char *
 socket_filename(void)
 {
 	gchar *path, *newfile;
-#ifdef MAC_INTEGRATION
+#if defined MAC_INTEGRATION || defined WIN32
 	newfile = g_strdup_printf(PACKAGE_NAME "-%s", g_get_user_name());
 	path = g_build_filename(g_get_tmp_dir(), newfile, NULL);
 #else
@@ -209,19 +221,39 @@ send_openwin(void)
 static gboolean
 become_server(void)
 {
+#ifdef WIN32
+	struct sockaddr_in iaddr;
+
+	iaddr.sin_family = AF_INET;
+	iaddr.sin_port = htons(5150);
+	iaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+	ibf.fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (bind(ibf.fd, (struct sockaddr *) &iaddr, sizeof(iaddr)) == SOCKET_ERROR) {
+		ibf.fd = -1;
+		return FALSE;
+	}
+
+	listen(ibf.fd, 10);
+	ibf.chan = g_io_channel_win32_new_socket(ibf.fd);
+#else
 	struct sockaddr_un uaddr;
 
 	uaddr.sun_family = AF_UNIX;
 	strncpy(uaddr.sun_path, ibf.path, MIN(strlen(ibf.path) + 1, UNIX_PATH_MAX));
+
 	ibf.fd = socket(PF_UNIX, SOCK_STREAM, 0);
 	if (bind(ibf.fd, (struct sockaddr *) &uaddr, sizeof(uaddr)) == -1) {
 		ibf.fd = -1;
 		return FALSE;
 	}
 	chmod(ibf.path, 0600);
+
 	listen(ibf.fd, 10);
 	ibf.chan = g_io_channel_unix_new(ibf.fd);
 	/*g_io_channel_set_line_term(ibf.chan, "\n", 1); */
+#endif
+
 	ibf.iochan_id = g_io_add_watch(ibf.chan, G_IO_IN, socket_data_in_lcb, NULL);
 	ibf.master = TRUE;
 	return TRUE;
@@ -230,6 +262,22 @@ become_server(void)
 static gboolean
 become_client(void)
 {
+#ifdef WIN32
+	struct sockaddr_in iaddr;
+
+	iaddr.sin_family = AF_INET;
+	iaddr.sin_port = htons(5150);
+	iaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+	ibf.fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (connect(ibf.fd, (struct sockaddr *) &iaddr, sizeof(iaddr)) == SOCKET_ERROR) {
+		ibf.fd = -1;
+		DEBUG_MSG("become_client, could not connect to socket, errno=%d: %s\n", errno, strerror(errno));
+		return FALSE;
+	}
+
+	ibf.chan = g_io_channel_win32_new_socket(ibf.fd);
+#else
 	struct sockaddr_un uaddr;
 
 	uaddr.sun_family = AF_UNIX;
@@ -241,6 +289,8 @@ become_client(void)
 		return FALSE;
 	}
 	ibf.chan = g_io_channel_unix_new(ibf.fd);
+#endif
+
 	ibf.master = FALSE;
 	return TRUE;
 }
@@ -249,7 +299,6 @@ become_client(void)
 gboolean
 ipc_bf2bf_start(GList * filenames, gboolean new_window)
 {
-
 	ibf.path = socket_filename();
 	DEBUG_PATH("create socket %s\n", ibf.path);
 	if (socket_is_valid(ibf.path)) {
@@ -258,6 +307,7 @@ ipc_bf2bf_start(GList * filenames, gboolean new_window)
 			DEBUG_MSG("sending files to existing bluefish process... ");
 			if (new_window)
 				send_openwin();
+
 			/* send all files and exit */
 			while (tmplist) {
 				send_filename(tmplist->data);
@@ -267,7 +317,9 @@ ipc_bf2bf_start(GList * filenames, gboolean new_window)
 			return FALSE;
 		}
 	}
+#ifndef WIN32
 	unlink(ibf.path);
+#endif
 	become_server();
 	DEBUG_MSG("ipc_bf2bf_start, master=%d\n", ibf.master);
 	return TRUE;
@@ -284,10 +336,14 @@ ipc_bf2bf_cleanup(void)
 		g_io_channel_unref(ibf.chan);
 	}
 	if (ibf.path) {
+#ifdef WIN32
+		closesocket(ibf.fd);
+#else
 		if (ibf.master) {
 			unlink(ibf.path);
 		}
 		close(ibf.fd);
+#endif
 		g_free(ibf.path);
 	}
 }
