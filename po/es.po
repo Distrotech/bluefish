@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-03-24 22:20-0700\n"
-"PO-Revision-Date: 2014-01-13 12:55+0100\n"
+"POT-Creation-Date: 2014-04-02 09:21+0200\n"
+"PO-Revision-Date: 2014-04-02 18:07+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -27,56 +27,65 @@ msgid ""
 "code. Bluefish supports many programming and markup languages and has many "
 "features, but is still a very fast and lightweight application."
 msgstr ""
+"Bluefish es un potente editor orientado a programadores y desarrolladores "
+"web, con muchas opciones para escribir sitios web, scripts y código de "
+"programación. Bluefish soporta varios lenguajes de programación y de marcado "
+"y tiene muchas características, sin dejar de de ser una aplicación rápida y "
+"ligera."
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:2
 msgid "A selection of the features:"
-msgstr ""
+msgstr "Una selección de características"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:3
 msgid ""
 "Well done syntax highlighting which for example supports languages inside "
 "languages (e.g. Javascript inside HTML inside PHP)"
 msgstr ""
+"Resaltado de sintaxis que, por ejemplo, soporta lenguajes dentro de otros "
+"lenguajes (ej. Javascript dentro de HTML dentro de PHP)"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:4
 msgid ""
 "All kind of powerful editor features like auto indenting and auto completion "
 "for many functions and libraries in many programming languages"
 msgstr ""
+"Incluye todas las características de un editor de texto potente como el "
+"sangrado y el completado automáticos para muchas funciones y bibliotecas en "
+"varios lenguajes de programación."
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:5
-#, fuzzy
 msgid "Project support"
-msgstr "_Proyecto"
+msgstr "Soporte del proyecto"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:6
 msgid "Support for remote files over ftp, sftp, webdav, etc"
-msgstr ""
+msgstr "Soporte para archivos remotos mediante ftp, sftp, webdav, etc"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:7
 msgid "Powerful search and replace engine"
-msgstr ""
+msgstr "Búsqueda potente y motor de reemplazo"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:8
 msgid "Customizable integration of external programs such as lint, make, etc"
-msgstr ""
+msgstr "Integración personalizable de programas externos como lint, make, etc"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:9
 msgid "Snippets plugin to automate often used code"
 msgstr ""
+"Complemento de fragmentos para automatizar el código usado con frecuencia"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:10
 msgid "Code-aware in-line spell checking"
-msgstr ""
+msgstr "Revisión ortográfica en línea sensible al código"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:11
 msgid "Zencoding or Emmet support"
-msgstr ""
+msgstr "soporte de Zencoding o Emmet"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:12
-#, fuzzy
 msgid "Bookmarks panel"
-msgstr "Marcadores"
+msgstr "Panel de marcadores"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:13
 msgid ""
@@ -84,6 +93,9 @@ msgid ""
 "or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
 "is your editor of choice!"
 msgstr ""
+"Si es un programador ocasional que necesita un editor sencillo de aprender, "
+"o un programador avanzado al que no le gustan los EID pesados como eclipse o "
+"netbeans, Bluefish es su elección."
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -123,19 +135,19 @@ msgstr "Contraer %s"
 msgid "Expand %s"
 msgstr "Expandir %s"
 
-#: ../src/bftextview2_spell.c:821
+#: ../src/bftextview2_spell.c:826
 msgid "Spell check language"
 msgstr "Idioma del corrector ortográfico"
 
-#: ../src/bftextview2_spell.c:854
+#: ../src/bftextview2_spell.c:859
 msgid "Add to dictionary"
 msgstr "Añadir al diccionario"
 
-#: ../src/bftextview2_spell.c:857
+#: ../src/bftextview2_spell.c:862
 msgid "Ignore spelling"
 msgstr "Ignorar ortografía"
 
-#: ../src/bftextview2_spell.c:872
+#: ../src/bftextview2_spell.c:877
 msgid "Insert special characters as entities"
 msgstr "Insertar caracteres especiales como entidades"
 
@@ -353,7 +365,7 @@ msgstr "Seleccionar todo"
 msgid "Add Boo_kmark"
 msgstr "Añadir _Marcador"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2108
 msgid "Add bookmark"
 msgstr "Añadir marcador"
 
@@ -681,7 +693,7 @@ msgstr "_Ajustar texto"
 msgid "Wrap text"
 msgstr "Ajustar texto"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3221
 msgid "_Close"
 msgstr "_Cerrar"
 
@@ -1199,7 +1211,7 @@ msgstr "_Editar…"
 msgid "_Delete"
 msgstr "_Eliminar"
 
-#: ../src/bookmark.c:901 ../src/document.c:2083
+#: ../src/bookmark.c:901 ../src/document.c:2104
 msgid "Delete bookmark"
 msgstr "Eliminar marcador"
 
@@ -1381,19 +1393,19 @@ msgstr " RO"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1843
 msgid "_No"
 msgstr "_No"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1843
 msgid "_Split"
 msgstr "_Partir"
 
-#: ../src/document.c:1825
+#: ../src/document.c:1846
 msgid "File contains very long lines. Split these lines?"
 msgstr "El archivo contiene líneas muy largas. ¿Quiere dividirlas?"
 
-#: ../src/document.c:1825
+#: ../src/document.c:1846
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1406,27 +1418,27 @@ msgstr ""
 "en cualquier ubicación, o insertar líneas nuevas si no se encuentran "
 "espacios o tabuladores."
 
-#: ../src/document.c:1901
+#: ../src/document.c:1922
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 "No se puede mostrar el archivo: se encontraron caracteres desconocidos."
 
-#: ../src/document.c:2093
+#: ../src/document.c:2114
 msgid "Exit fullscreen"
 msgstr "Salir de pantalla completa"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2258 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "_Abortar guardar"
 
-#: ../src/document.c:2237
+#: ../src/document.c:2258
 msgid "_Continue save in UTF-8"
 msgstr "_Continuar guardar en UTF-8"
 
-#: ../src/document.c:2250
+#: ../src/document.c:2271
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1439,15 +1451,15 @@ msgstr ""
 "\n"
 "¿Continuar guardando en codificación UTF-8?"
 
-#: ../src/document.c:2255
+#: ../src/document.c:2276
 msgid "File encoding conversion failure"
 msgstr "Error en la conversión de la codificación del archivo"
 
-#: ../src/document.c:2415
+#: ../src/document.c:2436
 msgid "Previously: "
 msgstr "Anteriormente: "
 
-#: ../src/document.c:2987 ../src/file_dialogs.c:839
+#: ../src/document.c:3008 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1456,11 +1468,11 @@ msgstr ""
 "Su versión de Glib ((%d.%d.%d) es poco fiable con archivos remotos. "
 "Actualice a la versión 2.18.0 o superior."
 
-#: ../src/document.c:3116
+#: ../src/document.c:3137
 msgid "Unable to open file"
 msgstr "No se pudo abrir el archivo"
 
-#: ../src/document.c:3128
+#: ../src/document.c:3149
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1469,92 +1481,92 @@ msgstr ""
 "Si revierte «%s» a su última copia guardada, los cambios actuales se "
 "perderán permanentemente."
 
-#: ../src/document.c:3132
+#: ../src/document.c:3153
 msgid "Revert changes to last saved copy?"
 msgstr "¿Revertir los cambios a la última copia guardada?"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3221
 msgid "_Retry"
 msgstr "_Reintentar"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3221
 msgid "Retry _all failed"
 msgstr "_Falló al reintentar todos"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3221
 msgid "Close all _failed"
 msgstr "_Falló al cerrar todos"
 
-#: ../src/document.c:3205
+#: ../src/document.c:3226
 msgid "File "
 msgstr "Archivo"
 
-#: ../src/document.c:3205
+#: ../src/document.c:3226
 msgid " failed to load."
 msgstr " falló al cargar"
 
-#: ../src/document.c:3209
+#: ../src/document.c:3230
 msgid "File failed to load\n"
 msgstr "Falló al cargar el archivo\n"
 
-#: ../src/document.c:3334
+#: ../src/document.c:3355
 msgid "Select file to insert"
 msgstr "Seleccione archivo para insertar"
 
-#: ../src/document.c:3343
+#: ../src/document.c:3364
 msgid "No file to insert"
 msgstr "Ningún archivo para insertar"
 
-#: ../src/document.c:3423
+#: ../src/document.c:3444
 msgid "Save pasted image as"
 msgstr "Guardar imagen pegada como"
 
-#: ../src/document.c:3519
+#: ../src/document.c:3540
 msgid "Paste special"
 msgstr "Pegado especial"
 
-#: ../src/document.c:3525
+#: ../src/document.c:3546
 msgid "No compatible clipboard data found"
 msgstr "No se han encontrado datos compatibles en el portapapeles"
 
-#: ../src/document.c:3529
+#: ../src/document.c:3550
 msgid "Paste as _HTML"
 msgstr "Pegar como _HTML"
 
-#: ../src/document.c:3534
+#: ../src/document.c:3555
 msgid "Paste as HTML with _JPG"
 msgstr "Pegar como HTML con _JPG"
 
-#: ../src/document.c:3544
+#: ../src/document.c:3565
 msgid "Paste as plain text"
 msgstr "Pegar como texto plano"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3659
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d línea"
 msgstr[1] "%d líneas"
 
-#: ../src/document.c:3639
+#: ../src/document.c:3660
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d palabra"
 msgstr[1] "%d palabras"
 
-#: ../src/document.c:3640
+#: ../src/document.c:3661
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caracter"
 msgstr[1] "%d caracteres"
 
-#: ../src/document.c:3642
+#: ../src/document.c:3663
 msgid "Selection statistics: "
 msgstr "Selección de estadísticas:"
 
-#: ../src/document.c:3642
+#: ../src/document.c:3663
 msgid "Statistics: "
 msgstr "Estadísticas:"
 
