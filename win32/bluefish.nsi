@@ -47,7 +47,6 @@ ${StrRep}
 !define HELPURL		"http://bluefish.openoffice.nl/manual/"
 !define PROGRAM_EXE	"${PACKAGE}.exe"
 !define UNINSTALL_EXE	"bluefish-uninst.exe"
-!define UNINSTALL_GTK	"gtk2_runtime_uninst.exe"
 
 !if ${BUILD} == "2.16.6"
 	!define GTK_MIN_VERSION	"2.14.7"
@@ -56,13 +55,22 @@ ${StrRep}
 	!define GTK_FILENAME	"gtk2-runtime-2.16.6-2010-05-12-ash.exe"
 	!define GTK_SIZE	"27183" ; Install size in Kilobytes
 	OutFile		"${PRODUCT}-${VERSION}-classic-setup.exe"
-!else
+	!define UNINSTALL_GTK	"gtk2_runtime_uninst.exe"
+!else if ${BUILD} == "3.6.4"
+	!define GTK_MIN_VERSION	"3.6.0"
+	!define GTK_VERSION	"${BUILD}" 
+	!define GTK_URL		"http://www.muleslow.net/files/gtk+/packages"
+	!define GTK_FILENAME	"gtk+3.6.4_bin.tbz2"
+	!define GTK_SIZE	"44651" ; Install size in Kilobytes
+	OutFile		"${PRODUCT}-${VERSION}-gtk3-setup.exe"
+!else ; Default 2.24.8
 	!define GTK_MIN_VERSION	"2.22.0"
-	!define GTK_VERSION	"${BUILD}"
+	!define GTK_VERSION	"${BUILD}" 
 	!define GTK_URL		"http://downloads.sourceforge.net/project/gtk-win/GTK%2B%20Runtime%20Environment/GTK%2B%202.24"
 	!define GTK_FILENAME	"gtk2-runtime-2.24.8-2011-12-03-ash.exe"
 	!define GTK_SIZE	"14803" ; Install size in Kilobytes
 	OutFile		"${PRODUCT}-${VERSION}-setup.exe"
+	!define UNINSTALL_GTK	"gtk2_runtime_uninst.exe"
 !endif
 
 !define PYTHON_MIN_VERSION "2.7.0"
@@ -255,7 +263,7 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	File "build\libgnurx-0.dll"
 	File "build\libxml2-2.dll"
 
-	SetOutPath "$INSTDIR\docs"
+	SetOutPath "$INSTDIR\share\doc\bluefish"
 	File "..\COPYING"
 
 	; Aspell/Enchant support files
@@ -324,15 +332,16 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 
 	SetOverwrite on
 	CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
-	CreateShortCut "$SMPROGRAMS\$StartMenuFolder\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}"
+	CreateShortCut "$SMPROGRAMS\$StartMenuFolder\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}" "-n"
 	CreateShortCut "$SMPROGRAMS\$StartMenuFolder\$(UNINSTALL_SHORTCUT).lnk" "$INSTDIR\${UNINSTALL_EXE}"
 	SetOverwrite off
 SectionEnd
 
 SectionGroup "$(SECT_DEPENDS)" SecDepends
-	Section "GTK+ 2.24.8" SecGTK
+	Section "GTK+ ${BUILD}" SecGTK
 		SectionIn 1 RO
 		${If} $GTK_STATUS == ""
+!if ${GTK_VERSION} != 3.6.4
 			IfFileExists "$INSTDIR\${UNINSTALL_GTK}" +3 0 ; Uninstall previous version
 				DetailPrint "$(GTK_UNINSTALL)"
 				ExecWait '"$INSTDIR\${UNINSTALL_GTK}" /S /sideeffects=no /dllpath=root /remove_config=yes'
@@ -350,6 +359,22 @@ SectionGroup "$(SECT_DEPENDS)" SecDepends
 	  				DetailPrint "$(DOWN_CHKSUM_ERROR)"
 	  				Goto GtkInstDown ; Jump to '${EndIf}+1
 	  			${EndIf}
+!else
+			IfFileExists "$EXEDIR\redist\${GTK_FILENAME}" 0 GtkInstDown
+				${StrRep} $R1 "$(DOWN_LOCAL)" "%s" "${GTK_FILENAME}"
+				DetailPrint "$R1"
+				md5dll::GetMD5File "$EXEDIR\redist\${GTK_FILENAME}"
+	  			Pop $R0
+	  			${If} $R0 == ${MD5_${GTK_FILENAME}}
+	  				DetailPrint "$(DOWN_CHKSUM)"
+					untgz::extract "-d" "$INSTDIR" "-u" "-zbz2" "$EXEDIR\redist\${GTK_FILENAME}"
+  					Pop $R0
+	  				Goto GtkInstSetVer ; Jump to setting version
+	  			${Else}
+	  				DetailPrint "$(DOWN_CHKSUM_ERROR)"
+	  				Goto GtkInstDown ; Jump to '${EndIf}+1
+	  			${EndIf}
+!endif
 	
 	GtkInstDown:
 			IntFmt $R1 "%u" 0
@@ -375,11 +400,19 @@ SectionGroup "$(SECT_DEPENDS)" SecDepends
 					MessageBox MB_OK|MB_ICONEXCLAMATION "$(GTK_FAILED) $R0$\n$\n$(GTK_REQUIRED)"
 					Return
 			DetailPrint "$(GTK_INSTALL) (${GTK_FILENAME})"
+!if ${GTK_VERSION} != 3.6.4
 			ExecWait '"$TEMP\${GTK_FILENAME}" /S /sideeffects=no /dllpath=root /D=$INSTDIR'
 			Delete "$TEMP\${GTK_FILENAME}"
-	
+
 	GtkInstSetVer:
-			IfFileExists "$INSTDIR\${UNINSTALL_GTK}" 0 -6 ; If the uninstaller exists install completed successfully, otherwise display an error
+			IfFileExists "$INSTDIR\${UNINSTALL_GTK}" 0 -7 ; If the uninstaller exists install completed successfully, otherwise display an error
+!else
+			untgz::extract "-d" "$INSTDIR" "-u" "-zbz2" "$TEMP\${GTK_FILENAME}"
+			Pop $R0
+			Delete "$TEMP\${GTK_FILENAME}"
+			StrCmp $R0 "success" 0 +7
+	GtkInstSetVer:
+!endif
 				${If} $HKEY == "Classic"
 					WriteRegStr HKCU "${REG_USER_SET}" "GTK" "${GTK_VERSION}"
 				${Else}
@@ -578,13 +611,49 @@ Section "Uninstall"
 	Delete "$INSTDIR\libgucharmap-7.dll"
 	Delete "$INSTDIR\libpcre-0.dll" ; Not longer shipped
 	Delete "$INSTDIR\libxml2-2.dll"
-	RMDir /r "$INSTDIR\docs"
-	RMDir /r "$INSTDIR\lib"
-	RMDir /r "$INSTDIR\share"
 
+!if ${GTK_VERSION} == 3.6.4
+	Delete "$INSTDIR\gdk-pixbuf-query-loaders.exe"
+	Delete "$INSTDIR\gspawn-win32-helper-console.exe"
+	Delete "$INSTDIR\gspawn-win32-helper.exe"
+	Delete "$INSTDIR\gtk-query-immodules-3.0.exe"
+	Delete "$INSTDIR\gtk-update-icon-cache.exe"
+	Delete "$INSTDIR\libatk-1.0-0.dll"
+	Delete "$INSTDIR\libcairo-2.dll"
+	Delete "$INSTDIR\libcairo-gobject-2.dll"
+	Delete "$INSTDIR\libcairo-script-interpreter-2.dll"
+	Delete "$INSTDIR\libcroco-0.6-3.dll"
+	Delete "$INSTDIR\libffi-6.dll"
+	Delete "$INSTDIR\libfreetype-6.dll"
+	Delete "$INSTDIR\libgdk-3-0.dll"
+	Delete "$INSTDIR\libgdk_pixbuf-2.0-0.dll"
+	Delete "$INSTDIR\libgio-2.0-0.dll"
+	Delete "$INSTDIR\libglib-2.0-0.dll"
+	Delete "$INSTDIR\libgmodule-2.0-0.dll"
+	Delete "$INSTDIR\libgobject-2.0-0.dll"
+	Delete "$INSTDIR\libgthread-2.0-0.dll"
+	Delete "$INSTDIR\libgtk-3-0.dll"
+	Delete "$INSTDIR\libiconv-2.dll"
+	Delete "$INSTDIR\libintl-8.dll"
+	Delete "$INSTDIR\liblzma-5.dll"
+	Delete "$INSTDIR\libpango-1.0-0.dll"
+	Delete "$INSTDIR\libpangocairo-1.0-0.dll"
+	Delete "$INSTDIR\libpangowin32-1.0-0.dll"
+	Delete "$INSTDIR\libpixman-1-0.dll"
+	Delete "$INSTDIR\libpng15-15.dll"
+	Delete "$INSTDIR\librsvg-2-2.dll"
+	Delete "$INSTDIR\pango-querymodules.exe"
+	Delete "$INSTDIR\pthreadGC2.dll"
+	Delete "$INSTDIR\zlib1.dll"
+!else
 	DetailPrint "$(GTK_UNINSTALL)"
 	ExecWait '"$INSTDIR\${UNINSTALL_GTK}" /S /sideeffects=no /dllpath=root /remove_config=yes'
 	Delete "$INSTDIR\${UNINSTALL_GTK}"
+!endif
+
+	RMDir /r "$INSTDIR\etc"
+	RMDir /r "$INSTDIR\lib"
+	RMDir /r "$INSTDIR\share"
 
 	Delete "$INSTDIR\${UNINSTALL_EXE}"
 	RMDir  "$INSTDIR"
@@ -602,6 +671,7 @@ Section "Uninstall"
 		DeleteRegValue HKCU ${REG_USER_SET} "Package"
 		DeleteRegValue HKCU ${REG_USER_SET} "Start Menu Folder"
 		DeleteRegValue HKCU ${REG_USER_SET} "Version"
+		DeleteRegValue HKCU ${REG_USER_SET} "GTK"
 		DeleteRegKey HKCU "${REG_USER_SET}\Aspell"
 		DeleteRegKey HKCU "${REG_USER_SET}\Plugins"
 		DeleteRegKey /ifempty HKCU ${REG_USER_SET}
@@ -611,6 +681,7 @@ Section "Uninstall"
 		DeleteRegValue HKLM ${REG_USER_SET} "Package"
 		DeleteRegValue HKLM ${REG_USER_SET} "Start Menu Folder"
 		DeleteRegValue HKLM ${REG_USER_SET} "Version"
+		DeleteRegValue HKLM ${REG_USER_SET} "GTK"
 		DeleteRegKey HKLM "${REG_USER_SET}\Aspell"
 		DeleteRegKey HKLM "${REG_USER_SET}\Plugins"
 		DeleteRegKey /ifempty HKLM ${REG_USER_SET}

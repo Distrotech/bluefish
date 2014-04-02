@@ -7,6 +7,8 @@
 ;   Daniel Leidert <daniel.leidert@wgdd.de>
 ;----------------------------------------------
 
+!define MD5_gtk+3.6.4_bin.tbz2	"696ae056ecb12f2893eb203457418cfa"
+!define MD5_gtk+3.6.4_bin_full.tbz2	"1163eeeb111e17d0d5133d50b0f2c023"
 !define MD5_gtk2-runtime-2.24.8-2011-12-03-ash.exe	"570ce4b0bf5c0982f106d104ac23290d"
 !define MD5_gtk2-runtime-2.16.6-2010-05-12-ash.exe	"714de69347290ce93bbcbae76aa00bf9"
 !define MD5_python-2.7.3.msi "c846d7a5ed186707d3675564a9838cc2"
