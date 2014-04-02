@@ -1645,6 +1645,73 @@ encoding_by_regex(const gchar * buffer, const gchar * pattern, guint subpat)
 	return retstring;
 }
 
+/*
+*  Fallback convertor of corrupted string. Theoreticaly we can convert even binary input.
+*  General idea taken from g_strescape()- see glib source code for details.
+*  WIndows-1252 charset is taken since in has lowest non-printable charecter count.
+*  Non-printable characters are replaced by space 0x20 character.
+*  Following non-printable characters are not touched:
+*  \r  - carriage return 0x0D
+*  \n - newline 0x0A
+*  \f - formfeed 0x0C
+*  \v - vertical tab 0x0B
+*  \t - tab 0x09
+*  These non-printable characters will be replaced by space:
+*  0-8, 14-31, 127, 129, 141, 143, 144,157.
+*  @exceptions: a string of characters not to escape in @source - one can disable replacement of above characters
+*  @len: lenght of the string to convert
+*  @count: number of characters replaced
+*/
+gchar *
+buffer_convert_fallback(const gchar *source, const gchar *exceptions, gsize len, gsize *count)
+{
+  const guchar *p;
+  gchar *dest;
+  gchar *q;
+  guchar excmap[256];
+  gsize repl;
+  gsize i;
+
+  g_return_val_if_fail (source != NULL, NULL);
+
+  p = (guchar *) source;
+  q = dest = g_malloc (len + 1); /* we assume lenght of the string will not change */
+  repl = 0;
+  i = 0;
+  memset (excmap, 0, 256);
+  if (exceptions)
+    {
+      guchar *e = (guchar *) exceptions;
+
+      while (*e)
+        {
+          excmap[*e] = 1;
+          e++;
+        }
+    }
+
+	while (i<len)	 {
+      if (excmap[*p]) {
+			*q++ = *p;
+		} else {
+			if ((*p < 9) || ((*p > 13) && (*p < 32)) || (*p == 127) || (*p == 129) || (*p == 141) || (*p == 143) || (*p == 144) || (*p == 157)) {
+				DEBUG_MSG("buffer_convert_fallback, replacing symbol=%d\n",*p);
+				*q++ = ' ';
+				repl++;
+			} else {
+				*q++ = *p;
+			}
+		}
+      p++;
+      i++;
+    }
+  *q = 0;
+	if(count) {
+		*count = repl;
+	}
+  return dest;
+}
+
 gboolean
 utf8_validate_accept_trailing_nul(gchar *buffer, gsize buflen)
 {
