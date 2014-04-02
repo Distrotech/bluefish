@@ -206,6 +206,8 @@ ${LoadLocalization}	"CATALAN"	"locale\Catalan.nsh"
 ${LoadLocalization}	"PORTUGUESEBR"	"locale\PortugueseBR.nsh"
 !insertmacro MUI_LANGUAGE	"Czech" 	; 1029
 ${LoadLocalization}	"CZECH"		"locale\Czech.nsh"
+!insertmacro MUI_LANGUAGE	"Danish" 	; 1030
+${LoadLocalization}	"DANISH" 	"locale\Danish.nsh"
 !insertmacro MUI_LANGUAGE	"Dutch" 	; 1043
 ${LoadLocalization}	"DUTCH" 	"locale\Dutch.nsh"
 !insertmacro MUI_LANGUAGE	"French" 	; 1036
@@ -224,15 +226,18 @@ ${LoadLocalization}	"JAPANESE"	"locale\Japanese.nsh"
 ${LoadLocalization}	"NORWEGIAN"	"locale\NorwegianBokmaal.nsh"
 !insertmacro MUI_LANGUAGE "NorwegianNynorsk"  ; 2068
 ${LoadLocalization}	"NORWEGIANNYNORSK" "locale\NorwegianNynorsk.nsh"
+!insertmacro MUI_LANGUAGE	"Polish" 	; 1045
+${LoadLocalization}	"POLISH"	"locale\Polish.nsh"
 !insertmacro MUI_LANGUAGE	"Swedish" 	; 1053
 ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 !insertmacro MUI_LANGUAGE	"SimpChinese" 	; 2052
 ${LoadLocalization}	"SIMPCHINESE"	"locale\SimpChinese.nsh"
+!insertmacro MUI_LANGUAGE	"Spanish" 	; 1034
+${LoadLocalization}	"SPANISH"	"locale\Spanish.nsh"
 !insertmacro MUI_LANGUAGE	"Ukrainian" ; 1058
 ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
 ; Translations needed for the following commented languages
 ;;!insertmacro MUI_LANGUAGE	"Bulgarian" 	; 1026
-;;!insertmacro MUI_LANGUAGE	"Danish" 	; 1030
 ;;!insertmacro MUI_LANGUAGE	"Finnish" 	; 1035
 ;;!insertmacro MUI_LANGUAGE	"Greek" 	; 1032
 ;;!insertmacro MUI_LANGUAGE	"Korean" 	; 1042
@@ -242,7 +247,6 @@ ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
 ;;!insertmacro MUI_LANGUAGE	"Russian" 	; 1049
 ;;!insertmacro MUI_LANGUAGE	"Serbian" 	; 3098
 ;;!insertmacro MUI_LANGUAGE	"Slovak" 	; 1051
-;;!insertmacro MUI_LANGUAGE	"Spanish" 	; 1034
 ;;!insertmacro MUI_LANGUAGE	"TradChinese" 	; 1028
 ;;!insertmacro MUI_LANGUAGE	"Turkish" 	; 1055
 
@@ -521,7 +525,7 @@ SectionGroupEnd
 Section "$(SECT_SHORTCUT)" SecDesktopShortcut
 	SetOverwrite on
 	SetOutPath "$INSTDIR"
-	CreateShortCut "$DESKTOP\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}"
+	CreateShortCut "$DESKTOP\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}" "-n"
 	SetOverwrite off
 SectionEnd
 
