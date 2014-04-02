@@ -1,90 +1,25 @@
-# translation of bluefish-unstable.pot to Dutch
+# translation of bluefish to Galician
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Olav Sliekers <idunno@mysun.com>, 2001.
 # Olivier Sessink, 2002.
 # Dutch translation of Bluefish
 # Copyright (C) 2001, 2007 Free Software Foundation, Inc.
-# elve <elve@savage-elve.net>, 2007, 2009, 2010.
-# Olivier <olivier@bluefish.openoffice.nl>, 2011, 2012.
+# pikamoku@gmail.com (2010-2013)
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-03-24 22:20-0700\n"
-"PO-Revision-Date: 2012-02-08 23:13+0100\n"
-"Last-Translator: Olivier <olivier@bluefish.openoffice.nl>\n"
-"Language-Team: nl <>\n"
-"Language: nl\n"
+"POT-Creation-Date: 2013-11-17 21:18+0100\n"
+"PO-Revision-Date: 2013-11-17 23:13+0100\n"
+"Last-Translator: Xose M. Lamas <correo.xmgz@gmail.com>\n"
+"Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.0\n"
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:1
-msgid ""
-"Bluefish is a powerful editor targeted towards programmers and web "
-"developers, with many options to write websites, scripts and programming "
-"code. Bluefish supports many programming and markup languages and has many "
-"features, but is still a very fast and lightweight application."
-msgstr ""
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:2
-msgid "A selection of the features:"
-msgstr ""
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:3
-msgid ""
-"Well done syntax highlighting which for example supports languages inside "
-"languages (e.g. Javascript inside HTML inside PHP)"
-msgstr ""
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:4
-msgid ""
-"All kind of powerful editor features like auto indenting and auto completion "
-"for many functions and libraries in many programming languages"
-msgstr ""
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:5
-#, fuzzy
-msgid "Project support"
-msgstr "_Project"
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:6
-msgid "Support for remote files over ftp, sftp, webdav, etc"
-msgstr ""
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:7
-msgid "Powerful search and replace engine"
-msgstr ""
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:8
-msgid "Customizable integration of external programs such as lint, make, etc"
-msgstr ""
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:9
-msgid "Snippets plugin to automate often used code"
-msgstr ""
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:10
-msgid "Code-aware in-line spell checking"
-msgstr ""
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:11
-msgid "Zencoding or Emmet support"
-msgstr ""
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:12
-#, fuzzy
-msgid "Bookmarks panel"
-msgstr "Bladwĳzers"
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:13
-msgid ""
-"If you are an occasional coder who is in need for a simple to learn editor, "
-"or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
-"is your editor of choice!"
-msgstr ""
+"X-Poedit-Language: Galician\n"
+"X-Poedit-Country: SPAIN\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -92,7 +27,7 @@ msgstr "Bluefish Editor"
 
 #: ../desktop-data/bluefish.desktop.in.h:2
 msgid "Web Development Editor"
-msgstr "Web Ontwikkeling Editor"
+msgstr "Editor de desenvolmento web"
 
 #: ../desktop-data/bluefish.desktop.in.h:3
 msgid "programming;code;html;php;python;"
@@ -100,479 +35,473 @@ msgstr "programming;code;html;php;python;"
 
 #: ../desktop-data/bluefish.xml.in.h:1
 msgid "Bluefish project file"
-msgstr "Bluefish project bestand"
+msgstr "Ficheiro de proxecto Bluefish"
 
 #: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish language definition file"
-msgstr "Bluefish taal definitie bestand"
+msgstr "Ficheiro de definición de linguaxe de Bluefish"
 
-#: ../src/bftextview2.c:1765
+#: ../src/bftextview2.c:1751
 msgid "Collapse all"
-msgstr "Alles inklappen"
+msgstr "Pechar todo"
 
-#: ../src/bftextview2.c:1768
+#: ../src/bftextview2.c:1754
 msgid "Expand all"
-msgstr "Alles uitklappen"
+msgstr "Expandir todo"
 
 # c-format
-#: ../src/bftextview2.c:1777
+#: ../src/bftextview2.c:1763
 #, c-format
 msgid "Collapse %s"
-msgstr "%s Inklappen"
+msgstr "Pechar %s"
 
 # c-format
-#: ../src/bftextview2.c:1787
+#: ../src/bftextview2.c:1773
 #, c-format
 msgid "Expand %s"
-msgstr "%s Uitklappen"
+msgstr "Expandir %s"
 
 #: ../src/bftextview2_spell.c:821
 msgid "Spell check language"
-msgstr "Spelling taal"
+msgstr "Idioma de corrección ortográfica"
 
 #: ../src/bftextview2_spell.c:854
 msgid "Add to dictionary"
-msgstr "Voeg toe aan woordenboek"
+msgstr "Engadir ao diccionario"
 
 #: ../src/bftextview2_spell.c:857
 msgid "Ignore spelling"
-msgstr "Negeer spelling"
+msgstr "Ignorar correción ortográfica"
 
 #: ../src/bftextview2_spell.c:872
 msgid "Insert special characters as entities"
-msgstr "Speciale karakters als entiteiten invoegen"
+msgstr "Insertar caracteres especiais como entidades"
 
 #: ../src/bfwin.c:232
 msgid "Filebrowser"
-msgstr "Bestands beheerder"
+msgstr "Navegador de ficheiros"
 
 #: ../src/bfwin.c:234
 msgid "Bookmarks"
-msgstr "Bladwĳzers"
+msgstr "Marcadores"
 
 #: ../src/bfwin.c:966
 msgid "Goto Line:"
-msgstr "Ga naar regel:"
+msgstr "Ir a liña:"
 
 #: ../src/bfwin.c:977
 msgid "Find:"
-msgstr "Zoek:"
+msgstr "Buscar:"
 
 #: ../src/bfwin.c:988 ../src/snr3.c:1520
 msgid "Regular expression (pcre)"
-msgstr "Reguliere expressie (pcre)"
+msgstr "Expresión regular (pcre)"
 
 #: ../src/bfwin.c:991
 msgid "Case sensitive"
-msgstr "Hoofdletter gevoelig zoeken"
+msgstr "Distingue Maius./Min."
 
 #: ../src/bfwin.c:994
 msgid "Dot character matches newlines"
-msgstr "Punt karakter in reguliere expressie pakt regeleinden"
+msgstr "Dot character matches newlines"
 
 #: ../src/bfwin.c:997
 msgid "Pattern contains backslash escaped sequences"
-msgstr "Patroon bevat escape combinaties"
+msgstr "O patrón contén secuencias de escape"
 
 #: ../src/bfwin.c:1009
 msgid "Advanced"
-msgstr "Geavanceerd"
+msgstr "Avanzado"
 
-#: ../src/bfwin.c:1467
+#: ../src/bfwin.c:1434
 msgid "New Bluefish Window"
-msgstr "Nieuw Bluefish Venster"
+msgstr "Nova ventá de Bluefish"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1533
+#: ../src/bfwin.c:1500
 msgid "Stand by..."
-msgstr "Stand by..."
+msgstr "Agardar..."
 
 #: ../src/bfwin_uimanager.c:761
 msgid "Leave Fullscreen"
-msgstr "Volledige schermvulling verlaten"
+msgstr "Sair de pantalla completa"
 
 #: ../src/bfwin_uimanager.c:761
 msgid "Fullscreen"
-msgstr "Volledige schermvulling"
+msgstr "Pantalla completa"
 
 #: ../src/bfwin_uimanager.c:819
 msgid "_File"
-msgstr "_Bestand"
+msgstr "_Ficheiro"
 
 #: ../src/bfwin_uimanager.c:820
 msgid "New From Template"
-msgstr "Open van sjabloon"
+msgstr "Novo desde modelo"
 
 #: ../src/bfwin_uimanager.c:821 ../src/bfwin_uimanager.c:831
 msgid "Open _Recent"
-msgstr "_Recent geopend"
+msgstr "Abrir _Recente"
 
 #: ../src/bfwin_uimanager.c:822
 msgid "_Edit"
-msgstr "Be_werken"
+msgstr "_Editar"
 
 #: ../src/bfwin_uimanager.c:823
 msgid "_View"
-msgstr "B_eeld"
+msgstr "_Ver"
 
 #: ../src/bfwin_uimanager.c:824
 msgid "_Document"
-msgstr "_Document"
+msgstr "_Documento"
 
 #: ../src/bfwin_uimanager.c:825
 msgid "_Tab Size"
-msgstr "_Tabgrootte"
+msgstr "Tamaño do _Tabulador"
 
 #: ../src/bfwin_uimanager.c:826
 msgid "_Font Size"
-msgstr "_Lettergrootte"
+msgstr "Tamaño do tipo de _letra"
 
 #: ../src/bfwin_uimanager.c:827
 msgid "Language M_ode"
-msgstr "Taal _Mode"
+msgstr "Tip_o de linguaxe"
 
 #: ../src/bfwin_uimanager.c:828
 msgid "Character _Encoding"
-msgstr "_Karakter Codering"
+msgstr "Codificación de caract_eres"
 
 #: ../src/bfwin_uimanager.c:829
 msgid "_Go"
-msgstr "_Ga"
+msgstr "_Ir"
 
 #: ../src/bfwin_uimanager.c:830
 msgid "_Project"
-msgstr "_Project"
+msgstr "_Proxecto"
 
 #: ../src/bfwin_uimanager.c:832
 msgid "_Tools"
-msgstr "E_xtra"
+msgstr "Ferrament_as"
 
 #: ../src/bfwin_uimanager.c:833
 msgid "_Commands"
-msgstr "_Commando's"
+msgstr "_Comandos"
 
 #: ../src/bfwin_uimanager.c:834
 msgid "_Filters"
-msgstr "_Filters"
+msgstr "_Filtros"
 
 #: ../src/bfwin_uimanager.c:835
 msgid "_Outputbox"
-msgstr "_Uitvoervlak"
+msgstr "_Caixa de saída"
 
 #: ../src/bfwin_uimanager.c:836
 msgid "For_mat"
-msgstr ""
+msgstr "For_mato"
 
 #: ../src/bfwin_uimanager.c:837
 msgid "_Insert"
-msgstr "_Invoegen"
+msgstr "_Insertar"
 
 #: ../src/bfwin_uimanager.c:838
-#, fuzzy
 msgid "Con_vert"
-msgstr "Omzetten"
+msgstr "Con_verter"
 
 #: ../src/bfwin_uimanager.c:842
 msgid "_New"
-msgstr "_Nieuw"
+msgstr "_Novo"
 
-#: ../src/bfwin_uimanager.c:842 ../src/filebrowser2.c:886
-#: ../src/filebrowser2.c:888 ../src/filebrowser2.c:1276
+#: ../src/bfwin_uimanager.c:842 ../src/filebrowser2.c:887
+#: ../src/filebrowser2.c:889 ../src/filebrowser2.c:1277
 msgid "New file"
-msgstr "Nieuw bestand"
+msgstr "Novo ficheiro"
 
 #: ../src/bfwin_uimanager.c:843
 msgid "New _Window"
-msgstr "Nieuw _Venster"
+msgstr "Nova _Ventá"
 
 #: ../src/bfwin_uimanager.c:843
 msgid "New window"
-msgstr "Nieuw Venster"
+msgstr "Nova ventá"
 
 #: ../src/bfwin_uimanager.c:845
 msgid "Close Win_dow"
-msgstr "Sluit _Venster"
+msgstr "Pechar Ventá"
 
 #: ../src/bfwin_uimanager.c:845
 msgid "Close window"
-msgstr "Sluit Venster"
+msgstr "Pechar ventá"
 
 #: ../src/bfwin_uimanager.c:846
 msgid "_Open..."
-msgstr "_Openen..."
+msgstr "_Abrir..."
 
 #: ../src/bfwin_uimanager.c:846
 msgid "Open file"
-msgstr "Open bestand"
+msgstr "Abrir ficheiro"
 
 #: ../src/bfwin_uimanager.c:847
 msgid "Open Ad_vanced..."
-msgstr "_Geavanceerd Openen..."
+msgstr "Abrir (O_pcións)..."
 
-#: ../src/bfwin_uimanager.c:847 ../src/filebrowser2.c:1272
+#: ../src/bfwin_uimanager.c:847 ../src/filebrowser2.c:1273
 msgid "Open advanced"
-msgstr "Geavanceerd Openen"
+msgstr "Abrir con opcións"
 
 #: ../src/bfwin_uimanager.c:849
 msgid "Open _from Selection"
-msgstr "Open van _Selectie"
+msgstr "Abrir desde a _seleción"
 
 #: ../src/bfwin_uimanager.c:849
 msgid "Open from Selection"
-msgstr "Open van Selectie"
+msgstr "Abrir desde seleción"
 
 #: ../src/bfwin_uimanager.c:851
-#, fuzzy
 msgid "_Print..."
-msgstr "_Print"
+msgstr "_Imprimir..."
 
 #: ../src/bfwin_uimanager.c:851
 msgid "Print"
-msgstr "Print"
+msgstr "Imprimir"
 
 #: ../src/bfwin_uimanager.c:852
 msgid "_Quit"
-msgstr "A_fsluiten"
+msgstr "S_air"
 
 #: ../src/bfwin_uimanager.c:852
 msgid "Quit Bluefish"
-msgstr "Bluefish afsluiten"
+msgstr "Sair de Bluefish"
 
 #: ../src/bfwin_uimanager.c:853
 msgid "Preference_s..."
-msgstr "Voorkeuren..."
+msgstr "Preferencia_s..."
 
 #: ../src/bfwin_uimanager.c:853
 msgid "Edit Preferences"
-msgstr "Voorkeuren aanpassen"
+msgstr "Editar preferencias"
 
 #: ../src/bfwin_uimanager.c:855
 msgid "Select _All"
-msgstr "_Alles Selecteren"
+msgstr "Selecionar T_odo"
 
 #: ../src/bfwin_uimanager.c:855
 msgid "Select all"
-msgstr "_Alles Selecteren"
+msgstr "Selecionar todo"
 
 #: ../src/bfwin_uimanager.c:856
 msgid "Add Boo_kmark"
-msgstr "_Bladwĳzer Toevoegen"
+msgstr "Engardir _Marcador"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2084
 msgid "Add bookmark"
-msgstr "Bladwĳzer toevoegen"
+msgstr "Engadir marcador"
 
 #: ../src/bfwin_uimanager.c:858
 msgid "_Add or Remove..."
-msgstr "Voeg toe of verwijder..."
+msgstr "Eng_adir ou quitar..."
 
 #: ../src/bfwin_uimanager.c:858
 msgid "Add or remove character encoding"
-msgstr "Verwijder of voeg coderingen toe"
+msgstr "Engadir ou quitar codificación de caracteres"
 
 #: ../src/bfwin_uimanager.c:860
 msgid "Floati_ng Window"
-msgstr "_Zwevend venster"
+msgstr "Ventá flota_nte"
 
 #: ../src/bfwin_uimanager.c:860
 msgid "Open current document in floating window"
-msgstr "Huidig document in zwevend venster."
+msgstr "Abrir documento actual en ventá flotante"
 
 #: ../src/bfwin_uimanager.c:862 ../src/bfwin_uimanager.c:868
 msgid "_Increase"
-msgstr "Vergroten"
+msgstr "_Aumentar"
 
 #: ../src/bfwin_uimanager.c:862
 msgid "Increase document font size"
-msgstr "Vergroot font grootte"
+msgstr "Aumentar tamaño da letra"
 
 #: ../src/bfwin_uimanager.c:864 ../src/bfwin_uimanager.c:870
 msgid "_Decrease"
-msgstr "Verkleinen"
+msgstr "_Diminuir"
 
 #: ../src/bfwin_uimanager.c:864
 msgid "Decrease document font size"
-msgstr "Verklein font grootte"
+msgstr "Diminuir tamaño da letra"
 
 #: ../src/bfwin_uimanager.c:866 ../src/bfwin_uimanager.c:872
 msgid "_Reset"
-msgstr "Herstellen"
+msgstr "_Restaurar"
 
 #: ../src/bfwin_uimanager.c:866
 msgid "Reset document font size"
-msgstr "Reset font grootte"
+msgstr "Restaurar tamaño de letra do documento"
 
 #: ../src/bfwin_uimanager.c:868
 msgid "Increase document tab size"
-msgstr "Vergroot Tab Grootte"
+msgstr "Aumentar tamaño do tabulador no documento"
 
 #: ../src/bfwin_uimanager.c:870
 msgid "Decrease document tab size"
-msgstr "Verklein Tab Grootte"
+msgstr "Diminuir tamaño do tabulador no documento"
 
 #: ../src/bfwin_uimanager.c:872
 msgid "Reset document tab size"
-msgstr "Herstel Tab Grootte"
+msgstr "Restaurar tamaño do tabulador"
 
 #: ../src/bfwin_uimanager.c:875
 msgid "Rescan Synta_x & Spelling"
-msgstr "Synta_x en Spelling Verversen"
+msgstr "Revisar Sinta_xe e Ortografía"
 
 #: ../src/bfwin_uimanager.c:875 ../src/bfwin_uimanager.c:878
 msgid "Rescan document highlighting"
-msgstr "Ververs syntax herkenning"
+msgstr "Revisar resaltado no documento"
 
 #: ../src/bfwin_uimanager.c:878
 msgid "Rescan Synta_x"
-msgstr "Synta_x verversen"
+msgstr "Revisar Sinta_xe"
 
 #: ../src/bfwin_uimanager.c:881
 msgid "_New Project..."
-msgstr "_Nieuw Project..."
+msgstr "_Novo proxecto..."
 
-#: ../src/bfwin_uimanager.c:881 ../src/project.c:255
+#: ../src/bfwin_uimanager.c:881 ../src/project.c:253
 msgid "New project"
-msgstr "Nieuw project"
+msgstr "Novo proxecto"
 
 #: ../src/bfwin_uimanager.c:882
 msgid "_Open Project..."
-msgstr "_Open Project..."
+msgstr "Abrir pr_oxecto..."
 
 #: ../src/bfwin_uimanager.c:882
 msgid "Open project"
-msgstr "Open project"
+msgstr "Abir proxecto"
 
 #: ../src/bfwin_uimanager.c:883
 msgid "_Synchronize Text Block"
-msgstr "Synchroniseer tekst blok"
+msgstr "_Sincronizar bloque de texto"
 
 #: ../src/bfwin_uimanager.c:883 ../src/blocksync.c:295
 msgid "Synchronize text block"
-msgstr "Synchroniseer tekst blok"
+msgstr "Sincronizar bloque de texto"
 
 #: ../src/bfwin_uimanager.c:885
-#, fuzzy
 msgid "_Toggle Comment"
-msgstr "Schakel _Commentaar"
+msgstr "_Habilitar comentario"
 
 #: ../src/bfwin_uimanager.c:885
 msgid "Toggle comment"
-msgstr "Schakel commentaar"
+msgstr "Habilitar comentario"
 
 #: ../src/bfwin_uimanager.c:887
 msgid "Select _Block"
-msgstr "Selecteer _Blok"
+msgstr "Selecionar _Bloque"
 
 #: ../src/bfwin_uimanager.c:887
 msgid "Select block, use multiple times to select parent blocks "
-msgstr "Selecteer blok, herhaal om omsluitend blok te selecteren"
+msgstr "Selecionar bloque, usar varias veces para selecionar bloques relacionados"
 
 #: ../src/bfwin_uimanager.c:889
-#, fuzzy
 msgid "D_uplicate Line"
-msgstr "Regel Dupliceren"
+msgstr "D_uplicar liña"
 
 #: ../src/bfwin_uimanager.c:889
 msgid "Duplicate the current line"
-msgstr "Actieve regel dupliceren"
+msgstr "Duplicar liña actual"
 
 #: ../src/bfwin_uimanager.c:891
-#, fuzzy
 msgid "_Delete Line"
-msgstr "Regel verwĳderen"
+msgstr "_Borrar liña"
 
 #: ../src/bfwin_uimanager.c:891
 msgid "Delete the current line"
-msgstr "Actieve regel verwijderen"
+msgstr "Borrar liña actual"
 
 #: ../src/bfwin_uimanager.c:893
-#, fuzzy
 msgid "_Word Count"
-msgstr "Aantal _Woorden"
+msgstr "Contar _palabras"
 
 #: ../src/bfwin_uimanager.c:893
 msgid "Word count"
-msgstr "Aantal woorden"
+msgstr "Contar palabras"
 
 #: ../src/bfwin_uimanager.c:894 ../src/doc_extern_tools.c:47
 msgid "Lorem Ipsum generator"
-msgstr "Lorem Ipsum generator"
+msgstr "Xerardor Lorem Ipsum"
 
 #: ../src/bfwin_uimanager.c:895
 msgid "Insert Relative Filename"
-msgstr "Relatieve bestandsnaam invoegen"
+msgstr "Insertar nome de ficheiro Relativo"
 
 #: ../src/bfwin_uimanager.c:896
 msgid "Insert Absolute Filename"
-msgstr "Absolute bestandsnaam invoegen"
+msgstr "Insertar nome de ficheiro Absoluto"
 
 #: ../src/bfwin_uimanager.c:897
 msgid "Indenting to S_paces"
-msgstr "Inspringen naar S_paties"
+msgstr "Identación a es_pazos"
 
 #: ../src/bfwin_uimanager.c:897
 msgid "Indenting to spaces"
-msgstr "Inspringen naar Spaties"
+msgstr "Indentando a espazos"
 
 #: ../src/bfwin_uimanager.c:899
 msgid "Indenting to T_abs"
-msgstr "Inspringen naar T_abs"
+msgstr "Indentando a T_abulación"
 
 #: ../src/bfwin_uimanager.c:899
 msgid "Indenting to tabs"
-msgstr "Inspringen naar Tabs"
+msgstr "Indentando a tabulación"
 
 #: ../src/bfwin_uimanager.c:901
 msgid "_Join Lines Together"
-msgstr "Regels Sa_menvoegen"
+msgstr "_Xuntar liñas"
 
 #: ../src/bfwin_uimanager.c:901
 msgid "Join lines together"
-msgstr "Regels Sa_menvoegen"
+msgstr "Xuntar liñas"
 
 #: ../src/bfwin_uimanager.c:903
 msgid "Split Lines on Right _Margin"
-msgstr "Regels S_plitsen op Rechtermarge"
+msgstr "Separar liñas na marche _Dereita"
 
 #: ../src/bfwin_uimanager.c:903
 msgid "Split lines on right margin"
-msgstr "Regels Splitsen op Rechtermarge"
+msgstr "Separar liñas na marxe dereita"
 
 #: ../src/bfwin_uimanager.c:905
 msgid "Merge Lines Into Col_umns"
-msgstr "Voeg Samen In _Kolommen"
+msgstr "Xuntar liñas en col_umnas"
 
 #: ../src/bfwin_uimanager.c:905
 msgid "Merge lines into columns"
-msgstr "Voeg Samen In _Kolommen"
+msgstr "Xuntar liñas en columnas"
 
 #: ../src/bfwin_uimanager.c:907
 msgid "Rewrap _Lines"
-msgstr "Regelomloop herzien"
+msgstr "Reagrupar _Liñas"
 
 #: ../src/bfwin_uimanager.c:907
 msgid "Rewrap lines"
-msgstr "Regelomloop herzien"
+msgstr "Reagrupar liñas"
 
 #: ../src/bfwin_uimanager.c:908
 msgid "Strip T_railing Whitespace"
-msgstr "Verwijder _naloopspaties"
+msgstr "Strip T_railing Whitespace"
 
 #: ../src/bfwin_uimanager.c:908
 msgid "Strip trailing whitespace"
-msgstr "Verwijder _naloopspaties"
+msgstr "Strip trailing whitespace"
 
 #: ../src/bfwin_uimanager.c:910
 msgid "Javascript beautifier"
-msgstr ""
+msgstr "Embelecedor Javascript"
 
 #: ../src/bfwin_uimanager.c:911
 msgid "Preview in browser"
-msgstr "Voorbeeld in Browser"
+msgstr "Vista previa en navegador"
 
 #: ../src/bfwin_uimanager.c:916
 msgid "_Full Screen"
-msgstr "_Volledige schermvulling"
+msgstr "_Pantalla completa"
 
 #: ../src/bfwin_uimanager.c:916
 msgid "Full screen"
@@ -580,199 +509,197 @@ msgstr "Volledige schermvulling"
 
 #: ../src/bfwin_uimanager.c:918
 msgid "_Main Toolbar"
-msgstr "_Hoofd-Werkbalk"
+msgstr "Barra de _Ferramentas principal"
 
 #: ../src/bfwin_uimanager.c:918
 msgid "Show main toolbar"
-msgstr "Hoofd Werkbalk"
+msgstr "Mostrar barra de ferramentas principal"
 
 #: ../src/bfwin_uimanager.c:920
 msgid "_Side Pane"
-msgstr "_Zĳpaneel"
+msgstr "P_anel lateral"
 
 #: ../src/bfwin_uimanager.c:920
 msgid "Show side pane"
-msgstr "Zĳpaneel"
+msgstr "Mostrar panel lateral"
 
 #: ../src/bfwin_uimanager.c:921
 msgid "_Output Pane"
-msgstr "_Uitvoerpaneel"
+msgstr "Panel de _saída"
 
 #: ../src/bfwin_uimanager.c:921
 msgid "Show output pane"
-msgstr "Toon uitvoer paneel"
+msgstr "Mostrar panel de saída"
 
 #: ../src/bfwin_uimanager.c:923
 msgid "Status_bar"
-msgstr "_Statusbalk"
+msgstr "_Barra de estado"
 
 #: ../src/bfwin_uimanager.c:923
 msgid "Show statusbar"
-msgstr "Statusbalk"
+msgstr "Mostrar barra de estado"
 
 #: ../src/bfwin_uimanager.c:925
 msgid "Auto _Completion Popup"
-msgstr "Auto _completeren popup"
+msgstr "Auto_completado popup"
 
 #: ../src/bfwin_uimanager.c:925
 msgid "Show auto completion popup"
-msgstr "Toon auto-completering popup"
+msgstr "Mostrar popup de autocompletado"
 
 #: ../src/bfwin_uimanager.c:927
 msgid "_Auto Indent"
-msgstr "Auto _Inspringen"
+msgstr "_Auto indentación"
 
 #: ../src/bfwin_uimanager.c:927
 msgid "Auto indent"
-msgstr "Automatisch _Inspringen"
+msgstr "Auto indentación"
 
 #: ../src/bfwin_uimanager.c:928
 msgid "Highlight Block _Delimiters"
-msgstr "Blok Uiteinden _Oplichten"
+msgstr "Resaltar _Delimitadores de bloque"
 
 #: ../src/bfwin_uimanager.c:929
 msgid "Highlight block delimiters"
-msgstr "Blok Uiteinden Oplichten"
+msgstr "Resaltar delimitadores de bloque"
 
 #: ../src/bfwin_uimanager.c:930
 msgid "_Highlight Syntax"
-msgstr "Synta_x Weergeven"
+msgstr "_Resaltar Sintaxe"
 
 #: ../src/bfwin_uimanager.c:930
 msgid "Highlight syntax"
-msgstr "Syntax Weergeven"
+msgstr "Resaltar sintaxe"
 
 #: ../src/bfwin_uimanager.c:932
 msgid "Show _Blocks"
-msgstr "Toon _blokken"
+msgstr "Mostrar _Bloques"
 
 #: ../src/bfwin_uimanager.c:932
 msgid "Show blocks"
-msgstr "Toon _blokken"
+msgstr "Mostar bloques"
 
 #: ../src/bfwin_uimanager.c:933
 msgid "Show Line N_umbers"
-msgstr "_Regelnummers Weergeven"
+msgstr "Mostrar N_úmeros de liña"
 
 #: ../src/bfwin_uimanager.c:933
 msgid "Show line numbers"
-msgstr "Regelnummers Weergeven"
+msgstr "Mostar números de liña"
 
 #: ../src/bfwin_uimanager.c:935
 msgid "Show Right _Margin"
-msgstr "Toon Rechter_marge"
+msgstr "Mostar _marxe dereita"
 
 #: ../src/bfwin_uimanager.c:935
 msgid "Show right margin"
-msgstr "Toon Rechtermarge"
+msgstr "Mostar maxe dereita"
 
 #: ../src/bfwin_uimanager.c:937
 msgid "Show Split _View"
-msgstr "_Gesplitst Beeld"
+msgstr "Mostar _Vista separada"
 
 #: ../src/bfwin_uimanager.c:937
 msgid "Show split view"
-msgstr "Gesplitst Beeld"
+msgstr "Mostrar vista separada"
 
 #: ../src/bfwin_uimanager.c:939
 msgid "Show V_isible Spacing"
-msgstr "Zichtbare _Witruimte"
+msgstr "Mostar espaciado v_isible"
 
 #: ../src/bfwin_uimanager.c:939
 msgid "Show visible spacing"
-msgstr "Zichtbare Witruimte"
+msgstr "Mostar espaciado visible"
 
 #: ../src/bfwin_uimanager.c:941
 msgid "_Wrap Text"
-msgstr "Regel _Omloop"
+msgstr "_Agrupar texto"
 
 #: ../src/bfwin_uimanager.c:941
 msgid "Wrap text"
-msgstr "Regel omloop inschakelen"
+msgstr "Agrupar texto"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3188
 msgid "_Close"
-msgstr "Sluiten"
+msgstr "_Pechar"
 
 #: ../src/bfwin_uimanager.c:945
 msgid "Close current file"
-msgstr "Alle gefaalde documenten sluiten"
+msgstr "Pechar o ficheiro actual"
 
 #: ../src/bfwin_uimanager.c:947
 msgid "Close A_ll"
-msgstr "A_lles sluiten"
+msgstr "Pechar _todo"
 
 #: ../src/bfwin_uimanager.c:947
 msgid "Close all files"
-msgstr "Alle documenten sluiten"
+msgstr "Pechar todos os ficheiros"
 
 #: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
-#: ../src/file_dialogs.c:1484
+#: ../src/file_dialogs.c:1483
 msgid "_Save"
-msgstr "Opslaan"
+msgstr "_Gardar"
 
 #: ../src/bfwin_uimanager.c:949
 msgid "Save current file"
-msgstr "Huidig bestand opslaan"
+msgstr "Gardar o ficheiro actual"
 
 #: ../src/bfwin_uimanager.c:951 ../src/bfwin_uimanager.c:1026
 msgid "Save _as..."
-msgstr "Opslaan _als..."
+msgstr "G_ardar como..."
 
 #: ../src/bfwin_uimanager.c:951
 msgid "Save file as"
-msgstr "Bestand opslaan als"
+msgstr "Gardar o ficheiro como"
 
 #: ../src/bfwin_uimanager.c:953
 msgid "Sav_e All"
-msgstr "All_es opslaan"
+msgstr "Garda_r todo"
 
 #: ../src/bfwin_uimanager.c:953
 msgid "Save all files"
-msgstr "Alle bestanden opslaan"
+msgstr "Gardar todos os ficheiros"
 
 #: ../src/bfwin_uimanager.c:954
 msgid "Rever_t to Saved"
-msgstr "_Terug naar Opgeslagen"
+msgstr "Rever_ter a Gardado"
 
 #: ../src/bfwin_uimanager.c:954
 msgid "Reload current file"
-msgstr "Huidig bestand herladen"
+msgstr "Recargar o ficheiro actual"
 
 #: ../src/bfwin_uimanager.c:956
-#, fuzzy
 msgid "Save a cop_y..."
-msgstr "Opslaan _als..."
+msgstr "Gardar unha cop_ia como..."
 
 #: ../src/bfwin_uimanager.c:956
-#, fuzzy
 msgid "Save a copy"
-msgstr "Opslaan & sl_uiten"
+msgstr "Gardar unha copia"
 
 #: ../src/bfwin_uimanager.c:957
 msgid "_Insert..."
-msgstr "_Invoegen..."
+msgstr "_Insertar..."
 
 #: ../src/bfwin_uimanager.c:957
 msgid "Insert file"
-msgstr "Bestand invoegen"
+msgstr "Insertar ficheiro"
 
 #. Required to move here to disable sensitivity on OSX
 #: ../src/bfwin_uimanager.c:958
 msgid "Rena_me..."
-msgstr "_Hernoemen..."
+msgstr "Reno_mear..."
 
 #: ../src/bfwin_uimanager.c:958
 msgid "Rename file"
-msgstr "Bestand hernoemen"
+msgstr "Renomear ficheiro"
 
 #: ../src/bfwin_uimanager.c:959
 msgid "_Indent"
-msgstr "Rechts _Inspringen"
+msgstr "_Indentación"
 
 #: ../src/bfwin_uimanager.c:959
 msgid "Indent"
-msgstr "Rechts Inspringen"
+msgstr "Indentación"
 
 #: ../src/bfwin_uimanager.c:960
 msgid "Unin_dent"
@@ -780,301 +707,296 @@ msgstr "Verspring _Links"
 
 #: ../src/bfwin_uimanager.c:960
 msgid "Unindent"
-msgstr "Verspring Links"
+msgstr "Desindentación"
 
 #: ../src/bfwin_uimanager.c:962
 msgid "F_irst Bookmark"
-msgstr "Eerste _Bladwĳzer"
+msgstr "Pr_imeiro marcador"
 
 #: ../src/bfwin_uimanager.c:962
 msgid "Goto first bookmark"
-msgstr "Naar eerste bladwĳzer"
+msgstr "Ir ao primeiro marcador"
 
 #: ../src/bfwin_uimanager.c:964
 msgid "L_ast Bookmark"
-msgstr "L_aatste Bladwĳzer"
+msgstr "Último m_arcador"
 
 #: ../src/bfwin_uimanager.c:964
 msgid "Goto last bookmark"
-msgstr "Naar laatste bladwĳzer"
+msgstr "Ir ao último marcador"
 
 #: ../src/bfwin_uimanager.c:966
 msgid "N_ext Bookmark"
-msgstr "Volgende Blad_wĳzer"
+msgstr "S_eguinte marcador"
 
 #: ../src/bfwin_uimanager.c:966
 msgid "Goto next bookmark"
-msgstr "Naar volgende bladwĳzer"
+msgstr "Ir ao seguinte marcador"
 
 #: ../src/bfwin_uimanager.c:968
 msgid "P_revious Bookmark"
-msgstr "Vorige Bla_dwijzer"
+msgstr "Marcador ante_rior"
 
 #: ../src/bfwin_uimanager.c:969 ../src/bfwin_uimanager.c:982
 msgid "Goto previous document"
-msgstr "Naar vorig document"
+msgstr "Ir ao documento previo"
 
 #: ../src/bfwin_uimanager.c:970
 msgid "Move Tab _Left"
-msgstr "Verschuif Tabblad naar _Links"
+msgstr "Mover o tabu_lador a esquerda"
 
 #: ../src/bfwin_uimanager.c:970
 msgid "Move current tab left"
-msgstr "Verschuif Tabblad naar Rechts"
+msgstr "Mover o tabulador actual a esquerda"
 
 #: ../src/bfwin_uimanager.c:972
 msgid "Move Tab _Right"
-msgstr "Verschuif Tabblad naar _Rechts"
+msgstr "Mover o tabulado_r a dereita"
 
 #: ../src/bfwin_uimanager.c:972
 msgid "Move current tab right"
-msgstr "Huidige tabblad naar rechts verplaatsen"
+msgstr "Mover o tabulador actual a dereita"
 
 #: ../src/bfwin_uimanager.c:974
-#, fuzzy
 msgid "_Recent Document"
-msgstr "Vol_gende Document"
+msgstr "Documento _recenta"
 
 #: ../src/bfwin_uimanager.c:974
-#, fuzzy
 msgid "Goto most recent document"
-msgstr "Naar laatste document"
+msgstr "Ir ao documento máis recente"
 
 #: ../src/bfwin_uimanager.c:976
 msgid "_First Document"
-msgstr "_Eerste Document"
+msgstr "Pri_meiro documento"
 
 #: ../src/bfwin_uimanager.c:976
 msgid "Goto first document"
-msgstr "Naar eerste document"
+msgstr "Ir ao primeiro documento"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "_Last Document"
-msgstr "_Laatste Document"
+msgstr "_Último documento"
 
 #: ../src/bfwin_uimanager.c:978
 msgid "Goto last document"
-msgstr "Naar laatste document"
+msgstr "Ir ao último documento"
 
 #: ../src/bfwin_uimanager.c:980
 msgid "_Next Document"
-msgstr "Vol_gende Document"
+msgstr "Documento segui_nte"
 
 #: ../src/bfwin_uimanager.c:980
 msgid "Goto next document"
-msgstr "Naar volgende document"
+msgstr "Ir ao seguinte documento"
 
 #: ../src/bfwin_uimanager.c:982
 msgid "_Previous Document"
-msgstr "Vori_ge document"
+msgstr "Documento an_terior"
 
 #: ../src/bfwin_uimanager.c:984
-#, fuzzy
 msgid "_Goto Line"
-msgstr "Ga naar regel:"
+msgstr "Ir a _liña"
 
 #: ../src/bfwin_uimanager.c:984
 msgid "Goto line"
-msgstr "Ga naar regel"
+msgstr "Ir a liña"
 
 #: ../src/bfwin_uimanager.c:985
 msgid "Goto Line Number from _Clipboard"
-msgstr "Ga Naar Regelnummer uit _Klembord"
+msgstr "Ir a número de liña do _Taboleiro"
 
 #: ../src/bfwin_uimanager.c:986
 msgid "Goto line number in clipboard or selection"
-msgstr "Ga naar regelnummer in klembord of selectie"
+msgstr "Ir a número de liña no taboleiro ou seleción"
 
 #: ../src/bfwin_uimanager.c:987
 msgid "_Jump to Reference"
-msgstr "_Spring naar Referentie"
+msgstr "_Saltar a referencia"
 
 #: ../src/bfwin_uimanager.c:987
 msgid "Jump to reference"
-msgstr "Spring naar referentie"
+msgstr "Saltar a referencia"
 
 #: ../src/bfwin_uimanager.c:990 ../src/bfwin_uimanager.c:993
 msgid "Jump to Matching Block Boundary"
-msgstr ""
+msgstr "Saltar a concidencia de límite de bloque"
 
 #: ../src/bfwin_uimanager.c:999
 msgid "Cu_t"
-msgstr "K_nippen"
+msgstr "Cor_tar"
 
 #: ../src/bfwin_uimanager.c:999
 msgid "Cut"
-msgstr "Knippen"
+msgstr "Cortar"
 
 #: ../src/bfwin_uimanager.c:1000
 msgid "_Copy"
-msgstr "_Kopieren"
+msgstr "_Copiar"
 
 #: ../src/bfwin_uimanager.c:1000
 msgid "Copy"
-msgstr "Kopiëren"
+msgstr "Copiar"
 
 #: ../src/bfwin_uimanager.c:1001
 msgid "_Paste"
-msgstr "_Plakken"
+msgstr "_Pegar"
 
 #: ../src/bfwin_uimanager.c:1001
 msgid "Paste"
-msgstr "Plakken"
+msgstr "Pegar"
 
 #: ../src/bfwin_uimanager.c:1002
 msgid "Paste Specia_l"
-msgstr ""
+msgstr "Pegado especia_l"
 
 #: ../src/bfwin_uimanager.c:1002
 msgid "Paste Special"
-msgstr ""
+msgstr "Pegado especial"
 
 #: ../src/bfwin_uimanager.c:1006
 msgid "_Find"
-msgstr "_Zoek"
+msgstr "_Buscar"
 
 #: ../src/bfwin_uimanager.c:1006
 msgid "Show find bar"
-msgstr "Zoekbalk Weergeven"
+msgstr "Mostar barra de búsqueda"
 
 #: ../src/bfwin_uimanager.c:1007
 msgid "Find A_gain"
-msgstr "Herhaal zoeken"
+msgstr "Buscar de no_vo"
 
 #: ../src/bfwin_uimanager.c:1007
 msgid "Find again"
-msgstr "Opnieuw zoeken"
+msgstr "Buscar de novo"
 
 #: ../src/bfwin_uimanager.c:1008
 msgid "Find from Clip_board"
-msgstr "Zoek van Klembord"
+msgstr "Buscar desde Ta_boleiro"
 
 #: ../src/bfwin_uimanager.c:1008
 msgid "Find from clipboard or selection"
-msgstr "Zoek van klembord of selectie"
+msgstr "Buscar desde taboleiro ou seleción"
 
 #: ../src/bfwin_uimanager.c:1011 ../src/bfwin_uimanager.c:1014
-#, fuzzy
 msgid "Ad_vanced Find & Replace..."
-msgstr "Geavanceerd Zoeken & _Vervangen"
+msgstr "Buscar e Sustitúe a_vanzado"
 
 #: ../src/bfwin_uimanager.c:1011 ../src/bfwin_uimanager.c:1014
 msgid "Advanced Find and Replace"
-msgstr "Geavanceerd Zoeken en Vervangen"
+msgstr "Busca e sustitúe con opcións"
 
 #: ../src/bfwin_uimanager.c:1023
 msgid "Save & _close"
-msgstr "Opslaan & sl_uiten"
+msgstr "Gardar & pe_char"
 
 #: ../src/bfwin_uimanager.c:1023
 msgid "Save & close project"
-msgstr "Project opslaan en sluiten"
+msgstr "Gardar e pechar proxecto"
 
 #: ../src/bfwin_uimanager.c:1025
 msgid "Save project"
-msgstr "Project opslaan"
+msgstr "Gardar proxecto"
 
 #: ../src/bfwin_uimanager.c:1026
 msgid "Save project as"
-msgstr "Project opslaan als"
+msgstr "Gardar proxecto como"
 
 #: ../src/bfwin_uimanager.c:1027
 msgid "_Edit Project Options..."
-msgstr "Project _Voorkeuren..."
+msgstr "_Editar opcións do proxecto..."
 
 #: ../src/bfwin_uimanager.c:1027
 msgid "Edit project options"
-msgstr "Project Voorkeuren"
+msgstr "Editar opcións do proxecto"
 
 #: ../src/bfwin_uimanager.c:1032
 msgid "_Undo"
-msgstr "_Ongedaan maken"
+msgstr "_Desfacer"
 
 #: ../src/bfwin_uimanager.c:1032
 msgid "Undo"
-msgstr "Ongedaan maken"
+msgstr "Desfacer"
 
 #: ../src/bfwin_uimanager.c:1033
 msgid "U_ndo All"
-msgstr "Alles _Ongedaan Maken"
+msgstr "Desfacer _Todo"
 
 #: ../src/bfwin_uimanager.c:1033
 msgid "Undo All"
-msgstr "Alles Ongedaan Maken"
+msgstr "Desfacer Todo"
 
 #: ../src/bfwin_uimanager.c:1034
 msgid "_Redo"
-msgstr "Op_nieuw"
+msgstr "Voltar a _facer"
 
 #: ../src/bfwin_uimanager.c:1034
 msgid "Redo"
-msgstr "Opnieuw"
+msgstr "Voltar a facer"
 
 #: ../src/bfwin_uimanager.c:1035
 msgid "R_edo All"
-msgstr "A_lles Opnieuw"
+msgstr "Voltar a facer to_do"
 
 #: ../src/bfwin_uimanager.c:1035
 msgid "Redo All"
-msgstr "Alles Opnieuw"
+msgstr "Voltar a facer todo"
 
 #: ../src/bfwin_uimanager.c:1060
 #, c-format
 msgid "Always use this syntax for files of type %s ?"
-msgstr ""
+msgstr "Usar sempre esta sintaxe para ficheiros do tipo %s ?"
 
 #: ../src/bfwin_uimanager.c:1225
 msgid "Open _URL..."
-msgstr "Open _URL..."
+msgstr "Abrir _URL..."
 
 #: ../src/bfwin_uimanager.c:1235
-#, fuzzy
 msgid "Upload _/ Download..."
-msgstr "U_pload / Download..."
+msgstr "Subir _/ Baixar..."
 
 #: ../src/bfwin_uimanager.c:1248
 msgid "_Spell Check"
-msgstr "_Spellingscontrole"
+msgstr "_Verificación ortográfica"
 
 #: ../src/bfwin_uimanager.c:1715
 msgid "Text area to filter"
-msgstr "Te filteren tekst"
+msgstr "Área de texto a filtrar"
 
 #: ../src/bfwin_uimanager.c:1716
 msgid "All text"
-msgstr "Alle tekst"
+msgstr "Todo o texto"
 
 #: ../src/bfwin_uimanager.c:1717
 msgid "Selected text only"
-msgstr "Alleen geselecteerde tekst"
+msgstr "Só o texto selecionado"
 
 #: ../src/bfwin_uimanager.c:1719
 msgid "Never ask again"
-msgstr ""
+msgstr "Non preguntar de novo"
 
 #: ../src/blocksync.c:87
 msgid ""
 "Select the block to sync to other pages. Include the start-of-block and end-"
 "of-block markers in your selection."
 msgstr ""
-"Selecteer het blok dat gesynchroniseerd moet worden, inclusief de blok-start "
-"en blok-einde markeringen"
+"Selecione o bloque a sincronizar con outras páxinas. Inclúa os marcadores de inicio "
+"e final de bloque na súa seleción."
 
 #: ../src/blocksync.c:92
 msgid "To proceed with the current selection click forward."
-msgstr "Om verder te gaan met de huidige selectie klik volgende."
+msgstr "Para proceder coa seleción actual pulse adiante."
 
 #: ../src/blocksync.c:121
 msgid ""
 "Below is the block, including start and end marker. Please <b>select the "
 "start marker</b> in the text below."
 msgstr ""
-"Hieronder is het blok, inclusief the start en eind markering. <b>Selecteer "
-"de start markering</b> in de tekst hieronder."
+"Abaixo está o bloque, incluíndo os marcadores de inicio e fin.  Por favor <b>selecione "
+"o marcador de inicio</b> no texto inferior."
 
 #: ../src/blocksync.c:156
 msgid "Please <b>select the end marker</b> in the text below."
-msgstr "<b>Selecteer de eind markering</b> in the tekst hieronder."
+msgstr "Por favor <b>selecione o marcador final</b> no texto inferior."
 
 #: ../src/blocksync.c:194
 #, c-format
@@ -1083,215 +1005,214 @@ msgid ""
 "opened in this window.\n"
 "<b>Proceed?</b>"
 msgstr ""
-"Tekst tussen <i>%s</i> en <i>%s</i> zal in alle documenten in dit venster "
-"vervangen worden.\n"
-"<b>Doorgaan?</b>"
+"Sustituirá o texto entre <i>%s</i> e <i>%s</i> en todos os documentos abertos "
+"en esta ventá.\n"
+"<b>Procede?</b>"
 
 #: ../src/blocksync.c:225
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Please select the block of text to "
 "synchronize.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Selecteer het blok tekst dat "
-"gesynchroniseerd moet worden.</span>"
+"<span foreground=\"red\" weight=\"bold\">Por favor selecione o bloque de texto a "
+"sincronizar.</span>"
 
 #: ../src/blocksync.c:239 ../src/blocksync.c:259
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">This marker exists more than once "
 "in the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Deze markering komt meerdere keren "
-"voor in het blok tekst.</span>"
+"<span foreground=\"red\" weight=\"bold\">Este marcador está repetido "
+"no bloque.</span>"
 
 #: ../src/blocksync.c:245
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Select the text that marks the "
 "start of the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Selecteer de tekst die de start van "
-"het blok markeert.</span>"
+"<span foreground=\"red\" weight=\"bold\">Selecione o texto que indica o "
+"inicio do bloque.</span>"
 
 #: ../src/blocksync.c:265
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Select the text that marks the end "
 "of the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Selecteer de tekst die het eind van "
-"het blok markeert.</span>"
+"<span foreground=\"red\" weight=\"bold\">Selecione o texto que indica o "
+"fin do bloque.</span>"
 
 #: ../src/bluefish.c:91
 msgid "Visit us at http://bluefish.openoffice.nl"
-msgstr "Bezoek ons op http://bluefish.openoffice.nl"
+msgstr "Visítenos en http://bluefish.openoffice.nl"
+
+#: ../src/bluefish.c:356
+msgid "Open in existing window."
+msgstr "Abir na ventá existente."
+
+#: ../src/bluefish.c:358
+msgid "Open in new window."
+msgstr "Abrir en nova ventá."
 
 #: ../src/bluefish.c:360
-msgid "Open in existing window."
-msgstr "Open in bestaand venster."
-
-#: ../src/bluefish.c:362
-msgid "Open in new window."
-msgstr "Open in nieuw venster."
-
-#: ../src/bluefish.c:364
 msgid "Print version information."
-msgstr "Print versie informatie."
+msgstr "Información da versión impresa."
 
-#: ../src/bluefish.c:391
+#: ../src/bluefish.c:387
 msgid " [FILE(S)]"
-msgstr " [FILE(S)]"
+msgstr " [FICHEIROS(S)]"
 
-#: ../src/bluefish.c:402
+#: ../src/bluefish.c:398
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
 "Please run: %s -?\n"
 msgstr ""
-"Fout bij het lezen van de commandoopdracht. %s\n"
-"Probeer: %s -?\n"
+"Erro procesando as opcións da liña de comandos. %s\n"
+"Por favor execute: %s -?\n"
 
 #: ../src/bookmark.c:548 ../src/bookmark.c:569
 msgid "_Name:"
-msgstr "Naam:"
+msgstr "_Nome:"
 
 #: ../src/bookmark.c:555 ../src/bookmark.c:573
 msgid "_Description:"
-msgstr "Beschrĳving:"
+msgstr "_Descrición:"
 
 #: ../src/bookmark.c:558
-#, fuzzy
 msgid "_Temporary"
-msgstr "Tĳdelĳk"
+msgstr "_Temporalmente"
 
 #: ../src/bookmark.c:575
 msgid "Temporary"
-msgstr "Tĳdelĳk"
+msgstr "Temporalmente"
 
 #: ../src/bookmark.c:748
 #, c-format
 msgid "Do you really want to delete %s?"
-msgstr "Weet u zeker dat u %s wilt verwĳderen ?"
+msgstr "Seguro que quere borrar %s ?"
 
 #: ../src/bookmark.c:751
 msgid "Delete permanent bookmark."
-msgstr "Verwĳder permanente bladwĳzer."
+msgstr "Borrar marcador permanente."
 
 #: ../src/bookmark.c:777
 msgid "Delete all bookmarks."
-msgstr "Verwĳder alle bladwĳzers."
+msgstr "Borrar todos os marcadores."
 
 #: ../src/bookmark.c:815
 #, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
-msgstr "Weet u zeker dat u alle bladwĳzers voor %s wilt verwĳderen ?"
+msgstr "Seguro que quere borrar todos os marcadores para %s  ?"
 
 #: ../src/bookmark.c:817
 msgid "Delete bookmarks?"
-msgstr "Bladwĳzers verwĳderen ?"
+msgstr "Borrar marcadores ?"
 
 #: ../src/bookmark.c:838 ../src/bookmark.c:899
 msgid "Edit bookmark"
-msgstr "Bladwĳzer bewerken"
+msgstr "Editar marcador"
 
 #: ../src/bookmark.c:895
 msgid "Bookmark menu"
-msgstr "Bladwĳzer menu"
+msgstr "Menú marcador"
 
 #: ../src/bookmark.c:896
 msgid "Show Bookmark"
-msgstr "Toon Bladwĳzer"
+msgstr "Mostar marcador"
 
 #: ../src/bookmark.c:897
 msgid "Show File"
-msgstr "Toon bestand"
+msgstr "Mostar ficheiro"
 
 #: ../src/bookmark.c:898
 msgid "Bookmark search menu"
-msgstr "Bladwĳzer zoek menu"
+msgstr "Menú de búsqueda de marcador"
 
 #: ../src/bookmark.c:899
 msgid "_Edit..."
-msgstr "Be_werken"
+msgstr "_Editar"
 
-#: ../src/bookmark.c:901 ../src/filebrowser2.c:1275
+#: ../src/bookmark.c:901 ../src/filebrowser2.c:1276
 msgid "_Delete"
-msgstr "Verwĳderen"
+msgstr "_Borrar"
 
-#: ../src/bookmark.c:901 ../src/document.c:2083
+#: ../src/bookmark.c:901 ../src/document.c:2080
 msgid "Delete bookmark"
-msgstr "Verwĳder bladwĳzer"
+msgstr "Borrar marcador"
 
 #: ../src/bookmark.c:902
 msgid "Delete All"
-msgstr "Verwĳder alles"
+msgstr "Borrar todos"
 
 #: ../src/bookmark.c:902
 msgid "Delete all bookmarks"
-msgstr "Verwĳder alle bladwĳzers."
+msgstr "Borrar todos os marcadores."
 
 #: ../src/bookmark.c:904
 msgid "Delete All in Document"
-msgstr "Verwĳder Alles in document"
+msgstr "Borrar todos no documento"
 
 #: ../src/bookmark.c:905
 msgid "Delete all bookmarks in document"
-msgstr "Verwĳder alle bladwĳzers in document"
+msgstr "Borrar todos os marcadores no documento"
 
 #: ../src/bookmark.c:910
 msgid "Permanent by default"
-msgstr "Standaard permanent"
+msgstr "Permanente por omisión"
 
 #: ../src/bookmark.c:915
 msgid "By Name"
-msgstr "Met naam"
+msgstr "Por nome"
 
 #: ../src/bookmark.c:916
 msgid "By Full Path"
-msgstr "Met volledig pad"
+msgstr "Por ruta completa"
 
 #: ../src/bookmark.c:917
 msgid "By Full URI"
-msgstr "Met volledige URI"
+msgstr "Por URI completa"
 
 #: ../src/bookmark.c:921 ../src/bookmark.c:927
 msgid "Content"
-msgstr "Inhoud"
+msgstr "Contido"
 
 #: ../src/bookmark.c:922 ../src/bookmark.c:928 ../src/preferences.c:607
 #: ../src/preferences.c:1369 ../src/preferences.c:1371
 #: ../src/preferences.c:1472
 msgid "Name"
-msgstr "Naam"
+msgstr "Nome"
 
 #: ../src/bookmark.c:923 ../src/bookmark.c:929
 msgid "Name & Content"
-msgstr "Naam & Inhoud"
+msgstr "Nome e Contido"
 
 #: ../src/bookmark.c:1261
 msgid "First bookmark"
-msgstr "Eerste bladwĳzer"
+msgstr "Primeiro marcador"
 
 #: ../src/bookmark.c:1265
 msgid "Previous bookmark"
-msgstr "Vorige bladwĳzer bewerken"
+msgstr "Marcador anterior"
 
 #: ../src/bookmark.c:1269
 msgid "Next bookmark"
-msgstr "Volgende bladwĳzer"
+msgstr "Marcador seguinte"
 
 #: ../src/bookmark.c:1273
 msgid "Last bookmark"
-msgstr "Laatste bladwĳzer"
+msgstr "Último marcador"
 
 #: ../src/bookmark.c:2037
 msgid "Can't add bookmark"
-msgstr "Kan bladwĳzer niet toevoegen"
+msgstr "Non se pode engadir marcador"
 
 #: ../src/bookmark.c:2037
 msgid "You already have a bookmark here!"
-msgstr "U heeft daar al een bladwĳzer!"
+msgstr "Xa ten un marcador aquí!"
 
 #: ../src/document.c:515
 msgid "Name: "
-msgstr "Naam: "
+msgstr "Nome: "
 
 #: ../src/document.c:518
 msgid ""
@@ -1299,7 +1220,7 @@ msgid ""
 "Language mode: "
 msgstr ""
 "\n"
-"Taal mode: "
+"Tipo de linguaxe: "
 
 #: ../src/document.c:522
 msgid ""
@@ -1307,7 +1228,7 @@ msgid ""
 "Encoding: "
 msgstr ""
 "\n"
-"Codering: "
+"Codificación: "
 
 #: ../src/document.c:534
 msgid ""
@@ -1315,7 +1236,7 @@ msgid ""
 "Mime type: "
 msgstr ""
 "\n"
-"Mime type: "
+"Tipo Mime: "
 
 #: ../src/document.c:542
 #, c-format
@@ -1325,7 +1246,7 @@ msgid ""
 "Uid: %u Gid: %u"
 msgstr ""
 "\n"
-"Permissie's:%s\n"
+"Permisos:%s\n"
 "UID:%u GID:%u"
 
 #: ../src/document.c:559
@@ -1334,7 +1255,7 @@ msgid ""
 "Size (on disk): "
 msgstr ""
 "\n"
-"Grootte (op schĳf): "
+"Tamaño (en disco): "
 
 #: ../src/document.c:568
 msgid ""
@@ -1342,102 +1263,104 @@ msgid ""
 "Last modified: "
 msgstr ""
 "\n"
-"Laatste wĳziging: "
+"Última modificación: "
 
 #: ../src/document.c:624
 #, c-format
 msgid "Untitled %d"
-msgstr "Naamloos %d"
+msgstr "Sen título %d"
 
 #: ../src/document.c:805
 #, c-format
 msgid "Changed tab width to %d"
-msgstr "Tab-grootte veranderd naar %d"
+msgstr "Cambiada anchura da tabulación a  %d"
 
 #: ../src/document.c:979
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
-msgstr "Document %s is al geopend in een ander Bluefish venster."
+msgstr "O documento %s xa está aberto en outra ventá de Bluefish."
 
 #: ../src/document.c:981
 msgid "Move to this window"
-msgstr "Verplaats naar dit venster"
+msgstr "Mover a esta ventá"
 
 #: ../src/document.c:981
 msgid "Open readonly"
-msgstr "Open alleen-lezen"
+msgstr "Abrir como só lectura"
 
 #: ../src/document.c:982
 msgid "Do not open"
-msgstr "Niet openen"
+msgstr "Non abrir"
+
+#: ../src/document.c:1308
+#, c-format
+msgid " Ln: %d, Col: %d, Char: %d"
+msgstr " Ln: %d, Col: %d, Car: %d"
 
 #: ../src/document.c:1311
 #, c-format
-msgid " Ln: %d, Col: %d, Char: %d"
-msgstr " Ln: %d, Kol: %d, Char: %d"
-
-#: ../src/document.c:1314
-#, c-format
 msgid " Ln: %d, Col: %d"
-msgstr " Ln: %d, Kol:%d"
+msgstr " Ln: %d, Col:%d"
 
-#: ../src/document.c:1337
+#: ../src/document.c:1334
 msgid " OVR"
 msgstr " OVR"
 
-#: ../src/document.c:1337
+#: ../src/document.c:1334
 msgid " INS"
 msgstr " INS"
 
-#: ../src/document.c:1339
+#: ../src/document.c:1336
 msgid " RO"
 msgstr " RO"
 
-#: ../src/document.c:1358
+#: ../src/document.c:1355
 msgid "Unknown"
-msgstr "Onbekend"
+msgstr "Descoñecido"
 
-#: ../src/document.c:1822
-#, fuzzy
+#: ../src/document.c:1819
 msgid "_No"
-msgstr "_Ga"
+msgstr "_Non"
+
+#: ../src/document.c:1819
+msgid "_Split"
+msgstr "_Separar"
 
 #: ../src/document.c:1822
-msgid "_Split"
-msgstr ""
-
-#: ../src/document.c:1825
 msgid "File contains very long lines. Split these lines?"
-msgstr ""
+msgstr "O ficheiro contén liñas moi longas. Separar estas liñas?"
 
-#: ../src/document.c:1825
+#: ../src/document.c:1822
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
 "syntax, and may replace spaces or tabs with newlines in any location, or "
 "insert newlines if no spaces or tabs are found."
-msgstr ""
+msgstr "As liñas neste ficheiro son máis longas do que Bluefish pode manexar con "
+"rendemento razonable. A función de separado, porén, non detecta a linguaxe "
+"ou sintaxe, e pode sustituír espazos ou tabulacións con novas liñas en calquer "
+"localización, ou insertar novas liñas se non atopa espazos ou tabulacións."
 
-#: ../src/document.c:1901
+#: ../src/document.c:1898
 msgid "Cannot display file, unknown characters found."
-msgstr "Kan bestand niet laten zien; Onbekende karakters gevonden."
+msgstr "Non pode mostar ficheiro, atopáronse caracteres descoñecidos."
 
-#: ../src/document.c:2093
+#: ../src/document.c:2090
 msgid "Exit fullscreen"
-msgstr "Sluit volledige schermvulling"
+msgstr "Saír de pantalla completa"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2234 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
-msgstr "Opslaan afbreken"
+msgstr "Desistir de gardar"
 
-#: ../src/document.c:2237
+#: ../src/document.c:2234
 msgid "_Continue save in UTF-8"
-msgstr "Opslaan hervatten in UTF-8"
+msgstr "_Continue gardado en UTF-8"
 
-#: ../src/document.c:2250
+#: ../src/document.c:2247
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1445,303 +1368,296 @@ msgid ""
 "\n"
 "Continue saving in UTF-8 encoding?"
 msgstr ""
-"Converteren van %s naar codering %s mislukt. Codering faalde op karakter %s "
-"op regel %d kolom %d\n"
+"Fallou a conversión de %s a codificación de caracter %s. A codificación fallou no caracter "
+"'%s' na liña %d columna %d\n"
 "\n"
-"Doorgaan met opslaan in UTF-8 codering ?"
+"Continuar coa gardado con codificación UTF-8 ?"
 
-#: ../src/document.c:2255
+#: ../src/document.c:2252
 msgid "File encoding conversion failure"
-msgstr "Bestands codering conversie fout"
+msgstr "Fallou a conversión de codificación do ficheiro"
 
-#: ../src/document.c:2415
+#: ../src/document.c:2411
 msgid "Previously: "
-msgstr "Voorheen: "
+msgstr "Anteriormente: "
 
-#: ../src/document.c:2987 ../src/file_dialogs.c:839
+#: ../src/document.c:2975 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
-"Uw glib versie  (%d.%d.%d) werkt onbetrouwbaar met netwerk bestanden. "
-"Gebruik 2.18.0 of nieuwer."
+"A súa versión glib  (%d.%d.%d) non fiable con ficheiros remotos. Por favor "
+"actualize a 2.18.0 ou posterior."
 
-#: ../src/document.c:3116
+#: ../src/document.c:3104
 msgid "Unable to open file"
-msgstr "Kan bestand niet openen"
+msgstr "Incapaz de abrir ficheiro"
 
 # c-format
-#: ../src/document.c:3128
+#: ../src/document.c:3116
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr ""
-"Als u \"%s\" terugdraait naar de laast opgeslagen versie gaan uwhuidige "
-"wijzigingen verloren."
+"Se revirte \"%s\" a súa última copia gardada, os seus cambios actuais "
+"perderánse de xeito permanente"
 
-#: ../src/document.c:3132
+#: ../src/document.c:3120
 msgid "Revert changes to last saved copy?"
-msgstr "Veranderingen terugdraaien tot laatst opgeslagen versie?"
+msgstr "Revertir os cambios a última copia gardada?"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3188
 msgid "_Retry"
-msgstr "Opnieuw"
+msgstr "_Reintentar"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3188
 msgid "Retry _all failed"
-msgstr "Alle gefaalde opnieuw"
+msgstr "Reintentar todo f_allou"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3188
 msgid "Close all _failed"
-msgstr "Alle gefaalde sluiten"
+msgstr "Pechar todo _fallou"
 
-#: ../src/document.c:3205
+#: ../src/document.c:3193
 msgid "File "
-msgstr "Bestand "
+msgstr "Ficheiro "
 
-#: ../src/document.c:3205
+#: ../src/document.c:3193
 msgid " failed to load."
-msgstr " laden mislukt."
+msgstr " non se cargou."
 
-#: ../src/document.c:3209
+#: ../src/document.c:3197
 msgid "File failed to load\n"
-msgstr "Bestand laden mislukt\n"
+msgstr "Fallou a carga do ficheiro\n"
 
-#: ../src/document.c:3334
+#: ../src/document.c:3322
 msgid "Select file to insert"
-msgstr "Selecteer bestand om in te voegen"
+msgstr "Selecione o ficheiro a insertar"
 
-#: ../src/document.c:3343
+#: ../src/document.c:3331
 msgid "No file to insert"
-msgstr "Geen bestand om in te voegen"
+msgstr "Sen ficheiro que insertar"
 
-#: ../src/document.c:3423
-#, fuzzy
+#: ../src/document.c:3411
 msgid "Save pasted image as"
-msgstr "Bestand opslaan als"
+msgstr "Gardar imaxe pegada como"
 
-#: ../src/document.c:3519
+#: ../src/document.c:3507
 msgid "Paste special"
-msgstr ""
+msgstr "Pegado especial"
 
-#: ../src/document.c:3525
+#: ../src/document.c:3513
 msgid "No compatible clipboard data found"
-msgstr ""
+msgstr "Sen datos compatibles no portapapeis"
 
-#: ../src/document.c:3529
+#: ../src/document.c:3517
 msgid "Paste as _HTML"
-msgstr ""
+msgstr "Pegar como _HTML"
 
-#: ../src/document.c:3534
+#: ../src/document.c:3522
 msgid "Paste as HTML with _JPG"
-msgstr ""
+msgstr "Pegar como HTML con _JPG"
 
-#: ../src/document.c:3544
-#, fuzzy
+#: ../src/document.c:3532
 msgid "Paste as plain text"
-msgstr "Invoegen zonder opmaak"
+msgstr "Pegar como texto plano"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3626
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
-msgstr[0] "%d regel"
-msgstr[1] "% regels"
+msgstr[0] "%d liña"
+msgstr[1] "% liñas"
 
-#: ../src/document.c:3639
+#: ../src/document.c:3627
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
-msgstr[0] "%d woord"
-msgstr[1] "%d woorden"
+msgstr[0] "%d palabra"
+msgstr[1] "%d palabras"
 
-#: ../src/document.c:3640
+#: ../src/document.c:3628
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
-msgstr[0] "%d karakter"
-msgstr[1] "%d karakters"
+msgstr[0] "%d caracter"
+msgstr[1] "%d caracteres"
 
-#: ../src/document.c:3642
+#: ../src/document.c:3630
 msgid "Selection statistics: "
-msgstr "Selectie statistieken: "
+msgstr "Estatísticas da seleción: "
 
-#: ../src/document.c:3642
+#: ../src/document.c:3630
 msgid "Statistics: "
-msgstr "Statistieken: "
+msgstr "Estatísticas: "
 
 #: ../src/doc_text_tools.c:400
 msgid "Lines into columns"
-msgstr "Regels in kolommen"
+msgstr "Liñas en columnas"
 
 #: ../src/doc_text_tools.c:412
 msgid "Number of columns:"
-msgstr "Aantal kolommen:"
+msgstr "Número de columnas:"
 
 #: ../src/doc_text_tools.c:416
 msgid "Spread lines horizontally"
-msgstr "Verspreid regels horizontaal"
+msgstr "Expandir liñas horizontalmente"
 
 #: ../src/doc_text_tools.c:423
 msgid "Column separator:"
-msgstr "Kolom scheidingsteken:"
+msgstr "Separador de columnas:"
 
 #: ../src/doc_text_tools.c:427
 msgid "Fill empty entries:"
-msgstr "Vul lege plaatsen:"
+msgstr "Encher entradas baldeiras:"
 
 #: ../src/doc_extern_tools.c:63
-#, fuzzy
 msgid "Number of _paragraphs:"
-msgstr "Aantal paragrafen"
+msgstr "Número de _parágrafos"
 
 #: ../src/doc_extern_tools.c:68
-#, fuzzy
 msgid "Number of _sentences:"
-msgstr "Aantal zinnen"
+msgstr "Número de frases:"
 
 #: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert plain text"
-msgstr "Invoegen zonder opmaak"
+msgstr "Insertar texto plano"
 
 #: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert in <li>"
-msgstr "Invoegen in <li>"
+msgstr "Insertar en <li>"
 
 #: ../src/doc_extern_tools.c:71 ../src/doc_extern_tools.c:86
 msgid "Insert in <p>"
-msgstr "Invoegen in <p>"
+msgstr "Insertar en <p>"
 
 #: ../src/doc_extern_tools.c:81
 msgid "Number of paragraphs"
-msgstr "Aantal paragrafen"
+msgstr "Número de parágrafos"
 
 #: ../src/doc_extern_tools.c:84
 msgid "Number of sentences"
-msgstr "Aantal zinnen"
+msgstr "Número de frases"
 
 #: ../src/doc_extern_tools.c:134
 msgid "Javascript Beautify"
-msgstr ""
+msgstr "Embelecedor Javascript"
 
 #: ../src/doc_extern_tools.c:148
-#, fuzzy
 msgid "_Indent size:"
-msgstr "Rechts Inspringen"
+msgstr "Tamaño da _indentación:"
 
 #: ../src/doc_extern_tools.c:151 ../src/doc_extern_tools.c:178
 msgid "Use _tabs to indent, not spaces"
-msgstr ""
+msgstr "Utilice _tab para indentar, nos espazos"
 
 #: ../src/doc_extern_tools.c:154 ../src/doc_extern_tools.c:183
 msgid "Do not _preserve existing line breaks"
-msgstr ""
+msgstr "Non _preservar cambios de liña existentes"
 
 #: ../src/doc_extern_tools.c:156 ../src/doc_extern_tools.c:184
 msgid "More _jslint-compatible output"
-msgstr ""
+msgstr "Saída máis _jslint-compatible"
 
 #: ../src/doc_extern_tools.c:159 ../src/doc_extern_tools.c:186
 msgid "_Decode printable chars encoded in \\\\xNN notation"
-msgstr ""
+msgstr "_Decodificar caracteres imprimibles codificados en  notación \\\\xNN "
 
 #: ../src/doc_extern_tools.c:164 ../src/doc_extern_tools.c:173
-#, fuzzy
 msgid "Beautify only in _selection"
-msgstr "Selectie inpringen met _tab toets"
+msgstr "Embelecer só na _seleción"
 
 #: ../src/doc_extern_tools.c:179
-#, fuzzy
 msgid "_Indent size"
-msgstr "Rechts Inspringen"
+msgstr "Tamaño da _indentación"
 
 #: ../src/encodings_dialog.c:287
 msgid "_Available encodings:"
-msgstr "_Beschikbare coderingen:"
+msgstr "Codific_acións dispoñibles:"
 
 #: ../src/encodings_dialog.c:333 ../src/encodings_dialog.c:385
 msgid "Description"
-msgstr "Beschrĳving:"
+msgstr "Descrición:"
 
 #: ../src/encodings_dialog.c:339 ../src/encodings_dialog.c:390
 msgid "Encoding"
-msgstr "Codering"
+msgstr "Codificación"
 
 #: ../src/encodings_dialog.c:362
 msgid "Encodings in _menu:"
-msgstr "Coderingen in menu:"
+msgstr "Codificacións no menú:"
 
 #: ../src/encodings_dialog.c:436
 msgid "Add or remove document encodings"
-msgstr "Verwijder of voeg coderingen toe"
+msgstr "Engadir ou quitar codificacións no documento"
 
-#: ../src/external_commands.c:446
+#: ../src/external_commands.c:414
 msgid "Supply extra arguments"
-msgstr "Voeg extra opties toe"
+msgstr "Proporcionar argumentos extra"
 
-#: ../src/external_commands.c:451
+#: ../src/external_commands.c:419
 #, c-format
 msgid "Supply arguments to define %%a in '%s'"
-msgstr "Geef de opties die ingevuld worden in %%a in '%s'"
+msgstr "Proporcionar argumentos para definir %%a en '%s'"
 
-#: ../src/external_commands.c:721
+#: ../src/external_commands.c:671
 #, c-format
 msgid "Failed to create a command for %s."
-msgstr ""
+msgstr "Fallou a creación do comando para %s."
 
-#: ../src/external_commands.c:723
+#: ../src/external_commands.c:673
 msgid "Failed to create a command"
-msgstr ""
+msgstr "Fallou a creación do comando"
 
-#: ../src/external_commands.c:744 ../src/external_commands.c:761
+#: ../src/external_commands.c:692 ../src/external_commands.c:704
 #, c-format
 msgid "The command %s exited with error code %d. %s"
-msgstr ""
+msgstr "O comando %s finalizou co código de erro %d. %s"
 
-#: ../src/external_commands.c:747 ../src/external_commands.c:765
+#: ../src/external_commands.c:692 ../src/external_commands.c:708
 msgid "Probably this application is not installed on your system."
-msgstr ""
+msgstr "Probablemente este aplicativo non está instalado no seu sistema."
 
-#: ../src/external_commands.c:750
+#: ../src/external_commands.c:694
 msgid "Command returned error code"
-msgstr ""
+msgstr "O comando devolveu o código de erro"
 
-#: ../src/filebrowser2.c:736
+#: ../src/filebrowser2.c:737
 msgid "Set documentroot and webroot"
-msgstr "Zet documentroot en webroot"
+msgstr "Estableza documentroot e webroot"
 
-#: ../src/filebrowser2.c:745
+#: ../src/filebrowser2.c:746
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
 "the webserver"
 msgstr ""
-"De <i>documentroot</i> is de locatie waar Bluefish de bestanden ziet,\n"
-"de <i>webroot</i> is de locatie waar de zelfde files te bekijken zijn via de "
-"webserver"
+"O <i>documentroot</i> é o lugar onde Bluefish atopa o ficheiro,\n"
+"o <i>webroot</i> é a localización onde esos mesmos ficheiros poden ser vistos "
+"no servidor web"
 
-#: ../src/filebrowser2.c:752
+#: ../src/filebrowser2.c:753
 msgid "Documentroot"
 msgstr "Documentroot"
 
-#: ../src/filebrowser2.c:763
+#: ../src/filebrowser2.c:764
 msgid "Webroot"
 msgstr "Webroot"
 
-#: ../src/filebrowser2.c:776 ../src/file_dialogs.c:789
+#: ../src/filebrowser2.c:777 ../src/file_dialogs.c:789
 #, c-format
 msgid "Move/rename %s to"
-msgstr "hernoem %s naar"
+msgstr "Mover/renomear %s a"
 
-#: ../src/filebrowser2.c:787
+#: ../src/filebrowser2.c:788
 msgid "Could not rename\n"
-msgstr "Kon niet hernoemen\n"
+msgstr "Non puido renomear\n"
 
-#: ../src/filebrowser2.c:861 ../src/filebrowser2.c:1277
+#: ../src/filebrowser2.c:862 ../src/filebrowser2.c:1278
 msgid "New directory"
-msgstr "Nieuwe directory"
+msgstr "Novo directorio"
 
 #. Do we really need to display the full path here?
 #. *
@@ -1751,153 +1667,153 @@ msgstr "Nieuwe directory"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:971
+#: ../src/filebrowser2.c:972
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
 "\"%s\"?"
 msgstr ""
-"Weet u zeker dat u\n"
-"\"%s\" wilt verwĳderen?"
+"Seguro que quere eliminar\n"
+"\"%s\"?"
 
-#: ../src/filebrowser2.c:972
+#: ../src/filebrowser2.c:973
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
-msgstr "Als u %s verwĳderd dan zal het permanent zĳn."
+msgstr "Se elimina %s, perderase definitivamente."
 
-#: ../src/filebrowser2.c:1270
+#: ../src/filebrowser2.c:1271
 msgid "File Browser menu"
-msgstr "Bestands beheer menu"
-
-#: ../src/filebrowser2.c:1271
-msgid "_Open"
-msgstr "Open"
-
-#: ../src/filebrowser2.c:1271
-msgid "Open"
-msgstr "Open"
+msgstr "Menú de navegación de ficheiros"
 
 #: ../src/filebrowser2.c:1272
+msgid "_Open"
+msgstr "_Abrir"
+
+#: ../src/filebrowser2.c:1272
+msgid "Open"
+msgstr "Abrir"
+
+#: ../src/filebrowser2.c:1273
 msgid "Open _Advanced..."
-msgstr "Open geavanceerd..."
-
-#: ../src/filebrowser2.c:1274
-msgid "Rena_me"
-msgstr "Hernoemen"
-
-#: ../src/filebrowser2.c:1274
-msgid "Rename"
-msgstr "Hernoemen"
+msgstr "Abrir A_vanzado..."
 
 #: ../src/filebrowser2.c:1275
-msgid "Delete"
-msgstr "Delete"
+msgid "Rena_me"
+msgstr "Reno_mear"
+
+#: ../src/filebrowser2.c:1275
+msgid "Rename"
+msgstr "Renomear"
 
 #: ../src/filebrowser2.c:1276
-msgid "New _File"
-msgstr "Nieuw bestand"
+msgid "Delete"
+msgstr "Borrar"
 
 #: ../src/filebrowser2.c:1277
-msgid "_New Directory"
-msgstr "Nieuwe directory"
+msgid "New _File"
+msgstr "Novo _ficheiro"
 
-#: ../src/filebrowser2.c:1279
+#: ../src/filebrowser2.c:1278
+msgid "_New Directory"
+msgstr "_Novo directorio"
+
+#: ../src/filebrowser2.c:1280
 msgid "_Refresh"
 msgstr "Verversen"
 
-#: ../src/filebrowser2.c:1279
+#: ../src/filebrowser2.c:1280
 msgid "Refresh"
-msgstr "Verversen"
+msgstr "Actualizar"
 
-#: ../src/filebrowser2.c:1280
+#: ../src/filebrowser2.c:1281
 msgid "_Set as base dir"
-msgstr "Gebruik als basismap"
+msgstr "E_stablecer como directorio base"
 
-#: ../src/filebrowser2.c:1280
+#: ../src/filebrowser2.c:1281
 msgid "Set as base directory"
-msgstr "Gebruik als basismap"
+msgstr "Establecer como directorio base"
 
-#: ../src/filebrowser2.c:1282
+#: ../src/filebrowser2.c:1283
 msgid "Set as document root"
-msgstr "Gebruik als documentroot"
+msgstr "Establecer como documento raíz"
 
-#: ../src/filebrowser2.c:1284
+#: ../src/filebrowser2.c:1285
 msgid "Show Full _Tree"
-msgstr "Toon volledige boom"
+msgstr "Mos_trar árbore completa"
 
-#: ../src/filebrowser2.c:1284
+#: ../src/filebrowser2.c:1285
 msgid "Show full tree"
-msgstr "Toon volledige boom"
-
-#: ../src/filebrowser2.c:1286
-msgid "View Mode"
-msgstr "Weergave mode"
+msgstr "Mostrar árbore completa"
 
 #: ../src/filebrowser2.c:1287
-msgid "Filter"
-msgstr "Filter"
+msgid "View Mode"
+msgstr "Modo visualización"
 
 #: ../src/filebrowser2.c:1288
-msgid "New Filter"
-msgstr "Nieuw filter"
-
-#: ../src/filebrowser2.c:1288 ../src/filefilter.c:549
-msgid "New filter"
-msgstr "Nieuw filter"
+msgid "Filter"
+msgstr "Filtro"
 
 #: ../src/filebrowser2.c:1289
+msgid "New Filter"
+msgstr "Novo filtro"
+
+#: ../src/filebrowser2.c:1289 ../src/filefilter.c:549
+msgid "New filter"
+msgstr "Novo filtro"
+
+#: ../src/filebrowser2.c:1290
 msgid "Edit Filter"
-msgstr "Filter bewerken"
+msgstr "Editar filtro"
 
-#: ../src/filebrowser2.c:1289 ../src/filefilter.c:554
+#: ../src/filebrowser2.c:1290 ../src/filefilter.c:554
 msgid "Edit filter"
-msgstr "Filter bewerken"
+msgstr "Editar filtro"
 
-#: ../src/filebrowser2.c:1290
+#: ../src/filebrowser2.c:1291
 msgid "Delete Filter"
-msgstr "Fileter verwĳderen"
+msgstr "Eliminar filtro"
 
-#: ../src/filebrowser2.c:1290
+#: ../src/filebrowser2.c:1291
 msgid "Delete filter"
-msgstr "Fileter verwĳderen"
+msgstr "Eliminar filtro"
 
-#: ../src/filebrowser2.c:1294
+#: ../src/filebrowser2.c:1295
 msgid "Follow Active Document"
-msgstr "Volg aktief document"
+msgstr "Seguir documento activo"
 
-#: ../src/filebrowser2.c:1294
+#: ../src/filebrowser2.c:1295
 msgid "Follow active document"
-msgstr "Volg aktief document"
+msgstr "Seguir documento activo"
 
-#: ../src/filebrowser2.c:1296
+#: ../src/filebrowser2.c:1297
 msgid "Show Backup Files"
-msgstr "Laat reserve bestanden zien"
+msgstr "Mostrar ficheiros de respaldo"
 
-#: ../src/filebrowser2.c:1296 ../src/gtk_easy.c:1341
+#: ../src/filebrowser2.c:1297 ../src/gtk_easy.c:1341
 msgid "Show backup files"
-msgstr "Laat reserve bestanden zien"
+msgstr "Mostar ficheiros de respaldo"
 
-#: ../src/filebrowser2.c:1298
+#: ../src/filebrowser2.c:1299
 msgid "Show Hidden Files"
-msgstr "Toon verborgen bestanden"
+msgstr "Mostar ficheiros ocultos"
 
-#: ../src/filebrowser2.c:1298
+#: ../src/filebrowser2.c:1299
 msgid "Show hidden files"
-msgstr "Toon verborgen bestanden"
-
-#: ../src/filebrowser2.c:1303
-msgid "Dual"
-msgstr "Gesplitst"
+msgstr "Mostar ficheiros ocultos"
 
 #: ../src/filebrowser2.c:1304
-msgid "Flat"
-msgstr "Plat"
+msgid "Dual"
+msgstr "Dual"
 
 #: ../src/filebrowser2.c:1305
-msgid "Tree"
-msgstr "Boom"
+msgid "Flat"
+msgstr "Plano"
 
-#: ../src/filebrowser2.c:2296
+#: ../src/filebrowser2.c:1306
+msgid "Tree"
+msgstr "Árbore"
+
+#: ../src/filebrowser2.c:2287
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1905,122 +1821,120 @@ msgid ""
 "<b>%s%s</b>"
 msgstr ""
 "<b>%s</b>\n"
-"wat het equivalent is van\n"
+"que é o equivalente de\n"
 "<b>%s%s</b>"
 
-#: ../src/file.c:870
+#: ../src/file.c:856
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
-msgstr[0] "Nog steeds bezig met %d bestand, %s is gereed"
-msgstr[1] "Nog steeds bezig met %d bestanden, %s is gereed"
+msgstr[0] "Aínda cargando o ficheiro %d, rematado %s"
+msgstr[1] "Aínda cargando os ficheiros %d, rematados %s"
 
-#: ../src/file.c:876
-#, fuzzy, c-format
+#: ../src/file.c:862
 msgid "All files loaded, finished %s, %d document open"
 msgid_plural "All files loaded, finished %s, %d documents open"
-msgstr[0] "Alle bestanden geladen, klaar met %s"
-msgstr[1] "Alle bestanden geladen, klaar met %s"
+msgstr[0] "Todos os ficheiros cargados, rematado %s, %d documento aberto"
+msgstr[1] "Todos os ficheiros cargados, rematados %s, %d documentos abertos"
 
-#: ../src/file.c:1403
-#, fuzzy, c-format
+#: ../src/file.c:1389
 msgid "Finished advanced open, %d document open."
 msgid_plural "Finished advanced open, %d documents open."
-msgstr[0] "Geavanceerd openen gereed"
-msgstr[1] "Geavanceerd openen gereed"
+msgstr[0] "Rematou Abrir avanzado, %d documento aberto."
+msgstr[1] "Rematou Abrir avanzado, %d documentos abertos."
 
-#: ../src/file.c:1579
+#: ../src/file.c:1565
 msgid "_Skip"
-msgstr "Overslaan"
+msgstr "_Saltar"
 
-#: ../src/file.c:1579 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
-#: ../src/project.c:363
+#: ../src/file.c:1565 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
+#: ../src/project.c:354
 msgid "_Overwrite"
-msgstr "Overschrĳven"
+msgstr "S_obrescribir"
 
-#: ../src/file.c:1583
+#: ../src/file.c:1569
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
-msgstr "%s kan niet gekopieerd worden, het bestaat al, overschrĳven?"
+msgstr "%s non pode ser copiado, xa existe, sobrescribir?"
 
-#: ../src/file.c:1585
+#: ../src/file.c:1571
 msgid "Overwrite file?"
-msgstr "Bestand overschrĳven?"
+msgstr "Sobrescribir ficheiro?"
 
 #: ../src/file_autosave.c:291
 msgid "Autosave in progress..."
-msgstr "Automatisch opslaan bezig..."
+msgstr "Autogardado en proceso..."
 
 #: ../src/file_dialogs.c:109
 msgid "Started open advanced..."
-msgstr "Open geavanceerd gestart..."
+msgstr "Iniciado Abrir avanzado..."
 
 #: ../src/file_dialogs.c:120
 msgid "Select basedir"
-msgstr "Selecteer basis map"
+msgstr "Selecione directorio base"
 
 #: ../src/file_dialogs.c:142
 msgid "Advanced open file selector"
-msgstr "Geavanceerde bestands selectie"
+msgstr "Selector de ficheiros de Abrir avanzado"
 
 #: ../src/file_dialogs.c:159
 msgid "<b>Files</b>"
-msgstr "<b>Bestanden</b>"
+msgstr "<b>Ficheiros</b>"
 
 #: ../src/file_dialogs.c:168
 msgid "Base _Dir:"
-msgstr "Basis-map:"
+msgstr "_Directorio base:"
 
 #: ../src/file_dialogs.c:184
 msgid "_Pattern:"
-msgstr "_Patroon:"
+msgstr "_Patrón:"
 
 #: ../src/file_dialogs.c:192
 msgid "Pattern matches _full path:"
-msgstr "Patroon beschrijft volledige pad:"
+msgstr "Patrón coincide coa ruta completa:"
 
 #: ../src/file_dialogs.c:196
 msgid "_Recursive:"
-msgstr "_Recursief:"
+msgstr "_Recursivo:"
 
 #: ../src/file_dialogs.c:200
 msgid "Ma_x recursion:"
-msgstr "Ma_ximum recursie"
+msgstr "Ma_xima recursión:"
 
 #: ../src/file_dialogs.c:209
 msgid "<b>Contains</b>"
-msgstr "<b>Bevat</b>"
+msgstr "<b>Contén</b>"
 
 #: ../src/file_dialogs.c:214
 msgid "Pa_ttern:"
-msgstr "Patroon:"
+msgstr "Pa_trón:"
 
 #: ../src/file_dialogs.c:218
 msgid "Is rege_x:"
-msgstr "Is reguliere expressie:"
+msgstr "É rege_x:"
 
 #: ../src/file_dialogs.c:287 ../src/file_dialogs.c:307
 msgid "Select files"
-msgstr "Kies bestanden"
+msgstr "Selecione ficheiros"
 
 #: ../src/file_dialogs.c:367
 msgid "Open URL"
-msgstr "Open URL"
+msgstr "Abrir URL"
 
-#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1390
+#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1389
 #, c-format
 msgid ""
 "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
 "ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 "
 "if you rely on remote file support.</b>"
 msgstr ""
-"<b>Uw glib versie (%d.%d.%d) werkt onbetrouwbaar met netwerk bestanden "
-"(bijv. smb, ftp, sftp of webdav). Gebruik een versie na 2.18.0 als u netwerk "
-"bestanden gebruikt.</b>"
+"<b>A súa versión de glib (%d.%d.%d) funciona de xeito pouco fiable con ficheiros remotos (smb, "
+"ftp, sftp, webdav etc.). Por favor actualice a unha versión de glib máis nova de 2.18.0 "
+"se quere traballar con soporte de ficheiros remotos.</b>"
 
 #: ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Continue save"
-msgstr "Opslaan hervatten"
+msgstr "_Continúe a gardar"
 
 #: ../src/file_dialogs.c:468
 #, c-format
@@ -2028,164 +1942,159 @@ msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr ""
-"Een reservebestand voor %s kon niet worden gemaakt. Als u doorgaat zal dit "
-"bestand worden overschreven."
+"Non se puido crea unha copia de respaldo de %s. Se continúa, este ficheiro será "
+"sobrescrito."
 
 #: ../src/file_dialogs.c:472
 msgid "File backup failure"
-msgstr "Bestands reservekopie fout"
+msgstr "Fallou a copia de respaldo"
 
 #: ../src/file_dialogs.c:488
 msgid "Could not save file "
-msgstr "Kon bestand niet opslaan "
+msgstr "Non puido gardar o ficheiro "
 
-#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1525
+#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1524
 msgid "File changed on disk\n"
-msgstr "Bestand gewĳzigd op disk\n"
+msgstr "O ficheiro cambiou no disco\n"
 
 #: ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
-#: ../src/file_dialogs.c:985 ../src/project.c:363
+#: ../src/file_dialogs.c:985 ../src/project.c:354
 msgid "_Cancel"
-msgstr "_Annuleren"
+msgstr "_Cancelar"
 
 #: ../src/file_dialogs.c:639
 #, c-format
 msgid "File %s exists and is open, overwrite?"
-msgstr "Bestand %s bestaat en is geopend; Overschrĳven ?"
+msgstr "O ficheiro %s existe e está aberto, sobrescribir?"
 
 #: ../src/file_dialogs.c:642
 msgid "The file you have selected is being edited in Bluefish."
-msgstr "Het bestand wat u heeft geselecteerd is geopend in Bluefish."
+msgstr "O ficheiro que selecionou está a ser editado en Bluefish."
 
-#: ../src/file_dialogs.c:660 ../src/project.c:365
+#: ../src/file_dialogs.c:660 ../src/project.c:356
 #, c-format
 msgid "A file named \"%s\" already exists."
-msgstr "Een bestand genaamd \"%s\" bestaat al."
+msgstr "Un ficheiro con nome \"%s\" xa existe."
 
-#: ../src/file_dialogs.c:663 ../src/project.c:369
+#: ../src/file_dialogs.c:663 ../src/project.c:360
 msgid "Do you want to replace the existing file?"
-msgstr "Wilt u het bestaande bestand vervangen?"
+msgstr "Quere sustituír o ficheiro existente?"
 
 #: ../src/file_dialogs.c:769
 msgid ""
 "File:\n"
 "\""
 msgstr ""
-"Bestand:\n"
+"Ficheiro:\n"
 "\""
 
 #: ../src/file_dialogs.c:770
 msgid "\" save is in progress"
-msgstr "\" wordt opgeslagen"
+msgstr "\" gardado está en proceso"
 
 #: ../src/file_dialogs.c:772
 msgid "Save in progress!"
-msgstr "Opslaan bezig!"
+msgstr "Gardado en proceso!"
 
 #: ../src/file_dialogs.c:785
-#, fuzzy
 msgid "Save"
-msgstr "Opslaan"
+msgstr "Gardar"
 
 #: ../src/file_dialogs.c:787
 #, c-format
 msgid "Save %s as"
-msgstr "Opslaan van %s als"
+msgstr "Gardar %s como"
 
 #: ../src/file_dialogs.c:791
-#, fuzzy, c-format
 msgid "Save copy of %s"
-msgstr "Project opslaan als"
+msgstr "Gardar copia de %s"
 
 #: ../src/file_dialogs.c:956
 msgid "Close _Without Saving"
-msgstr "Sluiten zonder opslaan"
+msgstr "Pechar sen gardar"
 
 #: ../src/file_dialogs.c:959
 #, c-format
 msgid "Save changes to \"%s\" before closing?"
-msgstr "Veranderingen opslaan naar \"%s\" voor sluiten?"
+msgstr "Gardar os cambios de \"%s\" antes de pechar?"
 
 #: ../src/file_dialogs.c:962 ../src/file_dialogs.c:989
 msgid "If you don't save your changes they will be lost."
-msgstr "Als u niet opslaat zullen de veranderingen verloren gaan."
+msgstr "Se non garda os cambios, estos perderánse."
 
 #: ../src/file_dialogs.c:972
 msgid "_Reopen"
-msgstr ""
+msgstr "_Reabrir"
 
 #: ../src/file_dialogs.c:974
-#, fuzzy, c-format
 msgid "Project \"%s\" failed to load"
-msgstr " laden mislukt."
+msgstr "A carga do proxecto \"%s\" fallou"
 
 #: ../src/file_dialogs.c:976
-#, fuzzy
 msgid "Do you want to reopen project from another location?"
-msgstr "Wilt u het bestaande bestand vervangen?"
+msgstr "Quere voltar a abrir o proxecto desde outra localización?"
 
 #: ../src/file_dialogs.c:985
 msgid "Choose per _File"
-msgstr "Per bestand kiezen"
+msgstr "Escoller por _ficheiro"
 
 #: ../src/file_dialogs.c:985
 msgid "Close _All"
-msgstr "Alles sluiten"
+msgstr "Pech_ar todo"
 
 #: ../src/file_dialogs.c:985
 msgid "_Save All"
-msgstr "Alles opslaan"
+msgstr "Gar_dar todo"
 
 #: ../src/file_dialogs.c:988
 msgid "One or more open files have been changed."
-msgstr "Een of meerdere open bestanden zĳn gewĳzigd."
+msgstr "Un ou máis ficheiros abertos foron modificados."
 
-#: ../src/file_dialogs.c:1310
+#: ../src/file_dialogs.c:1309
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
-msgstr[0] "<span color=\"red\">%d mislukt</span>"
-msgstr[1] "<span color=\"red\">%d mislukt</span>"
+msgstr[0] "<span color=\"red\">%d erro</span>"
+msgstr[1] "<span color=\"red\">%d erros</span>"
 
-#: ../src/file_dialogs.c:1319
+#: ../src/file_dialogs.c:1318
 msgid "incomplete finished"
-msgstr "incompleet gereed"
+msgstr "incompleto rematou"
 
-#: ../src/file_dialogs.c:1321
+#: ../src/file_dialogs.c:1320
 msgid "completed"
-msgstr "klaar"
+msgstr "completo"
 
-#: ../src/file_dialogs.c:1376
+#: ../src/file_dialogs.c:1375
 msgid "Upload / Download"
-msgstr "Upload / Download"
+msgstr "Cargar / Descargar"
 
-#: ../src/file_dialogs.c:1379
+#: ../src/file_dialogs.c:1378
 msgid "Upload"
-msgstr "Upload"
+msgstr "Cargar"
 
-#: ../src/file_dialogs.c:1379
+#: ../src/file_dialogs.c:1378
 msgid "Download"
-msgstr "Download"
+msgstr "Descargar"
 
-#: ../src/file_dialogs.c:1402
+#: ../src/file_dialogs.c:1401
 msgid "Local directory"
-msgstr "Directory lokaal"
+msgstr "Directorio local"
 
-#: ../src/file_dialogs.c:1408
+#: ../src/file_dialogs.c:1407
 msgid "Remote directory"
-msgstr "Directory elders"
+msgstr "Directorio remoto"
 
-#: ../src/file_dialogs.c:1413
+#: ../src/file_dialogs.c:1412
 msgid "Delete deprecated files"
-msgstr "Verwijder overbodige bestanden"
+msgstr "Borrar ficheiros anticuados"
 
-#: ../src/file_dialogs.c:1417
+#: ../src/file_dialogs.c:1416
 msgid "Include hidden files"
-msgstr "Inclusief verborgen bestanden"
+msgstr "Incluir ficheiros ocultos"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1461
-#, fuzzy, c-format
+#: ../src/file_dialogs.c:1460
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -2194,51 +2103,51 @@ msgid ""
 "Original size was %s bytes\n"
 "New size is %s bytes"
 msgstr ""
-"Bestand %s is veranderd op schijf.\n"
+"Nome ficheiro: %s mudou no disco.\n"
 "\n"
-"Oorspronkelijke wĳzigings tĳd was %s\n"
-"Nieuwe wĳzigings tĳd is %s\n"
-"Oorspronkelijke grootte was %lu\n"
-"Nieuwe grootte is %lu"
+"A hora orixinal de modificación foi %s\n"
+"A nova hora de modificación é %s\n"
+"O tamaño orixinal era %s bytes\n"
+"O novo tamaño é %s bytes"
 
-#: ../src/file_dialogs.c:1484
+#: ../src/file_dialogs.c:1483
 msgid "_Unset file name"
-msgstr "Bestandsnaam wissen"
+msgstr "Nome de ficheiro non establecido"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1486
+#: ../src/file_dialogs.c:1485
 #, c-format
 msgid "File name: %s"
-msgstr "Bestandnaam: %s"
+msgstr "Nome de ficheiro: %s"
 
-#: ../src/file_dialogs.c:1489
+#: ../src/file_dialogs.c:1488
 msgid "File disappeared from disk\n"
-msgstr "Bestand verdwenen van schĳf\n"
+msgstr "Ficheiro desapareceu do disco\n"
 
-#: ../src/file_dialogs.c:1508
+#: ../src/file_dialogs.c:1507
 msgid "_Ignore"
-msgstr "Negeren"
+msgstr "_Ignorar"
 
-#: ../src/file_dialogs.c:1508
+#: ../src/file_dialogs.c:1507
 msgid "_Reload"
-msgstr "Herladen"
+msgstr "_Recargar"
 
-#: ../src/file_dialogs.c:1508
+#: ../src/file_dialogs.c:1507
 msgid "Check and reload all documents"
-msgstr "Controleer en herlaad alle documenten"
+msgstr "Verificar e recargar todos os documentos"
 
 #. build a list of filters
-#: ../src/filefilter.c:250 ../src/gtk_easy.c:1352 ../src/preferences.c:2105
+#: ../src/filefilter.c:250 ../src/gtk_easy.c:1352 ../src/preferences.c:2098
 msgid "All files"
-msgstr "Alle bestanden"
+msgstr "Todos os ficheiros"
 
 #: ../src/filefilter.c:639
 msgid "Hide files that match the filter"
-msgstr "Verberg bestanden die herkend worden door het filter"
+msgstr "Ocultar ficheiros que cumplan co filtro"
 
 #: ../src/filefilter.c:643
 msgid "Add pattern"
-msgstr "Voeg patroon toe"
+msgstr "Engadir patrón"
 
 #: ../src/filefilter.c:649 ../src/filefilter.c:661
 msgid "Mime type"
@@ -2246,30 +2155,30 @@ msgstr "Mime type"
 
 #: ../src/filefilter.c:652 ../src/filefilter.c:664
 msgid "Icon"
-msgstr "Icoon"
+msgstr "Icona"
 
 #: ../src/gtk_easy.c:971
 #, c-format
 msgid "%d of %d"
-msgstr "%d van %d"
+msgstr "%d de %d"
 
 #: ../src/gtk_easy.c:1052
 msgid "Select File"
-msgstr "Kies bestand"
+msgstr "Selecione ficheiro"
 
 #: ../src/gtk_easy.c:1402
 msgid "Character _Encoding:"
-msgstr "Karakter Codering:"
+msgstr "Codificación de caract_eres:"
 
 #: ../src/gtk_easy.c:1422
 msgid "Automatic detection"
-msgstr "Automatische detectie"
+msgstr "Detección automática"
 
-#: ../src/gtk_easy.c:1511
+#: ../src/gtk_easy.c:1507
 msgid "<b>Keystroke choice</b>"
-msgstr "<b>Toetsencombinatie</b>"
+msgstr "<b>Combinación de teclas</b>"
 
-#: ../src/gtk_easy.c:1519
+#: ../src/gtk_easy.c:1515
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2277,34 +2186,34 @@ msgid ""
 "<i>Esc to cancel, Delete to remove the accelerator.</i>"
 msgstr ""
 "\n"
-"Druk gewenste toetsencombinatie.\n"
-"Gebruik Ctrl, Shift en Alt samen met een andere toets.\n"
-"<i>Gebruik Esc om te annuleren, of Delete om de sneltoets te verwijderen.</i>"
+"Teclee a combinación de teclas requerida.\n"
+"Por favor utilice Ctrl, Shift e Alt xunto con outra tecla.\n"
+"<i>Esc para cancelar, Del para eliminar o atallo.</i>"
 
-#: ../src/gtk_easy.c:1544
+#: ../src/gtk_easy.c:1540
 msgid "Press shortcut key combination"
-msgstr "Druk sneltoets combinatie"
+msgstr "Tecleee a combinación do atallo"
 
 #: ../src/outputbox.c:247
 msgid "Filename"
-msgstr "Bestandnaam"
+msgstr "Nome do ficheiro"
 
 #: ../src/outputbox.c:249
 msgid "Line"
-msgstr "Regel"
+msgstr "Liña"
 
 #: ../src/outputbox.c:251
 msgid "Output"
-msgstr "Uitvoer"
+msgstr "Saída"
 
-#: ../src/outputbox.c:481
+#: ../src/outputbox.c:478
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
-msgstr "Compileren van van uitvoer vlak patroon %s mislukt: %s"
+msgstr "Erro ao compilar o patrón da caixa de saída %s: %s"
 
 #: ../src/preferences.c:307
 msgid "Untitled"
-msgstr "Naamloos"
+msgstr "Sen título"
 
 #: ../src/preferences.c:509
 msgid "_Mime type:"
@@ -2312,85 +2221,84 @@ msgstr "_Mime type"
 
 #: ../src/preferences.c:521 ../src/preferences.c:523
 msgid "None"
-msgstr "Geen"
+msgstr "Ningún"
 
 #: ../src/preferences.c:525
 msgid "_Template:"
-msgstr "_Sjablonen"
+msgstr "Plan_tilla:"
 
 #: ../src/preferences.c:528 ../src/snr3.c:1580
 msgid "<b>Options</b>"
-msgstr "<b>Optie's</b>"
+msgstr "<b>Opcións</b>"
 
 #: ../src/preferences.c:532
 msgid "Enable a_uto-completion"
-msgstr "A_utomatische completering inschakelen"
+msgstr "Habilitar a_utocompletado"
 
 #: ../src/preferences.c:534
 msgid "Enable _block folding"
-msgstr "_Blok in- / uitklappen inschakelen "
+msgstr "Habilitar plegado de _bloque"
 
 #: ../src/preferences.c:536
 msgid "Display block stack in statusbar"
-msgstr "Blok niveau in statusbalk weergeven"
+msgstr "Mostar conxunto de bloques na barra de estado"
 
 #: ../src/preferences.c:538
 msgid "Highlight block _delimiters"
-msgstr "B_lok uiteinden oplichten"
+msgstr "Resaltar _delimitadores de bloque"
 
 #: ../src/preferences.c:540
 msgid "_Highlight current line"
-msgstr "_Actieve regel oplichten"
+msgstr "Resaltar liña actual"
 
 #: ../src/preferences.c:542
 msgid "Show line _numbers"
-msgstr "Regel_nummers weergeven"
+msgstr "Mostar _números de liña"
 
 #: ../src/preferences.c:546
 msgid "Show _right margin indicator"
-msgstr "Toon rechter marge indicator"
+msgstr "Mostrar indicador da marxe dereita"
 
-#: ../src/preferences.c:548 ../src/preferences.c:2168
+#: ../src/preferences.c:548 ../src/preferences.c:2161
 msgid "Smart auto indentin_g"
-msgstr "Slim automatisch insprin_gen"
+msgstr "Auto indentado intelixente"
 
 #: ../src/preferences.c:550
 msgid "Wra_p lines"
-msgstr "Regel _omloop inschakelen"
+msgstr "Recoller liñas"
 
 #: ../src/preferences.c:552
 msgid "Enable syntax scanning"
-msgstr "Activeer syntax herkenning"
+msgstr "Habilitar verificación da sintaxe"
 
 #: ../src/preferences.c:554
-#, fuzzy
 msgid "Show _visible spacing"
-msgstr "Zichtbare Witruimte"
+msgstr "Mostar espaciado _visible"
 
 #: ../src/preferences.c:558
 msgid "_Enable spell check"
-msgstr "Spelling controle inschakelen"
+msgstr "Habilitar verificación ortográfica"
 
 #: ../src/preferences.c:563
 msgid "<b>Tab Stops</b>"
-msgstr "<b>Tab stops</b>"
+msgstr "<b>Paradas do tabulador</b>"
 
 #: ../src/preferences.c:568
 msgid "Tab _width:"
-msgstr "Tab _breedte"
+msgstr "Ancho do Tabulador"
 
 #: ../src/preferences.c:571
 msgid "Insert _spaces instead of tabs"
-msgstr "Gebruik _spatie's voor inspringen, geen tabs"
+msgstr "Inserir e_spazos no lugar de tabs"
 
 #: ../src/preferences.c:608 ../src/preferences.c:1024
 #: ../src/preferences.c:1183
 msgid "Enabled"
-msgstr "Ingeschakeld"
+msgstr "Habilitado"
 
 #: ../src/preferences.c:610
 msgid "Path to plugin"
-msgstr "Pad naar plugin"
+msgstr "Ruta ao engadio"
 
 #: ../src/preferences.c:814
 msgid ""
@@ -2398,62 +2306,63 @@ msgid ""
 "applied to the same text, the top-most style in this list has the highest "
 "priority. Use drag and drop to re-order the text styles.</small>"
 msgstr ""
-"<small>Tekst stĳlen worden toegepast over elkaar heen. Als meerdere stĳlen "
-"toegepast worden op dezelfde tekst, dan heeft de bovenste stĳl de hoogste "
-"prioriteit. Versleep tekst-stĳlen om ze anders te ordenen.</small>"
+"<small>Os estilos de texto aplícanse un enrriba de outro. Se múltiples estilos "
+"son aplicados ao mesmo texto, o de máis enrriba de esta lista ten a prioridade. "
+"Utilice arrastrar e soltar para reorganizar os estilos do texto.</small>"
 
 #: ../src/preferences.c:825 ../src/preferences.c:1025
 #: ../src/preferences.c:1185
 msgid "Label"
-msgstr "Label"
+msgstr "Etiqueta"
 
-#: ../src/preferences.c:840 ../src/preferences.c:2282
+#: ../src/preferences.c:840 ../src/preferences.c:2275
 msgid "Foreground color"
-msgstr "Voorgrond kleur"
+msgstr "Cor do primeiro plano"
 
-#: ../src/preferences.c:841 ../src/preferences.c:2283
+#: ../src/preferences.c:841 ../src/preferences.c:2276
 msgid "_Foreground color:"
-msgstr "_Voorgrond kleur"
+msgstr "_Cor do primeiro plano:"
 
-#: ../src/preferences.c:842 ../src/preferences.c:2286
+#: ../src/preferences.c:842 ../src/preferences.c:2279
 msgid "Background color"
-msgstr "Achtergrond kleur"
+msgstr "Cor de fondo"
 
-#: ../src/preferences.c:843 ../src/preferences.c:2287
+#: ../src/preferences.c:843 ../src/preferences.c:2280
 msgid "_Background color:"
-msgstr "_Achtergrond kleur"
+msgstr "Cor de _fondo:"
 
 #: ../src/preferences.c:847
 msgid "_Normal weight"
-msgstr "_Normaal gedrukt"
+msgstr "Grosor _normal"
 
 #: ../src/preferences.c:849
 msgid "Bold _weight"
-msgstr "_Vet gedrukt"
+msgstr "_Grosor remarcado"
 
 #: ../src/preferences.c:851
 msgid "Normal st_yle"
-msgstr "Normale _stijl"
+msgstr "Est_ilo normal"
 
 #: ../src/preferences.c:854
+#fuzzy
 msgid "_Italic style"
-msgstr "_Schuin gedrukt"
+msgstr "Estilo _itálico"
 
 #: ../src/preferences.c:856
 msgid "_Spell check"
-msgstr "Spelling controleren"
+msgstr "_Verificación ortográfica"
 
 #: ../src/preferences.c:898 ../src/preferences.c:1062
 #: ../src/preferences.c:1215 ../src/preferences.c:1407
 #: ../src/preferences.c:1503
 msgid "Add entry"
-msgstr "Regel toevoegen"
+msgstr "Engadir entrada"
 
 #: ../src/preferences.c:900 ../src/preferences.c:1064
 #: ../src/preferences.c:1217 ../src/preferences.c:1409
 #: ../src/preferences.c:1505
 msgid "Delete entry"
-msgstr "Regel verwĳderen"
+msgstr "Borrar entrada"
 
 #: ../src/preferences.c:1001
 #, c-format
@@ -2471,37 +2380,37 @@ msgid ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 msgstr ""
-"<small><b>Invoer optie's</b>\n"
-"start met | om standard input (stdin) te gebruiked\n"
-"%f lokale bestandsnaam (beschikbaar voor lokale bestanden)\n"
-"%i tĳdelĳke bestandsnaam voor invoer, is gelĳk aan %f als het document niet "
-"is gewĳzigd en lokaal is\n"
-"<b>Overige optie's</b>\n"
-"%a extra opties die gevraagd worden als dit filter geactiveerd wordt\n"
-"%c lokale directory van bestand (beschikbaar voor lokale bestanden)\n"
-"%n bestandsnaam zonder pad (beschikbaar voor alle documenten met naam)\n"
-"%u URL (beschikbaar voor alle opgeslagen documenten)\n"
-"%p preview URL Als documentroot en preview map zĳn ingesteld in de project "
-"instellingen, anders identiek aan %u</small>"
+"<small><b>Opcións de entrada</b>\n"
+"comezar con un | para enviar a entrada a entrada estándar\n"
+"%f nome de ficheiro local (dispoñible para ficheiros locais)\n"
+"%i nome de ficheiro temporal para saída, equivale a %f se o documento non é modificado "
+"e local\n"
+"<b>Outras opcións</b>\n"
+"%a argumentos adicionais que serán solicitados cando este filtro sexa activado\n"
+"%c directorio local do ficheiro (dispoñible para ficheiros locais)\n"
+"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con título)\n"
+"%u URL (dispoñible para todos os ficheiros con título)\n"
+"%p vista previa da URL se o directorio base e o directorio de vista previa foron establecidos "
+"nas preferencias do proxecto, e són idénticos a %u</small>"
 
 #: ../src/preferences.c:1027 ../src/preferences.c:1187
 #: ../src/preferences.c:1381
 msgid "Command"
-msgstr "Commando"
+msgstr "Comando"
 
 #: ../src/preferences.c:1030
 msgid "Default browser"
-msgstr "Standaard browser"
+msgstr "Navegador por omisión"
 
 #: ../src/preferences.c:1066 ../src/preferences.c:1219
 #: ../src/preferences.c:1411
 msgid "Update defaults"
-msgstr "Standaardwaarden bijwerken"
+msgstr "Actualizar valores por omisión"
 
 #: ../src/preferences.c:1068 ../src/preferences.c:1221
 #: ../src/preferences.c:1413
 msgid "Reset all"
-msgstr "Alles herstellen"
+msgstr "Restaurar todos"
 
 #: ../src/preferences.c:1158
 msgid ""
@@ -2522,23 +2431,20 @@ msgid ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 msgstr ""
-"<small><b>Invoer optie's</b>\n"
-"start met | om standard input (stdin) te gebruiked\n"
-"%f lokale bestandsnaam (vereist een lokaal bestand, werkt niet met "
-"selecties)\n"
-"%i tijdelijke bestandsnaam voor invoer\n"
-"<b>Uitvoer optie's</b>\n"
-"eindig met | om de standard output (stdout) te gebruiken\n"
-"%o tijdelijke bestandsnaam\n"
-"%t tijdelijke bestandsnaam voor zowel invoer als uitvoer (voor in-de-plaats-"
-"bewerken filters) werkt niet met selecties\n"
-"<b>Overige optie's</b>\n"
-"%a extra opties die gevraagd worden als dit filter geactiveerd wordt\n"
-"%c lokale directory van bestand (lokaal bestand nodig)\n"
-"%n bestandsnaam zonder pad (beschikbaar voor alle getitelde bestanden)\n"
-"%u URL (beschikbaar voor alle getitelde bestanden)\n"
-"%p preview URL als documentroot en previewmap ingesteld zijn, anders "
-"identiek aan %u</small>"
+"<small><b>Opcións de entrada</b>\n"
+"inicar con | para enviar a entrada a entrada estándar (stdin)\n"
+"%f nome de ficheiro local (require ficheiro local, non funciona con seleción)\n "
+"%i nome de ficheiro temporal para a entrada\n"
+"<b>Opcións de saída</b>\n"
+"finalizar con | para ler a saída estándar (stdout)\n"
+"%o nome de ficheiro temporal \n"
+"%t nome de ficheiro temporal para a entrada e a saída (for in-place editing filters, cannot operate on selection)\n"
+"<b>Outras opcións</b>\n"
+"%a argumentos adicionáis que serán pedidos cando este filtro se active\n"
+"%c directorio local do ficheiro (require ficherio local)\n"
+"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con título)\n"
+"%u URL (dispoñible para todos os ficheiros con título)\n"
+"%p URL de vista previa se o directorio base e o directorio de vista previa foron establecidos nas preferenzas do proxecto, se non, equivale a %u </small>"
 
 #: ../src/preferences.c:1343
 #, c-format
@@ -2559,882 +2465,875 @@ msgid ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 msgstr ""
-"<small><b>Invoer optie's</b>\n"
-"start met | om standard input (stdin) te gebruiked\n"
-"%f lokale bestandsnaam (vereist een lokaal bestand, werkt niet met "
-"selecties)\n"
-"%i tijdelijke bestandsnaam voor invoer, gelijk aan %f voor documenten zonder "
-"wijzigingen\n"
-"<b>Uitvoer optie's</b>\n"
-"eindig met | om de standard output (stdout) te gebruiken\n"
-"%o tijdelijke bestandsnaam\n"
-"<b>Overige optie's</b>\n"
-"%a extra opties die gevraagd worden als dit filter geactiveerd wordt\n"
-"%c lokale directory van bestand (lokaal bestand nodig)\n"
-"%n bestandsnaam zonder pad (beschikbaar voor alle getitelde bestanden)\n"
-"%u URL (beschikbaar voor alle getitelde bestanden)\n"
-"%p preview URL als documentroot en previewmap ingesteld zijn, anders "
-"identiek aan %u</small>"
+"<small><b>Opcións de entrada</b>\n"
+"inicar con | para enviar a entrada a entrada estándar (stdin)\n"
+"%f nome de ficheiro local (require ficheiro local, non funciona con seleción)\n "
+"%i nome de ficheiro temporal para a entrada\n"
+"<b>Opcións de saída</b>\n"
+"finalizar con | para ler a saída estándar (stdout)\n"
+"%o nome de ficheiro temporal \n"
+"%t nome de ficheiro temporal para a entrada e a saída (for in-place editing filters, cannot operate on selection)\n"
+"<b>Outras opcións</b>\n"
+"%a argumentos adicionáis que serán pedidos cando este filtro se active\n"
+"%c directorio local do ficheiro (require ficherio local)\n"
+"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con título)\n"
+"%u URL (dispoñible para todos os ficheiros con título)\n"
+"%p URL de vista previa se o directorio base e o directorio de vista previa foron establecidos nas preferenzas do proxecto, se non, equivale a %u </small>"
 
 #: ../src/preferences.c:1373
 msgid "Pattern"
-msgstr "Patroon"
+msgstr "Patrón"
 
 #: ../src/preferences.c:1375
 msgid "File #"
-msgstr "Bestand  #"
+msgstr "Ficheiro  #"
 
 #: ../src/preferences.c:1377
 msgid "Line #"
-msgstr "Regel #"
+msgstr "Liña #"
 
 #: ../src/preferences.c:1379
 msgid "Output #"
-msgstr "Uitvoer #"
+msgstr "Saída #"
 
 #: ../src/preferences.c:1474
 msgid "File"
-msgstr "Bestand "
+msgstr "Ficheiro "
 
-#: ../src/preferences.c:1652
+#: ../src/preferences.c:1645
 msgid "A restart is needed to see the effect of these options"
-msgstr "Deze opties hebben pas effect na een herstart"
+msgstr "Precísase reiniciar para ver o efecto de estas opcións"
 
 #. 1=text
-#: ../src/preferences.c:1664
+#: ../src/preferences.c:1657
 msgid "Option name"
-msgstr "Optie naam"
+msgstr "Nome de opción"
 
 #. 2=boolean
-#: ../src/preferences.c:1666
+#: ../src/preferences.c:1659
 msgid "value"
-msgstr "waarde"
+msgstr "valor"
 
 #. 1=text
-#: ../src/preferences.c:1683
+#: ../src/preferences.c:1676
 msgid "Highlight name"
-msgstr "Uitlicht naam"
+msgstr "Resaltar nome"
 
-#: ../src/preferences.c:1688
+#: ../src/preferences.c:1681
 msgid "Textstyle"
-msgstr "Tekststĳl"
+msgstr "Estilo do texto"
 
-#: ../src/preferences.c:1845 ../src/preferences.c:2509
+#: ../src/preferences.c:1838 ../src/preferences.c:2502
 msgid "Auto"
-msgstr "Automatisch"
+msgstr "Auto"
 
-#: ../src/preferences.c:2098
+#: ../src/preferences.c:2091
 msgid "Delayed"
-msgstr "Vertraagd"
+msgstr "Retardado"
+
+#: ../src/preferences.c:2091
+msgid "Immediately"
+msgstr "Inmediatamente"
+
+#: ../src/preferences.c:2092
+msgid "Continue save"
+msgstr "Continuar o gardado"
+
+#: ../src/preferences.c:2092
+msgid "Abort save"
+msgstr "Cancelar gardado"
+
+#: ../src/preferences.c:2092
+msgid "Ask what to do"
+msgstr "Preguntar qué facer"
+
+#: ../src/preferences.c:2094
+msgid "Nothing"
+msgstr "Nada"
+
+#: ../src/preferences.c:2094
+msgid "Modified time and file size"
+msgstr "Tamaño e hora do ficheiro modificado"
+
+#: ../src/preferences.c:2094
+msgid "Modified time"
+msgstr "Hora modificada"
+
+#: ../src/preferences.c:2094
+msgid "File size"
+msgstr "Tamaño do ficheiro"
+
+#: ../src/preferences.c:2095 ../src/preferences.c:2096
+msgid "left"
+msgstr "esquerda"
+
+#: ../src/preferences.c:2095 ../src/preferences.c:2096
+msgid "right"
+msgstr "dereita"
+
+#: ../src/preferences.c:2095
+msgid "top"
+msgstr "arriba"
+
+#: ../src/preferences.c:2095
+msgid "bottom"
+msgstr "abaixo"
+
+#: ../src/preferences.c:2097
+msgid "Recently opened"
+msgstr "Abertos recentemente"
+
+#: ../src/preferences.c:2097
+msgid "Recently closed"
+msgstr "Pechados recentemente"
+
+#: ../src/preferences.c:2098 ../src/preferences.c:2104
+msgid "Never"
+msgstr "Nunca"
 
 #: ../src/preferences.c:2098
-msgid "Immediately"
-msgstr "Direct"
-
-#: ../src/preferences.c:2099
-msgid "Continue save"
-msgstr "Doorgaan met opslaan"
-
-#: ../src/preferences.c:2099
-msgid "Abort save"
-msgstr "Opslaan afbreken"
-
-#: ../src/preferences.c:2099
-msgid "Ask what to do"
-msgstr "Vraag wat te doen"
-
-#: ../src/preferences.c:2101
-msgid "Nothing"
-msgstr "Niets"
-
-#: ../src/preferences.c:2101
-msgid "Modified time and file size"
-msgstr "Gewĳzigde tĳd en bestandsgrootte"
-
-#: ../src/preferences.c:2101
-msgid "Modified time"
-msgstr "Gewĳzigde tĳd"
-
-#: ../src/preferences.c:2101
-msgid "File size"
-msgstr "Bestands grootte"
-
-#: ../src/preferences.c:2102 ../src/preferences.c:2103
-msgid "left"
-msgstr "links"
-
-#: ../src/preferences.c:2102 ../src/preferences.c:2103
-msgid "right"
-msgstr "rechts"
-
-#: ../src/preferences.c:2102
-msgid "top"
-msgstr "boven"
-
-#: ../src/preferences.c:2102
-msgid "bottom"
-msgstr "onder"
-
-#: ../src/preferences.c:2104
-#, fuzzy
-msgid "Recently opened"
-msgstr "Vol_gende Document"
-
-#: ../src/preferences.c:2104
-msgid "Recently closed"
-msgstr ""
-
-#: ../src/preferences.c:2105 ../src/preferences.c:2111
-msgid "Never"
-msgstr "Nooit"
-
-#: ../src/preferences.c:2105
 msgid "Only project files"
-msgstr "Alleen project bestanden"
+msgstr "So ficheiros do proxecto"
 
-#: ../src/preferences.c:2108
+#: ../src/preferences.c:2101
 msgid "All"
-msgstr "Alle"
+msgstr "Todo"
 
-#: ../src/preferences.c:2108
+#: ../src/preferences.c:2101
 msgid "All except spaces"
-msgstr "Alle behalve spaties"
+msgstr "Todo excepto espazos"
 
-#: ../src/preferences.c:2108
+#: ../src/preferences.c:2101
 msgid "All trailing"
-msgstr "Alle hangende"
+msgstr "Todo seguido"
 
-#: ../src/preferences.c:2108
+#: ../src/preferences.c:2101
 msgid "All except non-trailing spaces"
-msgstr "Alle behalve niet-hangende spaties"
+msgstr "Todo menos espazos non contiguos"
 
-#: ../src/preferences.c:2111
+#: ../src/preferences.c:2104
 msgid "Always"
-msgstr ""
+msgstr "Sempre"
 
-#: ../src/preferences.c:2111
+#: ../src/preferences.c:2104
 msgid "Smart"
-msgstr ""
+msgstr "Intelixente"
 
-#: ../src/preferences.c:2122
+#: ../src/preferences.c:2115
 msgid "Edit preferences"
-msgstr "Voorkeuren aanpassen"
+msgstr "Editar preferenzas"
 
 #.
 #. *  Initial document settings
 #.
-#: ../src/preferences.c:2146
+#: ../src/preferences.c:2139
 msgid "<b>Non Project Defaults</b>"
-msgstr "<b>Non-project Standaard instellingen</b>"
+msgstr "<b>Por omisión sen proxecto</b>"
 
-#: ../src/preferences.c:2148
+#: ../src/preferences.c:2141
 msgid "Initial document settings"
-msgstr "Initiële document instellingen"
+msgstr "Preferenzas iniciais do documento"
 
-#: ../src/preferences.c:2160
+#: ../src/preferences.c:2153
 msgid "Editor settings"
-msgstr "Editor optie's"
+msgstr "Editor de preferenzas"
 
-#: ../src/preferences.c:2163
+#: ../src/preferences.c:2156
 msgid "<b>Editor settings</b>"
-msgstr "<b>Editor instellingen</b>"
+msgstr "<b>Editor de preferenzas</b>"
 
-#: ../src/preferences.c:2171
+#: ../src/preferences.c:2164
 msgid "Smart Home/_End cursor positioning"
-msgstr "Slimme Home/End cursor positionering"
+msgstr "Posicionador intelixente do cursor Inicio/Fin"
 
-#: ../src/preferences.c:2175
+#: ../src/preferences.c:2168
 msgid "_Tab key indents selection"
-msgstr "Selectie inpringen met _tab toets"
+msgstr "A tecla _Tab indenta a selección"
+
+#: ../src/preferences.c:2174
+msgid "Automatically insert closing brackets"
+msgstr "Inserir automáticamente corchetes de pechado"
 
 #: ../src/preferences.c:2181
-msgid "Automatically insert closing brackets"
-msgstr "Automatisch haken sluiten"
-
-#: ../src/preferences.c:2188
 msgid "Right _margin/split line end position:"
-msgstr "Rechter marge positie:"
+msgstr "Right _margin/split line end position:"
 
-#: ../src/preferences.c:2191
-#, fuzzy
+#: ../src/preferences.c:2184
+
 msgid "Wrap lines on right margin indicator"
-msgstr "Toon rechter marge indicator"
+msgstr "Axustar liñas no indicador de marxe dereito"
 
-#: ../src/preferences.c:2197
+#: ../src/preferences.c:2190
 msgid "Visible _whitespace mode:"
-msgstr "Zichtbare _witruimte mode:"
+msgstr "Modo de espazo visible:"
 
-#: ../src/preferences.c:2200
+#: ../src/preferences.c:2193
 msgid "<b>Undo</b>"
-msgstr "<b>Ongedaan maken</b>"
+msgstr "<b>Desfacer</b>"
 
-#: ../src/preferences.c:2205
+#: ../src/preferences.c:2198
 msgid "_Number of actions in history:"
-msgstr "_Aantal acties in ongedaan maken historie"
+msgstr "_Número de accións no historial:"
 
-#: ../src/preferences.c:2208
+#: ../src/preferences.c:2201
 msgid "Clear _history on save"
-msgstr "Ongedaan maken historie wissen bĳ opslaan"
+msgstr "Limpar _historial ao gardar"
 
-#: ../src/preferences.c:2213
+#: ../src/preferences.c:2206
 msgid "Auto-completion & Reference"
-msgstr "Auto-completeren & Referentie"
+msgstr "Autocompletado e Referencia"
 
-#: ../src/preferences.c:2219
+#: ../src/preferences.c:2212
 msgid "<b>Auto-completion</b>"
-msgstr "<b>Auto-completeren</b>"
+msgstr "<b>Autocompletado</b>"
 
-#: ../src/preferences.c:2225
+#: ../src/preferences.c:2218
 msgid "Show _pop-up window:"
-msgstr "_Pop-up laten zien:"
+msgstr "Mostrar ventá emerxente:"
 
-#: ../src/preferences.c:2229
+#: ../src/preferences.c:2222
 msgid "Minimum matching length for auto-completion:"
-msgstr ""
+msgstr "Mínima lonxitude coincidete para o autocompletado:"
 
-#: ../src/preferences.c:2234
+#: ../src/preferences.c:2227
 msgid "Shortcut _key combination:"
-msgstr "Sneltoets _combinatie:"
+msgstr "Combiancións de tecla de atallo:"
 
-#: ../src/preferences.c:2237
+#: ../src/preferences.c:2230
 msgid "<b>Reference Information</b>"
-msgstr "<b>Referentie informatie</b>"
+msgstr "<b>Información de referencia</b>"
 
-#: ../src/preferences.c:2240
+#: ../src/preferences.c:2233
 msgid "_Load reference data from language files"
-msgstr "Referentie informatie in geheugen laden"
+msgstr "Cargar datos de referencia desde ficheiros de idioma"
 
-#: ../src/preferences.c:2243
+#: ../src/preferences.c:2236
 msgid "Show references in auto-completion _pop-up window"
-msgstr "Referentie informatie bij automatische _completering weergeven"
+msgstr "Mostrar referencias en autocompletado nunha vetá emerxente"
 
-#: ../src/preferences.c:2246
+#: ../src/preferences.c:2239
 msgid "Show references if mouse is over text editor"
-msgstr "Geef referenties weer als de muis over de tekst gaat"
+msgstr "Mostrar referencias se o rato está sobre o editor de texto"
 
-#: ../src/preferences.c:2255 ../src/preferences.c:2610
+#: ../src/preferences.c:2248 ../src/preferences.c:2603
 msgid "Font & Colors"
-msgstr "Lettertype & Kleuren"
+msgstr "Tipografía e Cores"
 
-#: ../src/preferences.c:2261
+#: ../src/preferences.c:2254
 msgid "<b>Font &amp; Cursor</b>"
-msgstr "<b>Lettertype &amp; Cursor</b>"
+msgstr "<b>Tipografía &amp; Cursor</b>"
 
-#: ../src/preferences.c:2265
+#: ../src/preferences.c:2258
 msgid "_Editor font:"
-msgstr "Lettertype"
+msgstr "_Editor de tipografía:"
 
-#: ../src/preferences.c:2273
+#: ../src/preferences.c:2266
 msgid "Cursor / font size ratio (%):"
-msgstr "Cursor / lettergrootte ratio (%)"
+msgstr "Relación entre Cursor/Tamaño letra (%):"
 
-#: ../src/preferences.c:2275 ../src/preferences.c:2636
+#: ../src/preferences.c:2268 ../src/preferences.c:2629
 msgid "<b>Colors</b>"
-msgstr "<b>Kleuren</b>"
+msgstr "<b>Cores</b>"
 
-#: ../src/preferences.c:2279
+#: ../src/preferences.c:2272
 msgid "Use system wide color settings"
-msgstr "Gebruik systeembreed ingestelde kleuren"
+msgstr "Utilizar cores do sistema"
 
-#: ../src/preferences.c:2290
+#: ../src/preferences.c:2283
 msgid "Cursor color"
-msgstr "Cursor kleur"
+msgstr "Cor do cursor"
 
-#: ../src/preferences.c:2291
+#: ../src/preferences.c:2284
 msgid "C_ursor color:"
-msgstr "C_ursor kleur"
+msgstr "Cor do c_ursor:"
 
-#: ../src/preferences.c:2294
+#: ../src/preferences.c:2287
 msgid "Selection background color"
-msgstr "Selectie achtergrond kleur"
+msgstr "Escoller cor de fondo"
+
+#: ../src/preferences.c:2288
+msgid "_Selection background color:"
+msgstr "E_scoller cor de fondo:"
+
+#: ../src/preferences.c:2293
+msgid "Highlight cursor position"
+msgstr "Resaltar posición do cursor"
 
 #: ../src/preferences.c:2295
-msgid "_Selection background color:"
-msgstr "Selectie achtergrond kleur:"
+msgid "Cursor highlight color"
+msgstr "Cor do resaltado do cursor"
 
-#: ../src/preferences.c:2300
-msgid "Highlight cursor position"
-msgstr "Cursor positie oplichten"
+#: ../src/preferences.c:2296
+msgid "_Cursor highlight color:"
+msgstr "_Cor do cursor resaltado:"
+
+#: ../src/preferences.c:2301
+msgid "Current line color"
+msgstr "Cor da liña activa"
 
 #: ../src/preferences.c:2302
-msgid "Cursor highlight color"
-msgstr "Cursor oplicht kleur"
-
-#: ../src/preferences.c:2303
-msgid "_Cursor highlight color:"
-msgstr "_Cursor oplicht kleur:"
-
-#: ../src/preferences.c:2308
-msgid "Current line color"
-msgstr "Actieve regel kleur"
-
-#: ../src/preferences.c:2309
 msgid "Cu_rrent line color:"
-msgstr "Actieve _regel kleur"
+msgstr "Cor da liña activa:"
 
-#: ../src/preferences.c:2312
+#: ../src/preferences.c:2305
 msgid "Visible whitespace color"
-msgstr "Zichtbare witruimte kleur"
+msgstr "Cor dos espazos visibles"
 
-#: ../src/preferences.c:2313
+#: ../src/preferences.c:2306
 msgid "_Visible whitespace color:"
-msgstr "Zichtbare witruimte kleur"
+msgstr "Cor dos espazos _visibles"
 
-#: ../src/preferences.c:2325
+#: ../src/preferences.c:2318
 msgid "Text styles"
-msgstr "Tekst stĳlen"
+msgstr "Estilos de texto"
 
-#: ../src/preferences.c:2327
+#: ../src/preferences.c:2320
 msgid "<b>Text Styles</b>"
-msgstr "<b>Tekst stĳlen</b>"
+msgstr "<b>Estilos de texto</b>"
 
-#: ../src/preferences.c:2340
+#: ../src/preferences.c:2333
 msgid "Files"
-msgstr "Bestanden"
+msgstr "Ficheiros"
 
-#: ../src/preferences.c:2343
+#: ../src/preferences.c:2336
 msgid "<b>Encoding</b>"
-msgstr "<b>Codering</b>"
+msgstr "<b>Codificación</b>"
 
-#: ../src/preferences.c:2359
+#: ../src/preferences.c:2352
 msgid "_Default character set for new files:"
-msgstr "_Standaard karakterset voor nieuwe bestanden"
+msgstr "Xogo de caracteres por omisión en novos ficheiros:"
+
+#: ../src/preferences.c:2358
+msgid "Auto set <meta> _HTML tag on encoding change"
+msgstr "Establecer automáticamente a etiqueta _HTML <meta> en cambios de codificación "
+
+#: ../src/preferences.c:2362 ../src/preferences.c:2491
+msgid "<b>Misc</b>"
+msgstr "<b>Varios</b>"
 
 #: ../src/preferences.c:2365
-msgid "Auto set <meta> _HTML tag on encoding change"
-msgstr "Automatisch <meta> _HTML tag aanpassen bĳ coderingsverandering"
-
-#: ../src/preferences.c:2369 ../src/preferences.c:2498
-msgid "<b>Misc</b>"
-msgstr "<b>Overig</b>"
-
-#: ../src/preferences.c:2372
-#, fuzzy
 msgid "Strip trailing spaces on save"
-msgstr "Verwijder _naloopspaties"
+msgstr "Quitar espazos contiguos ao gardar"
 
-#: ../src/preferences.c:2378
+#: ../src/preferences.c:2371
 msgid "Open co_mmandline files in running bluefish process"
-msgstr "Open co_mmando-regel bestanden in een al geopend Bluefish proces"
+msgstr "Abrir ficheiros de comandos no instancia actual de bluefish"
 
-#: ../src/preferences.c:2383
+#: ../src/preferences.c:2376
 msgid "Open commandline files in new _window"
-msgstr "Open commando-regel bestanden in een nieuw _venster"
+msgstr "Abrir ficheiros de comandos nunha nova ventá"
 
-#: ../src/preferences.c:2388
+#: ../src/preferences.c:2381
 msgid "_Periodically check if file is modified on disk"
-msgstr "Geregeld bestand op schĳf controleren op wĳzigingen"
+msgstr "Comprobar _periódicamente se o ficheiro mudou no disco"
 
-#: ../src/preferences.c:2394
+#: ../src/preferences.c:2387
 msgid "File properties to check on dis_k for modifications:"
-msgstr "Bestandseigenschappen op _schĳf ter controle van wĳzigingen"
+msgstr "Propiedades do ficheiro a comprobar no disco en modificacións:"
 
-#: ../src/preferences.c:2398
+#: ../src/preferences.c:2391
 msgid "Show warning for files with very long lines"
-msgstr ""
+msgstr "Mostrar avisos para ficheiros con liñas moi longas"
 
-#: ../src/preferences.c:2408
+#: ../src/preferences.c:2401
 msgid "Backup & Recovery"
-msgstr "Reserves & Herstellen"
+msgstr "Respaldo & Recuperación"
+
+#: ../src/preferences.c:2404
+msgid "<b>Backup</b>"
+msgstr "<b>Respaldo</b>"
+
+#: ../src/preferences.c:2406
+msgid "Create _backup file during file save"
+msgstr "Crear ficheiros de respaldo ao gardar"
 
 #: ../src/preferences.c:2411
-msgid "<b>Backup</b>"
-msgstr "<b>Reserve bestanden</b>"
-
-#: ../src/preferences.c:2413
-msgid "Create _backup file during file save"
-msgstr "Maak reserve_bestand bĳ opslaan"
-
-#: ../src/preferences.c:2418
 msgid "_Remove backup file on close"
-msgstr "_Verwĳder reservebestand bĳ sluiten"
+msgstr "Borrar ficheiro de respaldo ao pechar"
+
+#: ../src/preferences.c:2416
+msgid "If back_up fails:"
+msgstr "Se falla o respaldo:"
 
 #: ../src/preferences.c:2423
-msgid "If back_up fails:"
-msgstr "Als de reservekopie _mislukt"
-
-#: ../src/preferences.c:2430
 msgid "<b>Document Recovery</b>"
-msgstr "<b>Document Herstel</b>"
+msgstr "<b>Recuperación de documentos</b>"
 
-#: ../src/preferences.c:2432
+#: ../src/preferences.c:2425
 msgid "_Enable recovery of modified documents"
-msgstr "Herstelkopie van gewijzigde documenten maken"
+msgstr "Habilitar a recuperación de documentos modificados"
 
-#: ../src/preferences.c:2436
+#: ../src/preferences.c:2429
 msgid "_Frequency to store changes (seconds):"
-msgstr "Herstelkopie _frequentie (seconden)"
+msgstr "_Frecuencia de gardado dos cambios (segundos):"
 
-#: ../src/preferences.c:2454
+#: ../src/preferences.c:2447
 msgid "Templates"
-msgstr "Sjablonen"
+msgstr "Plantillas"
 
-#: ../src/preferences.c:2457
+#: ../src/preferences.c:2450
 msgid "<b>Templates</b>"
-msgstr "<b>Sjablonen</b>"
+msgstr "<b>Plantillas</b>"
 
-#: ../src/preferences.c:2470
+#: ../src/preferences.c:2463
 msgid "User interface"
-msgstr "Gebruikers interface"
+msgstr "Interface de usuario"
 
-#: ../src/preferences.c:2473
+#: ../src/preferences.c:2466
 msgid "<b>Layout</b>"
-msgstr "<b>Layout</b>"
+msgstr "<b>Disposición</b>"
 
-#: ../src/preferences.c:2479
+#: ../src/preferences.c:2472
 msgid "Document _tab position:"
-msgstr "Document _tab positie:"
+msgstr "Posición do _tab no documento:"
 
-#: ../src/preferences.c:2484
+#: ../src/preferences.c:2477
 msgid "Maximum filename length shown in tab (0 is no limit)"
-msgstr ""
+msgstr "Lonxitude máxima do nome do ficheiro mostrado en tab (0 é ilimitado)"
 
-#: ../src/preferences.c:2490
+#: ../src/preferences.c:2483
 msgid "_Sidebar position:"
-msgstr "Zijbalk positie:"
+msgstr "Posición de barra lateral:"
 
-#: ../src/preferences.c:2496
+#: ../src/preferences.c:2489
 msgid "Sidebar tab _position:"
-msgstr "Zijbalk tab positie:"
+msgstr "Posición do tab na barra lateral:"
 
-#: ../src/preferences.c:2500
+#: ../src/preferences.c:2493
 msgid "Hide toolbars on full-screen"
-msgstr "Verberg werkbalk bij volledige scermvulling"
+msgstr "Agochar barras de ferramentas en pantalla completa"
 
-#: ../src/preferences.c:2509
+#: ../src/preferences.c:2502
 msgid "_Language:"
-msgstr "_Taal:"
+msgstr "_Idioma:"
 
-#: ../src/preferences.c:2512
+#: ../src/preferences.c:2505
 msgid "<b>Recent Files</b>"
-msgstr "<b>Recente bestanden</b>"
+msgstr "<b>Ficheiros recentes</b>"
 
-#: ../src/preferences.c:2517
+#: ../src/preferences.c:2510
 msgid "Recent files _shows:"
-msgstr ""
+msgstr "Ficheiros recentes mostra:"
 
-#: ../src/preferences.c:2522
+#: ../src/preferences.c:2515
 msgid "_Number of files in 'Open recent' menu:"
-msgstr "_Aantal bestanden in 'Recent geopend' menu"
+msgstr "_Número de ficheiros no menú 'Abrir recentes'"
 
-#: ../src/preferences.c:2527
+#: ../src/preferences.c:2520
 msgid "_Register recent files with your desktop:"
-msgstr "_Registreer recente bestanden bij uw bureaublad:"
+msgstr "_Rexistrar ficheiros recentes no seu escritorio:"
 
-#: ../src/preferences.c:2538
+#: ../src/preferences.c:2531
 msgid "Shortcut keys"
-msgstr "Sneltoets combinaties"
+msgstr "Atallos de teclado"
+
+#: ../src/preferences.c:2536
+msgid "<b>Shortcut keys</b>"
+msgstr "<b>Atallos de teclado</b>"
+
+#: ../src/preferences.c:2539
+msgid "_Switch between tabs with <Alt>+0..9"
+msgstr "Cambiar entre tabelas con <Alt>+0..9"
 
 #: ../src/preferences.c:2543
-msgid "<b>Shortcut keys</b>"
-msgstr "<b>Sneltoets combinaties</b>"
+msgid "Save menu accelerators on exit"
+msgstr "Gardar aceleradores de menú ao saír"
 
 #: ../src/preferences.c:2546
-msgid "_Switch between tabs with <Alt>+0..9"
-msgstr "_Wissel tussen tabs met Alt>+0..9"
+msgid "Save user customised menu accelerators now"
+msgstr "Gardar aceleradores de menú personalizados agora"
 
 #: ../src/preferences.c:2550
-msgid "Save menu accelerators on exit"
-msgstr "Gebruikers sneltoetsen opslaan bij afsluiten"
-
-#: ../src/preferences.c:2553
-msgid "Save user customised menu accelerators now"
-msgstr "Gebruikers sneltoetsen opslaan"
-
-#: ../src/preferences.c:2557
 msgid "Reset menu accelerators to application defaults"
-msgstr "Sneltoetsen herstellen naar Standaardwaarden"
+msgstr "Restablecer aceleradores de menú aos valores por omisión"
 
-#: ../src/preferences.c:2569
+#: ../src/preferences.c:2562
 msgid "Dimensions"
-msgstr "Afmetingen"
+msgstr "Tamaño"
 
-#: ../src/preferences.c:2572
+#: ../src/preferences.c:2565
 msgid "<b>Dimensions</b>"
-msgstr "<b>Afmetingen</b>"
+msgstr "<b>Tamaño</b>"
+
+#: ../src/preferences.c:2567
+msgid "_Leave dimensions to window manager"
+msgstr "_Deixarlle o tamaño ao xestor de ventás"
 
 #: ../src/preferences.c:2574
-msgid "_Leave dimensions to window manager"
-msgstr "_Laat afmetingen over aan vensterbeheer"
-
-#: ../src/preferences.c:2581
 msgid "_Restore last used dimensions"
-msgstr "_Herstel laatst gebruikte afmetingen"
+msgstr "_Restablecer ao último tamaño utilizado"
+
+#: ../src/preferences.c:2582
+msgid "Initial _sidebar width:"
+msgstr "Ancho inicial da barra lateral:"
+
+#: ../src/preferences.c:2586
+msgid "Initial window _height:"
+msgstr "Altura inicial da ventá:"
 
 #: ../src/preferences.c:2589
-msgid "Initial _sidebar width:"
-msgstr "Initiële _zijbalk breedte:"
-
-#: ../src/preferences.c:2593
-msgid "Initial window _height:"
-msgstr "Initiële _venster hoogte:"
+msgid "Initial window _width:"
+msgstr "Ancho inicial da ventá:"
 
 #: ../src/preferences.c:2596
-msgid "Initial window _width:"
-msgstr "Initiële _venster breedte:"
-
-#: ../src/preferences.c:2603
 msgid "_Limit window title length"
-msgstr "Beperk window titel lengte"
+msgstr "_Límite da lonxitude do título da ventá"
 
-#: ../src/preferences.c:2616
-#, fuzzy
+#: ../src/preferences.c:2609
 msgid "<b>Document tab</b>"
-msgstr "<b>Document Herstel</b>"
+msgstr "<b>Pestana documento</b>"
 
-#: ../src/preferences.c:2621
+#: ../src/preferences.c:2614
 msgid "_Use system document tab font"
-msgstr "_Gebruik systeem lettertype"
+msgstr "_Utilizar letra do sistema para a pestana"
 
-#: ../src/preferences.c:2626
+#: ../src/preferences.c:2619
 msgid "_Document tab font:"
-msgstr "Document tab lettertype:"
+msgstr "Letra do documento de pestana:"
 
-#: ../src/preferences.c:2640
+#: ../src/preferences.c:2633
 msgid "Document error tab color"
-msgstr "Document tab foutstatus kleur"
+msgstr "Cor do erro na pestana de documento"
 
-#: ../src/preferences.c:2642
+#: ../src/preferences.c:2635
 msgid "Document tab _error color:"
-msgstr "Document tab _foutstatus kleur:"
+msgstr "Cor de _erro na pestana de documento:"
 
-#: ../src/preferences.c:2646
+#: ../src/preferences.c:2639
 msgid "Document loading tab color"
-msgstr "Document tab laadt-status kleur"
+msgstr "Cor da pestana na cargo do documento"
 
-#: ../src/preferences.c:2648
+#: ../src/preferences.c:2641
 msgid "Document tab loadin_g color:"
-msgstr "Document tab _laadt-status kleur:"
+msgstr "Cor da pestana na carga de documento:"
 
-#: ../src/preferences.c:2652
+#: ../src/preferences.c:2645
 msgid "Document modified tab color"
-msgstr "Document tab gewijzigd-status kleur"
+msgstr "Cor do documento na pestana modificada"
 
-#: ../src/preferences.c:2654
+#: ../src/preferences.c:2647
 msgid "Document tab _modified color:"
-msgstr "Document tab _gewijzigd-status kleur"
+msgstr "Cor do documento na pestana modificada:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2667 ../src/rcfile.c:1306
+#: ../src/preferences.c:2660 ../src/rcfile.c:1301
 msgid "Images"
-msgstr "Afbeeldingen"
+msgstr "Imaxes"
 
-#: ../src/preferences.c:2670
+#: ../src/preferences.c:2663
 msgid "<b>Thumbnails</b>"
-msgstr "<b>Voorbeeldafbeeldingen</b>"
+msgstr "<b>Iconas</b>"
 
-#: ../src/preferences.c:2676
+#: ../src/preferences.c:2669
 msgid "Thumbnail _filetype:"
-msgstr "Voorbeeldafbeelding (thumbnail) _bestandstype:"
+msgstr "Iconas de tipo de ficheiros:"
 
-#: ../src/preferences.c:2680
+#: ../src/preferences.c:2673
 msgid "Thumbnail _suffix:"
-msgstr "Voorbeeldafbeelding (thumbnail) _achtervoegsel:"
+msgstr "Sufixos de iconas:"
 
-#: ../src/preferences.c:2693
+#: ../src/preferences.c:2686
 msgid "External commands"
-msgstr "Externe commando's"
+msgstr "Comandos externos"
 
-#: ../src/preferences.c:2695
+#: ../src/preferences.c:2688
 msgid "<b>External Commands</b>"
-msgstr "<b>Externe Commando's</b>"
+msgstr "<b>Comandos externos</b>"
 
-#: ../src/preferences.c:2708
+#: ../src/preferences.c:2701
 msgid "External filters"
-msgstr "Externe filters"
+msgstr "Filtros externos"
 
-#: ../src/preferences.c:2711
+#: ../src/preferences.c:2704
 msgid "<b>External Filters</b>"
-msgstr "<b>Externe filters</b>"
+msgstr "<b>Filtros externos</b>"
 
-#: ../src/preferences.c:2724
+#: ../src/preferences.c:2717
 msgid "Output parsers"
-msgstr "Uitvoer parser"
+msgstr "Output parsers"
 
-#: ../src/preferences.c:2726
+#: ../src/preferences.c:2719
 msgid "<b>Output Parsers</b>"
-msgstr "<b>Uitvoer Parser</b>"
+msgstr "<b>Output Parsers</b>"
 
-#: ../src/preferences.c:2739
+#: ../src/preferences.c:2732
 msgid "Plugins"
-msgstr "Plugins"
+msgstr "Engadidos"
 
-#: ../src/preferences.c:2741
+#: ../src/preferences.c:2734
 msgid "<b>Plugins</b>"
-msgstr "<b>Plugins</b>"
+msgstr "<b>Engadidos</b>"
 
-#: ../src/preferences.c:2763
+#: ../src/preferences.c:2756
 msgid "Language support"
-msgstr "Taal ondersteuning"
+msgstr "Soporte de idioma"
 
-#: ../src/project.c:335
+#: ../src/project.c:326
 msgid "Enter Bluefish project filename"
-msgstr "Voer naam in van Bluefish project bestand"
+msgstr "Introducir nome do ficheiro de proxecto de Bluefish"
 
-#: ../src/project.c:516
+#: ../src/project.c:507
 msgid "Select Bluefish project filename"
-msgstr "Selecteer Bluefish project bestands naam"
+msgstr "Escoller nome de ficheiro para o proxecto Bluefish"
 
-#: ../src/project.c:679
+#: ../src/project.c:670
 msgid "Create New Project"
-msgstr "Nieuw project aanmaken"
+msgstr "Crear novo proxecto"
 
-#: ../src/project.c:682
+#: ../src/project.c:673
 msgid "Edit Project"
-msgstr "Project bewerken"
+msgstr "Editar proxecto"
 
 # c-format
-#: ../src/project.c:707
+#: ../src/project.c:698
 #, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
-msgstr[0] "Dit project bevat %d bestand"
-msgstr[1] "Dit project bevat %d bestanden"
+msgstr[0] "Este proxecto contén %d ficheiro"
+msgstr[1] "Este proxecto contén %d ficheiros"
 
-#: ../src/project.c:720
+#: ../src/project.c:711
 msgid "Project _Name:"
-msgstr "Project Naam:"
+msgstr "Nome do proxecto:"
 
 #. pred->entries[template] = entry_with_text(pred->project->template, 255);
 #. bf_mnemonic_label_tad_with_alignment(_("_Template:"), pred->entries[template], 1, 0.5, table, 0, 1, 3, 4);
 #. but = file_but_new(pred->entries[template], 1, NULL);
 #. gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
-#: ../src/project.c:728
+#: ../src/project.c:719
 msgid "<b>Project Defaults</b>"
-msgstr "<b>Project standaard instellingen</b>"
+msgstr "<b>Por omisión do proxecto</b>"
 
-#: ../src/project.c:742
+#: ../src/project.c:733
 msgid "Create _Project"
-msgstr "Project Aanmaken"
+msgstr "Crear _Proxecto"
 
-#: ../src/project.c:791
+#: ../src/project.c:782
 msgid "Create project"
-msgstr "Project aanmaken"
+msgstr "Crear proxecto"
 
-#: ../src/project.c:796
+#: ../src/project.c:787
 msgid "Create project with currently opened documents"
-msgstr "Project aanmaken met huidige geopende bestanden"
+msgstr "Crear proxecto cos documentos abertos neste momento"
 
-#: ../src/project.c:798
+#: ../src/project.c:789
 msgid "Create empty project"
-msgstr "Leeg project aanmaken"
+msgstr "Crear proxecto baldeiro"
 
-#: ../src/rcfile.c:694 ../src/rcfile.c:722
+#: ../src/rcfile.c:690 ../src/rcfile.c:718
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:700
+#: ../src/rcfile.c:696
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:704
+#: ../src/rcfile.c:700
 msgid "weblint HTML checker"
 msgstr "weblint HTML checker"
 
-#: ../src/rcfile.c:709
+#: ../src/rcfile.c:705
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:713
+#: ../src/rcfile.c:709
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:717
+#: ../src/rcfile.c:713
 msgid "xmllint XML checker"
 msgstr "xmllint XML checker"
 
-#: ../src/rcfile.c:726
+#: ../src/rcfile.c:722
 msgid "php syntax check"
 msgstr "php syntax test"
 
-#: ../src/rcfile.c:730
+#: ../src/rcfile.c:726
 msgid "perl syntax check"
 msgstr "perl syntax check"
 
-#: ../src/rcfile.c:734
+#: ../src/rcfile.c:730
 msgid "php codesniffer"
 msgstr "php codesniffer"
 
-#: ../src/rcfile.c:738
+#: ../src/rcfile.c:734
 msgid "pylint"
-msgstr ""
+msgstr "pylint"
 
-#: ../src/rcfile.c:751
+#: ../src/rcfile.c:747
 msgid "Sort"
-msgstr "Sorteren"
+msgstr "Ordenar"
 
-#: ../src/rcfile.c:754
+#: ../src/rcfile.c:750
 msgid "Sort / Uniq"
-msgstr "Sort / Uniq"
+msgstr "Ordenar / Uniq"
 
-#: ../src/rcfile.c:757
+#: ../src/rcfile.c:753
 msgid "Reverse lines"
-msgstr "Regels omdraaien"
+msgstr "Liñas inversas"
 
-#: ../src/rcfile.c:760
+#: ../src/rcfile.c:756
 msgid "Dos2unix"
 msgstr "Dos2unix"
 
-#: ../src/rcfile.c:762
+#: ../src/rcfile.c:758
 msgid "Tidy HTML"
-msgstr "Tidy HTML"
+msgstr "Limpar HTML"
 
-#: ../src/rcfile.c:764
-#, fuzzy
+#: ../src/rcfile.c:760
 msgid "Tidy convert to XHTML"
-msgstr "Tidy HTML"
+msgstr "Convertir limpamente a XHTML"
 
-#: ../src/rcfile.c:767
+#: ../src/rcfile.c:763
 msgid "Tidy HTML (perltidy)"
 msgstr "Tidy HTML (perltidy)"
 
-#: ../src/rcfile.c:770
+#: ../src/rcfile.c:766
 msgid "Strip empty lines"
-msgstr "Verwijder lege regels"
+msgstr "Eliminar liñas baldeiras"
 
-#: ../src/rcfile.c:773
+#: ../src/rcfile.c:769
 msgid "Render HTML to text"
-msgstr "Maak tekst van HTML"
+msgstr "Converter HTML a texto"
 
-#: ../src/rcfile.c:776
+#: ../src/rcfile.c:772
 msgid "PHP Beautifier"
-msgstr ""
+msgstr "PHP Beautifier"
 
-#: ../src/rcfile.c:780 ../src/rcfile.c:787
+#: ../src/rcfile.c:776 ../src/rcfile.c:783
 msgid "Javascript Minify with jsmin"
-msgstr ""
+msgstr "Javascript Minify with jsmin"
 
-#: ../src/rcfile.c:783 ../src/rcfile.c:790
+#: ../src/rcfile.c:779 ../src/rcfile.c:786
 msgid "CSS Minify with cssmin"
-msgstr ""
+msgstr "CSS Minify with cssmin"
 
-#: ../src/rcfile.c:794
+#: ../src/rcfile.c:790
 msgid "CSS tidy"
-msgstr ""
+msgstr "CSS tidy"
 
-#: ../src/rcfile.c:806
+#: ../src/rcfile.c:802
 msgid "Windows XP Firefox"
 msgstr "Windows XP Firefox"
 
-#: ../src/rcfile.c:811
+#: ../src/rcfile.c:807
 msgid "Windows XP Internet Explorer"
 msgstr "Windows XP Internet Explorer"
 
-#: ../src/rcfile.c:816
+#: ../src/rcfile.c:812
 msgid "Windows XP Opera"
 msgstr "Windows XP Opera"
 
-#: ../src/rcfile.c:820
+#: ../src/rcfile.c:816
 msgid "Windows XP Safari"
 msgstr "Windows XP Safari"
 
-#: ../src/rcfile.c:824
+#: ../src/rcfile.c:820
 msgid "Windows 7 Firefox 32-bit"
 msgstr "Windows 7 Firefox 32-bit"
 
-#: ../src/rcfile.c:829
+#: ../src/rcfile.c:825
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr "Windows 7 Internet Explorer 32-bit"
 
-#: ../src/rcfile.c:834
+#: ../src/rcfile.c:830
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr "Windows 7 Internet Explorer 64-bit"
 
-#: ../src/rcfile.c:840
+#: ../src/rcfile.c:836
 msgid "Safari"
 msgstr "Safari"
 
-#: ../src/rcfile.c:843 ../src/rcfile.c:853
+#: ../src/rcfile.c:839 ../src/rcfile.c:849
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:846 ../src/rcfile.c:857
+#: ../src/rcfile.c:842 ../src/rcfile.c:853
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:849 ../src/rcfile.c:876
+#: ../src/rcfile.c:845 ../src/rcfile.c:872
 msgid "chmod a+x"
 msgstr "chmod a+x"
 
-#: ../src/rcfile.c:861
+#: ../src/rcfile.c:857
 msgid "Chromium"
 msgstr "Chromium"
 
-#: ../src/rcfile.c:864
+#: ../src/rcfile.c:860
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:867
+#: ../src/rcfile.c:863
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:870
+#: ../src/rcfile.c:866
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:873
+#: ../src/rcfile.c:869
 msgid "Links2 (graphics)"
 msgstr "Links2 (graphics)"
 
-#: ../src/rcfile.c:920
+#: ../src/rcfile.c:915
 msgid "C Header"
 msgstr "C header"
 
-#: ../src/rcfile.c:923
+#: ../src/rcfile.c:918
 msgid "C Header GPL"
 msgstr "C Header GPL"
 
-#: ../src/rcfile.c:926
+#: ../src/rcfile.c:921
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:929
+#: ../src/rcfile.c:924
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: ../src/rcfile.c:932
+#: ../src/rcfile.c:927
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:935
+#: ../src/rcfile.c:930
 msgid "LaTex Book"
-msgstr ""
+msgstr "LaTex Book"
 
-#: ../src/rcfile.c:938
+#: ../src/rcfile.c:933
 msgid "LaTex Presentation"
-msgstr ""
+msgstr "LaTex Presentation"
 
-#: ../src/rcfile.c:1191
+#: ../src/rcfile.c:1186
 msgid "Untitled Project"
-msgstr "Naamloos Project"
+msgstr "Proxecto sen título"
 
-#: ../src/rcfile.c:1298
+#: ../src/rcfile.c:1293
 msgid "C programming"
-msgstr "C programmeren"
+msgstr "Progración en C"
 
-#: ../src/rcfile.c:1302
+#: ../src/rcfile.c:1297
 msgid "Web files"
-msgstr "Web bestanden"
+msgstr "Ficheiros web"
 
-#: ../src/rcfile.c:1309
+#: ../src/rcfile.c:1304
 msgid "Hide objectfiles"
-msgstr "Object bestanden verbergen"
+msgstr "Ocultar ficheiros-obxeto"
 
 #: ../src/snr3.c:678
 msgid "<i>Replace started</i>"
-msgstr "<i>Vervangen gestart</i>"
+msgstr "<i>Sustituír iniciado</i>"
 
 #: ../src/snr3.c:683
 msgid "<i>Search started</i>"
-msgstr "<i>Zoeken gestart</i>"
+msgstr "<i>Búsqueda iniciada</i>"
 
 #: ../src/snr3.c:701
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Geen selectie, gestopt met zoeken.</"
-"span>"
+"<span foreground=\"red\"><b>Sen selección, búsqueda cancelada.</b><span>"
 
 #. display warning that not all documents have yet finished loading
 #: ../src/snr3.c:710
@@ -3442,182 +3341,179 @@ msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
 "span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Nog niet alle documenten zĳn "
-"geladen.</span>"
+"<span foreground=\"red\" weight=\"bold\">Aínda se están cargando algúns "
+"ficheiros.</span>"
 
 #: ../src/snr3.c:844
-#, fuzzy
 msgid "<span foreground=\"red\">Empty search string</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Geen selectie, gestopt met zoeken.</"
-"span>"
+"<span foreground=\"red\" weight=\"bold\">Cadea de búsqueda baldeira</span>"
 
 #: ../src/snr3.c:893
 #, c-format
 msgid "<i>Replaced %d entry</i>"
 msgid_plural "<i>Replaced %d entries</i>"
-msgstr[0] "<b>%d resultaten vervangen</b>"
-msgstr[1] "<b>%d resultaat vervangen</b>"
+msgstr[0] "<b>Sustituída %d entrada</b>"
+msgstr[1] "<b>Sustituídas %d entrdas</b>"
 
 #: ../src/snr3.c:896
 #, c-format
 msgid "<i>Found %d entry</i>"
 msgid_plural "<i>Found %d entries</i>"
-msgstr[0] "<b>%d resultaat gevonden</b>"
-msgstr[1] "<b>%d resultaten gevonden</b>"
+msgstr[0] "<b>Atopada %d entrada</b>"
+msgstr[1] "<b>Atopadas %d entradas</b>"
 
 #: ../src/snr3.c:1184
 #, c-format
 msgid "<i>Found %d result in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d results in %d of the %d searched documents</i>"
-msgstr[0] "<i>%d resultaat in %d van de %d documenten</i>"
-msgstr[1] "<i>%d resultaten in %d van de %d documenten</i>"
+msgstr[0] "<i>Atopado %d resultado tras buscar en %d de %d documentos</i>"
+msgstr[1] "<i>Atopados %d resultados tras buscar en %d de %d documentos</i>"
 
 #: ../src/snr3.c:1188
 #, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
-msgstr[0] "<i>%d resultaat van karakter %d tot %d</i>"
-msgstr[1] "<i>%d resultaten van karakter %d tot %d</i>"
+msgstr[0] "<i>Atopado %d resulado desde o caracter %d ao %d</i>"
+msgstr[1] "<i>Atopados %d resulados desde o caracter %d ao %d</i>"
 
 #: ../src/snr3.c:1191
 #, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
-msgstr[0] "<i>%d resultaat in het huidige actieve document</i>"
-msgstr[1] "<i>%d resultaten in het huidige actieve document</i>"
+msgstr[0] "<i>Atopado %d resultado no documento activo</i>"
+msgstr[1] "<i>Atopados %d resultados no documento activo</i>"
 
 #: ../src/snr3.c:1413
 msgid "No (more) results"
-msgstr "Geen (extra) resultaten"
+msgstr "Sen (máis) resultados"
 
 #: ../src/snr3.c:1511
 msgid "Active document"
-msgstr "Aktieve document"
+msgstr "Documento activo"
 
 #: ../src/snr3.c:1512
 msgid "Forward from cursor position"
-msgstr "Voorwaarts vanaf cursor positie"
+msgstr "Adiante desde a posición actual do cursor"
 
 #: ../src/snr3.c:1513
 msgid "Current selection"
-msgstr "Huidige selectie"
+msgstr "Selección actual"
 
 #: ../src/snr3.c:1514
 msgid "All open documents"
-msgstr "Alle geopende documenten"
+msgstr "Todos os documentos abertos"
 
 #: ../src/snr3.c:1515
 msgid "Files on disk"
-msgstr "Bestanden op disk"
+msgstr "Ficheiros en disco"
 
 #: ../src/snr3.c:1519 ../src/snr3.c:1524
 msgid "Normal"
-msgstr "Normaal"
+msgstr "Normal"
 
 #: ../src/snr3.c:1525
 msgid "Uppercase"
-msgstr "Hoofdletters"
+msgstr "Maiúsculas"
 
 #: ../src/snr3.c:1526
 msgid "Lowercase"
-msgstr "Kleine letters"
+msgstr "Minúsculas"
 
 #: ../src/snr3.c:1533
 msgid "Find and Replace"
-msgstr "Zoek en Vervang"
+msgstr "Buscar e sustituír"
 
 #: ../src/snr3.c:1552
 msgid "<b>_Search for</b>"
-msgstr "<b>_Zoek naar</b>"
+msgstr "<b>Buscar por</b>"
 
 #: ../src/snr3.c:1575
 msgid "<b>Replace _with</b>"
-msgstr "<b>Vervang _door</b>"
+msgstr "<b>Sustituír con</b>"
 
 #: ../src/snr3.c:1590
 msgid "Match Patter_n: "
-msgstr "Zoekpatroon"
+msgstr "Patrón de coincidencia:"
 
 #: ../src/snr3.c:1602
 msgid "Replace T_ype: "
-msgstr "Vervang Type"
+msgstr "Tipo de sustitución:"
 
 #: ../src/snr3.c:1615
 msgid "Sco_pe: "
-msgstr "Bereik: "
+msgstr "Ámbito: "
 
 #: ../src/snr3.c:1625
 msgid "Filename pattern: "
-msgstr "Bestandsnaam patroon: "
+msgstr "Patrón do nome de ficheiro: "
 
 #: ../src/snr3.c:1631
 msgid "Recursion level: "
-msgstr "Recursie niveau:"
+msgstr "Nivel de recursión:"
 
 #: ../src/snr3.c:1637
 msgid "Basedir: "
-msgstr "Basismap: "
+msgstr "Directorio base: "
 
 #: ../src/snr3.c:1656
 msgid "Case sensitive _matching"
-msgstr "Hoofdletter gevoelig zoeken"
+msgstr "Discernir mai/min na coincidencia"
 
 #: ../src/snr3.c:1658
 msgid "Only match if case (upper/lower) is identical."
-msgstr "Alleen resultaat als kast (hoofdletter/kleine letter) identiek is."
+msgstr "Só coincidencia se mai/min é idéntico."
 
 #: ../src/snr3.c:1662
 msgid "Pattern contains escape-se_quences"
-msgstr "Patroon bevat escape combinaties"
+msgstr "O patrón contén secuencias de escape"
 
 #: ../src/snr3.c:1665
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
-msgstr "Patroon bevat backslash escape karakters zoals \\n, \\t etc."
+msgstr "O patrón contén secuencias de escape como \\n, \\t etc."
 
 #: ../src/snr3.c:1669
 msgid "Dot character in regex pattern matches newlines"
-msgstr "Punt karakter in reguliere expressie pakt regeleinden"
+msgstr "O caracter punto significa nova liña en patróns regex"
 
 #: ../src/snr3.c:1672
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
-"Het . karakter zal alles pakken inclusies regeleinden, gebruik dit voor meer-"
-"regelige zoekopdrachten"
+"O caracter . fai coincidir todo incluindo novas liñas, usar para coincidencias multiliña"
 
 #: ../src/snr3.c:1694
 msgid "Replace _All"
-msgstr "Alles vervangen"
+msgstr "Sustituír todo"
 
 #: ../src/snr3.c:1696
 msgid "_Replace"
-msgstr "Vervangen"
+msgstr "Sustituír"
 
 #: ../src/snr3.c:1700
 msgid "_Find All"
-msgstr "_Zoek Alle"
+msgstr "Atopar todo"
 
 #: ../src/snr3.c:1702
 msgid "B_ookmark All"
-msgstr "Als bladwĳzers"
+msgstr "Marcar todo"
 
 #: ../src/undo_redo.c:552 ../src/undo_redo.c:694
 msgid "Undo in _all documents"
-msgstr "In alle geopende documenten ongedaan maken"
+msgstr "Desfacer en todos os documentos"
 
 #: ../src/undo_redo.c:552 ../src/undo_redo.c:694
 msgid "Undo only _this document"
-msgstr "Alleen in dit document ongedaan maken"
+msgstr "Desfacer só neste documento"
 
 #: ../src/undo_redo.c:555 ../src/undo_redo.c:697
 msgid "Undo this change in all documents?"
-msgstr "Deze verandering in alle documenten ongedaan maken?"
+msgstr "Desfacer este cambio en todos os documentos?"
 
 #: ../src/undo_redo.c:556 ../src/undo_redo.c:698
 msgid "This change concerns multiple documents."
-msgstr "Deze verandering betreft meerdere documenten."
+msgstr "Este cambio afecta a varios documentos."
 
 #~ msgid "Error adding bookmark"
 #~ msgstr "Fout bĳ toevoegen bladwĳzer"
