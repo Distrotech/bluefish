@@ -1164,7 +1164,7 @@ bluefish_text_view_draw(GtkWidget * widget, cairo_t * cr)
 			gtk_text_view_get_iter_location((GtkTextView *) widget, &it, &itrect);
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
 												  itrect.x, itrect.y, &x2, &y2);
-			if (BFWIN(DOCUMENT(master->doc)->bfwin)->session->view_cline) {
+			if (BFWIN(DOCUMENT(master->doc)->bfwin)->session->view_cline && !DOCUMENT(master->doc)->readonly) {
 				/*g_print("cline highlight, got itrect.y=%d, y2=%d, itrect.x=%d, x2=%d, itrect.height=%d, itrect.width=%d\n",itrect.y,y2,itrect.x, x2, itrect.height, itrect.width); */
 				gdk_cairo_set_source_rgba(cr, &st_cline_color);
 				cairo_rectangle(cr,

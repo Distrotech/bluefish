@@ -1020,6 +1020,9 @@ doc_set_status(Tdocument * doc, gint status)
 	case DOC_STATUS_COMPLETE:
 		g_object_set(G_OBJECT(doc->view), "editable", !doc->readonly, NULL);
 		doc->modified = FALSE;
+		if(doc->readonly) {
+			color = main_v->props.tab_color_loading; /* make tab label color different if document is readonly */
+		}
 		break;
 	case DOC_STATUS_ERROR:
 		g_object_set(G_OBJECT(doc->view), "editable", !doc->readonly, NULL);
@@ -2293,9 +2296,15 @@ doc_get_buffer_in_encoding(Tdocument * doc)
 void
 doc_set_readonly(Tdocument * doc, gboolean readonly)
 {
+	gchar *color = NULL;
 	doc->readonly = readonly;
 	if(doc->view) {
 		g_object_set(G_OBJECT(doc->view), "editable", !readonly, NULL);
+		gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW(doc->view), !readonly);
+		if(readonly) {
+			gchar *color = main_v->props.tab_color_loading;
+		}
+		doc_set_label_color(doc, color);
 	}
 
 }

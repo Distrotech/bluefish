@@ -696,7 +696,7 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 		("doc_save_backend, started for doc %p, mode=%d, close_doc=%d, close_window=%d\n", doc,
 		 savemode, close_doc, close_window);
 
-	if (doc->readonly) {
+	if (doc->readonly && savemode == docsave_normal) {
 		g_print("Cannot save readonly document !?!?");
 		return;
 	}
@@ -852,7 +852,9 @@ glib_major_version, glib_minor_version, glib_micro_version);
 								  main_v->props.backup_file, doc_checkNsave_lcb, dsb);
 
 	if (firstsave || savemode == docsave_saveas || savemode == docsave_move) {
-		doc->readonly = FALSE;
+		if(doc->readonly) {
+			doc_set_readonly(doc, FALSE);
+		}
 		doc_reset_filetype(doc, doc->uri, buffer->data, strlen(buffer->data));
 		doc_set_title(doc, NULL);
 		doc_force_activate(doc);
