@@ -1018,11 +1018,11 @@ doc_set_status(Tdocument * doc, gint status)
 	doc->status = status;
 	switch (status) {
 	case DOC_STATUS_COMPLETE:
-		g_object_set(G_OBJECT(doc->view), "editable", TRUE, NULL);
+		g_object_set(G_OBJECT(doc->view), "editable", !doc->readonly, NULL);
 		doc->modified = FALSE;
 		break;
 	case DOC_STATUS_ERROR:
-		g_object_set(G_OBJECT(doc->view), "editable", TRUE, NULL);
+		g_object_set(G_OBJECT(doc->view), "editable", !doc->readonly, NULL);
 		color = main_v->props.tab_color_error;
 		break;
 	case DOC_STATUS_LOADING:
@@ -2288,6 +2288,16 @@ doc_get_buffer_in_encoding(Tdocument * doc)
 		}
 	}
 	return buffer;
+}
+
+void
+doc_set_readonly(Tdocument * doc, gboolean readonly)
+{
+	doc->readonly = readonly;
+	if(doc->view) {
+		g_object_set(G_OBJECT(doc->view), "editable", !readonly, NULL);
+	}
+
 }
 
 static void

@@ -103,6 +103,7 @@ void update_encoding_meta_in_file(Tdocument * doc, gchar * encoding);
 gchar *doc_get_buffer_in_encoding(Tdocument * doc);
 /* gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename); */
 void doc_set_fileinfo(Tdocument * doc, GFileInfo * finfo);
+void doc_set_readonly(Tdocument * doc, gboolean readonly);
 void doc_get_iter_location(Tdocument * doc, GtkTextIter * iter, GdkRectangle * rectange);
 void doc_destroy(Tdocument * doc, gboolean delay_activation);
 void document_unset_filename(Tdocument * doc);

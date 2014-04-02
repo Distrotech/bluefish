@@ -815,6 +815,7 @@ static gboolean
 file2doc_finished_idle_lcb(gpointer data)
 {
 	Tfile2doc * f2d=data;
+	gboolean conversion_status;
 	Trefcpointer *refp = f2d->buffer;
 	DEBUG_SIG("file2doc_finished_idle_lcb, started, priority %d\n",FILE2DOC_PRIORITY);
 	DEBUG_MSG("file2doc_finished_idle_lcb started for doc %p\n",f2d->doc);
@@ -822,7 +823,10 @@ file2doc_finished_idle_lcb(gpointer data)
 		GtkTextIter itstart, itend;
 
 		f2d->recovery_status = 2;
-		doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
+		conversion_status = doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
+		if(!conversion_status) {
+			doc_set_readonly(f2d->doc, TRUE);
+		}
 		DEBUG_MSG("file2doc_finished_idle_lcb, recovery of existing file, inserted original file\n");
 		f2d->doc->block_undo_reg = TRUE;
 		doc_unre_new_group(f2d->doc);
@@ -832,7 +836,10 @@ file2doc_finished_idle_lcb(gpointer data)
 		DEBUG_MSG("file2doc_finished_idle_lcb, recovery of existing file, deleted contents, load autosaved file\n");
 		f2d->of = file_openfile_uri_async(f2d->recover_uri, f2d->bfwin, file2doc_lcb, f2d);
 	} else if (f2d->recovery_status == 2) {
-		doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
+		conversion_status = doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
+		if(!conversion_status) {
+			doc_set_readonly(f2d->doc, TRUE);
+		}
 		doc_unre_add(f2d->doc, f2d->buffer->data, 0, g_utf8_strlen(f2d->buffer->data, f2d->buflen), UndoInsert);
 		f2d->doc->block_undo_reg = FALSE;
 		doc_unre_new_group(f2d->doc);
@@ -848,7 +855,10 @@ file2doc_finished_idle_lcb(gpointer data)
 		f2d->doc->load = NULL;
 		file2doc_cleanup(data);
 	} else {
-		doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
+		conversion_status = doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
+		if(!conversion_status) {
+			doc_set_readonly(f2d->doc, TRUE);
+		}
 		doc_reset_filetype(f2d->doc, f2d->doc->uri, f2d->buffer->data, f2d->buflen);
 		doc_set_tooltip(f2d->doc);
 		doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
