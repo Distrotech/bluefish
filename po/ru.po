@@ -4,14 +4,14 @@
 # boobaloo <koptev.oleg@gmail,com>, 2009, 2010.
 # Alexander <ser.melipharo@gmail.com>, 2010
 # Александр Прокудин <alexandre.prokoudine@gmail.com>, 2010.
-# Fr. Br. George <george@altlinux.org>, 2010-2012
+# Fr. Br. George <george@altlinux.org>, 2010-2014
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-03-24 22:20-0700\n"
-"PO-Revision-Date: 2012-12-18 14:51+0400\n"
+"POT-Creation-Date: 2014-04-02 09:21+0200\n"
+"PO-Revision-Date: 2014-04-02 14:37+0400\n"
 "Last-Translator: Fr. Br. George <george@altlinux.org>\n"
 "Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
 "Language: ru\n"
@@ -30,56 +30,63 @@ msgid ""
 "code. Bluefish supports many programming and markup languages and has many "
 "features, but is still a very fast and lightweight application."
 msgstr ""
+"Bluefish — мощный текстовый редактор, предназначенный для программистов "
+"и веб-разработчиков. Он включает в себя набор инструментов для создания "
+"веб-сайтов, сценариев и программного кода. Bluefish поддерживает множество "
+"языков программирования и разметки, многофункционален, но при этом работает "
+"быстро и нетребователен к ресурсам."
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:2
 msgid "A selection of the features:"
-msgstr ""
+msgstr "Примеры инструментов:"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:3
 msgid ""
 "Well done syntax highlighting which for example supports languages inside "
 "languages (e.g. Javascript inside HTML inside PHP)"
 msgstr ""
+"Аккуратная подсветка синтаксиса, позволяющая в текст на одном языке вставлять "
+"фрагменты на других языках (например, Javascript внутри HTML в программе на PHP)"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:4
 msgid ""
 "All kind of powerful editor features like auto indenting and auto completion "
 "for many functions and libraries in many programming languages"
 msgstr ""
+"Всевозможные инструменты профессионального редактирования, например автоотступ "
+"или автодополнение для различных функций и библиотек многих языков"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:5
-#, fuzzy
 msgid "Project support"
-msgstr "Прое_кт"
+msgstr "Работа с проектами"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:6
 msgid "Support for remote files over ftp, sftp, webdav, etc"
-msgstr ""
+msgstr "Работа с удалёнными файлами по ftp, sftp, webdav и т. п."
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:7
 msgid "Powerful search and replace engine"
-msgstr ""
+msgstr "Мощный механизм поиска с заменой"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:8
 msgid "Customizable integration of external programs such as lint, make, etc"
-msgstr ""
+msgstr "Настройка взаимодействия с внешними программами (lint, make и т. п.)"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:9
 msgid "Snippets plugin to automate often used code"
-msgstr ""
+msgstr "Использование сниппетов для часто используемых участков кода"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:10
 msgid "Code-aware in-line spell checking"
-msgstr ""
+msgstr "Контекстная проверка синтаксиса «на лету»"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:11
 msgid "Zencoding or Emmet support"
-msgstr ""
+msgstr "Поддержка Zencoding и Emmet"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:12
-#, fuzzy
 msgid "Bookmarks panel"
-msgstr "Закладки"
+msgstr "Работа с закладками"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:13
 msgid ""
@@ -87,6 +94,10 @@ msgid ""
 "or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
 "is your editor of choice!"
 msgstr ""
+"Если вы программируете от случая к случаю и вам нужет простой в изучении "
+"редактор, или, наоборот, программируете всё время, но устали от тяжёлых сред "
+"программирования наподобие eclipse или netbeans, вам стоит поинтересоваться "
+"Bluefish!"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -126,19 +137,19 @@ msgstr "Свернуть %s"
 msgid "Expand %s"
 msgstr "Развернуть %s"
 
-#: ../src/bftextview2_spell.c:821
+#: ../src/bftextview2_spell.c:826
 msgid "Spell check language"
 msgstr "Язык для проверки синтаксиса"
 
-#: ../src/bftextview2_spell.c:854
+#: ../src/bftextview2_spell.c:859
 msgid "Add to dictionary"
 msgstr "Добавить в словарь"
 
-#: ../src/bftextview2_spell.c:857
+#: ../src/bftextview2_spell.c:862
 msgid "Ignore spelling"
 msgstr "Не проверять правописание"
 
-#: ../src/bftextview2_spell.c:872
+#: ../src/bftextview2_spell.c:877
 msgid "Insert special characters as entities"
 msgstr "Вставлять спецсимволы в форме entity"
 
@@ -356,7 +367,7 @@ msgstr "Выбрать все"
 msgid "Add Boo_kmark"
 msgstr "Добавить _закладку"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2108
 msgid "Add bookmark"
 msgstr "Добавить закладку"
 
@@ -684,7 +695,7 @@ msgstr "_Перенести текст"
 msgid "Wrap text"
 msgstr "Перенести текст"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3221
 msgid "_Close"
 msgstr "_Закрыть"
 
@@ -884,7 +895,7 @@ msgstr "Перейти по ссылке"
 
 #: ../src/bfwin_uimanager.c:990 ../src/bfwin_uimanager.c:993
 msgid "Jump to Matching Block Boundary"
-msgstr ""
+msgstr "Перейти к границе соответствующего блока"
 
 #: ../src/bfwin_uimanager.c:999
 msgid "Cu_t"
@@ -1009,7 +1020,7 @@ msgstr "Вернуть все"
 #: ../src/bfwin_uimanager.c:1060
 #, c-format
 msgid "Always use this syntax for files of type %s ?"
-msgstr ""
+msgstr "Считать, что файлы типа %s всегда используют этот синтаксис?"
 
 #: ../src/bfwin_uimanager.c:1225
 msgid "Open _URL..."
@@ -1201,7 +1212,7 @@ msgstr "_Правка"
 msgid "_Delete"
 msgstr "_Удалить"
 
-#: ../src/bookmark.c:901 ../src/document.c:2083
+#: ../src/bookmark.c:901 ../src/document.c:2104
 msgid "Delete bookmark"
 msgstr "Удалить закладку"
 
@@ -1383,19 +1394,19 @@ msgstr " ТЧ"
 msgid "Unknown"
 msgstr "Неизв."
 
-#: ../src/document.c:1822
+#: ../src/document.c:1843
 msgid "_No"
 msgstr "_Нет"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1843
 msgid "_Split"
 msgstr "_Разбить"
 
-#: ../src/document.c:1825
+#: ../src/document.c:1846
 msgid "File contains very long lines. Split these lines?"
 msgstr "Файл содержит длинные строки. Разбить их?"
 
-#: ../src/document.c:1825
+#: ../src/document.c:1846
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1408,26 +1419,26 @@ msgstr ""
 "табуляцию на перевод строки в любом месте текста и даже вставить "
 "дополнительный перевод строки, если пробелов нет."
 
-#: ../src/document.c:1901
+#: ../src/document.c:1922
 msgid "Cannot display file, unknown characters found."
 msgstr "Невозможно отобразить файл - найдены неизвестные символы."
 
-#: ../src/document.c:2093
+#: ../src/document.c:2114
 msgid "Exit fullscreen"
 msgstr "Выйти из полноэкранного режима"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2258 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "_Прекратить сохранение"
 
-#: ../src/document.c:2237
+#: ../src/document.c:2258
 msgid "_Continue save in UTF-8"
 msgstr "Про_должить сохранение в UTF-8"
 
-#: ../src/document.c:2250
+#: ../src/document.c:2271
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1440,15 +1451,15 @@ msgstr ""
 "\n"
 "Продолжить сохранение в кодировке UTF-8?"
 
-#: ../src/document.c:2255
+#: ../src/document.c:2276
 msgid "File encoding conversion failure"
 msgstr "Ошибка перекодировки файла."
 
-#: ../src/document.c:2415
+#: ../src/document.c:2436
 msgid "Previously: "
 msgstr "Предварительно:"
 
-#: ../src/document.c:2987 ../src/file_dialogs.c:839
+#: ../src/document.c:3008 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1457,11 +1468,11 @@ msgstr ""
 "Версия установленной у вас библиотеки glib (%d.%d.%d) нестабильно работает с "
 "удаленными файлами.Обновите ее до версии 2.18.0 (или более новой)."
 
-#: ../src/document.c:3116
+#: ../src/document.c:3137
 msgid "Unable to open file"
 msgstr "Невозможно открыть файл"
 
-#: ../src/document.c:3128
+#: ../src/document.c:3149
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1470,68 +1481,67 @@ msgstr ""
 "Если вернуть \"%s\" к последней сохраненной копии, текущие изменения будут "
 "безвозвратно утрачены."
 
-#: ../src/document.c:3132
+#: ../src/document.c:3153
 msgid "Revert changes to last saved copy?"
 msgstr "Вернуться к последней сохраненной копии?"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3221
 msgid "_Retry"
 msgstr "_Повторить"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3221
 msgid "Retry _all failed"
 msgstr "Повторить _для всех с ошибкой"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3221
 msgid "Close all _failed"
 msgstr "Закрыть все с о_шибками"
 
-#: ../src/document.c:3205
+#: ../src/document.c:3226
 msgid "File "
 msgstr "Файл "
 
-#: ../src/document.c:3205
+#: ../src/document.c:3226
 msgid " failed to load."
 msgstr " ошибка загрузки."
 
-#: ../src/document.c:3209
+#: ../src/document.c:3230
 msgid "File failed to load\n"
 msgstr "Ошибка. Файл не загружен\n"
 
-#: ../src/document.c:3334
+#: ../src/document.c:3355
 msgid "Select file to insert"
 msgstr "Выберите файл для вставки"
 
-#: ../src/document.c:3343
+#: ../src/document.c:3364
 msgid "No file to insert"
 msgstr "Файл для вставки не найден"
 
-#: ../src/document.c:3423
+#: ../src/document.c:3444
 msgid "Save pasted image as"
 msgstr "Сохранить вставленное изображение как"
 
-#: ../src/document.c:3519
+#: ../src/document.c:3540
 msgid "Paste special"
 msgstr "Вставить с преобразованием"
 
-#: ../src/document.c:3525
+#: ../src/document.c:3546
 msgid "No compatible clipboard data found"
-msgstr ""
+msgstr "В буфере обмена нет данных подходящего типа"
 
-#: ../src/document.c:3529
+#: ../src/document.c:3550
 msgid "Paste as _HTML"
 msgstr "Вставить как _HTML"
 
-#: ../src/document.c:3534
+#: ../src/document.c:3555
 msgid "Paste as HTML with _JPG"
 msgstr "Вставить как HTML с _JPG"
 
-#: ../src/document.c:3544
-#, fuzzy
+#: ../src/document.c:3565
 msgid "Paste as plain text"
-msgstr "Вставить неразмеченный текст"
+msgstr "Вставить как неразмеченный текст"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3659
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
@@ -1539,7 +1549,7 @@ msgstr[0] "%d линия"
 msgstr[1] "%d линии"
 msgstr[2] "%d линий"
 
-#: ../src/document.c:3639
+#: ../src/document.c:3660
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
@@ -1547,7 +1557,7 @@ msgstr[0] "%d слово"
 msgstr[1] "%d слова"
 msgstr[2] "%d слов"
 
-#: ../src/document.c:3640
+#: ../src/document.c:3661
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
@@ -1555,11 +1565,11 @@ msgstr[0] "%d символ"
 msgstr[1] "%d символа"
 msgstr[2] "%d символов"
 
-#: ../src/document.c:3642
+#: ../src/document.c:3663
 msgid "Selection statistics: "
 msgstr "Статистика выделенного: "
 
-#: ../src/document.c:3642
+#: ../src/document.c:3663
 msgid "Statistics: "
 msgstr "Статистика: "
 
@@ -1900,20 +1910,18 @@ msgstr[1] "Загружается %d файла, закончено %s"
 msgstr[2] "Загружается %d файлов, закончено %s"
 
 #: ../src/file.c:876
-#, fuzzy, c-format
 msgid "All files loaded, finished %s, %d document open"
 msgid_plural "All files loaded, finished %s, %d documents open"
-msgstr[0] "Все файлы загружены, закончено %s"
-msgstr[1] "Все файлы загружены, закончено %s"
-msgstr[2] "Все файлы загружены, закончено %s"
+msgstr[0] "Все файлы загружены, закончено %s, открыт %d документ"
+msgstr[1] "Все файлы загружены, закончено %s, открыто %d документа"
+msgstr[2] "Все файлы загружены, закончено %s, открыто %d документов"
 
 #: ../src/file.c:1403
-#, fuzzy, c-format
 msgid "Finished advanced open, %d document open."
 msgid_plural "Finished advanced open, %d documents open."
-msgstr[0] "Специальное открытие завершено"
-msgstr[1] "Специальное открытие завершено"
-msgstr[2] "Специальное открытие завершено"
+msgstr[0] "Специальное открытие завершено, открыт %d документ"
+msgstr[1] "Специальное открытие завершено, открыто %d документа"
+msgstr[2] "Специальное открытие завершено, открыто %d документов"
 
 #: ../src/file.c:1579
 msgid "_Skip"
@@ -2098,17 +2106,15 @@ msgstr "Если вы не сохраните изменения, они буд�
 
 #: ../src/file_dialogs.c:972
 msgid "_Reopen"
-msgstr ""
+msgstr "Открыть _заново"
 
 #: ../src/file_dialogs.c:974
-#, fuzzy, c-format
 msgid "Project \"%s\" failed to load"
-msgstr " ошибка загрузки."
+msgstr "Невозможно загрузить проект «%s»"
 
 #: ../src/file_dialogs.c:976
-#, fuzzy
 msgid "Do you want to reopen project from another location?"
-msgstr "Вы уверены, что хотите перезаписать существующий файл?"
+msgstr "Вы уверены, что хотите открыть проект заново из другого места?"
 
 #: ../src/file_dialogs.c:985
 msgid "Choose per _File"
@@ -2659,13 +2665,12 @@ msgid "bottom"
 msgstr "снизу"
 
 #: ../src/preferences.c:2104
-#, fuzzy
 msgid "Recently opened"
-msgstr "_Предыдущий документ"
+msgstr "Недавно открытые"
 
 #: ../src/preferences.c:2104
 msgid "Recently closed"
-msgstr ""
+msgstr "Недавно закрытые"
 
 #: ../src/preferences.c:2105 ../src/preferences.c:2111
 msgid "Never"
@@ -2739,9 +2744,8 @@ msgid "Right _margin/split line end position:"
 msgstr "Правая _колонка/перенос строки"
 
 #: ../src/preferences.c:2191
-#, fuzzy
 msgid "Wrap lines on right margin indicator"
-msgstr "Показывать индикатор _правого поля"
+msgstr "Разбивать строку по индикатору правого поля"
 
 #: ../src/preferences.c:2197
 msgid "Visible _whitespace mode:"
@@ -2773,7 +2777,7 @@ msgstr "Показывать _всплывающее окно:"
 
 #: ../src/preferences.c:2229
 msgid "Minimum matching length for auto-completion:"
-msgstr ""
+msgstr "Минимальная длина слова для автодополнения"
 
 #: ../src/preferences.c:2234
 msgid "Shortcut _key combination:"
@@ -2915,7 +2919,7 @@ msgstr "Свойства файла для проверки _изменений 
 
 #: ../src/preferences.c:2398
 msgid "Show warning for files with very long lines"
-msgstr ""
+msgstr "Предупреждать о том, что в файле содержатся слишком длинные строки"
 
 #: ../src/preferences.c:2408
 msgid "Backup & Recovery"
@@ -2971,7 +2975,7 @@ msgstr "Расоложение _вкладки документа:"
 
 #: ../src/preferences.c:2484
 msgid "Maximum filename length shown in tab (0 is no limit)"
-msgstr ""
+msgstr "Максимальная длина имени файла для показа во вкладке (0 — любая)"
 
 #: ../src/preferences.c:2490
 msgid "_Sidebar position:"
@@ -2995,7 +2999,7 @@ msgstr "<b>Недавние файлы</b>"
 
 #: ../src/preferences.c:2517
 msgid "Recent files _shows:"
-msgstr ""
+msgstr "Показ _недавних файлов:"
 
 #: ../src/preferences.c:2522
 msgid "_Number of files in 'Open recent' menu:"
@@ -3062,13 +3066,12 @@ msgid "_Limit window title length"
 msgstr "_Ограничить размер оконного заголовка"
 
 #: ../src/preferences.c:2616
-#, fuzzy
 msgid "<b>Document tab</b>"
-msgstr "<b>Восстановление документа</b>"
+msgstr "<b>Вкладки документов</b>"
 
 #: ../src/preferences.c:2621
 msgid "_Use system document tab font"
-msgstr "Использовать _системный шрифт для вклдадки документа"
+msgstr "Использовать _системный шрифт для вкладки документа"
 
 #: ../src/preferences.c:2626
 msgid "_Document tab font:"
@@ -3428,10 +3431,9 @@ msgstr ""
 "span>"
 
 #: ../src/snr3.c:844
-#, fuzzy
 msgid "<span foreground=\"red\">Empty search string</span>"
 msgstr ""
-"<span foreground=\"red\"><b>Ничего не выбрано, поиск прерван</b></span>"
+"<span foreground=\"red\">Пустая строка поиска</span>"
 
 # c-format
 #: ../src/snr3.c:893
