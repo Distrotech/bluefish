@@ -599,8 +599,13 @@ the python binary '$PYTHON' does not exist.])
 					AC_MSG_RESULT([-I$PY_INC])
 					AC_MSG_CHECKING([for Python $PY_VER link flags])
 					PYSHARED=`$PYTHON -c 'import distutils.sysconfig; print distutils.sysconfig.get_config_var("LIBS")'`
-					AC_MSG_RESULT([-L$PY_LIB/config -lpython$PY_VER $PYSHARED])
-					LIBS="$LIBS -L$PY_LIB/config -lpython$PY_VER $PYSHARED"
+					if test "$PYSHARED" != "None" ; then
+						AC_MSG_RESULT([-L$PY_LIB/config -lpython$PY_VER $PYSHARED])
+						LIBS="$LIBS -L$PY_LIB/config -lpython$PY_VER $PYSHARED"
+					else
+						AC_MSG_RESULT([-L$PY_LIB/config -lpython$PY_VER])
+						LIBS="$LIBS -L$PY_LIB/config -lpython$PY_VER"
+					fi
 					CFLAGS="$CFLAGS -I$PY_INC"
 				else
 					enable_python="no"
