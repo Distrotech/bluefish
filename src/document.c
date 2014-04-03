@@ -1716,7 +1716,7 @@ gboolean
 utf8_validate_accept_trailing_nul(gchar *buffer, gsize buflen)
 {
 	gboolean ret;
-	gchar *end=NULL;
+	const gchar *end=NULL;
 	gint i;
 	ret = g_utf8_validate(buffer, buflen, &end);
 	if (ret)
@@ -1746,7 +1746,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 	gchar *newbuf = NULL;
 	gsize wsize, rsize;
 	GError *error = NULL;
-	const gchar *end=NULL;
+	/*const gchar *end=NULL;*/
 	gchar *tmpencoding = NULL;
 	GList *tmplist;
 	gchar endingbyte = '\0';
@@ -1799,7 +1799,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 		return g_strdup(buffer);
 	} else {
 		DEBUG_MSG("buffer_find_encoding, failed to validate as UTF-8, remaining buffer was '%s'\n", end);
-		end=NULL;
+		/*end=NULL;*/
 	}
 
 	if (sessionencoding) {
@@ -2369,7 +2369,7 @@ doc_set_readonly(Tdocument * doc, gboolean readonly)
 		g_object_set(G_OBJECT(doc->view), "editable", !readonly, NULL);
 		gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW(doc->view), !readonly);
 		if(readonly) {
-			gchar *color = main_v->props.tab_color_loading;
+			color = main_v->props.tab_color_loading;
 		}
 		doc_set_label_color(doc, color);
 	}
@@ -3596,7 +3596,7 @@ void
 doc_paste_special(Tbfwin *bfwin)
 {
 	gint result;
-	GtkWidget *win, *content_area, *rbut0=NULL, *rbut1=NULL, *rbut2=NULL, *rbut3=NULL;
+	GtkWidget *win, *content_area, *rbut0=NULL, *rbut1=NULL, /**rbut2=NULL,*/ *rbut3=NULL;
 	gboolean have_html=FALSE, have_image=FALSE, have_plain=FALSE;
 	GSList *rgroup=NULL;
 	GdkAtom *targets;
