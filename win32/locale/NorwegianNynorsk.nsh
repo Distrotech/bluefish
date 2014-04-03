@@ -40,7 +40,7 @@
 !define PLUG_CHARMAP "Teiknkart"
 !define PLUG_ENTITIES "Entitetar"
 !define PLUG_HTMLBAR "HTML-verktøylinje"
-!define PLUG_INFBROWSER "Info Browser"
+!define PLUG_INFBROWSER "Info-browser"
 !define PLUG_SNIPPETS "Utklipp"
 !define PLUG_ZENCODING "Zencoding"
 

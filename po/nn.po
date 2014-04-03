@@ -4,18 +4,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.2.4\n"
+"Project-Id-Version: Bluefish 2.2.6\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-03-24 22:20-0700\n"
-"PO-Revision-Date: 2012-12-14 01:01+0100\n"
+"POT-Creation-Date: 2014-04-02 09:21+0200\n"
+"PO-Revision-Date: 2014-04-03 01:01+0100\n"
 "Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
-"Language-Team: Norsk (nynorsk) <>\n"
+"Language-Team: Norsk (nynorsk) <> <l10n@landro.net>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Gtranslator 2.91.5\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Basepath: /home/y/Dropbox/omsetjing\n"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:1
 msgid ""
@@ -24,56 +25,62 @@ msgid ""
 "code. Bluefish supports many programming and markup languages and has many "
 "features, but is still a very fast and lightweight application."
 msgstr ""
+"Bluefish er eit kraftig skriveprogram retta mot programmerarar og "
+"nettutviklarar. Det har mange val for å skriva nettstadar, skript og "
+"programkode.  Bluefish støttar mange programmerings- og markeringsspråk. Det "
+"har mange eigenskapar, men er likevel eit særs raskt og lite program."
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:2
 msgid "A selection of the features:"
-msgstr ""
+msgstr "Eit utval av eigenskapane:"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:3
 msgid ""
 "Well done syntax highlighting which for example supports languages inside "
 "languages (e.g. Javascript inside HTML inside PHP)"
 msgstr ""
+"Bra utført syntaksframheving som til dømes støttar språk inne i språk (slik "
+"som Javascript i HTML i PHP)"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:4
 msgid ""
 "All kind of powerful editor features like auto indenting and auto completion "
 "for many functions and libraries in many programming languages"
 msgstr ""
+"Alle slag kraftige skriveprogramseigenskapar som automatiske innrykk og "
+"fullføringar for mange funksjonar og bibliotek i mange programmeringsspråk"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:5
-#, fuzzy
 msgid "Project support"
-msgstr "_Prosjekt"
+msgstr "Prosjektstøtte"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:6
 msgid "Support for remote files over ftp, sftp, webdav, etc"
-msgstr ""
+msgstr "Støttar fjernfiltilgang over ftp,sftp, webdav, mv."
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:7
 msgid "Powerful search and replace engine"
-msgstr ""
+msgstr "Kraftig motor for søk og erstatt"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:8
 msgid "Customizable integration of external programs such as lint, make, etc"
-msgstr ""
+msgstr "Tilpassa integrering av eksterne program som lint, make, o.l."
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:9
 msgid "Snippets plugin to automate often used code"
-msgstr ""
+msgstr "Tilleggsprogram for kodesnuttar for å automatisera ofte nytta kode"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:10
 msgid "Code-aware in-line spell checking"
-msgstr ""
+msgstr "Integrert kodeorientert stavekontroll"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:11
 msgid "Zencoding or Emmet support"
-msgstr ""
+msgstr "Emmet-støtte (zen-koding)"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:12
-#, fuzzy
 msgid "Bookmarks panel"
-msgstr "Bokmerke"
+msgstr "Bokmerkepanel"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:13
 msgid ""
@@ -81,6 +88,9 @@ msgid ""
 "or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
 "is your editor of choice!"
 msgstr ""
+"Bluefish tilfredsstiller krava både til hobbbyprogrammeraren som treng eit "
+"skriveprogram som er lett å læra og til den profesjonelle utviklaren som "
+"misliker tunge integrerte utviklingsmiljø som Eclise eller Netbeans. "
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -120,19 +130,19 @@ msgstr "Fald saman %s"
 msgid "Expand %s"
 msgstr "Utvid %s"
 
-#: ../src/bftextview2_spell.c:821
+#: ../src/bftextview2_spell.c:826
 msgid "Spell check language"
 msgstr "Stavekontrollspråk"
 
-#: ../src/bftextview2_spell.c:854
+#: ../src/bftextview2_spell.c:859
 msgid "Add to dictionary"
 msgstr "Legg til i ordboka"
 
-#: ../src/bftextview2_spell.c:857
+#: ../src/bftextview2_spell.c:862
 msgid "Ignore spelling"
 msgstr "Ignorer stavefeil"
 
-#: ../src/bftextview2_spell.c:872
+#: ../src/bftextview2_spell.c:877
 msgid "Insert special characters as entities"
 msgstr "Set inn spesielle teikn som entitetar"
 
@@ -350,7 +360,7 @@ msgstr "Vel alle"
 msgid "Add Boo_kmark"
 msgstr "_Legg til bokmerke"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2108
 msgid "Add bookmark"
 msgstr "Legg til bokmerke"
 
@@ -678,7 +688,7 @@ msgstr "Tekstbryti_ng"
 msgid "Wrap text"
 msgstr "Tekstbryting"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3221
 msgid "_Close"
 msgstr "L_ukk"
 
@@ -878,7 +888,7 @@ msgstr "Gå til referansen"
 
 #: ../src/bfwin_uimanager.c:990 ../src/bfwin_uimanager.c:993
 msgid "Jump to Matching Block Boundary"
-msgstr ""
+msgstr "Hopp til den samsvarande blokkgrensa"
 
 #: ../src/bfwin_uimanager.c:999
 msgid "Cu_t"
@@ -1003,7 +1013,7 @@ msgstr "Gjer om att alle"
 #: ../src/bfwin_uimanager.c:1060
 #, c-format
 msgid "Always use this syntax for files of type %s ?"
-msgstr ""
+msgstr "Skal filtypen %s alltid nytta denne syntaksen?"
 
 #: ../src/bfwin_uimanager.c:1225
 msgid "Open _URL..."
@@ -1195,7 +1205,7 @@ msgstr "_Endra …"
 msgid "_Delete"
 msgstr "_Slett"
 
-#: ../src/bookmark.c:901 ../src/document.c:2083
+#: ../src/bookmark.c:901 ../src/document.c:2104
 msgid "Delete bookmark"
 msgstr "Slett bokmerket"
 
@@ -1377,19 +1387,19 @@ msgstr " Berre lesing"
 msgid "Unknown"
 msgstr "Ukjend"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1843
 msgid "_No"
 msgstr "_Nei"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1843
 msgid "_Split"
 msgstr "_Del"
 
-#: ../src/document.c:1825
+#: ../src/document.c:1846
 msgid "File contains very long lines. Split these lines?"
 msgstr "Fila inneheld særs lange linjer. Vil du dela dei?"
 
-#: ../src/document.c:1825
+#: ../src/document.c:1846
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1402,26 +1412,26 @@ msgstr ""
 "linjer eller setja inn nye linjer om han ikkje finn mellomrom eller "
 "tabulatorar."
 
-#: ../src/document.c:1901
+#: ../src/document.c:1922
 msgid "Cannot display file, unknown characters found."
 msgstr "Klarer ikkje å visa fila: fann ukjende teikn."
 
-#: ../src/document.c:2093
+#: ../src/document.c:2114
 msgid "Exit fullscreen"
 msgstr "Gå ut av fullskjermsvisinga"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2258 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "_Avbryt lagringa"
 
-#: ../src/document.c:2237
+#: ../src/document.c:2258
 msgid "_Continue save in UTF-8"
 msgstr "Hald _fram med lagringa i UTF-8"
 
-#: ../src/document.c:2250
+#: ../src/document.c:2271
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1434,15 +1444,15 @@ msgstr ""
 "\n"
 "Vil du halda fram med å lagra i UTF-8-teiknkoding?"
 
-#: ../src/document.c:2255
+#: ../src/document.c:2276
 msgid "File encoding conversion failure"
 msgstr "Feil under endringa av filteiknkodinga"
 
-#: ../src/document.c:2415
+#: ../src/document.c:2436
 msgid "Previously: "
 msgstr "Tidlegare: "
 
-#: ../src/document.c:2987 ../src/file_dialogs.c:839
+#: ../src/document.c:3008 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1451,11 +1461,11 @@ msgstr ""
 "Du kan ikkje stola på GLib-utgåva di (%d.%d.%d) ved opning av fjernfiler. Du "
 "bør oppgradera til 2.18.0-utgåva eller nyare."
 
-#: ../src/document.c:3116
+#: ../src/document.c:3137
 msgid "Unable to open file"
 msgstr "Klarte ikkje å opna fila"
 
-#: ../src/document.c:3128
+#: ../src/document.c:3149
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1464,93 +1474,92 @@ msgstr ""
 "Om du går attende til den sist lagra utgåva av \"%s\", vil du mista alle "
 "endringane du har gjort i mellomtida."
 
-#: ../src/document.c:3132
+#: ../src/document.c:3153
 msgid "Revert changes to last saved copy?"
 msgstr "Sjå vekk frå endringane sidan den sist lagra kopien?"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3221
 msgid "_Retry"
 msgstr "Pr_øv om att"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3221
 msgid "Retry _all failed"
 msgstr "Prøv _alle som feila på nytt"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3221
 msgid "Close all _failed"
 msgstr "Lukk alle som _feila"
 
-#: ../src/document.c:3205
+#: ../src/document.c:3226
 msgid "File "
 msgstr "Fil "
 
-#: ../src/document.c:3205
+#: ../src/document.c:3226
 msgid " failed to load."
 msgstr " klarte ikkje å lasta."
 
-#: ../src/document.c:3209
+#: ../src/document.c:3230
 msgid "File failed to load\n"
 msgstr "Fila blei ikkje lasta inn\n"
 
-#: ../src/document.c:3334
+#: ../src/document.c:3355
 msgid "Select file to insert"
 msgstr "Vel ei fil"
 
-#: ../src/document.c:3343
+#: ../src/document.c:3364
 msgid "No file to insert"
 msgstr "Inga fil"
 
-#: ../src/document.c:3423
+#: ../src/document.c:3444
 msgid "Save pasted image as"
 msgstr "Lagra det innlimte biletet som"
 
-#: ../src/document.c:3519
+#: ../src/document.c:3540
 msgid "Paste special"
 msgstr "Lim inn spesielt"
 
-#: ../src/document.c:3525
+#: ../src/document.c:3546
 msgid "No compatible clipboard data found"
-msgstr ""
+msgstr "Utklippstavla inneheldt ingen kompatible data"
 
-#: ../src/document.c:3529
+#: ../src/document.c:3550
 msgid "Paste as _HTML"
 msgstr "Lim inn som _HTML"
 
-#: ../src/document.c:3534
+#: ../src/document.c:3555
 msgid "Paste as HTML with _JPG"
 msgstr "Lim inn som HTML med _JPG"
 
-#: ../src/document.c:3544
-#, fuzzy
+#: ../src/document.c:3565
 msgid "Paste as plain text"
-msgstr "Set inn rein tekst"
+msgstr "Lim inn som rein tekst"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3659
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d linje"
 msgstr[1] "%d linjer"
 
-#: ../src/document.c:3639
+#: ../src/document.c:3660
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d ord"
 msgstr[1] "%d ord"
 
-#: ../src/document.c:3640
+#: ../src/document.c:3661
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d teikn"
 msgstr[1] "%d teikn"
 
-#: ../src/document.c:3642
+#: ../src/document.c:3663
 msgid "Selection statistics: "
 msgstr "Utvalsstatistikk: "
 
-#: ../src/document.c:3642
+#: ../src/document.c:3663
 msgid "Statistics: "
 msgstr "Statistikk: "
 
@@ -1893,18 +1902,18 @@ msgstr[0] "Lastar framleis ned %d fil, ferdig med %s"
 msgstr[1] "Lastar framleis ned %d filer, ferdig med %s"
 
 #: ../src/file.c:876
-#, fuzzy, c-format
+#, c-format
 msgid "All files loaded, finished %s, %d document open"
 msgid_plural "All files loaded, finished %s, %d documents open"
-msgstr[0] "Alle filer er lasta, totalt %s"
-msgstr[1] "Alle filer er lasta, totalt %s"
+msgstr[0] "Alle filer er lasta, ferdig med %s, %d dokument ope"
+msgstr[1] "Alle filer er lasta, ferdig med %s, %d dokument opne"
 
 #: ../src/file.c:1403
-#, fuzzy, c-format
+#, c-format
 msgid "Finished advanced open, %d document open."
 msgid_plural "Finished advanced open, %d documents open."
-msgstr[0] "Ferdig med avansert opna"
-msgstr[1] "Ferdig med avansert opna"
+msgstr[0] "Ferdig med avansert opning, %d dokument ope.\t"
+msgstr[1] "Ferdig med avansert opning, %d dokument opne."
 
 #: ../src/file.c:1579
 msgid "_Skip"
@@ -2088,17 +2097,16 @@ msgstr "Om du ikkje lagrar endringane dine, vil dei bli mista."
 
 #: ../src/file_dialogs.c:972
 msgid "_Reopen"
-msgstr ""
+msgstr "Opna på _nytt"
 
 #: ../src/file_dialogs.c:974
-#, fuzzy, c-format
+#, c-format
 msgid "Project \"%s\" failed to load"
-msgstr " klarte ikkje å lasta."
+msgstr "Klarte ikkje å lasta prosjektet \"%s\""
 
 #: ../src/file_dialogs.c:976
-#, fuzzy
 msgid "Do you want to reopen project from another location?"
-msgstr "Vil du byta ut fila som allereie finst?"
+msgstr "Vil du opna prosjektet på nytt frå ein annan stad?"
 
 #: ../src/file_dialogs.c:985
 msgid "Choose per _File"
@@ -2650,13 +2658,12 @@ msgid "bottom"
 msgstr "botn"
 
 #: ../src/preferences.c:2104
-#, fuzzy
 msgid "Recently opened"
-msgstr "_Nyleg dokument"
+msgstr "Nyleg opna"
 
 #: ../src/preferences.c:2104
 msgid "Recently closed"
-msgstr ""
+msgstr "Nyleg lukka"
 
 #: ../src/preferences.c:2105 ../src/preferences.c:2111
 msgid "Never"
@@ -2730,9 +2737,8 @@ msgid "Right _margin/split line end position:"
 msgstr "linje_brytingsplasseringa:"
 
 #: ../src/preferences.c:2191
-#, fuzzy
 msgid "Wrap lines on right margin indicator"
-msgstr "Vis høgremargs_merke"
+msgstr "Bryt linjene ved høgremargsmerket"
 
 #: ../src/preferences.c:2197
 msgid "Visible _whitespace mode:"
@@ -2764,7 +2770,7 @@ msgstr "Syn sprett_oppvindauge:"
 
 #: ../src/preferences.c:2229
 msgid "Minimum matching length for auto-completion:"
-msgstr ""
+msgstr "Minste samsvarande lengda for auto-fullføringa:"
 
 #: ../src/preferences.c:2234
 msgid "Shortcut _key combination:"
@@ -2904,7 +2910,7 @@ msgstr "Endringskontroll av desse fil_eigenskapane på lagringseininga:"
 
 #: ../src/preferences.c:2398
 msgid "Show warning for files with very long lines"
-msgstr ""
+msgstr "Syn åtvaring for filer med veldig lange linjer"
 
 #: ../src/preferences.c:2408
 msgid "Backup & Recovery"
@@ -2960,7 +2966,7 @@ msgstr "_Dokumentfane-plassering:"
 
 #: ../src/preferences.c:2484
 msgid "Maximum filename length shown in tab (0 is no limit)"
-msgstr ""
+msgstr "Lengste filnamnlengda fana syner (0 gjev inga grense)"
 
 #: ../src/preferences.c:2490
 msgid "_Sidebar position:"
@@ -2984,7 +2990,7 @@ msgstr "<b>Nylege filer</b>"
 
 #: ../src/preferences.c:2517
 msgid "Recent files _shows:"
-msgstr ""
+msgstr "Sist nytta filer _syner:"
 
 #: ../src/preferences.c:2522
 msgid "_Number of files in 'Open recent' menu:"
@@ -3051,9 +3057,8 @@ msgid "_Limit window title length"
 msgstr "_Avgrens tittellengda til vindauget"
 
 #: ../src/preferences.c:2616
-#, fuzzy
 msgid "<b>Document tab</b>"
-msgstr "<b>Dokumenttilbakeføring</b>"
+msgstr "<b>Dokumentfane</b>"
 
 #: ../src/preferences.c:2621
 msgid "_Use system document tab font"
@@ -3416,10 +3421,8 @@ msgstr ""
 "span>"
 
 #: ../src/snr3.c:844
-#, fuzzy
 msgid "<span foreground=\"red\">Empty search string</span>"
-msgstr ""
-"<span foreground=\"red\"><b>Ikkje noko utval - bryt av søket</b></span>"
+msgstr "<span foreground=\"red\">Tom søkjestreng</span>"
 
 #: ../src/snr3.c:893
 #, c-format
