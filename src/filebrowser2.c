@@ -2508,6 +2508,12 @@ fb2_update_settings_from_session(Tbfwin * bfwin, Tdocument *active_doc)
 			GtkTreePath *fs_path, *filter_path;
 			GFile *uri = g_file_new_for_uri(strcmp(tmp,"file:///")==0?tmp:strip_trailing_slash((gchar *) tmp));
 			DEBUG_MSG("fb2_update_settings_from_session, set basedir %p\n",uri);
+			/* Check if basedir exists here since non-existing basedir will cause issues */
+			if (!g_file_query_exists(uri,NULL)) {
+				g_warning("fb2_update_settings_from_session, basedir %s does not exists, setting basedir to $HOME", g_file_get_path(uri));
+				g_object_unref(uri);
+				uri = g_file_new_for_path(g_get_home_dir()); /*If  basedir is not valid default to home directory */
+			}
 			fb2_set_basedir(fb2, uri);
 			fb2_set_dirmenu(fb2, uri, FALSE);
 			if (fb2->filebrowser_viewmode == viewmode_dual) {
