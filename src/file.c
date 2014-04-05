@@ -572,8 +572,9 @@ openfile_async_lcb(GObject * source_object, GAsyncResult * res, gpointer user_da
 				queue_worker_ready(&ofqueue);
 			}
 		} else {
-			g_warning("while opening file, received error %d: %s\n", error->code, error->message);
+			g_warning("while opening file %s, received error %d: %s\n", g_file_get_path(of->uri), error->code, error->message);
 			of->callback_func(OPENFILE_ERROR, error, NULL, 0, of->callback_data);
+			openfile_cleanup(of);
 			g_free(buffer);
 		}
 		g_error_free(error);
