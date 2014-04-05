@@ -1843,6 +1843,8 @@ set_dir_v_root(Tfilebrowser2 *fb2, GFile *dir_uri)
 
 	if (dir_uri) {
 		/* treepath_for_uri returns a GtkTreePath for the uri, and builds it (using fb2_build_dir()) if needed */
+		if (fb2->filebrowser_viewmode != viewmode_flat)
+			filetreemodel_refresh_uri_async(FB2CONFIG(main_v->fb2config)->ftm, dir_uri);
 		basepath = treepath_for_uri(fb2, dir_uri);
 		DEBUG_MSG("fb2_set_dir_v_root, refilter, basepath=%p\n", basepath);
 		if (basepath) {
