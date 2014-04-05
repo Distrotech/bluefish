@@ -182,7 +182,7 @@ project_document_load_finished_lcb(gpointer data)
 static void
 setup_bfwin_for_project(Tbfwin * bfwin, Tdocument *active_doc)
 {
-	DEBUG_MSG("setup_bfwin_for_project, bfwin=%p, bfwin->project=%p, bfwin->session=%p\n, current_document=%p, active_doc=%p", bfwin,
+	DEBUG_MSG("setup_bfwin_for_project, bfwin=%p, bfwin->project=%p, bfwin->session=%p\n, current_document=%p, active_doc=%p\n", bfwin,
 			  bfwin->project, bfwin->session, bfwin->current_document, active_doc);
 	if (active_doc && active_doc->uri) {
 		if(active_doc->load_first) {
