@@ -2345,7 +2345,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		}
 		fb2->dir_v = fb2->file_v = NULL;
 		fb2->dir_filter = fb2->file_filter = NULL;
-		DEBUG_MSG("\n");
+		DEBUG_MSG("fb2_set_viewmode_widgets, reset dir_filter and file_filter\n");
 	}
 	fb2->filebrowser_viewmode = viewmode;
 
