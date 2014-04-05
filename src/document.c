@@ -1798,7 +1798,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 		*encoding = g_strdup("UTF-8");
 		return g_strdup(buffer);
 	} else {
-		DEBUG_MSG("buffer_find_encoding, failed to validate as UTF-8, remaining buffer was '%s'\n", end);
+		DEBUG_MSG("buffer_find_encoding, failed to validate as UTF-8\n");
 		/*end=NULL;*/
 	}
 
