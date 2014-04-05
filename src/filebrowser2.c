@@ -2510,7 +2510,11 @@ fb2_update_settings_from_session(Tbfwin * bfwin, Tdocument *active_doc)
 			GtkTreePath *fs_path, *filter_path;
 			GFile *uri = g_file_new_for_uri(strcmp(tmp,"file:///")==0?tmp:strip_trailing_slash((gchar *) tmp));
 			DEBUG_MSG("fb2_update_settings_from_session, set basedir %p\n",uri);
-			/* Check if basedir exists here since non-existing basedir will cause issues */
+			/* Check if basedir exists here since non-existing basedir will cause issues
+
+			TODO: this code slows down the main window if you load files from a remote
+			server over a slow connection because this code runs synchronous (so it will block the GUI).
+			we should do this somehow in the	asynchronous callbacks */
 			if (!g_file_query_exists(uri,NULL)) {
 				g_warning("fb2_update_settings_from_session, basedir %s does not exists, setting basedir to $HOME", g_file_get_path(uri));
 				g_object_unref(uri);
