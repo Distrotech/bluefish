@@ -1293,12 +1293,12 @@ bfwin_notebook_changed(Tbfwin * bfwin, gint newpage)
 	}
 	prev_document = bfwin->current_document;
 	bfwin->current_document = g_list_nth_data(bfwin->documentlist, cur);
-	bfwin_current_document_changed_notify(bfwin, prev_document, bfwin->current_document);
 	if (bfwin->current_document == NULL) {
 		DEBUG_MSG("bfwin_notebook_changed, WEIRD 2, doclist[%d] == NULL, RETURNING\n", cur);
 		return;
 	}
-
+	bfwin_current_document_changed_notify(bfwin, prev_document, bfwin->current_document);
+	
 	bfwin->last_notebook_page = cur;
 	DEBUG_MSG("bfwin_notebook_changed, current_document=%p, idle callback for doc activate = %d\n",
 			  bfwin->current_document, bfwin->notebook_changed_doc_activate_id);
