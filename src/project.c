@@ -135,7 +135,7 @@ update_project_filelist(Tbfwin * bfwin, Tproject * prj)
 	tmplist = return_urilist_from_doclist(bfwin->documentlist);
 	prj->files = urilist_to_stringlist(tmplist);
 	free_urilist(tmplist);
-	
+
 }*/
 
 static void
@@ -157,9 +157,14 @@ set_project_menu_actions(Tbfwin * bfwin, gboolean win_has_project)
 static gboolean
 project_grab_focus_lcb(gpointer data)
 {
-	Tdocument *doc = data;
+	/* it is possible that the document has been closed between registering this callback, and the actual call */
+	/*Tdocument *doc = data;
 	if (doc && doc->view)
-		gtk_widget_grab_focus(doc->view);
+		gtk_widget_grab_focus(doc->view);*/
+	Tbfwin *bfwin = data;
+	if (bfwin && bfwin->current_document) {
+		gtk_widget_grab_focus(bfwin->current_document->view);
+	}
 	return FALSE;
 }
 
@@ -175,7 +180,7 @@ project_document_load_finished_lcb(gpointer data)
 	BFWIN(doc->bfwin)->last_activated_doc = NULL; /* Force document scanning, sometimes first tab document gets the same pointer as destroyed one */
 	bfwin_notebook_changed(BFWIN(doc->bfwin), doc_index);
 	/* get back focus once again, when all parts of bf are finally loaded; this forces cursor blinking; otherwise filebrowser hijacks focus and cursor disappears */
-	g_idle_add_full(G_PRIORITY_LOW+1, project_grab_focus_lcb, doc, NULL);
+	g_idle_add_full(G_PRIORITY_LOW+1, project_grab_focus_lcb, doc->bfwin, NULL);
 	return FALSE;
 }
 
@@ -186,9 +191,9 @@ setup_bfwin_for_project(Tbfwin * bfwin, Tdocument *active_doc)
 			  bfwin->project, bfwin->session, bfwin->current_document, active_doc);
 	if (active_doc && active_doc->uri) {
 		if(active_doc->load_first) {
-			g_idle_add_full(FILE2DOC_PRIORITY-1, project_document_load_finished_lcb, active_doc, NULL); 
+			g_idle_add_full(FILE2DOC_PRIORITY-1, project_document_load_finished_lcb, active_doc, NULL);
 		} else {
-			g_idle_add_full(FILE2DOC_PRIORITY, project_document_load_finished_lcb, active_doc, NULL); 
+			g_idle_add_full(FILE2DOC_PRIORITY, project_document_load_finished_lcb, active_doc, NULL);
 		}
 	} else {
 		/* if there is no document, the project title will not be shown in the window title unless we call this directly */
@@ -261,14 +266,14 @@ create_new_project(Tbfwin * bfwin)
 		GFile *dir_uri = g_file_get_parent(bfwin->current_document->uri);
 		prj->session->recent_dirs = g_list_append(prj->session->recent_dirs, g_file_get_uri(dir_uri));
 		g_object_unref(dir_uri);
-	} 
-		
+	}
+
 	if (prj->session->recent_dirs == NULL) { /* If still no recent_dirs, then set $HOME */
 		GFile *uri = g_file_new_for_path(g_get_home_dir());
 		prj->session->recent_dirs = g_list_append(prj->session->recent_dirs, g_file_get_uri(uri));
 		g_object_unref(uri);
 	}
-	
+
 	if (bfwin) {
 		DEBUG_MSG("create_new_project, new project for bfwin %p\n", bfwin);
 		update_project_filearray_list(bfwin, prj);
@@ -300,7 +305,7 @@ create_new_project(Tbfwin * bfwin)
 			}
 		}
 		bfwin->project = prj;
-		bfwin->session = prj->session; 
+		bfwin->session = prj->session;
 		setup_bfwin_for_project(bfwin, NULL);
 	}
 	return prj;
@@ -410,7 +415,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 	if (!retval) {
 		DEBUG_MSG("project_open_from_file, failed parsing the project\n");
 		project_destroy(prj);
-		/* TODO: use project_destroy() 
+		/* TODO: use project_destroy()
 		   bookmark_data_cleanup(prj->bmarkdata);
 		   g_free(prj->session);
 		   g_free(prj); */
@@ -427,7 +432,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 	if (main_v->props.register_recent_mode != 0) {
 		gtk_recent_manager_add_item(main_v->recentm, curi);
 	}
-	
+
 	g_free(curi);
 	prj->uri = fromuri;
 	g_object_ref(fromuri);
@@ -451,7 +456,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 	gint doc_index = 0;
 	gint i =0;
 	gint cursor_offset = -1;
-	gint goto_offset = -1; 
+	gint goto_offset = -1;
 	gint is_active = 0;
 	if (tmplist) {
 		bfwin_notebook_block_signals(prwin); /* Block switch-page signal while we are creating doc backends */
@@ -463,7 +468,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 			} else {
 				uri = g_file_new_for_uri(tmparr[0]);
 			}
-			
+
 			if (tmparr[1] && tmparr[1]!='\0') {
 				cursor_offset = atoi(tmparr[1]);
 				if (tmparr[2] && tmparr[2]!='\0') {
@@ -643,7 +648,7 @@ project_edit_ok_clicked_lcb(GtkWidget * widget, Tprojecteditor * pred)
 		bfwin_action_groups_set_sensitive(pred->bfwin, TRUE);
 		main_v->osx_status = 0;
 	}
-#endif	
+#endif
 		bfwin_set_title(pred->bfwin, pred->bfwin->current_document, 0);
 	}
 /* set_project_menu_widgets(pred->bfwin, TRUE);*/

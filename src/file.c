@@ -754,6 +754,7 @@ file_into_doc(Tdocument * doc, GFile * uri, gboolean isTemplate, gboolean untile
 /************ MAKE DOCUMENT FROM ASYNC OPENED FILE ************************/
 typedef struct {
 	Topenfile *of;
+	guint idle_cb_id;
 	Tbfwin *bfwin;
 	Tdocument *doc;
 	GFile *uri;
@@ -769,6 +770,7 @@ file2doc_cleanup(Tfile2doc * f2d)
 {
 	DEBUG_MSG("file2doc_cleanup, %p, num open documents=%d\n", f2d, g_list_length(f2d->bfwin->documentlist));
 	g_object_unref(f2d->uri);
+	f2d->doc->load = NULL;
 	if (f2d->recover_uri)
 		g_object_unref(f2d->recover_uri);
 	g_slice_free(Tfile2doc, f2d);
@@ -778,8 +780,14 @@ void
 file2doc_cancel(gpointer f2d)
 {
 	DEBUG_MSG("file2doc_cancel, called for %p\n", f2d);
-	openfile_cancel(((Tfile2doc *) f2d)->of);
-	/* no cleanup, there is a CANCELLED callback coming */
+	if (((Tfile2doc *) f2d)->idle_cb_id) {
+		g_source_remove(((Tfile2doc *) f2d)->idle_cb_id);
+		((Tfile2doc *) f2d)->idle_cb_id = 0;
+		file2doc_cleanup(((Tfile2doc *) f2d));
+	} else {
+		openfile_cancel(((Tfile2doc *) f2d)->of);
+		/* no cleanup, there is a CANCELLED callback coming */
+	}
 }
 
 static gboolean
@@ -894,9 +902,9 @@ file2doc_finished_idle_lcb(gpointer data)
 		DEBUG_MSG("file2doc_finished_idle_lcb, goto_line=%d, goto_offset=%d, cursor_offset=%d\n", f2d->doc->goto_line,  f2d->doc->goto_offset,  f2d->doc->cursor_offset);
 		if (f2d->doc->goto_line > 0 || f2d->doc->goto_offset > 0 || f2d->doc->cursor_offset > 0) {
 			if (f2d->doc->load_first) {
-				g_idle_add_full(FILE2DOC_PRIORITY-2,file2doc_goto_idle_cb, f2d, NULL);
+				f2d->idle_cb_id = g_idle_add_full(FILE2DOC_PRIORITY-2,file2doc_goto_idle_cb, f2d, NULL);
 			} else {
-				g_idle_add_full(FILE2DOC_PRIORITY-1,file2doc_goto_idle_cb, f2d, NULL);
+				f2d->idle_cb_id = g_idle_add_full(FILE2DOC_PRIORITY-1,file2doc_goto_idle_cb, f2d, NULL);
 			}
 		} else {
 			f2d->doc->goto_line = -1;
@@ -924,9 +932,9 @@ file2doc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, go
 		f2d->buflen = buflen;
 		refcpointer_ref(buffer);
 		if (f2d->doc->load_first) {
-			g_idle_add_full(FILE2DOC_PRIORITY-1, file2doc_finished_idle_lcb, f2d, NULL);
+			f2d->idle_cb_id = g_idle_add_full(FILE2DOC_PRIORITY-1, file2doc_finished_idle_lcb, f2d, NULL);
 		} else {
-			g_idle_add_full(FILE2DOC_PRIORITY, file2doc_finished_idle_lcb, f2d, NULL);
+			f2d->idle_cb_id = g_idle_add_full(FILE2DOC_PRIORITY, file2doc_finished_idle_lcb, f2d, NULL);
 		}
 		break;
 	case OPENFILE_CHANNEL_OPENED:
