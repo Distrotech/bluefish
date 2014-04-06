@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.2.4\n"
+"Project-Id-Version: Bluefish 2.2.5\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2014-03-24 22:20-0700\n"
-"PO-Revision-Date: 2014-01-04 14:40+0900\n"
+"PO-Revision-Date: 2014-04-06 21:01+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -27,56 +27,63 @@ msgid ""
 "code. Bluefish supports many programming and markup languages and has many "
 "features, but is still a very fast and lightweight application."
 msgstr ""
+"Bluefish は強力なエディタでプログラマ、Web開発者を対象としています。ウェブサ"
+"イト、スクリプト、プログラムコードを書くために必要な多くのオプションを持って"
+"います。Bluefish は多くのプログラミング言語、マークアップ言語をサポートし、こ"
+"れらの言語のための数多くの機能を持ちながら、速く、また軽く動作するアプリケー"
+"ションです。"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:2
 msgid "A selection of the features:"
-msgstr ""
+msgstr "機能の選択:"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:3
 msgid ""
 "Well done syntax highlighting which for example supports languages inside "
 "languages (e.g. Javascript inside HTML inside PHP)"
 msgstr ""
+"よくできた文法ハイライト。言語内に別の言語がある場合も含めて機能します。（例 "
+"PHP の中のHTMLの中のJavaScript）"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:4
 msgid ""
 "All kind of powerful editor features like auto indenting and auto completion "
 "for many functions and libraries in many programming languages"
 msgstr ""
+"強力なあらゆる種類のエディタとしての機能: 多くの場面でのオートインデントおよ"
+"び自動補間、プログラム言語についての参考文書"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:5
-#, fuzzy
 msgid "Project support"
-msgstr "プロジェクト(_P)"
+msgstr "プロジェクト支援機能"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:6
 msgid "Support for remote files over ftp, sftp, webdav, etc"
-msgstr ""
+msgstr "リモートファイルサポート: FTP, SFTP, webdav など。"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:7
 msgid "Powerful search and replace engine"
-msgstr ""
+msgstr "強力な検索/置換エンジン"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:8
 msgid "Customizable integration of external programs such as lint, make, etc"
-msgstr ""
+msgstr "外部プログラム(lint, make等)との連携をカスタマイズ可能"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:9
 msgid "Snippets plugin to automate often used code"
-msgstr ""
+msgstr "スニペットプラグイン: 繰り返し現れるコードの操作に役立ちます"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:10
 msgid "Code-aware in-line spell checking"
-msgstr ""
+msgstr "コードを識別した上での行内スペルチェック"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:11
 msgid "Zencoding or Emmet support"
-msgstr ""
+msgstr "Zencoding あるいは Emmet のサポート"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:12
-#, fuzzy
 msgid "Bookmarks panel"
-msgstr "ブックマーク"
+msgstr "ブックマーク パネル"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:13
 msgid ""
@@ -84,6 +91,9 @@ msgid ""
 "or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
 "is your editor of choice!"
 msgstr ""
+"あなたがたまにコーディングをする人で簡単に操作を学ぶことができるエディタを必"
+"要とするなら、あるいは常にコーディングをしている人であって、Eclipse や "
+"netbeans のような重いIDEを嫌っているなら、Bluefish こそがあなたの選択肢です！"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -882,7 +892,7 @@ msgstr "カーソル位置に書かれた場所へジャンプ"
 
 #: ../src/bfwin_uimanager.c:990 ../src/bfwin_uimanager.c:993
 msgid "Jump to Matching Block Boundary"
-msgstr ""
+msgstr "一致したブロック境界へのジャンプ"
 
 #: ../src/bfwin_uimanager.c:999
 msgid "Cu_t"
@@ -1007,7 +1017,7 @@ msgstr "すべてやり直す"
 #: ../src/bfwin_uimanager.c:1060
 #, c-format
 msgid "Always use this syntax for files of type %s ?"
-msgstr ""
+msgstr "この種類のファイル %s には、いつもこの文法を使いますか？"
 
 #: ../src/bfwin_uimanager.c:1225
 msgid "Open _URL..."
@@ -1513,7 +1523,7 @@ msgstr "特殊な貼り付け"
 
 #: ../src/document.c:3525
 msgid "No compatible clipboard data found"
-msgstr ""
+msgstr "互換性のあるデータがクリップボードにありません"
 
 #: ../src/document.c:3529
 msgid "Paste as _HTML"
@@ -1524,9 +1534,8 @@ msgid "Paste as HTML with _JPG"
 msgstr "HTML と _JPG　として貼り付け"
 
 #: ../src/document.c:3544
-#, fuzzy
 msgid "Paste as plain text"
-msgstr "平文テキストを挿入"
+msgstr "平文テキストとして挿入"
 
 #: ../src/document.c:3638
 #, c-format
@@ -1897,18 +1906,18 @@ msgstr[0] "まだ %d 個のファイルを読み込んでいます, 完了 %s"
 msgstr[1] "まだ %d 個のファイルを読み込んでいます, 完了 %s"
 
 #: ../src/file.c:876
-#, fuzzy, c-format
+#, c-format
 msgid "All files loaded, finished %s, %d document open"
 msgid_plural "All files loaded, finished %s, %d documents open"
-msgstr[0] "すべてのファイルを読み込みました, %s"
-msgstr[1] "すべてのファイルを読み込みました, %s"
+msgstr[0] "すべてのファイルを読み込みました, %s 完了, %d 個の文書を開きました"
+msgstr[1] "すべてのファイルを読み込みました, %s 完了, %d 個の文書を開きました"
 
 #: ../src/file.c:1403
-#, fuzzy, c-format
+#, c-format
 msgid "Finished advanced open, %d document open."
 msgid_plural "Finished advanced open, %d documents open."
-msgstr[0] "高度なファイル選択が終了しました"
-msgstr[1] "高度なファイル選択が終了しました"
+msgstr[0] "高度なファイル選択が終了しました、%d 個の文書を開きました。"
+msgstr[1] "高度なファイル選択が終了しました、%d 個の文書を開きました。"
 
 #: ../src/file.c:1579
 msgid "_Skip"
@@ -2092,17 +2101,16 @@ msgstr "保存しない場合は、ファイルに行われた変更が失われ
 
 #: ../src/file_dialogs.c:972
 msgid "_Reopen"
-msgstr ""
+msgstr "再び開く(_R)"
 
 #: ../src/file_dialogs.c:974
-#, fuzzy, c-format
+#, c-format
 msgid "Project \"%s\" failed to load"
-msgstr " 読み込みに失敗しました。"
+msgstr "プロジェクト\"%s\" の読み込みに失敗しました"
 
 #: ../src/file_dialogs.c:976
-#, fuzzy
 msgid "Do you want to reopen project from another location?"
-msgstr "存在しているファイルを置き換えますか？"
+msgstr "異なる場所からプロジェクトを開き直しますか？"
 
 #: ../src/file_dialogs.c:985
 msgid "Choose per _File"
@@ -2654,13 +2662,12 @@ msgid "bottom"
 msgstr "下"
 
 #: ../src/preferences.c:2104
-#, fuzzy
 msgid "Recently opened"
-msgstr "最近編集した文書(_R)"
+msgstr "最近開いたファイル"
 
 #: ../src/preferences.c:2104
 msgid "Recently closed"
-msgstr ""
+msgstr "最近閉じたファイル"
 
 #: ../src/preferences.c:2105 ../src/preferences.c:2111
 msgid "Never"
@@ -2734,9 +2741,8 @@ msgid "Right _margin/split line end position:"
 msgstr "行分割の位置(_M)"
 
 #: ../src/preferences.c:2191
-#, fuzzy
 msgid "Wrap lines on right margin indicator"
-msgstr "右マージンの目印を表示(_R)"
+msgstr "右マージンの目印で折り返す"
 
 #: ../src/preferences.c:2197
 msgid "Visible _whitespace mode:"
@@ -2768,7 +2774,7 @@ msgstr "自動補完候補をポップアップ表示:"
 
 #: ../src/preferences.c:2229
 msgid "Minimum matching length for auto-completion:"
-msgstr ""
+msgstr "自動補間の候補との最短一致長さ:"
 
 #: ../src/preferences.c:2234
 msgid "Shortcut _key combination:"
@@ -2910,7 +2916,7 @@ msgstr "ディスク上での変更を確認するためのファイルのプロ
 
 #: ../src/preferences.c:2398
 msgid "Show warning for files with very long lines"
-msgstr ""
+msgstr "とても長い行を含むファイルについて警告"
 
 #: ../src/preferences.c:2408
 msgid "Backup & Recovery"
@@ -2966,7 +2972,7 @@ msgstr "文書タブの位置(_T):"
 
 #: ../src/preferences.c:2484
 msgid "Maximum filename length shown in tab (0 is no limit)"
-msgstr ""
+msgstr "タブに表示するファイル名の長さ制限(0 で制限なし)"
 
 #: ../src/preferences.c:2490
 msgid "_Sidebar position:"
@@ -2990,7 +2996,7 @@ msgstr "<b>最近使用したファイル</b>"
 
 #: ../src/preferences.c:2517
 msgid "Recent files _shows:"
-msgstr ""
+msgstr "最近編集した文書 で表示する対象(_S):"
 
 #: ../src/preferences.c:2522
 msgid "_Number of files in 'Open recent' menu:"
@@ -3058,9 +3064,8 @@ msgid "_Limit window title length"
 msgstr "ウィンドウタイトルの長さを制限する(_L)"
 
 #: ../src/preferences.c:2616
-#, fuzzy
 msgid "<b>Document tab</b>"
-msgstr "<b>文書の復元</b>"
+msgstr "<b>文書のタブ</b>"
 
 #: ../src/preferences.c:2621
 msgid "_Use system document tab font"
@@ -3424,11 +3429,8 @@ msgstr ""
 "</span>"
 
 #: ../src/snr3.c:844
-#, fuzzy
 msgid "<span foreground=\"red\">Empty search string</span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">何も選択されていません。検索を中断し"
-"ます。</span>"
+msgstr "<span foreground=\"red\">検索文字列が空です</span>"
 
 #: ../src/snr3.c:893
 #, c-format
