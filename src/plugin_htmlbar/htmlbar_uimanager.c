@@ -1384,7 +1384,9 @@ htmlbar_load_quickbar(Thtmlbarwin * hbw, GtkWidget *toolbar)
 		GtkWidget *label;
 		GtkToolItem *ti = gtk_tool_item_new();
 		label = gtk_label_new(_("Right click any html toolbar button to add it to the Quickbar."));
-		gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_END);
+		if (htmlbar_v.in_sidepanel) {
+			gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
+		}
 		gtk_container_add(GTK_CONTAINER(ti), label);
 		gtk_toolbar_insert(GTK_TOOLBAR(toolbar),ti,0);
 	}
