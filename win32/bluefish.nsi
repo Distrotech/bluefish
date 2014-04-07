@@ -228,6 +228,8 @@ ${LoadLocalization}	"NORWEGIAN"	"locale\NorwegianBokmaal.nsh"
 ${LoadLocalization}	"NORWEGIANNYNORSK" "locale\NorwegianNynorsk.nsh"
 !insertmacro MUI_LANGUAGE	"Polish" 	; 1045
 ${LoadLocalization}	"POLISH"	"locale\Polish.nsh"
+!insertmacro MUI_LANGUAGE	"Russian" 	; 1049
+${LoadLocalization}	"RUSSIAN"	"locale\Russian.nsh"
 !insertmacro MUI_LANGUAGE	"Swedish" 	; 1053
 ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 !insertmacro MUI_LANGUAGE	"SimpChinese" 	; 2052
@@ -244,7 +246,6 @@ ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
 ;;!insertmacro MUI_LANGUAGE	"Polish" 	; 1045
 ;;!insertmacro MUI_LANGUAGE	"Portuguese" 	; 2070
 ;;!insertmacro MUI_LANGUAGE	"Romanian" 	; 1048
-;;!insertmacro MUI_LANGUAGE	"Russian" 	; 1049
 ;;!insertmacro MUI_LANGUAGE	"Serbian" 	; 3098
 ;;!insertmacro MUI_LANGUAGE	"Slovak" 	; 1051
 ;;!insertmacro MUI_LANGUAGE	"TradChinese" 	; 1028
