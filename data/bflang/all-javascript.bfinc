@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		all-javascript.bfinc $Revision$
  
-		Copyright (C) 2008-2013 Olivier Sessink
+		Copyright (C) 2008-2014 Olivier Sessink
 
 		This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -841,7 +841,7 @@ foo = bar.replace( ")" , "" );
 				<b>Availability:</b> All
 				</reference>
 			</element>
-			<element pattern="document.anchors">
+			<element pattern="anchors">
 				<reference><i>document.anchors</i> Returns a list of all of the anchors in the document.
 				<b>Return Type:</b> HTMLCollection
 				<b>Availability:</b> HTML
@@ -973,13 +973,13 @@ foo = bar.replace( ")" , "" );
 				<b>Availability:</b> HTML
 				</reference>
 			</element>
-			<element pattern="document.location">
+			<element pattern="location">
 				<reference><i>document.location</i> Returns the URI of the current document.
 				<b>Return Type:</b> Location
 				<b>Availability:</b> All
 				</reference>
 			</element>
-			<element pattern="document.plugins">
+			<element pattern="plugins">
 				<reference><i>document.plugins</i> Returns a list of the available plugins.
 				<b>Return Type:</b> HTMLCollection
 				<b>Availability:</b> HTML
@@ -1380,19 +1380,15 @@ foo = bar.replace( ")" , "" );
 		<element pattern="navigator"/>
 		<element pattern="mimeTypes"/>
 		<element pattern="plugins"/>
-	</group>
-	<element pattern="screen" class="javascript_object_methods"/>
-	<group class="javascript_object_methods">
+		<element pattern="screen"/>
 		<element pattern="window"/>
-		<group class="javascript_object_methods">
-			<element pattern="document"/>
-			<element pattern="anchors" class="javascript_object_methods"/>
-			<element pattern="applets" class="javascript_object_methods"/>
-			<element pattern="node" class="javascript_object_methods"/>
-		</group>
-		<element pattern="event" class="javascript_object_methods"/>
-		<element pattern="history" class="javascript_object_methods"/>
-		<element pattern="location" class="javascript_object_methods"/>
+		<element pattern="document"/>
+		<element pattern="anchors"/>
+		<element pattern="applets"/>
+		<element pattern="node"/>
+		<element pattern="event"/>
+		<element pattern="history"/>
+		<element pattern="location"/>
 	</group>
 </group>
 <group class="javascript_css_properties" >
