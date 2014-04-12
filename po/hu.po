@@ -2,15 +2,15 @@
 # Copyright (C) 2000-2011 Free Software Foundation, Inc.
 #
 # Péter Sáska <sasek@acolyte.hu>, 2000-2003.
-# Balázs Úr <urbalazs@gmail.com>, 2011-2012.
+# Balázs Úr <urbalazs@gmail.com>, 2011-2012, 2014.
 # Balázs Úr <urbalazs at gmail dot com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-03-24 22:20-0700\n"
-"PO-Revision-Date: 2013-12-06 21:05+0100\n"
-"Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
+"POT-Creation-Date: 2014-04-02 09:21+0200\n"
+"PO-Revision-Date: 2014-04-11 23:42+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -26,56 +26,66 @@ msgid ""
 "code. Bluefish supports many programming and markup languages and has many "
 "features, but is still a very fast and lightweight application."
 msgstr ""
+"A Bluefish egy programozóknak és webfejlesztőknek szánt hatékony szerkesztő "
+"számos lehetőséggel weboldalak, parancsfájlok és programkódok írásához. A "
+"Bluefish számos programozási és leírónyelvet támogat, valamint sok "
+"szolgáltatással rendelkezik, de még így is nagyon gyors és könnyűsúlyú "
+"alkalmazás."
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:2
 msgid "A selection of the features:"
-msgstr ""
+msgstr "A szolgáltatások választéka:"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:3
 msgid ""
 "Well done syntax highlighting which for example supports languages inside "
 "languages (e.g. Javascript inside HTML inside PHP)"
 msgstr ""
+"Nagyszerű szintaxiskiemelés, amely támogatja például a nyelveken belüli "
+"nyelveket (például a PHP-ba ágyazott HTML-be ágyazott JavaScript)"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:4
 msgid ""
 "All kind of powerful editor features like auto indenting and auto completion "
 "for many functions and libraries in many programming languages"
 msgstr ""
+"Hatékony szerkesztő szolgáltatások minden fajtája, mint például automatikus "
+"behúzás és automatikus kiegészítés számos függvényhez és könyvtárhoz több "
+"programozási nyelven"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:5
-#, fuzzy
 msgid "Project support"
-msgstr "_Projekt"
+msgstr "Projekt támogatás"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:6
 msgid "Support for remote files over ftp, sftp, webdav, etc"
 msgstr ""
+"Távoli fájlok támogatása FTP, SFTP, Webdav, stb. protokollokon keresztül"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:7
 msgid "Powerful search and replace engine"
-msgstr ""
+msgstr "Hatékony keresés és csere motor"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:8
 msgid "Customizable integration of external programs such as lint, make, etc"
 msgstr ""
+"Külső programok személyre szabható integrációja, mint például lint, make, stb."
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:9
 msgid "Snippets plugin to automate often used code"
-msgstr ""
+msgstr "Töredékek bővítmény a gyakran használt kódok automatizálásához"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:10
 msgid "Code-aware in-line spell checking"
-msgstr ""
+msgstr "Kódfelismerő sorközi helyesírás-ellenőrzés"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:11
 msgid "Zencoding or Emmet support"
-msgstr ""
+msgstr "Zencoding vagy Emmet támogatás"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:12
-#, fuzzy
 msgid "Bookmarks panel"
-msgstr "Könyvjelzők"
+msgstr "Könyvjelzők panel"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:13
 msgid ""
@@ -83,6 +93,10 @@ msgid ""
 "or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
 "is your editor of choice!"
 msgstr ""
+"Ha Ön olyan alkalmi programozó, aki rászorul egy egyszerűen megtanulható "
+"szerkesztőre, vagy tapasztalt programozó, aki nem szereti a nagy IDE "
+"programokat, mint például Eclipse vagy Netbeans, akkor a Bluefish a megfelelő "
+"választás Önnek!"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -122,19 +136,19 @@ msgstr "%s összecsukása"
 msgid "Expand %s"
 msgstr "%s kinyitása"
 
-#: ../src/bftextview2_spell.c:821
+#: ../src/bftextview2_spell.c:826
 msgid "Spell check language"
 msgstr "Helyesírás-ellenőrzés nyelve"
 
-#: ../src/bftextview2_spell.c:854
+#: ../src/bftextview2_spell.c:859
 msgid "Add to dictionary"
 msgstr "Hozzáadás a szótárhoz"
 
-#: ../src/bftextview2_spell.c:857
+#: ../src/bftextview2_spell.c:862
 msgid "Ignore spelling"
 msgstr "Helyesírás figyelmen kívül hagyása"
 
-#: ../src/bftextview2_spell.c:872
+#: ../src/bftextview2_spell.c:877
 msgid "Insert special characters as entities"
 msgstr "Speciális karakterek beszúrása entitásként"
 
@@ -352,7 +366,7 @@ msgstr "Mindet kijelöli"
 msgid "Add Boo_kmark"
 msgstr "_Könyvjelző hozzáadása"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2108
 msgid "Add bookmark"
 msgstr "Könyvjelző hozzáadása"
 
@@ -680,7 +694,7 @@ msgstr "Szöveg tör_delése"
 msgid "Wrap text"
 msgstr "Szöveg tördelése"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:3221
 msgid "_Close"
 msgstr "Be_zárás"
 
@@ -1197,7 +1211,7 @@ msgstr "S_zerkesztés…"
 msgid "_Delete"
 msgstr "_Töröl"
 
-#: ../src/bookmark.c:901 ../src/document.c:2083
+#: ../src/bookmark.c:901 ../src/document.c:2104
 msgid "Delete bookmark"
 msgstr "Könyvjelző törlése"
 
@@ -1379,19 +1393,19 @@ msgstr " RO"
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1843
 msgid "_No"
 msgstr "_Nem"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1843
 msgid "_Split"
 msgstr "_Darabolás"
 
-#: ../src/document.c:1825
+#: ../src/document.c:1846
 msgid "File contains very long lines. Split these lines?"
 msgstr "A fájl nagyon hosszú sorokat tartalmaz. Darabolja ezeket a sorokat?"
 
-#: ../src/document.c:1825
+#: ../src/document.c:1846
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1404,27 +1418,27 @@ msgstr ""
 "tabulátorokat új sorokra, vagy beszúr új sorokat, ha nem találhatók szóközök "
 "vagy tabulátorok."
 
-#: ../src/document.c:1901
+#: ../src/document.c:1922
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 "A fájlt nem lehet megjeleníteni, mert ismeretlen karaktereket tartalmaz."
 
-#: ../src/document.c:2093
+#: ../src/document.c:2114
 msgid "Exit fullscreen"
 msgstr "Teljes képernyő elhagyása"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2258 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
 msgid "_Abort save"
 msgstr "Mentés _megszakítása"
 
-#: ../src/document.c:2237
+#: ../src/document.c:2258
 msgid "_Continue save in UTF-8"
 msgstr "Mentés _folytatása UTF-8 kódolással"
 
-#: ../src/document.c:2250
+#: ../src/document.c:2271
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1437,15 +1451,15 @@ msgstr ""
 "\n"
 "Folytassam a mentést UTF-8 kódolással?"
 
-#: ../src/document.c:2255
+#: ../src/document.c:2276
 msgid "File encoding conversion failure"
 msgstr "Hiba a fájl átkódolása közben"
 
-#: ../src/document.c:2415
+#: ../src/document.c:2436
 msgid "Previously: "
 msgstr "Előzőleg: "
 
-#: ../src/document.c:2987 ../src/file_dialogs.c:839
+#: ../src/document.c:3008 ../src/file_dialogs.c:839
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1454,11 +1468,11 @@ msgstr ""
 "A glib verziója (%d.%d.%d) megbízhatatlanul működik távoli fájlokkal. Kérem, "
 "frissítse a 2.18.0, vagy újabb verzióra!"
 
-#: ../src/document.c:3116
+#: ../src/document.c:3137
 msgid "Unable to open file"
 msgstr "Nem lehet megnyitni a fájlt"
 
-#: ../src/document.c:3128
+#: ../src/document.c:3149
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1467,92 +1481,92 @@ msgstr ""
 "Ha „%s” fájlt visszaállítja az utoljára elmentett állapotra, akkor az összes "
 "jelenlegi módosítás azonnal elvész."
 
-#: ../src/document.c:3132
+#: ../src/document.c:3153
 msgid "Revert changes to last saved copy?"
 msgstr "Visszaállítja az utoljára mentett változatra?"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3221
 msgid "_Retry"
 msgstr "Új_rapróbál"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3221
 msgid "Retry _all failed"
 msgstr "_Az összes sikertelen újrapróbálása"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3221
 msgid "Close all _failed"
 msgstr "Az összes sikertelen be_zárása"
 
-#: ../src/document.c:3205
+#: ../src/document.c:3226
 msgid "File "
 msgstr "Fájl "
 
-#: ../src/document.c:3205
+#: ../src/document.c:3226
 msgid " failed to load."
 msgstr " betöltése meghiúsult."
 
-#: ../src/document.c:3209
+#: ../src/document.c:3230
 msgid "File failed to load\n"
 msgstr "A fájl betöltése meghiúsult\n"
 
-#: ../src/document.c:3334
+#: ../src/document.c:3355
 msgid "Select file to insert"
 msgstr "Válassza ki a beillesztendő fájlt"
 
-#: ../src/document.c:3343
+#: ../src/document.c:3364
 msgid "No file to insert"
 msgstr "Nincs beilleszthető fájl"
 
-#: ../src/document.c:3423
+#: ../src/document.c:3444
 msgid "Save pasted image as"
 msgstr "Beillesztett kép mentése másként"
 
-#: ../src/document.c:3519
+#: ../src/document.c:3540
 msgid "Paste special"
 msgstr "Speciális beillesztés"
 
-#: ../src/document.c:3525
+#: ../src/document.c:3546
 msgid "No compatible clipboard data found"
 msgstr "Nem található kompatibilis vágólapadat"
 
-#: ../src/document.c:3529
+#: ../src/document.c:3550
 msgid "Paste as _HTML"
 msgstr "Beillesztés _HTML-ként"
 
-#: ../src/document.c:3534
+#: ../src/document.c:3555
 msgid "Paste as HTML with _JPG"
 msgstr "Beillesztés HTML-ként _JPG-vel"
 
-#: ../src/document.c:3544
+#: ../src/document.c:3565
 msgid "Paste as plain text"
 msgstr "Beillesztés egyszerű szövegként"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3659
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d sor"
 msgstr[1] "%d sor"
 
-#: ../src/document.c:3639
+#: ../src/document.c:3660
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d szó"
 msgstr[1] "%d szó"
 
-#: ../src/document.c:3640
+#: ../src/document.c:3661
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d karakter"
 msgstr[1] "%d karakter"
 
-#: ../src/document.c:3642
+#: ../src/document.c:3663
 msgid "Selection statistics: "
 msgstr "Kijelölés statisztikája: "
 
-#: ../src/document.c:3642
+#: ../src/document.c:3663
 msgid "Statistics: "
 msgstr "Statisztika: "
 
