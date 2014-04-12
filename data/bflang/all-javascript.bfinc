@@ -277,6 +277,8 @@
 			<element pattern="getElementsByName"/>
 			<element pattern="getElementsByTagName" />
 			<element pattern="getElementsByClassName" />
+			<element pattern="querySelector" />
+			<element pattern="querySelectorAll" />
 <!-- 			<element pattern="getSelection"/> -->
 <!-- 			<element pattern="handleEvent"/> -->
 <!-- 			<element pattern="open"/> -->
@@ -284,8 +286,6 @@
 			<element pattern="routeEvents"/>
 			<element pattern="write"/>
 			<element pattern="writeln"/>
-		</group>
-		<group class="javascript_object_methods">
 <!-- 			<element pattern="back"/> -->
 <!-- 			<element pattern="forward"/> -->
 			<element pattern="go"/>
@@ -1551,6 +1551,7 @@ foo = bar.replace( ")" , "" );
 		<element pattern="icon" />
 		<element pattern="imageOrientation" />
 		<element pattern="imageRendering" />
+		<element pattern="innerHTML"/>
 		<element pattern="imeMode" />
 		<element pattern="justifyContent" />
 		<element pattern="kerning" />
