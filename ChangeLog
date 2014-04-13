@@ -2,6 +2,10 @@ The complete VCS changelog can be obtained from our subversion repository
 using the `svn2cl' utility. The release changelogs are also available from
 our homepage: http://bluefish.openoffice.nl.
 
+* 2.2.6 *
+
+Bluefish 2.2.6 is mostly a bug fix release. This release fixes a critical bug (segfault) in filebrowser that could be triggered if the root directory was set as basedir. It also has a fix for a specific CSS-in-HTML-tag highlighting issue. The filter code furthermore caused a segfault if the command did not exist. The Windows version finally supports open in running process. Next to these bugs many small issues have been resolved. Development checks are now only enabled if Bluefish is compiled from svn, not if compiled from tarball. Various language files have small improvements, most notably C, Javascript and CSS. Several translations have been updated. A corner case for a new document from a template that does not exist was fixed. The "open" submenu now opens SVG files from the filebrowser instead of inserting an image tag. The included cssmin and jsbeatify have been updated. A syntax scanning issue when replacing large chunks of text was fixed, he "Report bug" link was broken, a new "conditional" option to the language file that makes re-using certain blocks of language files easier was added, and error reporting in outputbox was improved. On OSX filebrowser icons and the "open file" dialog size have been improved.
+
 * 2.2.5 *
 
 Bluefish 2.2.5 is a minor bug fix release but has also quite some new features.
@@ -17,7 +21,7 @@ almost all syntax highlighting has been improved, most notable jquery in
 javascript, HTML5, and HTML5 in PHP files. There are also many bug fixes, such
 as in wrap text on right margin, in the replace engine, the jsmin licence, the
 split lines feature, the auto-recovery and many obscure bugs. Last bluefish now
-has an appdata file. 
+has an appdata file.
 
 * 2.2.4 *
 
@@ -50,7 +54,7 @@ some dialogs were added for HTML5, the thumbnail generator was fixed, and insert
 color, path and relative path have been added. Many language files were
 improved, and more user configurable options have been added to most language
 files. You can now select a block of text by dragging the mouse in the margin,
-and move the selected block with <ctrl><up> and <ctrl><down>.   
+and move the selected block with <ctrl><up> and <ctrl><down>.
 
 
 * 2.2.2 *
@@ -69,7 +73,7 @@ where made. Startup is slightly faster using more threads during startup and
 improving the document recovery. The annoying scrolling of the side bar
 filebrowser in 'treeview' mode was fixed, descriptions of language options where
 fixed, and some menu strings, some HTML5 options where improved, accelerators
-and shortcut keys got improved and translations got better. The new features: 
+and shortcut keys got improved and translations got better. The new features:
 duplicate line and delete line, and the Catalan translation.
 
 * 2.2.1 *
@@ -79,7 +83,7 @@ Zencoding support (requires python). The bug fixes include a fix to build on
 Gtk+-2.22, many translations are better up-to-date, a fix for PCRE regular
 expression searching, several layout fixes for Gtk+-3.2, several obscure
 segfault fixes, a fix for autocompletion of variables in PHP, <img> dialog
-fixes, and some memory-leak fixes. 
+fixes, and some memory-leak fixes.
 
 * 2.2.0 *
 
