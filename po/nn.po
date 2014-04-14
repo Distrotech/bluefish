@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.6\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2014-04-02 09:21+0200\n"
-"PO-Revision-Date: 2014-04-03 01:01+0100\n"
+"PO-Revision-Date: 2014-04-12 12:44+0100\n"
 "Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
 "Language-Team: Norsk (nynorsk) <> <l10n@landro.net>\n"
 "Language: nn\n"
@@ -88,9 +88,9 @@ msgid ""
 "or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
 "is your editor of choice!"
 msgstr ""
-"Bluefish tilfredsstiller krava både til hobbbyprogrammeraren som treng eit "
+"Bluefish tilfredsstiller krava både til hobbyprogrammeraren som treng eit "
 "skriveprogram som er lett å læra og til den profesjonelle utviklaren som "
-"misliker tunge integrerte utviklingsmiljø som Eclise eller Netbeans. "
+"misliker tunge integrerte utviklingsmiljø som Eclipse eller Netbeans. "
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -110,7 +110,7 @@ msgstr "Bluefish prosjektfil"
 
 #: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish language definition file"
-msgstr "Språkdefinisjonsfil for Bluefish"
+msgstr "Bluefish språkdefinisjonsfil"
 
 #: ../src/bftextview2.c:1765
 msgid "Collapse all"
@@ -166,9 +166,10 @@ msgstr "Finn:"
 msgid "Regular expression (pcre)"
 msgstr "Regulært uttrykk (PCRE)"
 
+# var: Skil mellom store/sm_å bokstavar
 #: ../src/bfwin.c:991
 msgid "Case sensitive"
-msgstr "Skil mellom store/sm_å bokstavar"
+msgstr "Skil mellom store/små bokstavar"
 
 #: ../src/bfwin.c:994
 msgid "Dot character matches newlines"
@@ -176,7 +177,7 @@ msgstr "Punktum i regulære uttrykk tek òg med seg nylinje-teikn"
 
 #: ../src/bfwin.c:997
 msgid "Pattern contains backslash escaped sequences"
-msgstr "Mønsteret inneheld escape-sekvensar"
+msgstr "Mønsteret inneheld escape-sekvensar (bakoverskråstrek)"
 
 #: ../src/bfwin.c:1009
 msgid "Advanced"
