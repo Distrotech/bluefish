@@ -4,7 +4,22 @@ our homepage: http://bluefish.openoffice.nl.
 
 * 2.2.6 *
 
-Bluefish 2.2.6 is mostly a bug fix release. This release fixes a critical bug (segfault) in filebrowser that could be triggered if the root directory was set as basedir. It also has a fix for a specific CSS-in-HTML-tag highlighting issue. The filter code furthermore caused a segfault if the command did not exist. The Windows version finally supports open in running process. Next to these bugs many small issues have been resolved. Development checks are now only enabled if Bluefish is compiled from svn, not if compiled from tarball. Various language files have small improvements, most notably C, Javascript and CSS. Several translations have been updated. A corner case for a new document from a template that does not exist was fixed. The "open" submenu now opens SVG files from the filebrowser instead of inserting an image tag. The included cssmin and jsbeatify have been updated. A syntax scanning issue when replacing large chunks of text was fixed, he "Report bug" link was broken, a new "conditional" option to the language file that makes re-using certain blocks of language files easier was added, and error reporting in outputbox was improved. On OSX filebrowser icons and the "open file" dialog size have been improved.
+Bluefish 2.2.6 is mostly a bug fix release. This release fixes a critical bug
+(segfault) in filebrowser that could be triggered if the root directory was set
+as basedir. It also has a fix for a specific CSS-in-HTML-tag highlighting issue.
+The filter code furthermore caused a segfault if the command did not exist. The
+Windows version finally supports open in running process. Next to these bugs
+many small issues have been resolved. Development checks are now only enabled if
+Bluefish is compiled from svn, not if compiled from tarball. Various language
+files have small improvements, most notably C, Javascript and CSS. Several
+translations have been updated. A corner case for a new document from a template
+that does not exist was fixed. The "open" submenu now opens SVG files from the
+filebrowser instead of inserting an image tag. The included cssmin and jsbeatify
+have been updated. A syntax scanning issue when replacing large chunks of text
+was fixed, he "Report bug" link was broken, a new "conditional" option to the
+language file that makes re-using certain blocks of language files easier was
+added, and error reporting in outputbox was improved. On OSX filebrowser icons
+and the "open file" dialog size have been improved.
 
 * 2.2.5 *
 
