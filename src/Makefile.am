@@ -27,7 +27,7 @@ if OS_WIN32
 AM_LDFLAGS = -export-all-symbols
 DEFS += -DEXE_EXPORT_SYMBOLS
 LDADD = -lws2_32
-LDADD += bluefish_rc.o
+LDADD += bluefish_rc.o win32utils.o
 else
 AM_LDFLAGS = -export-dynamic
 endif

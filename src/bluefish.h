@@ -347,6 +347,9 @@ typedef struct {
 	gint block_folding_mode;
 	GList *highlight_styles;
 	GList *bflang_options;		/* array with: lang_name, option_name, value */
+#ifdef WIN32
+	GList *file_association;	/* array, 0=ignored, 1=extension, 2=mimetype */
+#endif
 	gchar *autocomp_accel_string;
 	gboolean load_reference;
 	gboolean show_autocomp_reference;

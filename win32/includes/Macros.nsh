@@ -103,9 +103,10 @@
 			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "" $R2
 			WriteRegStr HKCR ".${EXT}" "Content Type" "${TYPE}"
 		${EndIf} ; Proper mimetype has been set
-		${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
+;		${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
 		${If} $PROG != "0" ; If set to 0 this denotes a special case such as for HTML and we need to skip this section
-			${If} $R0 == ${BST_CHECKED} ; The user has selected to associate this file type with Bluefish
+;			${If} $R0 == ${BST_CHECKED} ; The user has selected to associate this file type with Bluefish
+			${If} ${HWND} == 1
 ;				DetailPrint "$(FILETYPE_REGISTERING)${DESC}..." ; Let the user know we're registering this file type
 				; The following should only be needed once and could be in the above IF block with some more checks
 				${If} $PROG == "bfvbsfile"
@@ -138,9 +139,10 @@
 			WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "" $R2
 			WriteRegStr HKCU "${REG_CLASS_SET}\.${EXT}" "Content Type" "${TYPE}"
 		${EndIf} ; Proper mimetype has been set
-		${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
+;		${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
 		${If} $PROG != "0" ; If set to 0 this denotes a special case such as for HTML and we need to skip this section
-			${If} $R0 == ${BST_CHECKED} ; The user has selected to associate this file type with Bluefish
+;			${If} $R0 == ${BST_CHECKED} ; The user has selected to associate this file type with Bluefish
+		${If} ${HWND} == 1
 ;				DetailPrint "$(FILETYPE_REGISTERING)${DESC}..." ; Let the user know we're registering this file type
 				; The following should only be needed once and could be in the above IF block with some more checks
 				${If} $PROG == "bfvbsfile"

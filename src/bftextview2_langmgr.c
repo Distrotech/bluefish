@@ -1816,7 +1816,7 @@ parse_bflang2_header(const gchar * filename)
 	return bflang;
 }
 
-GList *
+/*GList *
 langmgr_get_languages_mimetypes(void)
 {
 	GList *retlist = NULL, *tmplist = g_list_first(langmgr.bflang_list);
@@ -1826,6 +1826,46 @@ langmgr_get_languages_mimetypes(void)
 		tmplist = tmplist->next;
 	}
 	return retlist;
+}*/
+
+GList *
+langmgr_get_languages_mimetypes(void)
+{
+	GList *retlist = NULL, *tmplist = g_list_first(langmgr.bflang_list);
+
+	while (tmplist) {
+		if (((Tbflang *) (tmplist->data))->mimetypes) {
+			GList *llist = g_list_first(((Tbflang *) (tmplist->data))->mimetypes);
+			while (llist) {
+				retlist = g_list_prepend(retlist, llist->data);
+				llist = llist->next;
+			}
+		}
+		tmplist = tmplist->next;
+	}
+
+	return retlist;
+}
+
+gchar *
+langmgr_get_language_name_by_mimetype(gchar * mime)
+{
+	GList *tmplist = g_list_first(langmgr.bflang_list);
+
+	while (tmplist) {
+		if (((Tbflang *) (tmplist->data))->mimetypes) {
+			GList *llist = g_list_first(((Tbflang *) (tmplist->data))->mimetypes);
+			while (llist) {
+				if (!strcmp(llist->data, mime))
+					return ((Tbflang *) (tmplist->data))->name;
+				else
+					llist = llist->next;
+			}
+		}
+		tmplist = tmplist->next;
+	}
+
+	return NULL;
 }
 
 gboolean

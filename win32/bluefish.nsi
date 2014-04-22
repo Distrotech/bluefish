@@ -176,8 +176,8 @@ VIAddVersionKey "FileDescription" "Bluefish Installer"
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_STARTMENU			"${PRODUCT}"	$StartMenuFolder
 !insertmacro MUI_PAGE_INSTFILES
-Page custom FileAssociations SetFileAssociations
-!define MUI_PAGE_CUSTOMFUNCTION_SHOW 	DisableBackButton
+;Page custom FileAssociations SetFileAssociations
+;!define MUI_PAGE_CUSTOMFUNCTION_SHOW 	DisableBackButton
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_UNPAGE_WELCOME
@@ -340,6 +340,10 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	CreateShortCut "$SMPROGRAMS\$StartMenuFolder\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}" "-n"
 	CreateShortCut "$SMPROGRAMS\$StartMenuFolder\$(UNINSTALL_SHORTCUT).lnk" "$INSTDIR\${UNINSTALL_EXE}"
 	SetOverwrite off
+
+	; Register custom file types
+	${RegisterFileType} 1 	"bfproject" 	"application/x-bluefish-project" 	"bfprojectfile" "$(CT_BFPROJECT)" 4
+	${RegisterFileType} 1 	"bflang2" 	"application/x-bluefish-language2" 		"bflang2file" "$(CT_BFLANG2)" 3
 SectionEnd
 
 SectionGroup "$(SECT_DEPENDS)" SecDepends

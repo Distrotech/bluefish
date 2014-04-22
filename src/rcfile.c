@@ -527,6 +527,9 @@ props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.wrap_on_right_margin, "wrap_on_right_margin:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.adv_smart_indent_mode, "adv_smart_indent_mode:", 1, TRUE);
 	/*init_prop_arraylist(&config_rc, &main_v->props.templates, "templates:", 2, TRUE);*/
+#ifdef WIN32
+	init_prop_arraylist (&config_rc, &main_v->props.file_association, "file_association:", 3, TRUE);
+#endif
 	return config_rc;
 }
 
@@ -937,6 +940,115 @@ rcfile_parse_main(void)
 			g_list_append(main_v->props.templates,
 						  array_from_arglist(_("LaTex Presentation"), PKGDATADIR "/templates/Latex_Presentation", NULL));
 		/* TODO: list the templates in the directory */
+	}
+#endif
+
+#ifdef WIN32
+	if (main_v->props.file_association == NULL) {
+/*
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("1", ".bfproject", "application/x-bluefish-project", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("1", ".bflang2", "application/x-bluefish-language2", NULL));
+*/
+		main_v->props.file_association = 
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".ada", "text/x-ada", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".asp", "text/x-asp", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".sh", "text/x-shellscript", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".c", "text/x-csrc", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".h", "text/x-chdr", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".cpp", "text/x-c++src", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".cxx", "text/x-c++src", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".cc", "text/x-c++src", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".hpp", "text/x-c++hdr", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".css", "text/css", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".d", "text/x-dsrc", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".diff", "text/x-diff", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".patch", "text/x-patch", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".po", "text/x-gettext-translation", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".java", "text/x-java", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".js", "application/javascript", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".jsp", "application/x-jsp", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".mw", "text/x-mediawiki", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".nsi", "text/x-nsi", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".nsh", "text/x-nsh", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".pl", "application/x-perl", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".php", "application/x-php", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".php3", "application/x-php", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".txt", "text/plain", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".py", "text/x-python", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".rb", "text/x-ruby", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".tpl", "application/x-smarty", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".vb", "application/x-vbscript", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".xhtml", "application/xhtml+xml", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".xml", "text/xml", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						  array_from_arglist("0", ".xsl", "application/xslt+xml", NULL));
+		main_v->props.file_association =
+			g_list_append(main_v->props.file_association,
+						   array_from_arglist("0", ".xslt", "application/xslt+xml", NULL));
 	}
 #endif
 }

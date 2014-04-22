@@ -230,28 +230,3 @@ jsbeautify_dialog(Tbfwin * bfwin)
 	}
 	gtk_widget_destroy(dialog);
 }
-
-#ifdef WIN32
-gboolean
-check_python()
-{
-	HKEY hPython;
-	if (RegOpenKeyEx
-		(HKEY_LOCAL_MACHINE, "SOFTWARE\\Python\\PythonCore\\2.7\\InstallPath", 0, KEY_QUERY_VALUE,
-		 &hPython) == ERROR_SUCCESS) {
-		RegCloseKey(hPython);
-		return TRUE;
-	} else
-		if (RegOpenKeyEx
-			(HKEY_CURRENT_USER, "SOFTWARE\\Python\\PythonCore\\2.7\\InstallPath", 0, KEY_QUERY_VALUE,
-			 &hPython) == ERROR_SUCCESS) {
-		RegCloseKey(hPython);
-		return TRUE;
-	} else if (g_file_test("python.exe", G_FILE_TEST_EXISTS)) {
-		// For a possible bundled copy of Python for portable installations
-		return TRUE;
-	} else {
-		return FALSE;
-	}
-}
-#endif

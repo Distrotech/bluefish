@@ -30,6 +30,10 @@
 #include <gtkosxapplication.h>
 #endif
 
+#ifdef WIN32
+#include "win32utils.h"
+#endif
+
 #include "preferences.h"
 #include "bf_lib.h"				/* list_switch_order() */
 #include "bftextview2_langmgr.h"
@@ -120,7 +124,11 @@ enum {
 	property_num_max
 };
 
-#define FILETYPES_ARRAY_LEN 8
+#ifdef WIN32
+	#define FILETYPES_ARRAY_LEN 9
+#else
+	#define FILETYPES_ARRAY_LEN 8
+#endif
 enum {
 	extcommands,
 	extfilters,
@@ -132,6 +140,9 @@ enum {
 	textstyles,
 	highlight_styles,
 	bflang_options,
+#ifdef WIN32
+	file_association,
+#endif
 	lists_num_max
 };
 
@@ -191,10 +202,13 @@ typedef struct {
 	GtkWidget *noteb;
 	GtkTreeStore *nstore;
 	GtkWidget *fixed;
-	Tlistpref ftd;				/* FileTypeDialog */
-	Tlistpref ffd;				/* FileFilterDialog */
-	Tlistpref tg;				/* template gui */
-	Ttextstylepref tsd;			/* TextStyleDialog */
+	Tlistpref ftd;							/* FileTypeDialog */
+	Tlistpref ffd;							/* FileFilterDialog */
+#ifdef WIN32
+	Tlistpref fad;							/* FileAssociationDialog */
+#endif
+	Tlistpref tg;							/* template gui */
+	Ttextstylepref tsd;						/* TextStyleDialog */
 	Thldialog hld;
 	GtkListStore *lang_files;
 	Tlistpref bd;
@@ -220,6 +234,8 @@ typedef enum {
 	prefapply_text_w_userdefined,
 	prefapply_toggle_w_userdefined,
 } Tprefapplytype;
+
+static void preferences_apply(Tprefdialog * pd);
 
 void
 pref_click_column(GtkTreeViewColumn * treeviewcolumn, gpointer user_data)
@@ -282,7 +298,7 @@ pref_create_column(GtkTreeView * treeview, gint type, GCallback func, gpointer d
 		}
 	}
 	column =
-		gtk_tree_view_column_new_with_attributes(title, renderer, (type == 1) ? "text" : "active", num, NULL);
+		gtk_tree_view_column_new_with_attributes(title, renderer, (type == 1 || type == 4) ? "text" : "active", num, NULL);
 	gtk_tree_view_column_set_clickable(GTK_TREE_VIEW_COLUMN(column), TRUE);
 	if (collumn_hide_but) {
 		but = gtk_check_button_new_with_label(title);
@@ -629,6 +645,309 @@ create_plugin_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 2);
 }
+
+/****** File Association ********/
+#ifdef WIN32
+static void
+register_fileassociations_win32(Tprefdialog *pd)
+{
+	/* Get user privilege */
+	gint dAuth = getauthlevel_win32();
+	DEBUG_MSG("register_fileassociations_win32, auth=%d\n", dAuth);
+
+	/* Get running Bluefish module path */
+	gchar bfmodule[MAX_PATH];
+	GetModuleFileName(NULL, bfmodule, sizeof(bfmodule));
+	DEBUG_MSG("register_fileassociations_win32, bfmodule=%s\n", bfmodule);
+
+	/* Register file types */
+	GList *tmplist = g_list_first(pd->lists[file_association]);
+	while (tmplist) {
+		HKEY regclass;
+		DWORD dwStatus;
+		gchar bfclass[32], buffer[MAX_PATH];
+		gchar **strarr = (gchar **)tmplist->data;
+		if (g_strv_length(strarr) == 3) {
+			snprintf(bfclass, sizeof(bfclass), "bf%sfile", (strarr[1] + 1));
+
+			if (!strcmp(".html", strarr[1]) || !strcmp(".htm", strarr[1]) || !strcmp(".vbs", strarr[1])) {
+				DEBUG_MSG("register_fileassociations_win32, %s registration is not currently implemented.", (strarr[1] + 1));
+				return;
+			}
+
+			if (strarr[0][0] == '1') { /* Create/Enable */
+				DEBUG_MSG("register_fileassociations_win32, ext=%s, mime=%s, class=%s\n", strarr[1], strarr[2], bfclass);
+				/* Create filetype class */
+				if (dAuth == AUTH_USER || dAuth == AUTH_CLASSIC) {
+					snprintf(buffer, sizeof(buffer), "Software\\Classes\\%s", bfclass);
+					dwStatus = RegCreateKeyEx(HKEY_CURRENT_USER, buffer, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &regclass, NULL);
+				}
+				else {
+					snprintf(buffer, sizeof(buffer), "%s", bfclass);
+					dwStatus = RegCreateKeyEx(HKEY_CLASSES_ROOT, buffer, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &regclass, NULL);
+				}
+				if (dwStatus == ERROR_SUCCESS) {
+					/* Set class description */
+					gchar *bfdesc = langmgr_get_language_name_by_mimetype(strarr[2]);
+					if (bfdesc)
+						snprintf(buffer, sizeof(buffer), "%s File", bfdesc);
+					else {
+						GString *bfnodesc = g_string_new((strarr[1] + 1));
+						bfnodesc = g_string_ascii_up(bfnodesc);
+						snprintf(buffer, sizeof(buffer), "%s File", bfnodesc->str);
+						g_string_free(bfnodesc, TRUE);
+					}
+					RegSetValueEx(regclass, "", 0, REG_SZ, buffer, strlen(buffer) + 1);
+					RegCloseKey(regclass);
+
+					/* Set class icon (default to icon 24, Text File) */
+					if (dAuth == AUTH_USER || dAuth == AUTH_CLASSIC) {
+						snprintf(buffer, sizeof(buffer), "Software\\Classes\\%s\\DefaultIcon", bfclass);
+						dwStatus = RegCreateKeyEx(HKEY_CURRENT_USER, buffer, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &regclass, NULL);
+					}
+					else {
+						snprintf(buffer, sizeof(buffer), "%s\\DefaultIcon", bfclass);
+						dwStatus = RegCreateKeyEx(HKEY_CLASSES_ROOT, buffer, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &regclass, NULL);
+					}
+					if (dwStatus == ERROR_SUCCESS) {
+						snprintf(buffer, sizeof(buffer), "%s,24", bfmodule);
+						RegSetValueEx(regclass, "", 0, REG_SZ, buffer, strlen(buffer) + 1);
+						RegCloseKey(regclass);
+					}
+
+					/* Set class shell open command */
+					if (dAuth == AUTH_USER || dAuth == AUTH_CLASSIC) {
+						snprintf(buffer, sizeof(buffer), "Software\\Classes\\%s\\shell\\open\\command", bfclass);
+						dwStatus = RegCreateKeyEx(HKEY_CURRENT_USER, buffer, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &regclass, NULL);
+					}
+					else {
+						snprintf(buffer, sizeof(buffer), "%s\\shell\\open\\command", bfclass);
+						dwStatus = RegCreateKeyEx(HKEY_CLASSES_ROOT, buffer, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &regclass, NULL);
+					}
+					if (dwStatus == ERROR_SUCCESS) {
+						snprintf(buffer, sizeof(buffer), "\"%s\" \"%%1\"", bfmodule);
+						RegSetValueEx(regclass, "", 0, REG_SZ, buffer, strlen(buffer) + 1);
+						RegCloseKey(regclass);
+					}
+
+					/* Set filetype association and mimetype */
+					if (dAuth == AUTH_USER || dAuth == AUTH_CLASSIC) {
+						snprintf(buffer, sizeof(buffer), "Software\\Classes\\%s", strarr[1]);
+						dwStatus = RegCreateKeyEx(HKEY_CURRENT_USER, buffer, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &regclass, NULL);
+					}
+					else {
+						snprintf(buffer, sizeof(buffer), "%s", strarr[1]);
+						dwStatus = RegCreateKeyEx(HKEY_CLASSES_ROOT, buffer, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &regclass, NULL);	
+					}
+					if (dwStatus == ERROR_SUCCESS) {
+						snprintf(buffer, sizeof(buffer), "%s", bfclass);
+						RegSetValueEx(regclass, "", 0, REG_SZ, buffer, strlen(buffer) + 1);
+						RegSetValueEx(regclass, "Content Type", 0, REG_SZ, strarr[2], strlen(strarr[2]) + 1);
+						RegCloseKey(regclass);
+					}
+				}
+			}
+			else if (strarr[0][0] == '0') { /* Disable */
+				if (dAuth == AUTH_USER || dAuth == AUTH_CLASSIC) {
+					snprintf(buffer, sizeof(buffer), "Software\\Classes\\%s", strarr[1]);
+					dwStatus = RegCreateKeyEx(HKEY_CURRENT_USER, buffer, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &regclass, NULL);
+				}
+				else {
+					snprintf(buffer, sizeof(buffer), "%s", strarr[1]);
+					dwStatus = RegCreateKeyEx(HKEY_CLASSES_ROOT, buffer, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &regclass, NULL);
+				}
+				if (dwStatus == ERROR_SUCCESS) {
+					DWORD bufsize = sizeof(buffer);
+					RegQueryValueEx(regclass, "", 0, NULL, buffer, &bufsize);
+					if (!strcmp(bfclass, buffer))
+						RegSetValueEx(regclass, "", 0, REG_SZ, "", 1);
+					RegCloseKey(regclass);
+				}
+			}
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
+
+static void
+delete_fileassociation_win32(Tprefdialog *pd)
+{
+	HKEY regclass;
+	DWORD dwStatus;
+	gchar bfclass[32], buffer[MAX_PATH];
+
+	/* Get user privilege */
+	gint dAuth = getauthlevel_win32();
+
+	GtkTreeIter iter;
+	GtkTreeSelection *select;
+	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->fad.lview));
+	if (gtk_tree_selection_get_selected(select, NULL, &iter)) {
+		gchar **strarr;
+		gtk_tree_model_get(GTK_TREE_MODEL(pd->fad.lstore), &iter, 3, &strarr, -1);
+
+		snprintf(bfclass, sizeof(bfclass), "bf%sfile", (strarr[1]+1));
+		DEBUG_MSG("delete_fileassociation_lcb, ext=%s, mime=%s, class=%s\n", strarr[1], strarr[2], bfclass);
+
+		/* Delete filetype class */
+		if (dAuth == AUTH_USER || dAuth == AUTH_CLASSIC) {
+			snprintf(buffer, sizeof(buffer), "Software\\Classes\\%s\\shell\\open\\command", bfclass);
+			RegDeleteKey(HKEY_CURRENT_USER, buffer);
+			snprintf(buffer, sizeof(buffer), "Software\\Classes\\%s\\shell\\open", bfclass);
+			RegDeleteKey(HKEY_CURRENT_USER, buffer);
+			snprintf(buffer, sizeof(buffer), "Software\\Classes\\%s\\shell", bfclass);
+			RegDeleteKey(HKEY_CURRENT_USER, buffer);
+			snprintf(buffer, sizeof(buffer), "Software\\Classes\\%s\\DefaultIcon", bfclass);
+			RegDeleteKey(HKEY_CURRENT_USER, buffer);
+			snprintf(buffer, sizeof(buffer), "Software\\Classes\\%s", bfclass);
+			RegDeleteKey(HKEY_CURRENT_USER, buffer);
+		}
+		else {
+			snprintf(buffer, sizeof(buffer), "%s\\shell\\open\\command", bfclass);
+			RegDeleteKey(HKEY_CLASSES_ROOT, buffer);
+			snprintf(buffer, sizeof(buffer), "%s\\shell\\open", bfclass);
+			RegDeleteKey(HKEY_CLASSES_ROOT, buffer);
+			snprintf(buffer, sizeof(buffer), "%s\\shell", bfclass);
+			RegDeleteKey(HKEY_CLASSES_ROOT, buffer);
+			snprintf(buffer, sizeof(buffer), "%s\\DefaultIcon", bfclass);
+			RegDeleteKey(HKEY_CLASSES_ROOT, buffer);
+			snprintf(buffer, sizeof(buffer), "%s", bfclass);
+			RegDeleteKey(HKEY_CLASSES_ROOT, buffer);
+		}
+
+		/* Leave the filetype association class but remove connection to our filetype class */
+		if (dAuth == AUTH_USER || dAuth == AUTH_CLASSIC) {
+			snprintf(buffer, sizeof(buffer), "Software\\Classes\\%s", strarr[1]);
+			dwStatus = RegOpenKeyEx(HKEY_CURRENT_USER, buffer, 0, KEY_ALL_ACCESS, &regclass);
+		}
+		else {
+			snprintf(buffer, sizeof(buffer), "%s", strarr[1]);
+			dwStatus = RegOpenKeyEx(HKEY_CLASSES_ROOT, buffer, 0, KEY_ALL_ACCESS, &regclass);
+		}
+		if (dwStatus == ERROR_SUCCESS) {
+			DWORD bufsize = sizeof(buffer);
+			RegQueryValueEx(regclass, "", 0, NULL, buffer, &bufsize);
+			if (!strcmp(bfclass, buffer))
+				RegSetValueEx(regclass, "", 0, REG_SZ, "", 1);
+			RegCloseKey(regclass);
+		}
+
+		g_strfreev(strarr);
+	}
+}
+
+static void
+set_fileassociation_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd)
+{
+	if (g_strv_length(strarr) == 3) {
+		DEBUG_MSG("set_fileassociation_strarr_in_list, extension=%s, mime=%s\n", strarr[1], strarr[2]);
+		gtk_list_store_set(GTK_LIST_STORE(pd->fad.lstore), iter, 0, (strarr[0][0] == '1'), 1, strarr[1], 2, strarr[2], 3, strarr, -1);
+	}
+}
+
+static void
+fileassociation_0_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle, gchar *path, Tprefdialog *pd)
+{
+	gchar *val = g_strdup(cellrenderertoggle->active ? "0" : "1");
+	pref_apply_change(pd->fad.lstore, 3, 2, path, val, 0);
+	g_free(val);
+}
+
+static void
+fileassociation_1_edited_lcb(GtkCellRendererToggle *cellrenderertoggle, gchar *path, gchar *newtext, Tprefdialog *pd)
+{
+	pref_apply_change(pd->fad.lstore, 3, 1, path, newtext, 1);
+}
+
+static void
+fileassociation_2_edited_lcb(GtkCellRendererToggle *cellrenderertoggle, gchar *path, gchar *newtext, Tprefdialog *pd)
+{
+	pref_apply_change(pd->fad.lstore, 3, 1, path, newtext, 2);
+}
+
+static void
+add_fileassociation_lcb(GtkWidget *wid, Tprefdialog *pd)
+{
+	gchar **strarr;
+	GtkTreeIter iter;
+
+	strarr = pref_create_empty_strarr(3);
+	gtk_list_store_append(GTK_LIST_STORE(pd->fad.lstore), &iter);
+	set_fileassociation_strarr_in_list(&iter, strarr, pd);
+	pd->lists[file_association] = g_list_append(pd->lists[file_association], strarr);
+	pd->bd.insertloc = -1;
+}
+
+static void
+delete_fileassociation_lcb(GtkWidget *wid, Tprefdialog *pd)
+{
+	delete_fileassociation_win32(pd);
+
+	pref_delete_strarr(pd, &pd->fad, 3);
+
+	/* Changes need to be saved at this point as the information has been deleted from the registry */
+	preferences_apply(pd);
+}
+
+static void
+create_fileassociation_gui(Tprefdialog *pd, GtkWidget *vbox1)
+{
+	GtkWidget *scrolwin, *hbox, *but;
+	GtkCellRenderer *renderer;
+
+	pd->fad.lstore = gtk_list_store_new(4, G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
+	pd->fad.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->fad.lstore));
+	pref_create_column(GTK_TREE_VIEW(pd->fad.lview), 2, G_CALLBACK(fileassociation_0_toggled_lcb), pd, "", 0, FALSE);
+	pref_create_column(GTK_TREE_VIEW(pd->fad.lview), 1, G_CALLBACK(fileassociation_1_edited_lcb), pd, _("Extension"), 1, FALSE);
+
+	renderer = pref_create_column(GTK_TREE_VIEW(pd->fad.lview), 4, G_CALLBACK(fileassociation_2_edited_lcb), pd, _("Mime-Type"), 2, FALSE);
+	/* Populate mime-type combobox */
+	GtkListStore *comboboxlist = gtk_list_store_new(1, G_TYPE_STRING);
+	GtkTreeIter iter;
+	GList *mimelist = langmgr_get_languages_mimetypes();
+	GList *tmplist = g_list_first(g_list_sort(mimelist, (GCompareFunc)g_strcmp0));
+	while (tmplist)
+	{
+		gtk_list_store_append(comboboxlist, &iter);
+		gtk_list_store_set(comboboxlist, &iter, 0, tmplist->data, -1);
+		tmplist = g_list_next(tmplist);
+	}
+	g_object_set(renderer, "editable", TRUE, "has-entry", FALSE, "model", comboboxlist, "text-column", 0, NULL);
+
+	scrolwin = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_container_add(GTK_CONTAINER(scrolwin), pd->fad.lview);
+	gtk_widget_set_size_request(scrolwin, 200, 350);
+	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
+					
+	pd->lists[file_association] = duplicate_arraylist(main_v->props.file_association);
+	{
+		GList *tmplist = g_list_first(pd->lists[file_association]);
+		while (tmplist) {
+			gchar **strarr = (gchar **)tmplist->data;
+
+			if (g_strv_length(strarr) == 3) {
+				GtkTreeIter iter;
+				gtk_list_store_append(GTK_LIST_STORE(pd->fad.lstore), &iter);
+				set_fileassociation_strarr_in_list(&iter, strarr, pd);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
+
+	pd->fad.thelist = &pd->lists[file_association];
+	pd->fad.insertloc = -1;
+	g_signal_connect(G_OBJECT(pd->fad.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->fad);
+	g_signal_connect(G_OBJECT(pd->fad.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->fad);
+
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox, FALSE, FALSE, 2);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_ADD, G_CALLBACK(add_fileassociation_lcb), pd, TRUE, FALSE);
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_DELETE, G_CALLBACK(delete_fileassociation_lcb), pd, TRUE, FALSE);
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
+}
+#endif
 
 /****** Text style **************/
 
@@ -1735,6 +2054,10 @@ preferences_destroy_lcb(GtkWidget * widget, Tprefdialog * pd)
 	free_arraylist(pd->lists[templates]);
 	pd->lists[templates] = NULL;
 #endif
+#ifdef WIN32
+	free_arraylist(pd->lists[file_association]);
+	pd->lists[file_association] = NULL;
+#endif
 	free_arraylist(pd->lists[pluginconfig]);
 	pd->lists[pluginconfig] = NULL;
 	/*  g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list)); */
@@ -1881,6 +2204,11 @@ preferences_apply(Tprefdialog * pd)
 #ifdef OLDTEMPLATES
 	free_arraylist(main_v->props.templates);
 	main_v->props.templates = duplicate_arraylist(pd->lists[templates]);
+#endif
+#ifdef WIN32
+	register_fileassociations_win32(pd);
+	free_arraylist(main_v->props.file_association);
+	main_v->props.file_association = duplicate_arraylist(pd->lists[file_association]);
 #endif
 	DEBUG_MSG("preferences_apply: free old textstyles, and building new list\n");
 	free_arraylist(main_v->props.textstyles);
@@ -2440,6 +2768,21 @@ preferences_dialog_new(Tbfwin *bfwin)
 	prefs_togglebutton_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[autosave]), hbox);
 	g_signal_connect(G_OBJECT(pd->prefs[autosave]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_lcb),
 					 hbox);
+
+#ifdef WIN32
+	/*
+	 *	File -> File Associations
+	 */
+ 	vbox1 = gtk_vbox_new(FALSE, 5);
+ 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("File Associations"), WIDGETCOL, vbox1, -1);
+	frame = gtk_frame_new(_("File Associations"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 5);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	create_fileassociation_gui(pd, vbox2);
+#endif
+
 #ifdef OLDTEMPLATES
 	/*
 	 *  Templates
