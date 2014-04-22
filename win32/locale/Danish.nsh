@@ -69,7 +69,7 @@
 
 
 
- Content Types
+; Content Types
 !define CT_ADA	"Ada kildefil"
 !define CT_ASP "ActiveServerPage-skript"
 !define CT_SH	"Bash shell-skript"

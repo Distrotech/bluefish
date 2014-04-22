@@ -10,6 +10,7 @@ EXTRA_DIST = \
 	locale/Catalan.nsh \
 	locale/Czech.nsh \
 	locale/Dutch.nsh \
+	locale/Danish.nsh \
 	locale/English.nsh \
 	locale/French.nsh \
 	locale/Galician.nsh \
@@ -19,8 +20,11 @@ EXTRA_DIST = \
 	locale/Japanese.nsh \
 	locale/NorwegianBokmaal.nsh \
 	locale/NorwegianNynorsk.nsh \
+	locale/Polish.nsh \
 	locale/PortugueseBR.nsh \
+	locale/Russian.nsh \
 	locale/SimpChinese.nsh \
+	locale/Spanish.nsh \
 	locale/Swedish.nsh \
 	locale/Ukrainian.nsh \
 	pixmaps/bluefish-ada.ico \
