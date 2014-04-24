@@ -1715,7 +1715,7 @@ static void filetreemodel_finalize(GObject * object)
 	g_hash_table_destroy(ftm->alluri);
 
 	tmplist = g_list_first(ftm->uri_in_refresh);
-	DEBUG_MSG("fb2config_cleanup, stopping all async directory reads\n");
+	DEBUG_MSG("filetreemodel_finalize, stopping all async directory reads\n");
 	while (tmplist) {
 		Turi_in_refresh *uir = tmplist->data;
 		g_cancellable_cancel(uir->cancel);
