@@ -513,7 +513,31 @@ doc_set_tooltip(Tdocument * doc)
 	gchar *sizestr = NULL;
 
 	retstr = g_string_new(_("Name: "));
+	
+#ifdef PLATFORM_DARWIN
+/* For specific UI configuration (narrow filebrowser window, document tabs on top, html toolbar hidden, 
+*  very long file path >60 symbols) tooltips are not shown for several document tabs on the left, most likely
+*  due some bug in gtk+3.6.4 that determines position and size of the tooltip. Below we split file path to two segments that 
+*  results in smaller tooltip window. This hack does not solve issue completely, but reduces probabability of its oscurrence.
+*  There is high probability that this issue affects MacOSX builds only */
+	
+	gchar *seg1, *seg2;
+	const gchar *tmptext;
+	tmptext = gtk_label_get_text(GTK_LABEL(doc->tab_menu));
+	if(!g_utf8_validate (tmptext, -1, NULL) || (g_utf8_strlen(tmptext, -1) < 55)) {
+		retstr = g_string_append(retstr, tmptext);
+	} else {
+		seg1 = g_utf8_substring (tmptext, 0, 45);
+		seg2 = g_utf8_substring (tmptext, 45, g_utf8_strlen(tmptext, -1));
+		retstr = g_string_append(retstr, seg1);
+		retstr = g_string_append(retstr, "\n");
+		retstr = g_string_append(retstr, seg2);
+		g_free(seg1);
+		g_free(seg2);
+	}
+#else
 	retstr = g_string_append(retstr, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
+#endif
 	if (BLUEFISH_TEXT_VIEW(doc->view)->bflang) {
 		retstr = g_string_append(retstr, _("\nLanguage mode: "));
 		retstr = g_string_append(retstr, BLUEFISH_TEXT_VIEW(doc->view)->bflang->name);
