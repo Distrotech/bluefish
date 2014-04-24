@@ -1736,7 +1736,7 @@ buffer_convert_fallback(const gchar *source, const gchar *exceptions, gsize len,
   return dest;
 }
 
-gboolean
+/*gboolean
 utf8_validate_accept_trailing_nul(gchar *buffer, gsize buflen)
 {
 	gboolean ret;
@@ -1747,15 +1747,15 @@ utf8_validate_accept_trailing_nul(gchar *buffer, gsize buflen)
 		return TRUE;
 
 	if (end<=buffer)
-		return FALSE;
+		return FALSE; */
 
 	/* if all characters that are not valid are NUL characters, we accept the conversion */
-	for (i=(end-buffer);i<buflen;i++) {
+	/*for (i=(end-buffer);i<buflen;i++) {
 		if (buffer[i]!=0)
 			return FALSE;
 	}
 	return TRUE;
-}
+} */
 
 /**
  * buffer_find_encoding:
@@ -1770,7 +1770,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 	gchar *newbuf = NULL;
 	gsize wsize, rsize;
 	GError *error = NULL;
-	/*const gchar *end=NULL;*/
+	const gchar *end=NULL;
 	gchar *tmpencoding = NULL;
 	GList *tmplist;
 	gchar endingbyte = '\0';
@@ -1818,12 +1818,12 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 	/* because UTF-8 validation is very critical (very little texts in other encodings actually validate as UTF-8)
 	we do this early in the detection */
 	DEBUG_MSG("buffer_find_encoding, file NOT is converted yet, trying UTF-8 encoding\n");
-	if (/*g_utf8_validate(buffer, buflen, &end)*/ utf8_validate_accept_trailing_nul(buffer, buflen)) {
+	if (g_utf8_validate(buffer, buflen, &end) /*utf8_validate_accept_trailing_nul(buffer, buflen)*/) {
 		*encoding = g_strdup("UTF-8");
 		return g_strdup(buffer);
 	} else {
 		DEBUG_MSG("buffer_find_encoding, failed to validate as UTF-8\n");
-		/*end=NULL;*/
+		end=NULL;
 	}
 
 	if (sessionencoding) {
@@ -1836,7 +1836,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 			g_error_free(error);
 			error=NULL;
 		}
-		if (newbuf && /*g_utf8_validate(newbuf, wsize, NULL)*/utf8_validate_accept_trailing_nul(newbuf, wsize)) {
+		if (newbuf && g_utf8_validate(newbuf, wsize, NULL) /*utf8_validate_accept_trailing_nul(newbuf, wsize)*/) {
 			DEBUG_MSG("buffer_find_encoding, file is in default encoding: %s, newbuf=%p, wsize=%"G_GSIZE_FORMAT", strlen(newbuf)=%zd\n", sessionencoding, newbuf, wsize, strlen(newbuf));
 			*encoding = g_strdup(sessionencoding);
 			return newbuf;
@@ -1847,7 +1847,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 		("buffer_find_encoding, file does not have <meta> encoding, or could not convert, not session encoding, not UTF8, trying newfile default encoding %s\n",
 		 main_v->props.newfile_default_encoding);
 	newbuf = g_convert(buffer, buflen, "UTF-8", main_v->props.newfile_default_encoding, NULL, &wsize, NULL);
-	if (newbuf && /*g_utf8_validate(newbuf, wsize, NULL)*/utf8_validate_accept_trailing_nul(newbuf, wsize)) {
+	if (newbuf && g_utf8_validate(newbuf, wsize, NULL) /*utf8_validate_accept_trailing_nul(newbuf, wsize)*/) {
 		DEBUG_MSG("buffer_find_encoding, file is in default encoding: %s\n",
 				  main_v->props.newfile_default_encoding);
 		*encoding = g_strdup(main_v->props.newfile_default_encoding);
@@ -1857,7 +1857,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 
 	DEBUG_MSG("buffer_find_encoding, file is not in UTF-8, trying encoding from locale\n");
 	newbuf = g_locale_to_utf8(buffer, buflen, NULL, &wsize, NULL);
-	if (newbuf && /*g_utf8_validate(newbuf, wsize, NULL)*/utf8_validate_accept_trailing_nul(newbuf, wsize)) {
+	if (newbuf && g_utf8_validate(newbuf, wsize, NULL) /*utf8_validate_accept_trailing_nul(newbuf, wsize)*/) {
 		const gchar *tmpencoding = NULL;
 		g_get_charset(&tmpencoding);
 		DEBUG_MSG("buffer_find_encoding, file is in locale encoding: %s\n", tmpencoding);
@@ -1878,7 +1878,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 				g_error_free(error);
 				error = NULL;
 			}
-			if (newbuf && /*g_utf8_validate(newbuf, wsize, NULL)*/utf8_validate_accept_trailing_nul(newbuf, wsize)) {
+			if (newbuf && g_utf8_validate(newbuf, wsize, NULL) /*utf8_validate_accept_trailing_nul(newbuf, wsize)*/) {
 				*encoding = g_strdup(enc[1]);
 				return newbuf;
 			}
@@ -1896,7 +1896,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 				g_error_free(error);
 				error = NULL;
 			}
-			if (newbuf && /*g_utf8_validate(newbuf, wsize, NULL)*/utf8_validate_accept_trailing_nul(newbuf, wsize)) {
+			if (newbuf && g_utf8_validate(newbuf, wsize, NULL) /*utf8_validate_accept_trailing_nul(newbuf, wsize)*/) {
 				*encoding = g_strdup(enc[1]);
 				return newbuf;
 			}
@@ -1904,6 +1904,28 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 		}
 		tmplist = g_list_next(tmplist);
 	}
+	return NULL;
+}
+	
+gchar *
+buffer_use_fallback_encoding(gchar * buffer, gsize buflen, gsize *replaced)
+{
+	/* Fallback converter that theoretically should never fail */
+	gchar *fallback_string, *newbuf;
+	gsize repl;
+	gsize wsize, rsize;
+	
+	fallback_string = buffer_convert_fallback(buffer, NULL, buflen, &repl);
+	DEBUG_MSG("buffer_use_fallback_encoding, executed fallback converter, lenght og new string=%zd , replacements=%lu\n", strlen(fallback_string), repl);
+	newbuf = g_convert(fallback_string, buflen, "UTF-8", "WINDOWS-1252", &rsize, &wsize, NULL);
+	g_free(fallback_string);
+	if (newbuf && g_utf8_validate(newbuf, wsize, NULL)) {
+		if(replaced) {
+			*replaced = repl;
+		}
+		return newbuf;
+	}
+	g_free(newbuf);
 	return NULL;
 }
 
@@ -2010,11 +2032,36 @@ doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean en
 
 	newbuf = buffer_find_encoding(buffer, buflen, &encoding, BFWIN(doc->bfwin)->session->encoding);
 
-	if (!newbuf) {
-		message_dialog_new(BFWIN(doc->bfwin)->main_window,
-						   GTK_MESSAGE_ERROR,
-						   GTK_BUTTONS_CLOSE, _("Cannot display file, unknown characters found."), NULL);
-		return FALSE;
+	if(!newbuf) {
+		gint response;
+		gchar *utf8name, *tmpstr;
+		gsize replaced;
+		const gchar *buttons[] = { _("_Close"), _("_Convert"), NULL };
+		utf8name = gfile_display_name(doc->uri, NULL);
+		tmpstr =
+				g_strdup_printf(_
+								("File '%s' is not a valid text file.\nThe file might be corrupted, truncated, or in an unexpected encoding."), utf8name);
+		response = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_WARNING, buttons, tmpstr,
+						_("Bluefish can convert this file into a valid one by replacing illegal symbols with spaces. Convert?"));
+		g_free(tmpstr);
+		g_free(utf8name);
+		if(response == 0) {
+			return FALSE;
+		}
+		replaced = 0;	
+		newbuf = buffer_use_fallback_encoding(buffer, buflen, &replaced);
+		encoding = g_strdup("WINDOWS-1252");
+		if (replaced !=0) {
+			tmpstr =
+				g_strdup_printf(_
+							("File is opened in read-only mode since it differs from original one.\n%lu characters were replaced by space"), replaced);
+			message_dialog_new(BFWIN(doc->bfwin)->main_window,
+						   GTK_MESSAGE_WARNING,
+						   GTK_BUTTONS_OK, tmpstr, _("Use 'Save As' to save it with different name and make editable"));
+		
+			doc_set_readonly(doc, TRUE);
+			g_free(tmpstr);
+		}
 	}
 	DEBUG_MSG("doc_buffer_to_textbox, will set encoding to %s\n", encoding);
 	if (doc->encoding)

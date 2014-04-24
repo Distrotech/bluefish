@@ -832,10 +832,7 @@ file2doc_finished_idle_lcb(gpointer data)
 		GtkTextIter itstart, itend;
 
 		f2d->recovery_status = 2;
-		conversion_status = doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
-		if(!conversion_status) {
-			doc_set_readonly(f2d->doc, TRUE);
-		}
+		doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
 		DEBUG_MSG("file2doc_finished_idle_lcb, recovery of existing file, inserted original file\n");
 		f2d->doc->block_undo_reg = TRUE;
 		doc_unre_new_group(f2d->doc);
@@ -847,7 +844,14 @@ file2doc_finished_idle_lcb(gpointer data)
 	} else if (f2d->recovery_status == 2) {
 		conversion_status = doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
 		if(!conversion_status) {
-			doc_set_readonly(f2d->doc, TRUE);
+			g_warning("file2doc_finished_idle_lcb, file=%p failed to open, closing backend", f2d->doc);
+			bfwin_docs_not_complete(f2d->bfwin, FALSE);
+			f2d->doc->status = DOC_STATUS_ERROR;
+			f2d->doc->load = NULL;
+			doc_close_single_backend(f2d->doc, FALSE, FALSE);
+			file2doc_cleanup(data);
+			refcpointer_unref(refp);
+			return FALSE;
 		}
 		doc_unre_add(f2d->doc, f2d->buffer->data, 0, g_utf8_strlen(f2d->buffer->data, f2d->buflen), UndoInsert);
 		f2d->doc->block_undo_reg = FALSE;
@@ -866,7 +870,14 @@ file2doc_finished_idle_lcb(gpointer data)
 	} else {
 		conversion_status = doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
 		if(!conversion_status) {
-			doc_set_readonly(f2d->doc, TRUE);
+			g_warning("file2doc_finished_idle_lcb, file=%p failed to open, closing backend", f2d->doc);
+			bfwin_docs_not_complete(f2d->bfwin, FALSE);
+			f2d->doc->status = DOC_STATUS_ERROR;
+			f2d->doc->load = NULL;
+			doc_close_single_backend(f2d->doc, FALSE, FALSE);
+			file2doc_cleanup(data);
+			refcpointer_unref(refp);
+			return FALSE;
 		}
 		doc_reset_filetype(f2d->doc, f2d->doc->uri, f2d->buffer->data, f2d->buflen);
 		doc_set_tooltip(f2d->doc);
