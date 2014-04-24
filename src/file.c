@@ -1026,7 +1026,13 @@ fill_fileinfo_lcb(GObject * source_object, GAsyncResult * res, gpointer user_dat
 			g_print("no file size in file info ???\n");
 		}
 #endif
-		/*doc_set_tooltip(fi->doc); */
+#ifdef PLATFORM_DARWIN
+		/* I did not noticed any issues on MacOSX.. Issue might depend on glib version (I use 2.38.0), SSD type or filesystem type
+		*  Enabled for MacOSX builds only, other platforms needs extra testing*/
+		doc_set_tooltip(fi->doc);
+#else
+		/*doc_set_tooltip(fi->doc);*/
+#endif
 	} else if (error) {
 		if (error->code == G_IO_ERROR_NOT_MOUNTED) {
 			if (gmo == NULL) {
