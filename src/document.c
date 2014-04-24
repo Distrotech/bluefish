@@ -1966,7 +1966,7 @@ check_very_long_line(Tdocument *doc, gchar *buffer)
 			curline=0;
 			for (i=0;buffer[i]!='\0';i++) {
 				if (curline > MIN_TOO_LONG_LINE && (buffer[i] == ' ' || buffer[i] == '\t')) {
-					DEBUG_MSG("check_very_long_line, replace space or tab at position %d with newline\n",i);
+					DEBUG_MSG("check_very_long_line, replace space or tab at position %lu with newline\n",i);
 					buffer[i] = '\n';
 					curline = 0;
 				} else if (curline > MAX_TOO_LONG_LINE && (
