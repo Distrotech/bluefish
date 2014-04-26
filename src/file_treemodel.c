@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include "bluefish.h"
 #include "file_treemodel.h"
+#include "filebrowser2.h"
 #include "bf_lib.h"
 
 static void filetreemodel_init(FileTreemodel * pkg_tree);
@@ -891,6 +892,10 @@ static void enumerate_children_lcb(GObject * source_object, GAsyncResult * res, 
 	GError *gerror = NULL;
 	uir->gfe = g_file_enumerate_children_finish(uir->uri, res, &gerror);
 	if (gerror) {
+		g_warning("enumerate_children_lcb, failed to list directory in filebrowser: %s (%d)\n", gerror->message, gerror->code);
+		/*check if failed uri is not basedir and reset it*/
+		fb2_check_reset_basedir(uir->uri);
+		
 		if (gerror->code == 14 /* 14 = permission denied, delete any children */ ) {
 			ftm_delete_children(uir->ftm, uir->precord, FALSE);
 			uir->dir_changed = TRUE;
@@ -904,7 +909,6 @@ static void enumerate_children_lcb(GObject * source_object, GAsyncResult * res, 
 			ftm_remove(uir->ftm, uir->precord, FALSE);
 			uir->dir_changed = TRUE;
 		}
-		g_warning("failed to list directory in filebrowser: %s (%d)\n", gerror->message, gerror->code);
 		g_error_free(gerror);
 		uri_in_refresh_cleanup(uir->ftm, uir);
 		return;

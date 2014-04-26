@@ -1908,6 +1908,48 @@ fb2_set_basedir(Tfilebrowser2 *fb2, GFile *dir_uri)
 		add_uri_to_recent_dirs(fb2, dir_uri);
 }
 
+/* reset basedir to HOME */
+gboolean
+fb2_check_reset_basedir(GFile *uri)
+{
+	GList *tmplist;
+	GFile *fallback_basedir;
+	gboolean retval;
+	Tfilebrowser2 * fb2;
+	retval=FALSE;
+	tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		fb2 = BFWIN(tmplist->data)->fb2;
+		if (fb2->basedir && (fb2->basedir == uri || g_file_equal(fb2->basedir, uri))) {
+			/* Reset basedir to some location that is known to exist */
+			g_warning("fb2_check_reset_basedir, basedir %s does not exists, setting basedir to $HOME", g_file_get_path(uri));
+			retval=TRUE;
+			fallback_basedir = g_file_new_for_path(g_get_home_dir()); /*If  basedir is not valid default to home directory */
+			fb2_set_basedir(fb2, fallback_basedir);
+			fb2_set_dirmenu(fb2, fallback_basedir, FALSE);
+			if (fb2->filebrowser_viewmode == viewmode_dual) {
+				set_file_v_root(fb2, fallback_basedir);
+			}
+			filetreemodel_refresh_uri_async(FB2CONFIG(main_v->fb2config)->ftm, fallback_basedir);
+			/* now expand it */
+			GtkTreePath *fs_path, *filter_path;
+			fs_path = treepath_for_uri(fb2, fallback_basedir);
+			if (fs_path) {
+				filter_path = dir_v_filter_path_from_treestore_path(fb2, fs_path);
+				if (filter_path) {
+					expand_without_directory_refresh(fb2, filter_path);
+					gtk_tree_path_free(filter_path);
+				}
+				gtk_tree_path_free(fs_path);
+			}
+			g_object_unref(fallback_basedir);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(tmplist);
+	return retval;
+}
+
 static void
 dir_v_row_expanded_lcb(GtkTreeView * tree, GtkTreeIter * sort_iter,
 					   GtkTreePath * sort_path, Tbfwin *bfwin)
@@ -2510,16 +2552,6 @@ fb2_update_settings_from_session(Tbfwin * bfwin, Tdocument *active_doc)
 			GtkTreePath *fs_path, *filter_path;
 			GFile *uri = g_file_new_for_uri(strcmp(tmp,"file:///")==0?tmp:strip_trailing_slash((gchar *) tmp));
 			DEBUG_MSG("fb2_update_settings_from_session, set basedir %p\n",uri);
-			/* Check if basedir exists here since non-existing basedir will cause issues
-
-			TODO: this code slows down the main window if you load files from a remote
-			server over a slow connection because this code runs synchronous (so it will block the GUI).
-			we should do this somehow in the	asynchronous callbacks */
-			if (!g_file_query_exists(uri,NULL)) {
-				g_warning("fb2_update_settings_from_session, basedir %s does not exists, setting basedir to $HOME", g_file_get_path(uri));
-				g_object_unref(uri);
-				uri = g_file_new_for_path(g_get_home_dir()); /*If  basedir is not valid default to home directory */
-			}
 			fb2_set_basedir(fb2, uri);
 			fb2_set_dirmenu(fb2, uri, FALSE);
 			if (fb2->filebrowser_viewmode == viewmode_dual) {
