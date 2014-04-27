@@ -1979,7 +1979,7 @@ check_very_long_line(Tdocument *doc, gchar *buffer)
 								buffer[i] == '+' ||
 								buffer[i] == '-'
 								)) {
-					DEBUG_MSG("check_very_long_line, insert newline at %d, move buffer %p to %p, %d bytes\n",i, buffer+i+1,buffer+i, buflen-i+inserted);
+					DEBUG_MSG("check_very_long_line, insert newline at %lu, move buffer %p to %p, %lu bytes\n",i, buffer+i+1,buffer+i, buflen-i+inserted);
 					memmove(buffer+i+1, buffer+i, buflen-i+inserted);
 					buffer[i] = '\n';
 					inserted++;
