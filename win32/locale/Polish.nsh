@@ -5,7 +5,7 @@
 ;  The Bluefish Developers
 ;
 ;  Translators:
-;   Quick-Master SI, Paweł Worobiak <dawajpoczte@gmail.com>
+;  Paweł W. <dawajpoczte@gmail.com>, 2011-2014
 ;----------------------------------------------
 
 ; Section Names

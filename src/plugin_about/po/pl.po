@@ -1,13 +1,13 @@
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Oskar Świda <swida@aragorn.pb.bialystok.pl>, 2004
-# Quick-Master SI, Paweł Worobiak <dawajpoczte@gmail.com>, 2011-2012
+# Paweł W. <dawajpoczte@gmail.com>, 2011-2014
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-03-24 22:20-0700\n"
-"PO-Revision-Date: 2011-12-14 19:11+0100\n"
+"POT-Creation-Date: 2014-03-07 10:34+0100\n"
+"PO-Revision-Date: 2014-04-10 20:58+0100\n"
 "Last-Translator: Quick-Master SI <dawajpoczte@gmail.com>\n"
 "Language-Team: None\n"
 "Language: pl\n"
@@ -17,8 +17,7 @@ msgstr ""
 
 #: src/plugin_about/about.c:85
 msgid "This version of Bluefish was built with:\n"
-msgstr ""
-"Ta wersja Bluefish została zbudowana przy użyciu następujących opcji:\n"
+msgstr "Ta wersja Bluefish została zbudowana przy użyciu następujących opcji:\n"
 
 #: src/plugin_about/about.c:205
 msgid ""
@@ -37,7 +36,6 @@ msgstr ""
 "Opiekunowie paczki:"
 
 #: src/plugin_about/about.c:228
-#, fuzzy
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
@@ -45,14 +43,13 @@ msgid ""
 msgstr ""
 "\n"
 "Jeśli ktoś na tej liście został pominięty,\n"
-"proszę powiadom nas: <bluefish@bluefish.openoffice.nl>."
+"proszę powiadom nas:"
 
 #: src/plugin_about/about.c:229
 msgid "bluefish@bluefish.openoffice.nl <bluefish@bluefish.openoffice.nl>"
-msgstr ""
+msgstr "bluefish@bluefish.openoffice.nl <bluefish@bluefish.openoffice.nl>"
 
 #: src/plugin_about/about.c:230
-#, fuzzy
 msgid ""
 "\n"
 "Thanks to all who helped make this software available.\n"
@@ -61,14 +58,8 @@ msgstr ""
 "Dziękujemy wszystkim, którzy przyczynili się do rozwoju tego oprogramowania."
 
 #: src/plugin_about/about.c:266
-msgid ""
-"An open-source editor for experienced web designers and programmers, "
-"supporting many programming and markup languages, but focusing on creating "
-"dynamic and interactive websites."
-msgstr ""
-"Otwarto źródłowy edytor dla doświadczonych webmasterów i programistów, "
-"wspierający wiele języków programowania, ale skupiający się na tworzeniu "
-"dynamicznych i interaktywnych serwisów www."
+msgid "An open-source editor for experienced web designers and programmers, supporting many programming and markup languages, but focusing on creating dynamic and interactive websites."
+msgstr "Otwarto źródłowy edytor dla doświadczonych webmasterów i programistów, wspierający wiele języków programowania, ale skupiający się na tworzeniu dynamicznych i interaktywnych serwisów www."
 
 #. Translators: This is a special message that shouldn't be translated
 #. * literally. It is used in the about box to give credits to
@@ -121,3 +112,4 @@ msgstr "Informacje o wersji"
 #: src/plugin_about/about.c:380
 msgid "Build info"
 msgstr "Informacje o wersji"
+
