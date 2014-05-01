@@ -323,11 +323,11 @@ bfwin_side_panel_show_hide_toggle(Tbfwin * bfwin, gboolean first_time, gboolean 
 						 G_CALLBACK(side_panel_notify_position), bfwin);
 		bfwin->leftpanel_notebook = side_panel_build(bfwin);
 		if (main_v->props.left_panel_left) {
-			gtk_paned_pack1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook, FALSE, TRUE);
-			gtk_paned_pack2(GTK_PANED(bfwin->hpane), bfwin->notebook_box, TRUE, TRUE);
+			gtk_paned_pack1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook, FALSE, FALSE);
+			gtk_paned_pack2(GTK_PANED(bfwin->hpane), bfwin->notebook_box, TRUE, FALSE);
 		} else {
-			gtk_paned_pack1(GTK_PANED(bfwin->hpane), bfwin->notebook_box, TRUE, TRUE);
-			gtk_paned_pack2(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook, FALSE, TRUE);
+			gtk_paned_pack1(GTK_PANED(bfwin->hpane), bfwin->notebook_box, TRUE, FALSE);
+			gtk_paned_pack2(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook, FALSE, FALSE);
 		}
 		gtk_box_pack_start(GTK_BOX(bfwin->middlebox), bfwin->hpane, TRUE, TRUE, 0);
 		gtk_widget_show(bfwin->hpane);
