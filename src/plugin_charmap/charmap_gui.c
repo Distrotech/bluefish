@@ -182,7 +182,12 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 #endif
 #ifdef HAVE_LIBGUCHARMAP_2
 	cm->gcm = gucharmap_chartable_new();
+#ifdef PLATFORM_DARWIN
+	fontdesc = pango_font_description_from_string("Lucida Grande 12");
+	gtk_widget_add_events (cm->gcm, GDK_SMOOTH_SCROLL_MASK);
+#else
 	fontdesc = pango_font_description_from_string("sans 12");
+#endif
 	gucharmap_chartable_set_font_desc((GucharmapChartable *)cm->gcm, fontdesc);
 	pango_font_description_free(fontdesc); 
 #endif 
