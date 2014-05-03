@@ -2150,15 +2150,18 @@ dirmenu_changed_lcb(GtkComboBox * widget, gpointer data)
 		}
 	/* TODO check the uri validity here before trying to display it. If  uri is not valid, display error message and remove it from recent_dirs
 	*  Invalid uri will break many things downstream
+	*
+	* TODO: having a synchronous filesystem call here might slow down the GUI when working on a remote server over a
+	* high latency connection. In some way or the other we should get rid of this.
 	*/
 		if (g_file_query_exists(uri,NULL)) {
 			g_object_ref(uri);
 			switch_to_directory(fb2, uri);
 			g_object_unref(uri);
 		} else {
-		remove_uri_from_recent_dirs(fb2, uri);
-		fb2_set_dirmenu(fb2, fb2->currentdir, TRUE);
-		g_object_unref(uri);
+			remove_uri_from_recent_dirs(fb2, uri);
+			fb2_set_dirmenu(fb2, fb2->currentdir, TRUE);
+			g_object_unref(uri);
 		}
 	}
 }
