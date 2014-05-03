@@ -812,7 +812,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 				used_idref=TRUE;
 				if (g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext < 0
 					&& (-1 * g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext) >=
-					g_queue_get_length(contextstack)) {
+					g_queue_get_length(contextstack) && (condition_mode== 0)) {
 					g_print
 						("Possible error in language file, idref %s ends_context=%d, but has only %d parent contexts\n",
 						 idref, ends_context, g_queue_get_length(contextstack));
@@ -828,7 +828,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 			if (ends_context) {
 				/* the nth number in the stack */
 				nextcontext = -1 * ends_context;	/*GPOINTER_TO_INT(g_queue_peek_nth(contextstack,ends_context)); */
-				if (ends_context >= g_queue_get_length(contextstack)) {
+				if (ends_context >= g_queue_get_length(contextstack) && (condition_mode== 0)) {
 					g_print
 						("Possible error in language file, id %s / pattern %s has ends_context=%d, but has only %d parent contexts\n",
 						 id?id:"-", pattern?pattern:"null", ends_context, g_queue_get_length(contextstack));
@@ -894,7 +894,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 					name = xmlTextReaderName(reader);
 					if (xmlStrEqual(name, (xmlChar *) "context")) {
 						if (processed_context) {
-							g_print("Error in language file: element %s / %s has multiple inner contexts\n",id,pattern);
+							g_print("Error in language file: element %s with pattern %s has multiple inner contexts\n",id?id:"without id",pattern);
 						}
 						DBG_PARSING("in pattern, found countext\n");
 						nextcontext = process_scanning_context(reader, bfparser, contextstack);
@@ -1450,8 +1450,8 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 			g_print("Error in language file: context with id %s does not exist\n",idref);
 		}
 #ifdef DEVELOPMENT
-		if (context == 0) {
-			g_print("Context has idref=%s which does not exist, isempty=%d, id=%s\n",idref,isempty,id);
+		if (context == 0 && (!id || isempty)) {
+			g_print("Context has idref=%s, which does not exist, isempty=%d, id=%s\n",idref,isempty,id);
 		}
 #endif
 		g_free(idref);
