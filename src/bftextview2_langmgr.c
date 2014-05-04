@@ -152,7 +152,7 @@ static void
 ldb_stack_push(Tlangdebug *ldb, const gchar *string)
 {
 	ldb->stack = g_list_prepend(ldb->stack, g_strdup(string));
-	g_print("langdebug stack push: have %d entries on stack, pushed %s\n",g_list_length(ldb->stack),string);
+	/*g_print("langdebug stack push: have %d entries on stack, pushed %s\n",g_list_length(ldb->stack),string);*/
 }
 
 static void
@@ -163,7 +163,7 @@ ldb_stack_pop(Tlangdebug *ldb)
 		g_warning("ldb_stack_pop, noting on the stack\n");
 		return;
 	}
-	g_print("langdebug stack pop: have %d entries on stack, popped %s\n",g_list_length(ldb->stack)-1,(gchar *)tmplist->data);
+	/*g_print("langdebug stack pop: have %d entries on stack, popped %s\n",g_list_length(ldb->stack)-1,(gchar *)tmplist->data);*/
 	g_free(tmplist->data);
 	ldb->stack = g_list_delete_link(ldb->stack, tmplist);
 }
@@ -970,7 +970,6 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 	}
 	/* TODO cleanup! */
 	free_autocomplete(autocomplete);
-	g_print("about to call ldb_stack_pop\n");
 	ldb_stack_pop(&bfparser->ldb);
 
 	if (pattern)
@@ -1541,6 +1540,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 				xmlFree(name);
 				DBG_PARSING("parsing context, end-of-context, return context %d\n", context);
 				g_queue_pop_head(contextstack);
+				ldb_stack_pop(&bfparser->ldb);
 				return context;
 			} else {
 				/* a context inside a context is usually a context that is referred to by various other elements or tags */
