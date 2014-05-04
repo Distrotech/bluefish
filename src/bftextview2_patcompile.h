@@ -30,7 +30,7 @@ void match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 con
 void match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * autocomplete_string,
 							 const gchar * autocomplete_append, guint8 autocomplete_backup_cursor);
 void match_set_reference(Tscantable * st, guint16 matchnum, const gchar * reference);
-void compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context);
+void compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context, gpointer ldb);
 void pattern_set_condition(Tscantable * st, guint16 matchnum, gchar *refname, gint relation, gint mode);
 void
 pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
@@ -55,7 +55,7 @@ guint16
 add_pattern_to_scanning_table(Tscantable * st, const gchar * pattern,
 								gboolean is_regex,
 								gboolean case_insens,
-								gint16 context);
+								gint16 context, gpointer ldb);
 
 
 /*guint16 add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * lang,

@@ -21,6 +21,12 @@
 #define _BFTEXTVIEW2_LANGMGR_H_
 
 #include "bftextview2.h"
+typedef struct {
+	GList *stack; /* a list of context-id's (or "nameless-context") and group-id's (or "nameless-group"), etc., that has the most recent parsed on top, and the root context at the bottom */
+} Tlangdebug;
+
+gchar *ldb_stack_string(gpointer ldb);
+
 const gchar *lookup_user_option(const gchar * lang, const gchar * option);
 void langmgr_add_custom_mime(Tbflang *bflang, const gchar *mime);
 void langmgr_reload_user_options(void);

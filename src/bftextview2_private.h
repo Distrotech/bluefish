@@ -101,10 +101,10 @@ typedef struct {
 #ifdef CONDITIONALPATTERN
 typedef struct {
 	gchar *refname; 	/* because we can match the name only after all contexts are loaded, we store it in the structure */
-	guint16 ref; 			/* if the reference was a context, the ID of that context, if the reference 
+	guint16 ref; 			/* if the reference was a context, the ID of that context, if the reference
 									was a pattern, the ID of that pattern, otherwise 0 */
 	gint8 parentrelation; /* -1 means any parent, 0 = direct parent, 1= grandparent, etc. */
-	guint8 relationtype; /* 1 = valid if relation with context matches, 
+	guint8 relationtype; /* 1 = valid if relation with context matches,
 									2 = invalid if relation with context matches,
 									3 = valid if relation with block matches
 									4 = invalid if relation with block matches
@@ -124,7 +124,7 @@ typedef struct {
 	GtkTextTag *selftag;		/* the tag used to highlight this pattern */
 	gchar *reference;			/* the reference data, or NULL. may be inserted in hash tables for multiple keys in multiple contexts */
 	gchar *pattern;				/* the pattern itself. stored in the Tpattern so we can re-use it in another context */
-	GSList *autocomp_items; /* a list of Tpattern_autocomplete - a pattern can autocomplete in multiple ways, for 
+	GSList *autocomp_items; /* a list of Tpattern_autocomplete - a pattern can autocomplete in multiple ways, for
 										example with and without closing tag, or with and without function arguments.
 										to be able to recompile a pattern in multiple contexts we need this information in Tpattern */
 	gchar *selfhighlight;		/* a string with the highlight for this pattern. used when re-linking highlights and textstyles

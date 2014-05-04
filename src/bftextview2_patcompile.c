@@ -574,7 +574,7 @@ process_regex_part(Tscantable * st, gchar * regexpart, gint16 context, gboolean 
 
 static void
 compile_limitedregex_to_DFA(Tscantable * st, gchar * input, gboolean caseinsensitive, guint16 matchnum,
-							gint16 context)
+							gint16 context, gpointer ldb)
 {
 	GQueue *positions, *newpositions;
 	gchar *lregex;
@@ -599,9 +599,11 @@ compile_limitedregex_to_DFA(Tscantable * st, gchar * input, gboolean caseinsensi
 		DBG_PATCOMPILE("mark state %d as possible end-state\n", p);
 		if (get_tablerow(st, context, p).match != 0
 			&& get_tablerow(st, context, p).match != matchnum) {
-			g_print("Error in language file, patterns %s and %s in context %d overlap each other\n", input,
+			gchar *dbstring = ldb_stack_string(ldb);
+			g_print("Error in language file %s: patterns %s and %s in context %d overlap each other\n", dbstring, input,
 					g_array_index(st->matches, Tpattern,
 								  get_tablerow(st, context, p).match).pattern, context);
+			g_free(dbstring);
 		} else {
 			get_tablerow(st, context, p).match = matchnum;
 		}
@@ -621,7 +623,7 @@ compile_limitedregex_to_DFA(Tscantable * st, gchar * input, gboolean caseinsensi
 just full keywords */
 static void
 compile_keyword_to_DFA(Tscantable * st, const gchar * keyword, guint16 matchnum, gint16 context,
-					   gboolean case_insens)
+					   gboolean case_insens, gpointer ldb)
 {
 	gint i, len;
 	GQueue *positions, *newpositions;
@@ -665,10 +667,12 @@ compile_keyword_to_DFA(Tscantable * st, const gchar * keyword, guint16 matchnum,
 				DBG_PATCOMPILE("mark state %d as possible end-state\n", p);
 				if (get_tablerow(st, context, p).match != 0
 					&& get_tablerow(st, context, p).match != matchnum) {
-					g_print("Error in language file: patterns %s and %s in context %d overlap each other\n",
-							keyword, g_array_index(st->matches, Tpattern,
+					gchar *dbstring = ldb_stack_string(ldb);
+					g_print("Error in language file %s: patterns %s and %s in context %d overlap each other\n",
+							dbstring, keyword, g_array_index(st->matches, Tpattern,
 												   get_tablerow(st, context, p).match).pattern,
 							context);
+					g_free(dbstring);
 				}
 				get_tablerow(st, context, p).match = matchnum;
 			}
@@ -842,17 +846,17 @@ match_set_reference(Tscantable * st, guint16 matchnum, const gchar * reference)
 }
 
 void
-compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context)
+compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context, gpointer ldb)
 {
 	DBG_PATCOMPILE("compile existing match %d (%s) in context %d\n", matchnum,
 				   g_array_index(st->matches, Tpattern, matchnum).pattern, context);
 	if (g_array_index(st->matches, Tpattern, matchnum).is_regex) {
 		compile_limitedregex_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern,
 									g_array_index(st->matches, Tpattern, matchnum).case_insens, matchnum,
-									context);
+									context, ldb);
 	} else {
 		compile_keyword_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern, matchnum, context,
-							   g_array_index(st->matches, Tpattern, matchnum).case_insens);
+							   g_array_index(st->matches, Tpattern, matchnum).case_insens, ldb);
 	}
 	match_autocomplete_reference(st, matchnum, context);
 }
@@ -934,7 +938,7 @@ guint16
 add_pattern_to_scanning_table(Tscantable * st, const gchar * pattern,
 								gboolean is_regex,
 								gboolean case_insens,
-								gint16 context)
+								gint16 context, gpointer ldb)
 {
 	guint16 matchnum;
 	if (!pattern || pattern[0] == '\0') {
@@ -951,9 +955,9 @@ add_pattern_to_scanning_table(Tscantable * st, const gchar * pattern,
 	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
 	DBG_PATCOMPILE("add_pattern_to_scanning_table,pattern=%s for context=%d got matchnum %d\n",pattern, context, matchnum);
 	if (is_regex) {
-		compile_limitedregex_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern, case_insens, matchnum, context);
+		compile_limitedregex_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern, case_insens, matchnum, context, ldb);
 	} else {
-		compile_keyword_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern, matchnum, context, case_insens);
+		compile_keyword_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern, matchnum, context, case_insens, ldb);
 	}
 	/*if (g_strcmp0(pattern, "rem ")==0 || g_strcmp0(pattern, "\\.?[a-zA-Z][a-zA-Z_0-9]*[\\$%]?")==0) {
 		print_DFA_subset(st, context, "rem var");

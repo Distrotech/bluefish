@@ -42,8 +42,9 @@
 #define DBG_MSG g_print*/
 
 typedef struct {
-	GHashTable *patterns;
-	GHashTable *contexts;
+	GHashTable *patterns; /* key is the id, value is the number */
+	GHashTable *contexts; /* key is the id, value is the number */
+	Tlangdebug ldb;
 	Tscantable *st;				/* while not finished */
 	GHashTable *commentid_table;	/* a hash table with a comment ID string as key and an integer position in the GArray as value */
 	gchar *smartindentchars;
@@ -130,6 +131,42 @@ arr2_hash(gconstpointer v)
 }
 
 /* langmgr code */
+
+gchar *
+ldb_stack_string(gpointer ldb)
+{
+	GList *tmplist = g_list_last(((Tlangdebug *)ldb)->stack);
+	GString *str;
+	if (!tmplist)
+		return g_strdup("");
+	str = g_string_new(tmplist->data);
+	while(tmplist) {
+		g_string_append(str," / ");
+		g_string_append(str,tmplist->data);
+		tmplist = g_list_previous(tmplist);
+	}
+	return g_string_free(str, FALSE);
+}
+
+static void
+ldb_stack_push(Tlangdebug *ldb, const gchar *string)
+{
+	ldb->stack = g_list_prepend(ldb->stack, g_strdup(string));
+	g_print("langdebug stack push: have %d entries on stack, pushed %s\n",g_list_length(ldb->stack),string);
+}
+
+static void
+ldb_stack_pop(Tlangdebug *ldb)
+{
+	GList *tmplist = ldb->stack;
+	if (!tmplist) {
+		g_warning("ldb_stack_pop, noting on the stack\n");
+		return;
+	}
+	g_print("langdebug stack pop: have %d entries on stack, popped %s\n",g_list_length(ldb->stack)-1,(gchar *)tmplist->data);
+	g_free(tmplist->data);
+	ldb->stack = g_list_delete_link(ldb->stack, tmplist);
+}
 
 static void
 skip_to_end_tag(xmlTextReaderPtr reader, int depth)
@@ -445,7 +482,7 @@ build_lang_finished_lcb(gpointer data)
 	g_hash_table_destroy(bfparser->patterns);
 	g_hash_table_destroy(bfparser->contexts);
 	g_hash_table_destroy(bfparser->commentid_table);
-	/*g_hash_table_destroy(bfparser->setoptions); */
+	g_list_free_full(bfparser->ldb.stack,g_free);
 	g_slice_free(Tbflangparsing, bfparser);
 	return FALSE;
 }
@@ -786,6 +823,8 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 					{"condition_relation", &condition_relation, attribtype_int},
 					};
 	parse_attributes(bfparser->bflang,reader, attribs, 23);
+	ldb_stack_push(&bfparser->ldb, id?id:(idref?idref:(pattern?pattern:"empty-element")));
+
 #ifdef DEVELOPMENT
 /*	if (g_strcmp0(id,"e.css.in_style_attribute.dquote")==0) {
 		g_print("e.css.in_style_attribute.dquote has condition_mode=%d and contextref=%s\n",condition_mode,condition_contextref);
@@ -808,7 +847,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 			if (!matchnum && !pattern) {
 				g_print("Error in language file, element with id %s does not exist\n", idref);
 			} else if (matchnum) {
-				compile_existing_match(bfparser->st, matchnum, context);
+				compile_existing_match(bfparser->st, matchnum, context, &bfparser->ldb);
 				used_idref=TRUE;
 				if (g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext < 0
 					&& (-1 * g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext) >=
@@ -848,7 +887,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 								pattern,
 								is_regex != UNDEFINED ? is_regex : (ih_is_regex !=UNDEFINED ? ih_is_regex : FALSE),
 								case_insens != UNDEFINED ? case_insens : (ih_case_insens != UNDEFINED ? ih_case_insens :FALSE),
-								context);
+								context, &bfparser->ldb);
 			if (block_name) {
 				foldable = lookup_block_foldable(bfparser->bflang->name, block_name);
 			}
@@ -931,6 +970,8 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 	}
 	/* TODO cleanup! */
 	free_autocomplete(autocomplete);
+	g_print("about to call ldb_stack_pop\n");
+	ldb_stack_pop(&bfparser->ldb);
 
 	if (pattern)
 		xmlFree(pattern);
@@ -944,6 +985,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 	/*if (blockhighlight) xmlFree(blockhighlight); */
 	if (class)
 		xmlFree(class);
+
 	return matchnum;
 }
 
@@ -964,10 +1006,10 @@ add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringnam
 	strcontext = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, contextname));
 	if (strcontext == 0) {
 		strcontext = new_context(bfparser->st, 4, bfparser->bflang->name, (gchar *)singlematch, stringhighlight, FALSE, FALSE);
-		endmatch = add_pattern_to_scanning_table(bfparser->st, singlematch, FALSE, FALSE, strcontext);
+		endmatch = add_pattern_to_scanning_table(bfparser->st, singlematch, FALSE, FALSE, strcontext, &bfparser->ldb);
 		pattern_set_runtime_properties(bfparser->st, endmatch, stringhighlight,-1,FALSE,FALSE,0,FALSE,FALSE);
 	}
-	matchstring = add_pattern_to_scanning_table(bfparser->st, singlematch, FALSE, FALSE, contexttag);
+	matchstring = add_pattern_to_scanning_table(bfparser->st, singlematch, FALSE, FALSE, contexttag, &bfparser->ldb);
 	pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,strcontext,FALSE,FALSE,0,FALSE,FALSE);
 	if (val && val[0]=='1') {
 		pattern_set_blockmatch(bfparser->st, matchstring,TRUE,FALSE,0,NULL,NULL,FALSE);
@@ -986,7 +1028,7 @@ add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint co
 {
 	guint16 attrmatch;
 	if (strchr(attrstring, '=')== NULL) {
-		attrmatch = add_pattern_to_scanning_table(bfparser->st, attrstring, FALSE, TRUE, contexttag);
+		attrmatch = add_pattern_to_scanning_table(bfparser->st, attrstring, FALSE, TRUE, contexttag, &bfparser->ldb);
 		pattern_set_runtime_properties(bfparser->st, attrmatch,attribhighlight, 0, FALSE, FALSE,0, FALSE, FALSE);
 		match_add_autocomp_item(bfparser->st, attrmatch, NULL,attrib_autocomplete_append,attrib_autocomplete_backup_cursor);
 		match_autocomplete_reference(bfparser->st, attrmatch, contexttag);
@@ -1002,7 +1044,7 @@ add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint co
 			g_warning("attribute %s refers to context %s which does not (yet) exist\n",splitted[0],splitted[1]);
 		}
 		tmp = g_strdup_printf("%s[ \t]*=", splitted[0]);
-		attrmatch = add_pattern_to_scanning_table(bfparser->st, tmp, TRUE, TRUE, contexttag);
+		attrmatch = add_pattern_to_scanning_table(bfparser->st, tmp, TRUE, TRUE, contexttag, &bfparser->ldb);
 		g_free(tmp);
 		pattern_set_runtime_properties(bfparser->st, attrmatch,attribhighlight,startscontext,FALSE,FALSE,0,FALSE,FALSE);
 		match_add_autocomp_item(bfparser->st, attrmatch, splitted[0],attrib_autocomplete_append,attrib_autocomplete_backup_cursor);
@@ -1042,6 +1084,9 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					{"attrib_autocomplete_append", &attrib_autocomplete_append, attribtype_string},
 					{"attrib_autocomplete_backup_cursor", &attrib_autocomplete_backup_cursor, attribtype_int}};
 	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 14 : 12);
+
+	ldb_stack_push(&bfparser->ldb, id?id:"nameless-tag");
+
 	add_tag = do_parse(bfparser, class, notclass);
 	if (add_tag) {
 		if (idref && idref[0] && !tag) {
@@ -1051,7 +1096,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			}
 			DBG_PARSING("lookup tag with id %s returned matchnum %d\n", id, matchnum);
 			if (matchnum)
-				compile_existing_match(bfparser->st, matchnum, context);
+				compile_existing_match(bfparser->st, matchnum, context, &bfparser->ldb);
 		} else if (tag && tag[0]) {
 			gchar *attrib_context_id = NULL;
 			gchar **attrib_arr = NULL;
@@ -1088,7 +1133,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				}
 			}
 			tmp = g_strconcat("<", tag, NULL);
-			matchnum = add_pattern_to_scanning_table(bfparser->st, tmp, FALSE, case_insens, context);
+			matchnum = add_pattern_to_scanning_table(bfparser->st, tmp, FALSE, case_insens, context, &bfparser->ldb);
 			if (block_name) {
 				foldable = lookup_block_foldable(bfparser->bflang->name, block_name);
 			}
@@ -1125,43 +1170,20 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				matchstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, internal_tag_string_d));
 				if (matchstring) {
 					/*g_print("adding existing tag string %s to context %d\n",internal_tag_string_d,contexttag); */
-					compile_existing_match(bfparser->st, matchstring, contexttag);
+					compile_existing_match(bfparser->st, matchstring, contexttag, &bfparser->ldb);
 				} else {
 					add_string(bfparser, contexttag, internal_tag_string_d, "\"", "\"[^\"]*\"");
-/*					gchar *val = lookup_user_option(bfparser->bflang->name, "attribute_string_is_block");
-					if (val && val[0]=='1') {
-						guint16 strcontext, endmatch;
-						strcontext = new_context(bfparser->st, 4, bfparser->bflang->name, "\"", stringhighlight, FALSE);
-						matchstring = add_pattern_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, contexttag);
-						pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,strcontext,FALSE,FALSE,0,FALSE,FALSE);
-						pattern_set_blockmatch(bfparser->st, matchstring,TRUE,FALSE,0,NULL,NULL,FALSE);
-						endmatch = add_pattern_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, strcontext);
-						pattern_set_runtime_properties(bfparser->st, endmatch, stringhighlight,-1,FALSE,FALSE,0,FALSE,FALSE);
-						pattern_set_blockmatch(bfparser->st, endmatch,FALSE,TRUE,matchstring,NULL,NULL,FALSE);
-					} else {
-						matchstring = add_pattern_to_scanning_table(bfparser->st, "\"[^\"]*\"", TRUE, FALSE, contexttag);
-						pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,
-									0, FALSE, FALSE,0, FALSE, FALSE);
-					}
-					g_hash_table_insert(bfparser->patterns, g_strdup(internal_tag_string_d),
-										GINT_TO_POINTER((gint) matchstring));*/
 				}
 				matchstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, internal_tag_string_s));
 				if (matchstring) {
 					/*g_print("adding existing tag string %s to context %d\n",internal_tag_string_s,contexttag); */
-					compile_existing_match(bfparser->st, matchstring, contexttag);
+					compile_existing_match(bfparser->st, matchstring, contexttag, &bfparser->ldb);
 				} else {
 					add_string(bfparser, contexttag, internal_tag_string_s, "'", "'[^']*'");
-/*					static const gchar *stringhighlight = "attribute-string";
-					matchstring = add_pattern_to_scanning_table(bfparser->st, "'[^']*'", TRUE, FALSE, contexttag);
-					pattern_set_runtime_properties(bfparser->st, matchstring, stringhighlight,
-								0, FALSE, FALSE,0, FALSE, FALSE);
-					g_hash_table_insert(bfparser->patterns, g_strdup(internal_tag_string_s),
-										GINT_TO_POINTER((gint) matchstring));*/
 				}
 
 				if (!sgml_shorttag) {
-					guint16 tmpnum = add_pattern_to_scanning_table(bfparser->st, "/>", FALSE, FALSE, contexttag);
+					guint16 tmpnum = add_pattern_to_scanning_table(bfparser->st, "/>", FALSE, FALSE, contexttag, &bfparser->ldb);
 					pattern_set_runtime_properties(bfparser->st, tmpnum,
 								highlight ? highlight : ih_highlight,
 								-1, FALSE, FALSE,0, FALSE, FALSE);
@@ -1172,7 +1194,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					match_autocomplete_reference(bfparser->st, tmpnum, contexttag);
 				}
 				tmp = no_close ? NULL : g_strconcat("</", tag, ">", NULL);
-				starttagmatch = add_pattern_to_scanning_table(bfparser->st, ">", FALSE, FALSE, contexttag);
+				starttagmatch = add_pattern_to_scanning_table(bfparser->st, ">", FALSE, FALSE, contexttag, &bfparser->ldb);
 				pattern_set_runtime_properties(bfparser->st, starttagmatch,
 								highlight ? highlight : ih_highlight,
 								-1, FALSE, bfparser->stretch_tag_block,0, FALSE, FALSE);
@@ -1252,7 +1274,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			match_autocomplete_reference(bfparser->st, matchnum, context);
 			if (!no_close) {
 				tmp = g_strconcat("</", tag, ">", NULL);
-				endtagmatch = add_pattern_to_scanning_table(bfparser->st, tmp, FALSE, case_insens , innercontext);
+				endtagmatch = add_pattern_to_scanning_table(bfparser->st, tmp, FALSE, case_insens , innercontext, &bfparser->ldb);
 				pattern_set_runtime_properties(bfparser->st, endtagmatch,
 									highlight ? highlight : ih_highlight,
 									(innercontext == context) ? 0 : -2,
@@ -1282,7 +1304,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 	g_free(attrib_autocomplete_append);
 	/*g_free(attribhighlight); */
 	g_free(attributes);
-
+	ldb_stack_pop(&bfparser->ldb);
 	return matchnum;
 }
 
@@ -1314,6 +1336,9 @@ process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gint 
 					{"attrib_autocomplete_append", &attrib_autocomplete_append, attribtype_string},
 					{"attrib_autocomplete_backup_cursor", &attrib_autocomplete_backup_cursor, attribtype_int}};
 	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 8 : 6);
+
+	ldb_stack_push(&bfparser->ldb, "group");
+
 	add_group = do_parse(bfparser, class, notclass);
 	DBG_PARSING("add_group=%d for class=%s and notclass=%s\n",add_group, class, notclass);
 	if (!add_group) {
@@ -1377,6 +1402,7 @@ process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gint 
 	g_free(notclass);
 	g_free(attrib_autocomplete_append);
 	/*g_free(attribhighlight); */
+	ldb_stack_pop(&bfparser->ldb);
 }
 
 static guint8
@@ -1442,6 +1468,9 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	isempty = xmlTextReaderIsEmptyElement(reader);
 
 	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 7 : 6);
+
+	ldb_stack_push(&bfparser->ldb, id?id:"nameless-context");
+
 	DBG_PARSING("found <context> with id=%s, idref=%s\n", id, idref);
 	if (idref && idref[0]) {
 		DBG_PARSING("lookup context %s in hash table..\n", idref);
@@ -1464,11 +1493,13 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 			g_free(highlight);
 			g_free(commentid_block);
 			g_free(commentid_line);
+			ldb_stack_pop(&bfparser->ldb);
 			return context;
 		}
 	}
 	if (!symbols) {
 		g_warning("language file has context without symbols, abort.");
+		ldb_stack_pop(&bfparser->ldb);
 		return 0;
 	}
 	/* create context */
@@ -1523,6 +1554,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	/* can we ever get here ?? */
 	DBG_PARSING("pop context %d\n", GPOINTER_TO_INT(g_queue_peek_head(contextstack)));
 	g_queue_pop_head(contextstack);
+	ldb_stack_pop(&bfparser->ldb);
 	return context;
 }
 
@@ -1557,13 +1589,10 @@ build_lang_thread(gpointer data)
 	GList *tmplist;
 
 	bfparser = g_slice_new0(Tbflangparsing);
+	bfparser->ldb.stack = NULL;
 	bfparser->patterns = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
 	bfparser->contexts = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
-	/*bfparser->setoptions =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL); */
 	bfparser->bflang = bflang;
-	/*for(tmplist = g_list_first(bfparser->bflang->setoptions);tmplist;tmplist=g_list_next(tmplist)) {
-	   g_hash_table_insert(bfparser->setoptions,g_strdup(tmplist->data),GINT_TO_POINTER(1));
-	   } */
 	bfparser->st = scantable_new(bflang->size_table, bflang->size_matches, bflang->size_contexts);
 	bfparser->commentid_table = g_hash_table_new_full(g_str_hash, g_str_equal, xmlFree, NULL);
 
@@ -1678,7 +1707,10 @@ build_lang_thread(gpointer data)
 		xmlFree(name);
 	}
 	xmlFreeTextReader(reader);
-	/* do some final memory management */
+	/************************
+	 * finished parsing the XML,
+	 * do some final memory management
+	 ************************/
 	if (bfparser->st) {
 		gint i, tablenum=0, largest_table=0;
 
