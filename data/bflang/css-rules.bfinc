@@ -662,8 +662,6 @@ href="http://www.w3.org/TR/css3-background/#the-background">www.w3.org</a></refe
 	<element pattern=")" ends_context="1" highlight="css-value"/>
 	</context>
 </element>
-<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
 <element id="e.css.percent" pattern="[0-9]+\.?[0-9]*%" is_regex="1" highlight="css-value"/>
 <element id="e.css.length" pattern="[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px)" is_regex="1" highlight="css-value"/>
 <element idref="e.css.end"/>
@@ -1001,7 +999,14 @@ href="http://www.w3.org/TR/css3-background/#the-border-color">www.w3.org</a></re
 <b>Animatable:</b> yes
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/css3-background/#the-border-radius">www.w3.org</a></reference>
-<context idref="c.css.length_percentage"/>
+<context id="c.css.length_percentage" idref="c.css.length_percentage" symbols=" &#9;&#10;&#13;{}.;:'&quot;">
+	<element pattern="[0-9]+%" is_regex="1" highlight="css-value" />
+	<element idref="e.css.end"/>
+	<element idref="e.css.lcomment"/>
+	<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+	<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+	<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
+</context>
 </element>
 <element pattern="border-bottom-right-radius" highlight="css-property" >
 	<autocomplete append=": " />
@@ -1720,6 +1725,12 @@ href="http://www.w3.org/TR/css3-color/#color">www.w3.org</a></reference>
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/CSS21/generate.html#content">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;-{}.;()'&#34;">
+<!-- BUG: this pattern creates an issue in the bluefish syntax scanning. Because the same rule is used 
+in the in-line css and in the included css, we have to match the same pattern ( a double quote ") as 
+end-of-inline-css and as start-of-css-string.
+
+what to do now????
+-->
 <element pattern="'" highlight="css-string">
 <context symbols="\'" highlight="css-string">
 	<element pattern="\\." is_regex="1" highlight="css-string"/>

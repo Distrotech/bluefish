@@ -63,7 +63,7 @@
 	</context>
 </element>
 
-<tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;,media,title,type" attribhighlight="html-attribute"   attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+<tag id="t.html.style" name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;,media,title,type" attribhighlight="html-attribute"   attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<autocomplete append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" backup_cursor="9" />
 	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[]," commentid_block="cm.cblockcomment" commentid_line="none" default_spellcheck="0">
 		<element idref="e.html.lcomment"/>
@@ -98,14 +98,14 @@
 			<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.group.lbrace" ends_context="2" />
 		</group>
 		<element id="e.css.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
-			<context symbols=" &#9;&#10;&#13;{}.:&quot;';/*">
+			<context id="c.css.about2include_css-rules" symbols=" &#9;&#10;&#13;{}.:&quot;';/*">
 				<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
 						<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
 					</context>
 				</element>
 				&css-rules;
-				<element id="end-style-tag" pattern="&lt;/style&gt;" highlight="html-tag" ends_context="3" />
+				<element id="end-style-tag" pattern="&lt;/style&gt;" highlight="html-tag" ends_context="3" condition_mode="1" condition_relation="2" condition_contextref="c.html.css.main"/>
 				<element pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="1" />
 			</context>
 		</element>

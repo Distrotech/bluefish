@@ -1379,16 +1379,16 @@ foo = bar.replace( ")" , "" );
 	<group class="javascript_object_methods">
 		<element pattern="navigator"/>
 		<element pattern="mimeTypes"/>
-		<element pattern="plugins"/>
+		<!--<element pattern="plugins"/>-->
 		<element pattern="screen"/>
 		<element pattern="window"/>
 		<element pattern="document"/>
-		<element pattern="anchors"/>
+		<!--<element pattern="anchors"/>-->
 		<element pattern="applets"/>
 		<element pattern="node"/>
 		<element pattern="event"/>
 		<element pattern="history"/>
-		<element pattern="location"/>
+		<!--<element pattern="location"/>-->
 	</group>
 </group>
 <group class="javascript_css_properties" >
