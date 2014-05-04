@@ -623,13 +623,12 @@ href="http://www.w3.org/TR/css3-background/#the-background">www.w3.org</a></refe
 	<element pattern="currentColor"/>
 	<element pattern="transparent"/>
 </group>
-</context>
-<context symbols=" &#9;&#10;&#13;-{}.;:()">
 <group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="auto"/>
 	<element pattern="cover"/>
 	<element pattern="contain"/>
+	<element pattern="inherit"/>
 	<element pattern="repeat"/>
 	<element pattern="repeat-x"/>
 	<element pattern="repeat-y"/>
@@ -745,7 +744,7 @@ href="http://www.w3.org/TR/css3-background/#the-background-clip">www.w3.org</a><
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/css3-background/#the-background-color">www.w3.org</a></reference>
 <context idref="c.css.color"/>
-<context symbols=" &#9;&#10;&#13;{}.;:'&quot;">
+<!--<context symbols=" &#9;&#10;&#13;{}.;:'&quot;">
 <element pattern="inherit" highlight="css-value" >
 	<autocomplete append=";" />
 </element>
@@ -755,7 +754,7 @@ href="http://www.w3.org/TR/css3-background/#the-background-color">www.w3.org</a>
 <element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
 <element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
 
-</context>
+</context>-->
 </element>
 <element pattern="background-image" highlight="css-property" >
 	<autocomplete append=": " />
@@ -988,17 +987,6 @@ href="http://www.w3.org/TR/css3-background/#the-border-shorthands">www.w3.org</a
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/css3-background/#the-border-color">www.w3.org</a></reference>
 <context idref="c.css.color"/>
-<context symbols=" &#9;&#10;&#13;{}.;:'&quot;">
-<element pattern="inherit" highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
-
-</context>
 </element>
 <element pattern="border-bottom-left-radius" highlight="css-property" >
 	<autocomplete append=": " />
@@ -1014,14 +1002,6 @@ href="http://www.w3.org/TR/css3-background/#the-border-color">www.w3.org</a></re
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/css3-background/#the-border-radius">www.w3.org</a></reference>
 <context idref="c.css.length_percentage"/>
-<context symbols=" &#9;&#10;&#13;{}.;:'&quot;">
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
-
-</context>
 </element>
 <element pattern="border-bottom-right-radius" highlight="css-property" >
 	<autocomplete append=": " />
@@ -1037,14 +1017,6 @@ href="http://www.w3.org/TR/css3-background/#the-border-radius">www.w3.org</a></r
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/css3-background/#the-border-radius">www.w3.org</a></reference>
 <context idref="c.css.length_percentage"/>
-<context symbols=" &#9;&#10;&#13;{}.;:'&quot;">
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
-
-</context>
 </element>
 <element pattern="border-bottom-style" highlight="css-property" >
 	<autocomplete append=": " />
@@ -1151,17 +1123,6 @@ href="http://www.w3.org/TR/CSS2/tables.html#borders">www.w3.org</a></reference>
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/css3-background/#the-border-color">www.w3.org</a></reference>
 <context idref="c.css.color"/>
-<context symbols=" &#9;&#10;&#13;{}.;:'&quot;">
-<element pattern="inherit" highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
-
-</context>
 </element>
 <element pattern="border-image" highlight="css-property" >
 	<autocomplete append=": " />
@@ -1352,17 +1313,6 @@ href="http://www.w3.org/TR/css3-background/#the-border-shorthands">www.w3.org</a
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/css3-background/#the-border-color">www.w3.org</a></reference>
 <context idref="c.css.color"/>
-<context symbols=" &#9;&#10;&#13;{}.;:'&quot;">
-<element pattern="inherit" highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
-
-</context>
 </element>
 <element pattern="border-left-style" highlight="css-property" >
 	<autocomplete append=": " />
@@ -1438,17 +1388,6 @@ href="http://www.w3.org/TR/css3-background/#the-border-shorthands">www.w3.org</a
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/css3-background/#the-border-color">www.w3.org</a></reference>
 <context idref="c.css.color"/>
-<context symbols=" &#9;&#10;&#13;{}.;:'&quot;">
-<element pattern="inherit" highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
-
-</context>
 </element>
 <element pattern="border-right-style" highlight="css-property" >
 	<autocomplete append=": " />
@@ -1550,17 +1489,6 @@ href="http://www.w3.org/TR/css3-background/#the-border-shorthands">www.w3.org</a
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/css3-background/#the-border-color">www.w3.org</a></reference>
 <context idref="c.css.color"/>
-<context symbols=" &#9;&#10;&#13;{}.;:'&quot;">
-<element pattern="inherit" highlight="css-value" >
-	<autocomplete append=";" />
-</element>
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
-
-</context>
 </element>
 <element pattern="border-top-left-radius" highlight="css-property" >
 	<autocomplete append=": " />
@@ -3116,13 +3044,6 @@ href="http://www.w3.org/TR/CSS2/ui.html#propdef-outline">www.w3.org</a></referen
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/CSS2/ui.html#propdef-outline-color">www.w3.org</a></reference>
 <context idref="c.css.color"/>
-<context symbols=" &#9;&#10;&#13;{}.;:'&quot;">
-<group highlight="css-value" >
-	<autocomplete append=";" />
-	<element pattern="invert"/>
-	<element pattern="inherit"/>
-</group>
-</context>
 </element>
 <element pattern="outline-style" highlight="css-property" >
 	<autocomplete append=": " />
