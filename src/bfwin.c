@@ -330,13 +330,13 @@ bfwin_side_panel_show_hide_toggle(Tbfwin * bfwin, gboolean first_time, gboolean 
 		g_signal_connect(G_OBJECT(bfwin->hpane), "notify::position",
 						 G_CALLBACK(side_panel_notify_position), bfwin);
 		bfwin->leftpanel_notebook = side_panel_build(bfwin);
-		if (main_v->props.left_panel_left) {
 /* When building with gtk+3.6.4 for MacOSX there are severeal issues with resizing:
 * 1. NSWindow does not have border, so resizing handle when pushed to the edge, gets inactive (whole window is resized insted of notebook).
 * 2. Leftpanel_notebook is "pushed" out of screen instead of shrinking; scroll arrows never appear (notebook is set to be scrollable, 
 * so they should appear).
 * TODO investigate what causes left notebook "push" off-screen instead of cropping and how to set minimum size */			
-#ifdef PLATFORM_DARWIN 
+#ifdef PLATFORM_DARWIN
+		if (main_v->props.left_panel_left) { 
 			gtk_paned_pack1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook, FALSE, FALSE);
 			gtk_paned_pack2(GTK_PANED(bfwin->hpane), bfwin->notebook_box, TRUE, FALSE);
 		} else {
@@ -344,11 +344,13 @@ bfwin_side_panel_show_hide_toggle(Tbfwin * bfwin, gboolean first_time, gboolean 
 			gtk_paned_pack2(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook, FALSE, FALSE);
 		}
 #else
+		if (main_v->props.left_panel_left) {
 			gtk_paned_pack1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook, FALSE, TRUE);
 			gtk_paned_pack2(GTK_PANED(bfwin->hpane), bfwin->notebook_box, TRUE, TRUE);
 		} else {
 			gtk_paned_pack1(GTK_PANED(bfwin->hpane), bfwin->notebook_box, TRUE, TRUE);
 			gtk_paned_pack2(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook, FALSE, TRUE);
+		}
 #endif
 		gtk_box_pack_start(GTK_BOX(bfwin->middlebox), bfwin->hpane, TRUE, TRUE, 0);
 		gtk_widget_show(bfwin->hpane);
