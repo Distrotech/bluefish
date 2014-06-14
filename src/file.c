@@ -2163,6 +2163,7 @@ file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean explicit_ope
 {
 	GFileInfo *finfo;
 	GError *error = NULL;
+	gboolean firstdoc=TRUE;
 #ifdef WIN32
 	gchar *mime=NULL;
 	const gchar *cont_type;
@@ -2209,7 +2210,8 @@ file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean explicit_ope
 			}
 		}
 	} else {
-		doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1, -1, TRUE, FALSE);
+		doc_new_from_uri(bfwin, uri, NULL, firstdoc, FALSE, -1, -1, -1, TRUE, firstdoc);
+		firstdoc=FALSE;
 	}
 #ifdef WIN32
 	if (!mimetype)

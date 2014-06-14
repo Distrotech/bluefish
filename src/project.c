@@ -463,11 +463,12 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 		while (tmplist) {
 			GFile *uri;
 			gchar **tmparr = (gchar **) tmplist->data;
-			if (strstr(tmparr[0], "://") == NULL) {
+			uri = g_file_parse_name(tmparr[0]);
+			/*if (strstr(tmparr[0], "://") == NULL) {
 				uri = g_file_new_for_path(tmparr[0]);
 			} else {
 				uri = g_file_new_for_uri(tmparr[0]);
-			}
+			}*/
 
 			if (tmparr[1] && tmparr[1]!='\0') {
 				cursor_offset = atoi(tmparr[1]);
