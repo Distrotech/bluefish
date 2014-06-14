@@ -344,11 +344,10 @@ static void filetree_re_sort(FileTreemodel * ftm, UriRecord * precord)
 		/* neworder[(custom_list->rows[i])->pos] = i; */
 		if (i != ((*arr)[i])->pos) {
 			reordered = TRUE;
-			neworder[i] = ((*arr)[i])->pos;
 			DEBUG_MSG("filetree_re_sort, moved '%s' from row %d to row %d \n", (*arr)[i]->name, (*arr)[i]->pos, i);
-			((*arr)[i])->pos = i;
 		}
-
+		neworder[i] = ((*arr)[i])->pos;
+		((*arr)[i])->pos = i;
 	}
 	if (reordered) {
 		GtkTreeIter iter;
