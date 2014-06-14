@@ -22,7 +22,7 @@
  * to get backtraces what causes a warning
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #if defined(__GNUC__) || (defined(__SUNPRO_C) && __SUNPRO_C > 0x580)
 #define DBG_NONE(args...)

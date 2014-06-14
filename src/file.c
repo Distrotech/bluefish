@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>				/* memcpy */
@@ -594,6 +594,7 @@ openfile_run(gpointer data)
 	Topenfile *of = data;
 	DEBUG_MSG("openfile_run, start async load for of=%p with uri=%p\n",of,of->uri);
 	g_file_load_contents_async(of->uri, of->cancel, openfile_async_lcb, of);
+	/*g_print("openfile_run, called g_file_load_contents_async() for uri %s, cancelable %p\n",g_file_get_uri(of->uri), of->cancel);*/
 }
 
 Topenfile *
@@ -989,6 +990,7 @@ fill_fileinfo_cleanup(Tfileinfo * fi)
 void
 file_asyncfileinfo_cancel(gpointer fi)
 {
+	DEBUG_MSG("file_asyncfileinfo_cancel for fi=%p and cancelable %p\n", fi, ((Tfileinfo *) fi)->cancel);
 	g_cancellable_cancel(((Tfileinfo *) fi)->cancel);
 }
 
@@ -997,6 +999,7 @@ fill_fileinfo_async_mount_lcb(GObject * source_object, GAsyncResult * res, gpoin
 {
 	Tfileinfo *fi = user_data;
 	GError *error = NULL;
+	DEBUG_MSG("fill_fileinfo_async_mount_lcb, started with fi=%p\n", fi);
 	if (g_file_mount_enclosing_volume_finish(fi->uri, res, &error)) {
 		fill_fileinfo_run(fi);
 	} else {
@@ -1078,6 +1081,9 @@ static void
 fill_fileinfo_run(gpointer data)
 {
 	Tfileinfo *fi = data;
+#ifdef DEBUG
+	DEBUG_MSG("fill_fileinfo_run, calling g_file_query_info_async() for %s , fi=%p\n",g_file_get_uri(fi->uri), fi);
+#endif
 	g_file_query_info_async(fi->uri, BF_FILEINFO, G_FILE_QUERY_INFO_NONE	/* so we do follow symlinks */
 							, G_PRIORITY_LOW, fi->cancel, fill_fileinfo_lcb, fi);
 }
@@ -1158,11 +1164,11 @@ file_doc_from_uri(Tbfwin * bfwin, GFile * uri, GFile * recover_uri, GFileInfo * 
 	f2d->doc->align_center = align_center;
 	f2d->doc->load_first = load_first;
 	DEBUG_MSG("file_doc_from_uri, got doc %p\n", f2d->doc);
+	f2d->of = file_openfile_uri_async(f2d->uri, bfwin, file2doc_lcb, f2d);
 	if (finfo == NULL) {
 		/* get the fileinfo also async */
 		file_doc_fill_fileinfo(f2d->doc, uri);
 	}
-	f2d->of = file_openfile_uri_async(f2d->uri, bfwin, file2doc_lcb, f2d);
 }
 
 /*************************** FIND FILES ******************************/

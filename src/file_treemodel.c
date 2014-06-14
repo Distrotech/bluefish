@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include <string.h>
 #include <stdlib.h>
@@ -342,11 +342,13 @@ static void filetree_re_sort(FileTreemodel * ftm, UriRecord * precord)
 		 * Both will work, but one will give you 'jumpy'
 		 * selections after row reordering. */
 		/* neworder[(custom_list->rows[i])->pos] = i; */
-		if (neworder[i] != ((*arr)[i])->pos)
+		if (i != ((*arr)[i])->pos) {
 			reordered = TRUE;
-		neworder[i] = ((*arr)[i])->pos;
-		DEBUG_MSG("filetree_re_sort, moved '%s' from row %d to row %d \n", (*arr)[i]->name, (*arr)[i]->pos, i);
-		((*arr)[i])->pos = i;
+			neworder[i] = ((*arr)[i])->pos;
+			DEBUG_MSG("filetree_re_sort, moved '%s' from row %d to row %d \n", (*arr)[i]->name, (*arr)[i]->pos, i);
+			((*arr)[i])->pos = i;
+		}
+
 	}
 	if (reordered) {
 		GtkTreeIter iter;
@@ -559,6 +561,7 @@ static gchar *get_toplevel_name(GFile * uri)
 	gmnt = g_file_find_enclosing_mount(uri, NULL, &gerror);
 	if (!gerror && gmnt) {
 		name = g_mount_get_name(gmnt);
+		DEBUG_MSG("get_toplevel_name, return %s for mount\n",name);
 		g_object_unref(gmnt);
 	} else {
 		gchar *curi = g_file_get_uri(uri);
@@ -895,7 +898,7 @@ static void enumerate_children_lcb(GObject * source_object, GAsyncResult * res, 
 		g_warning("enumerate_children_lcb, failed to list directory in filebrowser: %s (%d)\n", gerror->message, gerror->code);
 		/*check if failed uri is not basedir and reset it*/
 		fb2_check_reset_basedir(uir->uri);
-		
+
 		if (gerror->code == 14 /* 14 = permission denied, delete any children */ ) {
 			ftm_delete_children(uir->ftm, uir->precord, FALSE);
 			uir->dir_changed = TRUE;
@@ -1015,13 +1018,16 @@ void filetreemodel_refresh_iter_async(FileTreemodel * ftm, GtkTreeIter * iter)
 		return;
 	}
 	record = iter->user_data;
-
+#ifdef DEBUG
+	DEBUG_MSG("filetreemodel_refresh_iter_async, called with iter %p which has uri with path %s\n",iter,g_file_get_uri(record->uri));
+#endif
 	refresh_dir_async(ftm, record, record->uri);
 }
 
 /*****************************************************************************
  *
  *  filetreemodel_refresh_uri_async: starts a refresh of the directory pointed to by uri.
+ *  if the uri does not yet exist in the treemodel it will abort
  *
  *****************************************************************************/
 
@@ -1081,7 +1087,9 @@ UriRecord *filetreemodel_build_dir(FileTreemodel * ftm, GFile * uri, GtkTreeIter
 		g_warning("filetreemodel_build_dir, uri == NULL, return NULL and don't set iter %p\n",iter);
 		return NULL;
 	}
-
+#ifdef DEBUG
+	DEBUG_MSG("filetreemodel_build_dir, build dir for %s\n", g_file_get_uri(uri));
+#endif
 	/* first find if any directory part of this uri exists already in the treestore */
 	g_object_ref(tmp);
 
@@ -1158,6 +1166,9 @@ void filetreemodel_add_file(FileTreemodel * ftm, GFile * uri, const gchar *conte
 
 	if (!uri)
 		return;
+#ifdef DEBUG
+	DEBUG_MSG("filetreemodel_add_file, called for uri %s\n", g_file_get_uri(uri));
+#endif
 
 	puri = g_file_get_parent(uri);
 	precord = g_hash_table_lookup(ftm->alluri, puri);

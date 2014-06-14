@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>
