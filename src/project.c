@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -154,35 +154,6 @@ set_project_menu_actions(Tbfwin * bfwin, gboolean win_has_project)
 	gtk_action_group_set_sensitive(bfwin->projectGroup, win_has_project);
 }
 
-static gboolean
-project_grab_focus_lcb(gpointer data)
-{
-	/* it is possible that the document has been closed between registering this callback, and the actual call */
-	/*Tdocument *doc = data;
-	if (doc && doc->view)
-		gtk_widget_grab_focus(doc->view);*/
-	Tbfwin *bfwin = data;
-	if (bfwin && bfwin->current_document) {
-		gtk_widget_grab_focus(bfwin->current_document->view);
-	}
-	return FALSE;
-}
-
-static gboolean
-project_document_load_finished_lcb(gpointer data)
-{
-	Tdocument *doc = data;
-	if (doc->load) {
-		return TRUE;
-	}
-	DEBUG_MSG("Callback project_document_load_finished_lcb , document=%p load finished", doc);
-	gint doc_index = gtk_notebook_get_current_page (GTK_NOTEBOOK(BFWIN(doc->bfwin)->notebook));
-	BFWIN(doc->bfwin)->last_activated_doc = NULL; /* Force document scanning, sometimes first tab document gets the same pointer as destroyed one */
-	bfwin_notebook_changed(BFWIN(doc->bfwin), doc_index);
-	/* get back focus once again, when all parts of bf are finally loaded; this forces cursor blinking; otherwise filebrowser hijacks focus and cursor disappears */
-	g_idle_add_full(G_PRIORITY_LOW+1, project_grab_focus_lcb, doc->bfwin, NULL);
-	return FALSE;
-}
 
 static void
 setup_bfwin_for_project(Tbfwin * bfwin, Tdocument *active_doc)
@@ -190,11 +161,7 @@ setup_bfwin_for_project(Tbfwin * bfwin, Tdocument *active_doc)
 	DEBUG_MSG("setup_bfwin_for_project, bfwin=%p, bfwin->project=%p, bfwin->session=%p\n, current_document=%p, active_doc=%p\n", bfwin,
 			  bfwin->project, bfwin->session, bfwin->current_document, active_doc);
 	if (active_doc && active_doc->uri) {
-		if(active_doc->load_first) {
-			g_idle_add_full(FILE2DOC_PRIORITY-1, project_document_load_finished_lcb, active_doc, NULL);
-		} else {
-			g_idle_add_full(FILE2DOC_PRIORITY, project_document_load_finished_lcb, active_doc, NULL);
-		}
+		bfwin->focus_next_new_doc = FALSE;
 	} else {
 		/* if there is no document, the project title will not be shown in the window title unless we call this directly */
 		bfwin_set_title(bfwin, bfwin->current_document, 0);
@@ -432,7 +399,6 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 	if (main_v->props.register_recent_mode != 0) {
 		gtk_recent_manager_add_item(main_v->recentm, curi);
 	}
-
 	g_free(curi);
 	prj->uri = fromuri;
 	g_object_ref(fromuri);
@@ -481,6 +447,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 			}
 			if (is_active) {
 				doc_index = i;
+				DEBUG_MSG("project_open, active_doc has index %d\n",i);
 				doc_new_from_uri(prwin, uri, NULL, TRUE, TRUE, -1, goto_offset, cursor_offset, FALSE, TRUE);
 			} else {
 				doc_new_from_uri(prwin, uri, NULL, TRUE, TRUE, -1, goto_offset, cursor_offset, FALSE, FALSE);
@@ -490,8 +457,9 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 			i++;
 		}
 		/* Now switch to tab that holds last active document from previous session */
-		bfwin_switch_to_document_by_index(prwin, doc_index);
 		bfwin_notebook_unblock_signals(prwin);  /* Unblock signals, doc will be activated in setup_bfwin_for_project*/
+		bfwin_switch_to_document_by_index(prwin, doc_index);
+		bfwin_notebook_changed(prwin, doc_index);
 	} else {
 		doc_new(prwin, FALSE);
 	}

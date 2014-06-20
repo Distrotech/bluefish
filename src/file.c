@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h>				/* memcpy */
@@ -893,6 +893,8 @@ file2doc_finished_idle_lcb(gpointer data)
 			} else {
 				bfwin_switch_to_document_by_pointer(f2d->bfwin, f2d->doc);
 			}
+		} else if (f2d->bfwin->current_document == f2d->doc) {
+			doc_force_activate(f2d->doc);
 		}
 		{
 			gchar *utf8uri, *tmp;

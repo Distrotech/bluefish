@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include <string.h>
 #include <stdlib.h>
@@ -464,10 +464,11 @@ static void fill_uri(UriRecord * newrecord, GFile * uri, GFileInfo * finfo)
 		&&
 		strcmp(g_file_info_get_attribute_string
 			   (finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE), "inode/directory") != 0) {
-		g_print("%s: isdir=%d but mime type =%s ???????????\n", newrecord->name, newrecord->isdir,
+		g_warning("%s: isdir=%d but mime type =%s ???????????\n", newrecord->name, newrecord->isdir,
 				g_file_info_get_attribute_string(finfo,
 												 G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE));
-		g_assert_not_reached();
+		/*g_assert_not_reached();*/
+		/* I've seen this happening on a sftp link */
 	}
 #endif
 	/*DEBUG_MSG("fill_uri, isdir=%d for name='%s'\n",newrecord->isdir,newrecord->name); */

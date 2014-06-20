@@ -1902,7 +1902,7 @@ bfwin_set_title(Tbfwin * bfwin, Tdocument * doc, gint num_modified_change)
 gboolean
 bfwin_switch_to_document_by_index(Tbfwin * bfwin, gint i)
 {
-	DEBUG_MSG("switch_to_document_by_index, index=%d\n", i);
+	DEBUG_MSG("bfwin_switch_to_document_by_index, index=%d\n", i);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), i);
 	return TRUE;
 }
