@@ -42,18 +42,18 @@ extern void g_none(char *first, ...);
 
 #define DBG_MSG DBG_NONE
 #define DBG_SCANCACHE DBG_NONE
-#define DBG_SCANNING DBG_NONE
+#define DBG_SCANNING g_print
 #define DBG_BLOCKMATCH DBG_NONE
 #define DBG_PATCOMPILE DBG_NONE
 #define DBG_SIGNALS DBG_NONE
-#define DBG_AUTOCOMP DBG_NONE
+#define DBG_AUTOCOMP g_print
 #define DBG_DELAYSCANNING DBG_NONE
 #define DBG_FOLD DBG_NONE
 #define DBG_MARGIN DBG_NONE
 #define DBG_PARSING DBG_NONE
 #define DBG_TOOLTIP DBG_NONE
 #define DBG_SPELL DBG_NONE
-#define DBG_IDENTIFIER DBG_NONE
+#define DBG_IDENTIFIER g_print
 #define DBG_MARKREGION DBG_NONE
 
 #ifdef UPDATE_OFFSET_DELAYED
@@ -136,9 +136,8 @@ typedef struct {
 	gint16 blockstartpattern;	/* the number of the pattern that may start this block, or -1 to end the last started block, also used for stretch block */
 	gint16 nextcontext;			/* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
 								   to pop a context of the stack */
-#ifdef IDENTSTORING
+	guint8 identmode :2;
 	guint8 identaction :2; /* 2 bits, first bit is add to jump hashtable, second bit is autocomplete */
-#endif
 	/* we use 1 bit integers here because these values are all booleans */
 	guint8 starts_block :1;		/* wether or not this pattern may start a block */
 	guint8 ends_block :1;			/* wether or not this pattern may end a block */
@@ -146,13 +145,10 @@ typedef struct {
 	guint8 stretch_blockstart :1; /* the end of this match is the new end-of-blockstart, used for HTML/XML tags */
 	guint8 case_insens :1;
 	guint8 is_regex :1;
-#ifdef IDENTSTORING
-	guint8 identmode :1;
-#endif							/* IDENTSTORING */
 } Tpattern;
 /*
-32bit size = 5*32 + 4*16 + 1*2 + 8*1 = 233 + 23 padding bits = 32 bytes
-64bit size = 5*64 + 4*16 + 1*2 + 8*1 = 394 + 54 padding bits = 56 bytes
+32bit size = 5*32 + 4*16 + 2*2 + 6*1 = 234 + 22 padding bits = 32 bytes
+64bit size = 5*64 + 4*16 + 2*2 + 6*1 = 394 + 54 padding bits = 56 bytes
 */
 
 typedef struct {
