@@ -895,6 +895,8 @@ file2doc_finished_idle_lcb(gpointer data)
 			}
 		} else if (f2d->bfwin->current_document == f2d->doc) {
 			doc_force_activate(f2d->doc);
+		} else if (f2d->doc->load_first) {
+			bfwin_switch_to_document_by_pointer(f2d->bfwin, f2d->doc);
 		}
 		{
 			gchar *utf8uri, *tmp;
