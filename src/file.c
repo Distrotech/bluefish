@@ -2214,7 +2214,7 @@ file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean explicit_ope
 			}
 		}
 	} else {
-		doc_new_from_uri(bfwin, uri, NULL, firstdoc, FALSE, -1, -1, -1, TRUE, firstdoc);
+		doc_new_from_uri(bfwin, uri, NULL, !firstdoc, FALSE, -1, -1, -1, TRUE, firstdoc);
 		firstdoc=FALSE;
 	}
 #ifdef WIN32
