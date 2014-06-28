@@ -130,8 +130,18 @@ static void handle_signals(void) {
 
 #ifdef MAC_INTEGRATION
 static gboolean osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer user_data) {
+	GList *tmplist;
+	Tbfwin *bfwin;
 	GFile *uri = g_file_new_for_path(path);
-	Tbfwin *bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
+	//Find toplevel in focus
+	tmplist = g_list_first(main_v->bfwinlist);
+	while(tmplist) {
+		bfwin= BFWIN(tmplist->data);
+		if (gtk_window_is_active(GTK_WINDOW(bfwin->main_window))) {
+			break;
+		}
+		tmplist = g_list_next(tmplist);
+	}
 	g_print("osx_open_file_cb, open %s\n",path);
 	file_handle(uri, bfwin , NULL, TRUE);
 	g_object_unref(uri);
