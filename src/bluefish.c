@@ -160,10 +160,10 @@ static gboolean osx_block_termination_cb(GtkosxApplication *app, gpointer user_d
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(duplist);
-	return TRUE;
+	return FALSE;
 }
 
-static gboolean osx_will_terminate_cb(GtkosxApplication *app, gpointer user_data) {
+static void osx_will_terminate_cb(GtkosxApplication *app, gpointer user_data) {
 	/* Connect final shutdown routine here */
 	g_print("gtkosx terminating application");
 	flush_queue();
