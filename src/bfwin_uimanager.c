@@ -832,7 +832,7 @@ static const GtkActionEntry top_level_menus[] = {
 	{"ToolsMenu", NULL, N_("_Tools")},
 	{"ToolsCommands", NULL, N_("_Commands")},
 	{"ToolsFilters", NULL, N_("_Filters")},
-	{"ToolsOutputBox", NULL, N_("_Outputbox")},
+	{"ToolsOutputBox", NULL, N_("_Output parsers")},
 	{"ToolsFormat", NULL, N_("For_mat")},
 	{"ToolsInsert", NULL, N_("_Insert")},
 	{"ToolsConvert", NULL, N_("Con_vert")}

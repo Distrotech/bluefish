@@ -2163,11 +2163,10 @@ sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, g
 /* code to handle a file from the commandline, the filebrowser or from the message queue */
 
 void
-file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean explicit_open)
+file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean explicit_open, gboolean open_in_foreground)
 {
 	GFileInfo *finfo;
 	GError *error = NULL;
-	gboolean firstdoc=TRUE;
 #ifdef WIN32
 	gchar *mime=NULL;
 	const gchar *cont_type;
@@ -2214,8 +2213,7 @@ file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean explicit_ope
 			}
 		}
 	} else {
-		doc_new_from_uri(bfwin, uri, NULL, !firstdoc, FALSE, -1, -1, -1, TRUE, firstdoc);
-		firstdoc=FALSE;
+		doc_new_from_uri(bfwin, uri, NULL, !open_in_foreground, FALSE, -1, -1, -1, TRUE, open_in_foreground);
 	}
 #ifdef WIN32
 	if (!mimetype)

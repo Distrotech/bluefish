@@ -244,7 +244,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout) {
 				DEBUG_MSG("msg_queue_check, a filename %s is received, is_last=%d\n", msgp.mtext,is_last);
 				file = g_file_new_for_commandline_arg(msgp.mtext);
 				/*doc_new_from_input(bfwin, msgp.mtext, !is_last, FALSE, -1);*/
-				file_handle(file, bfwin, TRUE);
+				file_handle(file, bfwin, TRUE, FALSE);
 				g_object_unref(file);
 				run_again = TRUE;	/* call myself again, there may have been multiple files */
 			} break;

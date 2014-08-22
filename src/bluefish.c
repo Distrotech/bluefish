@@ -143,7 +143,7 @@ static gboolean osx_open_file_cb(GtkosxApplication *app, gchar *path, gpointer u
 		tmplist = g_list_next(tmplist);
 	}
 	g_print("osx_open_file_cb, open %s\n",path);
-	file_handle(uri, bfwin , NULL, TRUE);
+	file_handle(uri, bfwin , NULL, TRUE, FALSE);
 	g_object_unref(uri);
 	return TRUE;
 }
@@ -251,7 +251,7 @@ static gboolean startup_in_idle(gpointer data) {
 				DEBUG_MSG("startup_in_idle, we have filenames, load them\n");
 				startup->firstbfwin->focus_next_new_doc = TRUE;
 				while (tmplist) {
-					file_handle((GFile *)tmplist->data, startup->firstbfwin, NULL, TRUE);
+					file_handle((GFile *)tmplist->data, startup->firstbfwin, NULL, TRUE, FALSE);
 					g_object_unref((GFile *)tmplist->data);
 					tmplist = g_list_next(tmplist);
 				}

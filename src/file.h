@@ -143,5 +143,5 @@ typedef void (*SyncProgressCallback) (GFile *uri, gint total, gint done, gint fa
 void sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, gboolean include_hidden,
 					SyncProgressCallback progress_callback, gpointer callback_data);
 							/* __FILE_H_ */
-void file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean explicit_open);
+void file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean explicit_open, gboolean open_in_fireground);
 #endif							/* __FILE_H_ */

@@ -3108,6 +3108,7 @@ doc_new_with_template(Tbfwin * bfwin, GFile * uri, gboolean force_new)
  * @cursor_offset: place cursor at specified posiion.
  * @goto_offset: scrolls texview to offset. Alignment depends on align_center parameter
  * @align_center: If set to True places specified offset in the center of the screen, if False- offset will be placed in topleft corner.
+ * @load_first: passed on to file_doc_from_uri
  */
 void
 doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolean delay_activate,
@@ -3140,6 +3141,7 @@ doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolean del
 			doc_move_to_window_dialog(tmpdoc, bfwin);
 			/* TODO: or open the document readonly */
 		} else if (!delay_activate) {	/* switch to window, only if we should */
+			DEBUG_MSG("doc_new_from_uri, switch to window\n");
 			bfwin_switch_to_document_by_pointer(BFWIN(tmpdoc->bfwin), tmpdoc);
 			if (bfwin != tmpdoc->bfwin)
 				gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));

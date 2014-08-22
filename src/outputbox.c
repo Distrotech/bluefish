@@ -478,7 +478,7 @@ outputbox(Tbfwin * bfwin, gchar * pattern, gint file_subpat, gint line_subpat, g
 	ob->def->reg = g_regex_new(ob->def->pattern, G_REGEX_OPTIMIZE, 0, &gerror);
 	if (gerror) {
 		gchar *tmpstr =
-			g_strdup_printf(_("Failed to compile outputbox pattern %s: %s"), ob->def->pattern,
+			g_strdup_printf(_("Failed to compile output parser pattern %s: %s"), ob->def->pattern,
 							gerror->message);
 		g_warning("%s", tmpstr);
 		bfwin_statusbar_message(bfwin, tmpstr, 4);

@@ -375,12 +375,22 @@ remove_uri_from_recent_dirs(Tfilebrowser2 * fb2, GFile * uri)
 
 GFile *find_common_path(GFile *file1, GFile *file2)
 {
+	gchar *filename1, *filename2;
+	gint pos;
+	
 	if (!file1 || !file2)
 		return NULL;
-	gchar * filename1 = g_file_get_parse_name(file1);
-	gchar * filename2 = g_file_get_parse_name(file2);
+	filename1 = g_file_get_parse_name(file1);
+	if (!filename1)
+		return NULL;
+	
+	filename2 = g_file_get_parse_name(file2);
+	if (!filename2) {
+		g_free(filename1);
+		return NULL;
+	}
+
 	DEBUG_MSG("find_common_path, filename1=%s, filename2=%s \n", filename1, filename2);
-	int  pos;
 	for (pos = 0; ; pos++) {
 		if (filename1[pos] != '\0' && filename1[pos] == filename2[pos])
 			continue;
@@ -1053,7 +1063,7 @@ popup_menu_open(GtkAction * action, gpointer user_data)
 	uri = fb2_uri_from_file_selection(fb2, &mime);
 	if (uri) {
 		DEBUG_MSG("calling file_handle for popup menu\n");
-		file_handle(uri, fb2->bfwin, mime, TRUE);
+		file_handle(uri, fb2->bfwin, mime, TRUE, TRUE);
 	}
 }
 
@@ -1646,28 +1656,32 @@ change_focus_to_uri(Tfilebrowser2 *fb2, GFile *uri)
 void
 fb2_follow_uri(Tbfwin *bfwin, GFile *uri)
 {
-	if (bfwin && uri) {
-		Tfilebrowser2 *fb2 = bfwin->fb2;
-		GFile *dir_uri = g_file_get_parent(uri);
-		DEBUG_MSG("fb2_follow_uri, started for uri %p\n",uri);
-		/* In flat mode we always have to change basedir */
-		if (fb2->filebrowser_viewmode == viewmode_flat) {
-			if (!gfile_uri_is_parent(fb2->basedir, uri, FALSE)) {
-				set_basedir_backend(bfwin->fb2, dir_uri);
-			}
-		} else {
-			if (!gfile_uri_is_parent(fb2->basedir, uri, TRUE)) {
-				GFile *new_basedir = find_common_path(dir_uri, fb2->basedir);
-				set_basedir_backend(bfwin->fb2, new_basedir);
-				if (new_basedir)
-					g_object_unref(new_basedir);
-			}
+	if (!bfwin || !uri) 
+		return;
+	
+	Tfilebrowser2 *fb2 = bfwin->fb2;
+	GFile *dir_uri = g_file_get_parent(uri);
+	if (!dir_uri)
+		return;
+
+	DEBUG_MSG("fb2_follow_uri, started for uri %p\n",uri);
+	/* In flat mode we always have to change basedir */
+	if (fb2->filebrowser_viewmode == viewmode_flat) {
+		if (!gfile_uri_is_parent(fb2->basedir, uri, FALSE)) {
+			set_basedir_backend(bfwin->fb2, dir_uri);
 		}
-		/* now build the directory and focus */
-		change_focus_to_uri(bfwin->fb2, uri);
-		register_delayed_refresh(dir_uri);
-		g_object_unref(dir_uri);
+	} else {
+		if (!gfile_uri_is_parent(fb2->basedir, uri, TRUE)) {
+			GFile *new_basedir = find_common_path(dir_uri, fb2->basedir);
+			set_basedir_backend(bfwin->fb2, new_basedir);
+			if (new_basedir)
+				g_object_unref(new_basedir);
+		}
 	}
+	/* now build the directory and focus */
+	change_focus_to_uri(bfwin->fb2, uri);
+	register_delayed_refresh(dir_uri);
+	g_object_unref(dir_uri);
 }
 
 
@@ -2001,7 +2015,7 @@ dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser2
 				g_free(basename);
 #endif
 				g_print("calling file_handle for doubleclick on dir_v\n");
-				file_handle(uri, fb2->bfwin, mime, FALSE);
+				file_handle(uri, fb2->bfwin, mime, FALSE, TRUE);
 			}
 			g_free(mime);
 		}
@@ -2034,7 +2048,7 @@ file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser
 			uri = fb2_uri_from_file_sort_path(fb2, sort_path, &mime);
 			if (uri) {
 				g_print("call file_handle for doubleclick on file_v\n");
-				file_handle(uri, fb2->bfwin, mime, FALSE);
+				file_handle(uri, fb2->bfwin, mime, FALSE, TRUE);
 			}
 #ifdef DEBUG
 			else {
@@ -2071,7 +2085,7 @@ dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 
 	if (!record->isdir) {
 		DEBUG_MSG("calling file_handle for row_activated\n");
-		file_handle(record->uri, fb2->bfwin, record->fast_content_type, FALSE);
+		file_handle(record->uri, fb2->bfwin, record->fast_content_type, FALSE, TRUE);
 		add_parent_uri_to_recent_dirs(fb2, record->uri);
 	} else { /* a directory */
 		add_uri_to_recent_dirs(fb2, record->uri);
@@ -2099,7 +2113,7 @@ file_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 		UriRecord *record;
 		gtk_tree_model_get(fb2->file_filter, &iter, filetreemodel_COL_RECORD, &record, -1);
 		DEBUG_MSG("calling file_handle for file_v row activat\n");
-		file_handle(record->uri, fb2->bfwin, record->fast_content_type, FALSE);
+		file_handle(record->uri, fb2->bfwin, record->fast_content_type, FALSE, TRUE);
 		add_parent_uri_to_recent_dirs(fb2, record->uri);
 	}
 }

@@ -87,7 +87,7 @@ handle_message(const gchar * message, gsize len)
 		GFile *file;
 		DEBUG_MSG("open URI %s\n", &message[8]);
 		file = g_file_new_for_uri(&message[8]);
-		file_handle(file, bfwin, NULL, TRUE);
+		file_handle(file, bfwin, NULL, TRUE, FALSE);
 		g_object_unref(file);
 		gtk_window_present(GTK_WINDOW(bfwin->main_window));
 	} else {
