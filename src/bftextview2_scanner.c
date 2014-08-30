@@ -20,8 +20,8 @@
 /*#define HL_PROFILING*/
 /*#define VALGRIND_PROFILING*/
 
-/*#define DUMP_SCANCACHE*/
-/*#define DUMP_SCANCACHE_UPDATE_OFFSET*/
+/*#define DUMP_SCANCACHE
+#define DUMP_SCANCACHE_UPDATE_OFFSET*/
 /*#define DUMP_HIGHLIGHTING*/
 
 #ifdef VALGRIND_PROFILING
@@ -453,19 +453,26 @@ typedef struct {
  * combined:
  *
  * if it will be called a second time, nextpos will be set to indicate the position where
- * the offset will change.
+ * the offset will change. However (!!) nextpos is defined as the position *after* the current offset
+ * has been applied. So you cannot simply compare with charoffset_o, you have to compare with 
+ * charoffset_o+prevoffset+offset !!
  *
  * This function may thus return
  * for a found > nextpos because the it will be called again for the next new offset.
  *
  * when it is called again for a second change, for any Tfound with charoffset_o > sou->prevpos the new
  * offset will be offset + prevoffset;
+ *
+ * if there was a replace (a delete and insert on the same location) the deleteoffset indicates the size that was 
+ * deleted and offset indicated the combined offset of the delete and insert. The deleteoffset is used to determine
+ * which part of the cache is nowinvalid and should be removed.
  */
 static void
-scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update *sou, guint32 startpos, gint32 offset, guint32 nextpos)
+scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update *sou, guint32 startpos, gint32 offset, gint32 deleteoffset, guint32 nextpos)
 {
 	gint comparepos;
 	gint handleoffset=sou->prevoffset;
+		/* handleoffset is the offset that needs to be applied. Before prevpos it equals prevoffset, beyond that it equals offset+prevoffset */
 	Tfound *nextfound;
 	GSequenceIter *nextsiter;
 
@@ -584,7 +591,9 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		}
 	}
 
-	if (offset < 0 /* text was deleted*/ ) {
+	/* if text was deleted, or text was replaced, we might need to remove a few entries from the cache before we start updating 
+	the offsets. This is indicated by deleteoffset being smaller than zero, and is handled by the following loop: */
+	if (deleteoffset < 0) {
 		Tfound *tmpfound = sou->found;
 		GSequenceIter *tmpsiter=sou->siter;
 
@@ -610,35 +619,35 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 
 		/* we should have a tmpfound now that has offset > startpos and thus it should be beyond prevpos as well */
 		if (tmpfound && ((gint)(tmpfound->charoffset_o+sou->prevoffset)) < startpos) {
-			g_print("ABORT: tmpfound->charoffset_o(%u)+sou->prevoffset(%d)=%u < startpos(%u) (sou->prevpos=%u, offset=%d, nextpos=%d)\n",
+			g_print("ABORT: tmpfound->charoffset_o(%u)+sou->prevoffset(%d)=%u < startpos(%u) (sou->prevpos=%u, deleteoffset=%d, nextpos=%d)\n",
 								(gint)tmpfound->charoffset_o, (gint)sou->prevoffset,
 								(gint)tmpfound->charoffset_o+sou->prevoffset,
-								(gint)startpos, (gint)sou->prevpos, (gint)offset, (gint)nextpos);
+								(gint)startpos, (gint)sou->prevpos, (gint)deleteoffset, (gint)nextpos);
 			g_assert_not_reached();
 		}
 #endif
 
 		/* loop over any items within the deleted region and remove them. because these
-		Tfound offsets are not yet updated we don't compare with 'startpos-offset' but we
-		compare with 'startpos-offset-sou->prevoffset' */
-		DBG_SCANCACHE("before loop, tmpfound(%p) at position %d +offset+prevoffset=%d\n",tmpfound,tmpfound?tmpfound->charoffset_o:-1,tmpfound?tmpfound->charoffset_o+offset+sou->prevoffset:-1);
-		while (tmpfound && ((gint)tmpfound->charoffset_o+offset+sou->prevoffset) <= ((gint)startpos)) {
+		Tfound offsets are not yet updated we don't compare with 'startpos-deleteoffset' but we
+		compare with 'startpos-deleteoffset-sou->prevoffset' */
+		DBG_SCANCACHE("before loop, tmpfound(%p) at position %d +deleteoffset+prevoffset=%d\n",tmpfound,tmpfound?tmpfound->charoffset_o:-1,tmpfound?tmpfound->charoffset_o+offset+sou->prevoffset:-1);
+		while (tmpfound && ((gint)tmpfound->charoffset_o+deleteoffset+sou->prevoffset) <= ((gint)startpos)) {
 			if (G_LIKELY(((gint)tmpfound->charoffset_o+sou->prevoffset) > ((gint)startpos))) {
 				gint numblockchange = tmpfound->numblockchange;
 				DBG_SCANCACHE("scancache_update_single_offset, remove found %p at %d from the cache\n",tmpfound, tmpfound->charoffset_o);
-				if (numblockchange > 0 && tmpfound->fblock->end2_o+sou->prevoffset > startpos - offset) {
+				if (numblockchange > 0 && tmpfound->fblock->end2_o+sou->prevoffset > startpos - deleteoffset) {
 					/* we have to enlarge needscanning to the place where this was popped, unless the complete block was within the deleted region */
 					DBG_SCANCACHE("scancache_update_single_offset, found pushed a block, mark obsolete block %u:%u as needscanning\n",tmpfound->fblock->start1_o, tmpfound->fblock->end2_o);
 					mark_needscanning(btv
-							, tmpfound->fblock->start1_o+sou->prevoffset<=startpos ? tmpfound->fblock->start1_o+sou->prevoffset : tmpfound->fblock->start1_o+sou->prevoffset+offset
-							, tmpfound->fblock->end2_o==BF_OFFSET_UNDEFINED ? BF_OFFSET_UNDEFINED : tmpfound->fblock->end2_o+sou->prevoffset+offset);
+							, tmpfound->fblock->start1_o+sou->prevoffset<=startpos ? tmpfound->fblock->start1_o+sou->prevoffset : tmpfound->fblock->start1_o+sou->prevoffset+deleteoffset
+							, tmpfound->fblock->end2_o==BF_OFFSET_UNDEFINED ? BF_OFFSET_UNDEFINED : tmpfound->fblock->end2_o+sou->prevoffset+deleteoffset);
 				}
-				if (tmpfound->numcontextchange > 0 && tmpfound->fcontext->end_o+sou->prevoffset > startpos - offset) {
+				if (tmpfound->numcontextchange > 0 && tmpfound->fcontext->end_o+sou->prevoffset > startpos - deleteoffset) {
 					/* we have to enlarge needscanning to the place where this was popped, unless the complete context was within the deleted region */
 					DBG_SCANCACHE("scancache_update_single_offset, found pushed a context, mark obsolete context %u:%u as needscanning\n",tmpfound->fcontext->start_o, tmpfound->fcontext->end_o);
 					mark_needscanning(btv
-							, tmpfound->fcontext->start_o+sou->prevoffset<=startpos ? tmpfound->fcontext->start_o+sou->prevoffset : tmpfound->fcontext->start_o+sou->prevoffset+offset
-							, tmpfound->fcontext->end_o==BF_OFFSET_UNDEFINED ? BF_OFFSET_UNDEFINED : tmpfound->fcontext->end_o+sou->prevoffset+offset);
+							, tmpfound->fcontext->start_o+sou->prevoffset<=startpos ? tmpfound->fcontext->start_o+sou->prevoffset : tmpfound->fcontext->start_o+sou->prevoffset+deleteoffset
+							, tmpfound->fcontext->end_o==BF_OFFSET_UNDEFINED ? BF_OFFSET_UNDEFINED : tmpfound->fcontext->end_o+sou->prevoffset+deleteoffset);
 				}
 				remove_cache_entry(btv, &tmpfound, &tmpsiter, NULL, NULL);
 				if (!tmpfound && (numblockchange < 0)) {
@@ -650,7 +659,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 				}
 			} else {
 				tmpfound = get_foundcache_next(btv, &tmpsiter);
-				DBG_SCANCACHE("in loop, tmpfound(%p) at position %d +offset+prevoffset=%d\n",tmpfound,tmpfound?tmpfound->charoffset_o:-1,tmpfound?tmpfound->charoffset_o+offset+sou->prevoffset:-1);
+				DBG_SCANCACHE("in loop, tmpfound(%p) at position %d +deleteoffset+prevoffset=%d\n",tmpfound,tmpfound?tmpfound->charoffset_o:-1,tmpfound?tmpfound->charoffset_o+deleteoffset+sou->prevoffset:-1);
 			}
 		}
 	}
@@ -665,6 +674,8 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		nextsiter=sou->siter;
 		nextfound = get_foundcache_next(btv, &nextsiter);
 	}
+	/* see if nextpos is at startpos, in which case it only needs correction with prevoffset */
+	DBG_SCANCACHE("nextfound(%u)+prevoffset(%d)=%u, startpos=%u\n",nextfound->charoffset_o,sou->prevoffset,nextfound->charoffset_o+sou->prevoffset,startpos);
 	if (nextfound && ((gint)nextfound->charoffset_o + sou->prevoffset) == ((gint)startpos)) {
 		DBG_SCANCACHE("nextfound(%u)+prevoffset(%d)=%u is at the startpos(%u) itself, so handleoffset=%d\n",
 					nextfound->charoffset_o,
@@ -711,7 +722,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		if (((gint)sou->found->charoffset_o+handleoffset) > sou->prevpos) {
 			if (((gint)sou->found->charoffset_o + handleoffset) < startpos) {
 				g_print("ABORT: scancache_update_single_offset, sou->found->charoffset_o(%u)+handleoffset(%d)=%d < startpos(%u) (prevpos=%u)\n",
-							(gint)sou->found->charoffset_o, (gint)handleoffset,sou->found->charoffset_o + sou->prevoffset, (gint)startpos, (gint)sou->prevpos);
+							(gint)sou->found->charoffset_o, (gint)handleoffset,sou->found->charoffset_o + handleoffset, (gint)startpos, (gint)sou->prevpos);
 				g_assert_not_reached();
 			}
 		} else {
@@ -805,11 +816,24 @@ foundcache_process_offsetupdates(BluefishTextView * btv)
 	Toffsetupdate *ou = (Toffsetupdate *)bf_elist_first((Toffsetupdate *)btv->scancache.offsetupdates);
 	while(ou) {
 		Toffsetupdate *nextou = ou->next;
-		DBG_SCANCACHE("foundcache_process_offsetupdates, update position %u with offset %d, next position at %u, prevpos=%u, prevoffset=%d\n",
-							(guint) ou->startpos, (gint) ou->offset,
+		gint32 offset, deleteoffset;
+		offset = ou->offset;
+		deleteoffset = ou->offset;
+		/* now see if we can merge this update with the next update if it was on the same location (a replace, or delete and insert on the same location */
+		if (nextou && nextou->startpos == ou->startpos) {
+			Toffsetupdate *tmp;
+			offset += nextou->offset;
+			deleteoffset = MIN(ou->offset, nextou->offset);
+			tmp = nextou;
+			nextou = nextou->next;
+			g_slice_free(Toffsetupdate, tmp);
+			
+		}
+		DBG_SCANCACHE("foundcache_process_offsetupdates, update position %u with offset %d (deleteoffset=%d), next position at %u, prevpos=%u, prevoffset=%d\n",
+							(guint) ou->startpos, (gint) offset, (gint)deleteoffset,
 							(guint) (nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED),
 							sou.prevpos, sou.prevoffset);
-		scancache_update_single_offset(btv, &sou, ou->startpos, ou->offset, nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED);
+		scancache_update_single_offset(btv, &sou, ou->startpos, offset, deleteoffset, nextou ? OFFSETUPDATE(nextou)->startpos : BF_POSITION_UNDEFINED);
 		g_slice_free(Toffsetupdate, ou);
 		ou = nextou;
 	}
