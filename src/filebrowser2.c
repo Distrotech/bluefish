@@ -380,6 +380,7 @@ GFile *find_common_path(GFile *file1, GFile *file2)
 	
 	if (!file1 || !file2)
 		return NULL;
+	DEBUG_MSG("find_common_path, file1=%p, file2=%p\n",file1,file2);
 	filename1 = g_file_get_parse_name(file1);
 	if (!filename1)
 		return NULL;
@@ -402,7 +403,7 @@ GFile *find_common_path(GFile *file1, GFile *file2)
 				--pos;
 		}
 		if (pos==0) {
-			DEBUG_MSG("find_common_path, sorry, common path is not found");
+			DEBUG_MSG("find_common_path, sorry, common path is not found (pos==0)\n");
 			g_free(filename1);
 			g_free(filename2);
 			return NULL;
