@@ -387,7 +387,7 @@ GFile *find_common_path(GFile *file1, GFile *file2)
 	
 	filename2 = g_file_get_parse_name(file2);
 	if (!filename2) {
-		g_free(filename1);
+		g_free(filename2);
 		return NULL;
 	}
 
