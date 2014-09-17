@@ -73,7 +73,7 @@ htmlbar_doc_view_button_press(GtkWidget * widget, GdkEventButton * bevent, Tdocu
 static void
 htmlbar_sidepanel_initgui(Tbfwin *bfwin)
 {
-
+	DEBUG_MSG("htmlbar_sidepanel_initgui, in_sidepanel=%d\n",htmlbar_v.in_sidepanel);
 	if (htmlbar_v.in_sidepanel && bfwin->leftpanel_notebook) {
 		Thtmlbarwin *hbw;
 		Thtmlbarsession *hbs;
@@ -94,6 +94,7 @@ htmlbar_sidepanel_initgui(Tbfwin *bfwin)
 		gtk_widget_show_all(html_notebook);
 		DEBUG_MSG("htmlbar_sidepanel_initgui, append html_notebook=%p to leftpanel_notebook %p and image %p\n",html_notebook, bfwin->leftpanel_notebook, image);
 		gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),html_notebook,image,gtk_label_new(_("Htmlbar")));
+		DEBUG_MSG("handlebox=%p\n",hbw->handlebox);
 		if (hbw->handlebox) {
 			DEBUG_MSG("htmlbar_sidepanel_initgui, destroy hbw->handlebox %p\n",hbw->handlebox);
 			gtk_widget_destroy(hbw->handlebox);

@@ -36,6 +36,23 @@ void htmlbar_pref_apply()
 	integer_apply(&main_v->props.auto_update_meta_author, hbp->auto_update_meta_author, TRUE);
 	integer_apply(&main_v->props.auto_update_meta_date, hbp->auto_update_meta_date, TRUE);
 	integer_apply(&main_v->props.auto_update_meta_generator, hbp->auto_update_meta_generator, TRUE);
+	
+	if (!htmlbar_v.in_sidepanel) {
+		DEBUG_MSG("htmlbar_pref_apply, in_sidepanel=%d, should we now show the htmlbar toolbar????\n", htmlbar_v.in_sidepanel);
+		GList *tmplist = g_list_first(main_v->bfwinlist);
+		while (tmplist) {
+			Tbfwin *bfwin = BFWIN(tmplist->data);
+			Thtmlbarwin *hbw;
+			Thtmlbarsession *hbs;
+			hbs = g_hash_table_lookup(htmlbar_v.lookup, bfwin->session);
+			hbw = g_hash_table_lookup(htmlbar_v.lookup, bfwin);
+			htmlbar_toolbar_show(hbw, hbs, hbs->view_htmlbar);
+			tmplist = g_list_next(tmplist);
+		}
+	} else {
+		DEBUG_MSG("htmlbar_pref_apply, in_sidepanel=%d, no gui to build, the complete sidepanel will be rebuilt by the main preferences apply function\n", htmlbar_v.in_sidepanel);
+	}
+	
 }
 
 static void

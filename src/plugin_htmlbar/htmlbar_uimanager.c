@@ -809,8 +809,10 @@ htmlbar_insert_soft_hyphen(GtkAction * action, gpointer user_data)
 void
 htmlbar_toolbar_show(Thtmlbarwin * hbw, Thtmlbarsession *hbs, gboolean show)
 {
-	if (htmlbar_v.in_sidepanel)
+	if (htmlbar_v.in_sidepanel) {
+		DEBUG_MSG("htmlbar_toolbar_show, in_sidepanel=%d, nothing to do (handlebox=%p), return\n",htmlbar_v.in_sidepanel,hbw->handlebox);
 		return;
+	}
 	DEBUG_MSG("htmlbar_toolbar_show, show=%d, handlebox=%p\n",show,hbw->handlebox);
 	if (show) {
 		if (hbw->handlebox) {
@@ -1447,10 +1449,8 @@ static GtkWidget *new_html_subtoolbar(Thtmlbarwin * hbw, GtkWidget *html_noteboo
 	gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar), GTK_ICON_SIZE_SMALL_TOOLBAR);
 #endif
 #endif
-	if (htmlbar_v.in_sidepanel) {
-		DEBUG_MSG("new_html_subtoolbar, setup vertical orientation\n");
-		gtk_orientable_set_orientation(GTK_ORIENTABLE(toolbar), GTK_ORIENTATION_VERTICAL);
-	}
+	DEBUG_MSG("new_html_subtoolbar, setup orientation need_vertical=%d,need_horizontal=%d\n",htmlbar_v.in_sidepanel,!htmlbar_v.in_sidepanel);
+	gtk_orientable_set_orientation(GTK_ORIENTABLE(toolbar), htmlbar_v.in_sidepanel?GTK_ORIENTATION_VERTICAL:GTK_ORIENTATION_HORIZONTAL);
 	label = gtk_label_new(labeltext);
 	DEBUG_MSG("new_html_subtoolbar, append toolbar to html_notebook\n");
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, label);
