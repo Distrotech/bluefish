@@ -402,12 +402,13 @@ GFile *find_common_path(GFile *file1, GFile *file2)
 			if (filename1[pos] == G_DIR_SEPARATOR)
 				--pos;
 		}
-		if (pos==0) {
+		if (pos<=0) {
 			DEBUG_MSG("find_common_path, sorry, common path is not found (pos==0)\n");
 			g_free(filename1);
 			g_free(filename2);
 			return NULL;
 		}
+		DEBUG_MSG("got pos=%d, len=%d\n",pos,strlen(filename1));
 		gchar *common_path = g_strndup (filename1, pos);
 		DEBUG_MSG("find_common_path, found commom path is %s, pos=%d \n", common_path, pos);
 		GFile *common_uri = g_file_parse_name(common_path);
