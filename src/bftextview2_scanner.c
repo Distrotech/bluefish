@@ -126,57 +126,63 @@ guint loops_per_timer = 1000;	/* a tunable to avoid asking time too often. this 
 void
 dump_scancache(BluefishTextView * btv)
 {
+	const gint startoutput_o = 0;
+	const gint endoutput_o = G_MAXINT32;
+	/*const gint startoutput_o = 6500;
+	const gint endoutput_o = 16500;*/
 	GSequenceIter *siter = g_sequence_get_begin_iter(btv->scancache.foundcaches);
-	g_print("\nDUMP SCANCACHE\nwith length %d, document length=%d\n\n",
-			g_sequence_get_length(btv->scancache.foundcaches), gtk_text_buffer_get_char_count(btv->buffer));
+	g_print("\nDUMP SCANCACHE\nwith length %d, document length=%d. Dumping region %d:%d\n\n",
+			g_sequence_get_length(btv->scancache.foundcaches), gtk_text_buffer_get_char_count(btv->buffer), startoutput_o, endoutput_o);
 	while (siter && !g_sequence_iter_is_end(siter)) {
 		Tfound *found = g_sequence_get(siter);
 		if (!found)
 			break;
-		g_print("%3d: %p, fblock %p, fcontext %p siter %p\n", found->charoffset_o, found, found->fblock,
-				found->fcontext, siter);
-		if (found->numcontextchange != 0) {
-			g_print("\tnumcontextchange=%d", found->numcontextchange);
-			if (found->fcontext) {
-				g_print(",context %d", found->fcontext->context);
-				g_print(", highlight %s, parent=%p, %d:%d",
-						g_array_index(btv->bflang->st->contexts, Tcontext,
-									  found->fcontext->context).contexthighlight,
-						found->fcontext->parentfcontext, found->fcontext->start_o, found->fcontext->end_o);
-			}
-			g_print("\n");
-		}
-		if (found->numblockchange != 0) {
-			g_print("\tnumblockchange=%d", found->numblockchange);
-			if (found->fblock) {
-				g_print(", pattern %d ", found->fblock->patternum);
-				if (g_array_index(btv->bflang->st->matches, Tpattern,
-																found->fblock->patternum).is_regex) {
-					GtkTextIter it1, it2;
-					gchar *tmp2;
-					if (found->numblockchange > 0) {
-						gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, found->fblock->start1_o);
-						gtk_text_buffer_get_iter_at_offset(btv->buffer, &it2, found->fblock->end1_o);
-						tmp2 = gtk_text_buffer_get_text(btv->buffer, &it1, &it2, TRUE);
-					} else if (found->fblock->start2_o != -1) {
-						gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, found->fblock->start2_o);
-						gtk_text_buffer_get_iter_at_offset(btv->buffer, &it2, found->fblock->end2_o);
-						tmp2 = gtk_text_buffer_get_text(btv->buffer, &it1, &it2, TRUE);
-					} else {
-						tmp2 = g_strdup(g_array_index(btv->bflang->st->matches, Tpattern,
-																found->fblock->patternum).pattern);
-					}
-					g_print("%s", tmp2);
-					g_free(tmp2);
-				} else {
-					g_print("%s", g_array_index(btv->bflang->st->matches, Tpattern,
-																found->fblock->patternum).pattern);
+		if (found->charoffset_o > startoutput_o && found->charoffset_o < endoutput_o) {
+			g_print("%3d: %p, fblock %p, fcontext %p siter %p\n", found->charoffset_o, found, found->fblock,
+					found->fcontext, siter);
+			if (found->numcontextchange != 0) {
+				g_print("\tnumcontextchange=%d", found->numcontextchange);
+				if (found->fcontext) {
+					g_print(",context %d", found->fcontext->context);
+					g_print(", highlight %s, parent=%p, %d:%d",
+							g_array_index(btv->bflang->st->contexts, Tcontext,
+										  found->fcontext->context).contexthighlight,
+							found->fcontext->parentfcontext, found->fcontext->start_o, found->fcontext->end_o);
 				}
-				g_print(", parent=%p, %d:%d-%d:%d",
-						found->fblock->parentfblock, found->fblock->start1_o, found->fblock->end1_o,
-						found->fblock->start2_o, found->fblock->end2_o);
+				g_print("\n");
 			}
-			g_print("\n");
+			if (found->numblockchange != 0) {
+				g_print("\tnumblockchange=%d", found->numblockchange);
+				if (found->fblock) {
+					g_print(", pattern %d ", found->fblock->patternum);
+					if (g_array_index(btv->bflang->st->matches, Tpattern,
+																	found->fblock->patternum).is_regex) {
+						GtkTextIter it1, it2;
+						gchar *tmp2;
+						if (found->numblockchange > 0) {
+							gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, found->fblock->start1_o);
+							gtk_text_buffer_get_iter_at_offset(btv->buffer, &it2, found->fblock->end1_o);
+							tmp2 = gtk_text_buffer_get_text(btv->buffer, &it1, &it2, TRUE);
+						} else if (found->fblock->start2_o != -1) {
+							gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, found->fblock->start2_o);
+							gtk_text_buffer_get_iter_at_offset(btv->buffer, &it2, found->fblock->end2_o);
+							tmp2 = gtk_text_buffer_get_text(btv->buffer, &it1, &it2, TRUE);
+						} else {
+							tmp2 = g_strdup(g_array_index(btv->bflang->st->matches, Tpattern,
+																	found->fblock->patternum).pattern);
+						}
+						g_print("%s", tmp2);
+						g_free(tmp2);
+					} else {
+						g_print("%s", g_array_index(btv->bflang->st->matches, Tpattern,
+																	found->fblock->patternum).pattern);
+					}
+					g_print(", parent=%p, %d:%d-%d:%d",
+							found->fblock->parentfblock, found->fblock->start1_o, found->fblock->end1_o,
+							found->fblock->start2_o, found->fblock->end2_o);
+				}
+				g_print("\n");
+			}
 		}
 		siter = g_sequence_iter_next(siter);
 	}
@@ -1603,7 +1609,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	if (G_UNLIKELY(pat->stretch_blockstart
 				&& scanning->curfblock
 				&& scanning->curfblock->patternum == pat->blockstartpattern
-				&& (scanning->curfblock->start2_o == BF_POSITION_UNDEFINED || scanning->curfblock->start2_o < match_end_o))) {
+				&& (scanning->curfblock->start2_o == BF_POSITION_UNDEFINED || scanning->curfblock->start2_o >= match_end_o))) {
 		/* get the current block on the stack and stretch the end-of-blockstart to the end of the match */
 		DBG_SCANNING("found_match, pat->stretch_blockstart=%d, pat->blockstartpattern=%d, update curfblock(%d:%d-%d:%d) with patternum=%d from end1_o from %d to %d\n",
 						pat->stretch_blockstart,pat->blockstartpattern,
