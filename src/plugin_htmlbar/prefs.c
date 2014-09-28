@@ -1,5 +1,6 @@
 
 #include "htmlbar.h"
+#include "htmlbar_uimanager.h"
 #include "../preferences.h"
 #include "../gtk_easy.h"
 #include "../dialog_utils.h"
