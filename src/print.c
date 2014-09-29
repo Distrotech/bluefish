@@ -299,11 +299,11 @@ begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tbluefishprint *bf
 	PangoLayoutIter *pliter;
 	PangoRectangle prect;
 	gdouble height, offset=0.0;
-	Tpage curpage = {0,0};
+	/*Tpage curpage = {0,0};*/
 	Tpage *page;
 	gint i=0, pagenr=0;
 
-	if (bfprint->eo != -1 && !gtk_print_settings_get_print_pages(gtk_print_operation_get_print_settings(print))==GTK_PRINT_PAGES_SELECTION) {
+	if (bfprint->eo != -1 && gtk_print_settings_get_print_pages(gtk_print_operation_get_print_settings(print))!=GTK_PRINT_PAGES_SELECTION) {
 		bfprint->so=0;
 		bfprint->eo=-1;
 	}
@@ -335,7 +335,7 @@ begin_print(GtkPrintOperation *print,GtkPrintContext *context,Tbluefishprint *bf
 			page = g_slice_new(Tpage);
 			page->byte_o = pango_layout_iter_get_index(pliter);
 			page->char_o = bfprint->so + utf8_byteoffset_to_charsoffset_cached(bfprint->buffer, page->byte_o);
-			curpage = *page;
+			/*curpage = *page;*/
 			DEBUG_MSG("page %d should end at pango line %i, byte=%d, chars=%d\n",pagenr,i,page->byte_o, page->char_o);
 			gtk_text_buffer_get_iter_at_offset(bfprint->doc->buffer, &iter, page->char_o);
 			DEBUG_MSG("which is at editor line %d\n",gtk_text_iter_get_line(&iter));
