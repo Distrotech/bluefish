@@ -1202,6 +1202,7 @@ typedef struct {
 	GFile *basedir;
 	GFileEnumerator *gfe;
 	guint recursion;
+	GCancellable *cancellable;
 } Tfindfiles_dir;
 
 
@@ -1209,9 +1210,11 @@ static void
 findfiles_unref(Tfindfiles * ff)
 {
 	ff->refcount--;
-	DEBUG_MSG("openadv_unref, count=%d\n", ff->refcount);
+	DEBUG_MSG("findfiles_unref, count=%d\n", ff->refcount);
 	if (ff->refcount <= 0) {
-		ff->finished_cb(ff->data);
+		if (!ff->cancel) {
+			ff->finished_cb(ff->data);
+		}
 		ff->data=NULL;
 		ff->filematch_cb=NULL;
 		ff->finished_cb=NULL;
@@ -1240,6 +1243,7 @@ findfiles_load_directory_cleanup(Tfindfiles_dir * ffd)
 	if (ffd->gfe)
 		g_object_unref(ffd->gfe);
 	findfiles_unref(ffd->ff);
+	g_object_unref(ffd->cancellable);
 	g_slice_free(Tfindfiles_dir, ffd);
 #ifdef OAD_MEMCOUNT
 	omemcount.allocdir--;
@@ -1331,7 +1335,7 @@ enumerate_children_lcb(GObject * source_object, GAsyncResult * res, gpointer use
 		g_error_free(error);
 		findfiles_load_directory_cleanup(ffd);
 	} else {
-		g_file_enumerator_next_files_async(ffd->gfe, FFD_NUM_FILES_PER_CB, G_PRIORITY_DEFAULT + 2, NULL,
+		g_file_enumerator_next_files_async(ffd->gfe, FFD_NUM_FILES_PER_CB, G_PRIORITY_DEFAULT + 2, ffd->cancellable,
 										   enumerator_next_files_lcb, ffd);
 	}
 }
@@ -1340,7 +1344,7 @@ static void
 findfiles_rundir(gpointer data)
 {
 	Tfindfiles_dir *ffd = data;
-	g_file_enumerate_children_async(ffd->basedir, BF_FILEINFO, 0, G_PRIORITY_DEFAULT + 3, NULL,
+	g_file_enumerate_children_async(ffd->basedir, BF_FILEINFO, 0, G_PRIORITY_DEFAULT + 3, ffd->cancellable,
 									enumerate_children_lcb, ffd);
 }
 
@@ -1362,6 +1366,7 @@ findfiles_backend(Tfindfiles * ff, GFile * basedir, guint recursion)
 	ffd->recursion = recursion;
 	ffd->basedir = basedir;
 	g_object_ref(ffd->basedir);
+	ffd->cancellable = g_cancellable_new();
 
 	/* tune the queue, if there are VERY MANY files on the ofqueue, we limit the ffdqueue */
 	if (ffdqueue.max_worknum >= 8 && ofqueue.q.length > 1024)
@@ -1403,6 +1408,7 @@ findfiles(GFile *basedir, gboolean recursive, guint max_recursion, gboolean matc
 
 static void findfiles_cancel_queue_freefunc(gpointer data, gpointer user_data) {
 	Tfindfiles_dir *ffd = data;
+	g_cancellable_cancel(ffd->cancellable);
 	g_object_unref(ffd->basedir);
 	if (ffd->gfe)
 		g_object_unref(ffd->gfe);
