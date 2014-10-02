@@ -78,7 +78,7 @@ typedef struct {
 	GtkWidget *radio[14];
 	GtkWidget *spin[8];
 	GtkWidget *check[8];
-	GtkWidget *clist[4];
+	GtkWidget *clist[5];
 	GtkWidget *text[1];
 	GtkWidget *attrwidget[20];	/* all attribute widgets should go in here */
 	Treplacerange range;
