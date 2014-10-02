@@ -163,8 +163,8 @@ queue_worker_ready_inthread(Tasyncqueue *queue)
 		DEBUG_MSG("queue_worker_ready_inthread queue=%p, queue length %d, just return (end thread, worknum=%d)\n",queue,g_queue_get_length(&queue->q),queue->worknum);
 		queue->threads = g_slist_remove(queue->threads, thisthread);
 		DBG_THREAD("removed thread self %p, have %d threads on queue->threads, will unref it\n",thisthread,g_slist_length(queue->threads));
-		g_thread_unref(thisthread);
 #if GLIB_CHECK_VERSION(2, 32, 0)
+		g_thread_unref(thisthread);
 		DBG_THREAD("unlock queue %p\n",queue);
 		g_mutex_unlock(&queue->mutex);
 #else
