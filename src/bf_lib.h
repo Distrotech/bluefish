@@ -134,10 +134,6 @@ void callback_register(GSList **slist, void (*func)(), gpointer data);
 void callback_remove_by_data(GSList **slist, gpointer data);
 void callback_remove_all(GSList **slist);
 
-#ifndef HAVE_STRCASESTR
-char *strcasestr(char *a, char *b);
-#endif
-
 #define BF_ELIST_HEAD gpointer next, prev
 typedef struct {
 	BF_ELIST_HEAD;

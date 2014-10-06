@@ -482,7 +482,7 @@ build_lang_finished_lcb(gpointer data)
 	g_hash_table_destroy(bfparser->patterns);
 	g_hash_table_destroy(bfparser->contexts);
 	g_hash_table_destroy(bfparser->commentid_table);
-	g_list_free_full(bfparser->ldb.stack,g_free);
+	g_list_free_full(bfparser->ldb.stack, g_free);
 	g_slice_free(Tbflangparsing, bfparser);
 	return FALSE;
 }

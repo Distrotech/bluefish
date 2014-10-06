@@ -1509,21 +1509,6 @@ callback_remove_all(GSList **slist) {
 	*slist=NULL;
 }
 
-#ifndef HAVE_STRCASESTR
-#include <ctype.h>
-char *strcasestr(char *a, char *b)
-{
-	size_t l;
-	char f[3];
-
-	snprintf(f, sizeof(f), "%c%c", tolower(*b), toupper(*b));
-	for (l = strcspn(a, f); l != strlen(a); l += strcspn(a + l + 1, f) + 1)
-		if (strncasecmp(a + l, b, strlen(b)) == 0)
-			return(a + l);
-	return(NULL);
-}
-#endif
-
 Telist *
 bf_elist_prepend(gpointer cur, gpointer new)
 {

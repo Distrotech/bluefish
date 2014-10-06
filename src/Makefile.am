@@ -67,6 +67,8 @@ bluefish_SOURCES = \
 	bfwin_uimanager.c \
 	bookmark.c \
 	bookmark.h \
+	compatibility.c \
+	compatibility.h \
 	dialog_utils.c \
 	dialog_utils.h \
 	document.c \
