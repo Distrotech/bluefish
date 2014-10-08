@@ -2849,7 +2849,7 @@ preferences_dialog_new(Tbfwin *bfwin)
 																			&& main_v->props.language[0]) ?
 																  lingua_locale_to_lang(main_v->
 																						props.language) :
-																  _("Auto"), _("_Language:"), hbox, 0);
+																  _("Auto"), _("User interface _language:"), hbox, 0);
 	free_stringlist(poplist);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Recent Files</b>"), vbox1);
