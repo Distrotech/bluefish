@@ -22,7 +22,6 @@
 #define _GNU_SOURCE
 
 #include <string.h>
-#include <gdk/gdkkeysyms.h>
 
 #include "snippets.h"
 #include "snippets_gui.h"

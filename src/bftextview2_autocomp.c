@@ -18,7 +18,6 @@
  */
 
 #include <string.h>
-#include <gdk/gdkkeysyms.h>
 #include "bluefish.h"
 #include "bftextview2_private.h"
 #include "bftextview2_scanner.h"

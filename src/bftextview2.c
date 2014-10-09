@@ -19,7 +19,6 @@
 
 /* for the design docs see bftextview2.h */
 
-#include <gdk/gdkkeysyms.h>
 #include <math.h>				/* log10() */
 #include <string.h>				/* strlen() */
 

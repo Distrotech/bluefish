@@ -22,7 +22,6 @@
 #include <gtk/gtk.h>
 #include <stdlib.h>				/* strtod() */
 #include <string.h>				/* strlen() */
-#include <gdk/gdkkeysyms.h>		/* GDK_Return */
 
 #include "bluefish.h"
 #include "gtk_easy.h"

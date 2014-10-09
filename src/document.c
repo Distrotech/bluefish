@@ -20,7 +20,6 @@
  */
 
 #include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>		/* for the keyboard event codes */
 
 #include <string.h>				/* strchr() */
 #include <stdlib.h>				/* system() */

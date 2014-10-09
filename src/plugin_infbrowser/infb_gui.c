@@ -19,7 +19,6 @@
  */
  
 #include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h> 
 #include <string.h>
 #include <time.h>
 
