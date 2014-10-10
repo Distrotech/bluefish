@@ -405,7 +405,7 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 	Tinfbwin *win = (Tinfbwin*)g_hash_table_lookup(infb_v.windows,bfwin);
 	
 
-	if ( event->keyval != GDK_KEY_Return )	return FALSE;
+	if ( event->keyval != GDK_Return )	return FALSE;
 
 	if (infb_v.currentDoc == NULL ) return FALSE; 
 	txt = (gchar*)gtk_entry_get_text(GTK_ENTRY(widget));

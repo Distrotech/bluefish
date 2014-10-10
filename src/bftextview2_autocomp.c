@@ -72,27 +72,27 @@ acwin_move_selection(BluefishTextView * btv, gint keyval)
 		path = gtk_tree_model_get_path(model, &it);
 		indices = gtk_tree_path_get_indices(path);
 		switch (keyval) {
-		case GDK_KEY_Up:			/* move the selection one up */
+		case GDK_Up:			/* move the selection one up */
 			retval = gtk_tree_path_prev(path);
 			break;
-		case GDK_KEY_Down:
+		case GDK_Down:
 			gtk_tree_path_next(path);
 			break;
-		case GDK_KEY_Page_Down:
+		case GDK_Page_Down:
 			i = MIN(gtk_tree_model_iter_n_children(model, NULL) - 1, indices[0] + rows);
 			gtk_tree_path_free(path);
 			path = gtk_tree_path_new_from_indices(i, -1);
 			break;
-		case GDK_KEY_Page_Up:
+		case GDK_Page_Up:
 			i = MAX(indices[0] - rows, 0);
 			gtk_tree_path_free(path);
 			path = gtk_tree_path_new_from_indices(i, -1);
 			break;
-		case GDK_KEY_Home:
+		case GDK_Home:
 			gtk_tree_path_free(path);
 			path = gtk_tree_path_new_first();
 			break;
-		case GDK_KEY_End:
+		case GDK_End:
 			gtk_tree_path_free(path);
 			i = gtk_tree_model_iter_n_children(model, NULL);
 			path = gtk_tree_path_new_from_indices(i - 1, -1);
@@ -198,7 +198,7 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 		return FALSE;
 	}
 	switch (event->keyval) {
-	case GDK_KEY_Return:{
+	case GDK_Return:{
 			GtkTreeSelection *selection;
 			GtkTreeIter it;
 			GtkTreeModel *model;
@@ -260,7 +260,7 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 			return TRUE;
 		}
 		break;
-	case GDK_KEY_Tab:
+	case GDK_Tab:
 		if (ACWIN(btv->autocomp)->newprefix
 			&& strlen(ACWIN(btv->autocomp)->newprefix) > strlen(ACWIN(btv->autocomp)->prefix)) {
 			gtk_text_buffer_insert_at_cursor(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),
@@ -271,23 +271,23 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 		autocomp_run(btv, FALSE);
 		return TRUE;
 		break;
-	case GDK_KEY_Right:
-	case GDK_KEY_KP_Right:
-	case GDK_KEY_Left:
-	case GDK_KEY_KP_Left:
+	case GDK_Right:
+	case GDK_KP_Right:
+	case GDK_Left:
+	case GDK_KP_Left:
 		acwin_cleanup(btv);
 		return FALSE;
 		break;
-	case GDK_KEY_Escape:
+	case GDK_Escape:
 		acwin_cleanup(btv);
 		return TRUE;
 		break;
-	case GDK_KEY_Up:
-	case GDK_KEY_Down:
-	case GDK_KEY_Page_Down:
-	case GDK_KEY_Page_Up:
-	case GDK_KEY_Home:
-	case GDK_KEY_End:
+	case GDK_Up:
+	case GDK_Down:
+	case GDK_Page_Down:
+	case GDK_Page_Up:
+	case GDK_Home:
+	case GDK_End:
 		if (acwin_move_selection(btv, event->keyval))
 			return TRUE;
 		break;

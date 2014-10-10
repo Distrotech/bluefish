@@ -610,7 +610,7 @@ static gboolean
 window_full_key_press_event_lcb(GtkWidget * widget, GdkEventKey * event, GtkWidget * win)
 {
 	DEBUG_MSG("window_full_key_press_event_lcb, started\n");
-	if (event->keyval == GDK_KEY_Escape) {
+	if (event->keyval == GDK_Escape) {
 		DEBUG_MSG("window_full_key_press_event_lcb, emit delete_event on %p\n", win);
 /*		g_signal_emit_by_name(G_OBJECT(win), "delete_event");*/
 		gtk_widget_destroy(win);
@@ -1453,12 +1453,12 @@ accelerator_key_press_lcb(GtkWidget * widget, GdkEventKey * event, gpointer user
 /*	if (!g_unichar_isalnum((gunichar)event->keyval) && event->keyval!=GDK_Escape && !g_unichar_isspace((gunichar)event->keyval))
 		return FALSE;*/
 	switch (event->keyval) {
-	case GDK_KEY_Escape:
+	case GDK_Escape:
 		gtk_dialog_response(dlg, GTK_RESPONSE_CANCEL);
 		break;
-	case GDK_KEY_Delete:
-	case GDK_KEY_KP_Delete:
-	case GDK_KEY_BackSpace:
+	case GDK_Delete:
+	case GDK_KP_Delete:
+	case GDK_BackSpace:
 		gtk_dialog_response(dlg, GTK_RESPONSE_REJECT);
 		break;
 	default:
@@ -1476,7 +1476,7 @@ accelerator_key_press_lcb(GtkWidget * widget, GdkEventKey * event, gpointer user
 			if (accel_key != event->keyval) {
 				accel_mods |= GDK_SHIFT_MASK;
 			}
-			if (accel_key != 0 && (accel_mods != 0 || (accel_key >= GDK_KEY_F1 && accel_key <= GDK_KEY_F12)) && gtk_accelerator_valid(accel_key, accel_mods)) {
+			if (accel_key != 0 && (accel_mods != 0 || (accel_key >= GDK_F1 && accel_key <= GDK_F12)) && gtk_accelerator_valid(accel_key, accel_mods)) {
 				g_object_set_data(G_OBJECT(dlg), "keyname", gtk_accelerator_name(accel_key, accel_mods));
 				gtk_dialog_response(dlg, GTK_RESPONSE_OK);
 			} else {

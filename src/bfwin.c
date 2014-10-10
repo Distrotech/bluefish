@@ -957,11 +957,11 @@ simplesearch_advanced_clicked(GtkButton * button, Tbfwin * bfwin)
 static gboolean
 gotoline_entries_key_press_event(GtkWidget * widget, GdkEventKey * event, Tbfwin * bfwin)
 {
-	if (event->keyval == GDK_KEY_Escape) {
+	if (event->keyval == GDK_Escape) {
 		gotoline_close_button_clicked(NULL, bfwin);
 		return TRUE;
 	}
-	if (event->keyval == GDK_KEY_Return && widget == bfwin->gotoline_entry) {
+	if (event->keyval == GDK_Return && widget == bfwin->gotoline_entry) {
 		gotoline_entry_changed(GTK_EDITABLE(widget), bfwin);
 		/* the close button clicked function automatically switches the focus to the text widget */
 		gotoline_close_button_clicked(NULL, bfwin);
@@ -1163,18 +1163,18 @@ notebook_set_tab_accels(Tbfwin * bfwin)
 	DEBUG_MSG("notebook_set_tab_accels, gtk_window_add_accel_group\n");
 	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), tab_accels);
 	DEBUG_MSG("notebook_set_tab_accels, gtk_widget_add_accelerator\n");
-	gtk_widget_add_accelerator(bfwin->notebook, "tab-last", tab_accels, GDK_KEY_0, GDK_MOD1_MASK,
+	gtk_widget_add_accelerator(bfwin->notebook, "tab-last", tab_accels, GDK_0, GDK_MOD1_MASK,
 							   GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab-first", tab_accels, GDK_KEY_1, GDK_MOD1_MASK,
+	gtk_widget_add_accelerator(bfwin->notebook, "tab-first", tab_accels, GDK_1, GDK_MOD1_MASK,
 							   GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab2", tab_accels, GDK_KEY_2, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab3", tab_accels, GDK_KEY_3, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab4", tab_accels, GDK_KEY_4, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab5", tab_accels, GDK_KEY_5, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab6", tab_accels, GDK_KEY_6, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab7", tab_accels, GDK_KEY_7, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab8", tab_accels, GDK_KEY_8, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab9", tab_accels, GDK_KEY_9, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab2", tab_accels, GDK_2, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab3", tab_accels, GDK_3, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab4", tab_accels, GDK_4, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab5", tab_accels, GDK_5, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab6", tab_accels, GDK_6, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab7", tab_accels, GDK_7, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab8", tab_accels, GDK_8, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab9", tab_accels, GDK_9, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
 }
 
 static gboolean
@@ -1424,7 +1424,7 @@ static gboolean
 bfwin_key_press_event(GtkWidget *widget,GdkEventKey  *kevent,gpointer   user_data)
 {
 	/*g_print("bfwin_key_press_event, key=%d, state=%d\n",kevent->keyval,kevent->state);*/
-	if (kevent->keyval == GDK_KEY_Tab && (kevent->state & GDK_CONTROL_MASK)) {
+	if (kevent->keyval == GDK_Tab && (kevent->state & GDK_CONTROL_MASK)) {
 		gint i;
 		Tdocument *doc;
 		GList *tmplist;
@@ -1448,7 +1448,7 @@ bfwin_key_press_event(GtkWidget *widget,GdkEventKey  *kevent,gpointer   user_dat
 		gtk_notebook_set_current_page(GTK_NOTEBOOK(BFWIN(user_data)->notebook), i);
 		return TRUE;
 	}
-	/*if (kevent->keyval == GDK_KEY_Control_L || kevent->keyval == GDK_KEY_Control_R) {
+	/*if (kevent->keyval == GDK_Control_L || kevent->keyval == GDK_Control_R) {
 		g_print("control pressed\n");
 	}*/
 	return FALSE;
@@ -1458,10 +1458,10 @@ static gboolean
 bfwin_key_release_event(GtkWidget *widget, GdkEventKey  *kevent, gpointer   user_data)
 {
 	/*g_print("bfwin_key_release_event, key=%d, state=%d\n",kevent->keyval,kevent->state);*/
-	/*if (kevent->keyval == GDK_KEY_Tab && kevent->state & GDK_CONTROL_MASK) {
+	/*if (kevent->keyval == GDK_Tab && kevent->state & GDK_CONTROL_MASK) {
 		g_print("control tab released\n");
 	}*/
-	if (kevent->keyval == GDK_KEY_Control_L || kevent->keyval == GDK_KEY_Control_R) {
+	if (kevent->keyval == GDK_Control_L || kevent->keyval == GDK_Control_R) {
 		/* if we did switch to a recent document without activating it, we should activate it now */
 		DEBUG_MSG("bfwin_key_release_event, control released\n");
 		if (BFWIN(user_data)->notebook_switch_signal == 0) {
