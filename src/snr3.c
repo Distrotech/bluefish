@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snr3.c - search and replace
  *
- * Copyright (C) 2011,2012 Olivier Sessink
+ * Copyright (C) 2011,2012,2013,2014 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1259,6 +1259,7 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 		s3run->escape_chars = escapechars;
 		retval |= 1;
 	}
+	DEBUG_MSG("snr3run_init_from_gui, comparing query '%s' and '%s' for changes\n",s3run->query, query);
 	if (g_strcmp0(s3run->query, query)!=0) {
 		snr3_cancel_run(s3run);
 		g_free(s3run->query);
@@ -1722,6 +1723,8 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))), "activate",G_CALLBACK(snr_combo_activate_lcb), snrwin);
 	g_signal_connect(gtk_bin_get_child(GTK_BIN(snrwin->replace)), "focus-out-event", G_CALLBACK(snrwin_focus_out_event_cb), snrwin);
 	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",G_CALLBACK(snr_combo_activate_lcb), snrwin);
+	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
+	g_signal_connect(snrwin->replace, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	g_signal_connect(snrwin->searchType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	g_signal_connect(snrwin->replaceType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	g_signal_connect(snrwin->scope, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
