@@ -953,7 +953,7 @@ rcfile_parse_main(void)
 			g_list_append(main_v->props.file_association,
 						  array_from_arglist("1", ".bflang2", "application/x-bluefish-language2", NULL));
 */
-		main_v->props.file_association = 
+		main_v->props.file_association =
 			g_list_append(main_v->props.file_association,
 						  array_from_arglist("0", ".ada", "text/x-ada", NULL));
 		main_v->props.file_association =
@@ -1197,6 +1197,7 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_integer(&configlist, &session->ssearch_dotmatchall, "ssearch_dotmatchall:", 0, FALSE);
 	init_prop_integer(&configlist, &session->ssearch_unescape, "ssearch_unescape:", 0, FALSE);
 	init_prop_integer(&configlist, &session->ssearch_casesens, "ssearch_casesens:", 0, FALSE);
+	init_prop_string_with_escape(&configlist, &session->snr3_filepattern, "snr_filepattern:", NULL);
 	init_prop_string_with_escape(&configlist, &session->ssearch_text, "ssearch_text:", NULL);
 
 	init_prop_integer(&configlist, &session->display_right_margin, "display_right_margin:", 0, FALSE);

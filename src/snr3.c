@@ -1317,6 +1317,8 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 		snrwin->bfwin->session->snr3_escape_chars = escapechars;
 		snrwin->bfwin->session->snr3_dotmatchall = dotmatchall;
 		snrwin->bfwin->session->snr3_recursion_level = recursion_level;
+		g_free(snrwin->bfwin->session->snr3_filepattern);
+		snrwin->bfwin->session->snr3_filepattern = g_strdup(s3run->filepattern);
 	}
 
 	DEBUG_MSG("snr3run_init_from_gui, return %d\n", retval);
@@ -1622,7 +1624,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	currentrow++;
 	/* add a basedir and file pattern widget here */
 
-	snrwin->filepattern = combobox_with_popdown(bfwin->session->filegloblist ? g_list_last(bfwin->session->filegloblist)->data : NULL, bfwin->session->filegloblist, TRUE);
+	snrwin->filepattern = combobox_with_popdown(bfwin->session->snr3_filepattern, bfwin->session->filegloblist, TRUE);
 	snrwin->filepatternL = dialog_mnemonic_label_in_table(_("Filename pattern: "), snrwin->filepattern, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->filepattern, 1, 2, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 

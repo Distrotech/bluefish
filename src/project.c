@@ -65,6 +65,7 @@ free_session(Tsessionvars * session)
 	free_arraylist(session->bmarks);
 	free_stringlist(session->recent_files);
 	free_stringlist(session->recent_dirs);
+	g_free(session->snr3_filepattern);
 	g_free(session->ssearch_text);
 	g_free(session->opendir);
 	g_free(session->savedir);

@@ -372,7 +372,7 @@ typedef struct {
 	gint adv_textview_right_margin; /* advanced option for the amount of whitespace inside the textview widget */
 	gboolean wrap_on_right_margin; /* sets adv_textview_right_margin dynamically based on right_margin_pos */
 	gint adv_textview_left_margin; /* advanced option for the amount of whitespace inside the textview widget */
-	gint adv_smart_indent_mode; /* advanced option for advanced indent mode, normal=1, but if set to 2 the editor 
+	gint adv_smart_indent_mode; /* advanced option for advanced indent mode, normal=1, but if set to 2 the editor
 											will outdent if the previous character was a closing bracket */
 } Tproperties;
 
@@ -460,6 +460,7 @@ typedef struct {
 #endif
 	/* if you add strings or lists to the session, please make sure they are free'ed
 	in free_session() in project.c */
+	gchar *snr3_filepattern;
 	gchar *ssearch_text;
 	gchar *default_mime_type;
 	gchar *template;
