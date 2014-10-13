@@ -38,6 +38,9 @@ void bfwin_gotoline_frame_show(Tbfwin * bfwin);
 void bfwin_simplesearch_show(Tbfwin *bfwin);
 void bfwin_simplesearch_from_clipboard(Tbfwin *bfwin);
 
+void notebook_set_tab_accels(Tbfwin * bfwin);
+void notebook_bind_tab_signals(Tbfwin * bfwin);
+void notebook_unbind_tab_signals(Tbfwin * bfwin);
 void bfwin_notebook_block_signals(Tbfwin * bfwin);
 void bfwin_notebook_unblock_signals(Tbfwin * bfwin);
 

@@ -1107,7 +1107,13 @@ notebook_switch_by_key(GtkWidget * widget, gpointer data)
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(widget), GPOINTER_TO_INT(data) - 1);
 }
 
-static void
+void
+notebook_unbind_tab_signals(Tbfwin * bfwin)
+{
+	g_signal_handlers_disconnect_matched(bfwin->notebook, G_SIGNAL_MATCH_FUNC, 0, 0, NULL, notebook_switch_by_key, NULL);
+}
+
+void
 notebook_bind_tab_signals(Tbfwin * bfwin)
 {
 	DEBUG_MSG("notebook_bind_signals, connect <Alt>X trigered events\n");
@@ -1125,40 +1131,37 @@ notebook_bind_tab_signals(Tbfwin * bfwin)
 	g_signal_connect(G_OBJECT(bfwin->notebook), "tab9", G_CALLBACK(notebook_switch_by_key), (gpointer) 9);
 }
 
-/* FIXME */
-static void
+void
 notebook_set_tab_accels(Tbfwin * bfwin)
 {
+	static gsize create_signals_init = 0;
 	GtkAccelGroup *tab_accels;
-	gboolean create_signals = TRUE;
-#ifdef MAC_INTEGRATION /* We need to create these signals just once, at startup */
-	if (main_v->osx_status != 0 || main_v->bfwinlist != NULL) {
-	create_signals = FALSE;
+
+	if (g_once_init_enter(&create_signals_init)) {
+		DEBUG_MSG("notebook_set_tab_accels, g_signal_new for <Alt>X triggered events\n");
+		g_signal_new("tab-last", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
+					 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+		g_signal_new("tab-first", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
+					 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+		g_signal_new("tab2", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
+					 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+		g_signal_new("tab3", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
+					 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+		g_signal_new("tab4", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
+					 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+		g_signal_new("tab5", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
+					 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+		g_signal_new("tab6", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
+					 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+		g_signal_new("tab7", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
+					 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+		g_signal_new("tab8", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
+					 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+		g_signal_new("tab9", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
+					 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+		g_once_init_leave(&create_signals_init, TRUE);
 	}
-#endif
-	if (create_signals) {
-	DEBUG_MSG("notebook_set_tab_accels, g_signal_new for <Alt>X triggered events\n");
-	g_signal_new("tab-last", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
-				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-	g_signal_new("tab-first", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
-				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-	g_signal_new("tab2", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
-				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-	g_signal_new("tab3", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
-				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-	g_signal_new("tab4", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
-				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-	g_signal_new("tab5", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
-				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-	g_signal_new("tab6", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
-				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-	g_signal_new("tab7", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
-				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-	g_signal_new("tab8", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
-				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-	g_signal_new("tab9", gtk_widget_get_type(), G_SIGNAL_ACTION, 0, NULL, NULL,
-				 g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-	}
+
 	tab_accels = gtk_accel_group_new();
 	DEBUG_MSG("notebook_set_tab_accels, gtk_window_add_accel_group\n");
 	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), tab_accels);

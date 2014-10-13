@@ -2239,6 +2239,12 @@ preferences_apply(Tprefdialog * pd)
 #ifdef OLDTEMPLATES
 			bfwin_templates_menu_create(bfwin);
 #endif
+			if (main_v->props.switch_tabs_by_altx == FALSE)
+				notebook_unbind_tab_signals(bfwin);
+			else {
+				notebook_set_tab_accels(bfwin);
+				notebook_bind_tab_signals(bfwin);
+			}
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling gui_apply_settings\n");
 			bfwin_apply_settings(bfwin);
 			bfwin_side_panel_rebuild(bfwin);
