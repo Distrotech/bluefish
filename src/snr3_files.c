@@ -443,5 +443,6 @@ void snr3_run_in_files(Tsnr3run *s3run) {
 	queue_init_full(&s3run->threadqueue, 4, TRUE, TRUE, (QueueFunc)files_replace_run);
 	g_print("filepattern=%s\n",s3run->filepattern);
 	g_atomic_int_set(&s3run->runcount, 1); /* start with one reference for the findfiles() call */
+	s3run->files_resultcount = 0;
 	s3run->findfiles = findfiles(s3run->basedir, (s3run->recursion_level > 0), s3run->recursion_level, TRUE,s3run->filepattern, G_CALLBACK(filematch_cb), G_CALLBACK(finished_finding_files_cb), s3run);
 }
