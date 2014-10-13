@@ -291,6 +291,7 @@ static gboolean replace_files_in_thread_finished(gpointer data) {
 			outputbox_add_line(rit->s3run->bfwin, curi, fr->line, fr->text);
 			g_free(fr->text);
 			g_slice_free(Tfileresult, fr);
+			rit->s3run->files_resultcount++;
 		}
 		g_free(curi);
 	}

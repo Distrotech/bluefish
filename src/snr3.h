@@ -74,7 +74,8 @@ typedef struct {
 
 	/* the resultss of a search run */
 	gboolean in_replace; /* TRUE if the code is in a replace, so the doc_insert and doc_delete signals do not need to do anything */
-	GQueue results; /* all results */
+	guint files_resultcount; /*  the number of elements in files */
+	GQueue results; /* all results, except for search/replace in files */
 	GList *current; /* current result, used in replace, or when pressing next or previous */
 	guint resultnumdoc; /* the number of unique documents in the resultset */
 	guint searchednumdoc; /* the number of documents searched */

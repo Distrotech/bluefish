@@ -888,11 +888,11 @@ threaded_all_ready(void *data) {
 	s3run->curdoc = NULL;
 	if (s3run->dialog) {
 		gchar *tmp;
+		gint count = g_queue_get_length(&s3run->results);
+		if (count == 0 && s3run->files_resultcount > 0) count =s3run->files_resultcount;
 		if (s3run->replaceall) {
-			gint count = g_queue_get_length(&s3run->results);
 			tmp = g_strdup_printf(ngettext("<i>Replaced %d entry</i>", "<i>Replaced %d entries</i>", count), count);
 		} else {
-			gint count = g_queue_get_length(&s3run->results);
 			tmp = g_strdup_printf(ngettext("<i>Found %d entry</i>", "<i>Found %d entries</i>", count), count);
 		}
 		gtk_label_set_markup(GTK_LABEL(((TSNRWin *)s3run->dialog)->searchfeedback),tmp);
