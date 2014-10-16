@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * document.c - the document
  *
- * Copyright (C) 1998-2012 Olivier Sessink
+ * Copyright (C) 1998-2014 Olivier Sessink
  * Copyright (C) 1998 Chris Mazuc
  * some additions Copyright (C) 2004 Eugene Morenko(More)
  *
@@ -3158,17 +3158,6 @@ doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolean del
 			bfwin->focus_next_new_doc = TRUE;
 		DEBUG_MSG
 			("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d, goto_offset=%d, cursor_offset=%d, align_center=%d\n", uri, delay_activate, bfwin->focus_next_new_doc, goto_offset, cursor_offset, align_center);
-#if !GLIB_CHECK_VERSION(2, 18, 0)
-		/* check runtime glib version, check if remote file, and give warning if remote file on glib < 2.18 */
-		if (glib_major_version == 2 && glib_minor_version < 18 && !g_file_is_native(uri)) {
-			gchar *message =
-				g_strdup_printf(_
-								("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."),
-glib_major_version, glib_minor_version, glib_micro_version);
-			bfwin_statusbar_message(bfwin, message, 20);
-			g_free(message);
-		}
-#endif
 		file_doc_from_uri(bfwin, uri, NULL, finfo, goto_line, goto_offset, open_readonly, cursor_offset, align_center, load_first);
 	}
 	session_set_opendir(bfwin, tmpcuri);

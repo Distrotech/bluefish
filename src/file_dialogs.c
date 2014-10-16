@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file_dialogs.c - file dialogs
  *
- * Copyright (C) 2005-2012 Olivier Sessink
+ * Copyright (C) 2005-2014 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -368,20 +368,6 @@ file_open_url_cb(GtkAction * action, Tbfwin * bfwin)
 					 TRUE, bfwin->main_window);
 	gtk_widget_set_size_request(ou->win, 450, -1);
 	vbox = gtk_vbox_new(FALSE, 5);
-#if !GLIB_CHECK_VERSION(2, 18, 0)
-	if (glib_major_version == 2 && glib_minor_version < 18) {
-		gchar *message;
-		GtkWidget *label = gtk_label_new(NULL);
-		message =
-			g_strdup_printf(_
-							("<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 if you rely on remote file support.</b>"),
-							glib_major_version, glib_minor_version, glib_micro_version);
-		gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
-		gtk_label_set_markup(GTK_LABEL(label), message);
-		g_free(message);
-		gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 4);
-	}
-#endif
 /*	gtk_box_pack_start(GTK_BOX(vbox), bf_label_with_markup(_("<b>Open URL</b>")), FALSE, FALSE, 5);*/
 	gtk_container_add(GTK_CONTAINER(ou->win), vbox);
 	tmplist = g_list_first(bfwin->session->recent_files);
@@ -831,17 +817,7 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 		g_free(dsb);
 		return;
 	}
-#if !GLIB_CHECK_VERSION(2, 18, 0)
-	/* check runtime glib version, check if remote file, and give warning if remote file on glib < 2.18 */
-	if (glib_major_version == 2 && glib_minor_version < 18 && !g_file_is_native(doc->uri)) {
-		gchar *message =
-			g_strdup_printf(_
-							("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."),
-glib_major_version, glib_minor_version, glib_micro_version);
-		bfwin_statusbar_message(BFWIN(doc->bfwin), message, 20);
-		g_free(message);
-	}
-#endif
+
 	buffer = refcpointer_new(tmp);
 	doc->close_doc = close_doc;
 	doc->close_window = close_window;
@@ -1382,22 +1358,6 @@ sync_dialog(Tbfwin * bfwin)
 											 GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
 
 	carea = gtk_dialog_get_content_area(GTK_DIALOG(sd->dialog));
-
-#if !GLIB_CHECK_VERSION(2, 18, 0)
-	if (glib_major_version == 2 && glib_minor_version < 18) {
-		gchar *message;
-		GtkWidget *label = gtk_label_new(NULL);
-		message =
-			g_strdup_printf(_
-							("<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 if you rely on remote file support.</b>"),
-							glib_major_version, glib_minor_version, glib_micro_version);
-		gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
-		gtk_label_set_markup(GTK_LABEL(label), message);
-		g_free(message);
-		gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(sd->dialog))), label, FALSE, FALSE,
-						   4);
-	}
-#endif
 	table = dialog_table_in_vbox(4, 3, 6, carea, TRUE,TRUE, 3);
 
 	sd->entry_local = dialog_entry_in_table(NULL, table, 1, 2,0, 1);

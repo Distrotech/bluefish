@@ -384,23 +384,6 @@ checkNsave_replace_async_lcb(GObject * source_object, GAsyncResult * res, gpoint
 				return;
 			}
 		}
-#if !GLIB_CHECK_VERSION(2, 18, 0)
-		else if (error->code == G_IO_ERROR_EXISTS
-				 && (g_file_has_uri_scheme(cns->uri, "sftp") || g_file_has_uri_scheme(cns->uri, "smb"))) {
-			/* there is  a bug in the GIO sftp and smb module in glib version 2.18 that returns 'file exists error'
-			   if you request an async content_replace */
-			GError *error2 = NULL;
-			g_file_replace_contents(cns->uri, cns->buffer->data, cns->buffer_size, cns->etag,
-									main_v->props.backup_file, G_FILE_CREATE_NONE, NULL, NULL, &error2);
-			if (error2) {
-				g_warning("glib < 2.18.0 workaround returns error %d: %s\n", error2->code, error2->message);
-				cns->callback_func(CHECKANDSAVE_ERROR, error2, cns->callback_data);
-				g_error_free(error2);
-			} else {
-				cns->callback_func(CHECKANDSAVE_FINISHED, NULL, cns->callback_data);
-			}
-		}
-#endif
 		else {
 			g_warning("while save to disk, received error %d: %s\n", error->code, error->message);
 			DEBUG_MSG("****************** checkNsave_replace_async_lcb() unhandled error %d: %s\n",
@@ -409,19 +392,6 @@ checkNsave_replace_async_lcb(GObject * source_object, GAsyncResult * res, gpoint
 		}
 		g_error_free(error);
 	} else {
-#if !GLIB_CHECK_VERSION(2, 18, 0)
-		/* a bug in the fuse smbnetfs mount code */
-		if (g_file_has_uri_scheme(cns->uri, "smb")) {
-			DEBUG_MSG("checkNsave_replace_async_lcb, starting glib<2.18 workaround for save on smb://\n");
-			/* check that file exists/got created */
-			if (!g_file_query_exists(cns->uri, NULL)) {
-				DEBUG_MSG("checkNsave_replace_async_lcb, smb:// workaround: save file again with backup=0\n");
-				g_file_replace_contents_async(cns->uri, cns->buffer->data, cns->buffer_size, cns->etag, FALSE	/* we already created a backup */
-											  , G_FILE_CREATE_NONE, NULL, checkNsave_replace_async_lcb, cns);
-				return;
-			}
-		}
-#endif
 		DEBUG_MSG("checkNsave_replace_async_lcb, before callback, finished with ");
 		DEBUG_URI(cns->uri, TRUE);
 		cns->callback_func(CHECKANDSAVE_FINISHED, NULL, cns->callback_data);
