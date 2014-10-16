@@ -2,7 +2,7 @@
  * bluefish.h - global prototypes
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2012 Olivier Sessink
+ * Copyright (C) 1999-2014 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -430,6 +430,7 @@ typedef struct {
 
 	gint sync_delete_deprecated;
 	gint sync_include_hidden;
+	gint sync_include_backup;
 	gint adv_open_matchname;
 	gint adv_open_recursive;
 	gint bookmarks_filename_mode;	/* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
@@ -450,7 +451,7 @@ typedef struct {
 	gint convertcolumn_horizontally;
 	gint display_right_margin;
 	gint show_visible_spacing;
-	/* 44 * sizeof(gint) */
+	/* 45 * sizeof(gint) */
 	/* IF YOU EDIT THIS STRUCTURE PLEASE EDIT THE CODE IN PROJECT.C THAT COPIES
 	   A Tsessionvar INTO A NEW Tsessionvar AND ADJUST THE SIZES!!!!!!!!!!!!!!!!!!!!!! */
 #ifdef HAVE_LIBENCHANT

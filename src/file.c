@@ -1698,6 +1698,7 @@ typedef struct {
 	GFile *targetdir;
 	gboolean delete_deprecated;
 	gboolean include_hidden;
+	gboolean include_backup;
 	gint numworking;
 	Tasyncqueue queue_walkdir_local;
 	Tasyncqueue queue_walkdir_remote;
@@ -1975,8 +1976,10 @@ walk_local_directory_job(GIOSchedulerJob * job, GCancellable * cancellable, gpoi
 					sync_handle_error(swd->sync, swd->local_dir, "Failed to read entry in directory", error);
 			} else if (finfo) {
 				const gchar *name = g_file_info_get_name(finfo);
-				if (name && strcmp(name, "..") != 0 && strcmp(name, ".") != 0
-					&& (swd->sync->include_hidden || name[0] != '.')) {
+				gint namelen = strlen(name);
+				if (name && namelen > 0 && strcmp(name, "..") != 0 && strcmp(name, ".") != 0
+					&& (swd->sync->include_hidden || name[0] != '.')
+					&& (swd->sync->include_backup || name[namelen-1] != '~')) {
 					GFile *local, *remote;
 					GFileInfo *rfinfo;
 					local = g_file_get_child(swd->local_dir, name);
@@ -2112,7 +2115,7 @@ sync_directory_mount_lcb(GObject * source_object, GAsyncResult * res, gpointer u
 }
 
 void
-sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, gboolean include_hidden,
+sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, gboolean include_hidden, gboolean include_backup,
 			   SyncProgressCallback progress_callback, gpointer callback_data)
 {
 	GMountOperation *gmo;
@@ -2120,6 +2123,7 @@ sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, g
 	sync->refcount = 1;
 	sync->delete_deprecated = delete_deprecated;
 	sync->include_hidden = include_hidden;
+	sync->include_backup = include_backup;
 	sync->progress_callback = progress_callback;
 	sync->callback_data = callback_data;
 	queue_init(&sync->queue_walkdir_local, 3, walk_local_directory_run);

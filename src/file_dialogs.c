@@ -1260,6 +1260,7 @@ typedef struct {
 	GtkWidget *entry_remote;
 	GtkWidget *delete_deprecated;
 	GtkWidget *include_hidden;
+	GtkWidget *include_backup;
 	GtkWidget *progress;
 	GtkWidget *messagelabel;
 	gulong signal_id;
@@ -1316,19 +1317,22 @@ sync_dialog_response_lcb(GtkDialog * dialog, gint response_id, gpointer user_dat
 		if (response_id == 1) {
 			sync_directory(local, remote,
 						   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->delete_deprecated)),
-						   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden)), sync_progress,
+						   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden)),
+						   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_backup)), sync_progress,
 						   sd);
 		} else if (response_id == 2) {
 			sync_directory(remote, local,
 						   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->delete_deprecated)),
-						   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden)), sync_progress,
+						   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden)),
+						   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_backup)), sync_progress,
 						   sd);
 		}
 		sd->bfwin->session->sync_delete_deprecated =
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->delete_deprecated));
 		sd->bfwin->session->sync_include_hidden =
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden));
-
+		sd->bfwin->session->sync_include_backup =
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_backup));
 		g_signal_handler_block(sd->dialog, sd->signal_id);
 		g_free(sd->bfwin->session->sync_local_uri);
 		sd->bfwin->session->sync_local_uri = g_file_get_uri(local);
@@ -1358,7 +1362,7 @@ sync_dialog(Tbfwin * bfwin)
 											 GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
 
 	carea = gtk_dialog_get_content_area(GTK_DIALOG(sd->dialog));
-	table = dialog_table_in_vbox(4, 3, 6, carea, TRUE,TRUE, 3);
+	table = dialog_table_in_vbox(5, 3, 6, carea, TRUE,TRUE, 3);
 
 	sd->entry_local = dialog_entry_in_table(NULL, table, 1, 2,0, 1);
 	dialog_mnemonic_label_in_table(_("Local directory"), sd->entry_local, table,
@@ -1379,6 +1383,9 @@ sync_dialog(Tbfwin * bfwin)
 	sd->include_hidden = dialog_check_button_in_table(_("Include hidden files"),
 						bfwin->session->sync_include_hidden, table,
 						0, 3, 3, 4);
+	sd->include_backup = dialog_check_button_in_table(_("Include backup files"),
+						bfwin->session->sync_include_backup, table,
+						0, 3, 4, 5);
 
 	sd->messagelabel = gtk_label_new(NULL);
 	gtk_box_pack_start(GTK_BOX(carea), sd->messagelabel, FALSE, FALSE, 4);

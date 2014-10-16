@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file.h - file operations based on GnomeVFS
  *
- * Copyright (C) 2005,2006,2007,2008 Olivier Sessink
+ * Copyright (C) 2005,2006,2007,2008,2014 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -140,7 +140,7 @@ void file_doc_retry_uri(Tdocument * doc);
 void file_docs_from_uris(Tbfwin * bfwin, GSList * urislist);
 
 typedef void (*SyncProgressCallback) (GFile *uri, gint total, gint done, gint failed, gpointer user_data);
-void sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, gboolean include_hidden,
+void sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, gboolean include_hidden, gboolean include_backup,
 					SyncProgressCallback progress_callback, gpointer callback_data);
 							/* __FILE_H_ */
 void file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean explicit_open, gboolean open_in_fireground);

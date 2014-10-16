@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rcfile.c - loading and parsing of the configfiles
  *
- * Copyright (C) 2000-2013 Olivier Sessink
+ * Copyright (C) 2000-2014 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1232,6 +1232,9 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_string_with_escape(&configlist, &session->sync_local_uri, "sync_local_uri:", NULL);
 	init_prop_string_with_escape(&configlist, &session->sync_remote_uri, "sync_remote_uri:", NULL);
 	init_prop_string_with_escape(&configlist, &session->encoding, "encoding:", NULL);
+	init_prop_integer(&configlist, &session->sync_delete_deprecated, "sync_delete_deprecated:", 0, FALSE);
+	init_prop_integer(&configlist, &session->sync_include_hidden, "sync_include_hidden:", 0, FALSE);
+	init_prop_integer(&configlist, &session->sync_include_backup, "sync_include_backup:", 0, FALSE);
 	init_prop_integer(&configlist, &session->adv_open_matchname, "adv_open_matchname:", 1, FALSE);
 	init_prop_integer(&configlist, &session->adv_open_recursive, "adv_open_recursive:", 0, FALSE);
 	init_prop_string(&configlist, &session->last_filefilter, "last_filefilter:", "");
