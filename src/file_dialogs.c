@@ -1392,6 +1392,9 @@ sync_dialog(Tbfwin * bfwin)
 
 	sd->progress = gtk_progress_bar_new();
 	gtk_progress_bar_set_ellipsize(GTK_PROGRESS_BAR(sd->progress), PANGO_ELLIPSIZE_MIDDLE);
+	#if GTK_CHECK_VERSION(3, 0, 0)
+	gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR(sd->progress), TRUE);
+	#endif	
 	gtk_box_pack_start(GTK_BOX(carea), sd->progress, FALSE, FALSE, 4);
 
 	if (bfwin->session->sync_local_uri && bfwin->session->sync_local_uri[0] != '\0') {
