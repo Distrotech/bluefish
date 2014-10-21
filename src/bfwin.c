@@ -1166,6 +1166,8 @@ notebook_set_tab_accels(Tbfwin * bfwin)
 	DEBUG_MSG("notebook_set_tab_accels, gtk_window_add_accel_group\n");
 	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), tab_accels);
 	DEBUG_MSG("notebook_set_tab_accels, gtk_widget_add_accelerator\n");
+/* MacOSX uses alt+0 .. alt+9 for alternative keyboard mapping, so we move these shorcuts to Command+1 etc. */
+#ifndef PLATFORM_DARWIN
 	gtk_widget_add_accelerator(bfwin->notebook, "tab-last", tab_accels, GDK_0, GDK_MOD1_MASK,
 							   GTK_ACCEL_VISIBLE);
 	gtk_widget_add_accelerator(bfwin->notebook, "tab-first", tab_accels, GDK_1, GDK_MOD1_MASK,
@@ -1178,6 +1180,20 @@ notebook_set_tab_accels(Tbfwin * bfwin)
 	gtk_widget_add_accelerator(bfwin->notebook, "tab7", tab_accels, GDK_7, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
 	gtk_widget_add_accelerator(bfwin->notebook, "tab8", tab_accels, GDK_8, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
 	gtk_widget_add_accelerator(bfwin->notebook, "tab9", tab_accels, GDK_9, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+#else
+	gtk_widget_add_accelerator(bfwin->notebook, "tab-last", tab_accels, GDK_0, GDK_META_MASK,
+							   GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab-first", tab_accels, GDK_1, GDK_META_MASK,
+							   GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab2", tab_accels, GDK_2, GDK_META_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab3", tab_accels, GDK_3, GDK_META_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab4", tab_accels, GDK_4, GDK_META_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab5", tab_accels, GDK_5, GDK_META_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab6", tab_accels, GDK_6, GDK_META_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab7", tab_accels, GDK_7, GDK_META_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab8", tab_accels, GDK_8, GDK_META_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab9", tab_accels, GDK_9, GDK_META_MASK, GTK_ACCEL_VISIBLE);
+#endif
 }
 
 static gboolean

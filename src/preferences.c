@@ -2890,9 +2890,14 @@ preferences_dialog_new(Tbfwin *bfwin)
 	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
 	gtk_container_add(GTK_CONTAINER(frame), vbox1);
 	vbox2 = dialog_vbox_labeled(_("<b>Shortcut keys</b>"), vbox1);
-
+	
+#ifndef PLATFORM_DARWIN
 	pd->prefs[switch_tabs_by_altx] =
 		dialog_check_button_new(_("_Switch between tabs with <Alt>+0..9"), main_v->props.switch_tabs_by_altx);
+#else
+	pd->prefs[switch_tabs_by_altx] =
+		dialog_check_button_new(_("_Switch between tabs with <Command>+0..9"), main_v->props.switch_tabs_by_altx);
+#endif
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[switch_tabs_by_altx], FALSE, FALSE, 0);
 
 #ifndef MAC_INTEGRATION
