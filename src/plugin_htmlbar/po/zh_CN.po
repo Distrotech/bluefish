@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-03-24 22:20-0700\n"
+"POT-Creation-Date: 2014-10-09 01:05-0700\n"
 "PO-Revision-Date: 2014-02-12 02:47+0600\n"
 "Last-Translator:  ZhiFeng Ma <mzf9527@gmail.com>>\n"
 "Language-Team: \n"
@@ -79,1092 +79,1092 @@ msgstr "编辑标签"
 msgid "Htmlbar"
 msgstr "Html栏"
 
-#: src/plugin_htmlbar/htmlbar.c:266 src/plugin_htmlbar/prefs.c:63
+#: src/plugin_htmlbar/htmlbar.c:267 src/plugin_htmlbar/prefs.c:81
 msgid "HTML Features"
 msgstr "HTML特性"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:968
+#: src/plugin_htmlbar/htmlbar_uimanager.c:970
 msgid "T_ags"
 msgstr "标签(_a)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:969
+#: src/plugin_htmlbar/htmlbar_uimanager.c:971
 msgid "_Headings"
 msgstr "标题(_H)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:970
+#: src/plugin_htmlbar/htmlbar_uimanager.c:972
 msgid "H_1"
 msgstr "H_1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:970
+#: src/plugin_htmlbar/htmlbar_uimanager.c:972
 msgid "Insert H1 tag"
 msgstr "插入 H1 标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:972
+#: src/plugin_htmlbar/htmlbar_uimanager.c:974
 msgid "H_2"
 msgstr "H_2"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:972
+#: src/plugin_htmlbar/htmlbar_uimanager.c:974
 msgid "Insert H2 tag"
 msgstr "插入 H2 标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:974
+#: src/plugin_htmlbar/htmlbar_uimanager.c:976
 msgid "H_3"
 msgstr "H_3"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:974
+#: src/plugin_htmlbar/htmlbar_uimanager.c:976
 msgid "Insert H3 tag"
 msgstr "插入 H3 标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:976
+#: src/plugin_htmlbar/htmlbar_uimanager.c:978
 msgid "H_4"
 msgstr "H_4"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:976
+#: src/plugin_htmlbar/htmlbar_uimanager.c:978
 msgid "Insert H4 tag"
 msgstr "插入 H4 标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:978
+#: src/plugin_htmlbar/htmlbar_uimanager.c:980
 msgid "H_5"
 msgstr "H_5"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:978
+#: src/plugin_htmlbar/htmlbar_uimanager.c:980
 msgid "Insert H5 tag"
 msgstr "插入 H5 标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:980
+#: src/plugin_htmlbar/htmlbar_uimanager.c:982
 msgid "H_6"
 msgstr "H_6"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:980
+#: src/plugin_htmlbar/htmlbar_uimanager.c:982
 msgid "Insert H6 tag"
 msgstr "插入 H6 标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:982
+#: src/plugin_htmlbar/htmlbar_uimanager.c:984
 msgid "_Entities"
 msgstr "实体(_E)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:983
+#: src/plugin_htmlbar/htmlbar_uimanager.c:985
 msgid "_Non-breaking space"
 msgstr "不间断空格(_N)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:984
+#: src/plugin_htmlbar/htmlbar_uimanager.c:986
 msgid "_Broken bar ¦"
 msgstr "¦(_B)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:985
+#: src/plugin_htmlbar/htmlbar_uimanager.c:987
 msgid "Soft _hyphen -"
 msgstr "-(_h)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:986
+#: src/plugin_htmlbar/htmlbar_uimanager.c:988
 msgid "_Format by Context"
 msgstr "根据上下文格式化文本(_F)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:987
+#: src/plugin_htmlbar/htmlbar_uimanager.c:989
 msgid "_Strong"
 msgstr "强烈(_S)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:987
+#: src/plugin_htmlbar/htmlbar_uimanager.c:989
 msgid "Strong"
 msgstr "强烈"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:989
+#: src/plugin_htmlbar/htmlbar_uimanager.c:991
 msgid "_Emphasis"
 msgstr "强调(_E)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:989
+#: src/plugin_htmlbar/htmlbar_uimanager.c:991
 msgid "Emphasis"
 msgstr "强调"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:991
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1063
+#: src/plugin_htmlbar/htmlbar_uimanager.c:993
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1065
 msgid "_Definition"
 msgstr "定义(_D)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:991
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1063
+#: src/plugin_htmlbar/htmlbar_uimanager.c:993
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1065
 msgid "Definition"
 msgstr "定义"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:993
+#: src/plugin_htmlbar/htmlbar_uimanager.c:995
 msgid "_Code"
 msgstr "代码(_C)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:993
+#: src/plugin_htmlbar/htmlbar_uimanager.c:995
 msgid "Code"
 msgstr "代码"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:994
+#: src/plugin_htmlbar/htmlbar_uimanager.c:996
 msgid "Sa_mple"
 msgstr "示例(_m)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:994
+#: src/plugin_htmlbar/htmlbar_uimanager.c:996
 msgid "Sample"
 msgstr "示例"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:995
+#: src/plugin_htmlbar/htmlbar_uimanager.c:997
 msgid "_Keyboard"
 msgstr "键盘(_K)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:995
+#: src/plugin_htmlbar/htmlbar_uimanager.c:997
 msgid "Keyboard"
 msgstr "键盘"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:997
+#: src/plugin_htmlbar/htmlbar_uimanager.c:999
 msgid "_Variable"
 msgstr "变量(_V)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:997
+#: src/plugin_htmlbar/htmlbar_uimanager.c:999
 msgid "Variable"
 msgstr "变量"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:999
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1001
 msgid "Ci_tation"
 msgstr "引用(_t)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:999
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1001
 msgid "Citation"
 msgstr "引用"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1001
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1003
 msgid "_Abbreviation"
 msgstr "缩写(_A)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1001
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1003
 msgid "Abbreviation"
 msgstr "缩写"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1003
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1005
 msgid "Ac_ronym"
 msgstr "字头(_r)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1003
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1005
 msgid "Acronym"
 msgstr "字头"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1005
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1007
 msgid "_Insert"
 msgstr "插入(_I)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1005
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1007
 msgid "Insert"
 msgstr "插入"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1006
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1008
 msgid "De_lete"
 msgstr "删除(_l)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1006
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1008
 msgid "Delete"
 msgstr "删除"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1007
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1009
 msgid "Format by L_ayout"
 msgstr "根据布局格式化文本(_a)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1008
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1010
 msgid "_Bold"
 msgstr "粗体(_B)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1008
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1010
 msgid "Bold"
 msgstr "粗体"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1010
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1012
 msgid "_Italic"
 msgstr "斜体(_I)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1010
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1012
 msgid "Italic"
 msgstr "斜体"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1012
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1014
 msgid "_Underline"
 msgstr "下划线(_U)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1012
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1014
 msgid "Underline"
 msgstr "下划线"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1014
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1016
 msgid "_Strikeout"
 msgstr "删除线(_S)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1014
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1016
 msgid "Strikeout"
 msgstr "删除线"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1016
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1018
 msgid "Sm_all"
 msgstr "Small标签(_a)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1016
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1018
 msgid "Small"
 msgstr "Small标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1017
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1019
 msgid "Bi_g"
 msgstr "Big标签(_g)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1017
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1019
 msgid "Big"
 msgstr "Big标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1018
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1020
 msgid "Format _General"
 msgstr "常规格式(_G)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1019
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1021
 msgid "_Paragraph"
 msgstr "段落(_P)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1019 src/plugin_htmlbar/html.c:878
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1021 src/plugin_htmlbar/html.c:878
 msgid "Paragraph"
 msgstr "段落"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1021
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1023
 msgid "_Break"
 msgstr "换行(_B)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1021
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1023
 msgid "Break"
 msgstr "换行"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1023
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1025
 msgid "Break clear _all"
 msgstr "换行并清除浮动(_a)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1023
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1025
 msgid "Break and clear"
 msgstr "换行并清除浮动"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1025
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1027
 msgid "_Non-Breaking Space"
 msgstr "不间断空格(_N)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1025
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1027
 msgid "Non-breaking space"
 msgstr "不间断空格"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1027
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1029
 msgid "Font Si_ze +1"
 msgstr "字体尺寸 +1(_z)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1027
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1029
 msgid "Font Size +1"
 msgstr "字体尺寸 +1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1029
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1031
 msgid "Font _Size -1"
 msgstr "字体尺寸 -1(_S)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1029
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1031
 msgid "Font Size -1"
 msgstr "字体尺寸 -1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1031
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1033
 msgid "Preformatted _Text"
 msgstr "预格式化文本(_T)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1031
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1033
 msgid "Preformatted Text"
 msgstr "预格式化文本"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1033
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1035
 msgid "Su_bscript"
 msgstr "下标(_b)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1033
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1035
 msgid "Subscript"
 msgstr "下标"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1035
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1037
 msgid "Su_perscript"
 msgstr "上标(_p)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1035
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1037
 msgid "Superscript"
 msgstr "上标"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1037
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1039
 msgid "_Center"
 msgstr "居中(_C)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1037
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1039
 msgid "Center"
 msgstr "居中"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1039
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1041
 msgid "Align _right"
 msgstr "右对齐(_r)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1039
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1041
 msgid "Right Justify"
 msgstr "向右调整对齐"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1041
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1042
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1124
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1043
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1044
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1126
 msgid "_Table"
 msgstr "表格(_T)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1042
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1044
 #: src/plugin_htmlbar/html_table.c:101
 msgid "Table"
 msgstr "表格"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1044
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1046
 msgid "Table _Row"
 msgstr "表格行(_R)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1044
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1046
 #: src/plugin_htmlbar/html_table.c:242
 msgid "Table Row"
 msgstr "表格行"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1046
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1048
 msgid "Table _Header"
 msgstr "表头(_H)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1046
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1048
 #: src/plugin_htmlbar/html_table.c:363
 msgid "Table Header"
 msgstr "表头"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1048
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1050
 msgid "Table _Data"
 msgstr "表格数据(_D)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1048
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1050
 #: src/plugin_htmlbar/html_table.c:361
 msgid "Table Data"
 msgstr "表格数据"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1050
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1052
 msgid "Table _Caption"
 msgstr "表格标题(_C)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1050
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1052
 msgid "Table Caption"
 msgstr "表格标题"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1052
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1054
 msgid "_List"
 msgstr "列表(_L)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1053
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1055
 msgid "Unordered _List"
 msgstr "无序列表（_L)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1053
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1055
 msgid "Unordered List"
 msgstr "无序列表"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1055
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1057
 msgid "_Ordered List"
 msgstr "有序列表（_O)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1055
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1057
 msgid "Ordered List"
 msgstr "有序列表"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1057
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1059
 msgid "List Ite_m"
 msgstr "列表项(_m)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1057
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1059
 msgid "List Item"
 msgstr "列表项"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1059
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1061
 msgid "De_finition List"
 msgstr "定义列表(_f)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1059
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1061
 msgid "Definition List"
 msgstr "定义列表"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1061
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1063
 msgid "Definition _Term"
 msgstr "定义术语(_T)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1061
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1063
 msgid "Definition Term"
 msgstr "定义术语"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1065
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1067
 msgid "Men_u"
 msgstr "菜单(_u)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1065
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1067
 msgid "Menu"
 msgstr "菜单"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1066
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1067
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1155
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1068
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1069
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1157
 msgid "F_orm"
 msgstr "表单(_o)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1067
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1069
 #: src/plugin_htmlbar/html_form.c:156
 msgid "Form"
 msgstr "表单标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1068
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1070
 msgid "_Fieldset"
 msgstr "分组标签(_F)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1069
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1071
 msgid "_Legend"
 msgstr "分组标签的标题(_L)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1070
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1072
 msgid "L_abel"
 msgstr "标注(_a)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1071
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1073
 msgid "_Input"
 msgstr "输入框(_I)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1072
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1074
 msgid "_Button"
 msgstr "按钮(_B)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1073
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1075
 msgid "_Select"
 msgstr "可选列表(_S)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1074
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1076
 msgid "_Datalist"
 msgstr "下拉列表(_D)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1075
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1077
 msgid "Opt_group"
 msgstr "可选列表的选项组(_g)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1076
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1078
 msgid "Optio_n"
 msgstr "可选列表的选项(_n)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1077
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1079
 msgid "_Textarea"
 msgstr "文本域(_T)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1078
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1080
 msgid "_Keygen"
 msgstr "密钥标签(_K)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1079
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1081
 msgid "O_utput"
 msgstr "输出标签(_u)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1080
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1082
 msgid "_Progress"
 msgstr "进度标签(_P)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1081
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1083
 msgid "_Meter"
 msgstr "度量标签(_M)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1082
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1084
 msgid "_Misc"
 msgstr "其他(_M)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1083
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1085
 msgid "Insert Generator _META-Tag"
 msgstr "插入生成者 META 标签(_M)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1085
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1087
 msgid "_Span"
 msgstr "Span标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1086
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1088
 msgid "_Div"
 msgstr "Div标签(_D)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1087
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1089
 msgid "_Link"
 msgstr "Link标签(_L)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1088
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1090
 msgid "S_cript"
 msgstr "脚本(_c)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1089
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1091
 msgid "_Anchor"
 msgstr "锚点(_A)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1090
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1092
 msgid "_Image"
 msgstr "图像(_I)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1091
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1093
 msgid "_Comment"
 msgstr "注释(_C)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1091
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1093
 msgid "HTML Comment"
 msgstr "HTML 注释"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1093
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1095
 msgid "Dial_ogs"
 msgstr "对话框(_o)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1094
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1096
 msgid "_General"
 msgstr "常规(_G)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1095
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1097
 msgid "_Quickstart..."
 msgstr "快速启动(Q)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1095
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1097
 msgid "Quickstart..."
 msgstr "快速启动..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1097
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1099
 msgid "_Link Header..."
 msgstr "Link 标签(_L)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1097
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1099
 msgid "Link Header..."
 msgstr "Link 标签..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1099
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1101
 msgid "_Body..."
 msgstr "主体(_B)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1099
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1101
 msgid "Body..."
 msgstr "主体..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1101
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1103
 msgid "_Script..."
 msgstr "脚本(_S)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1101
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1103
 msgid "Script..."
 msgstr "脚本..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1103
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1105
 msgid "_Anchor..."
 msgstr "锚点(_A)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1103
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1105
 msgid "Anchor / Hyperlink..."
 msgstr "锚点 / 超链接..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1105
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1107
 msgid "_E-mail..."
 msgstr "电子邮件(_E)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1105
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1107
 msgid "E-mail..."
 msgstr "电子邮件..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1107
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1109
 msgid "_Rule..."
 msgstr "水平线(_R)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1107
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1109
 msgid "Horizontal Rule..."
 msgstr "水平线..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1109
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1111
 msgid "_Font..."
 msgstr "字体(_F)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1109
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1111
 msgid "Font..."
 msgstr "字体..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1111
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1113
 msgid "Basef_ont..."
 msgstr "基础字体(_o)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1111
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1113
 msgid "Base font..."
 msgstr "基础字体..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1113
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1115
 msgid "Quick_list..."
 msgstr "快速列表(_l)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1113
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1115
 msgid "Quick List..."
 msgstr "快速列表..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1115
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1117
 msgid "_Meta..."
 msgstr "Meta(_M)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1116
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1118
 msgid "Embe_d..."
 msgstr "嵌入(_d)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1117
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1119
 msgid "Select _Color..."
 msgstr "选择颜色(_C)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1118
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1120
 msgid "Insert _Time..."
 msgstr "插入时间(_T)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1119
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1121
 msgid "Insert _Image..."
 msgstr "插入图像(_I)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1119
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1121
 msgid "Insert image..."
 msgstr "插入图像..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1121
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1123
 msgid "Insert T_humbnail..."
 msgstr "插入相册(_h)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1122
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1124
 msgid "Insert thumbnail..."
 msgstr "插入相册..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1125
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1127
 msgid "Table _Wizard..."
 msgstr "表格向导(_W)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1125
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1127
 msgid "Table Wizard..."
 msgstr "表格向导..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1127
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1129
 msgid "_Table..."
 msgstr "表格(_T)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1127
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1129
 msgid "Table..."
 msgstr "表格..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1129
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1131
 msgid "Table _Row..."
 msgstr "表格行(_R)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1129
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1131
 msgid "Table Row..."
 msgstr "表格行..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1131
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1133
 msgid "Table _Head..."
 msgstr "表头(_H)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1131
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1133
 msgid "Table Head..."
 msgstr "表头..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1133
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1135
 msgid "Table _Data..."
 msgstr "表格数据(_D)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1133
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1135
 msgid "Table Data..."
 msgstr "表格数据..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1135
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1137
 msgid "_CSS"
 msgstr "CSS(_C)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1136
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1138
 msgid "_Create Style..."
 msgstr "创建样式表(_C)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1137
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1139
 msgid "Create stylesheet..."
 msgstr "创建样式表..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1139
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1141
 msgid "S_pan..."
 msgstr "Span标签(_p)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1139
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1141
 msgid "Span..."
 msgstr "Span标签..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1140
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1142
 msgid "_Div..."
 msgstr "Div标签(_D)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1140
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1142
 msgid "Div..."
 msgstr "Div标签..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1142
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1144
 msgid "_Style"
 msgstr "样式(_S)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1142
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1144
 #: src/plugin_htmlbar/html_form.c:565
 msgid "Style"
 msgstr "样式"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1144
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1146
 msgid "C_olumns..."
 msgstr "多列(_o)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1144
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1146
 msgid "Columns..."
 msgstr "多列..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1146
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1148
 msgid "_Link to Stylesheet..."
 msgstr "链接到样式表(_L)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1147
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1149
 msgid "Link to Stylesheet..."
 msgstr "链接到样式表..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1149
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1151
 msgid "_Frame"
 msgstr "框架(_F)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1150
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1152
 msgid "Frame _Wizard..."
 msgstr "框架向导(_W)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1150
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1152
 msgid "Frame Wizard..."
 msgstr "框架向导..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1152
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1154
 msgid "Frame_set..."
 msgstr "框架集(_s)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1152
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1154
 msgid "Frameset..."
 msgstr "框架集..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1154
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1156
 msgid "_Frame..."
 msgstr "框架(_F)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1154
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1156
 msgid "Frame..."
 msgstr "框架..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1156
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1158
 msgid "F_orm..."
 msgstr "表单(_o)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1156
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1158
 msgid "Form..."
 msgstr "表单..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1157
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1159
 msgid "_Input..."
 msgstr "输入(_I)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1158
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1160
 msgid "Input B_uttons..."
 msgstr "表单按钮(_u)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1158
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1160
 msgid "Input Button..."
 msgstr "表单按钮..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1160
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1162
 msgid "Input T_ext..."
 msgstr "文本框(_e)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1160
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1162
 msgid "Input Text..."
 msgstr "文本框..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1162
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1164
 msgid "Text_area..."
 msgstr "文本域(_a)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1162
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1164
 msgid "Textarea..."
 msgstr "文本域..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1164
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1166
 msgid "_Select..."
 msgstr "可选列表(_S)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1164
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1166
 msgid "Select..."
 msgstr "可选列表..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1166
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1168
 msgid "O_ption..."
 msgstr "可选列表的选项(_O)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1166
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1168
 msgid "Option..."
 msgstr "可选列表的选项..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1168
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1170
 msgid "Option _Group..."
 msgstr "可选列表的选项组(_G)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1168
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1170
 msgid "Option group..."
 msgstr "可选列表的选项组..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1170
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1172
 msgid "_Button..."
 msgstr "按钮(_B)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1170
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1172
 msgid "Button..."
 msgstr "按钮..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1172
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1174
 msgid "_Edit tag under cursor..."
 msgstr "编辑光标处的标签(_E)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1174
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1176
 msgid "_Multi Thumbnail..."
 msgstr "多相册(_M)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1174
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1176
 msgid "Multi thumbnail..."
 msgstr "多相册..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1176 src/plugin_htmlbar/html.c:1790
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1178 src/plugin_htmlbar/html.c:1790
 msgid "Frame"
 msgstr "框架"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1177 src/plugin_htmlbar/html.c:1701
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1179 src/plugin_htmlbar/html.c:1701
 msgid "Frameset"
 msgstr "框架集"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1179
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1181
 msgid "Noframes"
 msgstr "没有框架"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1181
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1183
 msgid "Target"
 msgstr "目标"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1183
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1185
 msgid "Input Hidden..."
 msgstr "隐藏域..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1184
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1186
 msgid "Input Radio button..."
 msgstr "单选按钮..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1185
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1187
 msgid "Input Radio Button..."
 msgstr "单选按钮..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1186
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1188
 msgid "Input Check box..."
 msgstr "复选框..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1187
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1189
 msgid "Input Check Box..."
 msgstr "复选框..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1188
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1202
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1190
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1204
 msgid "HTML_5"
 msgstr "HTML_5"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1189
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1191
 msgid "_Article"
 msgstr "Article(_A)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1189
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1191
 msgid "Article"
 msgstr "Article标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1190
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1192
 msgid "As_ide"
 msgstr "Aside(_i)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1190
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1192
 msgid "Aside"
 msgstr "Aside标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1191
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1193
 msgid "Fig_caption"
 msgstr "Figcaption(_c)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1191
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1193
 msgid "Figcaption"
 msgstr "Figcaption"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1192
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1194
 msgid "Fig_ure"
 msgstr "Figure(_u)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1192
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1194
 msgid "Figure"
 msgstr "Figure标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1193
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1195
 msgid "_Footer"
 msgstr "Footer(_F)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1193
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1195
 msgid "Footer"
 msgstr "Footer标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1194
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1196
 msgid "_Header"
 msgstr "Header(_H)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1194
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1196
 msgid "Header"
 msgstr "Header标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1195
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1197
 msgid "H_group"
 msgstr "Hgroup(_g)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1195
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1197
 msgid "Hgroup"
 msgstr "Hgroup标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1196
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1198
 msgid "_Mark"
 msgstr "Mark(_M)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1196
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1198
 msgid "Mark"
 msgstr "Mark标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1197
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1199
 msgid "_Nav"
 msgstr "Nav(_N)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1197
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1199
 msgid "Nav"
 msgstr "Nav标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1198
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1200
 msgid "R_p"
 msgstr "Rp(_p)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1198
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1200
 msgid "Ruby parenthesis"
 msgstr "Rp标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1199
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1201
 msgid "R_t"
 msgstr "Rt(_t)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1199
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1201
 msgid "Ruby text"
 msgstr "Rt标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1200
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1202
 msgid "_Ruby"
 msgstr "Ruby(_R)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1200
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1202
 msgid "Ruby"
 msgstr "Ruby标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1201
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1203
 msgid "_Section"
 msgstr "Section(_S)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1201
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1203
 msgid "Section"
 msgstr "Section标签"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1203
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1205
 msgid "Au_dio..."
 msgstr "Audio(_d)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1203
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1205
 msgid "Audio..."
 msgstr "Audio标签..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1204
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1206
 msgid "_Video..."
 msgstr "Video(_V)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1204
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1206
 msgid "Video..."
 msgstr "Video标签..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1205
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1207
 msgid "_Canvas..."
 msgstr "Canvas(_C)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1205
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1207
 msgid "Canvas..."
 msgstr "Canvas标签..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1206
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1208
 msgid "_Time..."
 msgstr "Time(_T)..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1206
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1208
 msgid "Time..."
 msgstr "Time标签..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1207
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "Insert _Color"
 msgstr "插入颜色(_C)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1207
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "Insert Color"
 msgstr "插入颜色"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1217
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1219
 msgid "_HTML Toolbar"
 msgstr "HTML 工具栏(_H)"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1348
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1350
 msgid "Add to Quickbar"
 msgstr "添加到快捷栏"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1348
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1350
 msgid "Remove from Quickbar"
 msgstr "从快捷栏中删除"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1386
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1388
 msgid "Right click any html toolbar button to add it to the Quickbar."
 msgstr "右击任何HTML工具按钮将其添加到快捷栏"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1477
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1479
 msgid "Quickbar"
 msgstr "快捷栏"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1480
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1482
 msgid "Standard"
 msgstr "标准"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1485
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1487
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1488
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1490
 msgid "Formatting"
 msgstr "格式"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1491
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
 msgid "Tables"
 msgstr "表格"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1494
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1496
 msgid "List"
 msgstr "列表"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
 msgid "CSS"
 msgstr "CSS"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1500
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1502
 msgid "Forms"
 msgstr "表单"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
 msgid "Fonts"
 msgstr "字体"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1506
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1508
 msgid "Frames"
 msgstr "框架"
 
@@ -2241,51 +2241,51 @@ msgstr "源文件："
 msgid "Size:"
 msgstr "大小："
 
-#: src/plugin_htmlbar/prefs.c:66
+#: src/plugin_htmlbar/prefs.c:84
 msgid "<b>HTML Toolbar</b>"
 msgstr "<b>HTML 工具栏</b>"
 
-#: src/plugin_htmlbar/prefs.c:69
+#: src/plugin_htmlbar/prefs.c:87
 msgid "Show toolbar in sidepanel"
 msgstr "在边栏里显示工具栏"
 
-#: src/plugin_htmlbar/prefs.c:70
+#: src/plugin_htmlbar/prefs.c:88
 msgid "Keep HTML dialogs always on top"
 msgstr "保持HTML对话框总在顶部"
 
-#: src/plugin_htmlbar/prefs.c:75
+#: src/plugin_htmlbar/prefs.c:93
 msgid "<b>HTML options</b>"
 msgstr "<b>HTML 选项</b>"
 
-#: src/plugin_htmlbar/prefs.c:79
+#: src/plugin_htmlbar/prefs.c:97
 msgid "Use _XHTML style tags (<br />)"
 msgstr "使用 XHTML 风格标记(_X)"
 
-#: src/plugin_htmlbar/prefs.c:81
+#: src/plugin_htmlbar/prefs.c:99
 msgid "Use lo_wercase HTML tags"
 msgstr "HTML 标记使用小写(_w)"
 
-#: src/plugin_htmlbar/prefs.c:83
+#: src/plugin_htmlbar/prefs.c:101
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
 msgstr "使用不建议应用的标记(_p) (如 <font> 和 <nobr>)"
 
-#: src/plugin_htmlbar/prefs.c:87
+#: src/plugin_htmlbar/prefs.c:105
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
 msgstr "使用易接近的原则格式化文本(_F) (如用 <strong> 替代 <b>)"
 
-#: src/plugin_htmlbar/prefs.c:92
+#: src/plugin_htmlbar/prefs.c:110
 msgid "<b>Auto Update Tag Options</b>"
 msgstr "<b>自动更新标记选项</b>"
 
-#: src/plugin_htmlbar/prefs.c:96
+#: src/plugin_htmlbar/prefs.c:114
 msgid "Automatically update a_uthor meta tag"
 msgstr "自动更新作者meta标签(_u)"
 
-#: src/plugin_htmlbar/prefs.c:99
+#: src/plugin_htmlbar/prefs.c:117
 msgid "Automatically update _date meta tag"
 msgstr "自动更新日期meta标签(_d)"
 
-#: src/plugin_htmlbar/prefs.c:102
+#: src/plugin_htmlbar/prefs.c:120
 msgid "Automatically update _generator meta tag"
 msgstr "自动更新生产者meta标签(_g)"
 

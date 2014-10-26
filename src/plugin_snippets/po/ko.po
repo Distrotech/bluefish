@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-03-24 22:20-0700\n"
+"POT-Creation-Date: 2014-10-09 01:05-0700\n"
 "PO-Revision-Date: 2009-05-26 08:48+0900\n"
 "Last-Translator: Taehun Kang 강태헌 <u4800330@anu.edu.au>\n"
 "Language-Team: \n"
@@ -15,121 +15,121 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/plugin_snippets/snippets_gui.c:425
+#: src/plugin_snippets/snippets_gui.c:424
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr "Snippet을 추가/변경/제거하실려면 마우스 오른쪽 버튼을 누르세요."
 
-#: src/plugin_snippets/snippets_gui.c:426
+#: src/plugin_snippets/snippets_gui.c:425
 msgid "Use drag and drop to re-order snippets"
 msgstr "Snippet을 재정렬하실려면 드래그앱드랍을 이용하세요"
 
-#: src/plugin_snippets/snippets_gui.c:427
+#: src/plugin_snippets/snippets_gui.c:426
 msgid "To exchange snippets with others use import or export"
 msgstr "Snippet을 교환하실려면 가져오기 또는 내보내기를 이용하세요"
 
-#: src/plugin_snippets/snippets_gui.c:647
+#: src/plugin_snippets/snippets_gui.c:646
 msgid "snippets"
 msgstr "Snippet"
 
-#: src/plugin_snippets/snippets_gui.c:710
+#: src/plugin_snippets/snippets_gui.c:709
 msgid "Snippet export filename"
 msgstr "Snippet 내보내기 파일명"
 
-#: src/plugin_snippets/snippets_gui.c:748
+#: src/plugin_snippets/snippets_gui.c:747
 msgid "Snippet import filename"
 msgstr "Snippet 가져오기 파일명"
 
-#: src/plugin_snippets/snippets_gui.c:766
+#: src/plugin_snippets/snippets_gui.c:765
 msgid "Set accelerator key"
 msgstr "Accelator 키 설정하기"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "Snippets menu"
 msgstr "Snippet 메뉴"
 
-#: src/plugin_snippets/snippets_gui.c:824
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "_New Snippet"
 msgstr "새 Snippet(_N)"
 
-#: src/plugin_snippets/snippets_gui.c:824
+#: src/plugin_snippets/snippets_gui.c:823
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
 msgstr "새 Snippet"
 
-#: src/plugin_snippets/snippets_gui.c:825
+#: src/plugin_snippets/snippets_gui.c:824
 msgid "_Edit Snippet"
 msgstr "Snippet 편집(_E)"
 
-#: src/plugin_snippets/snippets_gui.c:825
+#: src/plugin_snippets/snippets_gui.c:824
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
 msgstr "Snippet 편집"
 
-#: src/plugin_snippets/snippets_gui.c:826
+#: src/plugin_snippets/snippets_gui.c:825
 msgid "_Delete Snippet"
 msgstr "Snippet 삭제(_D)"
 
-#: src/plugin_snippets/snippets_gui.c:826
+#: src/plugin_snippets/snippets_gui.c:825
 msgid "Delete snippet"
 msgstr "Snippet 삭제"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:826
 msgid "Delete _Branch"
 msgstr "Branch 삭제(_B)"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:826
 msgid "Delete branch"
 msgstr "Branch 삭제"
 
-#: src/plugin_snippets/snippets_gui.c:828
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Set Snippet _Accelerator"
 msgstr "Snippet Accelerator 설정하기(_A)"
 
-#: src/plugin_snippets/snippets_gui.c:828
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Set snippet accelerator"
 msgstr "Snippet Accelerator 설정하기"
 
-#: src/plugin_snippets/snippets_gui.c:830
+#: src/plugin_snippets/snippets_gui.c:829
 msgid "Ex_pand All"
 msgstr "모두 펼치기(_P)"
 
-#: src/plugin_snippets/snippets_gui.c:830
+#: src/plugin_snippets/snippets_gui.c:829
 msgid "Expand all"
 msgstr "모두 펼치기"
 
-#: src/plugin_snippets/snippets_gui.c:831
+#: src/plugin_snippets/snippets_gui.c:830
 msgid "_Collapse All"
 msgstr "모두 접기(_C)"
 
-#: src/plugin_snippets/snippets_gui.c:831
+#: src/plugin_snippets/snippets_gui.c:830
 msgid "Collapse all"
 msgstr "모두 접기"
 
-#: src/plugin_snippets/snippets_gui.c:832
+#: src/plugin_snippets/snippets_gui.c:831
 msgid "E_xport"
 msgstr "내보내기(_X)"
 
-#: src/plugin_snippets/snippets_gui.c:832
+#: src/plugin_snippets/snippets_gui.c:831
 msgid "Export snippets"
 msgstr "Snippet 내보내기"
 
-#: src/plugin_snippets/snippets_gui.c:833
+#: src/plugin_snippets/snippets_gui.c:832
 msgid "I_mport"
 msgstr "가져오기(_M)"
 
-#: src/plugin_snippets/snippets_gui.c:833
+#: src/plugin_snippets/snippets_gui.c:832
 msgid "Import snippets"
 msgstr "Snippet 가져오기"
 
-#: src/plugin_snippets/snippets_gui.c:837
+#: src/plugin_snippets/snippets_gui.c:836
 msgid "_Show as menu"
 msgstr "메뉴로 보이기(_S)"
 
-#: src/plugin_snippets/snippets_gui.c:837
+#: src/plugin_snippets/snippets_gui.c:836
 msgid "Show snippets menu"
 msgstr "Snippet 메뉴 보이기"
 
-#: src/plugin_snippets/snippets_gui.c:839
+#: src/plugin_snippets/snippets_gui.c:838
 #, fuzzy
 msgid "S_nippets Menu"
 msgstr "Snippet 메뉴"

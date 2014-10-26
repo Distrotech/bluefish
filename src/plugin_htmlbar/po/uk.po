@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-03-24 22:20-0700\n"
+"POT-Creation-Date: 2014-10-09 01:05-0700\n"
 "PO-Revision-Date: 2013-12-02 18:40+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -79,1094 +79,1094 @@ msgstr "Змінити теґ"
 msgid "Htmlbar"
 msgstr "Панель HTML"
 
-#: src/plugin_htmlbar/htmlbar.c:266 src/plugin_htmlbar/prefs.c:63
+#: src/plugin_htmlbar/htmlbar.c:267 src/plugin_htmlbar/prefs.c:81
 msgid "HTML Features"
 msgstr "Можливості HTML"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:968
+#: src/plugin_htmlbar/htmlbar_uimanager.c:970
 msgid "T_ags"
 msgstr "_Теґи"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:969
+#: src/plugin_htmlbar/htmlbar_uimanager.c:971
 msgid "_Headings"
 msgstr "_Заголовки"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:970
+#: src/plugin_htmlbar/htmlbar_uimanager.c:972
 msgid "H_1"
 msgstr "H_1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:970
+#: src/plugin_htmlbar/htmlbar_uimanager.c:972
 msgid "Insert H1 tag"
 msgstr "Вставити теґ H1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:972
+#: src/plugin_htmlbar/htmlbar_uimanager.c:974
 msgid "H_2"
 msgstr "H_2"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:972
+#: src/plugin_htmlbar/htmlbar_uimanager.c:974
 msgid "Insert H2 tag"
 msgstr "Вставити теґ H2"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:974
+#: src/plugin_htmlbar/htmlbar_uimanager.c:976
 msgid "H_3"
 msgstr "H_3"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:974
+#: src/plugin_htmlbar/htmlbar_uimanager.c:976
 msgid "Insert H3 tag"
 msgstr "Вставити теґ H3"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:976
+#: src/plugin_htmlbar/htmlbar_uimanager.c:978
 msgid "H_4"
 msgstr "H_4"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:976
+#: src/plugin_htmlbar/htmlbar_uimanager.c:978
 msgid "Insert H4 tag"
 msgstr "Вставити теґ H4"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:978
+#: src/plugin_htmlbar/htmlbar_uimanager.c:980
 msgid "H_5"
 msgstr "H_5"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:978
+#: src/plugin_htmlbar/htmlbar_uimanager.c:980
 msgid "Insert H5 tag"
 msgstr "Вставити теґ H5"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:980
+#: src/plugin_htmlbar/htmlbar_uimanager.c:982
 msgid "H_6"
 msgstr "H_6"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:980
+#: src/plugin_htmlbar/htmlbar_uimanager.c:982
 msgid "Insert H6 tag"
 msgstr "Вставити теґ H6"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:982
+#: src/plugin_htmlbar/htmlbar_uimanager.c:984
 msgid "_Entities"
 msgstr "_Об’єкти"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:983
+#: src/plugin_htmlbar/htmlbar_uimanager.c:985
 msgid "_Non-breaking space"
 msgstr "_Нерозривний пробіл"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:984
+#: src/plugin_htmlbar/htmlbar_uimanager.c:986
 msgid "_Broken bar ¦"
 msgstr "_Розірвана вертикальна риска ¦"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:985
+#: src/plugin_htmlbar/htmlbar_uimanager.c:987
 msgid "Soft _hyphen -"
 msgstr "М’_який перенос -"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:986
+#: src/plugin_htmlbar/htmlbar_uimanager.c:988
 msgid "_Format by Context"
 msgstr "Ф_орматування за контекстом"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:987
+#: src/plugin_htmlbar/htmlbar_uimanager.c:989
 msgid "_Strong"
 msgstr "_Стронґ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:987
+#: src/plugin_htmlbar/htmlbar_uimanager.c:989
 msgid "Strong"
 msgstr "Стронґ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:989
+#: src/plugin_htmlbar/htmlbar_uimanager.c:991
 msgid "_Emphasis"
 msgstr "Ви_окремлення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:989
+#: src/plugin_htmlbar/htmlbar_uimanager.c:991
 msgid "Emphasis"
 msgstr "Вокремлення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:991
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1063
+#: src/plugin_htmlbar/htmlbar_uimanager.c:993
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1065
 msgid "_Definition"
 msgstr "Ви_значення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:991
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1063
+#: src/plugin_htmlbar/htmlbar_uimanager.c:993
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1065
 msgid "Definition"
 msgstr "Визначення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:993
+#: src/plugin_htmlbar/htmlbar_uimanager.c:995
 msgid "_Code"
 msgstr "_Код"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:993
+#: src/plugin_htmlbar/htmlbar_uimanager.c:995
 msgid "Code"
 msgstr "Код"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:994
+#: src/plugin_htmlbar/htmlbar_uimanager.c:996
 msgid "Sa_mple"
 msgstr "З_разок"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:994
+#: src/plugin_htmlbar/htmlbar_uimanager.c:996
 msgid "Sample"
 msgstr "Приклад"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:995
+#: src/plugin_htmlbar/htmlbar_uimanager.c:997
 msgid "_Keyboard"
 msgstr "_Клавіатура"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:995
+#: src/plugin_htmlbar/htmlbar_uimanager.c:997
 msgid "Keyboard"
 msgstr "Клавіатура"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:997
+#: src/plugin_htmlbar/htmlbar_uimanager.c:999
 msgid "_Variable"
 msgstr "_Змінна"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:997
+#: src/plugin_htmlbar/htmlbar_uimanager.c:999
 msgid "Variable"
 msgstr "Змінна"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:999
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1001
 msgid "Ci_tation"
 msgstr "_Цитата"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:999
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1001
 msgid "Citation"
 msgstr "Посилання на джерело"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1001
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1003
 msgid "_Abbreviation"
 msgstr "_Скорочення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1001
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1003
 msgid "Abbreviation"
 msgstr "Скорочення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1003
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1005
 msgid "Ac_ronym"
 msgstr "_Абревіатура"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1003
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1005
 msgid "Acronym"
 msgstr "Абревіатура"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1005
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1007
 msgid "_Insert"
 msgstr "В_ставка"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1005
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1007
 msgid "Insert"
 msgstr "Вставити"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1006
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1008
 msgid "De_lete"
 msgstr "Ви_лучення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1006
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1008
 msgid "Delete"
 msgstr "Вилучити"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1007
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1009
 msgid "Format by L_ayout"
 msgstr "_Форматування за компонуванням"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1008
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1010
 msgid "_Bold"
 msgstr "_Жирний"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1008
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1010
 msgid "Bold"
 msgstr "Жирний"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1010
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1012
 msgid "_Italic"
 msgstr "_Курсив"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1010
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1012
 msgid "Italic"
 msgstr "Курсив"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1012
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1014
 msgid "_Underline"
 msgstr "_Підкреслений"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1012
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1014
 msgid "Underline"
 msgstr "Підкреслений"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1014
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1016
 msgid "_Strikeout"
 msgstr "П_ерекреслений"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1014
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1016
 msgid "Strikeout"
 msgstr "Перекреслений"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1016
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1018
 msgid "Sm_all"
 msgstr "_Малі"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1016
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1018
 msgid "Small"
 msgstr "Малі"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1017
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1019
 msgid "Bi_g"
 msgstr "_Великі"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1017
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1019
 msgid "Big"
 msgstr "Великі"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1018
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1020
 msgid "Format _General"
 msgstr "За_гальне форматування"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1019
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1021
 msgid "_Paragraph"
 msgstr "_Абзац"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1019 src/plugin_htmlbar/html.c:878
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1021 src/plugin_htmlbar/html.c:878
 msgid "Paragraph"
 msgstr "Абзац"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1021
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1023
 msgid "_Break"
 msgstr "_Розрив"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1021
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1023
 msgid "Break"
 msgstr "Розрив"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1023
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1025
 msgid "Break clear _all"
 msgstr "Р_озрив зі спорожненням"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1023
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1025
 msgid "Break and clear"
 msgstr "Розрив зі спорожненням"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1025
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1027
 msgid "_Non-Breaking Space"
 msgstr "_Нерозривний пробіл"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1025
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1027
 msgid "Non-breaking space"
 msgstr "Нерозривний пробіл"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1027
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1029
 msgid "Font Si_ze +1"
 msgstr "Розмір _шрифту +1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1027
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1029
 msgid "Font Size +1"
 msgstr "Розмір шрифту +1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1029
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1031
 msgid "Font _Size -1"
 msgstr "Розмір шр_ифту -1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1029
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1031
 msgid "Font Size -1"
 msgstr "Розмір шрифту -1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1031
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1033
 msgid "Preformatted _Text"
 msgstr "_Форматований текст"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1031
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1033
 msgid "Preformatted Text"
 msgstr "Форматований текст"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1033
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1035
 msgid "Su_bscript"
 msgstr "Ни_жній індекс"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1033
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1035
 msgid "Subscript"
 msgstr "Нижній індекс"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1035
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1037
 msgid "Su_perscript"
 msgstr "Вер_хній індекс"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1035
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1037
 msgid "Superscript"
 msgstr "Верхній індекс"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1037
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1039
 msgid "_Center"
 msgstr "По _центру"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1037
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1039
 msgid "Center"
 msgstr "По центру"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1039
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1041
 msgid "Align _right"
 msgstr "Вир_івняти праворуч"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1039
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1041
 msgid "Right Justify"
 msgstr "Вирівняти праворуч"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1041
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1042
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1124
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1043
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1044
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1126
 msgid "_Table"
 msgstr "_Таблиця"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1042
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1044
 #: src/plugin_htmlbar/html_table.c:101
 msgid "Table"
 msgstr "Таблиця"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1044
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1046
 msgid "Table _Row"
 msgstr "_Рядок таблиці"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1044
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1046
 #: src/plugin_htmlbar/html_table.c:242
 msgid "Table Row"
 msgstr "Рядок таблиці"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1046
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1048
 msgid "Table _Header"
 msgstr "_Заголовок таблиці"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1046
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1048
 #: src/plugin_htmlbar/html_table.c:363
 msgid "Table Header"
 msgstr "Заголовок таблиці"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1048
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1050
 msgid "Table _Data"
 msgstr "_Дані таблиці"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1048
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1050
 #: src/plugin_htmlbar/html_table.c:361
 msgid "Table Data"
 msgstr "Дані таблиці"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1050
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1052
 msgid "Table _Caption"
 msgstr "_Підпис таблиці"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1050
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1052
 msgid "Table Caption"
 msgstr "Підпис таблиці"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1052
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1054
 msgid "_List"
 msgstr "_Список"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1053
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1055
 msgid "Unordered _List"
 msgstr "Невпорядкований _список"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1053
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1055
 msgid "Unordered List"
 msgstr "Невпорядкований список"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1055
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1057
 msgid "_Ordered List"
 msgstr "_Впорядкований список"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1055
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1057
 msgid "Ordered List"
 msgstr "Впорядкований список"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1057
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1059
 msgid "List Ite_m"
 msgstr "П_ункт списку"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1057
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1059
 msgid "List Item"
 msgstr "Пункт списку"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1059
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1061
 msgid "De_finition List"
 msgstr "Сп_исок визначень"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1059
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1061
 msgid "Definition List"
 msgstr "Список визначень"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1061
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1063
 msgid "Definition _Term"
 msgstr "_Термін визначення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1061
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1063
 msgid "Definition Term"
 msgstr "Термін визначення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1065
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1067
 msgid "Men_u"
 msgstr "_Меню"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1065
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1067
 msgid "Menu"
 msgstr "Меню"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1066
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1067
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1155
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1068
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1069
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1157
 msgid "F_orm"
 msgstr "Ф_орма"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1067
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1069
 #: src/plugin_htmlbar/html_form.c:156
 msgid "Form"
 msgstr "Форма"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1068
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1070
 msgid "_Fieldset"
 msgstr "_Набір полів"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1069
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1071
 msgid "_Legend"
 msgstr "_Умовні позначення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1070
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1072
 msgid "L_abel"
 msgstr "_Мітка"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1071
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1073
 msgid "_Input"
 msgstr "_Поле введення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1072
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1074
 msgid "_Button"
 msgstr "_Кнопка"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1073
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1075
 msgid "_Select"
 msgstr "Ви_бір"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1074
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1076
 msgid "_Datalist"
 msgstr "С_писок даних"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1075
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1077
 msgid "Opt_group"
 msgstr "Г_рупа варіантів"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1076
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1078
 msgid "Optio_n"
 msgstr "В_аріант"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1077
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1079
 msgid "_Textarea"
 msgstr "_Текстове поле"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1078
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1080
 msgid "_Keygen"
 msgstr "_Генератор ключів"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1079
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1081
 msgid "O_utput"
 msgstr "В_иведення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1080
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1082
 msgid "_Progress"
 msgstr "_Поступ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1081
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1083
 msgid "_Meter"
 msgstr "_Лінійка"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1082
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1084
 msgid "_Misc"
 msgstr "І_нше"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1083
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1085
 msgid "Insert Generator _META-Tag"
 msgstr "Вставити _метатеґ інструменту створення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1085
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1087
 msgid "_Span"
 msgstr "_Span"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1086
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1088
 msgid "_Div"
 msgstr "_Div"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1087
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1089
 msgid "_Link"
 msgstr "_Посилання"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1088
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1090
 msgid "S_cript"
 msgstr "С_крипт"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1089
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1091
 msgid "_Anchor"
 msgstr "_Якір"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1090
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1092
 msgid "_Image"
 msgstr "_Зображення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1091
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1093
 msgid "_Comment"
 msgstr "За_коментувати"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1091
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1093
 msgid "HTML Comment"
 msgstr "Коментар HTML"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1093
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1095
 msgid "Dial_ogs"
 msgstr "Діа_логові вікна"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1094
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1096
 msgid "_General"
 msgstr "_Загальні"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1095
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1097
 msgid "_Quickstart..."
 msgstr "_Майстер створення…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1095
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1097
 msgid "Quickstart..."
 msgstr "Майстер створення…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1097
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1099
 msgid "_Link Header..."
 msgstr "_Посилання заголовка…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1097
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1099
 msgid "Link Header..."
 msgstr "Заголовок посилання…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1099
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1101
 msgid "_Body..."
 msgstr "_Тіло…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1099
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1101
 msgid "Body..."
 msgstr "Тіло…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1101
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1103
 msgid "_Script..."
 msgstr "С_крипт…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1101
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1103
 msgid "Script..."
 msgstr "Скрипт…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1103
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1105
 msgid "_Anchor..."
 msgstr "_Якір…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1103
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1105
 msgid "Anchor / Hyperlink..."
 msgstr "Якір / Гіперпосилання…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1105
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1107
 msgid "_E-mail..."
 msgstr "_Адреса ел. пошти…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1105
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1107
 msgid "E-mail..."
 msgstr "Адреса ел. пошти…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1107
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1109
 msgid "_Rule..."
 msgstr "_Лінійка…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1107
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1109
 msgid "Horizontal Rule..."
 msgstr "Горизонтальна лінійка…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1109
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1111
 msgid "_Font..."
 msgstr "_Шрифт…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1109
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1111
 msgid "Font..."
 msgstr "Шрифт…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1111
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1113
 msgid "Basef_ont..."
 msgstr "_Основний шрифт…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1111
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1113
 msgid "Base font..."
 msgstr "Основний шрифт…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1113
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1115
 msgid "Quick_list..."
 msgstr "_Список…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1113
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1115
 msgid "Quick List..."
 msgstr "Список…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1115
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1117
 msgid "_Meta..."
 msgstr "_Meta…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1116
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1118
 msgid "Embe_d..."
 msgstr "В_будовування…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1117
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1119
 msgid "Select _Color..."
 msgstr "В_ибір кольору…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1118
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1120
 msgid "Insert _Time..."
 msgstr "Вставити _час…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1119
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1121
 msgid "Insert _Image..."
 msgstr "Вставити _зображення…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1119
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1121
 msgid "Insert image..."
 msgstr "Вставити зображення…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1121
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1123
 msgid "Insert T_humbnail..."
 msgstr "Вставити _мініатюру…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1122
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1124
 msgid "Insert thumbnail..."
 msgstr "Вставити мініатюру…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1125
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1127
 msgid "Table _Wizard..."
 msgstr "_Майстер створення таблиці…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1125
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1127
 msgid "Table Wizard..."
 msgstr "Майстер таблиць…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1127
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1129
 msgid "_Table..."
 msgstr "_Таблиця…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1127
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1129
 msgid "Table..."
 msgstr "Таблиця…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1129
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1131
 msgid "Table _Row..."
 msgstr "_Рядок таблиці…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1129
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1131
 msgid "Table Row..."
 msgstr "Рядок таблиці…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1131
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1133
 msgid "Table _Head..."
 msgstr "_Заголовок таблиці…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1131
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1133
 msgid "Table Head..."
 msgstr "Заголовок таблиці…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1133
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1135
 msgid "Table _Data..."
 msgstr "_Дані таблиці…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1133
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1135
 msgid "Table Data..."
 msgstr "Дані таблиці…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1135
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1137
 msgid "_CSS"
 msgstr "Т_аблиці стилів"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1136
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1138
 msgid "_Create Style..."
 msgstr "_Створити стиль…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1137
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1139
 msgid "Create stylesheet..."
 msgstr "Створити таблицю стилів…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1139
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1141
 msgid "S_pan..."
 msgstr "S_pan…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1139
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1141
 msgid "Span..."
 msgstr "Span…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1140
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1142
 msgid "_Div..."
 msgstr "_Div…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1140
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1142
 msgid "Div..."
 msgstr "Div…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1142
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1144
 msgid "_Style"
 msgstr "С_тиль"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1142
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1144
 #: src/plugin_htmlbar/html_form.c:565
 msgid "Style"
 msgstr "Стиль"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1144
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1146
 msgid "C_olumns..."
 msgstr "С_товпчики…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1144
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1146
 msgid "Columns..."
 msgstr "Стовпчики…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1146
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1148
 msgid "_Link to Stylesheet..."
 msgstr "_Посилання та таблицю стилів…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1147
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1149
 msgid "Link to Stylesheet..."
 msgstr "Посилання на таблицю стилів…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1149
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1151
 msgid "_Frame"
 msgstr "_Фрейм"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1150
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1152
 msgid "Frame _Wizard..."
 msgstr "_Майстер створення фреймів…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1150
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1152
 msgid "Frame Wizard..."
 msgstr "Майстер створення фреймів…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1152
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1154
 msgid "Frame_set..."
 msgstr "_Набір фреймів…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1152
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1154
 msgid "Frameset..."
 msgstr "Набір фреймів…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1154
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1156
 msgid "_Frame..."
 msgstr "_Фрейм…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1154
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1156
 msgid "Frame..."
 msgstr "Фрейм…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1156
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1158
 msgid "F_orm..."
 msgstr "_Форма…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1156
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1158
 msgid "Form..."
 msgstr "Форма…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1157
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1159
 msgid "_Input..."
 msgstr "_Поле введення…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1158
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1160
 msgid "Input B_uttons..."
 msgstr "Кноп_ки введення…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1158
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1160
 msgid "Input Button..."
 msgstr "Кнопка введення…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1160
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1162
 msgid "Input T_ext..."
 msgstr "Поле вв_едення тексту…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1160
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1162
 msgid "Input Text..."
 msgstr "Поле введення тексту…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1162
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1164
 msgid "Text_area..."
 msgstr "_Текстова ділянка"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1162
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1164
 msgid "Textarea..."
 msgstr "Текстова область…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1164
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1166
 msgid "_Select..."
 msgstr "В_ибір…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1164
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1166
 msgid "Select..."
 msgstr "Вибір…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1166
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1168
 msgid "O_ption..."
 msgstr "_Варіант…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1166
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1168
 msgid "Option..."
 msgstr "Пункт…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1168
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1170
 msgid "Option _Group..."
 msgstr "_Група варіантів…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1168
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1170
 msgid "Option group..."
 msgstr "Група пунктів…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1170
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1172
 msgid "_Button..."
 msgstr "_Кнопка…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1170
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1172
 msgid "Button..."
 msgstr "Кнопка…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1172
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1174
 msgid "_Edit tag under cursor..."
 msgstr "_Редагування теґу під курсором…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1174
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1176
 msgid "_Multi Thumbnail..."
 msgstr "М_ультимініатюра…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1174
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1176
 msgid "Multi thumbnail..."
 msgstr "Мультимініатюра…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1176 src/plugin_htmlbar/html.c:1790
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1178 src/plugin_htmlbar/html.c:1790
 msgid "Frame"
 msgstr "Фрейм"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1177 src/plugin_htmlbar/html.c:1701
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1179 src/plugin_htmlbar/html.c:1701
 msgid "Frameset"
 msgstr "Набір фреймів"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1179
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1181
 msgid "Noframes"
 msgstr "Без фреймів"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1181
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1183
 msgid "Target"
 msgstr "Ціль"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1183
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1185
 msgid "Input Hidden..."
 msgstr "Приховане поле введення…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1184
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1186
 msgid "Input Radio button..."
 msgstr "Кнопка варіантів введення…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1185
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1187
 msgid "Input Radio Button..."
 msgstr "Кнопка варіантів введення…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1186
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1188
 msgid "Input Check box..."
 msgstr "Поле позначки варіанта…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1187
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1189
 msgid "Input Check Box..."
 msgstr "Поле позначки варіанта…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1188
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1202
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1190
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1204
 msgid "HTML_5"
 msgstr "HTML_5"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1189
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1191
 msgid "_Article"
 msgstr "С_таття"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1189
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1191
 msgid "Article"
 msgstr "Стаття"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1190
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1192
 msgid "As_ide"
 msgstr "As_ide"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1190
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1192
 msgid "Aside"
 msgstr "Aside"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1191
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1193
 msgid "Fig_caption"
 msgstr "Підпис_до_зображення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1191
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1193
 msgid "Figcaption"
 msgstr "Підпис до зображення"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1192
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1194
 msgid "Fig_ure"
 msgstr "_Рисунок"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1192
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1194
 msgid "Figure"
 msgstr "Рисунок"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1193
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1195
 msgid "_Footer"
 msgstr "_Нижній колонтитул"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1193
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1195
 msgid "Footer"
 msgstr "Нижній колонтитул"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1194
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1196
 msgid "_Header"
 msgstr "_Верхній колонтитул"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1194
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1196
 msgid "Header"
 msgstr "Верхній колонтитул"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1195
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1197
 msgid "H_group"
 msgstr "H_group"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1195
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1197
 msgid "Hgroup"
 msgstr "Hgroup"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1196
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1198
 msgid "_Mark"
 msgstr "_Позначка"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1196
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1198
 msgid "Mark"
 msgstr "Позначка"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1197
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1199
 msgid "_Nav"
 msgstr "_Nav"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1197
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1199
 msgid "Nav"
 msgstr "Nav"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1198
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1200
 msgid "R_p"
 msgstr "R_p"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1198
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1200
 msgid "Ruby parenthesis"
 msgstr "Дужка Ruby"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1199
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1201
 msgid "R_t"
 msgstr "R_t"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1199
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1201
 msgid "Ruby text"
 msgstr "Текст Ruby"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1200
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1202
 msgid "_Ruby"
 msgstr "_Ruby"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1200
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1202
 msgid "Ruby"
 msgstr "Ruby"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1201
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1203
 msgid "_Section"
 msgstr "Р_озділ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1201
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1203
 msgid "Section"
 msgstr "Розділ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1203
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1205
 msgid "Au_dio..."
 msgstr "З_вук…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1203
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1205
 msgid "Audio..."
 msgstr "Звук…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1204
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1206
 msgid "_Video..."
 msgstr "В_ідео…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1204
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1206
 msgid "Video..."
 msgstr "Відео…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1205
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1207
 msgid "_Canvas..."
 msgstr "_Canvas…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1205
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1207
 msgid "Canvas..."
 msgstr "Canvas…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1206
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1208
 msgid "_Time..."
 msgstr "_Час…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1206
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1208
 msgid "Time..."
 msgstr "Час…"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1207
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "Insert _Color"
 msgstr "Вставити _колір"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1207
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1209
 msgid "Insert Color"
 msgstr "Вставити колір"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1217
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1219
 msgid "_HTML Toolbar"
 msgstr "Па_нель HTML"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1348
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1350
 msgid "Add to Quickbar"
 msgstr "Додати до панелі швидкого доступу"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1348
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1350
 msgid "Remove from Quickbar"
 msgstr "Вилучити з панелі швидкого доступу"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1386
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1388
 msgid "Right click any html toolbar button to add it to the Quickbar."
 msgstr ""
 "Клацніть правою кнопкою на будь-якій з кнопок панелі інструментів html, щоб "
 "додати її на панель швидкого доступу."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1477
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1479
 msgid "Quickbar"
 msgstr "Швидкий доступ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1480
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1482
 msgid "Standard"
 msgstr "Стандартний"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1485
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1487
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1488
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1490
 msgid "Formatting"
 msgstr "Форматування"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1491
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
 msgid "Tables"
 msgstr "Таблиці"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1494
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1496
 msgid "List"
 msgstr "Список"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
 msgid "CSS"
 msgstr "CSS"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1500
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1502
 msgid "Forms"
 msgstr "Форми"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
 msgid "Fonts"
 msgstr "Шрифти"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1506
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1508
 msgid "Frames"
 msgstr "Фрейми"
 
@@ -2244,53 +2244,53 @@ msgstr "Джерело:"
 msgid "Size:"
 msgstr "Розмір:"
 
-#: src/plugin_htmlbar/prefs.c:66
+#: src/plugin_htmlbar/prefs.c:84
 msgid "<b>HTML Toolbar</b>"
 msgstr "<b>Панель HTML</b>"
 
-#: src/plugin_htmlbar/prefs.c:69
+#: src/plugin_htmlbar/prefs.c:87
 msgid "Show toolbar in sidepanel"
 msgstr "Показувати панель інструментів на бічній панелі"
 
-#: src/plugin_htmlbar/prefs.c:70
+#: src/plugin_htmlbar/prefs.c:88
 msgid "Keep HTML dialogs always on top"
 msgstr "Фіксувати вікна HTML над іншими вікнами"
 
-#: src/plugin_htmlbar/prefs.c:75
+#: src/plugin_htmlbar/prefs.c:93
 msgid "<b>HTML options</b>"
 msgstr "<b>Параметри HTML</b>"
 
-#: src/plugin_htmlbar/prefs.c:79
+#: src/plugin_htmlbar/prefs.c:97
 msgid "Use _XHTML style tags (<br />)"
 msgstr "Теґи у ст_илі XHTML (<br />)"
 
-#: src/plugin_htmlbar/prefs.c:81
+#: src/plugin_htmlbar/prefs.c:99
 msgid "Use lo_wercase HTML tags"
 msgstr "Т_еги HTML малими літерами"
 
-#: src/plugin_htmlbar/prefs.c:83
+#: src/plugin_htmlbar/prefs.c:101
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
 msgstr "З_астарілі теґи (наприклад <font> та <nobr>)"
 
-#: src/plugin_htmlbar/prefs.c:87
+#: src/plugin_htmlbar/prefs.c:105
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
 msgstr ""
 "_Форматування відповідно до настанов щодо доступності (зокрема <strong> "
 "замість <b>)"
 
-#: src/plugin_htmlbar/prefs.c:92
+#: src/plugin_htmlbar/prefs.c:110
 msgid "<b>Auto Update Tag Options</b>"
 msgstr "<b>Параметри автооновлення теґів</b>"
 
-#: src/plugin_htmlbar/prefs.c:96
+#: src/plugin_htmlbar/prefs.c:114
 msgid "Automatically update a_uthor meta tag"
 msgstr "Ав_томатично оновлювати метатеґ автора"
 
-#: src/plugin_htmlbar/prefs.c:99
+#: src/plugin_htmlbar/prefs.c:117
 msgid "Automatically update _date meta tag"
 msgstr "Автоматично оновлювати метатеґ _дати"
 
-#: src/plugin_htmlbar/prefs.c:102
+#: src/plugin_htmlbar/prefs.c:120
 msgid "Automatically update _generator meta tag"
 msgstr "Автоматично оновлювати метатеґ _інструмента"
 

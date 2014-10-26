@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-03-24 22:20-0700\n"
+"POT-Creation-Date: 2014-10-09 01:05-0700\n"
 "PO-Revision-Date: 2011-12-09 22:39+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -18,124 +18,124 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/plugin_snippets/snippets_gui.c:425
+#: src/plugin_snippets/snippets_gui.c:424
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr ""
 "Клацніть правою кнопкою миші, щоб додати, змінити або вилучити фрагменти."
 
-#: src/plugin_snippets/snippets_gui.c:426
+#: src/plugin_snippets/snippets_gui.c:425
 msgid "Use drag and drop to re-order snippets"
 msgstr "Для впорядкування фрагментів скористайтеся перетягуванням зі скиданням"
 
-#: src/plugin_snippets/snippets_gui.c:427
+#: src/plugin_snippets/snippets_gui.c:426
 msgid "To exchange snippets with others use import or export"
 msgstr ""
 "Щоб здійснити обмін фрагментами з іншими користувачами, скористайтеся "
 "імпортуванням та експортуванням"
 
-#: src/plugin_snippets/snippets_gui.c:647
+#: src/plugin_snippets/snippets_gui.c:646
 msgid "snippets"
 msgstr "фрагменти"
 
-#: src/plugin_snippets/snippets_gui.c:710
+#: src/plugin_snippets/snippets_gui.c:709
 msgid "Snippet export filename"
 msgstr "Назва файла експорту фрагмента"
 
-#: src/plugin_snippets/snippets_gui.c:748
+#: src/plugin_snippets/snippets_gui.c:747
 msgid "Snippet import filename"
 msgstr "Назва файла імпорту фрагмента"
 
-#: src/plugin_snippets/snippets_gui.c:766
+#: src/plugin_snippets/snippets_gui.c:765
 msgid "Set accelerator key"
 msgstr "Встановити клавішу-акселератор"
 
-#: src/plugin_snippets/snippets_gui.c:823
+#: src/plugin_snippets/snippets_gui.c:822
 msgid "Snippets menu"
 msgstr "Меню фрагментів"
 
-#: src/plugin_snippets/snippets_gui.c:824
+#: src/plugin_snippets/snippets_gui.c:823
 msgid "_New Snippet"
 msgstr "С_творити фрагмент"
 
-#: src/plugin_snippets/snippets_gui.c:824
+#: src/plugin_snippets/snippets_gui.c:823
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "New snippet"
 msgstr "Новий фрагмент"
 
-#: src/plugin_snippets/snippets_gui.c:825
+#: src/plugin_snippets/snippets_gui.c:824
 msgid "_Edit Snippet"
 msgstr "_Змінити фрагмент"
 
-#: src/plugin_snippets/snippets_gui.c:825
+#: src/plugin_snippets/snippets_gui.c:824
 #: src/plugin_snippets/snippets_wizard.c:754
 msgid "Edit snippet"
 msgstr "Змінити фрагмент"
 
-#: src/plugin_snippets/snippets_gui.c:826
+#: src/plugin_snippets/snippets_gui.c:825
 msgid "_Delete Snippet"
 msgstr "_Вилучити фрагмент"
 
-#: src/plugin_snippets/snippets_gui.c:826
+#: src/plugin_snippets/snippets_gui.c:825
 msgid "Delete snippet"
 msgstr "Вилучити фрагмент"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:826
 msgid "Delete _Branch"
 msgstr "Вилучити _гілку"
 
-#: src/plugin_snippets/snippets_gui.c:827
+#: src/plugin_snippets/snippets_gui.c:826
 msgid "Delete branch"
 msgstr "Вилучити гілку"
 
-#: src/plugin_snippets/snippets_gui.c:828
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Set Snippet _Accelerator"
 msgstr "Встановити _акселератор фрагмента"
 
-#: src/plugin_snippets/snippets_gui.c:828
+#: src/plugin_snippets/snippets_gui.c:827
 msgid "Set snippet accelerator"
 msgstr "Встановити акселератор фрагмента"
 
-#: src/plugin_snippets/snippets_gui.c:830
+#: src/plugin_snippets/snippets_gui.c:829
 msgid "Ex_pand All"
 msgstr "Р_озгорнути всі"
 
-#: src/plugin_snippets/snippets_gui.c:830
+#: src/plugin_snippets/snippets_gui.c:829
 msgid "Expand all"
 msgstr "Розгорнути всі"
 
-#: src/plugin_snippets/snippets_gui.c:831
+#: src/plugin_snippets/snippets_gui.c:830
 msgid "_Collapse All"
 msgstr "З_горнути всі"
 
-#: src/plugin_snippets/snippets_gui.c:831
+#: src/plugin_snippets/snippets_gui.c:830
 msgid "Collapse all"
 msgstr "Згорнути всі"
 
-#: src/plugin_snippets/snippets_gui.c:832
+#: src/plugin_snippets/snippets_gui.c:831
 msgid "E_xport"
 msgstr "_Експортувати"
 
-#: src/plugin_snippets/snippets_gui.c:832
+#: src/plugin_snippets/snippets_gui.c:831
 msgid "Export snippets"
 msgstr "Експортувати фрагменти"
 
-#: src/plugin_snippets/snippets_gui.c:833
+#: src/plugin_snippets/snippets_gui.c:832
 msgid "I_mport"
 msgstr "І_мпортувати"
 
-#: src/plugin_snippets/snippets_gui.c:833
+#: src/plugin_snippets/snippets_gui.c:832
 msgid "Import snippets"
 msgstr "Імпортувати фрагменти"
 
-#: src/plugin_snippets/snippets_gui.c:837
+#: src/plugin_snippets/snippets_gui.c:836
 msgid "_Show as menu"
 msgstr "По_казати як меню"
 
-#: src/plugin_snippets/snippets_gui.c:837
+#: src/plugin_snippets/snippets_gui.c:836
 msgid "Show snippets menu"
 msgstr "Показати меню фрагментів"
 
-#: src/plugin_snippets/snippets_gui.c:839
+#: src/plugin_snippets/snippets_gui.c:838
 msgid "S_nippets Menu"
 msgstr "Меню _фрагментів"
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-03-24 22:20-0700\n"
+"POT-Creation-Date: 2014-10-25 16:44-0700\n"
 "PO-Revision-Date: 2009-05-26 08:48+0900\n"
 "Last-Translator: Taehun Kang 강태헌 <u4800330@anu.edu.au>\n"
 "Language-Team: \n"
@@ -100,86 +100,86 @@ msgstr "Bluefish 프로젝트 파일"
 msgid "Bluefish language definition file"
 msgstr "Bluefish 언어 정의 파일"
 
-#: ../src/bftextview2.c:1765
+#: ../src/bftextview2.c:1764
 msgid "Collapse all"
 msgstr "전체 닫기"
 
-#: ../src/bftextview2.c:1768
+#: ../src/bftextview2.c:1767
 msgid "Expand all"
 msgstr "전체  확장"
 
-#: ../src/bftextview2.c:1777
+#: ../src/bftextview2.c:1776
 #, fuzzy, c-format
 msgid "Collapse %s"
 msgstr "전체 닫기"
 
-#: ../src/bftextview2.c:1787
+#: ../src/bftextview2.c:1786
 #, fuzzy, c-format
 msgid "Expand %s"
 msgstr "전체  확장"
 
-#: ../src/bftextview2_spell.c:821
+#: ../src/bftextview2_spell.c:826
 msgid "Spell check language"
 msgstr "철자 검사하기"
 
-#: ../src/bftextview2_spell.c:854
+#: ../src/bftextview2_spell.c:859
 msgid "Add to dictionary"
 msgstr "사전에 추가하기"
 
-#: ../src/bftextview2_spell.c:857
+#: ../src/bftextview2_spell.c:862
 msgid "Ignore spelling"
 msgstr "철자 검사 무시하기"
 
-#: ../src/bftextview2_spell.c:872
+#: ../src/bftextview2_spell.c:877
 msgid "Insert special characters as entities"
 msgstr "특수 문자 추가하기"
 
-#: ../src/bfwin.c:232
+#: ../src/bfwin.c:231
 msgid "Filebrowser"
 msgstr "파일 탐색기"
 
-#: ../src/bfwin.c:234
+#: ../src/bfwin.c:233
 msgid "Bookmarks"
 msgstr "북마크"
 
-#: ../src/bfwin.c:966
+#: ../src/bfwin.c:988
 msgid "Goto Line:"
 msgstr "라인 이동:"
 
-#: ../src/bfwin.c:977
+#: ../src/bfwin.c:999
 msgid "Find:"
 msgstr "찾기 :"
 
-#: ../src/bfwin.c:988 ../src/snr3.c:1520
+#: ../src/bfwin.c:1010 ../src/snr3.c:1523
 #, fuzzy
 msgid "Regular expression (pcre)"
 msgstr "정규식 오류: "
 
-#: ../src/bfwin.c:991
+#: ../src/bfwin.c:1013
 #, fuzzy
 msgid "Case sensitive"
 msgstr "대소문자 구분 일치(_M)"
 
-#: ../src/bfwin.c:994
+#: ../src/bfwin.c:1016
 #, fuzzy
 msgid "Dot character matches newlines"
 msgstr "새 파일의 기본 문자셋 설정(_D)"
 
-#: ../src/bfwin.c:997
+#: ../src/bfwin.c:1019
 #, fuzzy
 msgid "Pattern contains backslash escaped sequences"
 msgstr "패턴이 escape-sequence를 포함함"
 
-#: ../src/bfwin.c:1009
+#: ../src/bfwin.c:1031
 msgid "Advanced"
 msgstr "고급"
 
-#: ../src/bfwin.c:1467
+#: ../src/bfwin.c:1508
 msgid "New Bluefish Window"
 msgstr "새 Bluefish 창"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1533
+#: ../src/bfwin.c:1574
 msgid "Stand by..."
 msgstr "대기..."
 
@@ -253,8 +253,9 @@ msgid "_Filters"
 msgstr "필터(_F)"
 
 #: ../src/bfwin_uimanager.c:835
-msgid "_Outputbox"
-msgstr "출력창(_O)"
+#, fuzzy
+msgid "_Output parsers"
+msgstr "Output parsers"
 
 #: ../src/bfwin_uimanager.c:836
 msgid "For_mat"
@@ -274,8 +275,8 @@ msgstr "연결(_N)"
 msgid "_New"
 msgstr "새로 만들기(_F)"
 
-#: ../src/bfwin_uimanager.c:842 ../src/filebrowser2.c:886
-#: ../src/filebrowser2.c:888 ../src/filebrowser2.c:1276
+#: ../src/bfwin_uimanager.c:842 ../src/filebrowser2.c:898
+#: ../src/filebrowser2.c:900 ../src/filebrowser2.c:1288
 msgid "New file"
 msgstr "새 파일"
 
@@ -307,7 +308,7 @@ msgstr "파일 열기"
 msgid "Open Ad_vanced..."
 msgstr "고급 열기(_V)..."
 
-#: ../src/bfwin_uimanager.c:847 ../src/filebrowser2.c:1272
+#: ../src/bfwin_uimanager.c:847 ../src/filebrowser2.c:1284
 msgid "Open advanced"
 msgstr "고급 열기"
 
@@ -359,7 +360,7 @@ msgstr "전체 선택"
 msgid "Add Boo_kmark"
 msgstr "북마크 추가(_K)"
 
-#: ../src/bfwin_uimanager.c:856 ../src/document.c:2087
+#: ../src/bfwin_uimanager.c:856 ../src/document.c:2248
 msgid "Add bookmark"
 msgstr "북마크 추가"
 
@@ -433,7 +434,7 @@ msgstr "구문 검사하기(_R)"
 msgid "_New Project..."
 msgstr "새 프로젝트(_N)"
 
-#: ../src/bfwin_uimanager.c:881 ../src/project.c:255
+#: ../src/bfwin_uimanager.c:881 ../src/project.c:228
 msgid "New project"
 msgstr "새 프로젝트"
 
@@ -709,7 +710,7 @@ msgstr "텍스트 둘러싸기(_W)"
 msgid "Wrap text"
 msgstr "텍스트 둘러싸기"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:3200
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:2038 ../src/document.c:3368
 msgid "_Close"
 msgstr "닫기(_C)"
 
@@ -726,7 +727,7 @@ msgid "Close all files"
 msgstr "전체 파일 닫기"
 
 #: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
-#: ../src/file_dialogs.c:1484
+#: ../src/file_dialogs.c:1456
 msgid "_Save"
 msgstr "저장하기(_S)"
 
@@ -1158,23 +1159,23 @@ msgstr ""
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr "http://bluefish.openoffice.nl 을 방문하시오"
 
-#: ../src/bluefish.c:360
+#: ../src/bluefish.c:370
 msgid "Open in existing window."
 msgstr "현재 창에서 열기"
 
-#: ../src/bluefish.c:362
+#: ../src/bluefish.c:372
 msgid "Open in new window."
 msgstr "새 창에서 열기"
 
-#: ../src/bluefish.c:364
+#: ../src/bluefish.c:374
 msgid "Print version information."
 msgstr "인쇄 버전 정보"
 
-#: ../src/bluefish.c:391
+#: ../src/bluefish.c:401
 msgid " [FILE(S)]"
 msgstr " [파일]"
 
-#: ../src/bluefish.c:402
+#: ../src/bluefish.c:412
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
@@ -1246,11 +1247,11 @@ msgstr "북마크 검색 메뉴"
 msgid "_Edit..."
 msgstr "편집(_E)"
 
-#: ../src/bookmark.c:901 ../src/filebrowser2.c:1275
+#: ../src/bookmark.c:901 ../src/filebrowser2.c:1287
 msgid "_Delete"
 msgstr "삭제(_D)"
 
-#: ../src/bookmark.c:901 ../src/document.c:2083
+#: ../src/bookmark.c:901 ../src/document.c:2244
 msgid "Delete bookmark"
 msgstr "북마크 삭제"
 
@@ -1291,9 +1292,9 @@ msgstr "전체 URI로"
 msgid "Content"
 msgstr "내용"
 
-#: ../src/bookmark.c:922 ../src/bookmark.c:928 ../src/preferences.c:607
-#: ../src/preferences.c:1369 ../src/preferences.c:1371
-#: ../src/preferences.c:1472
+#: ../src/bookmark.c:922 ../src/bookmark.c:928 ../src/preferences.c:621
+#: ../src/preferences.c:1686 ../src/preferences.c:1688
+#: ../src/preferences.c:1789
 msgid "Name"
 msgstr "이름"
 
@@ -1325,11 +1326,11 @@ msgstr "북마크를 추가할 수 없습니다."
 msgid "You already have a bookmark here!"
 msgstr "이미 여기에 북마크가 있습니다!"
 
-#: ../src/document.c:515
+#: ../src/document.c:514
 msgid "Name: "
 msgstr "이름:  "
 
-#: ../src/document.c:518
+#: ../src/document.c:541
 msgid ""
 "\n"
 "Language mode: "
@@ -1337,7 +1338,7 @@ msgstr ""
 "\n"
 "언어 모드: "
 
-#: ../src/document.c:522
+#: ../src/document.c:545
 msgid ""
 "\n"
 "Encoding: "
@@ -1345,7 +1346,7 @@ msgstr ""
 "\n"
 "인코딩: "
 
-#: ../src/document.c:534
+#: ../src/document.c:557
 msgid ""
 "\n"
 "Mime type: "
@@ -1353,7 +1354,7 @@ msgstr ""
 "\n"
 "Mime 타입: "
 
-#: ../src/document.c:542
+#: ../src/document.c:565
 #, c-format
 msgid ""
 "\n"
@@ -1364,7 +1365,7 @@ msgstr ""
 "권한: %s\n"
 "Uid: %u Gid: %u"
 
-#: ../src/document.c:559
+#: ../src/document.c:582
 msgid ""
 "\n"
 "Size (on disk): "
@@ -1372,7 +1373,7 @@ msgstr ""
 "\n"
 "디스크상 크기: "
 
-#: ../src/document.c:568
+#: ../src/document.c:591
 msgid ""
 "\n"
 "Last modified: "
@@ -1380,73 +1381,73 @@ msgstr ""
 "\n"
 "마지막 수정된 날짜: "
 
-#: ../src/document.c:624
+#: ../src/document.c:647
 #, c-format
 msgid "Untitled %d"
 msgstr "무제 %d"
 
-#: ../src/document.c:805
+#: ../src/document.c:828
 #, c-format
 msgid "Changed tab width to %d"
 msgstr "탭 넓이를 %d 로 수정"
 
-#: ../src/document.c:979
+#: ../src/document.c:1002
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "문서 %s는 다른 Bluefish창에 열려져 있습니다."
 
-#: ../src/document.c:981
+#: ../src/document.c:1004
 msgid "Move to this window"
 msgstr "이 창으로 이동"
 
-#: ../src/document.c:981
+#: ../src/document.c:1004
 msgid "Open readonly"
 msgstr "읽기 전용으로 열기"
 
-#: ../src/document.c:982
+#: ../src/document.c:1005
 msgid "Do not open"
 msgstr "열지 마세요"
 
-#: ../src/document.c:1311
+#: ../src/document.c:1337
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " 행: %d, 열: %d, 문자: %d"
 
-#: ../src/document.c:1314
+#: ../src/document.c:1340
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " %d 행, %d 열"
 
-#: ../src/document.c:1337
+#: ../src/document.c:1363
 msgid " OVR"
 msgstr " OVR"
 
-#: ../src/document.c:1337
+#: ../src/document.c:1363
 msgid " INS"
 msgstr " 삽입"
 
-#: ../src/document.c:1339
+#: ../src/document.c:1365
 msgid " RO"
 msgstr " RO"
 
-#: ../src/document.c:1358
+#: ../src/document.c:1384
 msgid "Unknown"
 msgstr "알려지지 않음"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1958
 #, fuzzy
 msgid "_No"
 msgstr "이동(_G)"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1958
 msgid "_Split"
 msgstr ""
 
-#: ../src/document.c:1825
+#: ../src/document.c:1961
 msgid "File contains very long lines. Split these lines?"
 msgstr ""
 
-#: ../src/document.c:1825
+#: ../src/document.c:1961
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
 "performance. This split function, however, is unaware of any language "
@@ -1454,11 +1455,36 @@ msgid ""
 "insert newlines if no spaces or tabs are found."
 msgstr ""
 
-#: ../src/document.c:1901
-msgid "Cannot display file, unknown characters found."
-msgstr "알려지지 않은 문자가 발견되었습니다. 파일을 보여줄 수 없습니다."
+#: ../src/document.c:2038
+#, fuzzy
+msgid "_Convert"
+msgstr "연결(_N)"
 
-#: ../src/document.c:2093
+#: ../src/document.c:2042
+#, c-format
+msgid ""
+"File '%s' is not a valid text file.\n"
+"The file might be corrupted, truncated, or in an unexpected encoding."
+msgstr ""
+
+#: ../src/document.c:2044
+msgid ""
+"Bluefish can convert this file into a valid one by replacing illegal symbols "
+"with spaces. Convert?"
+msgstr ""
+
+#: ../src/document.c:2056
+#, c-format
+msgid ""
+"File is opened in read-only mode since it differs from original one.\n"
+"%lu characters were replaced by space"
+msgstr ""
+
+#: ../src/document.c:2059
+msgid "Use 'Save As' to save it with different name and make editable"
+msgstr ""
+
+#: ../src/document.c:2254
 #, fuzzy
 msgid "Exit fullscreen"
 msgstr "전체화면"
@@ -1466,15 +1492,15 @@ msgstr "전체화면"
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2237 ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/document.c:2398 ../src/file_dialogs.c:450 ../src/file_dialogs.c:488
 msgid "_Abort save"
 msgstr "저장 취소(_A)"
 
-#: ../src/document.c:2237
+#: ../src/document.c:2398
 msgid "_Continue save in UTF-8"
 msgstr "UTF-8 로 계속 저장(_C)"
 
-#: ../src/document.c:2250
+#: ../src/document.c:2411
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1487,28 +1513,19 @@ msgstr ""
 "\n"
 "UTF-8로 계속 저장할까요?"
 
-#: ../src/document.c:2255
+#: ../src/document.c:2416
 msgid "File encoding conversion failure"
 msgstr "파일 인코딩 변환 실패"
 
-#: ../src/document.c:2415
+#: ../src/document.c:2592
 msgid "Previously: "
 msgstr "이전: "
 
-#: ../src/document.c:2987 ../src/file_dialogs.c:839
-#, c-format
-msgid ""
-"Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
-"to 2.18.0 or newer."
-msgstr ""
-"현재 깔려있는  glib 버젼 (%d.%d.%d) 은 원격 경로 파일들과 충돌을 일으킬 수 있"
-"습니다.2.18.0 또는 그 이상의 버전으로 업그레이드 하세요."
-
-#: ../src/document.c:3116
+#: ../src/document.c:3284
 msgid "Unable to open file"
 msgstr "파일을 열 수 없습니다"
 
-#: ../src/document.c:3128
+#: ../src/document.c:3296
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1517,95 +1534,95 @@ msgstr ""
 "\"%s\"를(을) 마지막에 저장된 복사본으로 되돌리면, 현재 변경 사항을 잃게 됩니"
 "다."
 
-#: ../src/document.c:3132
+#: ../src/document.c:3300
 msgid "Revert changes to last saved copy?"
 msgstr "최종 복사본으로 되돌릴까요?"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3368
 msgid "_Retry"
 msgstr "재시도(_R)"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3368
 msgid "Retry _all failed"
 msgstr "실패한 전체를 재시도(_A)"
 
-#: ../src/document.c:3200
+#: ../src/document.c:3368
 msgid "Close all _failed"
 msgstr "실패한 전체 닫기(_F)"
 
-#: ../src/document.c:3205
+#: ../src/document.c:3373
 msgid "File "
 msgstr "파일"
 
-#: ../src/document.c:3205
+#: ../src/document.c:3373
 msgid " failed to load."
 msgstr " 읽어오기 실패"
 
-#: ../src/document.c:3209
+#: ../src/document.c:3377
 msgid "File failed to load\n"
 msgstr "읽어오기 실패한 파일\n"
 
-#: ../src/document.c:3334
+#: ../src/document.c:3502
 msgid "Select file to insert"
 msgstr "삽일할 파일 선택"
 
-#: ../src/document.c:3343
+#: ../src/document.c:3511
 msgid "No file to insert"
 msgstr "삽일할 파일 없음"
 
-#: ../src/document.c:3423
+#: ../src/document.c:3591
 #, fuzzy
 msgid "Save pasted image as"
 msgstr "다른 이름으로 저장"
 
-#: ../src/document.c:3519
+#: ../src/document.c:3687
 msgid "Paste special"
 msgstr ""
 
-#: ../src/document.c:3525
+#: ../src/document.c:3693
 msgid "No compatible clipboard data found"
 msgstr ""
 
-#: ../src/document.c:3529
+#: ../src/document.c:3697
 msgid "Paste as _HTML"
 msgstr ""
 
-#: ../src/document.c:3534
+#: ../src/document.c:3702
 msgid "Paste as HTML with _JPG"
 msgstr ""
 
-#: ../src/document.c:3544
+#: ../src/document.c:3712
 #, fuzzy
 msgid "Paste as plain text"
 msgstr "파일 삽입"
 
-#: ../src/document.c:3638
+#: ../src/document.c:3806
 #, fuzzy, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d 행"
 msgstr[1] "%d 행"
 
-#: ../src/document.c:3639
+#: ../src/document.c:3807
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d of %d"
 msgstr[1] "%d of %d"
 
-#: ../src/document.c:3640
+#: ../src/document.c:3808
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d 문자"
 msgstr[1] "%d 문자"
 
-#: ../src/document.c:3642
+#: ../src/document.c:3810
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "선택 통계"
 
-#: ../src/document.c:3642
+#: ../src/document.c:3810
 msgid "Statistics: "
 msgstr "통계: "
 
@@ -1752,11 +1769,11 @@ msgstr ""
 msgid "Command returned error code"
 msgstr ""
 
-#: ../src/filebrowser2.c:736
+#: ../src/filebrowser2.c:748
 msgid "Set documentroot and webroot"
 msgstr "문서 루트와 웹 루트 설정"
 
-#: ../src/filebrowser2.c:745
+#: ../src/filebrowser2.c:757
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
@@ -1765,24 +1782,24 @@ msgstr ""
 "<i>문서 루트</i>는 Bluefish가 파일을 찾는 위치입니다.\n"
 "<i>웹 루트</i>는 이들 동일 파일들이 웹 서버상에 보여지는 위치입니다."
 
-#: ../src/filebrowser2.c:752
+#: ../src/filebrowser2.c:764
 msgid "Documentroot"
 msgstr "문서 루트"
 
-#: ../src/filebrowser2.c:763
+#: ../src/filebrowser2.c:775
 msgid "Webroot"
 msgstr "웹 루트"
 
-#: ../src/filebrowser2.c:776 ../src/file_dialogs.c:789
+#: ../src/filebrowser2.c:788 ../src/file_dialogs.c:775
 #, c-format
 msgid "Move/rename %s to"
 msgstr "%s 이동/다른 이름으로"
 
-#: ../src/filebrowser2.c:787
+#: ../src/filebrowser2.c:799
 msgid "Could not rename\n"
 msgstr "다른 이름으로 저장할 수 없음\n"
 
-#: ../src/filebrowser2.c:861 ../src/filebrowser2.c:1277
+#: ../src/filebrowser2.c:873 ../src/filebrowser2.c:1289
 msgid "New directory"
 msgstr "새 폴더"
 
@@ -1794,7 +1811,7 @@ msgstr "새 폴더"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:971
+#: ../src/filebrowser2.c:983
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -1803,148 +1820,148 @@ msgstr ""
 "\"%s\" \n"
 "을(를) 정말 삭제하겠습니까?"
 
-#: ../src/filebrowser2.c:972
+#: ../src/filebrowser2.c:984
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "%s을(를) 삭제하면, 영구적으로 복구가 불가능합니다."
 
-#: ../src/filebrowser2.c:1270
+#: ../src/filebrowser2.c:1282
 msgid "File Browser menu"
 msgstr "파일 탐색기 메뉴"
 
-#: ../src/filebrowser2.c:1271
+#: ../src/filebrowser2.c:1283
 msgid "_Open"
 msgstr "열기(_O)"
 
-#: ../src/filebrowser2.c:1271
+#: ../src/filebrowser2.c:1283
 msgid "Open"
 msgstr "열기"
 
-#: ../src/filebrowser2.c:1272
+#: ../src/filebrowser2.c:1284
 msgid "Open _Advanced..."
 msgstr "고급 열기(_A)..."
 
-#: ../src/filebrowser2.c:1274
+#: ../src/filebrowser2.c:1286
 msgid "Rena_me"
 msgstr "파일 이름 바꾸기(_M)"
 
-#: ../src/filebrowser2.c:1274
+#: ../src/filebrowser2.c:1286
 msgid "Rename"
 msgstr "파일 이름 바꾸기"
 
-#: ../src/filebrowser2.c:1275
+#: ../src/filebrowser2.c:1287
 msgid "Delete"
 msgstr "삭제"
 
-#: ../src/filebrowser2.c:1276
+#: ../src/filebrowser2.c:1288
 msgid "New _File"
 msgstr "새 파일(_F)"
 
-#: ../src/filebrowser2.c:1277
+#: ../src/filebrowser2.c:1289
 msgid "_New Directory"
 msgstr "새 폴더(_N)"
 
-#: ../src/filebrowser2.c:1279
+#: ../src/filebrowser2.c:1291
 msgid "_Refresh"
 msgstr "새로 고침(_R)"
 
-#: ../src/filebrowser2.c:1279
+#: ../src/filebrowser2.c:1291
 msgid "Refresh"
 msgstr "새로 고침"
 
-#: ../src/filebrowser2.c:1280
+#: ../src/filebrowser2.c:1292
 msgid "_Set as base dir"
 msgstr "기본 경로로 설정(_S)"
 
-#: ../src/filebrowser2.c:1280
+#: ../src/filebrowser2.c:1292
 msgid "Set as base directory"
 msgstr "기본 경로로 설정"
 
-#: ../src/filebrowser2.c:1282
+#: ../src/filebrowser2.c:1294
 msgid "Set as document root"
 msgstr "문서 루트로 설정"
 
-#: ../src/filebrowser2.c:1284
+#: ../src/filebrowser2.c:1296
 msgid "Show Full _Tree"
 msgstr "전체 구조 보이기(_T)"
 
-#: ../src/filebrowser2.c:1284
+#: ../src/filebrowser2.c:1296
 msgid "Show full tree"
 msgstr "전체 구조 보이기"
 
-#: ../src/filebrowser2.c:1286
+#: ../src/filebrowser2.c:1298
 msgid "View Mode"
 msgstr "보기 모드"
 
-#: ../src/filebrowser2.c:1287
+#: ../src/filebrowser2.c:1299
 msgid "Filter"
 msgstr "필터"
 
-#: ../src/filebrowser2.c:1288
+#: ../src/filebrowser2.c:1300
 msgid "New Filter"
 msgstr "새 필터"
 
-#: ../src/filebrowser2.c:1288 ../src/filefilter.c:549
+#: ../src/filebrowser2.c:1300 ../src/filefilter.c:549
 msgid "New filter"
 msgstr "새 필터"
 
-#: ../src/filebrowser2.c:1289
+#: ../src/filebrowser2.c:1301
 msgid "Edit Filter"
 msgstr "필터 편집"
 
-#: ../src/filebrowser2.c:1289 ../src/filefilter.c:554
+#: ../src/filebrowser2.c:1301 ../src/filefilter.c:554
 msgid "Edit filter"
 msgstr "필터 편집"
 
-#: ../src/filebrowser2.c:1290
+#: ../src/filebrowser2.c:1302
 msgid "Delete Filter"
 msgstr "필터 삭제"
 
-#: ../src/filebrowser2.c:1290
+#: ../src/filebrowser2.c:1302
 msgid "Delete filter"
 msgstr "필터 삭제"
 
-#: ../src/filebrowser2.c:1294
+#: ../src/filebrowser2.c:1306
 #, fuzzy
 msgid "Follow Active Document"
 msgstr "활성 문서에 따름"
 
-#: ../src/filebrowser2.c:1294
+#: ../src/filebrowser2.c:1306
 #, fuzzy
 msgid "Follow active document"
 msgstr "활성 문서에 따름"
 
-#: ../src/filebrowser2.c:1296
+#: ../src/filebrowser2.c:1308
 msgid "Show Backup Files"
 msgstr "백업 파일 보이기"
 
-#: ../src/filebrowser2.c:1296 ../src/gtk_easy.c:1341
+#: ../src/filebrowser2.c:1308 ../src/gtk_easy.c:1340
 msgid "Show backup files"
 msgstr "백업 파일 보이기"
 
-#: ../src/filebrowser2.c:1298
+#: ../src/filebrowser2.c:1310
 msgid "Show Hidden Files"
 msgstr "숨김 파일 보이기"
 
-#: ../src/filebrowser2.c:1298
+#: ../src/filebrowser2.c:1310
 msgid "Show hidden files"
 msgstr "숨김 파일 보이기"
 
-#: ../src/filebrowser2.c:1303
+#: ../src/filebrowser2.c:1315
 #, fuzzy
 msgid "Dual"
 msgstr "듀얼"
 
-#: ../src/filebrowser2.c:1304
+#: ../src/filebrowser2.c:1316
 #, fuzzy
 msgid "Flat"
 msgstr "플랫"
 
-#: ../src/filebrowser2.c:1305
+#: ../src/filebrowser2.c:1317
 msgid "Tree"
 msgstr "트리"
 
-#: ../src/filebrowser2.c:2296
+#: ../src/filebrowser2.c:2359
 #, c-format
 msgid ""
 "<b>%s</b>\n"
@@ -1952,40 +1969,40 @@ msgid ""
 "<b>%s%s</b>"
 msgstr ""
 
-#: ../src/file.c:870
+#: ../src/file.c:875
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "%d 파일 읽어오는 중,  %s 완료"
 msgstr[1] "%d 파일 읽어오는 중,  %s 완료"
 
-#: ../src/file.c:876
+#: ../src/file.c:881
 #, fuzzy, c-format
 msgid "All files loaded, finished %s, %d document open"
 msgid_plural "All files loaded, finished %s, %d documents open"
 msgstr[0] "모든 파일 읽음 , %s 완료"
 
-#: ../src/file.c:1403
+#: ../src/file.c:1425
 #, c-format
 msgid "Finished advanced open, %d document open."
 msgid_plural "Finished advanced open, %d documents open."
 msgstr[0] ""
 
-#: ../src/file.c:1579
+#: ../src/file.c:1601
 msgid "_Skip"
 msgstr "건너뛰기(_S)"
 
-#: ../src/file.c:1579 ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
-#: ../src/project.c:363
+#: ../src/file.c:1601 ../src/file_dialogs.c:624 ../src/file_dialogs.c:645
+#: ../src/project.c:336
 msgid "_Overwrite"
 msgstr "겹쳐쓰기(_O)"
 
-#: ../src/file.c:1583
+#: ../src/file.c:1605
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "이미 존재하는 %s 를(을) 복사할 수 없습니다. 겹쳐쓸까요?"
 
-#: ../src/file.c:1585
+#: ../src/file.c:1607
 msgid "Overwrite file?"
 msgstr "파일을 겹쳐쓸까요?"
 
@@ -2052,22 +2069,11 @@ msgstr "파일선택"
 msgid "Open URL"
 msgstr "URL 열기"
 
-#: ../src/file_dialogs.c:377 ../src/file_dialogs.c:1390
-#, c-format
-msgid ""
-"<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
-"ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 "
-"if you rely on remote file support.</b>"
-msgstr ""
-"<b>현재 깔려있는  glib 버젼 (%d.%d.%d) 은 원격 경로 파일 (smb, ftp, sftp, "
-"webdav 등)들과 충돌을 일으킬 수 있습니다. 2.18.0 또는 그 이상의 버전으로 업그"
-"레이드 하세요."
-
-#: ../src/file_dialogs.c:464 ../src/file_dialogs.c:502
+#: ../src/file_dialogs.c:450 ../src/file_dialogs.c:488
 msgid "_Continue save"
 msgstr "계속 저장(_C)"
 
-#: ../src/file_dialogs.c:468
+#: ../src/file_dialogs.c:454
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -2075,42 +2081,42 @@ msgid ""
 msgstr ""
 "%s 의 백업파일을 생성할 수 없습니다. 계속하려면 이 파일을 겹쳐써야 합니다."
 
-#: ../src/file_dialogs.c:472
+#: ../src/file_dialogs.c:458
 msgid "File backup failure"
 msgstr "파일 백업 실패"
 
-#: ../src/file_dialogs.c:488
+#: ../src/file_dialogs.c:474
 msgid "Could not save file "
 msgstr "파일을 저장할수 없음 "
 
-#: ../src/file_dialogs.c:523 ../src/file_dialogs.c:1525
+#: ../src/file_dialogs.c:509 ../src/file_dialogs.c:1497
 msgid "File changed on disk\n"
 msgstr "디스크에서 바뀐 파일\n"
 
-#: ../src/file_dialogs.c:638 ../src/file_dialogs.c:659
-#: ../src/file_dialogs.c:985 ../src/project.c:363
+#: ../src/file_dialogs.c:624 ../src/file_dialogs.c:645
+#: ../src/file_dialogs.c:963 ../src/project.c:336
 msgid "_Cancel"
 msgstr "취소(_C)"
 
-#: ../src/file_dialogs.c:639
+#: ../src/file_dialogs.c:625
 #, c-format
 msgid "File %s exists and is open, overwrite?"
 msgstr "파일 %s 가 존재하며, 열려있습니다. 겹쳐쓸까요?"
 
-#: ../src/file_dialogs.c:642
+#: ../src/file_dialogs.c:628
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "선택된 파일은 Bluefish에서 편집되었습니다."
 
-#: ../src/file_dialogs.c:660 ../src/project.c:365
+#: ../src/file_dialogs.c:646 ../src/project.c:338
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "파일명 \"%s\" 이 이미 존재합니다."
 
-#: ../src/file_dialogs.c:663 ../src/project.c:369
+#: ../src/file_dialogs.c:649 ../src/project.c:342
 msgid "Do you want to replace the existing file?"
 msgstr "기존 파일을 교체할까요?"
 
-#: ../src/file_dialogs.c:769
+#: ../src/file_dialogs.c:755
 msgid ""
 "File:\n"
 "\""
@@ -2118,117 +2124,122 @@ msgstr ""
 "파일:\n"
 "\""
 
-#: ../src/file_dialogs.c:770
+#: ../src/file_dialogs.c:756
 msgid "\" save is in progress"
 msgstr "\" 저장중"
 
-#: ../src/file_dialogs.c:772
+#: ../src/file_dialogs.c:758
 msgid "Save in progress!"
 msgstr "저장중입니다!"
 
-#: ../src/file_dialogs.c:785
+#: ../src/file_dialogs.c:771
 msgid "Save"
 msgstr "저장"
 
-#: ../src/file_dialogs.c:787
+#: ../src/file_dialogs.c:773
 #, c-format
 msgid "Save %s as"
 msgstr "%s 를 다른 이름으로 저장"
 
-#: ../src/file_dialogs.c:791
+#: ../src/file_dialogs.c:777
 #, fuzzy, c-format
 msgid "Save copy of %s"
 msgstr "다른 이름으로 프로젝트 저장하기"
 
-#: ../src/file_dialogs.c:956
+#: ../src/file_dialogs.c:934
 msgid "Close _Without Saving"
 msgstr "저장하지 않고 닫기(_W)"
 
-#: ../src/file_dialogs.c:959
+#: ../src/file_dialogs.c:937
 #, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr "닫기 전 변경된 내용을 \"%s\"로 저장할까요?"
 
-#: ../src/file_dialogs.c:962 ../src/file_dialogs.c:989
+#: ../src/file_dialogs.c:940 ../src/file_dialogs.c:967
 msgid "If you don't save your changes they will be lost."
 msgstr "변경 사항을 저장하지 않을 경우 지워집니다."
 
-#: ../src/file_dialogs.c:972
+#: ../src/file_dialogs.c:950
 msgid "_Reopen"
 msgstr ""
 
-#: ../src/file_dialogs.c:974
+#: ../src/file_dialogs.c:952
 #, fuzzy, c-format
 msgid "Project \"%s\" failed to load"
 msgstr " 읽어오기 실패"
 
-#: ../src/file_dialogs.c:976
+#: ../src/file_dialogs.c:954
 #, fuzzy
 msgid "Do you want to reopen project from another location?"
 msgstr "기존 파일을 교체할까요?"
 
-#: ../src/file_dialogs.c:985
+#: ../src/file_dialogs.c:963
 msgid "Choose per _File"
 msgstr "파일당 선택(_F)"
 
-#: ../src/file_dialogs.c:985
+#: ../src/file_dialogs.c:963
 msgid "Close _All"
 msgstr "전체 닫기(_A)"
 
-#: ../src/file_dialogs.c:985
+#: ../src/file_dialogs.c:963
 msgid "_Save All"
 msgstr "전체 저장(_A)"
 
-#: ../src/file_dialogs.c:988
+#: ../src/file_dialogs.c:966
 msgid "One or more open files have been changed."
 msgstr "하나 또는 여러개의 파일이 변경되었습니다"
 
-#: ../src/file_dialogs.c:1310
+#: ../src/file_dialogs.c:1289
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">%d 실패</span>"
 msgstr[1] "<span color=\"red\">%d 실패</span>"
 
-#: ../src/file_dialogs.c:1319
+#: ../src/file_dialogs.c:1298
 #, fuzzy
 msgid "incomplete finished"
 msgstr "불완전한 완료"
 
-#: ../src/file_dialogs.c:1321
+#: ../src/file_dialogs.c:1300
 msgid "completed"
 msgstr "완료"
 
-#: ../src/file_dialogs.c:1376
+#: ../src/file_dialogs.c:1358
 msgid "Upload / Download"
 msgstr "업로드 / 다운로드"
 
-#: ../src/file_dialogs.c:1379
+#: ../src/file_dialogs.c:1361
 msgid "Upload"
 msgstr "업로드"
 
-#: ../src/file_dialogs.c:1379
+#: ../src/file_dialogs.c:1361
 msgid "Download"
 msgstr "다운로드"
 
-#: ../src/file_dialogs.c:1402
+#: ../src/file_dialogs.c:1368
 msgid "Local directory"
 msgstr "로컬 경로"
 
-#: ../src/file_dialogs.c:1408
+#: ../src/file_dialogs.c:1374
 msgid "Remote directory"
 msgstr "원격 경로"
 
-#: ../src/file_dialogs.c:1413
+#: ../src/file_dialogs.c:1379
 msgid "Delete deprecated files"
 msgstr "불필요한 파일 삭제"
 
-#: ../src/file_dialogs.c:1417
+#: ../src/file_dialogs.c:1383
 msgid "Include hidden files"
 msgstr "숨김 파일 포함"
 
+#: ../src/file_dialogs.c:1386
+#, fuzzy
+msgid "Include backup files"
+msgstr "파일 백업 실패"
+
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1461
+#: ../src/file_dialogs.c:1433
 #, fuzzy, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -2245,34 +2256,34 @@ msgstr ""
 "이전 크기: %lu\n"
 "새 크기: %lu"
 
-#: ../src/file_dialogs.c:1484
+#: ../src/file_dialogs.c:1456
 msgid "_Unset file name"
 msgstr "파일명을 설정할 수 없음(_U)"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1486
+#: ../src/file_dialogs.c:1458
 #, c-format
 msgid "File name: %s"
 msgstr "파일명: %s"
 
-#: ../src/file_dialogs.c:1489
+#: ../src/file_dialogs.c:1461
 msgid "File disappeared from disk\n"
 msgstr "디스크의 숨김 파일\n"
 
-#: ../src/file_dialogs.c:1508
+#: ../src/file_dialogs.c:1480
 msgid "_Ignore"
 msgstr "무시(_I)"
 
-#: ../src/file_dialogs.c:1508
+#: ../src/file_dialogs.c:1480
 msgid "_Reload"
 msgstr "다시 읽어오기(_R)"
 
-#: ../src/file_dialogs.c:1508
+#: ../src/file_dialogs.c:1480
 msgid "Check and reload all documents"
 msgstr "전체 문서 검사 및 다시 읽어오기"
 
 #. build a list of filters
-#: ../src/filefilter.c:250 ../src/gtk_easy.c:1352 ../src/preferences.c:2105
+#: ../src/filefilter.c:250 ../src/gtk_easy.c:1351 ../src/preferences.c:2438
 msgid "All files"
 msgstr "전체 파일"
 
@@ -2292,28 +2303,28 @@ msgstr "Mime 타입"
 msgid "Icon"
 msgstr "아이콘"
 
-#: ../src/gtk_easy.c:971
+#: ../src/gtk_easy.c:970
 #, c-format
 msgid "%d of %d"
 msgstr "%d of %d"
 
-#: ../src/gtk_easy.c:1052
+#: ../src/gtk_easy.c:1051
 msgid "Select File"
 msgstr "파일 선택"
 
-#: ../src/gtk_easy.c:1402
+#: ../src/gtk_easy.c:1401
 msgid "Character _Encoding:"
 msgstr "문자 인코딩(_E):"
 
-#: ../src/gtk_easy.c:1422
+#: ../src/gtk_easy.c:1421
 msgid "Automatic detection"
 msgstr "자동 탐지"
 
-#: ../src/gtk_easy.c:1511
+#: ../src/gtk_easy.c:1510
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>키누름 선택</b>"
 
-#: ../src/gtk_easy.c:1519
+#: ../src/gtk_easy.c:1518
 msgid ""
 "\n"
 "Press requested key combination.\n"
@@ -2325,7 +2336,7 @@ msgstr ""
 "특정키를 Ctrl, Shift, Alt키와 함께 눌러주세요.\n"
 "<i>취소는 Esc 키, 지우기는 Delete 키를 눌러주세요.</i>"
 
-#: ../src/gtk_easy.c:1544
+#: ../src/gtk_easy.c:1543
 msgid "Press shortcut key combination"
 msgstr "단축키 조합을 눌러주세요."
 
@@ -2342,102 +2353,112 @@ msgid "Output"
 msgstr "출력"
 
 #: ../src/outputbox.c:481
-#, c-format
-msgid "Failed to compile outputbox pattern %s: %s"
+#, fuzzy, c-format
+msgid "Failed to compile output parser pattern %s: %s"
 msgstr "출력상자 패턴 %s 컴파일 실패: %s"
 
-#: ../src/preferences.c:307
+#: ../src/preferences.c:321
 msgid "Untitled"
 msgstr "무제"
 
-#: ../src/preferences.c:509
+#: ../src/preferences.c:523
 msgid "_Mime type:"
 msgstr "Mime 타입(_M)"
 
-#: ../src/preferences.c:521 ../src/preferences.c:523
+#: ../src/preferences.c:535 ../src/preferences.c:537
 msgid "None"
 msgstr "없음"
 
-#: ../src/preferences.c:525
+#: ../src/preferences.c:539
 msgid "_Template:"
 msgstr "서식(_T):"
 
-#: ../src/preferences.c:528 ../src/snr3.c:1580
+#: ../src/preferences.c:542 ../src/snr3.c:1583
 msgid "<b>Options</b>"
 msgstr "<b>옵션</b>"
 
-#: ../src/preferences.c:532
+#: ../src/preferences.c:546
 msgid "Enable a_uto-completion"
 msgstr "자동 완성 창 활성(_U)"
 
-#: ../src/preferences.c:534
+#: ../src/preferences.c:548
 msgid "Enable _block folding"
 msgstr "블록 접기 활성(_B)"
 
-#: ../src/preferences.c:536
+#: ../src/preferences.c:550
 msgid "Display block stack in statusbar"
 msgstr ""
 
-#: ../src/preferences.c:538
+#: ../src/preferences.c:552
 msgid "Highlight block _delimiters"
 msgstr "일치하는 블록 처음과 끝 강조(_D)"
 
-#: ../src/preferences.c:540
+#: ../src/preferences.c:554
 msgid "_Highlight current line"
 msgstr "현재 행 강조(_H)"
 
-#: ../src/preferences.c:542
+#: ../src/preferences.c:556
 msgid "Show line _numbers"
 msgstr "행 번호 보이기(_N)"
 
-#: ../src/preferences.c:546
+#: ../src/preferences.c:560
 msgid "Show _right margin indicator"
 msgstr "오른쪽 여백 표시기 보이기(_R)"
 
-#: ../src/preferences.c:548 ../src/preferences.c:2168
+#: ../src/preferences.c:562 ../src/preferences.c:2502
 msgid "Smart auto indentin_g"
 msgstr "스마트 들여쓰기(_G)"
 
-#: ../src/preferences.c:550
+#: ../src/preferences.c:564
 msgid "Wra_p lines"
 msgstr "단락 감싸기(_P)"
 
-#: ../src/preferences.c:552
+#: ../src/preferences.c:566
 #, fuzzy
 msgid "Enable syntax scanning"
 msgstr "고급 구문 스캔 설정"
 
-#: ../src/preferences.c:554
+#: ../src/preferences.c:568
 #, fuzzy
 msgid "Show _visible spacing"
 msgstr "띄어쓰기 보기"
 
-#: ../src/preferences.c:558
+#: ../src/preferences.c:572
 msgid "_Enable spell check"
 msgstr "철자 검사 활성(_E)"
 
-#: ../src/preferences.c:563
+#: ../src/preferences.c:577
 msgid "<b>Tab Stops</b>"
 msgstr "<b>탭 멈춤</b>"
 
-#: ../src/preferences.c:568
+#: ../src/preferences.c:582
 msgid "Tab _width:"
 msgstr "탭 너비(_W)"
 
-#: ../src/preferences.c:571
+#: ../src/preferences.c:585
 msgid "Insert _spaces instead of tabs"
 msgstr "탭 대신 한칸 띄어쓰기"
 
-#: ../src/preferences.c:608 ../src/preferences.c:1024
-#: ../src/preferences.c:1183
+#: ../src/preferences.c:622 ../src/preferences.c:1341
+#: ../src/preferences.c:1500
 msgid "Enabled"
 msgstr "가능"
 
-#: ../src/preferences.c:610
+#: ../src/preferences.c:624
 msgid "Path to plugin"
 msgstr "플러그인 경로"
 
-#: ../src/preferences.c:814
+#: ../src/preferences.c:901
+#, fuzzy
+msgid "Extension"
+msgstr "작업창 설정"
+
+#: ../src/preferences.c:903
+#, fuzzy
+msgid "Mime-Type"
+msgstr "Mime 타입"
+
+#: ../src/preferences.c:1131
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
 "applied to the same text, the top-most style in this list has the highest "
@@ -2448,62 +2469,62 @@ msgstr ""
 "가집니다. 문자열 스타일을 재배열하기 위하여 드래그앤드롭을 이용하세요.</"
 "small>"
 
-#: ../src/preferences.c:825 ../src/preferences.c:1025
-#: ../src/preferences.c:1185
+#: ../src/preferences.c:1142 ../src/preferences.c:1342
+#: ../src/preferences.c:1502
 msgid "Label"
 msgstr "라벨"
 
-#: ../src/preferences.c:840 ../src/preferences.c:2282
+#: ../src/preferences.c:1157 ../src/preferences.c:2616
 msgid "Foreground color"
 msgstr "전경 색상"
 
-#: ../src/preferences.c:841 ../src/preferences.c:2283
+#: ../src/preferences.c:1158 ../src/preferences.c:2617
 msgid "_Foreground color:"
 msgstr "전경 색상(_F)"
 
-#: ../src/preferences.c:842 ../src/preferences.c:2286
+#: ../src/preferences.c:1159 ../src/preferences.c:2620
 msgid "Background color"
 msgstr "배경 색상"
 
-#: ../src/preferences.c:843 ../src/preferences.c:2287
+#: ../src/preferences.c:1160 ../src/preferences.c:2621
 msgid "_Background color:"
 msgstr "배경 색상(_B)"
 
-#: ../src/preferences.c:847
+#: ../src/preferences.c:1164
 msgid "_Normal weight"
 msgstr "일반(_N)"
 
-#: ../src/preferences.c:849
+#: ../src/preferences.c:1166
 msgid "Bold _weight"
 msgstr "굵게(_W)"
 
-#: ../src/preferences.c:851
+#: ../src/preferences.c:1168
 msgid "Normal st_yle"
 msgstr "보통(_Y)"
 
-#: ../src/preferences.c:854
+#: ../src/preferences.c:1171
 msgid "_Italic style"
 msgstr "기울임(_I)"
 
-#: ../src/preferences.c:856
+#: ../src/preferences.c:1173
 msgid "_Spell check"
 msgstr "철자 검사(_S)"
 
-#: ../src/preferences.c:898 ../src/preferences.c:1062
-#: ../src/preferences.c:1215 ../src/preferences.c:1407
-#: ../src/preferences.c:1503
+#: ../src/preferences.c:1215 ../src/preferences.c:1379
+#: ../src/preferences.c:1532 ../src/preferences.c:1724
+#: ../src/preferences.c:1820
 #, fuzzy
 msgid "Add entry"
 msgstr "패턴 추가"
 
-#: ../src/preferences.c:900 ../src/preferences.c:1064
-#: ../src/preferences.c:1217 ../src/preferences.c:1409
-#: ../src/preferences.c:1505
+#: ../src/preferences.c:1217 ../src/preferences.c:1381
+#: ../src/preferences.c:1534 ../src/preferences.c:1726
+#: ../src/preferences.c:1822
 #, fuzzy
 msgid "Delete entry"
 msgstr "필터 삭제"
 
-#: ../src/preferences.c:1001
+#: ../src/preferences.c:1318
 #, fuzzy, c-format
 msgid ""
 "<small><b>Input options</b>\n"
@@ -2531,28 +2552,28 @@ msgstr ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 
-#: ../src/preferences.c:1027 ../src/preferences.c:1187
-#: ../src/preferences.c:1381
+#: ../src/preferences.c:1344 ../src/preferences.c:1504
+#: ../src/preferences.c:1698
 msgid "Command"
 msgstr "명령어"
 
-#: ../src/preferences.c:1030
+#: ../src/preferences.c:1347
 msgid "Default browser"
 msgstr "기본 탐색기"
 
-#: ../src/preferences.c:1066 ../src/preferences.c:1219
-#: ../src/preferences.c:1411
+#: ../src/preferences.c:1383 ../src/preferences.c:1536
+#: ../src/preferences.c:1728
 #, fuzzy
 msgid "Update defaults"
 msgstr "기본설정(_U)"
 
-#: ../src/preferences.c:1068 ../src/preferences.c:1221
-#: ../src/preferences.c:1413
+#: ../src/preferences.c:1385 ../src/preferences.c:1538
+#: ../src/preferences.c:1730
 #, fuzzy
 msgid "Reset all"
 msgstr "전체 선택"
 
-#: ../src/preferences.c:1158
+#: ../src/preferences.c:1475
 #, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
@@ -2588,7 +2609,7 @@ msgstr ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 
-#: ../src/preferences.c:1343
+#: ../src/preferences.c:1660
 #, fuzzy, c-format
 msgid ""
 "<small><b>Input options</b>\n"
@@ -2624,639 +2645,649 @@ msgstr ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 
-#: ../src/preferences.c:1373
+#: ../src/preferences.c:1690
 msgid "Pattern"
 msgstr "패턴"
 
-#: ../src/preferences.c:1375
+#: ../src/preferences.c:1692
 msgid "File #"
 msgstr "파일 #"
 
-#: ../src/preferences.c:1377
+#: ../src/preferences.c:1694
 msgid "Line #"
 msgstr "행 #"
 
-#: ../src/preferences.c:1379
+#: ../src/preferences.c:1696
 msgid "Output #"
 msgstr "출력 #"
 
-#: ../src/preferences.c:1474
+#: ../src/preferences.c:1791
 msgid "File"
 msgstr "파일"
 
-#: ../src/preferences.c:1652
+#: ../src/preferences.c:1969
 msgid "A restart is needed to see the effect of these options"
 msgstr ""
 
 #. 1=text
-#: ../src/preferences.c:1664
+#: ../src/preferences.c:1981
 msgid "Option name"
 msgstr "설정명"
 
 #. 2=boolean
-#: ../src/preferences.c:1666
+#: ../src/preferences.c:1983
 msgid "value"
 msgstr "값"
 
 #. 1=text
-#: ../src/preferences.c:1683
+#: ../src/preferences.c:2000
 msgid "Highlight name"
 msgstr "하이라이트 이름"
 
-#: ../src/preferences.c:1688
+#: ../src/preferences.c:2005
 msgid "Textstyle"
 msgstr "문자열 스타일"
 
-#: ../src/preferences.c:1845 ../src/preferences.c:2509
+#: ../src/preferences.c:2166 ../src/preferences.c:2858
 msgid "Auto"
 msgstr "자동"
 
-#: ../src/preferences.c:2098
+#: ../src/preferences.c:2430
 msgid "Delayed"
 msgstr "지연"
 
-#: ../src/preferences.c:2098
+#: ../src/preferences.c:2430
 msgid "Immediately"
 msgstr "즉시"
 
-#: ../src/preferences.c:2099
+#: ../src/preferences.c:2431
 msgid "Continue save"
 msgstr "계속 저장"
 
-#: ../src/preferences.c:2099
+#: ../src/preferences.c:2431
 msgid "Abort save"
 msgstr "저장 취소"
 
-#: ../src/preferences.c:2099
+#: ../src/preferences.c:2431
 msgid "Ask what to do"
 msgstr "무엇을 할지 물음"
 
-#: ../src/preferences.c:2101
+#: ../src/preferences.c:2433
 msgid "Nothing"
 msgstr "없음"
 
-#: ../src/preferences.c:2101
+#: ../src/preferences.c:2433
 msgid "Modified time and file size"
 msgstr "수정 시간 및 파일 크기"
 
-#: ../src/preferences.c:2101
+#: ../src/preferences.c:2433
 msgid "Modified time"
 msgstr "수정 시간"
 
-#: ../src/preferences.c:2101
+#: ../src/preferences.c:2433
 msgid "File size"
 msgstr "파일 크기"
 
-#: ../src/preferences.c:2102 ../src/preferences.c:2103
+#: ../src/preferences.c:2434 ../src/preferences.c:2435
 msgid "left"
 msgstr "왼쪽"
 
-#: ../src/preferences.c:2102 ../src/preferences.c:2103
+#: ../src/preferences.c:2434 ../src/preferences.c:2435
 msgid "right"
 msgstr "오른쪽"
 
-#: ../src/preferences.c:2102
+#: ../src/preferences.c:2434
 msgid "top"
 msgstr "상단"
 
-#: ../src/preferences.c:2102
+#: ../src/preferences.c:2434
 msgid "bottom"
 msgstr "하단"
 
-#: ../src/preferences.c:2104
+#: ../src/preferences.c:2436
 msgid "Recently opened"
 msgstr ""
 
-#: ../src/preferences.c:2104
+#: ../src/preferences.c:2436
 msgid "Recently closed"
 msgstr ""
 
-#: ../src/preferences.c:2105 ../src/preferences.c:2111
+#: ../src/preferences.c:2438 ../src/preferences.c:2445
 msgid "Never"
 msgstr "다시 묻지 않음"
 
-#: ../src/preferences.c:2105
+#: ../src/preferences.c:2438
 msgid "Only project files"
 msgstr "프로젝트 파일만"
 
-#: ../src/preferences.c:2108
+#: ../src/preferences.c:2442
 msgid "All"
 msgstr "모두"
 
-#: ../src/preferences.c:2108
+#: ../src/preferences.c:2442
 msgid "All except spaces"
 msgstr "공백을 제외한 모두"
 
-#: ../src/preferences.c:2108
+#: ../src/preferences.c:2442
 msgid "All trailing"
 msgstr ""
 
-#: ../src/preferences.c:2108
+#: ../src/preferences.c:2442
 msgid "All except non-trailing spaces"
 msgstr ""
 
-#: ../src/preferences.c:2111
+#: ../src/preferences.c:2445
 msgid "Always"
 msgstr ""
 
-#: ../src/preferences.c:2111
+#: ../src/preferences.c:2445
 msgid "Smart"
 msgstr ""
 
-#: ../src/preferences.c:2122
+#: ../src/preferences.c:2456
 msgid "Edit preferences"
 msgstr "기본설정 편집"
 
 #.
 #. *  Initial document settings
 #.
-#: ../src/preferences.c:2146
+#: ../src/preferences.c:2480
 #, fuzzy
 msgid "<b>Non Project Defaults</b>"
 msgstr "비프로젝트 기본 설정"
 
-#: ../src/preferences.c:2148
+#: ../src/preferences.c:2482
 msgid "Initial document settings"
 msgstr "초기 문서 설정"
 
-#: ../src/preferences.c:2160
+#: ../src/preferences.c:2494
 msgid "Editor settings"
 msgstr "편집기 설정"
 
-#: ../src/preferences.c:2163
+#: ../src/preferences.c:2497
 #, fuzzy
 msgid "<b>Editor settings</b>"
 msgstr "편집기 설정"
 
-#: ../src/preferences.c:2171
+#: ../src/preferences.c:2505
 msgid "Smart Home/_End cursor positioning"
 msgstr "스마트 Home/End 커서 이동"
 
-#: ../src/preferences.c:2175
+#: ../src/preferences.c:2509
 #, fuzzy
 msgid "_Tab key indents selection"
 msgstr "선택범위 내(_N)"
 
-#: ../src/preferences.c:2181
+#: ../src/preferences.c:2515
 msgid "Automatically insert closing brackets"
 msgstr ""
 
-#: ../src/preferences.c:2188
+#: ../src/preferences.c:2522
 msgid "Right _margin/split line end position:"
 msgstr "오른쪽 공백/줄 쪼개기 종료점(_M)"
 
-#: ../src/preferences.c:2191
+#: ../src/preferences.c:2525
 #, fuzzy
 msgid "Wrap lines on right margin indicator"
 msgstr "오른쪽 여백 표시기 보이기(_R)"
 
-#: ../src/preferences.c:2197
+#: ../src/preferences.c:2531
 msgid "Visible _whitespace mode:"
 msgstr "가시 공백 모드(_W)"
 
-#: ../src/preferences.c:2200
+#: ../src/preferences.c:2534
 msgid "<b>Undo</b>"
 msgstr "<b>돌리기</b>"
 
-#: ../src/preferences.c:2205
+#: ../src/preferences.c:2539
 msgid "_Number of actions in history:"
 msgstr "작업내역 안의 작업 갯수(_W)"
 
-#: ../src/preferences.c:2208
+#: ../src/preferences.c:2542
 msgid "Clear _history on save"
 msgstr "저장시 작업내역 제거(_H)"
 
-#: ../src/preferences.c:2213
+#: ../src/preferences.c:2547
 #, fuzzy
 msgid "Auto-completion & Reference"
 msgstr "기본설정 편집"
 
-#: ../src/preferences.c:2219
+#: ../src/preferences.c:2553
 msgid "<b>Auto-completion</b>"
 msgstr "<b>자동 완성</b>"
 
-#: ../src/preferences.c:2225
+#: ../src/preferences.c:2559
 msgid "Show _pop-up window:"
 msgstr "팝업창 보이기(_P)"
 
-#: ../src/preferences.c:2229
+#: ../src/preferences.c:2563
 msgid "Minimum matching length for auto-completion:"
 msgstr ""
 
-#: ../src/preferences.c:2234
+#: ../src/preferences.c:2568
 msgid "Shortcut _key combination:"
 msgstr "단축키 조합(_K)"
 
-#: ../src/preferences.c:2237
+#: ../src/preferences.c:2571
 msgid "<b>Reference Information</b>"
 msgstr "<b>참조 정보</b>"
 
-#: ../src/preferences.c:2240
+#: ../src/preferences.c:2574
 #, fuzzy
 msgid "_Load reference data from language files"
 msgstr "언어 파일에서 읽어오기(_L)"
 
-#: ../src/preferences.c:2243
+#: ../src/preferences.c:2577
 #, fuzzy
 msgid "Show references in auto-completion _pop-up window"
 msgstr "자동 완성을 팝업창에서 보이기(_P)"
 
-#: ../src/preferences.c:2246
+#: ../src/preferences.c:2580
 msgid "Show references if mouse is over text editor"
 msgstr ""
 
-#: ../src/preferences.c:2255 ../src/preferences.c:2610
+#: ../src/preferences.c:2589 ../src/preferences.c:2964
 msgid "Font & Colors"
 msgstr "폰트 & 색상"
 
-#: ../src/preferences.c:2261
+#: ../src/preferences.c:2595
 #, fuzzy
 msgid "<b>Font &amp; Cursor</b>"
 msgstr "<b>폰트</b>"
 
-#: ../src/preferences.c:2265
+#: ../src/preferences.c:2599
 msgid "_Editor font:"
 msgstr "편집기 폰트(_E):"
 
-#: ../src/preferences.c:2273
+#: ../src/preferences.c:2607
 msgid "Cursor / font size ratio (%):"
 msgstr ""
 
-#: ../src/preferences.c:2275 ../src/preferences.c:2636
+#: ../src/preferences.c:2609 ../src/preferences.c:2990
 msgid "<b>Colors</b>"
 msgstr "<b>색상</b>"
 
-#: ../src/preferences.c:2279
+#: ../src/preferences.c:2613
 msgid "Use system wide color settings"
 msgstr ""
 
-#: ../src/preferences.c:2290
+#: ../src/preferences.c:2624
 msgid "Cursor color"
 msgstr "커서 색상"
 
-#: ../src/preferences.c:2291
+#: ../src/preferences.c:2625
 msgid "C_ursor color:"
 msgstr "커서 색상(_U)"
 
-#: ../src/preferences.c:2294
+#: ../src/preferences.c:2628
 #, fuzzy
 msgid "Selection background color"
 msgstr "배경 색상"
 
-#: ../src/preferences.c:2295
+#: ../src/preferences.c:2629
 #, fuzzy
 msgid "_Selection background color:"
 msgstr "배경 색상(_B)"
 
-#: ../src/preferences.c:2300
+#: ../src/preferences.c:2634
 #, fuzzy
 msgid "Highlight cursor position"
 msgstr "현재 행 강조(_H)"
 
-#: ../src/preferences.c:2302
+#: ../src/preferences.c:2636
 #, fuzzy
 msgid "Cursor highlight color"
 msgstr "커서 색상"
 
-#: ../src/preferences.c:2303
+#: ../src/preferences.c:2637
 #, fuzzy
 msgid "_Cursor highlight color:"
 msgstr "커서 색상(_U)"
 
-#: ../src/preferences.c:2308
+#: ../src/preferences.c:2642
 msgid "Current line color"
 msgstr "현재 행 색상"
 
-#: ../src/preferences.c:2309
+#: ../src/preferences.c:2643
 msgid "Cu_rrent line color:"
 msgstr "현재 행 색상(_R)"
 
-#: ../src/preferences.c:2312
+#: ../src/preferences.c:2646
 msgid "Visible whitespace color"
 msgstr "가시 공백 색상"
 
-#: ../src/preferences.c:2313
+#: ../src/preferences.c:2647
 msgid "_Visible whitespace color:"
 msgstr "가시 공백 색상(_V)"
 
-#: ../src/preferences.c:2325
+#: ../src/preferences.c:2659
 msgid "Text styles"
 msgstr "문자열 스타일"
 
-#: ../src/preferences.c:2327
+#: ../src/preferences.c:2661
 msgid "<b>Text Styles</b>"
 msgstr "<b>문자열 스타일</b>"
 
-#: ../src/preferences.c:2340
+#: ../src/preferences.c:2674
 msgid "Files"
 msgstr "파일"
 
-#: ../src/preferences.c:2343
+#: ../src/preferences.c:2677
 msgid "<b>Encoding</b>"
 msgstr "<b>인코딩</b>"
 
-#: ../src/preferences.c:2359
+#: ../src/preferences.c:2693
 msgid "_Default character set for new files:"
 msgstr "새 파일의 기본 문자셋 설정(_D)"
 
-#: ../src/preferences.c:2365
+#: ../src/preferences.c:2699
 msgid "Auto set <meta> _HTML tag on encoding change"
 msgstr "인코딩 변경할 때 <meta> HTML 태그 자동 설정(_H)"
 
-#: ../src/preferences.c:2369 ../src/preferences.c:2498
+#: ../src/preferences.c:2703 ../src/preferences.c:2847
 msgid "<b>Misc</b>"
 msgstr "<b>잡동사니</b>"
 
-#: ../src/preferences.c:2372
+#: ../src/preferences.c:2706
 #, fuzzy
 msgid "Strip trailing spaces on save"
 msgstr "말미의 공백문자 제거"
 
-#: ../src/preferences.c:2378
+#: ../src/preferences.c:2712
 msgid "Open co_mmandline files in running bluefish process"
 msgstr "이미 실행 중인 Bluefish 창에 커맨드 라인 파일 열기(_M)"
 
-#: ../src/preferences.c:2383
+#: ../src/preferences.c:2717
 msgid "Open commandline files in new _window"
 msgstr "새창에 커맨드 라인 파일 열기"
 
-#: ../src/preferences.c:2388
+#: ../src/preferences.c:2722
 msgid "_Periodically check if file is modified on disk"
 msgstr "디스크안의 파일 변경을 주기적으로 검사(_P)"
 
-#: ../src/preferences.c:2394
+#: ../src/preferences.c:2728
 msgid "File properties to check on dis_k for modifications:"
 msgstr "파일 변경시 체크할 사항 설정(_K)"
 
-#: ../src/preferences.c:2398
+#: ../src/preferences.c:2732
 msgid "Show warning for files with very long lines"
 msgstr ""
 
-#: ../src/preferences.c:2408
+#: ../src/preferences.c:2742
 msgid "Backup & Recovery"
 msgstr ""
 
-#: ../src/preferences.c:2411
+#: ../src/preferences.c:2745
 msgid "<b>Backup</b>"
 msgstr "<b>백업</b>"
 
-#: ../src/preferences.c:2413
+#: ../src/preferences.c:2747
 msgid "Create _backup file during file save"
 msgstr "파일 저장시 백업 파일 생성(_B)"
 
-#: ../src/preferences.c:2418
+#: ../src/preferences.c:2752
 msgid "_Remove backup file on close"
 msgstr "닫기시 백업파일 제거(_R)"
 
-#: ../src/preferences.c:2423
+#: ../src/preferences.c:2757
 msgid "If back_up fails:"
 msgstr "백업이 실패하면(_U)"
 
-#: ../src/preferences.c:2430
+#: ../src/preferences.c:2764
 msgid "<b>Document Recovery</b>"
 msgstr "<b>문서 복원</b>"
 
-#: ../src/preferences.c:2432
+#: ../src/preferences.c:2766
 msgid "_Enable recovery of modified documents"
 msgstr "수정된 문서의 복원 활성(_E)"
 
-#: ../src/preferences.c:2436
+#: ../src/preferences.c:2770
 msgid "_Frequency to store changes (seconds):"
 msgstr "변경 사항 저장 주기 (초) (_F)"
 
-#: ../src/preferences.c:2454
+#: ../src/preferences.c:2784 ../src/preferences.c:2785
+msgid "File Associations"
+msgstr ""
+
+#: ../src/preferences.c:2803
 msgid "Templates"
 msgstr "서식"
 
-#: ../src/preferences.c:2457
+#: ../src/preferences.c:2806
 msgid "<b>Templates</b>"
 msgstr "<b>서식</b>"
 
-#: ../src/preferences.c:2470
+#: ../src/preferences.c:2819
 msgid "User interface"
 msgstr "사용자 인터페이스"
 
-#: ../src/preferences.c:2473
+#: ../src/preferences.c:2822
 #, fuzzy
 msgid "<b>Layout</b>"
 msgstr "<b>폰트</b>"
 
-#: ../src/preferences.c:2479
+#: ../src/preferences.c:2828
 #, fuzzy
 msgid "Document _tab position:"
 msgstr "문서 탭 폰트(_D)"
 
-#: ../src/preferences.c:2484
+#: ../src/preferences.c:2833
 msgid "Maximum filename length shown in tab (0 is no limit)"
 msgstr ""
 
-#: ../src/preferences.c:2490
+#: ../src/preferences.c:2839
 #, fuzzy
 msgid "_Sidebar position:"
 msgstr "사이드바 위치"
 
-#: ../src/preferences.c:2496
+#: ../src/preferences.c:2845
 #, fuzzy
 msgid "Sidebar tab _position:"
 msgstr "사이드바 노트북 탭 위치"
 
-#: ../src/preferences.c:2500
+#: ../src/preferences.c:2849
 msgid "Hide toolbars on full-screen"
 msgstr ""
 
-#: ../src/preferences.c:2509
-msgid "_Language:"
-msgstr "언어(_L):"
+#: ../src/preferences.c:2858
+#, fuzzy
+msgid "User interface _language:"
+msgstr "사용자 인터페이스"
 
-#: ../src/preferences.c:2512
+#: ../src/preferences.c:2861
 msgid "<b>Recent Files</b>"
 msgstr "<b>최근 파일</b>"
 
-#: ../src/preferences.c:2517
+#: ../src/preferences.c:2866
 msgid "Recent files _shows:"
 msgstr ""
 
-#: ../src/preferences.c:2522
+#: ../src/preferences.c:2871
 msgid "_Number of files in 'Open recent' menu:"
 msgstr "최근 열기 메뉴의 파일 갯수(_N):"
 
-#: ../src/preferences.c:2527
+#: ../src/preferences.c:2876
 msgid "_Register recent files with your desktop:"
 msgstr "최근 파일을 바탕화면에 등록(_R)"
 
-#: ../src/preferences.c:2538
+#: ../src/preferences.c:2887
 #, fuzzy
 msgid "Shortcut keys"
 msgstr "/편집/단축키 저장(_K)"
 
-#: ../src/preferences.c:2543
+#: ../src/preferences.c:2892
 #, fuzzy
 msgid "<b>Shortcut keys</b>"
 msgstr "<b>문서 탭</b>"
 
-#: ../src/preferences.c:2546
+#: ../src/preferences.c:2896
 msgid "_Switch between tabs with <Alt>+0..9"
 msgstr "<Alt>+0..9 으로 탭 전환(_S)"
 
-#: ../src/preferences.c:2550
+#: ../src/preferences.c:2899
+#, fuzzy
+msgid "_Switch between tabs with <Command>+0..9"
+msgstr "<Alt>+0..9 으로 탭 전환(_S)"
+
+#: ../src/preferences.c:2904
 msgid "Save menu accelerators on exit"
 msgstr ""
 
-#: ../src/preferences.c:2553
+#: ../src/preferences.c:2907
 msgid "Save user customised menu accelerators now"
 msgstr ""
 
-#: ../src/preferences.c:2557
+#: ../src/preferences.c:2911
 msgid "Reset menu accelerators to application defaults"
 msgstr ""
 
-#: ../src/preferences.c:2569
+#: ../src/preferences.c:2923
 msgid "Dimensions"
 msgstr "작업창 설정"
 
-#: ../src/preferences.c:2572
+#: ../src/preferences.c:2926
 msgid "<b>Dimensions</b>"
 msgstr "<b>작업창 설정</b>"
 
-#: ../src/preferences.c:2574
+#: ../src/preferences.c:2928
 msgid "_Leave dimensions to window manager"
 msgstr "설정을 시스템 윈도우 매니저 설정에 따름(_L)"
 
-#: ../src/preferences.c:2581
+#: ../src/preferences.c:2935
 msgid "_Restore last used dimensions"
 msgstr "마지막 지정된 값으로 복구(_R)"
 
-#: ../src/preferences.c:2589
+#: ../src/preferences.c:2943
 msgid "Initial _sidebar width:"
 msgstr "초기 사이드바 폭(_S)"
 
-#: ../src/preferences.c:2593
+#: ../src/preferences.c:2947
 msgid "Initial window _height:"
 msgstr "초기 윈도우 높이(_H)"
 
-#: ../src/preferences.c:2596
+#: ../src/preferences.c:2950
 msgid "Initial window _width:"
 msgstr "초기 윈도우 폭(_W)"
 
-#: ../src/preferences.c:2603
+#: ../src/preferences.c:2957
 msgid "_Limit window title length"
 msgstr ""
 
-#: ../src/preferences.c:2616
+#: ../src/preferences.c:2970
 #, fuzzy
 msgid "<b>Document tab</b>"
 msgstr "<b>문서 복원</b>"
 
-#: ../src/preferences.c:2621
+#: ../src/preferences.c:2975
 msgid "_Use system document tab font"
 msgstr "시스템 문서 탭 폰트를 따름(_U)"
 
-#: ../src/preferences.c:2626
+#: ../src/preferences.c:2980
 msgid "_Document tab font:"
 msgstr "문서 탭 폰트(_D)"
 
-#: ../src/preferences.c:2640
+#: ../src/preferences.c:2994
 msgid "Document error tab color"
 msgstr "문서 에러 탭 색상"
 
-#: ../src/preferences.c:2642
+#: ../src/preferences.c:2996
 msgid "Document tab _error color:"
 msgstr "문서 에러 탭 색상(_E)"
 
-#: ../src/preferences.c:2646
+#: ../src/preferences.c:3000
 msgid "Document loading tab color"
 msgstr "문서 로딩 탭 색상"
 
-#: ../src/preferences.c:2648
+#: ../src/preferences.c:3002
 msgid "Document tab loadin_g color:"
 msgstr "문서 로딩 탭 색상(_G)"
 
-#: ../src/preferences.c:2652
+#: ../src/preferences.c:3006
 msgid "Document modified tab color"
 msgstr "문서 변경 탭 색상"
 
-#: ../src/preferences.c:2654
+#: ../src/preferences.c:3008
 msgid "Document tab _modified color:"
 msgstr "문서 변경 탭 색상(_M)"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2667 ../src/rcfile.c:1306
+#: ../src/preferences.c:3021 ../src/rcfile.c:1422
 msgid "Images"
 msgstr "이미지"
 
-#: ../src/preferences.c:2670
+#: ../src/preferences.c:3024
 msgid "<b>Thumbnails</b>"
 msgstr "<b>썸네일</b>"
 
-#: ../src/preferences.c:2676
+#: ../src/preferences.c:3030
 msgid "Thumbnail _filetype:"
 msgstr "썸네일 파일형태(_F)"
 
-#: ../src/preferences.c:2680
+#: ../src/preferences.c:3034
 msgid "Thumbnail _suffix:"
 msgstr "썸네일 접미사(_S)"
 
-#: ../src/preferences.c:2693
+#: ../src/preferences.c:3047
 msgid "External commands"
 msgstr "외부 명령어"
 
-#: ../src/preferences.c:2695
+#: ../src/preferences.c:3049
 msgid "<b>External Commands</b>"
 msgstr "<b>외부 명령어</b>"
 
-#: ../src/preferences.c:2708
+#: ../src/preferences.c:3062
 msgid "External filters"
 msgstr "외부 필터"
 
-#: ../src/preferences.c:2711
+#: ../src/preferences.c:3065
 msgid "<b>External Filters</b>"
 msgstr "<b>외부 필터</b>"
 
-#: ../src/preferences.c:2724
+#: ../src/preferences.c:3078
 msgid "Output parsers"
 msgstr "Output parsers"
 
-#: ../src/preferences.c:2726
+#: ../src/preferences.c:3080
 msgid "<b>Output Parsers</b>"
 msgstr "<b>Output parsers</b>"
 
-#: ../src/preferences.c:2739
+#: ../src/preferences.c:3093
 msgid "Plugins"
 msgstr "플러그인"
 
-#: ../src/preferences.c:2741
+#: ../src/preferences.c:3095
 msgid "<b>Plugins</b>"
 msgstr "<b>플러그인</b>"
 
-#: ../src/preferences.c:2763
+#: ../src/preferences.c:3117
 msgid "Language support"
 msgstr "언어 지원"
 
-#: ../src/project.c:335
+#: ../src/project.c:308
 msgid "Enter Bluefish project filename"
 msgstr "Bluefish 프로젝트 파일명 입력"
 
-#: ../src/project.c:516
+#: ../src/project.c:491
 msgid "Select Bluefish project filename"
 msgstr "프로젝트 파일명 선택"
 
-#: ../src/project.c:679
+#: ../src/project.c:654
 msgid "Create New Project"
 msgstr "새 프로젝트 생성"
 
-#: ../src/project.c:682
+#: ../src/project.c:657
 msgid "Edit Project"
 msgstr "프로젝트 편집"
 
-#: ../src/project.c:707
+#: ../src/project.c:682
 #, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
 msgstr[0] "이 프로젝트는 %d 파일을 포함합니다."
 msgstr[1] "이 프로젝트는 %d 파일을 포함합니다."
 
-#: ../src/project.c:720
+#: ../src/project.c:695
 msgid "Project _Name:"
 msgstr "프로젝트명(_N):"
 
@@ -3265,226 +3296,226 @@ msgstr "프로젝트명(_N):"
 #. but = file_but_new(pred->entries[template], 1, NULL);
 #. gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
-#: ../src/project.c:728
+#: ../src/project.c:703
 msgid "<b>Project Defaults</b>"
 msgstr "<b>프로젝트 기본설정</b>"
 
-#: ../src/project.c:742
+#: ../src/project.c:717
 msgid "Create _Project"
 msgstr "프로젝트 생성(_P)"
 
-#: ../src/project.c:791
+#: ../src/project.c:766
 msgid "Create project"
 msgstr "프로젝트 생성"
 
-#: ../src/project.c:796
+#: ../src/project.c:771
 msgid "Create project with currently opened documents"
 msgstr "현재 열린 문서의 프로젝트 생성"
 
-#: ../src/project.c:798
+#: ../src/project.c:773
 msgid "Create empty project"
 msgstr "빈 프로젝트 생성"
 
-#: ../src/rcfile.c:694 ../src/rcfile.c:722
+#: ../src/rcfile.c:697 ../src/rcfile.c:725
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:700
+#: ../src/rcfile.c:703
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:704
+#: ../src/rcfile.c:707
 msgid "weblint HTML checker"
 msgstr "weblint HTML checker"
 
-#: ../src/rcfile.c:709
+#: ../src/rcfile.c:712
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:713
+#: ../src/rcfile.c:716
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:717
+#: ../src/rcfile.c:720
 msgid "xmllint XML checker"
 msgstr "xmllink XML checker"
 
-#: ../src/rcfile.c:726
+#: ../src/rcfile.c:729
 msgid "php syntax check"
 msgstr "php syntax check"
 
-#: ../src/rcfile.c:730
+#: ../src/rcfile.c:733
 msgid "perl syntax check"
 msgstr "perl syntax check"
 
-#: ../src/rcfile.c:734
+#: ../src/rcfile.c:737
 msgid "php codesniffer"
 msgstr ""
 
-#: ../src/rcfile.c:738
+#: ../src/rcfile.c:741
 msgid "pylint"
 msgstr ""
 
-#: ../src/rcfile.c:751
+#: ../src/rcfile.c:754
 msgid "Sort"
 msgstr "Sort"
 
-#: ../src/rcfile.c:754
+#: ../src/rcfile.c:757
 msgid "Sort / Uniq"
 msgstr "Sort / Uniq"
 
-#: ../src/rcfile.c:757
+#: ../src/rcfile.c:760
 msgid "Reverse lines"
 msgstr "Reverse lines"
 
-#: ../src/rcfile.c:760
+#: ../src/rcfile.c:763
 msgid "Dos2unix"
 msgstr "Dos2Unix"
 
-#: ../src/rcfile.c:762
+#: ../src/rcfile.c:765
 msgid "Tidy HTML"
-msgstr "Tidy HTML"
-
-#: ../src/rcfile.c:764
-#, fuzzy
-msgid "Tidy convert to XHTML"
 msgstr "Tidy HTML"
 
 #: ../src/rcfile.c:767
 #, fuzzy
-msgid "Tidy HTML (perltidy)"
+msgid "Tidy convert to XHTML"
 msgstr "Tidy HTML"
 
 #: ../src/rcfile.c:770
+#, fuzzy
+msgid "Tidy HTML (perltidy)"
+msgstr "Tidy HTML"
+
+#: ../src/rcfile.c:773
 msgid "Strip empty lines"
 msgstr "Strip empty lines"
 
-#: ../src/rcfile.c:773
+#: ../src/rcfile.c:776
 msgid "Render HTML to text"
 msgstr "Render HTML to text"
 
-#: ../src/rcfile.c:776
+#: ../src/rcfile.c:779
 msgid "PHP Beautifier"
 msgstr ""
 
-#: ../src/rcfile.c:780 ../src/rcfile.c:787
+#: ../src/rcfile.c:783 ../src/rcfile.c:790
 msgid "Javascript Minify with jsmin"
 msgstr ""
 
-#: ../src/rcfile.c:783 ../src/rcfile.c:790
+#: ../src/rcfile.c:786 ../src/rcfile.c:793
 msgid "CSS Minify with cssmin"
 msgstr ""
 
-#: ../src/rcfile.c:794
+#: ../src/rcfile.c:797
 msgid "CSS tidy"
 msgstr ""
 
-#: ../src/rcfile.c:806
+#: ../src/rcfile.c:809
 msgid "Windows XP Firefox"
 msgstr "윈도우 XP 파이어폭스"
 
-#: ../src/rcfile.c:811
+#: ../src/rcfile.c:814
 msgid "Windows XP Internet Explorer"
 msgstr "윈도우 XP 인터넷 익스플로러"
 
-#: ../src/rcfile.c:816
+#: ../src/rcfile.c:819
 msgid "Windows XP Opera"
 msgstr "윈도우 XP 오페라"
 
-#: ../src/rcfile.c:820
+#: ../src/rcfile.c:823
 msgid "Windows XP Safari"
 msgstr "윈도우 XP 사파리"
 
-#: ../src/rcfile.c:824
+#: ../src/rcfile.c:827
 msgid "Windows 7 Firefox 32-bit"
 msgstr "윈도우 7 파이어폭스 32비트"
 
-#: ../src/rcfile.c:829
+#: ../src/rcfile.c:832
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr "윈도우 7 인터넷 익스플로러 32비트"
 
-#: ../src/rcfile.c:834
+#: ../src/rcfile.c:837
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr "윈도우 7 인터넷 익스플로러 64비트"
 
-#: ../src/rcfile.c:840
+#: ../src/rcfile.c:843
 msgid "Safari"
 msgstr "사파리"
 
-#: ../src/rcfile.c:843 ../src/rcfile.c:853
+#: ../src/rcfile.c:846 ../src/rcfile.c:856
 msgid "Firefox"
 msgstr "파이어폭스"
 
-#: ../src/rcfile.c:846 ../src/rcfile.c:857
+#: ../src/rcfile.c:849 ../src/rcfile.c:860
 msgid "Opera"
 msgstr "오페라"
 
-#: ../src/rcfile.c:849 ../src/rcfile.c:876
+#: ../src/rcfile.c:852 ../src/rcfile.c:879
 msgid "chmod a+x"
 msgstr "chmod a+x"
 
-#: ../src/rcfile.c:861
+#: ../src/rcfile.c:864
 #, fuzzy
 msgid "Chromium"
 msgstr "크롬"
 
-#: ../src/rcfile.c:864
+#: ../src/rcfile.c:867
 msgid "Konqueror"
 msgstr "컨커러"
 
-#: ../src/rcfile.c:867
+#: ../src/rcfile.c:870
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:870
+#: ../src/rcfile.c:873
 msgid "Kazehakase"
 msgstr "카제하카세"
 
-#: ../src/rcfile.c:873
+#: ../src/rcfile.c:876
 msgid "Links2 (graphics)"
 msgstr "링크2 (그래픽)"
 
-#: ../src/rcfile.c:920
+#: ../src/rcfile.c:923
 msgid "C Header"
 msgstr "C 헤더"
 
-#: ../src/rcfile.c:923
+#: ../src/rcfile.c:926
 msgid "C Header GPL"
 msgstr "C 헤더 GPL"
 
-#: ../src/rcfile.c:926
+#: ../src/rcfile.c:929
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:929
+#: ../src/rcfile.c:932
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: ../src/rcfile.c:932
+#: ../src/rcfile.c:935
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:935
+#: ../src/rcfile.c:938
 msgid "LaTex Book"
 msgstr ""
 
-#: ../src/rcfile.c:938
+#: ../src/rcfile.c:941
 msgid "LaTex Presentation"
 msgstr ""
 
-#: ../src/rcfile.c:1191
+#: ../src/rcfile.c:1307
 msgid "Untitled Project"
 msgstr "무제 프로젝트"
 
-#: ../src/rcfile.c:1298
+#: ../src/rcfile.c:1414
 msgid "C programming"
 msgstr "C 프로그래밍"
 
-#: ../src/rcfile.c:1302
+#: ../src/rcfile.c:1418
 msgid "Web files"
 msgstr "Web파일"
 
-#: ../src/rcfile.c:1309
+#: ../src/rcfile.c:1425
 msgid "Hide objectfiles"
 msgstr "객체 파일 숨기기"
 
@@ -3520,7 +3551,7 @@ msgstr ""
 "<span foreground=\"red\" weight=\"bold\">선택없음. 먼저 문자열 블록을 선택하"
 "시오.</span>"
 
-#: ../src/snr3.c:893
+#: ../src/snr3.c:894
 #, fuzzy, c-format
 msgid "<i>Replaced %d entry</i>"
 msgid_plural "<i>Replaced %d entries</i>"
@@ -3550,128 +3581,128 @@ msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
 msgstr[0] "<b>최근 파일</b>"
 
-#: ../src/snr3.c:1413
+#: ../src/snr3.c:1416
 msgid "No (more) results"
 msgstr ""
 
-#: ../src/snr3.c:1511
+#: ../src/snr3.c:1514
 #, fuzzy
 msgid "Active document"
 msgstr "전체 문서"
 
-#: ../src/snr3.c:1512
+#: ../src/snr3.c:1515
 msgid "Forward from cursor position"
 msgstr "커서 위치에서 앞으로"
 
-#: ../src/snr3.c:1513
+#: ../src/snr3.c:1516
 #, fuzzy
 msgid "Current selection"
 msgstr "현재 행 색상"
 
-#: ../src/snr3.c:1514
+#: ../src/snr3.c:1517
 #, fuzzy
 msgid "All open documents"
 msgstr "전체 열린 파일"
 
-#: ../src/snr3.c:1515
+#: ../src/snr3.c:1518
 #, fuzzy
 msgid "Files on disk"
 msgstr "디스크에서 바뀐 파일\n"
 
-#: ../src/snr3.c:1519 ../src/snr3.c:1524
+#: ../src/snr3.c:1522 ../src/snr3.c:1527
 msgid "Normal"
 msgstr "보통"
 
-#: ../src/snr3.c:1525
+#: ../src/snr3.c:1528
 msgid "Uppercase"
 msgstr "대문자"
 
-#: ../src/snr3.c:1526
+#: ../src/snr3.c:1529
 msgid "Lowercase"
 msgstr "소문자"
 
-#: ../src/snr3.c:1533
+#: ../src/snr3.c:1536
 #, fuzzy
 msgid "Find and Replace"
 msgstr "바꾸기"
 
-#: ../src/snr3.c:1552
+#: ../src/snr3.c:1555
 #, fuzzy
 msgid "<b>_Search for</b>"
 msgstr "찾기(_F):"
 
-#: ../src/snr3.c:1575
+#: ../src/snr3.c:1578
 #, fuzzy
 msgid "<b>Replace _with</b>"
 msgstr "교체하기(_W): "
 
-#: ../src/snr3.c:1590
+#: ../src/snr3.c:1593
 msgid "Match Patter_n: "
 msgstr "패턴 일치(_N):"
 
-#: ../src/snr3.c:1602
+#: ../src/snr3.c:1605
 msgid "Replace T_ype: "
 msgstr "교체 형태(_Y):"
 
-#: ../src/snr3.c:1615
+#: ../src/snr3.c:1618
 msgid "Sco_pe: "
 msgstr "범위(_P):"
 
-#: ../src/snr3.c:1625
+#: ../src/snr3.c:1628
 #, fuzzy
 msgid "Filename pattern: "
 msgstr "파일명: %s"
 
-#: ../src/snr3.c:1631
+#: ../src/snr3.c:1634
 #, fuzzy
 msgid "Recursion level: "
 msgstr "재귀(_R):"
 
-#: ../src/snr3.c:1637
+#: ../src/snr3.c:1640
 #, fuzzy
 msgid "Basedir: "
 msgstr "기본  경로(_D):"
 
-#: ../src/snr3.c:1656
+#: ../src/snr3.c:1659
 msgid "Case sensitive _matching"
 msgstr "대소문자 구분 일치(_M)"
 
-#: ../src/snr3.c:1658
+#: ../src/snr3.c:1661
 msgid "Only match if case (upper/lower) is identical."
 msgstr "대소문자까지 동일하다면 일치"
 
-#: ../src/snr3.c:1662
+#: ../src/snr3.c:1665
 msgid "Pattern contains escape-se_quences"
 msgstr "패턴이 escape-sequence를 포함함"
 
-#: ../src/snr3.c:1665
+#: ../src/snr3.c:1668
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr "패턴이 \\n \\t 같은 backslash escaped character를 포함함."
 
-#: ../src/snr3.c:1669
+#: ../src/snr3.c:1672
 msgid "Dot character in regex pattern matches newlines"
 msgstr ""
 
-#: ../src/snr3.c:1672
+#: ../src/snr3.c:1675
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
 
-#: ../src/snr3.c:1694
+#: ../src/snr3.c:1697
 msgid "Replace _All"
 msgstr "전체 교체(_A)"
 
-#: ../src/snr3.c:1696
+#: ../src/snr3.c:1699
 msgid "_Replace"
 msgstr "교체(_R)"
 
-#: ../src/snr3.c:1700
+#: ../src/snr3.c:1703
 #, fuzzy
 msgid "_Find All"
 msgstr "전체 찾기(_A)"
 
-#: ../src/snr3.c:1702
+#: ../src/snr3.c:1705
 #, fuzzy
 msgid "B_ookmark All"
 msgstr "북마크 일치(_B)"
@@ -3691,6 +3722,31 @@ msgstr "이 변경을 전체 문서에서 실행 취소하겠습니까?"
 #: ../src/undo_redo.c:556 ../src/undo_redo.c:698
 msgid "This change concerns multiple documents."
 msgstr "이 변경은 복수 문서와 관계있습니다."
+
+#~ msgid "_Outputbox"
+#~ msgstr "출력창(_O)"
+
+#~ msgid "Cannot display file, unknown characters found."
+#~ msgstr "알려지지 않은 문자가 발견되었습니다. 파일을 보여줄 수 없습니다."
+
+#~ msgid ""
+#~ "Your glib version (%d.%d.%d) is unreliable with remote files. Please "
+#~ "upgrade to 2.18.0 or newer."
+#~ msgstr ""
+#~ "현재 깔려있는  glib 버젼 (%d.%d.%d) 은 원격 경로 파일들과 충돌을 일으킬 "
+#~ "수 있습니다.2.18.0 또는 그 이상의 버전으로 업그레이드 하세요."
+
+#~ msgid ""
+#~ "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
+#~ "ftp, sftp, webdav etc.). Please upgrade to a glib version newer than "
+#~ "2.18.0 if you rely on remote file support.</b>"
+#~ msgstr ""
+#~ "<b>현재 깔려있는  glib 버젼 (%d.%d.%d) 은 원격 경로 파일 (smb, ftp, sftp, "
+#~ "webdav 등)들과 충돌을 일으킬 수 있습니다. 2.18.0 또는 그 이상의 버전으로 "
+#~ "업그레이드 하세요."
+
+#~ msgid "_Language:"
+#~ msgstr "언어(_L):"
 
 #, fuzzy
 #~ msgid "Fo_rmat"
