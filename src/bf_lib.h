@@ -147,4 +147,8 @@ Telist * bf_elist_append(gpointer cur, gpointer new);
 Telist * bf_elist_first(gpointer cur);
 Telist * bf_elist_last(gpointer cur);
 Telist * bf_elist_remove(gpointer toremove);
+
+void print_character_escaped(gunichar uc);
+
 #endif /* __BF_LIB_H_ */
+

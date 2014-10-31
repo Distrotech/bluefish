@@ -697,7 +697,7 @@ compile_keyword_to_DFA(Tscantable * st, const gchar * keyword, guint16 matchnum,
 
 gint16
 new_context(Tscantable * st, guint expected_size, const gchar * lang, const gchar * symbols, const gchar * contexthighlight,
-			gboolean autocomplete_case_insens, gboolean default_spellcheck)
+			gboolean autocomplete_case_insens, gboolean default_spellcheck, gboolean dump_dfa_run)
 {
 	gint16 context;
 	gint i;
@@ -709,6 +709,7 @@ new_context(Tscantable * st, guint expected_size, const gchar * lang, const gcha
 
 	g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens = autocomplete_case_insens;
 	g_array_index(st->contexts, Tcontext, context).default_spellcheck = default_spellcheck;
+	g_array_index(st->contexts, Tcontext, context).dump_dfa_run = dump_dfa_run;
 	g_array_index(st->contexts, Tcontext, context).contexthighlight = (gchar *) contexthighlight;
 	tmptable = g_array_index(st->contexts, Tcontext, context).table = g_array_sized_new(TRUE, TRUE, sizeof(Ttablerow), expected_size);
 	g_array_set_size(g_array_index(st->contexts, Tcontext, context).table, 2); /* first two states are the startstate (0) and the identstate (1) */
@@ -1020,7 +1021,6 @@ add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * la
 	return matchnum;
 }*/
 
-#ifdef ENABLE_PRINT_DFA
 void
 print_DFA_subset(Tscantable * st, gint16 context, char *chars)
 {
@@ -1065,7 +1065,7 @@ print_DFA_subset(Tscantable * st, gint16 context, char *chars)
 	}
 	g_print("*****************\n");
 }
-
+#ifdef ENABLE_PRINT_DFA
 void
 print_DFA(Tscantable * st, gint16 context, char start, char end)
 {

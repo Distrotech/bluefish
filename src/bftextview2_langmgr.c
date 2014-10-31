@@ -1008,7 +1008,7 @@ add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringnam
 	gchar *contextname = g_strconcat(stringname, ".context", NULL);
 	strcontext = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, contextname));
 	if (strcontext == 0) {
-		strcontext = new_context(bfparser->st, 4, bfparser->bflang->name, (gchar *)singlematch, stringhighlight, FALSE, FALSE);
+		strcontext = new_context(bfparser->st, 4, bfparser->bflang->name, (gchar *)singlematch, stringhighlight, FALSE, FALSE, FALSE);
 		endmatch = add_pattern_to_scanning_table(bfparser->st, singlematch, FALSE, FALSE, strcontext, &bfparser->ldb);
 		pattern_set_runtime_properties(bfparser->st, endmatch, stringhighlight,-1,FALSE,FALSE,0,FALSE,FALSE);
 	}
@@ -1158,7 +1158,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			if (!contexttag) {
 				static const gchar *internal_tag_string_d = "__internal__.e.tag.attribute.string.d";
 				static const gchar *internal_tag_string_s = "__internal__.e.tag.attribute.string.s";
-				contexttag = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r<", NULL, FALSE, FALSE);
+				contexttag = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r<", NULL, FALSE, FALSE, FALSE);
 				match_set_nextcontext(bfparser->st, matchnum, contexttag);
 				if (attrib_arr) {
 					gchar **tmp2;
@@ -1452,8 +1452,8 @@ static gint16
 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQueue * contextstack)
 {
 	gchar *symbols = NULL, *highlight = NULL, *id = NULL, *idref = NULL, *commentid_block =
-		NULL, *commentid_line = NULL;
-	gboolean autocomplete_case_insens = FALSE, isempty;
+		NULL, *commentid_line = NULL, *dump_dfa_chars=NULL;
+	gboolean autocomplete_case_insens = FALSE, isempty, dump_dfa_run=FALSE;
 	gint default_spellcheck = SPELLCHECK_INHERIT;
 	gint context, depth;
 
@@ -1464,7 +1464,10 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 					{"commentid_block", &commentid_block, attribtype_string},
 					{"commentid_line", &commentid_line, attribtype_string},
 					{"default_spellcheck", &default_spellcheck, attribtype_boolean},
-					{"autocomplete_case_insens", &autocomplete_case_insens, attribtype_boolean}};
+					{"autocomplete_case_insens", &autocomplete_case_insens, attribtype_boolean},
+					{"dump_dfa_chars", &dump_dfa_chars, attribtype_string},
+					{"dump_dfa_run", &dump_dfa_run, attribtype_boolean},
+					};
 #ifdef HAVE_LIBENCHANT
 	if (g_queue_get_length(contextstack)==0) {
 		DBG_PARSING("top level context, set default_spellcheck to %d\n", bfparser->default_spellcheck);
@@ -1473,8 +1476,8 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 #endif
 	depth = xmlTextReaderDepth(reader);
 	isempty = xmlTextReaderIsEmptyElement(reader);
-
-	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 7 : 6);
+	g_print("dump_dfa_chars=%s\n",dump_dfa_chars);
+	parse_attributes(bfparser->bflang,reader, attribs, 10);
 
 	ldb_stack_push(&bfparser->ldb, id?id:"nameless-context");
 
@@ -1500,6 +1503,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 			g_free(highlight);
 			g_free(commentid_block);
 			g_free(commentid_line);
+			g_free(dump_dfa_chars);
 			ldb_stack_pop(&bfparser->ldb);
 			return context;
 		}
@@ -1511,7 +1515,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	}
 	/* create context */
 	DBG_PARSING("create context %s, symbols %s and highlight %s\n", id, symbols, highlight);
-	context = new_context(bfparser->st, 32, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens, default_spellcheck);
+	context = new_context(bfparser->st, 32, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens, default_spellcheck, dump_dfa_run);
 	g_queue_push_head(contextstack, GINT_TO_POINTER(context));
 	if (id) {
 		DBG_PARSING("insert context %s into hash table as %d\n", id, context);
@@ -1545,6 +1549,10 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 								   UNDEFINED, UNDEFINED, 0, NULL);
 		} else if (xmlStrEqual(name, (xmlChar *) "context")) {
 			if (depth == xmlTextReaderDepth(reader)) {
+				if (dump_dfa_chars) {
+					print_DFA_subset(bfparser->st, context, dump_dfa_chars);
+					g_free(dump_dfa_chars);
+				}
 				xmlFree(name);
 				DBG_PARSING("parsing context, end-of-context, return context %d\n", context);
 				g_queue_pop_head(contextstack);

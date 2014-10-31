@@ -91,7 +91,12 @@ typedef struct {
 	guint8 comment_line;		/* index in array scantable->comments for line comments; see comment_block */
 	guint8 autocomplete_case_insens;
 	guint8 default_spellcheck;
+	guint8 dump_dfa_run;
 } Tcontext;
+/*
+32bit size = 5*32 + 6*8 = 200 + 16 padding bits = 28 bytes
+64bit size = 5*64 + 6*8 = 360 + 16 padding bits = 48 bytes
+*/
 
 typedef struct {
 	gchar *autocomplete_string;

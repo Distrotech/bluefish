@@ -2074,6 +2074,11 @@ if newpos==0 we have a symbol (see bftextview2.h for an explanation of symbols a
 		}
 		DBG_SCANNING("scanning offset %d pos %d '%c'=%d ", gtk_text_iter_get_offset(&iter), pos, uc, uc);
 		newpos = get_tablerow(btv->bflang->st,scanning.context,pos).row[uc];
+		if (G_UNLIKELY(g_array_index(btv->bflang->st->contexts, Tcontext, scanning.context).dump_dfa_run)) {
+			g_print("context '%d', char '",scanning.context);
+			print_character_escaped(uc);
+			g_print("' on state %4d results in state %4d\n", uc,pos,newpos);
+		}
 		DBG_SCANNING("(context=%d).. got newpos %d %s\n", scanning.context, newpos, (newpos==0?" -> symbol or pattern itself ends on symbol":""));
 		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
 			if (G_UNLIKELY(get_tablerow(btv->bflang->st,scanning.context,pos).match)) {

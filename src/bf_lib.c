@@ -1580,3 +1580,32 @@ bf_elist_remove(gpointer toremove)
 	BF_ELIST(toremove)->prev = NULL;
 	return ret;
 }
+
+void print_character_escaped(gunichar uc)
+{
+	if (uc > 127) {
+		gchar output[10];
+		output[0] = '\0';
+		g_unichar_to_utf8(uc,output);
+		g_print("%s ",output);
+	}
+	switch (uc) {
+	case '\0':
+		g_print("\\0");
+		break;
+	case '\n':
+		g_print("\\n");
+		break;
+	case '\r':
+		g_print("\\r");
+		break;
+	case '\t':
+		g_print("\\t");
+		break;
+	case '\a':
+		g_print("\\a");
+		break;
+	default:
+		g_print("%c ",uc);
+	}
+}
