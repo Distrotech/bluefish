@@ -1476,7 +1476,6 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 #endif
 	depth = xmlTextReaderDepth(reader);
 	isempty = xmlTextReaderIsEmptyElement(reader);
-	g_print("dump_dfa_chars=%s\n",dump_dfa_chars);
 	parse_attributes(bfparser->bflang,reader, attribs, 10);
 
 	ldb_stack_push(&bfparser->ldb, id?id:"nameless-context");

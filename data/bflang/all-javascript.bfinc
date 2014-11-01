@@ -600,65 +600,33 @@
 		<autocomplete append="(,)" backup_cursor="2" />
 		<reference><i>String.replace(regexp|substr, newSubStr|function)</i> Used to find a match between a regular expression and a string, and to replace the matched substring with a new substring.
 		</reference>
-
-	<context symbols="( #&#9;&#10;&#13;"  id="c.js.regex">
-	<element pattern="[^ #&#9;&#10;&#13;(]" is_regex="1" ends_context="1" />
-	<element pattern="(" starts_block="1" id="e.js.replaceopen" highlight="js-brackets">
-<!--
-regex syntax is tricky to detect correctly
-
-var str = "Mr Blue has a blue " house and a blue car";
-var res = str.replace(/blue/gi, "red");
-var res2 = str.replace(/"/gi,"'");
-foo = bar.replace( ")" , "" );
-
--->		
-		<context symbols="(),&#34;'/\">
-			<element pattern="/" id="e.js.regex_start" highlight="js-brackets">
-				<context symbols="/,\ &#9;" highlight="js-value">
-					<element pattern="\\." is_regex="1" highlight="js-value" />
-					<element pattern="/[gimy]*" is_regex="1" ends_context="1" highlight="js-brackets" />
-				</context>
-			</element>
-			<element idref="e.jscript.dquot" />
-			<element idref="e.jscript.squot" />
-					<!--<element pattern="," highlight="js-brackets" />
-					<element pattern="(" highlight="js-string" >
-						<context symbols=")" highlight="js-string">
-							<element pattern=")" highlight="js-string" ends_context="1" />
-						</context>
-					</element>-->
-			<element pattern=")" highlight="js-brackets" ends_context="2" ends_block="e.js.replaceopen" />
-		</context>
-	</element>
-	</context>
 	</element>
 	
 	<element pattern="match">
 		<reference><i>String.match(regexp)</i> Used to match a regular expression against a string.
 		</reference>
-		<context idref="c.js.regex" />
+<!--		<context idref="c.js.regex" /> -->
 	</element>
 	<element pattern="search">
 		<reference><i>String.search(regexp)</i> Executes the search for a match between a regular expression and a specified string.
 		</reference>
-		<context idref="c.js.regex" />
+<!--		<context idref="c.js.regex" /> -->
 	</element>
-<!-- end of regex functions  -->
+
 </group>
 <group highlight="js-function" >
 	<autocomplete append="()" backup_cursor="1" />
 	<element pattern="exec" >
-		<context idref="c.js.regex" />
+<!--		<context idref="c.js.regex" /> -->
 	</element>
 	<element pattern="test" >
-		<context idref="c.js.regex" />
+<!--		<context idref="c.js.regex" /> -->
 	</element>
 	<element pattern="compile" >
-		<context idref="c.js.regex" />
+<!--		<context idref="c.js.regex" /> -->
 	</element>
 </group>
-
+<!-- end of regex functions  -->
 <group highlight="js-property" >
 	<autocomplete enable="1" />
 	<group class="javascript_object_methods">
@@ -669,10 +637,10 @@ foo = bar.replace( ")" , "" );
 		<element pattern="dialogArguments">
 			<reference><i>window.dialogArguments</i> Gets the arguments passed to the window (if it's a dialog box) at the time window.showModalDialog() was called. This is an nsIArray.</reference>
 		</element>
-		<element pattern="window.document">
+		<element pattern="window">
 			<reference><i>window.document</i> Returns a reference to the document that the window contains.</reference>
 		</element>
-		<element pattern="frameElement">
+		<element pattern="frameElement">window
 			<reference><i>window.frameElement</i> Returns the element in which the window is embedded, or null if the window is not embedded.</reference>
 		</element>
 		<element pattern="frames">
@@ -681,7 +649,7 @@ foo = bar.replace( ")" , "" );
 		<element pattern="fullScreen">
 			<reference><i>window.fullScreen</i> This property indicates whether the window is displayed in full screen or not.</reference>
 		</element>
-		<element pattern="window.history">
+		<element pattern="history">
 			<reference><i>window.history</i> Returns a reference to the history object.</reference>
 		</element>
 		<element pattern="innerHeight">
@@ -690,17 +658,20 @@ foo = bar.replace( ")" , "" );
 		<element pattern="innerWidth">
 			<reference><i>window.innerWidth</i> Gets the width of the content area of the browser window including, if rendered, the vertical scrollbar.</reference>
 		</element>
-		<element pattern="window.length">
+		<element pattern="length">
 			<reference><i>window.length</i> Returns the number of frames in the window. See also window.frames.</reference>
 		</element>
-		<element pattern="window.location">
-			<reference><i>window.location</i> Gets/sets the location, or current URL, of the window object.</reference>
+		<element pattern="location">
+			<reference><i>window.location</i> Gets/sets the location, or current URL, of the window object.
+			<i>document.location</i> Returns the URI of the current document.
+			<b>Return Type:</b> Location
+			<b>Availability:</b> All</reference>
 		</element>
 		<element pattern="locationbar">
 			<reference><i>window.locationbar</i> Returns the locationbar object, whose visibility can be toggled in the window.</reference>
 		</element>
 		<element pattern="localStorage">
-			<reference><i>window.localStorage</i> Returns a reference to the local storage object used to store data that may only be accessed by the origin that created it.</reference>
+			<reference><i>window.localStorage</i> Returns a reference to the local storage object used to store data that may only be accessed by the origin that created it.</reference>window
 		</element>
 		<element pattern="menubar">
 			<reference><i>window.menubar</i> Returns the menubar object, whose visibility can be toggled in the window.</reference>
@@ -711,7 +682,7 @@ foo = bar.replace( ")" , "" );
 		<element pattern="name">
 			<reference><i>window.name</i> Gets/sets the name of the window.</reference>
 		</element>
-		<element pattern="window.navigator">
+		<element pattern="navigator">
 			<reference><i>window.navigator</i> Returns a reference to the navigator object.</reference>
 		</element>
 		<element pattern="opener">
@@ -741,37 +712,37 @@ foo = bar.replace( ")" , "" );
 		<element pattern="returnValue ">
 			<reference><i>window.returnValue </i> The return value to be returned to the function that called  window.showModalDialog() to display the window as a modal dialog.</reference>
 		</element>
-		<element pattern="window.screen">
+		<element pattern="screen">
 			<reference><i>window.screen</i> Returns a reference to the screen object associated with the window.</reference>
 		</element>
-		<element pattern="screen.availTop">
+		<element pattern="availTop">
 			<reference><i>window.screen.availTop</i> Specifies the y-coordinate of the first pixel that is not allocated to permanent or semipermanent user interface features.</reference>
 		</element>
-		<element pattern="screen.availLeft">
+		<element pattern="availLeft">
 			<reference><i>window.screen.availLeft</i> Returns the first available pixel available from the left side of the screen.</reference>
 		</element>
-		<element pattern="screen.availHeight">
+		<element pattern="availHeight">
 			<reference><i>window.screen.availHeight</i> Specifies the height of the screen, in pixels, minus permanent or semipermanent user interface features displayed by the operating system, such as the Taskbar on Windows.</reference>
 		</element>
-		<element pattern="screen.availWidth">
+		<element pattern="availWidth">
 			<reference><i>window.screen.availWidth</i> Returns the amount of horizontal space in pixels available to the window.</reference>
 		</element>
-		<element pattern="screen.colorDepth">
+		<element pattern="colorDepth">
 			<reference><i>window.screen.colorDepth</i> Returns the color depth of the screen.</reference>
 		</element>
-		<element pattern="screen.height">
+		<element pattern="height">
 			<reference><i>window.screen.height</i> Returns the height of the screen in pixels.</reference>
 		</element>
-		<element pattern="screen.left">
+		<element pattern="left">
 			<reference><i>window.screen.left</i> Returns the current distance in pixels from the left side of the screen.</reference>
 		</element>
-		<element pattern="screen.pixelDepth">
+		<element pattern="pixelDepth">
 			<reference><i>window.screen.pixelDepth</i> Gets the bit depth of the screen.</reference>
 		</element>
-		<element pattern="screen.top">
+<!--		<element pattern="top">
 			<reference><i>window.screen.top</i> Returns the distance from the top of the screen.</reference>
-		</element>
-		<element pattern="screen.width">
+		</element> -->
+		<element pattern="width">
 			<reference><i>window.screen.width</i> Returns the width of the screen.</reference>
 		</element>
 		<element pattern="screenX">
@@ -820,18 +791,21 @@ foo = bar.replace( ")" , "" );
 		<element pattern="toolbar">
 			<reference><i>window.toolbar</i> Returns the toolbar object, whose visibility can be toggled in the window.</reference>
 		</element>
-		<element pattern="window.top">
+		<element pattern="top">
 			<reference><i>window.top</i>
 			Read only
-			 Returns a reference to the topmost window in the window hierarchy.</reference>
+			Returns a reference to the topmost window in the window hierarchy.
+			 <i>window.screen.top</i> 
+			 Returns the distance from the top of the screen.</reference>
 		</element>
-		<element pattern="window.window">
+		<element pattern="document"/>
+<!--		<element pattern="window.window">
 			<reference><i>window.window</i> Returns a reference to the current window.</reference>
-		</element>
-		<element pattern="window[">
+		</element> -->
+<!--		<element pattern="window[">
 		<autocomplete append="]" backup_cursor="1" />
 			<reference><i>window[]</i> Returns a reference to the window object in the frames. See window.frames for more details.</reference>
-		</element>
+		</element> -->
 
 		<group class="javascript_object_methods">
 <!-- reference: https://developer.mozilla.org/en-US/docs/Web/API/Document -->
@@ -973,12 +947,12 @@ foo = bar.replace( ")" , "" );
 				<b>Availability:</b> HTML
 				</reference>
 			</element>
-			<element pattern="location">
+<!--			<element pattern="location">
 				<reference><i>document.location</i> Returns the URI of the current document.
 				<b>Return Type:</b> Location
 				<b>Availability:</b> All
 				</reference>
-			</element>
+			</element> -->
 			<element pattern="plugins">
 				<reference><i>document.plugins</i> Returns a list of the available plugins.
 				<b>Return Type:</b> HTMLCollection
@@ -1035,7 +1009,7 @@ foo = bar.replace( ")" , "" );
 			</element>
 			<group class="javascript_object_methods">
 <!-- 				<element pattern="name"/> -->
-				<element pattern="length"/>
+<!--				<element pattern="length"/> -->
 				<element pattern="text"/>
 				<element pattern="x"/>
 				<element pattern="y"/>
@@ -1344,14 +1318,14 @@ foo = bar.replace( ")" , "" );
 <!-- 			<element pattern="name"/> -->
 		</group>
 	</group>
-	<group class="javascript_object_methods">
+<!--	<group class="javascript_object_methods">
 		<element pattern="availHeight"/>
 		<element pattern="availWidth"/>
 		<element pattern="colorDepth"/>
 		<element pattern="height"/>
 		<element pattern="pixelDepth"/>
 		<element pattern="width"/>
-	</group>
+	</group> -->
 <!-- 	<element pattern="length" class="javascript_object_methods"/> -->
 </group>
 <!-- JavaScript Objects -->
@@ -1377,17 +1351,17 @@ foo = bar.replace( ")" , "" );
 	<autocomplete enable="1" />
 	<element pattern="global"/>
 	<group class="javascript_object_methods">
-		<element pattern="navigator"/>
+<!--		<element pattern="navigator"/> -->
 		<element pattern="mimeTypes"/>
 		<!--<element pattern="plugins"/>-->
-		<element pattern="screen"/>
-		<element pattern="window"/>
-		<element pattern="document"/>
+<!--		<element pattern="screen"/> -->
+<!--		<element pattern="window"/> -->
+<!--		<element pattern="document"/> -->
 		<!--<element pattern="anchors"/>-->
 		<element pattern="applets"/>
 		<element pattern="node"/>
 		<element pattern="event"/>
-		<element pattern="history"/>
+<!--		<element pattern="history"/> -->
 		<!--<element pattern="location"/>-->
 	</group>
 </group>
@@ -1531,7 +1505,7 @@ foo = bar.replace( ")" , "" );
 		<element pattern="fontVariantPosition" />
 		<element pattern="fontWeight" />
 		<element pattern="glyphOrientationHorizontal" />
-		<element pattern="glyphOrientationVertical" />
+		<element pattern="glyphOrientationVedocumentrtical" />
 		<element pattern="gridCell" />
 		<element pattern="gridColumn" />
 		<element pattern="gridColumnAlign" />
@@ -1555,7 +1529,7 @@ foo = bar.replace( ")" , "" );
 		<element pattern="imeMode" />
 		<element pattern="justifyContent" />
 		<element pattern="kerning" />
-		<element pattern="left" />
+<!--		<element pattern="left" /> -->
 		<element pattern="letterSpacing" />
 		<element pattern="lightingColor" />
 		<element pattern="lineBreak" />
@@ -1679,7 +1653,7 @@ foo = bar.replace( ")" , "" );
 		<element pattern="textTransform" />
 		<element pattern="textUnderlinePosition" />
 		<element pattern="textWrap" />
-		<element pattern="top" />
+<!--		<element pattern="top" /> -->
 		<element pattern="transform" />
 		<element pattern="transformOrigin" />
 		<element pattern="transformStyle" />
@@ -1727,15 +1701,6 @@ foo = bar.replace( ")" , "" );
 	<element pattern="true" />
 </group>
 
-<!-- RegExp: var m1 = /^\s*/  -->
-<element pattern="= /" highlight="js-brackets">
-	<context id="c.reg" symbols="/" highlight="js-string">
-		<element pattern="/" highlight="js-brackets" ends_context="1" />
-	</context>
-</element>
-<element pattern="=/" highlight="js-brackets">
-	<context idref="c.reg" />
-</element>
 
 <element pattern="[0-9]+\.[0-9]+" is_regex="1" highlight="js-value" />
 <element pattern="-[0-9]+\.[0-9]+" is_regex="1" highlight="js-value" />
