@@ -1028,7 +1028,7 @@ print_DFA_subset(Tscantable * st, gint16 context, char *chars)
 	len = strlen(chars);
 	g_print("***************** print subset of DFA table for context %d\n",(gint)context);
 	g_print("       ");
-	for (j = 0; j <= len; j++) {
+	for (j = 0; j < len; j++) {
 		switch(chars[j]) {
 			case '\n':
 				g_print(" \\n   ");
@@ -1046,14 +1046,14 @@ print_DFA_subset(Tscantable * st, gint16 context, char *chars)
 	g_print(": match\n");
 	for (i = 0; i < g_array_index(st->contexts, Tcontext, context).table->len; i++) {
 		g_print("%4d: ", i);
-		for (j = 0; j <= len; j++) {
+		for (j = 0; j < len; j++) {
 			g_print("%4d ", g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).row[(gshort) chars[j]]);
 		}
-		g_print(": %4d", g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match);
+		g_print(" : %4d", g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match);
 		if (i==0) {
 			g_print(" 	this is the startstate");
 		} else if (i==1) {
-			g_print(" 	this is the indentstate");
+			g_print(" 	this is the identstate");
 		}
 		if (g_array_index(g_array_index(st->contexts, Tcontext, context).table, Ttablerow, i).match > 0) {
 			g_print(" %s",

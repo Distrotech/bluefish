@@ -2075,9 +2075,20 @@ if newpos==0 we have a symbol (see bftextview2.h for an explanation of symbols a
 		DBG_SCANNING("scanning offset %d pos %d '%c'=%d ", gtk_text_iter_get_offset(&iter), pos, uc, uc);
 		newpos = get_tablerow(btv->bflang->st,scanning.context,pos).row[uc];
 		if (G_UNLIKELY(g_array_index(btv->bflang->st->contexts, Tcontext, scanning.context).dump_dfa_run)) {
-			g_print("context '%d', char '",scanning.context);
+			g_print("context %d: '",scanning.context);
 			print_character_escaped(uc);
-			g_print("' on state %4d results in state %4d\n", pos,newpos);
+			g_print("' in %4d makes %4d", pos,newpos);
+			if (newpos == 0 && get_tablerow(btv->bflang->st,scanning.context,pos).match) {
+				g_print(" --> a symbol or the pattern ends on a symbol, the previous was a match (%s)",
+					g_array_index(btv->bflang->st->matches, Tpattern,get_tablerow(btv->bflang->st,scanning.context,pos).match).pattern);
+			} else if (newpos == 0) {
+				g_print(" --> restart scanning (found a symbol, no match?)");
+			} else if (newpos == 1 && pos != 1) {
+				g_print(" --> nothing matches, go to identstate");
+			} else if (newpos == 1 && pos == 1) {
+				g_print(" .....identstate");
+			}
+			g_print("\n");
 		}
 		DBG_SCANNING("(context=%d).. got newpos %d %s\n", scanning.context, newpos, (newpos==0?" -> symbol or pattern itself ends on symbol":""));
 		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
