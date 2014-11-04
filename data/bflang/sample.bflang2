@@ -338,6 +338,30 @@ these can be used, as option: (for boolean values) and as condition: (for string
 	<autocomplete enable="option:autocomplete_foo" />
 </element>
 
+<!--
+Since Bluefish 2.2.7 patterns can be made "conditional", they will be still compiled in the
+DFA engine, but their actions (starting a context, highlighting, starting a block) are depending
+on a certain condition, such as if they are in a certain context or not.
+
+condition_mode=""
+		1 = valid if relation with context matches,
+		2 = invalid if relation with context matches,
+		3 = valid if relation with block matches
+		4 = invalid if relation with block matches
+
+condition_relation=""
+		-1 means any parent
+		0 = direct parent
+		1= grandparent
+		etc.
+
+condition_contextref="" 
+		refers to the id of a context or block-starting-element
+
+-->
+<element id="end-style-tag" pattern="&lt;/style&gt;" highlight="
+html-tag" ends_context="3" condition_mode="1" condition_relation="2" condition_contextref="c.html.css.main"/>
+
 <!-- -------- OPTIMISATIONS ---------
 context re-use (<context idref=""/>) is more important than element or tag re-use
 (<element idref=""/> or <tag idref=""/>).
