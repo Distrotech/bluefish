@@ -614,7 +614,7 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 			fblock =
 				found->numblockchange < 0 ? pop_blocks(found->numblockchange, found->fblock) : found->fblock;
 			if (fblock && fblock->start2_o != BF_OFFSET_UNDEFINED) {
-				g_print("abort offering closing tag: block has an end already\n");
+				DBG_AUTOCOMP("abort offering closing tag: block has an end already\n");
 				fblock = NULL;
 			}
 /*		if (g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).tagclose_from_blockstack) {
