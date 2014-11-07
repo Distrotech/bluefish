@@ -712,10 +712,11 @@ add_autocomplete(Tbflangparsing * bfparser, guint16 matchnum, GSList *list, cons
 			gboolean freestring=FALSE;
 			gint backup_cursor = ac->backup_cursor;
 			if (ac->string == NULL && tag && ac->mode == ac_mode_string) {
-				string = g_strconcat("></", tag, ">", NULL);
-				backup_cursor = strlen(string)-1;
+				string = g_strconcat("<",tag,">", NULL);
+				backup_cursor = 0;
 				freestring=TRUE;
 			}
+			/*g_print("line %d: autocomplete %s %s for %d\n",__LINE__,(ac->mode == ac_mode_string) ? "set" : "append", string, matchnum);*/
 			match_add_autocomp_item(bfparser->st, matchnum,
 										(ac->mode == ac_mode_string) ? string : NULL,
 										(ac->mode == ac_mode_append) ? string : NULL,
@@ -914,7 +915,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 				gchar *refname=NULL;
 				if (condition_mode ==1 || condition_mode == 2) {
 					refname = condition_contextref;
-				} else if (condition_mode ==1 || condition_mode == 2) {
+				} else if (condition_mode ==3 || condition_mode == 4) {
 					refname = condition_idref;
 				}
 				g_print("condition_mode=%d, call pattern_set_condition, refname %s, contextref=%s\n",condition_mode,refname,condition_contextref);
@@ -1194,8 +1195,10 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 								-1, FALSE, FALSE,0, FALSE, FALSE);
 					pattern_set_blockmatch(bfparser->st, tmpnum,
 								FALSE,TRUE, -1,NULL,NULL,TRUE);
-					if (bfparser->autoclose_tags)
+					if (bfparser->autoclose_tags) {
 						match_add_autocomp_item(bfparser->st, tmpnum, NULL, NULL, 0);
+						/*g_print("line %d: adding default autocomp string %s to %d\n",__LINE__,"/>",tmpnum);*/
+					}
 					match_autocomplete_reference(bfparser->st, tmpnum, contexttag);
 				}
 				tmp = no_close ? NULL : g_strconcat("</", tag, ">", NULL);
@@ -1207,8 +1210,12 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				if (bfparser->autoclose_tags && !no_close) {
 					gchar *tmp2;
 					tmp2 = g_strconcat("></", tag, ">", NULL);
+					/* add the closing tag to the inside context of the tag */
 					match_add_autocomp_item(bfparser->st, starttagmatch, NULL, tmp, tmp ? strlen(tmp) : 0);
+					/*g_print("line %d: adding %s autocomp append to %d\n",__LINE__,tmp,starttagmatch);*/
+					/* add autocomplete to the tag pattern itself with closing tag */
 					match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag)+3);
+					/*g_print("line %d: adding %s autocomp append to %d\n",__LINE__,tmp2,matchnum);*/
 				}
 				if (tmp)
 					g_free(tmp);
@@ -1260,10 +1267,12 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				}
 			}
 			if (!no_close && autocomplete == NULL && ih_autocomplete == NULL) {
-				gchar *tmp2 = g_strconcat("></", tag, ">", NULL);
-				match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag) + 3);
-				g_free(tmp2);
+				/*gchar *tmp2 = g_strconcat("></", tag, ">", NULL);*/
+				match_add_autocomp_item(bfparser->st, matchnum, NULL, ">", strlen(tag) + 3);
+				/*g_print("line %d: adding %s autocomp append to %d\n",__LINE__,">",matchnum);*/
+				/*g_free(tmp2);*/
 			} else {
+				/*g_print("line %d: call add_autocomplete for %d\n",__LINE__,matchnum);*/
 				add_autocomplete(bfparser, matchnum, autocomplete?autocomplete:ih_autocomplete, tag);
 				/*match_add_autocomp_item(bfparser->st, matchnum, NULL,
 										autocomplete_append ? autocomplete_append : ih_autocomplete_append,
@@ -1577,9 +1586,9 @@ static void
 bftextview2_match_conditions(Tbflangparsing * bfparser) {
 	gint i;
 	GHashTable *ht;
-	g_print("bftextview2_match_conditions, have %d conditions\n",bfparser->st->conditions->len);
+	DBG_MSG("bftextview2_match_conditions, have %d conditions\n",bfparser->st->conditions->len);
 	for (i = 1; i < bfparser->st->conditions->len; i++) {
-		g_print("bftextview2_match_conditions,running condition %d with refname %s\n",i,g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname);
+		DBG_PARSING("bftextview2_match_conditions,running condition %d with refname %s\n",i,g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname);
 		if (!g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname) {
 			g_warning("Error in language file, condition refers to non existing id %s",g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname);
 			continue;
@@ -1595,7 +1604,7 @@ bftextview2_match_conditions(Tbflangparsing * bfparser) {
 			g_print("Error in language file %s: condition reference %s does not exist\n",dbstring, g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname);
 			g_free(dbstring);
 		}
-		g_print("bftextview2_match_conditions, set ref %d for %s\n",g_array_index(bfparser->st->conditions, Tpattern_condition, i).ref, g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname);
+		DBG_MSG("bftextview2_match_conditions, set ref %d for %s\n",g_array_index(bfparser->st->conditions, Tpattern_condition, i).ref, g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname);
 	}
 }
 

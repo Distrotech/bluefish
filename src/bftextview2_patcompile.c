@@ -834,6 +834,18 @@ match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * autocom
 	} else {
 		pac->autocomplete_string = g_array_index(st->matches, Tpattern, matchnum).pattern;
 	}
+
+#ifdef DEVELOPMENT
+	GSList *slist;	
+	slist=g_array_index(st->matches, Tpattern, matchnum).autocomp_items;
+	while (slist) {
+		Tpattern_autocomplete *tpac = slist->data;
+		if (g_strcmp0(pac->autocomplete_string, tpac->autocomplete_string)==0) {
+			g_print("Warning: string %s exists as autocomplete string for pattern %d\n",pac->autocomplete_string,matchnum);
+		}
+		slist = g_slist_next(slist);
+	}
+#endif
 	pac->autocomplete_backup_cursor = autocomplete_backup_cursor;
 	g_array_index(st->matches, Tpattern, matchnum).autocomp_items =
 		g_slist_prepend(g_array_index(st->matches, Tpattern, matchnum).autocomp_items, pac);
