@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.2.5\n"
+"Project-Id-Version: Bluefish 2.2.7\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2014-10-25 16:44-0700\n"
-"PO-Revision-Date: 2014-04-06 21:01+0900\n"
+"PO-Revision-Date: 2014-11-11 10:12+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=0;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:1
 msgid ""
@@ -263,9 +263,8 @@ msgid "_Filters"
 msgstr "フィルタ(_F)"
 
 #: ../src/bfwin_uimanager.c:835
-#, fuzzy
 msgid "_Output parsers"
-msgstr "出力パーサ"
+msgstr "出力パーサ(_O)"
 
 #: ../src/bfwin_uimanager.c:836
 msgid "For_mat"
@@ -1417,9 +1416,8 @@ msgstr ""
 "があります。"
 
 #: ../src/document.c:2038
-#, fuzzy
 msgid "_Convert"
-msgstr "変換(_V)"
+msgstr "変換(_C)"
 
 #: ../src/document.c:2042
 #, c-format
@@ -1427,12 +1425,17 @@ msgid ""
 "File '%s' is not a valid text file.\n"
 "The file might be corrupted, truncated, or in an unexpected encoding."
 msgstr ""
+"ファイル '%s' は完全なテキストファイルではないようです。\n"
+"一部が壊れているか、途中で切れているか、想定外のエンコーディングである可能性"
+"があります。"
 
 #: ../src/document.c:2044
 msgid ""
 "Bluefish can convert this file into a valid one by replacing illegal symbols "
 "with spaces. Convert?"
 msgstr ""
+"Bluefish は無効なシンボルをスペースに変換し、ファイルを開くことができます。変"
+"換しますか?"
 
 #: ../src/document.c:2056
 #, c-format
@@ -1440,10 +1443,12 @@ msgid ""
 "File is opened in read-only mode since it differs from original one.\n"
 "%lu characters were replaced by space"
 msgstr ""
+"内容を変更したので、ファイルを読み取り専用モードで開いています。\n"
+"%lu 文字をスペースに置換しました。"
 
 #: ../src/document.c:2059
 msgid "Use 'Save As' to save it with different name and make editable"
-msgstr ""
+msgstr "「別名で保存」を使うと、別名で保存し、編集可能となります。"
 
 #: ../src/document.c:2254
 msgid "Exit fullscreen"
@@ -2178,9 +2183,8 @@ msgid "Include hidden files"
 msgstr "隠しファイルを表示する"
 
 #: ../src/file_dialogs.c:1386
-#, fuzzy
 msgid "Include backup files"
-msgstr "ファイルのバックアップに失敗"
+msgstr "バックアップファイルも含める"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1433
@@ -2297,9 +2301,9 @@ msgid "Output"
 msgstr "出力パターン#"
 
 #: ../src/outputbox.c:481
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to compile output parser pattern %s: %s"
-msgstr "Outputbox のパターン %s を解釈できませんでした: %s"
+msgstr "Outputbox のパターン指定 %s を解釈できませんでした: %s"
 
 #: ../src/preferences.c:321
 msgid "Untitled"
@@ -2391,12 +2395,10 @@ msgid "Path to plugin"
 msgstr "プラグインのパス"
 
 #: ../src/preferences.c:901
-#, fuzzy
 msgid "Extension"
-msgstr "ウィンドウサイズ"
+msgstr "拡張子"
 
 #: ../src/preferences.c:903
-#, fuzzy
 msgid "Mime-Type"
 msgstr "MIME タイプ"
 
@@ -2973,7 +2975,7 @@ msgstr "変更を保存する頻度（秒単位）(_F)"
 
 #: ../src/preferences.c:2784 ../src/preferences.c:2785
 msgid "File Associations"
-msgstr ""
+msgstr "ファイルの関連付け"
 
 #: ../src/preferences.c:2803
 msgid "Templates"
@@ -3012,9 +3014,8 @@ msgid "Hide toolbars on full-screen"
 msgstr "全画面表示でツールバーを非表示"
 
 #: ../src/preferences.c:2858
-#, fuzzy
 msgid "User interface _language:"
-msgstr "インターフェイス"
+msgstr "ユーザインターフェイスに使用する言語(_L)"
 
 #: ../src/preferences.c:2861
 msgid "<b>Recent Files</b>"
@@ -3045,9 +3046,8 @@ msgid "_Switch between tabs with <Alt>+0..9"
 msgstr "<Alt>+0..9 でタブを切り替える(_S)"
 
 #: ../src/preferences.c:2899
-#, fuzzy
 msgid "_Switch between tabs with <Command>+0..9"
-msgstr "<Alt>+0..9 でタブを切り替える(_S)"
+msgstr "<Command>+0..9 でタブを切り替える(_S)"
 
 #: ../src/preferences.c:2904
 msgid "Save menu accelerators on exit"
