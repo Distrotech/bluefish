@@ -367,6 +367,75 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<!--<tag name="var" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines a variable part of a text</reference>
 	</tag>-->
+	<tag name="section"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="nav"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="article"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="aside"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="hgroup"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="header"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="footer"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="figcaption"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="figure"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="mark"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="ruby"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="rp"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="rt"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>	
+	<tag name="time"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,datetime">
+		<reference></reference>
+	</tag>
+	<tag name="video"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,width,height,src,poster,autoplay,controls,loop,mute,preload">
+		<reference></reference>
+	</tag>	
+	<tag name="audio"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,autoplay,controls,loop,mute,preload,src">
+		<reference></reference>
+	</tag>
+	<tag name="canvas"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,width,height">
+		<reference></reference>
+	</tag>	
+	<tag name="track"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>
+	<tag name="source"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>	
+	<tag name="progress"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,value,max">
+		<reference>Progress bar
+<b>Categories:</b>flow; phrasing; labelable
+<b>Parents:</b>phrasing
+<b>Children:</b>phrasing*
+<b>Interface:</b> HTMLProgressElement</reference>
+	</tag>
+	<tag name=""  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference></reference>
+	</tag>	
+
+
 </group>
 
 <context id="attribute.string" symbols="&quot;' ">
