@@ -1464,6 +1464,7 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw, Thtmlbarsession *hbs)
 
 	GtkWidget *html_notebook;
 	GtkWidget *toolbar;
+	GtkWidget *menuitem;
 
 	html_notebook = gtk_notebook_new();
 	DEBUG_MSG("htmlbar_toolbar_create, created notebook %p\n",html_notebook);
@@ -1475,9 +1476,18 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw, Thtmlbarsession *hbs)
 	htmlbar_load_quickbar(hbw, hbw->quickbar_toolbar);
 	DEBUG_MSG("quickbar done\n");
 	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar"), _("Standard"));
+
+	if (main_v->props.allow_dep) {
+		gtk_widget_destroy(gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar/FormatStrong"));
+		gtk_widget_destroy(gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar/FormatEmphasis"));
+	} else {
+		gtk_widget_destroy(gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar/FormatBold"));
+		gtk_widget_destroy(gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar/FormatItalic"));
+	}
+	
 	DEBUG_MSG("standard created\n");
 	setup_items_for_quickbar(hbw, toolbar);
-	DEBUG_MSG("standard setup done\n");
+	DEBUG_MSG("quickbar setup done\n");
 
 	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLHTML5Toolbar"), _("HTML 5"));
 	setup_items_for_quickbar(hbw, toolbar);

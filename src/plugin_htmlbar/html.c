@@ -57,6 +57,7 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 {
 	gchar *tmp;
 	gboolean is_xhtml = get_curlang_option_value(bfwin, lang_is_XHTML);
+	g_print("general_html_menu_cb, switch %d\n",callback_action);
 	switch (callback_action) {
 	case 1:
 		doc_insert_two_strings(bfwin->current_document, cap("<B>"), cap("</B>"));
