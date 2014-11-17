@@ -56,6 +56,7 @@ void
 general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 {
 	gchar *tmp;
+	gboolean is_xhtml = get_curlang_option_value(bfwin, lang_is_XHTML);
 	switch (callback_action) {
 	case 1:
 		doc_insert_two_strings(bfwin->current_document, cap("<B>"), cap("</B>"));
@@ -65,8 +66,8 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 		break;
 	case 3:
 		doc_insert_two_strings(bfwin->current_document,
-							   main_v->props.xhtml == 					   1 ? cap("<SPAN STYLE=\"text-decoration: underline;\">") : cap("<U>")
-							   , main_v->props.xhtml == 1 ? cap("</SPAN>") : cap("</U>"));
+							   is_xhtml ? cap("<SPAN STYLE=\"text-decoration: underline;\">") : cap("<U>")
+							   , is_xhtml ? cap("</SPAN>") : cap("</U>"));
 		break;
 	case 4:
 		doc_insert_two_strings(bfwin->current_document, cap("<STRIKE>"), cap("</STRIKE>"));
@@ -83,12 +84,12 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 		break;
 	case 8:
 		doc_insert_two_strings(bfwin->current_document,
-							   main_v->props.xhtml == 					   1 ? cap("<DIV STYLE=\"text-align: center\">") : cap("<DIV ALIGN=\"CENTER\">"),
+							   is_xhtml ? cap("<DIV STYLE=\"text-align: center\">") : cap("<DIV ALIGN=\"CENTER\">"),
 							   cap("</DIV>"));
 		break;
 	case 9:
 		doc_insert_two_strings(bfwin->current_document,
-							   main_v->props.xhtml == 					   1 ? cap("<DIV STYLE=\"text-align: right\">") : cap("<DIV ALIGN=\"RIGHT\">"),
+							   is_xhtml ? cap("<DIV STYLE=\"text-align: right\">") : cap("<DIV ALIGN=\"RIGHT\">"),
 							   cap("</DIV>"));
 		break;
 	case 10:
@@ -96,13 +97,13 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 		break;
 	case 11:
 		doc_insert_two_strings(bfwin->current_document,
-							   main_v->props.xhtml == 					   1 ? cap("<SPAN STYLE=\"font-size: larger;\">") : cap("<FONT SIZE=\"+1\">")
-							   , main_v->props.xhtml == 1 ? cap("</SPAN>") : cap("</FONT>"));
+							   is_xhtml ? cap("<SPAN STYLE=\"font-size: larger;\">") : cap("<FONT SIZE=\"+1\">")
+							   , is_xhtml ? cap("</SPAN>") : cap("</FONT>"));
 		break;
 	case 12:
 		doc_insert_two_strings(bfwin->current_document,
-							   main_v->props.xhtml == 					   1 ? cap("<SPAN STYLE=\"font-size: smaller;\">") : cap("<FONT SIZE=\"-1\">")
-							   , main_v->props.xhtml == 1 ? cap("</SPAN>") : cap("</FONT>"));
+							   is_xhtml ? cap("<SPAN STYLE=\"font-size: smaller;\">") : cap("<FONT SIZE=\"-1\">")
+							   , is_xhtml ? cap("</SPAN>") : cap("</FONT>"));
 		break;
 	case 13:
 		doc_insert_two_strings(bfwin->current_document, cap("<PRE>"), cap("</PRE>"));
@@ -188,7 +189,7 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 		doc_insert_two_strings(bfwin->current_document, cap("<MENU>"), cap("</MENU>"));
 		break;
 	case 40:
-		doc_insert_two_strings(bfwin->current_document, cap("<MAP NAME=\""), main_v->props.xhtml == 1 ?
+		doc_insert_two_strings(bfwin->current_document, cap("<MAP NAME=\""), is_xhtml ?
 							   cap("\">\n\t<AREA SHAPE=\"\" COORDS=\"\" HREF=\"\" />\n</MAP>\n") :
 							   cap("\">\n\t<AREA SHAPE=\"\" COORDS=\"\" HREF=\"\">\n</MAP>\n"));
 		break;
@@ -1038,7 +1039,7 @@ quickruleok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_integer_if_spin(dg->spin[2], cap("WIDTH"), thestring,
 							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[1])),
 							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[1])) ? 100 : 0);
-	thestring = insert_attr_if_checkbox(dg->check[2], main_v->props.xhtml == 1 ? cap("NOSHADE=\"noshade\"") : cap("NOSHADE"), thestring);
+	thestring = insert_attr_if_checkbox(dg->check[2], get_curlang_option_value(dg->bfwin, lang_is_XHTML) ? cap("NOSHADE=\"noshade\"") : cap("NOSHADE"), thestring);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
 	finalstring = g_strdup_printf(get_curlang_option_value(dg->bfwin, self_close_singleton_tags) ? "%s />" : "%s>", thestring);
 	g_free(thestring);
@@ -1754,7 +1755,7 @@ framedialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	g_free(tmp);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("MARGINWIDTH"), thestring, NULL);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[2])), cap("MARGINHEIGHT"), thestring, NULL);
-	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("NORESIZE=\"noresize\"") : cap("NORESIZE"), thestring);
+	thestring = insert_attr_if_checkbox(dg->check[1], get_curlang_option_value(dg->bfwin, lang_is_XHTML) ? cap("NORESIZE=\"noresize\"") : cap("NORESIZE"), thestring);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[1])), NULL, thestring, NULL);
 
 	bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[2]))));
@@ -1849,14 +1850,14 @@ static void
 audiodialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
 	gchar *finalstring, *thestring;
-
+	gboolean is_xhtml = get_curlang_option_value(dg->bfwin, lang_is_XHTML);
 	/* Tag construction */
 	finalstring = g_strdup(cap("<AUDIO"));
 	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("SRC"), finalstring, NULL);
-	finalstring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("AUTOPLAY=\"autoplay\"") : cap("AUTOPLAY"), finalstring);
-	finalstring = insert_attr_if_checkbox(dg->check[2], main_v->props.xhtml == 1 ? cap("CONTROLS=\"controls\"") : cap("CONTROLS"), finalstring);
-	finalstring = insert_attr_if_checkbox(dg->check[3], main_v->props.xhtml == 1 ? cap("LOOP=\"loop\"") : cap("LOOP"), finalstring);
-	finalstring = insert_attr_if_checkbox(dg->check[4], main_v->props.xhtml == 1 ? cap("MUTE=\"mute\"") : cap("MUTE"), finalstring);
+	finalstring = insert_attr_if_checkbox(dg->check[1], is_xhtml ? cap("AUTOPLAY=\"autoplay\"") : cap("AUTOPLAY"), finalstring);
+	finalstring = insert_attr_if_checkbox(dg->check[2], is_xhtml ? cap("CONTROLS=\"controls\"") : cap("CONTROLS"), finalstring);
+	finalstring = insert_attr_if_checkbox(dg->check[3], is_xhtml ? cap("LOOP=\"loop\"") : cap("LOOP"), finalstring);
+	finalstring = insert_attr_if_checkbox(dg->check[4], is_xhtml ? cap("MUTE=\"mute\"") : cap("MUTE"), finalstring);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[0])), cap("ID"), finalstring, NULL);
 	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("CLASS"), finalstring, NULL);
 	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("PRELOAD"), finalstring, NULL);
@@ -2014,15 +2015,15 @@ static void
 videodialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
 	gchar *finalstring, *thestring;
-
+	gboolean is_xhtml = get_curlang_option_value(dg->bfwin, lang_is_XHTML);
 	/* Tag construction */
 	finalstring = g_strdup(cap("<VIDEO"));
 	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("SRC"), finalstring, NULL);
 	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("POSTER"), finalstring, NULL);
-	finalstring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("AUTOPLAY=\"autoplay\"") : cap("AUTOPLAY"), finalstring);
-	finalstring = insert_attr_if_checkbox(dg->check[2], main_v->props.xhtml == 1 ? cap("CONTROLS=\"controls\"") : cap("CONTROLS"), finalstring);
-	finalstring = insert_attr_if_checkbox(dg->check[3], main_v->props.xhtml == 1 ? cap("LOOP=\"loop\"") : cap("LOOP"), finalstring);
-	finalstring = insert_attr_if_checkbox(dg->check[4], main_v->props.xhtml == 1 ? cap("MUTE=\"mute\"") : cap("MUTE"), finalstring);
+	finalstring = insert_attr_if_checkbox(dg->check[1], is_xhtml ? cap("AUTOPLAY=\"autoplay\"") : cap("AUTOPLAY"), finalstring);
+	finalstring = insert_attr_if_checkbox(dg->check[2], is_xhtml ? cap("CONTROLS=\"controls\"") : cap("CONTROLS"), finalstring);
+	finalstring = insert_attr_if_checkbox(dg->check[3], is_xhtml ? cap("LOOP=\"loop\"") : cap("LOOP"), finalstring);
+	finalstring = insert_attr_if_checkbox(dg->check[4], is_xhtml ? cap("MUTE=\"mute\"") : cap("MUTE"), finalstring);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("WIDTH"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->spin[2])), cap("HEIGHT"), finalstring, NULL);
 	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[0])), cap("ID"), finalstring, NULL);
@@ -2287,14 +2288,14 @@ static void
 scriptok_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
 	gchar *thestring, *finalstring, *endstring;
-
+	gboolean is_xhtml = get_curlang_option_value(dg->bfwin, lang_is_XHTML);
 	thestring = g_strdup(cap("<SCRIPT"));
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[0]), cap("SRC"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("LANGUAGE"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("TYPE"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("CHARSET"), thestring, NULL);
-	thestring = insert_attr_if_checkbox(dg->check[0], main_v->props.xhtml == 1 ? cap("ASYNC=\"async\"") : cap("ASYNC"), thestring);
-	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("DEFER=\"defer\"") : cap("DEFER"), thestring);
+	thestring = insert_attr_if_checkbox(dg->check[0], is_xhtml ? cap("ASYNC=\"async\"") : cap("ASYNC"), thestring);
+	thestring = insert_attr_if_checkbox(dg->check[1], is_xhtml ? cap("DEFER=\"defer\"") : cap("DEFER"), thestring);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	endstring = cap("</SCRIPT>");

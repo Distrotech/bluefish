@@ -200,7 +200,7 @@ image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag * imdg)
 		thestring =
 			insert_integer_if_spin(imdg->dg->spin[1], cap("HEIGHT"), thestring,
 								   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(imdg->dg->check[1])), 0);
-		if (!main_v->props.xhtml) {
+		if (!get_curlang_option_value(imdg->dg->bfwin, lang_is_XHTML)) {
 			thestring = insert_if_spin(imdg->dg->spin[2], cap("BORDER"), thestring, FALSE);
 		}
 		thestring = insert_if_spin(imdg->dg->spin[3], cap("HSPACE"), thestring, FALSE);
@@ -554,7 +554,7 @@ image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 	g_list_free(popuplist);
 	dialog_mnemonic_label_in_table(_("_Align:"), imdg->dg->combo[0], dgtable, 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->combo[0], 4, 6, 1, 2);
-	if (!main_v->props.xhtml) {
+	if (!get_curlang_option_value(imdg->dg->bfwin, lang_is_XHTML)) {
 		imdg->dg->spin[2] = spinbut_with_value(tagvalues[3], 0, 500, 1.0, 5.0);
 		dialog_mnemonic_label_in_table(_("Borde_r:"), imdg->dg->spin[2], dgtable, 3, 4, 2, 3);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[2], 4, 6, 2, 3);

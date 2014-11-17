@@ -337,8 +337,7 @@ static void
 htmlbar_insert_align_right_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml ==
-						   1 ? cap("<DIV STYLE=\"text-align: right\">") : cap("<DIV ALIGN=\"RIGHT\">"),
+						   get_curlang_option_value(BFWIN(user_data), lang_is_XHTML) ? cap("<DIV STYLE=\"text-align: right\">") : cap("<DIV ALIGN=\"RIGHT\">"),
 						   cap("</DIV>"));
 }
 
@@ -371,8 +370,7 @@ static void
 htmlbar_insert_center_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml ==
-						   1 ? cap("<DIV STYLE=\"text-align: center\">") : cap("<DIV ALIGN=\"CENTER\">"),
+						   get_curlang_option_value(BFWIN(user_data), lang_is_XHTML) ? cap("<DIV STYLE=\"text-align: center\">") : cap("<DIV ALIGN=\"CENTER\">"),
 						   cap("</DIV>"));
 }
 
@@ -443,18 +441,16 @@ static void
 htmlbar_insert_font_minus_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml ==
-						   1 ? cap("<SPAN STYLE=\"font-size: smaller;\">") : cap("<FONT SIZE=\"-1\">")
-						   , main_v->props.xhtml == 1 ? cap("</SPAN>") : cap("</FONT>"));
+						   get_curlang_option_value(BFWIN(user_data), lang_is_XHTML) ? cap("<SPAN STYLE=\"font-size: smaller;\">") : cap("<FONT SIZE=\"-1\">")
+						   , get_curlang_option_value(BFWIN(user_data), lang_is_XHTML) ? cap("</SPAN>") : cap("</FONT>"));
 }
 
 static void
 htmlbar_insert_font_plus_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml ==
-						   1 ? cap("<SPAN STYLE=\"font-size: larger;\">") : cap("<FONT SIZE=\"+1\">")
-						   , main_v->props.xhtml == 1 ? cap("</SPAN>") : cap("</FONT>"));
+						   get_curlang_option_value(BFWIN(user_data), lang_is_XHTML) ? cap("<SPAN STYLE=\"font-size: larger;\">") : cap("<FONT SIZE=\"+1\">")
+						   , get_curlang_option_value(BFWIN(user_data), lang_is_XHTML) ? cap("</SPAN>") : cap("</FONT>"));
 }
 
 static void
@@ -777,9 +773,8 @@ static void
 htmlbar_insert_underline_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   main_v->props.xhtml ==
-						   1 ? cap("<SPAN STYLE=\"text-decoration: underline;\">") : cap("<U>")
-						   , main_v->props.xhtml == 1 ? cap("</SPAN>") : cap("</U>"));
+						   get_curlang_option_value(BFWIN(user_data), lang_is_XHTML) ? cap("<SPAN STYLE=\"text-decoration: underline;\">") : cap("<U>")
+						   , get_curlang_option_value(BFWIN(user_data), lang_is_XHTML) ? cap("</SPAN>") : cap("</U>"));
 }
 
 static void

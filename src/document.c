@@ -2330,7 +2330,15 @@ update_encoding_meta_in_file(Tdocument * doc, gchar * encoding)
 	GMatchInfo *match_info;
 	gchar *type, *xhtmlend, *fulltext, *replacestring=NULL;
 	gint so, eo, cso, ceo;
+	gchar *langname, *userval;
+	gboolean is_xhtml=0;
 	/* first find if there is a meta encoding tag already */
+
+	langname = bluefish_text_view_get_lang_name(BLUEFISH_TEXT_VIEW(doc->view));
+	userval = lookup_user_option(langname, "is_XHTML");
+	if (userval && userval[0] != '\0') {
+		is_xhtml = (userval[0] == '1');
+	}
 
 	fulltext = doc_get_chars(doc, 0, -1);
 	regex = g_regex_new("<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"([^;]*);[ \t\n]*charset=[a-z0-9-]*\"[ \t\n]*(/?)>", G_REGEX_MULTILINE|G_REGEX_CASELESS, 0, NULL);
@@ -2341,7 +2349,7 @@ update_encoding_meta_in_file(Tdocument * doc, gchar * encoding)
 			xhtmlend = g_match_info_fetch(match_info, 2);
 		} else {
 			type = g_strdup("text/html");
-			xhtmlend = g_strdup(main_v->props.xhtml ? "/" : "");
+			xhtmlend = g_strdup(is_xhtml ? "/" : "");
 		}
 		replacestring =
 			g_strconcat("<meta http-equiv=\"content-type\" content=\"", type, "; charset=", encoding,
@@ -2357,7 +2365,7 @@ update_encoding_meta_in_file(Tdocument * doc, gchar * encoding)
 		g_regex_match(regex, fulltext, 0, &match_info);
 		if (g_match_info_matches(match_info)) {
 			replacestring = g_strconcat("<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=", encoding,
-						"\" ", (main_v->props.xhtml? "/>": ">"), NULL);
+						"\" ", (is_xhtml? "/>": ">"), NULL);
 		}
 	}
 	if (replacestring) {

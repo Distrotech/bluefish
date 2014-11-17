@@ -24,14 +24,8 @@ void htmlbar_pref_apply()
 	/*g_print("htmlbar_pref_apply\n");*/
 	integer_apply(&htmlbar_v.in_sidepanel, hbp->in_sidepanel, TRUE);
 	integer_apply(&htmlbar_v.transient_htdialogs, hbp->transient_htdialogs, TRUE);	
-	integer_apply(&main_v->props.xhtml, hbp->xhtml, TRUE);
-	if (main_v->props.xhtml) {
-		htmlbar_v.lowercase_tags = 1;
-		main_v->props.allow_dep = 0;
-	} else {
-		integer_apply(&htmlbar_v.lowercase_tags, hbp->lowercase_tags, TRUE);
-		integer_apply(&main_v->props.allow_dep, hbp->allow_dep, TRUE);
-	}
+	integer_apply(&htmlbar_v.lowercase_tags, hbp->lowercase_tags, TRUE);
+	integer_apply(&main_v->props.allow_dep, hbp->allow_dep, TRUE);
 	integer_apply(&main_v->props.format_by_context, hbp->format_by_context, TRUE);
 
 	integer_apply(&main_v->props.auto_update_meta_author, hbp->auto_update_meta_author, TRUE);
@@ -54,14 +48,6 @@ void htmlbar_pref_apply()
 		DEBUG_MSG("htmlbar_pref_apply, in_sidepanel=%d, no gui to build, the complete sidepanel will be rebuilt by the main preferences apply function\n", htmlbar_v.in_sidepanel);
 	}
 	
-}
-
-static void
-xhtml_toggled_lcb(GtkWidget * widget,  Thtmlbarprefs* hbp)
-{
-	gboolean active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-	gtk_widget_set_sensitive(hbp->lowercase_tags, !active);
-	gtk_widget_set_sensitive(hbp->allow_dep, !active);
 }
 
 void htmlbar_pref_initgui(GtkTreeStore *nstore, GtkTreeIter *pit, GSList **widgetfreelist)
@@ -93,9 +79,6 @@ void htmlbar_pref_initgui(GtkTreeStore *nstore, GtkTreeIter *pit, GSList **widge
 	vbox2 = dialog_vbox_labeled(_("<b>HTML options</b>"), vbox);
 	table = dialog_table_in_vbox_defaults(4, 1, 0, vbox2);
 
-	hbp->xhtml =
-		dialog_check_button_in_table(_("Use _XHTML style tags (<br />)"), main_v->props.xhtml, table, 0, 1, 0,1);
-	g_signal_connect(G_OBJECT(hbp->xhtml), "toggled", G_CALLBACK(xhtml_toggled_lcb), hbp);
 	hbp->lowercase_tags = dialog_check_button_in_table(_("Use lo_wercase HTML tags"),
 															 htmlbar_v.lowercase_tags, table, 0, 1, 1, 2);
 	hbp->allow_dep = dialog_check_button_in_table(_("Use de_precated tags (e.g. <font> and <nobr>)"),
@@ -104,8 +87,6 @@ void htmlbar_pref_initgui(GtkTreeStore *nstore, GtkTreeIter *pit, GSList **widge
 		dialog_check_button_in_table(_
 									 ("_Format according to accessibility guidelines (e.g. <strong> for <b>)"),
 									 main_v->props.format_by_context, table, 0, 1, 3, 4);
-
-	xhtml_toggled_lcb(hbp->xhtml, hbp);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Auto Update Tag Options</b>"), vbox);
 	table = dialog_table_in_vbox_defaults(3, 1, 0, vbox2);

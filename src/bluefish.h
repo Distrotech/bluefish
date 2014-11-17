@@ -335,7 +335,6 @@ typedef struct {
 	/* not yet in use */
 	gint allow_dep;				/* allow <FONT>... */
 	gint format_by_context;		/* use <strong> instead of <b>, <emphasis instead of <i> etc. (W3C reccomendation) */
-	gint xhtml;					/* write <br /> */
 	gint smartindent;			/* add extra indent in certain situations */
 	/* key conversion */
 	gint open_in_running_bluefish;	/* open commandline documents in already running process */

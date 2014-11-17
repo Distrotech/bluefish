@@ -55,7 +55,7 @@ tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[5])));	
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3]))) {
 		thestring = insert_attr_if_checkbox(dg->check[3],
-			main_v->props.xhtml == 1 ? cap("BORDER=\"border\"") : cap("BORDER"), thestring);
+			get_curlang_option_value(dg->bfwin, lang_is_XHTML) ? cap("BORDER=\"border\"") : cap("BORDER"), thestring);
 	} else {	thestring =	insert_if_spin(dg->spin[4], cap("BORDER"), thestring,
 							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2])));
 	}						   
@@ -313,7 +313,7 @@ table_head_and_data_dialogok_lcb(gint type, GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("VALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("BGCOLOR"), thestring, NULL);
 	thestring = insert_attr_if_checkbox(dg->check[1],
-							main_v->props.xhtml == 1 ? cap("NOWRAP=\"nowrap\"") : cap("NOWRAP"), thestring);
+							get_curlang_option_value(dg->bfwin, lang_is_XHTML) ? cap("NOWRAP=\"nowrap\"") : cap("NOWRAP"), thestring);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);

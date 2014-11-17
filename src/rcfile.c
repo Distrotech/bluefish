@@ -478,7 +478,6 @@ props_init_main(GHashTable * config_rc)
 	/* not yet in use */
 	init_prop_integer(&config_rc, &main_v->props.allow_dep, "allow_the_use_of_font:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.format_by_context, "format_by_context:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.xhtml, "use_xhtml:", 1, TRUE);
 /*	init_prop_integer(&config_rc, &main_v->props.insert_close_tag, "insert_close_tag:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.close_tag_newline, "close_tag_newline:", 1, TRUE);*/
 	init_prop_integer(&config_rc, &main_v->props.smartindent, "smartindent:", 1, TRUE);

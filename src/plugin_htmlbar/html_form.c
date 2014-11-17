@@ -58,7 +58,7 @@ php_var_insert_cb(GtkWidget * widget, Thtml_diag * dg)
 		case PHPFORM_TYPE_RADIO:
 			tmp3 = gtk_editable_get_chars(GTK_EDITABLE(dg->php_var_ins.val), 0, -1);
 			if (strlen(tmp3)) {
-				if (main_v->props.xhtml == 1) {
+				if (get_curlang_option_value(dg->bfwin, lang_is_XHTML)) {
 					tmp2 =
 						g_strdup_printf
 						("<?php if ($_POST['%s']==\"%s\") { echo 'checked=\\\"checked\\\"'; } ?>", tmp, tmp3);
@@ -70,7 +70,7 @@ php_var_insert_cb(GtkWidget * widget, Thtml_diag * dg)
 			}
 			break;
 		case PHPFORM_TYPE_CHECK:
-			if (main_v->props.xhtml == 1) {
+			if (get_curlang_option_value(dg->bfwin, lang_is_XHTML)) {
 				tmp2 =
 					g_strdup_printf("<?php if (isset($_POST['%s'])) { echo 'checked=\\\"checked\\\"'; } ?>",
 									tmp);
@@ -282,7 +282,7 @@ selectdialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("SIZE"), thestring, NULL);
 	thestring =
 		insert_attr_if_checkbox(dg->check[1],
-								main_v->props.xhtml == 1 ? cap("MULTIPLE=\"multiple\"") : cap("MULTIPLE"),
+								get_curlang_option_value(dg->bfwin, lang_is_XHTML) ? cap("MULTIPLE=\"multiple\"") : cap("MULTIPLE"),
 								thestring);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[2])), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
@@ -343,7 +343,7 @@ optiondialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[2])), cap("LABEL"), thestring, NULL);
 	thestring =
 		insert_attr_if_checkbox(dg->check[1],
-								main_v->props.xhtml == 1 ? cap("SELECTED=\"selected\"") : cap("SELECTED"),
+								get_curlang_option_value(dg->bfwin, lang_is_XHTML) ? cap("SELECTED=\"selected\"") : cap("SELECTED"),
 								thestring);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
@@ -441,7 +441,7 @@ inputdialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	if (strcmp(text, "radio") == 0 || strcmp(text, "checkbox") == 0) {
 		thestring =
 			insert_attr_if_checkbox(dg->check[0],
-									main_v->props.xhtml == 1 ? cap("CHECKED=\"checked\"") : cap("CHECKED"),
+									get_curlang_option_value(dg->bfwin, lang_is_XHTML) ? cap("CHECKED=\"checked\"") : cap("CHECKED"),
 									thestring);
 	}
 	if (strcmp(text, "hidden") != 0) {
