@@ -472,7 +472,11 @@ process_regex_part(Tscantable * st, gchar * regexpart, gint16 context, gboolean 
 				}
 				/* BUG: the following code misses a lot of cases where the next state could be a possible
 				   end-state already. For example <%[=@]? does not work */
+				/* this code used to be
 				if (regexpart_ends_regex && regexpart[i] != '\0' && regexpart[i + 1] == '\0') {
+				but that was limiting for certain situations
+				*/
+				if (regexpart_ends_regex) {
 					gboolean only_symbols = TRUE;
 					/* check if the last character of the regex is a symbol, if so the last state should not
 					   refer to the identstate for all non-symbols */
