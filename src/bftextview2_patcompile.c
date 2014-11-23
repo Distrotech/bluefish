@@ -503,11 +503,14 @@ process_regex_part(Tscantable * st, gchar * regexpart, gint16 context, gboolean 
 					DBG_PATCOMPILE("character %c was escaped, adding to characters\n", regexpart[i]);
 					characters[(int) regexpart[i]] = 1;
 				}
-				/* handle case */
+				/* handle case insensitiveness */
 				if (caseinsensitive) {
 					gint j;
 					for (j = 'a'; j <= 'z'; j++) {
-						characters[j - 32] = characters[j];
+						if (characters[j] == 1)
+							characters[j - 32] = 1;
+						if (characters[j - 32] == 1)
+							characters[j] = 1;
 					}
 				}
 				/* BUG: the following code misses a lot of cases where the next state could be a possible
@@ -613,8 +616,8 @@ compile_limitedregex_to_DFA(Tscantable * st, gchar * input, gboolean caseinsensi
 	g_free(lregex);
 
 #ifdef ENABLE_PRINT_DFA
-	if (context == 3) {
-		print_DFA_subset(st, context, "#a \n\r");
+	if (context == 1) {
+		print_DFA_subset(st, context, "a=1; \n\t");
 	}
 #endif
 }
@@ -836,7 +839,7 @@ match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * autocom
 	}
 
 #ifdef DEVELOPMENT
-	GSList *slist;	
+	GSList *slist;
 	slist=g_array_index(st->matches, Tpattern, matchnum).autocomp_items;
 	while (slist) {
 		Tpattern_autocomplete *tpac = slist->data;
