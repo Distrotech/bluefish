@@ -65,7 +65,6 @@
 	<element pattern="and" />
 	<element pattern="and_then" />
 	<element pattern="break" />
-	<element pattern="case" />
 	<element pattern="cdecl" />
 	<element pattern="Const" />
 	<element pattern="continue" />
@@ -100,7 +99,6 @@
 	<element pattern="shr" />
 	<element pattern="then" />
 	<element pattern="to" />
-	<element pattern="try" />
 	<element pattern="Unit" />
 	<element pattern="until" />
 	<element pattern="Uses" />
@@ -200,10 +198,12 @@
 	<autocomplete enable="1" />
 </element>
 
-<element id="e.begin" pattern="Begin" case_insens="1" starts_block="1" highlight="keyword" block_name="begin-end block" >
-<autocomplete enable="1" />
+<element id="e.begin" pattern="(begin|case|try)" is_regex="1" case_insens="1" starts_block="1" highlight="keyword" block_name="begin-end block" >
+<autocomplete string="begin" />
+<autocomplete string="case" />
+<autocomplete string="try" />
 </element>
-<element pattern="End" case_insens="1" highlight="keyword" ends_block="1" blockstartelement="e.begin"  >
+<element pattern="end" case_insens="1" highlight="keyword" ends_block="1" blockstartelement="e.begin"  >
 <autocomplete enable="1" />
 </element>
 
