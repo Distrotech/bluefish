@@ -2,7 +2,7 @@
 <!--
 		Bluefish HTML Editor
 		pascal.bflang2 $Revision: $
- 
+
 		Copyright (C) 2010 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
@@ -16,10 +16,10 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<bflang name="Pascal" version="2.0" matches="151" contexts="5" table="566">
+<bflang name="Pascal and Delpi" version="2.0" matches="151" contexts="5" table="566">
 <header>
 	<mime type="text/x-pascal"/>
 	<option name="show_in_menu" default="0"/>
@@ -36,12 +36,12 @@
 	<comment type="block" start="(*" end="*)" />
 </properties>
 <definition>
-	<context symbols=". ;(){}[]:\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;"> 
+	<context symbols=". ;(){}[]:\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
 <group highlight="function"  case_insens="1">
 	<autocomplete enable="1" />
 	<element pattern="abs" />
-	<element pattern="arctan" />	
+	<element pattern="arctan" />
 	<element pattern="chr" />
 	<element pattern="cos" />
 	<element pattern="eof" />
@@ -58,13 +58,12 @@
 	<element pattern="sqrt" />
 	<element pattern="succ" />
 	<element pattern="trunc" />
-</group>	
-	
+</group>
+
 <group highlight="keyword"  case_insens="1">
 	<autocomplete enable="1" />
 	<element pattern="and" />
 	<element pattern="and_then" />
-	<element pattern="Begin" />
 	<element pattern="break" />
 	<element pattern="case" />
 	<element pattern="cdecl" />
@@ -74,7 +73,6 @@
 	<element pattern="do" />
 	<element pattern="downto" />
 	<element pattern="else" />
-	<element pattern="End" />
 	<element pattern="except" />
 	<element pattern="Finalization" />
 	<element pattern="finally" />
@@ -108,7 +106,7 @@
 	<element pattern="Uses" />
 	<element pattern="Var" />
 	<element pattern="while" />
-	<element pattern="xor" />	
+	<element pattern="xor" />
 </group>
 
 <group highlight="OO-keyword"  case_insens="1">
@@ -165,7 +163,7 @@
 </group>
 
 <group highlight="type"  case_insens="1">
-	<autocomplete enable="1" /> 
+	<autocomplete enable="1" />
 	<element pattern="Boolean" />
 	<element pattern="Byte" />
 	<element pattern="ByteBool" />
@@ -202,9 +200,16 @@
 	<autocomplete enable="1" />
 </element>
 
+<element id="e.begin" pattern="Begin" case_insens="1" starts_block="1" highlight="keyword" block_name="begin-end block" >
+<autocomplete enable="1" />
+</element>
+<element pattern="End" case_insens="1" highlight="keyword" ends_block="1" blockstartelement="e.begin"  >
+<autocomplete enable="1" />
+</element>
+
 <element pattern="'" highlight="string">
 	<context symbols="\'" highlight="string" >
-		<element pattern="\\." is_regex="1" highlight="string" />
+		<!--<element pattern="\\." is_regex="1" highlight="string" />-->
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
@@ -224,6 +229,11 @@
 <element pattern="//[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
 
 <element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+
+<element id="e.lparen" pattern="(" starts_block="1" highlight="brackets" block_name="Parentheses block" />
+<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+<element id="e.lbracket" pattern="[" starts_block="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
 
 </context>
 </definition>
