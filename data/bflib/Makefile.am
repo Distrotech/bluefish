@@ -29,4 +29,4 @@ bflib_DATA = $(EXTRA_DIST:.xml=.xml.gz)
 SUFFIXES = .xml.gz .xml
 
 .xml.xml.gz:
-	gzip $< -c > $@
+	gzip -n $< -c > $@
