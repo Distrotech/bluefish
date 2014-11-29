@@ -20,7 +20,7 @@
 #ifndef __RPOPUP_H_
 #define __RPOPUP_H_
 
-gboolean rpopup_bevent_in_html_code(Tdocument *doc);
+void rpopup_bevent_in_html_code(Tdocument *doc);
 gboolean rpopup_doc_located_tag(Tdocument *doc);
 gboolean rpopup_doc_located_color(Tdocument *doc);
 void rpopup_edit_tag_cb(GtkMenuItem *menuitem,Tdocument *doc);
