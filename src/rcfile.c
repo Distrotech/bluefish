@@ -845,6 +845,12 @@ GList *update_commands(GList *current, gboolean overwrite)
 					  array_from_arglist(_("Firefox"), "open -a Firefox '%p'", "1", NULL));
 	defaults =
 		g_list_prepend(defaults,
+					  array_from_arglist(_("Google Chrome"), "open -a \"Google Chrome\" '%p'", "0", NULL));
+	defaults =
+		g_list_prepend(defaults,
+					  array_from_arglist(_("Chromium"), "open -a Chromium '%p'", "0", NULL));
+	defaults =
+		g_list_prepend(defaults,
 					  array_from_arglist(_("Opera"), "open -a Opera '%p'", "0", NULL));
 	defaults =
 		g_list_prepend(defaults,
@@ -860,7 +866,7 @@ GList *update_commands(GList *current, gboolean overwrite)
 										 NULL));
 	defaults =
 		g_list_prepend(defaults,
-					  array_from_arglist(_("Chromium"), "chromium-browser '%p'&", "0", NULL));
+					  array_from_arglist(_("Chromium"), "chromium '%p' || chromium-browser '%p' &", "0", NULL));
 	defaults =
 		g_list_prepend(defaults,
 					  array_from_arglist(_("Konqueror"), "konqueror '%p'&", "0", NULL));
