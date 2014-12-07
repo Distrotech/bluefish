@@ -368,50 +368,83 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 		<reference>Defines a variable part of a text</reference>
 	</tag>-->
 	<tag name="section"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference></reference>
+		<reference>Defines a section in the document</reference>
+	</tag>
+	<tag name="summary"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines a visible heading for a &lt;details&gt; element</reference>
 	</tag>
 	<tag name="nav"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference></reference>
+		<reference>Defines navigation links in the document</reference>
 	</tag>
 	<tag name="article"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference></reference>
+		<reference>Defines an article in the document</reference>
 	</tag>
 	<tag name="aside"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference></reference>
+		<reference>Defines content aside from the page content</reference>
+	</tag>
+	<tag name="bdi"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines a part of text that might be formatted in a different direction from other text</reference>
+	</tag>
+	<tag name="details"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines additional details that the user can view or hide</reference>
+	</tag>
+	<tag name="dialog"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines a dialog box or window</reference>
+	</tag>
+	<tag name="main"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines the main content of a document</reference>
+	</tag>
+	<tag name="menuitem"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines a command/menu item that the user can invoke from a popup menu</reference>
+	</tag>
+	<tag name="meter"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines a scalar measurement within a known range (a gauge)</reference>
 	</tag>
 	<tag name="hgroup"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference></reference>
 	</tag>
 	<tag name="header"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference></reference>
+		<reference>Defines a header for the document or a section</reference>
 	</tag>
 	<tag name="footer"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference></reference>
+		<reference>Defines a footer for the document or a section</reference>
 	</tag>
 	<tag name="figcaption"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference></reference>
+		<reference>Defines a caption for a &lt;figure&gt; element</reference>
 	</tag>
 	<tag name="figure"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference></reference>
+		<reference>Defines self-contained content, like illustrations, diagrams, photos, code listings, etc.</reference>
 	</tag>
 	<tag name="mark"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference></reference>
+		<reference>Defines marked or highlighted text</reference>
 	</tag>
 	<tag name="ruby"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference></reference>
+		<reference>Defines a ruby annotation (for East Asian typography)</reference>
 	</tag>
 	<tag name="rp"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference></reference>
+		<reference>Defines what to show in browsers that do not support ruby annotations</reference>
 	</tag>
 	<tag name="rt"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference></reference>
+		<reference>Defines an explanation/pronunciation of characters (for East Asian typography)</reference>
 	</tag>	
 	<tag name="time"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,datetime">
-		<reference></reference>
+		<reference>Defines a date/time</reference>
 	</tag>
 	<tag name="video"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,width,height,src,poster,autoplay,controls,loop,mute,preload">
 		<reference></reference>
-	</tag>	
+	</tag>
+	<tag name="wbr"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines a possible line-break</reference>
+	</tag>
+	<tag name="datalist"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines pre-defined options for input controls (a form element)</reference>
+	</tag>
+	<tag name="keygen"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines a key-pair generator field (for forms)</reference>
+	</tag>
+	<tag name="output"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines the result of a calculation</reference>
+	</tag>
 	<tag name="audio"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,autoplay,controls,loop,mute,preload,src">
 		<reference></reference>
 	</tag>
@@ -425,7 +458,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 		<reference></reference>
 	</tag>	
 	<tag name="progress"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,value,max">
-		<reference>Progress bar
+		<reference>Defines the progress of a task
 <b>Categories:</b>flow; phrasing; labelable
 <b>Parents:</b>phrasing
 <b>Children:</b>phrasing*
