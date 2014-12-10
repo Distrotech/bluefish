@@ -512,14 +512,14 @@ doc_set_tooltip(Tdocument * doc)
 	gchar *sizestr = NULL;
 
 	retstr = g_string_new(_("Name: "));
-	
+
 #ifdef PLATFORM_DARWIN
-/* For specific UI configuration (narrow filebrowser window, document tabs on top, html toolbar hidden, 
+/* For specific UI configuration (narrow filebrowser window, document tabs on top, html toolbar hidden,
 *  very long file path >60 symbols) tooltips are not shown for several document tabs on the left, most likely
-*  due some bug in gtk+3.6.4 that determines position and size of the tooltip. Below we split file path to two segments that 
+*  due some bug in gtk+3.6.4 that determines position and size of the tooltip. Below we split file path to two segments that
 *  results in smaller tooltip window. This hack does not solve issue completely, but reduces probabability of its oscurrence.
 *  There is high probability that this issue affects MacOSX builds only */
-	
+
 	gchar *seg1, *seg2;
 	const gchar *tmptext;
 	tmptext = gtk_label_get_text(GTK_LABEL(doc->tab_menu));
@@ -1905,7 +1905,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 	}
 	return NULL;
 }
-	
+
 gchar *
 buffer_use_fallback_encoding(gchar * buffer, gsize buflen, gsize *replaced)
 {
@@ -1913,7 +1913,7 @@ buffer_use_fallback_encoding(gchar * buffer, gsize buflen, gsize *replaced)
 	gchar *fallback_string, *newbuf;
 	gsize repl;
 	gsize wsize, rsize;
-	
+
 	fallback_string = buffer_convert_fallback(buffer, NULL, buflen, &repl);
 	DEBUG_MSG("buffer_use_fallback_encoding, executed fallback converter, lenght og new string=%zd , replacements=%lu\n", strlen(fallback_string), repl);
 	newbuf = g_convert(fallback_string, buflen, "UTF-8", "WINDOWS-1252", &rsize, &wsize, NULL);
@@ -2047,7 +2047,7 @@ doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean en
 		if(response == 0) {
 			return FALSE;
 		}
-		replaced = 0;	
+		replaced = 0;
 		newbuf = buffer_use_fallback_encoding(buffer, buflen, &replaced);
 		encoding = g_strdup("WINDOWS-1252");
 		if (replaced !=0) {
@@ -2057,7 +2057,7 @@ doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean en
 			message_dialog_new(BFWIN(doc->bfwin)->main_window,
 						   GTK_MESSAGE_WARNING,
 						   GTK_BUTTONS_OK, tmpstr, _("Use 'Save As' to save it with different name and make editable"));
-		
+
 			doc_set_readonly(doc, TRUE);
 			g_free(tmpstr);
 		}
@@ -2386,7 +2386,7 @@ returns a buffer in the encoding stored in doc->encoding, or NULL if that fails
 and the user aborted conversion to UTF-8
 */
 gchar *
-doc_get_buffer_in_encoding(Tdocument * doc)
+doc_get_buffer_in_encoding(Tdocument * doc, gsize *newbuflen)
 {
 	GtkTextIter itstart, itend;
 	gchar *buffer;
@@ -2396,11 +2396,17 @@ doc_get_buffer_in_encoding(Tdocument * doc)
 
 	if (doc->encoding) {
 		gchar *newbuf;
+		GError *gerror=NULL;
 		gsize bytes_written = 0, bytes_read = 0;
 		DEBUG_MSG("doc_get_buffer_in_encoding, converting from UTF-8 to %s\n", doc->encoding);
-		newbuf = g_convert(buffer, -1, doc->encoding, "UTF-8", &bytes_read, &bytes_written, NULL);
+		newbuf = g_convert(buffer, -1, doc->encoding, "UTF-8", &bytes_read, &bytes_written, &gerror);
+		if (gerror) {
+			g_print("doc_get_buffer_in_encoding in encoding %s, got error %d: %s\n",doc->encoding,gerror->code,gerror->message);
+			g_error_free(gerror);
+		}
 		if (newbuf) {
 			g_free(buffer);
+			*newbuflen = bytes_written;
 			buffer = newbuf;
 		} else {
 			const gchar *buttons[] = { _("_Abort save"), _("_Continue save in UTF-8"), NULL };
@@ -2434,6 +2440,8 @@ doc_get_buffer_in_encoding(Tdocument * doc)
 				buffer = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend, TRUE);
 			}
 		}
+	} else {
+		newbuflen = strlen(buffer);
 	}
 	return buffer;
 }

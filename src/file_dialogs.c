@@ -674,6 +674,7 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 {
 	gchar *tmp;
 	Trefcpointer *buffer;
+	gsize numbytes=0;
 	Tdocsavebackend *dsb;
 	GFile *dest_uri=NULL;
 	GFileInfo *dest_finfo=NULL;
@@ -812,7 +813,7 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 
 	session_set_savedir(doc->bfwin, dest_uri);
 
-	tmp = doc_get_buffer_in_encoding(doc);
+	tmp = doc_get_buffer_in_encoding(doc, &numbytes);
 	if (!tmp) {
 		g_free(dsb);
 		return;
@@ -824,14 +825,14 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), FALSE);
 	DEBUG_MSG("doc_save_backend, calling file_checkNsave_uri_async with uri %p for %zd bytes\n", dest_uri, strlen(buffer->data));
 	doc->save =
-		file_checkNsave_uri_async(dest_uri, dest_finfo, buffer, strlen(buffer->data), savemode == docsave_normal,
+		file_checkNsave_uri_async(dest_uri, dest_finfo, buffer, numbytes, savemode == docsave_normal,
 								  main_v->props.backup_file, doc_checkNsave_lcb, dsb);
 
 	if (firstsave || savemode == docsave_saveas || savemode == docsave_move) {
 		if(doc->readonly) {
 			doc_set_readonly(doc, FALSE);
 		}
-		doc_reset_filetype(doc, doc->uri, buffer->data, strlen(buffer->data));
+		doc_reset_filetype(doc, doc->uri, buffer->data, numbytes);
 		doc_set_title(doc, NULL);
 		doc_force_activate(doc);
 	}
@@ -1394,7 +1395,7 @@ sync_dialog(Tbfwin * bfwin)
 	gtk_progress_bar_set_ellipsize(GTK_PROGRESS_BAR(sd->progress), PANGO_ELLIPSIZE_MIDDLE);
 	#if GTK_CHECK_VERSION(3, 0, 0)
 	gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR(sd->progress), TRUE);
-	#endif	
+	#endif
 	gtk_box_pack_start(GTK_BOX(carea), sd->progress, FALSE, FALSE, 4);
 
 	if (bfwin->session->sync_local_uri && bfwin->session->sync_local_uri[0] != '\0') {
