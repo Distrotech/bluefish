@@ -288,10 +288,9 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 						if (get_table(st,context)->len+1 >= G_MAXUINT16) {
 							g_print("Critical error in language file: state table overflow!!!!!!!!\n");
 						}
-						if (!end_is_symbol) {
+						if (!character_is_symbol(st, context, c)) {
 							/* normally this memcpy copies the identstate to the current state such that all symbols still point to the
-							   startstate but all non-symbols point to the identstate. Only if the last character ITSELF is a symbol, ALL next
-							   characters may point to state 0 and make this a valid match and we don't have to copy the identstate  */
+							   startstate but all non-symbols point to the identstate */
 							DBG_PATCOMPILE
 								("create_state_tables, newstate %d does not end on a symbol, init all values equal to the identstate %d\n",
 								 newstate, 1);
@@ -470,28 +469,7 @@ process_regex_part(Tscantable * st, gchar * regexpart, gint16 context, gboolean 
 							characters[j] = 1;
 					}
 				}
-				/* BUG: the following code misses a lot of cases where the next state could be a possible
-				   end-state already. For example <%[=@]? does not work */
-				/* this code used to be
-				if (regexpart_ends_regex && regexpart[i] != '\0' && regexpart[i + 1] == '\0') {
-				but that was limiting for certain situations
-				*/
-				if (regexpart_ends_regex) {
-					gboolean only_symbols = TRUE;
-					/* check if the last character of the regex is a symbol, if so the last state should not
-					   refer to the identstate for all non-symbols */
-					gint j;
-					for (j = 0; j < NUMSCANCHARS; j++) {
-						if (characters[j] == 1
-							&& !character_is_symbol(st, context, j)) {
-							only_symbols = FALSE;
-							break;
-						}
-					}
-					if (only_symbols) {
-						end_is_symbol = TRUE;
-					}
-				}
+				/* TODO end_is_symbol no longer used in create_state_tables() , so it can be removed*/
 				DBG_PATCOMPILE("i=%d, testing i+1  (%c) for operator\n", i, regexpart[i + 1]);
 				/*print_characters(characters); */
 				/* see if there is an operator */
