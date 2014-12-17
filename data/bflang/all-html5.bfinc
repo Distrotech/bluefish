@@ -120,7 +120,7 @@ css-rules are defined in the inner context for <style>  -->
 				<element pattern="&lt;/script&gt;" highlight="html-tag" case_insens="1" ends_context="3" ends_block="1" blockstartelement="t.html.script"/>
 			</context>
 		</element>
-		<element idref="e.html.lcomment"/>
+		<!--<element idref="e.html.lcomment"/>-->
 	</context>
 <reference>Embedded script
 <b>Categories:</b> metadata, flow, phrasing

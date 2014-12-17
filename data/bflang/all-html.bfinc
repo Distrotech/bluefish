@@ -182,7 +182,7 @@ css-rules are defined in the inner context for <style>  -->
 				<element id="end-script-js-blockcomment" pattern="&lt;/script&gt;" highlight="html-tag" case_insens="1" ends_context="2" ends_block="1" blockstartelement="t.html.script"/>
 			</context>
 		</element>
-		<element idref="e.html.lcomment"/>
+		<!--<element idref="e.html.lcomment"/>-->
 	</context>
 </tag>
 
