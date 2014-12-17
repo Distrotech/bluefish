@@ -137,6 +137,7 @@ ldb_stack_string(gpointer ldb)
 {
 	GList *tmplist = g_list_last(((Tlangdebug *)ldb)->stack);
 	GString *str;
+	/*g_print("ldb_stack_string, called for ldb %p, have %d entries on stack\n",ldb, g_list_length(((Tlangdebug *)ldb)->stack));*/
 	if (!tmplist)
 		return g_strdup("");
 	str = g_string_new(tmplist->data);
@@ -918,7 +919,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 				} else if (condition_mode ==3 || condition_mode == 4) {
 					refname = condition_idref;
 				}
-				g_print("condition_mode=%d, call pattern_set_condition, refname %s, contextref=%s\n",condition_mode,refname,condition_contextref);
+				DBG_PARSING("condition_mode=%d, call pattern_set_condition, refname %s, contextref=%s\n",condition_mode,refname,condition_contextref);
 				pattern_set_condition(bfparser->st, matchnum, refname, condition_relation, condition_mode);
 			}
 
@@ -1586,6 +1587,7 @@ static void
 bftextview2_match_conditions(Tbflangparsing * bfparser) {
 	gint i;
 	GHashTable *ht;
+	const gchar *relationtypestring;
 	DBG_MSG("bftextview2_match_conditions, have %d conditions\n",bfparser->st->conditions->len);
 	for (i = 1; i < bfparser->st->conditions->len; i++) {
 		DBG_PARSING("bftextview2_match_conditions,running condition %d with refname %s\n",i,g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname);
@@ -1595,14 +1597,21 @@ bftextview2_match_conditions(Tbflangparsing * bfparser) {
 		}
 		if (g_array_index(bfparser->st->conditions, Tpattern_condition, i).relationtype == 1 || g_array_index(bfparser->st->conditions, Tpattern_condition, i).relationtype == 2) {
 			 ht = bfparser->contexts;
+			 relationtypestring = "context";
 		} else {
 			 ht = bfparser->patterns;
+			 relationtypestring = "element";
 		}
 		g_array_index(bfparser->st->conditions, Tpattern_condition, i).ref = GPOINTER_TO_INT(g_hash_table_lookup(ht, g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname));
 		if (g_array_index(bfparser->st->conditions, Tpattern_condition, i).ref==0) {
-			gchar *dbstring = ldb_stack_string(&bfparser->ldb);
-			g_print("Error in language file %s: condition reference %s does not exist\n",dbstring, g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname);
-			g_free(dbstring);
+			gint j;
+			/* find out which pattern has this condition to easy debugging of the language file */
+			for (j = 1; j < bfparser->st->matches->len; j++) {
+				if (g_array_index(bfparser->st->matches, Tpattern, j).condition == i) {
+					g_print("Error in language file %s: condition reference to %s %s for pattern %d (%s) does not exist\n",bfparser->bflang->name,relationtypestring,g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname, 
+						j, g_array_index(bfparser->st->matches, Tpattern, j).pattern);
+				}
+			}
 		}
 		DBG_MSG("bftextview2_match_conditions, set ref %d for %s\n",g_array_index(bfparser->st->conditions, Tpattern_condition, i).ref, g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname);
 	}
