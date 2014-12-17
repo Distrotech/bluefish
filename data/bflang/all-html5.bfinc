@@ -26,6 +26,108 @@
 	</context>
 </element>
 
+<tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="media,type,&globals;" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1">
+	<autocomplete append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" backup_cursor="9" />
+	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:" commentid_block="cm.cblockcomment" commentid_line="none" default_spellcheck="0">
+		<element idref="e.html.lcomment"/>
+		<element id="e.html.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
+			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
+				<element pattern="*/" ends_block="1" blockstartelement="e.html.css.lcomment" highlight="css-comment" ends_context="1" />
+			</context>
+		</element>
+		&css-selectors;
+			<group highlight="css-html-media">
+				<element pattern="@media">
+				<context symbols=" &#9;&#10;&#13;{}.;,">
+					<group highlight="css-html-media" >
+						<autocomplete enable="1" />
+						<element pattern="all" />
+						<element pattern="aural" />
+						<element pattern="braille" />
+						<element pattern="embossed" />
+						<element pattern="handheld" />
+						<element pattern="print" />
+						<element pattern="projection" />
+						<element pattern="screen" />
+						<element pattern="tty" />
+						<element pattern="tv" />
+						<element id="e.css.media.group.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
+							<context idref="c.html.css.main" />
+						</element>
+					</group>
+				</context>
+				</element>
+				<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.group.lbrace" ends_context="2" />
+			</group>
+		<element id="e.css.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
+			<context symbols=" &#9;&#10;&#13;{}.:&quot;';/*">
+				<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
+					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
+						<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
+					</context>
+				</element>
+				&css-rules;
+				<element pattern="&lt;/style&gt;" highlight="html-tag" ends_context="3" />
+				<element pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="1" />
+			</context>
+		</element>
+	</context>
+<reference>Embedded styling information
+<b>Categories:</b> metadata, flow
+<b>Parents:</b> head, noscript*, flow*
+<b>Children:</b> varies*
+<b>Interface:</b> HTMLStyleElement</reference>
+</tag>
+
+<!-- the following context can only be defined *after* the <style> tag, because
+certain elements that are referred to in
+css-rules are defined in the inner context for <style>  -->
+<context id="c.html.attrib.style" symbols=" ;:'&quot;">
+	<element pattern="'" highlight="string">
+		<context id="c.html.attrib.style.inner" symbols=" ;:'&quot;">
+			<element pattern="'" ends_context="2"  highlight="string"/>
+			<element pattern="&quot;" ends_context="2"  highlight="string"/>
+			&css-rules;
+		</context>
+	</element>
+	<element pattern="&quot;"  highlight="string">
+		<context idref="c.html.attrib.style.inner"/>
+	</element>
+</context>
+
+<tag name="script" id="t.html.script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="src,async,defer,type,charset,&globals;" attribhighlight="html-attribute"  attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" >
+	<autocomplete append=" type=&quot;text/javascript&quot;&gt;&#10;&#10;&lt;/script&gt;" backup_cursor="10" />
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="cm.cpplinecomment"  commentid_block="none" default_spellcheck="0">
+		<element pattern="(" id="e.html.js.lparen" starts_block="1" highlight="js-brackets" block_name="Javascript Parentheses block" />
+		<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lparen" />
+		<element pattern="{" id="e.html.js.lbrace" starts_block="1" highlight="js-brackets" block_name="Javascript Curly brackets block" />
+		<element pattern="}" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbrace" />
+		<element pattern="[" id="e.html.js.lbracket" starts_block="1" highlight="js-brackets" block_name="Javascript Square brackets block" />
+		<element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbracket" />
+		&all-javascript;
+		<group class="JQuery">
+			&JQuery;
+		</group>
+		<element pattern="//" highlight="js-comment">
+			<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
+				<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="js-comment" ends_context="1" />
+				<element pattern="&lt;/script&gt;" highlight="html-tag" ends_context="3" case_insens="1" ends_block="1" blockstartelement="t.html.script"/>
+			</context>
+		</element>
+		<element id="e.html.js.blockcomment" pattern="/*" starts_block="1" highlight="js-comment" block_name="Javascript block comment">
+			<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
+				<element pattern="*/" ends_block="1" blockstartelement="e.html.js.blockcomment" highlight="js-comment" mayfold="1" ends_context="1" />
+				<element pattern="&lt;/script&gt;" highlight="html-tag" case_insens="1" ends_context="3" ends_block="1" blockstartelement="t.html.script"/>
+			</context>
+		</element>
+		<element idref="e.html.lcomment"/>
+	</context>
+<reference>Embedded script
+<b>Categories:</b> metadata, flow, phrasing
+<b>Parents:</b> head, phrasing
+<b>Children:</b> script, data, or script documentation*
+<b>Interface:</b> HTMLScriptElement</reference></tag>
+
 
 <tag name="a" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="href,target,rel,media,hreflang,type,&globals;">
 <reference>Hyperlink
@@ -526,39 +628,6 @@ Disclosure control for hiding details
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-
-<tag name="script" id="t.html.script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="src,async,defer,type,charset,&globals;" attribhighlight="html-attribute"  attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" >
-	<autocomplete append=" type=&quot;text/javascript&quot;&gt;&#10;&#10;&lt;/script&gt;" backup_cursor="10" />
-	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="cm.cpplinecomment"  commentid_block="none" default_spellcheck="0">
-		<element pattern="(" id="e.html.js.lparen" starts_block="1" highlight="js-brackets" block_name="Javascript Parentheses block" />
-		<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lparen" />
-		<element pattern="{" id="e.html.js.lbrace" starts_block="1" highlight="js-brackets" block_name="Javascript Curly brackets block" />
-		<element pattern="}" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbrace" />
-		<element pattern="[" id="e.html.js.lbracket" starts_block="1" highlight="js-brackets" block_name="Javascript Square brackets block" />
-		<element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbracket" />
-		&all-javascript;
-		<group class="JQuery">
-			&JQuery;
-		</group>
-		<element pattern="//" highlight="js-comment">
-			<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
-				<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="js-comment" ends_context="1" />
-				<element pattern="&lt;/script&gt;" highlight="html-tag" ends_context="3" case_insens="1" ends_block="1" blockstartelement="t.html.script"/>
-			</context>
-		</element>
-		<element id="e.html.js.blockcomment" pattern="/*" starts_block="1" highlight="js-comment" block_name="Javascript block comment">
-			<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
-				<element pattern="*/" ends_block="1" blockstartelement="e.html.js.blockcomment" highlight="js-comment" mayfold="1" ends_context="1" />
-				<element pattern="&lt;/script&gt;" highlight="html-tag" case_insens="1" ends_context="3" ends_block="1" blockstartelement="t.html.script"/>
-			</context>
-		</element>
-		<element idref="e.html.lcomment"/>
-	</context>
-<reference>Embedded script
-<b>Categories:</b> metadata, flow, phrasing
-<b>Parents:</b> head, phrasing
-<b>Children:</b> script, data, or script documentation*
-<b>Interface:</b> HTMLScriptElement</reference></tag>
 <tag name="section" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Generic document or application section
 <b>Categories:</b>flow; sectioning
@@ -596,58 +665,6 @@ Disclosure control for hiding details
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 
-<tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="media,type,&globals;" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1">
-	<autocomplete append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" backup_cursor="9" />
-	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:" commentid_block="cm.cblockcomment" commentid_line="none" default_spellcheck="0">
-		<element idref="e.html.lcomment"/>
-		<element id="e.html.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
-			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
-				<element pattern="*/" ends_block="1" blockstartelement="e.html.css.lcomment" highlight="css-comment" ends_context="1" />
-			</context>
-		</element>
-		&css-selectors;
-			<group highlight="css-html-media">
-				<element pattern="@media">
-				<context symbols=" &#9;&#10;&#13;{}.;,">
-					<group highlight="css-html-media" >
-						<autocomplete enable="1" />
-						<element pattern="all" />
-						<element pattern="aural" />
-						<element pattern="braille" />
-						<element pattern="embossed" />
-						<element pattern="handheld" />
-						<element pattern="print" />
-						<element pattern="projection" />
-						<element pattern="screen" />
-						<element pattern="tty" />
-						<element pattern="tv" />
-						<element id="e.css.media.group.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
-							<context idref="c.html.css.main" />
-						</element>
-					</group>
-				</context>
-				</element>
-				<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.group.lbrace" ends_context="2" />
-			</group>
-		<element id="e.css.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
-			<context symbols=" &#9;&#10;&#13;{}.:&quot;';/*">
-				<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
-					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
-						<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
-					</context>
-				</element>
-				&css-rules;
-				<element pattern="&lt;/style&gt;" highlight="html-tag" ends_context="3" />
-				<element pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="1" />
-			</context>
-		</element>
-	</context>
-<reference>Embedded styling information
-<b>Categories:</b> metadata, flow
-<b>Parents:</b> head, noscript*, flow*
-<b>Children:</b> varies*
-<b>Interface:</b> HTMLStyleElement</reference>
-</tag>
 <tag name="sub" highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&#34;&#34;" attrib_autocomplete_backup_cursor="1" attributes="&globals;">
 <reference>Subscript
 <b>Categories:</b> flow, phrasing

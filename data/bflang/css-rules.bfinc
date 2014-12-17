@@ -463,14 +463,6 @@ href="http://www.w3.org/TR/css3-transforms/#backface-visibility-property">www.w3
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/css3-background/#the-background">www.w3.org</a></reference>
 <context id="c.css.color" idref="c.css.color" symbols=" &#9;&#10;&#13;{}.;:'&quot;">
-<element idref="e.css.end"/>
-<element idref="e.css.lcomment"/>
-<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
-<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
-<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-<element pattern="(rgba|hsla)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *, *(0|1|0.[0-9]) *\)" highlight="css-value" is_regex="1" case_insens="1"/>
-<element pattern="(rgb|hsl)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *\)" highlight="css-value" is_regex="1" case_insens="1"/>
 <group highlight="css-value" >
 	<autocomplete append=";" />
 	<element pattern="aliceblue"/>
@@ -662,6 +654,9 @@ href="http://www.w3.org/TR/css3-background/#the-background">www.w3.org</a></refe
 	<element pattern=")" ends_context="1" highlight="css-value"/>
 	</context>
 </element>
+<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="(rgba|hsla)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *, *(0|1|0.[0-9]) *\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="(rgb|hsl)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *\)" highlight="css-value" is_regex="1" case_insens="1"/>
 <element id="e.css.percent" pattern="[0-9]+\.?[0-9]*%" is_regex="1" highlight="css-value"/>
 <element id="e.css.length" pattern="[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px)" is_regex="1" highlight="css-value"/>
 <element idref="e.css.end"/>
@@ -669,7 +664,6 @@ href="http://www.w3.org/TR/css3-background/#the-background">www.w3.org</a></refe
 <element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
 <element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
 <element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
-
 </context>
 </element>
 <element pattern="background-attachment" highlight="css-property" >
@@ -1731,7 +1725,7 @@ end-of-inline-css and as start-of-css-string.
 
 what to do now????
 -->
-<element pattern="'" highlight="css-string">
+<!--<element pattern="'" highlight="css-string">
 <context symbols="\'" highlight="css-string">
 	<element pattern="\\." is_regex="1" highlight="css-string"/>
 	<element pattern="'" highlight="css-string" ends_context="1"/>
@@ -1742,7 +1736,7 @@ what to do now????
 	<element pattern="\\." is_regex="1" highlight="css-string"/>
 	<element pattern="&quot;" highlight="css-string" ends_context="1"/>
 </context>
-</element>
+</element>-->
 <group highlight="css-value" >
 	<autocomplete append=";" />
 <element pattern="inherit"/>
@@ -3348,7 +3342,7 @@ href="http://www.w3.org/TR/CSS21/generate.html#quotes-specify">www.w3.org</a></r
 	<element pattern="none"/>
 	<element pattern="inherit"/>
 </group>
-<element pattern="'" highlight="css-string">
+<!--<element pattern="'" highlight="css-string">
 <context symbols="\'" highlight="css-string">
 	<element pattern="\\." is_regex="1" highlight="css-string"/>
 	<element pattern="'" highlight="css-string" ends_context="1"/>
@@ -3359,7 +3353,7 @@ href="http://www.w3.org/TR/CSS21/generate.html#quotes-specify">www.w3.org</a></r
 	<element pattern="\\." is_regex="1" highlight="css-string"/>
 	<element pattern="&quot;" highlight="css-string" ends_context="1"/>
 </context>
-</element>
+</element>-->
 <element idref="e.css.end"/>
 <element idref="e.css.lcomment"/>
 <element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
