@@ -5,15 +5,16 @@
 # Copyright (C) 2001, 2007 Free Software Foundation, Inc.
 # elve <elve@savage-elve.net>, 2007, 2009, 2010.
 # Olivier <olivier@bluefish.openoffice.nl>, 2011, 2012, 2002, 2013, 2014.
+# Olivier Sessink <olivier@bluefish.openoffice.nl>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2014-10-25 16:44-0700\n"
-"PO-Revision-Date: 2014-04-02 21:54+0200\n"
-"Last-Translator: Olivier <olivier@bluefish.openoffice.nl>\n"
-"Language-Team: Dutch; Flemish <>\n"
+"PO-Revision-Date: 2014-12-18 11:37+0100\n"
+"Last-Translator: Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
+"Language-Team: Dutch <>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -268,9 +269,8 @@ msgid "_Filters"
 msgstr "_Filters"
 
 #: ../src/bfwin_uimanager.c:835
-#, fuzzy
 msgid "_Output parsers"
-msgstr "Uitvoer parser"
+msgstr "_Uitvoer parser"
 
 #: ../src/bfwin_uimanager.c:836
 msgid "For_mat"
@@ -1421,9 +1421,8 @@ msgstr ""
 "nieuwe regeleinden toevoegen and er geen spaties of tabs gevonden zijn."
 
 #: ../src/document.c:2038
-#, fuzzy
 msgid "_Convert"
-msgstr "Omzetten"
+msgstr "_Omzetten"
 
 #: ../src/document.c:2042
 #, c-format
@@ -1431,12 +1430,16 @@ msgid ""
 "File '%s' is not a valid text file.\n"
 "The file might be corrupted, truncated, or in an unexpected encoding."
 msgstr ""
+"Bestand '%s' is geen valide text bestand.\n"
+"Het bestand is corrupt, afgekort of onbekend gecodeerd."
 
 #: ../src/document.c:2044
 msgid ""
 "Bluefish can convert this file into a valid one by replacing illegal symbols "
 "with spaces. Convert?"
 msgstr ""
+"Bluefish kan dit bestand openen door onbekende symbolen door spaties te "
+"vervangen. Doorgaan?"
 
 #: ../src/document.c:2056
 #, c-format
@@ -1444,10 +1447,12 @@ msgid ""
 "File is opened in read-only mode since it differs from original one.\n"
 "%lu characters were replaced by space"
 msgstr ""
+"Bestand is alleen-lezen geopend omdat het niet meer orgineel is.\n"
+"%lu onbekende symbolen zijn vervangen door spaties."
 
 #: ../src/document.c:2059
 msgid "Use 'Save As' to save it with different name and make editable"
-msgstr ""
+msgstr "Gebruik 'Opslaan als' om het document bewerkbaar te maken"
 
 #: ../src/document.c:2254
 msgid "Exit fullscreen"
@@ -2182,9 +2187,8 @@ msgid "Include hidden files"
 msgstr "Inclusief verborgen bestanden"
 
 #: ../src/file_dialogs.c:1386
-#, fuzzy
 msgid "Include backup files"
-msgstr "Bestands reservekopie fout"
+msgstr "Inclusief reservekopiebestanden"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1433
@@ -2301,9 +2305,9 @@ msgid "Output"
 msgstr "Uitvoer"
 
 #: ../src/outputbox.c:481
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to compile output parser pattern %s: %s"
-msgstr "Compileren van van uitvoer vlak patroon %s mislukt: %s"
+msgstr "Compileren van van patroon %s is mislukt: %s"
 
 #: ../src/preferences.c:321
 msgid "Untitled"
@@ -2395,14 +2399,12 @@ msgid "Path to plugin"
 msgstr "Pad naar plugin"
 
 #: ../src/preferences.c:901
-#, fuzzy
 msgid "Extension"
-msgstr "Afmetingen"
+msgstr "Extensie"
 
 #: ../src/preferences.c:903
-#, fuzzy
 msgid "Mime-Type"
-msgstr "Mime type"
+msgstr "Mimetype"
 
 #: ../src/preferences.c:1131
 msgid ""
@@ -2976,7 +2978,7 @@ msgstr "Herstelkopie _frequentie (seconden)"
 
 #: ../src/preferences.c:2784 ../src/preferences.c:2785
 msgid "File Associations"
-msgstr ""
+msgstr "Bestands associaties"
 
 #: ../src/preferences.c:2803
 msgid "Templates"
@@ -3015,9 +3017,8 @@ msgid "Hide toolbars on full-screen"
 msgstr "Verberg werkbalk bij volledige scermvulling"
 
 #: ../src/preferences.c:2858
-#, fuzzy
 msgid "User interface _language:"
-msgstr "Gebruikers interface"
+msgstr "Gebruikersinterface _taal:"
 
 #: ../src/preferences.c:2861
 msgid "<b>Recent Files</b>"
@@ -3048,9 +3049,8 @@ msgid "_Switch between tabs with <Alt>+0..9"
 msgstr "_Wissel tussen tabs met Alt>+0..9"
 
 #: ../src/preferences.c:2899
-#, fuzzy
 msgid "_Switch between tabs with <Command>+0..9"
-msgstr "_Wissel tussen tabs met Alt>+0..9"
+msgstr "_Wissel tussen tabs met <Command>>+0..9"
 
 #: ../src/preferences.c:2904
 msgid "Save menu accelerators on exit"
