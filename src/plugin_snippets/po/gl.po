@@ -1,22 +1,25 @@
-# Galician translations for bluefish-unstable package.
-# Copyright (C) 2009 The Bluefish Development Team.
-# This file is distributed under the same license as the bluefish-unstable package.
-# Automatically generated, 2009.
-# Xose M. <correo.xmgz@gmail.com>, 2009,2012
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-10-09 01:05-0700\n"
-"PO-Revision-Date: 2011-09-24 17:54+0100\n"
+"POT-Creation-Date: 2014-12-08 22:02+0100\n"
+"PO-Revision-Date: Thu Dec 18 2014 12:36:58 GMT+0100 (CET)\n"
 "Last-Translator: Xose M. Lamas <correo.xmgz@gmail.com>\n"
 "Language-Team: none\n"
 "Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Loco-Source-Locale: gl_ES\n"
+"X-Loco-Parser: loco_parse_po\n"
+"X-Loco-Target-Locale: gl_ES\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#: src/plugin_snippets/snippets_gui.c:838
+msgid "S_nippets Menu"
+msgstr "Menú A_nacos"
 
 #: src/plugin_snippets/snippets_gui.c:424
 msgid "Click the right mouse button to add, edit or delete snippets."
@@ -132,11 +135,6 @@ msgstr "Mostrar coma menu"
 msgid "Show snippets menu"
 msgstr "Mostrar menú Anacos"
 
-#: src/plugin_snippets/snippets_gui.c:838
-#, fuzzy
-msgid "S_nippets Menu"
-msgstr "Menú Anacos"
-
 #: src/plugin_snippets/snippets_leaf_insert.c:64
 msgid "[cursor position or selection]"
 msgstr "[posición do cursor ou selección]"
@@ -230,8 +228,8 @@ msgstr ""
 "selección actual, o texto <i>posterior</i> será introducido despois da "
 "selección actual ou posición do cursor. Pode usar %0, %1 ...%9 marcadores de "
 "posición (e debe darlle nomes) para pedir valores cando activa este control. "
-"Delle as estos posicionadores un nome apropiado na dereita. (Por favor use %"
-"% se precisar usar literalmente un % na súa cadea!)"
+"Delle as estos posicionadores un nome apropiado na dereita. (Por favor use "
+"%% se precisar usar literalmente un % na súa cadea!)"
 
 #: src/plugin_snippets/snippets_wizard.c:344
 msgid "<i>Before</i> text"
@@ -280,9 +278,3 @@ msgstr "Insira cadea"
 #: src/plugin_snippets/snippets_wizard.c:645
 msgid "Search and replace pattern"
 msgstr "Busque e substitúa o patrón"
-
-#~ msgid "Entire word only"
-#~ msgstr "Só palabra completa"
-
-#~ msgid "POSIX"
-#~ msgstr "POSIX"

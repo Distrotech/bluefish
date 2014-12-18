@@ -1,25 +1,23 @@
-# translation of bluefish to Galician
-# Copyright (C) 2001 Free Software Foundation, Inc.
-# Olav Sliekers <idunno@mysun.com>, 2001.
-# Olivier Sessink, 2002.
-# Dutch translation of Bluefish
-# Copyright (C) 2001, 2007 Free Software Foundation, Inc.
-# pikamoku@gmail.com (2010-2013)
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-10-25 16:44-0700\n"
-"PO-Revision-Date: 2013-11-17 23:13+0100\n"
+"POT-Creation-Date: 2014-12-18 11:49+0100\n"
+"PO-Revision-Date: Thu Dec 18 2014 12:14:52 GMT+0100 (CET)\n"
 "Last-Translator: Xose M. Lamas <correo.xmgz@gmail.com>\n"
 "Language-Team: none\n"
 "Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Loco-Source-Locale: gl_ES\n"
 "X-Poedit-Language: Galician\n"
 "X-Poedit-Country: SPAIN\n"
+"X-Loco-Parser: loco_parse_po\n"
+"X-Loco-Target-Locale: gl_ES\n"
+"X-Generator: Loco - https://localise.biz/"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:1
 msgid ""
@@ -28,56 +26,56 @@ msgid ""
 "code. Bluefish supports many programming and markup languages and has many "
 "features, but is still a very fast and lightweight application."
 msgstr ""
+"Bluefish é un poderoso editor destinado a programadores e desenvolvedores "
+"web, con moitas ferramentas para escribir sitios web, scripts e código de "
+"programación. Bluefish soporta moitas linguaxes de programación e linguaxes "
+"de marcado e ten moitas ferramentas, pero aínda así é un aplicativo lixeiro "
+"e rápido.\n"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:2
 msgid "A selection of the features:"
-msgstr ""
+msgstr "Unha selecións das características:\n"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:3
 msgid ""
 "Well done syntax highlighting which for example supports languages inside "
 "languages (e.g. Javascript inside HTML inside PHP)"
 msgstr ""
+"Resaltado correcto da sintaxe que por exemplo soporta linguaxes dentro de "
+"linguaxes (ex. Javascript dentro de HTML dentro de PHP)"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:4
 msgid ""
 "All kind of powerful editor features like auto indenting and auto completion "
 "for many functions and libraries in many programming languages"
 msgstr ""
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:5
-#, fuzzy
-msgid "Project support"
-msgstr "_Proxecto"
+"Todas as características dos editores potentes como autoindentación e "
+"autocompletado para moitas funcións e bibliotecas en moitas linguaxes de "
+"programación"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:6
 msgid "Support for remote files over ftp, sftp, webdav, etc"
-msgstr ""
+msgstr "Soporta ficheiros remotos sobre ftp, sftp, webdav, etc"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:7
 msgid "Powerful search and replace engine"
-msgstr ""
+msgstr "Poderoso motor de búsqueda e remplazo"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:8
 msgid "Customizable integration of external programs such as lint, make, etc"
-msgstr ""
+msgstr "Integración personalizada con programas externos como lint, make, etc"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:9
 msgid "Snippets plugin to automate often used code"
-msgstr ""
+msgstr "Plugin Anacos para automatizar código utilizado con frecuencia"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:10
 msgid "Code-aware in-line spell checking"
-msgstr ""
+msgstr "Comprobación da ortografía en liña dependente do tipo de código"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:11
 msgid "Zencoding or Emmet support"
-msgstr ""
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:12
-#, fuzzy
-msgid "Bookmarks panel"
-msgstr "Marcadores"
+msgstr "Soporte de Zencoding ou Emmet"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:13
 msgid ""
@@ -85,6 +83,85 @@ msgid ""
 "or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
 "is your editor of choice!"
 msgstr ""
+"Se vostede é un programador ocasional que precisa de un editor doado de "
+"utilizar, ou un programador habitual que fuxe de IDEs enormes como eclipse "
+"ou netbeans, Bluefish é a súa elección!"
+
+#: ../src/document.c:2042
+#, c-format
+msgid ""
+"File '%s' is not a valid text file.\n"
+"The file might be corrupted, truncated, or in an unexpected encoding."
+msgstr ""
+"O ficheiro '%s' non é un ficheiro de texto válido.\n"
+"\n"
+"Podería estar corrupto, esnaquizado, ou con unha codificación non esperada.\n"
+
+#: ../src/document.c:2044
+msgid ""
+"Bluefish can convert this file into a valid one by replacing illegal symbols "
+"with spaces. Convert?"
+msgstr ""
+"Bluefish pode converter este ficheiro en un tipo válido remplazando os "
+"símbolos ilegáis por espazos. Converter?"
+
+#: ../src/document.c:2056
+#, c-format
+msgid ""
+"File is opened in read-only mode since it differs from original one.\n"
+"%lu characters were replaced by space"
+msgstr ""
+"O ficheiro abreuse en modo só-lectura xa que difire do orixinal.\n"
+"\n"
+"Os caracteres %lu foron substituídos por espazo\n"
+
+#: ../src/document.c:2059
+msgid "Use 'Save As' to save it with different name and make editable"
+msgstr "Utilice 'Gardar como' para gardalo con un nome diferente e facelo editable"
+
+#: ../src/preferences.c:2784 ../src/preferences.c:2785
+msgid "File Associations"
+msgstr "Asociación de ficheiros"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:5
+msgid "Project support"
+msgstr "Axuda do proxecto"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:12
+msgid "Bookmarks panel"
+msgstr "Panel de marcadores"
+
+#: ../src/bfwin_uimanager.c:835
+msgid "_Output parsers"
+msgstr "Analizadores da _Saída"
+
+#: ../src/document.c:2038
+msgid "_Convert"
+msgstr "Con_verter"
+
+#: ../src/file_dialogs.c:1387
+msgid "Include backup files"
+msgstr "Incluír ficheiros de respaldo"
+
+#: ../src/preferences.c:901
+msgid "Extension"
+msgstr "Extensión"
+
+#: ../src/preferences.c:903
+msgid "Mime-Type"
+msgstr "Tipo-Mime"
+
+#: ../src/preferences.c:2858
+msgid "User interface _language:"
+msgstr "I_dioma da interface de usuario:"
+
+#: ../src/preferences.c:2899
+msgid "_Switch between tabs with <Command>+0..9"
+msgstr "Cambiar entre tabela_s con <Alt>+0..9"
+
+#: ../src/rcfile.c:848
+msgid "Google Chrome"
+msgstr "Google Chrome"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -106,22 +183,22 @@ msgstr "Ficheiro de proxecto Bluefish"
 msgid "Bluefish language definition file"
 msgstr "Ficheiro de definición de linguaxe de Bluefish"
 
-#: ../src/bftextview2.c:1764
+#: ../src/bftextview2.c:1787
 msgid "Collapse all"
 msgstr "Pechar todo"
 
-#: ../src/bftextview2.c:1767
+#: ../src/bftextview2.c:1790
 msgid "Expand all"
 msgstr "Expandir todo"
 
 # c-format
-#: ../src/bftextview2.c:1776
+#: ../src/bftextview2.c:1799
 #, c-format
 msgid "Collapse %s"
 msgstr "Pechar %s"
 
 # c-format
-#: ../src/bftextview2.c:1786
+#: ../src/bftextview2.c:1809
 #, c-format
 msgid "Expand %s"
 msgstr "Expandir %s"
@@ -254,11 +331,6 @@ msgstr "_Comandos"
 #: ../src/bfwin_uimanager.c:834
 msgid "_Filters"
 msgstr "_Filtros"
-
-#: ../src/bfwin_uimanager.c:835
-#, fuzzy
-msgid "_Output parsers"
-msgstr "Output parsers"
 
 #: ../src/bfwin_uimanager.c:836
 msgid "For_mat"
@@ -463,8 +535,7 @@ msgstr "Selecionar _Bloque"
 
 #: ../src/bfwin_uimanager.c:887
 msgid "Select block, use multiple times to select parent blocks "
-msgstr ""
-"Selecionar bloque, usar varias veces para selecionar bloques relacionados"
+msgstr "Selecionar bloque, usar varias veces para selecionar bloques relacionados"
 
 #: ../src/bfwin_uimanager.c:889
 msgid "D_uplicate Line"
@@ -686,7 +757,7 @@ msgstr "_Agrupar texto"
 msgid "Wrap text"
 msgstr "Agrupar texto"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:2038 ../src/document.c:3368
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:2038 ../src/document.c:3384
 msgid "_Close"
 msgstr "_Pechar"
 
@@ -703,7 +774,7 @@ msgid "Close all files"
 msgstr "Pechar todos os ficheiros"
 
 #: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
-#: ../src/file_dialogs.c:1456
+#: ../src/file_dialogs.c:1457
 msgid "_Save"
 msgstr "_Gardar"
 
@@ -1081,32 +1152,32 @@ msgid ""
 "<span foreground=\"red\" weight=\"bold\">Please select the block of text to "
 "synchronize.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Por favor selecione o bloque de "
-"texto a sincronizar.</span>"
+"<span foreground=\"red\" weight=\"bold\">Por favor selecione o bloque de texto a "
+"sincronizar.</span>"
 
 #: ../src/blocksync.c:239 ../src/blocksync.c:259
 msgid ""
-"<span foreground=\"red\" weight=\"bold\">This marker exists more than once "
-"in the block.</span>"
+"<span foreground=\"red\" weight=\"bold\">This marker exists more than once in "
+"the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Este marcador está repetido no "
-"bloque.</span>"
+"<span foreground=\"red\" weight=\"bold\">Este marcador está repetido no bloque."
+"</span>"
 
 #: ../src/blocksync.c:245
 msgid ""
-"<span foreground=\"red\" weight=\"bold\">Select the text that marks the "
-"start of the block.</span>"
+"<span foreground=\"red\" weight=\"bold\">Select the text that marks the start of "
+"the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Selecione o texto que indica o "
-"inicio do bloque.</span>"
+"<span foreground=\"red\" weight=\"bold\">Selecione o texto que indica o inicio "
+"do bloque.</span>"
 
 #: ../src/blocksync.c:265
 msgid ""
-"<span foreground=\"red\" weight=\"bold\">Select the text that marks the end "
-"of the block.</span>"
+"<span foreground=\"red\" weight=\"bold\">Select the text that marks the end of "
+"the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Selecione o texto que indica o fin "
-"do bloque.</span>"
+"<span foreground=\"red\" weight=\"bold\">Selecione o texto que indica o fin do "
+"bloque.</span>"
 
 #: ../src/bluefish.c:91
 msgid "Visit us at http://bluefish.openoffice.nl"
@@ -1400,44 +1471,15 @@ msgstr "O ficheiro contén liñas moi longas. Separar estas liñas?"
 #: ../src/document.c:1961
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
-"performance. This split function, however, is unaware of any language "
-"syntax, and may replace spaces or tabs with newlines in any location, or "
-"insert newlines if no spaces or tabs are found."
+"performance. This split function, however, is unaware of any language syntax,"
+" and may replace spaces or tabs with newlines in any location, or insert "
+"newlines if no spaces or tabs are found."
 msgstr ""
 "As liñas neste ficheiro son máis longas do que Bluefish pode manexar con "
 "rendemento razonable. A función de separado, porén, non detecta a linguaxe "
 "ou sintaxe, e pode sustituír espazos ou tabulacións con novas liñas en "
 "calquer localización, ou insertar novas liñas se non atopa espazos ou "
 "tabulacións."
-
-#: ../src/document.c:2038
-#, fuzzy
-msgid "_Convert"
-msgstr "Con_verter"
-
-#: ../src/document.c:2042
-#, c-format
-msgid ""
-"File '%s' is not a valid text file.\n"
-"The file might be corrupted, truncated, or in an unexpected encoding."
-msgstr ""
-
-#: ../src/document.c:2044
-msgid ""
-"Bluefish can convert this file into a valid one by replacing illegal symbols "
-"with spaces. Convert?"
-msgstr ""
-
-#: ../src/document.c:2056
-#, c-format
-msgid ""
-"File is opened in read-only mode since it differs from original one.\n"
-"%lu characters were replaced by space"
-msgstr ""
-
-#: ../src/document.c:2059
-msgid "Use 'Save As' to save it with different name and make editable"
-msgstr ""
 
 #: ../src/document.c:2254
 msgid "Exit fullscreen"
@@ -1446,15 +1488,15 @@ msgstr "Saír de pantalla completa"
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2398 ../src/file_dialogs.c:450 ../src/file_dialogs.c:488
+#: ../src/document.c:2412 ../src/file_dialogs.c:450 ../src/file_dialogs.c:488
 msgid "_Abort save"
 msgstr "Desistir de gardar"
 
-#: ../src/document.c:2398
+#: ../src/document.c:2412
 msgid "_Continue save in UTF-8"
 msgstr "_Continue gardado en UTF-8"
 
-#: ../src/document.c:2411
+#: ../src/document.c:2425
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1467,20 +1509,20 @@ msgstr ""
 "\n"
 "Continuar coa gardado con codificación UTF-8 ?"
 
-#: ../src/document.c:2416
+#: ../src/document.c:2430
 msgid "File encoding conversion failure"
 msgstr "Fallou a conversión de codificación do ficheiro"
 
-#: ../src/document.c:2592
+#: ../src/document.c:2608
 msgid "Previously: "
 msgstr "Anteriormente: "
 
-#: ../src/document.c:3284
+#: ../src/document.c:3300
 msgid "Unable to open file"
 msgstr "Incapaz de abrir ficheiro"
 
 # c-format
-#: ../src/document.c:3296
+#: ../src/document.c:3312
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1489,92 +1531,92 @@ msgstr ""
 "Se revirte \"%s\" a súa última copia gardada, os seus cambios actuais "
 "perderánse de xeito permanente"
 
-#: ../src/document.c:3300
+#: ../src/document.c:3316
 msgid "Revert changes to last saved copy?"
 msgstr "Revertir os cambios a última copia gardada?"
 
-#: ../src/document.c:3368
+#: ../src/document.c:3384
 msgid "_Retry"
 msgstr "_Reintentar"
 
-#: ../src/document.c:3368
+#: ../src/document.c:3384
 msgid "Retry _all failed"
 msgstr "Reintentar todo f_allou"
 
-#: ../src/document.c:3368
+#: ../src/document.c:3384
 msgid "Close all _failed"
 msgstr "Pechar todo _fallou"
 
-#: ../src/document.c:3373
+#: ../src/document.c:3389
 msgid "File "
 msgstr "Ficheiro "
 
-#: ../src/document.c:3373
+#: ../src/document.c:3389
 msgid " failed to load."
 msgstr " non se cargou."
 
-#: ../src/document.c:3377
+#: ../src/document.c:3393
 msgid "File failed to load\n"
 msgstr "Fallou a carga do ficheiro\n"
 
-#: ../src/document.c:3502
+#: ../src/document.c:3518
 msgid "Select file to insert"
 msgstr "Selecione o ficheiro a insertar"
 
-#: ../src/document.c:3511
+#: ../src/document.c:3527
 msgid "No file to insert"
 msgstr "Sen ficheiro que insertar"
 
-#: ../src/document.c:3591
+#: ../src/document.c:3607
 msgid "Save pasted image as"
 msgstr "Gardar imaxe pegada como"
 
-#: ../src/document.c:3687
+#: ../src/document.c:3703
 msgid "Paste special"
 msgstr "Pegado especial"
 
-#: ../src/document.c:3693
+#: ../src/document.c:3709
 msgid "No compatible clipboard data found"
 msgstr "Sen datos compatibles no portapapeis"
 
-#: ../src/document.c:3697
+#: ../src/document.c:3713
 msgid "Paste as _HTML"
 msgstr "Pegar como _HTML"
 
-#: ../src/document.c:3702
+#: ../src/document.c:3718
 msgid "Paste as HTML with _JPG"
 msgstr "Pegar como HTML con _JPG"
 
-#: ../src/document.c:3712
+#: ../src/document.c:3728
 msgid "Paste as plain text"
 msgstr "Pegar como texto plano"
 
-#: ../src/document.c:3806
+#: ../src/document.c:3822
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d liña"
 msgstr[1] "% liñas"
 
-#: ../src/document.c:3807
+#: ../src/document.c:3823
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d palabra"
 msgstr[1] "%d palabras"
 
-#: ../src/document.c:3808
+#: ../src/document.c:3824
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caracter"
 msgstr[1] "%d caracteres"
 
-#: ../src/document.c:3810
+#: ../src/document.c:3826
 msgid "Selection statistics: "
 msgstr "Estatísticas da seleción: "
 
-#: ../src/document.c:3810
+#: ../src/document.c:3826
 msgid "Statistics: "
 msgstr "Estatísticas: "
 
@@ -1731,7 +1773,7 @@ msgstr "Documentroot"
 msgid "Webroot"
 msgstr "Webroot"
 
-#: ../src/filebrowser2.c:788 ../src/file_dialogs.c:775
+#: ../src/filebrowser2.c:788 ../src/file_dialogs.c:776
 #, c-format
 msgid "Move/rename %s to"
 msgstr "Mover/renomear %s a"
@@ -1751,7 +1793,7 @@ msgstr "Novo directorio"
 #. *
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
-#.
+#. 
 #: ../src/filebrowser2.c:983
 #, c-format
 msgid ""
@@ -2029,12 +2071,12 @@ msgstr "Fallou a copia de respaldo"
 msgid "Could not save file "
 msgstr "Non puido gardar o ficheiro "
 
-#: ../src/file_dialogs.c:509 ../src/file_dialogs.c:1497
+#: ../src/file_dialogs.c:509 ../src/file_dialogs.c:1498
 msgid "File changed on disk\n"
 msgstr "O ficheiro cambiou no disco\n"
 
 #: ../src/file_dialogs.c:624 ../src/file_dialogs.c:645
-#: ../src/file_dialogs.c:963 ../src/project.c:336
+#: ../src/file_dialogs.c:964 ../src/project.c:336
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -2056,7 +2098,7 @@ msgstr "Un ficheiro con nome \"%s\" xa existe."
 msgid "Do you want to replace the existing file?"
 msgstr "Quere sustituír o ficheiro existente?"
 
-#: ../src/file_dialogs.c:755
+#: ../src/file_dialogs.c:756
 msgid ""
 "File:\n"
 "\""
@@ -2064,120 +2106,115 @@ msgstr ""
 "Ficheiro:\n"
 "\""
 
-#: ../src/file_dialogs.c:756
+#: ../src/file_dialogs.c:757
 msgid "\" save is in progress"
 msgstr "\" gardado está en proceso"
 
-#: ../src/file_dialogs.c:758
+#: ../src/file_dialogs.c:759
 msgid "Save in progress!"
 msgstr "Gardado en proceso!"
 
-#: ../src/file_dialogs.c:771
+#: ../src/file_dialogs.c:772
 msgid "Save"
 msgstr "Gardar"
 
-#: ../src/file_dialogs.c:773
+#: ../src/file_dialogs.c:774
 #, c-format
 msgid "Save %s as"
 msgstr "Gardar %s como"
 
-#: ../src/file_dialogs.c:777
+#: ../src/file_dialogs.c:778
 #, c-format
 msgid "Save copy of %s"
 msgstr "Gardar copia de %s"
 
-#: ../src/file_dialogs.c:934
+#: ../src/file_dialogs.c:935
 msgid "Close _Without Saving"
 msgstr "Pechar sen gardar"
 
-#: ../src/file_dialogs.c:937
+#: ../src/file_dialogs.c:938
 #, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr "Gardar os cambios de \"%s\" antes de pechar?"
 
-#: ../src/file_dialogs.c:940 ../src/file_dialogs.c:967
+#: ../src/file_dialogs.c:941 ../src/file_dialogs.c:968
 msgid "If you don't save your changes they will be lost."
 msgstr "Se non garda os cambios, estos perderánse."
 
-#: ../src/file_dialogs.c:950
+#: ../src/file_dialogs.c:951
 msgid "_Reopen"
 msgstr "_Reabrir"
 
-#: ../src/file_dialogs.c:952
+#: ../src/file_dialogs.c:953
 #, c-format
 msgid "Project \"%s\" failed to load"
 msgstr "A carga do proxecto \"%s\" fallou"
 
-#: ../src/file_dialogs.c:954
+#: ../src/file_dialogs.c:955
 msgid "Do you want to reopen project from another location?"
 msgstr "Quere voltar a abrir o proxecto desde outra localización?"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:964
 msgid "Choose per _File"
 msgstr "Escoller por _ficheiro"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:964
 msgid "Close _All"
 msgstr "Pech_ar todo"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:964
 msgid "_Save All"
 msgstr "Gar_dar todo"
 
-#: ../src/file_dialogs.c:966
+#: ../src/file_dialogs.c:967
 msgid "One or more open files have been changed."
 msgstr "Un ou máis ficheiros abertos foron modificados."
 
-#: ../src/file_dialogs.c:1289
+#: ../src/file_dialogs.c:1290
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">%d erro</span>"
 msgstr[1] "<span color=\"red\">%d erros</span>"
 
-#: ../src/file_dialogs.c:1298
+#: ../src/file_dialogs.c:1299
 msgid "incomplete finished"
 msgstr "incompleto rematou"
 
-#: ../src/file_dialogs.c:1300
+#: ../src/file_dialogs.c:1301
 msgid "completed"
 msgstr "completo"
 
-#: ../src/file_dialogs.c:1358
+#: ../src/file_dialogs.c:1359
 msgid "Upload / Download"
 msgstr "Cargar / Descargar"
 
-#: ../src/file_dialogs.c:1361
+#: ../src/file_dialogs.c:1362
 msgid "Upload"
 msgstr "Cargar"
 
-#: ../src/file_dialogs.c:1361
+#: ../src/file_dialogs.c:1362
 msgid "Download"
 msgstr "Descargar"
 
-#: ../src/file_dialogs.c:1368
+#: ../src/file_dialogs.c:1369
 msgid "Local directory"
 msgstr "Directorio local"
 
-#: ../src/file_dialogs.c:1374
+#: ../src/file_dialogs.c:1375
 msgid "Remote directory"
 msgstr "Directorio remoto"
 
-#: ../src/file_dialogs.c:1379
+#: ../src/file_dialogs.c:1380
 msgid "Delete deprecated files"
 msgstr "Borrar ficheiros anticuados"
 
-#: ../src/file_dialogs.c:1383
+#: ../src/file_dialogs.c:1384
 msgid "Include hidden files"
 msgstr "Incluir ficheiros ocultos"
 
-#: ../src/file_dialogs.c:1386
-#, fuzzy
-msgid "Include backup files"
-msgstr "Fallou a copia de respaldo"
-
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1433
+#: ../src/file_dialogs.c:1434
 #, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -2194,29 +2231,29 @@ msgstr ""
 "O tamaño orixinal era %s bytes\n"
 "O novo tamaño é %s bytes"
 
-#: ../src/file_dialogs.c:1456
+#: ../src/file_dialogs.c:1457
 msgid "_Unset file name"
 msgstr "Nome de ficheiro non establecido"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1458
+#: ../src/file_dialogs.c:1459
 #, c-format
 msgid "File name: %s"
 msgstr "Nome de ficheiro: %s"
 
-#: ../src/file_dialogs.c:1461
+#: ../src/file_dialogs.c:1462
 msgid "File disappeared from disk\n"
 msgstr "Ficheiro desapareceu do disco\n"
 
-#: ../src/file_dialogs.c:1480
+#: ../src/file_dialogs.c:1481
 msgid "_Ignore"
 msgstr "_Ignorar"
 
-#: ../src/file_dialogs.c:1480
+#: ../src/file_dialogs.c:1481
 msgid "_Reload"
 msgstr "_Recargar"
 
-#: ../src/file_dialogs.c:1480
+#: ../src/file_dialogs.c:1481
 msgid "Check and reload all documents"
 msgstr "Verificar e recargar todos os documentos"
 
@@ -2291,7 +2328,7 @@ msgid "Output"
 msgstr "Saída"
 
 #: ../src/outputbox.c:481
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to compile output parser pattern %s: %s"
 msgstr "Erro ao compilar o patrón da caixa de saída %s: %s"
 
@@ -2384,16 +2421,6 @@ msgstr "Habilitado"
 msgid "Path to plugin"
 msgstr "Ruta ao engadio"
 
-#: ../src/preferences.c:901
-#, fuzzy
-msgid "Extension"
-msgstr "Tamaño"
-
-#: ../src/preferences.c:903
-#, fuzzy
-msgid "Mime-Type"
-msgstr "Mime type"
-
 #: ../src/preferences.c:1131
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
@@ -2484,8 +2511,7 @@ msgstr ""
 "%a argumentos adicionais que serán solicitados cando este filtro sexa "
 "activado\n"
 "%c directorio local do ficheiro (dispoñible para ficheiros locais)\n"
-"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con "
-"título)\n"
+"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con título)\n"
 "%u URL (dispoñible para todos os ficheiros con título)\n"
 "%p vista previa da URL se o directorio base e o directorio de vista previa "
 "foron establecidos nas preferencias do proxecto, e són idénticos a %u</small>"
@@ -2510,6 +2536,7 @@ msgid "Reset all"
 msgstr "Restaurar todos"
 
 #: ../src/preferences.c:1475
+#, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2541,12 +2568,11 @@ msgstr ""
 "<b>Outras opcións</b>\n"
 "%a argumentos adicionáis que serán pedidos cando este filtro se active\n"
 "%c directorio local do ficheiro (require ficherio local)\n"
-"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con "
-"título)\n"
+"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con título)\n"
 "%u URL (dispoñible para todos os ficheiros con título)\n"
 "%p URL de vista previa se o directorio base e o directorio de vista previa "
-"foron establecidos nas preferenzas do proxecto, se non, equivale a %u </"
-"small>"
+"foron establecidos nas preferenzas do proxecto, se non, equivale a %u "
+"</small>"
 
 #: ../src/preferences.c:1660
 #, c-format
@@ -2580,12 +2606,11 @@ msgstr ""
 "<b>Outras opcións</b>\n"
 "%a argumentos adicionáis que serán pedidos cando este filtro se active\n"
 "%c directorio local do ficheiro (require ficherio local)\n"
-"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con "
-"título)\n"
+"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con título)\n"
 "%u URL (dispoñible para todos os ficheiros con título)\n"
 "%p URL de vista previa se o directorio base e o directorio de vista previa "
-"foron establecidos nas preferenzas do proxecto, se non, equivale a %u </"
-"small>"
+"foron establecidos nas preferenzas do proxecto, se non, equivale a %u "
+"</small>"
 
 #: ../src/preferences.c:1690
 msgid "Pattern"
@@ -2730,9 +2755,9 @@ msgstr "Intelixente"
 msgid "Edit preferences"
 msgstr "Editar preferenzas"
 
-#.
+#. 
 #. *  Initial document settings
-#.
+#. 
 #: ../src/preferences.c:2480
 msgid "<b>Non Project Defaults</b>"
 msgstr "<b>Por omisión sen proxecto</b>"
@@ -2975,10 +3000,6 @@ msgstr "Habilitar a recuperación de documentos modificados"
 msgid "_Frequency to store changes (seconds):"
 msgstr "_Frecuencia de gardado dos cambios (segundos):"
 
-#: ../src/preferences.c:2784 ../src/preferences.c:2785
-msgid "File Associations"
-msgstr ""
-
 #: ../src/preferences.c:2803
 msgid "Templates"
 msgstr "Plantillas"
@@ -3015,11 +3036,6 @@ msgstr "Posición do tab na barra lateral:"
 msgid "Hide toolbars on full-screen"
 msgstr "Agochar barras de ferramentas en pantalla completa"
 
-#: ../src/preferences.c:2858
-#, fuzzy
-msgid "User interface _language:"
-msgstr "Interface de usuario"
-
 #: ../src/preferences.c:2861
 msgid "<b>Recent Files</b>"
 msgstr "<b>Ficheiros recentes</b>"
@@ -3046,11 +3062,6 @@ msgstr "<b>Atallos de teclado</b>"
 
 #: ../src/preferences.c:2896
 msgid "_Switch between tabs with <Alt>+0..9"
-msgstr "Cambiar entre tabelas con <Alt>+0..9"
-
-#: ../src/preferences.c:2899
-#, fuzzy
-msgid "_Switch between tabs with <Command>+0..9"
 msgstr "Cambiar entre tabelas con <Alt>+0..9"
 
 #: ../src/preferences.c:2904
@@ -3135,7 +3146,7 @@ msgstr "Cor do documento na pestana modificada:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:3021 ../src/rcfile.c:1422
+#: ../src/preferences.c:3021 ../src/rcfile.c:1427
 msgid "Images"
 msgstr "Imaxes"
 
@@ -3240,203 +3251,203 @@ msgstr "Crear proxecto cos documentos abertos neste momento"
 msgid "Create empty project"
 msgstr "Crear proxecto baldeiro"
 
-#: ../src/rcfile.c:697 ../src/rcfile.c:725
+#: ../src/rcfile.c:696 ../src/rcfile.c:724
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:703
+#: ../src/rcfile.c:702
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:707
+#: ../src/rcfile.c:706
 msgid "weblint HTML checker"
 msgstr "weblint HTML checker"
 
-#: ../src/rcfile.c:712
+#: ../src/rcfile.c:711
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:716
+#: ../src/rcfile.c:715
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:720
+#: ../src/rcfile.c:719
 msgid "xmllint XML checker"
 msgstr "xmllint XML checker"
 
-#: ../src/rcfile.c:729
+#: ../src/rcfile.c:728
 msgid "php syntax check"
 msgstr "php syntax test"
 
-#: ../src/rcfile.c:733
+#: ../src/rcfile.c:732
 msgid "perl syntax check"
 msgstr "perl syntax check"
 
-#: ../src/rcfile.c:737
+#: ../src/rcfile.c:736
 msgid "php codesniffer"
 msgstr "php codesniffer"
 
-#: ../src/rcfile.c:741
+#: ../src/rcfile.c:740
 msgid "pylint"
 msgstr "pylint"
 
-#: ../src/rcfile.c:754
+#: ../src/rcfile.c:753
 msgid "Sort"
 msgstr "Ordenar"
 
-#: ../src/rcfile.c:757
+#: ../src/rcfile.c:756
 msgid "Sort / Uniq"
 msgstr "Ordenar / Uniq"
 
-#: ../src/rcfile.c:760
+#: ../src/rcfile.c:759
 msgid "Reverse lines"
 msgstr "Liñas inversas"
 
-#: ../src/rcfile.c:763
+#: ../src/rcfile.c:762
 msgid "Dos2unix"
 msgstr "Dos2unix"
 
-#: ../src/rcfile.c:765
+#: ../src/rcfile.c:764
 msgid "Tidy HTML"
 msgstr "Limpar HTML"
 
-#: ../src/rcfile.c:767
+#: ../src/rcfile.c:766
 msgid "Tidy convert to XHTML"
 msgstr "Convertir limpamente a XHTML"
 
-#: ../src/rcfile.c:770
+#: ../src/rcfile.c:769
 msgid "Tidy HTML (perltidy)"
 msgstr "Tidy HTML (perltidy)"
 
-#: ../src/rcfile.c:773
+#: ../src/rcfile.c:772
 msgid "Strip empty lines"
 msgstr "Eliminar liñas baldeiras"
 
-#: ../src/rcfile.c:776
+#: ../src/rcfile.c:775
 msgid "Render HTML to text"
 msgstr "Converter HTML a texto"
 
-#: ../src/rcfile.c:779
+#: ../src/rcfile.c:778
 msgid "PHP Beautifier"
 msgstr "PHP Beautifier"
 
-#: ../src/rcfile.c:783 ../src/rcfile.c:790
+#: ../src/rcfile.c:782 ../src/rcfile.c:789
 msgid "Javascript Minify with jsmin"
 msgstr "Javascript Minify with jsmin"
 
-#: ../src/rcfile.c:786 ../src/rcfile.c:793
+#: ../src/rcfile.c:785 ../src/rcfile.c:792
 msgid "CSS Minify with cssmin"
 msgstr "CSS Minify with cssmin"
 
-#: ../src/rcfile.c:797
+#: ../src/rcfile.c:796
 msgid "CSS tidy"
 msgstr "CSS tidy"
 
-#: ../src/rcfile.c:809
+#: ../src/rcfile.c:808
 msgid "Windows XP Firefox"
 msgstr "Windows XP Firefox"
 
-#: ../src/rcfile.c:814
+#: ../src/rcfile.c:813
 msgid "Windows XP Internet Explorer"
 msgstr "Windows XP Internet Explorer"
 
-#: ../src/rcfile.c:819
+#: ../src/rcfile.c:818
 msgid "Windows XP Opera"
 msgstr "Windows XP Opera"
 
-#: ../src/rcfile.c:823
+#: ../src/rcfile.c:822
 msgid "Windows XP Safari"
 msgstr "Windows XP Safari"
 
-#: ../src/rcfile.c:827
+#: ../src/rcfile.c:826
 msgid "Windows 7 Firefox 32-bit"
 msgstr "Windows 7 Firefox 32-bit"
 
-#: ../src/rcfile.c:832
+#: ../src/rcfile.c:831
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr "Windows 7 Internet Explorer 32-bit"
 
-#: ../src/rcfile.c:837
+#: ../src/rcfile.c:836
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr "Windows 7 Internet Explorer 64-bit"
 
-#: ../src/rcfile.c:843
+#: ../src/rcfile.c:842
 msgid "Safari"
 msgstr "Safari"
 
-#: ../src/rcfile.c:846 ../src/rcfile.c:856
+#: ../src/rcfile.c:845 ../src/rcfile.c:861
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:849 ../src/rcfile.c:860
-msgid "Opera"
-msgstr "Opera"
-
-#: ../src/rcfile.c:852 ../src/rcfile.c:879
-msgid "chmod a+x"
-msgstr "chmod a+x"
-
-#: ../src/rcfile.c:864
+#: ../src/rcfile.c:851 ../src/rcfile.c:869
 msgid "Chromium"
 msgstr "Chromium"
 
-#: ../src/rcfile.c:867
+#: ../src/rcfile.c:854 ../src/rcfile.c:865
+msgid "Opera"
+msgstr "Opera"
+
+#: ../src/rcfile.c:857 ../src/rcfile.c:884
+msgid "chmod a+x"
+msgstr "chmod a+x"
+
+#: ../src/rcfile.c:872
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:870
+#: ../src/rcfile.c:875
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:873
+#: ../src/rcfile.c:878
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:876
+#: ../src/rcfile.c:881
 msgid "Links2 (graphics)"
 msgstr "Links2 (graphics)"
 
-#: ../src/rcfile.c:923
+#: ../src/rcfile.c:928
 msgid "C Header"
 msgstr "C header"
 
-#: ../src/rcfile.c:926
+#: ../src/rcfile.c:931
 msgid "C Header GPL"
 msgstr "C Header GPL"
 
-#: ../src/rcfile.c:929
+#: ../src/rcfile.c:934
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:932
+#: ../src/rcfile.c:937
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: ../src/rcfile.c:935
+#: ../src/rcfile.c:940
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:938
+#: ../src/rcfile.c:943
 msgid "LaTex Book"
 msgstr "LaTex Book"
 
-#: ../src/rcfile.c:941
+#: ../src/rcfile.c:946
 msgid "LaTex Presentation"
 msgstr "LaTex Presentation"
 
-#: ../src/rcfile.c:1307
+#: ../src/rcfile.c:1312
 msgid "Untitled Project"
 msgstr "Proxecto sen título"
 
-#: ../src/rcfile.c:1414
+#: ../src/rcfile.c:1419
 msgid "C programming"
 msgstr "Progración en C"
 
-#: ../src/rcfile.c:1418
+#: ../src/rcfile.c:1423
 msgid "Web files"
 msgstr "Ficheiros web"
 
-#: ../src/rcfile.c:1425
+#: ../src/rcfile.c:1430
 msgid "Hide objectfiles"
 msgstr "Ocultar ficheiros-obxeto"
 
@@ -3450,22 +3461,18 @@ msgstr "<i>Búsqueda iniciada</i>"
 
 #: ../src/snr3.c:701
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
-msgstr ""
-"<span foreground=\"red\"><b>Sen selección, búsqueda cancelada.</b><span>"
+msgstr "<span foreground=\"red\"><b>Sen selección, búsqueda cancelada.</b><span>"
 
 #. display warning that not all documents have yet finished loading
 #: ../src/snr3.c:710
-msgid ""
-"<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
-"span>"
+msgid "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</span>"
 msgstr ""
 "<span foreground=\"red\" weight=\"bold\">Aínda se están cargando algúns "
 "ficheiros.</span>"
 
 #: ../src/snr3.c:844
 msgid "<span foreground=\"red\">Empty search string</span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Cadea de búsqueda baldeira</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Cadea de búsqueda baldeira</span>"
 
 #: ../src/snr3.c:894
 #, c-format
@@ -3633,269 +3640,3 @@ msgstr "Desfacer este cambio en todos os documentos?"
 #: ../src/undo_redo.c:556 ../src/undo_redo.c:698
 msgid "This change concerns multiple documents."
 msgstr "Este cambio afecta a varios documentos."
-
-#~ msgid "_Outputbox"
-#~ msgstr "_Caixa de saída"
-
-#~ msgid "Cannot display file, unknown characters found."
-#~ msgstr "Non pode mostar ficheiro, atopáronse caracteres descoñecidos."
-
-#~ msgid ""
-#~ "Your glib version (%d.%d.%d) is unreliable with remote files. Please "
-#~ "upgrade to 2.18.0 or newer."
-#~ msgstr ""
-#~ "A súa versión glib  (%d.%d.%d) non fiable con ficheiros remotos. Por "
-#~ "favor actualize a 2.18.0 ou posterior."
-
-#~ msgid ""
-#~ "<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
-#~ "ftp, sftp, webdav etc.). Please upgrade to a glib version newer than "
-#~ "2.18.0 if you rely on remote file support.</b>"
-#~ msgstr ""
-#~ "<b>A súa versión de glib (%d.%d.%d) funciona de xeito pouco fiable con "
-#~ "ficheiros remotos (smb, ftp, sftp, webdav etc.). Por favor actualice a "
-#~ "unha versión de glib máis nova de 2.18.0 se quere traballar con soporte "
-#~ "de ficheiros remotos.</b>"
-
-#~ msgid "_Language:"
-#~ msgstr "_Idioma:"
-
-#~ msgid "Error adding bookmark"
-#~ msgstr "Fout bĳ toevoegen bladwĳzer"
-
-#~ msgid "Cannot add bookmarks to unsaved files."
-#~ msgstr "Kan geen bladwĳzers toevoegen aan niet opgeslagen bestanden."
-
-#~ msgid "<b>Font</b>"
-#~ msgstr "<b>Lettertype</b>"
-
-#~ msgid "Fo_rmat"
-#~ msgstr "Opmaak"
-
-#~ msgid "Goto _Line"
-#~ msgstr "Ga naar _regel"
-
-#~ msgid "Co_nnect"
-#~ msgstr "Verbinden"
-
-#~ msgid "Connect _anonymously"
-#~ msgstr "Anoniem verbinden"
-
-#~ msgid "Connect as u_ser:"
-#~ msgstr "Verbinden als gebruiker"
-
-#~ msgid "_Username:"
-#~ msgstr "Naam:"
-
-#~ msgid "_Domain:"
-#~ msgstr "Domein:"
-
-#~ msgid "_Password:"
-#~ msgstr "Wachtwoord:"
-
-#~ msgid "Forget password _immediately"
-#~ msgstr "Vergeet wachtwoord direct"
-
-#~ msgid "Remember password until you _logout"
-#~ msgstr "Onthoudt wachtwoord tot uitloggen"
-
-#~ msgid "Remember _forever"
-#~ msgstr "Onthoudt altijd"
-
-#~ msgid "<b>Open URL</b>"
-#~ msgstr "<b>Open URL</b>"
-
-#~ msgid "HTML"
-#~ msgstr "HTML"
-
-#~ msgid "<b>HTML Toolbar</b>"
-#~ msgstr "<b>HTML balk</b>"
-
-#~ msgid "Use lo_wercase HTML tags"
-#~ msgstr "Kleine l_etter HTML tags"
-
-#~ msgid "Use de_precated tags (e.g. <font> and <nobr>)"
-#~ msgstr "Gebruik _verouderde tags (bĳv. <font> en <nobr>)"
-
-#~ msgid ""
-#~ "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
-#~ msgstr ""
-#~ "_Maak op volgens toegankelijkheids-richtlijnen (bijv. <strong> i.p.v. <b>)"
-
-#~ msgid "Use _XHTML style tags (<br />)"
-#~ msgstr "Gebruik XHTML syntax (zoals <br />)"
-
-#~ msgid "<b>Auto Update Tag Options</b>"
-#~ msgstr "<b>Opties voor automatisch tag aanpassen</b>"
-
-#~ msgid "Automatically update a_uthor meta tag"
-#~ msgstr "Automatisch aanpassen van _author meta tag"
-
-#~ msgid "Automatically update _date meta tag"
-#~ msgstr "Automatisch aanpassen van _datum meta tag"
-
-#~ msgid "Automatically update _generator meta tag"
-#~ msgstr "Automatisch aanpassen van _generator meta tag"
-
-#~ msgid "_Make HTML dialogs transient"
-#~ msgstr "HTML dialogen altĳd _vooraan"
-
-#~ msgid "<b>Sidebar</b>"
-#~ msgstr "<b>Zijbalk</b>"
-
-#~ msgid "L_ocation:"
-#~ msgstr "_Positie:"
-
-#~ msgid "Show in _tooltip window"
-#~ msgstr "Referentie informatie bij muis weergeven"
-
-#~ msgid "Mozilla"
-#~ msgstr "Mozilla"
-
-#~ msgid "Galeon"
-#~ msgstr "Galeon"
-
-#~ msgid "_Find..."
-#~ msgstr "_Zoeken..."
-
-#~ msgid "Re_place..."
-#~ msgstr "_Vervangen..."
-
-#~ msgid "Replace"
-#~ msgstr "Vervangen"
-
-#~ msgid "Save _As..."
-#~ msgstr "Opslaan _als..."
-
-#~ msgid "_Unindent"
-#~ msgstr "_Uitspringen"
-
-#~ msgid "_Browse..."
-#~ msgstr "Bladeren..."
-
-#, fuzzy
-#~ msgid "/Edit/Preferences"
-#~ msgstr "Voorkeuren aanpassen"
-
-#~ msgid "Find From Selection"
-#~ msgstr "Zoek van selectie"
-
-#~ msgid "Replace Agai_n"
-#~ msgstr "Herhaal vervangen"
-
-#, fuzzy
-#~ msgid "Replace again"
-#~ msgstr "Herhaal vervangen"
-
-#~ msgid "%d document open."
-#~ msgid_plural "%d documents open."
-#~ msgstr[0] "%d document open."
-#~ msgstr[1] "%d documenten open."
-
-#~ msgid "Advanced open: Finished searching files. "
-#~ msgstr "Geavanceerd openen: Gereed met zoeken naar bestanden. "
-
-#~ msgid "Search failed"
-#~ msgstr "Zoeken mislukt"
-
-#~ msgid "Regular expression error: %s"
-#~ msgstr "Reguliere expressie error: %s"
-
-#~ msgid "Regular expression error: %s at offset %d"
-#~ msgstr "Reguliere expressie error: %s na %d karakters"
-
-#~ msgid "Found %d matches, "
-#~ msgid_plural "Found %d matches, "
-#~ msgstr[0] "%d resultaten gevonden, "
-#~ msgstr[1] "%d resultaten gevonden, "
-
-#~ msgid "replaced %d"
-#~ msgid_plural "replaced %d"
-#~ msgstr[0] "%d vervangen"
-#~ msgstr[1] "%d vervangen"
-
-#~ msgid "Found %d matches"
-#~ msgid_plural "Found %d matches"
-#~ msgstr[0] "%d resultaten gevonden"
-#~ msgstr[1] "%d resultaten gevonden"
-
-#~ msgid ""
-#~ "<span foreground=\"red\" weight=\"bold\">No more matches found, next "
-#~ "search will continue at the beginning.</span>"
-#~ msgstr ""
-#~ "<span foreground=\"red\" weight=\"bold\">Niet meer resultaten gevonden, "
-#~ "volgende zoekopdracht zal verder gaan bĳ begin</span>"
-
-#~ msgid "Selection"
-#~ msgstr "Selectie"
-
-#~ msgid "Entire word only"
-#~ msgstr "Alleen gehele woorden"
-
-#~ msgid "POSIX style regular expression"
-#~ msgstr "POSIX type reguliere expressie"
-
-#~ msgid "PERL style regular expression"
-#~ msgstr "Perl type reguliere expressie"
-
-#~ msgid "The pattern to look for"
-#~ msgstr "Het patroon om naar te zoeken"
-
-#~ msgid "Replace matching text with"
-#~ msgstr "Vervang gevonden resultaat door"
-
-#~ msgid "Where to look for the pattern."
-#~ msgstr "Waar zoeken naar het patroon."
-
-#~ msgid "Found 0 matches, replaced 0"
-#~ msgstr "Vond 0 resultaten, 0 vervangen"
-
-#~ msgid "Found 0 matches"
-#~ msgstr "Vond 0 resultaten"
-
-#~ msgid "<b>_Options</b>"
-#~ msgstr "<b>Optie's</b>"
-
-#~ msgid "How to interpret the pattern."
-#~ msgstr "Hoe het patroon interpreteren."
-
-#~ msgid "What to replace with."
-#~ msgstr "Waarmee vervangen."
-
-#~ msgid "Allow o_verlapping matches"
-#~ msgstr "Overlappende resultaten toestaan"
-
-#~ msgid "After a match is found, start next search within that match."
-#~ msgstr ""
-#~ "Als een resultaat is gevonden, begin dan de volgende zoekopdracht binnen "
-#~ "dat resultaat."
-
-#~ msgid "Select matc_hes"
-#~ msgstr "Selecteer gevonden resultaten"
-
-#~ msgid "Select the matching text instead of just highlighting it"
-#~ msgstr "Selecteer gevonden tekst i.p.v. alleen uitlichten"
-
-#~ msgid "Create a bookmark for each match"
-#~ msgstr "Maak een bladwĳzer voor elk resultaat"
-
-#~ msgid "The parent window"
-#~ msgstr "Het moeder-venster"
-
-#~ msgid "Is Showing"
-#~ msgstr "Laat zien"
-
-#~ msgid "Are we showing a dialog"
-#~ msgstr "Laten we een venster zien"
-
-#~ msgid "Screen"
-#~ msgstr "Scherm"
-
-#~ msgid "The screen where this window will be displayed."
-#~ msgstr "Het scherm waar dit venster wordt weergegeven"
-
-#~ msgid "jpeg"
-#~ msgstr "jpeg"
-
-#~ msgid "png"
-#~ msgstr "png"
