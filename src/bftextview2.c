@@ -125,11 +125,22 @@ bf_get_identifier_at_iter(BluefishTextView * btv, GtkTextIter * iter, gint * con
 	return gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), &so, &eo, TRUE);
 }
 
+
 gboolean
-bf_text_iter_line_start_of_text(GtkTextIter * iter, GtkTextIter * realend)
+bf_text_iter_line_start_of_text(GtkTextView *btv, GtkTextIter * iter, GtkTextIter * realstart, gboolean use_wrapped)
 {
-	gtk_text_iter_set_line_offset(iter, 0);
-	*realend = *iter;
+	if (use_wrapped && gtk_text_view_get_wrap_mode(btv) != GTK_WRAP_NONE) {
+		gtk_text_view_backward_display_line_start(btv,iter);
+		if (gtk_text_iter_get_line_offset(iter)>0) {
+			*realstart = *iter;
+			/* we have wrapped text, and we found the start of a wrapped part, so this is not the start of the real line */
+			return TRUE;
+		}
+	} else {	
+		gtk_text_iter_set_line_offset(iter, 0);
+		*realstart = *iter;
+	}
+	/* do the magic so we can toggle between the line start and the start of the text */
 	while (g_unichar_isspace(gtk_text_iter_get_char(iter))) {
 		if (gtk_text_iter_ends_line(iter))
 			return FALSE;
@@ -137,10 +148,21 @@ bf_text_iter_line_start_of_text(GtkTextIter * iter, GtkTextIter * realend)
 	}
 	return TRUE;
 }
-
+/* if BluefishTextView *btv is NULL we do not check for the wrap mode, and the function will always
+return the real line, not the wrapped part  */
 gboolean
-bf_text_iter_line_end_of_text(GtkTextIter * iter, GtkTextIter * realend)
+bf_text_iter_line_end_of_text(BluefishTextView *btv, GtkTextIter * iter, GtkTextIter * realend, gboolean use_wrapped)
 {
+	if (use_wrapped && gtk_text_view_get_wrap_mode(GTK_TEXT_VIEW(btv)) != GTK_WRAP_NONE) {
+		gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(btv),iter);
+		if (!gtk_text_iter_ends_line(iter)) {
+			/* we have wrapped text, and we found the end of a wrapped part, so this is not the end of the real line */
+			*realend = *iter;
+			return TRUE;
+		}
+	}
+	
+	
 	if (!gtk_text_iter_ends_line(iter))
 		gtk_text_iter_forward_to_line_end(iter);
 	if (gtk_text_iter_starts_line(iter))
@@ -1441,11 +1463,12 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		imark = gtk_text_buffer_get_insert(BLUEFISH_TEXT_VIEW(btv)->buffer);
 		gtk_text_buffer_get_iter_at_mark(BLUEFISH_TEXT_VIEW(btv)->buffer, &currentpos, imark);
 		iter = currentpos;
-
+		/* if you hold ALT and you have wrapped text, bluefish will jump to the previous/next newline, else
+		it will jump the the start/end of the wrapped part of the line */
 		if ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home)) {
-			ret = bf_text_iter_line_start_of_text(&iter, &linestart);
+			ret = bf_text_iter_line_start_of_text(btv, &iter, &linestart, !(kevent->state & GDK_MOD1_MASK));
 		} else {				/* (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End) */
-			ret = bf_text_iter_line_end_of_text(&iter, &linestart);
+			ret = bf_text_iter_line_end_of_text(btv, &iter, &linestart, !(kevent->state & GDK_MOD1_MASK));
 		}
 		if (ret) {
 			if (gtk_text_iter_compare(&currentpos, &iter) == 0)
@@ -1481,7 +1504,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 			   in the indenting) we indent */
 			eol1 = eo;
 			sol2 = so;
-			if (bf_text_iter_line_end_of_text(&eol1, &eol2) && bf_text_iter_line_start_of_text(&sol2, &sol1)) {
+			if (bf_text_iter_line_end_of_text(btv, &eol1, &eol2, FALSE) && bf_text_iter_line_start_of_text(btv, &sol2, &sol1, FALSE)) {
 				if ((gtk_text_iter_equal(&so, &sol1) || gtk_text_iter_equal(&so, &sol2)
 					 || gtk_text_iter_in_range(&so, &sol1, &sol2))
 					&& (gtk_text_iter_equal(&eo, &eol1) || gtk_text_iter_equal(&eo, &eol2)
