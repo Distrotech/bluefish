@@ -2,22 +2,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-12-18 11:49+0100\n"
+"POT-Creation-Date: 2014-12-19 06:17+0100\n"
 "PO-Revision-Date: Thu Dec 18 2014 12:14:52 GMT+0100 (CET)\n"
 "Last-Translator: Xose M. Lamas <correo.xmgz@gmail.com>\n"
 "Language-Team: none\n"
 "Language: gl\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Loco-Source-Locale: gl_ES\n"
 "X-Poedit-Language: Galician\n"
 "X-Poedit-Country: SPAIN\n"
 "X-Loco-Parser: loco_parse_po\n"
 "X-Loco-Target-Locale: gl_ES\n"
-"X-Generator: Loco - https://localise.biz/"
+"X-Generator: Loco - https://localise.biz/\n"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:1
 msgid ""
@@ -30,11 +30,11 @@ msgstr ""
 "web, con moitas ferramentas para escribir sitios web, scripts e código de "
 "programación. Bluefish soporta moitas linguaxes de programación e linguaxes "
 "de marcado e ten moitas ferramentas, pero aínda así é un aplicativo lixeiro "
-"e rápido.\n"
+"e rápido."
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:2
 msgid "A selection of the features:"
-msgstr "Unha selecións das características:\n"
+msgstr "Unha selecións das características:"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:3
 msgid ""
@@ -52,6 +52,10 @@ msgstr ""
 "Todas as características dos editores potentes como autoindentación e "
 "autocompletado para moitas funcións e bibliotecas en moitas linguaxes de "
 "programación"
+
+#: ../desktop-data/bluefish.appdata.xml.in.h:5
+msgid "Project support"
+msgstr "Axuda do proxecto"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:6
 msgid "Support for remote files over ftp, sftp, webdav, etc"
@@ -77,6 +81,10 @@ msgstr "Comprobación da ortografía en liña dependente do tipo de código"
 msgid "Zencoding or Emmet support"
 msgstr "Soporte de Zencoding ou Emmet"
 
+#: ../desktop-data/bluefish.appdata.xml.in.h:12
+msgid "Bookmarks panel"
+msgstr "Panel de marcadores"
+
 #: ../desktop-data/bluefish.appdata.xml.in.h:13
 msgid ""
 "If you are an occasional coder who is in need for a simple to learn editor, "
@@ -86,82 +94,6 @@ msgstr ""
 "Se vostede é un programador ocasional que precisa de un editor doado de "
 "utilizar, ou un programador habitual que fuxe de IDEs enormes como eclipse "
 "ou netbeans, Bluefish é a súa elección!"
-
-#: ../src/document.c:2042
-#, c-format
-msgid ""
-"File '%s' is not a valid text file.\n"
-"The file might be corrupted, truncated, or in an unexpected encoding."
-msgstr ""
-"O ficheiro '%s' non é un ficheiro de texto válido.\n"
-"\n"
-"Podería estar corrupto, esnaquizado, ou con unha codificación non esperada.\n"
-
-#: ../src/document.c:2044
-msgid ""
-"Bluefish can convert this file into a valid one by replacing illegal symbols "
-"with spaces. Convert?"
-msgstr ""
-"Bluefish pode converter este ficheiro en un tipo válido remplazando os "
-"símbolos ilegáis por espazos. Converter?"
-
-#: ../src/document.c:2056
-#, c-format
-msgid ""
-"File is opened in read-only mode since it differs from original one.\n"
-"%lu characters were replaced by space"
-msgstr ""
-"O ficheiro abreuse en modo só-lectura xa que difire do orixinal.\n"
-"\n"
-"Os caracteres %lu foron substituídos por espazo\n"
-
-#: ../src/document.c:2059
-msgid "Use 'Save As' to save it with different name and make editable"
-msgstr "Utilice 'Gardar como' para gardalo con un nome diferente e facelo editable"
-
-#: ../src/preferences.c:2784 ../src/preferences.c:2785
-msgid "File Associations"
-msgstr "Asociación de ficheiros"
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:5
-msgid "Project support"
-msgstr "Axuda do proxecto"
-
-#: ../desktop-data/bluefish.appdata.xml.in.h:12
-msgid "Bookmarks panel"
-msgstr "Panel de marcadores"
-
-#: ../src/bfwin_uimanager.c:835
-msgid "_Output parsers"
-msgstr "Analizadores da _Saída"
-
-#: ../src/document.c:2038
-msgid "_Convert"
-msgstr "Con_verter"
-
-#: ../src/file_dialogs.c:1387
-msgid "Include backup files"
-msgstr "Incluír ficheiros de respaldo"
-
-#: ../src/preferences.c:901
-msgid "Extension"
-msgstr "Extensión"
-
-#: ../src/preferences.c:903
-msgid "Mime-Type"
-msgstr "Tipo-Mime"
-
-#: ../src/preferences.c:2858
-msgid "User interface _language:"
-msgstr "I_dioma da interface de usuario:"
-
-#: ../src/preferences.c:2899
-msgid "_Switch between tabs with <Command>+0..9"
-msgstr "Cambiar entre tabela_s con <Alt>+0..9"
-
-#: ../src/rcfile.c:848
-msgid "Google Chrome"
-msgstr "Google Chrome"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -331,6 +263,10 @@ msgstr "_Comandos"
 #: ../src/bfwin_uimanager.c:834
 msgid "_Filters"
 msgstr "_Filtros"
+
+#: ../src/bfwin_uimanager.c:835
+msgid "_Output parsers"
+msgstr "Analizadores da _Saída"
 
 #: ../src/bfwin_uimanager.c:836
 msgid "For_mat"
@@ -535,7 +471,8 @@ msgstr "Selecionar _Bloque"
 
 #: ../src/bfwin_uimanager.c:887
 msgid "Select block, use multiple times to select parent blocks "
-msgstr "Selecionar bloque, usar varias veces para selecionar bloques relacionados"
+msgstr ""
+"Selecionar bloque, usar varias veces para selecionar bloques relacionados"
 
 #: ../src/bfwin_uimanager.c:889
 msgid "D_uplicate Line"
@@ -1152,32 +1089,32 @@ msgid ""
 "<span foreground=\"red\" weight=\"bold\">Please select the block of text to "
 "synchronize.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Por favor selecione o bloque de texto a "
-"sincronizar.</span>"
+"<span foreground=\"red\" weight=\"bold\">Por favor selecione o bloque de "
+"texto a sincronizar.</span>"
 
 #: ../src/blocksync.c:239 ../src/blocksync.c:259
 msgid ""
-"<span foreground=\"red\" weight=\"bold\">This marker exists more than once in "
-"the block.</span>"
+"<span foreground=\"red\" weight=\"bold\">This marker exists more than once "
+"in the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Este marcador está repetido no bloque."
-"</span>"
+"<span foreground=\"red\" weight=\"bold\">Este marcador está repetido no "
+"bloque.</span>"
 
 #: ../src/blocksync.c:245
 msgid ""
-"<span foreground=\"red\" weight=\"bold\">Select the text that marks the start of "
-"the block.</span>"
+"<span foreground=\"red\" weight=\"bold\">Select the text that marks the "
+"start of the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Selecione o texto que indica o inicio "
-"do bloque.</span>"
+"<span foreground=\"red\" weight=\"bold\">Selecione o texto que indica o "
+"inicio do bloque.</span>"
 
 #: ../src/blocksync.c:265
 msgid ""
-"<span foreground=\"red\" weight=\"bold\">Select the text that marks the end of "
-"the block.</span>"
+"<span foreground=\"red\" weight=\"bold\">Select the text that marks the end "
+"of the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Selecione o texto que indica o fin do "
-"bloque.</span>"
+"<span foreground=\"red\" weight=\"bold\">Selecione o texto que indica o fin "
+"do bloque.</span>"
 
 #: ../src/bluefish.c:91
 msgid "Visit us at http://bluefish.openoffice.nl"
@@ -1471,15 +1408,50 @@ msgstr "O ficheiro contén liñas moi longas. Separar estas liñas?"
 #: ../src/document.c:1961
 msgid ""
 "The lines in this file are longer than Bluefish can handle with reasonable "
-"performance. This split function, however, is unaware of any language syntax,"
-" and may replace spaces or tabs with newlines in any location, or insert "
-"newlines if no spaces or tabs are found."
+"performance. This split function, however, is unaware of any language "
+"syntax, and may replace spaces or tabs with newlines in any location, or "
+"insert newlines if no spaces or tabs are found."
 msgstr ""
 "As liñas neste ficheiro son máis longas do que Bluefish pode manexar con "
 "rendemento razonable. A función de separado, porén, non detecta a linguaxe "
 "ou sintaxe, e pode sustituír espazos ou tabulacións con novas liñas en "
 "calquer localización, ou insertar novas liñas se non atopa espazos ou "
 "tabulacións."
+
+#: ../src/document.c:2038
+msgid "_Convert"
+msgstr "Con_verter"
+
+#: ../src/document.c:2042
+#, c-format
+msgid ""
+"File '%s' is not a valid text file.\n"
+"The file might be corrupted, truncated, or in an unexpected encoding."
+msgstr ""
+"O ficheiro '%s' non é un ficheiro de texto válido.\n"
+"Podería estar corrupto, esnaquizado, ou con unha codificación non esperada."
+
+#: ../src/document.c:2044
+msgid ""
+"Bluefish can convert this file into a valid one by replacing illegal symbols "
+"with spaces. Convert?"
+msgstr ""
+"Bluefish pode converter este ficheiro en un tipo válido remplazando os "
+"símbolos ilegáis por espazos. Converter?"
+
+#: ../src/document.c:2056
+#, c-format
+msgid ""
+"File is opened in read-only mode since it differs from original one.\n"
+"%lu characters were replaced by space"
+msgstr ""
+"O ficheiro abreuse en modo só-lectura xa que difire do orixinal.\n"
+"Os caracteres %lu foron substituídos por espazo"
+
+#: ../src/document.c:2059
+msgid "Use 'Save As' to save it with different name and make editable"
+msgstr ""
+"Utilice 'Gardar como' para gardalo con un nome diferente e facelo editable"
 
 #: ../src/document.c:2254
 msgid "Exit fullscreen"
@@ -1793,7 +1765,7 @@ msgstr "Novo directorio"
 #. *
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
-#. 
+#.
 #: ../src/filebrowser2.c:983
 #, c-format
 msgid ""
@@ -2213,6 +2185,10 @@ msgstr "Borrar ficheiros anticuados"
 msgid "Include hidden files"
 msgstr "Incluir ficheiros ocultos"
 
+#: ../src/file_dialogs.c:1387
+msgid "Include backup files"
+msgstr "Incluír ficheiros de respaldo"
+
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1434
 #, c-format
@@ -2421,6 +2397,14 @@ msgstr "Habilitado"
 msgid "Path to plugin"
 msgstr "Ruta ao engadio"
 
+#: ../src/preferences.c:901
+msgid "Extension"
+msgstr "Extensión"
+
+#: ../src/preferences.c:903
+msgid "Mime-Type"
+msgstr "Tipo-Mime"
+
 #: ../src/preferences.c:1131
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
@@ -2511,7 +2495,8 @@ msgstr ""
 "%a argumentos adicionais que serán solicitados cando este filtro sexa "
 "activado\n"
 "%c directorio local do ficheiro (dispoñible para ficheiros locais)\n"
-"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con título)\n"
+"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con "
+"título)\n"
 "%u URL (dispoñible para todos os ficheiros con título)\n"
 "%p vista previa da URL se o directorio base e o directorio de vista previa "
 "foron establecidos nas preferencias do proxecto, e són idénticos a %u</small>"
@@ -2536,7 +2521,6 @@ msgid "Reset all"
 msgstr "Restaurar todos"
 
 #: ../src/preferences.c:1475
-#, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2568,11 +2552,12 @@ msgstr ""
 "<b>Outras opcións</b>\n"
 "%a argumentos adicionáis que serán pedidos cando este filtro se active\n"
 "%c directorio local do ficheiro (require ficherio local)\n"
-"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con título)\n"
+"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con "
+"título)\n"
 "%u URL (dispoñible para todos os ficheiros con título)\n"
 "%p URL de vista previa se o directorio base e o directorio de vista previa "
-"foron establecidos nas preferenzas do proxecto, se non, equivale a %u "
-"</small>"
+"foron establecidos nas preferenzas do proxecto, se non, equivale a %u </"
+"small>"
 
 #: ../src/preferences.c:1660
 #, c-format
@@ -2606,11 +2591,12 @@ msgstr ""
 "<b>Outras opcións</b>\n"
 "%a argumentos adicionáis que serán pedidos cando este filtro se active\n"
 "%c directorio local do ficheiro (require ficherio local)\n"
-"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con título)\n"
+"%n nome de ficheiro sen ruta (dispoñible para todos os ficheiros con "
+"título)\n"
 "%u URL (dispoñible para todos os ficheiros con título)\n"
 "%p URL de vista previa se o directorio base e o directorio de vista previa "
-"foron establecidos nas preferenzas do proxecto, se non, equivale a %u "
-"</small>"
+"foron establecidos nas preferenzas do proxecto, se non, equivale a %u </"
+"small>"
 
 #: ../src/preferences.c:1690
 msgid "Pattern"
@@ -2755,9 +2741,9 @@ msgstr "Intelixente"
 msgid "Edit preferences"
 msgstr "Editar preferenzas"
 
-#. 
+#.
 #. *  Initial document settings
-#. 
+#.
 #: ../src/preferences.c:2480
 msgid "<b>Non Project Defaults</b>"
 msgstr "<b>Por omisión sen proxecto</b>"
@@ -3000,6 +2986,10 @@ msgstr "Habilitar a recuperación de documentos modificados"
 msgid "_Frequency to store changes (seconds):"
 msgstr "_Frecuencia de gardado dos cambios (segundos):"
 
+#: ../src/preferences.c:2784 ../src/preferences.c:2785
+msgid "File Associations"
+msgstr "Asociación de ficheiros"
+
 #: ../src/preferences.c:2803
 msgid "Templates"
 msgstr "Plantillas"
@@ -3036,6 +3026,10 @@ msgstr "Posición do tab na barra lateral:"
 msgid "Hide toolbars on full-screen"
 msgstr "Agochar barras de ferramentas en pantalla completa"
 
+#: ../src/preferences.c:2858
+msgid "User interface _language:"
+msgstr "I_dioma da interface de usuario:"
+
 #: ../src/preferences.c:2861
 msgid "<b>Recent Files</b>"
 msgstr "<b>Ficheiros recentes</b>"
@@ -3063,6 +3057,10 @@ msgstr "<b>Atallos de teclado</b>"
 #: ../src/preferences.c:2896
 msgid "_Switch between tabs with <Alt>+0..9"
 msgstr "Cambiar entre tabelas con <Alt>+0..9"
+
+#: ../src/preferences.c:2899
+msgid "_Switch between tabs with <Command>+0..9"
+msgstr "Cambiar entre tabela_s con <Alt>+0..9"
 
 #: ../src/preferences.c:2904
 msgid "Save menu accelerators on exit"
@@ -3379,6 +3377,10 @@ msgstr "Safari"
 msgid "Firefox"
 msgstr "Firefox"
 
+#: ../src/rcfile.c:848
+msgid "Google Chrome"
+msgstr "Google Chrome"
+
 #: ../src/rcfile.c:851 ../src/rcfile.c:869
 msgid "Chromium"
 msgstr "Chromium"
@@ -3461,18 +3463,22 @@ msgstr "<i>Búsqueda iniciada</i>"
 
 #: ../src/snr3.c:701
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
-msgstr "<span foreground=\"red\"><b>Sen selección, búsqueda cancelada.</b><span>"
+msgstr ""
+"<span foreground=\"red\"><b>Sen selección, búsqueda cancelada.</b><span>"
 
 #. display warning that not all documents have yet finished loading
 #: ../src/snr3.c:710
-msgid "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</span>"
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
+"span>"
 msgstr ""
 "<span foreground=\"red\" weight=\"bold\">Aínda se están cargando algúns "
 "ficheiros.</span>"
 
 #: ../src/snr3.c:844
 msgid "<span foreground=\"red\">Empty search string</span>"
-msgstr "<span foreground=\"red\" weight=\"bold\">Cadea de búsqueda baldeira</span>"
+msgstr ""
+"<span foreground=\"red\" weight=\"bold\">Cadea de búsqueda baldeira</span>"
 
 #: ../src/snr3.c:894
 #, c-format
