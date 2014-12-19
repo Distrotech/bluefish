@@ -129,14 +129,17 @@ bf_get_identifier_at_iter(BluefishTextView * btv, GtkTextIter * iter, gint * con
 gboolean
 bf_text_iter_line_start_of_text(GtkTextView *btv, GtkTextIter * iter, GtkTextIter * realstart, gboolean use_wrapped)
 {
+	gboolean ret;
 	if (use_wrapped && gtk_text_view_get_wrap_mode(btv) != GTK_WRAP_NONE) {
-		gtk_text_view_backward_display_line_start(btv,iter);
+		ret = gtk_text_view_backward_display_line_start(btv,iter);
+		if (!ret)
+			return FALSE;
 		if (gtk_text_iter_get_line_offset(iter)>0) {
 			*realstart = *iter;
 			/* we have wrapped text, and we found the start of a wrapped part, so this is not the start of the real line */
 			return TRUE;
 		}
-	} else {	
+	} else {
 		gtk_text_iter_set_line_offset(iter, 0);
 		*realstart = *iter;
 	}
@@ -153,8 +156,11 @@ return the real line, not the wrapped part  */
 gboolean
 bf_text_iter_line_end_of_text(BluefishTextView *btv, GtkTextIter * iter, GtkTextIter * realend, gboolean use_wrapped)
 {
+	gboolean ret;
 	if (use_wrapped && gtk_text_view_get_wrap_mode(GTK_TEXT_VIEW(btv)) != GTK_WRAP_NONE) {
-		gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(btv),iter);
+		ret = gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(btv),iter);
+		if (!ret)
+			return FALSE;
 		if (!gtk_text_iter_ends_line(iter)) {
 			/* we have wrapped text, and we found the end of a wrapped part, so this is not the end of the real line */
 			*realend = *iter;
