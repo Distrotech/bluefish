@@ -1719,8 +1719,8 @@ href="http://www.w3.org/TR/css3-color/#color">www.w3.org</a></reference>
 <b>Specification:</b> <a
 href="http://www.w3.org/TR/CSS21/generate.html#content">www.w3.org</a></reference>
 <context symbols=" &#9;&#10;&#13;-{}.;()'&#34;">
-<!-- BUG: this pattern creates an issue in the bluefish syntax scanning. Because the same rule is used 
-in the in-line css and in the included css, we have to match the same pattern ( a double quote ") as 
+<!-- BUG: this pattern creates an issue in the bluefish syntax scanning. Because the same rule is used
+in the in-line css and in the included css, we have to match the same pattern ( a double quote ") as
 end-of-inline-css and as start-of-css-string.
 
 what to do now????
@@ -3529,6 +3529,39 @@ href="http://www.w3.org/TR/CSS21/text.html#indentation-prop">www.w3.org</a></ref
 
 </context>
 </element>
+
+<element pattern="text-shadow" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>Specifies the type of shadow effect under the text.
+<b>Values:</b> h-shadow v-shadow blur color|none|initial|inherit;
+<b>Initial:</b> none
+<b>Applies to:</b> all-elements
+<b>Inherited:</b> yes
+<b>Percentages:</b> n/a
+<b>Media:</b> visual
+<b>Computed value:</b> a color plus three absolute lengths
+<b>Animatable:</b> as shadow list
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css-text-decor-3/#text-shadow-property">www.w3.org</a></reference>
+<context symbols=" &#9;&#10;&#13;{}.;:'&quot;">
+<element pattern="0" highlight="css-value" >
+	<autocomplete enable="1" />
+</element>
+<element pattern="inherit" highlight="css-value" >
+	<autocomplete enable="1" />
+</element>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
+
+</context>
+</element>
+
+
 <element pattern="text-transform" highlight="css-property" >
 	<autocomplete append=": " />
 <reference>Controls capitalization effects of an element's text.
