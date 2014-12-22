@@ -1592,6 +1592,36 @@ href="http://www.w3.org/TR/CSS2/visuren.html#position-props">www.w3.org</a></ref
 
 </context>
 </element>
+<element pattern="box-shadow" highlight="css-property" >
+	<autocomplete append=": " />
+<reference>The ‘box-shadow’ property attaches one or more drop-shadows to the box. The property takes a comma-separated list of shadows, ordered front to back. Each shadow is given as a &lt;shadow&gt;, represented by 2-4 length values, an optional color, and an optional ‘inset’ keyword. Omitted lengths are 0; omitted colors default to the value of the ‘color’ property.
+<b>Values:</b> none | &lt;shadow&gt; [, &lt;shadow&gt;]*
+<b>Initial:</b> none
+<b>Applies to:</b> all elements
+<b>Inherited:</b> no
+<b>Percentages:</b> N/A
+<b>Media:</b> visual
+<b>Computed value:</b> any &lt;length&gt; made absolute; any specified color computed; otherwise as specified
+<b>Animatable:</b> as shadow list
+<b>Specification:</b> <a
+href="http://www.w3.org/TR/css3-background/#the-box-shadow">www.w3.org</a></reference>
+<context id="c.css.box_offsets" idref="c.css.box_offsets" symbols=" &#9;&#10;&#13;-{}.;:">
+<group highlight="css-value" >
+	<autocomplete append=";" />
+	<element pattern="auto"/>
+	<element pattern="inherit"/>
+</group>
+<element id="e.css.length.neg" pattern="-?[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px|%)" is_regex="1" highlight="css-value"/>
+<element idref="e.css.end"/>
+<element idref="e.css.lcomment"/>
+<element id="e.css.in_style_attribute.dquote" idref="e.css.in_style_attribute.dquote" pattern="&quot;" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_attribute.squote" idref="e.css.in_style_attribute.squote" pattern="'" highlight="string" ends_context="3" condition_contextref="c.html.attrib.style.inner" condition_mode="1" condition_relation="1" />
+<element id="e.css.in_style_section.rbrace" idref="e.css.in_style_section.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
+
+</context>
+</element>
+
+
 <element pattern="caption-side" highlight="css-property" >
 	<autocomplete append=": " />
 <reference>Specifies the position of the caption box with respect to the table box.
