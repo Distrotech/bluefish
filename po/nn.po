@@ -1,13 +1,13 @@
 # Norwegian Nynorsk translations for bluefish package.
 # Copyright (C) 2011 The Bluefish Development Team.
-# Yngve Spjeld Landro <l10n@landro.net>, 2010-2012, 2012.
+# Yngve Spjeld Landro <l10n@landro.net>, 2010-2012, 2012, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.6\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-10-25 16:44-0700\n"
-"PO-Revision-Date: 2014-04-12 12:44+0100\n"
+"POT-Creation-Date: 2014-12-18 11:49+0100\n"
+"PO-Revision-Date: 2014-12-19 01:41+0100\n"
 "Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
 "Language-Team: Norsk (nynorsk) <> <l10n@landro.net>\n"
 "Language: nn\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Gtranslator 2.91.6\n"
 "X-Poedit-Basepath: /home/y/Dropbox/omsetjing\n"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:1
@@ -112,20 +112,20 @@ msgstr "Bluefish prosjektfil"
 msgid "Bluefish language definition file"
 msgstr "Bluefish språkdefinisjonsfil"
 
-#: ../src/bftextview2.c:1764
+#: ../src/bftextview2.c:1787
 msgid "Collapse all"
 msgstr "Fald saman alle"
 
-#: ../src/bftextview2.c:1767
+#: ../src/bftextview2.c:1790
 msgid "Expand all"
 msgstr "Utvid alle"
 
-#: ../src/bftextview2.c:1776
+#: ../src/bftextview2.c:1799
 #, c-format
 msgid "Collapse %s"
 msgstr "Fald saman %s"
 
-#: ../src/bftextview2.c:1786
+#: ../src/bftextview2.c:1809
 #, c-format
 msgid "Expand %s"
 msgstr "Utvid %s"
@@ -261,9 +261,8 @@ msgid "_Filters"
 msgstr "_Filter"
 
 #: ../src/bfwin_uimanager.c:835
-#, fuzzy
 msgid "_Output parsers"
-msgstr "Utdatatolkarar"
+msgstr "_Utdatatolkarar"
 
 #: ../src/bfwin_uimanager.c:836
 msgid "For_mat"
@@ -690,7 +689,7 @@ msgstr "Tekstbryti_ng"
 msgid "Wrap text"
 msgstr "Tekstbryting"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:2038 ../src/document.c:3368
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:2038 ../src/document.c:3384
 msgid "_Close"
 msgstr "L_ukk"
 
@@ -707,7 +706,7 @@ msgid "Close all files"
 msgstr "Lukk alle filene"
 
 #: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
-#: ../src/file_dialogs.c:1456
+#: ../src/file_dialogs.c:1457
 msgid "_Save"
 msgstr "_Lagra"
 
@@ -1415,7 +1414,6 @@ msgstr ""
 "tabulatorar."
 
 #: ../src/document.c:2038
-#, fuzzy
 msgid "_Convert"
 msgstr "Gjer _om"
 
@@ -1425,12 +1423,16 @@ msgid ""
 "File '%s' is not a valid text file.\n"
 "The file might be corrupted, truncated, or in an unexpected encoding."
 msgstr ""
+"Fila '%s' er ikkje ei gyldig tekstfil.\n"
+"Fila er kanskje øydelagd, avkorta eller bruker ei uventa teiknkoding."
 
 #: ../src/document.c:2044
 msgid ""
 "Bluefish can convert this file into a valid one by replacing illegal symbols "
 "with spaces. Convert?"
 msgstr ""
+"Bluefish kan gjera fila gyldig ved å byta ut ulovlege symbol med mellomrom. "
+"Vil du gjera dette?"
 
 #: ../src/document.c:2056
 #, c-format
@@ -1438,10 +1440,14 @@ msgid ""
 "File is opened in read-only mode since it differs from original one.\n"
 "%lu characters were replaced by space"
 msgstr ""
+"Fila vart opna i lesemodus sidan ho er forskjellig frå originalfila.\n"
+"Mellomrom erstatta %lu teikn"
 
 #: ../src/document.c:2059
 msgid "Use 'Save As' to save it with different name and make editable"
 msgstr ""
+"Bruk 'Lagra som' for å lagra fila med eit anna namn og gjera det mogleg å "
+"endra ho"
 
 #: ../src/document.c:2254
 msgid "Exit fullscreen"
@@ -1450,15 +1456,15 @@ msgstr "Gå ut av fullskjermsvisinga"
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2398 ../src/file_dialogs.c:450 ../src/file_dialogs.c:488
+#: ../src/document.c:2412 ../src/file_dialogs.c:450 ../src/file_dialogs.c:488
 msgid "_Abort save"
 msgstr "_Avbryt lagringa"
 
-#: ../src/document.c:2398
+#: ../src/document.c:2412
 msgid "_Continue save in UTF-8"
 msgstr "Hald _fram med lagringa i UTF-8"
 
-#: ../src/document.c:2411
+#: ../src/document.c:2425
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1471,19 +1477,19 @@ msgstr ""
 "\n"
 "Vil du halda fram med å lagra i UTF-8-teiknkoding?"
 
-#: ../src/document.c:2416
+#: ../src/document.c:2430
 msgid "File encoding conversion failure"
 msgstr "Feil under endringa av filteiknkodinga"
 
-#: ../src/document.c:2592
+#: ../src/document.c:2608
 msgid "Previously: "
 msgstr "Tidlegare: "
 
-#: ../src/document.c:3284
+#: ../src/document.c:3300
 msgid "Unable to open file"
 msgstr "Klarte ikkje å opna fila"
 
-#: ../src/document.c:3296
+#: ../src/document.c:3312
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1492,92 +1498,92 @@ msgstr ""
 "Om du går attende til den sist lagra utgåva av \"%s\", vil du mista alle "
 "endringane du har gjort i mellomtida."
 
-#: ../src/document.c:3300
+#: ../src/document.c:3316
 msgid "Revert changes to last saved copy?"
 msgstr "Sjå vekk frå endringane sidan den sist lagra kopien?"
 
-#: ../src/document.c:3368
+#: ../src/document.c:3384
 msgid "_Retry"
 msgstr "Pr_øv om att"
 
-#: ../src/document.c:3368
+#: ../src/document.c:3384
 msgid "Retry _all failed"
 msgstr "Prøv _alle som feila på nytt"
 
-#: ../src/document.c:3368
+#: ../src/document.c:3384
 msgid "Close all _failed"
 msgstr "Lukk alle som _feila"
 
-#: ../src/document.c:3373
+#: ../src/document.c:3389
 msgid "File "
 msgstr "Fil "
 
-#: ../src/document.c:3373
+#: ../src/document.c:3389
 msgid " failed to load."
 msgstr " klarte ikkje å lasta."
 
-#: ../src/document.c:3377
+#: ../src/document.c:3393
 msgid "File failed to load\n"
 msgstr "Fila blei ikkje lasta inn\n"
 
-#: ../src/document.c:3502
+#: ../src/document.c:3518
 msgid "Select file to insert"
 msgstr "Vel ei fil"
 
-#: ../src/document.c:3511
+#: ../src/document.c:3527
 msgid "No file to insert"
 msgstr "Inga fil"
 
-#: ../src/document.c:3591
+#: ../src/document.c:3607
 msgid "Save pasted image as"
 msgstr "Lagra det innlimte biletet som"
 
-#: ../src/document.c:3687
+#: ../src/document.c:3703
 msgid "Paste special"
 msgstr "Lim inn spesielt"
 
-#: ../src/document.c:3693
+#: ../src/document.c:3709
 msgid "No compatible clipboard data found"
 msgstr "Utklippstavla inneheldt ingen kompatible data"
 
-#: ../src/document.c:3697
+#: ../src/document.c:3713
 msgid "Paste as _HTML"
 msgstr "Lim inn som _HTML"
 
-#: ../src/document.c:3702
+#: ../src/document.c:3718
 msgid "Paste as HTML with _JPG"
 msgstr "Lim inn som HTML med _JPG"
 
-#: ../src/document.c:3712
+#: ../src/document.c:3728
 msgid "Paste as plain text"
 msgstr "Lim inn som rein tekst"
 
-#: ../src/document.c:3806
+#: ../src/document.c:3822
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d linje"
 msgstr[1] "%d linjer"
 
-#: ../src/document.c:3807
+#: ../src/document.c:3823
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d ord"
 msgstr[1] "%d ord"
 
-#: ../src/document.c:3808
+#: ../src/document.c:3824
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d teikn"
 msgstr[1] "%d teikn"
 
-#: ../src/document.c:3810
+#: ../src/document.c:3826
 msgid "Selection statistics: "
 msgstr "Utvalsstatistikk: "
 
-#: ../src/document.c:3810
+#: ../src/document.c:3826
 msgid "Statistics: "
 msgstr "Statistikk: "
 
@@ -1733,7 +1739,7 @@ msgstr "Dokument-rot"
 msgid "Webroot"
 msgstr "Nettstad-rot"
 
-#: ../src/filebrowser2.c:788 ../src/file_dialogs.c:775
+#: ../src/filebrowser2.c:788 ../src/file_dialogs.c:776
 #, c-format
 msgid "Move/rename %s to"
 msgstr "endra %s til"
@@ -2032,12 +2038,12 @@ msgstr "Feil under tryggleikskopieringa av fila"
 msgid "Could not save file "
 msgstr "Klarte ikkje å lagra fila "
 
-#: ../src/file_dialogs.c:509 ../src/file_dialogs.c:1497
+#: ../src/file_dialogs.c:509 ../src/file_dialogs.c:1498
 msgid "File changed on disk\n"
 msgstr "Fila er endra på lagringseininga\n"
 
 #: ../src/file_dialogs.c:624 ../src/file_dialogs.c:645
-#: ../src/file_dialogs.c:963 ../src/project.c:336
+#: ../src/file_dialogs.c:964 ../src/project.c:336
 msgid "_Cancel"
 msgstr "A_vbryt"
 
@@ -2059,7 +2065,7 @@ msgstr "Ei fil med namnet \"%s\" finst allereie."
 msgid "Do you want to replace the existing file?"
 msgstr "Vil du byta ut fila som allereie finst?"
 
-#: ../src/file_dialogs.c:755
+#: ../src/file_dialogs.c:756
 msgid ""
 "File:\n"
 "\""
@@ -2067,120 +2073,119 @@ msgstr ""
 "Fil:\n"
 "\""
 
-#: ../src/file_dialogs.c:756
+#: ../src/file_dialogs.c:757
 msgid "\" save is in progress"
 msgstr "\" lagrar"
 
-#: ../src/file_dialogs.c:758
+#: ../src/file_dialogs.c:759
 msgid "Save in progress!"
 msgstr "Lagrar …"
 
-#: ../src/file_dialogs.c:771
+#: ../src/file_dialogs.c:772
 msgid "Save"
 msgstr "Lagra"
 
-#: ../src/file_dialogs.c:773
+#: ../src/file_dialogs.c:774
 #, c-format
 msgid "Save %s as"
 msgstr "Lagra %s som"
 
-#: ../src/file_dialogs.c:777
+#: ../src/file_dialogs.c:778
 #, c-format
 msgid "Save copy of %s"
 msgstr "Lagra _kopi av %s"
 
-#: ../src/file_dialogs.c:934
+#: ../src/file_dialogs.c:935
 msgid "Close _Without Saving"
 msgstr "Lukk _utan å lagra"
 
-#: ../src/file_dialogs.c:937
+#: ../src/file_dialogs.c:938
 #, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr "Lagra endringane i \"%s\" før ho blir lukka?"
 
-#: ../src/file_dialogs.c:940 ../src/file_dialogs.c:967
+#: ../src/file_dialogs.c:941 ../src/file_dialogs.c:968
 msgid "If you don't save your changes they will be lost."
 msgstr "Om du ikkje lagrar endringane dine, vil dei bli mista."
 
-#: ../src/file_dialogs.c:950
+#: ../src/file_dialogs.c:951
 msgid "_Reopen"
 msgstr "Opna på _nytt"
 
-#: ../src/file_dialogs.c:952
+#: ../src/file_dialogs.c:953
 #, c-format
 msgid "Project \"%s\" failed to load"
 msgstr "Klarte ikkje å lasta prosjektet \"%s\""
 
-#: ../src/file_dialogs.c:954
+#: ../src/file_dialogs.c:955
 msgid "Do you want to reopen project from another location?"
 msgstr "Vil du opna prosjektet på nytt frå ein annan stad?"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:964
 msgid "Choose per _File"
 msgstr "Vel for kvar _fil"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:964
 msgid "Close _All"
 msgstr "Lukk _alle"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:964
 msgid "_Save All"
 msgstr "_Lagra alle"
 
-#: ../src/file_dialogs.c:966
+#: ../src/file_dialogs.c:967
 msgid "One or more open files have been changed."
 msgstr "Ei eller fleire filer er blitt endra."
 
-#: ../src/file_dialogs.c:1289
+#: ../src/file_dialogs.c:1290
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">%d-feil</span>"
 msgstr[1] "<span color=\"red\">%d-feil</span>"
 
-#: ../src/file_dialogs.c:1298
+#: ../src/file_dialogs.c:1299
 msgid "incomplete finished"
 msgstr "ikkje heilt ferdig"
 
-#: ../src/file_dialogs.c:1300
+#: ../src/file_dialogs.c:1301
 msgid "completed"
 msgstr "ferdig"
 
-#: ../src/file_dialogs.c:1358
+#: ../src/file_dialogs.c:1359
 msgid "Upload / Download"
 msgstr "Last opp / ned"
 
-#: ../src/file_dialogs.c:1361
+#: ../src/file_dialogs.c:1362
 msgid "Upload"
 msgstr "Last opp"
 
-#: ../src/file_dialogs.c:1361
+#: ../src/file_dialogs.c:1362
 msgid "Download"
 msgstr "Last ned"
 
-#: ../src/file_dialogs.c:1368
+#: ../src/file_dialogs.c:1369
 msgid "Local directory"
 msgstr "Lokal katalog"
 
-#: ../src/file_dialogs.c:1374
+#: ../src/file_dialogs.c:1375
 msgid "Remote directory"
 msgstr "Fjernkatalog"
 
-#: ../src/file_dialogs.c:1379
+#: ../src/file_dialogs.c:1380
 msgid "Delete deprecated files"
 msgstr "Slett utdaterte filer"
 
-#: ../src/file_dialogs.c:1383
+#: ../src/file_dialogs.c:1384
 msgid "Include hidden files"
 msgstr "Ta med gøymde filer"
 
-#: ../src/file_dialogs.c:1386
-#, fuzzy
+#: ../src/file_dialogs.c:1387
 msgid "Include backup files"
-msgstr "Feil under tryggleikskopieringa av fila"
+msgstr "Ta med tryggleikskopifiler "
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1433
+#: ../src/file_dialogs.c:1434
 #, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -2197,29 +2202,29 @@ msgstr ""
 "Original storleik var %s bytar\n"
 "Ny storleik er %s bytar"
 
-#: ../src/file_dialogs.c:1456
+#: ../src/file_dialogs.c:1457
 msgid "_Unset file name"
 msgstr "_Fjern filnamnet"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1458
+#: ../src/file_dialogs.c:1459
 #, c-format
 msgid "File name: %s"
 msgstr "Filnamn: %s"
 
-#: ../src/file_dialogs.c:1461
+#: ../src/file_dialogs.c:1462
 msgid "File disappeared from disk\n"
 msgstr "Filen forsvann fra lagringseininga\n"
 
-#: ../src/file_dialogs.c:1480
+#: ../src/file_dialogs.c:1481
 msgid "_Ignore"
 msgstr "_Ignorer"
 
-#: ../src/file_dialogs.c:1480
+#: ../src/file_dialogs.c:1481
 msgid "_Reload"
 msgstr "_Last på nytt"
 
-#: ../src/file_dialogs.c:1480
+#: ../src/file_dialogs.c:1481
 msgid "Check and reload all documents"
 msgstr "Kontroller og last alle dokumenta på nytt"
 
@@ -2293,8 +2298,9 @@ msgstr "Linje"
 msgid "Output"
 msgstr "Utdata"
 
+# ? sjekk!
 #: ../src/outputbox.c:481
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to compile output parser pattern %s: %s"
 msgstr "Klarte ikkje å kompilera utdatavindaugsmønsteret %s: %s"
 
@@ -2388,12 +2394,10 @@ msgid "Path to plugin"
 msgstr "Stig til programtillegg"
 
 #: ../src/preferences.c:901
-#, fuzzy
 msgid "Extension"
-msgstr "Storleikar"
+msgstr "Utviding"
 
 #: ../src/preferences.c:903
-#, fuzzy
 msgid "Mime-Type"
 msgstr "MIME-type"
 
@@ -2968,7 +2972,7 @@ msgstr "Endringslagrings_frekvens (i sekund)"
 
 #: ../src/preferences.c:2784 ../src/preferences.c:2785
 msgid "File Associations"
-msgstr ""
+msgstr "Filtilknytingar"
 
 #: ../src/preferences.c:2803
 msgid "Templates"
@@ -3007,9 +3011,8 @@ msgid "Hide toolbars on full-screen"
 msgstr "Gøym verktøylinjene ved fullskjermsvising"
 
 #: ../src/preferences.c:2858
-#, fuzzy
 msgid "User interface _language:"
-msgstr "Brukargrensesnitt"
+msgstr "_Brukargrensesnittspråk:"
 
 #: ../src/preferences.c:2861
 msgid "<b>Recent Files</b>"
@@ -3040,9 +3043,8 @@ msgid "_Switch between tabs with <Alt>+0..9"
 msgstr "_Bla gjennom fanene med <Alt>+0…9"
 
 #: ../src/preferences.c:2899
-#, fuzzy
 msgid "_Switch between tabs with <Command>+0..9"
-msgstr "_Bla gjennom fanene med <Alt>+0…9"
+msgstr "_Bla gjennom fanene med <Command>+0…9"
 
 #: ../src/preferences.c:2904
 msgid "Save menu accelerators on exit"
@@ -3126,7 +3128,7 @@ msgstr "Fanefarge for _endra dokument:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:3021 ../src/rcfile.c:1422
+#: ../src/preferences.c:3021 ../src/rcfile.c:1427
 msgid "Images"
 msgstr "Bilete"
 
@@ -3230,203 +3232,207 @@ msgstr "Lag eit prosjekt med dei opne dokumenta"
 msgid "Create empty project"
 msgstr "Lag eit tomt prosjekt"
 
-#: ../src/rcfile.c:697 ../src/rcfile.c:725
+#: ../src/rcfile.c:696 ../src/rcfile.c:724
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:703
+#: ../src/rcfile.c:702
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:707
+#: ../src/rcfile.c:706
 msgid "weblint HTML checker"
 msgstr "weblint HTML-skannar"
 
-#: ../src/rcfile.c:712
+#: ../src/rcfile.c:711
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:716
+#: ../src/rcfile.c:715
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:720
+#: ../src/rcfile.c:719
 msgid "xmllint XML checker"
 msgstr "xmllint XML-sjekkar"
 
-#: ../src/rcfile.c:729
+#: ../src/rcfile.c:728
 msgid "php syntax check"
 msgstr "php syntakskontroll"
 
-#: ../src/rcfile.c:733
+#: ../src/rcfile.c:732
 msgid "perl syntax check"
 msgstr "perl syntakskontroll"
 
-#: ../src/rcfile.c:737
+#: ../src/rcfile.c:736
 msgid "php codesniffer"
 msgstr "php codesniffer"
 
-#: ../src/rcfile.c:741
+#: ../src/rcfile.c:740
 msgid "pylint"
 msgstr "pylint"
 
-#: ../src/rcfile.c:754
+#: ../src/rcfile.c:753
 msgid "Sort"
 msgstr "Sorter"
 
-#: ../src/rcfile.c:757
+#: ../src/rcfile.c:756
 msgid "Sort / Uniq"
 msgstr "Sorter / Uniq"
 
-#: ../src/rcfile.c:760
+#: ../src/rcfile.c:759
 msgid "Reverse lines"
 msgstr "Omvende linjer"
 
-#: ../src/rcfile.c:763
+#: ../src/rcfile.c:762
 msgid "Dos2unix"
 msgstr "Dos2Unix"
 
-#: ../src/rcfile.c:765
+#: ../src/rcfile.c:764
 msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
-#: ../src/rcfile.c:767
+#: ../src/rcfile.c:766
 msgid "Tidy convert to XHTML"
 msgstr "Tidy konverterer til HTML"
 
-#: ../src/rcfile.c:770
+#: ../src/rcfile.c:769
 msgid "Tidy HTML (perltidy)"
 msgstr "Tidy HTML (perltidy)"
 
-#: ../src/rcfile.c:773
+#: ../src/rcfile.c:772
 msgid "Strip empty lines"
 msgstr "Fjern tomme linjer"
 
-#: ../src/rcfile.c:776
+#: ../src/rcfile.c:775
 msgid "Render HTML to text"
 msgstr "Gjer om HTML til tekst"
 
-#: ../src/rcfile.c:779
+#: ../src/rcfile.c:778
 msgid "PHP Beautifier"
 msgstr "PHP-reingjerar"
 
-#: ../src/rcfile.c:783 ../src/rcfile.c:790
+#: ../src/rcfile.c:782 ../src/rcfile.c:789
 msgid "Javascript Minify with jsmin"
 msgstr "Javascript-minimerar med jsmin"
 
-#: ../src/rcfile.c:786 ../src/rcfile.c:793
+#: ../src/rcfile.c:785 ../src/rcfile.c:792
 msgid "CSS Minify with cssmin"
 msgstr "CSS-minimerar med cssmin"
 
-#: ../src/rcfile.c:797
+#: ../src/rcfile.c:796
 msgid "CSS tidy"
 msgstr "CSS-tidy"
 
-#: ../src/rcfile.c:809
+#: ../src/rcfile.c:808
 msgid "Windows XP Firefox"
 msgstr "Windows XP Firefox"
 
-#: ../src/rcfile.c:814
+#: ../src/rcfile.c:813
 msgid "Windows XP Internet Explorer"
 msgstr "Windows XP Internet Explorer"
 
-#: ../src/rcfile.c:819
+#: ../src/rcfile.c:818
 msgid "Windows XP Opera"
 msgstr "Windows XP Opera"
 
-#: ../src/rcfile.c:823
+#: ../src/rcfile.c:822
 msgid "Windows XP Safari"
 msgstr "Windows XP Safari"
 
-#: ../src/rcfile.c:827
+#: ../src/rcfile.c:826
 msgid "Windows 7 Firefox 32-bit"
 msgstr "Windows 7 Firefox 32-bitar"
 
-#: ../src/rcfile.c:832
+#: ../src/rcfile.c:831
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr "Windows 7 Internet Explorer 32-bitar"
 
-#: ../src/rcfile.c:837
+#: ../src/rcfile.c:836
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr "Windows 7 Internet Explorer 64-bitar"
 
-#: ../src/rcfile.c:843
+#: ../src/rcfile.c:842
 msgid "Safari"
 msgstr "Safari"
 
-#: ../src/rcfile.c:846 ../src/rcfile.c:856
+#: ../src/rcfile.c:845 ../src/rcfile.c:861
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:849 ../src/rcfile.c:860
-msgid "Opera"
-msgstr "Opera"
+#: ../src/rcfile.c:848
+msgid "Google Chrome"
+msgstr "Google Chrome"
 
-#: ../src/rcfile.c:852 ../src/rcfile.c:879
-msgid "chmod a+x"
-msgstr "chmod a+x"
-
-#: ../src/rcfile.c:864
+#: ../src/rcfile.c:851 ../src/rcfile.c:869
 msgid "Chromium"
 msgstr "Chromium"
 
-#: ../src/rcfile.c:867
+#: ../src/rcfile.c:854 ../src/rcfile.c:865
+msgid "Opera"
+msgstr "Opera"
+
+#: ../src/rcfile.c:857 ../src/rcfile.c:884
+msgid "chmod a+x"
+msgstr "chmod a+x"
+
+#: ../src/rcfile.c:872
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:870
+#: ../src/rcfile.c:875
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:873
+#: ../src/rcfile.c:878
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:876
+#: ../src/rcfile.c:881
 msgid "Links2 (graphics)"
 msgstr "Links2 (grafisk)"
 
-#: ../src/rcfile.c:923
+#: ../src/rcfile.c:928
 msgid "C Header"
 msgstr "C header"
 
-#: ../src/rcfile.c:926
+#: ../src/rcfile.c:931
 msgid "C Header GPL"
 msgstr "C Header GPL"
 
-#: ../src/rcfile.c:929
+#: ../src/rcfile.c:934
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:932
+#: ../src/rcfile.c:937
 msgid "HTML 5"
 msgstr "HTML5"
 
-#: ../src/rcfile.c:935
+#: ../src/rcfile.c:940
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:938
+#: ../src/rcfile.c:943
 msgid "LaTex Book"
 msgstr "LaTex-bok"
 
-#: ../src/rcfile.c:941
+#: ../src/rcfile.c:946
 msgid "LaTex Presentation"
 msgstr "LaTex-presentasjon"
 
-#: ../src/rcfile.c:1307
+#: ../src/rcfile.c:1312
 msgid "Untitled Project"
 msgstr "Namnlaust prosjekt"
 
-#: ../src/rcfile.c:1414
+#: ../src/rcfile.c:1419
 msgid "C programming"
 msgstr "C-programmering"
 
-#: ../src/rcfile.c:1418
+#: ../src/rcfile.c:1423
 msgid "Web files"
 msgstr "Nettstadfiler"
 
-#: ../src/rcfile.c:1425
+#: ../src/rcfile.c:1430
 msgid "Hide objectfiles"
 msgstr "Gøym objektfiler"
 
