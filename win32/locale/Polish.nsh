@@ -12,7 +12,7 @@
 !define SECT_BLUEFISH "Edytor Bluefish"
 !define SECT_PLUGINS "Wtyczki"
 !define SECT_SHORTCUT "Skrót na pulpicie"
-!define SECT_DICT "Sprawdzanie pisowni języków (Wymagane jest aktywne połączenie z Internetem aby ich pbranie było możliwe)"
+!define SECT_DICT "Sprawdzanie pisowni języków (wymagane jest aktywne połączenie z Internetem aby instalator pobrał pliki językowe)"
 
 ; License Page
 !define LICENSEPAGE_BUTTON "Dalej"
@@ -40,12 +40,12 @@
 !define PLUG_CHARMAP "Mapa znaków"
 !define PLUG_ENTITIES "Podmioty"
 !define PLUG_HTMLBAR "Pasek HTML"
-!define PLUG_INFBROWSER "Przeglądarka Informacji"
+!define PLUG_INFBROWSER "Przeglądarka informacji"
 !define PLUG_SNIPPETS "Snippety"
 !define PLUG_ZENCODING "Programowanie zencoding"
 
 ; File Associations Page
-!define FA_TITLE "Powiązania plików"
+!define FA_TITLE "Skojarzenia plików"
 !define FA_HEADER "Zaznacz te rodzaje plików, dla których ${PRODUCT} ma być domyślnym edytorem."
 !define FA_SELECT "Zaznacz wszystkie"
 !define FA_UNSELECT "Odznacz wszystkie"
@@ -54,7 +54,7 @@
 !define FINISHPAGE_LINK "Odwiedź stronę domową Bluefish"
 !define UNINSTALL_SHORTCUT "Usuń ${PRODUCT}"
 !define FILETYPE_REGISTER "Rejestrowanie plików:"
-!define UNSTABLE_UPGRADE "Wersja rozwojowa ${PRODUCT} jest zainstalowana.$\nCzy mam usunąć poprzednie wersje przed instalacją bieżącej (Zalecane) ?"
+!define UNSTABLE_UPGRADE "Wersja rozwojowa ${PRODUCT} jest zainstalowana.$\nCzy usunąć poprzednią wersję przed instalacją bieżącej (Zalecane) ?"
 
 ; InetC Plugin Translations
 ;  /TRANSLATE downloading connecting second minute hour plural progress remaining
