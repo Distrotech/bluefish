@@ -595,38 +595,29 @@
 		<reference><i>String.valueOf</i> Returns the primitive value of the specified object. Overrides the Object.prototype.valueOf method.
 		</reference>
 	</element>
-<!-- elements that may contain a regexp -->
 	<element pattern="replace" id="e.js.replace">
 		<autocomplete append="(,)" backup_cursor="2" />
 		<reference><i>String.replace(regexp|substr, newSubStr|function)</i> Used to find a match between a regular expression and a string, and to replace the matched substring with a new substring.
 		</reference>
 	</element>
-	
 	<element pattern="match">
 		<reference><i>String.match(regexp)</i> Used to match a regular expression against a string.
 		</reference>
-<!--		<context idref="c.js.regex" /> -->
 	</element>
 	<element pattern="search">
 		<reference><i>String.search(regexp)</i> Executes the search for a match between a regular expression and a specified string.
 		</reference>
-<!--		<context idref="c.js.regex" /> -->
 	</element>
-
 </group>
 <group highlight="js-function" >
 	<autocomplete append="()" backup_cursor="1" />
 	<element pattern="exec" >
-<!--		<context idref="c.js.regex" /> -->
 	</element>
 	<element pattern="test" >
-<!--		<context idref="c.js.regex" /> -->
 	</element>
 	<element pattern="compile" >
-<!--		<context idref="c.js.regex" /> -->
 	</element>
 </group>
-<!-- end of regex functions  -->
 <group highlight="js-property" >
 	<autocomplete enable="1" />
 	<group class="javascript_object_methods">
@@ -1700,7 +1691,19 @@
 	<element pattern="POSITIVE_INFINITY" />
 	<element pattern="true" />
 </group>
-
+<!-- javascript regex patterns goes here, at the end of the file -->
+<element id="js.regex" pattern="(=|+|-)[ &#9;&#10;&#13;]*/" is_regex="1" starts_block="1" highlight="js-brackets">
+	<context symbols=".;/\ " highlight="js-string" >
+		<element pattern="\\." is_regex="1" highlight="js-string" />
+		<element pattern="/[gimy]*" is_regex="1" highlight="js-brackets" ends_block="1" blockstartelement="js.regex" ends_context="1"/>
+	</context>
+</element>
+<element id="js.replace.regex" pattern="\([ #&#9;&#10;&#13;]*/" is_regex="1" highlight="js-brackets" starts_block="1">
+	<context symbols="/\ ),;.#&#9;&#10;&#13;" highlight="js-string">
+		<element pattern="\\." is_regex="1" highlight="js-string" />
+		<element pattern="/[gimy]*" is_regex="1" highlight="js-brackets" ends_block="1" blockstartelement="js.replace.regex" ends_context="1" />
+	</context>
+</element>  
 
 <element pattern="[0-9]+\.[0-9]+" is_regex="1" highlight="js-value" />
 <element pattern="-[0-9]+\.[0-9]+" is_regex="1" highlight="js-value" />

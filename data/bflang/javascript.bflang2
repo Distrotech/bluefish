@@ -75,20 +75,6 @@
 				<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="js-comment" ends_context="1" />
 			</context>
 		</element>
-
-		<element id="js.regex" pattern="(=|+|-|\*)[ &#9;&#10;&#13;]*[/]" is_regex="1" highlight="js-brackets" >
-				<context symbols="/ ;.#&#9;&#10;&#13;" highlight="js-string">
-					<element pattern="/[gimy]*" is_regex="1" highlight="js-brackets" ends_context="1" />
-				</context>
-		</element>
-		<element id="js.replace" pattern="\([ #&#9;&#10;&#13;]*/" is_regex="1" highlight="js-brackets" >
-				<context symbols="/ ),;.#&#9;&#10;&#13;" highlight="js-string">
-					<element pattern="/[gimy]*" is_regex="1" highlight="js-brackets" ends_context="1" />
-				</context>
-		</element> 
-		
-		
-		
 	</context>
 </definition>
 </bflang>
