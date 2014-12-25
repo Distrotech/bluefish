@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2014-10-25 16:44-0700\n"
-"PO-Revision-Date: 2013-11-10 21:00+0100\n"
+"PO-Revision-Date: 2014-12-25 21:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "Language: nb\n"
@@ -24,56 +24,62 @@ msgid ""
 "code. Bluefish supports many programming and markup languages and has many "
 "features, but is still a very fast and lightweight application."
 msgstr ""
+"Bluefish er en kraftig editor for programmerere og webutviklere, "
+"beregnet på programmering, skripting og webutvikling. "
+"Bluefish støtter mange programmerings- og markupspråk, og har "
+"mange funksjoner for tekstredigering, men er likevel lynrask og en "
+"lettvekter."
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:2
 msgid "A selection of the features:"
-msgstr ""
+msgstr "Noen funksjoner:"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:3
 msgid ""
 "Well done syntax highlighting which for example supports languages inside "
 "languages (e.g. Javascript inside HTML inside PHP)"
 msgstr ""
+"Syntaksmarkering som støtter språk i språk (f.eks Javascript i HTML i PHP)"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:4
 msgid ""
 "All kind of powerful editor features like auto indenting and auto completion "
 "for many functions and libraries in many programming languages"
 msgstr ""
+"Kraftige tekstediteringsfunksjoner som automatisk innrykk og autofullfør "
+"for mange funksjoner og bibliotek i mange programeringsspråk"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:5
-#, fuzzy
 msgid "Project support"
-msgstr "_Prosjekt"
+msgstr "Prosjektstøtte"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:6
 msgid "Support for remote files over ftp, sftp, webdav, etc"
-msgstr ""
+msgstr "Støtte for åpning av filer over ftp, sftp, webdav, etc"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:7
 msgid "Powerful search and replace engine"
-msgstr ""
+msgstr "Kraftig funksjonalitet for søk og erstatt"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:8
 msgid "Customizable integration of external programs such as lint, make, etc"
-msgstr ""
+msgstr "Kjøring av eksterne programmer som lint, make, etc"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:9
 msgid "Snippets plugin to automate often used code"
-msgstr ""
+msgstr "Utklippsplugin for å automatisere bruk av ofte brukt kode"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:10
 msgid "Code-aware in-line spell checking"
-msgstr ""
+msgstr "Kodesensitiv in-line stavekontroll"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:11
 msgid "Zencoding or Emmet support"
-msgstr ""
+msgstr "Støtte for Zencoding og Emmet"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:12
-#, fuzzy
 msgid "Bookmarks panel"
-msgstr "Bokmerker"
+msgstr "Bokmerkepanel"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:13
 msgid ""
@@ -81,6 +87,8 @@ msgid ""
 "or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
 "is your editor of choice!"
 msgstr ""
+"Enten om du trenger en editor som er enkel å lære, eller bare misliker tunge "
+"utviklingsmiljø som Eclipse eller Netbeans, så er Bluefish et glimrende valg."
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -250,9 +258,8 @@ msgid "_Filters"
 msgstr "_Filter"
 
 #: ../src/bfwin_uimanager.c:835
-#, fuzzy
 msgid "_Output parsers"
-msgstr "Output parsere"
+msgstr "_Output parsere"
 
 #: ../src/bfwin_uimanager.c:836
 msgid "For_mat"
@@ -1399,7 +1406,6 @@ msgid ""
 msgstr "Linjene i denne fila er lengre enn Bluefish kan håndtere."
 
 #: ../src/document.c:2038
-#, fuzzy
 msgid "_Convert"
 msgstr "Kon_verter"
 
@@ -1409,12 +1415,16 @@ msgid ""
 "File '%s' is not a valid text file.\n"
 "The file might be corrupted, truncated, or in an unexpected encoding."
 msgstr ""
+"Filen '%s' er ikke en gyldig tekstfil.\n"
+"Filen kan være korrupt, trunkert eller inneholde et uventet tegnsett."
 
 #: ../src/document.c:2044
 msgid ""
 "Bluefish can convert this file into a valid one by replacing illegal symbols "
 "with spaces. Convert?"
 msgstr ""
+"Bluefish kan konvertere denne filen til en gyldig en ved å erstatte ugyldige "
+"symboler med mellomrom. Vil du konvertere?"
 
 #: ../src/document.c:2056
 #, c-format
@@ -1422,10 +1432,14 @@ msgid ""
 "File is opened in read-only mode since it differs from original one.\n"
 "%lu characters were replaced by space"
 msgstr ""
+"Filen er åpnet i skrivebeskyttet modus siden den avviker fra den "
+"opprinnelige.\n"
+"%lu tegn ble erstattet med mellomrom"
 
 #: ../src/document.c:2059
 msgid "Use 'Save As' to save it with different name and make editable"
-msgstr ""
+msgstr "Bruk 'Lagre som' for å lagre filen med et nytt navn og "
+"gjøre den skrivbar"
 
 #: ../src/document.c:2254
 msgid "Exit fullscreen"
@@ -2159,9 +2173,8 @@ msgid "Include hidden files"
 msgstr "Vis skjulte filer"
 
 #: ../src/file_dialogs.c:1386
-#, fuzzy
 msgid "Include backup files"
-msgstr "Backupfeil"
+msgstr "Inkluder backupfiler"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1433
@@ -2278,7 +2291,7 @@ msgid "Output"
 msgstr "Output"
 
 #: ../src/outputbox.c:481
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to compile output parser pattern %s: %s"
 msgstr "Kunne ikke kompilere outputboks-filter %s: %s"
 
@@ -2372,14 +2385,12 @@ msgid "Path to plugin"
 msgstr "Sti til plugin"
 
 #: ../src/preferences.c:901
-#, fuzzy
 msgid "Extension"
-msgstr "Størrelser"
+msgstr "Utvidelse"
 
 #: ../src/preferences.c:903
-#, fuzzy
 msgid "Mime-Type"
-msgstr "Mime type"
+msgstr "Mime-Type"
 
 #: ../src/preferences.c:1131
 msgid ""
@@ -2952,7 +2963,7 @@ msgstr "_Frekvens for autolagring (sekunder)"
 
 #: ../src/preferences.c:2784 ../src/preferences.c:2785
 msgid "File Associations"
-msgstr ""
+msgstr "Filassosiasjoner"
 
 #: ../src/preferences.c:2803
 msgid "Templates"
@@ -2991,9 +3002,8 @@ msgid "Hide toolbars on full-screen"
 msgstr "Skjul verktøylinje i fullskjermmodus"
 
 #: ../src/preferences.c:2858
-#, fuzzy
 msgid "User interface _language:"
-msgstr "Brukergrensesnitt"
+msgstr "Brukergrensesnitt_språk:"
 
 #: ../src/preferences.c:2861
 msgid "<b>Recent Files</b>"
@@ -3024,9 +3034,8 @@ msgid "_Switch between tabs with <Alt>+0..9"
 msgstr "B_ytt mellom åpne filer med <Alt>+0..9"
 
 #: ../src/preferences.c:2899
-#, fuzzy
 msgid "_Switch between tabs with <Command>+0..9"
-msgstr "B_ytt mellom åpne filer med <Alt>+0..9"
+msgstr "B_ytt mellom åpne filer med <Ctrl>+0..9"
 
 #: ../src/preferences.c:2904
 msgid "Save menu accelerators on exit"
