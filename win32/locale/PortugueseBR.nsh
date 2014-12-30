@@ -5,7 +5,7 @@
 ;  The Bluefish Developers
 ;
 ;  Translators:
-;   Esfinge Metal <esfingemetal@gmail.com>
+;   Matheus Cunha Motta <esfingemetal@gmail.com>
 ;----------------------------------------------
 
 ; Section Names
