@@ -1360,9 +1360,9 @@ msgid "Do not open"
 msgstr "Avbryt"
 
 #: ../src/document.c:1337
-#, c-format
+#, fuzzy, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
-msgstr " Linje %d, Kol %d "
+msgstr " Linje %d, Kol %d, Kar: %d"
 
 #: ../src/document.c:1340
 #, c-format
@@ -2473,7 +2473,7 @@ msgid ""
 msgstr ""
 "<small><b>Inputalternativer</b>\n"
 "start med en | for å sende input til standard input\n"
-"%s lokalt filnavn (for lokale filer)\n"
+"%f lokalt filnavn (for lokale filer)\n"
 "%i midlertidig filnavn for input, er lik %f dersom dokmentet er uendret og "
 "lokalt\n"
 "<b>Andre alternativer</b>\n"
@@ -2565,8 +2565,6 @@ msgstr ""
 "<b>Outputalternativer</b>\n"
 "avslutt med en | for å lese output fra standard output\n"
 "%o midlertidig filnavn\n"
-"%t midlertidig filnavn for både input og output (for på-stedet "
-"redigeringsfiltre)\n"
 "<b>Andre alternativer</b>\n"
 "%a ekstra parametre som brukeren må fylle inn når filteret aktiveres\n"
 "%c lokal katalog (for lokale filer)\n"

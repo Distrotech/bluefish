@@ -1568,7 +1568,7 @@ msgstr "Pegar como texto plano"
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d liña"
-msgstr[1] "% liñas"
+msgstr[1] "%d liñas"
 
 #: ../src/document.c:3823
 #, c-format
@@ -2560,7 +2560,7 @@ msgstr ""
 "small>"
 
 #: ../src/preferences.c:1660
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2586,8 +2586,6 @@ msgstr ""
 "<b>Opcións de saída</b>\n"
 "finalizar con | para ler a saída estándar (stdout)\n"
 "%o nome de ficheiro temporal \n"
-"%t nome de ficheiro temporal para a entrada e a saída (for in-place editing "
-"filters, cannot operate on selection)\n"
 "<b>Outras opcións</b>\n"
 "%a argumentos adicionáis que serán pedidos cando este filtro se active\n"
 "%c directorio local do ficheiro (require ficherio local)\n"

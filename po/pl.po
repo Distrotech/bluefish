@@ -15,6 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:1
 msgid "Bluefish is a powerful editor targeted towards programmers and web developers, with many options to write websites, scripts and programming code. Bluefish supports many programming and markup languages and has many features, but is still a very fast and lightweight application."
@@ -1531,7 +1532,7 @@ msgstr[0] "%d wiersz"
 msgstr[1] "%d wiersz"
 
 #: ../src/document.c:3823
-#, c-format
+#, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d z %d słowa"
@@ -1933,7 +1934,7 @@ msgstr "_Nadpisz"
 #: ../src/file.c:1605
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
-msgstr "Plik %s nie może zostać skopiowany, kopia już istnieje, czy chcesz ją nadpisać?Plik %s nie może zostać skopiowany, kopia już istnieje, czy chcesz ją nadpisać?"
+msgstr "Plik %s nie może zostać skopiowany, kopia już istnieje, czy chcesz ją nadpisać?"
 
 #: ../src/file.c:1607
 msgid "Overwrite file?"
@@ -2564,7 +2565,6 @@ msgstr ""
 "<b>Opcje wyjściowe</b>\n"
 "zakończenie znakiem | oznacza odczytanie zdefiniowanego zestawu ze standardowego wyjściat\n"
 "%o tymczasowa nazwa pliku\n"
-"%t tymczasowa nazwa pliku zarówno dla wejścia jak i wyjścia (dla miejscowej edycji filtrów)\n"
 "<b>Pozostałe opcje</b>\n"
 "%a dodatkowe argumenty, które będą zadawane podczas gdy filtr ten jest aktywowany\n"
 "%c lokalny katalog lub plik (tylko dla plików lokalnych)\n"

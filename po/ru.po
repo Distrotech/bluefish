@@ -2473,7 +2473,7 @@ msgid "Delete entry"
 msgstr "Удалить элемент"
 
 #: ../src/preferences.c:1318
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2494,6 +2494,7 @@ msgstr ""
 "%i временное имя файла для ввода, аналогично %f, если документ локальный и "
 "не подвергался изменениям\n"
 "<b>Прочие параметры</b>\n"
+"%a additional arguments that will be asked when this filter is activated\n"
 "%c локальная папка хранения файла (доступно для локальных файлов)\n"
 "%n имя файла без пути к нему (доступно для всех именованных файлов)\n"
 "%u URL (доступно для всех именованных файлов)\n"
@@ -2520,6 +2521,7 @@ msgid "Reset all"
 msgstr "Сбросить всё"
 
 #: ../src/preferences.c:1475
+#, fuzzy, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2549,6 +2551,7 @@ msgstr ""
 "%t временное имя файла и для ввода, и для вывода (для фильтров типа "
 "«изменения на месте»)\n"
 "<b>Прочие параметры</b>\n"
+"%a additional arguments that will be asked when this filter is activated\n"
 "%c локальная папка хранения файла (доступно для локальных файлов)\n"
 "%n имя файла без пути к нему (доступно для всех именованных файлов)\n"
 "%u URL (доступно для всех именованных файлов)\n"
@@ -2556,7 +2559,7 @@ msgstr ""
 "настройках проекта, в противном случае идентична %u</small>"
 
 #: ../src/preferences.c:1660
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2583,6 +2586,7 @@ msgstr ""
 "если заканчивается на '|', вывод предполагается на стандартный вывод\n"
 "%o временное имя файла\n"
 "<b>Прочие параметры</b>\n"
+"%a additional arguments that will be asked when this filter is activated\n"
 "%c локальная папка хранения файла (доступно для локальных файлов)\n"
 "%n имя файла без пути к нему (доступно для всех именованных файлов)\n"
 "%u URL (доступно для всех именованных файлов)\n"
