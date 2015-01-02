@@ -844,12 +844,16 @@ doc_font_size(Tdocument * doc, gint direction)
 		font_desc = pango_font_description_from_string(main_v->props.editor_font_string);
 	} else {
 		PangoContext *pc;
-		gint size;
+		gint size, oldsize;
 
 		pc = gtk_widget_get_pango_context(doc->view);
 		font_desc = pango_font_description_copy(pango_context_get_font_description(pc));
-		size = pango_font_description_get_size(font_desc);
-		size = (direction > 0) ? size * 12 / 10 : size * 10 / 12;
+		oldsize = size = pango_font_description_get_size(font_desc);
+		size = (direction > 0) ? size * 12.0 / 10.0 : size * 10.0 / 12.0;
+		if ((direction > 0 && size == oldsize|| size <=0)) {
+			/* for very small sizes the increase is rounded down and the size is not increased */
+			size++;
+		}
 		if (pango_font_description_get_size_is_absolute(font_desc)) {
 			pango_font_description_set_absolute_size(font_desc, size);
 		} else {
