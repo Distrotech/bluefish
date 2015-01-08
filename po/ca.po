@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.2.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2014-10-25 16:44-0700\n"
-"PO-Revision-Date: 2013-12-13 21:33+0100\n"
+"POT-Creation-Date: 2014-12-18 11:49+0100\n"
+"PO-Revision-Date: 2015-01-02 22:56-0000\n"
 "Last-Translator: Mònica Ramírez Arceda <monica@probeta.net>\n"
 "Language-Team: Catalan\n"
 "Language: ca\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:1
 msgid ""
@@ -24,56 +24,63 @@ msgid ""
 "code. Bluefish supports many programming and markup languages and has many "
 "features, but is still a very fast and lightweight application."
 msgstr ""
+"Bleufish és un potent editor dirigit a programadors i desenvolupadors web, "
+"amb moltes opcions per escriure llocs web, scripts i codi de programació. "
+"Bluefish admet molts llenguatges de programació i de marques i té moltes "
+"funcionalitats, tot i ser una aplicació molt ràpida i lleugera."
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:2
 msgid "A selection of the features:"
-msgstr ""
+msgstr "Una selecció de les característiques:"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:3
 msgid ""
 "Well done syntax highlighting which for example supports languages inside "
 "languages (e.g. Javascript inside HTML inside PHP)"
 msgstr ""
+"Bon ressaltament de la sintaxi que per exemple admet llenguatges dins de "
+"llenguatges (per exemple Javascript dins d'HTML dins de PHP)"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:4
 msgid ""
 "All kind of powerful editor features like auto indenting and auto completion "
 "for many functions and libraries in many programming languages"
 msgstr ""
+"Tot tipus de potents funcionalitats d'edició com el sagnat automàtic i la "
+"compleció automàtica per a moltes funcions i llibreries de molts llenguatges "
+"de programació"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:5
-#, fuzzy
 msgid "Project support"
-msgstr "_Projecte"
+msgstr "Ajuda de projectes"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:6
 msgid "Support for remote files over ftp, sftp, webdav, etc"
-msgstr ""
+msgstr "Ajuda per a fitxers remots sobre ftp, sftp, webdav, etc"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:7
 msgid "Powerful search and replace engine"
-msgstr ""
+msgstr "Potent motor de cerca i reemplaçament"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:8
 msgid "Customizable integration of external programs such as lint, make, etc"
-msgstr ""
+msgstr "Integració personalitzada de programes externs com lint, make, etc"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:9
 msgid "Snippets plugin to automate often used code"
-msgstr ""
+msgstr "Connector de fragments de codi per automatitzar el codi usat sovint"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:10
 msgid "Code-aware in-line spell checking"
-msgstr ""
+msgstr "Comprovació d'ortografia en línia tenint en compte el codi"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:11
 msgid "Zencoding or Emmet support"
-msgstr ""
+msgstr "Ajuda per a Zencoding o Emmet"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:12
-#, fuzzy
 msgid "Bookmarks panel"
-msgstr "Marcadors"
+msgstr "Panell de marcadors"
 
 #: ../desktop-data/bluefish.appdata.xml.in.h:13
 msgid ""
@@ -81,6 +88,9 @@ msgid ""
 "or a heavy coder who dislikes heavy IDE's like eclipse or netbeans, Bluefish "
 "is your editor of choice!"
 msgstr ""
+"Si sou un programador ocasional que necessita un editor fàcil d'aprendre, o "
+"un programador avançat a qui no li agraden els IDEs pesats com eclipse o "
+"netbeans, Bluefish és el teu editor!"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:91
 msgid "Bluefish Editor"
@@ -102,20 +112,20 @@ msgstr "Fitxer de projecte Bluefish"
 msgid "Bluefish language definition file"
 msgstr "Fitxer de definició de la llengua de Bluefish"
 
-#: ../src/bftextview2.c:1764
+#: ../src/bftextview2.c:1787
 msgid "Collapse all"
 msgstr "Redueix-ho tot"
 
-#: ../src/bftextview2.c:1767
+#: ../src/bftextview2.c:1790
 msgid "Expand all"
 msgstr "Expandeix-ho tot"
 
-#: ../src/bftextview2.c:1776
+#: ../src/bftextview2.c:1799
 #, c-format
 msgid "Collapse %s"
 msgstr "Redueix %s"
 
-#: ../src/bftextview2.c:1786
+#: ../src/bftextview2.c:1809
 #, c-format
 msgid "Expand %s"
 msgstr "Expandeix %s"
@@ -252,9 +262,8 @@ msgid "_Filters"
 msgstr "Filt_res"
 
 #: ../src/bfwin_uimanager.c:835
-#, fuzzy
 msgid "_Output parsers"
-msgstr "Analitzadors"
+msgstr "Analitzadors de s_ortida"
 
 #: ../src/bfwin_uimanager.c:836
 msgid "For_mat"
@@ -683,7 +692,7 @@ msgstr "A_justa el text"
 msgid "Wrap text"
 msgstr "Ajusta el text"
 
-#: ../src/bfwin_uimanager.c:945 ../src/document.c:2038 ../src/document.c:3368
+#: ../src/bfwin_uimanager.c:945 ../src/document.c:2038 ../src/document.c:3384
 msgid "_Close"
 msgstr "Tan_ca"
 
@@ -700,7 +709,7 @@ msgid "Close all files"
 msgstr "Tanca tots els fitxers"
 
 #: ../src/bfwin_uimanager.c:949 ../src/bfwin_uimanager.c:1025
-#: ../src/file_dialogs.c:1456
+#: ../src/file_dialogs.c:1457
 msgid "_Save"
 msgstr "De_sa"
 
@@ -1408,7 +1417,6 @@ msgstr ""
 "espais o tabuladors."
 
 #: ../src/document.c:2038
-#, fuzzy
 msgid "_Convert"
 msgstr "Con_verteix"
 
@@ -1418,12 +1426,16 @@ msgid ""
 "File '%s' is not a valid text file.\n"
 "The file might be corrupted, truncated, or in an unexpected encoding."
 msgstr ""
+"El fitxer '%s' no és un fitxer de text vàlid.\n"
+"El fitxer pot estar corromput, truncat o en una codificació inesperada"
 
 #: ../src/document.c:2044
 msgid ""
 "Bluefish can convert this file into a valid one by replacing illegal symbols "
 "with spaces. Convert?"
 msgstr ""
+"Bluefish pot convertir aquest fitxer en un fitxer vàlid reemplaçant els "
+"símbols invàlids per espais. Voleu fer la conversió?"
 
 #: ../src/document.c:2056
 #, c-format
@@ -1431,10 +1443,14 @@ msgid ""
 "File is opened in read-only mode since it differs from original one.\n"
 "%lu characters were replaced by space"
 msgstr ""
+"El fitxer s'ha obert en un mode de només lectura ja que és diferent de "
+"l'original.\n"
+"%lu caràcters han estat reemplaçats per espais"
 
 #: ../src/document.c:2059
 msgid "Use 'Save As' to save it with different name and make editable"
 msgstr ""
+"Useu 'Anomena i desa' per desar-lo amb un nom diferent i fer-lo editable"
 
 #: ../src/document.c:2254
 msgid "Exit fullscreen"
@@ -1443,15 +1459,15 @@ msgstr "Surt de la pantalla completa"
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2398 ../src/file_dialogs.c:450 ../src/file_dialogs.c:488
+#: ../src/document.c:2412 ../src/file_dialogs.c:450 ../src/file_dialogs.c:488
 msgid "_Abort save"
 msgstr "Interromp l'acció de des_ar"
 
-#: ../src/document.c:2398
+#: ../src/document.c:2412
 msgid "_Continue save in UTF-8"
 msgstr "_Desa en UTF-8"
 
-#: ../src/document.c:2411
+#: ../src/document.c:2425
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1464,19 +1480,19 @@ msgstr ""
 "\n"
 "Voleu desar amb la codificació UTF-8?"
 
-#: ../src/document.c:2416
+#: ../src/document.c:2430
 msgid "File encoding conversion failure"
 msgstr "S'ha produït un error en la conversió de la codificació"
 
-#: ../src/document.c:2592
+#: ../src/document.c:2608
 msgid "Previously: "
 msgstr "Anteriorment:"
 
-#: ../src/document.c:3284
+#: ../src/document.c:3300
 msgid "Unable to open file"
 msgstr "No es pot obrir el fitxer"
 
-#: ../src/document.c:3296
+#: ../src/document.c:3312
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1485,92 +1501,92 @@ msgstr ""
 "Si torneu \"%s\" a l'última còpia desada, els canvis actuals es perdran "
 "definitivament."
 
-#: ../src/document.c:3300
+#: ../src/document.c:3316
 msgid "Revert changes to last saved copy?"
 msgstr "Voleu tornar el fitxer a l'última versió desada?"
 
-#: ../src/document.c:3368
+#: ../src/document.c:3384
 msgid "_Retry"
 msgstr "_Reintenta"
 
-#: ../src/document.c:3368
+#: ../src/document.c:3384
 msgid "Retry _all failed"
 msgstr "Reintent_a tots els que han fallat"
 
-#: ../src/document.c:3368
+#: ../src/document.c:3384
 msgid "Close all _failed"
 msgstr "Tanca tots els que han _fallat"
 
-#: ../src/document.c:3373
+#: ../src/document.c:3389
 msgid "File "
 msgstr "_Fitxer"
 
-#: ../src/document.c:3373
+#: ../src/document.c:3389
 msgid " failed to load."
 msgstr " ha fallat en carregar."
 
-#: ../src/document.c:3377
+#: ../src/document.c:3393
 msgid "File failed to load\n"
 msgstr "No s'ha pogut carregar el fitxer\n"
 
-#: ../src/document.c:3502
+#: ../src/document.c:3518
 msgid "Select file to insert"
 msgstr "Selecciona el fitxer a inserir"
 
-#: ../src/document.c:3511
+#: ../src/document.c:3527
 msgid "No file to insert"
 msgstr "No hi ha cap fitxer per inserir"
 
-#: ../src/document.c:3591
+#: ../src/document.c:3607
 msgid "Save pasted image as"
 msgstr "Desa la imatge enganxada com a"
 
-#: ../src/document.c:3687
+#: ../src/document.c:3703
 msgid "Paste special"
 msgstr "Enganxament especial"
 
-#: ../src/document.c:3693
+#: ../src/document.c:3709
 msgid "No compatible clipboard data found"
 msgstr "No s'ha trobat cap porta-retalls compatible"
 
-#: ../src/document.c:3697
+#: ../src/document.c:3713
 msgid "Paste as _HTML"
 msgstr "Enganxa com a _HTML"
 
-#: ../src/document.c:3702
+#: ../src/document.c:3718
 msgid "Paste as HTML with _JPG"
 msgstr "Enganxa com a HTML amb _JPG"
 
-#: ../src/document.c:3712
+#: ../src/document.c:3728
 msgid "Paste as plain text"
 msgstr "Enganxa com a text net"
 
-#: ../src/document.c:3806
+#: ../src/document.c:3822
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d línia"
 msgstr[1] "%d línies"
 
-#: ../src/document.c:3807
+#: ../src/document.c:3823
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d paraula"
 msgstr[1] "%d paraules"
 
-#: ../src/document.c:3808
+#: ../src/document.c:3824
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caràcter"
 msgstr[1] "%d caràcters"
 
-#: ../src/document.c:3810
+#: ../src/document.c:3826
 msgid "Selection statistics: "
 msgstr "Estadístiques de selecció:"
 
-#: ../src/document.c:3810
+#: ../src/document.c:3826
 msgid "Statistics: "
 msgstr "Estadístiques:"
 
@@ -1728,7 +1744,7 @@ msgstr "Document arrel"
 msgid "Webroot"
 msgstr "Web arrel"
 
-#: ../src/filebrowser2.c:788 ../src/file_dialogs.c:775
+#: ../src/filebrowser2.c:788 ../src/file_dialogs.c:776
 #, c-format
 msgid "Move/rename %s to"
 msgstr "Mou/canvia el nom %s» a"
@@ -2028,12 +2044,12 @@ msgstr "S'ha produït un error en la còpia de seguretat del fitxer."
 msgid "Could not save file "
 msgstr "No s'ha pogut desar el fitxer"
 
-#: ../src/file_dialogs.c:509 ../src/file_dialogs.c:1497
+#: ../src/file_dialogs.c:509 ../src/file_dialogs.c:1498
 msgid "File changed on disk\n"
 msgstr "El fitxer ha canviat al disc\n"
 
 #: ../src/file_dialogs.c:624 ../src/file_dialogs.c:645
-#: ../src/file_dialogs.c:963 ../src/project.c:336
+#: ../src/file_dialogs.c:964 ../src/project.c:336
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
@@ -2055,7 +2071,7 @@ msgstr "Ja existeix un fitxer anomenat  \"%s\"."
 msgid "Do you want to replace the existing file?"
 msgstr "Voleu reemplaçar el fitxer existent?"
 
-#: ../src/file_dialogs.c:755
+#: ../src/file_dialogs.c:756
 msgid ""
 "File:\n"
 "\""
@@ -2063,120 +2079,119 @@ msgstr ""
 "Fitxer:\n"
 "\""
 
-#: ../src/file_dialogs.c:756
+#: ../src/file_dialogs.c:757
 msgid "\" save is in progress"
 msgstr "\" desament està en curs"
 
-#: ../src/file_dialogs.c:758
+#: ../src/file_dialogs.c:759
 msgid "Save in progress!"
 msgstr "Desament en curs!"
 
-#: ../src/file_dialogs.c:771
+#: ../src/file_dialogs.c:772
 msgid "Save"
 msgstr "Desa"
 
-#: ../src/file_dialogs.c:773
+#: ../src/file_dialogs.c:774
 #, c-format
 msgid "Save %s as"
 msgstr "Anomena i desa %s"
 
-#: ../src/file_dialogs.c:777
+#: ../src/file_dialogs.c:778
 #, c-format
 msgid "Save copy of %s"
 msgstr "Desa una còpia de %s"
 
-#: ../src/file_dialogs.c:934
+#: ../src/file_dialogs.c:935
 msgid "Close _Without Saving"
 msgstr "_Tanca sense desar"
 
-#: ../src/file_dialogs.c:937
+#: ../src/file_dialogs.c:938
 #, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr "Voleu desar els canvis a \"%s\" abans de tancar?"
 
-#: ../src/file_dialogs.c:940 ../src/file_dialogs.c:967
+#: ../src/file_dialogs.c:941 ../src/file_dialogs.c:968
 msgid "If you don't save your changes they will be lost."
 msgstr "Els canvis es perdran si no els deseu."
 
-#: ../src/file_dialogs.c:950
+#: ../src/file_dialogs.c:951
 msgid "_Reopen"
 msgstr "Torna a ob_rir"
 
-#: ../src/file_dialogs.c:952
+#: ../src/file_dialogs.c:953
 #, c-format
 msgid "Project \"%s\" failed to load"
 msgstr "Ha fallat la càrrega del projecte \"%s\""
 
-#: ../src/file_dialogs.c:954
+#: ../src/file_dialogs.c:955
 msgid "Do you want to reopen project from another location?"
 msgstr "Voleu tornar a obrir el projecte des d'una altra ubicació?"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:964
 msgid "Choose per _File"
 msgstr "Escolliu per a cada _Fitxer"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:964
 msgid "Close _All"
 msgstr "Tanc_a-ho tot"
 
-#: ../src/file_dialogs.c:963
+#: ../src/file_dialogs.c:964
 msgid "_Save All"
 msgstr "De_sa-ho tot"
 
-#: ../src/file_dialogs.c:966
+#: ../src/file_dialogs.c:967
 msgid "One or more open files have been changed."
 msgstr "Hi ha hagut canvis en un o més dels fitxers oberts."
 
-#: ../src/file_dialogs.c:1289
+#: ../src/file_dialogs.c:1290
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">%d error</span>"
 msgstr[1] "<span color=\"red\">%d errors</span>"
 
-#: ../src/file_dialogs.c:1298
+#: ../src/file_dialogs.c:1299
 msgid "incomplete finished"
 msgstr "finalització incompleta"
 
-#: ../src/file_dialogs.c:1300
+#: ../src/file_dialogs.c:1301
 msgid "completed"
 msgstr "complet"
 
-#: ../src/file_dialogs.c:1358
+#: ../src/file_dialogs.c:1359
 msgid "Upload / Download"
 msgstr "Penja / Baixa"
 
-#: ../src/file_dialogs.c:1361
+#: ../src/file_dialogs.c:1362
 msgid "Upload"
 msgstr "Penja"
 
-#: ../src/file_dialogs.c:1361
+#: ../src/file_dialogs.c:1362
 msgid "Download"
 msgstr "Baixa"
 
-#: ../src/file_dialogs.c:1368
+#: ../src/file_dialogs.c:1369
 msgid "Local directory"
 msgstr "Directori local"
 
-#: ../src/file_dialogs.c:1374
+#: ../src/file_dialogs.c:1375
 msgid "Remote directory"
 msgstr "Directori remot"
 
-#: ../src/file_dialogs.c:1379
+#: ../src/file_dialogs.c:1380
 msgid "Delete deprecated files"
 msgstr "Suprimeix els fitxers desfasats"
 
-#: ../src/file_dialogs.c:1383
+#: ../src/file_dialogs.c:1384
 msgid "Include hidden files"
 msgstr "Inclou els fitxers ocults"
 
-#: ../src/file_dialogs.c:1386
-#, fuzzy
+#: ../src/file_dialogs.c:1387
 msgid "Include backup files"
-msgstr "S'ha produït un error en la còpia de seguretat del fitxer."
+msgstr "Inclou les còpies de seguretat"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
-#: ../src/file_dialogs.c:1433
+#: ../src/file_dialogs.c:1434
 #, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
@@ -2193,29 +2208,29 @@ msgstr ""
 "La mida original era %s bytes\n"
 "La nova mida és %s bytes"
 
-#: ../src/file_dialogs.c:1456
+#: ../src/file_dialogs.c:1457
 msgid "_Unset file name"
 msgstr "An_ul·la el nom del fitxer"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/file_dialogs.c:1458
+#: ../src/file_dialogs.c:1459
 #, c-format
 msgid "File name: %s"
 msgstr "Nom del fitxer: %s"
 
-#: ../src/file_dialogs.c:1461
+#: ../src/file_dialogs.c:1462
 msgid "File disappeared from disk\n"
 msgstr "El fitxer ha desaparegut del disc\n"
 
-#: ../src/file_dialogs.c:1480
+#: ../src/file_dialogs.c:1481
 msgid "_Ignore"
 msgstr "_Ignora"
 
-#: ../src/file_dialogs.c:1480
+#: ../src/file_dialogs.c:1481
 msgid "_Reload"
 msgstr "To_rna a carregar"
 
-#: ../src/file_dialogs.c:1480
+#: ../src/file_dialogs.c:1481
 msgid "Check and reload all documents"
 msgstr "Comproveu i torneu a carregar tots els documents"
 
@@ -2290,9 +2305,9 @@ msgid "Output"
 msgstr "Sortida"
 
 #: ../src/outputbox.c:481
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to compile output parser pattern %s: %s"
-msgstr "No s'ha pogut compilar el patró del quadre de sortida %s: %s "
+msgstr "No s'ha pogut compilar el patró de l'analitzador de sortida %s: %s "
 
 #: ../src/preferences.c:321
 msgid "Untitled"
@@ -2384,12 +2399,10 @@ msgid "Path to plugin"
 msgstr "Camí del connector"
 
 #: ../src/preferences.c:901
-#, fuzzy
 msgid "Extension"
-msgstr "Mides"
+msgstr "Extensió"
 
 #: ../src/preferences.c:903
-#, fuzzy
 msgid "Mime-Type"
 msgstr "Tipus MIME"
 
@@ -2973,7 +2986,7 @@ msgstr "_Freqüència d'emmagatzematge dels canvis (en segons):"
 
 #: ../src/preferences.c:2784 ../src/preferences.c:2785
 msgid "File Associations"
-msgstr ""
+msgstr "Associacions de fitxers"
 
 #: ../src/preferences.c:2803
 msgid "Templates"
@@ -3013,9 +3026,8 @@ msgid "Hide toolbars on full-screen"
 msgstr "Amaga les barres d'eines en mode de pantalla completa"
 
 #: ../src/preferences.c:2858
-#, fuzzy
 msgid "User interface _language:"
-msgstr "Interfície d'usuari"
+msgstr "_Llenguatge de la interfície d'usuari:"
 
 #: ../src/preferences.c:2861
 msgid "<b>Recent Files</b>"
@@ -3046,9 +3058,8 @@ msgid "_Switch between tabs with <Alt>+0..9"
 msgstr "Passa d'una pestanya a l'altra mitjançant <Alt>+0..9"
 
 #: ../src/preferences.c:2899
-#, fuzzy
 msgid "_Switch between tabs with <Command>+0..9"
-msgstr "Passa d'una pestanya a l'altra mitjançant <Alt>+0..9"
+msgstr "Pa_ssa d'una pestanya a l'altra mitjançant <Alt>+0..9"
 
 #: ../src/preferences.c:2904
 msgid "Save menu accelerators on exit"
@@ -3133,7 +3144,7 @@ msgstr "Color de les pestanyes de documents _modificats:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:3021 ../src/rcfile.c:1422
+#: ../src/preferences.c:3021 ../src/rcfile.c:1427
 msgid "Images"
 msgstr "Imatges"
 
@@ -3237,203 +3248,207 @@ msgstr "Crea un projecte amb els documents oberts actualment"
 msgid "Create empty project"
 msgstr "Crea un projecte buit"
 
-#: ../src/rcfile.c:697 ../src/rcfile.c:725
+#: ../src/rcfile.c:696 ../src/rcfile.c:724
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:703
+#: ../src/rcfile.c:702
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:707
+#: ../src/rcfile.c:706
 msgid "weblint HTML checker"
 msgstr "Verificador HTML weblint"
 
-#: ../src/rcfile.c:712
+#: ../src/rcfile.c:711
 msgid "tidy HTML validator"
 msgstr "Validador HTML tidy"
 
-#: ../src/rcfile.c:716
+#: ../src/rcfile.c:715
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:720
+#: ../src/rcfile.c:719
 msgid "xmllint XML checker"
 msgstr "Verificador XML xmllint"
 
-#: ../src/rcfile.c:729
+#: ../src/rcfile.c:728
 msgid "php syntax check"
 msgstr "Verificador de sintaxi php"
 
-#: ../src/rcfile.c:733
+#: ../src/rcfile.c:732
 msgid "perl syntax check"
 msgstr "Verificador de sintaxi perl"
 
-#: ../src/rcfile.c:737
+#: ../src/rcfile.c:736
 msgid "php codesniffer"
 msgstr "Analitzador de codi php"
 
-#: ../src/rcfile.c:741
+#: ../src/rcfile.c:740
 msgid "pylint"
 msgstr "pylint"
 
-#: ../src/rcfile.c:754
+#: ../src/rcfile.c:753
 msgid "Sort"
 msgstr "Ordena"
 
-#: ../src/rcfile.c:757
+#: ../src/rcfile.c:756
 msgid "Sort / Uniq"
 msgstr "Ordena i elimina els duplicats"
 
-#: ../src/rcfile.c:760
+#: ../src/rcfile.c:759
 msgid "Reverse lines"
 msgstr "Inverteix les línies"
 
-#: ../src/rcfile.c:763
+#: ../src/rcfile.c:762
 msgid "Dos2unix"
 msgstr "Dos2unix"
 
-#: ../src/rcfile.c:765
+#: ../src/rcfile.c:764
 msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
-#: ../src/rcfile.c:767
+#: ../src/rcfile.c:766
 msgid "Tidy convert to XHTML"
 msgstr "Converteix a XHTML amb Tidy"
 
-#: ../src/rcfile.c:770
+#: ../src/rcfile.c:769
 msgid "Tidy HTML (perltidy)"
 msgstr "Tidy HTML (perltidy)"
 
-#: ../src/rcfile.c:773
+#: ../src/rcfile.c:772
 msgid "Strip empty lines"
 msgstr "Suprimeix les línies buides"
 
-#: ../src/rcfile.c:776
+#: ../src/rcfile.c:775
 msgid "Render HTML to text"
 msgstr "Renderitza l'HTML a text"
 
-#: ../src/rcfile.c:779
+#: ../src/rcfile.c:778
 msgid "PHP Beautifier"
 msgstr "Embellidor PHP"
 
-#: ../src/rcfile.c:783 ../src/rcfile.c:790
+#: ../src/rcfile.c:782 ../src/rcfile.c:789
 msgid "Javascript Minify with jsmin"
 msgstr "Minimitza el Javascript amb jsmin"
 
-#: ../src/rcfile.c:786 ../src/rcfile.c:793
+#: ../src/rcfile.c:785 ../src/rcfile.c:792
 msgid "CSS Minify with cssmin"
 msgstr "Minimitza el CSS amb cssmin"
 
-#: ../src/rcfile.c:797
+#: ../src/rcfile.c:796
 msgid "CSS tidy"
 msgstr "Tidy CSS"
 
-#: ../src/rcfile.c:809
+#: ../src/rcfile.c:808
 msgid "Windows XP Firefox"
 msgstr "Firefox per a Windows XP"
 
-#: ../src/rcfile.c:814
+#: ../src/rcfile.c:813
 msgid "Windows XP Internet Explorer"
 msgstr "Internet Explorer per a Windows XP"
 
-#: ../src/rcfile.c:819
+#: ../src/rcfile.c:818
 msgid "Windows XP Opera"
 msgstr "Opera per a Windows XP"
 
-#: ../src/rcfile.c:823
+#: ../src/rcfile.c:822
 msgid "Windows XP Safari"
 msgstr "Safari per a Windows XP"
 
-#: ../src/rcfile.c:827
+#: ../src/rcfile.c:826
 msgid "Windows 7 Firefox 32-bit"
 msgstr "Firefox 32-bit per a Windows 7"
 
-#: ../src/rcfile.c:832
+#: ../src/rcfile.c:831
 msgid "Windows 7 Internet Explorer 32-bit"
 msgstr "Windows 7 Internet Explorer 32-bit"
 
-#: ../src/rcfile.c:837
+#: ../src/rcfile.c:836
 msgid "Windows 7 Internet Explorer 64-bit"
 msgstr "Windows 7 Internet Explorer 64-bit"
 
-#: ../src/rcfile.c:843
+#: ../src/rcfile.c:842
 msgid "Safari"
 msgstr "Safari"
 
-#: ../src/rcfile.c:846 ../src/rcfile.c:856
+#: ../src/rcfile.c:845 ../src/rcfile.c:861
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:849 ../src/rcfile.c:860
-msgid "Opera"
-msgstr "Opera"
+#: ../src/rcfile.c:848
+msgid "Google Chrome"
+msgstr "Google Chrome"
 
-#: ../src/rcfile.c:852 ../src/rcfile.c:879
-msgid "chmod a+x"
-msgstr "chmod a+x"
-
-#: ../src/rcfile.c:864
+#: ../src/rcfile.c:851 ../src/rcfile.c:869
 msgid "Chromium"
 msgstr "Chromium"
 
-#: ../src/rcfile.c:867
+#: ../src/rcfile.c:854 ../src/rcfile.c:865
+msgid "Opera"
+msgstr "Opera"
+
+#: ../src/rcfile.c:857 ../src/rcfile.c:884
+msgid "chmod a+x"
+msgstr "chmod a+x"
+
+#: ../src/rcfile.c:872
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:870
+#: ../src/rcfile.c:875
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:873
+#: ../src/rcfile.c:878
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:876
+#: ../src/rcfile.c:881
 msgid "Links2 (graphics)"
 msgstr "Links2 (gràfics)"
 
-#: ../src/rcfile.c:923
+#: ../src/rcfile.c:928
 msgid "C Header"
 msgstr "Capçalera de C"
 
-#: ../src/rcfile.c:926
+#: ../src/rcfile.c:931
 msgid "C Header GPL"
 msgstr "Capçalera de C amb GPL"
 
-#: ../src/rcfile.c:929
+#: ../src/rcfile.c:934
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:932
+#: ../src/rcfile.c:937
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: ../src/rcfile.c:935
+#: ../src/rcfile.c:940
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:938
+#: ../src/rcfile.c:943
 msgid "LaTex Book"
 msgstr "Llibre LaTex"
 
-#: ../src/rcfile.c:941
+#: ../src/rcfile.c:946
 msgid "LaTex Presentation"
 msgstr "Presentació LaTex"
 
-#: ../src/rcfile.c:1307
+#: ../src/rcfile.c:1312
 msgid "Untitled Project"
 msgstr "Projecte sense títol"
 
-#: ../src/rcfile.c:1414
+#: ../src/rcfile.c:1419
 msgid "C programming"
 msgstr "Programació en C"
 
-#: ../src/rcfile.c:1418
+#: ../src/rcfile.c:1423
 msgid "Web files"
 msgstr "Fitxers web"
 
-#: ../src/rcfile.c:1425
+#: ../src/rcfile.c:1430
 msgid "Hide objectfiles"
 msgstr "Amaga els fitxers objecte"
 
