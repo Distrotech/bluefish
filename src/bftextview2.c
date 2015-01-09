@@ -167,8 +167,8 @@ bf_text_iter_line_end_of_text(BluefishTextView *btv, GtkTextIter * iter, GtkText
 			return TRUE;
 		}
 	}
-	
-	
+
+
 	if (!gtk_text_iter_ends_line(iter))
 		gtk_text_iter_forward_to_line_end(iter);
 	if (gtk_text_iter_starts_line(iter))
@@ -681,8 +681,16 @@ bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * 
 {
 	DBG_SIGNALS("bftextview2_insert_text_lcb, btv=%p, master=%p, stringlen=%d\n", btv, btv->master,
 				stringlen);
+	gchar *wrongquote = "¨";
 	guint charlen = g_utf8_strlen(string, stringlen);
 	guint startpos = gtk_text_iter_get_offset(iter);
+
+	if (main_v->props.editor_replace_unicode_quotes && charlen==1 && stringlen == 2 && string[0]==wrongquote[0] && string[1]==wrongquote[1]) {
+		DBG_MSG("Replace unicode quote ¨ with ascii quote \".\n");
+		gtk_text_buffer_insert(buffer,iter,"\"",1);
+		g_signal_stop_emission_by_name(buffer, "insert_text");
+	}
+
 	if (btv == btv->master) {
 		foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master),startpos,charlen);
 	}
@@ -1991,7 +1999,7 @@ gchar *get_line_indenting(GtkTextBuffer * buffer, GtkTextIter * iter, gboolean p
 	return string;
 }
 
-/* 
+/*
 adds the (smart) indenting after an enter key is released
 iter is set to the cursor position
 */
@@ -2007,7 +2015,7 @@ auto_add_indenting(BluefishTextView * btv, GtkTextIter *iter)
 	if (!string)
 		return;
 
-	if (main_v->props.smartindent) {	
+	if (main_v->props.smartindent) {
 		gtk_text_iter_backward_chars(&iter2,2);
 		gunichar uc = gtk_text_iter_get_char(&iter2);
 		lastchar = (uc < 255)? uc : 127; /* 127 = DEL is a not used character */
