@@ -130,26 +130,33 @@ gboolean
 bf_text_iter_line_start_of_text(GtkTextView *btv, GtkTextIter * iter, GtkTextIter * realstart, gboolean use_wrapped)
 {
 	gboolean ret;
+	/*g_print("bf_text_iter_line_start_of_text, started at offset %d\n",gtk_text_iter_get_offset(iter));*/
 	if (use_wrapped && gtk_text_view_get_wrap_mode(btv) != GTK_WRAP_NONE) {
 		ret = gtk_text_view_backward_display_line_start(btv,iter);
-		if (!ret)
+		if (!ret) {
+			/*g_print("bf_text_iter_line_start_of_text, failed to move iter to display_line_start, return FALSE\n");*/
 			return FALSE;
+		}
+		/*g_print("bf_text_iter_line_start_of_text, line offset=%d\n",gtk_text_iter_get_line_offset(iter));*/
+		*realstart = *iter;
 		if (gtk_text_iter_get_line_offset(iter)>0) {
-			*realstart = *iter;
 			/* we have wrapped text, and we found the start of a wrapped part, so this is not the start of the real line */
 			return TRUE;
 		}
 	} else {
+		/*g_print("bf_text_iter_line_start_of_text, no wrap, or no-want-wrap, set line offset to 0\n");*/
 		gtk_text_iter_set_line_offset(iter, 0);
 		*realstart = *iter;
 	}
 	/* do the magic so we can toggle between the line start and the start of the text */
-	while (g_unichar_isspace(gtk_text_iter_get_char(iter))) {
+	ret=TRUE;
+	while (ret && g_unichar_isspace(gtk_text_iter_get_char(iter))) {
 		if (gtk_text_iter_ends_line(iter))
 			return FALSE;
-		gtk_text_iter_forward_char(iter);
+		ret = gtk_text_iter_forward_char(iter);
 	}
-	return TRUE;
+	DEBUG_MSG("bf_text_iter_line_start_of_text, end of function, ret=%d, line offset=%d, offset=%d\n",ret,gtk_text_iter_get_line_offset(iter), gtk_text_iter_get_offset(iter));
+	return ret;
 }
 /* if BluefishTextView *btv is NULL we do not check for the wrap mode, and the function will always
 return the real line, not the wrapped part  */
@@ -159,31 +166,36 @@ bf_text_iter_line_end_of_text(BluefishTextView *btv, GtkTextIter * iter, GtkText
 	gboolean ret;
 	if (use_wrapped && gtk_text_view_get_wrap_mode(GTK_TEXT_VIEW(btv)) != GTK_WRAP_NONE) {
 		ret = gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(btv),iter);
-		if (!ret)
+		if (!ret) {
+			/*g_print("bf_text_iter_line_end_of_text, failed to move iter to display_line_end, return FALSE\n");*/
 			return FALSE;
+		}
+		/*g_print("bf_text_iter_line_end_of_text, line offset=%d\n",gtk_text_iter_get_line_offset(iter));*/
+		*realend = *iter;
 		if (!gtk_text_iter_ends_line(iter)) {
 			/* we have wrapped text, and we found the end of a wrapped part, so this is not the end of the real line */
-			*realend = *iter;
 			return TRUE;
 		}
 	}
 
-
-	if (!gtk_text_iter_ends_line(iter))
+	if (!gtk_text_iter_ends_line(iter)) {
 		gtk_text_iter_forward_to_line_end(iter);
-	if (gtk_text_iter_starts_line(iter))
+	}
+	if (gtk_text_iter_starts_line(iter)) {
 		return FALSE;
+	}
 	*realend = *iter;
 	if (gtk_text_iter_is_end(iter))
 		gtk_text_iter_backward_char(iter);
-	while (g_unichar_isspace(gtk_text_iter_get_char(iter))) {
+	ret = TRUE;
+	while (ret && g_unichar_isspace(gtk_text_iter_get_char(iter))) {
 		if (gtk_text_iter_starts_line(iter))
 			return FALSE;
-		gtk_text_iter_backward_char(iter);
+		ret = gtk_text_iter_backward_char(iter);
 	}
-	if (!gtk_text_iter_ends_line(iter) && !g_unichar_isspace(gtk_text_iter_get_char(iter)))
+	if (ret && !gtk_text_iter_ends_line(iter) && !g_unichar_isspace(gtk_text_iter_get_char(iter)))
 		gtk_text_iter_forward_char(iter);
-	return TRUE;
+	return ret;
 }
 
 /*************************** end of utility functions **************************/
@@ -1477,7 +1489,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		imark = gtk_text_buffer_get_insert(BLUEFISH_TEXT_VIEW(btv)->buffer);
 		gtk_text_buffer_get_iter_at_mark(BLUEFISH_TEXT_VIEW(btv)->buffer, &currentpos, imark);
 		iter = currentpos;
-		/* if you hold ALT and you have wrapped text, bluefish will jump to the previous/next newline, else
+		/* if you hold ALT and you	 have wrapped text, bluefish will jump to the previous/next newline, else
 		it will jump the the start/end of the wrapped part of the line */
 		if ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home)) {
 			ret = bf_text_iter_line_start_of_text(btv, &iter, &linestart, !(kevent->state & GDK_MOD1_MASK));
