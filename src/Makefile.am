@@ -13,7 +13,7 @@ SUBDIRS = pixmaps\
 #	plugin_xmltools
 # 	plugin_vcs
 
-EXTRA_DIST = bluefish_rc.rc.in.in resource.h
+EXTRA_DIST = bluefish_rc.rc.in.in resource.h win32utils.c win32utils.h
 
 CLEANFILES = bluefish_rc.rc
 
