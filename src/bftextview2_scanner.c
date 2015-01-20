@@ -373,11 +373,20 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 			("in loop: remove Tfound %p with offset %d, fcontext=%p, numcontextchange=%d, fblock=%p, numblockchange=%d, from the cache and free, contextstackcount=%d, blockstackcount=%d, nextfound=%p\n",
 			 tmpfound2, tmpfound2->charoffset_o, tmpfound2->fcontext, tmpfound2->numcontextchange, tmpfound2->fblock, tmpfound2->numblockchange, contextstackcount, blockstackcount, *found);
 		if (tmpfound2->numblockchange < 0 && blockstackcount < 0) {
-			/* a blockstack < 0 probably means that this found pops a
+			Tfoundblock *tmpfblock;
+			/* a blockstackcount < 0 probably means that this found pops a
 			block that started before the found that we started to remove
-			in this function, so let's set the end to undefined */
-			tmpfound2->fblock->start2_o = BF_POSITION_UNDEFINED;
-			tmpfound2->fblock->end2_o = BF_POSITION_UNDEFINED;
+			in this function, so let's set the end to undefined for these blocks.
+			
+			Since (tmpfound2->numblockchange < 0) the memory in tmpfound2->fblock is likely to be free'ed already
+			earlier in this loop. So we must look at the blocks pointed to by tmpfound1->fblock.  
+			*/
+			tmpfblock = tmpfound1->fblock;
+			while (tmpfblock && tmpfblock->end2_o <= tmpfound2->charoffset_o) {
+				tmpfblock->start2_o = BF_POSITION_UNDEFINED;
+				tmpfblock->end2_o = BF_POSITION_UNDEFINED;
+				tmpfblock = tmpfblock->parentfblock;
+			}
 		}
 
 		invalidoffset = tmpfound2->charoffset_o;
@@ -681,7 +690,7 @@ scancache_update_single_offset(BluefishTextView * btv, Tscancache_offset_update 
 		nextfound = get_foundcache_next(btv, &nextsiter);
 	}
 	/* see if nextpos is at startpos, in which case it only needs correction with prevoffset */
-	DBG_SCANCACHE("nextfound(%u)+prevoffset(%d)=%u, startpos=%u\n",nextfound->charoffset_o,sou->prevoffset,nextfound->charoffset_o+sou->prevoffset,startpos);
+	DBG_SCANCACHE("nextfound(%u)+prevoffset(%d)=%u, startpos=%u\n",nextfound?nextfound->charoffset_o:0,sou->prevoffset,nextfound?(nextfound->charoffset_o+sou->prevoffset):0,startpos);
 	if (nextfound && ((gint)nextfound->charoffset_o + sou->prevoffset) == ((gint)startpos)) {
 		DBG_SCANCACHE("nextfound(%u)+prevoffset(%d)=%u is at the startpos(%u) itself, so handleoffset=%d\n",
 					nextfound->charoffset_o,
