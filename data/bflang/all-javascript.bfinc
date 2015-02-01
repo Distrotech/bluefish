@@ -1695,13 +1695,13 @@
 <element id="js.regex" pattern="(=|+|-)[ &#9;&#10;&#13;]*/" is_regex="1" starts_block="1" highlight="js-brackets">
 	<context symbols=".;/\ " highlight="js-string" >
 		<element pattern="\\." is_regex="1" highlight="js-string" />
-		<element pattern="/[gimy]*" is_regex="1" highlight="js-brackets" ends_block="1" blockstartelement="js.regex" ends_context="1"/>
+		<element pattern="/[gimyxu]*" is_regex="1" highlight="js-brackets" ends_block="1" blockstartelement="js.regex" ends_context="1"/>
 	</context>
 </element>
 <element id="js.replace.regex" pattern="\([ #&#9;&#10;&#13;]*/" is_regex="1" highlight="js-brackets" starts_block="1">
 	<context symbols="/\ ),;.#&#9;&#10;&#13;" highlight="js-string">
 		<element pattern="\\." is_regex="1" highlight="js-string" />
-		<element pattern="/[gimy]*" is_regex="1" highlight="js-brackets" ends_block="1" blockstartelement="js.replace.regex" ends_context="1" />
+		<element pattern="/[gimyxu]*" is_regex="1" highlight="js-brackets" ends_block="1" blockstartelement="js.replace.regex" ends_context="1" />
 	</context>
 </element>  
 
