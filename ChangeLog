@@ -2,6 +2,26 @@ The complete VCS changelog can be obtained from our subversion repository
 using the `svn2cl' utility. The release changelogs are also available from
 our homepage: http://bluefish.openoffice.nl.
 
+* 2.2.7 *
+
+Bluefish 2.2.7 is mostly a bug fix release. It fixes rare crashes in the
+autocompletion, the filebrowser, the htmlbar plugin preferences, and in
+file-load-cancel, fixes a rare case of broken syntax highlighting after
+multiple search/replace actions. It furthermore displays better
+error/warning output when parsing language files. It also finally fixes
+javascript regex syntax highlighting. The loading of files with corrupt
+encoding has been improved, and project loading over sftp has been improved. 
+Various HTML5 tags have been added, and HTML5 is the default now for php,
+cfml and other languages that can include html syntax. Saving and loading
+of UTF-16 encoded files was broken and has been fixes. Various languages
+have better support, such as javascript, css, html, pascal/deplhi, and html
+has improved autocompletion. On OSX the keys for tab switching no longer
+confict with some keyboard layouts, and behavior at shutdown was improved. 
+The upload/download feature has a new option to ignore backup files.  The
+home/end keys now work better on wrapped tekst.  And finally the search and
+replace dialog correctly shows the number of results when searching in files
+on disk.
+
 * 2.2.6 *
 
 Bluefish 2.2.6 is mostly a bug fix release. This release fixes a critical bug
