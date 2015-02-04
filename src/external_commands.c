@@ -749,19 +749,19 @@ command_backend(Tbfwin * bfwin, gint begin, gint end,
 				tmp2 = _("Internal error.");
 			break;
 			case cpe_no_filename:
-				tmp2 = _("This command requires the current document to have a file name.");
+				tmp2 = _("This command requires the current document to have a file name. Please save your document first.");
 			break;
 			case cpe_no_local_file:
-				tmp2 = _("This command requires the current document to be a local file.");
+				tmp2 = _("This command requires the current document to be a local file. Please save your document to a loacal file.");
 			break;
 			case cpe_output_not_needed:
-				tmp2 = _("External commands cannot have an output defined.");
+				tmp2 = _("External commands cannot have an output defined. Please fix this command in the preferences.");
 			break;
 			case cpe_multiple_inputs:
-				tmp2 = _("This command has multiple inputs");
+				tmp2 = _("This command has multiple inputs. Please fix this command in the preferences.");
 			break;
 			case cpe_multiple_outputs:
-				tmp2 = _("This command has multiple outputs");
+				tmp2 = _("This command has multiple outputs. Please fix this command in the preferences.");
 			break;
 		}
 		if (!no_message) {
