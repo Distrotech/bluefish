@@ -36,6 +36,17 @@
 #define USEBINSH
 #endif
 
+typedef enum {
+	cpe_no_error=0,
+	cpe_unknown,
+	cpe_no_filename,
+	cpe_no_local_file,
+	cpe_output_not_needed,
+	cpe_multiple_inputs,
+	cpe_multiple_outputs,
+	cpe_user_cancelled
+} Tcommandparsererror;
+
 /*
  * for the external commands, the external filters, and the outputbox, we have some general code
  * to create the command, and to start the command
@@ -357,7 +368,7 @@ operatable_on_selection(const gchar * formatstring)
     * %a user supplied arguments
 */
 static gchar *
-create_commandstring(Texternalp * ep, const gchar * formatstr, gboolean discard_output)
+create_commandstring(Texternalp * ep, const gchar * formatstr, gboolean discard_output, Tcommandparsererror *cperror)
 {
 	Tconvert_table *table;
 	gchar *localname = NULL, *localfilename = NULL, *retstring, *curi = NULL;
@@ -371,8 +382,10 @@ create_commandstring(Texternalp * ep, const gchar * formatstr, gboolean discard_
 		need_tmpout = FALSE,
 		need_inplace = FALSE, need_preview_uri = FALSE, need_filename = FALSE, need_arguments = FALSE;
 	gint items = 2, cur = 0;
+	*cperror=cpe_no_error;
 
 	if (!ep->bfwin->current_document) {
+		*cperror=cpe_unknown;
 		return NULL;
 	}
 
@@ -399,6 +412,7 @@ create_commandstring(Texternalp * ep, const gchar * formatstr, gboolean discard_
 		/* BUG: give a warning that the current command only works for files with a name */
 		DEBUG_MSG("create_commandstring, this command needs a filename, but there is no\n");
 		g_free(formatstring);
+		*cperror=cpe_no_filename;
 		return NULL;
 	}
 	if (ep->bfwin->current_document->uri)
@@ -407,6 +421,7 @@ create_commandstring(Texternalp * ep, const gchar * formatstr, gboolean discard_
 	if (need_local && !localname) {
 		g_free(formatstring);
 		g_free(localname);
+		*cperror=cpe_no_local_file;
 		return NULL;
 	}
 
@@ -418,6 +433,7 @@ create_commandstring(Texternalp * ep, const gchar * formatstr, gboolean discard_
 		DEBUG_MSG("create_commandstring, external_commands should not have %%o\n");
 		g_free(formatstring);
 		g_free(localname);
+		*cperror=cpe_output_not_needed;
 		return NULL;
 	}
 	if ((need_tmpin && (need_inplace || need_pipein))
@@ -426,6 +442,7 @@ create_commandstring(Texternalp * ep, const gchar * formatstr, gboolean discard_
 		/*  BUG: give a warning that you cannot have multiple inputs */
 		g_free(formatstring);
 		g_free(localname);
+		*cperror=cpe_multiple_inputs;
 		return NULL;
 	}
 	if ((need_tmpout && (need_inplace || need_pipeout))
@@ -435,7 +452,7 @@ create_commandstring(Texternalp * ep, const gchar * formatstr, gboolean discard_
 		/*  BUG: give a warning that you cannot have multiple outputs */
 		g_free(formatstring);
 		g_free(localname);
-
+		*cperror=cpe_multiple_outputs;
 		return NULL;
 	}
 
@@ -462,6 +479,7 @@ create_commandstring(Texternalp * ep, const gchar * formatstr, gboolean discard_
 			break;
 		default:
 			gtk_widget_destroy(dialog);
+			*cperror=cpe_user_cancelled;
 			return NULL;
 			break;
 		}
@@ -705,6 +723,7 @@ command_backend(Tbfwin * bfwin, gint begin, gint end,
 				StatusCodeCallback statuscode_cb, CustomCommandCallback customcommand_cb, gpointer data)
 {
 	Texternalp *ep;
+	Tcommandparsererror cpe;
 
 	DEBUG_MSG("command_backend, started\n");
 	ep = g_new0(Texternalp, 1);
@@ -716,12 +735,41 @@ command_backend(Tbfwin * bfwin, gint begin, gint end,
 	ep->begin = begin;
 	ep->end = end;
 	ep->formatstring = formatstring;
-	ep->commandstring = create_commandstring(ep, formatstring, (channel_out_cb == NULL));
+	ep->commandstring = create_commandstring(ep, formatstring, (channel_out_cb == NULL), &cpe);
 	if (!ep->commandstring) {
-		gchar *tmp = g_markup_printf_escaped(_("Failed to create a command for %s."), formatstring);
-		message_dialog_new(BFWIN(ep->bfwin)->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+		gchar *tmp;
+		const gchar *tmp2;
+		gboolean no_message=FALSE;
+		switch (cpe) {
+			case cpe_no_error:
+			case cpe_user_cancelled:
+				no_message=TRUE;
+			break;
+			case cpe_unknown:
+				tmp2 = _("Internal error.");
+			break;
+			case cpe_no_filename:
+				tmp2 = _("This command requires the current document to have a file name.");
+			break;
+			case cpe_no_local_file:
+				tmp2 = _("This command requires the current document to be a local file.");
+			break;
+			case cpe_output_not_needed:
+				tmp2 = _("External commands cannot have an output defined.");
+			break;
+			case cpe_multiple_inputs:
+				tmp2 = _("This command has multiple inputs");
+			break;
+			case cpe_multiple_outputs:
+				tmp2 = _("This command has multiple outputs");
+			break;
+		}
+		if (!no_message) {
+			tmp = g_markup_printf_escaped(_("Failed to create a command for %s.\n%s"), formatstring, tmp2);
+			message_dialog_new(BFWIN(ep->bfwin)->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
 						   _("Failed to create a command"), tmp);
-		g_free(tmp);
+			g_free(tmp);
+		}
 		DEBUG_MSG("command_backend, failed to create commandstring\n");
 		g_free(ep);
 		return;
