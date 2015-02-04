@@ -1803,12 +1803,15 @@ langmgr_get_bflang(const gchar * mimetype, const gchar * filename)
 	DBG_MSG("langmgr_get_bflang, request for mimetype %s filename %s\n",mimetype, filename);
 	if (filename && strchr(mimetype, '?') == NULL) {
 		gchar *key = mime_with_extension(mimetype, filename);
-/*		g_print("search for key=%s\n",key);*/
+		/*g_print("langmgr_get_bflang, first search for key=%s...",key);*/
 		bflang = g_hash_table_lookup(langmgr.bflang_lookup, key);
+		/*g_print(" got %s\n",bflang?bflang->name:"Null");*/
 		g_free(key);
 	}
 	if (!bflang) {
+		/*g_print("langmgr_get_bflang, no result, now search for key=%s...",mimetype);*/
 		bflang = g_hash_table_lookup(langmgr.bflang_lookup, mimetype);
+		/*g_print(" got %s\n",bflang?bflang->name:"Null");*/
 	}
 
 	if (bflang && bflang->filename && !bflang->st && !bflang->no_st && !bflang->parsing) {
@@ -2091,6 +2094,7 @@ register_bflanguage(Tbflang * bflang)
 		tmplist = g_list_first(bflang->mimetypes);
 		while (tmplist) {
 			if (!g_hash_table_lookup(langmgr.bflang_lookup, (gchar *) tmplist->data)) {
+				/*DEBUG_MSG("insert mime %s in hash table for bflang %s\n",tmplist->data,bflang->name);*/
 				g_hash_table_insert(langmgr.bflang_lookup, (gchar *) tmplist->data, bflang);
 				registered = TRUE;
 			}

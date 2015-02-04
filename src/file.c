@@ -309,7 +309,7 @@ file_checkmodified_uri_async(GFile * uri, GFileInfo * curinfo, CheckmodifiedAsyn
 							 gpointer callback_data)
 {
 	Tcheckmodified *cm;
-	if (curinfo == NULL) {
+	if (curinfo == NULL|| !g_file_info_has_attribute(curinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED)) {
 		callback_func(CHECKMODIFIED_OK, NULL, NULL, NULL, callback_data);
 		return NULL;
 	}
@@ -997,6 +997,10 @@ fill_fileinfo_lcb(GObject * source_object, GAsyncResult * res, gpointer user_dat
 	DEBUG_MSG("fill_fileinfo_lcb got fileinfo %p for fi %p\n", info, fi);
 	if (info) {
 		if (fi->doc->fileinfo) {
+			gchar *oldmime;
+			/* copy the standard content type to the new fileinfo */
+			oldmime = g_file_info_get_attribute_string(fi->doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+			g_file_info_set_content_type(info, oldmime);
 			g_object_unref(fi->doc->fileinfo);
 		}
 		fi->doc->fileinfo = info; /* no need to ref it, the call to g_file_query_info_finish returns a reference */

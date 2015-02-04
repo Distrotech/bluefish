@@ -1077,8 +1077,10 @@ lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)) && bfwin->current_document) {
 		Tbflang *tmpbflang;
 		const gchar *oldmime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+		DEBUG_MSG("lang_mode_menu_activate, got 'standard_content_type' %s from fileinfo %p\n",oldmime,doc->fileinfo );
 		if (!oldmime) {
 			oldmime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+			DEBUG_MSG("lang_mode_menu_activate, got 'fast_content_type' %s\n",oldmime);
 		}
 		if (doc->uri && oldmime && strchr(oldmime, '?')==NULL) {
 			gchar *curi = NULL;
@@ -1087,7 +1089,7 @@ lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 
 			DEBUG_MSG("lang_mode_menu_activate, got %p for tmpbflang with name %s\n",tmpbflang, tmpbflang->name);
 
-			if (!tmpbflang) {
+			if (!tmpbflang && g_strcmp0(oldmime, "application/octet-stream")!=0) {
 				/* ask the user to register oldmime for the chosen language */
 				ask_register_custom_mime_for_bflang(bfwin, bflang, oldmime);
 			} else {

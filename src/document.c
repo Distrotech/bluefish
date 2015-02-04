@@ -669,9 +669,10 @@ doc_set_mimetype(Tdocument * doc, const gchar * mimetype, const gchar * filename
 		doc->newdoc_autodetect_lang_id = 0;
 	}
 	bluefish_text_view_select_language(BLUEFISH_TEXT_VIEW(doc->view), mimetype, filename);
-	if (doc->fileinfo) {
-		g_file_info_set_content_type(doc->fileinfo, mimetype);
+	if (!doc->fileinfo) {
+		doc->fileinfo = g_file_info_new();
 	}
+	g_file_info_set_content_type(doc->fileinfo, mimetype);
 	doc_set_statusbar_lang_encoding(doc);
 }
 
