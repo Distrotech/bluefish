@@ -37,6 +37,8 @@ typedef struct {
 	GtkTreeView *tree;
 	GtkWidget *scroll;
 	GtkWidget *reflabel;
+	GtkCellRenderer *cell;
+	GtkTreeViewColumn *column;
 	gint listwidth;
 	gint w;
 	gint h;
@@ -347,8 +349,7 @@ acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw)
 static Tacwin *
 acwin_create(BluefishTextView * btv)
 {
-	GtkCellRenderer *cell;
-	GtkTreeViewColumn *column;
+	/*GtkCellRenderer *cell;*/
 	GtkWidget *hbox;
 	/* GtkWidget *vbar; */
 	Tacwin *acw;
@@ -371,9 +372,9 @@ acwin_create(BluefishTextView * btv)
 	gtk_tree_view_set_headers_visible(acw->tree, FALSE);
 	acw->scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(acw->scroll), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-	cell = gtk_cell_renderer_text_new();
-	column = gtk_tree_view_column_new_with_attributes("", cell, "markup", 0, NULL);
-	gtk_tree_view_append_column(GTK_TREE_VIEW(acw->tree), column);
+	acw->cell = gtk_cell_renderer_text_new();
+	acw->column = gtk_tree_view_column_new_with_attributes("", acw->cell, "markup", 0, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(acw->tree), acw->column);
 	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(acw->tree), FALSE);
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(acw->tree));
 	g_signal_connect(G_OBJECT(selection), "changed", G_CALLBACK(acw_selection_changed_lcb), acw);
@@ -421,12 +422,16 @@ acwin_position_at_cursor(BluefishTextView * btv)
 	gdk_window_get_origin(gtk_text_view_get_window(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT), &x, &y);
 
 	sh = gdk_screen_get_height(screen);
-	DBG_AUTOCOMP("rect.y+y=%d, acw->h=%d, sh=%d\n", rect.y + y, ACWIN(btv->autocomp)->h, sh);
 	if (rect.y + y + ACWIN(btv->autocomp)->h > sh) {
+		DBG_AUTOCOMP("acwin_position_at_cursor, popup above cursuor, rect.y+y=%d + rect.height(%d)-acw->h(%d)=%d, acw->h=%d, sh=%d\n"
+				, rect.y + y,rect.height,ACWIN(btv->autocomp)->h
+				, rect.y + y + rect.height - ACWIN(btv->autocomp)->h
+				, ACWIN(btv->autocomp)->h, sh);
 		gtk_window_move(GTK_WINDOW(ACWIN(btv->autocomp)->win), rect.x + x,
 						rect.y + y + rect.height - ACWIN(btv->autocomp)->h);
 		return FALSE;
 	} else {
+		DBG_AUTOCOMP("acwin_position_at_cursor, popup below cursuor, rect.y+y=%d, acw->h=%d, sh=%d\n", rect.y + y, ACWIN(btv->autocomp)->h, sh);
 		gtk_window_move(GTK_WINDOW(ACWIN(btv->autocomp)->win), rect.x + x, rect.y + y);
 		return TRUE;
 	}
@@ -456,9 +461,9 @@ acwin_calculate_window_size(Tacwin * acw, GList * items, GList * items2, const g
 		}
 		g_assert(tmplist != NULL);
 		g_assert(tmplist->data != NULL);
-		DBG_AUTOCOMP("acwin_calculate_window_size, tmplist=%p", tmplist);
+/*		DBG_AUTOCOMP("acwin_calculate_window_size, tmplist=%p", tmplist);
 		DBG_AUTOCOMP(", tmplist->data=%p",tmplist->data);
-		DBG_AUTOCOMP("=%s\n", (gchar *)tmplist->data);
+		DBG_AUTOCOMP("=%s\n", (gchar *)tmplist->data);*/
 		tmp = g_markup_escape_text(tmplist->data, -1);
 		len = strlen(tmp);
 		if (len > longestlen) {
@@ -471,14 +476,26 @@ acwin_calculate_window_size(Tacwin * acw, GList * items, GList * items2, const g
 		tmplist = g_list_next(tmplist);
 	}
 	if (longest) {
-		gint len, rowh;
+		gint len, rowh,min_h,nat_h;
 		PangoLayout *panlay = gtk_widget_create_pango_layout(GTK_WIDGET(acw->tree), NULL);
-		DBG_AUTOCOMP("longest=%s\n", longest);
 		pango_layout_set_markup(panlay, longest, -1);
 		pango_layout_get_pixel_size(panlay, &len, &rowh);
-		acw->h = MIN(MAX((*numitems + 1) * rowh + 8, 150), 350);
+		DBG_AUTOCOMP("longest=%s which has len=%d and rowheight=%d\n", longest, len, rowh);
+		/*  rowh+9 has been found by trial and error on a particular gtk theme and resolution, so
+		there is quite a chance that this will not be optimal for other themes or for example
+		on a high resolution display. I've tried to request this size but I cannot find it.
+		I've now changed it to nat_h+5, hopefully nat_h is already a more dynamic value */
+		/*gint spacing,height;
+		GtkRequisition min_size, nat_size;
+		gtk_cell_renderer_get_preferred_height(acw->cell,GTK_WIDGET(acw->tree),&min_h,&nat_h);
+		spacing= gtk_tree_view_column_get_spacing(acw->column);
+		gtk_tree_view_column_cell_get_size(acw->column,NULL,NULL,NULL,NULL,&height);
+		gtk_widget_get_preferred_size(GTK_WIDGET(acw->tree),&min_size,&nat_size);
+		g_print("row=%d,rowh+9=%d,min_h=%d,nat_h=%d,spacing=%d,height=%d,nat_size.h=%d\n",rowh,rowh+9,min_h,nat_h,spacing,height,min_size.height);*/
+		gtk_cell_renderer_get_preferred_height(acw->cell,GTK_WIDGET(acw->tree),&min_h,&nat_h);
+		acw->h = MIN((*numitems) * (nat_h+5), 350); /*MIN(MAX((*numitems + 1) * rowh + 8, 150), 350);*/
 		acw->w = acw->listwidth = MIN(len + 20, 350);
-		DBG_AUTOCOMP("numitems=%d, rowh=%d, new height=%d, listwidth=%d\n", *numitems, rowh, acw->h,
+		DBG_AUTOCOMP("acwin_calculate_window_size, numitems=%d, rowh=%d, new height=%d, new width=%d\n", *numitems, rowh, acw->h,
 				acw->listwidth);
 		gtk_widget_set_size_request(GTK_WIDGET(acw->scroll), acw->listwidth, acw->h);	/* ac_window */
 		g_free(longest);
@@ -538,7 +555,7 @@ acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar * closetag, g
 			gtk_list_store_append(acw->store, &it);
 			tmp = g_markup_escape_text(tmplist->data, -1);
 			gtk_list_store_set(acw->store, &it, 0, tmp, 1, tmplist->data, -1);
-			DBG_AUTOCOMP("acwin_fill_tree, add item %s\n",tmp);
+			/*DBG_AUTOCOMP("acwin_fill_tree, add item %s\n",tmp);*/
 			g_free(tmp);
 		}
 		i++;
@@ -714,16 +731,18 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 			acwin_fill_tree(ACWIN(btv->autocomp), items, items2, closetag, !below, numitems);
 			gtk_widget_show(ACWIN(btv->autocomp)->win);
 			selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
-			if (below)
+			if (below) {
+				DBG_AUTOCOMP("autocomp_run, popup-below, get first iter for selection\n");
 				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), &it);
-			else {
+			} else {
 				GtkTreePath *path;
+				DBG_AUTOCOMP("autocomp_run, popup-above, select last iter and scroll max down\n");
 				gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), &it, NULL,
 											  gtk_tree_model_iter_n_children(GTK_TREE_MODEL
 																			 (ACWIN(btv->autocomp)->store),
 																			 NULL) - 1);
 				path = gtk_tree_model_get_path(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), &it);
-				gtk_tree_view_scroll_to_cell(ACWIN(btv->autocomp)->tree, path, NULL, FALSE, 0.0, 0.0);
+				gtk_tree_view_scroll_to_cell(ACWIN(btv->autocomp)->tree, path, NULL, FALSE, 1.0, 1.0);
 				gtk_tree_path_free(path);
 			}
 			ACWIN(btv->autocomp)->in_fill=FALSE;
