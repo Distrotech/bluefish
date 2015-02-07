@@ -816,14 +816,14 @@ htmlbar_toolbar_show(Thtmlbarwin * hbw, Thtmlbarsession *hbs, gboolean show)
 			GtkWidget *html_notebook;
 			html_notebook = htmlbar_toolbar_create(hbw, hbs);
 #if GTK_CHECK_VERSION(3,2,0)
-			/*gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP); this is the default, so why set it?*/ 
+			/*gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP); this is the default, so why set it?*/
  			gtk_widget_set_hexpand(GTK_WIDGET(html_notebook),TRUE);
  			hbw->handlebox = gtk_event_box_new();
  			gtk_widget_set_name(GTK_WIDGET(hbw->handlebox), "html_notebook_event_box");
-			gtk_container_add(GTK_CONTAINER(hbw->handlebox),html_notebook); 
+			gtk_container_add(GTK_CONTAINER(hbw->handlebox),html_notebook);
 			gtk_container_add(GTK_CONTAINER(hbw->bfwin->toolbarbox),hbw->handlebox);
 			gtk_widget_show_all(hbw->handlebox);
-#else			
+#else
 			hbw->handlebox = gtk_handle_box_new();
 			gtk_container_add(GTK_CONTAINER(hbw->handlebox), html_notebook);
 			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP);
@@ -1436,8 +1436,8 @@ static GtkWidget *new_html_subtoolbar(Thtmlbarwin * hbw, GtkWidget *html_noteboo
 		g_object_ref(toolbar);
 		gtk_container_remove(GTK_CONTAINER(parent), toolbar);
 	}
-	
-	
+
+
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 #ifdef MAC_INTEGRATION
 #if GTK_CHECK_VERSION(3,4,0)
@@ -1477,14 +1477,14 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw, Thtmlbarsession *hbs)
 	DEBUG_MSG("quickbar done\n");
 	toolbar = new_html_subtoolbar(hbw, html_notebook, gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar"), _("Standard"));
 
-	if (main_v->props.allow_dep) {
+	if (main_v->props.format_by_context) {
 		gtk_widget_destroy(gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar/FormatStrong"));
 		gtk_widget_destroy(gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar/FormatEmphasis"));
 	} else {
 		gtk_widget_destroy(gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar/FormatBold"));
 		gtk_widget_destroy(gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar/FormatItalic"));
 	}
-	
+
 	DEBUG_MSG("standard created\n");
 	setup_items_for_quickbar(hbw, toolbar);
 	DEBUG_MSG("quickbar setup done\n");
