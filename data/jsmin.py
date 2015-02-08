@@ -39,10 +39,10 @@ else:
 
 
 __all__ = ['jsmin', 'JavascriptMinify']
-__version__ = '2.0.11'
+__version__ = '2.1.0'
 
 
-def jsmin(js):
+def jsmin(js, **kwargs):
     """
     returns a minified version of the javascript string
     """
@@ -57,7 +57,7 @@ def jsmin(js):
         klass = io.StringIO
     ins = klass(js)
     outs = klass()
-    JavascriptMinify(ins, outs).minify()
+    JavascriptMinify(ins, outs, **kwargs).minify()
     return outs.getvalue()
 
 
@@ -67,9 +67,10 @@ class JavascriptMinify(object):
     to an output stream
     """
 
-    def __init__(self, instream=None, outstream=None):
+    def __init__(self, instream=None, outstream=None, quote_chars="'\""):
         self.ins = instream
         self.outs = outstream
+        self.quote_chars = quote_chars
 
     def minify(self, instream=None, outstream=None):
         if instream and outstream:
@@ -92,7 +93,7 @@ class JavascriptMinify(object):
 
         space_strings = "abcdefghijklmnopqrstuvwxyz"\
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$\\"
-        starters, enders = '{[(+-', '}])+-"\''
+        starters, enders = '{[(+-', '}])+-' + self.quote_chars
         newlinestart_strings = starters + space_strings
         newlineend_strings = enders + space_strings
         do_newline = False
@@ -122,7 +123,7 @@ class JavascriptMinify(object):
         elif not previous:
             return
         elif previous >= '!':
-            if previous in "'\"":
+            if previous in self.quote_chars:
                 in_quote = previous
             write(previous)
             previous_non_space = previous
@@ -221,9 +222,9 @@ class JavascriptMinify(object):
                 if do_newline:
                     write('\n')
                     do_newline = False
-                    
+
                 write(next1)
-                if not in_re and next1 in "'\"":
+                if not in_re and next1 in self.quote_chars:
                     in_quote = next1
                     quote_buf = []
 
@@ -250,3 +251,4 @@ if __name__ == '__main__':
 	minifier = JavascriptMinify(sys.stdin, sys.stdout)
 	minifier.minify()
 	sys.stdout.write('\n')
+
