@@ -146,7 +146,7 @@ static gboolean
 delete_async_finished_lcb(gpointer data)
 {
 	Tdelete *del = data;
-	DEBUG_SIG("delete_async_finished_lcb, started, priority %d\n",G_PRIORITY_LOW);
+	DEBUG_SIG("delete_async_finished_lcb, started, priority %d\n", G_PRIORITY_LOW);
 	if (del->callback) {
 		del->callback(del->callback_data);
 	}
@@ -210,7 +210,7 @@ delete_async(GIOSchedulerJob * job, GCancellable * cancellable, gpointer user_da
 {
 	Tdelete *del = user_data;
 	GError *error = NULL;
-	DEBUG_SIG("delete_async, started, priority %d\n",G_PRIORITY_LOW);
+	DEBUG_SIG("delete_async, started, priority %d\n", G_PRIORITY_LOW);
 	g_file_delete(del->uri, NULL, &error);
 	if (error) {
 		if (error->code == G_IO_ERROR_NOT_EMPTY && del->recursive) {
@@ -309,7 +309,7 @@ file_checkmodified_uri_async(GFile * uri, GFileInfo * curinfo, CheckmodifiedAsyn
 							 gpointer callback_data)
 {
 	Tcheckmodified *cm;
-	if (curinfo == NULL|| !g_file_info_has_attribute(curinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED)) {
+	if (curinfo == NULL || !g_file_info_has_attribute(curinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED)) {
 		callback_func(CHECKMODIFIED_OK, NULL, NULL, NULL, callback_data);
 		return NULL;
 	}
@@ -362,7 +362,7 @@ checkNsave_replace_async_lcb(GObject * source_object, GAsyncResult * res, gpoint
 	GError *error = NULL;
 
 	g_file_replace_contents_finish(cns->uri, res, &etag, &error);
-	DEBUG_MSG("checkNsave_replace_async_lcb, finished savig to uri %p, error=%p\n",cns->uri, error);
+	DEBUG_MSG("checkNsave_replace_async_lcb, finished savig to uri %p, error=%p\n", cns->uri, error);
 	if (error) {
 		DEBUG_MSG("checkNsave_replace_async_lcb,error %d: %s\n", error->code, error->message);
 		if (error->code == G_IO_ERROR_CANCELLED) {
@@ -383,8 +383,7 @@ checkNsave_replace_async_lcb(GObject * source_object, GAsyncResult * res, gpoint
 				g_error_free(error);
 				return;
 			}
-		}
-		else {
+		} else {
 			g_warning("while save to disk, received error %d: %s\n", error->code, error->message);
 			DEBUG_MSG("****************** checkNsave_replace_async_lcb() unhandled error %d: %s\n",
 					  error->code, error->message);
@@ -406,7 +405,7 @@ file_checkNsave_cancel(gpointer data)
 	if (!cns)
 		return;
 	/* if the checkNsave is still on the queue, and not yet started, the cancellable is NULL
-	and we should remove it from the queue  */
+	   and we should remove it from the queue  */
 	if (cns->cancelab) {
 		g_cancellable_cancel(cns->cancelab);
 		return;
@@ -477,7 +476,7 @@ GFile *backup_uri_from_orig_uri(GFile * origuri) {
 static void
 openfile_cleanup(Topenfile * of)
 {
-	DEBUG_MSG("openfile_cleanup, for of=%p\n",of);
+	DEBUG_MSG("openfile_cleanup, for of=%p\n", of);
 	g_object_unref(of->uri);
 	g_object_unref(of->cancel);
 	g_slice_free(Topenfile, of);
@@ -510,7 +509,8 @@ openfile_async_mount_lcb(GObject * source_object, GAsyncResult * res, gpointer u
 		/* open again */
 		g_file_load_contents_async(of->uri, of->cancel, openfile_async_lcb, of);
 	} else {
-		DEBUG_MSG("failed to mount with error %d %s!!, call OPENFILE_ERROR for of=%p\n", error->code, error->message, of);
+		DEBUG_MSG("failed to mount with error %d %s!!, call OPENFILE_ERROR for of=%p\n", error->code,
+				  error->message, of);
 		of->callback_func(OPENFILE_ERROR, error, NULL, 0, of->callback_data);
 		openfile_cleanup(of);
 	}
@@ -526,7 +526,7 @@ openfile_async_lcb(GObject * source_object, GAsyncResult * res, gpointer user_da
 	gchar *buffer = NULL;
 	gchar *etag = NULL;
 	gsize size = 0;
-	DEBUG_MSG("openfile_async_lcb, of=%p with uri=%p\n",of,of->uri);
+	DEBUG_MSG("openfile_async_lcb, of=%p with uri=%p\n", of, of->uri);
 	g_file_load_contents_finish(of->uri, res, &buffer, &size, &etag, &error);
 	if (error) {
 		DEBUG_MSG("openfile_async_lcb, finished, received error code %d: %s\n", error->code, error->message);
@@ -542,7 +542,8 @@ openfile_async_lcb(GObject * source_object, GAsyncResult * res, gpointer user_da
 				queue_worker_ready(&ofqueue);
 			}
 		} else {
-			g_warning("while opening file %s, received error %d: %s\n", g_file_get_path(of->uri), error->code, error->message);
+			g_warning("while opening file %s, received error %d: %s\n", g_file_get_path(of->uri), error->code,
+					  error->message);
 			of->callback_func(OPENFILE_ERROR, error, NULL, 0, of->callback_data);
 			openfile_cleanup(of);
 			g_free(buffer);
@@ -562,9 +563,9 @@ static void
 openfile_run(gpointer data)
 {
 	Topenfile *of = data;
-	DEBUG_MSG("openfile_run, start async load for of=%p with uri=%p\n",of,of->uri);
+	DEBUG_MSG("openfile_run, start async load for of=%p with uri=%p\n", of, of->uri);
 	g_file_load_contents_async(of->uri, of->cancel, openfile_async_lcb, of);
-	/*g_print("openfile_run, called g_file_load_contents_async() for uri %s, cancelable %p\n",g_file_get_uri(of->uri), of->cancel);*/
+	/*g_print("openfile_run, called g_file_load_contents_async() for uri %s, cancelable %p\n",g_file_get_uri(of->uri), of->cancel); */
 }
 
 Topenfile *
@@ -573,7 +574,7 @@ file_openfile_uri_async(GFile * uri, Tbfwin * bfwin, OpenfileAsyncCallback callb
 {
 	Topenfile *of;
 	of = g_slice_new(Topenfile);
-	DEBUG_MSG("file_openfile_uri_async, of=%p, called for uri=%p\n",of,uri);
+	DEBUG_MSG("file_openfile_uri_async, of=%p, called for uri=%p\n", of, uri);
 	of->callback_data = callback_data;
 	of->callback_func = callback_func;
 	of->uri = uri;
@@ -606,8 +607,8 @@ static gboolean
 fileintodoc_finished_idle_lcb(gpointer data)
 {
 	Tfileintodoc *fid = data;
-	DEBUG_SIG("file2doc_finished_idle_lcb, started, priority %d\n",FILEINTODOC_PRIORITY);
-	DEBUG_MSG("fileintodoc_finished_idle_lcb, loading the data for doc %p\n",fid->doc);
+	DEBUG_SIG("file2doc_finished_idle_lcb, started, priority %d\n", FILEINTODOC_PRIORITY);
+	DEBUG_MSG("fileintodoc_finished_idle_lcb, loading the data for doc %p\n", fid->doc);
 	if (fid->isTemplate || fid->untiledRecovery) {
 		if (fid->buffer) {
 			doc_buffer_to_textbox(fid->doc, fid->buffer->data, fid->buflen, FALSE, TRUE);
@@ -627,10 +628,11 @@ fileintodoc_finished_idle_lcb(gpointer data)
 				bfwin_switch_to_document_by_pointer(fid->bfwin, fid->doc);
 			}
 		}
-	} else {				/* file_insert, convert to UTF-8 and insert it! */
+	} else {					/* file_insert, convert to UTF-8 and insert it! */
 		gchar *encoding, *newbuf;
 		newbuf =
-			buffer_find_encoding(fid->buffer->data, fid->buflen, &encoding, BFWIN(fid->doc->bfwin)->session->encoding);
+			buffer_find_encoding(fid->buffer->data, fid->buflen, &encoding,
+								 BFWIN(fid->doc->bfwin)->session->encoding);
 		if (newbuf) {
 			GtkTextIter iter;
 			gtk_text_buffer_get_iter_at_mark(fid->doc->buffer, &iter,
@@ -651,20 +653,21 @@ fileintodoc_finished_idle_lcb(gpointer data)
 }
 
 static void
-fileintodoc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, goffset buflen, gpointer data)
+fileintodoc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, goffset buflen,
+				gpointer data)
 {
 	Tfileintodoc *fid = data;
-	DEBUG_MSG("fileintodoc_lcb, fid=%p,status=%d\n",fid,status);
+	DEBUG_MSG("fileintodoc_lcb, fid=%p,status=%d\n", fid, status);
 	switch (status) {
 	case OPENFILE_FINISHED:
 		/* a GtkTextView with lots of data displays incredibly slow. So during
-		startup of bluefish we want the GUI to show first, and *then* it should load
-		the data into the documents. That's why we insert this extra idle call with low
-		priority, to give the UI priority over the data loading */
+		   startup of bluefish we want the GUI to show first, and *then* it should load
+		   the data into the documents. That's why we insert this extra idle call with low
+		   priority, to give the UI priority over the data loading */
 		fid->buffer = buffer;
 		refcpointer_ref(fid->buffer);
 		fid->buflen = buflen;
-		g_idle_add_full(FILEINTODOC_PRIORITY,fileintodoc_finished_idle_lcb,fid,NULL);
+		g_idle_add_full(FILEINTODOC_PRIORITY, fileintodoc_finished_idle_lcb, fid, NULL);
 		break;
 	case OPENFILE_ERROR_CANCELLED:	/* hmm what to do here ? */
 		if (fid->isTemplate) {
@@ -692,7 +695,7 @@ fileintodoc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer,
 		/* TODO: use gerror information to notify the user, for example in the statusbar */
 		DEBUG_MSG("fileitodoc_lcb, ERROR for %s status=%d, cleanup!!!!!\n", g_file_get_uri(fid->uri), status);
 		if (fid->isTemplate) {
-			g_idle_add_full(FILEINTODOC_PRIORITY,fileintodoc_finished_idle_lcb,fid,NULL);
+			g_idle_add_full(FILEINTODOC_PRIORITY, fileintodoc_finished_idle_lcb, fid, NULL);
 			break;
 		}
 		fid->doc->load = NULL;
@@ -708,7 +711,8 @@ file_into_doc(Tdocument * doc, GFile * uri, gboolean isTemplate, gboolean untile
 {
 	Tfileintodoc *fid;
 	fid = g_slice_new(Tfileintodoc);
-	DEBUG_MSG("file_into_doc, fid=%p, called for doc=%p, uri=%p,isTemplate=%d,untiledRecovery=%d\n",fid,doc,uri,isTemplate,untiledRecovery);
+	DEBUG_MSG("file_into_doc, fid=%p, called for doc=%p, uri=%p,isTemplate=%d,untiledRecovery=%d\n", fid, doc,
+			  uri, isTemplate, untiledRecovery);
 	fid->bfwin = doc->bfwin;
 	fid->doc = doc;
 	fid->isTemplate = isTemplate;
@@ -765,13 +769,15 @@ static gboolean
 file2doc_goto_idle_cb(gpointer data)
 {
 	Tfile2doc *f2d = data;
-	DEBUG_MSG("file2doc_goto_idle_cb, goto_line=%d, goto_offset=%d, cursor_offset=%d\n", f2d->doc->goto_line,  f2d->doc->goto_offset,  f2d->doc->cursor_offset);
+	DEBUG_MSG("file2doc_goto_idle_cb, goto_line=%d, goto_offset=%d, cursor_offset=%d\n", f2d->doc->goto_line,
+			  f2d->doc->goto_offset, f2d->doc->cursor_offset);
 	if (f2d->doc->goto_line >= 0) {
 		DEBUG_MSG("file2doc_goto_idle_cb, goto_line=%d\n", f2d->doc->goto_line);
 		doc_select_line(f2d->doc, f2d->doc->goto_line, TRUE);
 	} else {
 		if (f2d->doc->goto_offset >= 0) {
-			DEBUG_MSG("file2doc_goto_idle_cb, goto_offset=%d, align_center=%d\n", f2d->doc->goto_offset, f2d->doc->align_center);
+			DEBUG_MSG("file2doc_goto_idle_cb, goto_offset=%d, align_center=%d\n", f2d->doc->goto_offset,
+					  f2d->doc->align_center);
 			doc_select_line_by_offset(f2d->doc, f2d->doc->goto_offset, TRUE, f2d->doc->align_center);
 		}
 		if (f2d->doc->cursor_offset >= 0) {
@@ -789,16 +795,16 @@ file2doc_goto_idle_cb(gpointer data)
 }
 
 static void
-file2doc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, goffset buflen, gpointer data);
+ file2doc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, goffset buflen, gpointer data);
 
 static gboolean
 file2doc_finished_idle_lcb(gpointer data)
 {
-	Tfile2doc * f2d=data;
+	Tfile2doc *f2d = data;
 	gboolean conversion_status;
 	Trefcpointer *refp = f2d->buffer;
-	DEBUG_SIG("file2doc_finished_idle_lcb, started, priority %d\n",FILE2DOC_PRIORITY);
-	DEBUG_MSG("file2doc_finished_idle_lcb started for doc %p\n",f2d->doc);
+	DEBUG_SIG("file2doc_finished_idle_lcb, started, priority %d\n", FILE2DOC_PRIORITY);
+	DEBUG_MSG("file2doc_finished_idle_lcb started for doc %p\n", f2d->doc);
 	if (f2d->recovery_status == 1) {
 		GtkTextIter itstart, itend;
 
@@ -807,14 +813,16 @@ file2doc_finished_idle_lcb(gpointer data)
 		DEBUG_MSG("file2doc_finished_idle_lcb, recovery of existing file, inserted original file\n");
 		f2d->doc->block_undo_reg = TRUE;
 		doc_unre_new_group(f2d->doc);
-		doc_unre_add(f2d->doc, f2d->buffer->data, 0, g_utf8_strlen(f2d->buffer->data, f2d->buflen), UndoDelete);
+		doc_unre_add(f2d->doc, f2d->buffer->data, 0, g_utf8_strlen(f2d->buffer->data, f2d->buflen),
+					 UndoDelete);
 		gtk_text_buffer_get_bounds(f2d->doc->buffer, &itstart, &itend);
 		gtk_text_buffer_delete(f2d->doc->buffer, &itstart, &itend);
-		DEBUG_MSG("file2doc_finished_idle_lcb, recovery of existing file, deleted contents, load autosaved file\n");
+		DEBUG_MSG
+			("file2doc_finished_idle_lcb, recovery of existing file, deleted contents, load autosaved file\n");
 		f2d->of = file_openfile_uri_async(f2d->recover_uri, f2d->bfwin, file2doc_lcb, f2d);
 	} else if (f2d->recovery_status == 2) {
 		conversion_status = doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
-		if(!conversion_status) {
+		if (!conversion_status) {
 			g_warning("file2doc_finished_idle_lcb, file=%p failed to open, closing backend", f2d->doc);
 			bfwin_docs_not_complete(f2d->bfwin, FALSE);
 			f2d->doc->status = DOC_STATUS_ERROR;
@@ -824,7 +832,8 @@ file2doc_finished_idle_lcb(gpointer data)
 			refcpointer_unref(refp);
 			return FALSE;
 		}
-		doc_unre_add(f2d->doc, f2d->buffer->data, 0, g_utf8_strlen(f2d->buffer->data, f2d->buflen), UndoInsert);
+		doc_unre_add(f2d->doc, f2d->buffer->data, 0, g_utf8_strlen(f2d->buffer->data, f2d->buflen),
+					 UndoInsert);
 		f2d->doc->block_undo_reg = FALSE;
 		doc_unre_new_group(f2d->doc);
 		DEBUG_MSG("file2doc_finished_idle_lcb, inserted loaded file\n");
@@ -840,7 +849,7 @@ file2doc_finished_idle_lcb(gpointer data)
 		file2doc_cleanup(data);
 	} else {
 		conversion_status = doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
-		if(!conversion_status) {
+		if (!conversion_status) {
 			g_warning("file2doc_finished_idle_lcb, file=%p failed to open, closing backend", f2d->doc);
 			bfwin_docs_not_complete(f2d->bfwin, FALSE);
 			f2d->doc->status = DOC_STATUS_ERROR;
@@ -878,19 +887,24 @@ file2doc_finished_idle_lcb(gpointer data)
 									  BFWIN(f2d->bfwin)->num_docs_not_completed, utf8uri);
 			} else {
 				gint doclistlen = g_list_length(BFWIN(f2d->bfwin)->documentlist);
-				tmp = g_strdup_printf(ngettext("All files loaded, finished %s, %d document open", "All files loaded, finished %s, %d documents open", doclistlen), utf8uri, doclistlen);
+				tmp =
+					g_strdup_printf(ngettext
+									("All files loaded, finished %s, %d document open",
+									 "All files loaded, finished %s, %d documents open", doclistlen), utf8uri,
+									doclistlen);
 			}
 			bfwin_statusbar_message(f2d->doc->bfwin, tmp, 3);
 			g_free(tmp);
 			g_free(utf8uri);
 		}
 		add_filename_to_recentlist(BFWIN(f2d->doc->bfwin), f2d->doc->uri);
-		DEBUG_MSG("file2doc_finished_idle_lcb, goto_line=%d, goto_offset=%d, cursor_offset=%d\n", f2d->doc->goto_line,  f2d->doc->goto_offset,  f2d->doc->cursor_offset);
+		DEBUG_MSG("file2doc_finished_idle_lcb, goto_line=%d, goto_offset=%d, cursor_offset=%d\n",
+				  f2d->doc->goto_line, f2d->doc->goto_offset, f2d->doc->cursor_offset);
 		if (f2d->doc->goto_line > 0 || f2d->doc->goto_offset > 0 || f2d->doc->cursor_offset > 0) {
 			if (f2d->doc->load_first) {
-				f2d->idle_cb_id = g_idle_add_full(FILE2DOC_PRIORITY-2,file2doc_goto_idle_cb, f2d, NULL);
+				f2d->idle_cb_id = g_idle_add_full(FILE2DOC_PRIORITY - 2, file2doc_goto_idle_cb, f2d, NULL);
 			} else {
-				f2d->idle_cb_id = g_idle_add_full(FILE2DOC_PRIORITY-1,file2doc_goto_idle_cb, f2d, NULL);
+				f2d->idle_cb_id = g_idle_add_full(FILE2DOC_PRIORITY - 1, file2doc_goto_idle_cb, f2d, NULL);
 			}
 		} else {
 			f2d->doc->goto_line = -1;
@@ -918,7 +932,7 @@ file2doc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, go
 		f2d->buflen = buflen;
 		refcpointer_ref(buffer);
 		if (f2d->doc->load_first) {
-			f2d->idle_cb_id = g_idle_add_full(FILE2DOC_PRIORITY-1, file2doc_finished_idle_lcb, f2d, NULL);
+			f2d->idle_cb_id = g_idle_add_full(FILE2DOC_PRIORITY - 1, file2doc_finished_idle_lcb, f2d, NULL);
 		} else {
 			f2d->idle_cb_id = g_idle_add_full(FILE2DOC_PRIORITY, file2doc_finished_idle_lcb, f2d, NULL);
 		}
@@ -997,13 +1011,14 @@ fill_fileinfo_lcb(GObject * source_object, GAsyncResult * res, gpointer user_dat
 	DEBUG_MSG("fill_fileinfo_lcb got fileinfo %p for fi %p\n", info, fi);
 	if (info) {
 		if (fi->doc->fileinfo) {
-			gchar *oldmime;
+			const gchar *oldmime;
 			/* copy the standard content type to the new fileinfo */
-			oldmime = g_file_info_get_attribute_string(fi->doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+			oldmime =
+				g_file_info_get_attribute_string(fi->doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 			g_file_info_set_content_type(info, oldmime);
 			g_object_unref(fi->doc->fileinfo);
 		}
-		fi->doc->fileinfo = info; /* no need to ref it, the call to g_file_query_info_finish returns a reference */
+		fi->doc->fileinfo = info;	/* no need to ref it, the call to g_file_query_info_finish returns a reference */
 #ifdef DEBUG
 		/* weird.. since I (Olivier) have a SSD in my laptop I sometimes receive wrong values
 		   for the file size here. And then I get a 'file changed on disk' error.
@@ -1020,18 +1035,17 @@ fill_fileinfo_lcb(GObject * source_object, GAsyncResult * res, gpointer user_dat
 #endif
 #ifdef PLATFORM_DARWIN
 		/* I did not noticed any issues on MacOSX.. Issue might depend on glib version (I use 2.38.0), SSD type or filesystem type
-		*  Enabled for MacOSX builds only, other platforms needs extra testing*/
+		 *  Enabled for MacOSX builds only, other platforms needs extra testing*/
 		doc_set_tooltip(fi->doc);
 #else
-		/*doc_set_tooltip(fi->doc);*/
+		/*doc_set_tooltip(fi->doc); */
 #endif
 	} else if (error) {
 		if (error->code == G_IO_ERROR_NOT_MOUNTED) {
 			if (gmo == NULL) {
 				DEBUG_MSG("fill_fileinfo_lcb, not mounted, try to mount!!\n");
-				gmo =
-					gtk_mount_operation_new(DOCUMENT(fi->doc)->bfwin ? (GtkWindow *)
-											BFWIN(DOCUMENT(fi->doc)->bfwin)->main_window : NULL);
+				gmo = gtk_mount_operation_new(DOCUMENT(fi->doc)->bfwin ? (GtkWindow *)
+											  BFWIN(DOCUMENT(fi->doc)->bfwin)->main_window : NULL);
 				g_file_mount_enclosing_volume(fi->uri, G_MOUNT_MOUNT_NONE, gmo, fi->cancel,
 											  fill_fileinfo_async_mount_lcb, fi);
 			} else {
@@ -1060,7 +1074,8 @@ fill_fileinfo_run(gpointer data)
 {
 	Tfileinfo *fi = data;
 #ifdef DEBUG
-	DEBUG_MSG("fill_fileinfo_run, calling g_file_query_info_async() for %s , fi=%p\n",g_file_get_uri(fi->uri), fi);
+	DEBUG_MSG("fill_fileinfo_run, calling g_file_query_info_async() for %s , fi=%p\n",
+			  g_file_get_uri(fi->uri), fi);
 #endif
 	g_file_query_info_async(fi->uri, BF_FILEINFO, G_FILE_QUERY_INFO_NONE	/* so we do follow symlinks */
 							, G_PRIORITY_LOW, fi->cancel, fill_fileinfo_lcb, fi);
@@ -1122,7 +1137,8 @@ file_doc_fill_from_uri(Tdocument * doc, GFile * uri, GFileInfo * finfo, gint got
 /* this funcion is usually used to load documents */
 void
 file_doc_from_uri(Tbfwin * bfwin, GFile * uri, GFile * recover_uri, GFileInfo * finfo, gint goto_line,
-				  gint goto_offset, gboolean readonly, gint cursor_offset, gboolean align_center, gboolean load_first)
+				  gint goto_offset, gboolean readonly, gint cursor_offset, gboolean align_center,
+				  gboolean load_first)
 {
 	Tfile2doc *f2d;
 	f2d = g_slice_new0(Tfile2doc);
@@ -1163,7 +1179,7 @@ typedef struct {
 	GFile *topbasedir;			/* the top directory where advanced open started */
 
 	void (*finished_cb) (gpointer data);
-	void (*filematch_cb) (const gchar *name, GFile *uri, gpointer data);
+	void (*filematch_cb) (const gchar * name, GFile * uri, gpointer data);
 	gpointer data;
 	gboolean cancel;
 #ifdef LOAD_TIMER
@@ -1189,9 +1205,9 @@ findfiles_unref(Tfindfiles * ff)
 		if (!ff->cancel) {
 			ff->finished_cb(ff->data);
 		}
-		ff->data=NULL;
-		ff->filematch_cb=NULL;
-		ff->finished_cb=NULL;
+		ff->data = NULL;
+		ff->filematch_cb = NULL;
+		ff->finished_cb = NULL;
 #ifdef LOAD_TIMER
 		g_print("loading took %f ms\n", g_timer_elapsed(ff->timer, NULL));
 		g_timer_destroy(ff->timer);
@@ -1309,8 +1325,8 @@ enumerate_children_lcb(GObject * source_object, GAsyncResult * res, gpointer use
 		g_error_free(error);
 		findfiles_load_directory_cleanup(ffd);
 	} else {
-		g_file_enumerator_next_files_async(ffd->gfe, FFD_NUM_FILES_PER_CB, G_PRIORITY_DEFAULT + 2, ffd->cancellable,
-										   enumerator_next_files_lcb, ffd);
+		g_file_enumerator_next_files_async(ffd->gfe, FFD_NUM_FILES_PER_CB, G_PRIORITY_DEFAULT + 2,
+										   ffd->cancellable, enumerator_next_files_lcb, ffd);
 	}
 }
 
@@ -1353,8 +1369,8 @@ findfiles_backend(Tfindfiles * ff, GFile * basedir, guint recursion)
 }
 
 gpointer
-findfiles(GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname,
-			  gchar * name_filter, GCallback filematch_cb, GCallback finished_cb, gpointer data)
+findfiles(GFile * basedir, gboolean recursive, guint max_recursion, gboolean matchname,
+		  gchar * name_filter, GCallback filematch_cb, GCallback finished_cb, gpointer data)
 {
 	Tfindfiles *ff;
 
@@ -1362,14 +1378,14 @@ findfiles(GFile *basedir, gboolean recursive, guint max_recursion, gboolean matc
 		return NULL;
 
 	ff = g_slice_new0(Tfindfiles);
-	DEBUG_MSG("findfiles started at %p, name_filter=%s\n",ff,name_filter);
+	DEBUG_MSG("findfiles started at %p, name_filter=%s\n", ff, name_filter);
 	ff->topbasedir = basedir;
 	g_object_ref(ff->topbasedir);
 	ff->recursive = recursive;
 	ff->max_recursion = max_recursion;
 	ff->matchname = matchname;
-	ff->filematch_cb = (void (*)(gchar const *, GFile *, gpointer))filematch_cb;
-	ff->finished_cb = (void (*)(gpointer))finished_cb;
+	ff->filematch_cb = (void (*)(gchar const *, GFile *, gpointer)) filematch_cb;
+	ff->finished_cb = (void (*)(gpointer)) finished_cb;
 	ff->data = data;
 	ff->cancel = FALSE;
 	if (name_filter) {
@@ -1380,7 +1396,9 @@ findfiles(GFile *basedir, gboolean recursive, guint max_recursion, gboolean matc
 	return ff;
 }
 
-static void findfiles_cancel_queue_freefunc(gpointer data, gpointer user_data) {
+static void
+findfiles_cancel_queue_freefunc(gpointer data, gpointer user_data)
+{
 	Tfindfiles_dir *ffd = data;
 	g_cancellable_cancel(ffd->cancellable);
 	g_object_unref(ffd->basedir);
@@ -1390,9 +1408,11 @@ static void findfiles_cancel_queue_freefunc(gpointer data, gpointer user_data) {
 	g_slice_free(Tfindfiles_dir, ffd);
 }
 
-void findfiles_cancel(gpointer data) {
-	Tfindfiles *ff=data;
-	ff->cancel=TRUE;
+void
+findfiles_cancel(gpointer data)
+{
+	Tfindfiles *ff = data;
+	ff->cancel = TRUE;
 	queue_cancel(&ffdqueue, findfiles_cancel_queue_freefunc, NULL);
 }
 
@@ -1413,8 +1433,9 @@ typedef struct {
 } Topenadvanced_uri;
 
 static void
-open_advanced_cleanup(Topenadvanced *oa) {
-	DEBUG_MSG("open_advanced_cleanup, oa=%p\n",oa);
+open_advanced_cleanup(Topenadvanced * oa)
+{
+	DEBUG_MSG("open_advanced_cleanup, oa=%p\n", oa);
 	if (oa->content_filter)
 		g_free(oa->content_filter);
 	if (oa->content_reg)
@@ -1422,11 +1443,16 @@ open_advanced_cleanup(Topenadvanced *oa) {
 	g_slice_free(Topenadvanced, oa);
 }
 
-static void open_advanced_unref(Topenadvanced *oa) {
+static void
+open_advanced_unref(Topenadvanced * oa)
+{
 	oa->refcount--;
 	if (oa->refcount == 0) {
 		gint doclistlen = g_list_length(oa->bfwin->documentlist);
-		gchar *tmp = g_strdup_printf(ngettext("Finished advanced open, %d document open.", "Finished advanced open, %d documents open.", doclistlen), doclistlen);
+		gchar *tmp =
+			g_strdup_printf(ngettext
+							("Finished advanced open, %d document open.",
+							 "Finished advanced open, %d documents open.", doclistlen), doclistlen);
 		bfwin_statusbar_message(oa->bfwin, tmp, 2);
 		g_free(tmp);
 		open_advanced_cleanup(oa);
@@ -1436,7 +1462,7 @@ static void open_advanced_unref(Topenadvanced *oa) {
 static void
 open_adv_open_uri_cleanup(Topenadvanced_uri * oau)
 {
-	DEBUG_MSG("open_adv_open_uri_cleanup, oau=%p\n",oau);
+	DEBUG_MSG("open_adv_open_uri_cleanup, oau=%p\n", oau);
 	open_advanced_unref(oau->oa);
 	g_object_unref(oau->uri);
 	g_object_unref(oau->finfo);
@@ -1523,16 +1549,18 @@ openadv_content_filter_file(Topenadvanced * oa, GFile * uri, GFileInfo * finfo)
 }
 
 static void
-open_advanced_filematch_cb(Topenadvanced *oa, GFile *uri, GFileInfo *finfo) {
+open_advanced_filematch_cb(Topenadvanced * oa, GFile * uri, GFileInfo * finfo)
+{
 	if (oa->content_filter) {	/* do we need content filtering */
 		openadv_content_filter_file(oa, uri, finfo);
-	} else {	/* open this file as document */
+	} else {					/* open this file as document */
 		doc_new_from_uri(oa->bfwin, uri, finfo, TRUE, FALSE, -1, -1, -1, TRUE, FALSE);
 	}
 }
 
 static void
-open_advanced_finished_cb(Topenadvanced *oa) {
+open_advanced_finished_cb(Topenadvanced * oa)
+{
 /*	gchar *tmp, *tmp2;
 	DEBUG_MSG("open_advanced_finished_cb, oa=%p\n",oa);
 	tmp =
@@ -1577,8 +1605,9 @@ open_advanced(Tbfwin * bfwin, GFile * basedir, gboolean recursive, guint max_rec
 			return FALSE;
 		}
 	}
-	oa->refcount=1;
-	findfiles(basedir, recursive, max_recursion, matchname, name_filter, G_CALLBACK(open_advanced_filematch_cb), G_CALLBACK(open_advanced_finished_cb), oa);
+	oa->refcount = 1;
+	findfiles(basedir, recursive, max_recursion, matchname, name_filter,
+			  G_CALLBACK(open_advanced_filematch_cb), G_CALLBACK(open_advanced_finished_cb), oa);
 	return TRUE;
 }
 
@@ -1805,7 +1834,7 @@ remote_for_local(Tsync * sync, GFile * local)
 }
 
 static void
-progress_update(Tsync *sync, GFile *uri)
+progress_update(Tsync * sync, GFile * uri)
 {
 /*	if (g_timer_elapsed(sync->timer,NULL) > 0.05) */
 /*	if (sync->num_found % 10==0 || (sync->num_found - sync->num_finished) % 10 == 0)
@@ -1856,7 +1885,7 @@ static gboolean
 do_update_push(gpointer data)
 {
 	Tsync_update *su = data;
-	DEBUG_SIG("do_update_push, started, priority %d\n",G_PRIORITY_DEFAULT_IDLE);
+	DEBUG_SIG("do_update_push, started, priority %d\n", G_PRIORITY_DEFAULT_IDLE);
 	queue_push(&su->sync->queue_update, su);
 	return FALSE;
 }
@@ -1983,7 +2012,7 @@ walk_local_directory_job(GIOSchedulerJob * job, GCancellable * cancellable, gpoi
 				gint namelen = strlen(name);
 				if (name && namelen > 0 && strcmp(name, "..") != 0 && strcmp(name, ".") != 0
 					&& (swd->sync->include_hidden || name[0] != '.')
-					&& (swd->sync->include_backup || name[namelen-1] != '~')) {
+					&& (swd->sync->include_backup || name[namelen - 1] != '~')) {
 					GFile *local, *remote;
 					GFileInfo *rfinfo;
 					local = g_file_get_child(swd->local_dir, name);
@@ -2080,7 +2109,7 @@ static gboolean
 walk_local_directory_push(gpointer data)
 {
 	Tsync_walkdir *swd = data;
-	DEBUG_SIG("walk_local_directory_push, started, priority %d\n",G_PRIORITY_DEFAULT_IDLE);
+	DEBUG_SIG("walk_local_directory_push, started, priority %d\n", G_PRIORITY_DEFAULT_IDLE);
 	queue_push(&swd->sync->queue_walkdir_local, swd);
 	return FALSE;
 }
@@ -2119,8 +2148,8 @@ sync_directory_mount_lcb(GObject * source_object, GAsyncResult * res, gpointer u
 }
 
 void
-sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, gboolean include_hidden, gboolean include_backup,
-			   SyncProgressCallback progress_callback, gpointer callback_data)
+sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, gboolean include_hidden,
+			   gboolean include_backup, SyncProgressCallback progress_callback, gpointer callback_data)
 {
 	GMountOperation *gmo;
 	Tsync *sync = g_slice_new0(Tsync);
@@ -2147,12 +2176,13 @@ sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, g
 /* code to handle a file from the commandline, the filebrowser or from the message queue */
 
 void
-file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean explicit_open, gboolean open_in_foreground)
+file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean explicit_open,
+			gboolean open_in_foreground)
 {
 	GFileInfo *finfo;
 	GError *error = NULL;
 #ifdef WIN32
-	gchar *mime=NULL;
+	gchar *mime = NULL;
 	const gchar *cont_type;
 #else
 	const gchar *mime;
