@@ -337,7 +337,7 @@ static void
 htmlbar_insert_align_right_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   get_curlang_option_value(BFWIN(user_data), lang_is_XHTML) ? cap("<DIV STYLE=\"text-align: right\">") : cap("<DIV ALIGN=\"RIGHT\">"),
+						   get_curlang_option_value(BFWIN(user_data), lang_is_XHTML) ? cap("<DIV STYLE=\"text-align: right;\">") : cap("<DIV ALIGN=\"RIGHT\">"),
 						   cap("</DIV>"));
 }
 
@@ -370,7 +370,7 @@ static void
 htmlbar_insert_center_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document,
-						   get_curlang_option_value(BFWIN(user_data), lang_is_XHTML) ? cap("<DIV STYLE=\"text-align: center\">") : cap("<DIV ALIGN=\"CENTER\">"),
+						   get_curlang_option_value(BFWIN(user_data), lang_is_XHTML) ? cap("<DIV STYLE=\"text-align: center;\">") : cap("<DIV ALIGN=\"CENTER\">"),
 						   cap("</DIV>"));
 }
 

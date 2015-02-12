@@ -85,12 +85,12 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 		break;
 	case 8:
 		doc_insert_two_strings(bfwin->current_document,
-							   is_xhtml ? cap("<DIV STYLE=\"text-align: center\">") : cap("<DIV ALIGN=\"CENTER\">"),
+							   is_xhtml ? cap("<DIV STYLE=\"text-align: center;\">") : cap("<DIV ALIGN=\"CENTER\">"),
 							   cap("</DIV>"));
 		break;
 	case 9:
 		doc_insert_two_strings(bfwin->current_document,
-							   is_xhtml ? cap("<DIV STYLE=\"text-align: right\">") : cap("<DIV ALIGN=\"RIGHT\">"),
+							   is_xhtml ? cap("<DIV STYLE=\"text-align: right;\">") : cap("<DIV ALIGN=\"RIGHT\">"),
 							   cap("</DIV>"));
 		break;
 	case 10:
