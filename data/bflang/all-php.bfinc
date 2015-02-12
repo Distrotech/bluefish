@@ -672,7 +672,10 @@ it will be passed as the third parameter to the callback
 funcname.
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
-<element pattern="array"/>
+<element pattern="array">
+<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
+<autocomplete append="();" backup_cursor="2" class="autocomplete_with_arguments"/>
+</element>
 <element pattern="arsort" >
 	<autocomplete append="();" backup_cursor="2" class="autocomplete_with_parentheses" />
 	<autocomplete append="(array &amp;$array, $sort_flags = null);" backup_cursor="2" class="autocomplete_with_arguments"/>
