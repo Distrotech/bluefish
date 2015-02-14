@@ -492,7 +492,11 @@ acwin_calculate_window_size(Tacwin * acw, GList * items, GList * items2, const g
 		gtk_tree_view_column_cell_get_size(acw->column,NULL,NULL,NULL,NULL,&height);
 		gtk_widget_get_preferred_size(GTK_WIDGET(acw->tree),&min_size,&nat_size);
 		g_print("row=%d,rowh+9=%d,min_h=%d,nat_h=%d,spacing=%d,height=%d,nat_size.h=%d\n",rowh,rowh+9,min_h,nat_h,spacing,height,min_size.height);*/
+#if GTK_CHECK_VERSION(3,0,0)
 		gtk_cell_renderer_get_preferred_height(acw->cell,GTK_WIDGET(acw->tree),&min_h,&nat_h);
+#else
+		nat_h=rowh+2;
+#endif
 		acw->h = MIN((*numitems) * (nat_h+5), 350); /*MIN(MAX((*numitems + 1) * rowh + 8, 150), 350);*/
 		acw->w = acw->listwidth = MIN(len + 20, 350);
 		DBG_AUTOCOMP("acwin_calculate_window_size, numitems=%d, rowh=%d, new height=%d, new width=%d\n", *numitems, rowh, acw->h,
