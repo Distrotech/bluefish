@@ -1317,10 +1317,13 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 		snrwin->bfwin->session->snr3_escape_chars = escapechars;
 		snrwin->bfwin->session->snr3_dotmatchall = dotmatchall;
 		snrwin->bfwin->session->snr3_recursion_level = recursion_level;
-		g_free(snrwin->bfwin->session->snr3_filepattern);
-		snrwin->bfwin->session->snr3_filepattern = g_strdup(s3run->filepattern);
+		if (scope == snr3scope_files && s3run->basedir) {
+			g_free(snrwin->bfwin->session->snr3_filepattern);
+			snrwin->bfwin->session->snr3_filepattern = g_strdup(s3run->filepattern);
+			g_free(snrwin->bfwin->session->snr3_basedir);
+			snrwin->bfwin->session->snr3_basedir = g_file_get_uri(s3run->basedir);
+		}
 	}
-
 	DEBUG_MSG("snr3run_init_from_gui, return %d\n", retval);
 	return retval;
 }
@@ -1638,8 +1641,9 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 
 	snrwin->basedir = gtk_entry_new();
 	snrwin->basedirL = dialog_mnemonic_label_in_table(_("Basedir: "), snrwin->basedir, table, 0, 1, currentrow, currentrow+1);
-
-	if (bfwin->current_document && bfwin->current_document->uri) {
+	if (bfwin->session->snr3_basedir && bfwin->session->snr3_basedir[0]!='\0') {
+		gtk_entry_set_text(GTK_ENTRY(snrwin->basedir), bfwin->session->snr3_basedir);
+	} else if (bfwin->current_document && bfwin->current_document->uri) {
 		GFile *parent = g_file_get_parent(bfwin->current_document->uri);
 		gchar *tmp = g_file_get_uri(parent);
 		gtk_entry_set_text(GTK_ENTRY(snrwin->basedir), tmp);

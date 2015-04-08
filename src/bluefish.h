@@ -462,6 +462,7 @@ typedef struct {
 	/* if you add strings or lists to the session, please make sure they are free'ed
 	in free_session() in project.c */
 	gchar *snr3_filepattern;
+	gchar *snr3_basedir;
 	gchar *ssearch_text;
 	gchar *default_mime_type;
 	gchar *template;

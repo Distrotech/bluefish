@@ -1204,6 +1204,7 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_integer(&configlist, &session->ssearch_unescape, "ssearch_unescape:", 0, FALSE);
 	init_prop_integer(&configlist, &session->ssearch_casesens, "ssearch_casesens:", 0, FALSE);
 	init_prop_string_with_escape(&configlist, &session->snr3_filepattern, "snr_filepattern:", NULL);
+	init_prop_string_with_escape(&configlist, &session->snr3_basedir, "snr_basedir:", NULL);
 	init_prop_string_with_escape(&configlist, &session->ssearch_text, "ssearch_text:", NULL);
 
 	init_prop_integer(&configlist, &session->display_right_margin, "display_right_margin:", 0, FALSE);

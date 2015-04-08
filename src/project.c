@@ -66,6 +66,7 @@ free_session(Tsessionvars * session)
 	free_stringlist(session->recent_files);
 	free_stringlist(session->recent_dirs);
 	g_free(session->snr3_filepattern);
+	g_free(session->snr3_basedir);
 	g_free(session->ssearch_text);
 	g_free(session->opendir);
 	g_free(session->savedir);
@@ -99,6 +100,8 @@ project_setup_initial_session(Tsessionvars * session, gboolean before_parse)
 		session->last_filefilter = g_strdup(main_v->session->last_filefilter);
 		session->default_mime_type = g_strdup(main_v->session->default_mime_type);
 		session->template = g_strdup(main_v->session->template);
+		session->snr3_basedir = g_strdup(main_v->session->snr3_basedir);
+		session->snr3_filepattern = g_strdup(main_v->session->snr3_filepattern);
 #ifdef HAVE_LIBENCHANT
 		session->spell_lang = g_strdup(main_v->session->spell_lang);
 		session->spell_check_default = main_v->session->spell_check_default;
