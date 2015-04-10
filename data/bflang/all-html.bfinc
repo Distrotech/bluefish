@@ -198,7 +198,7 @@ css-rules are defined in the inner context for <style>  -->
 
 <group highlight="html-reference-external-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<autocomplete enable="1" />
-	<tag name="a" case_insens="1" sgml_shorttag="1" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" >
+	<tag name="a" case_insens="1" sgml_shorttag="1" attributes="charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,target,type,&univ;,&i18n;,&evnt;" >
 		<autocomplete append=" href=&#34;&#34; &gt;" />
 		<reference>The a tag defines an anchor, but it is usually referred to as a link or a hyperlink. An anchor can be used in two ways:
 1. To create a link to another document, by using the href attribute &lt;a href=&quot;http://example/&quot;&gt;text to click on&lt;/a&gt;
@@ -231,7 +231,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<tag name="address" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines an address</reference>
 	</tag>
-	<tag name="area" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,alt,accesskey,coords,href,nohref,onblur,onfocus,shape,tabindex,target">
+	<tag name="area" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,alt,coords,href,nohref,onblur,onfocus,shape,target">
 		<reference>Defines a click-able area inside an image-map</reference>
 	</tag>
 	<tag name="b" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
@@ -251,7 +251,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 		<autocomplete append="&gt;" notclass="self_close_singleton_tags" />
 		<reference>Defines a single line break</reference>
 	</tag>
-	<tag name="button" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,disabled,name,onblur,onfocus,tabindex,type,value">
+	<tag name="button" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,name,onblur,onfocus,type,value">
 		<reference>Defines a push button</reference>
 	</tag>
 	<tag name="cite" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
@@ -305,6 +305,109 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<tag name="h6" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a HTML heading</reference>
 	</tag>
+
+<!--<element id="&lt;h6" pattern="&lt;h6" highlight="tag" starts_block="1">
+	<context symbols="&gt;\&quot;=' &#9;&#10;&#13;" >
+		<group highlight="attribute"><autocomplete append="=&quot;&quot;" backup_cursor="1" />
+		<element pattern="style[ &#9;&#10;&#13;]*=[ &#9;&#10;&#13;]*" highlight="attribute" is_regex="1">
+			<autocomplete string="style=&quot;&quot;" backup_cursor="1" />
+			<reference>the style attribute may contain CSS code</reference>
+			<context idref="c.html.attrib.style" />
+		</element>
+		<element pattern="class" highlight="attribute">
+			<reference>Every HTML element may have a class attribute specified.
+The attribute, if specified, must have a value that is a set of space-separated tokens representing the various classes that the element belongs to.</reference>
+		</element>
+		<element pattern="id" highlight="attribute">
+			<reference>The id attribute specifies its element's unique identifier (ID).
+The value must be unique amongst all the IDs in the element's home subtree and must contain at least one character. The value must not contain any space characters.</reference>
+		</element>
+		<element pattern="accesskey" highlight="attribute"><reference>All HTML elements may have the accesskey content attribute set. The accesskey attribute's value is used by the user agent as a guide for creating a keyboard shortcut that activates or focuses the element.
+If specified, the value must be an ordered set of unique space-separated tokens that are case-sensitive, each of which must be exactly one Unicode code point in length.</reference></element>
+		<element pattern="contenteditable[ &#9;&#10;&#13;]*=[ &#9;&#10;&#13;]*" highlight="attribute" is_regex="1" >
+			<autocomplete string="contenteditable=&quot;&quot;" backup_cursor="1" />
+			<context symbols="&gt;\&quot;=' &#9;&#10;&#13;">
+				<group highlight="string">
+					<autocomplete enable="1" />
+					<element pattern="true" ends_context="1" />
+					<element pattern="'true'"  ends_context="1"/>
+					<element pattern="&quot;true&quot;"  ends_context="1" />
+					<element pattern="false"  ends_context="1"/>
+					<element pattern="'false'"  ends_context="1"/>
+					<element pattern="&quot;false&quot;"  ends_context="1"/>
+					<element pattern="(&quot;&quot;|'')" is_regex="1" ends_context="1"><autocomplete enable="0" /></element>
+				</group>
+			</context>
+		</element>
+		<element pattern="dir[ &#9;&#10;&#13;]*=[ &#9;&#10;&#13;]*" highlight="attribute" is_regex="1" >
+		<reference>The dir attribute specifies the element's text directionality. The attribute is an enumerated attribute with the following keywords and states:
+The ltr keyword indicates that the contents of the element are explicitly directionally isolated left-to-right text.
+The rtl keyword indicates that the contents of the element are explicitly directionally isolated right-to-left text.
+The auto keyword indicates that the contents of the element are explicitly directionally isolated text, but that the direction is to be determined programmatically using the contents of the element.</reference>
+			<autocomplete string="dir=&quot;&quot;" backup_cursor="1" />
+			<context symbols="&gt;\&quot;=' &#9;&#10;&#13;">
+				<group highlight="string">
+					<autocomplete enable="1" />
+					<element pattern="ltr" ends_context="1" />
+					<element pattern="'ltr'"  ends_context="1"/>
+					<element pattern="&quot;ltr&quot;"  ends_context="1" />
+					<element pattern="rtl"  ends_context="1"/>
+					<element pattern="'rtl'"  ends_context="1"/>
+					<element pattern="&quot;rtl&quot;"  ends_context="1"/>
+					<element pattern="auto"  ends_context="1"/>
+					<element pattern="'auto'"  ends_context="1"/>
+					<element pattern="&quot;auto&quot;"  ends_context="1"/>
+					<element pattern="(&quot;&quot;|'')" is_regex="1" ends_context="1"><autocomplete enable="0" /></element>
+				</group>
+			</context>
+		</element>
+		<element pattern="lang" ><reference>The lang attribute specifies the primary language for the element's contents and for any of the element's attributes that contain text. Its value must be a valid BCP 47 language tag, or the empty string. Setting the attribute to the empty string indicates that the primary language is unknown.</reference></element>
+		<element pattern="spellcheck[ &#9;&#10;&#13;]*=[ &#9;&#10;&#13;]*" highlight="attribute" is_regex="1" >
+		<reference>The spellcheck attribute is an enumerated attribute whose keywords are the empty string, true and false. The empty string and the true keyword map to the true state.</reference>
+			<autocomplete string="spellcheck=&quot;&quot;" backup_cursor="1" />
+			<context symbols="&gt;\&quot;=' &#9;&#10;&#13;">
+				<group highlight="string">
+					<autocomplete enable="1" />
+					<element pattern="true" ends_context="1" />
+					<element pattern="'true'"  ends_context="1"/>
+					<element pattern="&quot;true&quot;"  ends_context="1" />
+					<element pattern="false"  ends_context="1"/>
+					<element pattern="'false'"  ends_context="1"/>
+					<element pattern="&quot;false&quot;"  ends_context="1"/>
+					<element pattern="(&quot;&quot;|'')" is_regex="1" ends_context="1"><autocomplete enable="0" /></element>
+				</group>
+			</context>
+		</element>
+		<element pattern="tabindex" ><reference>The tabindex content attribute allows authors to control whether an element is supposed to be focusable, whether it is supposed to be reachable using sequential focus navigation, and what is to be the relative order of the element for the purposes of sequential focus navigation.
+The tabindex attribute, if specified, must have a value that is a valid integer.</reference></element>
+		<element pattern="title" ><reference>The title attribute represents advisory information for the element, such as would be appropriate for a tooltip.</reference></element>
+		<element pattern="translate[ &#9;&#10;&#13;]*=[ &#9;&#10;&#13;]*" highlight="attribute" is_regex="1" >
+		<reference>The translate attribute is an enumerated attribute that is used to specify whether an element's attribute values and the values of its Text node children are to be translated when the page is localized, or whether to leave them unchanged.</reference>
+			<autocomplete string="translate=&quot;&quot;" backup_cursor="1" />
+			<context symbols="&gt;\&quot;=' &#9;&#10;&#13;">
+				<group highlight="string">
+					<autocomplete enable="1" />
+					<element pattern="yes" ends_context="1" />
+					<element pattern="'yes'"  ends_context="1"/>
+					<element pattern="&quot;yes&quot;"  ends_context="1" />
+					<element pattern="no"  ends_context="1"/>
+					<element pattern="'no'"  ends_context="1"/>
+					<element pattern="&quot;no&quot;"  ends_context="1"/>
+					<element pattern="(&quot;&quot;|'')" is_regex="1" ends_context="1"><autocomplete enable="0" /></element>
+				</group>
+			</context>
+		</element>
+		</group>
+		<element pattern="hidden" highlight="attribute"><autocomplete enable="1" /><reference>All HTML elements may have the hidden content attribute set. The hidden attribute is a boolean attribute. When specified on an element, it indicates that the element is not yet, or is no longer, directly relevant to the page's current state, or that it is being used to declare content to be reused by other parts of the page as opposed to being directly accessed by the user. User agents should not render elements that have the hidden attribute specified.</reference></element>
+		
+		<element id="__internal_tag_string_d__" pattern="&quot;[^&quot;]*&quot;" is_regex="1" highlight="string" />
+		<element id="__internal_tag_string_s__" pattern="'[^']*'" is_regex="1" highlight="string" />
+		<element pattern="&gt;" ends_context="1" highlight="tag"><autocomplete enable="1"/></element>
+		
+	</context>
+</element>-->
+<element pattern="&lt;/h6&gt;" highlight="tag" ends_block="1" blockstartelement="&lt;h6" />
+
 	<tag name="hr" case_insens="1" sgml_shorttag="1" no_close="1"  attributes="&univ;,align,noshade,size,width" >
 		<autocomplete append=" /&gt;" class="self_close_singleton_tags" />
 		<autocomplete append="&gt;" notclass="self_close_singleton_tags" />
@@ -430,7 +533,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	</tag>
 	<tag name="rt"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines an explanation/pronunciation of characters (for East Asian typography)</reference>
-	</tag>	
+	</tag>
 	<tag name="time"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,datetime">
 		<reference>Defines a date/time</reference>
 	</tag>
@@ -454,13 +557,13 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	</tag>
 	<tag name="canvas"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,width,height">
 		<reference></reference>
-	</tag>	
+	</tag>
 	<tag name="track"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference></reference>
 	</tag>
 	<tag name="source"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference></reference>
-	</tag>	
+	</tag>
 	<tag name="progress"  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,value,max">
 		<reference>Defines the progress of a task
 <b>Categories:</b>flow; phrasing; labelable
@@ -470,7 +573,7 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	</tag>
 	<tag name=""  case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference></reference>
-	</tag>	
+	</tag>
 
 
 </group>
@@ -643,7 +746,7 @@ Last name: &lt;input type=&quot;text&quot; name=&quot;lname&quot; /&gt;&lt;br /&
 &lt;/form&gt;
 		</reference>
 	</tag>
-	<tag name="input" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,accept,accesskey,align,alt,checked,disabled,ismap,maxlength,name,onblur,onchange,onfocus,onselect,readonly,size,src,tabindex,type,usemap,value" >
+	<tag name="input" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,accept,align,alt,checked,disabled,ismap,maxlength,name,onblur,onchange,onfocus,onselect,readonly,size,src,type,usemap,value" >
 		<autocomplete append=" /&gt;" backup_cursor="2" />
 		<reference>Defines an input control for a form. The input field has many forms depending on the type attribute.
 &lt;input type=&quot;button&quot; name=&quot;foo&quot; value=&quot;title&quot; /&gt;
@@ -658,10 +761,10 @@ Last name: &lt;input type=&quot;text&quot; name=&quot;lname&quot; /&gt;&lt;br /&
 &lt;input type=&quot;text&quot; name=&quot;foo&quot; value=&quot;title&quot; maxlenght=&quot;50&quot; /&gt;
 		</reference>
 	</tag>
-	<tag name="label" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,for,onblur,onfocus">
+	<tag name="label" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,for,onblur,onfocus">
 		<reference>Defines a label for an input element</reference>
 	</tag>
-	<tag name="legend" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,align">
+	<tag name="legend" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a caption for a fieldset element</reference>
 	</tag>
 	<tag name="optgroup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,label">
@@ -670,7 +773,7 @@ Last name: &lt;input type=&quot;text&quot; name=&quot;lname&quot; /&gt;&lt;br /&
 	<tag name="option" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,label,selected,value">
 		<reference>Defines an option in a select list</reference>
 	</tag>
-	<tag name="select" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,multiple,name,onblur,onchange,onfocus,size,tabindex">
+	<tag name="select" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,multiple,name,onblur,onchange,onfocus,size">
 		<reference>Defines a select list (drop-down list)
 &lt;select name=&quot;favourite&quot;&gt;
   &lt;option value=&quot;vi&quot;&gt;Vi&lt;/option&gt;
@@ -680,7 +783,7 @@ Last name: &lt;input type=&quot;text&quot; name=&quot;lname&quot; /&gt;&lt;br /&
 &lt;/select&gt;
 </reference>
 	</tag>
-	<tag name="textarea" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,cols,disabled,name,onblur,onchange,onfocus,onselect,readonly,rows,tabindex">
+	<tag name="textarea" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,cols,disabled,name,onblur,onchange,onfocus,onselect,readonly,rows">
 		<reference>Defines a multi-line text input control
 &lt;textarea rows=&quot;2&quot; cols=&quot;20&quot;&gt;
 Initial text here.
