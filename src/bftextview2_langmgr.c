@@ -894,6 +894,13 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 								is_regex != UNDEFINED ? is_regex : (ih_is_regex !=UNDEFINED ? ih_is_regex : FALSE),
 								case_insens != UNDEFINED ? case_insens : (ih_case_insens != UNDEFINED ? ih_case_insens :FALSE),
 								context, &bfparser->ldb);
+#ifdef DUMP_PATTERNS
+			{
+			gchar *dbstring = ldb_stack_string(&bfparser->ldb);
+			g_print("pattern %5d: %s %s in context %d (%s)\n",matchnum,id?id:"(no id)",pattern,context,dbstring);
+			g_free(dbstring);
+			}
+#endif
 			if (block_name) {
 				foldable = lookup_block_foldable(bfparser->bflang->name, block_name);
 			}
@@ -1354,7 +1361,15 @@ process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gint 
 					{"attrib_autocomplete_backup_cursor", &attrib_autocomplete_backup_cursor, attribtype_int}};
 	parse_attributes(bfparser->bflang,reader, attribs, bfparser->load_completion ? 8 : 6);
 
-	ldb_stack_push(&bfparser->ldb, "group");
+	GString *gdbstring = g_string_new("group");
+	if (class && class[0]) {
+		g_string_append_printf(gdbstring, " class %s",class);
+	}
+	if (notclass && notclass[0]) {
+		g_string_append_printf(gdbstring, " notclass %s",notclass);
+	}
+	ldb_stack_push(&bfparser->ldb, gdbstring->str);
+	g_string_free(gdbstring, TRUE);
 
 	add_group = do_parse(bfparser, class, notclass);
 	DBG_PARSING("add_group=%d for class=%s and notclass=%s\n",add_group, class, notclass);
@@ -1407,8 +1422,11 @@ process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gint 
 				}
 			} else if (nodetype == 1 && xmlStrEqual(name, (xmlChar *) "autocomplete")) {
 				process_autocomplete(reader, bfparser, &autocomplete);
+			} else if (xmlStrEqual(name, (xmlChar *) "context")) {
+				DBG_PARSING("in <group>, found <context>\n");
+				process_scanning_context(reader, bfparser, contextstack);
 			} else {
-				DBG_PARSING("found %s\n", name);
+				DBG_PARSING("in <group>, found unhandled %s\n", name);
 			}
 			xmlFree(name);
 		}
@@ -1517,14 +1535,20 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 			return context;
 		}
 	}
+	/*g_print("got context with symbols %s\n",symbols);*/
 	if (!symbols) {
-		g_warning("language file has context without symbols, abort.");
+		gchar *dbstring = ldb_stack_string(&bfparser->ldb);
+		g_warning("Error in language file: context without symbols at %s, abort.",dbstring);
+		g_free(dbstring);
 		ldb_stack_pop(&bfparser->ldb);
 		return 0;
 	}
 	/* create context */
 	DBG_PARSING("create context %s, symbols %s and highlight %s\n", id, symbols, highlight);
 	context = new_context(bfparser->st, 32, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens, default_spellcheck, dump_dfa_run);
+#ifdef DUMP_CONTEXTS	
+	g_print("context %5d: %s\n",context,id?id:"(no id)");
+#endif
 	g_queue_push_head(contextstack, GINT_TO_POINTER(context));
 	if (id) {
 		DBG_PARSING("insert context %s into hash table as %d\n", id, context);
@@ -1682,13 +1706,12 @@ build_lang_thread(gpointer data)
 				xmlFree(name);
 				break;
 			}
-			DBG_PARSING("processing <definition>\n");
+			GQueue *contextstack = g_queue_new();
 			while (xmlTextReaderRead(reader) == 1) {
 				xmlChar *name2 = xmlTextReaderName(reader);
+				DBG_PARSING("processing <definition>, found %s\n",name2);
 				if (xmlStrEqual(name2, (xmlChar *) "context")) {
-					GQueue *contextstack = g_queue_new();
 					process_scanning_context(reader, bfparser, contextstack);
-					g_queue_free(contextstack);
 				} else if (xmlStrEqual(name2, (xmlChar *) "definition")) {
 					xmlFree(name2);
 					break;
@@ -1697,6 +1720,7 @@ build_lang_thread(gpointer data)
 				}
 				xmlFree(name2);
 			}
+			g_queue_free(contextstack);
 		} else if (xmlStrEqual(name, (xmlChar *) "properties")) {
 			DBG_PARSING("processing <properties>\n");
 			while (xmlTextReaderRead(reader) == 1) {

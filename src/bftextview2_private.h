@@ -36,6 +36,8 @@ extern void g_none(char *first, ...);
 #define BF_OFFSET_UNDEFINED G_MAXINT32
 #define BF_POSITION_UNDEFINED G_MAXINT32
 
+/*#define DUMP_CONTEXTS*/
+/*#define DUMP_PATTERNS*/
 /*#define DUMP_SCANCACHE*/
 /*#define DUMP_SCANCACHE_UPDATE_OFFSET*/
 /*#define CHECK_CONSISTENCY*/
