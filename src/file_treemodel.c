@@ -459,7 +459,8 @@ static void fill_uri(UriRecord * newrecord, GFile * uri, GFileInfo * finfo)
 	/*g_print("got icon name %s from finfo %p with icon %p, content_type=%s\n",newrecord->icon_name, finfo, icon, newrecord->fast_content_type);*/
 	newrecord->weight = PANGO_WEIGHT_NORMAL;
 	newrecord->isdir = (g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY);
-	if (newrecord->isdir && strcmp(newrecord->fast_content_type, "application/octet-stream")==0) {
+	/* fast_content_type may be NULL !!! this is reported for smb:// url's */
+	if (newrecord->isdir && (newrecord->fast_content_type == NULL || g_strcmp0(newrecord->fast_content_type, "application/octet-stream")==0)) {
 		/* I've seen this happening on a sftp link and fuse mounted directories
 		such as reported in https://bugzilla.gnome.org/show_bug.cgi?id=736899 */
 		g_free(newrecord->fast_content_type);
@@ -468,7 +469,7 @@ static void fill_uri(UriRecord * newrecord, GFile * uri, GFileInfo * finfo)
 #ifdef DEVELOPMENT
 	if (newrecord->isdir
 		&&
-		strcmp(g_file_info_get_attribute_string
+		g_strcmp0(g_file_info_get_attribute_string
 			   (finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE), "inode/directory") != 0) {
 		g_warning("%s: isdir=%d but mime type = %s ???????????\n", newrecord->name, newrecord->isdir,
 				g_file_info_get_attribute_string(finfo,

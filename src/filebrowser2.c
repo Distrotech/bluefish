@@ -2269,7 +2269,7 @@ fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * context, gint 
 		if (gtk_tree_model_get_iter(fb2->dir_filter, &iter, path)) {
 			UriRecord *record;
 			gtk_tree_model_get(fb2->dir_filter, &iter, filetreemodel_COL_RECORD, &record, -1);
-			if (record && strncmp(record->fast_content_type, "x-directory", 11) == 0) {
+			if (record && record->fast_content_type && strncmp(record->fast_content_type, "x-directory", 11) == 0) {
 				destdir = record->uri;
 				g_object_ref(destdir);
 			} else {
