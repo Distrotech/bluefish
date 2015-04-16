@@ -128,7 +128,34 @@
 		</context>
 	</element>
 
-
+<element id="&lt;cfcontent" pattern="&lt;cfcontent" highlight="keyword"
+starts_block="1">
+<autocomplete enable="1" />
+<reference>this is the documentation for <b>cfcontent</b>.
+It supports these attributes:
+- deletefile
+</reference>
+<context symbols="&gt;\&quot;=' &#9;&#10;&#13;" >
+   <element pattern="deletefile" highlight="cfml-attribute">
+ <reference>this is the documentation for the <b>deletefile</b> attribute.
+It can have values:
+- yes, meaning foo
+- no, meaning bar
+</reference>
+      <autocomplete enable="1" />
+      <context symbols="&quot;=' &#9;&#10;&#13;" >
+          <element pattern="=&quot;yes" highlight="value">
+            <autocomplete append="&quot;" />
+          </element>
+          <element pattern="=&quot;no" highlight="value">
+            <autocomplete append="&quot;" />
+          </element>
+          <element pattern="&quot;" ends_context="1" />
+      </context>
+   </element>
+   <element pattern="&gt;" ends_context="1" highlight="tag" />
+</context>
+</element>
 
 	&all-html;
 

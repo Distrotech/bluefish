@@ -302,9 +302,47 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<tag name="h5" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a HTML heading</reference>
 	</tag>
-	<tag name="h6" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
+	<!--<tag name="h6" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a HTML heading</reference>
-	</tag>
+	</tag>-->
+
+<element id="&lt;h6" pattern="&lt;h6" highlight="tag" starts_block="1">
+	<context symbols="&gt;\&quot;=' &#9;&#10;&#13;" >
+		<element pattern="style[ &#9;&#10;&#13;]*=" highlight="attribute" is_regex="1">
+			<autocomplete string="style=&quot;&quot;" backup_cursor="1" />
+			<reference>the style attribute may contain CSS code</reference>
+			<context idref="c.html.attrib.style" />
+		</element>
+		<element pattern="class" highlight="attribute" />
+		<element pattern="id" highlight="attribute" />
+		<element pattern="contenteditable[ &#9;&#10;&#13;]*=" highlight="attribute" is_regex="1" >
+			<autocomplete string="contenteditable=&quot;&quot;" backup_cursor="1" />
+			<context symbols="&gt;\&quot;=' &#9;&#10;&#13;">
+				<element pattern="'">
+					<context>
+						<element pattern="true" />
+						<element pattern="false" />
+						<element pattern="'" ends_context="2" />
+					</context>
+				</element>
+				<element pattern="&quot;">
+					<context>
+						<element pattern="true" />
+						<element pattern="false" />
+						<element pattern="&quot;" ends_context="2" />
+					</context>
+				</element>
+				<element pattern="true" ends_context="1" />
+				<element pattern="false" ends_context="1" />
+			</context>
+		</element>
+		<element id="__internal_tag_string_d__" pattern="&quot;[^&quot;]*&quot;" is_regex="1" highlight="string" />
+		<element id="__internal_tag_string_s__" pattern="'[^']*'" is_regex="1" highlight="string" />
+		<element pattern="/>" ends_context="1" highlight="tag" />
+	</context>
+</element>
+<element pattern="&lt;/h6&gt;" highlight="tag" ends_block="1" blockstartelement="&lt;h6" />
+
 
 <!--<element id="&lt;h6" pattern="&lt;h6" highlight="tag" starts_block="1">
 	<context symbols="&gt;\&quot;=' &#9;&#10;&#13;" >
