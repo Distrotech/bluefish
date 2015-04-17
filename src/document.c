@@ -638,14 +638,25 @@ doc_set_title(Tdocument * doc, const gchar * override_label_string)
 		tabmenu_string = g_strdup(override_label_string);
 	} else if (doc->uri) {
 		gchar *parsename, *basename;
+		
 		if (g_file_is_native(doc->uri)) {
-			tabmenu_string = g_file_get_path(doc->uri);
+			gchar * encodedfilename;
+			gsize bytes_written;
+			GError *gerror=NULL;
+			encodedfilename = g_file_get_path(doc->uri);
+			tabmenu_string = g_filename_to_utf8(encodedfilename,-1,NULL,&bytes_written,&gerror);
+			if (gerror) {
+				g_print("got corrupted filename from disk: %s\n",gerror->message);
+				g_error_free(gerror);
+			}
+			g_free(encodedfilename);
 		} else {
 			tabmenu_string = g_file_get_uri(doc->uri);
 		}
 		parsename = g_file_get_parse_name(doc->uri);
 		basename = g_path_get_basename(parsename);
 		label_string = g_strdup(basename);
+	
 		g_free(parsename);
 		g_free(basename);
 	} else {
