@@ -70,7 +70,8 @@ typedef enum {
 typedef struct {
 	gchar *string;
 	Tautocomplete_mode mode;
-	gint backup_cursor;
+	guint8 backup_cursor;
+	guint8 trigger_new_autocomp_popup;
 } Tautocomplete;
 
 typedef struct {
@@ -711,7 +712,7 @@ add_autocomplete(Tbflangparsing * bfparser, guint16 matchnum, GSList *list, cons
 		if (ac->mode != ac_mode_none) {
 			gchar *string = ac->string;
 			gboolean freestring=FALSE;
-			gint backup_cursor = ac->backup_cursor;
+			guint8 backup_cursor = ac->backup_cursor;
 			if (ac->string == NULL && tag && ac->mode == ac_mode_string) {
 				string = g_strconcat("<",tag,">", NULL);
 				backup_cursor = 0;
@@ -721,7 +722,7 @@ add_autocomplete(Tbflangparsing * bfparser, guint16 matchnum, GSList *list, cons
 			match_add_autocomp_item(bfparser->st, matchnum,
 										(ac->mode == ac_mode_string) ? string : NULL,
 										(ac->mode == ac_mode_append) ? string : NULL,
-										backup_cursor);
+										backup_cursor, ac->trigger_new_autocomp_popup);
 			if (freestring)
 				g_free(string);
 		}
@@ -733,7 +734,7 @@ process_autocomplete(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GSList 
 {
 	gboolean enable=TRUE;
 	gchar *string=NULL, *append=NULL, *class=NULL, *notclass=NULL;
-	gint backup_cursor=0;
+	gint backup_cursor=0, trigger_new_autocomp_popup=0;
 	gboolean enabled;
 	Tautocomplete *ac;
 	Tattrib attribs[] = {
@@ -742,12 +743,13 @@ process_autocomplete(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GSList 
 			{"append", &append, attribtype_string},
 			{"class", &class, attribtype_string},
 			{"notclass", &notclass, attribtype_string},
-			{"backup_cursor", &backup_cursor, attribtype_int}
+			{"backup_cursor", &backup_cursor, attribtype_int},
+			{"trigger_new_autocomp_popup", &trigger_new_autocomp_popup, attribtype_int}
 	};
 	if (!bfparser->load_completion)
 		return;
 
-	parse_attributes(bfparser->bflang,reader, attribs, 6);
+	parse_attributes(bfparser->bflang,reader, attribs, 7);
 	enabled = do_parse(bfparser, class, notclass);
 	g_free(class);
 	g_free(notclass);
@@ -776,6 +778,9 @@ process_autocomplete(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GSList 
 		g_free(append);
 	}
 	ac->backup_cursor = backup_cursor;
+	if (trigger_new_autocomp_popup)
+		g_print("\n\n\n*******************\ntrigger_new_autocomp_popup=1\n****************\n\n");
+	ac->trigger_new_autocomp_popup = trigger_new_autocomp_popup;
 	/*g_print("prepend item %s to autocomplete\n",ac->string);*/
 	*list = g_slist_prepend(*list, ac);
 }
@@ -1042,7 +1047,7 @@ add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint co
 	if (strchr(attrstring, '=')== NULL) {
 		attrmatch = add_pattern_to_scanning_table(bfparser->st, attrstring, FALSE, TRUE, contexttag, &bfparser->ldb);
 		pattern_set_runtime_properties(bfparser->st, attrmatch,attribhighlight, 0, FALSE, FALSE,0, FALSE, FALSE);
-		match_add_autocomp_item(bfparser->st, attrmatch, NULL,attrib_autocomplete_append,attrib_autocomplete_backup_cursor);
+		match_add_autocomp_item(bfparser->st, attrmatch, NULL,attrib_autocomplete_append,attrib_autocomplete_backup_cursor, 0);
 		match_autocomplete_reference(bfparser->st, attrmatch, contexttag);
 	} else {
 		/* contains a =, so split the attribute, and the context */
@@ -1059,7 +1064,7 @@ add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint co
 		attrmatch = add_pattern_to_scanning_table(bfparser->st, tmp, TRUE, TRUE, contexttag, &bfparser->ldb);
 		g_free(tmp);
 		pattern_set_runtime_properties(bfparser->st, attrmatch,attribhighlight,startscontext,FALSE,FALSE,0,FALSE,FALSE);
-		match_add_autocomp_item(bfparser->st, attrmatch, splitted[0],attrib_autocomplete_append,attrib_autocomplete_backup_cursor);
+		match_add_autocomp_item(bfparser->st, attrmatch, splitted[0],attrib_autocomplete_append,attrib_autocomplete_backup_cursor, 0);
 		match_autocomplete_reference(bfparser->st, attrmatch, contexttag);
 		g_strfreev(splitted);
 	}
@@ -1204,7 +1209,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					pattern_set_blockmatch(bfparser->st, tmpnum,
 								FALSE,TRUE, -1,NULL,NULL,TRUE);
 					if (bfparser->autoclose_tags) {
-						match_add_autocomp_item(bfparser->st, tmpnum, NULL, NULL, 0);
+						match_add_autocomp_item(bfparser->st, tmpnum, NULL, NULL, 0, 0);
 						/*g_print("line %d: adding default autocomp string %s to %d\n",__LINE__,"/>",tmpnum);*/
 					}
 					match_autocomplete_reference(bfparser->st, tmpnum, contexttag);
@@ -1219,10 +1224,10 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					gchar *tmp2;
 					tmp2 = g_strconcat("></", tag, ">", NULL);
 					/* add the closing tag to the inside context of the tag */
-					match_add_autocomp_item(bfparser->st, starttagmatch, NULL, tmp, tmp ? strlen(tmp) : 0);
+					match_add_autocomp_item(bfparser->st, starttagmatch, NULL, tmp, tmp ? strlen(tmp) : 0, 0);
 					/*g_print("line %d: adding %s autocomp append to %d\n",__LINE__,tmp,starttagmatch);*/
 					/* add autocomplete to the tag pattern itself with closing tag */
-					match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag)+3);
+					match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag)+3, 0);
 					/*g_print("line %d: adding %s autocomp append to %d\n",__LINE__,tmp2,matchnum);*/
 				}
 				if (tmp)
@@ -1276,7 +1281,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			}
 			if (!no_close && autocomplete == NULL && ih_autocomplete == NULL) {
 				/*gchar *tmp2 = g_strconcat("></", tag, ">", NULL);*/
-				match_add_autocomp_item(bfparser->st, matchnum, NULL, ">", strlen(tag) + 3);
+				match_add_autocomp_item(bfparser->st, matchnum, NULL, ">", strlen(tag) + 3, 0);
 				/*g_print("line %d: adding %s autocomp append to %d\n",__LINE__,">",matchnum);*/
 				/*g_free(tmp2);*/
 			} else {
@@ -1304,7 +1309,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				pattern_set_blockmatch(bfparser->st, endtagmatch,
 									FALSE,TRUE,matchnum,NULL,NULL, TRUE);
 /*				g_print("context %d: matchnum %d is ended by endtagmatch %d while working on id %s\n",innercontext,matchnum, endtagmatch, id);*/
-				match_add_autocomp_item(bfparser->st, endtagmatch, NULL, NULL, 0);
+				match_add_autocomp_item(bfparser->st, endtagmatch, NULL, NULL, 0, 0);
 				match_autocomplete_reference(bfparser->st, endtagmatch, innercontext);
 				if (g_hash_table_lookup(bfparser->patterns, tmp)) {
 					gchar *dbstring = ldb_stack_string(&bfparser->ldb);

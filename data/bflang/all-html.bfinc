@@ -325,7 +325,7 @@ The value must be unique amongst all the IDs in the element's home subtree and m
 		<element pattern="accesskey" highlight="attribute"><reference>All HTML elements may have the accesskey content attribute set. The accesskey attribute's value is used by the user agent as a guide for creating a keyboard shortcut that activates or focuses the element.
 If specified, the value must be an ordered set of unique space-separated tokens that are case-sensitive, each of which must be exactly one Unicode code point in length.</reference></element>
 		<element pattern="contenteditable[ &#9;&#10;&#13;]*=[ &#9;&#10;&#13;]*" highlight="attribute" is_regex="1" >
-			<autocomplete string="contenteditable=&quot;&quot;" backup_cursor="1" />
+			<autocomplete string="contenteditable=&quot;&quot;" backup_cursor="1" trigger_new_autocomp_popup="1" />
 			<context symbols="&gt;\&quot;=' &#9;&#10;&#13;">
 				<group highlight="string">
 					<autocomplete enable="1" />
@@ -344,7 +344,7 @@ If specified, the value must be an ordered set of unique space-separated tokens 
 The ltr keyword indicates that the contents of the element are explicitly directionally isolated left-to-right text.
 The rtl keyword indicates that the contents of the element are explicitly directionally isolated right-to-left text.
 The auto keyword indicates that the contents of the element are explicitly directionally isolated text, but that the direction is to be determined programmatically using the contents of the element.</reference>
-			<autocomplete string="dir=&quot;&quot;" backup_cursor="1" />
+			<autocomplete string="dir=&quot;&quot;" backup_cursor="1" trigger_new_autocomp_popup="1" />
 			<context symbols="&gt;\&quot;=' &#9;&#10;&#13;">
 				<group highlight="string">
 					<autocomplete enable="1" />
@@ -364,7 +364,7 @@ The auto keyword indicates that the contents of the element are explicitly direc
 		<element pattern="lang" ><reference>The lang attribute specifies the primary language for the element's contents and for any of the element's attributes that contain text. Its value must be a valid BCP 47 language tag, or the empty string. Setting the attribute to the empty string indicates that the primary language is unknown.</reference></element>
 		<element pattern="spellcheck[ &#9;&#10;&#13;]*=[ &#9;&#10;&#13;]*" highlight="attribute" is_regex="1" >
 		<reference>The spellcheck attribute is an enumerated attribute whose keywords are the empty string, true and false. The empty string and the true keyword map to the true state.</reference>
-			<autocomplete string="spellcheck=&quot;&quot;" backup_cursor="1" />
+			<autocomplete string="spellcheck=&quot;&quot;" backup_cursor="1" trigger_new_autocomp_popup="1" />
 			<context symbols="&gt;\&quot;=' &#9;&#10;&#13;">
 				<group highlight="string">
 					<autocomplete enable="1" />
@@ -383,7 +383,7 @@ The tabindex attribute, if specified, must have a value that is a valid integer.
 		<element pattern="title" ><reference>The title attribute represents advisory information for the element, such as would be appropriate for a tooltip.</reference></element>
 		<element pattern="translate[ &#9;&#10;&#13;]*=[ &#9;&#10;&#13;]*" highlight="attribute" is_regex="1" >
 		<reference>The translate attribute is an enumerated attribute that is used to specify whether an element's attribute values and the values of its Text node children are to be translated when the page is localized, or whether to leave them unchanged.</reference>
-			<autocomplete string="translate=&quot;&quot;" backup_cursor="1" />
+			<autocomplete string="translate=&quot;&quot;" backup_cursor="1" trigger_new_autocomp_popup="1" />
 			<context symbols="&gt;\&quot;=' &#9;&#10;&#13;">
 				<group highlight="string">
 					<autocomplete enable="1" />

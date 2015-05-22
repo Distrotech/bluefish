@@ -191,6 +191,12 @@ get_existing_end_len(BluefishTextView * btv, const gchar *string, gint prefix_by
 	return 0;
 }
 
+static gboolean trigger_new_autocomp_idle(gpointer data) {
+	DBG_AUTOCOMP("trigger_new_autocomp_idle\n");
+	autocomp_run(BLUEFISH_TEXT_VIEW(data), FALSE);
+	return FALSE;
+}
+
 gboolean
 acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 {
@@ -212,6 +218,7 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 				gint existing_len, prefix_len;
 				guint pattern_id;
 				gint backup_chars = 0;
+				gboolean trigger_new_autocomp_popup=FALSE;
 				gtk_tree_model_get(model, &it, 1, &string, -1);
 				/*g_print("context %d has patternhash %p, string=%s\n",ACWIN(btv->autocomp)->contextnum, g_array_index(btv->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).patternhash, string); */
 				if (g_array_index
@@ -232,6 +239,7 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 							Tpattern_autocomplete *pac = tmpslist->data;
 							if (g_strcmp0(string, pac->autocomplete_string) == 0) {
 								backup_chars = pac->autocomplete_backup_cursor;
+								trigger_new_autocomp_popup = (pac->trigger_new_autocomp_popup==1);
 							}
 							tmpslist = g_slist_next(tmpslist);
 						}
@@ -255,7 +263,9 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 						gtk_text_buffer_place_cursor(btv->buffer, &iter);
 					}
 				}
-
+				if (trigger_new_autocomp_popup) {
+					g_idle_add(trigger_new_autocomp_idle, btv);
+				}
 				g_free(string);
 			}
 			acwin_cleanup(btv);

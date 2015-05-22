@@ -765,7 +765,8 @@ match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context)
 
 void
 match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * autocomplete_string,
-						const gchar * autocomplete_append, guint8 autocomplete_backup_cursor)
+						const gchar * autocomplete_append, guint8 autocomplete_backup_cursor,
+						guint8 trigger_new_autocomp_popup)
 {
 	Tpattern_autocomplete *pac = g_slice_new(Tpattern_autocomplete);
 	if (autocomplete_string) {
@@ -789,6 +790,7 @@ match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * autocom
 	}
 #endif
 	pac->autocomplete_backup_cursor = autocomplete_backup_cursor;
+	pac->trigger_new_autocomp_popup = trigger_new_autocomp_popup;
 	g_array_index(st->matches, Tpattern, matchnum).autocomp_items =
 		g_slist_prepend(g_array_index(st->matches, Tpattern, matchnum).autocomp_items, pac);
 }

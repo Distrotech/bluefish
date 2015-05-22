@@ -103,6 +103,9 @@ typedef struct {
 typedef struct {
 	gchar *autocomplete_string;
 	guint8 autocomplete_backup_cursor;	/* number of characters to backup the cursor after autocompletion (max 256) */
+	guint8 trigger_new_autocomp_popup; /* if a new autocompletion popup should be triggered immediately after the text of 
+													this one is inserted. Useful for example to autocomplete the values of an attribute 
+													after an attribute has been inserted. */
 } Tpattern_autocomplete;
 
 #ifdef CONDITIONALPATTERN
