@@ -302,11 +302,11 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<tag name="h5" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a HTML heading</reference>
 	</tag>
-	<tag name="h6" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
+<!--	<tag name="h6" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a HTML heading</reference>
 	</tag>
-
-<!--<element id="&lt;h6" pattern="&lt;h6" highlight="tag" starts_block="1">
+-->
+<element id="&lt;h6" pattern="&lt;h6" highlight="tag" starts_block="1">
 	<context symbols="&gt;\&quot;=' &#9;&#10;&#13;" >
 		<group highlight="attribute"><autocomplete append="=&quot;&quot;" backup_cursor="1" />
 		<element pattern="style[ &#9;&#10;&#13;]*=[ &#9;&#10;&#13;]*" highlight="attribute" is_regex="1">
@@ -335,7 +335,7 @@ If specified, the value must be an ordered set of unique space-separated tokens 
 					<element pattern="false"  ends_context="1"/>
 					<element pattern="'false'"  ends_context="1"/>
 					<element pattern="&quot;false&quot;"  ends_context="1"/>
-					<element pattern="(&quot;&quot;|'')" is_regex="1" ends_context="1"><autocomplete enable="0" /></element>
+					<element pattern="(&quot;[^&quot;]*&quot;|'[^']*')" is_regex="1" ends_context="1"><autocomplete enable="0" /></element>
 				</group>
 			</context>
 		</element>
@@ -357,7 +357,7 @@ The auto keyword indicates that the contents of the element are explicitly direc
 					<element pattern="auto"  ends_context="1"/>
 					<element pattern="'auto'"  ends_context="1"/>
 					<element pattern="&quot;auto&quot;"  ends_context="1"/>
-					<element pattern="(&quot;&quot;|'')" is_regex="1" ends_context="1"><autocomplete enable="0" /></element>
+					<element pattern="(&quot;[^&quot;]*&quot;|'[^']*')" is_regex="1" ends_context="1"><autocomplete enable="0" /></element>
 				</group>
 			</context>
 		</element>
@@ -374,7 +374,7 @@ The auto keyword indicates that the contents of the element are explicitly direc
 					<element pattern="false"  ends_context="1"/>
 					<element pattern="'false'"  ends_context="1"/>
 					<element pattern="&quot;false&quot;"  ends_context="1"/>
-					<element pattern="(&quot;&quot;|'')" is_regex="1" ends_context="1"><autocomplete enable="0" /></element>
+					<element pattern="(&quot;[^&quot;]*&quot;|'[^']*')" is_regex="1" ends_context="1"><autocomplete enable="0" /></element>
 				</group>
 			</context>
 		</element>
@@ -393,7 +393,7 @@ The tabindex attribute, if specified, must have a value that is a valid integer.
 					<element pattern="no"  ends_context="1"/>
 					<element pattern="'no'"  ends_context="1"/>
 					<element pattern="&quot;no&quot;"  ends_context="1"/>
-					<element pattern="(&quot;&quot;|'')" is_regex="1" ends_context="1"><autocomplete enable="0" /></element>
+					<element pattern="(&quot;[^&quot;]*&quot;|'[^']*')" is_regex="1" ends_context="1"><autocomplete enable="0" /></element>
 				</group>
 			</context>
 		</element>
@@ -405,7 +405,7 @@ The tabindex attribute, if specified, must have a value that is a valid integer.
 		<element pattern="&gt;" ends_context="1" highlight="tag"><autocomplete enable="1"/></element>
 		
 	</context>
-</element>-->
+</element>
 <element pattern="&lt;/h6&gt;" highlight="tag" ends_block="1" blockstartelement="&lt;h6" />
 
 	<tag name="hr" case_insens="1" sgml_shorttag="1" no_close="1"  attributes="&univ;,align,noshade,size,width" >
