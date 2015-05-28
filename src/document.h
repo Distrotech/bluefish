@@ -129,6 +129,7 @@ void file_open_from_selection(Tbfwin * bfwin);
 
 void file_insert_doc(Tbfwin * bfwin);
 
+GtkTextView *doc_get_active_view(Tdocument *doc);
 void doc_copy(Tbfwin * bfwin);
 void doc_cut(Tbfwin * bfwin);
 void doc_paste(Tbfwin * bfwin);

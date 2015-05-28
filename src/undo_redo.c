@@ -126,7 +126,7 @@ doc_unre_destroy_last_group(Tdocument * doc)
 static gint
 unregroup_activate(unregroup_t * curgroup, Tdocument * doc, gint is_redo, gboolean newmodified)
 {
-	unreentry_t *entry;
+	unreentry_t *entry, *nextentry;
 	gint lastpos = -1;
 	if (is_redo) {
 		entry = (unreentry_t *)bf_elist_last((unreentry_t *)curgroup->entries);
@@ -135,8 +135,15 @@ unregroup_activate(unregroup_t * curgroup, Tdocument * doc, gint is_redo, gboole
 	}
 	while (entry) {
 		GtkTextIter itstart;
+		if (is_redo) {
+			nextentry = (unreentry_t *)bf_elist_prev((unreentry_t *)entry);
+		} else {
+			nextentry = (unreentry_t *)bf_elist_next((unreentry_t *)entry);
+		}
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, entry->start);
-		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view), &itstart, 0.05, FALSE, 0.0, 0.0);
+		if (!nextentry) {
+			gtk_text_view_scroll_to_iter(doc_get_active_view(doc), &itstart, 0.05, FALSE, 0.0, 0.0);
+		}
 		if ((entry->op == UndoInsert && !is_redo) || (entry->op == UndoDelete && is_redo)) {
 			GtkTextIter itend;
 			DEBUG_MSG("unregroup_activate set start to %d, end to %d and delete\n", entry->start, entry->end);
@@ -148,11 +155,7 @@ unregroup_activate(unregroup_t * curgroup, Tdocument * doc, gint is_redo, gboole
 			gtk_text_buffer_insert(doc->buffer, &itstart, entry->text, -1);
 		}
 		lastpos = entry->start;
-		if (is_redo) {
-			entry = (unreentry_t *)bf_elist_prev((unreentry_t *)entry);
-		} else {
-			entry = (unreentry_t *)bf_elist_next((unreentry_t *)entry);
-		}
+		entry = nextentry;
 	}
 	DEBUG_MSG("newmodified=%d, is_redo=%d, curgroup->changed=%d\n",newmodified,is_redo,curgroup->changed);
 	doc_set_modified(doc, newmodified);

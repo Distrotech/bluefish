@@ -24,7 +24,7 @@
 #include <string.h>				/* strchr() */
 #include <stdlib.h>				/* system() */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include "bluefish.h"
 
@@ -1146,7 +1146,8 @@ void
 doc_scroll_to_cursor(Tdocument * doc)
 {
 	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
-	gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(doc->view), mark, 0.25, FALSE, 0.5, 0.5);
+	DEBUG_MSG("doc_scroll_to_cursor, \n");
+	gtk_text_view_scroll_to_mark(doc_get_active_view(doc), mark, 0.25, FALSE, 0.5, 0.5);
 }
 
 /**
@@ -1186,7 +1187,7 @@ doc_select_and_scroll(Tdocument * doc, GtkTextIter * it1,
 					  GtkTextIter * it2, gboolean select_it1_line, gboolean do_scroll, gboolean align_center)
 {
 	GtkTextIter sit1 = *it1, sit2 = *it2;
-
+	DEBUG_MSG("doc_select_and_scroll, do_scroll=%d\n",do_scroll);
 	if (select_it1_line) {
 		sit2 = sit1;
 		gtk_text_iter_set_line_offset(&sit1, 0);
@@ -1319,6 +1320,7 @@ doc_set_cursor_position(Tdocument * doc, gint cursor_offset)
 {
 	GtkTextIter iter;
 	if (doc->cursor_offset >= 0) {
+		DEBUG_MSG("doc_set_cursor_position, cursor_offset=%d\n",cursor_offset);
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, cursor_offset);
 		gtk_text_buffer_place_cursor(doc->buffer, &iter);
 	}
@@ -3589,6 +3591,14 @@ file_insert_doc(Tbfwin * bfwin)
 	}
 }
 
+GtkTextView *doc_get_active_view(Tdocument *doc) {
+	GtkTextView *activeview;
+	if (doc->slave && gtk_window_get_focus(GTK_WINDOW(BFWIN(doc->bfwin)->main_window)) == doc->slave) {
+		return doc->slave;
+	}
+	return doc->view;
+}
+
 void
 doc_copy(Tbfwin * bfwin)
 {
@@ -3610,18 +3620,22 @@ doc_paste(Tbfwin * bfwin)
 {
 	GtkTextMark *mark;
 	Tdocument *doc = bfwin->current_document;
+	GtkTextView *activeview;
 
-	DEBUG_MSG("edit_paste_cb, create new undo group\n");
+	DEBUG_MSG("doc_paste, create new undo group\n");
 	doc_unre_new_group(doc);
 	doc->in_paste_operation = TRUE;
-	DEBUG_MSG("edit_paste_cb, pasting clipboard\n");
+	DEBUG_MSG("doc_paste, pasting clipboard\n");
 	gtk_text_buffer_paste_clipboard(doc->buffer, gtk_clipboard_get(GDK_SELECTION_CLIPBOARD), NULL, TRUE);
 	doc->in_paste_operation = FALSE;
-	DEBUG_MSG("edit_paste_cb, finished, create new undo group\n");
+	DEBUG_MSG("doc_paste, finished, create new undo group\n");
 	doc_unre_new_group(doc);
 	mark = gtk_text_buffer_get_insert(bfwin->current_document->buffer);
-	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(bfwin->current_document->view), mark);
-	DEBUG_MSG("edit_paste_cb, finished\n");
+	/* in split view we have to find the current active view before we scroll the cursor onscreen */
+	DEBUG_MSG("doc_paste, active widget=%p, view=%p,slave=%p\n",gtk_window_get_focus(GTK_WINDOW(bfwin->main_window)),doc->view,doc->slave);
+	activeview = doc_get_active_view(doc);
+	gtk_text_view_scroll_mark_onscreen(activeview, mark);
+	DEBUG_MSG("doc_paste, scrolled to mark in view %p, now finished\n",activeview);
 }
 
 /*************************** paste special code ***************************/
