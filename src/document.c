@@ -24,7 +24,7 @@
 #include <string.h>				/* strchr() */
 #include <stdlib.h>				/* system() */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include "bluefish.h"
 

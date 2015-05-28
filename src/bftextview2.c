@@ -1456,6 +1456,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 {
 	gboolean retval;
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
+	BluefishTextView *master = btv->master;
 	DBG_SIGNALS("bluefish_text_view_key_press_event, keyval=%d\n", kevent->keyval);
 	/* following code handles key press events on the autocompletion popup */
 	if (btv->autocomp) {
@@ -1465,7 +1466,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		}
 	}
 	/* following code handles the manual autocompletion popup accelerator key, default <ctrl><space> */
-	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && (kevent->state & main_v->autocomp_accel_mods)
+	if (master->enable_scanner && (kevent->state & main_v->autocomp_accel_mods)
 		&& kevent->keyval == main_v->autocomp_accel_key) {
 		DBG_AUTOCOMP("bluefish_text_view_key_press_event, autocomp key combination\n");
 		autocomp_run(btv, TRUE);
@@ -1499,8 +1500,8 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		gboolean ret;
 		GtkTextIter iter, currentpos, linestart;
 
-		imark = gtk_text_buffer_get_insert(BLUEFISH_TEXT_VIEW(btv)->buffer);
-		gtk_text_buffer_get_iter_at_mark(BLUEFISH_TEXT_VIEW(btv)->buffer, &currentpos, imark);
+		imark = gtk_text_buffer_get_insert(master->buffer);
+		gtk_text_buffer_get_iter_at_mark(master->buffer, &currentpos, imark);
 		iter = currentpos;
 		/* if you hold ALT and you   have wrapped text, bluefish will jump to the previous/next newline, else
 		   it will jump the the start/end of the wrapped part of the line */
@@ -1513,11 +1514,11 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 			if (gtk_text_iter_compare(&currentpos, &iter) == 0)
 				iter = linestart;
 			if (kevent->state & GDK_SHIFT_MASK)
-				gtk_text_buffer_move_mark(BLUEFISH_TEXT_VIEW(btv)->buffer, imark, &iter);
+				gtk_text_buffer_move_mark(master->buffer, imark, &iter);
 			else
-				gtk_text_buffer_place_cursor(BLUEFISH_TEXT_VIEW(btv)->buffer, &iter);
+				gtk_text_buffer_place_cursor(master->buffer, &iter);
 			gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(btv),
-											   gtk_text_buffer_get_insert(BLUEFISH_TEXT_VIEW(btv)->buffer));
+											   gtk_text_buffer_get_insert(master->buffer));
 			return TRUE;
 		}
 	}
@@ -1527,16 +1528,16 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		&& (!(kevent->state & GDK_CONTROL_MASK))) {	/* shift-tab is also known as GDK_ISO_Left_Tab */
 		GtkTextIter so, eo;
 		gboolean have_selection;
-		have_selection = gtk_text_buffer_get_selection_bounds(BLUEFISH_TEXT_VIEW(btv)->buffer, &so, &eo);
+		have_selection = gtk_text_buffer_get_selection_bounds(master->buffer, &so, &eo);
 		if (have_selection) {
 			GtkTextIter eol1, eol2, sol1, sol2;
 			if (kevent->state & GDK_SHIFT_MASK) {
 				/* unindent block */
-				doc_indent_selection(btv->doc, TRUE);
+				doc_indent_selection(master->doc, TRUE);
 				return TRUE;
 			}
 			if (gtk_text_iter_get_line(&so) != gtk_text_iter_get_line(&eo)) {
-				doc_indent_selection(btv->doc, FALSE);
+				doc_indent_selection(master->doc, FALSE);
 				return TRUE;
 			}
 			/* if the start and end are *around* the text (so either at the start or end or
@@ -1549,7 +1550,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 					 || gtk_text_iter_in_range(&so, &sol1, &sol2))
 					&& (gtk_text_iter_equal(&eo, &eol1) || gtk_text_iter_equal(&eo, &eol2)
 						|| gtk_text_iter_in_range(&eo, &eol1, &eol2))) {
-					doc_indent_selection(btv->doc, FALSE);
+					doc_indent_selection(master->doc, FALSE);
 					return TRUE;
 				}
 			}
@@ -1558,7 +1559,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 	/* following code replaces tab with spaces */
 	if ((kevent->keyval == GDK_Tab && !(kevent->state & GDK_SHIFT_MASK)
 		 && !(kevent->state & GDK_CONTROL_MASK))
-		&& BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_indent_wspaces) {
+		&& BFWIN(DOCUMENT(master->doc)->bfwin)->session->editor_indent_wspaces) {
 		GtkTextMark *imark;
 		GtkTextIter iter;
 		gchar *string;
@@ -1568,15 +1569,15 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		   4 and there are two characters already, bluefish should insert only 2 characters */
 		string =
 			bf_str_repeat(" ",
-						  BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->
+						  BFWIN(DOCUMENT(master->doc)->bfwin)->
 						  session->editor_tab_width);
-		imark = gtk_text_buffer_get_insert(btv->buffer);
-		gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, imark);
+		imark = gtk_text_buffer_get_insert(master->buffer);
+		gtk_text_buffer_get_iter_at_mark(master->buffer, &iter, imark);
 		numchars =
-			BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_tab_width -
+			BFWIN(DOCUMENT(master->doc)->bfwin)->session->editor_tab_width -
 			(gtk_text_iter_get_line_offset(&iter) %
-			 BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_tab_width);
-		gtk_text_buffer_insert(btv->buffer, &iter, string, numchars);
+			 BFWIN(DOCUMENT(master->doc)->bfwin)->session->editor_tab_width);
+		gtk_text_buffer_insert(master->buffer, &iter, string, numchars);
 		g_free(string);
 		return TRUE;
 	}
@@ -1585,12 +1586,12 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		(kevent->keyval == '[' || kevent->keyval == '{' || kevent->keyval == '(')
 		&& !(kevent->state & GDK_CONTROL_MASK)) {
 		gboolean noclose = FALSE;
-		GtkTextMark *imark = gtk_text_buffer_get_insert(BLUEFISH_TEXT_VIEW(btv)->buffer);
+		GtkTextMark *imark = gtk_text_buffer_get_insert(master->buffer);
 		if (main_v->props.editor_auto_close_brackets == 2 /* smart */ ) {
 			GtkTextIter iter;
 			gunichar uc;
 			/* check the character that follows the cursor */
-			gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, imark);
+			gtk_text_buffer_get_iter_at_mark(master->buffer, &iter, imark);
 			uc = gtk_text_iter_get_char(&iter);
 			/*g_print("smart bracket closing, uc='%c'\n",(gchar)uc); */
 			if (uc != ' ' && uc != '\0' && uc != '\n' && uc != '\t') {
@@ -1606,10 +1607,10 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 				insert = "[]";
 			else
 				insert = "()";
-			gtk_text_buffer_insert_at_cursor(BLUEFISH_TEXT_VIEW(btv)->buffer, insert, 2);
-			gtk_text_buffer_get_iter_at_mark(BLUEFISH_TEXT_VIEW(btv)->buffer, &tmpit, imark);
+			gtk_text_buffer_insert_at_cursor(master->buffer, insert, 2);
+			gtk_text_buffer_get_iter_at_mark(master->buffer, &tmpit, imark);
 			if (gtk_text_iter_backward_char(&tmpit)) {
-				gtk_text_buffer_place_cursor(BLUEFISH_TEXT_VIEW(btv)->buffer, &tmpit);
+				gtk_text_buffer_place_cursor(master->buffer, &tmpit);
 			}
 			return TRUE;
 		}
@@ -1617,11 +1618,11 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 	/* following code moves a selected block */
 	if (kevent->state & GDK_CONTROL_MASK) {
 		if (kevent->keyval == GDK_Up) {
-			doc_move_selection(btv->doc, TRUE, TRUE);
+			doc_move_selection(master->doc, TRUE, TRUE);
 			return TRUE;
 		}
 		if (kevent->keyval == GDK_Down) {
-			doc_move_selection(btv->doc, FALSE, TRUE);
+			doc_move_selection(master->doc, FALSE, TRUE);
 			return TRUE;
 		}
 	}
