@@ -406,8 +406,8 @@ props_init_main(GHashTable * config_rc)
 {
 	/* if there is no config version set, assume it is a config file from a version before the config version was introduced
 	this was introduced in revision r7372 in april 2012, which was released in june 2012 in the 2.2.3 release */
-	init_prop_string(&config_rc, &main_v->props.config_version, "config_version:", "2.2.2");
-	init_prop_integer(&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
+	init_prop_string(&config_rc, &main_v->props.config_version, "config_version:", "2.2.7");
+	init_prop_integer(&config_rc, &main_v->props.check_for_modified_on_disk, "check_for_modified_on_disk:", 1, TRUE);
 #ifdef MAC_INTEGRATION
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "Lucida Grande 13");
 #else

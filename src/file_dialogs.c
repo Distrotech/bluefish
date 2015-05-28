@@ -825,7 +825,7 @@ doc_save_backend(Tdocument * doc, Tdocsave_mode savemode, gboolean close_doc,
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), FALSE);
 	DEBUG_MSG("doc_save_backend, calling file_checkNsave_uri_async with uri %p for %zd bytes\n", dest_uri, strlen(buffer->data));
 	doc->save =
-		file_checkNsave_uri_async(dest_uri, dest_finfo, buffer, numbytes, savemode == docsave_normal,
+		file_checkNsave_uri_async(dest_uri, dest_finfo, buffer, numbytes, (savemode == docsave_normal && main_v->props.check_for_modified_on_disk!=0),
 								  main_v->props.backup_file, doc_checkNsave_lcb, dsb);
 
 	if (firstsave || savemode == docsave_saveas || savemode == docsave_move) {
@@ -1552,10 +1552,10 @@ modified_on_disk_check_lcb(gpointer data)
 void
 modified_on_disk_check_init(void)
 {
-	if (main_v->props.do_periodic_check && !main_v->periodic_check_id)
+	if (main_v->props.check_for_modified_on_disk==1 && !main_v->periodic_check_id)
 		main_v->periodic_check_id =
 			g_timeout_add_seconds_full(G_PRIORITY_LOW, 15, modified_on_disk_check_lcb, NULL, NULL);
-	else if (!main_v->props.do_periodic_check && main_v->periodic_check_id) {
+	else if (main_v->props.check_for_modified_on_disk!=1 && main_v->periodic_check_id) {
 		g_source_remove(main_v->periodic_check_id);
 		main_v->periodic_check_id = 0;
 	}

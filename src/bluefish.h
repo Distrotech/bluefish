@@ -281,7 +281,7 @@ typedef struct {
 
 typedef struct {
 	gchar *config_version; /* bluefish version string */
-	gint do_periodic_check;
+	gint check_for_modified_on_disk; /* 0= never, 1= periodically, 2=only during save */ 
 	gchar *editor_font_string;	/* editor font */
 	gint editor_smart_cursor;
 	gint editor_tab_indent_sel; /* tab key will indent a selected block */

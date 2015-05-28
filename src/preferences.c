@@ -51,7 +51,7 @@
 #include "languages.h"
 
 enum {
-	do_periodic_check,
+	check_for_modified_on_disk,
 	editor_font_string,			/* editor font */
 	editor_smart_cursor,
 	editor_tab_indent_sel,
@@ -2129,9 +2129,10 @@ preferences_apply(Tprefdialog * pd)
 		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[recent_means_recently_closed]));
 	main_v->props.register_recent_mode =
 		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[register_recent_mode]));
+	main_v->props.check_for_modified_on_disk =
+		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[check_for_modified_on_disk]));
 	main_v->props.modified_check_type =
 		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[modified_check_type]));
-	integer_apply(&main_v->props.do_periodic_check, pd->prefs[do_periodic_check], TRUE);
 	integer_apply(&main_v->props.max_recent_files, pd->prefs[max_recent_files], FALSE);
 	integer_apply(&main_v->props.leave_to_window_manager, pd->prefs[leave_to_window_manager], TRUE);
 	integer_apply(&main_v->props.restore_dimensions, pd->prefs[restore_dimensions], TRUE);
@@ -2429,6 +2430,7 @@ preferences_dialog_new(Tbfwin *bfwin)
 
 	const gchar *autocompmodes[] = { N_("Delayed"), N_("Immediately"), NULL };
 	const gchar *failureactions[] = { N_("Continue save"), N_("Abort save"), N_("Ask what to do"), NULL };
+	const gchar *check_for_modified_on_disk_types[] = {N_("Never"), N_("Periodically and during save"), N_("Only during save"), NULL};
 	const gchar *modified_check_types[] =
 		{ N_("Nothing"), N_("Modified time and file size"), N_("Modified time"), N_("File size"), NULL };
 	const gchar *notebooktabpositions[] = { N_("left"), N_("right"), N_("top"), N_("bottom"), NULL };
@@ -2718,9 +2720,11 @@ preferences_dialog_new(Tbfwin *bfwin)
 								  main_v->props.open_in_new_window, vbox2);
 	gtk_widget_set_sensitive(pd->prefs[open_in_new_window], main_v->props.open_in_running_bluefish);
 
-	pd->prefs[do_periodic_check] =
-		boxed_checkbut_with_value(_("_Periodically check if file is modified on disk"),
-								  main_v->props.do_periodic_check, vbox2);
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
+	pd->prefs[check_for_modified_on_disk] =
+			dialog_combo_box_text_labeled(_("Check if file is modified on disk:"),
+									  check_for_modified_on_disk_types, main_v->props.check_for_modified_on_disk, hbox, 0);
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
