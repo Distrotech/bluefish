@@ -1513,14 +1513,69 @@ enlarge_scanning_region(BluefishTextView * btv, Tscanning * scanning, guint offs
 	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, offset);
 	return enlarge_scanning_region_to_iter(btv, scanning, &iter);
 }
-#ifdef CONDITIONALPATTERN
+
+gboolean
+test_condition(Tfoundcontext *curfcontext, Tfoundblock *curfblock, Tpattern_condition *pcond)
+{
+	if (pcond->relationtype == 1 || pcond->relationtype == 2) { /* context */
+		Tfoundcontext *fcontext = curfcontext;
+		if (pcond->parentrelation == -1) {
+			while (fcontext) {
+				DBG_SCANNING("compare context %d with context ref=%d\n",fcontext->context,pcond->ref);
+				if (pcond->ref == fcontext->context) {
+					return (pcond->relationtype == 1);
+				}
+				fcontext = fcontext->parentfcontext;
+			}
+		} else {
+			gint i;
+			for (i=0;i<pcond->parentrelation;i++) {
+				DBG_SCANNING("pop context %d before comparing\n",fcontext->context);
+				fcontext = fcontext->parentfcontext;
+				if (!fcontext)
+					return (pcond->relationtype == 2);
+			}
+			DBG_SCANNING("compare context %d with context ref=%d\n",fcontext?fcontext->context:0,pcond->ref);
+			if (pcond->ref == fcontext->context) {
+				return (pcond->relationtype == 1);
+			}
+		}
+		return (pcond->relationtype == 2);
+	} else if (pcond->relationtype == 3 || pcond->relationtype == 4) { /* pattern */
+		Tfoundblock *fblock = curfblock;
+		g_print("test_condition, relationtype=%d, ref is %d, curfblock->patternum=%d\n", pcond->relationtype, pcond->ref,fblock->patternum);
+		if (pcond->parentrelation == -1) {
+			while (fblock) {
+				if (pcond->ref == fblock->patternum) {
+					return (pcond->relationtype == 3);
+				}
+				fblock = fblock->parentfblock;
+			}
+		} else {
+			gint i;
+			for (i=0;i<pcond->parentrelation;i++) {
+				fblock = fblock->parentfblock;
+				g_print("i=%d, fblock->patternum=%d\n",i,fblock?fblock->patternum:NULL);
+				if (!fblock)
+					return (pcond->relationtype == 4);
+			}
+			if (pcond->ref == fblock->patternum) {
+				return (pcond->relationtype == 3);
+			}
+		}
+		return (pcond->relationtype == 4);
+	}
+	return TRUE;
+}
+
+
 static gboolean
 match_conditions_satisfied(BluefishTextView * btv, Tscanning *scanning, Tpattern *pat) {
-	Tpattern_condition *pcond;
-	gint i;
-	pcond = &g_array_index(btv->bflang->st->conditions, Tpattern_condition, pat->condition);
+	Tpattern_condition *pcond = &g_array_index(btv->bflang->st->conditions, Tpattern_condition, pat->condition);
 	DBG_SCANNING("match_conditions_satisfied, called for pattern %s pcond %d with mode=%d, ref=%d and parentrelation=%d\n",pat->pattern,pat->condition, pcond->relationtype, pcond->ref, pcond->parentrelation);
-	if (pcond->relationtype == 1 || pcond->relationtype == 2) { /* context */
+	return test_condition(scanning->curfcontext, scanning->curfblock, pcond);
+	
+/*	if (pcond->relationtype == 1 || pcond->relationtype == 2) { / * context * /
 		Tfoundcontext *fcontext = scanning->curfcontext;
 		if (pcond->parentrelation == -1) {
 			while (fcontext) {
@@ -1543,7 +1598,7 @@ match_conditions_satisfied(BluefishTextView * btv, Tscanning *scanning, Tpattern
 			}
 		}
 		return (pcond->relationtype == 2);
-	} else if (pcond->relationtype == 3 || pcond->relationtype == 4) { /* pattern */
+	} else if (pcond->relationtype == 3 || pcond->relationtype == 4) { / * pattern * /
 		Tfoundblock *fblock = scanning->curfblock;
 		if (pcond->parentrelation == -1) {
 			while (fblock) {
@@ -1565,9 +1620,8 @@ match_conditions_satisfied(BluefishTextView * btv, Tscanning *scanning, Tpattern
 		return (pcond->relationtype == 4);
 	}
 
-	return TRUE;
+	return TRUE;*/
 }
-#endif /* CONDITIONALPATTERN */
 
 static inline int
 found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
@@ -1581,7 +1635,6 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	GtkTextIter iter;
 	Tpattern *pat = &g_array_index(btv->bflang->st->matches, Tpattern, match->patternum);
 
-#ifdef CONDITIONALPATTERN
 	if (pat->condition) {
 		g_print("test for condition: pat %d has condition=%d\n",match->patternum,pat->condition );
 		/* lookup the condition, and see if it matches */
@@ -1589,17 +1642,14 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 			return scanning->context;
 		}
 	}
-#endif /* CONDITIONALPATTERN */
 	DBG_SCANNING
 		("found_match for pattern %d %s at charoffset %d, starts_block=%d,ends_block=%d, nextcontext=%d (current=%d)\n",
 		 match->patternum, pat->pattern, gtk_text_iter_get_offset(&match->start), pat->starts_block,
 		 pat->ends_block, pat->nextcontext, scanning->context);
 /*	DBG_MSG("pattern no. %d (%s) matches (%d:%d) --> nextcontext=%d\n", match->patternum, scantable.matches[match->patternum].message,
 			gtk_text_iter_get_offset(&match->start), gtk_text_iter_get_offset(&match->end), scantable.matches[match->patternum].nextcontext);*/
-#ifdef IDENTSTORING
 	scanning->identmode = pat->identmode;
 	scanning->identaction = pat->identaction;
-#endif							/* IDENTSTORING */
 
 	match_end_o = gtk_text_iter_get_offset(&match->end);
 	if (pat->selftag) {
@@ -1912,9 +1962,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	guint pos = 0, newpos, reconstruction_o, endoffset;
 	gboolean end_of_region = FALSE, last_character_run = FALSE, continue_loop = TRUE, finished;
 	gint loop = 0;
-#ifdef IDENTSTORING
 	GtkTextIter itcursor;
-#endif
 #ifdef HL_PROFILING
 	guint startpos;
 	gdouble stage1 = 0;
@@ -1932,9 +1980,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #endif
 
 	scanning.context = 1;
-#ifdef IDENTSTORING
 	scanning.identmode = 0;
-#endif							/* IDENTSTORING */
 
 	DBG_MSG("bftextview2_run_scanner for btv %p..\n", btv);
 	if (!btv->bflang->st) {
@@ -2050,9 +2096,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 		gtk_text_iter_forward_to_end(&end);
 	else
 		end = *visible_end;*/
-#ifdef IDENTSTORING
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &itcursor, gtk_text_buffer_get_insert(btv->buffer));
-#endif
 /* ******************************************************************************
 in the following loop we do the actual scanning. At the current offset (iter) we get a character (uc)
 
@@ -2126,7 +2170,6 @@ if newpos==0 we have a symbol (see bftextview2.h for an explanation of symbols a
 					if (enlarge_scanning_region(btv, &scanning, invalidoffset))
 						last_character_run = FALSE;
 				}
-#ifdef IDENTSTORING
 				if (G_UNLIKELY
 					(scanning.identmode == 1 && pos == 1)) {
 					/* ignore if the cursor is within the range, because it could be that the user is still typing the name */
@@ -2137,7 +2180,6 @@ if newpos==0 we have a symbol (see bftextview2.h for an explanation of symbols a
 						scanning.identmode = 0;
 					}
 				}
-#endif							/* IDENTSTORING */
 				DBG_SCANNING("no match, but do set mstart to offset %d and set newpos=0\n",gtk_text_iter_get_offset(&iter));
 			}
 			if (G_UNLIKELY(last_character_run && scanning.nextfound && !nextcache_valid(&scanning))) {
@@ -2272,12 +2314,10 @@ if newpos==0 we have a symbol (see bftextview2.h for an explanation of symbols a
 	return !finished;
 }
 
-GQueue *
-get_contextstack_at_position(BluefishTextView * btv, GtkTextIter * position)
+static GQueue *
+get_contextstack_for_found(Tfound *found)
 {
-	Tfound *found;
 	GQueue *retqueue = g_queue_new();
-	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), NULL);
 	if (found) {
 		Tfoundcontext *tmpfcontext = found->fcontext;
 		gint changecounter = found->numcontextchange;
@@ -2294,6 +2334,13 @@ get_contextstack_at_position(BluefishTextView * btv, GtkTextIter * position)
 	return retqueue;
 }
 
+GQueue *get_contextstack_at_position(BluefishTextView * btv, GtkTextIter * position)
+{
+	Tfound *found;
+	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), NULL);
+	return get_contextstack_for_found(found);
+}
+
 void
 scan_for_autocomp_prefix(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * cursorpos,
 						 gint * contextnum)
@@ -2303,8 +2350,10 @@ scan_for_autocomp_prefix(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIt
 	GQueue *contextstack;
 	/* get the current context */
 	iter = *mstart;
-
-	contextstack = get_contextstack_at_position(btv, &iter);
+	Tfound *found;
+	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(&iter), NULL);
+	contextstack = get_contextstack_for_found(found);
+	
 	*contextnum = g_queue_get_length(contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(contextstack)) : 1;
 	pos = 0;
 	DBG_AUTOCOMP("start scanning at offset %d with context %d and position %d\n",
@@ -2370,8 +2419,10 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 	GQueue *contextstack;
 	/* get the current context */
 	iter = *mstart;
-
-	contextstack = get_contextstack_at_position(btv, &iter);
+	Tfound *found;
+	
+	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(&iter), NULL);
+	contextstack = get_contextstack_for_found(found);
 	*contextnum = g_queue_get_length(contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(contextstack)) : 1;
 	pos = 0;
 
@@ -2610,9 +2661,7 @@ cleanup_scanner(BluefishTextView * btv)
 		);
 
 #endif
-#ifdef IDENTSTORING
 	bftextview2_identifier_hash_remove_doc(DOCUMENT(btv->doc)->bfwin, btv->doc);
-#endif							/* IDENTSTORING */
 
 }
 

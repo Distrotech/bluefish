@@ -719,9 +719,12 @@ match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context)
 			if (g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens)
 				g_completion_set_compare(g_array_index(st->contexts, Tcontext, context).ac, strncasecmp);
 		}
-
+		g_array_index(st->contexts, Tcontext, context).autocomplete_has_conditions = 0; /* defaults to 0 */
 		while (tmpslist) {
 			Tpattern_autocomplete *pac = tmpslist->data;
+			if (pac->condition != 0) {
+				g_array_index(st->contexts, Tcontext, context).autocomplete_has_conditions = 1;
+			}
 			list = g_list_prepend(list, pac->autocomplete_string);
 			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).patternhash,
 								pac->autocomplete_string, GINT_TO_POINTER(pattern_id));
@@ -730,43 +733,29 @@ match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context)
 		g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
 		g_list_free(list);
 	}
-#ifdef OLD_AUTOCOMP
-	if (g_array_index(st->matches, Tpattern, matchnum).autocomplete) {
-		GList *list;
-		gchar *tmp;
-		if (!g_array_index(st->contexts, Tcontext, context).ac) {
-			DBG_PATCOMPILE("create g_completion for context %d\n", context);
-			g_array_index(st->contexts, Tcontext, context).ac = g_completion_new(NULL);
-			if (g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens)
-				g_completion_set_compare(g_array_index(st->contexts, Tcontext, context).ac, strncasecmp);
-		}
-		if (g_array_index(st->matches, Tpattern, matchnum).autocomplete_string) {
-			tmp = g_array_index(st->matches, Tpattern, matchnum).autocomplete_string;
-		} else {
-			tmp = g_array_index(st->matches, Tpattern, matchnum).pattern;
-		}
-
-		list = g_list_prepend(NULL, tmp);
-		g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
-		DBG_AUTOCOMP("adding %s to GCompletion\n", (gchar *) list->data);
-		g_list_free(list);
-		if (g_array_index(st->matches, Tpattern, matchnum).autocomplete_string) {
-			/*if (g_array_index(st->matches, Tpattern, matchnum).reference) {
-			   g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,g_array_index(st->matches, Tpattern, matchnum).autocomplete_string,g_array_index(st->matches, Tpattern, matchnum).reference);
-			   } */
-			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).patternhash,
-								g_array_index(st->matches, Tpattern, matchnum).autocomplete_string,
-								GINT_TO_POINTER(pattern_id));
-		}
-	}
-#endif
 }
 
+static guint16 
+add_condition(Tscantable * st, const gchar *refname, gint relation, gint mode)
+{
+	guint16 condnum = st->conditions->len;
+	DBG_PARSING("add_condition, condnum=%d, called with refname %s\n",condnum,refname);
+	g_array_set_size(st->conditions, st->conditions->len + 1);
+	if (mode < 1 || mode > 4) {
+		g_warning("Error in language file: condition mode %d is not defined\n",mode);
+		return;
+	}
+	g_array_index(st->conditions, Tpattern_condition, condnum).refname = g_strdup(refname);
+	g_array_index(st->conditions, Tpattern_condition, condnum).parentrelation = relation;
+	g_array_index(st->conditions, Tpattern_condition, condnum).relationtype = mode;
+	return condnum;
+}
 
 void
 match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * autocomplete_string,
 						const gchar * autocomplete_append, guint8 autocomplete_backup_cursor,
-						guint8 trigger_new_autocomp_popup)
+						guint8 trigger_new_autocomp_popup,
+						const gchar *refname, gint relation, gint mode)
 {
 	Tpattern_autocomplete *pac = g_slice_new(Tpattern_autocomplete);
 	if (autocomplete_string) {
@@ -791,6 +780,7 @@ match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * autocom
 #endif
 	pac->autocomplete_backup_cursor = autocomplete_backup_cursor;
 	pac->trigger_new_autocomp_popup = trigger_new_autocomp_popup;
+	pac->condition = (mode==0) ? 0 : add_condition(st, refname, relation, mode);
 	g_array_index(st->matches, Tpattern, matchnum).autocomp_items =
 		g_slist_prepend(g_array_index(st->matches, Tpattern, matchnum).autocomp_items, pac);
 }
@@ -817,25 +807,15 @@ compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context, gpoint
 	}
 	match_autocomplete_reference(st, matchnum, context);
 }
-#ifdef CONDITIONALPATTERN
 
 void
 pattern_set_condition(Tscantable * st, guint16 matchnum, gchar *refname, gint relation, gint mode)
 {
-	guint16 condnum = st->conditions->len;
-	DBG_PARSING("pattern_set_condition, condnum=%d, called with refname %s for matchnum %d\n",condnum,refname,matchnum);
-	g_array_set_size(st->conditions, st->conditions->len + 1);
-	if (mode < 1 || mode > 4) {
-		g_warning("Error in language file: condition mode %d is not defined\n",mode);
-		return;
-	}
-	g_array_index(st->conditions, Tpattern_condition, condnum).refname = g_strdup(refname);
-	g_array_index(st->conditions, Tpattern_condition, condnum).parentrelation = relation;
-	g_array_index(st->conditions, Tpattern_condition, condnum).relationtype = mode;
+	guint16 condnum = add_condition(st, refname, relation, mode);
 	DBG_PARSING("pattern %d (%s) now has condition %d\n",matchnum,g_array_index(st->matches, Tpattern, matchnum).pattern,condnum);
 	g_array_index(st->matches, Tpattern, matchnum).condition = condnum;
 }
-#endif /*CONDITIONALPATTERN*/
+
 void
 pattern_set_blockmatch(Tscantable * st, guint16 matchnum,
 							gboolean starts_block,

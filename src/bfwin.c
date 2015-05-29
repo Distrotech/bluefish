@@ -45,10 +45,7 @@
 #include "project.h"
 #include "rcfile.h"
 #include "snr3.h"
-
-#ifdef IDENTSTORING
 #include "bftextview2_identifier.h"
-#endif /* IDENTSTORING */
 
 #ifdef HAVE_LIBENCHANT
 #include "bftextview2_spell.h"
@@ -577,10 +574,7 @@ bfwin_destroy_and_cleanup(Tbfwin *bfwin)
 		g_object_unref(G_OBJECT(bfwin->fb2_filters_group));
 	}
 	DEBUG_MSG("bfwin_cleanup, finished unref actiongroups\n");
-#ifdef IDENTSTORING
 	bftextview2_identifier_hash_destroy(bfwin);
-#endif
-
 	DEBUG_MSG("bfwin_cleanup, going to free bfwin %p\n", bfwin);
 	g_free(bfwin);
 }
@@ -1500,10 +1494,7 @@ bfwin_create_main(Tbfwin * bfwin)
 	GtkWidget *vbox;
 	DEBUG_MSG("bfwin_create_main, bfwin=%p, main_window_w=%d\n", bfwin, main_v->globses.main_window_w);
 
-#ifdef IDENTSTORING
 	bftextview2_identifier_hash_init(bfwin);
-#endif							/* IDENTSTORING */
-
 	bfwin->main_window =
 		window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(bfwin_destroy_event),
 					 bfwin, FALSE, NULL);

@@ -299,15 +299,15 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<tag name="h4" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a HTML heading</reference>
 	</tag>
-	<tag name="h5" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
+<!--	<tag name="h5" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a HTML heading</reference>
 	</tag>
-<!--	<tag name="h6" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
+	<tag name="h6" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a HTML heading</reference>
 	</tag>
 -->
 <element id="&lt;h6" pattern="&lt;h6" highlight="tag" starts_block="1">
-	<context symbols="&gt;\&quot;=' &#9;&#10;&#13;" >
+	<context symbols="&gt;\&quot;=' &#9;&#10;&#13;" id="h6.attributes">
 		<group highlight="attribute"><autocomplete append="=&quot;&quot;" backup_cursor="1" />
 		<element pattern="style[ &#9;&#10;&#13;]*=[ &#9;&#10;&#13;]*" highlight="attribute" is_regex="1">
 			<autocomplete string="style=&quot;&quot;" backup_cursor="1" />
@@ -402,11 +402,19 @@ The tabindex attribute, if specified, must have a value that is a valid integer.
 		
 		<element id="__internal_tag_string_d__" pattern="&quot;[^&quot;]*&quot;" is_regex="1" highlight="string" />
 		<element id="__internal_tag_string_s__" pattern="'[^']*'" is_regex="1" highlight="string" />
-		<element pattern="&gt;" ends_context="1" highlight="tag"><autocomplete enable="1"/></element>
+		<element pattern="&gt;" ends_context="1" highlight="tag">
+			<autocomplete string="&gt;&lt;/h6&gt;" backup_cursor="5" condition_relation="0" condition_mode="3" condition_blockstartidref="&lt;h6" />
+			<autocomplete string="&gt;&lt;/h5&gt;" backup_cursor="5" condition_relation="0" condition_mode="3" condition_blockstartidref="&lt;h5" />
+			</element>
 		
 	</context>
 </element>
 <element pattern="&lt;/h6&gt;" highlight="tag" ends_block="1" blockstartelement="&lt;h6" />
+
+<element id="&lt;h5" pattern="&lt;h5" highlight="tag" starts_block="1">
+	<context idref="h6.attributes" />
+</element>
+<element pattern="&lt;/h5&gt;" highlight="tag" ends_block="1" blockstartelement="&lt;h5" />
 
 	<tag name="hr" case_insens="1" sgml_shorttag="1" no_close="1"  attributes="&univ;,align,noshade,size,width" >
 		<autocomplete append=" /&gt;" class="self_close_singleton_tags" />

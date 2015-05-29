@@ -2591,9 +2591,7 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 			  delay_activation);
 	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n", doc);
 	bfwin_notebook_unblock_signals(BFWIN(doc->bfwin));
-#ifdef IDENTSTORING
 	bftextview2_identifier_hash_remove_doc(doc->bfwin, doc);
-#endif
 	if (bfwin->current_document == doc) {
 		bfwin_gotoline_search_bar_close(doc->bfwin, TRUE);	/* Do not close search bar, just clean goto line entry */
 		bfwin->current_document = NULL;
@@ -4184,7 +4182,6 @@ doc_jump(Tdocument * doc)
 	/* check if this is an existing file */
 	doc_jump_check_file(doc, string);
 
-#ifdef IDENTSTORING
 	DEBUG_MSG("context=%d\n", context);
 	if (context != -1) {
 		Tjumpdata *ijd =
@@ -4199,7 +4196,6 @@ doc_jump(Tdocument * doc)
 			}
 		}
 	}
-#endif
 	g_free(string);
 }
 

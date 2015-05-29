@@ -28,8 +28,9 @@ gint16 new_context(Tscantable * st, guint expected_size, const gchar * lang, con
 void match_set_nextcontext(Tscantable * st, guint16 matchnum, guint16 nextcontext);
 void match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context);
 void match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * autocomplete_string,
-							 const gchar * autocomplete_append, guint8 autocomplete_backup_cursor,
-							 guint8 trigger_new_autocomp_popup);
+						const gchar * autocomplete_append, guint8 autocomplete_backup_cursor,
+						guint8 trigger_new_autocomp_popup,
+						const gchar *refname, gint relation, gint mode);
 void match_set_reference(Tscantable * st, guint16 matchnum, const gchar * reference);
 void compile_existing_match(Tscantable * st, guint16 matchnum, gint16 context, gpointer ldb);
 void pattern_set_condition(Tscantable * st, guint16 matchnum, gchar *refname, gint relation, gint mode);

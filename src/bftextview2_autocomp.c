@@ -233,7 +233,7 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 					if (pattern_id) {
 						GSList *tmpslist =
 							g_array_index(master->bflang->st->matches, Tpattern, pattern_id).autocomp_items;
-						/* a pattern MAY have multiple autocomplete items. This code is not efficient iof in the future some
+						/* a pattern MAY have multiple autocomplete items. This code is not efficient if in the future some
 						   patterns would have many autocomplete items. I don't expect this, so I leave this as it is right now  */
 						while (tmpslist) {
 							Tpattern_autocomplete *pac = tmpslist->data;
@@ -594,6 +594,45 @@ autocomp_stop(BluefishTextView * btv)
 	acwin_cleanup(btv);
 }
 
+static GList *
+process_conditional_items(BluefishTextView * btv, Tfound *found, gint contextnum, GList *items)
+{
+	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
+	GList *retval=NULL, *tmplist=items;
+	while (tmplist) {
+		gboolean valid=TRUE;
+		guint pattern_id;
+		const gchar *string = tmplist->data;
+		GHashTable *hasht = g_array_index(master->bflang->st->contexts, Tcontext,contextnum).patternhash;
+		g_print("process_conditional_items, looking up %s in hashtable %p\n",string, hasht);
+		pattern_id = GPOINTER_TO_INT(g_hash_table_lookup(hasht, string));
+		DBG_AUTOCOMP("process_conditional_items, got pattern_id=%d\n", pattern_id);
+		if (pattern_id) {
+			GSList *tmpslist = g_array_index(master->bflang->st->matches, Tpattern, pattern_id).autocomp_items;
+			/* a pattern MAY have multiple autocomplete items. This code is not efficient if in the future some
+			   patterns would have many autocomplete items. I don't expect this, so I leave this as it is right now  */
+			while (tmpslist) {
+				Tpattern_autocomplete *pac = tmpslist->data;
+				if (g_strcmp0(string, pac->autocomplete_string) == 0 && pac->condition!=0) {
+					Tpattern_condition *pcond = &g_array_index(master->bflang->st->conditions, Tpattern_condition, pac->condition);
+					
+					valid = test_condition(found->fcontext, found->fblock, pcond);
+					if (!valid) {
+						g_print("process_conditional_items, item %s is NOT VALID for autocompletion\n",string);
+					}
+				}
+				tmpslist = g_slist_next(tmpslist);
+			}
+		}
+		if (valid) {
+			retval = g_list_prepend(retval, string);
+		}
+		
+		tmplist = tmplist->next;
+	}
+	return retval;
+}
+
 void
 autocomp_run(BluefishTextView * btv, gboolean user_requested)
 {
@@ -601,7 +640,11 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
 	gint contextnum;
 	gunichar uc;
-	Tfoundblock *fblock = NULL;	/* needed for the special case to close generix xml tags based on the top of the blockstack */
+
+	Tfound *found=NULL;
+	Tfoundblock *fblock = NULL;	/* needed for the special case to close generix xml tags 
+											based on the top of the blockstack, or to match conditional 
+											autocompletion strings */
 
 	if (G_UNLIKELY(!master->bflang || !master->bflang->st))
 		return;
@@ -638,9 +681,7 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 	}
 
 	if (g_array_index(master->bflang->st->contexts, Tcontext, contextnum).has_tagclose_from_blockstack) {
-		Tfound *found;
-		GSequenceIter *siter = NULL;
-		found = get_foundcache_at_offset(master, gtk_text_iter_get_offset(&cursorpos), &siter);
+		found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(&cursorpos), NULL);
 		if (found) {
 			fblock =
 				found->numblockchange < 0 ? pop_blocks(found->numblockchange, found->fblock) : found->fblock;
@@ -669,6 +710,7 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 		/* we have a prefix or it is user requested, and we have a context with autocompletion or we have blockstack-tag-auto-closing */
 		gchar *newprefix = NULL, *prefix, *closetag = NULL;
 		GList *items = NULL, *items2 = NULL;
+		gboolean free_items=FALSE;
 		/*print_ac_items(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac); */
 
 		prefix = gtk_text_buffer_get_text(btv->buffer, &iter, &cursorpos, TRUE);
@@ -701,7 +743,13 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 									  prefix, &newprefix);
 			DBG_AUTOCOMP("got %d autocompletion items for prefix %s in context %d, newprefix=%s\n",
 						 g_list_length(items), prefix, contextnum, newprefix);
-#ifdef IDENTSTORING
+			if (G_UNLIKELY(g_array_index(master->bflang->st->contexts, Tcontext, contextnum).autocomplete_has_conditions)) {
+				if (found==NULL) {
+					found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(&cursorpos), NULL);
+				}
+				items = process_conditional_items(btv, found, contextnum, items);
+				free_items=TRUE;
+			}
 			{
 				GCompletion *compl = identifier_ac_get_completion(master, contextnum, FALSE);
 				DBG_IDENTIFIER("got completion %p for context %d\n", compl, contextnum);
@@ -715,7 +763,6 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 						g_free(newprefix2);
 				}
 			}
-#endif
 		}
 		if (closetag || items2
 			|| (items != NULL && (items->next != NULL || strcmp(items->data, prefix) != 0))) {
@@ -764,6 +811,9 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 			g_free(closetag);
 		} else {
 			acwin_cleanup(btv);
+		}
+		if (free_items) {
+			g_list_free(items);
 		}
 		g_free(newprefix);
 		g_free(prefix);

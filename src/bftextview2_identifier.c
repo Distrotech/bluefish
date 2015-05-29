@@ -25,7 +25,6 @@
 /*#undef DBG_IDENTIFIER
 #define DBG_IDENTIFIER g_print*/
 
-#ifdef IDENTSTORING
 static gboolean
 identifier_jump_equal(gconstpointer k1, gconstpointer k2)
 {
@@ -257,4 +256,4 @@ found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end,
 	}
 }
 
-#endif							/* IDENTSTORING */
+

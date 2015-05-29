@@ -92,23 +92,15 @@ typedef struct {
 								   or COMMENT_INDEX_NONE if there is no block comment  */
 	guint8 comment_line;		/* index in array scantable->comments for line comments; see comment_block */
 	guint8 autocomplete_case_insens;
+	guint8 autocomplete_has_conditions; /* 0 means any autocomplete item is valid, 1 means we have to check for runtime conditions */
 	guint8 default_spellcheck;
 	guint8 dump_dfa_run;
 } Tcontext;
 /*
-32bit size = 5*32 + 6*8 = 200 + 16 padding bits = 28 bytes
-64bit size = 5*64 + 6*8 = 360 + 16 padding bits = 48 bytes
+32bit size = 5*32 + 7*8 = 208 + 8 padding bits = 28 bytes
+64bit size = 5*64 + 7*8 = 368 + 8 padding bits = 48 bytes
 */
 
-typedef struct {
-	gchar *autocomplete_string;
-	guint8 autocomplete_backup_cursor;	/* number of characters to backup the cursor after autocompletion (max 256) */
-	guint8 trigger_new_autocomp_popup; /* if a new autocompletion popup should be triggered immediately after the text of 
-													this one is inserted. Useful for example to autocomplete the values of an attribute 
-													after an attribute has been inserted. */
-} Tpattern_autocomplete;
-
-#ifdef CONDITIONALPATTERN
 typedef struct {
 	gchar *refname; 	/* because we can match the name only after all contexts are loaded, we store it in the structure */
 	guint16 ref; 			/* if the reference was a context, the ID of that context, if the reference
@@ -120,7 +112,15 @@ typedef struct {
 									4 = invalid if relation with block matches
 									*/
 } Tpattern_condition;
-#endif /* CONDITIONALPATTERN */
+
+typedef struct {
+	gchar *autocomplete_string;
+	guint16 condition; /* 0 for most patterns, only blocks that are (in)valid in a certain condition have this set (refers to a Tpattern_condition) */
+	guint8 autocomplete_backup_cursor;	/* number of characters to backup the cursor after autocompletion (max 256) */
+	guint8 trigger_new_autocomp_popup; /* if a new autocompletion popup should be triggered immediately after the text of 
+													this one is inserted. Useful for example to autocomplete the values of an attribute 
+													after an attribute has been inserted. */
+} Tpattern_autocomplete;
 
 typedef struct {
 	gchar *name;
@@ -139,9 +139,7 @@ typedef struct {
 										to be able to recompile a pattern in multiple contexts we need this information in Tpattern */
 	gchar *selfhighlight;		/* a string with the highlight for this pattern. used when re-linking highlights and textstyles
 								   if the user changed any of these in the preferences */
-#ifdef CONDITIONALPATTERN
 	guint16 condition; /* 0 for most patterns, only blocks that are (in)valid in a certain condition have this set */
-#endif
 	guint16 block;			/* this is 0 for most blocks, only blocks that need a tag have this set, refers to a a position in an array of Tpattern_block*/
 	gint16 blockstartpattern;	/* the number of the pattern that may start this block, or -1 to end the last started block, also used for stretch block */
 	gint16 nextcontext;			/* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
