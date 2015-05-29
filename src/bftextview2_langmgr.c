@@ -1088,8 +1088,8 @@ add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint co
 	}
 }
 
-static void 
-attribute_add_value(Tbflangparsing * bfparser, gchar *string, guint16 valuecontext) 
+static void
+attribute_add_value(Tbflangparsing * bfparser, gchar *string, guint16 valuecontext)
 {
 	guint16 valmatchnum;
 	valmatchnum = add_pattern_to_scanning_table(bfparser->st,string,FALSE,TRUE,valuecontext, &bfparser->ldb);
@@ -1107,8 +1107,8 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 	guint16 valuecontext, attribmatchnum, valmatchnum;
 	gchar **values_arr;
 	gchar *autocomp_string;
-	gboolean is_empty = xmlTextReaderIsEmptyElement(reader);
-	
+	gboolean enabled, is_empty = xmlTextReaderIsEmptyElement(reader);
+	gint depth = xmlTextReaderDepth(reader);
 	Tattrib attribs[] = {{"name", &attribute_name, attribtype_string},
 					{"values", &values, attribtype_string},
 					{"id", &id, attribtype_string},
@@ -1119,67 +1119,105 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 					{"autocomplete_append", &attrib_autocomplete_append, attribtype_string},
 					{"autocomplete_backup_cursor", &attrib_autocomplete_backup_cursor, attribtype_int}};
 	parse_attributes(bfparser->bflang,reader, attribs, sizeof(attribs)/sizeof(Tattrib));
-	
-	
-	if (!is_empty) {
-		g_print("process_scanning_attribute, not empty\n");
-		while (xmlTextReaderRead(reader) == 1) {
-			int nodetype = xmlTextReaderNodeType(reader);
-			xmlChar *name;
-			if (nodetype == 14) {
-				continue;
-			}
-			name = xmlTextReaderName(reader);
-			if (xmlStrEqual(name, (xmlChar *) "reference")) {
-				if (!xmlTextReaderIsEmptyElement(reader)) {
-					if (langmgr.load_reference && bfparser->load_reference)
-						reference = (gchar *) xmlTextReaderReadInnerXml(reader);
-					DBG_PARSING("reference=%s\n", reference);
-					skip_to_end_tag(reader, xmlTextReaderDepth(reader));
-				}
-			} else if (xmlStrEqual(name, (xmlChar *) "attribute")) {
-				xmlFree(name);
-				break;
-			}
-			xmlFree(name);
+	enabled = do_parse(bfparser, class, notclass);
+	if (!enabled) {
+		if (!is_empty) {
+			DBG_PARSING("attribute disabled, class=%s, notclass=%s, skip to end of attribute, my depth=%d\n", class,notclass, depth);
+			skip_to_end_tag(reader, depth);
 		}
+		return;
 	}
-	
-	valuecontext = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE, FALSE, FALSE);;
-	
-	pattern = g_strconcat(attribute_name, "[ \t\n\r]*=[ \t\n\r]*", NULL);
-	attribmatchnum = add_pattern_to_scanning_table(bfparser->st,
-								pattern,TRUE,TRUE,tagattributecontext, &bfparser->ldb);
-	pattern_set_runtime_properties(bfparser->st, attribmatchnum,
-								 highlight ? highlight : ih_attribhighlight,
-								 valuecontext,FALSE,FALSE,0,FALSE,FALSE);
-	if (reference) {
-		match_set_reference(bfparser->st, attribmatchnum, reference);
-	}
-	autocomp_string = g_strconcat(attribute_name, "=\"\"", NULL);
-	match_add_autocomp_item(bfparser->st, attribmatchnum, autocomp_string,NULL,1,1,NULL,0,0);
-	match_autocomplete_reference(bfparser->st, attribmatchnum, tagattributecontext);
-	
-	values_arr = g_strsplit(values, ",", -1);
-	
-	if (values_arr) {
-		gchar **tmp2;
 
-		tmp2 = values_arr;
-		while (*tmp2) {
-			gchar *var;
-			g_print("add attribute value %s\n",*tmp2);
-			attribute_add_value(bfparser, *tmp2, valuecontext);
-			var = g_strconcat("'", *tmp2, "'", NULL);
-			attribute_add_value(bfparser, var, valuecontext);
-			var = g_strconcat("\"", *tmp2, "\"", NULL);
-			attribute_add_value(bfparser, var, valuecontext);
-			tmp2++;
+	ldb_stack_push(&bfparser->ldb, id?id:attribute_name);
+
+	if (idref && idref[0]) {
+		attribmatchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, idref));
+		if (attribmatchnum) {
+			compile_existing_match(bfparser->st, attribmatchnum, tagattributecontext, &bfparser->ldb);
+		} else {
+			g_print("Error in language file, tag attribute with id %s does not exist\n", idref);
 		}
-		valmatchnum = add_pattern_to_scanning_table(bfparser->st,"(&quot;[^&quot;]*&quot;|'[^']*')",TRUE,TRUE,valuecontext, &bfparser->ldb);
-		pattern_set_runtime_properties(bfparser->st, valmatchnum,"string", -1, FALSE, FALSE,0, FALSE, FALSE);
+		if (!is_empty) {
+			skip_to_end_tag(reader, depth);
+		}
+	} else {
+		if (!is_empty) {
+			g_print("process_scanning_attribute, not empty\n");
+			while (xmlTextReaderRead(reader) == 1) {
+				int nodetype = xmlTextReaderNodeType(reader);
+				xmlChar *name;
+				if (nodetype == 14) {
+					continue;
+				}
+				name = xmlTextReaderName(reader);
+				if (xmlStrEqual(name, (xmlChar *) "reference")) {
+					if (!xmlTextReaderIsEmptyElement(reader)) {
+						if (langmgr.load_reference && bfparser->load_reference)
+							reference = (gchar *) xmlTextReaderReadInnerXml(reader);
+						DBG_PARSING("reference=%s\n", reference);
+						skip_to_end_tag(reader, xmlTextReaderDepth(reader));
+					}
+				} else if (xmlStrEqual(name, (xmlChar *) "attribute")) {
+					xmlFree(name);
+					break;
+				}
+				xmlFree(name);
+			}
+		}
+
+		valuecontext = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE, FALSE, FALSE);;
+
+		pattern = g_strconcat(attribute_name, "[ \t\n\r]*=[ \t\n\r]*", NULL);
+		attribmatchnum = add_pattern_to_scanning_table(bfparser->st,
+									pattern,TRUE,TRUE,tagattributecontext, &bfparser->ldb);
+		pattern_set_runtime_properties(bfparser->st, attribmatchnum,
+									 highlight ? highlight : ih_attribhighlight,
+									 valuecontext,FALSE,FALSE,0,FALSE,FALSE);
+		if (reference) {
+			match_set_reference(bfparser->st, attribmatchnum, reference);
+		}
+		autocomp_string = g_strconcat(attribute_name, "=\"\"", NULL);
+		match_add_autocomp_item(bfparser->st, attribmatchnum, autocomp_string,NULL,1,1,NULL,0,0);
+		match_autocomplete_reference(bfparser->st, attribmatchnum, tagattributecontext);
+		if (id) {
+			if (g_hash_table_lookup(bfparser->patterns, id) != NULL) {
+				gchar *dbstring = ldb_stack_string(&bfparser->ldb);
+				g_warning("Possible error in language file %s: tag attribute with id %s already exists\n", dbstring, id);
+				g_free(dbstring);
+			} else {
+				g_hash_table_insert(bfparser->patterns, g_strdup(id),GINT_TO_POINTER((gint) attribmatchnum));
+			}
+		}
+		values_arr = g_strsplit(values, ",", -1);
+
+		if (values_arr) {
+			gchar **tmp2;
+
+			tmp2 = values_arr;
+			while (*tmp2) {
+				gchar *var;
+				g_print("add attribute value %s\n",*tmp2);
+				attribute_add_value(bfparser, *tmp2, valuecontext);
+				var = g_strconcat("'", *tmp2, "'", NULL);
+				attribute_add_value(bfparser, var, valuecontext);
+				var = g_strconcat("\"", *tmp2, "\"", NULL);
+				attribute_add_value(bfparser, var, valuecontext);
+				tmp2++;
+			}
+			valmatchnum = add_pattern_to_scanning_table(bfparser->st,"(&quot;[^&quot;]*&quot;|'[^']*')",TRUE,TRUE,valuecontext, &bfparser->ldb);
+			pattern_set_runtime_properties(bfparser->st, valmatchnum,"string", -1, FALSE, FALSE,0, FALSE, FALSE);
+		}
 	}
+
+
+	g_free(values);
+	g_free(id);
+	g_free(idref);
+	g_free(class);
+	g_free(notclass);
+	g_free(attrib_autocomplete_append);
 	g_print("process_scanning_attribute, finished\n");
+	ldb_stack_pop(&bfparser->ldb);
 }
 
 static guint16
@@ -1341,7 +1379,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					/*g_print("line %d: adding %s autocomp append to %d\n",__LINE__,tmp,starttagmatch);*/
 					/* add autocomplete to the tag pattern itself with closing tag */
 					match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag)+3, 0,NULL,0,0);
-					
+
 					/*g_print("line %d: adding %s autocomp append to %d\n",__LINE__,tmp2,matchnum);*/
 				}
 				if (tmp)
@@ -1664,7 +1702,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	/* create context */
 	DBG_PARSING("create context %s, symbols %s and highlight %s\n", id, symbols, highlight);
 	context = new_context(bfparser->st, 32, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens, default_spellcheck, dump_dfa_run);
-#ifdef DUMP_CONTEXTS	
+#ifdef DUMP_CONTEXTS
 	g_print("context %5d: %s\n",context,id?id:"(no id)");
 #endif
 	g_queue_push_head(contextstack, GINT_TO_POINTER(context));
@@ -1750,7 +1788,7 @@ bftextview2_match_conditions(Tbflangparsing * bfparser) {
 			/* find out which pattern has this condition to easy debugging of the language file */
 			for (j = 1; j < bfparser->st->matches->len; j++) {
 				if (g_array_index(bfparser->st->matches, Tpattern, j).condition == i) {
-					g_print("Error in language file %s: condition reference to %s %s for pattern %d (%s) does not exist\n",bfparser->bflang->name,relationtypestring,g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname, 
+					g_print("Error in language file %s: condition reference to %s %s for pattern %d (%s) does not exist\n",bfparser->bflang->name,relationtypestring,g_array_index(bfparser->st->conditions, Tpattern_condition, i).refname,
 						j, g_array_index(bfparser->st->matches, Tpattern, j).pattern);
 				}
 			}
