@@ -1543,7 +1543,7 @@ test_condition(Tfoundcontext *curfcontext, Tfoundblock *curfblock, Tpattern_cond
 		return (pcond->relationtype == 2);
 	} else if (pcond->relationtype == 3 || pcond->relationtype == 4) { /* pattern */
 		Tfoundblock *fblock = curfblock;
-		g_print("test_condition, relationtype=%d, ref is %d, curfblock->patternum=%d\n", pcond->relationtype, pcond->ref,fblock->patternum);
+		DBG_AUTOCOMP("test_condition, relationtype=%d, ref is %d, curfblock->patternum=%d\n", pcond->relationtype, pcond->ref,fblock->patternum);
 		if (pcond->parentrelation == -1) {
 			while (fblock) {
 				if (pcond->ref == fblock->patternum) {
@@ -1555,7 +1555,7 @@ test_condition(Tfoundcontext *curfcontext, Tfoundblock *curfblock, Tpattern_cond
 			gint i;
 			for (i=0;i<pcond->parentrelation;i++) {
 				fblock = fblock->parentfblock;
-				g_print("i=%d, fblock->patternum=%d\n",i,fblock?fblock->patternum:NULL);
+				/*g_print("i=%d, fblock->patternum=%d\n",i,fblock?fblock->patternum:NULL);*/
 				if (!fblock)
 					return (pcond->relationtype == 4);
 			}

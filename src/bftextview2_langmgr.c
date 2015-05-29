@@ -1088,6 +1088,100 @@ add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint co
 	}
 }
 
+static void 
+attribute_add_value(Tbflangparsing * bfparser, gchar *string, guint16 valuecontext) 
+{
+	guint16 valmatchnum;
+	valmatchnum = add_pattern_to_scanning_table(bfparser->st,string,FALSE,TRUE,valuecontext, &bfparser->ldb);
+	pattern_set_runtime_properties(bfparser->st, valmatchnum,"string", -1, FALSE, FALSE,0, FALSE, FALSE);
+	match_add_autocomp_item(bfparser->st, valmatchnum, string,NULL,0,0,NULL,0,0);
+	match_autocomplete_reference(bfparser->st, valmatchnum, valuecontext);
+}
+
+static void
+process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16 tagattributecontext, gchar * ih_attribhighlight)
+{
+	gchar *attribute_name=NULL, *values=NULL, *id=NULL, *idref=NULL, *highlight=NULL, *class=NULL, *notclass=NULL, *attrib_autocomplete_append=NULL;
+	gint attrib_autocomplete_backup_cursor=0;
+	gchar *pattern, *reference=NULL;
+	guint16 valuecontext, attribmatchnum, valmatchnum;
+	gchar **values_arr;
+	gchar *autocomp_string;
+	gboolean is_empty = xmlTextReaderIsEmptyElement(reader);
+	
+	Tattrib attribs[] = {{"name", &attribute_name, attribtype_string},
+					{"values", &values, attribtype_string},
+					{"id", &id, attribtype_string},
+					{"idref", &idref, attribtype_string},
+					{"highlight", &highlight, attribtype_string},
+					{"class", &class, attribtype_string},
+					{"notclass", &notclass, attribtype_string},
+					{"autocomplete_append", &attrib_autocomplete_append, attribtype_string},
+					{"autocomplete_backup_cursor", &attrib_autocomplete_backup_cursor, attribtype_int}};
+	parse_attributes(bfparser->bflang,reader, attribs, sizeof(attribs)/sizeof(Tattrib));
+	
+	
+	if (!is_empty) {
+		g_print("process_scanning_attribute, not empty\n");
+		while (xmlTextReaderRead(reader) == 1) {
+			int nodetype = xmlTextReaderNodeType(reader);
+			xmlChar *name;
+			if (nodetype == 14) {
+				continue;
+			}
+			name = xmlTextReaderName(reader);
+			if (xmlStrEqual(name, (xmlChar *) "reference")) {
+				if (!xmlTextReaderIsEmptyElement(reader)) {
+					if (langmgr.load_reference && bfparser->load_reference)
+						reference = (gchar *) xmlTextReaderReadInnerXml(reader);
+					DBG_PARSING("reference=%s\n", reference);
+					skip_to_end_tag(reader, xmlTextReaderDepth(reader));
+				}
+			} else if (xmlStrEqual(name, (xmlChar *) "attribute")) {
+				xmlFree(name);
+				break;
+			}
+			xmlFree(name);
+		}
+	}
+	
+	valuecontext = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE, FALSE, FALSE);;
+	
+	pattern = g_strconcat(attribute_name, "[ \t\n\r]*=[ \t\n\r]*", NULL);
+	attribmatchnum = add_pattern_to_scanning_table(bfparser->st,
+								pattern,TRUE,TRUE,tagattributecontext, &bfparser->ldb);
+	pattern_set_runtime_properties(bfparser->st, attribmatchnum,
+								 highlight ? highlight : ih_attribhighlight,
+								 valuecontext,FALSE,FALSE,0,FALSE,FALSE);
+	if (reference) {
+		match_set_reference(bfparser->st, attribmatchnum, reference);
+	}
+	autocomp_string = g_strconcat(attribute_name, "=\"\"", NULL);
+	match_add_autocomp_item(bfparser->st, attribmatchnum, autocomp_string,NULL,1,1,NULL,0,0);
+	match_autocomplete_reference(bfparser->st, attribmatchnum, tagattributecontext);
+	
+	values_arr = g_strsplit(values, ",", -1);
+	
+	if (values_arr) {
+		gchar **tmp2;
+
+		tmp2 = values_arr;
+		while (*tmp2) {
+			gchar *var;
+			g_print("add attribute value %s\n",*tmp2);
+			attribute_add_value(bfparser, *tmp2, valuecontext);
+			var = g_strconcat("'", *tmp2, "'", NULL);
+			attribute_add_value(bfparser, var, valuecontext);
+			var = g_strconcat("\"", *tmp2, "\"", NULL);
+			attribute_add_value(bfparser, var, valuecontext);
+			tmp2++;
+		}
+		valmatchnum = add_pattern_to_scanning_table(bfparser->st,"(&quot;[^&quot;]*&quot;|'[^']*')",TRUE,TRUE,valuecontext, &bfparser->ldb);
+		pattern_set_runtime_properties(bfparser->st, valmatchnum,"string", -1, FALSE, FALSE,0, FALSE, FALSE);
+	}
+	g_print("process_scanning_attribute, finished\n");
+}
+
 static guint16
 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16 context,
 					 GQueue * contextstack, gchar * ih_highlight,
@@ -1197,6 +1291,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 
 					tmp2 = attrib_arr;
 					while (*tmp2) {
+						g_print("add attribute %s to tag %s, contexttag=%d\n",*tmp2,tag,contexttag);
 						add_attribute_to_tag(bfparser, *tmp2, contexttag
 									, attribhighlight ? attribhighlight : ih_attribhighlight
 									, attrib_autocomplete_append ? attrib_autocomplete_append:ih_attrib_autocomplete_append
@@ -1246,6 +1341,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					/*g_print("line %d: adding %s autocomp append to %d\n",__LINE__,tmp,starttagmatch);*/
 					/* add autocomplete to the tag pattern itself with closing tag */
 					match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag)+3, 0,NULL,0,0);
+					
 					/*g_print("line %d: adding %s autocomp append to %d\n",__LINE__,tmp2,matchnum);*/
 				}
 				if (tmp)
@@ -1277,6 +1373,9 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 							DBG_PARSING("reference=%s\n", reference);
 							skip_to_end_tag(reader, xmlTextReaderDepth(reader));
 						}
+					} else if (xmlStrEqual(name, (xmlChar *) "attribute")) {
+						g_print("call process_scanning_attribute\n");
+						process_scanning_attribute(reader, bfparser, contexttag, attribhighlight ? attribhighlight : ih_attribhighlight);
 					} else if (xmlStrEqual(name, (xmlChar *) "context")) {
 						if (no_close) {
 							g_print

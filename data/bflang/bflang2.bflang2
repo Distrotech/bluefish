@@ -114,7 +114,7 @@ Some elements are identifiers, for example the name of a function or variable. I
 				<context id="c.innerpattern" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 					<element idref="e.comment"/>
 					<element idref="e.entity" />
-					<tag name="reference" highlight="tag" block_name="Reference block">
+					<tag id="t.reference" name="reference" highlight="tag" block_name="Reference block">
 						<autocomplete append="&gt;&lt;/reference&gt;" />
 						<reference>reference is a tag that can be added to tag or to element. The text within the reference opening/closing is the reference information about the pertinent tag or element. Simple layout is available because the string is passed to Pango. <i>i</i>, <b>b</b>, <tt>tt</tt>, <small>small</small>, <big>big</big>, <s>s</s>, <u>u</u>, <sub>sub</sub>
 <sup>sup</sup> tags are permitted. <span foreground="blue">&lt;span foreground="blue"&gt;</span> is also permitted, see Pango Text Attribute Markup Language.</reference>
@@ -133,7 +133,7 @@ Some elements are identifiers, for example the name of a function or variable. I
 							</group>
 						</context>
 					</tag>
-					<tag name="autocomplete" id="t.autocomplete" highlight="tag" attributes="append,backup_cursor,class,notclass,enable,string" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+					<tag name="autocomplete" id="t.autocomplete" highlight="tag" attributes="append,backup_cursor,class,notclass,enable,string,condition_blockstartidref,condition_contextref,condition_mode,condition_relation" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 						<reference>autocomplete strings that are defined using an autocomplete tag inside a element tag override the autocomplete attribute on the element tag itself. The class and notclass attributes can be used to use different autocomplete settings dependiong on the users preferences</reference>
 					</tag>
 					<tag idref="t.context" />
@@ -142,7 +142,14 @@ Some elements are identifiers, for example the name of a function or variable. I
 			<tag id="t.tag" name="tag" highlight="pattern-tag" attributes="id,idref,name,highlight,class,block_name,notclass,attributes,autocomplete,autocomplete_append,autocomplete_backup_cursor,attribhighlight,attrib_autocomplete_append,attrib_autocomplete_backup_cursor,case_insens,sgml_shorttag,no_close" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 			<autocomplete append=" name=&quot;&quot; /&gt;" />
 			<reference>tag is added for convenience. Everything within tag is possible with a combination of multiple element and context tags. A tag automatically is a block with its own end-tag, and a tag automatically creates a new context for all attributes and autocompletes them. Most attributes are the same as <i>element</i>.</reference>
-				<context idref="c.innerpattern" />
+				<context id="c.innertag" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+					<element idref="e.comment"/>
+					<element idref="e.entity" />
+					<tag idref="t.reference" />
+					<tag idref="t.autocomplete" />
+					<tag idref="t.context" />
+					<tag name="attribute" highlight="pattern-tag" attributes="name,values" />
+				</context>
 			</tag>
 			<tag name="group" id="t.group" highlight="tag" attributes="highlight,class,notclass,case_insens,is_regex,attrib_autocomplete_append,attrib_autocomplete_backup_cursor,attribhighlight,no_close,sgml_shorttag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 			<autocomplete append="&gt;" />
