@@ -1196,7 +1196,7 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 			tmp2 = values_arr;
 			while (*tmp2) {
 				gchar *var;
-				g_print("add attribute value %s\n",*tmp2);
+				/*g_print("add attribute value %s\n",*tmp2);*/
 				attribute_add_value(bfparser, *tmp2, valuecontext);
 				var = g_strconcat("'", *tmp2, "'", NULL);
 				attribute_add_value(bfparser, var, valuecontext);
@@ -1236,7 +1236,7 @@ static guint16 create_attribute_context(Tbflangparsing * bfparser, gchar *tmp, g
 
 		tmp2 = attrib_arr;
 		while (*tmp2) {
-			g_print("add attribute %s, contexttag=%d\n",*tmp2,attribcontextnum);
+			/*g_print("add attribute %s, contexttag=%d\n",*tmp2,attribcontextnum);*/
 			add_attribute_to_tag(bfparser, *tmp2, attribcontextnum
 						, attribhighlight
 						, attrib_autocomplete_append
@@ -1366,28 +1366,23 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			}
 			match_set_nextcontext(bfparser->st, matchnum, contexttag);
 
-			tmp = no_close ? NULL : g_strconcat("</", tag, ">", NULL);
 			startinnertagmatch = add_pattern_to_scanning_table(bfparser->st, ">", FALSE, FALSE, contexttag, &bfparser->ldb);
 			pattern_set_runtime_properties(bfparser->st, startinnertagmatch,
 							highlight ? highlight : ih_highlight,
 							-1, FALSE, bfparser->stretch_tag_block,0, FALSE, FALSE);
 			pattern_set_blockmatch(bfparser->st, startinnertagmatch, FALSE, FALSE, matchnum /* blockstartpattern for stretch_block */, NULL, NULL, TRUE);
-			if (bfparser->autoclose_tags && !no_close) {
-				gchar *tmp2;
-				/* add the closing tag to the inside context of the tag */
-				match_add_autocomp_item(bfparser->st, startinnertagmatch, NULL, tmp, tmp ? strlen(tmp) : 0, 0,NULL,0,0);
-				
-				tmp2 = g_strconcat("></", tag, ">", NULL);
-				/* add autocomplete to the attribute-context tag pattern itself with closing tag */
-				match_add_autocomp_item(bfparser->st, startinnertagmatch, tmp2, NULL, strlen(tag)+3, 0,tagpattern,0,3);
-
-				match_add_autocomp_item(bfparser->st, matchnum, tmp2, NULL, strlen(tag)+3, 0,NULL,0,0);
-				
+			if (bfparser->autoclose_tags) {
+				if (!no_close) {
+					gchar *tmp2 = g_strconcat("></", tag, ">", NULL);
+					/* add autocomplete to the attribute-context tag pattern itself with closing tag */
+					match_add_autocomp_item(bfparser->st, startinnertagmatch, tmp2, NULL, strlen(tag)+3, 0,tagpattern,0,3);
+					match_add_autocomp_item(bfparser->st, matchnum, tmp2, NULL, strlen(tag)+3, 0,NULL,0,0);
+				} else {
+					match_add_autocomp_item(bfparser->st, startinnertagmatch, NULL, NULL, 0, 0,NULL,0,0);
+				}
 			}
 			match_autocomplete_reference(bfparser->st, startinnertagmatch, contexttag);
-			match_autocomplete_reference(bfparser->st, matchnum, context);
-			if (tmp)
-				g_free(tmp);
+
 			g_free(tagpattern);
 			if (attrib_context_id)
 				g_free(attrib_context_id);

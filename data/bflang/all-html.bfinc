@@ -293,13 +293,19 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 	<tag name="h2" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a HTML heading</reference>
 	</tag>
-	<tag name="h3" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
+	<tag name="h3" case_insens="1" sgml_shorttag="1" attributes_id="html.h" 
+	attributes="style=c.html.attrib.style,class,id,accesskey,lang,tabindex,title,hidden">
+		<attribute name="contenteditable" values="true,false" />
+		<attribute name="dir" values="ltr,rtl,auto" />
+		<attribute name="spellcheck" values="true,false" />
+		<attribute name="translate" values="yes,no" />
 		<reference>Defines a HTML heading</reference>
 	</tag>
-	<tag name="h4" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
-		<attribute name="blah" values="true,false" />
+	<tag name="h4" case_insens="1" sgml_shorttag="1" attributes_idref="html.h">
 		<reference>Defines a HTML heading</reference>
 	</tag>
+
+
 <!--	<tag name="h5" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a HTML heading</reference>
 	</tag>
