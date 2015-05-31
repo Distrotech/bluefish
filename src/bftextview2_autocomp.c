@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_autocomp.c
  *
- * Copyright (C) 2008,2009,2010,2011,2012,2013 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2011,2012,2013,2014,2015 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -326,14 +326,16 @@ acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw)
 		gchar *key;
 		gtk_tree_model_get(model, &iter, 1, &key, -1);
 		if (key) {
+			g_print("lookup reference for %s\n",key);
 			gint pattern_id =
 				GPOINTER_TO_INT(g_hash_table_lookup
 								(g_array_index
 								 (master->bflang->st->contexts, Tcontext, acw->contextnum).patternhash, key));
+			g_print("got pattern_id %d for key %s\n",pattern_id, key);
 			g_free(key);
 			if (pattern_id && g_array_index(master->bflang->st->matches, Tpattern, pattern_id).reference) {
 				GtkRequisition requisition;
-				DBG_AUTOCOMP("acw_selection_changed_lcb, show %s\n",
+				g_print("acw_selection_changed_lcb, show %s\n",
 							 g_array_index(master->bflang->st->matches, Tpattern, pattern_id).reference);
 				gtk_label_set_markup(GTK_LABEL(acw->reflabel),
 									 g_array_index(master->bflang->st->matches, Tpattern,
@@ -814,7 +816,10 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 				gtk_tree_view_scroll_to_cell(ACWIN(btv->autocomp)->tree, path, NULL, FALSE, 1.0, 1.0);
 				gtk_tree_path_free(path);
 			}
+			/* this forces that selection changed will be called two lines below*/
+			gtk_tree_selection_unselect_all(selection);
 			ACWIN(btv->autocomp)->in_fill=FALSE;
+			DBG_AUTOCOMP("call select_iter on autocomp window\n");
 			gtk_tree_selection_select_iter(selection, &it);
 			g_free(closetag);
 		} else {
