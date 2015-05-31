@@ -599,6 +599,7 @@ process_conditional_items(BluefishTextView * btv, Tfound *found, gint contextnum
 {
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
 	GList *retval=NULL, *tmplist=items;
+	
 	while (tmplist) {
 		gboolean valid=TRUE;
 		guint pattern_id;
@@ -607,7 +608,8 @@ process_conditional_items(BluefishTextView * btv, Tfound *found, gint contextnum
 		g_print("process_conditional_items, looking up %s in hashtable %p\n",string, hasht);
 		pattern_id = GPOINTER_TO_INT(g_hash_table_lookup(hasht, string));
 		DBG_AUTOCOMP("process_conditional_items, got pattern_id=%d\n", pattern_id);
-		if (pattern_id) {
+		if (pattern_id && found) {
+				/* found may be NULL, for examplein an empty document, in that case anything is valid */
 			GSList *tmpslist = g_array_index(master->bflang->st->matches, Tpattern, pattern_id).autocomp_items;
 			/* a pattern MAY have multiple autocomplete items. This code is not efficient if in the future some
 			   patterns would have many autocomplete items. I don't expect this, so I leave this as it is right now  */

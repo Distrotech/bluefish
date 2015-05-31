@@ -1313,12 +1313,11 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			if (matchnum)
 				compile_existing_match(bfparser->st, matchnum, context, &bfparser->ldb);
 		} else if (tag && tag[0]) {
-			gchar *attrib_context_id = NULL;
 			gchar **attrib_arr = NULL;
 			guint16 startinnertagmatch = 0, endtagmatch;
 			gint contexttag = 0 /*, contextstring */ ;
 			gchar *tagpattern, *tmp, *reference = NULL;
-			gboolean foldable=TRUE;
+			gboolean foldable=TRUE, have_reusable_attribute_context=FALSE;
 
 			tagpattern = g_strconcat("<", tag, NULL);
 			matchnum = add_pattern_to_scanning_table(bfparser->st, tagpattern, FALSE, case_insens, context, &bfparser->ldb);
@@ -1340,6 +1339,9 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			}
 			if (attributes_idref) {
 				contexttag = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, attributes_idref));
+				if (contexttag) {
+					have_reusable_attribute_context = TRUE;
+				}
 			}
 			if (!contexttag) {
 				attrib_arr = g_strsplit(attributes, ",", -1);
@@ -1374,18 +1376,23 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			if (bfparser->autoclose_tags) {
 				if (!no_close) {
 					gchar *tmp2 = g_strconcat("></", tag, ">", NULL);
-					/* add autocomplete to the attribute-context tag pattern itself with closing tag */
-					match_add_autocomp_item(bfparser->st, startinnertagmatch, tmp2, NULL, strlen(tag)+3, 0,tagpattern,0,3);
+					/* add autocomplete to the attribute-context tag pattern itself with closing tag.*/
+					if (attributes_id || (attributes_idref && have_reusable_attribute_context)) {
+						/* conditional autocompletion has a performance drawback, so make this only conditional if there is a 
+						chance that the attribute context will be re-used (because attributes_id is set) */
+						match_add_autocomp_item(bfparser->st, startinnertagmatch, tmp2, NULL, strlen(tag)+3, 0,id?id:tagpattern,0,3);
+						g_print("conditional autocompletion because attributes_id=%s\n",attributes_id);
+					} else {
+						match_add_autocomp_item(bfparser->st, startinnertagmatch, tmp2, NULL, strlen(tag)+3, 0,NULL,0,0);
+					}
 					match_add_autocomp_item(bfparser->st, matchnum, tmp2, NULL, strlen(tag)+3, 0,NULL,0,0);
 				} else {
+					/* autocomplete the > string itself, but is this actually useful? */
 					match_add_autocomp_item(bfparser->st, startinnertagmatch, NULL, NULL, 0, 0,NULL,0,0);
 				}
 			}
 			match_autocomplete_reference(bfparser->st, startinnertagmatch, contexttag);
-
 			g_free(tagpattern);
-			if (attrib_context_id)
-				g_free(attrib_context_id);
 
 			if (!is_empty) {
 				while (xmlTextReaderRead(reader) == 1) {
@@ -1405,8 +1412,13 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 							skip_to_end_tag(reader, xmlTextReaderDepth(reader));
 						}
 					} else if (xmlStrEqual(name, (xmlChar *) "attribute")) {
-						g_print("call process_scanning_attribute\n");
-						process_scanning_attribute(reader, bfparser, contexttag, attribhighlight ? attribhighlight : ih_attribhighlight);
+						if (have_reusable_attribute_context) {
+							/* we already have a filled context, ignore any <attribute> tags */
+							skip_to_end_tag(reader, xmlTextReaderDepth(reader));
+						} else {
+							g_print("call process_scanning_attribute\n");
+							process_scanning_attribute(reader, bfparser, contexttag, attribhighlight ? attribhighlight : ih_attribhighlight);
+						}
 					} else if (xmlStrEqual(name, (xmlChar *) "context")) {
 						if (no_close) {
 							g_print
