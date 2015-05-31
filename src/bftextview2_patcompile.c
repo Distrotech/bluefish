@@ -743,7 +743,7 @@ add_condition(Tscantable * st, const gchar *refname, gint relation, gint mode)
 	g_array_set_size(st->conditions, st->conditions->len + 1);
 	if (mode < 1 || mode > 4) {
 		g_warning("Error in language file: condition mode %d is not defined\n",mode);
-		return;
+		return 0;
 	}
 	g_array_index(st->conditions, Tpattern_condition, condnum).refname = g_strdup(refname);
 	g_array_index(st->conditions, Tpattern_condition, condnum).parentrelation = relation;
