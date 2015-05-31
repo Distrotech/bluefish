@@ -371,10 +371,11 @@ acwin_create(BluefishTextView * btv)
 	acw->win = gtk_window_new(GTK_WINDOW_POPUP);
 /* We do not do any customized drawing in autocomplete window, as far as I can see, so probably we do not need to switch this on.
 * On MacOSX this causes the labels of acw->reflabel to pile up on each other, see report by Keith Gunthardt on Facebook:
-* https://www.facebook.com/photo.php?fbid=10152794950839751&set=p.10152794950839751&type=1 */
-#ifndef PLATFORM_DARWIN
+* https://www.facebook.com/photo.php?fbid=10152794950839751&set=p.10152794950839751&type=1 
+
+	I (Olivier) think you are right Andrius, we can remove this call for all platforms, uncommenting it:
 	gtk_widget_set_app_paintable(acw->win, TRUE);
-#endif
+*/
 	gtk_window_set_resizable(GTK_WINDOW(acw->win), FALSE);
 	gtk_container_set_border_width(GTK_CONTAINER(acw->win), 1);
 	gtk_window_set_decorated(GTK_WINDOW(acw->win), FALSE);
