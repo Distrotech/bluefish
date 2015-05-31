@@ -83,7 +83,9 @@ typedef struct {
 typedef struct {
 	GArray *table; /* a pointer to the DFA table for this context */
 	GCompletion *ac;			/* autocompletion items in this context */
-	GHashTable *patternhash;	/* a hash table where the pattern and its autocompletion string are the keys, and an integer to the ID of the pattern is the value */
+	GHashTable *patternhash;	/* a hash table where the pattern and its autocompletion	strings are the keys, and an integer
+										to the ID of the pattern is the value. Only patterns that have backup cursor, a condition, or
+										a reference set are required in this hash. */
 	GtkTextTag *contexttag;		/* if the context area itself needs some kind of style (to implement a string context for example) */
 	gchar *contexthighlight;	/* the string that has the id for the highlight */
 	guint8 has_tagclose_from_blockstack;	/* this context has xml end patterns that need autoclosing for generix xml tags, based on the tag that is on top of the blockstack */

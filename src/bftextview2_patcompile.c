@@ -739,10 +739,11 @@ match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context)
 			is added to the '>' pattern, and match_autocomplete_reference() is called AGAIN for the same pattern.
 			we can detect this by looking it up in the hash table  */
 				if (GPOINTER_TO_INT(g_hash_table_lookup(g_array_index(st->contexts, Tcontext, context).patternhash,pac->autocomplete_string))==pattern_id) {
+					DBG_AUTOCOMP("match_autocomplete_reference, ignore autocomplete string %s, is already handled\n",pac->autocomplete_string);
 					already_handled = TRUE;
 				}
 			}
-			
+
 			if (!already_handled) {
 				list = g_list_prepend(list, pac->autocomplete_string);
 				/* we only need to add an autocomplete string to the hash table if the pattern has a 
