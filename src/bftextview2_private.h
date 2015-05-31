@@ -121,6 +121,10 @@ typedef struct {
 													this one is inserted. Useful for example to autocomplete the values of an attribute 
 													after an attribute has been inserted. */
 } Tpattern_autocomplete;
+/*
+32bit size = 32 + 16 + 2*8 = 64 + 0 padding bits = 8 bytes
+64bit size = 64 + 16 + 2*8 = 96 + 32 padding bits = 16 bytes
+*/
 
 typedef struct {
 	gchar *name;

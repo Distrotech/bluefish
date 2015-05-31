@@ -1313,6 +1313,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			if (matchnum)
 				compile_existing_match(bfparser->st, matchnum, context, &bfparser->ldb);
 		} else if (tag && tag[0]) {
+			gchar *startinnertagmatch_id=NULL;
 			gchar **attrib_arr = NULL;
 			guint16 startinnertagmatch = 0, endtagmatch;
 			gint contexttag = 0 /*, contextstring */ ;
@@ -1337,13 +1338,24 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				g_hash_table_insert(bfparser->patterns, g_strdup(id ? id : tagpattern),
 									GINT_TO_POINTER((gint) matchnum));
 			}
+
+			if (attributes_id || attributes_idref) {
+				startinnertagmatch_id = g_strconcat(attributes_id?attributes_id:attributes_idref, "_startinnertagmatch", NULL);
+			}
+
 			if (attributes_idref) {
 				contexttag = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, attributes_idref));
-				if (contexttag) {
+				startinnertagmatch = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, startinnertagmatch_id));
+				if (contexttag && startinnertagmatch) {
 					have_reusable_attribute_context = TRUE;
+				} else {
+					gchar *dbstring = ldb_stack_string(&bfparser->ldb);
+					g_warning("Error in language file %s: referring to attributes_idref %s but it cannot be found\n",dbstring,attributes_idref);
+					g_free(dbstring);
 				}
 			}
 			if (!contexttag) {
+				
 				attrib_arr = g_strsplit(attributes, ",", -1);
 				contexttag = create_attribute_context(bfparser, tag, attributes_id, attrib_arr,
 						attribhighlight ? attribhighlight : ih_attribhighlight,
@@ -1363,16 +1375,27 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					match_autocomplete_reference(bfparser->st, tmpnum, contexttag);
 				}
 
+
+				startinnertagmatch = add_pattern_to_scanning_table(bfparser->st, ">", FALSE, FALSE, contexttag, &bfparser->ldb);
+				pattern_set_runtime_properties(bfparser->st, startinnertagmatch,
+								highlight ? highlight : ih_highlight,
+								-1, FALSE, bfparser->stretch_tag_block,0, FALSE, FALSE);
+				pattern_set_blockmatch(bfparser->st, startinnertagmatch, FALSE, FALSE, matchnum /* blockstartpattern for stretch_block */, NULL, NULL, TRUE);
+				if (attributes_id) {
+					if (g_hash_table_lookup(bfparser->patterns, startinnertagmatch_id) != NULL) {
+						gchar *dbstring = ldb_stack_string(&bfparser->ldb);
+						g_warning("Possible error in language file %s: internal id %s already exists\n", dbstring, startinnertagmatch_id);
+						g_free(dbstring);
+					} else {
+						g_hash_table_insert(bfparser->patterns, g_strdup(startinnertagmatch_id),GINT_TO_POINTER((gint) startinnertagmatch));
+					}
+				}
+
 				if (attrib_arr)
 					g_strfreev(attrib_arr);
 			}
 			match_set_nextcontext(bfparser->st, matchnum, contexttag);
 
-			startinnertagmatch = add_pattern_to_scanning_table(bfparser->st, ">", FALSE, FALSE, contexttag, &bfparser->ldb);
-			pattern_set_runtime_properties(bfparser->st, startinnertagmatch,
-							highlight ? highlight : ih_highlight,
-							-1, FALSE, bfparser->stretch_tag_block,0, FALSE, FALSE);
-			pattern_set_blockmatch(bfparser->st, startinnertagmatch, FALSE, FALSE, matchnum /* blockstartpattern for stretch_block */, NULL, NULL, TRUE);
 			if (bfparser->autoclose_tags) {
 				if (!no_close) {
 					gchar *tmp2 = g_strconcat("></", tag, ">", NULL);

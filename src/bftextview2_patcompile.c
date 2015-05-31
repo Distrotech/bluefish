@@ -690,12 +690,18 @@ void
 match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context)
 {
 	gint pattern_id = matchnum;
+	gboolean has_reference;
+	
+	has_reference = (g_array_index(st->matches, Tpattern, matchnum).reference!=NULL);
+	
 	if (!g_array_index(st->contexts, Tcontext, context).patternhash) {
 		g_array_index(st->contexts, Tcontext, context).patternhash =
 			g_hash_table_new(g_str_hash, g_str_equal);
 	}
-	g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).patternhash,
+	if (has_reference) {
+		g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).patternhash,
 						g_array_index(st->matches, Tpattern, matchnum).pattern, GINT_TO_POINTER(pattern_id));
+	}
 
 	if (g_array_index(st->matches, Tpattern, matchnum).tagclose_from_blockstack
 		&& !g_array_index(st->contexts, Tcontext, context).has_tagclose_from_blockstack) {
@@ -718,16 +724,35 @@ match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context)
 			g_array_index(st->contexts, Tcontext, context).ac = g_completion_new(NULL);
 			if (g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens)
 				g_completion_set_compare(g_array_index(st->contexts, Tcontext, context).ac, strncasecmp);
+			g_array_index(st->contexts, Tcontext, context).autocomplete_has_conditions = 0; /* defaults to 0 */
 		}
-		g_array_index(st->contexts, Tcontext, context).autocomplete_has_conditions = 0; /* defaults to 0 */
+		/* TODO: fix this function in a way that if it is called 
+		multiple times for the same pattern, the autocompletion items are not added in duplicate
+		*/
 		while (tmpslist) {
+			gboolean already_handled=FALSE;
 			Tpattern_autocomplete *pac = tmpslist->data;
 			if (pac->condition != 0) {
 				g_array_index(st->contexts, Tcontext, context).autocomplete_has_conditions = 1;
+
+			/* there is a special situation in Bluefish, if a attribute-context is re-used, a new conditional item
+			is added to the '>' pattern, and match_autocomplete_reference() is called AGAIN for the same pattern.
+			we can detect this by looking it up in the hash table  */
+				if (GPOINTER_TO_INT(g_hash_table_lookup(g_array_index(st->contexts, Tcontext, context).patternhash,pac->autocomplete_string))==pattern_id) {
+					already_handled = TRUE;
+				}
 			}
-			list = g_list_prepend(list, pac->autocomplete_string);
-			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).patternhash,
-								pac->autocomplete_string, GINT_TO_POINTER(pattern_id));
+			
+			if (!already_handled) {
+				list = g_list_prepend(list, pac->autocomplete_string);
+				/* we only need to add an autocomplete string to the hash table if the pattern has a 
+				reference text, or backup_cursor is set, or trigger_new_autocomp_popup, or there
+				is a condition */
+				if (has_reference || pac->condition != 0 || pac->autocomplete_backup_cursor!=0 || pac->trigger_new_autocomp_popup!=0) {
+					g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).patternhash,
+									pac->autocomplete_string, GINT_TO_POINTER(pattern_id));
+				}
+			}
 			tmpslist = g_slist_next(tmpslist);
 		}
 		g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
