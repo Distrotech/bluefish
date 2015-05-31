@@ -1314,7 +1314,6 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				compile_existing_match(bfparser->st, matchnum, context, &bfparser->ldb);
 		} else if (tag && tag[0]) {
 			gchar *startinnertagmatch_id=NULL;
-			gchar **attrib_arr = NULL;
 			guint16 startinnertagmatch = 0, endtagmatch;
 			gint contexttag = 0 /*, contextstring */ ;
 			gchar *tagpattern, *tmp, *reference = NULL;
@@ -1355,8 +1354,10 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				}
 			}
 			if (!contexttag) {
-				
-				attrib_arr = g_strsplit(attributes, ",", -1);
+				gchar **attrib_arr = NULL;
+				if (attributes) {
+					attrib_arr = g_strsplit(attributes, ",", -1);
+				}
 				contexttag = create_attribute_context(bfparser, tag, attributes_id, attrib_arr,
 						attribhighlight ? attribhighlight : ih_attribhighlight,
 						attrib_autocomplete_append ? attrib_autocomplete_append:ih_attrib_autocomplete_append,
