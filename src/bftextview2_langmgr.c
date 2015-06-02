@@ -1216,8 +1216,7 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 			pattern_set_runtime_properties(bfparser->st, valmatchnum,"string", -1, FALSE, FALSE,0, FALSE, FALSE);
 		}
 	}
-
-
+	g_strfreev(values_arr);
 	g_free(values);
 	g_free(id);
 	g_free(idref);
