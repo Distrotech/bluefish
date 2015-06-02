@@ -1112,7 +1112,7 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 	gint attrib_autocomplete_backup_cursor=0;
 	gchar *pattern, *reference=NULL;
 	guint16 valuecontext, attribmatchnum, valmatchnum;
-	gchar **values_arr;
+	gchar **values_arr=NULL;
 	gchar *autocomp_string;
 	gboolean enabled, is_empty = xmlTextReaderIsEmptyElement(reader);
 	gint depth = xmlTextReaderDepth(reader);
@@ -1171,15 +1171,19 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 				xmlFree(name);
 			}
 		}
+		if (values && values[0]) {
+			valuecontext = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE, FALSE, FALSE);;
 
-		valuecontext = new_context(bfparser->st, 8, ">\"=' \t\n\r", NULL, FALSE, FALSE, FALSE);;
-
-		pattern = g_strconcat(attribute_name, "[ \t\n\r]*=[ \t\n\r]*", NULL);
-		attribmatchnum = add_pattern_to_scanning_table(bfparser->st,
+			pattern = g_strconcat(attribute_name, "[ \t\n\r]*=[ \t\n\r]*", NULL);
+			attribmatchnum = add_pattern_to_scanning_table(bfparser->st,
 									pattern,TRUE,TRUE,tagattributecontext, &bfparser->ldb);
-		pattern_set_runtime_properties(bfparser->st, attribmatchnum,
+			pattern_set_runtime_properties(bfparser->st, attribmatchnum,
 									 highlight ? highlight : ih_attribhighlight,
 									 valuecontext,FALSE,FALSE,0,FALSE,FALSE);
+		} else {
+			attribmatchnum = add_pattern_to_scanning_table(bfparser->st, attribute_name, FALSE, TRUE, tagattributecontext, &bfparser->ldb);
+			pattern_set_runtime_properties(bfparser->st, attribmatchnum,highlight ? highlight : ih_attribhighlight, 0, FALSE, FALSE,0, FALSE, FALSE);
+		}
 		if (reference) {
 			match_set_reference(bfparser->st, attribmatchnum, reference);
 		}
@@ -1196,24 +1200,25 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 				g_hash_table_insert(bfparser->patterns, g_strdup(id),GINT_TO_POINTER((gint) attribmatchnum));
 			}
 		}
-		values_arr = g_strsplit(values, ",", -1);
-
-		if (values_arr) {
-			gchar **tmp2;
-
-			tmp2 = values_arr;
-			while (*tmp2) {
-				gchar *var;
-				/*g_print("add attribute value %s\n",*tmp2);*/
-				attribute_add_value(bfparser, *tmp2, valuecontext);
-				var = g_strconcat("'", *tmp2, "'", NULL);
-				attribute_add_value(bfparser, var, valuecontext);
-				var = g_strconcat("\"", *tmp2, "\"", NULL);
-				attribute_add_value(bfparser, var, valuecontext);
-				tmp2++;
+		if (values) {
+			values_arr = g_strsplit(values, ",", -1);
+			if (values_arr) {
+				gchar **tmp2;
+	
+				tmp2 = values_arr;
+				while (*tmp2) {
+					gchar *var;
+					/*g_print("add attribute value %s\n",*tmp2);*/
+					attribute_add_value(bfparser, *tmp2, valuecontext);
+					var = g_strconcat("'", *tmp2, "'", NULL);
+					attribute_add_value(bfparser, var, valuecontext);
+					var = g_strconcat("\"", *tmp2, "\"", NULL);
+					attribute_add_value(bfparser, var, valuecontext);
+					tmp2++;
+				}
+				valmatchnum = add_pattern_to_scanning_table(bfparser->st,"(&quot;[^&quot;]*&quot;|'[^']*')",TRUE,TRUE,valuecontext, &bfparser->ldb);
+				pattern_set_runtime_properties(bfparser->st, valmatchnum,"string", -1, FALSE, FALSE,0, FALSE, FALSE);
 			}
-			valmatchnum = add_pattern_to_scanning_table(bfparser->st,"(&quot;[^&quot;]*&quot;|'[^']*')",TRUE,TRUE,valuecontext, &bfparser->ldb);
-			pattern_set_runtime_properties(bfparser->st, valmatchnum,"string", -1, FALSE, FALSE,0, FALSE, FALSE);
 		}
 	}
 	g_strfreev(values_arr);

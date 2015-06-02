@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_scanner.h
  *
- * Copyright (C) 2008-2011 Olivier Sessink
+ * Copyright (C) 2008-2015 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ void scan_for_prefix_start(BluefishTextView * btv, guint16 contextnum, GtkTextIt
 						   GtkTextIter * cursor);
 void scan_for_autocomp_prefix(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * cursorpos,
 						 gint * contextnum);
-gboolean scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * position,
+guint scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * position,
 						  gint * contextnum);
 void cleanup_scanner(BluefishTextView * btv);
 void scancache_destroy(BluefishTextView * btv);

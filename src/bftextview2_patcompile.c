@@ -756,6 +756,7 @@ match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context)
 				reference text, or backup_cursor is set, or trigger_new_autocomp_popup, or there
 				is a condition */
 				if (has_reference || pac->condition != 0 || pac->autocomplete_backup_cursor!=0 || pac->trigger_new_autocomp_popup!=0) {
+					/*g_print("enter key %s in hash table=\n",pac->autocomplete_string);*/
 					g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).patternhash,
 									pac->autocomplete_string, GINT_TO_POINTER(pattern_id));
 				}

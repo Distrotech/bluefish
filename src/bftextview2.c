@@ -2801,6 +2801,7 @@ bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean ke
 		GtkTextIter iter, mstart;
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(master));
 		gint contextnum;
+		guint matchnum;
 		/* get position */
 		if (keyboard_tip) {
 			gint offset;
@@ -2859,13 +2860,24 @@ bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean ke
 		gtk_text_iter_forward_char(&iter);
 		DBG_TOOLTIP("scan for tooltip: start at %d, position=%d...\n", gtk_text_iter_get_offset(&mstart),
 					gtk_text_iter_get_offset(&iter));
-		if (scan_for_tooltip(master, &mstart, &iter, &contextnum)) {
-			DBG_TOOLTIP("we have a match in context %d, has_patternhash=%d\n", contextnum,
+		matchnum = scan_for_tooltip(master, &mstart, &iter, &contextnum);
+		if (matchnum) {
+			if (g_array_index(master->bflang->st->matches, Tpattern, matchnum).reference) {
+				gtk_tooltip_set_markup(tooltip,
+										   g_array_index(master->bflang->st->matches, Tpattern,
+														 matchnum).reference);
+				return TRUE;
+			}
+
+
+
+/*			DBG_TOOLTIP("we have a match in context %d, has_patternhash=%d\n", contextnum,
 						(g_array_index(master->bflang->st->contexts, Tcontext, contextnum).patternhash !=
 						 NULL));
 			if (g_array_index(master->bflang->st->contexts, Tcontext, contextnum).patternhash) {
 				gint pattern_id;
 				gchar *key = gtk_text_buffer_get_text(buffer, &mstart, &iter, TRUE);
+				g_print("lookup reference for %s\n",key);
 				pattern_id =
 					GPOINTER_TO_INT(g_hash_table_lookup
 									(g_array_index
@@ -2880,7 +2892,7 @@ bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean ke
 					return TRUE;
 				}
 				g_free(key);
-			}
+			}*/
 		}
 	}
 

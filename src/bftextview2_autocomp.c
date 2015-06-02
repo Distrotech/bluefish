@@ -326,16 +326,16 @@ acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw)
 		gchar *key;
 		gtk_tree_model_get(model, &iter, 1, &key, -1);
 		if (key) {
-			g_print("lookup reference for %s\n",key);
+			DBG_AUTOCOMP("lookup reference for %s\n",key);
 			gint pattern_id =
 				GPOINTER_TO_INT(g_hash_table_lookup
 								(g_array_index
 								 (master->bflang->st->contexts, Tcontext, acw->contextnum).patternhash, key));
-			g_print("got pattern_id %d for key %s\n",pattern_id, key);
+			DBG_AUTOCOMP("got pattern_id %d for key %s\n",pattern_id, key);
 			g_free(key);
 			if (pattern_id && g_array_index(master->bflang->st->matches, Tpattern, pattern_id).reference) {
 				GtkRequisition requisition;
-				g_print("acw_selection_changed_lcb, show %s\n",
+				DBG_AUTOCOMP("acw_selection_changed_lcb, show %s\n",
 							 g_array_index(master->bflang->st->matches, Tpattern, pattern_id).reference);
 				gtk_label_set_markup(GTK_LABEL(acw->reflabel),
 									 g_array_index(master->bflang->st->matches, Tpattern,

@@ -294,8 +294,8 @@ It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; h
 		<reference>Defines a HTML heading</reference>
 	</tag>
 	<tag name="h3" case_insens="1" sgml_shorttag="1" attributes_id="html.h" 
-	attributes="style=c.html.attrib.style,class,id,accesskey,lang,tabindex,title,hidden">
-	<attribute name="class"><reference>Every HTML element may have a class attribute specified.
+	attributes="style=c.html.attrib.style,id,accesskey,tabindex,title,hidden">
+		<attribute name="class"><reference>Every HTML element may have a class attribute specified.
 The attribute, if specified, must have a value that is a set of space-separated 
 tokens representing the various classes that the element belongs to.</reference></attribute>
 		<attribute name="contenteditable" values="true,false"></attribute>
@@ -305,8 +305,9 @@ The ltr keyword indicates that the contents of the element are explicitly direct
 The rtl keyword indicates that the contents of the element are explicitly directionally isolated right-to-left text.
 The auto keyword indicates that the contents of the element are explicitly directionally isolated text, but that the direction is to be determined programmatically using the contents of the element.</reference>
 		</attribute>
-		<attribute name="spellcheck" values="true,false" />
-		<attribute name="translate" values="yes,no" />
+		<attribute name="lang"><reference>The lang attribute specifies the primary language for the element's contents and for any of the element's attributes that contain text. Its value must be a valid BCP 47 language tag, or the empty string. Setting the attribute to the empty string indicates that the primary language is unknown.</reference></attribute>
+		<attribute name="spellcheck" values="true,false" ><reference>The spellcheck attribute is an enumerated attribute whose keywords are the empty string, true and false. The empty string and the true keyword map to the true state.</reference></attribute>
+		<attribute name="translate" values="yes,no" ><reference>The translate attribute is an enumerated attribute that is used to specify whether an element's attribute values and the values of its Text node children are to be translated when the page is localized, or whether to leave them unchanged.</reference></attribute>
 		<reference>Defines a HTML heading</reference>
 	</tag>
 	<tag name="h4" case_insens="1" sgml_shorttag="1" attributes_idref="html.h">
