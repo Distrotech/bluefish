@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_patcompile.c
  *
- * Copyright (C) 2008,2009,2011,2013,2014 Olivier Sessink
+ * Copyright (C) 2008,2009,2011,2013,2014,2015 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -637,8 +637,14 @@ compile_keyword_to_DFA(Tscantable * st, const gchar * keyword, guint16 matchnum,
 	g_free(pattern);
 }
 
+/*
+ * symbols can be free'ed
+ * contexthighlight is directly stored in Tcontext
+ * 
+ *
+ */
 gint16
-new_context(Tscantable * st, guint expected_size, const gchar * lang, const gchar * symbols, const gchar * contexthighlight,
+new_context(Tscantable * st, guint expected_size, const gchar * symbols, const gchar * contexthighlight,
 			gboolean autocomplete_case_insens, gboolean default_spellcheck, gboolean dump_dfa_run)
 {
 	gint16 context;
@@ -760,7 +766,10 @@ match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context)
 		g_list_free(list);
 	}
 }
-
+/*
+ * refname should not be freed, it is set in Tpattern_condition
+ *
+ */
 static guint16 
 add_condition(Tscantable * st, const gchar *refname, gint relation, gint mode)
 {
@@ -777,6 +786,13 @@ add_condition(Tscantable * st, const gchar *refname, gint relation, gint mode)
 	return condnum;
 }
 
+/*
+ * autocomplete_string should be free'ed
+ * autocomplete_append should be free'ed
+ * refname should be free'ed
+ *
+ *
+ */
 void
 match_add_autocomp_item(Tscantable * st, guint16 matchnum, const gchar * autocomplete_string,
 						const gchar * autocomplete_append, guint8 autocomplete_backup_cursor,

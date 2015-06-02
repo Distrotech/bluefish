@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_langmgr.c
  *
- * Copyright (C) 2008,2009,2010,2011,2012,2013,2014 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2011,2012,2013,2014,2015 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1040,7 +1040,7 @@ add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringnam
 	gchar *contextname = g_strconcat(stringname, ".context", NULL);
 	strcontext = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, contextname));
 	if (strcontext == 0) {
-		strcontext = new_context(bfparser->st, 4, bfparser->bflang->name, (gchar *)singlematch, stringhighlight, FALSE, FALSE, FALSE);
+		strcontext = new_context(bfparser->st, 4, (gchar *)singlematch, stringhighlight, FALSE, FALSE, FALSE);
 		endmatch = add_pattern_to_scanning_table(bfparser->st, singlematch, FALSE, FALSE, strcontext, &bfparser->ldb);
 		pattern_set_runtime_properties(bfparser->st, endmatch, stringhighlight,-1,FALSE,FALSE,0,FALSE,FALSE);
 	}
@@ -1056,7 +1056,11 @@ add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringnam
 						GINT_TO_POINTER((gint) matchstring));
 	return matchstring;
 }
-
+/*
+ * attrstring 
+ * attribhighlight
+ * attrib_autocomplete_append should be free'ed
+ */
 static inline void
 add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint contexttag, const gchar * attribhighlight
 					, const gchar *attrib_autocomplete_append, gint attrib_autocomplete_backup_cursor)
@@ -1087,7 +1091,10 @@ add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint co
 		g_strfreev(splitted);
 	}
 }
-
+/*
+ * string should be free'ed
+ *
+ */
 static void
 attribute_add_value(Tbflangparsing * bfparser, gchar *string, guint16 valuecontext)
 {
@@ -1165,7 +1172,7 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 			}
 		}
 
-		valuecontext = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE, FALSE, FALSE);;
+		valuecontext = new_context(bfparser->st, 8, ">\"=' \t\n\r", NULL, FALSE, FALSE, FALSE);;
 
 		pattern = g_strconcat(attribute_name, "[ \t\n\r]*=[ \t\n\r]*", NULL);
 		attribmatchnum = add_pattern_to_scanning_table(bfparser->st,
@@ -1178,6 +1185,7 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 		}
 		autocomp_string = g_strconcat(attribute_name, "=\"\"", NULL);
 		match_add_autocomp_item(bfparser->st, attribmatchnum, autocomp_string,NULL,1,1,NULL,0,0);
+		g_free(autocomp_string);
 		match_autocomplete_reference(bfparser->st, attribmatchnum, tagattributecontext);
 		if (id) {
 			if (g_hash_table_lookup(bfparser->patterns, id) != NULL) {
@@ -1229,7 +1237,7 @@ static guint16 create_attribute_context(Tbflangparsing * bfparser, gchar *tmp, g
 	static const gchar *internal_tag_string_d = "__internal__.e.tag.attribute.string.d";
 	static const gchar *internal_tag_string_s = "__internal__.e.tag.attribute.string.s";
 
-	attribcontextnum = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r<", NULL, FALSE, FALSE, FALSE);
+	attribcontextnum = new_context(bfparser->st, 8,  ">\"=' \t\n\r<", NULL, FALSE, FALSE, FALSE);
 
 	if (attrib_arr) {
 		gchar **tmp2;
@@ -1410,6 +1418,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 						match_add_autocomp_item(bfparser->st, startinnertagmatch, tmp2, NULL, strlen(tag)+3, 0,NULL,0,0);
 					}
 					match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag)+3, 0,NULL,0,0);
+					g_free(tmp2);
 				} else {
 					/* autocomplete the > string itself, but is this actually useful? */
 					match_add_autocomp_item(bfparser->st, startinnertagmatch, NULL, NULL, 0, 0,NULL,0,0);
@@ -1726,7 +1735,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	}
 	/* create context */
 	DBG_PARSING("create context %s, symbols %s and highlight %s\n", id, symbols, highlight);
-	context = new_context(bfparser->st, 32, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens, default_spellcheck, dump_dfa_run);
+	context = new_context(bfparser->st, 32, symbols, highlight, autocomplete_case_insens, default_spellcheck, dump_dfa_run);
 #ifdef DUMP_CONTEXTS
 	g_print("context %5d: %s\n",context,id?id:"(no id)");
 #endif
