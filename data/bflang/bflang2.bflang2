@@ -148,7 +148,13 @@ Some elements are identifiers, for example the name of a function or variable. I
 					<tag idref="t.reference" />
 					<tag idref="t.autocomplete" />
 					<tag idref="t.context" />
-					<tag name="attribute" highlight="pattern-tag" attributes="name,values" />
+					<tag id="t.attribute" name="attribute" highlight="pattern-tag" attributes="name,values" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+						<context id="c.innertag.innerattribute" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+							<element idref="e.comment"/>
+							<element idref="e.entity" />
+							<tag idref="t.reference" />
+						</context>
+					</tag>
 				</context>
 			</tag>
 			<tag name="group" id="t.group" highlight="tag" attributes="highlight,class,notclass,case_insens,is_regex,attrib_autocomplete_append,attrib_autocomplete_backup_cursor,attribhighlight,no_close,sgml_shorttag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
