@@ -1172,7 +1172,7 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 			}
 		}
 		if (values && values[0]) {
-			valuecontext = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE, FALSE, FALSE);;
+			valuecontext = new_context(bfparser->st, 8, ">\"=' \t\n\r", NULL, FALSE, FALSE, FALSE);;
 
 			pattern = g_strconcat(attribute_name, "[ \t\n\r]*=[ \t\n\r]*", NULL);
 			attribmatchnum = add_pattern_to_scanning_table(bfparser->st,
