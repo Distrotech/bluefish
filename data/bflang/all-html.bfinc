@@ -63,7 +63,7 @@
 	</context>
 </element>
 
-<tag id="t.html.style" name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;,media,title,type" attribhighlight="html-attribute"   attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+<tag id="t.html.style" name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="media,title,type" attribhighlight="html-attribute"   attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<autocomplete append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" backup_cursor="9" />
 	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[]," commentid_block="cm.cblockcomment" commentid_line="none" default_spellcheck="0">
 		<element idref="e.html.lcomment"/>
@@ -110,6 +110,13 @@
 			</context>
 		</element>
 	</context>
+	<attribute name="lang"><reference>Specifies the language of the element's content</reference></attribute>
+	<attribute name="dir" values="ltr,rtl,auto">
+		<reference>The dir attribute specifies the element's text directionality. The attribute is an enumerated attribute with the following keywords and states:
+The ltr keyword indicates that the contents of the element are explicitly directionally isolated left-to-right text.
+The rtl keyword indicates that the contents of the element are explicitly directionally isolated right-to-left text.
+The auto keyword indicates that the contents of the element are explicitly directionally isolated text, but that the direction is to be determined programmatically using the contents of the element.</reference>
+		</attribute>
 </tag>
 
 <!-- the following context can only be defined *after* the <style> tag, because
@@ -134,11 +141,19 @@ css-rules are defined in the inner context for <style>  -->
 		<element pattern="&gt;" ends_context="1"  highlight="html-tag" />
 	</context>
 </element>
-<tag name="html" block_name="html-block" case_insens="1" sgml_shorttag="1" attributes="version,&i18n;" highlight="html-tag" >
+<group attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+<tag name="html" block_name="html-block" case_insens="1" sgml_shorttag="1" attributes="version" highlight="html-tag" >
 	<autocomplete append="&gt;&#10;&#10;&lt;/html&gt;" backup_cursor="8" />
 	<reference>Defines an HTML document</reference>
 	<attribute name="manifest"><reference>Since HTML5: Specifies the address of the document's cache manifest (for offline browsing)</reference></attribute>
 	<attribute name="xmlns" values="http://www.w3.org/1999/xhtml"><reference>Specifies the XML namespace attribute (If you need your content to conform to XHTML)</reference></attribute>
+	<attribute name="lang"><reference>Specifies the language of the element's content</reference></attribute>
+	<attribute name="dir" values="ltr,rtl,auto">
+		<reference>The dir attribute specifies the element's text directionality. The attribute is an enumerated attribute with the following keywords and states:
+The ltr keyword indicates that the contents of the element are explicitly directionally isolated left-to-right text.
+The rtl keyword indicates that the contents of the element are explicitly directionally isolated right-to-left text.
+The auto keyword indicates that the contents of the element are explicitly directionally isolated text, but that the direction is to be determined programmatically using the contents of the element.</reference>
+		</attribute>
 </tag>
 <tag name="head" case_insens="1" sgml_shorttag="1" attributes="profile,&i18n;" highlight="html-tag" >
 	<autocomplete append="&gt;&#10;&#10;&lt;/head&gt;" backup_cursor="8" />
@@ -197,7 +212,7 @@ css-rules are defined in the inner context for <style>  -->
 	<autocomplete append="&gt;&#10;&#10;&lt;/body&gt;" backup_cursor="8" />
 	<reference>Defines the document's body</reference>
 </tag>
-
+</group>
 <group highlight="html-reference-external-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<autocomplete enable="1" />
 	<tag name="a" case_insens="1" sgml_shorttag="1" attributes="charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,target,type,&univ;,&i18n;,&evnt;" >

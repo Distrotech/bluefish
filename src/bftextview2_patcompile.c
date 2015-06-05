@@ -732,9 +732,6 @@ match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context)
 				g_completion_set_compare(g_array_index(st->contexts, Tcontext, context).ac, strncasecmp);
 			g_array_index(st->contexts, Tcontext, context).autocomplete_has_conditions = 0; /* defaults to 0 */
 		}
-		/* TODO: fix this function in a way that if it is called 
-		multiple times for the same pattern, the autocompletion items are not added in duplicate
-		*/
 		while (tmpslist) {
 			gboolean already_handled=FALSE;
 			Tpattern_autocomplete *pac = tmpslist->data;
