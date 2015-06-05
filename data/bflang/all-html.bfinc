@@ -137,6 +137,8 @@ css-rules are defined in the inner context for <style>  -->
 <tag name="html" block_name="html-block" case_insens="1" sgml_shorttag="1" attributes="version,&i18n;" highlight="html-tag" >
 	<autocomplete append="&gt;&#10;&#10;&lt;/html&gt;" backup_cursor="8" />
 	<reference>Defines an HTML document</reference>
+	<attribute name="manifest"><reference>Since HTML5: Specifies the address of the document's cache manifest (for offline browsing)</reference></attribute>
+	<attribute name="xmlns" values="http://www.w3.org/1999/xhtml"><reference>Specifies the XML namespace attribute (If you need your content to conform to XHTML)</reference></attribute>
 </tag>
 <tag name="head" case_insens="1" sgml_shorttag="1" attributes="profile,&i18n;" highlight="html-tag" >
 	<autocomplete append="&gt;&#10;&#10;&lt;/head&gt;" backup_cursor="8" />

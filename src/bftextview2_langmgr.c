@@ -55,6 +55,7 @@ typedef struct {
 	guint reference_size;
 	gboolean autoclose_tags;
 	gboolean stretch_tag_block;
+	gboolean auto_re_use_attributes;
 #ifdef HAVE_LIBENCHANT
 	gboolean default_spellcheck;
 	gboolean spell_decode_entities;
@@ -537,11 +538,11 @@ parse_attributes(Tbflang *bflang,xmlTextReaderPtr reader, Tattrib *attribs, gint
 			if (xmlStrEqual(aname, (xmlChar *)attribs[i].name)) {
 				gchar *value = (gchar *)xmlTextReaderValue(reader);
 				gchar *useval = value;
-				if (strncmp(value, "option:", 7)==0) {
+				if (G_UNLIKELY(strncmp(value, "option:", 7)==0)) {
 					/*g_print("lookup option %s\n",value+7);*/
 					useval = (gchar *) lookup_user_option(bflang->name, value+7);
 					/*g_print("useval=%s\n",useval);*/
-				} else if (strncmp(value, "condition:",10)==0) {
+				} else if (G_UNLIKELY(strncmp(value, "condition:",10)==0)) {
 					useval = process_condition(bflang,value+10);
 				}
 				switch (attribs[i].type) {
@@ -1032,7 +1033,7 @@ stringcmp(const void *sp1, const void *sp2)
 }
 
 static guint16
-add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringname, const gchar *singlematch, const gchar *fullmatch)
+create_attribute_add_string(Tbflangparsing * bfparser, guint16 contexttag, const gchar *stringname, const gchar *singlematch, const gchar *fullmatch)
 {
 	static const gchar *stringhighlight = "attribute-string";
 	guint16 strcontext, endmatch=0, matchstring;
@@ -1066,6 +1067,19 @@ add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint co
 					, const gchar *attrib_autocomplete_append, gint attrib_autocomplete_backup_cursor)
 {
 	guint16 attrmatch;
+	gchar *auto_attribute_id=NULL;
+	if (bfparser->auto_re_use_attributes) {
+		/* auto_re_use_attributes means that we should always check if there is an attribute with this name already in the patterns */
+		auto_attribute_id = g_strconcat("__auto__",attrstring, NULL);
+		attrmatch = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, auto_attribute_id));
+		if (attrmatch) {
+			g_print("auto re-use attribute %s\n",attrstring);
+			compile_existing_match(bfparser->st, attrmatch, contexttag, &bfparser->ldb);
+			g_free(auto_attribute_id);
+			return;
+		}
+	}
+	
 	if (strchr(attrstring, '=')== NULL) {
 		attrmatch = add_pattern_to_scanning_table(bfparser->st, attrstring, FALSE, TRUE, contexttag, &bfparser->ldb);
 		pattern_set_runtime_properties(bfparser->st, attrmatch,attribhighlight, 0, FALSE, FALSE,0, FALSE, FALSE);
@@ -1090,6 +1104,10 @@ add_attribute_to_tag(Tbflangparsing * bfparser, const gchar *attrstring, gint co
 		match_autocomplete_reference(bfparser->st, attrmatch, contexttag);
 		g_strfreev(splitted);
 	}
+	if (bfparser->auto_re_use_attributes) {
+		g_hash_table_insert(bfparser->patterns, auto_attribute_id,
+						GINT_TO_POINTER((gint) attrmatch));
+	}	
 }
 /*
  * string should be free'ed
@@ -1116,6 +1134,7 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 	gchar *autocomp_string;
 	gboolean enabled, is_empty = xmlTextReaderIsEmptyElement(reader);
 	gint depth = xmlTextReaderDepth(reader);
+	gchar *auto_attribute_id=NULL;
 	Tattrib attribs[] = {{"name", &attribute_name, attribtype_string},
 					{"values", &values, attribtype_string},
 					{"id", &id, attribtype_string},
@@ -1127,7 +1146,7 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 					{"autocomplete_backup_cursor", &attrib_autocomplete_backup_cursor, attribtype_int}};
 	parse_attributes(bfparser->bflang,reader, attribs, sizeof(attribs)/sizeof(Tattrib));
 	enabled = do_parse(bfparser, class, notclass);
-	if (!enabled) {
+	if (!enabled || attribute_name==NULL || attribute_name[0]=='\0') {
 		if (!is_empty) {
 			DBG_PARSING("attribute disabled, class=%s, notclass=%s, skip to end of attribute, my depth=%d\n", class,notclass, depth);
 			skip_to_end_tag(reader, depth);
@@ -1136,18 +1155,28 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 	}
 
 	ldb_stack_push(&bfparser->ldb, id?id:attribute_name);
-
 	if (idref && idref[0]) {
+		
 		attribmatchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, idref));
+		/* if auto_re_use_attributes is set we should also try for an auto id */
+		if (!attribmatchnum && bfparser->auto_re_use_attributes) {
+			auto_attribute_id = g_strconcat("__auto__", attribute_name, NULL);
+			attribmatchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, auto_attribute_id));
+			if (attribmatchnum) {
+				g_print("auto re-use attribute %s\n",attribute_name);
+			}
+		}
+		
 		if (attribmatchnum) {
 			compile_existing_match(bfparser->st, attribmatchnum, tagattributecontext, &bfparser->ldb);
-		} else {
+		} else if (idref!=NULL) {
 			g_print("Error in language file, tag attribute with id %s does not exist\n", idref);
 		}
 		if (!is_empty) {
 			skip_to_end_tag(reader, depth);
 		}
-	} else {
+	}
+	if (!attribmatchnum) {
 		if (!is_empty) {
 			g_print("process_scanning_attribute, not empty\n");
 			while (xmlTextReaderRead(reader) == 1) {
@@ -1220,6 +1249,10 @@ process_scanning_attribute(xmlTextReaderPtr reader, Tbflangparsing * bfparser, g
 				pattern_set_runtime_properties(bfparser->st, valmatchnum,"string", -1, FALSE, FALSE,0, FALSE, FALSE);
 			}
 		}
+		if (auto_attribute_id) {
+			g_hash_table_insert(bfparser->patterns, auto_attribute_id,
+						GINT_TO_POINTER((gint) attribmatchnum));
+		}
 	}
 	g_strfreev(values_arr);
 	g_free(values);
@@ -1260,13 +1293,13 @@ static guint16 create_attribute_context(Tbflangparsing * bfparser, gchar *tmp, g
 	if (matchstring) {
 		compile_existing_match(bfparser->st, matchstring, attribcontextnum, &bfparser->ldb);
 	} else {
-		add_string(bfparser, attribcontextnum, internal_tag_string_d, "\"", "\"[^\"]*\"");
+		create_attribute_add_string(bfparser, attribcontextnum, internal_tag_string_d, "\"", "\"[^\"]*\"");
 	}
 	matchstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, internal_tag_string_s));
 	if (matchstring) {
 		compile_existing_match(bfparser->st, matchstring, attribcontextnum, &bfparser->ldb);
 	} else {
-		add_string(bfparser, attribcontextnum, internal_tag_string_s, "'", "'[^']*'");
+		create_attribute_add_string(bfparser, attribcontextnum, internal_tag_string_s, "'", "'[^']*'");
 	}
 
 
@@ -1946,6 +1979,9 @@ build_lang_thread(gpointer data)
 					parse_attributes(bflang,reader, attribs, sizeof(attribs)/sizeof(Tattrib));
 				} else if (xmlStrEqual(name2, (xmlChar *) "smartoutdent")) {
 					Tattrib attribs[] = {{"characters", &bfparser->smartoutdentchars, attribtype_string}};
+					parse_attributes(bflang,reader, attribs, sizeof(attribs)/sizeof(Tattrib));
+				} else if (xmlStrEqual(name2, (xmlChar *) "auto_re_use_attributes")) {
+					Tattrib attribs[] = {{"enabled", &bfparser->auto_re_use_attributes, attribtype_boolean}};
 					parse_attributes(bflang,reader, attribs, sizeof(attribs)/sizeof(Tattrib));
 #ifdef HAVE_LIBENCHANT
 				} else if (xmlStrEqual(name2, (xmlChar *) "default_spellcheck")) {
